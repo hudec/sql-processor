@@ -1,0 +1,65 @@
+<html xmlns:wicket="http://wicket.apache.org/">
+    <head>
+        <title></title>
+        <link wicket:id='stylesheet'/>
+    </head>
+    <body>
+        <span wicket:id='mainNavigation'></span>
+        <form wicket:id="editForm">
+        <span wicket:id="feedback">[any feedback here]</span>
+        <table>
+            <tr>
+                <td align="right">Product ID:</td>
+                <td>
+                    <input type="text" wicket:id = "productid"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Name:</td>
+                <td>
+                    <input type="text" wicket:id = "name"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Description:</td>
+                <td>
+                    <textarea wicket:id = "description" cols="60" rows="5"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Image:</td>
+                <td>
+                    <input type="file" wicket:id="image" size="45"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right"><input type="submit" wicket:id="doRemoveImage" value="remove"/></td>
+                <td wicket:id = "imageurl">imageurl</td>
+            </tr>
+            <tr>
+                <td align="right">Image Thumb:</td>
+                <td>
+                    <input type="file" wicket:id="imagethumb" size="45"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right"><input type="submit" wicket:id="doRemoveImagethumb" value="remove"/></td>
+                <td wicket:id = "imagethumburl">imagethumburl</td>
+            </tr>
+            <tr>
+                <td align="right">Price:</td>
+                <td>
+                    <input type="text" wicket:id = "price"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" wicket:id = "doSave" value=" Save "/>
+                    <input type="button" wicket:id = "doCancel" value="Cancel"/>
+                </td>
+            </tr>
+            </table>
+        </form>
+    </body>
+</html>

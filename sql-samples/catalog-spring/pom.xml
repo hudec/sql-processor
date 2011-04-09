@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.sqlproc.samples</groupId>
+    <artifactId>catalog-spring</artifactId>
+    <version>1.4.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>SQL Processor Samples, Catalog (Spring)</name>
+
+    <parent>
+        <groupId>org.sqlproc</groupId>
+        <artifactId>sql-processor-samples</artifactId>
+        <version>1.4.2-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <version.application>1.4.2-SNAPSHOT</version.application>
+        <version.sql-processor>1.4.2-SNAPSHOT</version.sql-processor>
+
+        <version.spring>3.0.5.RELEASE</version.spring>
+        <version.aspectj>1.6.8</version.aspectj>
+        <version.javasimon>3.0.0-SNAPSHOT</version.javasimon>
+        <version.log4j>1.2.15</version.log4j>
+        <version.slf4j>1.5.8</version.slf4j>
+        <version.junit>4.6</version.junit>
+        <version.cglib>2.2</version.cglib>
+        <version.oracle>10.2.0.4</version.oracle>
+        <version.hsqldb>1.8.0.10</version.hsqldb>
+        <version.servlet-api>2.5</version.servlet-api>
+        <version.commons.logging>1.1.1</version.commons.logging>
+        <version.commons-io>2.0</version.commons-io>
+        <version.commons-dbcp>1.4</version.commons-dbcp>
+        <version.commons-collection>3.2.1</version.commons-collection>
+        <version.hibernate>3.5.6-Final</version.hibernate>
+        <version.hibernate-jpa>1.4.2-SNAPSHOT.Final</version.hibernate-jpa>
+        <version.javassist>3.9.0.GA</version.javassist>
+        <version.wicket>1.4.13</version.wicket>
+    </properties>
+
+    <modules>
+        <module>business</module>
+        <module>web</module>
+    </modules>
+
+    <build>
+        <finalName>${artifactId}-${version}</finalName>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerVersion>1.6</compilerVersion>
+                    <encoding>UTF-8</encoding>
+                    <!--encoding>${file.encoding}</encoding -->
+                    <optimize>true</optimize>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4.3</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                    <forkMode>once</forkMode>
+                    <childDelegation>false</childDelegation>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>tomcat-maven-plugin</artifactId>
+                    <version>1.1</version>
+                    <executions>
+                        <execution>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>deploy-only</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <update>true</update>
+                        <url>http://localhost:4080/manager</url>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.mortbay.jetty</groupId>
+                    <artifactId>maven-jetty-plugin</artifactId>
+                    <version>6.1.25</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.sqlproc.samples</groupId>
+                <artifactId>catalog-spring-business</artifactId>
+                <version>${version.application}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>org.sqlproc</groupId>
+                <artifactId>sql-processor</artifactId>
+                <version>${version.sql-processor}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>org.sqlproc</groupId>
+                <artifactId>sql-processor-spring</artifactId>
+                <version>${version.sql-processor}</version>
+            </dependency>
+
+            <!-- Logging -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${version.slf4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${version.slf4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${version.log4j}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>mail</artifactId>
+                        <groupId>javax.mail</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jms</artifactId>
+                        <groupId>javax.jms</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jmxtools</artifactId>
+                        <groupId>com.sun.jdmk</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jmxri</artifactId>
+                        <groupId>com.sun.jmx</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- Wicket -->
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket</artifactId>
+                <version>${version.wicket}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-extensions</artifactId>
+                <version>${version.wicket}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-datetime</artifactId>
+                <version>${version.wicket}</version>
+            </dependency>
+            <!-- Wicket-Spring -->
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-spring</artifactId>
+                <version>${version.wicket}</version>
+            </dependency>
+            <!-- Spring -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${version.spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${version.spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${version.spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${version.spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${version.spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${version.spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${version.spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${version.spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${version.spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${version.spring}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- Oracle -->
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc14</artifactId>
+                <version>${version.oracle}</version>
+            </dependency>
+
+            <!-- HSQLDB -->
+            <dependency>
+                <groupId>hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>${version.hsqldb}</version>
+                <!-- scope compile otherwise assembly messes up -->
+            </dependency>
+
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib-nodep</artifactId>
+                <version>${version.cglib}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>${version.commons-dbcp}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${version.aspectj}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+        </repository>
+        <repository>
+            <id>sonatype-public-repository-group</id>
+            <url>https://oss.sonatype.org/content/groups/public</url>
+        </repository>
+    </repositories>
+
+    <profiles>
+        <profile>
+            <id>hsqldb</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <jdbc.driver>org.hsqldb.jdbcDriver</jdbc.driver>
+                <jdbc.url>jdbc:hsqldb:mem:catalog</jdbc.url>
+                <jdbc.user>sa</jdbc.user>
+                <jdbc.password></jdbc.password>
+                <init.data>true</init.data>
+                <db.type>hsqldb</db.type>
+            </properties>
+        </profile>
+        <profile>
+            <id>oracle</id>
+            <properties>
+                <jdbc.driver>oracle.jdbc.OracleDriver</jdbc.driver>
+                <jdbc.url>jdbc:oracle:thin:@localhost:1521:xe</jdbc.url>
+                <jdbc.user>catalog</jdbc.user>
+                <jdbc.password>catalog123</jdbc.password>
+                <init.data>false</init.data>
+                <db.type>oracle</db.type>
+            </properties>
+        </profile>
+    </profiles>
+
+    <developers>
+        <developer>
+            <id>hudec</id>
+            <name>Vladimir Hudec</name>
+            <email>Vladimir.Hudec@gmail.com</email>
+            <roles>
+                <role>project-leader</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+</project>

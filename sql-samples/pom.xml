@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.sqlproc</groupId>
+    <artifactId>sql-processor-samples</artifactId>
+    <version>1.4.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>SQL Processor Samples, Parent Module</name>
+    <description>SQL Processor - Data Driven Queries</description>
+    <url>http://code.google.com/p/sql-processor/</url>
+
+    <modules>
+        <module>simple-jdbc</module>
+        <module>simple-hibernate</module>
+        <module>simple-spring</module>
+        <module>tutorial-hibernate</module>
+        <module>catalog-jpa</module>
+        <module>catalog-hibernate</module>
+        <module>catalog-spring</module>
+    </modules>
+</project>

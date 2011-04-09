@@ -1,0 +1,217 @@
+package org.sqlproc.engine;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The list of ordering directives for the SQL Processor queries execution.
+ * 
+ * The class layout is based on the Composite design pattern. Instances of this class can be obtained only using one of
+ * the factory methods.
+ * 
+ * <p>
+ * For example there's a table PERSON with two columns - ID and NAME. The META SQL query can be the next one:
+ * 
+ * <pre>
+ * LIST_ALL_SQL= \
+ *   select p.ID, p.NAME \
+ *   from PERSON p \
+ *   {#1 order by ID} \
+ *   {#2 order by NAME}
+ * </pre>
+ * 
+ * <p>
+ * In the case of the SQL Processor invocation
+ * 
+ * <pre>
+ * SqlEngine sqlEngine = sqlLoader.getQueryEngine(&quot;ALL&quot;);
+ * List&lt;Person&gt; list = sqlEngine.query(session, Person.class, null, SqlOrder.getAscOrder(1));
+ * </pre>
+ * 
+ * the output list is sorted in ascending order based on the column ID.
+ * 
+ * <p>
+ * In the case of the SQL Processor invocation
+ * 
+ * <pre>
+ * SqlEngine sqlEngine = sqlLoader.getQueryEngine(&quot;ALL&quot;);
+ * List&lt;Person&gt; list = sqlEngine.query(session, Person.class, new Object(), SqlOrder.getDescOrder(2));
+ * </pre>
+ * 
+ * the output list is sorted in descending order based on the column NAME.
+ * 
+ * <p>
+ * For more info please see the Reference Guide or the <a
+ * href="http://code.google.com/p/sql-processor/w/list">tutorials</a>.
+ * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
+ */
+public class SqlOrder {
+
+    /**
+     * The enumeration for the ordering directives.
+     */
+    public static enum Order {
+        /**
+         * no ordering
+         */
+        NONE,
+        /**
+         * ascending ordering
+         */
+        ASC,
+        /**
+         * descending ordering
+         */
+        DESC
+    }
+
+    /**
+     * The ordering id. This value should correspond to the order number in the META SQL query {#NNN order by ...}.
+     */
+    private int orderId;
+    /**
+     * The ordering direction (no ordering, ascending or descending).
+     */
+    private Order orderDirrection;
+    /**
+     * The list of all ordering directives.
+     */
+    private List<SqlOrder> orders;
+
+    /**
+     * The factory method.
+     * 
+     * @return the empty ordering directive list
+     */
+    public static SqlOrder getOrder() {
+        return new SqlOrder();
+    }
+
+    /**
+     * The factory method.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the ordering directive list with one ascending ordering directive
+     */
+    public static SqlOrder getAscOrder(int orderId) {
+        return new SqlOrder().addAscOrder(orderId);
+    }
+
+    /**
+     * The factory method.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the ordering directive list with one descending ordering directive
+     */
+    public static SqlOrder getDescOrder(int orderId) {
+        return new SqlOrder().addDescOrder(orderId);
+    }
+
+    /**
+     * The factory method.
+     * 
+     * @param orderId
+     *            the ordering id. Can be a negative one for a descending ordering directive.
+     * @return the ordering directive list with one ascending or descending ordering directive
+     */
+    public static SqlOrder getOrder(int orderId) {
+        if (orderId > 0)
+            return new SqlOrder().addAscOrder(orderId);
+        else if (orderId > 0)
+            return new SqlOrder().addDescOrder(-orderId);
+        else
+            return null;
+    }
+
+    /**
+     * Adds one more ascending ordering directive into the list of ordering directives.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the updated ordering directive list
+     */
+    public SqlOrder addAscOrder(int orderId) {
+        orders.add(new SqlOrder(orderId, Order.ASC));
+        return this;
+    }
+
+    /**
+     * Adds one more descending ordering directive into the list of ordering directives.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the updated ordering directive list
+     */
+    public SqlOrder addDescOrder(int orderId) {
+        orders.add(new SqlOrder(orderId, Order.DESC));
+        return this;
+    }
+
+    /**
+     * Adds one more ascending or descending ordering directive into the list of ordering directives.
+     * 
+     * @param orderId
+     *            the ordering id. Can be a negative one for a descending ordering directive.
+     * @return the updated ordering directive list
+     */
+    public SqlOrder addOrder(int orderId) {
+        if (orderId > 0)
+            orders.add(new SqlOrder(orderId, Order.ASC));
+        else
+            orders.add(new SqlOrder(-orderId, Order.DESC));
+        return this;
+    }
+
+    /**
+     * Creates a new empty ordering directive list. This constructor is a private one to prevent an instantiation
+     * without the help of factory methods.
+     */
+    private SqlOrder() {
+        orders = new ArrayList<SqlOrder>();
+    }
+
+    /**
+     * Creates a new ordering directive list. This constructor is a private one to prevent an instantiation without the
+     * help of factory methods.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @param orderDirrection
+     *            the ordering direction
+     */
+    private SqlOrder(int orderId, Order orderDirrection) {
+        this.orderId = orderId;
+        this.orderDirrection = orderDirrection;
+    }
+
+    /**
+     * Returns the ordering id. This value should correspond to the order number in the META SQL query {#NNN order by
+     * ...}.
+     * 
+     * @return the ordering id
+     */
+    public int getOrderId() {
+        return orderId;
+    }
+
+    /**
+     * Returns the ordering direction (no ordering, ascending or descending).
+     * 
+     * @return the ordering direction
+     */
+    public Order getOrderDirrection() {
+        return orderDirrection;
+    }
+
+    /**
+     * Returns the list of ordering directives.
+     * 
+     * @return the list of ordering directives
+     */
+    public List<SqlOrder> getOrders() {
+        return orders;
+    }
+}

@@ -1,0 +1,340 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.sqlproc</groupId>
+    <artifactId>sql-processor-parent</artifactId>
+    <version>1.4.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>SQL Processor, Parent Module</name>
+    <description>SQL Processor - Data Driven Queries</description>
+    <url>http://code.google.com/p/sql-processor/</url>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>5</version>
+    </parent>
+
+    <modules>
+        <module>sql-processor</module>
+        <module>sql-processor-hibernate</module>
+        <module>sql-processor-spring</module>
+    </modules>
+
+    <properties>
+        <version.antlr>3.3</version.antlr>
+        <version.hibernate>3.5.6-Final</version.hibernate>
+        <version.spring>3.0.5.RELEASE</version.spring>
+        <version.log4j>1.2.15</version.log4j>
+        <version.slf4j>1.5.2</version.slf4j>
+        <version.junit>4.8.2</version.junit>
+        <version.dbunit>2.2</version.dbunit>
+        <version.hsqldb>1.8.0.10</version.hsqldb>
+        <version.joda-time>1.6.2</version.joda-time>
+        <version.joda-time-hibernate>1.2</version.joda-time-hibernate>
+        <version.javassist>3.8.0.GA</version.javassist>
+        <version.oracle>10.2.0.4</version.oracle>
+        <version.mysql>5.1.14</version.mysql>
+        <version.beanutils>1.8.3</version.beanutils>
+        <version.dbcp>1.4</version.dbcp>
+
+        <db.dialect>org.hibernate.dialect.HSQLDialect</db.dialect>
+        <db.driver>org.hsqldb.jdbcDriver</db.driver>
+        <db.url>jdbc:hsqldb:mem:sqlproc</db.url>
+        <db.username>sa</db.username>
+        <db.password />
+        <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+        <DDL_CREATE_DB>ddl/hsqldb_create.properties</DDL_CREATE_DB>
+        <DDL_DROP_DB>ddl/hsqldb_drop.properties</DDL_DROP_DB>
+        <QUERIES_PROPS>queries.properties</QUERIES_PROPS>
+        <CRUD_PROPS>crud.properties</CRUD_PROPS>
+        <TYPES_PROPS>types.properties</TYPES_PROPS>
+        <JOINS_PROPS>joins.properties</JOINS_PROPS>
+        <CUSTOM_PROPS>custom.properties</CUSTOM_PROPS>
+        <DB_TYPE>HSQLDB</DB_TYPE>
+        <DATATYPE_FACTORY>org.sqlproc.engine.impl.HsqlDataTypeFactory</DATATYPE_FACTORY>
+    </properties>
+
+    <scm>
+        <url>https://sql-processor.googlecode.com/svn/trunk/</url>
+        <connection>scm:svn:https://sql-processor.googlecode.com/svn/trunk/</connection>
+        <developerConnection>scm:svn:https://sql-processor.googlecode.com/svn/trunk/</developerConnection>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License</name>
+            <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
+        </license>
+    </licenses>
+
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerVersion>1.6</compilerVersion>
+                    <encoding>UTF-8</encoding>
+                    <!--encoding>${file.encoding}</encoding -->
+                    <optimize>true</optimize>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                    <forkMode>once</forkMode>
+                    <childDelegation>false</childDelegation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <show>private</show>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- ANTLR -->
+            <dependency>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr</artifactId>
+                <version>${version.antlr}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr-runtime</artifactId>
+                <version>${version.antlr}</version>
+            </dependency>
+
+            <!-- LOG -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${version.slf4j}</version>
+            </dependency>
+
+            <!-- REFLECTION -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${version.beanutils}</version>
+            </dependency>
+
+            <!-- HIBERNATE -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${version.hibernate}</version>
+            </dependency>
+
+            <!-- SPRING -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${version.spring}</version>
+            </dependency>
+
+            <!-- TEST -->
+            <dependency>
+                <groupId>javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>${version.javassist}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${version.log4j}</version>
+                <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>mail</artifactId>
+                        <groupId>javax.mail</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jms</artifactId>
+                        <groupId>javax.jms</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jmxtools</artifactId>
+                        <groupId>com.sun.jdmk</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jmxri</artifactId>
+                        <groupId>com.sun.jmx</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.dbunit</groupId>
+                <artifactId>dbunit</artifactId>
+                <version>${version.dbunit}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>${version.hsqldb}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>${version.dbcp}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>oracle</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.Oracle10gDialect</db.dialect>
+                <db.driver>oracle.jdbc.OracleDriver</db.driver>
+                <db.url>jdbc:oracle:thin:@127.0.0.1:1521:xe</db.url>
+                <db.username>sql</db.username>
+                <db.password>sql</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <QUERIES_PROPS>queries.properties</QUERIES_PROPS>
+                <CRUD_PROPS>crud.properties</CRUD_PROPS>
+                <TYPES_PROPS>types.properties</TYPES_PROPS>
+                <JOINS_PROPS>joins.properties</JOINS_PROPS>
+                <CUSTOM_PROPS>custom.properties</CUSTOM_PROPS>
+                <DB_TYPE>ORACLE</DB_TYPE>
+                <DATATYPE_FACTORY>org.sqlproc.engine.impl.OracleDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.oracle</groupId>
+                    <artifactId>ojdbc14</artifactId>
+                    <version>${version.oracle}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>mysql</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
+                <db.driver>com.mysql.jdbc.Driver</db.driver>
+                <db.url>jdbc:mysql://127.0.0.1:3306/sqlproc?zeroDateTimeBehavior=convertToNull</db.url>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <QUERIES_PROPS>queries.properties</QUERIES_PROPS>
+                <CRUD_PROPS>crud.properties</CRUD_PROPS>
+                <TYPES_PROPS>types.properties</TYPES_PROPS>
+                <JOINS_PROPS>joins.properties</JOINS_PROPS>
+                <CUSTOM_PROPS>custom.properties</CUSTOM_PROPS>
+                <DB_TYPE>MYSQL</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.ext.mysql.MySqlDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${version.mysql}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.1</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>javadoc-for-svn</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <excludePackageNames>org.sqlproc.engine.impl</excludePackageNames>
+                            <outputDirectory>${basedir}</outputDirectory>
+                            <reportOutputDirectory>${basedir}</reportOutputDirectory>
+                            <destDir>javadoc</destDir>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+        </repository>
+    </repositories>
+
+    <developers>
+        <developer>
+            <id>whudec</id>
+            <name>Vladimir Hudec</name>
+            <email>Vladimir.Hudec@gmail.com</email>
+            <roles>
+                <role>project-leader</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+</project>
