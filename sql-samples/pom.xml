@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc</groupId>
     <artifactId>sql-processor-samples</artifactId>
-    <version>1.4.2-SNAPSHOT</version>
+    <version>1.4.2</version>
     <packaging>pom</packaging>
     <name>SQL Processor Samples, Parent Module</name>
     <description>SQL Processor - Data Driven Queries</description>
@@ -18,4 +18,33 @@
         <module>catalog-hibernate</module>
         <module>catalog-spring</module>
     </modules>
+
+    <scm>
+        <url>scm:git:git@github.com:hudec/sql-processor.git</url>
+        <connection>scm:git:git@github.com:hudec/sql-processor.git</connection>
+        <developerConnection>scm:git:git@github.com:hudec/sql-processor.git</developerConnection>
+    </scm>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+        </repository>
+    </repositories>
+
+    <developers>
+        <developer>
+            <id>whudec</id>
+            <name>Vladimir Hudec</name>
+            <email>Vladimir.Hudec@gmail.com</email>
+            <roles>
+                <role>project-leader</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
 </project>

@@ -2,8 +2,8 @@
 
 <project name="fornax-cartridges-sculptor-parent" default="change-version" basedir=".">
 	
-	<property name="version.from" value="1.4.1-SNAPSHOT"/>
-	<property name="version.to" value="1.4.2-SNAPSHOT"/>
+	<property name="version.from" value="1.4.2-SNAPSHOT"/>
+	<property name="version.to" value="1.4.2"/>
 	
 	<target name="change-version">
 		<replace dir="../" token="${version.from}" value="${version.to}">
