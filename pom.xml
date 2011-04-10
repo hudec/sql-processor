@@ -55,9 +55,9 @@
     </properties>
 
     <scm>
-        <url>https://sql-processor.googlecode.com/svn/trunk/</url>
-        <connection>scm:svn:https://sql-processor.googlecode.com/svn/trunk/</connection>
-        <developerConnection>scm:svn:https://sql-processor.googlecode.com/svn/trunk/</developerConnection>
+        <url>scm:git:git@github.com:hudec/sql-processor.git</url>
+        <connection>scm:git:git@github.com:hudec/sql-processor.git</connection>
+        <developerConnection>scm:git:git@github.com:hudec/sql-processor.git</developerConnection>
     </scm>
 
     <licenses>
