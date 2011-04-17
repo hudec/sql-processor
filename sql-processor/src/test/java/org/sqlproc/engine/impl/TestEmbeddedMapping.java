@@ -97,7 +97,7 @@ public class TestEmbeddedMapping extends TestDatabase {
         String sql = sqlEngine.getSql(pf, pfc, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
         assertContains(sql, "'pierce' first");
-        assertContains(sql, ":name_last last", "? last");
+        assertContains(sql, ":name_last last", " last");
 
         List<Person> list = sqlEngine.query(session, Person.class, pf, pfc, 0, 0);
 
@@ -407,7 +407,7 @@ public class TestEmbeddedMapping extends TestDatabase {
         String sql = sqlEngine.getSql(pf, pfc, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
         assertContains(sql, "'Pierce' first");
-        assertContains(sql, ":name_last last", "? last");
+        assertContains(sql, ":name_last last", " last");
         assertContains(sql, "order by id ASC");
 
         List<Person> list = sqlEngine.query(session, Person.class, pf, pfc, 0, 0);
@@ -434,7 +434,7 @@ public class TestEmbeddedMapping extends TestDatabase {
         String sql = sqlEngine.getSql(pf, pfc, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
         assertContains(sql, "'Pierce' first");
-        assertContains(sql, ":name_last last", "? last");
+        assertContains(sql, ":name_last last", " last");
         assertContains(sql, "p.SSN_NUMBER");
         assertContains(sql, "p.BIRTHDATE");
 

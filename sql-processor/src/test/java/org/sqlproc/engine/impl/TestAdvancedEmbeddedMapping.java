@@ -50,9 +50,9 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
         sql = sqlEngine.getSql(pf, pfc, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
         assertContains(sql, "'Pierce' first");
-        assertContains(sql, ":name_last last", "? last");
+        assertContains(sql, ":name_last last", " last");
         assertContains(sql, "p.SSN_NUMBER");
-        assertContains(sql, ":lastUpdatedBy lastUpdatedBy", "? lastUpdatedBy");
+        assertContains(sql, ":lastUpdatedBy lastUpdatedBy", " lastUpdatedBy");
 
         list = sqlEngine.query(session, Person.class, pf, pfc, 0, 0);
 

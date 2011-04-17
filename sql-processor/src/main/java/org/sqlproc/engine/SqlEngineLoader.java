@@ -313,38 +313,45 @@ public class SqlEngineLoader implements SqlEngineFactory {
 
             StringBuilder errors = new StringBuilder();
 
+            Map<String, String> mapAll = new HashMap<String, String>();
+
             for (Entry<Object, Object> entry : props.entrySet()) {
                 String key = ((String) entry.getKey()).toUpperCase();
                 String value = (String) entry.getValue();
                 String name = null;
+                boolean keyWithFilterPrefix = false;
 
                 if (filterPrefix != null && key.startsWith(filterPrefix)) {
                     key = key.substring(filterPrefixLength);
+                    keyWithFilterPrefix = true;
                 }
 
                 if (key.startsWith(QUERY_PREFIX)) {
                     name = key.substring(lQUERY_PREFIX);
                     if (setSelectQueries == null || setSelectQueries.contains(name)) {
-                        if (sqls.containsKey(name))
+                        if (mapAll.containsKey(key)) {
                             errors.append("Duplicate QRY: ").append(key).append("\n");
-                        else
+                        } else if (!sqls.containsKey(name) || keyWithFilterPrefix) {
                             sqls.put(name, value);
+                        }
                     }
                 } else if (key.startsWith(CRUD_PREFIX)) {
                     name = key.substring(lCRUD_PREFIX);
                     if (setSelectQueries == null || setSelectQueries.contains(name)) {
-                        if (cruds.containsKey(name))
+                        if (mapAll.containsKey(key)) {
                             errors.append("Duplicate CRUD: ").append(key).append("\n");
-                        else
+                        } else if (!cruds.containsKey(name) || keyWithFilterPrefix) {
                             cruds.put(name, value);
+                        }
                     }
                 } else if (key.startsWith(OUTPUT_MAPPING_PREFIX)) {
                     name = key.substring(lOUTPUT_MAPPING_PREFIX);
                     if (setSelectQueries == null || setSelectQueries.contains(name)) {
-                        if (fields.containsKey(name))
+                        if (mapAll.containsKey(key)) {
                             errors.append("Duplicate OUT: ").append(key).append("\n");
-                        else
+                        } else if (!fields.containsKey(name) || keyWithFilterPrefix) {
                             fields.put(name, value);
+                        }
                     }
                 } else if (key.startsWith(SET_PREFIX)) {
                     name = key.substring(lSET_PREFIX);

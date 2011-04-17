@@ -59,6 +59,8 @@ public class TestHibernateTypes extends TestDatabase {
         assertEquals("2009-08-31 14:55:02.0", t.getT_datetime().toString());
         if ("MYSQL".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
+        else if ("HSQLDB".equalsIgnoreCase(dbType))
+            assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
         else
             assertEquals("2009-08-31 14:55:02.123456789", t.getT_timestamp().toString());
 
@@ -121,6 +123,8 @@ public class TestHibernateTypes extends TestDatabase {
         assertEquals("2009-08-31 14:55:02.0", t.getT_datetime().toString());
         if ("MYSQL".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
+        else if ("HSQLDB".equalsIgnoreCase(dbType))
+            assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
         else
             assertEquals("2009-08-31 14:55:02.123456789", t.getT_timestamp().toString());
 
