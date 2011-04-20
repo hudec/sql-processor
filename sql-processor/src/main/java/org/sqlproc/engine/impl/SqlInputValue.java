@@ -7,13 +7,14 @@ import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.type.IdentitySetter;
+import org.sqlproc.engine.type.OutValueSetter;
 
 /**
  * The entity for a dynamic input value.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-class SqlInputValue implements IdentitySetter {
+class SqlInputValue {
 
     /**
      * The internal slf4j logger.
@@ -43,7 +44,7 @@ class SqlInputValue implements IdentitySetter {
      * Enumeration for no/upper/lower case conversion. This is done on dynamic/static input values.
      * 
      */
-    static enum Case {
+    static enum Code {
         /**
          * No case conversion.
          */
@@ -59,17 +60,44 @@ class SqlInputValue implements IdentitySetter {
     };
 
     /**
+     * Enumeration for IN/OUT/INOUT mode of callable statement parameter.
+     * 
+     */
+    static enum Mode {
+        /**
+         * By default it's input parameter.
+         */
+        IN,
+        /**
+         * It's used for output parameter.
+         */
+        OUT,
+        /**
+         * It's used for input/output parameter.
+         */
+        INOUT
+    };
+
+    /**
      * The type of the input value, please see {@link Type}.
      */
     private Type valueType;
     /**
      * Which conversion should be done on inputValue.
      */
-    private Case caseConversion;
+    private Code caseConversion;
+    /**
+     * Which mode of callable statement parameter it is.
+     */
+    private Mode inOutMode;
     /**
      * A dynamic input value.
      */
     private Object inputValue;
+    /**
+     * A parent of a dynamic input value.
+     */
+    private Object parentInputValue;
     /**
      * The input value Java type.
      */
@@ -99,6 +127,10 @@ class SqlInputValue implements IdentitySetter {
      * A calculated identity.
      */
     private Object identity;
+    /**
+     * A dynamic input value can be also an output value.
+     */
+    private Object outValue;
 
     /**
      * Creates a new instance of this entity. Used from inside ANTLR parser.
@@ -111,14 +143,19 @@ class SqlInputValue implements IdentitySetter {
      *            a dynamic input value Java type
      * @param caseConversion
      *            which conversion should be done on inputValue
+     * @param inOutMode
+     *            Which mode of callable statement parameter it is
      * @param type
      *            a dynamic input value META type
      */
-    SqlInputValue(Type valueType, Object inputValue, Class<?> inputValueType, Case caseConversion, SqlType type) {
+    SqlInputValue(Type valueType, Object inputValue, Object parentInputValue, Class<?> inputValueType,
+            Code caseConversion, Mode inOutMode, SqlType type) {
         this.valueType = valueType;
         this.inputValue = inputValue;
+        this.parentInputValue = parentInputValue;
         this.inputValueType = inputValueType;
         this.caseConversion = caseConversion;
+        this.inOutMode = inOutMode;
         this.type = type;
     }
 
@@ -136,10 +173,11 @@ class SqlInputValue implements IdentitySetter {
      * @param type
      *            a dynamic input value META type
      */
-    SqlInputValue(Type valueType, Object inputValue, Class<?> inputValueType, String sequenceOrIdentitySelect,
-            SqlType type) {
+    SqlInputValue(Type valueType, Object inputValue, Object parentInputValue, Class<?> inputValueType,
+            String sequenceOrIdentitySelect, SqlType type) {
         this.valueType = valueType;
         this.inputValue = inputValue;
+        this.parentInputValue = parentInputValue;
         this.inputValueType = inputValueType;
         if (valueType == Type.SEQUENCE_BASED)
             this.sequence = sequenceOrIdentitySelect;
@@ -167,23 +205,44 @@ class SqlInputValue implements IdentitySetter {
             identity = seqQuery.uniqueResult();
             type.setParameter(query, paramName, identity, inputValueType);
         } else if (identitySelect != null) {
-            SqlProcessContext
-                    .getTypeFactory()
-                    .getIdentityType()
-                    .setParameter(query, paramName, this, inputValueType,
-                            SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_IN));
-        } else {
+            SqlProcessContext.getTypeFactory().getIdentityType().setParameter(query, paramName, new IdentitySetter() {
+                @Override
+                public void setIdentity(Object identity) {
+                    SqlInputValue.this.identity = identity;
+                }
+
+                @Override
+                public String getIdentitySelect() {
+                    return SqlInputValue.this.identitySelect;
+                }
+            }, inputValueType, SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_IN));
+        } else if (inOutMode == Mode.IN || inOutMode == Mode.INOUT) {
             Object o = this.inputValue;
-            if (this.inputValue instanceof String) {
-                if (caseConversion == Case.NONE) {
+            if (inputValue instanceof String) {
+                if (caseConversion == Code.NONE) {
                     o = processLike(this.inputValue);
-                } else if (caseConversion == Case.LOWER) {
-                    o = this.inputValue != null ? processLike(this.inputValue).toLowerCase() : (String) null;
-                } else if (caseConversion == Case.UPPER) {
-                    o = this.inputValue != null ? processLike(this.inputValue).toUpperCase() : (String) null;
+                } else if (caseConversion == Code.LOWER) {
+                    o = inputValue != null ? processLike(inputValue).toLowerCase() : (String) null;
+                } else if (caseConversion == Code.UPPER) {
+                    o = inputValue != null ? processLike(inputValue).toUpperCase() : (String) null;
                 }
             }
             type.setParameter(query, paramName, o, inputValueType);
+            if (inOutMode == Mode.INOUT) {
+                type.setParameter(query, paramName, new OutValueSetter() {
+                    @Override
+                    public void setOutValue(Object outValue) {
+                        SqlInputValue.this.outValue = outValue;
+                    }
+                }, inputValueType);
+            }
+        } else if (inOutMode == Mode.OUT) {
+            type.setParameter(query, paramName, new OutValueSetter() {
+                @Override
+                public void setOutValue(Object outValue) {
+                    SqlInputValue.this.outValue = outValue;
+                }
+            }, inputValueType);
         }
     }
 
@@ -196,24 +255,19 @@ class SqlInputValue implements IdentitySetter {
      *             in the case of any problem with output values handling
      */
     void setIdentityResult(String paramName) throws SqlRuntimeException {
-        type.setResult(inputValue, paramName, identity);
+        type.setResult(parentInputValue, paramName, identity);
     }
 
     /**
-     * Sets the result of select command for the generated identity value.
+     * Sets the OUT/INOUT value to an input value attribute.
      * 
-     * @param identity
-     *            the generated identity value
+     * @param paramName
+     *            the name of the parameter (= the attribute name)
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with output values handling
      */
-    public void setIdentity(Object identity) {
-        this.identity = identity;
-    }
-
-    /**
-     * Returns the select command used to obtain the generated identity value.
-     */
-    public String getIdentitySelect() {
-        return identitySelect;
+    void setOutValueResult(String paramName) throws SqlRuntimeException {
+        type.setResult(parentInputValue, paramName, outValue);
     }
 
     /**

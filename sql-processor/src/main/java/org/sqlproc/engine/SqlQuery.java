@@ -80,6 +80,14 @@ public interface SqlQuery {
     int executeUpdate() throws SqlProcessorException;
 
     /**
+     * Executes the callable statement, which returns no result set.
+     * 
+     * @throws SqlProcessorException
+     *             in the case of any problem in ORM or JDBC stack
+     */
+    int call() throws SqlProcessorException;
+
+    /**
      * Declares a scalar query result, which is an SQL query execution output value.
      * 
      * @param columnAlias

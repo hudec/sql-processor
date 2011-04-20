@@ -1,5 +1,6 @@
 package org.sqlproc.engine.jdbc.type;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,4 +44,17 @@ public interface JdbcSqlType {
      */
     public abstract void set(PreparedStatement st, int index, Object value) throws SQLException;
 
+    /**
+     * Retrieves the value of the designated parameter from <code>CallableStatement</code> object as a Java type value.
+     * 
+     * @param cs
+     *            a CallableStatement instance
+     * @param index
+     *            the first parameter is 1, the second is 2, ...
+     * @return the parameter value; if the value is SQL <code>NULL</code>, the value depends on the Java type
+     * @exception SQLException
+     *                if the parameterIndex is not valid; if a database access error occurs or this method is called on
+     *                a closed CallableStatement
+     */
+    public abstract Object get(CallableStatement cs, int index) throws SQLException;
 }

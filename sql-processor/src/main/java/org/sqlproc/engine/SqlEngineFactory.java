@@ -31,4 +31,13 @@ public interface SqlEngineFactory {
      * @return the SQL Engine instance
      */
     SqlCrudEngine getCrudEngine(String name);
+
+    /**
+     * Returns the named SQL Callable Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Callable Engine instance
+     * @return the SQL Engine instance
+     */
+    SqlCallableEngine getCallableEngine(String name);
 }

@@ -1,5 +1,6 @@
 package org.sqlproc.engine.jdbc.type;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,5 +40,17 @@ public class JdbcByteArrayType extends SqlByteArrayType implements JdbcSqlType {
     public void set(PreparedStatement st, int index, Object value) throws SQLException {
         byte[] bytes = (byte[]) value;
         st.setBytes(index, bytes);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(CallableStatement cs, int index) throws SQLException {
+        Object result = cs.getBytes(index);
+        if (cs.wasNull())
+            return null;
+        else
+            return result;
     }
 }

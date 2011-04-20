@@ -146,6 +146,7 @@ class SqlMetaSqlFragment implements SqlMetaElement {
                 result.addMappedInputValues(itemResult.getMappedInputValues());
                 result.addOutputValues(itemResult.getOutputValues());
                 result.addIdentities(itemResult.getIdentities());
+                result.addOutValues(itemResult.getOutValues());
                 result.addTrue();
             }
         }

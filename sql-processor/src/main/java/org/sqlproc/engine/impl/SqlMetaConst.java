@@ -34,7 +34,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
     /**
      * Which conversion should be done on input value.
      */
-    private SqlInputValue.Case caseConversion;
+    private SqlInputValue.Code caseConversion;
     /**
      * An indicator, which is used to control, how the input value is added to the final ANSI SQL. A standard behavior
      * is to add an input value only in the case it's not empty. The definition of the emptiness depends on the type of
@@ -57,7 +57,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
      * @param caseConversion
      *            which conversion should be done on inputValue
      */
-    SqlMetaConst(SqlInputValue.Case caseConversion) {
+    SqlMetaConst(SqlInputValue.Code caseConversion) {
         this(caseConversion, false);
     }
 
@@ -69,7 +69,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
      * @param not
      *            an indicator, which is used to control, how the input value is added to the final ANSI SQL
      */
-    SqlMetaConst(SqlInputValue.Case caseConversion, boolean not) {
+    SqlMetaConst(SqlInputValue.Code caseConversion, boolean not) {
         this(caseConversion, false, new SqlType());
     }
 
@@ -83,7 +83,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
      * @param type
      *            the type of this input value, which can be Hibernate or an internal type
      */
-    SqlMetaConst(SqlInputValue.Case caseConversion, boolean not, SqlType type) {
+    SqlMetaConst(SqlInputValue.Code caseConversion, boolean not, SqlType type) {
         this.elements = new ArrayList<SqlMetaConstItem>();
         this.caseConversion = caseConversion;
         this.not = not;
@@ -260,9 +260,9 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
     private String getData(Object obj) {
         // obj is not null
         if (obj instanceof String) {
-            if (caseConversion == SqlInputValue.Case.UPPER) {
+            if (caseConversion == SqlInputValue.Code.UPPER) {
                 return "'" + obj.toString().toUpperCase() + "'";
-            } else if (caseConversion == SqlInputValue.Case.LOWER) {
+            } else if (caseConversion == SqlInputValue.Code.LOWER) {
                 return "'" + obj.toString().toLowerCase() + "'";
             } else {
                 return "'" + obj.toString() + "'";

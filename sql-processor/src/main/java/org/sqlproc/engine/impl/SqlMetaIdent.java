@@ -36,7 +36,11 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
     /**
      * Which conversion should be done on input value.
      */
-    private SqlInputValue.Case caseConversion;
+    private SqlInputValue.Code caseConversion;
+    /**
+     * Which mode of callable statement parameter it is.
+     */
+    private SqlInputValue.Mode inOutMode;
     /**
      * An indicator, which is used to control, how the input value is added to the final ANSI SQL. A standard behavior
      * is to add an input value only in the case it's not empty. The definition of the emptiness depends on the type of
@@ -64,8 +68,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
      * @param caseConversion
      *            which conversion should be done on inputValue
      */
-    SqlMetaIdent(SqlInputValue.Case caseConversion) {
-        this(caseConversion, false);
+    SqlMetaIdent(SqlInputValue.Code caseConversion, SqlInputValue.Mode inOutMode) {
+        this(caseConversion, inOutMode, false);
     }
 
     /**
@@ -76,8 +80,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
      * @param not
      *            an indicator, which is used to control, how the input value is added to the final ANSI SQL
      */
-    SqlMetaIdent(SqlInputValue.Case caseConversion, boolean not) {
-        this(caseConversion, false, new SqlType());
+    SqlMetaIdent(SqlInputValue.Code caseConversion, SqlInputValue.Mode inOutMode, boolean not) {
+        this(caseConversion, inOutMode, false, new SqlType());
     }
 
     /**
@@ -90,9 +94,10 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
      * @param type
      *            the type of this input value, which can be Hibernate or an internal type
      */
-    SqlMetaIdent(SqlInputValue.Case caseConversion, boolean not, SqlType type) {
+    SqlMetaIdent(SqlInputValue.Code caseConversion, SqlInputValue.Mode inOutMode, boolean not, SqlType type) {
         this.elements = new ArrayList<SqlMetaIdentItem>();
         this.caseConversion = caseConversion;
+        this.inOutMode = inOutMode;
         this.not = not;
         this.sqlType = type;
     }
@@ -206,8 +211,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         }
 
         SqlProcessResult result = new SqlProcessResult();
-        boolean first = true;
         Object obj = ctx.dynamicInputValues;
+        Object parentObj = null;
         StringBuilder s = new StringBuilder(elements.size() * 32);
         s.append(IDENT_PREFIX);
 
@@ -235,9 +240,10 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             if (count > 1)
                 s.append(IDENT_SEPARATOR);
             s.append(attributeName);
-            if ((sequenceName != null || identitySelectName != null) && count == size)
-                break;
+            // if ((sequenceName != null || identitySelectName != null) && count == size)
+            // break;
             if (obj != null) {
+                parentObj = obj;
                 obj = BeanUtils.getProperty(obj, item.getName());
             }
             count++;
@@ -249,8 +255,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                 throw new SqlRuntimeException("Missing sequence " + sequenceName);
             }
             result.add(true);
-            SqlInputValue identityInputValue = new SqlInputValue(SqlInputValue.Type.SEQUENCE_BASED, obj, attributeType,
-                    sequence, this.sqlType);
+            SqlInputValue identityInputValue = new SqlInputValue(SqlInputValue.Type.SEQUENCE_BASED, obj, parentObj,
+                    attributeType, sequence, this.sqlType);
             result.addInputValue(s.substring(lIDENT_PREFIX), identityInputValue);
             result.addIdentity(attributeName, identityInputValue);
             result.setSql(new StringBuilder(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : s.toString()));
@@ -260,14 +266,15 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                 throw new SqlRuntimeException("Missing identity select " + identitySelectName);
             }
             result.add(true);
-            SqlInputValue identityInputValue = new SqlInputValue(SqlInputValue.Type.IDENTITY_SELECT, obj,
+            SqlInputValue identityInputValue = new SqlInputValue(SqlInputValue.Type.IDENTITY_SELECT, obj, parentObj,
                     attributeType, identitySelect, this.sqlType);
             result.addInputValue(s.substring(lIDENT_PREFIX), identityInputValue);
             result.addIdentity(attributeName, identityInputValue);
             result.setSkipNextText(true);
         } else {
             try {
-                result.add(SqlUtils.isEmpty(obj, sqlType, ctx.inSqlSetOrInsert));
+                result.add(SqlUtils.isEmpty(obj, sqlType, ctx.inSqlSetOrInsert
+                        || (inOutMode == SqlInputValue.Mode.OUT || inOutMode == SqlInputValue.Mode.INOUT)));
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
             }
@@ -283,7 +290,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                         String attributeNameItem = s.toString() + "_" + (i++);
                         ss.append(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : attributeNameItem);
                         result.addInputValue(attributeNameItem.substring(lIDENT_PREFIX), new SqlInputValue(
-                                SqlInputValue.Type.PROVIDED, objItem, objItem.getClass(), caseConversion, sqlType));
+                                SqlInputValue.Type.PROVIDED, objItem, parentObj, objItem.getClass(), caseConversion,
+                                inOutMode, sqlType));
                     } else
                         ss.append("null");
 
@@ -294,8 +302,12 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                     ss.append(')');
                 result.setSql(ss);
             } else {
-                result.addInputValue(s.substring(lIDENT_PREFIX), new SqlInputValue(SqlInputValue.Type.PROVIDED, obj,
-                        attributeType, caseConversion, sqlType));
+                SqlInputValue sqlInputValue = new SqlInputValue(SqlInputValue.Type.PROVIDED, obj, parentObj,
+                        attributeType, caseConversion, inOutMode, sqlType);
+                result.addInputValue(s.substring(lIDENT_PREFIX), sqlInputValue);
+                if (inOutMode == SqlInputValue.Mode.OUT || inOutMode == SqlInputValue.Mode.INOUT) {
+                    result.addOutValue(attributeName, sqlInputValue);
+                }
                 result.setSql(new StringBuilder(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : s.toString()));
             }
         }

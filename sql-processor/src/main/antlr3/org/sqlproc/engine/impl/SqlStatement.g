@@ -75,8 +75,8 @@ import org.sqlproc.engine.type.SqlMetaType;
     ParserUtils.addIdent(target, ident, text);
   }
   
-  SqlMetaIdent newIdent(Token ident, Token caseConversion) {
-    return ParserUtils.newIdent(ident.getText(), getText(caseConversion));
+  SqlMetaIdent newIdent(Token ident, Token modeIdent, Token caseIdent) {
+    return ParserUtils.newIdent(ident.getText(), getText(modeIdent), getText(caseIdent));
   }
   
   void addConstant(Object target, SqlMetaConst cnst, StringBuilder text) {
@@ -118,7 +118,7 @@ sql [SqlMetaStatement metaStatement]
 @after {addText(metaStatement, $parse::text);}
 	:	
 	// except LBRACE STRING COLON AT
-	(IDENT_DOT | IDENT | WS | NUMBER | REST | MINUS | PLUS | LPAREN | RPAREN | RBRACE | QUESTI | NOT | BAND | BOR | HASH | CARET | EQUALS | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR) 
+	(IDENT_DOT | IDENT | WS | NUMBER | REST | MINUS | PLUS | LPAREN | RPAREN | RBRACE | QUESTI | NOT | BAND | BOR | HASH | CARET | EQUALS | LESS_THAN | MORE_THAN | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR) 
 		{add($parse::text);} sql[metaStatement]?
 	| COLON ident=identifier 
 		{addIdent(metaStatement, ident, $parse::text);} sql[metaStatement]?
@@ -133,7 +133,7 @@ metaSql [SqlMetaStatement metaStatement]
 @init {SqlMetaAndOr metaAndOr; SqlMetaIf metaIf; SqlMetaOrd metaOrd; SqlMetaSqlFragment sqlFragment; addText(metaStatement, $parse::text);}	
 	:
 	// except LBRACE RBRACE QUESTI BAND BOR HASH
-	(IDENT_DOT | IDENT | WS | NUMBER | REST | COLON | STRING | MINUS | PLUS | LPAREN | RPAREN | NOT | AT | CARET | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR)
+	(IDENT_DOT | IDENT | WS | NUMBER | REST | COLON | STRING | MINUS | PLUS | LPAREN | RPAREN | NOT | AT | CARET | LESS_THAN | MORE_THAN | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR)
 		{add($parse::text); metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.NO);} metaIfItem=ifSql[null] {metaAndOr.addElement(metaIfItem);} 
 		(BOR metaIfItem=ifSql[null] {metaAndOr.addElement(metaIfItem);})* {metaStatement.addElement(metaAndOr);}
 	| QUESTI {metaIf = new SqlMetaIf(); } metaLogExpr=ifSqlCond {metaIf.setExpression(metaLogExpr);} 
@@ -154,7 +154,7 @@ ifSql [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]
 @after {addText(metaIfItem, $parse::text);}
 	:
 	// except LBRACE STRING COLON RBRACE BOR AT
-	(IDENT_DOT | IDENT | WS | NUMBER | REST | MINUS | PLUS | LPAREN | RPAREN | QUESTI | NOT | BAND | HASH | CARET | EQUALS | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR)
+	(IDENT_DOT | IDENT | WS | NUMBER | REST | MINUS | PLUS | LPAREN | RPAREN | QUESTI | NOT | BAND | HASH | CARET | EQUALS | LESS_THAN | MORE_THAN | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR)
 		{add($parse::text);} ifSql[metaIfItem]?
 	| COLON ident=identifier 
 		{addIdent(metaIfItem, ident, $parse::text);} ifSql[metaIfItem]?
@@ -169,7 +169,7 @@ ifMetaSql [SqlMetaIfItem metaIfItem]
 @init {SqlMetaAndOr metaAndOr; SqlMetaIf metaIf; addText(metaIfItem, $parse::text);}	
 	:
 	// except LBRACE RBRACE QUESTI BAND BOR
-	(IDENT_DOT | IDENT | WS |  NUMBER | REST | COLON | STRING | MINUS | PLUS | LPAREN | RPAREN | NOT | HASH | AT | CARET | EQUALS | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR)
+	(IDENT_DOT | IDENT | WS |  NUMBER | REST | COLON | STRING | MINUS | PLUS | LPAREN | RPAREN | NOT | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR)
 		{add($parse::text); metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.NO);} metaIfItem2=ifSql[null] {metaAndOr.addElement(metaIfItem2);} 
 		(BOR metaIfItem2=ifSql[null] {metaAndOr.addElement(metaIfItem2);})* {metaIfItem.addElement(metaAndOr);}
 	| QUESTI {metaIf = new SqlMetaIf(); } metaLogExpr=ifSqlCond {metaIf.setExpression(metaLogExpr);} 
@@ -200,7 +200,7 @@ ordSql [SqlMetaOrd ord]
 @after {addText(ord, $parse::text);}
  	:	
 	// except STRING COLON RBRACE
-	(IDENT_DOT | IDENT | WS | NUMBER | REST | MINUS | PLUS | LPAREN | RPAREN | LBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR)
+	(IDENT_DOT | IDENT | WS | NUMBER | REST | MINUS | PLUS | LPAREN | RPAREN | LBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR)
 		{add($parse::text);} ordSql[ord]?
 	| COLON ident=identifier 
 		{addIdent(ord, ident, $parse::text);} ordSql[ord]?
@@ -230,8 +230,8 @@ constant returns [SqlMetaConst result]
 
 identifier returns [SqlMetaIdent result]
 	:	
-	(caseIdent=PLUS | caseIdent=MINUS)? (ident=IDENT_DOT | ident=IDENT)
-		{$result = newIdent($ident, $caseIdent);}
+	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)? (ident=IDENT_DOT | ident=IDENT)
+		{$result = newIdent($ident, $modeIdent, $caseIdent);}
 		(options {greedy=true;} : CARET type=IDENT { setMetaType($parse::typeFactory, $result, $type.text); }
 		 (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { $result.setValues($value.text, $value2.text); }
 		 )*
@@ -275,4 +275,6 @@ HASH:     '#' ;
 AT:	  '@';
 CARET:    '^';
 EQUALS:   '=' ;
-REST:     ~(COLON | STRING | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS);
+LESS_THAN:'<' ;
+MORE_THAN:'>' ;
+REST:     ~(COLON | STRING | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN);

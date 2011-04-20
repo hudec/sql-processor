@@ -69,7 +69,11 @@ public class SqlMetaStatement implements SqlMetaElement {
         /**
          * SQL DELETE/DROP
          */
-        DELETE
+        DELETE,
+        /**
+         * SQL CALL
+         */
+        CALL
     }
 
     /**
@@ -210,6 +214,7 @@ public class SqlMetaStatement implements SqlMetaElement {
                     result.addMappedInputValues(itemResult.getMappedInputValues());
                     result.addOutputValues(itemResult.getOutputValues());
                     result.addIdentities(itemResult.getIdentities());
+                    result.addOutValues(itemResult.getOutValues());
                 }
             } else {
                 result.addFalse();

@@ -47,6 +47,7 @@
         <DDL_DROP_DB>ddl/hsqldb_drop.properties</DDL_DROP_DB>
         <QUERIES_PROPS>queries.properties</QUERIES_PROPS>
         <CRUD_PROPS>crud.properties</CRUD_PROPS>
+        <CALL_PROPS>call.properties</CALL_PROPS>
         <TYPES_PROPS>types.properties</TYPES_PROPS>
         <JOINS_PROPS>joins.properties</JOINS_PROPS>
         <CUSTOM_PROPS>custom.properties</CUSTOM_PROPS>
@@ -225,6 +226,7 @@
                 <DDL_DROP_DB />
                 <QUERIES_PROPS>queries.properties</QUERIES_PROPS>
                 <CRUD_PROPS>crud.properties</CRUD_PROPS>
+                <CALL_PROPS>call.properties</CALL_PROPS>
                 <TYPES_PROPS>types.properties</TYPES_PROPS>
                 <JOINS_PROPS>joins.properties</JOINS_PROPS>
                 <CUSTOM_PROPS>custom.properties</CUSTOM_PROPS>
@@ -253,6 +255,7 @@
                 <DDL_DROP_DB />
                 <QUERIES_PROPS>queries.properties</QUERIES_PROPS>
                 <CRUD_PROPS>crud.properties</CRUD_PROPS>
+                <CALL_PROPS>call.properties</CALL_PROPS>
                 <TYPES_PROPS>types.properties</TYPES_PROPS>
                 <JOINS_PROPS>joins.properties</JOINS_PROPS>
                 <CUSTOM_PROPS>custom.properties</CUSTOM_PROPS>

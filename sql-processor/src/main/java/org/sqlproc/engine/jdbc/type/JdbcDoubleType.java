@@ -1,5 +1,6 @@
 package org.sqlproc.engine.jdbc.type;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,5 +45,17 @@ public class JdbcDoubleType extends SqlDoubleType implements JdbcSqlType {
     @Override
     public void set(PreparedStatement st, int index, Object value) throws SQLException {
         st.setDouble(index, ((Double) value).doubleValue());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(CallableStatement cs, int index) throws SQLException {
+        Object result = cs.getDouble(index);
+        if (cs.wasNull())
+            return null;
+        else
+            return result;
     }
 }

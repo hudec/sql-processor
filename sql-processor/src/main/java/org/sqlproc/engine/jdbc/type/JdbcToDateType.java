@@ -1,5 +1,6 @@
 package org.sqlproc.engine.jdbc.type;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,5 +50,17 @@ public class JdbcToDateType extends SqlToDateType implements JdbcSqlType {
         } else if (value instanceof Date) {
             st.setDate(index, new java.sql.Date(((java.util.Date) value).getTime()));
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(CallableStatement cs, int index) throws SQLException {
+        Object result = cs.getDate(index);
+        if (cs.wasNull())
+            return null;
+        else
+            return result;
     }
 }

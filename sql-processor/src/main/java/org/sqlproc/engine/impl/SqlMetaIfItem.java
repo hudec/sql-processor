@@ -81,6 +81,7 @@ class SqlMetaIfItem implements SqlMetaElement {
                 result.addMappedInputValues(itemResult.getMappedInputValues());
                 result.addOutputValues(itemResult.getOutputValues());
                 result.addIdentities(itemResult.getIdentities());
+                result.addOutValues(itemResult.getOutValues());
                 if (SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE) && item instanceof SqlMetaIdent && like) {
                     for (String ident : itemResult.getInputValues()) {
                         itemResult.getInputValue(ident).setLike(

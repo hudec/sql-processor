@@ -1,5 +1,6 @@
 package org.sqlproc.engine.jdbc.type;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,5 +44,16 @@ public class JdbcCharType extends SqlCharType implements JdbcSqlType {
     @Override
     public void set(PreparedStatement st, int index, Object value) throws SQLException {
         st.setString(index, (value).toString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(CallableStatement cs, int index) throws SQLException {
+        String result = cs.getString(index);
+        if (cs.wasNull() || result == null)
+            return null;
+        return new Character(result.charAt(0));
     }
 }

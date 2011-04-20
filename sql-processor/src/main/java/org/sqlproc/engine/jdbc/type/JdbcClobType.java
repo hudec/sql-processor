@@ -1,5 +1,6 @@
 package org.sqlproc.engine.jdbc.type;
 
+import java.sql.CallableStatement;
 import java.sql.Clob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,5 +48,17 @@ public class JdbcClobType extends SqlClobType implements JdbcSqlType {
     public void set(PreparedStatement st, int index, Object value) throws SQLException {
         Clob clob = (Clob) value;
         st.setClob(index, clob);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(CallableStatement cs, int index) throws SQLException {
+        Object result = cs.getClob(index);
+        if (cs.wasNull())
+            return null;
+        else
+            return result;
     }
 }

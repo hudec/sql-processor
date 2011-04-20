@@ -1,6 +1,7 @@
 package org.sqlproc.engine.jdbc.type;
 
 import java.math.BigDecimal;
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,5 +46,17 @@ public class JdbcBigDecimalType extends SqlBigDecimalType implements JdbcSqlType
     @Override
     public void set(PreparedStatement st, int index, Object value) throws SQLException {
         st.setBigDecimal(index, (BigDecimal) value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(CallableStatement cs, int index) throws SQLException {
+        Object result = cs.getBigDecimal(index);
+        if (cs.wasNull())
+            return null;
+        else
+            return result;
     }
 }

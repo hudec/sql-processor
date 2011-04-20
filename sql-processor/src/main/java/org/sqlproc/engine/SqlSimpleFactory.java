@@ -143,6 +143,17 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCallableEngine getCallableEngine(String name) {
+        if (loader == null) {
+            init();
+        }
+        return loader.getCallableEngine(name);
+    }
+
+    /**
      * Returns the name of file, which holds a collection of META SQL statements, mapping rules and optional features.
      * 
      * @return the name of file, which holds a collection of META SQL statements, mapping rules and optional features

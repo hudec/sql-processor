@@ -129,11 +129,11 @@ class ParserUtils {
         if (logger.isTraceEnabled()) {
             logger.trace("newConstant " + name);
         }
-        SqlInputValue.Case caseConv = SqlInputValue.Case.NONE;
+        SqlInputValue.Code caseConv = SqlInputValue.Code.NONE;
         if ("+".equals(caseConversion))
-            caseConv = SqlInputValue.Case.UPPER;
+            caseConv = SqlInputValue.Code.UPPER;
         else if ("-".equals(caseConversion))
-            caseConv = SqlInputValue.Case.LOWER;
+            caseConv = SqlInputValue.Code.LOWER;
         if (name.length() > 0) {
             SqlMetaConst constant = new SqlMetaConst(caseConv);
             String[] idents = name.split("\\.");
@@ -145,17 +145,24 @@ class ParserUtils {
         return null;
     }
 
-    static SqlMetaIdent newIdent(String name, String caseConversion) {
+    static SqlMetaIdent newIdent(String name, String modeIdent, String caseIdent) {
         if (logger.isTraceEnabled()) {
             logger.trace("newIdent " + name);
         }
-        SqlInputValue.Case caseConv = SqlInputValue.Case.NONE;
-        if ("+".equals(caseConversion))
-            caseConv = SqlInputValue.Case.UPPER;
-        else if ("-".equals(caseConversion))
-            caseConv = SqlInputValue.Case.LOWER;
+        SqlInputValue.Code caseConv = SqlInputValue.Code.NONE;
+        SqlInputValue.Mode inOutMode = SqlInputValue.Mode.IN;
+        if ("+".equals(caseIdent))
+            caseConv = SqlInputValue.Code.UPPER;
+        else if ("-".equals(caseIdent))
+            caseConv = SqlInputValue.Code.LOWER;
+        if (">".equals(modeIdent))
+            inOutMode = SqlInputValue.Mode.IN;
+        else if ("<".equals(modeIdent))
+            inOutMode = SqlInputValue.Mode.OUT;
+        else if ("=".equals(modeIdent))
+            inOutMode = SqlInputValue.Mode.INOUT;
         if (name.length() > 0) {
-            SqlMetaIdent identifier = new SqlMetaIdent(caseConv);
+            SqlMetaIdent identifier = new SqlMetaIdent(caseConv, inOutMode);
             String[] idents = name.split("\\.");
             for (String ident : idents) {
                 identifier.addIdent(ident);

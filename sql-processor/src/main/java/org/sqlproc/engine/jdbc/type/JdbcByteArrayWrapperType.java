@@ -1,5 +1,6 @@
 package org.sqlproc.engine.jdbc.type;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,5 +60,21 @@ public class JdbcByteArrayWrapperType extends SqlByteArrayType implements JdbcSq
             }
             st.setBytes(index, result);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(CallableStatement cs, int index) throws SQLException {
+        byte[] bytes = cs.getBytes(index);
+        if (bytes == null || cs.wasNull())
+            return null;
+        int length = bytes.length;
+        Byte[] result = new Byte[length];
+        for (int i = 0; i < length; i++) {
+            result[i] = new Byte(bytes[i]);
+        }
+        return result;
     }
 }

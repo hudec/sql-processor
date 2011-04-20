@@ -113,6 +113,10 @@ public class JdbcTypeFactory implements SqlTypeFactory {
     /**
      * Singleton instance of String based enumeration type.
      */
+    static final SqlMetaType TEXT = new JdbcTextType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
     static final SqlMetaType STRING = new JdbcStringType();
     /**
      * Singleton instance of String based enumeration type.
@@ -129,17 +133,13 @@ public class JdbcTypeFactory implements SqlTypeFactory {
     /**
      * Singleton instance of String based enumeration type.
      */
-    static final SqlMetaType TEXT = new JdbcTextType();
-    /**
-     * Singleton instance of String based enumeration type.
-     */
     static final SqlMetaType BLOB = new JdbcBlobType();
     /**
      * Singleton instance of String based enumeration type.
      */
     static final SqlMetaType CLOB = new JdbcClobType();
     /**
-     * Singleton instance of String based enumeration type.
+     * Singleton instance of auto-generated identity type.
      */
     static final SqlMetaType IDENTITY = new SqlIdentityType() {
         @Override

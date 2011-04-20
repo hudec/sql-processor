@@ -1,6 +1,7 @@
 package org.sqlproc.engine.jdbc.type;
 
 import java.sql.Blob;
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,5 +48,17 @@ public class JdbcBlobType extends SqlBlobType implements JdbcSqlType {
     public void set(PreparedStatement st, int index, Object value) throws SQLException {
         Blob blob = (Blob) value;
         st.setBlob(index, blob);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(CallableStatement cs, int index) throws SQLException {
+        Object result = cs.getBlob(index);
+        if (cs.wasNull())
+            return null;
+        else
+            return result;
     }
 }

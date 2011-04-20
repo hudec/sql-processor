@@ -493,4 +493,12 @@ public class SpringQuery implements SqlQuery {
         }
         return result;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int call() throws SqlProcessorException {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -1,5 +1,6 @@
 package org.sqlproc.engine.jdbc.type;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,5 +46,17 @@ public class JdbcTimeType extends SqlTimeType implements JdbcSqlType {
             time = new Time(((java.util.Date) value).getTime());
         }
         st.setTime(index, time);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(CallableStatement cs, int index) throws SQLException {
+        Object result = cs.getTime(index);
+        if (cs.wasNull())
+            return null;
+        else
+            return result;
     }
 }

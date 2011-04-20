@@ -1,11 +1,14 @@
 package org.sqlproc.engine.jdbc;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +19,8 @@ import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.jdbc.type.JdbcSqlType;
 import org.sqlproc.engine.type.IdentitySetter;
+import org.sqlproc.engine.type.OutValueSetter;
+import org.sqlproc.engine.type.SqlProviderType;
 
 /**
  * The JDBC stack implementation of the SQL Engine query contract. In fact it's an adapter the internal JDBC stuff.
@@ -61,6 +66,14 @@ public class JdbcQuery implements SqlQuery {
      * The collection of all parameters types.
      */
     Map<String, Object> parameterTypes = new HashMap<String, Object>();
+    /**
+     * The collection of all parameters output value setters.
+     */
+    Map<String, OutValueSetter> parameterOutValueSetters = new HashMap<String, OutValueSetter>();
+    /**
+     * The collection of all parameters, which have to be picked-up.
+     */
+    Map<Integer, Integer> parameterOutValuesToPickup = new LinkedHashMap<Integer, Integer>();
     /**
      * The collection of all (auto-generated) identities.
      */
@@ -288,6 +301,54 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
+    public int call() throws SqlProcessorException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("call, query=" + queryString);
+        }
+        CallableStatement cs = null;
+        ResultSet rs = null;
+        try {
+            cs = connection.prepareCall("{" + queryString + "}");
+            if (timeout != null)
+                cs.setQueryTimeout(timeout);
+            setParameters(cs, null);
+            boolean bool = cs.execute();
+            if (logger.isDebugEnabled()) {
+                logger.debug("call, execute result=" + bool);
+            }
+            if (bool) {
+                rs = cs.getResultSet();
+                if (rs != null) {
+                    List list = getResults(rs);
+                    if (logger.isDebugEnabled()) {
+                        logger.debug("call, list=" + list);
+                    }
+                }
+            }
+            getParameters(cs);
+            return 0;
+        } catch (SQLException he) {
+            throw new SqlProcessorException(he);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (cs != null) {
+                try {
+                    cs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SqlQuery addScalar(String columnAlias) {
         scalars.add(columnAlias);
         return this;
@@ -322,6 +383,12 @@ public class JdbcQuery implements SqlQuery {
             identities.add(name);
             identitySetters.put(name, (IdentitySetter) val);
             identityTypes.put(name, type);
+        } else if (val != null && val instanceof OutValueSetter) {
+            if (!parameterTypes.containsKey(name)) {
+                parameters.add(name);
+                parameterTypes.put(name, type);
+            }
+            parameterOutValueSetters.put(name, (OutValueSetter) val);
         } else {
             parameters.add(name);
             parameterValues.put(name, val);
@@ -361,16 +428,31 @@ public class JdbcQuery implements SqlQuery {
         ix = setLimits(ps, limitType, ix, false);
         for (int i = 0, n = parameters.size(); i < n; i++) {
             String name = parameters.get(i);
-            Object value = parameterValues.get(name);
             Object type = parameterTypes.get(name);
-            if (type != null) {
-                if (type instanceof JdbcSqlType) {
-                    ((JdbcSqlType) type).set(ps, ix++, value);
+            if (parameterValues.containsKey(name)) {
+                Object value = parameterValues.get(name);
+                if (type != null) {
+                    if (type instanceof JdbcSqlType) {
+                        ((JdbcSqlType) type).set(ps, ix + i, value);
+                    } else {
+                        ps.setObject(ix + i, value, (Integer) type);
+                    }
                 } else {
-                    ps.setObject(ix++, value, (Integer) type);
+                    ps.setObject(ix + i, value);
                 }
-            } else {
-                ps.setObject(ix++, value);
+            }
+            if (parameterOutValueSetters.containsKey(name)) {
+                CallableStatement cs = (CallableStatement) ps;
+                if (type != null) {
+                    if (type instanceof SqlProviderType) {
+                        cs.registerOutParameter(ix + i, (Integer) ((SqlProviderType) type).getProviderSqlNullType());
+                    } else {
+                        cs.registerOutParameter(ix + i, (Integer) type);
+                    }
+                } else {
+                    throw new SqlProcessorException("OUT parameter type for callable statement is null");
+                }
+                parameterOutValuesToPickup.put(i, ix + i);
             }
         }
         ix = setLimits(ps, limitType, ix, true);
@@ -418,6 +500,33 @@ public class JdbcQuery implements SqlQuery {
                 ps.setInt(ix++, maxResults);
         }
         return ix;
+    }
+
+    /**
+     * Gets the value of the designated OUT parameters.
+     * 
+     * @param cs
+     *            an instance of CallableStatement
+     * @throws SQLException
+     *             if a database access error occurs or this method is called on a closed <code>CallableStatement</code>
+     */
+    protected void getParameters(CallableStatement cs) throws SQLException {
+
+        for (Iterator<Integer> iter = parameterOutValuesToPickup.keySet().iterator(); iter.hasNext();) {
+            int i = iter.next();
+            int ix = parameterOutValuesToPickup.get(i);
+            String name = parameters.get(i);
+            Object type = parameterTypes.get(name);
+            OutValueSetter outValueSetter = parameterOutValueSetters.get(name);
+            Object outValue = null;
+
+            if (type != null && type instanceof JdbcSqlType) {
+                outValue = ((JdbcSqlType) type).get(cs, ix);
+            } else {
+                outValue = cs.getObject(ix);
+            }
+            outValueSetter.setOutValue(outValue);
+        }
     }
 
     /**

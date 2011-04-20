@@ -44,6 +44,10 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      */
     private Map<String, SqlInputValue> identities;
     /**
+     * List of all input values, which are in fact OUT or INOUT parameters.
+     */
+    private Map<String, SqlInputValue> outValues;
+    /**
      * The final ANSI SQL or the fragment of ANSI SQL, which is dynamically generated from the META SQL based on input
      * values.
      */
@@ -77,6 +81,7 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
         inputValues = new LinkedHashMap<String, SqlInputValue>();
         outputValues = new LinkedHashMap<String, SqlMappingItem>();
         identities = new HashMap<String, SqlInputValue>();
+        outValues = new HashMap<String, SqlInputValue>();
         sql = new StringBuilder();
     }
 
@@ -91,6 +96,7 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
         inputValues = new HashMap<String, SqlInputValue>();
         outputValues = new LinkedHashMap<String, SqlMappingItem>();
         identities = new HashMap<String, SqlInputValue>();
+        outValues = new HashMap<String, SqlInputValue>();
         if (sql != null) {
             this.sql = new StringBuilder(sql);
             this.add = true;
@@ -265,6 +271,39 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
     }
 
     /**
+     * Adds a new OUT/INOUT value.
+     * 
+     * @param key
+     *            the name of an OUT/INOUT column/attribute
+     * @param value
+     *            a new OUT/INOUT value
+     */
+    void addOutValue(String key, SqlInputValue value) {
+        if (!this.outValues.containsKey(key))
+            this.outValues.put(key, value);
+    }
+
+    /**
+     * Adds a new collection of OUT/INOUT values.
+     * 
+     * @param outValues
+     *            a new collection of OUT/INOUT values
+     */
+    void addOutValues(Map<String, SqlInputValue> outValues) {
+        if (outValues != null)
+            this.outValues.putAll(outValues);
+    }
+
+    /**
+     * Returns the collection of OUT/INOUT values.
+     * 
+     * @return the collection of OUT/INOUT values
+     */
+    Map<String, SqlInputValue> getOutValues() {
+        return outValues;
+    }
+
+    /**
      * Sets the final ANSI SQL or a fragment of ANSI SQL, which is dynamically generated from the META SQL based on
      * input values.
      * 
@@ -352,6 +391,10 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
         for (String paramName : this.identities.keySet()) {
             SqlInputValue inputValue = this.identities.get(paramName);
             inputValue.setIdentityResult(paramName);
+        }
+        for (String paramName : this.outValues.keySet()) {
+            SqlInputValue inputValue = this.outValues.get(paramName);
+            inputValue.setOutValueResult(paramName);
         }
     }
 

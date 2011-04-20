@@ -225,4 +225,12 @@ public class HibernateQuery implements SqlQuery {
             throw new SqlProcessorException(he);
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int call() throws SqlProcessorException {
+        throw new UnsupportedOperationException();
+    }
 }

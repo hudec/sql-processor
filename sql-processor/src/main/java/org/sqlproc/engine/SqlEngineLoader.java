@@ -113,6 +113,8 @@ public class SqlEngineLoader implements SqlEngineFactory {
     private static final int lOUTPUT_MAPPING_PREFIX = OUTPUT_MAPPING_PREFIX.length();
     private static final String CRUD_PREFIX = "CRUD_";
     private static final int lCRUD_PREFIX = CRUD_PREFIX.length();
+    private static final String CALL_PREFIX = "CALL_";
+    private static final int lCALL_PREFIX = CALL_PREFIX.length();
 
     private SqlTypeFactory composedTypeFactory;
 
@@ -128,6 +130,10 @@ public class SqlEngineLoader implements SqlEngineFactory {
      * The collection of named META SQL CRUD statements.
      */
     private Map<String, String> cruds = new HashMap<String, String>();
+    /**
+     * The collection of named META SQL CALLABLE statements.
+     */
+    private Map<String, String> calls = new HashMap<String, String>();
     /**
      * The collection of named explicitly defined mapping rules.
      */
@@ -277,8 +283,8 @@ public class SqlEngineLoader implements SqlEngineFactory {
                 filterPrefix = filterPrefix + "_";
             if (filterPrefix != null
                     && (filterPrefix.equals(QUERY_PREFIX) || filterPrefix.equals(CRUD_PREFIX)
-                            || filterPrefix.equals(OUTPUT_MAPPING_PREFIX) || filterPrefix.equals(INPUT_MAPPING_PREFIX) || filterPrefix
-                            .equals(SET_PREFIX)))
+                            || filterPrefix.equals(CALL_PREFIX) || filterPrefix.equals(OUTPUT_MAPPING_PREFIX)
+                            || filterPrefix.equals(INPUT_MAPPING_PREFIX) || filterPrefix.equals(SET_PREFIX)))
                 filterPrefix = null;
             int filterPrefixLength = (filterPrefix != null) ? filterPrefix.length() : 0;
 
@@ -342,6 +348,15 @@ public class SqlEngineLoader implements SqlEngineFactory {
                             errors.append("Duplicate CRUD: ").append(key).append("\n");
                         } else if (!cruds.containsKey(name) || keyWithFilterPrefix) {
                             cruds.put(name, value);
+                        }
+                    }
+                } else if (key.startsWith(CALL_PREFIX)) {
+                    name = key.substring(lCALL_PREFIX);
+                    if (setSelectQueries == null || setSelectQueries.contains(name)) {
+                        if (mapAll.containsKey(key)) {
+                            errors.append("Duplicate CALL: ").append(key).append("\n");
+                        } else if (!calls.containsKey(name) || keyWithFilterPrefix) {
+                            calls.put(name, value);
                         }
                     }
                 } else if (key.startsWith(OUTPUT_MAPPING_PREFIX)) {
@@ -426,6 +441,20 @@ public class SqlEngineLoader implements SqlEngineFactory {
                 }
             }
 
+            for (String name : calls.keySet()) {
+                SqlMetaStatement stmt = null;
+                try {
+                    stmt = SqlMetaStatement.getInstance(calls.get(name), this.composedTypeFactory);
+                } catch (SqlEngineException see) {
+                    errors.append(see.getMessage());
+                    continue;
+                }
+                SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
+                if (stmt != null) {
+                    engines.put(name, new SqlCallableEngine(name, stmt, monitor, features, this.composedTypeFactory));
+                }
+            }
+
             if (errors.length() > 0)
                 throw new SqlEngineException(errors.toString());
         } finally {
@@ -486,6 +515,17 @@ public class SqlEngineLoader implements SqlEngineFactory {
         Object o = engines.get(name);
         if (o != null && o instanceof SqlCrudEngine)
             return (SqlCrudEngine) o;
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCallableEngine getCallableEngine(String name) {
+        Object o = engines.get(name);
+        if (o != null && o instanceof SqlCallableEngine)
+            return (SqlCallableEngine) o;
         return null;
     }
 }
