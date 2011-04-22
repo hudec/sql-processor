@@ -23,10 +23,10 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.SqlCallableEngine;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineLoader;
 import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
@@ -44,7 +44,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected static final String DDL_DROP_DB = "DDL_DROP_DB";
     protected static final String QUERIES_PROPS = "QUERIES_PROPS";
     protected static final String CRUD_PROPS = "CRUD_PROPS";
-    protected static final String CALL_PROPS = "CALL_PROPS";
+    protected static final String PROCEDURE_PROPS = "PROCEDURE_PROPS";
     protected static final String TYPES_PROPS = "TYPES_PROPS";
     protected static final String JOINS_PROPS = "JOINS_PROPS";
     protected static final String CUSTOM_PROPS = "CUSTOM_PROPS";
@@ -86,7 +86,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
         for (Map.Entry<Object, Object> e : loader.getProperties().entrySet()) {
             queriesProperties.setProperty((String) e.getKey(), (String) e.getValue());
         }
-        loader = new SqlPropertiesLoader(testProperties.getProperty(CALL_PROPS), DatabaseTestCase.class);
+        loader = new SqlPropertiesLoader(testProperties.getProperty(PROCEDURE_PROPS), DatabaseTestCase.class);
         for (Map.Entry<Object, Object> e : loader.getProperties().entrySet()) {
             queriesProperties.setProperty((String) e.getKey(), (String) e.getValue());
         }
@@ -241,12 +241,12 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return sqlEngine;
     }
 
-    SqlCallableEngine getCallableEngine(String name) {
+    SqlProcedureEngine getCallableEngine(String name) {
         SqlProcessContext.nullFeatures();
         SqlProcessContext.nullTypeFactory();
         SqlEngineLoader sqlLoader = new SqlEngineLoader(queriesProperties, JdbcTypeFactory.getInstance(), dbType, null,
                 customTypes, name);
-        SqlCallableEngine sqlEngine = sqlLoader.getCallableEngine(name);
+        SqlProcedureEngine sqlEngine = sqlLoader.getProcedureEngine(name);
         assertFalse(sqlEngine == null);
         return sqlEngine;
     }

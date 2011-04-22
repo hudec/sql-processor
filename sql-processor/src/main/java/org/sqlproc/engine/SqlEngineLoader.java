@@ -451,7 +451,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
                 }
                 SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
                 if (stmt != null) {
-                    engines.put(name, new SqlCallableEngine(name, stmt, monitor, features, this.composedTypeFactory));
+                    engines.put(name, new SqlProcedureEngine(name, stmt, monitor, features, this.composedTypeFactory));
                 }
             }
 
@@ -522,10 +522,10 @@ public class SqlEngineLoader implements SqlEngineFactory {
      * {@inheritDoc}
      */
     @Override
-    public SqlCallableEngine getCallableEngine(String name) {
+    public SqlProcedureEngine getProcedureEngine(String name) {
         Object o = engines.get(name);
-        if (o != null && o instanceof SqlCallableEngine)
-            return (SqlCallableEngine) o;
+        if (o != null && o instanceof SqlProcedureEngine)
+            return (SqlProcedureEngine) o;
         return null;
     }
 }

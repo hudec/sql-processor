@@ -39,5 +39,5 @@ public interface SqlEngineFactory {
      *            the name of the required SQL Callable Engine instance
      * @return the SQL Engine instance
      */
-    SqlCallableEngine getCallableEngine(String name);
+    SqlProcedureEngine getProcedureEngine(String name);
 }

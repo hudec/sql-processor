@@ -64,7 +64,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlCallableEngine extends SqlEngine {
+public class SqlProcedureEngine extends SqlEngine {
 
     /**
      * Creates a new instance of the SqlCrudEngine from one META SQL statement string. Constructor will call the
@@ -81,7 +81,7 @@ public class SqlCallableEngine extends SqlEngine {
      * @throws SqlEngineException
      *             in the case the provided statements are not compliant with the ANTLR grammar
      */
-    public SqlCallableEngine(String name, String statement, SqlTypeFactory typeFactory) throws SqlEngineException {
+    public SqlProcedureEngine(String name, String statement, SqlTypeFactory typeFactory) throws SqlEngineException {
 
         super(name, SqlMetaStatement.getInstance(statement, typeFactory), null, null, null, typeFactory);
     }
@@ -107,7 +107,7 @@ public class SqlCallableEngine extends SqlEngine {
      * @throws SqlEngineException
      *             in the case the provided statements are not compliant with the ANTLR grammar
      */
-    public SqlCallableEngine(String name, String statement, SqlMonitor monitor, Map<String, Object> features,
+    public SqlProcedureEngine(String name, String statement, SqlMonitor monitor, Map<String, Object> features,
             SqlTypeFactory typeFactory) throws SqlEngineException {
 
         super(name, SqlMetaStatement.getInstance(statement, typeFactory), null, monitor, features, typeFactory);
@@ -126,7 +126,7 @@ public class SqlCallableEngine extends SqlEngine {
      * @param typeFactory
      *            the factory for the META types construction
      */
-    public SqlCallableEngine(String name, SqlMetaStatement statement, SqlTypeFactory typeFactory) {
+    public SqlProcedureEngine(String name, SqlMetaStatement statement, SqlTypeFactory typeFactory) {
 
         super(name, statement, null, null, null, typeFactory);
     }
@@ -150,7 +150,7 @@ public class SqlCallableEngine extends SqlEngine {
      * @param typeFactory
      *            the factory for the META types construction
      */
-    public SqlCallableEngine(String name, SqlMetaStatement statement, SqlMonitor monitor, Map<String, Object> features,
+    public SqlProcedureEngine(String name, SqlMetaStatement statement, SqlMonitor monitor, Map<String, Object> features,
             SqlTypeFactory typeFactory) {
         super(name, statement, null, monitor, features, typeFactory);
     }

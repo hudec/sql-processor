@@ -146,11 +146,11 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * {@inheritDoc}
      */
     @Override
-    public SqlCallableEngine getCallableEngine(String name) {
+    public SqlProcedureEngine getProcedureEngine(String name) {
         if (loader == null) {
             init();
         }
-        return loader.getCallableEngine(name);
+        return loader.getProcedureEngine(name);
     }
 
     /**
