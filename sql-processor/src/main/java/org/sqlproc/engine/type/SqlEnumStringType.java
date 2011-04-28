@@ -69,7 +69,7 @@ public abstract class SqlEnumStringType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setParameter(SqlQuery query, String paramName, Object inputValue, Class<?> inputType,
+    public void setParameter(SqlQuery query, String paramName, final Object inputValue, final Class<?> inputType,
             boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
@@ -79,7 +79,9 @@ public abstract class SqlEnumStringType extends SqlProviderType {
             query.setParameter(paramName, inputValue, getProviderSqlNullType());
         } else if (!inputValue.getClass().isEnum()) {
             if (!(inputValue instanceof Collection)) {
-                if (ingoreError) {
+                if (inputValue instanceof OutValueSetter) {
+                    query.setParameter(paramName, inputValue, getProviderSqlType());
+                } else if (ingoreError) {
                     logger.error("Incorrect string based enum " + inputValue + " for " + paramName);
                 } else {
                     throw new SqlRuntimeException("Incorrect string based enum " + inputValue + " for " + paramName);

@@ -110,7 +110,7 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object uniqueResult() throws SqlProcessorException {
+    public Object unique() throws SqlProcessorException {
         try {
             return query.uniqueResult();
         } catch (HibernateException he) {
@@ -122,7 +122,7 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int executeUpdate() throws SqlProcessorException {
+    public int update() throws SqlProcessorException {
         try {
             int updated = query.executeUpdate();
             if (!identities.isEmpty()) {
@@ -226,11 +226,18 @@ public class HibernateQuery implements SqlQuery {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public int call() throws SqlProcessorException {
+    public List callList() throws SqlProcessorException {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object callUnique() throws SqlProcessorException {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int callUpdate() throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 }

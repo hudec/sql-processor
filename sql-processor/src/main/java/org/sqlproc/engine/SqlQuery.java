@@ -52,7 +52,7 @@ public interface SqlQuery {
     SqlQuery setMaxResults(int maxResults);
 
     /**
-     * Returns the query results as a <tt>List</tt>. If the query contains multiple results pre row, the results are
+     * Returns the query results as a <tt>List</tt>. If the query contains multiple results per row, the results are
      * returned in an instance of <tt>Object[]</tt>.
      * 
      * @return the result list
@@ -68,7 +68,7 @@ public interface SqlQuery {
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    Object uniqueResult() throws SqlProcessorException;
+    Object unique() throws SqlProcessorException;
 
     /**
      * Executes the update, delete or insert statement.
@@ -77,15 +77,36 @@ public interface SqlQuery {
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    int executeUpdate() throws SqlProcessorException;
+    int update() throws SqlProcessorException;
 
     /**
-     * Executes the callable statement, which returns no result set.
+     * Returns the query results as a <tt>List</tt>. If the query contains multiple results per row, the results are
+     * returned in an instance of <tt>Object[]</tt>. It's based on the callableStatement invocation.
      * 
+     * @return the result list
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    int call() throws SqlProcessorException;
+    List callList() throws SqlProcessorException;
+
+    /**
+     * Convenience method to return a single instance that matches the query, or null if the query returns no results.
+     * It's based on the callableStatement invocation.
+     * 
+     * @return the single result or <tt>null</tt>
+     * @throws SqlProcessorException
+     *             in the case of any problem in ORM or JDBC stack
+     */
+    Object callUnique() throws SqlProcessorException;
+
+    /**
+     * Executes the update, delete or insert statement. It's based on the callableStatement invocation.
+     * 
+     * @return the number of affected rows
+     * @throws SqlProcessorException
+     *             in the case of any problem in ORM or JDBC stack
+     */
+    int callUpdate() throws SqlProcessorException;
 
     /**
      * Declares a scalar query result, which is an SQL query execution output value.

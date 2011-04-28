@@ -202,7 +202,7 @@ class SqlInputValue {
         if (sequence != null) {
             SqlQuery seqQuery = session.createSqlQuery(sequence);
             SqlProcessContext.getTypeFactory().getDefaultType().addScalar(seqQuery, "1", inputValueType);
-            identity = seqQuery.uniqueResult();
+            identity = seqQuery.unique();
             type.setParameter(query, paramName, identity, inputValueType);
         } else if (identitySelect != null) {
             SqlProcessContext.getTypeFactory().getIdentityType().setParameter(query, paramName, new IdentitySetter() {

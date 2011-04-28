@@ -48,4 +48,15 @@ public class Person extends PersonBase {
         birthDay.set(Calendar.MILLISECOND, 0);
         setBirthDate(birthDay.getTime());
     }
+
+    @Override
+    public String toString() {
+        return "Person [getAge()=" + getAge() + ", getId()=" + getId() + ", getBirthDate()=" + getBirthDate()
+                + ", getCreatedDate()=" + getCreatedDate() + ", getCreatedBy()=" + getCreatedBy()
+                + ", getLastUpdated()=" + getLastUpdated() + ", getLastUpdatedBy()=" + getLastUpdatedBy()
+                + ", getVersion()=" + getVersion() + ", getSex()=" + getSex() + ", getSsn()=" + getSsn()
+                + ", getName()=" + getName() + ", getContact()=" + getContact() + ", getClothesSize()="
+                + getClothesSize() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+                + super.toString() + "]";
+    }
 }

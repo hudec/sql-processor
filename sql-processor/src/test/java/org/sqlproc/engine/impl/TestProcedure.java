@@ -18,7 +18,10 @@ public class TestProcedure extends TestDatabase {
     }
 
     @Test
-    public void testCallableInsert2() {
+    public void testCallableInsertResultSetNull() {
+        if ("HSQLDB".equalsIgnoreCase(dbType))
+            return;
+
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);
@@ -29,17 +32,122 @@ public class TestProcedure extends TestDatabase {
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
         p.setName(new PersonName());
-        p.getName().setFirst("Toby");
+        p.getName().setFirst("Toby5");
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
-        p.setSex(Gender.MALE);
+
+        SqlProcedureEngine callableEngine = getCallableEngine("INSERT_PERSON_CALL_RESULT_SET");
+
+        String sql = callableEngine.getCallSql(p, null);
+        logger.info(sql);
+
+        list = callableEngine.callQuery(session, Person.class, p, null, 0);
+        assertEquals(1, list.size());
+        Person p2 = list.get(0);
+        logger.info("New person is " + p2);
+
+        assertNotNull(p2.getId());
+        assertEquals(p.getSsn().getNumber(), p2.getSsn().getNumber());
+        assertEquals(p.getSsn().getCountry(), p2.getSsn().getCountry());
+        assertEquals(p.getName().getFirst(), p2.getName().getFirst());
+        assertEquals(p.getName().getLast(), p2.getName().getLast());
+        assertEquals(p.getAge(), p2.getAge());
+        assertEquals(Gender.MALE, p2.getSex());
+    }
+
+    @Test
+    public void testCallableInsertResultSet() {
+        if ("HSQLDB".equalsIgnoreCase(dbType))
+            return;
+
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        List<Person> list = sqlEngine.query(session, Person.class);
+        assertEquals(2, list.size());
+
+        Person p = new Person();
+        p.setSsn(new Ssn());
+        p.getSsn().setNumber("345678");
+        p.getSsn().setCountry(Country.UNITED_STATES);
+        p.setName(new PersonName());
+        p.getName().setFirst("Toby4");
+        p.getName().setLast("Stephens");
+        p.setAge(1969, 4, 21);
+        p.setSex(Gender.FEMALE);
+
+        SqlProcedureEngine callableEngine = getCallableEngine("INSERT_PERSON_CALL_RESULT_SET");
+
+        String sql = callableEngine.getCallSql(p, null);
+        logger.info(sql);
+
+        list = callableEngine.callQuery(session, Person.class, p, null, 0);
+        assertEquals(1, list.size());
+        Person p2 = list.get(0);
+        logger.info("New person is " + p2);
+
+        assertNotNull(p2.getId());
+        assertEquals(p.getSsn().getNumber(), p2.getSsn().getNumber());
+        assertEquals(p.getSsn().getCountry(), p2.getSsn().getCountry());
+        assertEquals(p.getName().getFirst(), p2.getName().getFirst());
+        assertEquals(p.getName().getLast(), p2.getName().getLast());
+        assertEquals(p.getAge(), p2.getAge());
+        assertEquals(p.getSex(), p2.getSex());
+    }
+
+    @Test
+    public void testCallableInsertMetaTypesNull() {
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        List<Person> list = sqlEngine.query(session, Person.class);
+        assertEquals(2, list.size());
+
+        Person p = new Person();
+        p.setSsn(new Ssn());
+        p.getSsn().setNumber("345678");
+        p.getSsn().setCountry(Country.UNITED_STATES);
+        p.setName(new PersonName());
+        p.getName().setFirst("Toby3");
+        p.getName().setLast("Stephens");
+        p.setAge(1969, 4, 21);
 
         SqlProcedureEngine callableEngine = getCallableEngine("INSERT_PERSON_CALL_2");
 
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        int count = callableEngine.call(session, p, null, 0);
+        int count = callableEngine.callUpdate(session, p, null, 0);
+        assertEquals(0, count);
+        logger.info("new id: " + p.getId());
+        assertNotNull(p.getId());
+        assertEquals(Gender.MALE, p.getSex());
+
+        list = sqlEngine.query(session, Person.class);
+        assertEquals(3, list.size());
+    }
+
+    @Test
+    public void testCallableInsertMetaTypes() {
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        List<Person> list = sqlEngine.query(session, Person.class);
+        assertEquals(2, list.size());
+
+        Person p = new Person();
+        p.setSsn(new Ssn());
+        p.getSsn().setNumber("345678");
+        p.getSsn().setCountry(Country.UNITED_STATES);
+        p.setName(new PersonName());
+        p.getName().setFirst("Toby2");
+        p.getName().setLast("Stephens");
+        p.setAge(1969, 4, 21);
+        p.setSex(Gender.FEMALE);
+
+        SqlProcedureEngine callableEngine = getCallableEngine("INSERT_PERSON_CALL_2");
+
+        String sql = callableEngine.getCallSql(p, null);
+        logger.info(sql);
+
+        int count = callableEngine.callUpdate(session, p, null, 0);
         assertEquals(0, count);
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
@@ -60,17 +168,17 @@ public class TestProcedure extends TestDatabase {
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
         p.setName(new PersonName());
-        p.getName().setFirst("Toby");
+        p.getName().setFirst("Toby1");
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
-        p.setSex(Gender.MALE);
+        p.setSex(Gender.FEMALE);
 
         SqlProcedureEngine callableEngine = getCallableEngine("INSERT_PERSON_CALL");
 
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        int count = callableEngine.call(session, p, null, 0);
+        int count = callableEngine.callUpdate(session, p, null, 0);
         assertEquals(0, count);
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());

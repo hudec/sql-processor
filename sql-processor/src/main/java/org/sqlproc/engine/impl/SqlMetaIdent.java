@@ -274,7 +274,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         } else {
             try {
                 result.add(SqlUtils.isEmpty(obj, sqlType, ctx.inSqlSetOrInsert
-                        || (inOutMode == SqlInputValue.Mode.OUT || inOutMode == SqlInputValue.Mode.INOUT)));
+                        || ctx.sqlStatementType == SqlMetaStatement.Type.CALL));
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
             }

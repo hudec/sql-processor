@@ -79,7 +79,9 @@ public abstract class SqlEnumIntegerType extends SqlProviderType {
             query.setParameter(paramName, inputValue, getProviderSqlNullType());
         } else if (!inputValue.getClass().isEnum()) {
             if (!(inputValue instanceof Collection)) {
-                if (ingoreError) {
+                if (inputValue instanceof OutValueSetter) {
+                    query.setParameter(paramName, inputValue, getProviderSqlType());
+                } else if (ingoreError) {
                     logger.error("Incorrect integer based enum " + inputValue + " for " + paramName);
                 } else {
                     throw new SqlRuntimeException("Incorrect integer based enum " + inputValue + " for " + paramName);

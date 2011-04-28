@@ -228,7 +228,7 @@ public class SqlCrudEngine extends SqlEngine {
                         query.setTimeout(maxTimeout);
                     processResult.setQueryParams(session, query);
 
-                    Integer count = query.executeUpdate();
+                    Integer count = query.update();
                     processResult.postProcess();
                     return count;
                 }
@@ -348,7 +348,7 @@ public class SqlCrudEngine extends SqlEngine {
                     SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, moreResultClasses, query);
 
-                    Object resultRow = query.uniqueResult();
+                    Object resultRow = query.unique();
                     if (resultRow != null) {
                         Object resultValue[] = (resultRow instanceof Object[]) ? (Object[]) (Object[]) resultRow
                                 : (new Object[] { resultRow });
@@ -443,7 +443,7 @@ public class SqlCrudEngine extends SqlEngine {
                         query.setTimeout(maxTimeout);
                     processResult.setQueryParams(session, query);
 
-                    return query.executeUpdate();
+                    return query.update();
                 }
             }, Integer.class);
             return count;
@@ -523,7 +523,7 @@ public class SqlCrudEngine extends SqlEngine {
                         query.setTimeout(maxTimeout);
                     processResult.setQueryParams(session, query);
 
-                    return query.executeUpdate();
+                    return query.update();
                 }
             }, Integer.class);
             return count;

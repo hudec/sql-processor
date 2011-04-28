@@ -67,6 +67,10 @@ public class JdbcQuery implements SqlQuery {
      */
     Map<String, Object> parameterTypes = new HashMap<String, Object>();
     /**
+     * The collection of all parameters types for output values.
+     */
+    Map<String, Object> parameterOutValueTypes = new HashMap<String, Object>();
+    /**
      * The collection of all parameters output value setters.
      */
     Map<String, OutValueSetter> parameterOutValueSetters = new HashMap<String, OutValueSetter>();
@@ -196,7 +200,7 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object uniqueResult() throws SqlProcessorException {
+    public Object unique() throws SqlProcessorException {
         List list = list();
         int size = list.size();
         if (size == 0)
@@ -215,7 +219,7 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int executeUpdate() throws SqlProcessorException {
+    public int update() throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("update, query=" + queryString);
         }
@@ -301,9 +305,9 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int call() throws SqlProcessorException {
+    public List callList() throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
-            logger.debug("call, query=" + queryString);
+            logger.debug("callList, query=" + queryString);
         }
         CallableStatement cs = null;
         ResultSet rs = null;
@@ -312,21 +316,73 @@ public class JdbcQuery implements SqlQuery {
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
             setParameters(cs, null);
-            boolean bool = cs.execute();
+            rs = cs.executeQuery();
+            List list = getResults(rs);
             if (logger.isDebugEnabled()) {
-                logger.debug("call, execute result=" + bool);
-            }
-            if (bool) {
-                rs = cs.getResultSet();
-                if (rs != null) {
-                    List list = getResults(rs);
-                    if (logger.isDebugEnabled()) {
-                        logger.debug("call, list=" + list);
-                    }
-                }
+                logger.debug("list, number of returned rows=" + ((list != null) ? list.size() : "null"));
             }
             getParameters(cs);
-            return 0;
+            return list;
+        } catch (SQLException he) {
+            throw new SqlProcessorException(he);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (cs != null) {
+                try {
+                    cs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+        }
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object callUnique() throws SqlProcessorException {
+        List list = callList();
+        int size = list.size();
+        if (size == 0)
+            return null;
+        Object first = list.get(0);
+        for (int i = 1; i < size; i++) {
+            if (list.get(i) != first) {
+                throw new SqlProcessorException("There's no unique result, the number of returned rows is "
+                        + list.size());
+            }
+        }
+        return first;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int callUpdate() throws SqlProcessorException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("callUpdate, query=" + queryString);
+        }
+        CallableStatement cs = null;
+        ResultSet rs = null;
+        try {
+            cs = connection.prepareCall("{" + queryString + "}");
+            if (timeout != null)
+                cs.setQueryTimeout(timeout);
+            setParameters(cs, null);
+            cs.execute();
+            int updated = cs.getUpdateCount();
+            if (logger.isDebugEnabled()) {
+                logger.debug("callUpdate, number of updated rows=" + updated);
+            }
+            getParameters(cs);
+            return updated;
         } catch (SQLException he) {
             throw new SqlProcessorException(he);
         } finally {
@@ -388,6 +444,7 @@ public class JdbcQuery implements SqlQuery {
                 parameters.add(name);
                 parameterTypes.put(name, type);
             }
+            parameterOutValueTypes.put(name, type);
             parameterOutValueSetters.put(name, (OutValueSetter) val);
         } else {
             parameters.add(name);
@@ -434,6 +491,8 @@ public class JdbcQuery implements SqlQuery {
                 if (type != null) {
                     if (type instanceof JdbcSqlType) {
                         ((JdbcSqlType) type).set(ps, ix + i, value);
+                    } else if (value == null) {
+                        ps.setNull(ix + i, (Integer) type);
                     } else {
                         ps.setObject(ix + i, value, (Integer) type);
                     }
@@ -516,7 +575,9 @@ public class JdbcQuery implements SqlQuery {
             int i = iter.next();
             int ix = parameterOutValuesToPickup.get(i);
             String name = parameters.get(i);
-            Object type = parameterTypes.get(name);
+            Object type = parameterOutValueTypes.get(name);
+            if (type == null)
+                type = parameterTypes.get(name);
             OutValueSetter outValueSetter = parameterOutValueSetters.get(name);
             Object outValue = null;
 

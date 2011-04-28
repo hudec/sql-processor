@@ -192,7 +192,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object uniqueResult() throws SqlProcessorException {
+    public Object unique() throws SqlProcessorException {
         List list = list();
         int size = list.size();
         if (size == 0)
@@ -211,7 +211,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int executeUpdate() throws SqlProcessorException {
+    public int update() throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("update, query=" + queryString);
         }
@@ -494,11 +494,18 @@ public class SpringQuery implements SqlQuery {
         return result;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public int call() throws SqlProcessorException {
+    public List callList() throws SqlProcessorException {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object callUnique() throws SqlProcessorException {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int callUpdate() throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 }

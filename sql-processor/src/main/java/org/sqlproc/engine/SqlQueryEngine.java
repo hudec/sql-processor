@@ -509,7 +509,7 @@ public class SqlQueryEngine extends SqlEngine {
                     if (maxTimeout > 0)
                         queryCount.setTimeout(maxTimeout);
                     processResult.setQueryParams(session, queryCount);
-                    return (Integer) queryCount.uniqueResult();
+                    return (Integer) queryCount.unique();
                 }
             }, Integer.class);
             return count;
