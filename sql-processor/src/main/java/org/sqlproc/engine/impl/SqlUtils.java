@@ -1,6 +1,7 @@
 package org.sqlproc.engine.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -40,6 +41,17 @@ public class SqlUtils {
             } catch (InvocationTargetException e) {
                 throw new RuntimeException(e);
             }
+        }
+        return null;
+    }
+
+    public static Class getEnumToClass(Class clazz) {
+        if (clazz == null)
+            return null;
+        for (String methodName : SqlProcessContext.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+            Method m = MethodUtils.getMatchingAccessibleMethod(clazz, methodName, new Class[] {});
+            if (m != null)
+                return m.getReturnType();
         }
         return null;
     }

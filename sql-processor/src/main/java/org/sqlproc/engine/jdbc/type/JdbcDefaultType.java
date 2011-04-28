@@ -139,11 +139,11 @@ public class JdbcDefaultType extends SqlMetaType {
         }
         if (!(inputValue instanceof Collection)) {
             if (inputType.isEnum()) {
-                Object o = SqlUtils.getEnumToValue(inputValue);
-                if (o != null && o instanceof Integer) {
-                    JdbcTypeFactory.INTEGER.setParameter(query, paramName, o, Integer.class, ingoreError);
-                } else if (o != null && o instanceof String) {
-                    JdbcTypeFactory.STRING.setParameter(query, paramName, o, String.class, ingoreError);
+                Class clazz = SqlUtils.getEnumToClass(inputType);
+                if (clazz == String.class) {
+                    JdbcTypeFactory.ENUM_STRING.setParameter(query, paramName, inputValue, inputType, ingoreError);
+                } else if (clazz == Integer.class) {
+                    JdbcTypeFactory.ENUM_INT.setParameter(query, paramName, inputValue, inputType, ingoreError);
                 } else {
                     if (ingoreError) {
                         logger.error("Incorrect type based enum " + inputValue + " for " + paramName);
