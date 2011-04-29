@@ -167,7 +167,7 @@ public class SqlProcessContext {
     SqlOrder.Order getOrder(int orderIndex) {
         if (orderIndex < 0 || orderIndex >= order.size())
             return SqlOrder.Order.NONE;
-        return order.get(orderIndex).getOrderDirrection();
+        return order.get(orderIndex).getOrderDirection();
     }
 
     /**
