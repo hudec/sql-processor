@@ -18,6 +18,44 @@ public class TestProcedure extends TestDatabase {
     }
 
     @Test
+    public void testCallableInsertResultDefaultTypes() {
+        if ("HSQLDB".equalsIgnoreCase(dbType))
+            return;
+
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        List<Person> list = sqlEngine.query(session, Person.class);
+        assertEquals(2, list.size());
+
+        Person p = new Person();
+        p.setSsn(new Ssn());
+        p.getSsn().setNumber("345678");
+        p.getSsn().setCountry(Country.UNITED_STATES);
+        p.setName(new PersonName());
+        p.getName().setFirst("Toby6");
+        p.getName().setLast("Stephens");
+        p.setAge(1969, 4, 21);
+
+        SqlProcedureEngine callableEngine = getCallableEngine("INSERT_PERSON_CALL_RESULT_SET_2");
+
+        String sql = callableEngine.getCallSql(p, null);
+        logger.info(sql);
+
+        list = callableEngine.callQuery(session, Person.class, p, null, 0);
+        assertEquals(1, list.size());
+        Person p2 = list.get(0);
+        logger.info("New person is " + p2);
+
+        assertNotNull(p2.getId());
+        assertEquals(p.getSsn().getNumber(), p2.getSsn().getNumber());
+        assertEquals(p.getSsn().getCountry(), p2.getSsn().getCountry());
+        assertEquals(p.getName().getFirst(), p2.getName().getFirst());
+        assertEquals(p.getName().getLast(), p2.getName().getLast());
+        assertEquals(p.getAge(), p2.getAge());
+        assertEquals(Gender.MALE, p2.getSex());
+    }
+
+    @Test
     public void testCallableInsertResultSetNull() {
         if ("HSQLDB".equalsIgnoreCase(dbType))
             return;
@@ -116,7 +154,7 @@ public class TestProcedure extends TestDatabase {
         logger.info(sql);
 
         int count = callableEngine.callUpdate(session, p, null, 0);
-        assertEquals(0, count);
+        assertTrue("Number of updated rows is 0 or 1", count == 0 || count == -1);
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
         assertEquals(Gender.MALE, p.getSex());
@@ -148,9 +186,40 @@ public class TestProcedure extends TestDatabase {
         logger.info(sql);
 
         int count = callableEngine.callUpdate(session, p, null, 0);
-        assertEquals(0, count);
+        assertTrue("Number of updated rows is 0 or 1", count == 0 || count == -1);
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
+
+        list = sqlEngine.query(session, Person.class);
+        assertEquals(3, list.size());
+    }
+
+    @Test
+    public void testCallableInsertNull() {
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        List<Person> list = sqlEngine.query(session, Person.class);
+        assertEquals(2, list.size());
+
+        Person p = new Person();
+        p.setSsn(new Ssn());
+        p.getSsn().setNumber("345678");
+        p.getSsn().setCountry(Country.UNITED_STATES);
+        p.setName(new PersonName());
+        p.getName().setFirst("Toby1");
+        p.getName().setLast("Stephens");
+        p.setAge(1969, 4, 21);
+
+        SqlProcedureEngine callableEngine = getCallableEngine("INSERT_PERSON_CALL");
+
+        String sql = callableEngine.getCallSql(p, null);
+        logger.info(sql);
+
+        int count = callableEngine.callUpdate(session, p, null, 0);
+        assertTrue("Number of updated rows is 0 or 1", count == 0 || count == -1);
+        logger.info("new id: " + p.getId());
+        assertNotNull(p.getId());
+        assertEquals(Gender.MALE, p.getSex());
 
         list = sqlEngine.query(session, Person.class);
         assertEquals(3, list.size());
@@ -179,7 +248,7 @@ public class TestProcedure extends TestDatabase {
         logger.info(sql);
 
         int count = callableEngine.callUpdate(session, p, null, 0);
-        assertEquals(0, count);
+        assertTrue("Number of updated rows is 0 or 1", count == 0 || count == -1);
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
 

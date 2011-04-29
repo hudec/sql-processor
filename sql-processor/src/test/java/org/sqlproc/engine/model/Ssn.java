@@ -29,4 +29,8 @@ public class Ssn {
         this.country = country;
     }
 
+    @Override
+    public String toString() {
+        return "Ssn [number=" + number + ", country=" + country + "]";
+    }
 }

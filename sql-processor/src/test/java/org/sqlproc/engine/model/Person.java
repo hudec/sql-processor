@@ -46,7 +46,7 @@ public class Person extends PersonBase {
         birthDay.set(Calendar.MINUTE, 0);
         birthDay.set(Calendar.SECOND, 0);
         birthDay.set(Calendar.MILLISECOND, 0);
-        setBirthDate(birthDay.getTime());
+        setBirthDate(new java.sql.Date(birthDay.getTime().getTime()));
     }
 
     @Override
@@ -56,7 +56,6 @@ public class Person extends PersonBase {
                 + ", getLastUpdated()=" + getLastUpdated() + ", getLastUpdatedBy()=" + getLastUpdatedBy()
                 + ", getVersion()=" + getVersion() + ", getSex()=" + getSex() + ", getSsn()=" + getSsn()
                 + ", getName()=" + getName() + ", getContact()=" + getContact() + ", getClothesSize()="
-                + getClothesSize() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-                + super.toString() + "]";
+                + getClothesSize() + "]";
     }
 }

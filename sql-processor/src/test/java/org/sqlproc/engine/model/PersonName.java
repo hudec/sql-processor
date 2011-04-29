@@ -28,4 +28,9 @@ public class PersonName {
     public void setLast(String last) {
         this.last = last;
     }
+
+    @Override
+    public String toString() {
+        return "PersonName [first=" + first + ", last=" + last + "]";
+    }
 }

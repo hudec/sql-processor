@@ -28,6 +28,8 @@ DROP TABLE IF EXISTS TYPES CASCADE;
 
 DROP PROCEDURE IF EXISTS new_person;
 
+DROP PROCEDURE IF EXISTS new_person_ret;
+
 
 ###########################################
 # Create
