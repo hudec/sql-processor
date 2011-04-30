@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -171,7 +173,7 @@ public class JdbcQuery implements SqlQuery {
             ps = connection.prepareStatement(query);
             if (timeout != null)
                 ps.setQueryTimeout(timeout);
-            setParameters(ps, limitType);
+            setParameters(ps, limitType, 1);
             rs = ps.executeQuery();
             List list = getResults(rs);
             if (logger.isDebugEnabled()) {
@@ -228,7 +230,7 @@ public class JdbcQuery implements SqlQuery {
             ps = connection.prepareStatement(queryString);
             if (timeout != null)
                 ps.setQueryTimeout(timeout);
-            setParameters(ps, null);
+            setParameters(ps, null, 1);
             int updated = ps.executeUpdate();
             if (logger.isDebugEnabled()) {
                 logger.debug("update, number of updated rows=" + updated);
@@ -301,6 +303,8 @@ public class JdbcQuery implements SqlQuery {
         }
     }
 
+    static final Pattern CALL = Pattern.compile("\\s*\\{?\\s*(\\?)?\\s*(-?\\d+)?\\s*=?\\s*call\\s*(.*?)\\s*}?\\s*");
+
     /**
      * {@inheritDoc}
      */
@@ -311,13 +315,27 @@ public class JdbcQuery implements SqlQuery {
         }
         CallableStatement cs = null;
         ResultSet rs = null;
+        List list = null;
         try {
-            cs = connection.prepareCall("{" + queryString + "}");
+            Matcher matcher = CALL.matcher(queryString);
+            if (!matcher.matches())
+                throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
+            Integer retType = (matcher.group(2) != null) ? retType = Integer.parseInt(matcher.group(2)) : null;
+            String query = (matcher.group(1) != null) ? "{? = call " + matcher.group(3) + "}" : "{ call "
+                    + matcher.group(3) + "}";
+            cs = connection.prepareCall(query);
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
-            setParameters(cs, null);
-            rs = cs.executeQuery();
-            List list = getResults(rs);
+            if (retType != null) {
+                cs.registerOutParameter(1, retType);
+                setParameters(cs, null, 2);
+                cs.executeQuery();
+                rs = (ResultSet) cs.getObject(1);
+            } else {
+                setParameters(cs, null, 1);
+                rs = cs.executeQuery();
+            }
+            list = getResults(rs);
             if (logger.isDebugEnabled()) {
                 logger.debug("list, number of returned rows=" + ((list != null) ? list.size() : "null"));
             }
@@ -375,7 +393,7 @@ public class JdbcQuery implements SqlQuery {
             cs = connection.prepareCall("{" + queryString + "}");
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
-            setParameters(cs, null);
+            setParameters(cs, null, 1);
             cs.execute();
             int updated = cs.getUpdateCount();
             if (logger.isDebugEnabled()) {
@@ -480,8 +498,8 @@ public class JdbcQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>PreparedStatement</code>
      */
-    protected void setParameters(PreparedStatement ps, SqlUtils.LimitType limitType) throws SQLException {
-        int ix = 1;
+    protected void setParameters(PreparedStatement ps, SqlUtils.LimitType limitType, int start) throws SQLException {
+        int ix = start;
         ix = setLimits(ps, limitType, ix, false);
         for (int i = 0, n = parameters.size(); i < n; i++) {
             String name = parameters.get(i);

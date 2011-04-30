@@ -74,11 +74,6 @@ import org.sqlproc.engine.type.SqlTypeFactory;
 public class SqlProcedureEngine extends SqlEngine {
 
     /**
-     * This is in fact OracleTypes.CURSOR from Oracle JDBC.
-     */
-    public static final int ORACLE_CURSOR = -10;
-
-    /**
      * Creates a new instance of the SqlQueryEngine from one META SQL query string and one SQL mapping rule string.
      * Constructor will call the internal ANTLR parsers for the query and the mapping rule instances construction. This
      * constructor is devoted to manual META SQL queries and mapping rules construction. More obvious is to put these
