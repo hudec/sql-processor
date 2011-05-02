@@ -33,7 +33,11 @@ public class JdbcCharType extends SqlCharType implements JdbcSqlType {
 
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        String str = rs.getString(columnLabel);
+        String str;
+        if (Character.isDigit(columnLabel.charAt(0)))
+            str = rs.getString(Integer.parseInt(columnLabel));
+        else
+            str = rs.getString(columnLabel);
         if (str == null) {
             return null;
         } else {

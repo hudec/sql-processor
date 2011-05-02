@@ -65,9 +65,9 @@ mapping returns[SqlMappingItem item]
 @init{ SqlMappingAttribute attr; }
 :
   (
-   col=IDENT { $item = new SqlMappingItem($col.text); }
+   col=(IDENT | NUMBER) { $item = new SqlMappingItem($col.text); }
    (STRING
-    mappingType[$item]
+    (type=IDENT { setMetaType($parse::typeFactory, $item, $type.text); })?
     (STRING
      col=IDENT { attr = $item.addAttributeName($col.text); }
      mappingValues[attr]
@@ -79,12 +79,6 @@ mapping returns[SqlMappingItem item]
    )?
   )
 ;
-
-mappingType [SqlMappingItem item]
-:
-      (type=IDENT { setMetaType($parse::typeFactory, $item, $type.text); })?
-;
-
 
 mappingValues [SqlMappingAttribute attr]
 :

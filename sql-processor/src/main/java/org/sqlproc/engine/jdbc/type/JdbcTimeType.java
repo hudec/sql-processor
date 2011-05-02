@@ -34,7 +34,10 @@ public class JdbcTimeType extends SqlTimeType implements JdbcSqlType {
 
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        return rs.getTime(columnLabel);
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return rs.getTime(Integer.parseInt(columnLabel));
+        else
+            return rs.getTime(columnLabel);
     }
 
     @Override

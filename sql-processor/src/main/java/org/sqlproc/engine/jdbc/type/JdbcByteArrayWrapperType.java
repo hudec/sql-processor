@@ -34,7 +34,11 @@ public class JdbcByteArrayWrapperType extends SqlByteArrayType implements JdbcSq
 
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        byte[] bytes = rs.getBytes(columnLabel);
+        byte[] bytes;
+        if (Character.isDigit(columnLabel.charAt(0)))
+            bytes = rs.getBytes(Integer.parseInt(columnLabel));
+        else
+            bytes = rs.getBytes(columnLabel);
         if (bytes == null)
             return null;
         int length = bytes.length;

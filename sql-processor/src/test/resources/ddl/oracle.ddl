@@ -31,6 +31,13 @@ DROP TABLE MEDIA CASCADE CONSTRAINTS PURGE;
 DROP SEQUENCE SQLPROC_SEQUENCE;
 
 
+DROP PROCEDURE IF EXISTS new_person;
+
+DROP PROCEDURE IF EXISTS new_person_ret;
+
+DROP FUNCTION IF EXISTS an_hour_before;
+
+
 ###########################################
 # Create
 ###########################################
@@ -360,3 +367,9 @@ BEGIN
    END;
 END new_person_ret;
 
+CREATE OR REPLACE FUNCTION an_hour_before (t IN DATE)
+RETURN DATE
+AS 
+BEGIN
+   RETURN t - INTERVAL '1' HOUR;
+END an_hour_before;

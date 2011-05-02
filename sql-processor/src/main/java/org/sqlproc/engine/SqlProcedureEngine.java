@@ -322,6 +322,78 @@ public class SqlProcedureEngine extends SqlEngine {
     }
 
     /**
+     * Runs the META SQL query to obtain a list of database rows. This is the primary and the most complex SQL Processor
+     * execution method to obtain a list of result class instances. Criteria to pickup the correct database rows are
+     * taken from the input values.
+     * 
+     * @param session
+     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
+     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
+     *            Hibernate session.
+     * @param resultClass
+     *            The class used for the return values, the SQL query execution output. This class is also named as the
+     *            output class or the transport class, In fact it's a standard POJO class, which must include all the
+     *            attributes described in the mapping rule statement. This class itself and all its subclasses must have
+     *            public constructors without any parameters. All the attributes used in the mapping rule statement must
+     *            be accessible using public getters and setters. The instances of this class are created on the fly in
+     *            the process of query execution using the reflection API.
+     * @param dynamicInputValues
+     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
+     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     * @param staticInputValues
+     *            The object used for the SQL statement static input values. The class of this object is also named as
+     *            the input class or the static parameters class. The exact class type isn't important, all the
+     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
+     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
+     *            prevent SQL injection threat!
+     * @param maxTimeout
+     *            The max SQL execution time. This parameter can help to protect production system against ineffective
+     *            SQL query commands. The value is in milliseconds.
+     * @return The list of the resultClass instances.
+     * @throws org.hibernate.SqlProcessorException
+     *             in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with the input/output values handling
+     */
+    @SuppressWarnings("unchecked")
+    public Object callFunction(final SqlSession session, final Object dynamicInputValues,
+            final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        if (logger.isDebugEnabled()) {
+            logger.debug(">> query, session=" + session + ", dynamicInputValues=" + dynamicInputValues
+                    + ", staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout);
+        }
+
+        Object result = null;
+
+        try {
+            result = monitor.run(new SqlMonitor.Runner() {
+                public Object run() {
+                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
+                            staticInputValues, null, features, typeFactory);
+                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
+                    if (maxTimeout > 0)
+                        query.setTimeout(maxTimeout);
+                    processResult.setQueryParams(session, query);
+                    if (mapping != null) {
+                        SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
+                        mappingResult.setQueryResultMapping(Object.class, null, query);
+                    }
+
+                    Object result = query.callFunction();
+                    processResult.postProcess();
+                    return result;
+                }
+            }, Object.class);
+            return result;
+        } finally {
+            if (logger.isDebugEnabled()) {
+                logger.debug("<< query, result=" + result);
+            }
+        }
+    }
+
+    /**
      * Returns the insert statement derived from the META SQL statement. For the parameters description please see the
      * most complex execution method {@link #getSql(Object, Object, org.sqlproc.engine.impl.SqlMetaStatement.Type)} .
      */

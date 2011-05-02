@@ -36,7 +36,10 @@ public class JdbcByteType extends SqlByteType implements JdbcSqlType {
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        return new Byte(rs.getByte(columnLabel));
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return new Byte(rs.getByte(Integer.parseInt(columnLabel)));
+        else
+            return new Byte(rs.getByte(columnLabel));
     }
 
     /**

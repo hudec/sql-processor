@@ -36,7 +36,10 @@ public class JdbcEnumIntegerType extends SqlEnumIntegerType implements JdbcSqlTy
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        return new Integer(rs.getInt(columnLabel));
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return new Integer(rs.getInt(Integer.parseInt(columnLabel)));
+        else
+            return new Integer(rs.getInt(columnLabel));
     }
 
     /**

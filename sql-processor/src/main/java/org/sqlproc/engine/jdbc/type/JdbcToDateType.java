@@ -37,7 +37,10 @@ public class JdbcToDateType extends SqlToDateType implements JdbcSqlType {
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        return rs.getDate(columnLabel);
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return rs.getDate(Integer.parseInt(columnLabel));
+        else
+            return rs.getDate(rs.getByte(columnLabel));
     }
 
     /**

@@ -37,7 +37,10 @@ public class JdbcBigDecimalType extends SqlBigDecimalType implements JdbcSqlType
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        return rs.getBigDecimal(columnLabel);
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return rs.getBigDecimal(Integer.parseInt(columnLabel));
+        else
+            return rs.getBigDecimal(columnLabel);
     }
 
     /**

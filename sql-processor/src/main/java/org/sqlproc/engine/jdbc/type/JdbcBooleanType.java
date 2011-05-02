@@ -36,7 +36,10 @@ public class JdbcBooleanType extends SqlBooleanType implements JdbcSqlType {
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        return rs.getBoolean(columnLabel) ? Boolean.TRUE : Boolean.FALSE;
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return rs.getBoolean(Integer.parseInt(columnLabel)) ? Boolean.TRUE : Boolean.FALSE;
+        else
+            return rs.getBoolean(columnLabel) ? Boolean.TRUE : Boolean.FALSE;
     }
 
     /**

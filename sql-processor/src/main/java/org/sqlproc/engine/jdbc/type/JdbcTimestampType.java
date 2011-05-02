@@ -37,7 +37,10 @@ public class JdbcTimestampType extends SqlTimestampType implements JdbcSqlType {
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        return rs.getTimestamp(columnLabel);
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return rs.getTimestamp(Integer.parseInt(columnLabel));
+        else
+            return rs.getTimestamp(columnLabel);
     }
 
     /**

@@ -364,6 +364,66 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
+    public Object callFunction() throws SqlProcessorException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("callFunction, query=" + queryString);
+        }
+        CallableStatement cs = null;
+        ResultSet rs = null;
+        List list = null;
+        Object result = null;
+        boolean hasResultSet = false;
+
+        try {
+            Matcher matcher = CALL.matcher(queryString);
+            if (!matcher.matches())
+                throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
+            Integer retType = (matcher.group(2) != null) ? retType = Integer.parseInt(matcher.group(2)) : null;
+            String query = (matcher.group(1) != null) ? "{? = call " + matcher.group(3) + "}" : "{call "
+                    + matcher.group(3) + "}";
+            cs = connection.prepareCall(query);
+            if (timeout != null)
+                cs.setQueryTimeout(timeout);
+            if (retType != null) {
+                throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
+            } else {
+                setParameters(cs, null, 1);
+                hasResultSet = cs.execute();
+            }
+            if (hasResultSet) {
+                rs = cs.getResultSet();
+                list = getResults(rs);
+                if (list != null && !list.isEmpty())
+                    result = list.get(0);
+            }
+            if (logger.isDebugEnabled()) {
+                logger.debug("callFunction, result=" + result);
+            }
+            getParameters(cs);
+            return result;
+        } catch (SQLException he) {
+            throw new SqlProcessorException(he);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (cs != null) {
+                try {
+                    cs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+        }
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object callUnique() throws SqlProcessorException {
         List list = callList();
         int size = list.size();
@@ -619,6 +679,8 @@ public class JdbcQuery implements SqlQuery {
      */
     protected List getResults(ResultSet rs) throws SQLException {
         List result = new ArrayList();
+        if (rs == null)
+            return result;
         while (rs.next()) {
             List<Object> row = new ArrayList<Object>();
             for (int i = 0, n = scalars.size(); i < n; i++) {

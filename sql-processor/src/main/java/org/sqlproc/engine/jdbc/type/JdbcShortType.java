@@ -36,7 +36,10 @@ public class JdbcShortType extends SqlShortType implements JdbcSqlType {
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        return new Short(rs.getShort(columnLabel));
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return new Short(rs.getShort(Integer.parseInt(columnLabel)));
+        else
+            return new Short(rs.getShort(columnLabel));
     }
 
     /**

@@ -108,6 +108,8 @@ public interface SqlQuery {
      */
     int callUpdate() throws SqlProcessorException;
 
+    Object callFunction() throws SqlProcessorException;
+
     /**
      * Declares a scalar query result, which is an SQL query execution output value.
      * 

@@ -76,6 +76,8 @@ public abstract class SqlTimestampType extends SqlProviderType {
             query.setParameter(paramName, (java.sql.Timestamp) inputValue, getProviderSqlType());
         } else if (inputValue instanceof Date) {
             query.setParameter(paramName, (Date) inputValue, getProviderSqlType());
+        } else if (inputValue instanceof OutValueSetter) {
+            query.setParameter(paramName, inputValue, getProviderSqlType());
         } else if (ingoreError) {
             logger.error("Incorrect timestamp " + inputValue + " for " + paramName);
         } else {

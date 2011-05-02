@@ -40,7 +40,11 @@ public class JdbcTextType extends SqlTextType implements JdbcSqlType {
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        Reader charReader = rs.getCharacterStream(columnLabel);
+        Reader charReader;
+        if (Character.isDigit(columnLabel.charAt(0)))
+            charReader = rs.getCharacterStream(Integer.parseInt(columnLabel));
+        else
+            charReader = rs.getCharacterStream(columnLabel);
         if (charReader == null)
             return null;
         StringBuffer sb = new StringBuffer();

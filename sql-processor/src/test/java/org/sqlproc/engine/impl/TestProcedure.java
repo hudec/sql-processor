@@ -1,5 +1,6 @@
 package org.sqlproc.engine.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,6 +16,48 @@ public class TestProcedure extends TestDatabase {
 
     protected String getDataSetFile(String dbType) {
         return "dbunit/JoinsTest.xml";
+    }
+
+    public static class FormSimpleFunction {
+        private java.sql.Timestamp time;
+        private java.sql.Timestamp time2;
+
+        public java.sql.Timestamp getTime() {
+            return time;
+        }
+
+        public void setTime(java.sql.Timestamp time) {
+            this.time = time;
+        }
+
+        public java.sql.Timestamp getTime2() {
+            return time2;
+        }
+
+        public void setTime2(java.sql.Timestamp time2) {
+            this.time2 = time2;
+        }
+    }
+
+    @Test
+    public void testSimpleFunction() {
+        SqlProcedureEngine callableEngine = getCallableEngine("SIMPLE_FUNCION");
+
+        FormSimpleFunction f = new FormSimpleFunction();
+        f.setTime(new java.sql.Timestamp(new Date().getTime()));
+        String sql = callableEngine.getCallSql(f, null);
+        logger.info(sql);
+
+        Object result = callableEngine.callFunction(session, f, null, 0);
+        if ("HSQLDB".equalsIgnoreCase(dbType)) {
+            assertNotNull(result);
+            assertNull(f.time2);
+            logger.info("New date is " + result);
+        } else {
+            assertNull(result);
+            assertNotNull(f.time2);
+            logger.info("New date is " + f.time2);
+        }
     }
 
     @Test

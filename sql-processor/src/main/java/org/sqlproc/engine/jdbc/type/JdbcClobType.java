@@ -37,8 +37,10 @@ public class JdbcClobType extends SqlClobType implements JdbcSqlType {
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        Clob value = rs.getClob(columnLabel);
-        return value;
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return rs.getClob(Integer.parseInt(columnLabel));
+        else
+            return rs.getClob(columnLabel);
     }
 
     /**

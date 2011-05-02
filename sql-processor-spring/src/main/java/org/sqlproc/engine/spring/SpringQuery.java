@@ -508,4 +508,9 @@ public class SpringQuery implements SqlQuery {
     public int callUpdate() throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public Object callFunction() throws SqlProcessorException {
+        throw new UnsupportedOperationException();
+    }
 }

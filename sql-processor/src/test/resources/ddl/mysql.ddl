@@ -30,6 +30,8 @@ DROP PROCEDURE IF EXISTS new_person;
 
 DROP PROCEDURE IF EXISTS new_person_ret;
 
+DROP FUNCTION IF EXISTS an_hour_before;
+
 
 ###########################################
 # Create
@@ -338,3 +340,8 @@ CREATE PROCEDURE new_person_ret(IN birthdate DATE, IN ssn_number VARCHAR(20), IN
     SELECT last_insert_id() INTO temp_id;
     SELECT * FROM PERSON WHERE ID = temp_id;
   END
+
+CREATE FUNCTION an_hour_before(t TIMESTAMP) RETURNS TIMESTAMP
+BEGIN
+      RETURN SUBTIME(t, '1:00:00.000000');
+END

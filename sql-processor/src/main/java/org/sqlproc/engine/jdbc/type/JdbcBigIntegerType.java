@@ -38,7 +38,11 @@ public class JdbcBigIntegerType extends SqlBigIntegerType implements JdbcSqlType
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        BigDecimal bigDecimal = rs.getBigDecimal(columnLabel);
+        BigDecimal bigDecimal;
+        if (Character.isDigit(columnLabel.charAt(0)))
+            bigDecimal = rs.getBigDecimal(Integer.parseInt(columnLabel));
+        else
+            bigDecimal = rs.getBigDecimal(columnLabel);
         return bigDecimal == null ? null : bigDecimal.setScale(0, BigDecimal.ROUND_UNNECESSARY).unscaledValue();
     }
 

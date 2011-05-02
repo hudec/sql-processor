@@ -37,7 +37,11 @@ public class JdbcBlobType extends SqlBlobType implements JdbcSqlType {
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        Blob value = rs.getBlob(columnLabel);
+        Blob value;
+        if (Character.isDigit(columnLabel.charAt(0)))
+            value = rs.getBlob(Integer.parseInt(columnLabel));
+        else
+            value = rs.getBlob(columnLabel);
         return value;
     }
 

@@ -36,7 +36,10 @@ public class JdbcFloatType extends SqlFloatType implements JdbcSqlType {
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
-        return new Float(rs.getFloat(columnLabel));
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return new Float(rs.getFloat(Integer.parseInt(columnLabel)));
+        else
+            return new Float(rs.getFloat(columnLabel));
     }
 
     /**
