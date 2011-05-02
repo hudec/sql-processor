@@ -267,6 +267,8 @@ class SqlInputValue {
      *             in the case of any problem with output values handling
      */
     void setOutValueResult(String paramName) throws SqlRuntimeException {
+        if (Character.isDigit(paramName.charAt(0)))
+            return;
         type.setResult(parentInputValue, paramName, outValue);
     }
 

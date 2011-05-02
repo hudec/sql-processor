@@ -339,7 +339,7 @@ public class JdbcQuery implements SqlQuery {
             if (logger.isDebugEnabled()) {
                 logger.debug("list, number of returned rows=" + ((list != null) ? list.size() : "null"));
             }
-            getParameters(cs);
+            getParameters(cs, false);
             return list;
         } catch (SQLException he) {
             throw new SqlProcessorException(he);
@@ -395,11 +395,14 @@ public class JdbcQuery implements SqlQuery {
                 list = getResults(rs);
                 if (list != null && !list.isEmpty())
                     result = list.get(0);
+                getParameters(cs, false);
+            } else {
+                result = getParameters(cs, true);
+
             }
             if (logger.isDebugEnabled()) {
                 logger.debug("callFunction, result=" + result);
             }
-            getParameters(cs);
             return result;
         } catch (SQLException he) {
             throw new SqlProcessorException(he);
@@ -459,7 +462,7 @@ public class JdbcQuery implements SqlQuery {
             if (logger.isDebugEnabled()) {
                 logger.debug("callUpdate, number of updated rows=" + updated);
             }
-            getParameters(cs);
+            getParameters(cs, false);
             return updated;
         } catch (SQLException he) {
             throw new SqlProcessorException(he);
@@ -647,7 +650,10 @@ public class JdbcQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>CallableStatement</code>
      */
-    protected void getParameters(CallableStatement cs) throws SQLException {
+    protected Object getParameters(CallableStatement cs, boolean isFunction) throws SQLException {
+
+        Object result = null;
+        boolean resultInited = false;
 
         for (Iterator<Integer> iter = parameterOutValuesToPickup.keySet().iterator(); iter.hasNext();) {
             int i = iter.next();
@@ -665,7 +671,13 @@ public class JdbcQuery implements SqlQuery {
                 outValue = cs.getObject(ix);
             }
             outValueSetter.setOutValue(outValue);
+            if (!resultInited) {
+                result = outValue;
+                resultInited = true;
+            }
         }
+
+        return result;
     }
 
     /**

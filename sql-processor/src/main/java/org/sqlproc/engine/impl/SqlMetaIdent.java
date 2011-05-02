@@ -225,7 +225,15 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
 
         for (SqlMetaIdentItem item : this.elements) {
             attributeName = item.getName();
-            if (attributeType != null) {
+            if (Character.isDigit(attributeName.charAt(0))) {
+                s.append(attributeName);
+                if (obj != null) {
+                    parentObj = obj;
+                    obj = null;
+                }
+                break;
+
+            } else if (attributeType != null) {
                 Class<?> origAttributeType = attributeType;
                 attributeType = BeanUtils.getFieldType(attributeType, attributeName);
                 if (attributeType == null) {

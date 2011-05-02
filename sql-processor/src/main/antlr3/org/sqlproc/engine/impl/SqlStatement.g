@@ -230,7 +230,7 @@ constant returns [SqlMetaConst result]
 
 identifier returns [SqlMetaIdent result]
 	:	
-	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)? (ident=IDENT_DOT | ident=IDENT)
+	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)? (ident=IDENT_DOT | ident=IDENT | ident=NUMBER)
 		{$result = newIdent($ident, $modeIdent, $caseIdent);}
 		(options {greedy=true;} : CARET type=IDENT { setMetaType($parse::typeFactory, $result, $type.text); }
 		 (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { $result.setValues($value.text, $value2.text); }

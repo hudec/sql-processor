@@ -40,6 +40,24 @@ public class TestProcedure extends TestDatabase {
     }
 
     @Test
+    public void testSimpleFunctionToInForm() {
+        if ("HSQLDB".equalsIgnoreCase(dbType))
+            return;
+
+        SqlProcedureEngine callableEngine = getCallableEngine("SIMPLE_FUNCION_TO_IN_FORM");
+
+        FormSimpleFunction f = new FormSimpleFunction();
+        f.setTime(new java.sql.Timestamp(new Date().getTime()));
+        String sql = callableEngine.getCallSql(f, null);
+        logger.info(sql);
+
+        Object result = callableEngine.callFunction(session, f, null, 0);
+        assertNotNull(result);
+        assertNotNull(f.time2);
+        logger.info("New date is " + f.time2);
+    }
+
+    @Test
     public void testSimpleFunction() {
         SqlProcedureEngine callableEngine = getCallableEngine("SIMPLE_FUNCION");
 
@@ -49,15 +67,9 @@ public class TestProcedure extends TestDatabase {
         logger.info(sql);
 
         Object result = callableEngine.callFunction(session, f, null, 0);
-        if ("HSQLDB".equalsIgnoreCase(dbType)) {
-            assertNotNull(result);
-            assertNull(f.time2);
-            logger.info("New date is " + result);
-        } else {
-            assertNull(result);
-            assertNotNull(f.time2);
-            logger.info("New date is " + f.time2);
-        }
+        assertNotNull(result);
+        assertNull(f.time2);
+        logger.info("New date is " + result);
     }
 
     @Test
