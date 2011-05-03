@@ -80,8 +80,9 @@ public interface SqlQuery {
     int update() throws SqlProcessorException;
 
     /**
-     * Returns the query results as a <tt>List</tt>. If the query contains multiple results per row, the results are
-     * returned in an instance of <tt>Object[]</tt>. It's based on the callableStatement invocation.
+     * Returns the stored procedure execution results as a <tt>List</tt>. If the query contains multiple results per
+     * row, the results are returned in an instance of <tt>Object[]</tt>. It's based on the CallableStatement
+     * invocation.
      * 
      * @return the result list
      * @throws SqlProcessorException
@@ -90,8 +91,8 @@ public interface SqlQuery {
     List callList() throws SqlProcessorException;
 
     /**
-     * Convenience method to return a single instance that matches the query, or null if the query returns no results.
-     * It's based on the callableStatement invocation.
+     * Convenience method to return a single instance that matches the stored procedure execution, or null if the stored
+     * procedure execution returns no results. It's based on the CallableStatement invocation.
      * 
      * @return the single result or <tt>null</tt>
      * @throws SqlProcessorException
@@ -100,7 +101,8 @@ public interface SqlQuery {
     Object callUnique() throws SqlProcessorException;
 
     /**
-     * Executes the update, delete or insert statement. It's based on the callableStatement invocation.
+     * Executes the update, delete, insert statement or other statements in the stored procedure, which don't return the
+     * result set. It's based on the CallableStatement invocation.
      * 
      * @return the number of affected rows
      * @throws SqlProcessorException
@@ -108,6 +110,14 @@ public interface SqlQuery {
      */
     int callUpdate() throws SqlProcessorException;
 
+    /**
+     * Executes the the statements in the stored function, which return value of any type but the result set. It's based
+     * on the CallableStatement invocation.
+     * 
+     * @return the result of the stored function invocation
+     * @throws SqlProcessorException
+     *             in the case of any problem in ORM or JDBC stack
+     */
     Object callFunction() throws SqlProcessorException;
 
     /**

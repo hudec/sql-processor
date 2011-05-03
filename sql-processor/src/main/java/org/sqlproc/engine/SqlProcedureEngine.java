@@ -14,7 +14,7 @@ import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
- * The primary SQL Processor class for the META SQL callable statement execution.
+ * The primary SQL Processor class for the META SQL stored procedures execution.
  * 
  * <p>
  * Instance of this class holds one META SQL statement.
@@ -74,16 +74,16 @@ import org.sqlproc.engine.type.SqlTypeFactory;
 public class SqlProcedureEngine extends SqlEngine {
 
     /**
-     * Creates a new instance of the SqlQueryEngine from one META SQL query string and one SQL mapping rule string.
-     * Constructor will call the internal ANTLR parsers for the query and the mapping rule instances construction. This
-     * constructor is devoted to manual META SQL queries and mapping rules construction. More obvious is to put these
-     * definitions into queries.properties file and engage the SqlEngineLoader for the SqlQueryEngine instances
-     * construction.
+     * Creates a new instance of the SqlProcedureEngine from one stored procedure execution META SQL statement and one
+     * SQL mapping rule string. Constructor will call the internal ANTLR parsers for the statement and the mapping rule
+     * instances construction. This constructor is devoted to manual META SQL statement and mapping rules construction.
+     * More obvious is to put these definitions into queries.properties file and engage the SqlEngineLoader for the
+     * SqlProcedureEngine instances construction.
      * 
      * @param name
      *            the name of this SQL Engine instance
      * @param statement
-     *            the META SQL query statement
+     *            the stored procedure execution META SQL statement
      * @param mapping
      *            the SQL mapping rule
      * @param typeFactory
@@ -99,17 +99,17 @@ public class SqlProcedureEngine extends SqlEngine {
     }
 
     /**
-     * Creates a new instance of the SqlQueryEngine from one META SQL statement string and one SQL Mapping rule string.
-     * Constructor will call the internal ANTLR parsers for the statement and the mapping rule instances construction.
-     * Compared to the previous constructor, an external SQL Monitor for the runtime statistics gathering is engaged and
-     * the optional features can be involved. This constructor is devoted to manual META SQL queries and mapping rules
-     * construction. More obvious is to put these definitions into queries.properties file and engage the
-     * SqlEngineLoader for instances construction.
+     * Creates a new instance of the SqlProcedureEngine from one stored procedure execution META SQL statement string
+     * and one SQL Mapping rule string. Constructor will call the internal ANTLR parsers for the statement and the
+     * mapping rule instances construction. Compared to the previous constructor, an external SQL Monitor for the
+     * runtime statistics gathering is engaged and the optional features can be involved. This constructor is devoted to
+     * manual META SQL statement and mapping rules construction. More obvious is to put these definitions into
+     * queries.properties file and engage the SqlEngineLoader for instances construction.
      * 
      * @param name
      *            the name of this SQL Engine instance
      * @param statement
-     *            the META SQL query statement
+     *            the stored procedure execution META SQL statement
      * @param mapping
      *            the SQL mapping rule
      * @param monitor
@@ -129,16 +129,16 @@ public class SqlProcedureEngine extends SqlEngine {
     }
 
     /**
-     * Creates a new instance of the SqlQueryEngine from one META SQL statement and one SQL mapping rule instances. Both
-     * parameters are already pre-compiled instances using the ANTLR parsers. This is the recommended usage for the
-     * runtime performance optimization. This constructor is devoted to be used from the SqlEngineLoader, which is able
-     * to read all statements and mapping rules definitions from an external queries.properties and create the named
-     * SqlQueryEngine instances.
+     * Creates a new instance of the SqlProcedureEngine from one stored procedure execution META SQL statement and one
+     * SQL mapping rule instances. Both parameters are already pre-compiled instances using the ANTLR parsers. This is
+     * the recommended usage for the runtime performance optimization. This constructor is devoted to be used from the
+     * SqlEngineLoader, which is able to read all statements and mapping rules definitions from an external
+     * queries.properties and create the named SqlProcedureEngine instances.
      * 
      * @param name
      *            the name of this SQL Engine instance
      * @param statement
-     *            the pre-compiled META SQL query statement
+     *            the pre-compiled stored procedure execution META SQL statement
      * @param mapping
      *            the pre-compiled SQL mapping rule
      * @param typeFactory
@@ -151,17 +151,17 @@ public class SqlProcedureEngine extends SqlEngine {
     }
 
     /**
-     * Creates a new instance of the SqlQueryEngine from one META SQL statement and one SQL mapping rule instances. Both
-     * parameters are already pre-compiled instances using the ANTLR parsers. This is the recommended usage for the
-     * runtime performance optimization. This constructor is devoted to be used from the SqlEngineLoader, which is able
-     * to read all statements and mapping rules definitions from an external queries.properties and create the named
-     * instances. Compared to the previous constructor, an external SQL Monitor for the runtime statistics gathering is
-     * engaged and the optional features can be involved.
+     * Creates a new instance of the SqlProcedureEngine from one stored procedure execution META SQL statement and one
+     * SQL mapping rule instances. Both parameters are already pre-compiled instances using the ANTLR parsers. This is
+     * the recommended usage for the runtime performance optimization. This constructor is devoted to be used from the
+     * SqlEngineLoader, which is able to read all statements and mapping rules definitions from an external
+     * queries.properties and create the named instances. Compared to the previous constructor, an external SQL Monitor
+     * for the runtime statistics gathering is engaged and the optional features can be involved.
      * 
      * @param name
      *            the name of this SQL Engine instance
      * @param statement
-     *            the pre-compiled META SQL query statement
+     *            the pre-compiled stored procedure execution META SQL statement
      * @param mapping
      *            the pre-compiled SQL mapping rule
      * @param monitor
@@ -177,34 +177,35 @@ public class SqlProcedureEngine extends SqlEngine {
     }
 
     /**
-     * Runs the META SQL query to obtain a list of database rows. This is the primary and the most complex SQL Processor
-     * execution method to obtain a list of result class instances. Criteria to pickup the correct database rows are
-     * taken from the input values.
+     * Runs the stored procedure based on the META SQL statement to obtain a list of database rows. This is the primary
+     * and the most complex SQL Processor execution method to obtain a list of result class instances. The parameters
+     * for the stored procedure execution are taken from the input values.
      * 
      * @param session
      *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
      *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
      *            Hibernate session.
      * @param resultClass
-     *            The class used for the return values, the SQL query execution output. This class is also named as the
-     *            output class or the transport class, In fact it's a standard POJO class, which must include all the
-     *            attributes described in the mapping rule statement. This class itself and all its subclasses must have
-     *            public constructors without any parameters. All the attributes used in the mapping rule statement must
-     *            be accessible using public getters and setters. The instances of this class are created on the fly in
-     *            the process of query execution using the reflection API.
+     *            The class used for the return values, the stored procedure execution output. This class is also named
+     *            as the output class or the transport class, In fact it's a standard POJO class, which must include all
+     *            the attributes described in the mapping rule statement. This class itself and all its subclasses must
+     *            have public constructors without any parameters. All the attributes used in the mapping rule statement
+     *            must be accessible using public getters and setters. The instances of this class are created on the
+     *            fly in the process of the stored procedure execution using the reflection API.
      * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     *            The object used for the stored procedure dynamic input values. The class of this object is also named
+     *            as the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL callable statement are picked up using the reflection API. At the same
+     *            time this object can collect the output values from all OUT and INOUT stored procedure parameters.
      * @param staticInputValues
-     *            The object used for the SQL statement static input values. The class of this object is also named as
-     *            the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
+     *            The object used for the stored procedure static input values. The class of this object is also named
+     *            as the input class or the static parameters class. The exact class type isn't important, all the
+     *            parameters injected into the callable statement are picked up using the reflection API. Compared to
      *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
      *            prevent SQL injection threat!
      * @param maxTimeout
      *            The max SQL execution time. This parameter can help to protect production system against ineffective
-     *            SQL query commands. The value is in milliseconds.
+     *            SQL statements. The value is in milliseconds.
      * @return The list of the resultClass instances.
      * @throws org.hibernate.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
@@ -215,7 +216,7 @@ public class SqlProcedureEngine extends SqlEngine {
     public <E> List<E> callQuery(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
-            logger.debug(">> query, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
+            logger.debug(">> callQuery, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout);
         }
 
@@ -256,33 +257,35 @@ public class SqlProcedureEngine extends SqlEngine {
             return result;
         } finally {
             if (logger.isDebugEnabled()) {
-                logger.debug("<< query, result=" + result);
+                logger.debug("<< callQuery, result=" + result);
             }
         }
     }
 
     /**
-     * Runs the META SQL insert statement to persist a database row. This is the primary and the most complex SQL
-     * Processor execution method to persist an instance of input values.
+     * Runs the stored procedure based on the META SQL statement. This is the primary and the most complex SQL Processor
+     * execution method devoted to CRUD commands execution from inside the stored procedure.
      * 
      * @param session
      *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
      *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
      *            Hibernate session.
      * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     *            The object used for the stored procedure dynamic input values. The class of this object is also named
+     *            as the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL callable statement are picked up using the reflection API. At the same
+     *            time this object can collect the output values from all OUT and INOUT stored procedure parameters.
      * @param staticInputValues
-     *            The object used for the SQL statement static input values. The class of this object is also named as
-     *            the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
+     *            The object used for the stored procedure static input values. The class of this object is also named
+     *            as the input class or the static parameters class. The exact class type isn't important, all the
+     *            parameters injected into the callable statement are picked up using the reflection API. Compared to
      *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
      *            prevent SQL injection threat!
      * @param maxTimeout
      *            The max SQL execution time. This parameter can help to protect production system against ineffective
-     *            SQL query commands. The value is in milliseconds.
-     * @return The number of persisted database rows.
+     *            SQL statements. The value is in milliseconds.
+     * @return The number of persisted, updated, deleted or otherwise affected database rows. It's value strongly
+     *         depends on the type of database.
      * @throws org.hibernate.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
@@ -322,35 +325,28 @@ public class SqlProcedureEngine extends SqlEngine {
     }
 
     /**
-     * Runs the META SQL query to obtain a list of database rows. This is the primary and the most complex SQL Processor
-     * execution method to obtain a list of result class instances. Criteria to pickup the correct database rows are
-     * taken from the input values.
+     * Runs the stored function based on the META SQL statement. This is the primary and the most complex SQL Processor
+     * execution method devoted to obtain the value from the stored function execution.
      * 
      * @param session
      *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
      *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
      *            Hibernate session.
-     * @param resultClass
-     *            The class used for the return values, the SQL query execution output. This class is also named as the
-     *            output class or the transport class, In fact it's a standard POJO class, which must include all the
-     *            attributes described in the mapping rule statement. This class itself and all its subclasses must have
-     *            public constructors without any parameters. All the attributes used in the mapping rule statement must
-     *            be accessible using public getters and setters. The instances of this class are created on the fly in
-     *            the process of query execution using the reflection API.
      * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     *            The object used for the stored procedure dynamic input values. The class of this object is also named
+     *            as the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL callable statement are picked up using the reflection API. At the same
+     *            time this object can collect the output values from all OUT and INOUT stored procedure parameters.
      * @param staticInputValues
-     *            The object used for the SQL statement static input values. The class of this object is also named as
-     *            the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
+     *            The object used for the stored procedure static input values. The class of this object is also named
+     *            as the input class or the static parameters class. The exact class type isn't important, all the
+     *            parameters injected into the callable statement are picked up using the reflection API. Compared to
      *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
      *            prevent SQL injection threat!
      * @param maxTimeout
      *            The max SQL execution time. This parameter can help to protect production system against ineffective
-     *            SQL query commands. The value is in milliseconds.
-     * @return The list of the resultClass instances.
+     *            SQL statements. The value is in milliseconds.
+     * @return The result from the stored function execution.
      * @throws org.hibernate.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
@@ -360,7 +356,7 @@ public class SqlProcedureEngine extends SqlEngine {
     public Object callFunction(final SqlSession session, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
-            logger.debug(">> query, session=" + session + ", dynamicInputValues=" + dynamicInputValues
+            logger.debug(">> callFunction, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout);
         }
 
@@ -388,13 +384,13 @@ public class SqlProcedureEngine extends SqlEngine {
             return result;
         } finally {
             if (logger.isDebugEnabled()) {
-                logger.debug("<< query, result=" + result);
+                logger.debug("<< callFunction, result=" + result);
             }
         }
     }
 
     /**
-     * Returns the insert statement derived from the META SQL statement. For the parameters description please see the
+     * Returns the call statement derived from the META SQL statement. For the parameters description please see the
      * most complex execution method {@link #getSql(Object, Object, org.sqlproc.engine.impl.SqlMetaStatement.Type)} .
      */
     public String getCallSql(final Object dynamicInputValues, final Object staticInputValues)
@@ -408,17 +404,18 @@ public class SqlProcedureEngine extends SqlEngine {
      * background of the SQL Processor execution. The statement is derived from the META SQL statement.
      * 
      * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     *            The object used for the stored procedure dynamic input values. The class of this object is also named
+     *            as the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL callable statement are picked up using the reflection API. At the same
+     *            time this object can collect the output values from all OUT and INOUT stored procedure parameters.
      * @param staticInputValues
-     *            The object used for the SQL statement static input values. The class of this object is also named as
-     *            the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
+     *            The object used for the stored procedure static input values. The class of this object is also named
+     *            as the input class or the static parameters class. The exact class type isn't important, all the
+     *            parameters injected into the callable statement are picked up using the reflection API. Compared to
      *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
      *            prevent SQL injection threat!
      * @param statementType
-     *            The type of the statement under consideration. It can be CREATE, RETRIEVE, UPDATE or DELETE.
+     *            The type of the statement under consideration. For the stored procedures it is CALL.
      * @return The SQL statement command derived from the META SQL statement based on the input parameters.
      * @throws org.hibernate.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
