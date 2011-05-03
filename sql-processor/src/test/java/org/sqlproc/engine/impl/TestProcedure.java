@@ -73,6 +73,44 @@ public class TestProcedure extends TestDatabase {
     }
 
     @Test
+    public void testCallableInsertResultProcDefaultTypes() {
+        if (!"ORACLE".equalsIgnoreCase(dbType))
+            return;
+
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        List<Person> list = sqlEngine.query(session, Person.class);
+        assertEquals(2, list.size());
+
+        Person p = new Person();
+        p.setSsn(new Ssn());
+        p.getSsn().setNumber("345678");
+        p.getSsn().setCountry(Country.UNITED_STATES);
+        p.setName(new PersonName());
+        p.getName().setFirst("Toby6");
+        p.getName().setLast("Stephens");
+        p.setAge(1969, 4, 21);
+
+        SqlProcedureEngine callableEngine = getCallableEngine("INSERT_PERSON_CALL_RESULT_SET_PROC");
+
+        String sql = callableEngine.getCallSql(p, null);
+        logger.info(sql);
+
+        list = callableEngine.callQuery(session, Person.class, p, null, 0);
+        assertEquals(1, list.size());
+        Person p2 = list.get(0);
+        logger.info("New person is " + p2);
+
+        assertNotNull(p2.getId());
+        assertEquals(p.getSsn().getNumber(), p2.getSsn().getNumber());
+        assertEquals(p.getSsn().getCountry(), p2.getSsn().getCountry());
+        assertEquals(p.getName().getFirst(), p2.getName().getFirst());
+        assertEquals(p.getName().getLast(), p2.getName().getLast());
+        assertEquals(p.getAge(), p2.getAge());
+        assertEquals(Gender.MALE, p2.getSex());
+    }
+
+    @Test
     public void testCallableInsertResultDefaultTypes() {
         if ("HSQLDB".equalsIgnoreCase(dbType))
             return;

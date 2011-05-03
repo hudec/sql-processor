@@ -35,6 +35,8 @@ DROP PROCEDURE IF EXISTS new_person;
 
 DROP PROCEDURE IF EXISTS new_person_ret;
 
+DROP PROCEDURE IF EXISTS new_person_ret_proc;
+
 DROP FUNCTION IF EXISTS an_hour_before;
 
 
@@ -366,6 +368,26 @@ BEGIN
       RETURN result_cur;
    END;
 END new_person_ret;
+
+CREATE OR REPLACE PROCEDURE new_person_ret_proc (result_cur IN OUT SYS_REFCURSOR, birthdate IN DATE, ssn_number IN VARCHAR2, ssn_country IN VARCHAR2, name_first IN VARCHAR2, name_last IN VARCHAR2, sex IN VARCHAR2)
+AS 
+BEGIN
+   DECLARE
+     newid NUMBER(19);
+     sex1 VARCHAR2(100);
+   BEGIN
+      IF (sex IS NULL) THEN
+        sex1 := 'M';
+      ELSE
+        sex1 := sex;
+      END IF;
+      SELECT sqlproc_sequence.nextval INTO newid FROM dual;
+      INSERT INTO PERSON (ID, BIRTHDATE, LASTUPDATED, LASTUPDATEDBY, CREATEDDATE, CREATEDBY, VERSION, CONTACT, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, SEX, CLOTHES_SIZE) 
+      VALUES (newid, birthdate, CURRENT_TIMESTAMP, 'test', NULL, NULL, 1, NULL, ssn_number, ssn_country, name_first, name_last, sex1, NULL);
+
+      OPEN result_cur FOR SELECT * FROM PERSON WHERE ID = newid;
+   END;
+END new_person_ret_proc;
 
 CREATE OR REPLACE FUNCTION an_hour_before (t IN DATE)
 RETURN DATE
