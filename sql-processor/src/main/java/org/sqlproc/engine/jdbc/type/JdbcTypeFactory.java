@@ -139,6 +139,10 @@ public class JdbcTypeFactory implements SqlTypeFactory {
      */
     static final SqlMetaType CLOB = new JdbcClobType();
     /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType ORACLE_CURSOR = new JdbcOracleCursorType();
+    /**
      * Singleton instance of auto-generated identity type.
      */
     static final SqlMetaType IDENTITY = new SqlIdentityType() {
@@ -161,7 +165,7 @@ public class JdbcTypeFactory implements SqlTypeFactory {
      */
     static final SqlMetaType[] TYPES = { BIG_DECIMAL, BIG_INTEGER, BOOLEAN, BYTE_ARRAY, BYTE, CHAR, DATE_TIME, DATE,
             DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LONG, SHORT, STRING, TIMESTAMP, TIME, TO_DATE,
-            TEXT, BLOB, CLOB };
+            TEXT, BLOB, CLOB, ORACLE_CURSOR };
 
     /**
      * The immutable map between the Java class types and the internal types.
