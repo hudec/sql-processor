@@ -7,6 +7,9 @@ package org.sqlproc.engine;
  * JDBC or ORM layer, but in the SQL Processor engine itself. Primarily it devoted to the problems with the input/output
  * values handling.
  * 
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
+ * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SqlRuntimeException extends RuntimeException {

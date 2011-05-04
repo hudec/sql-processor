@@ -129,8 +129,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * The result will be stored in the attribute <code>time2</code> in the search form <code>FormSimpleFunction</code>.
  * 
  * <p>
- * For more info please see the Reference Guide or the <a
- * href="http://code.google.com/p/sql-processor/w/list">tutorials</a>.
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */

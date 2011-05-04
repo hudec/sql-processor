@@ -41,7 +41,7 @@
  * This part of the code can be changed any time to improve the SQL Processor capabilities.
  * 
  * <p>
- * For more info please see the Reference Guide or the <a href="http://code.google.com/p/sql-processor/w/list">tutorials</a>.
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */

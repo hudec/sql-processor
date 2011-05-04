@@ -4,8 +4,16 @@ import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.type.SqlProviderType;
 
+/**
+ * The JDBC META type ORACLE_CURSOR (from Oracle jdbc driver).
+ * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
+ */
 public class JdbcOracleCursorType extends SqlProviderType {
 
+    /**
+     * The value of ORACLE_CURSOR.
+     */
     private static final Integer JDBC_TYPE = -10;
 
     /**

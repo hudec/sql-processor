@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
  * The helper class for the properties file loading. The properties file can be located on the classpath, in the root
  * directory or in the user's home directory.
  * 
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
+ * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SqlPropertiesLoader {

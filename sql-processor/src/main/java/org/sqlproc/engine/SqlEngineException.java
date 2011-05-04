@@ -12,6 +12,9 @@ import org.sqlproc.engine.impl.ErrorMsg;
  * the ANTLR exceptions. In the runtime (query command execution) only {@link SqlRuntimeException} or
  * {@link SqlProcessorException} can be raised.
  * 
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
+ * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SqlEngineException extends RuntimeException {

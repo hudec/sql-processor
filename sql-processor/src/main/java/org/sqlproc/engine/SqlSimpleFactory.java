@@ -46,9 +46,9 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * </pre>
  * <p>
  * In the case the SQL Processor runs on the top of the JDBC stack, there's more suitable {@link JdbcEngineFactory}.
+ * 
  * <p>
- * For more info please see the Reference Guide or the <a
- * href="http://code.google.com/p/sql-processor/w/list">tutorials</a>.
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */

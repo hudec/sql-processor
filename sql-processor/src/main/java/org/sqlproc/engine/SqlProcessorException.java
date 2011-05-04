@@ -6,6 +6,10 @@ package org.sqlproc.engine;
  * This exception can be raised in the process of a META SQL query or a statement execution. It's produced in the JDBC
  * or ORM layer, not in the SQL Processor engine itself. Most of the time it's a wrapper class for the cause exception.
  * 
+ * 
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
+ * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SqlProcessorException extends RuntimeException {

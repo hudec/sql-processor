@@ -25,6 +25,8 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * SqlMappingRule = SqlMappingItem+
  *     SqlMappingItem = dbName$sqlType$javaName^(value(=value2)?)*.javaName...
  * </pre>
+ * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SqlMappingRule {
 
