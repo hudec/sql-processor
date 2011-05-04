@@ -23,7 +23,7 @@
         <version.slf4j>1.5.2</version.slf4j>
         <version.junit>4.8.2</version.junit>
         <version.dbunit>2.2</version.dbunit>
-        <version.hsqldb>1.8.0.10</version.hsqldb>
+        <version.hsqldb>2.0.0</version.hsqldb>
     </properties>
 
 
@@ -133,7 +133,7 @@
             <version>${version.slf4j}</version>
         </dependency>
         <dependency>
-            <groupId>hsqldb</groupId>
+            <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>${version.hsqldb}</version>
         </dependency>
