@@ -111,8 +111,8 @@ public interface SqlQuery {
     int callUpdate() throws SqlProcessorException;
 
     /**
-     * Executes the the statements in the stored function, which return value of any type but the result set. It's based
-     * on the CallableStatement invocation.
+     * Executes the statements in the stored function, which return value of any type but the result set. It's based on
+     * the CallableStatement invocation.
      * 
      * @return the result of the stored function invocation
      * @throws SqlProcessorException

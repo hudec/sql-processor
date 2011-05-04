@@ -17,53 +17,116 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * The primary SQL Processor class for the META SQL stored procedures execution.
  * 
  * <p>
- * Instance of this class holds one META SQL statement.
+ * Instance of this class holds one META SQL statement for the stored procedure invocation and one optional Mapping
+ * rule.
  * <p>
- * For example there's a table PERSON with two columns - ID and NAME. <br>
- * In queries.properties there's the next definition:
+ * For example there's a stored function, which subtracts one hour from the time passed on to this function as a
+ * parameter.
+ * 
+ * For HSQLDB it can be
  * 
  * <pre>
- * CRUD_UPDATE_PERSON= \
- *  update PERSON \
- *  {= set name = :name} \
- *  {= where {& id = :id^long^notnull}}
+ * CREATE FUNCTION an_hour_before(t TIMESTAMP)
+ *   RETURNS TIMESTAMP
+ *   RETURN t - 1 HOUR
  * </pre>
+ * 
+ * HSQLDB function returns the result set with one column with generated name. To invoke this function the next META SQL
+ * statement and mapping rule should be used
+ * 
+ * <pre>
+ * CALL_SIMPLE_FUNCION= \
+ *   call an_hour_before(:time)
+ * OUT_SIMPLE_FUNCION=1$stamp
+ * </pre>
+ * 
+ * You can see that the name of META SQL statement should start with the prefix <code>CALL_</code>. There's used an
+ * output mapping with one mapping item. The database column name is <code>1</code>, so this name is used as an index to
+ * retrieve the output value from the result set. At the same time the META type <code>stamp</code> is used, as there's
+ * no result class with the output attribute, which can hold the type of the output value.
+ * 
+ * <p>
+ * For ORACLE it can be
+ * 
+ * <pre>
+ * CREATE OR REPLACE FUNCTION an_hour_before (t IN DATE)
+ * RETURN DATE
+ * AS 
+ * BEGIN
+ *    RETURN t - INTERVAL '1' HOUR;
+ * END an_hour_before;
+ * </pre>
+ * 
+ * <p>
+ * and for MySQL it can be
+ * 
+ * <pre>
+ * CREATE FUNCTION an_hour_before(t TIMESTAMP) RETURNS TIMESTAMP
+ * BEGIN
+ *       RETURN SUBTIME(t, '1:00:00.000000');
+ * END
+ * </pre>
+ * 
+ * To invoke them the next META SQL statement without any mapping rule should be used, as there's no output result set
+ * 
+ * <pre>
+ * CALL_SIMPLE_FUNCION= \
+ *   :<1^stamp = call an_hour_before(:time)
+ * </pre>
+ * 
+ * You can see there's a special input value <code>:<1^stamp</code> with the name <code>1</code>, which is used as an
+ * index to register OUT parameter to the CallableStatement. The special character <code><</code> denotes that this
+ * input parameter is in fact of type OUT.
  * 
  * <p>
  * In the case of the SQL Processor initialization
  * 
  * <pre>
- * // by default it loads &quot;queries.properties&quot; file
  * SqlEngineFactory sqlFactory = new JdbcEngineFactory();
- * SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine(&quot;UPDATE_PERSON&quot;);
- * 
- * // for the case it runs on the top of the JDBC stack
+ * SqlProcessorEngine sqlEngine = sqlFactory.getgetProcedureEngine(&quot;SIMPLE_FUNCION&quot;);
  * Connection connection = DriverManager.getConnection(&quot;jdbc:hsqldb:mem:sqlproc&quot;, &quot;sa&quot;, &quot;&quot;);
  * SqlSession session = new JdbcSimpleSession(connection);
  * </pre>
  * 
- * there's created an instance of SqlCrudEngine with the name <code>UPDATE_PERSON</code>.
+ * there's created an instance of SqlProcessorEngine with the name <code>SIMPLE_FUNCION</code>.
  * 
  * <p>
- * Next the query can be executed with one of the <code>updateXXX</code> methods. For example there's a Java bean class
- * Person with attributes id and name. The invocation
+ * Let's have an input form
  * 
  * <pre>
- * Person person = new Person();
- * person.setId(1);
- * person.setName(&quot;Bozena&quot;);
- * 
- * int count = sqlEngine.update(session, person);
+ * public class FormSimpleFunction {
+ *     private java.sql.Timestamp time;
+ *     private java.sql.Timestamp time2;
+ *     // getters and setters
+ * }
  * </pre>
  * 
- * produces the next SQL execution
+ * Next the simple stored function can be executed in the following way
  * 
  * <pre>
- * update PERSON SET name = ? WHERE id = ?
+ * FormSimpleFunction f = new FormSimpleFunction();
+ * f.setTime(new java.sql.Timestamp(new Date().getTime()));
+ * java.sql.Timestamp result = (java.sql.Timestamp) sqlEngine.callFunction(session, f);
  * </pre>
  * 
  * <p>
- * and returns the number of updated rows.
+ * The result from the stored function execution can be also settled back into a search form. Let's have a META SQl
+ * statement
+ * 
+ * <pre>
+ * CALL_SIMPLE_FUNCION= \
+ *   :&lt;time2 = call an_hour_before(:time)
+ * </pre>
+ * 
+ * and run the function in the following way
+ * 
+ * <pre>
+ * FormSimpleFunction f = new FormSimpleFunction();
+ * f.setTime(new java.sql.Timestamp(new Date().getTime()));
+ * sqlEngine.callFunction(session, f);
+ * </pre>
+ * 
+ * The result will be stored in the attribute <code>time2</code> in the search form <code>FormSimpleFunction</code>.
  * 
  * <p>
  * For more info please see the Reference Guide or the <a
@@ -177,6 +240,16 @@ public class SqlProcedureEngine extends SqlEngine {
     }
 
     /**
+     * Runs the stored procedure based on the META SQL statement to obtain a list of database rows. This is one of the
+     * overriden methods. For the parameters description please see the most complex execution method
+     * {@link #callQuery(SqlSession, Class, Object, Object, int)}.
+     */
+    public <E> List<E> callQuery(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues)
+            throws SqlProcessorException, SqlRuntimeException {
+        return callQuery(session, resultClass, dynamicInputValues, null, 0);
+    }
+
+    /**
      * Runs the stored procedure based on the META SQL statement to obtain a list of database rows. This is the primary
      * and the most complex SQL Processor execution method to obtain a list of result class instances. The parameters
      * for the stored procedure execution are taken from the input values.
@@ -263,6 +336,16 @@ public class SqlProcedureEngine extends SqlEngine {
     }
 
     /**
+     * Runs the stored procedure based on the META SQL statement. This is one of the overriden methods. For the
+     * parameters description please see the most complex execution method
+     * {@link #callUpdate(SqlSession, Object, Object, int)}.
+     */
+    public int callUpdate(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
+            SqlRuntimeException {
+        return callUpdate(session, dynamicInputValues, null, 0);
+    }
+
+    /**
      * Runs the stored procedure based on the META SQL statement. This is the primary and the most complex SQL Processor
      * execution method devoted to CRUD commands execution from inside the stored procedure.
      * 
@@ -322,6 +405,16 @@ public class SqlProcedureEngine extends SqlEngine {
                 logger.debug("<< callUpdate, result=" + count);
             }
         }
+    }
+
+    /**
+     * Runs the stored function based on the META SQL statement. This is one of the overriden methods. For the
+     * parameters description please see the most complex execution method
+     * {@link #callFunction(SqlSession, Object, Object, int)}.
+     */
+    public Object callFunction(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
+            SqlRuntimeException {
+        return callFunction(session, dynamicInputValues, null, 0);
     }
 
     /**

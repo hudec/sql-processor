@@ -51,7 +51,7 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(f, null);
         logger.info(sql);
 
-        Object result = callableEngine.callFunction(session, f, null, 0);
+        java.sql.Timestamp result = (java.sql.Timestamp) callableEngine.callFunction(session, f);
         assertNotNull(result);
         assertNotNull(f.time2);
         logger.info("New date is " + f.time2);
@@ -66,7 +66,7 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(f, null);
         logger.info(sql);
 
-        Object result = callableEngine.callFunction(session, f, null, 0);
+        Object result = callableEngine.callFunction(session, f);
         assertNotNull(result);
         assertNull(f.time2);
         logger.info("New date is " + result);
@@ -96,7 +96,7 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        list = callableEngine.callQuery(session, Person.class, p, null, 0);
+        list = callableEngine.callQuery(session, Person.class, p);
         assertEquals(1, list.size());
         Person p2 = list.get(0);
         logger.info("New person is " + p2);
@@ -134,7 +134,7 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        list = callableEngine.callQuery(session, Person.class, p, null, 0);
+        list = callableEngine.callQuery(session, Person.class, p);
         assertEquals(1, list.size());
         Person p2 = list.get(0);
         logger.info("New person is " + p2);
@@ -172,7 +172,7 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        list = callableEngine.callQuery(session, Person.class, p, null, 0);
+        list = callableEngine.callQuery(session, Person.class, p);
         assertEquals(1, list.size());
         Person p2 = list.get(0);
         logger.info("New person is " + p2);
@@ -211,7 +211,7 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        list = callableEngine.callQuery(session, Person.class, p, null, 0);
+        list = callableEngine.callQuery(session, Person.class, p);
         assertEquals(1, list.size());
         Person p2 = list.get(0);
         logger.info("New person is " + p2);
@@ -246,7 +246,7 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        int count = callableEngine.callUpdate(session, p, null, 0);
+        int count = callableEngine.callUpdate(session, p);
         assertTrue("Number of updated rows is 0 or 1", count == 0 || count == -1);
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
@@ -278,7 +278,7 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        int count = callableEngine.callUpdate(session, p, null, 0);
+        int count = callableEngine.callUpdate(session, p);
         assertTrue("Number of updated rows is 0 or 1", count == 0 || count == -1);
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
@@ -308,7 +308,7 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        int count = callableEngine.callUpdate(session, p, null, 0);
+        int count = callableEngine.callUpdate(session, p);
         assertTrue("Number of updated rows is 0 or 1", count == 0 || count == -1);
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
@@ -340,7 +340,7 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        int count = callableEngine.callUpdate(session, p, null, 0);
+        int count = callableEngine.callUpdate(session, p);
         assertTrue("Number of updated rows is 0 or 1", count == 0 || count == -1);
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
