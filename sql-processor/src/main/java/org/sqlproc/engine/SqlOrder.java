@@ -73,7 +73,7 @@ public class SqlOrder {
     /**
      * The ordering direction (no ordering, ascending or descending).
      */
-    private Order orderDirrection;
+    private Order orderDirection;
     /**
      * The list of all ordering directives.
      */
@@ -120,7 +120,7 @@ public class SqlOrder {
     public static SqlOrder getOrder(int orderId) {
         if (orderId > 0)
             return new SqlOrder().addAscOrder(orderId);
-        else if (orderId > 0)
+        else if (orderId < 0)
             return new SqlOrder().addDescOrder(-orderId);
         else
             return null;
@@ -160,7 +160,7 @@ public class SqlOrder {
     public SqlOrder addOrder(int orderId) {
         if (orderId > 0)
             orders.add(new SqlOrder(orderId, Order.ASC));
-        else
+        else if (orderId < 0)
             orders.add(new SqlOrder(-orderId, Order.DESC));
         return this;
     }
@@ -179,12 +179,12 @@ public class SqlOrder {
      * 
      * @param orderId
      *            the ordering id
-     * @param orderDirrection
+     * @param orderDirection
      *            the ordering direction
      */
-    private SqlOrder(int orderId, Order orderDirrection) {
+    private SqlOrder(int orderId, Order orderDirection) {
         this.orderId = orderId;
-        this.orderDirrection = orderDirrection;
+        this.orderDirection = orderDirection;
     }
 
     /**
@@ -202,8 +202,8 @@ public class SqlOrder {
      * 
      * @return the ordering direction
      */
-    public Order getOrderDirrection() {
-        return orderDirrection;
+    public Order getOrderDirection() {
+        return orderDirection;
     }
 
     /**
