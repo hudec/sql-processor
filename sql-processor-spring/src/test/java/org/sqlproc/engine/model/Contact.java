@@ -134,4 +134,11 @@ public class Contact {
         this.phone = phone;
     }
 
+    @Override
+    public String toString() {
+        return "Contact [id=" + id + ", address=" + address + ", city=" + city + ", zip=" + zip + ", state=" + state
+                + ", uuid=" + uuid + ", createdDate=" + createdDate + ", createdBy=" + createdBy + ", lastUpdated="
+                + lastUpdated + ", lastUpdatedBy=" + lastUpdatedBy + ", version=" + version + ", personName="
+                + personName + ", phone=" + phone + "]";
+    }
 }

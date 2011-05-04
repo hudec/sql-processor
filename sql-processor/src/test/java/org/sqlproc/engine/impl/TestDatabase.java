@@ -241,7 +241,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return sqlEngine;
     }
 
-    SqlProcedureEngine getCallableEngine(String name) {
+    SqlProcedureEngine getProcedureEngine(String name) {
         SqlProcessContext.nullFeatures();
         SqlProcessContext.nullTypeFactory();
         SqlEngineLoader sqlLoader = new SqlEngineLoader(queriesProperties, JdbcTypeFactory.getInstance(), dbType, null,

@@ -26,6 +26,11 @@ DROP TABLE IF EXISTS MEDIA CASCADE;
 
 DROP TABLE IF EXISTS TYPES CASCADE;
 
+DROP PROCEDURE IF EXISTS new_person;
+
+DROP PROCEDURE IF EXISTS new_person_ret;
+
+DROP FUNCTION IF EXISTS an_hour_before;
 
 
 ###########################################
@@ -314,6 +319,29 @@ CREATE TABLE TYPES
 , A_BLOB BLOB 
 );
 
+CREATE PROCEDURE new_person(OUT newid INTEGER, IN birthdate DATE, IN ssn_number VARCHAR(20), IN ssn_country VARCHAR(100), IN name_first VARCHAR(100), IN name_last VARCHAR(100), INOUT sex VARCHAR(100))
+  BEGIN
+    DECLARE sex1 VARCHAR(100);
+    SET sex1 = NULLIF(sex,'null');
+    SET sex1 = IFNULL(sex1,'M');
+    INSERT INTO PERSON (BIRTHDATE, LASTUPDATED, LASTUPDATEDBY, CREATEDDATE, CREATEDBY, VERSION, CONTACT, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, SEX, CLOTHES_SIZE) 
+    VALUES (birthdate, CURRENT_TIMESTAMP, 'test', NULL, NULL, 1, NULL, ssn_number, ssn_country, name_first, name_last, sex1, NULL);
+    SELECT last_insert_id() INTO newid;
+    SET sex = sex1;
+  END
 
+CREATE PROCEDURE new_person_ret(IN birthdate DATE, IN ssn_number VARCHAR(20), IN ssn_country VARCHAR(100), IN name_first VARCHAR(100), IN name_last VARCHAR(100), IN sex VARCHAR(100))
+  BEGIN
+    DECLARE temp_id INTEGER;
+    DECLARE sex1 VARCHAR(100);
+    SET sex1 = IFNULL(sex,'M');
+    INSERT INTO PERSON (BIRTHDATE, LASTUPDATED, LASTUPDATEDBY, CREATEDDATE, CREATEDBY, VERSION, CONTACT, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, SEX, CLOTHES_SIZE) 
+    VALUES (birthdate, CURRENT_TIMESTAMP, 'test', NULL, NULL, 1, NULL, ssn_number, ssn_country, name_first, name_last, sex1, NULL);
+    SELECT last_insert_id() INTO temp_id;
+    SELECT * FROM PERSON WHERE ID = temp_id;
+  END
 
-
+CREATE FUNCTION an_hour_before(t TIMESTAMP) RETURNS TIMESTAMP
+BEGIN
+      RETURN SUBTIME(t, '1:00:00.000000');
+END

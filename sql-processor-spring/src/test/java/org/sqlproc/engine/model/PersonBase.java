@@ -6,7 +6,7 @@ import java.util.Date;
 public abstract class PersonBase {
 
     private Long id;
-    private Date birthDate;
+    private java.sql.Date birthDate;
     private Date createdDate;
     private String createdBy;
     private Date lastUpdated;
@@ -47,11 +47,11 @@ public abstract class PersonBase {
         this.id = id.longValue();
     }
 
-    public Date getBirthDate() {
+    public java.sql.Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(java.sql.Date birthDate) {
         this.birthDate = birthDate;
     }
 

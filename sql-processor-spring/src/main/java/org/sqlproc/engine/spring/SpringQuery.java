@@ -1,28 +1,38 @@
 package org.sqlproc.engine.spring;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.CallableStatementCallback;
+import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ParameterDisposer;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.support.JdbcUtils;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.jdbc.type.JdbcSqlType;
 import org.sqlproc.engine.type.IdentitySetter;
+import org.sqlproc.engine.type.OutValueSetter;
+import org.sqlproc.engine.type.SqlProviderType;
 
 /**
  * The Spring stack implementation of the SQL Engine query contract. In fact it's an adapter the internal Spring stuff.
@@ -67,6 +77,18 @@ public class SpringQuery implements SqlQuery {
      * The collection of all parameters types.
      */
     Map<String, Object> parameterTypes = new HashMap<String, Object>();
+    /**
+     * The collection of all parameters types for output values.
+     */
+    Map<String, Object> parameterOutValueTypes = new HashMap<String, Object>();
+    /**
+     * The collection of all parameters output value setters.
+     */
+    Map<String, OutValueSetter> parameterOutValueSetters = new HashMap<String, OutValueSetter>();
+    /**
+     * The collection of all parameters, which have to be picked-up.
+     */
+    Map<Integer, Integer> parameterOutValuesToPickup = new LinkedHashMap<Integer, Integer>();
     /**
      * The collection of all (auto-generated) identities.
      */
@@ -166,7 +188,7 @@ public class SpringQuery implements SqlQuery {
         PreparedStatementSetter pss = new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
-                setParameters(ps, limitType);
+                setParameters(ps, limitType, 1);
             }
         };
         ResultSetExtractor<List> rse = new ResultSetExtractor<List>() {
@@ -227,7 +249,7 @@ public class SpringQuery implements SqlQuery {
         PreparedStatementSetter pss = new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
-                setParameters(ps, null);
+                setParameters(ps, null, 1);
             }
         };
 
@@ -322,6 +344,205 @@ public class SpringQuery implements SqlQuery {
         });
     }
 
+    static final Pattern CALL = Pattern.compile("\\s*\\{?\\s*(\\?)?\\s*=?\\s*call\\s*(.*?)\\s*}?\\s*");
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List callList() throws SqlProcessorException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("callList, query=" + queryString);
+        }
+
+        CallableStatementCreator psc = new CallableStatementCreator() {
+            @Override
+            public CallableStatement createCallableStatement(Connection con) throws SQLException {
+                Matcher matcher = CALL.matcher(queryString);
+                if (!matcher.matches())
+                    throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
+                String query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{ call "
+                        + matcher.group(2) + "}";
+
+                CallableStatement cs = con.prepareCall(query);
+                if (timeout != null)
+                    cs.setQueryTimeout(timeout);
+                return cs;
+            }
+        };
+
+        CallableStatementCallback<List> csc = new CallableStatementCallback<List>() {
+            public List doInCallableStatement(CallableStatement cs) throws SQLException {
+                ResultSet rs = null;
+                List list = null;
+
+                try {
+                    setParameters(cs, null, 1);
+                    boolean hasResultSet = cs.execute();
+                    if (hasResultSet) {
+                        rs = cs.getResultSet();
+                        ResultSet rsToUse = rs;
+                        if (jdbcTemplate.getNativeJdbcExtractor() != null) {
+                            rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
+                        }
+                        list = getResults(rsToUse);
+                        getParameters(cs, false);
+                    } else {
+                        rs = (ResultSet) getParameters(cs, true);
+                        ResultSet rsToUse = rs;
+                        if (jdbcTemplate.getNativeJdbcExtractor() != null) {
+                            rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
+                        }
+                        list = getResults(rsToUse);
+                    }
+                } finally {
+                    JdbcUtils.closeResultSet(rs);
+                }
+                return list;
+            }
+        };
+
+        try {
+            List list = jdbcTemplate.execute(psc, csc);
+            if (logger.isDebugEnabled()) {
+                logger.debug("callList, number of returned rows=" + ((list != null) ? list.size() : "null"));
+            }
+            return list;
+        } catch (DataAccessException dae) {
+            throw new SqlProcessorException(dae);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object callUnique() throws SqlProcessorException {
+        List list = callList();
+        int size = list.size();
+        if (size == 0)
+            return null;
+        Object first = list.get(0);
+        for (int i = 1; i < size; i++) {
+            if (list.get(i) != first) {
+                throw new SqlProcessorException("There's no unique result, the number of returned rows is "
+                        + list.size());
+            }
+        }
+        return first;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int callUpdate() throws SqlProcessorException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("callUpdate, query=" + queryString);
+        }
+
+        CallableStatementCreator psc = new CallableStatementCreator() {
+            @Override
+            public CallableStatement createCallableStatement(Connection con) throws SQLException {
+                Matcher matcher = CALL.matcher(queryString);
+                if (!matcher.matches())
+                    throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
+                String query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{ call "
+                        + matcher.group(2) + "}";
+
+                CallableStatement cs = con.prepareCall(query);
+                if (timeout != null)
+                    cs.setQueryTimeout(timeout);
+                return cs;
+            }
+        };
+
+        CallableStatementCallback<Integer> csc = new CallableStatementCallback<Integer>() {
+            public Integer doInCallableStatement(CallableStatement cs) throws SQLException {
+                setParameters(cs, null, 1);
+                cs.execute();
+                Integer updated = cs.getUpdateCount();
+                getParameters(cs, false);
+                return updated;
+            }
+        };
+
+        try {
+            Integer updated = jdbcTemplate.execute(psc, csc);
+            if (logger.isDebugEnabled()) {
+                logger.debug("callUpdate, number of updated rows=" + updated);
+            }
+            return updated;
+        } catch (DataAccessException dae) {
+            throw new SqlProcessorException(dae);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object callFunction() throws SqlProcessorException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("callList, query=" + queryString);
+        }
+
+        CallableStatementCreator psc = new CallableStatementCreator() {
+            @Override
+            public CallableStatement createCallableStatement(Connection con) throws SQLException {
+                Matcher matcher = CALL.matcher(queryString);
+                if (!matcher.matches())
+                    throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
+                String query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{ call "
+                        + matcher.group(2) + "}";
+
+                CallableStatement cs = con.prepareCall(query);
+                if (timeout != null)
+                    cs.setQueryTimeout(timeout);
+                return cs;
+            }
+        };
+
+        CallableStatementCallback<Object> csc = new CallableStatementCallback<Object>() {
+            public Object doInCallableStatement(CallableStatement cs) throws SQLException {
+                ResultSet rs = null;
+                List list = null;
+                Object result = null;
+
+                try {
+                    setParameters(cs, null, 1);
+                    boolean hasResultSet = cs.execute();
+                    if (hasResultSet) {
+                        rs = cs.getResultSet();
+                        ResultSet rsToUse = rs;
+                        if (jdbcTemplate.getNativeJdbcExtractor() != null) {
+                            rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
+                        }
+                        list = getResults(rsToUse);
+                        if (list != null && !list.isEmpty())
+                            result = list.get(0);
+                        getParameters(cs, false);
+                    } else {
+                        result = getParameters(cs, true);
+                    }
+                } finally {
+                    JdbcUtils.closeResultSet(rs);
+                }
+                return result;
+            }
+        };
+
+        try {
+            Object result = jdbcTemplate.execute(psc, csc);
+            if (logger.isDebugEnabled()) {
+                logger.debug("callFunction, result=" + result);
+            }
+            return result;
+        } catch (DataAccessException dae) {
+            throw new SqlProcessorException(dae);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -360,6 +581,13 @@ public class SpringQuery implements SqlQuery {
             identities.add(name);
             identitySetters.put(name, (IdentitySetter) val);
             identityTypes.put(name, type);
+        } else if (val != null && val instanceof OutValueSetter) {
+            if (!parameterTypes.containsKey(name)) {
+                parameters.add(name);
+                parameterTypes.put(name, type);
+            }
+            parameterOutValueTypes.put(name, type);
+            parameterOutValueSetters.put(name, (OutValueSetter) val);
         } else {
             parameters.add(name);
             parameterValues.put(name, val);
@@ -391,24 +619,43 @@ public class SpringQuery implements SqlQuery {
      *            an instance of PreparedStatement
      * @param limitType
      *            the limit type to restrict the number of rows in the result set
+     * @param start
+     *            the index of the first parameter to bind to prepared statement
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>PreparedStatement</code>
      */
-    protected void setParameters(PreparedStatement ps, SqlUtils.LimitType limitType) throws SQLException {
-        int ix = 1;
+    protected void setParameters(PreparedStatement ps, SqlUtils.LimitType limitType, int start) throws SQLException {
+        int ix = start;
         ix = setLimits(ps, limitType, ix, false);
         for (int i = 0, n = parameters.size(); i < n; i++) {
             String name = parameters.get(i);
-            Object value = parameterValues.get(name);
             Object type = parameterTypes.get(name);
-            if (type != null) {
-                if (type instanceof JdbcSqlType) {
-                    ((JdbcSqlType) type).set(ps, ix++, value);
+            if (parameterValues.containsKey(name)) {
+                Object value = parameterValues.get(name);
+                if (type != null) {
+                    if (type instanceof JdbcSqlType) {
+                        ((JdbcSqlType) type).set(ps, ix + i, value);
+                    } else if (value == null) {
+                        ps.setNull(ix + i, (Integer) type);
+                    } else {
+                        ps.setObject(ix + i, value, (Integer) type);
+                    }
                 } else {
-                    ps.setObject(ix++, value, (Integer) type);
+                    ps.setObject(ix + i, value);
                 }
-            } else {
-                ps.setObject(ix++, value);
+            }
+            if (parameterOutValueSetters.containsKey(name)) {
+                CallableStatement cs = (CallableStatement) ps;
+                if (type != null) {
+                    if (type instanceof SqlProviderType) {
+                        cs.registerOutParameter(ix + i, (Integer) ((SqlProviderType) type).getProviderSqlNullType());
+                    } else {
+                        cs.registerOutParameter(ix + i, (Integer) type);
+                    }
+                } else {
+                    throw new SqlProcessorException("OUT parameter type for callable statement is null");
+                }
+                parameterOutValuesToPickup.put(i, ix + i);
             }
         }
         ix = setLimits(ps, limitType, ix, true);
@@ -459,6 +706,44 @@ public class SpringQuery implements SqlQuery {
     }
 
     /**
+     * Gets the value of the designated OUT parameters.
+     * 
+     * @param cs
+     *            an instance of CallableStatement
+     * @throws SQLException
+     *             if a database access error occurs or this method is called on a closed <code>CallableStatement</code>
+     */
+    protected Object getParameters(CallableStatement cs, boolean isFunction) throws SQLException {
+
+        Object result = null;
+        boolean resultInited = false;
+
+        for (Iterator<Integer> iter = parameterOutValuesToPickup.keySet().iterator(); iter.hasNext();) {
+            int i = iter.next();
+            int ix = parameterOutValuesToPickup.get(i);
+            String name = parameters.get(i);
+            Object type = parameterOutValueTypes.get(name);
+            if (type == null)
+                type = parameterTypes.get(name);
+            OutValueSetter outValueSetter = parameterOutValueSetters.get(name);
+            Object outValue = null;
+
+            if (type != null && type instanceof JdbcSqlType) {
+                outValue = ((JdbcSqlType) type).get(cs, ix);
+            } else {
+                outValue = cs.getObject(ix);
+            }
+            outValueSetter.setOutValue(outValue);
+            if (!resultInited) {
+                result = outValue;
+                resultInited = true;
+            }
+        }
+
+        return result;
+    }
+
+    /**
      * Gets the value of the designated columns as the objects in the Java programming language.
      * 
      * @param rs
@@ -469,6 +754,8 @@ public class SpringQuery implements SqlQuery {
      */
     protected List getResults(ResultSet rs) throws SQLException {
         List result = new ArrayList();
+        if (rs == null)
+            return result;
         while (rs.next()) {
             List<Object> row = new ArrayList<Object>();
             for (int i = 0, n = scalars.size(); i < n; i++) {
@@ -491,25 +778,5 @@ public class SpringQuery implements SqlQuery {
                 result.add(oo);
         }
         return result;
-    }
-
-    @Override
-    public List callList() throws SqlProcessorException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Object callUnique() throws SqlProcessorException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int callUpdate() throws SqlProcessorException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Object callFunction() throws SqlProcessorException {
-        throw new UnsupportedOperationException();
     }
 }

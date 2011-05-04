@@ -382,6 +382,51 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
+    public int callUpdate() throws SqlProcessorException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("callUpdate, query=" + queryString);
+        }
+        CallableStatement cs = null;
+        ResultSet rs = null;
+        try {
+            Matcher matcher = CALL.matcher(queryString);
+            if (!matcher.matches())
+                throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
+            String query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{ call "
+                    + matcher.group(2) + "}";
+            cs = connection.prepareCall(query);
+            if (timeout != null)
+                cs.setQueryTimeout(timeout);
+            setParameters(cs, null, 1);
+            cs.execute();
+            int updated = cs.getUpdateCount();
+            if (logger.isDebugEnabled()) {
+                logger.debug("callUpdate, number of updated rows=" + updated);
+            }
+            getParameters(cs, false);
+            return updated;
+        } catch (SQLException he) {
+            throw new SqlProcessorException(he);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (cs != null) {
+                try {
+                    cs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object callFunction() throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callFunction, query=" + queryString);
@@ -433,51 +478,6 @@ public class JdbcQuery implements SqlQuery {
             }
         }
 
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int callUpdate() throws SqlProcessorException {
-        if (logger.isDebugEnabled()) {
-            logger.debug("callUpdate, query=" + queryString);
-        }
-        CallableStatement cs = null;
-        ResultSet rs = null;
-        try {
-            Matcher matcher = CALL.matcher(queryString);
-            if (!matcher.matches())
-                throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
-            String query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{ call "
-                    + matcher.group(2) + "}";
-            cs = connection.prepareCall(query);
-            if (timeout != null)
-                cs.setQueryTimeout(timeout);
-            setParameters(cs, null, 1);
-            cs.execute();
-            int updated = cs.getUpdateCount();
-            if (logger.isDebugEnabled()) {
-                logger.debug("callUpdate, number of updated rows=" + updated);
-            }
-            getParameters(cs, false);
-            return updated;
-        } catch (SQLException he) {
-            throw new SqlProcessorException(he);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ignore) {
-                }
-            }
-            if (cs != null) {
-                try {
-                    cs.close();
-                } catch (SQLException ignore) {
-                }
-            }
-        }
     }
 
     /**
@@ -556,6 +556,8 @@ public class JdbcQuery implements SqlQuery {
      *            an instance of PreparedStatement
      * @param limitType
      *            the limit type to restrict the number of rows in the result set
+     * @param start
+     *            the index of the first parameter to bind to prepared statement
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>PreparedStatement</code>
      */
