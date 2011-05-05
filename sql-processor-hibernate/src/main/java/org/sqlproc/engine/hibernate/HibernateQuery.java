@@ -237,12 +237,7 @@ public class HibernateQuery implements SqlQuery {
 
     @Override
     public int callUpdate() throws SqlProcessorException {
-        try {
-            int updated = query.executeUpdate();
-            return updated;
-        } catch (HibernateException he) {
-            throw new SqlProcessorException(he);
-        }
+        throw new UnsupportedOperationException();
     }
 
     @Override
