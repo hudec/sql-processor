@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineLoader;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.hibernate.HibernateSimpleSession;
@@ -41,6 +42,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected static final String DDL_DROP_DB = "DDL_DROP_DB";
     protected static final String QUERIES_PROPS = "QUERIES_PROPS";
     protected static final String CRUD_PROPS = "CRUD_PROPS";
+    protected static final String PROCEDURE_PROPS = "PROCEDURE_PROPS";
     protected static final String TYPES_PROPS = "TYPES_PROPS";
     protected static final String JOINS_PROPS = "JOINS_PROPS";
     protected static final String CUSTOM_PROPS = "CUSTOM_PROPS";
@@ -81,6 +83,10 @@ public abstract class TestDatabase extends DatabaseTestCase {
         loader = new SqlPropertiesLoader(testProperties.getProperty(QUERIES_PROPS), DatabaseTestCase.class);
         queriesProperties = loader.getProperties();
         loader = new SqlPropertiesLoader(testProperties.getProperty(CRUD_PROPS), DatabaseTestCase.class);
+        for (Map.Entry<Object, Object> e : loader.getProperties().entrySet()) {
+            queriesProperties.setProperty((String) e.getKey(), (String) e.getValue());
+        }
+        loader = new SqlPropertiesLoader(testProperties.getProperty(PROCEDURE_PROPS), DatabaseTestCase.class);
         for (Map.Entry<Object, Object> e : loader.getProperties().entrySet()) {
             queriesProperties.setProperty((String) e.getKey(), (String) e.getValue());
         }
@@ -222,6 +228,16 @@ public abstract class TestDatabase extends DatabaseTestCase {
         SqlEngineLoader sqlLoader = new SqlEngineLoader(queriesProperties, HibernateTypeFactory.getInstance(), dbType,
                 null, customTypes, name);
         SqlCrudEngine sqlEngine = sqlLoader.getCrudEngine(name);
+        assertFalse(sqlEngine == null);
+        return sqlEngine;
+    }
+
+    SqlProcedureEngine getProcedureEngine(String name) {
+        SqlProcessContext.nullFeatures();
+        SqlProcessContext.nullTypeFactory();
+        SqlEngineLoader sqlLoader = new SqlEngineLoader(queriesProperties, HibernateTypeFactory.getInstance(), dbType,
+                null, customTypes, name);
+        SqlProcedureEngine sqlEngine = sqlLoader.getProcedureEngine(name);
         assertFalse(sqlEngine == null);
         return sqlEngine;
     }
