@@ -2,6 +2,7 @@ package org.sqlproc.engine;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -61,7 +62,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     /**
      * The name of file, which holds a collection of META SQL statements, mapping rules and optional features.
      */
-    private String metaPropsName;
+    private List<String> metaPropsNames = new ArrayList<String>();
     /**
      * The collection of META SQL statements, mapping rules and optional features.
      */
@@ -108,8 +109,11 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         if (loader == null) {
             Properties metaProperties = metaProps;
             if (metaProperties == null) {
-                SqlPropertiesLoader loader = new SqlPropertiesLoader(metaPropsName != null ? metaPropsName
-                        : DEFAULT_META_PROPS_NAME, this.getClass());
+                SqlPropertiesLoader loader;
+                if (metaPropsNames != null && !metaPropsNames.isEmpty())
+                    loader = new SqlPropertiesLoader(metaPropsNames, this.getClass());
+                else
+                    loader = new SqlPropertiesLoader(DEFAULT_META_PROPS_NAME, this.getClass());
                 metaProperties = loader.getProperties();
             }
             if (jdbc)
@@ -154,22 +158,35 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
-     * Returns the name of file, which holds a collection of META SQL statements, mapping rules and optional features.
+     * Returns the names of files, which holds a collection of META SQL statements, mapping rules and optional features.
      * 
-     * @return the name of file, which holds a collection of META SQL statements, mapping rules and optional features
+     * @return the names of files, which holds a collection of META SQL statements, mapping rules and optional features
      */
-    public String getMetaPropsName() {
-        return metaPropsName;
+    public List<String> getMetaPropsNames() {
+        return metaPropsNames;
     }
 
     /**
-     * Sets the name of file, which holds a collection of META SQL statements, mapping rules and optional features.
+     * Sets the names of files, which holds a collection of META SQL statements, mapping rules and optional features.
      * 
      * @param propsName
-     *            the name of file, which holds a collection of META SQL statements, mapping rules and optional features
+     *            the names of files, which holds a collection of META SQL statements, mapping rules and optional
+     *            features
      */
-    public void setMetaPropsName(String propsName) {
-        this.metaPropsName = propsName;
+    public void setMetaPropsNames(List<String> propsNames) {
+        this.metaPropsNames = propsNames;
+    }
+
+    /**
+     * Sets the names of files, which holds a collection of META SQL statements, mapping rules and optional features.
+     * 
+     * @param propsName
+     *            the names of files, which holds a collection of META SQL statements, mapping rules and optional
+     *            features
+     */
+    public void setMetaPropsNames(String... propsNames) {
+        this.metaPropsNames = new ArrayList<String>();
+        Collections.addAll(metaPropsNames, propsNames);
     }
 
     /**
@@ -265,6 +282,17 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     public void setCustomTypes(List<SqlInternalType> customTypes) {
         this.customTypes = customTypes;
+    }
+
+    /**
+     * Sets the custom META types.
+     * 
+     * @param customTypes
+     *            the custom META types
+     */
+    public void setCustomTypes(SqlInternalType... customTypes) {
+        this.customTypes = new ArrayList<SqlInternalType>();
+        Collections.addAll(this.customTypes, customTypes);
     }
 
     /**

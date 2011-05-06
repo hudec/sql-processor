@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.dbcp.BasicDataSource;
@@ -69,40 +68,21 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
     static {
 
-        SqlPropertiesLoader loader = new SqlPropertiesLoader("test.properties", DatabaseTestCase.class);
-        testProperties = loader.getProperties();
+        testProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class, "test.properties");
         dbType = testProperties.getProperty(DB_TYPE);
 
         if (containsProperty(testProperties, DDL_CREATE_DB)) {
-            loader = new SqlPropertiesLoader(testProperties.getProperty(DDL_CREATE_DB), DatabaseTestCase.class);
-            ddlCreateDbProperties = loader.getProperties();
+            ddlCreateDbProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class,
+                    testProperties.getProperty(DDL_CREATE_DB));
         }
         if (containsProperty(testProperties, DDL_DROP_DB)) {
-            loader = new SqlPropertiesLoader(testProperties.getProperty(DDL_DROP_DB), DatabaseTestCase.class);
-            ddlDropDbProperties = loader.getProperties();
+            ddlDropDbProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class,
+                    testProperties.getProperty(DDL_DROP_DB));
         }
-        loader = new SqlPropertiesLoader(testProperties.getProperty(QUERIES_PROPS), DatabaseTestCase.class);
-        queriesProperties = loader.getProperties();
-        loader = new SqlPropertiesLoader(testProperties.getProperty(CRUD_PROPS), DatabaseTestCase.class);
-        for (Map.Entry<Object, Object> e : loader.getProperties().entrySet()) {
-            queriesProperties.setProperty((String) e.getKey(), (String) e.getValue());
-        }
-        loader = new SqlPropertiesLoader(testProperties.getProperty(PROCEDURE_PROPS), DatabaseTestCase.class);
-        for (Map.Entry<Object, Object> e : loader.getProperties().entrySet()) {
-            queriesProperties.setProperty((String) e.getKey(), (String) e.getValue());
-        }
-        loader = new SqlPropertiesLoader(testProperties.getProperty(TYPES_PROPS), DatabaseTestCase.class);
-        for (Map.Entry<Object, Object> e : loader.getProperties().entrySet()) {
-            queriesProperties.setProperty((String) e.getKey(), (String) e.getValue());
-        }
-        loader = new SqlPropertiesLoader(testProperties.getProperty(JOINS_PROPS), DatabaseTestCase.class);
-        for (Map.Entry<Object, Object> e : loader.getProperties().entrySet()) {
-            queriesProperties.setProperty((String) e.getKey(), (String) e.getValue());
-        }
-        loader = new SqlPropertiesLoader(testProperties.getProperty(CUSTOM_PROPS), DatabaseTestCase.class);
-        for (Map.Entry<Object, Object> e : loader.getProperties().entrySet()) {
-            queriesProperties.setProperty((String) e.getKey(), (String) e.getValue());
-        }
+        queriesProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class,
+                testProperties.getProperty(QUERIES_PROPS), testProperties.getProperty(CRUD_PROPS),
+                testProperties.getProperty(PROCEDURE_PROPS), testProperties.getProperty(TYPES_PROPS),
+                testProperties.getProperty(JOINS_PROPS), testProperties.getProperty(CUSTOM_PROPS));
         queriesProperties.setProperty("SET_" + SqlFeature.JDBC, "true");
 
         BasicDataSource dataSource = new BasicDataSource();

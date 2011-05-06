@@ -4,6 +4,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -31,7 +35,7 @@ public class SqlPropertiesLoader {
     private Properties properties;
 
     /**
-     * Reads the properties file and create's a new SqlPropertiesLoader instance.
+     * Reads the properties file and creates a new SqlPropertiesLoader instance.
      * 
      * @param fileName
      *            Properties file name.
@@ -39,8 +43,69 @@ public class SqlPropertiesLoader {
      *            Class used to detect the correct classloader.
      */
     public SqlPropertiesLoader(String fileName, Class<?> loaderClass) {
+        properties = load(fileName, loaderClass);
+    }
+
+    /**
+     * Reads the properties file and creates a new SqlPropertiesLoader instance.
+     * 
+     * @param fileName
+     *            Properties file name.
+     * @param loaderClass
+     *            Class used to detect the correct classloader.
+     */
+    public static Properties getProperties(Class<?> loaderClass, String fileName) {
+        SqlPropertiesLoader loader = new SqlPropertiesLoader(fileName, loaderClass);
+        return loader.getProperties();
+    }
+
+    /**
+     * Reads the properties files and creates a new SqlPropertiesLoader instance.
+     * 
+     * @param fileName
+     *            Properties file name.
+     * @param loaderClass
+     *            Class used to detect the correct classloader.
+     */
+    public SqlPropertiesLoader(List<String> fileNames, Class<?> loaderClass) {
+        properties = new Properties();
+        if (fileNames == null || fileNames.isEmpty())
+            return;
+        for (String fileName : fileNames) {
+            Properties props = load(fileName, loaderClass);
+            for (Map.Entry<Object, Object> e : props.entrySet()) {
+                properties.setProperty((String) e.getKey(), (String) e.getValue());
+            }
+        }
+    }
+
+    /**
+     * Reads the properties files and creates a new SqlPropertiesLoader instance.
+     * 
+     * @param fileName
+     *            Properties file name.
+     * @param loaderClass
+     *            Class used to detect the correct classloader.
+     */
+    public static Properties getProperties(Class<?> loaderClass, String... fileNames) {
+        ArrayList<String> propsNames = new ArrayList<String>();
+        Collections.addAll(propsNames, fileNames);
+        SqlPropertiesLoader loader = new SqlPropertiesLoader(propsNames, loaderClass);
+        return loader.getProperties();
+    }
+
+    /**
+     * Reads the properties file and creates a new Properties instance.
+     * 
+     * @param fileName
+     *            Properties file name.
+     * @param loaderClass
+     *            Class used to detect the correct classloader.
+     * @return a new Properties instance
+     */
+    private Properties load(String fileName, Class<?> loaderClass) {
         if (logger.isDebugEnabled()) {
-            logger.debug(">> SqlPropertiesLoader, fileName=" + fileName + ", loaderClass=" + loaderClass);
+            logger.debug(">> load, fileName=" + fileName + ", loaderClass=" + loaderClass);
         }
 
         try {
@@ -64,7 +129,7 @@ public class SqlPropertiesLoader {
                 } catch (FileNotFoundException e) {
                 }
             }
-            this.properties = new Properties();
+            Properties properties = new Properties();
             if (is != null) {
                 try {
                     properties.load(is);
@@ -76,9 +141,10 @@ public class SqlPropertiesLoader {
                     }
                 }
             }
+            return properties;
         } finally {
             if (logger.isDebugEnabled()) {
-                logger.debug("<< SqlPropertiesLoader, properties=" + properties);
+                logger.debug("<< load, properties=" + properties);
             }
         }
     }
