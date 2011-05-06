@@ -190,7 +190,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
             Statement stmt = null;
             try {
                 stmt = connection.getConnection().createStatement();
-                for (int i = 1; i <= 50; i++) {
+                for (int i = 1; i <= 60; i++) {
                     String ddl = ddlCreateDbProperties.getProperty("s" + i);
                     if (ddl == null)
                         continue;
