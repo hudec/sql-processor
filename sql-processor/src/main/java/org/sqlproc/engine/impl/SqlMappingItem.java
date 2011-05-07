@@ -415,7 +415,13 @@ class SqlMappingItem implements SqlMetaElement {
                         allocatedCllections.add(attr.getFullName());
                         String typeName = (moreResultClasses != null) ? values.get(attr.getFullName()
                                 + SqlUtils.SUPPVAL_GTYPE) : null;
-                        Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
+                        Class<?> typeClass = null;
+                        if (typeName != null) {
+                            if (typeName.toLowerCase().startsWith(SqlUtils.SUPPVAL_DISCRIMINATOR))
+                                typeClass = moreResultClasses.get(resultValue);
+                            else
+                                typeClass = moreResultClasses.get(typeName);
+                        }
                         if (typeClass == null) {
                             ParameterizedType paramType = (ParameterizedType) m.getGenericReturnType();
                             typeClass = (Class) paramType.getActualTypeArguments()[0];

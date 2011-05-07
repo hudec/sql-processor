@@ -25,6 +25,7 @@ public class SqlUtils {
     static final String SUPPVAL_ID = "id";
     static final String SUPPVAL_GTYPE = "gtype";
     static final String SUPPVAL_TYPE = "type";
+    static final String SUPPVAL_DISCRIMINATOR = "discr";
 
     // enums
 
@@ -184,13 +185,20 @@ public class SqlUtils {
     }
 
     // identities
-
-    public static boolean[] changedIdentities(Object resultValue[], Object[] previousResultValue) {
-        boolean[] changedIdentities = new boolean[resultValue.length];
-        if (previousResultValue == null) {
-            for (int i = 0; i < resultValue.length; i++) {
+    public static boolean[] initChangedIdentities(int length, boolean changed) {
+        boolean[] changedIdentities = new boolean[length];
+        if (changed) {
+            for (int i = 0; i < length; i++) {
                 changedIdentities[i] = true;
             }
+            return changedIdentities;
+        }
+        return changedIdentities;
+    }
+
+    public static boolean[] changedIdentities(Object resultValue[], Object[] previousResultValue) {
+        boolean[] changedIdentities = initChangedIdentities(resultValue.length, previousResultValue == null);
+        if (previousResultValue == null) {
             return changedIdentities;
         }
 

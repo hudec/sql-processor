@@ -405,6 +405,9 @@ public class SqlQueryEngine extends SqlEngine {
 
                         boolean changedIdentity = SqlUtils.changedIdentity(changedIdentities,
                                 mappingResult.getMainIdentityIndex());
+                        if (changedIdentity) {
+                            changedIdentities = SqlUtils.initChangedIdentities(resultValue.length, true);
+                        }
 
                         resultInstance = (changedIdentity) ? BeanUtils.getInstance(resultClass) : previousInstance;
                         if (resultInstance == null) {
