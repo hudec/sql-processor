@@ -20,13 +20,17 @@ import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
+import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Book;
 import org.sqlproc.sample.simple.model.Contact;
+import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.Library;
 import org.sqlproc.sample.simple.model.Media;
 import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.Person;
+import org.sqlproc.sample.simple.model.PersonLibrary;
 import org.sqlproc.sample.simple.model.PhoneNumber;
+import org.sqlproc.sample.simple.model.Subscriber;
 import org.sqlproc.sample.simple.type.PhoneNumberType;
 
 public class Main {
@@ -163,12 +167,12 @@ public class Main {
         return (count > 0) ? book : null;
     }
 
-    public void createLibrary(Person person, Media... media) {
+    public void createPersonLibrary(Person person, Media... media) {
         SqlCrudEngine sqlCreateLibrary = sqlFactory.getCrudEngine("CREATE_LIBRARY");
         if (media == null || media.length == 0)
             return;
         for (Media media1 : media) {
-            Library library = new Library(person.getId(), media1.getId());
+            PersonLibrary library = new PersonLibrary(person.getId(), media1.getId());
             sqlCreateLibrary.insert(session, library);
         }
     }
@@ -206,6 +210,41 @@ public class Main {
         return list;
     }
 
+    public Library insertLibrary(Library library) {
+        SqlCrudEngine sqlInsertLibrary = sqlFactory.getCrudEngine("INSERT_LIBRARY");
+        int count = sqlInsertLibrary.insert(session, library);
+        return (count > 0) ? library : null;
+    }
+
+    public Subscriber insertSubscriber(Subscriber subscriber) {
+        SqlCrudEngine sqlInsertSubscriber = sqlFactory.getCrudEngine("INSERT_SUBSCRIBER");
+        int count = sqlInsertSubscriber.insert(session, subscriber);
+        return (count > 0) ? subscriber : null;
+    }
+
+    public BankAccount insertBankAccount(BankAccount bankAccount) {
+        SqlCrudEngine sqlInsertBankAccount = sqlFactory.getCrudEngine("INSERT_BANK_ACCOUNT");
+        int count = sqlInsertBankAccount.insert(session, bankAccount);
+        return (count > 0) ? bankAccount : null;
+    }
+
+    public CreditCard insertCreditCard(CreditCard creditCard) {
+        SqlCrudEngine sqlInsertCreditCard = sqlFactory.getCrudEngine("INSERT_CREDIT_CARD");
+        int count = sqlInsertCreditCard.insert(session, creditCard);
+        return (count > 0) ? creditCard : null;
+    }
+
+    public List<Subscriber> listAllSubsribersWithBillingDetails() {
+        SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_SUBSCRIBERS_BILLING_DETAILS");
+        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
+        moreResultClasses.put("BA", BankAccount.class);
+        moreResultClasses.put("CC", CreditCard.class);
+        List<Subscriber> list = sqlEngine.query(session, Subscriber.class, null, null, SqlQueryEngine.ASC_ORDER,
+                moreResultClasses);
+        logger.info("listAllSubsribersWithBillingDetails size: " + list.size());
+        return list;
+    }
+
     public static void main(String[] args) throws Exception {
         Person person, p;
         List<Person> list;
@@ -226,9 +265,18 @@ public class Main {
         Movie movie1 = main.insertMovie(new Movie("Pippi Långstrump i Söderhavet", "abc", 82));
         Movie movie2 = main.insertMovie(new Movie("Die Another Day", "def", 95));
 
-        main.createLibrary(jan, book1, movie1);
-        main.createLibrary(honza, book2, movie2);
-        main.createLibrary(andrej, book1, book2, movie2);
+        main.createPersonLibrary(jan, book1, movie1);
+        main.createPersonLibrary(honza, book2, movie2);
+        main.createPersonLibrary(andrej, book1, book2, movie2);
+
+        Library lib = main.insertLibrary(new Library("Alexandria Library"));
+        Subscriber arnost = main.insertSubscriber(new Subscriber("Arnošt", lib));
+        Subscriber maria = main.insertSubscriber(new Subscriber("Mária", lib));
+
+        main.insertBankAccount(new BankAccount("account 1", arnost));
+        main.insertBankAccount(new BankAccount("account 2", maria));
+        main.insertCreditCard(new CreditCard(123L, arnost));
+        main.insertCreditCard(new CreditCard(456L, maria));
 
         // queries
         list = main.listAll();
@@ -307,5 +355,8 @@ public class Main {
         list = main.listCustom(contact);
         Assert.assertEquals(1, list.size());
         Assert.assertEquals("111-222-3333", list.get(0).getContacts().get(0).getHomePhone().toString());
+
+        List<Subscriber> subscribers = main.listAllSubsribersWithBillingDetails();
+        Assert.assertEquals(2, subscribers.size());
     }
 }

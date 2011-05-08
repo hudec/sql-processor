@@ -1,14 +1,16 @@
 package org.sqlproc.sample.simple.model;
 
+
 public class Library {
 
     private Long id;
-    private Long personId;
-    private Long mediaId;
+    private String name;
 
-    public Library(Long personId, Long mediaId) {
-        this.personId = personId;
-        this.mediaId = mediaId;
+    public Library() {
+    }
+
+    public Library(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -19,20 +21,11 @@ public class Library {
         this.id = id;
     }
 
-    public Long getPersonId() {
-        return personId;
+    public String getName() {
+        return name;
     }
 
-    public void setPersonId(Long personId) {
-        this.personId = personId;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public Long getMediaId() {
-        return mediaId;
-    }
-
-    public void setMediaId(Long mediaId) {
-        this.mediaId = mediaId;
-    }
-
 }
