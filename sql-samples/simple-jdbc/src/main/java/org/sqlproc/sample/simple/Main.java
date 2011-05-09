@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -143,6 +145,16 @@ public class Main {
     public List<Person> listPeopleAndContacts(Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS");
         List<Person> list = sqlEngine.query(session, Person.class, person, SqlQueryEngine.ASC_ORDER);
+        logger.info("listSome size: " + list.size());
+        return list;
+    }
+
+    public List<Person> listPeopleAndContacts2(Person person) {
+        SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS2");
+        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
+        moreResultClasses.put("linked", LinkedList.class);
+        List<Person> list = sqlEngine.query(session, Person.class, person, null, SqlQueryEngine.ASC_ORDER,
+                moreResultClasses);
         logger.info("listSome size: " + list.size());
         return list;
     }
@@ -299,6 +311,14 @@ public class Main {
         Assert.assertEquals(1, list.size());
         Assert.assertEquals("Honza", list.get(0).getName());
         Assert.assertEquals(2, list.get(0).getContacts().size());
+        Assert.assertTrue(list.get(0).getContacts() instanceof ArrayList);
+        Assert.assertEquals("Honza address 1", list.get(0).getContacts().get(0).getAddress());
+        Assert.assertEquals("Honza address 2", list.get(0).getContacts().get(1).getAddress());
+        list = main.listPeopleAndContacts2(person);
+        Assert.assertEquals(1, list.size());
+        Assert.assertEquals("Honza", list.get(0).getName());
+        Assert.assertEquals(2, list.get(0).getContacts().size());
+        Assert.assertTrue(list.get(0).getContacts() instanceof LinkedList);
         Assert.assertEquals("Honza address 1", list.get(0).getContacts().get(0).getAddress());
         Assert.assertEquals("Honza address 2", list.get(0).getContacts().get(1).getAddress());
 
