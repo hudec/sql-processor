@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,11 +18,13 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlOrder;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
+import org.sqlproc.sample.simple.form.FormSimpleFunction;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Book;
 import org.sqlproc.sample.simple.model.Contact;
@@ -257,6 +260,32 @@ public class Main {
         return list;
     }
 
+    public java.sql.Timestamp callSimpleFunction(java.sql.Timestamp stamp) {
+        FormSimpleFunction f = new FormSimpleFunction();
+        f.setTime(stamp);
+        SqlProcedureEngine callableEngine = sqlFactory.getProcedureEngine("SIMPLE_FUNCION");
+        Object result = callableEngine.callFunction(session, f);
+        logger.info("callSimpleFunction result: " + result);
+        return (java.sql.Timestamp) result;
+    }
+
+    // public java.sql.Timestamp callSimpleFunctionToInputForm(java.sql.Timestamp stamp) {
+    // FormSimpleFunction f = new FormSimpleFunction();
+    // f.setTime(stamp);
+    // SqlProcedureEngine callableEngine = sqlFactory.getProcedureEngine("SIMPLE_FUNCION_TO_IN_FORM");
+    // callableEngine.callFunction(session, f);
+    // logger.info("callSimpleFunctionToInputForm result: " + f.getTime2());
+    // return f.getTime2();
+    // }
+
+    public Long callStoredProcedure(String name) {
+        Person p = new Person(name);
+        SqlProcedureEngine callableEngine = sqlFactory.getProcedureEngine("INSERT_PERSON_CALL");
+        callableEngine.callUpdate(session, p);
+        logger.info("callStoredProcedure result: " + p.getId());
+        return p.getId();
+    }
+
     public static void main(String[] args) throws Exception {
         Person person, p;
         List<Person> list;
@@ -282,8 +311,8 @@ public class Main {
         main.createPersonLibrary(andrej, book1, book2, movie2);
 
         Library lib = main.insertLibrary(new Library("Alexandria Library"));
-        Subscriber arnost = main.insertSubscriber(new Subscriber("Arnošt", lib));
-        Subscriber maria = main.insertSubscriber(new Subscriber("Mária", lib));
+        Subscriber arnost = main.insertSubscriber(new Subscriber("Arnost", lib));
+        Subscriber maria = main.insertSubscriber(new Subscriber("Maria", lib));
 
         main.insertBankAccount(new BankAccount("account 1", arnost));
         main.insertBankAccount(new BankAccount("account 2", maria));
@@ -378,5 +407,11 @@ public class Main {
 
         List<Subscriber> subscribers = main.listAllSubsribersWithBillingDetails();
         Assert.assertEquals(2, subscribers.size());
+
+        java.sql.Timestamp stamp = main.callSimpleFunction(new java.sql.Timestamp(new Date().getTime()));
+        Assert.assertNotNull(stamp);
+
+        Long id = main.callStoredProcedure("Katka");
+        Assert.assertNotNull(id);
     }
 }
