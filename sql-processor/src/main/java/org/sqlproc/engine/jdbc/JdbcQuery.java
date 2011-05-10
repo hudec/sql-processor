@@ -561,7 +561,8 @@ public class JdbcQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>PreparedStatement</code>
      */
-    protected void setParameters(PreparedStatement ps, SqlUtils.LimitType limitType, int start) throws SQLException {
+    protected void setParameters(PreparedStatement ps, SqlUtils.LimitType limitType, int start) throws SQLException,
+            SqlProcessorException {
         int ix = start;
         ix = setLimits(ps, limitType, ix, false);
         for (int i = 0, n = parameters.size(); i < n; i++) {
@@ -571,7 +572,17 @@ public class JdbcQuery implements SqlQuery {
                 Object value = parameterValues.get(name);
                 if (type != null) {
                     if (type instanceof JdbcSqlType) {
-                        ((JdbcSqlType) type).set(ps, ix + i, value);
+                        JdbcSqlType sqlType = (JdbcSqlType) type;
+                        try {
+                            sqlType.set(ps, ix + i, value);
+                        } catch (ClassCastException cce) {
+                            StringBuilder sb = new StringBuilder("Not compatible input value of type ")
+                                    .append((value != null) ? value.getClass() : "null");
+                            sb.append(". The JDBC type for ").append(name).append(" is ")
+                                    .append((sqlType != null) ? sqlType.getClass() : "null");
+                            sb.append(".");
+                            throw new SqlProcessorException(sb.toString(), cce);
+                        }
                     } else if (value == null) {
                         ps.setNull(ix + i, (Integer) type);
                     } else {

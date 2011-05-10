@@ -83,7 +83,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * 
  * <pre>
  * SqlEngineFactory sqlFactory = new JdbcEngineFactory();
- * SqlProcessorEngine sqlEngine = sqlFactory.getgetProcedureEngine(&quot;SIMPLE_FUNCION&quot;);
+ * SqlProcedureEngine sqlEngine = sqlFactory.getProcedureEngine(&quot;SIMPLE_FUNCION&quot;);
  * Connection connection = DriverManager.getConnection(&quot;jdbc:hsqldb:mem:sqlproc&quot;, &quot;sa&quot;, &quot;&quot;);
  * SqlSession session = new JdbcSimpleSession(connection);
  * </pre>

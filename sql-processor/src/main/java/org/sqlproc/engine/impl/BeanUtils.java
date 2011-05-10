@@ -3,6 +3,7 @@ package org.sqlproc.engine.impl;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.beanutils.MethodUtils;
@@ -156,7 +157,14 @@ public class BeanUtils {
             } catch (IllegalAccessException e) {
                 throw new SqlRuntimeException(e);
             } catch (IllegalArgumentException e) {
-                throw new SqlRuntimeException(e);
+                StringBuilder sb = new StringBuilder("Not compatible output value of type ")
+                        .append((param != null) ? param.getClass() : "null");
+                sb.append(". The result class of type ").append((obj != null) ? obj.getClass() : "null");
+                sb.append(" for the method ").append(m.getName());
+                sb.append(" is expecting the paramater(s) of type(s) ").append(
+                        (m.getParameterTypes() != null) ? Arrays.asList(m.getParameterTypes()) : "empty");
+                sb.append(".");
+                throw new SqlRuntimeException(sb.toString(), e);
             } catch (InvocationTargetException e) {
                 throw new SqlRuntimeException(e);
             }
