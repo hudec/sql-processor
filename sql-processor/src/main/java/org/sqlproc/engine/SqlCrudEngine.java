@@ -1,6 +1,8 @@
 package org.sqlproc.engine;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.sqlproc.engine.impl.BeanUtils;
@@ -8,6 +10,7 @@ import org.sqlproc.engine.impl.SqlMappingResult;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
 import org.sqlproc.engine.impl.SqlProcessResult;
+import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -347,21 +350,39 @@ public class SqlCrudEngine extends SqlEngine {
                     SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, moreResultClasses, query);
 
-                    Object resultRow = query.unique();
-                    if (resultRow != null) {
-                        Object resultValue[] = (resultRow instanceof Object[]) ? (Object[]) (Object[]) resultRow
+                    List list = query.list();
+                    E resultInstance = null;
+                    E previousInstance = null;
+                    Object[] resultValue = null;
+                    Object[] previousResultValue = null;
+                    boolean[] changedIdentities = null;
+                    Map<String, Object> instances = new HashMap<String, Object>();
+
+                    for (Iterator i$ = list.iterator(); i$.hasNext();) {
+                        Object resultRow = i$.next();
+                        resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
                                 : (new Object[] { resultRow });
-                        Map<String, Object> instances = new HashMap<String, Object>();
-                        E resultInstance = BeanUtils.getInstance(resultClass);
+                        changedIdentities = SqlUtils.changedIdentities(resultValue, previousResultValue);
+
+                        boolean changedIdentity = SqlUtils.changedIdentity(changedIdentities,
+                                mappingResult.getMainIdentityIndex());
+                        if (changedIdentity) {
+                            if (resultInstance != null) {
+                                throw new SqlProcessorException("There's no unique result");
+                            }
+                            changedIdentities = SqlUtils.initChangedIdentities(resultValue.length, true);
+                        }
+
+                        resultInstance = (changedIdentity) ? BeanUtils.getInstance(resultClass) : previousInstance;
                         if (resultInstance == null) {
                             throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                         }
-                        mappingResult.setQueryResultData(resultInstance, resultValue, instances, null,
+                        mappingResult.setQueryResultData(resultInstance, resultValue, instances, changedIdentities,
                                 moreResultClasses);
-                        return resultInstance;
-                    } else {
-                        return null;
+                        previousInstance = resultInstance;
+                        previousResultValue = resultValue;
                     }
+                    return resultInstance;
                 }
             }, resultClass);
             return result;
