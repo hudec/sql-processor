@@ -59,12 +59,12 @@ public class SqlMappingRule {
         }
         SqlMappingRule mapping = null;
         try {
-            StringBuilder s = new StringBuilder(mappingStatement);
-            SqlMappingLexer lexer = new SqlMappingLexer(new ANTLRStringStream(s.toString()));
+            StringBuilder sbMappingStatement = new StringBuilder(mappingStatement);
+            SqlProcessorLexer lexer = new SqlProcessorLexer(new ANTLRStringStream(sbMappingStatement.toString()));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
-            SqlMappingParser parser = new SqlMappingParser(tokens);
+            SqlProcessorParser parser = new SqlProcessorParser(tokens);
             try {
-                mapping = parser.parse(typeFactory);
+                mapping = parser.mapping(typeFactory);
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }

@@ -125,6 +125,20 @@ class ParserUtils {
         return null;
     }
 
+    static SqlMappingItem addColumnAttr(SqlMappingItem col, String name) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("addColumnAttr " + name);
+        }
+        if (name.length() > 0) {
+            String[] javaNames = name.split("\\.");
+            for (String javaName : javaNames) {
+                col.addAttributeName(javaName);
+            }
+            return col;
+        }
+        return null;
+    }
+
     static SqlMetaConst newConstant(String name, String caseConversion) {
         if (logger.isTraceEnabled()) {
             logger.trace("newConstant " + name);

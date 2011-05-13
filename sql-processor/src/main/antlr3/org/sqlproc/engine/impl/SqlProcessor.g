@@ -71,6 +71,10 @@ import org.sqlproc.engine.type.SqlMetaType;
     return ParserUtils.newColumn(col.getText());
   }
   
+  void addColumnAttr(SqlMappingItem item, Token col) {
+    ParserUtils.addColumnAttr(item, col.getText());
+  }
+  
   void addIdent(Object target, SqlMetaIdent ident, StringBuilder text) {
     ParserUtils.addIdent(target, ident, text);
   }
@@ -107,11 +111,12 @@ import org.sqlproc.engine.type.SqlMetaType;
   }
 }
 
-parse [SqlTypeFactory _typeFactory, Map<String, SqlMetaStatement> metaStatements, Map<String, SqlMappingRule> mappingRules]
+parse [SqlTypeFactory _typeFactory, Map<String, SqlMetaStatement> metaStatements, Map<String, SqlMappingRule> mappingRules, Map<String, String> features]
         : 
         (
-         (name=IDENT LPAREN ('QRY'|'CRUD'|'CALL') RPAREN EQUALS metaStatement=meta[_typeFactory] {metaStatements.put(name.getText(), metaStatement);} ';' WS*)
-         | (name=IDENT LPAREN ('OUT') RPAREN EQUALS mappingRule=mapping[_typeFactory] {mappingRules.put(name.getText(), mappingRule);} ';' WS*)
+         (name=IDENT LPAREN type=('QRY'|'CRUD'|'CALL') RPAREN EQUALS metaStatement=meta[_typeFactory] {metaStatements.put(name.getText(), metaStatement);} ';' WS*)
+         | (name=IDENT LPAREN type=('OUT') RPAREN EQUALS mappingRule=mapping[_typeFactory] {mappingRules.put(name.getText(), mappingRule);} ';' WS*)
+         | (name=IDENT LPAREN type=('OPT') RPAREN EQUALS  text=option {features.put(name.getText(), text.toString());} ';' WS*)
         )+ EOF
 	;
 	
@@ -119,7 +124,7 @@ meta [SqlTypeFactory _typeFactory] returns [SqlMetaStatement metaStatement]
 scope {StringBuilder text;boolean hasOutputMapping;SqlTypeFactory typeFactory;}
 @init {$metaStatement = new SqlMetaStatement(); $meta::text = new StringBuilder();$meta::typeFactory=_typeFactory;}
 @after {$metaStatement.setHasOutputMapping($meta::hasOutputMapping);}
-	: sql[metaStatement] 
+	: sql[metaStatement] EOF?
 	;
 
 sql [SqlMetaStatement metaStatement]	
@@ -252,19 +257,25 @@ scope {SqlTypeFactory typeFactory;}
   WS*
   sqlMappingItem=mappingItem {$sqlMapping.addMapping(sqlMappingItem);}
   (WS+ sqlMappingItem=mappingItem {$sqlMapping.addMapping(sqlMappingItem);})*
-  WS*
+  WS*  EOF?
 )
 ;
 
 mappingItem returns[SqlMappingItem result]
 	:	
 	(col=IDENT | col=NUMBER) {$result = newColumn(col);}
-	 (options {greedy=true;} : STRING type=IDENT { setMetaType($mapping::typeFactory, $result, $type.text); }
-	  (STRING (col=IDENT_DOT | col=IDENT) { $result.addAttributeName($col.text); }
+	 (options {greedy=true;} : STRING (type=IDENT { setMetaType($mapping::typeFactory, $result, $type.text); })?
+	  (STRING (col=IDENT_DOT | col=IDENT) { addColumnAttr($result, $col); }
 	   (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { $result.setValues($value.text, $value2.text); }
 	   )*
   	  )?
 	 )?
+	;
+	
+option returns [StringBuilder text]
+@init {text = new StringBuilder();}
+	: (REST | COLON | STRING | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN)
+	  {add(text);}
 	;
 
 	

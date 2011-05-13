@@ -104,12 +104,12 @@ public class SqlMetaStatement implements SqlMetaElement {
         }
         SqlMetaStatement stmt = null;
         try {
-            StringBuilder s = new StringBuilder(statement);
-            SqlStatementLexer lexer = new SqlStatementLexer(new ANTLRStringStream(s.toString()));
+            StringBuilder sbStatements = new StringBuilder(statement);
+            SqlProcessorLexer lexer = new SqlProcessorLexer(new ANTLRStringStream(sbStatements.toString()));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
-            SqlStatementParser parser = new SqlStatementParser(tokens);
+            SqlProcessorParser parser = new SqlProcessorParser(tokens);
             try {
-                stmt = parser.parse(typeFactory);
+                stmt = parser.meta(typeFactory);
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }

@@ -75,6 +75,7 @@ public class Main {
         SqlProcessor processor = SqlProcessor.getInstance(sbStatements, typeFactory);
         logger.info("statements: " + processor.getStatements());
         logger.info("mappings: " + processor.getMappingRules());
+        logger.info("features: " + processor.getFeatures());
 
         SqlQueryEngine engine = new SqlQueryEngine("ANSI_BASIC", processor.getStatements().get("ANSI_BASIC"), processor
                 .getMappingRules().get("ANSI_BASIC"), null, null, typeFactory);

@@ -1,5 +1,6 @@
 package org.sqlproc.engine.impl;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -26,13 +27,17 @@ public class SqlProcessor {
     protected static Logger logger = LoggerFactory.getLogger(SqlMetaElement.class);
 
     /**
-     * All META SQL statements;
+     * The collection of the META SQL statements;
      */
     Map<String, SqlMetaStatement> statements;
     /**
-     * All output value mappings.
+     * The collection of the output value mappings.
      */
     Map<String, SqlMappingRule> mappingRules;
+    /**
+     * The collection of the SQL Processor optional features.
+     */
+    private Map<String, String> features = new HashMap<String, String>();
 
     /**
      * Simple factory method (design pattern). The new instance of precompiled META SQL is created from the String input
@@ -57,7 +62,8 @@ public class SqlProcessor {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
             try {
-                parser.parse(typeFactory, processor.getStatements(), processor.getMappingRules());
+                parser.parse(typeFactory, processor.getStatements(), processor.getMappingRules(),
+                        processor.getFeatures());
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }
@@ -87,5 +93,9 @@ public class SqlProcessor {
 
     public Map<String, SqlMappingRule> getMappingRules() {
         return mappingRules;
+    }
+
+    public Map<String, String> getFeatures() {
+        return features;
     }
 }

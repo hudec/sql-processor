@@ -9,3 +9,5 @@ ANSI_BASIC(OUT)=id$Long$id first$string$name.first last$string$name.last ssn$str
   createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
   version$Long$version
 ;
+
+WILDCARD_CHARACTER(OPT)=%;
