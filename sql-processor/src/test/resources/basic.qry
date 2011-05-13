@@ -1,0 +1,11 @@
+ANSI_BASIC(CALL)=select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  order by id
+;
+
+ANSI_BASIC(OUT)=id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
+  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
+  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  version$Long$version
+;
