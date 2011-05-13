@@ -246,7 +246,7 @@ identifier returns [SqlMetaIdent result]
 
 mapping [SqlTypeFactory _typeFactory] returns [SqlMappingRule sqlMapping]
 scope {SqlTypeFactory typeFactory;}
-@init {$sqlMapping = new SqlMappingRule();$meta::typeFactory=_typeFactory;}
+@init {$sqlMapping = new SqlMappingRule();$mapping::typeFactory=_typeFactory;}
 :
 (
   WS*
@@ -259,7 +259,7 @@ scope {SqlTypeFactory typeFactory;}
 mappingItem returns[SqlMappingItem result]
 	:	
 	(col=IDENT | col=NUMBER) {$result = newColumn(col);}
-	 (options {greedy=true;} : STRING type=IDENT { setMetaType($meta::typeFactory, $result, $type.text); }
+	 (options {greedy=true;} : STRING type=IDENT { setMetaType($mapping::typeFactory, $result, $type.text); }
 	  (STRING (col=IDENT_DOT | col=IDENT) { $result.addAttributeName($col.text); }
 	   (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { $result.setValues($value.text, $value2.text); }
 	   )*
