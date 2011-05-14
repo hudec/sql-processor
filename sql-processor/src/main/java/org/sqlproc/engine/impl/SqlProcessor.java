@@ -1,6 +1,5 @@
 package org.sqlproc.engine.impl;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -27,43 +26,73 @@ public class SqlProcessor {
     protected static Logger logger = LoggerFactory.getLogger(SqlMetaElement.class);
 
     /**
-     * The collection of the META SQL statements;
+     * The META SQL statement type.
      */
-    Map<String, SqlMetaStatement> statements;
+    public static enum StatementType {
+        /**
+         * Query
+         */
+        QRY,
+        /**
+         * CRUD, can be GET, INSERT, UPDATE, DELETE
+         */
+        CRUD,
+        /**
+         * SQL CALL
+         */
+        CALL
+    }
+
+    /**
+     * The mapping rule type.
+     */
+    public static enum MappingType {
+        /**
+         * Output values mapping
+         */
+        OUT,
+        /**
+         * Input values mapping
+         */
+        IN
+    }
+
+    /**
+     * The collection of the META SQL statements.
+     */
+    Map<String, Map<String, SqlMetaStatement>> metaStatements;
     /**
      * The collection of the output value mappings.
      */
-    Map<String, SqlMappingRule> mappingRules;
+    Map<String, Map<String, SqlMappingRule>> mappingRules;
     /**
      * The collection of the SQL Processor optional features.
      */
-    private Map<String, String> features = new HashMap<String, String>();
+    private Map<String, String> features;
 
     /**
-     * Simple factory method (design pattern). The new instance of precompiled META SQL is created from the String input
-     * by the ANTLR parser.
+     * Simple factory method (design pattern). The new instance is created from the String input by the ANTLR parser.
      * 
      * @param sbStatements
-     *            String representation of META SQL queries/statements/output mappings
+     *            String representation of the META SQL queries/statements/output mappings
      * @param typeFactory
      *            the factory for the META types construction
      * @return new container of pre-compiled META SQL queries/statements/output mappings
      * @throws SqlEngineException
      *             in the case of ANTLR parsing exception
      */
-    public static SqlProcessor getInstance(StringBuilder sbStatements, SqlTypeFactory typeFactory)
+    public static SqlProcessor getInstance(StringBuilder sbStatements, SqlTypeFactory typeFactory, String... filters)
             throws SqlEngineException {
         if (logger.isTraceEnabled()) {
             logger.trace(">> getInstance, sStatements=" + sbStatements);
         }
-        SqlProcessor processor = new SqlProcessor();
+        SqlProcessor processor = null;
         try {
             SqlProcessorLexer lexer = new SqlProcessorLexer(new ANTLRStringStream(sbStatements.toString()));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
             try {
-                parser.parse(typeFactory, processor.getStatements(), processor.getMappingRules(),
-                        processor.getFeatures());
+                processor = parser.parse(typeFactory, filters);
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }
@@ -74,7 +103,12 @@ public class SqlProcessor {
             return processor;
         } finally {
             if (logger.isTraceEnabled()) {
-                logger.trace("<< getInstance, statements=" + processor.getStatements());
+                logger.trace("<< getInstance, queries=" + processor.getMetaStatements(StatementType.QRY));
+                logger.trace("<< getInstance, cruds=" + processor.getMetaStatements(StatementType.CRUD));
+                logger.trace("<< getInstance, calls=" + processor.getMetaStatements(StatementType.CALL));
+                logger.trace("<< getInstance, input mappings=" + processor.getMappingRules(MappingType.IN));
+                logger.trace("<< getInstance, output mappings=" + processor.getMappingRules(MappingType.OUT));
+                logger.trace("<< getInstance, features=" + processor.getFeatures());
             }
         }
     }
@@ -83,18 +117,70 @@ public class SqlProcessor {
      * Creates a new instance.
      */
     SqlProcessor() {
-        this.statements = new LinkedHashMap<String, SqlMetaStatement>();
-        this.mappingRules = new LinkedHashMap<String, SqlMappingRule>();
+        metaStatements = new LinkedHashMap<String, Map<String, SqlMetaStatement>>();
+        for (StatementType type : StatementType.values())
+            metaStatements.put(type.name(), new LinkedHashMap<String, SqlMetaStatement>());
+        mappingRules = new LinkedHashMap<String, Map<String, SqlMappingRule>>();
+        for (MappingType type : MappingType.values())
+            mappingRules.put(type.name(), new LinkedHashMap<String, SqlMappingRule>());
+        features = new LinkedHashMap<String, String>();
     }
 
-    public Map<String, SqlMetaStatement> getStatements() {
-        return statements;
+    /**
+     * Returns the collection of the META SQL statements.
+     * 
+     * @param type
+     *            the META SQL statement type
+     * 
+     * @return the collection of the META SQL statements
+     */
+    public Map<String, SqlMetaStatement> getMetaStatements(StatementType type) {
+        return metaStatements.get(type.name());
     }
 
-    public Map<String, SqlMappingRule> getMappingRules() {
-        return mappingRules;
+    /**
+     * Returns the collection of the META SQL statements.
+     * 
+     * @param type
+     *            the META SQL statement type
+     * 
+     * @return the collection of the META SQL statements
+     */
+    public Map<String, SqlMetaStatement> getMetaStatements(String type) {
+        StatementType.valueOf(type);
+        return metaStatements.get(type);
     }
 
+    /**
+     * Returns the collection of the output value mappings.
+     * 
+     * @param type
+     *            the input/output mapping rule type
+     * 
+     * @return the collection of the output value mappings
+     */
+    public Map<String, SqlMappingRule> getMappingRules(MappingType type) {
+        return mappingRules.get(type.name());
+    }
+
+    /**
+     * Returns the collection of the output value mappings.
+     * 
+     * @param type
+     *            the input/output mapping rule type
+     * 
+     * @return the collection of the output value mappings
+     */
+    public Map<String, SqlMappingRule> getMappingRules(String type) {
+        MappingType.valueOf(type);
+        return mappingRules.get(type);
+    }
+
+    /**
+     * Returns the collection of the SQL Processor optional features.
+     * 
+     * @return the collection of the SQL Processor optional features
+     */
     public Map<String, String> getFeatures() {
         return features;
     }

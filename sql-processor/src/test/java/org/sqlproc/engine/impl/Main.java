@@ -73,12 +73,9 @@ public class Main {
 
         logger.info("sbStatements: " + sbStatements);
         SqlProcessor processor = SqlProcessor.getInstance(sbStatements, typeFactory);
-        logger.info("statements: " + processor.getStatements());
-        logger.info("mappings: " + processor.getMappingRules());
-        logger.info("features: " + processor.getFeatures());
 
-        SqlQueryEngine engine = new SqlQueryEngine("ANSI_BASIC", processor.getStatements().get("ANSI_BASIC"), processor
-                .getMappingRules().get("ANSI_BASIC"), null, null, typeFactory);
+        SqlQueryEngine engine = new SqlQueryEngine(name, processor.getMetaStatements(SqlProcessor.StatementType.QRY)
+                .get(name), processor.getMappingRules(SqlProcessor.MappingType.OUT).get(name), null, null, typeFactory);
         logger.info("engine " + engine);
         return engine;
     }

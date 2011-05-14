@@ -12,6 +12,7 @@ package org.sqlproc.engine.impl;
 package org.sqlproc.engine.impl;
 
 import java.util.Map;
+import java.util.Arrays;
 import org.sqlproc.engine.type.SqlTypeFactory;
 import org.sqlproc.engine.type.SqlMetaType;
 }
@@ -109,14 +110,37 @@ import org.sqlproc.engine.type.SqlMetaType;
   void setMetaType(SqlTypeFactory typeFactory, SqlMetaConst item, String sMetaType) {
     item.setMetaType(typeFactory.getMetaType(sMetaType));
   }
+  
+  boolean doAdd(String[] filters, List<Token> filtersTokens) {
+    boolean doAdd = false;
+    if (filters == null || filters.length == 0) {
+      doAdd = true;
+    } else if (filtersTokens == null || filtersTokens.isEmpty()) {
+      doAdd = true;
+    }
+    else {
+      List<String> filtersList = new ArrayList<String>();
+      for (Token filterToken : filtersTokens) {
+        filtersList.add(filterToken.getText());
+      }
+      for (String filter : filters) {
+        if (filtersList.contains(filter)) {
+          doAdd = true;
+          break;
+        }
+      }
+    }
+    return doAdd;
+  }
 }
 
-parse [SqlTypeFactory _typeFactory, Map<String, SqlMetaStatement> metaStatements, Map<String, SqlMappingRule> mappingRules, Map<String, String> features]
-        : 
+parse [SqlTypeFactory _typeFactory, String...filters] returns [SqlProcessor processor]
+@init {$processor = new SqlProcessor();}
+        :  
         (
-         (name=IDENT LPAREN type=('QRY'|'CRUD'|'CALL') RPAREN EQUALS metaStatement=meta[_typeFactory] {metaStatements.put(name.getText(), metaStatement);} ';' WS*)
-         | (name=IDENT LPAREN type=('OUT') RPAREN EQUALS mappingRule=mapping[_typeFactory] {mappingRules.put(name.getText(), mappingRule);} ';' WS*)
-         | (name=IDENT LPAREN type=('OPT') RPAREN EQUALS  text=option {features.put(name.getText(), text.toString());} ';' WS*)
+         (name=IDENT LPAREN type=STATEMENT (WS+ filter+=IDENT)* RPAREN EQUALS metaStatement=meta[_typeFactory] {if(doAdd(filters, list_filter)) processor.getMetaStatements($type.text).put(name.getText(), metaStatement);} ';' WS*)
+         | (name=IDENT LPAREN type=MAPPING (WS+ filter+=IDENT)* RPAREN EQUALS mappingRule=mapping[_typeFactory] {if(doAdd(filters, list_filter)) processor.getMappingRules($type.text).put(name.getText(), mappingRule);} ';' WS*)
+         | (name=IDENT LPAREN OPTION (WS+ filter+=IDENT)* RPAREN EQUALS  text=option {if(doAdd(filters, list_filter)) processor.getFeatures().put(name.getText(), text.toString());} ';' WS*)
         )+ EOF
 	;
 	
@@ -278,6 +302,10 @@ option returns [StringBuilder text]
 	  {add(text);}
 	;
 
+	
+STATEMENT: 'QRY'|'CRUD'|'CALL';
+MAPPING: 'OUT';
+OPTION: 'OPT';
 	
 IDENT_DOT: IDENT (DOT IDENT)+;
 IDENT: ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z' | '0'..'9' | '_' | '=')*;
