@@ -201,7 +201,7 @@ public class SqlProcessor {
 
     public boolean addMappingRule(String type, String name, SqlMappingRule mapping, List<String> activeFilters,
             String... filters) {
-        StatementType.valueOf(type);
+        MappingType.valueOf(type);
         String[] commonFilters = commonFilters(filters, activeFilters);
         if (commonFilters == null) {
             return false;
