@@ -1,11 +1,14 @@
 package org.sqlproc.engine.impl;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.MethodUtils;
 import org.sqlproc.engine.SqlFeature;
@@ -378,5 +381,40 @@ public class SqlUtils {
         if (identitySelect != null)
             return identitySelect;
         return SqlProcessContext.getFeature(SqlFeature.IDSEL);
+    }
+
+    // default features
+    public static Map<String, Object> getDefaultFeatures(String filterPrefix) {
+        Map<String, Object> features = new HashMap<String, Object>();
+
+        String fullPrefix = filterPrefix != null ? filterPrefix + "DEFAULT_" : null;
+        int fullPrefixLength = fullPrefix != null ? fullPrefix.length() : 0;
+        String shortPrefix = "DEFAULT_";
+        int shortPrefixLength = shortPrefix.length();
+        for (Field f : SqlFeature.class.getDeclaredFields()) {
+            if (fullPrefix != null) {
+                if (f.getName().startsWith(fullPrefix)) {
+                    String featureName = f.getName().substring(fullPrefixLength);
+                    if (features.get(featureName) == null) {
+                        try {
+                            features.put(featureName, f.get(null));
+                        } catch (IllegalArgumentException e) {
+                        } catch (IllegalAccessException e) {
+                        }
+                    }
+                }
+            }
+            if (f.getName().startsWith(shortPrefix)) {
+                String featureName = f.getName().substring(shortPrefixLength);
+                if (features.get(featureName) == null) {
+                    try {
+                        features.put(featureName, f.get(null));
+                    } catch (IllegalArgumentException e) {
+                    } catch (IllegalAccessException e) {
+                    }
+                }
+            }
+        }
+        return features;
     }
 }

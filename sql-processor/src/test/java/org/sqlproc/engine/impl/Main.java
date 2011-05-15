@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
-import org.sqlproc.engine.SqlStatementsLoader;
+import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.jdbc.type.JdbcTypeFactory;
 import org.sqlproc.engine.model.Person;
@@ -45,7 +45,7 @@ public class Main {
         connection = DriverManager.getConnection("jdbc:hsqldb:mem:sqlproc", "sa", "");
         session = new JdbcSimpleSession(connection);
 
-        sbStatements = SqlStatementsLoader.getStatements(Main.class, "basic.qry");
+        sbStatements = SqlFilesLoader.getStatements(Main.class, "basic.qry");
     }
 
     public void setupDb() throws SQLException {

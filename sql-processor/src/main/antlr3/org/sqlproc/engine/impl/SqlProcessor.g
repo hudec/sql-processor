@@ -116,7 +116,7 @@ import org.sqlproc.engine.type.SqlMetaType;
       return null;
     List<String> filtersList = new ArrayList<String>();
     for (Token filterToken : filtersTokens) {
-      filtersList.add(filterToken.getText());
+      filtersList.add(filterToken.getText().toUpperCase());
     }
     return filtersList;
   }

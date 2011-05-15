@@ -22,6 +22,9 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  */
 public class SqlProcessor {
 
+    // TODO - control duplicate statements
+    // TODO - select based on input statements names
+
     /**
      * The internal slf4j logger.
      */
@@ -70,7 +73,7 @@ public class SqlProcessor {
     /**
      * The collection of the SQL Processor optional features.
      */
-    private Map<String, String> features;
+    private Map<String, Object> features;
 
     /**
      * Simple factory method (design pattern). The new instance is created from the String input by the ANTLR parser.
@@ -125,7 +128,7 @@ public class SqlProcessor {
         mappingRules = new LinkedHashMap<String, Map<String, SqlMappingRule>>();
         for (MappingType type : MappingType.values())
             mappingRules.put(type.name(), new LinkedHashMap<String, SqlMappingRule>());
-        features = new LinkedHashMap<String, String>();
+        features = new LinkedHashMap<String, Object>();
     }
 
     /**
@@ -225,7 +228,7 @@ public class SqlProcessor {
      * 
      * @return the collection of the SQL Processor optional features
      */
-    public Map<String, String> getFeatures() {
+    public Map<String, Object> getFeatures() {
         return features;
     }
 
