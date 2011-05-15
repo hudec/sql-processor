@@ -111,36 +111,24 @@ import org.sqlproc.engine.type.SqlMetaType;
     item.setMetaType(typeFactory.getMetaType(sMetaType));
   }
   
-  boolean doAdd(String[] filters, List<Token> filtersTokens) {
-    boolean doAdd = false;
-    if (filters == null || filters.length == 0) {
-      doAdd = true;
-    } else if (filtersTokens == null || filtersTokens.isEmpty()) {
-      doAdd = true;
+  List<String> activeFilters(List<Token> filtersTokens) {
+    if (filtersTokens == null)
+      return null;
+    List<String> filtersList = new ArrayList<String>();
+    for (Token filterToken : filtersTokens) {
+      filtersList.add(filterToken.getText());
     }
-    else {
-      List<String> filtersList = new ArrayList<String>();
-      for (Token filterToken : filtersTokens) {
-        filtersList.add(filterToken.getText());
-      }
-      for (String filter : filters) {
-        if (filtersList.contains(filter)) {
-          doAdd = true;
-          break;
-        }
-      }
-    }
-    return doAdd;
+    return filtersList;
   }
 }
 
 parse [SqlTypeFactory _typeFactory, String...filters] returns [SqlProcessor processor]
 @init {$processor = new SqlProcessor();}
         :  
-        (
-         (name=IDENT LPAREN type=STATEMENT (WS+ filter+=IDENT)* RPAREN EQUALS metaStatement=meta[_typeFactory] {if(doAdd(filters, list_filter)) processor.getMetaStatements($type.text).put(name.getText(), metaStatement);} SEMICOLON WS*)
-         | (name=IDENT LPAREN type=MAPPING (WS+ filter+=IDENT)* RPAREN EQUALS mappingRule=mapping[_typeFactory] {if(doAdd(filters, list_filter)) processor.getMappingRules($type.text).put(name.getText(), mappingRule);} SEMICOLON WS*)
-         | (name=IDENT LPAREN OPTION (WS+ filter+=IDENT)* RPAREN EQUALS  text=option {if(doAdd(filters, list_filter)) processor.getFeatures().put(name.getText(), text.toString());} SEMICOLON WS*)
+        WS* (
+         (name=IDENT LPAREN type=STATEMENT (COMMA filter+=IDENT)* RPAREN EQUALS metaStatement=meta[_typeFactory] {processor.addMetaStatement($type.text, $name.text, metaStatement, activeFilters(list_filter), filters);} SEMICOLON WS*)
+         | (name=IDENT LPAREN type=MAPPING (COMMA filter+=IDENT)* RPAREN EQUALS mappingRule=mapping[_typeFactory] {processor.addMappingRule($type.text, $name.text, mappingRule, activeFilters(list_filter), filters);} SEMICOLON WS*)
+         | (name=IDENT LPAREN OPTION (COMMA filter+=IDENT)* RPAREN EQUALS  text=option {processor.addFeature($name.text, text.toString(), activeFilters(list_filter), filters);} SEMICOLON WS*)
         )+ EOF
 	;
 	
@@ -324,6 +312,7 @@ SEMICOLON:';' ;
 STRING:   '$' ;
 fragment
 DOT:      '.' ;
+COMMA:    ',' ;
 MINUS:    '-' ;
 PLUS:     '+' ;
 LPAREN:   '(' ;
@@ -340,4 +329,4 @@ CARET:    '^';
 EQUALS:   '=' ;
 LESS_THAN:'<' ;
 MORE_THAN:'>' ;
-REST:     ~(COLON | SEMICOLON | STRING | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN);
+REST:     ~(COLON | SEMICOLON | STRING | COMMA | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN);

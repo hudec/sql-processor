@@ -1,6 +1,8 @@
 package org.sqlproc.engine.impl;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -151,6 +153,27 @@ public class SqlProcessor {
         return metaStatements.get(type);
     }
 
+    public boolean addMetaStatement(String type, String name, SqlMetaStatement statement, List<String> activeFilters,
+            String... filters) {
+        StatementType.valueOf(type);
+        String[] commonFilters = commonFilters(filters, activeFilters);
+        if (commonFilters == null) {
+            return false;
+        }
+        Map<String, SqlMetaStatement> statements = getMetaStatements(type);
+        if (commonFilters.length == 0) {
+            if (statements.containsKey(name)) {
+                return false;
+            } else {
+                statements.put(name, statement);
+                return true;
+            }
+        } else {
+            statements.put(name, statement);
+            return true;
+        }
+    }
+
     /**
      * Returns the collection of the output value mappings.
      * 
@@ -176,6 +199,27 @@ public class SqlProcessor {
         return mappingRules.get(type);
     }
 
+    public boolean addMappingRule(String type, String name, SqlMappingRule mapping, List<String> activeFilters,
+            String... filters) {
+        StatementType.valueOf(type);
+        String[] commonFilters = commonFilters(filters, activeFilters);
+        if (commonFilters == null) {
+            return false;
+        }
+        Map<String, SqlMappingRule> mappings = getMappingRules(type);
+        if (commonFilters.length == 0) {
+            if (mappings.containsKey(name)) {
+                return false;
+            } else {
+                mappings.put(name, mapping);
+                return true;
+            }
+        } else {
+            mappings.put(name, mapping);
+            return true;
+        }
+    }
+
     /**
      * Returns the collection of the SQL Processor optional features.
      * 
@@ -183,5 +227,49 @@ public class SqlProcessor {
      */
     public Map<String, String> getFeatures() {
         return features;
+    }
+
+    public boolean addFeature(String name, String feature, List<String> activeFilters, String... filters) {
+        String[] commonFilters = commonFilters(filters, activeFilters);
+        if (commonFilters == null) {
+            return false;
+        }
+        if (commonFilters.length == 0) {
+            if (getFeatures().containsKey(name)) {
+                return false;
+            } else {
+                getFeatures().put(name, feature);
+                return true;
+            }
+        } else {
+            getFeatures().put(name, feature);
+            return true;
+        }
+    }
+
+    // in the case there are no filters
+    // - there are filtersTokens, the artefact is dead
+    // - otherwise the artefact is ok
+    // in the case there are filters
+    // - there are no filtersTokens, the artefact is ok, but lower priority
+    // - there are filtersTokens, and the intersection is not empty, the artefact is ok
+    String[] commonFilters(String[] filters, List<String> activeFilters) {
+        if (filters == null || filters.length == 0) {
+            if (activeFilters == null || activeFilters.isEmpty()) {
+                return new String[] {};
+            } else {
+                return null;
+            }
+        } else if (activeFilters == null || activeFilters.isEmpty()) {
+            return new String[] {};
+        } else {
+            List<String> commonList = new ArrayList<String>();
+            for (String filter : filters) {
+                if (activeFilters.contains(filter)) {
+                    commonList.add(filter);
+                }
+            }
+            return commonList.toArray(new String[0]);
+        }
     }
 }
