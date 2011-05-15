@@ -138,9 +138,9 @@ parse [SqlTypeFactory _typeFactory, String...filters] returns [SqlProcessor proc
 @init {$processor = new SqlProcessor();}
         :  
         (
-         (name=IDENT LPAREN type=STATEMENT (WS+ filter+=IDENT)* RPAREN EQUALS metaStatement=meta[_typeFactory] {if(doAdd(filters, list_filter)) processor.getMetaStatements($type.text).put(name.getText(), metaStatement);} ';' WS*)
-         | (name=IDENT LPAREN type=MAPPING (WS+ filter+=IDENT)* RPAREN EQUALS mappingRule=mapping[_typeFactory] {if(doAdd(filters, list_filter)) processor.getMappingRules($type.text).put(name.getText(), mappingRule);} ';' WS*)
-         | (name=IDENT LPAREN OPTION (WS+ filter+=IDENT)* RPAREN EQUALS  text=option {if(doAdd(filters, list_filter)) processor.getFeatures().put(name.getText(), text.toString());} ';' WS*)
+         (name=IDENT LPAREN type=STATEMENT (WS+ filter+=IDENT)* RPAREN EQUALS metaStatement=meta[_typeFactory] {if(doAdd(filters, list_filter)) processor.getMetaStatements($type.text).put(name.getText(), metaStatement);} SEMICOLON WS*)
+         | (name=IDENT LPAREN type=MAPPING (WS+ filter+=IDENT)* RPAREN EQUALS mappingRule=mapping[_typeFactory] {if(doAdd(filters, list_filter)) processor.getMappingRules($type.text).put(name.getText(), mappingRule);} SEMICOLON WS*)
+         | (name=IDENT LPAREN OPTION (WS+ filter+=IDENT)* RPAREN EQUALS  text=option {if(doAdd(filters, list_filter)) processor.getFeatures().put(name.getText(), text.toString());} SEMICOLON WS*)
         )+ EOF
 	;
 	
@@ -154,8 +154,7 @@ scope {StringBuilder text;boolean hasOutputMapping;SqlTypeFactory typeFactory;}
 sql [SqlMetaStatement metaStatement]	
 @after {addText(metaStatement, $meta::text);}
 	:	
-	// except LBRACE STRING COLON AT
-	(IDENT_DOT | IDENT | WS | NUMBER | REST | MINUS | PLUS | LPAREN | RPAREN | RBRACE | QUESTI | NOT | BAND | BOR | HASH | CARET | EQUALS | LESS_THAN | MORE_THAN | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR) 
+	~(COLON | STRING | AT | LBRACE | SEMICOLON)
 		{add($meta::text);} sql[metaStatement]?
 	| COLON ident=identifier 
 		{addIdent(metaStatement, ident, $meta::text);} sql[metaStatement]?
@@ -169,8 +168,7 @@ sql [SqlMetaStatement metaStatement]
 metaSql [SqlMetaStatement metaStatement]
 @init {SqlMetaAndOr metaAndOr; SqlMetaIf metaIf; SqlMetaOrd metaOrd; SqlMetaSqlFragment sqlFragment; addText(metaStatement, $meta::text);}	
 	:
-	// except LBRACE RBRACE QUESTI BAND BOR HASH
-	(IDENT_DOT | IDENT | WS | NUMBER | REST | COLON | STRING | MINUS | PLUS | LPAREN | RPAREN | NOT | AT | CARET | LESS_THAN | MORE_THAN | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR)
+	~(QUESTI | BAND | BOR | EQUALS | HASH | RBRACE)
 		{add($meta::text); metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.NO);} metaIfItem=ifSql[null] {metaAndOr.addElement(metaIfItem);} 
 		(BOR metaIfItem=ifSql[null] {metaAndOr.addElement(metaIfItem);})* {metaStatement.addElement(metaAndOr);}
 	| QUESTI {metaIf = new SqlMetaIf(); } metaLogExpr=ifSqlCond {metaIf.setExpression(metaLogExpr);} 
@@ -190,8 +188,7 @@ ifSql [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]
 @init {$metaIfItem = (metaIfItemIn !=null) ? metaIfItemIn : new SqlMetaIfItem();}
 @after {addText(metaIfItem, $meta::text);}
 	:
-	// except LBRACE STRING COLON RBRACE BOR AT
-	(IDENT_DOT | IDENT | WS | NUMBER | REST | MINUS | PLUS | LPAREN | RPAREN | QUESTI | NOT | BAND | HASH | CARET | EQUALS | LESS_THAN | MORE_THAN | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR)
+	~(COLON | STRING | AT | LBRACE | BOR | RBRACE)
 		{add($meta::text);} ifSql[metaIfItem]?
 	| COLON ident=identifier 
 		{addIdent(metaIfItem, ident, $meta::text);} ifSql[metaIfItem]?
@@ -205,8 +202,7 @@ ifSql [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]
 ifMetaSql [SqlMetaIfItem metaIfItem]
 @init {SqlMetaAndOr metaAndOr; SqlMetaIf metaIf; addText(metaIfItem, $meta::text);}	
 	:
-	// except LBRACE RBRACE QUESTI BAND BOR
-	(IDENT_DOT | IDENT | WS |  NUMBER | REST | COLON | STRING | MINUS | PLUS | LPAREN | RPAREN | NOT | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR)
+	~(QUESTI | BAND | BOR | LBRACE | RBRACE)
 		{add($meta::text); metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.NO);} metaIfItem2=ifSql[null] {metaAndOr.addElement(metaIfItem2);} 
 		(BOR metaIfItem2=ifSql[null] {metaAndOr.addElement(metaIfItem2);})* {metaIfItem.addElement(metaAndOr);}
 	| QUESTI {metaIf = new SqlMetaIf(); } metaLogExpr=ifSqlCond {metaIf.setExpression(metaLogExpr);} 
@@ -236,8 +232,7 @@ ifSqlBool [SqlMetaLogExpr metaLogExpr]
 ordSql [SqlMetaOrd ord]
 @after {addText(ord, $meta::text);}
  	:	
-	// except STRING COLON RBRACE
-	(IDENT_DOT | IDENT | WS | NUMBER | REST | MINUS | PLUS | LPAREN | RPAREN | LBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN | ESC_COLON | ESC_STRING | ESC_AT | ESC_LBRACE | ESC_RBRACE | ESC_HASH | ESC_BOR)
+	~(COLON | STRING | RBRACE)
 		{add($meta::text);} ordSql[ord]?
 	| COLON ident=identifier 
 		{addIdent(ord, ident, $meta::text);} ordSql[ord]?
@@ -298,7 +293,7 @@ mappingItem returns[SqlMappingItem result]
 	
 option returns [StringBuilder text]
 @init {text = new StringBuilder();}
-	: (REST | COLON | STRING | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN)
+	: ~(SEMICOLON)
 	  {add(text);}
 	;
 
@@ -325,6 +320,7 @@ ESC_HASH:     '\\' '#' ;
 ESC_AT:	      '\\' '@';
 
 COLON:    ':' ;
+SEMICOLON:';' ;
 STRING:   '$' ;
 fragment
 DOT:      '.' ;
@@ -344,4 +340,4 @@ CARET:    '^';
 EQUALS:   '=' ;
 LESS_THAN:'<' ;
 MORE_THAN:'>' ;
-REST:     ~(COLON | STRING | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN);
+REST:     ~(COLON | SEMICOLON | STRING | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN);
