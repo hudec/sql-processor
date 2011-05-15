@@ -23,10 +23,12 @@ import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
+import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlEngineLoader;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.SqlProcedureEngine;
+import org.sqlproc.engine.SqlProcessorLoader;
 import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
@@ -54,6 +56,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected static Properties ddlCreateDbProperties;
     protected static Properties ddlDropDbProperties;
     protected static boolean dbCreated = false;
+    protected static boolean newLoader = false;
 
     protected static List<SqlInternalType> customTypes = new ArrayList<SqlInternalType>();
     static {
@@ -82,7 +85,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
         String[] metaFilesNames = testProperties.getProperty(STATEMENTS_FILES).split("\\s+");
         metaStatements = SqlFilesLoader.getStatements(DatabaseTestCase.class, metaFilesNames);
-        metaStatements.append("\n").append("JDBC(OPT)=true;");
+        metaStatements.append("\n").append("JDBC(BOPT)=true;");
 
         dataSource = new BasicDataSource();
         dataSource.setDriverClassName(testProperties.getProperty("db.driver"));
@@ -196,13 +199,25 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
     }
 
-    SqlQueryEngine getQueryEngine(String name) {
+    SqlEngineFactory getEngineFactory(String name) {
         SqlProcessContext.nullFeatures();
         SqlProcessContext.nullTypeFactory();
-        SqlEngineLoader sqlLoader = new SqlEngineLoader(queriesProperties, JdbcTypeFactory.getInstance(), dbType, null,
-                customTypes, name);
-        SqlQueryEngine sqlEngine = sqlLoader.getQueryEngine(name);
-        assertFalse(sqlEngine == null);
+        SqlEngineFactory factory;
+        if (newLoader) {
+            factory = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(), dbType, null, customTypes,
+                    name);
+        } else {
+            factory = new SqlEngineLoader(queriesProperties, JdbcTypeFactory.getInstance(), dbType, null, customTypes,
+                    name);
+        }
+        assertNotNull(factory);
+        return factory;
+    }
+
+    SqlQueryEngine getQueryEngine(String name) {
+        SqlEngineFactory factory = getEngineFactory(name);
+        SqlQueryEngine sqlEngine = factory.getQueryEngine(name);
+        assertNotNull(sqlEngine);
         return sqlEngine;
     }
 
@@ -211,22 +226,16 @@ public abstract class TestDatabase extends DatabaseTestCase {
     }
 
     SqlCrudEngine getCrudEngine(String name) {
-        SqlProcessContext.nullFeatures();
-        SqlProcessContext.nullTypeFactory();
-        SqlEngineLoader sqlLoader = new SqlEngineLoader(queriesProperties, JdbcTypeFactory.getInstance(), dbType, null,
-                customTypes, name);
-        SqlCrudEngine sqlEngine = sqlLoader.getCrudEngine(name);
-        assertFalse(sqlEngine == null);
+        SqlEngineFactory factory = getEngineFactory(name);
+        SqlCrudEngine sqlEngine = factory.getCrudEngine(name);
+        assertNotNull(sqlEngine);
         return sqlEngine;
     }
 
     SqlProcedureEngine getProcedureEngine(String name) {
-        SqlProcessContext.nullFeatures();
-        SqlProcessContext.nullTypeFactory();
-        SqlEngineLoader sqlLoader = new SqlEngineLoader(queriesProperties, JdbcTypeFactory.getInstance(), dbType, null,
-                customTypes, name);
-        SqlProcedureEngine sqlEngine = sqlLoader.getProcedureEngine(name);
-        assertFalse(sqlEngine == null);
+        SqlEngineFactory factory = getEngineFactory(name);
+        SqlProcedureEngine sqlEngine = factory.getProcedureEngine(name);
+        assertNotNull(sqlEngine);
         return sqlEngine;
     }
 

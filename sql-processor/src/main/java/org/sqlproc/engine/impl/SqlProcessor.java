@@ -63,6 +63,32 @@ public class SqlProcessor {
     }
 
     /**
+     * The mapping rule type.
+     */
+    public static enum FeatureType {
+        /**
+         * String option
+         */
+        OPT,
+        /**
+         * Long option
+         */
+        LOPT,
+        /**
+         * Integer option
+         */
+        IOPT,
+        /**
+         * Short option
+         */
+        SOPT,
+        /**
+         * Boolean option
+         */
+        BOPT
+    }
+
+    /**
      * The collection of the META SQL statements.
      */
     Map<String, Map<String, SqlMetaStatement>> metaStatements;
@@ -232,7 +258,22 @@ public class SqlProcessor {
         return features;
     }
 
-    public boolean addFeature(String name, String feature, List<String> activeFilters, String... filters) {
+    private Object getFeature(String type, String feature) {
+        FeatureType ftype = FeatureType.valueOf(type);
+        if (ftype == FeatureType.LOPT) {
+            return Long.parseLong(feature);
+        } else if (ftype == FeatureType.IOPT) {
+            return Integer.parseInt(feature);
+        } else if (ftype == FeatureType.SOPT) {
+            return Short.parseShort(feature);
+        } else if (ftype == FeatureType.BOPT) {
+            return Boolean.parseBoolean(feature);
+        }
+        return feature;
+    }
+
+    public boolean addFeature(String type, String name, String feature, List<String> activeFilters, String... filters) {
+        FeatureType.valueOf(type);
         String[] commonFilters = commonFilters(filters, activeFilters);
         if (commonFilters == null) {
             return false;
@@ -241,11 +282,11 @@ public class SqlProcessor {
             if (getFeatures().containsKey(name)) {
                 return false;
             } else {
-                getFeatures().put(name, feature);
+                getFeatures().put(name, getFeature(type, feature));
                 return true;
             }
         } else {
-            getFeatures().put(name, feature);
+            getFeatures().put(name, getFeature(type, feature));
             return true;
         }
     }

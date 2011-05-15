@@ -128,7 +128,7 @@ parse [SqlTypeFactory _typeFactory, String...filters] returns [SqlProcessor proc
         WS* (
          (name=IDENT LPAREN type=STATEMENT (COMMA filter+=IDENT)* RPAREN EQUALS metaStatement=meta[_typeFactory] {processor.addMetaStatement($type.text, $name.text, metaStatement, activeFilters(list_filter), filters);} SEMICOLON WS*)
          | (name=IDENT LPAREN type=MAPPING (COMMA filter+=IDENT)* RPAREN EQUALS mappingRule=mapping[_typeFactory] {processor.addMappingRule($type.text, $name.text, mappingRule, activeFilters(list_filter), filters);} SEMICOLON WS*)
-         | (name=IDENT LPAREN OPTION (COMMA filter+=IDENT)* RPAREN EQUALS  text=option {processor.addFeature($name.text, text.toString(), activeFilters(list_filter), filters);} SEMICOLON WS*)
+         | (name=IDENT LPAREN type=OPTION (COMMA filter+=IDENT)* RPAREN EQUALS  text=option {processor.addFeature($type.text, $name.text, text.toString(), activeFilters(list_filter), filters);} SEMICOLON WS*)
         )+ EOF
 	;
 	
@@ -288,7 +288,7 @@ option returns [StringBuilder text]
 	
 STATEMENT: 'QRY'|'CRUD'|'CALL';
 MAPPING: 'OUT';
-OPTION: 'OPT';
+OPTION: 'OPT' | 'LOPT' | 'IOPT' | 'SOPT' | 'BOPT';
 	
 IDENT_DOT: IDENT (DOT IDENT)+;
 IDENT: ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z' | '0'..'9' | '_' | '=')*;

@@ -130,7 +130,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                                     metaFilesNames.toArray(new String[0]));
                         }
                         if (jdbc)
-                            metaStatements.append(LINESEP).append("JDBC(OPT)=true;");
+                            metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
 
                         processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, filter, monitorFactory,
                                 customTypes, selectQueries);
