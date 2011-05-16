@@ -49,6 +49,7 @@
         <TYPES_PROPS>types.properties</TYPES_PROPS>
         <JOINS_PROPS>joins.properties</JOINS_PROPS>
         <CUSTOM_PROPS>custom.properties</CUSTOM_PROPS>
+        <NEW_LOADER>false</NEW_LOADER>
         <DB_TYPE>HSQLDB</DB_TYPE>
         <DATATYPE_FACTORY>org.sqlproc.engine.impl.HsqlDataTypeFactory</DATATYPE_FACTORY>
     </properties>
