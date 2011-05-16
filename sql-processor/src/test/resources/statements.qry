@@ -687,6 +687,16 @@ COLLECTIONS_STANDARD(QRY)=
   {#1 order by id}
 ;
   
+COLLECTIONS_HIBERNATE(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.LASTUPDATEDBY @lastUpdatedBy
+  from PERSON p
+  where 1=1
+  {& p.ID in :idSet^h_LONG}
+  {& p.LASTUPDATEDBY in :updatedBySet^h_STRING}
+  {& p.NAME_FIRST in :names.firstList^h_STRING | p.NAME_LAST in :names.lastList^h_STRING}
+  {#1 order by id}
+;
+
 
 PARAMETERS_MORE(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -112,8 +113,8 @@ public class SqlProcessor {
      * @throws SqlEngineException
      *             in the case of ANTLR parsing exception
      */
-    public static SqlProcessor getInstance(StringBuilder sbStatements, SqlTypeFactory typeFactory, String... filters)
-            throws SqlEngineException {
+    public static SqlProcessor getInstance(StringBuilder sbStatements, SqlTypeFactory typeFactory,
+            Set<String> onlyNames, String... filters) throws SqlEngineException {
         if (logger.isTraceEnabled()) {
             logger.trace(">> getInstance, sStatements=" + sbStatements);
         }
@@ -123,7 +124,7 @@ public class SqlProcessor {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
             try {
-                processor = parser.parse(typeFactory, filters);
+                processor = parser.parse(typeFactory, onlyNames, filters);
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }

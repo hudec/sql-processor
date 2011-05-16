@@ -9,10 +9,10 @@ import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
-import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.jdbc.type.JdbcTypeFactory;
 import org.sqlproc.engine.model.Person;
@@ -72,7 +72,7 @@ public class Main {
     public SqlQueryEngine getQueryEngine(String name) {
 
         logger.info("sbStatements: " + sbStatements);
-        SqlProcessor processor = SqlProcessor.getInstance(sbStatements, typeFactory);
+        SqlProcessor processor = SqlProcessor.getInstance(sbStatements, typeFactory, null);
 
         SqlQueryEngine engine = new SqlQueryEngine(name, processor.getMetaStatements(SqlProcessor.StatementType.QRY)
                 .get(name), processor.getMappingRules(SqlProcessor.MappingType.OUT).get(name), null, null, typeFactory);

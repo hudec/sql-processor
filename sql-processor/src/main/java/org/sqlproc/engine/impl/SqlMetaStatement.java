@@ -109,7 +109,7 @@ public class SqlMetaStatement implements SqlMetaElement {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
             try {
-                stmt = parser.meta(typeFactory);
+                stmt = parser.meta(typeFactory, false);
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }

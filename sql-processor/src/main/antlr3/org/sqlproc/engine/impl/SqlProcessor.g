@@ -12,7 +12,7 @@ package org.sqlproc.engine.impl;
 package org.sqlproc.engine.impl;
 
 import java.util.Map;
-import java.util.Arrays;
+import java.util.Set;
 import org.sqlproc.engine.type.SqlTypeFactory;
 import org.sqlproc.engine.type.SqlMetaType;
 }
@@ -54,10 +54,21 @@ import org.sqlproc.engine.type.SqlMetaType;
   
   void add(StringBuilder text) {
     int type = getLastToken().getType();
-    if (type == ESC_COLON || type == ESC_STRING || type == ESC_AT || type == ESC_LBRACE || type == ESC_RBRACE || type == ESC_HASH || type == ESC_BOR)
+    if (type == ESC_COLON || type == ESC_STRING || type == ESC_AT || type == ESC_LBRACE || type == ESC_RBRACE || type == ESC_HASH || type == ESC_BOR) {
       text.append(getLastToken().getText().substring(1));
-    else
+    } 
+    else if (type == WS) {
+      String s = getLastToken().getText();
+      for (int i = 0, l = s.length(); i < l; i++) {
+        char c = s.charAt(i);
+        if (c == '\n' || c == '\r')
+          continue;
+        text.append(c);
+      }
+    } 
+    else {
       text.append(getLastToken().getText());
+    }
   }
   
   void addText(Object target, StringBuilder text) {
@@ -120,160 +131,170 @@ import org.sqlproc.engine.type.SqlMetaType;
     }
     return filtersList;
   }
+  
+  boolean doSkip(Set<String> onlyNames, String name) {
+    if (onlyNames == null || onlyNames.isEmpty())
+      return false;
+    return !onlyNames.contains(name);
+  }
 }
 
-parse [SqlTypeFactory _typeFactory, String...filters] returns [SqlProcessor processor]
-@init {$processor = new SqlProcessor();}
+parse [SqlTypeFactory _typeFactory, Set<String> onlyNames, String[\] filters] returns [SqlProcessor processor]
+@init {$processor = new SqlProcessor(); boolean skip;}
         :  
         WS* (
-         (name=IDENT LPAREN type=STATEMENT (COMMA filter+=IDENT)* RPAREN EQUALS metaStatement=meta[_typeFactory] {processor.addMetaStatement($type.text, $name.text, metaStatement, activeFilters(list_filter), filters);} SEMICOLON WS*)
-         | (name=IDENT LPAREN type=MAPPING (COMMA filter+=IDENT)* RPAREN EQUALS mappingRule=mapping[_typeFactory] {processor.addMappingRule($type.text, $name.text, mappingRule, activeFilters(list_filter), filters);} SEMICOLON WS*)
+         (name=IDENT {skip=doSkip(onlyNames,$name.text);} LPAREN type=STATEMENT (COMMA filter+=IDENT)* RPAREN EQUALS metaStatement=meta[_typeFactory, skip] {processor.addMetaStatement($type.text, $name.text, metaStatement, activeFilters(list_filter), filters);} SEMICOLON WS*)
+         | (name=IDENT {skip=doSkip(onlyNames,$name.text);} LPAREN type=MAPPING (COMMA filter+=IDENT)* RPAREN EQUALS mappingRule=mapping[_typeFactory, skip] {processor.addMappingRule($type.text, $name.text, mappingRule, activeFilters(list_filter), filters);} SEMICOLON WS*)
          | (name=IDENT LPAREN type=OPTION (COMMA filter+=IDENT)* RPAREN EQUALS  text=option {processor.addFeature($type.text, $name.text, text.toString(), activeFilters(list_filter), filters);} SEMICOLON WS*)
         )+ EOF
 	;
 	
-meta [SqlTypeFactory _typeFactory] returns [SqlMetaStatement metaStatement]
-scope {StringBuilder text;boolean hasOutputMapping;SqlTypeFactory typeFactory;}
-@init {$metaStatement = new SqlMetaStatement(); $meta::text = new StringBuilder();$meta::typeFactory=_typeFactory;}
+meta [SqlTypeFactory _typeFactory, boolean _skip] returns [SqlMetaStatement metaStatement]
+scope {StringBuilder text;boolean hasOutputMapping;SqlTypeFactory typeFactory;boolean skip;}
+@init {$metaStatement = new SqlMetaStatement(); $meta::text = new StringBuilder(); $meta::typeFactory=_typeFactory; $meta::skip=_skip;}
 @after {$metaStatement.setHasOutputMapping($meta::hasOutputMapping);}
 	: sql[metaStatement] EOF?
 	;
 
 sql [SqlMetaStatement metaStatement]	
-@after {addText(metaStatement, $meta::text);}
+@after {if(!$meta::skip) addText(metaStatement, $meta::text);}
 	:	
 	~(COLON | STRING | AT | LBRACE | SEMICOLON)
-		{add($meta::text);} sql[metaStatement]?
+		{if(!$meta::skip) add($meta::text);} sql[metaStatement]?
 	| COLON ident=identifier 
-		{addIdent(metaStatement, ident, $meta::text);} sql[metaStatement]?
+		{if(!$meta::skip) addIdent(metaStatement, ident, $meta::text);} sql[metaStatement]?
      	| STRING cnst=constant 
-     		{addConstant(metaStatement, cnst, $meta::text);} sql[metaStatement]?
+     		{if(!$meta::skip) addConstant(metaStatement, cnst, $meta::text);} sql[metaStatement]?
      	| AT col=column 
-     		{addColumn(metaStatement, col, $meta::text);$meta::hasOutputMapping=true;} sql[metaStatement]?
+     		{if(!$meta::skip) addColumn(metaStatement, col, $meta::text);$meta::hasOutputMapping=true;} sql[metaStatement]?
      	| LBRACE metaSql[metaStatement] RBRACE sql[metaStatement]?
      	;
 
 metaSql [SqlMetaStatement metaStatement]
-@init {SqlMetaAndOr metaAndOr; SqlMetaIf metaIf; SqlMetaOrd metaOrd; SqlMetaSqlFragment sqlFragment; addText(metaStatement, $meta::text);}	
+@init {SqlMetaAndOr metaAndOr; SqlMetaIf metaIf; SqlMetaOrd metaOrd; SqlMetaSqlFragment sqlFragment; if(!$meta::skip) addText(metaStatement, $meta::text);}	
 	:
 	~(QUESTI | BAND | BOR | EQUALS | HASH | RBRACE)
-		{add($meta::text); metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.NO);} metaIfItem=ifSql[null] {metaAndOr.addElement(metaIfItem);} 
+		{if(!$meta::skip) add($meta::text); metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.NO);} metaIfItem=ifSql[null] {if(!$meta::skip) metaAndOr.addElement(metaIfItem);} 
 		(BOR metaIfItem=ifSql[null] {metaAndOr.addElement(metaIfItem);})* {metaStatement.addElement(metaAndOr);}
-	| QUESTI {metaIf = new SqlMetaIf(); } metaLogExpr=ifSqlCond {metaIf.setExpression(metaLogExpr);} 
-		BOR metaIfItem=ifSql[null] {metaIf.addElement(metaIfItem);} 
-		(BOR metaIfItem=ifSql[null] {metaIf.addElement(metaIfItem);})*
+	| QUESTI {metaIf = new SqlMetaIf(); } metaLogExpr=ifSqlCond {if(!$meta::skip) metaIf.setExpression(metaLogExpr);} 
+		BOR metaIfItem=ifSql[null] {if(!$meta::skip) metaIf.addElement(metaIfItem);} 
+		(BOR metaIfItem=ifSql[null] {if(!$meta::skip) metaIf.addElement(metaIfItem);})*
 		 {metaStatement.addElement(metaIf);}
-	| BAND {metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.AND);} metaIfItem=ifSql[null] {metaAndOr.addElement(metaIfItem);} 
-		(BOR metaIfItem=ifSql[null] {metaAndOr.addElement(metaIfItem);})* {metaStatement.addElement(metaAndOr);}
-	| BOR {metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.OR);} metaIfItem=ifSql[null] {metaAndOr.addElement(metaIfItem);} 
-		(BOR metaIfItem=ifSql[null] {metaAndOr.addElement(metaIfItem);})* {metaStatement.addElement(metaAndOr);}
-	| EQUALS WS* fragmentType=IDENT {sqlFragment = new SqlMetaSqlFragment(fragmentType.getText());} metaIfItem=ifSql[null] {sqlFragment.addElement(metaIfItem);} 
-		{metaStatement.addElement(sqlFragment);}
-	| HASH orderId=NUMBER {metaOrd = new SqlMetaOrd(Integer.parseInt(orderId.getText()));} ordSql[metaOrd] {metaStatement.addElement(metaOrd);}
+	| BAND {metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.AND);} metaIfItem=ifSql[null] {if(!$meta::skip) metaAndOr.addElement(metaIfItem);} 
+		(BOR metaIfItem=ifSql[null] {if(!$meta::skip) metaAndOr.addElement(metaIfItem);})* {if(!$meta::skip) metaStatement.addElement(metaAndOr);}
+	| BOR {metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.OR);} metaIfItem=ifSql[null] {if(!$meta::skip) metaAndOr.addElement(metaIfItem);} 
+		(BOR metaIfItem=ifSql[null] {if(!$meta::skip) metaAndOr.addElement(metaIfItem);})* {if(!$meta::skip) metaStatement.addElement(metaAndOr);}
+	| EQUALS WS* fragmentType=IDENT {sqlFragment = new SqlMetaSqlFragment(fragmentType.getText());} metaIfItem=ifSql[null] {if(!$meta::skip) sqlFragment.addElement(metaIfItem);} 
+		{if(!$meta::skip) metaStatement.addElement(sqlFragment);}
+	| HASH orderId=NUMBER {metaOrd = new SqlMetaOrd(Integer.parseInt(orderId.getText()));} ordSql[metaOrd] {if(!$meta::skip) metaStatement.addElement(metaOrd);}
 	;
 	
 ifSql [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]
 @init {$metaIfItem = (metaIfItemIn !=null) ? metaIfItemIn : new SqlMetaIfItem();}
-@after {addText(metaIfItem, $meta::text);}
+@after {if(!$meta::skip) addText(metaIfItem, $meta::text);}
 	:
 	~(COLON | STRING | AT | LBRACE | BOR | RBRACE)
-		{add($meta::text);} ifSql[metaIfItem]?
+		{if(!$meta::skip) add($meta::text);} ifSql[metaIfItem]?
 	| COLON ident=identifier 
-		{addIdent(metaIfItem, ident, $meta::text);} ifSql[metaIfItem]?
+		{if(!$meta::skip) addIdent(metaIfItem, ident, $meta::text);} ifSql[metaIfItem]?
 	| STRING cnst=constant 
-		{addConstant(metaIfItem, cnst, $meta::text);} ifSql[metaIfItem]?
+		{if(!$meta::skip) addConstant(metaIfItem, cnst, $meta::text);} ifSql[metaIfItem]?
      	| AT col=column 
-     		{addColumn(metaIfItem, col, $meta::text);$meta::hasOutputMapping=true;} ifSql[metaIfItem]?
+     		{if(!$meta::skip) addColumn(metaIfItem, col, $meta::text);$meta::hasOutputMapping=true;} ifSql[metaIfItem]?
 	| LBRACE ifMetaSql[metaIfItem] RBRACE ifSql[metaIfItem]?
 	;
      	
 ifMetaSql [SqlMetaIfItem metaIfItem]
-@init {SqlMetaAndOr metaAndOr; SqlMetaIf metaIf; addText(metaIfItem, $meta::text);}	
+@init {SqlMetaAndOr metaAndOr; SqlMetaIf metaIf; if(!$meta::skip) addText(metaIfItem, $meta::text);}	
 	:
 	~(QUESTI | BAND | BOR | LBRACE | RBRACE)
-		{add($meta::text); metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.NO);} metaIfItem2=ifSql[null] {metaAndOr.addElement(metaIfItem2);} 
-		(BOR metaIfItem2=ifSql[null] {metaAndOr.addElement(metaIfItem2);})* {metaIfItem.addElement(metaAndOr);}
-	| QUESTI {metaIf = new SqlMetaIf(); } metaLogExpr=ifSqlCond {metaIf.setExpression(metaLogExpr);} 
-		BOR metaIfItem2=ifSql[null] {metaIf.addElement(metaIfItem2);} 
-		(BOR metaIfItem2=ifSql[null] {metaIf.addElement(metaIfItem2);})*
-		 {metaIfItem.addElement(metaIf);}
-	| BAND {metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.AND);} metaIfItem2=ifSql[null] {metaAndOr.addElement(metaIfItem2);} 
-		(BOR metaIfItem2=ifSql[null] {metaAndOr.addElement(metaIfItem2);})* {metaIfItem.addElement(metaAndOr);}
-	| BOR {metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.OR);} metaIfItem2=ifSql[null] {metaAndOr.addElement(metaIfItem2);} 
-		(BOR metaIfItem2=ifSql[null] {metaAndOr.addElement(metaIfItem2);})* {metaIfItem.addElement(metaAndOr);}
+		{if(!$meta::skip) add($meta::text); metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.NO);} metaIfItem2=ifSql[null] {if(!$meta::skip) metaAndOr.addElement(metaIfItem2);} 
+		(BOR metaIfItem2=ifSql[null] {if(!$meta::skip) metaAndOr.addElement(metaIfItem2);})* {if(!$meta::skip) metaIfItem.addElement(metaAndOr);}
+	| QUESTI {metaIf = new SqlMetaIf(); } metaLogExpr=ifSqlCond {if(!$meta::skip) metaIf.setExpression(metaLogExpr);} 
+		BOR metaIfItem2=ifSql[null] {if(!$meta::skip) metaIf.addElement(metaIfItem2);} 
+		(BOR metaIfItem2=ifSql[null] {if(!$meta::skip) metaIf.addElement(metaIfItem2);})*
+		 {if(!$meta::skip) metaIfItem.addElement(metaIf);}
+	| BAND {metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.AND);} metaIfItem2=ifSql[null] {if(!$meta::skip) metaAndOr.addElement(metaIfItem2);} 
+		(BOR metaIfItem2=ifSql[null] {if(!$meta::skip) metaAndOr.addElement(metaIfItem2);})* {if(!$meta::skip) metaIfItem.addElement(metaAndOr);}
+	| BOR {metaAndOr = new SqlMetaAndOr(SqlMetaAndOr.Type.OR);} metaIfItem2=ifSql[null] {if(!$meta::skip) metaAndOr.addElement(metaIfItem2);} 
+		(BOR metaIfItem2=ifSql[null] {if(!$meta::skip) metaAndOr.addElement(metaIfItem2);})* {if(!$meta::skip) metaIfItem.addElement(metaAndOr);}
 	;
 
 ifSqlCond returns[SqlMetaLogExpr metaLogExpr]
 @init {$metaLogExpr = new SqlMetaLogExpr();}
 	:
-	WS* ifSqlBool[metaLogExpr] WS* ((AND {addOperator(metaLogExpr,true);} | OR {addOperator(metaLogExpr,false);}) WS*
+	WS* ifSqlBool[metaLogExpr] WS* ((AND {if(!$meta::skip) addOperator(metaLogExpr,true);} | OR {if(!$meta::skip) addOperator(metaLogExpr,false);}) WS*
 		ifSqlBool[metaLogExpr] WS*)*
 	;
 	
 ifSqlBool [SqlMetaLogExpr metaLogExpr]
 	:
-	not=NOT? COLON ident=identifier {ident.setNot(not!=null); addIdent(metaLogExpr, ident, $meta::text);}
-	| not=NOT? STRING cnst=constant {cnst.setNot(not!=null); addConstant(metaLogExpr, cnst, $meta::text);}
-	| not=NOT? LPAREN newMetaLogExpr=ifSqlCond RPAREN {metaLogExpr.addElement(newMetaLogExpr);}
+	not=NOT? COLON ident=identifier {if(!$meta::skip) {ident.setNot(not!=null); addIdent(metaLogExpr, ident, $meta::text);}}
+	| not=NOT? STRING cnst=constant {if(!$meta::skip) {cnst.setNot(not!=null); addConstant(metaLogExpr, cnst, $meta::text);}}
+	| not=NOT? LPAREN newMetaLogExpr=ifSqlCond RPAREN {if(!$meta::skip) metaLogExpr.addElement(newMetaLogExpr);}
 	;
 	
 ordSql [SqlMetaOrd ord]
-@after {addText(ord, $meta::text);}
+@after {if(!$meta::skip) addText(ord, $meta::text);}
  	:	
 	~(COLON | STRING | RBRACE)
-		{add($meta::text);} ordSql[ord]?
+		{if(!$meta::skip) add($meta::text);} ordSql[ord]?
 	| COLON ident=identifier 
-		{addIdent(ord, ident, $meta::text);} ordSql[ord]?
+		{if(!$meta::skip) addIdent(ord, ident, $meta::text);} ordSql[ord]?
 	| STRING cnst=constant
-		{addConstant(ord, cnst, $meta::text);} ordSql[ord]?
+		{if(!$meta::skip) addConstant(ord, cnst, $meta::text);} ordSql[ord]?
 	;	
 
 column returns[SqlMappingItem result]
+@init {$result = null;}
 	:	
-	(col=IDENT_DOT | col=IDENT | col=NUMBER) {$result = newColumn(col);}
-	(options {greedy=true;} : CARET type=IDENT { setMetaType($meta::typeFactory, $result, $type.text); }
-	 (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { $result.setValues($value.text, $value2.text); }
+	(col=IDENT_DOT | col=IDENT | col=NUMBER) {if(!$meta::skip) $result = newColumn(col);}
+	(options {greedy=true;} : CARET type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); }
+	 (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, $value2.text); }
 	 )*
 	)?
 	;
 
 constant returns [SqlMetaConst result]
+@init {$result = null;}
 	:	
-	(caseCnst=PLUS | caseCnst=MINUS)? (cnst=IDENT_DOT | cnst=IDENT) {$result = newConstant(cnst, $caseCnst);}
-	(options {greedy=true;} : CARET type=IDENT { setMetaType($meta::typeFactory, $result, $type.text); }
-	 (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { $result.setValues($value.text, $value2.text); }
+	(caseCnst=PLUS | caseCnst=MINUS)? (cnst=IDENT_DOT | cnst=IDENT) {if(!$meta::skip) $result = newConstant(cnst, $caseCnst);}
+	(options {greedy=true;} : CARET type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); }
+	 (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, $value2.text); }
 	 )*
 	)?
 	;
 
 identifier returns [SqlMetaIdent result]
+@init {$result = null;}
 	:	
-	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)? (ident=IDENT_DOT | ident=IDENT | ident=NUMBER) {$result = newIdent($ident, $modeIdent, $caseIdent);}
-	(options {greedy=true;} : CARET type=IDENT { setMetaType($meta::typeFactory, $result, $type.text); }
-	 (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { $result.setValues($value.text, $value2.text); }
+	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)? (ident=IDENT_DOT | ident=IDENT | ident=NUMBER) {if(!$meta::skip) $result = newIdent($ident, $modeIdent, $caseIdent);}
+	(options {greedy=true;} : CARET type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); }
+	 (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, $value2.text); }
 	 )*
 	)?
 	;
 
 
-mapping [SqlTypeFactory _typeFactory] returns [SqlMappingRule sqlMapping]
-scope {SqlTypeFactory typeFactory;}
-@init {$sqlMapping = new SqlMappingRule();$mapping::typeFactory=_typeFactory;}
+mapping [SqlTypeFactory _typeFactory, boolean _skip] returns [SqlMappingRule sqlMapping]
+scope {SqlTypeFactory typeFactory;boolean skip;}
+@init {$sqlMapping = new SqlMappingRule();$mapping::typeFactory=_typeFactory; $mapping::skip=_skip;}
 :
 (
   WS*
-  sqlMappingItem=mappingItem {$sqlMapping.addMapping(sqlMappingItem);}
-  (WS+ sqlMappingItem=mappingItem {$sqlMapping.addMapping(sqlMappingItem);})*
+  sqlMappingItem=mappingItem {if(!$mapping::skip) $sqlMapping.addMapping(sqlMappingItem);}
+  (WS+ sqlMappingItem=mappingItem {if(!$mapping::skip) $sqlMapping.addMapping(sqlMappingItem);})*
   WS*  EOF?
 )
 ;
 
 mappingItem returns[SqlMappingItem result]
+@init {$result = null;}
 	:	
-	(col=IDENT | col=NUMBER) {$result = newColumn(col);}
-	 (options {greedy=true;} : STRING (type=IDENT { setMetaType($mapping::typeFactory, $result, $type.text); })?
-	  (STRING (col=IDENT_DOT | col=IDENT) { addColumnAttr($result, $col); }
-	   (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { $result.setValues($value.text, $value2.text); }
+	(col=IDENT | col=NUMBER) {if(!$mapping::skip) $result = newColumn(col);}
+	 (options {greedy=true;} : STRING (type=IDENT { if(!$mapping::skip) setMetaType($mapping::typeFactory, $result, $type.text); })?
+	  (STRING (col=IDENT_DOT | col=IDENT) { if(!$mapping::skip) addColumnAttr($result, $col); }
+	   (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { if(!$mapping::skip) $result.setValues($value.text, $value2.text); }
 	   )*
   	  )?
 	 )?

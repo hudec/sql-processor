@@ -269,7 +269,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             SqlProcessor processor = null;
 
             try {
-                processor = SqlProcessor.getInstance(sbStatements, composedTypeFactory, filter);
+                processor = SqlProcessor.getInstance(sbStatements, composedTypeFactory, setSelectQueries, filter);
             } catch (SqlEngineException see) {
                 errors.append(see.getMessage());
             }

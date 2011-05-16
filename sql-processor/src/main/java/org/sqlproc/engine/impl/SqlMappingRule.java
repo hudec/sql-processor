@@ -64,7 +64,7 @@ public class SqlMappingRule {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
             try {
-                mapping = parser.mapping(typeFactory);
+                mapping = parser.mapping(typeFactory, false);
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }
