@@ -387,6 +387,8 @@ public class SqlUtils {
     public static Map<String, Object> getDefaultFeatures(String filterPrefix) {
         Map<String, Object> features = new HashMap<String, Object>();
 
+        if (filterPrefix != null && !filterPrefix.endsWith("_"))
+            filterPrefix = filterPrefix + "_";
         String fullPrefix = filterPrefix != null ? filterPrefix + "DEFAULT_" : null;
         int fullPrefixLength = fullPrefix != null ? fullPrefix.length() : 0;
         String shortPrefix = "DEFAULT_";

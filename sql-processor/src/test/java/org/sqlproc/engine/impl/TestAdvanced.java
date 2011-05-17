@@ -84,7 +84,8 @@ public class TestAdvanced extends TestDatabase {
 
         String sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "m.id, m.TITLE, e.ROLE  , '' first, '' last");
+        assertContains(sql, "m.id, m.TITLE, e.ROLE");
+        assertContains(sql, "'' first, '' last");
 
         List<MediaTransport> list = sqlEngine.query(session, MediaTransport.class, sf);
 
@@ -106,7 +107,8 @@ public class TestAdvanced extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "m.id, m.TITLE, e.ROLE  , p.NAME_FIRST first, p.NAME_LAST last");
+        assertContains(sql, "m.id, m.TITLE, e.ROLE");
+        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last");
 
         list = sqlEngine.query(session, MediaTransport.class, sf);
 
@@ -127,7 +129,8 @@ public class TestAdvanced extends TestDatabase {
 
         String sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "l.id, l.NAME, pm.location   , '' title, '' role, '' first, '' last");
+        assertContains(sql, "l.id, l.NAME, pm.location");
+        assertContains(sql, "'' title, '' role, '' first, '' last");
 
         List<LibraryTransport> list = sqlEngine.query(session, LibraryTransport.class, sf);
 
@@ -142,7 +145,8 @@ public class TestAdvanced extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "l.id, l.NAME, pm.location   , m.TITLE, e.ROLE, '' first, '' last");
+        assertContains(sql, "l.id, l.NAME, pm.location");
+        assertContains(sql, "m.TITLE, e.ROLE, '' first, '' last");
 
         list = sqlEngine.query(session, LibraryTransport.class, sf);
 
@@ -160,7 +164,8 @@ public class TestAdvanced extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "l.id, l.NAME, pm.location   , m.TITLE, e.ROLE, p.NAME_FIRST first, p.NAME_LAST last");
+        assertContains(sql, "l.id, l.NAME, pm.location");
+        assertContains(sql, "m.TITLE, e.ROLE, p.NAME_FIRST first, p.NAME_LAST last");
 
         list = sqlEngine.query(session, LibraryTransport.class, sf);
 
@@ -179,7 +184,8 @@ public class TestAdvanced extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "l.id, l.NAME, pm.location   , '' title, '' role, '' first, '' last");
+        assertContains(sql, "l.id, l.NAME, pm.location");
+        assertContains(sql, "'' title, '' role, '' first, '' last");
 
         list = sqlEngine.query(session, LibraryTransport.class, sf);
 
@@ -204,7 +210,8 @@ public class TestAdvanced extends TestDatabase {
 
         String sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "m.id, m.TITLE, e.ROLE  , '' first, '' last");
+        assertContains(sql, "m.id, m.TITLE, e.ROLE");
+        assertContains(sql, "'' first, '' last");
         assertDoNotContain(sql, "p.NAME_FIRST");
 
         List<MediaTransport> list = sqlEngine.query(session, MediaTransport.class, sf);
@@ -227,7 +234,8 @@ public class TestAdvanced extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "m.id, m.TITLE, e.ROLE  , p.NAME_FIRST first, p.NAME_LAST last");
+        assertContains(sql, "m.id, m.TITLE, e.ROLE");
+        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last");
         assertContains(sql, "AND  UPPER(p.NAME_FIRST) = :fname", "AND  UPPER(p.NAME_FIRST) = ?");
 
         list = sqlEngine.query(session, MediaTransport.class, sf);
@@ -249,7 +257,8 @@ public class TestAdvanced extends TestDatabase {
 
         String sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "m.id, m.TITLE, e.ROLE  , '' first, '' last");
+        assertContains(sql, "m.id, m.TITLE, e.ROLE");
+        assertContains(sql, "'' first, '' last");
         assertContains(sql, "1=1");
 
         List<MediaTransport> list = sqlEngine.query(session, MediaTransport.class, sf);
@@ -269,8 +278,10 @@ public class TestAdvanced extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "m.id, m.TITLE, e.ROLE  , p.NAME_FIRST first, p.NAME_LAST last");
-        assertContains(sql, "1=1   AND   UPPER(p.NAME_FIRST) = :fname", "1=1   AND   UPPER(p.NAME_FIRST) = ?");
+        assertContains(sql, "m.id, m.TITLE, e.ROLE");
+        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last");
+        assertContains(sql, "AND");
+        assertContains(sql, "UPPER(p.NAME_FIRST) = :fname", "UPPER(p.NAME_FIRST) = ?");
 
         list = sqlEngine.query(session, MediaTransport.class, sf);
 

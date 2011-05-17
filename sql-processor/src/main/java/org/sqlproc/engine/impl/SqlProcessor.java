@@ -101,6 +101,10 @@ public class SqlProcessor {
      * The collection of the SQL Processor optional features.
      */
     private Map<String, Object> features;
+    /**
+     * The collection of the SQL Processor default optional features.
+     */
+    private Map<String, Object> defaultFeatures;
 
     /**
      * Simple factory method (design pattern). The new instance is created from the String input by the ANTLR parser.
@@ -114,7 +118,7 @@ public class SqlProcessor {
      *             in the case of ANTLR parsing exception
      */
     public static SqlProcessor getInstance(StringBuilder sbStatements, SqlTypeFactory typeFactory,
-            Set<String> onlyNames, String... filters) throws SqlEngineException {
+            Map<String, Object> defaultFeatures, Set<String> onlyNames, String... filters) throws SqlEngineException {
         if (logger.isTraceEnabled()) {
             logger.trace(">> getInstance, sStatements=" + sbStatements);
         }
@@ -124,7 +128,7 @@ public class SqlProcessor {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
             try {
-                processor = parser.parse(typeFactory, onlyNames, filters);
+                processor = parser.parse(typeFactory, defaultFeatures, onlyNames, filters);
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }
@@ -148,14 +152,16 @@ public class SqlProcessor {
     /**
      * Creates a new instance.
      */
-    SqlProcessor() {
+    SqlProcessor(Map<String, Object> defaultFeatures) {
         metaStatements = new LinkedHashMap<String, Map<String, SqlMetaStatement>>();
         for (StatementType type : StatementType.values())
             metaStatements.put(type.name(), new LinkedHashMap<String, SqlMetaStatement>());
         mappingRules = new LinkedHashMap<String, Map<String, SqlMappingRule>>();
         for (MappingType type : MappingType.values())
             mappingRules.put(type.name(), new LinkedHashMap<String, SqlMappingRule>());
+        this.defaultFeatures = defaultFeatures;
         features = new LinkedHashMap<String, Object>();
+        features.putAll(defaultFeatures);
     }
 
     /**
@@ -186,12 +192,12 @@ public class SqlProcessor {
     public boolean addMetaStatement(String type, String name, SqlMetaStatement statement, List<String> activeFilters,
             String... filters) {
         StatementType.valueOf(type);
-        String[] commonFilters = commonFilters(filters, activeFilters);
-        if (commonFilters == null) {
+        FilterStatus status = commonFilters(filters, activeFilters);
+        if (status == FilterStatus.NOK) {
             return false;
         }
         Map<String, SqlMetaStatement> statements = getMetaStatements(type);
-        if (commonFilters.length == 0) {
+        if (status == FilterStatus.OK_LOWER) {
             if (statements.containsKey(name)) {
                 return false;
             } else {
@@ -232,12 +238,12 @@ public class SqlProcessor {
     public boolean addMappingRule(String type, String name, SqlMappingRule mapping, List<String> activeFilters,
             String... filters) {
         MappingType.valueOf(type);
-        String[] commonFilters = commonFilters(filters, activeFilters);
-        if (commonFilters == null) {
+        FilterStatus status = commonFilters(filters, activeFilters);
+        if (status == FilterStatus.NOK) {
             return false;
         }
         Map<String, SqlMappingRule> mappings = getMappingRules(type);
-        if (commonFilters.length == 0) {
+        if (status == FilterStatus.OK_LOWER) {
             if (mappings.containsKey(name)) {
                 return false;
             } else {
@@ -275,13 +281,19 @@ public class SqlProcessor {
 
     public boolean addFeature(String type, String name, String feature, List<String> activeFilters, String... filters) {
         FeatureType.valueOf(type);
-        String[] commonFilters = commonFilters(filters, activeFilters);
-        if (commonFilters == null) {
+        FilterStatus status = commonFilters(filters, activeFilters);
+        if (status == FilterStatus.NOK) {
             return false;
         }
-        if (commonFilters.length == 0) {
+        if (status == FilterStatus.OK_LOWER) {
             if (getFeatures().containsKey(name)) {
-                return false;
+                if (!defaultFeatures.containsKey(name)) {
+                    return false;
+                } else {
+                    defaultFeatures.remove(name);
+                    getFeatures().put(name, getFeature(type, feature));
+                    return true;
+                }
             } else {
                 getFeatures().put(name, getFeature(type, feature));
                 return true;
@@ -293,20 +305,25 @@ public class SqlProcessor {
     }
 
     // in the case there are no filters
-    // - there are filtersTokens, the artefact is dead
-    // - otherwise the artefact is ok
+    // - there are activeFilters, the artifact is dead - NOK
+    // - otherwise the artifact is ok - OK
     // in the case there are filters
-    // - there are no filtersTokens, the artefact is ok, but lower priority
-    // - there are filtersTokens, and the intersection is not empty, the artefact is ok
-    String[] commonFilters(String[] filters, List<String> activeFilters) {
+    // - there are no activeFilters, the artifact is ok, but lower priority - OK_LOWER
+    // - there are activeFilters, and the intersection is not empty, the artifact is ok - OK
+    // - there are activeFilters, and the intersection is empty, the artifact is dead - NOK
+    enum FilterStatus {
+        NOK, OK_LOWER, OK
+    }
+
+    FilterStatus commonFilters(String[] filters, List<String> activeFilters) {
         if (filters == null || filters.length == 0) {
             if (activeFilters == null || activeFilters.isEmpty()) {
-                return new String[] {};
+                return FilterStatus.OK;
             } else {
-                return null;
+                return FilterStatus.NOK;
             }
         } else if (activeFilters == null || activeFilters.isEmpty()) {
-            return new String[] {};
+            return FilterStatus.OK_LOWER;
         } else {
             List<String> commonList = new ArrayList<String>();
             for (String filter : filters) {
@@ -314,7 +331,7 @@ public class SqlProcessor {
                     commonList.add(filter);
                 }
             }
-            return commonList.toArray(new String[0]);
+            return commonList.isEmpty() ? FilterStatus.NOK : FilterStatus.OK;
         }
     }
 }

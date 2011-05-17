@@ -264,12 +264,14 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                     Arrays.asList(selectQueries)) : null;
 
             filter = (filter != null) ? filter.toUpperCase() : null;
+            Map<String, Object> defaultFeatures = SqlUtils.getDefaultFeatures(filter);
 
             StringBuilder errors = new StringBuilder();
             SqlProcessor processor = null;
 
             try {
-                processor = SqlProcessor.getInstance(sbStatements, composedTypeFactory, setSelectQueries, filter);
+                processor = SqlProcessor.getInstance(sbStatements, composedTypeFactory, defaultFeatures,
+                        setSelectQueries, filter);
             } catch (SqlEngineException see) {
                 errors.append(see.getMessage());
             }
@@ -282,12 +284,6 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             calls = processor.getMetaStatements(SqlProcessor.StatementType.CALL);
             fields = processor.getMappingRules(SqlProcessor.MappingType.OUT);
             features = processor.getFeatures();
-
-            Map<String, Object> defaultFeatures = SqlUtils.getDefaultFeatures(filter);
-            for (String featureName : defaultFeatures.keySet()) {
-                if (!features.containsKey(featureName))
-                    features.put(featureName, defaultFeatures.get(featureName));
-            }
 
             for (String name : fields.keySet()) {
                 if (!sqls.containsKey(name) && !calls.containsKey(name))
