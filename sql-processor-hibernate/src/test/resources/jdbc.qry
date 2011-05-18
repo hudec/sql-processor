@@ -968,16 +968,6 @@ CUSTOM_TYPE_GET(CRUD)=
 ;
 
 
-INHERITANCE2_BASIC(QRY)=
-  select s.ID @id, s.NAME_FIRST @name.first, s.NAME_LAST @name.last, s.LIBRARY @library.id,
-  bd.TYPE @billingDetails==discriminator.type, bd.ID @billingDetails.id, bd.CC_NUMBER @billingDetails.number,
-  bd.CC_EXP_MONTH @billingDetails.expMonth^short, bd.CC_EXP_YEAR @billingDetails.expYear^short,
-  bd.BA_ACCOUNT_NUMBER @billingDetails.accountNumber, bd.BA_BANK_NAME @billingDetails.bankName,
-  bd.BA_SWIFT @billingDetails.swift
-  from SUBSCRIBER s left join BILLING_DETAILS bd on s.ID = bd.SUBSCRIBER
-  {#1 order by s.ID, bd.ID}
-;
-
 BASIC_LEFT_JOIN_NO_ID(QRY)=
   select pm.LOCATION @location, pm.STATUS @status, pm.UUID @uuid
   from PHYSICALMEDIA pm

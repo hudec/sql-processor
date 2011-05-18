@@ -43,12 +43,6 @@
         <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
         <DDL_CREATE_DB>ddl/hsqldb_create.properties</DDL_CREATE_DB>
         <DDL_DROP_DB>ddl/hsqldb_drop.properties</DDL_DROP_DB>
-        <QUERIES_PROPS>queries.properties</QUERIES_PROPS>
-        <CRUD_PROPS>crud.properties</CRUD_PROPS>
-        <PROCEDURE_PROPS>procedure.properties</PROCEDURE_PROPS>
-        <TYPES_PROPS>types.properties</TYPES_PROPS>
-        <JOINS_PROPS>joins.properties</JOINS_PROPS>
-        <CUSTOM_PROPS>custom.properties</CUSTOM_PROPS>
         <NEW_LOADER>false</NEW_LOADER>
         <DB_TYPE>HSQLDB</DB_TYPE>
         <DATATYPE_FACTORY>org.sqlproc.engine.impl.HsqlDataTypeFactory</DATATYPE_FACTORY>
@@ -234,12 +228,6 @@
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
                 <DDL_CREATE_DB />
                 <DDL_DROP_DB />
-                <QUERIES_PROPS>queries.properties</QUERIES_PROPS>
-                <CRUD_PROPS>crud.properties</CRUD_PROPS>
-                <PROCEDURE_PROPS>procedure.properties</PROCEDURE_PROPS>
-                <TYPES_PROPS>types.properties</TYPES_PROPS>
-                <JOINS_PROPS>joins.properties</JOINS_PROPS>
-                <CUSTOM_PROPS>custom.properties</CUSTOM_PROPS>
                 <DB_TYPE>ORACLE</DB_TYPE>
                 <DATATYPE_FACTORY>org.sqlproc.engine.impl.OracleDataTypeFactory</DATATYPE_FACTORY>
             </properties>
@@ -263,12 +251,6 @@
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
                 <DDL_CREATE_DB />
                 <DDL_DROP_DB />
-                <QUERIES_PROPS>queries.properties</QUERIES_PROPS>
-                <CRUD_PROPS>crud.properties</CRUD_PROPS>
-                <PROCEDURE_PROPS>procedure.properties</PROCEDURE_PROPS>
-                <TYPES_PROPS>types.properties</TYPES_PROPS>
-                <JOINS_PROPS>joins.properties</JOINS_PROPS>
-                <CUSTOM_PROPS>custom.properties</CUSTOM_PROPS>
                 <DB_TYPE>MYSQL</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.mysql.MySqlDataTypeFactory</DATATYPE_FACTORY>
             </properties>
