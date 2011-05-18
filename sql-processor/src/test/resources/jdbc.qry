@@ -1337,7 +1337,7 @@ INSERT_PERSON_CALL_RESULT_SET_2(OUT,ORACLE)=
 INSERT_PERSON_CALL_RESULT_SET(CALL,ORACLE)=
   :<1^oracle_cursor = call new_person_ret(:birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
-INSERT_PERSON_CALL_RESULT_SET(CALL,ORACLE)=
+INSERT_PERSON_CALL_RESULT_SET(OUT,ORACLE)=
   id$Long$id birthDate$date$birthDate lastUpdated$stamp$lastUpdated lastUpdatedBy$string$lastUpdatedBy
   createdDate$stamp$createdDate createdBy$string$createdBy version$Long$version contact$Long$contact.id ssn_number$string$ssn.number
   ssn_country$estring$ssn.country name_first$string$name.first name_last$string$name.last sex$estring$sex clothes_size$eint$clothesSize
