@@ -660,14 +660,14 @@ ENUM_CONDITION_2(QRY)=
 
 SIMPLE_ESCAPED(QRY)=
   select p.ID @id, p.NAME_LAST @name.last,
-  '\\:\\$\\@}|' @name.first^string
+  '\:\$\@}|' @name.first^string
   from PERSON p
   order by id
 ;
   
 IN_META_ESCAPED(QRY)=
   select p.ID @id,
-  { $-name.last @name.last^string, '\\:\\$\\@\\}\\|' @name.first^string }
+  { $-name.last @name.last^string, '\:\$\@\}\|' @name.first^string }
   from PERSON p
   order by id
 ;

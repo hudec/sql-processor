@@ -54,7 +54,7 @@ import org.sqlproc.engine.type.SqlMetaType;
   
   void add(StringBuilder text) {
     int type = getLastToken().getType();
-    if (type == ESC_COLON || type == ESC_STRING || type == ESC_AT || type == ESC_LBRACE || type == ESC_RBRACE || type == ESC_HASH || type == ESC_BOR) {
+    if (type == ESC_CHAR) {
       text.append(getLastToken().getText().substring(1));
     } 
     else if (type == WS) {
@@ -312,13 +312,23 @@ WS:    (' ' | '\t' | '\n' | '\r')+ ;
 AND:   '&' '&' ;
 OR:    '|' '|' ;
 
+fragment
 ESC_COLON:    '\\' ':' ;
+fragment
+ESC_SEMICOLON:'\\' ';' ;
+fragment
 ESC_STRING:   '\\' '$' ;
+fragment
 ESC_LBRACE:   '\\' '{' ;
+fragment
 ESC_RBRACE:   '\\' '}' ;
+fragment
 ESC_BOR:      '\\' '|' ;
+fragment
 ESC_HASH:     '\\' '#' ;
+fragment
 ESC_AT:	      '\\' '@';
+ESC_CHAR:  (ESC_COLON | ESC_SEMICOLON | ESC_STRING | ESC_LBRACE | ESC_RBRACE | ESC_BOR | ESC_HASH | ESC_AT);
 
 COLON:    ':' ;
 SEMICOLON:';' ;

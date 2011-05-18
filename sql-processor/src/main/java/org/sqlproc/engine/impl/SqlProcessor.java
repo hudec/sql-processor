@@ -24,7 +24,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
 public class SqlProcessor {
 
     // TODO - control duplicate statements
-    // TODO - select based on input statements names
+    // TODO - better exception messages handling
 
     /**
      * The internal slf4j logger.
