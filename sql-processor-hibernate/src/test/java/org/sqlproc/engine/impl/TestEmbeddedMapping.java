@@ -26,9 +26,10 @@ public class TestEmbeddedMapping extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "p.ID id, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country, p.BIRTHDATE birthDate, p.SEX sex, p.CREATEDDATE createdDate, p.CREATEDBY createdBy, p.LASTUPDATED lastUpdated, p.LASTUPDATEDBY lastUpdatedBy, p.VERSION version from PERSON p");
+        assertContains(sql, "p.ID id, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,");
+        assertContains(sql, "p.BIRTHDATE birthDate, p.SEX sex, p.CREATEDDATE createdDate, p.CREATEDBY createdBy,");
+        assertContains(sql, "p.LASTUPDATED lastUpdated, p.LASTUPDATEDBY lastUpdatedBy, p.VERSION version");
+        assertContains(sql, "from PERSON p");
         assertContains(sql, "order by id");
 
         List<Person> list = sqlEngine.query(session, Person.class, new Object());
@@ -57,9 +58,11 @@ public class TestEmbeddedMapping extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select p.ID id, p.NAME_FIRST first_0, p.NAME_LAST last_1, p.SSN_NUMBER number_2, p.SSN_COUNTRY country_3, p.BIRTHDATE birthDate, p.SEX sex, p.CREATEDDATE createdDate, p.CREATEDBY createdBy, p.LASTUPDATED lastUpdated, p.LASTUPDATEDBY lastUpdatedBy, p.VERSION version from PERSON");
+        assertContains(sql,
+                "select p.ID id, p.NAME_FIRST first_0, p.NAME_LAST last_1, p.SSN_NUMBER number_2, p.SSN_COUNTRY country_3,");
+        assertContains(sql, "p.BIRTHDATE birthDate, p.SEX sex, p.CREATEDDATE createdDate, p.CREATEDBY createdBy,");
+        assertContains(sql, "p.LASTUPDATED lastUpdated, p.LASTUPDATEDBY lastUpdatedBy, p.VERSION version");
+        assertContains(sql, "from PERSON");
         assertContains(sql, "order by id");
 
         List<Person> list = sqlEngine.query(session, Person.class, new Object());
@@ -114,9 +117,12 @@ public class TestEmbeddedMapping extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select p.ID id, p.NAME_FIRST first_0, p.NAME_LAST last_1, p.SSN_NUMBER number_2, p.SSN_COUNTRY country_3, p.BIRTHDATE birthDate, p.SEX sex, p.CREATEDDATE createdDate, p.CREATEDBY createdBy, p.LASTUPDATED lastUpdated, p.LASTUPDATEDBY lastUpdatedBy, p.VERSION version from PERSON");
+        assertContains(sql,
+                "select p.ID id, p.NAME_FIRST first_0, p.NAME_LAST last_1, p.SSN_NUMBER number_2, p.SSN_COUNTRY country_3,");
+        assertContains(sql,
+                "p.BIRTHDATE birthDate, p.SEX sex, p.CREATEDDATE createdDate, p.CREATEDBY createdBy, p.LASTUPDATED lastUpdated,");
+        assertContains(sql, "p.LASTUPDATEDBY lastUpdatedBy, p.VERSION version");
+        assertContains(sql, "from PERSON");
         assertContains(sql, "order by id ASC");
 
         List<Person> list = sqlEngine.query(session, Person.class, null, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
@@ -472,9 +478,11 @@ public class TestEmbeddedMapping extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select p.ID id, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country, p.BIRTHDATE birthDate, p.SEX sex, p.CREATEDDATE createdDate, p.CREATEDBY createdBy, p.LASTUPDATED lastUpdated, p.LASTUPDATEDBY lastUpdatedBy, p.VERSION version from PERSON p");
+        assertContains(sql,
+                "select p.ID id, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,");
+        assertContains(sql, "p.BIRTHDATE birthDate, p.SEX sex, p.CREATEDDATE createdDate, p.CREATEDBY createdBy,");
+        assertContains(sql, "p.LASTUPDATED lastUpdated, p.LASTUPDATEDBY lastUpdatedBy, p.VERSION version");
+        assertContains(sql, "from PERSON p");
         assertContains(sql, "order by id");
 
         List<Person> list = sqlEngine.query(session, Person.class, null);

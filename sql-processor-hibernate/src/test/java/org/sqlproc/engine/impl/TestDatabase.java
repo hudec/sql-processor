@@ -22,8 +22,11 @@ import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
+import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlEngineLoader;
+import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.SqlProcedureEngine;
+import org.sqlproc.engine.SqlProcessorLoader;
 import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.hibernate.HibernateSimpleSession;
@@ -39,23 +42,22 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected static final String CONFIGURATION_NAME = "CONFIGURATION_NAME";
     protected static final String DDL_CREATE_DB = "DDL_CREATE_DB";
     protected static final String DDL_DROP_DB = "DDL_DROP_DB";
-    protected static final String QUERIES_PROPS = "QUERIES_PROPS";
-    protected static final String CRUD_PROPS = "CRUD_PROPS";
-    protected static final String PROCEDURE_PROPS = "PROCEDURE_PROPS";
-    protected static final String TYPES_PROPS = "TYPES_PROPS";
-    protected static final String JOINS_PROPS = "JOINS_PROPS";
-    protected static final String CUSTOM_PROPS = "CUSTOM_PROPS";
+    protected static final String STATEMENTS_PROPS = "STATEMENTS_PROPS";
+    protected static final String STATEMENTS_FILES = "STATEMENTS_FILES";
     protected static final String DB_TYPE = "DB_TYPE";
+    protected static final String NEW_LOADER = "NEW_LOADER";
     protected static final String DATATYPE_FACTORY = "DATATYPE_FACTORY";
 
     protected static Configuration configuration;
 
     protected static Properties testProperties;
     protected static Properties queriesProperties;
+    protected static StringBuilder metaStatements;
     protected static String dbType;
     protected static Properties ddlCreateDbProperties;
     protected static Properties ddlDropDbProperties;
     protected static boolean dbCreated = false;
+    protected static boolean newLoader = false;
 
     protected static List<SqlInternalType> customTypes = new ArrayList<SqlInternalType>();
     static {
@@ -69,6 +71,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
         testProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class, "test.properties");
         dbType = testProperties.getProperty(DB_TYPE);
+        newLoader = Boolean.parseBoolean(testProperties.getProperty(NEW_LOADER));
 
         if (containsProperty(testProperties, DDL_CREATE_DB)) {
             ddlCreateDbProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class,
@@ -78,10 +81,11 @@ public abstract class TestDatabase extends DatabaseTestCase {
             ddlDropDbProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class,
                     testProperties.getProperty(DDL_DROP_DB));
         }
-        queriesProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class,
-                testProperties.getProperty(QUERIES_PROPS), testProperties.getProperty(CRUD_PROPS),
-                testProperties.getProperty(PROCEDURE_PROPS), testProperties.getProperty(TYPES_PROPS),
-                testProperties.getProperty(JOINS_PROPS), testProperties.getProperty(CUSTOM_PROPS));
+        String[] metaPropsNames = testProperties.getProperty(STATEMENTS_PROPS).split("\\s+");
+        queriesProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class, metaPropsNames);
+
+        String[] metaFilesNames = testProperties.getProperty(STATEMENTS_FILES).split("\\s+");
+        metaStatements = SqlFilesLoader.getStatements(DatabaseTestCase.class, metaFilesNames);
 
         configuration = new Configuration().configure(testProperties.getProperty(CONFIGURATION_NAME));
         sessionFactory = configuration.buildSessionFactory();
@@ -188,13 +192,25 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
     }
 
-    SqlQueryEngine getQueryEngine(String name) {
+    SqlEngineFactory getEngineFactory(String name) {
         SqlProcessContext.nullFeatures();
         SqlProcessContext.nullTypeFactory();
-        SqlEngineLoader sqlLoader = new SqlEngineLoader(queriesProperties, HibernateTypeFactory.getInstance(), dbType,
-                null, customTypes, name);
-        SqlQueryEngine sqlEngine = sqlLoader.getQueryEngine(name);
-        assertFalse(sqlEngine == null);
+        SqlEngineFactory factory;
+        if (newLoader) {
+            factory = new SqlProcessorLoader(metaStatements, HibernateTypeFactory.getInstance(), dbType, null,
+                    customTypes, name);
+        } else {
+            factory = new SqlEngineLoader(queriesProperties, HibernateTypeFactory.getInstance(), dbType, null,
+                    customTypes, name);
+        }
+        assertNotNull(factory);
+        return factory;
+    }
+
+    SqlQueryEngine getQueryEngine(String name) {
+        SqlEngineFactory factory = getEngineFactory(name);
+        SqlQueryEngine sqlEngine = factory.getQueryEngine(name);
+        assertNotNull(sqlEngine);
         return sqlEngine;
     }
 
@@ -203,22 +219,16 @@ public abstract class TestDatabase extends DatabaseTestCase {
     }
 
     SqlCrudEngine getCrudEngine(String name) {
-        SqlProcessContext.nullFeatures();
-        SqlProcessContext.nullTypeFactory();
-        SqlEngineLoader sqlLoader = new SqlEngineLoader(queriesProperties, HibernateTypeFactory.getInstance(), dbType,
-                null, customTypes, name);
-        SqlCrudEngine sqlEngine = sqlLoader.getCrudEngine(name);
-        assertFalse(sqlEngine == null);
+        SqlEngineFactory factory = getEngineFactory(name);
+        SqlCrudEngine sqlEngine = factory.getCrudEngine(name);
+        assertNotNull(sqlEngine);
         return sqlEngine;
     }
 
     SqlProcedureEngine getProcedureEngine(String name) {
-        SqlProcessContext.nullFeatures();
-        SqlProcessContext.nullTypeFactory();
-        SqlEngineLoader sqlLoader = new SqlEngineLoader(queriesProperties, HibernateTypeFactory.getInstance(), dbType,
-                null, customTypes, name);
-        SqlProcedureEngine sqlEngine = sqlLoader.getProcedureEngine(name);
-        assertFalse(sqlEngine == null);
+        SqlEngineFactory factory = getEngineFactory(name);
+        SqlProcedureEngine sqlEngine = factory.getProcedureEngine(name);
+        assertNotNull(sqlEngine);
         return sqlEngine;
     }
 

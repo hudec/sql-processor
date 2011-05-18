@@ -1,0 +1,1371 @@
+LIKE_STRING(OPT)=like;
+WILDCARD_CHARACTER(OPT)=%;
+SURROUND_QUERY_LIKE(BOPT)=true;
+SURROUND_QUERY_MIN_LEN(IOPT)=2;
+ID(OPT)=id;
+SEQ1(OPT,HSQLDB)=call NEXT VALUE FOR SQLPROC_SEQUENCE;
+SEQ1(OPT,ORACLE)=select SQLPROC_SEQUENCE.nextval from dual;
+SEL1(OPT,HSQLDB)=call identity();
+SEL1(OPT,ORACLE)=select last_insert_id();
+
+
+ANSI_BASIC(QRY)=
+  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  order by id
+;
+ANSI_BASIC(OUT)=
+  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
+  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
+  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  version$Long$version
+;
+
+ANSI_BASIC_2(QRY)=
+  select p.ID @id, p.NAME_FIRST @first, p.NAME_LAST @last, p.SSN_NUMBER @ssn, p.SSN_COUNTRY @country,
+  p.BIRTHDATE @birthDate, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy,
+  p.LASTUPDATED @lastUpdated, p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p
+  order by id
+;
+ANSI_BASIC_2(OUT)=
+  first$$name.first last$$name.last ssn$$ssn.number
+  country$$ssn.country birthDate$date createdDate$date
+  lastUpdated$date
+;
+
+ANSI_BASIC_3(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy,
+  p.LASTUPDATED @lastUpdated^date, p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p
+  order by id
+;
+
+SQL_EXT_BASIC(QRY)=
+  select p.ID, $-name.first first, :+name.last last
+  from PERSON p
+  where 1=1
+  order by id
+;
+SQL_EXT_BASIC(QRY,HSQLDB)=
+  select p.ID, $-name.first first, cast(:+name.last as varchar(100)) last
+  from PERSON p
+  where 1=1
+  order by id
+;
+SQL_EXT_BASIC(OUT)=
+  id$Long$id first$string$name.first last$string$name.last
+;
+
+SQL_EXT_BASIC_2(QRY)=
+  select p.ID @id, $-name.first @name.first^string, :+name.last @name.last
+  from PERSON p
+  where 1=1
+  order by id
+;
+SQL_EXT_BASIC_2(QRY,HSQLDB)=
+  select p.ID @id, $-name.first @name.first^string, cast(:+name.last as varchar(100)) @name.last
+  from PERSON p
+  where 1=1
+  order by id
+;
+
+
+BASIC(QRY)=
+  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  {#1 order by id}
+;
+BASIC(OUT)=
+  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
+  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
+  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  version$Long$version
+;
+
+BASIC_2(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p
+  {#1 order by id}
+;
+
+
+FORM_BASIC(QRY)=
+  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  where 1=1
+  {& p.id = :id}
+  {& p.NAME_FIRST = :name.first | p.NAME_LAST = :name.last | p.SSN_NUMBER = :ssn.number}
+  {& p.SSN_COUNTRY = :ssn.country | p.BIRTHDATE = :birthDate | p.SEX = :sex.value}
+  {& p.CREATEDDATE = :createdDate | p.LASTUPDATEDBY = :lastUpdatedBy | p.LASTUPDATED = :lastUpdated}
+  {& p.CREATEDBY = :createdBy}
+  {& p.VERSION = :version}
+  {#1 order by id}
+;
+FORM_BASIC(OUT)=
+  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
+  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
+  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  version$Long$version
+;
+
+FORM_BASIC_2(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p {= where
+   {& p.id = :id}
+   {& p.NAME_FIRST = :name.first | p.NAME_LAST = :name.last | p.SSN_NUMBER = :ssn.number}
+   {& p.SSN_COUNTRY = :ssn.country | p.BIRTHDATE = :birthDate | p.SEX = :sex.value}
+   {& p.CREATEDDATE = :createdDate | p.LASTUPDATEDBY = :lastUpdatedBy | p.LASTUPDATED = :lastUpdated}
+   {& p.CREATEDBY = :createdBy}
+   {& p.VERSION = :version}
+  }
+  {#1 order by id}
+;
+
+
+FORM_OR_BASIC(QRY)=
+  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  where 1=1
+  {& p.id = :id}
+  {| p.NAME_FIRST = :name.first | p.NAME_LAST = :name.last | p.SSN_NUMBER = :ssn.number}
+  {| p.SSN_COUNTRY = :ssn.country | p.BIRTHDATE = :birthDate | p.SEX = :sex.value}
+  {| p.CREATEDDATE = :createdDate | p.LASTUPDATEDBY = :lastUpdatedBy | p.LASTUPDATED = :lastUpdated}
+  {#1 order by id}
+;
+FORM_OR_BASIC(OUT)=
+  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
+  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
+  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  version$Long$version
+;
+
+FORM_OR_BASIC_2(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p {= where
+   {& p.id = :id}
+   {| p.NAME_FIRST = :name.first | p.NAME_LAST = :name.last | p.SSN_NUMBER = :ssn.number}
+   {| p.SSN_COUNTRY = :ssn.country | p.BIRTHDATE = :birthDate | p.SEX = :sex.value}
+   {| p.CREATEDDATE = :createdDate | p.LASTUPDATEDBY = :lastUpdatedBy | p.LASTUPDATED = :lastUpdated}
+  }
+  {#1 order by id}
+;
+
+
+CONSTANT_BASIC(QRY)=
+  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  where 1=1
+  {& p.id = $id}
+  {& p.NAME_FIRST = $name.first | p.NAME_LAST = $name.last | p.SSN_NUMBER = $ssn.number}
+  {& p.SSN_COUNTRY = $ssn.country | p.BIRTHDATE = $birthDate | p.SEX = $sex.value}
+  {& p.CREATEDDATE = $createdDate | p.LASTUPDATEDBY = $lastUpdatedBy | p.LASTUPDATED = $lastUpdated}
+  {& p.CREATEDBY = $createdBy}
+  {& p.VERSION = $version}
+  {#1 order by id}
+;
+CONSTANT_BASIC(OUT)=
+  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
+  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
+  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  version$Long$version
+;
+
+CONSTANT_BASIC_2(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p {= where
+   {& p.id = $id}
+   {& p.NAME_FIRST = $name.first | p.NAME_LAST = $name.last | p.SSN_NUMBER = $ssn.number}
+   {& p.SSN_COUNTRY = $ssn.country | p.BIRTHDATE = $birthDate | p.SEX = $sex.value}
+   {& p.CREATEDDATE = $createdDate | p.LASTUPDATEDBY = $lastUpdatedBy | p.LASTUPDATED = $lastUpdated}
+   {& p.CREATEDBY = $createdBy}
+   {& p.VERSION = $version}
+  }
+  {#1 order by id}
+;
+
+
+CONSTANT_OR_BASIC(QRY)=
+  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  where 1=1
+  {& p.id = $id}
+  {| p.NAME_FIRST = $name.first | p.NAME_LAST = $name.last | p.SSN_NUMBER = $ssn.number}
+  {| p.SSN_COUNTRY = $ssn.country | p.BIRTHDATE = $birthDate | p.SEX = $sex.value}
+  {| p.CREATEDDATE = $createdDate | p.LASTUPDATEDBY = $lastUpdatedBy | p.LASTUPDATED = $lastUpdated}
+  {#1 order by id}
+;
+CONSTANT_OR_BASIC(OUT)=
+  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
+  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
+  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  version$Long$version
+;
+
+CONSTANT_OR_BASIC_2(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p {= where
+   {& p.id = $id}
+   {| p.NAME_FIRST = $name.first | p.NAME_LAST = $name.last | p.SSN_NUMBER = $ssn.number}
+   {| p.SSN_COUNTRY = $ssn.country | p.BIRTHDATE = $birthDate | p.SEX = $sex.value}
+   {| p.CREATEDDATE = $createdDate | p.LASTUPDATEDBY = $lastUpdatedBy | p.LASTUPDATED = $lastUpdated}
+  }
+  {#1 order by id}
+;
+
+  
+CONSTANT_IN_ORDER_BASIC(QRY)=
+  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  where 1=1
+  {& p.id in $idSet}
+  {#1 order by id}
+  {#2 order by NAME_FIRST}
+  {#3 order by NAME_LAST}
+;
+CONSTANT_IN_ORDER_BASIC(OUT)=
+  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
+  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
+  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  version$Long$version
+;
+
+CONSTANT_IN_ORDER_BASIC_2(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p {= where
+   {& p.id in $idSet}
+  }
+  {#1 order by id}
+  {#2 order by NAME_FIRST}
+  {#3 order by NAME_LAST}
+;
+
+  
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY)=
+  select p.ID, $name.first first, :name.last last
+  from PERSON p
+  where 1=1
+  {& p.id = :id}
+  {#1 order by id}
+;
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY,HSQLDB)=
+  select p.ID, $name.first first, cast(:name.last as varchar(100)) last
+  from PERSON p
+  where 1=1
+  {& p.id = :id}
+  {#1 order by id}
+;
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(OUT)=
+  id$Long$id first$string$name.first last$string$name.last
+;
+
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY)=
+  select p.ID @id, $name.first @name.first^string, :name.last @name.last
+  from PERSON p {= where
+   {& p.id = :id}
+  }
+  {#1 order by id}
+;
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,HSQLDB)=
+  select p.ID @id, $name.first @name.first^string, cast(:name.last as varchar(100)) @name.last
+  from PERSON p {= where
+   {& p.id = :id}
+  }
+  {#1 order by id}
+;
+  
+  
+SQL_IN_BRACES_BASIC(QRY)=
+  select p.ID {, $name.first first, p.SSN_NUMBER ssn |, '' first, p.SSN_NUMBER ssn} {, :+name.last last |, '' last} {, p.BIRTHDATE}
+  from PERSON p
+  order by id
+;
+SQL_IN_BRACES_BASIC(QRY,HSQLDB)=
+  select p.ID {, $name.first first, p.SSN_NUMBER ssn |, '' first, p.SSN_NUMBER ssn} {, cast(:+name.last as varchar(100)) last |, '' last} {, p.BIRTHDATE}
+  from PERSON p
+  order by id
+;
+SQL_IN_BRACES_BASIC(OUT)=
+  id$Long$id first$string$name.first last$string$name.last birthDate$date$birthDate
+  ssn$string$ssn.number
+;
+
+SQL_IN_BRACES_BASIC_2(QRY)=
+  select p.ID @id {, $name.first @first, p.SSN_NUMBER @ssn |, '' @first, p.SSN_NUMBER @ssn} {, :+name.last @last |, '' @last} {, p.BIRTHDATE @birthDate}
+  from PERSON p
+  order by id
+;
+SQL_IN_BRACES_BASIC_2(QRY,HSQLDB)=
+  select p.ID @id {, $name.first @first, p.SSN_NUMBER @ssn |, '' @first, p.SSN_NUMBER @ssn} {, cast(:+name.last as varchar(100)) @last |, '' @last} {, p.BIRTHDATE @birthDate}
+  from PERSON p
+  order by id
+;
+SQL_IN_BRACES_BASIC_2(OUT)=
+  first$string$name.first last$$name.last birthDate$date ssn$$ssn.number
+;
+  
+  
+SQL_IN_BRACES_ADV(QRY)=
+  select p.ID @id { {, $name.first @first, p.SSN_NUMBER @ssn} {, :+name.last @last}, :lastUpdatedBy @lastUpdatedBy}
+  from PERSON p
+  order by id
+;
+SQL_IN_BRACES_ADV(QRY,HSQLDB)=
+  select p.ID @id { {, $name.first @first, p.SSN_NUMBER @ssn} {, cast(:+name.last as varchar(100)) @last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
+  from PERSON p
+  order by id
+;
+SQL_IN_BRACES_ADV(OUT)=
+  first$string$name.first last$$name.last ssn$$ssn.number
+;
+  
+SQL_IN_BRACES_ADV_2(QRY)=
+  select p.ID @id { {, $name.first @name.first^string, p.SSN_NUMBER @ssn.number} {, :+name.last @name.last}, :lastUpdatedBy @lastUpdatedBy}
+  from PERSON p
+  order by id
+;
+SQL_IN_BRACES_ADV_2(QRY,HSQLDB)=
+  select p.ID @id { {, $name.first @name.first^string, p.SSN_NUMBER @ssn.number} {, cast(:+name.last as varchar(100)) @name.last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
+  from PERSON p
+  order by id
+;
+
+  
+CONDITIONAL_JOIN_ADV(QRY)=
+  select m.id, m.TITLE, e.ROLE
+  {? :fname | , p.NAME_FIRST first, p.NAME_LAST last | , '' first, '' last}
+  from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID
+  {? :fname | left join PERSON p on e.PERSON = p.ID}
+  where 1=1
+  {& m.id in $idSet}
+  {& UPPER(p.NAME_FIRST) = :+fname}
+  order by id
+;
+CONDITIONAL_JOIN_ADV(OUT)=
+  id$Long$id first$string$engagement.first last$string$engagement.last
+  title$string$mediaTitle role$string$engagement.role
+;
+
+CONDITIONAL_JOIN_ADV_2(QRY)=
+  select m.id @id, m.TITLE @mediaTitle, e.ROLE @engagement.role
+  {? :fname | , p.NAME_FIRST @engagement.first, p.NAME_LAST @engagement.last}
+  from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID
+  {? :fname | left join PERSON p on e.PERSON = p.ID}
+  {= where
+   {& m.id in $idSet}
+   {& UPPER(p.NAME_FIRST) = :+fname}
+  }
+  order by id
+;
+
+  
+CONDITIONAL_JOIN_2_LEVELS_ADV(QRY)=
+  select l.id, l.NAME, pm.location
+  {? :media |
+    {? :fname | , m.TITLE, e.ROLE, p.NAME_FIRST first, p.NAME_LAST last
+              | , m.TITLE, e.ROLE, '' first, '' last
+    }
+            |  , '' title, '' role, '' first, '' last
+  }
+  from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id
+  {? :media |
+    {? :fname | left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.id
+                left join MEDIA m on mpm.MEDIA = m.id
+                left join ENGAGEMENT e on e.MEDIA = m.ID
+                left join PERSON p on e.PERSON = p.ID |
+                left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.id
+                left join MEDIA m on mpm.MEDIA = m.id
+                left join ENGAGEMENT e on e.MEDIA = m.ID
+    }
+  }
+  where 1=1
+  {& UPPER(m.TITLE) = :+media}
+  {? :media | {& UPPER(p.NAME_FIRST) = :+fname}}
+  order by l.id, pm.location
+;
+CONDITIONAL_JOIN_2_LEVELS_ADV(OUT)=
+  id$Long$id location$string$location first$string$media.engagement.first
+  last$string$media.engagement.last title$string$media.mediaTitle role$string$media.engagement.role name$string$name
+;
+  
+CONDITIONAL_JOIN_2_LEVELS_ADV_2(QRY)=
+  select l.id @id, l.NAME @name, pm.location @location
+  {? :media |
+    {? :fname | , m.TITLE @title, e.ROLE @role, p.NAME_FIRST @first, p.NAME_LAST @last
+              | , m.TITLE @title, e.ROLE @role
+    }
+  }
+  from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id
+  {? :media |
+    {? :fname | left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.id
+                left join MEDIA m on mpm.MEDIA = m.id
+                left join ENGAGEMENT e on e.MEDIA = m.ID
+                left join PERSON p on e.PERSON = p.ID |
+                left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.id
+                left join MEDIA m on mpm.MEDIA = m.id
+                left join ENGAGEMENT e on e.MEDIA = m.ID
+    }
+  }
+  {= where
+   {& UPPER(m.TITLE) = :+media}
+   {? :media | {& UPPER(p.NAME_FIRST) = :+fname}}
+  }
+  order by l.id, pm.location
+;
+CONDITIONAL_JOIN_2_LEVELS_ADV_2(OUT)=
+  first$string$media.engagement.first
+  last$string$media.engagement.last title$string$media.mediaTitle role$string$media.engagement.role
+;
+  
+    
+CONDITIONAL_WHERE_ADV(QRY)=
+  select m.id, m.TITLE, e.ROLE
+  {? :fname | , p.NAME_FIRST first, p.NAME_LAST last | , '' first, '' last}
+  from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID
+  {? :fname | left join PERSON p on e.PERSON = p.ID}
+  where 1=1
+  {? :fname | {& UPPER(p.NAME_FIRST) = :+fname}}
+  order by id
+;
+CONDITIONAL_WHERE_ADV(OUT)=
+  id$Long$id first$string$engagement.first last$string$engagement.last
+  title$string$mediaTitle role$string$engagement.role
+;
+
+CONDITIONAL_WHERE_ADV_2(QRY)=
+  select m.id @id, m.TITLE @title, e.ROLE @role
+  {? :fname | , p.NAME_FIRST @first, p.NAME_LAST @last}
+  from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID
+  {? :fname | left join PERSON p on e.PERSON = p.ID}
+  {= where
+   {? :fname | {& UPPER(p.NAME_FIRST) = :+fname}}
+  }
+  order by id
+;
+CONDITIONAL_WHERE_ADV_2(OUT)=
+  first$string$engagement.first last$string$engagement.last
+  title$string$mediaTitle role$string$engagement.role
+;
+  
+    
+CONDITIONAL_WHERE_AND_BRACES_ADV(QRY)=
+  select m.id, m.TITLE, e.ROLE
+  {? :fname || :lname | , p.NAME_FIRST first, p.NAME_LAST last | , '' first, '' last}
+  from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID
+  {? :fname || :lname | left join PERSON p on e.PERSON = p.ID}
+  where
+  {? :lname | { UPPER(p.NAME_LAST) = :+lname} | 1=1}
+  {? :lname && :fname | { AND} | { AND}}
+  {? :fname | { UPPER(p.NAME_FIRST) = :+fname} | 1=1}
+  order by id
+;
+CONDITIONAL_WHERE_AND_BRACES_ADV(OUT)=
+  id$Long$id first$string$engagement.first last$string$engagement.last
+  title$string$mediaTitle role$string$engagement.role
+;
+
+CONDITIONAL_WHERE_AND_BRACES_ADV_2(QRY)=
+  select m.id @id, m.TITLE @title, e.ROLE @role
+  {? :fname || :lname | , p.NAME_FIRST @first, p.NAME_LAST @last}
+  from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID
+  {? :fname || :lname | left join PERSON p on e.PERSON = p.ID}
+  {= where
+   {? :lname | { AND UPPER(p.NAME_LAST) = :+lname}}
+   {? :fname | { AND UPPER(p.NAME_FIRST) = :+fname}}
+  }
+  order by id
+;
+CONDITIONAL_WHERE_AND_BRACES_ADV_2(OUT)=
+  first$string$engagement.first last$string$engagement.last
+  title$string$mediaTitle role$string$engagement.role
+;
+
+
+CONDITIONAL_WHERE_AND_BRACES_MORE_ADV(QRY)=
+  select m.id, m.TITLE, e.ROLE
+  {? (:fname && :lname) || :ssn | , p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn | , '' first, '' last, '' ssn}
+  from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID
+  {? (:fname && :lname) || :ssn | left join PERSON p on e.PERSON = p.ID}
+  where 1=1
+  {? :lname && :fname | AND UPPER(p.NAME_LAST) = :+lname AND UPPER(p.NAME_FIRST) = :+fname}
+  {? :ssn | {& p.SSN_NUMBER = :ssn} }
+  order by id
+;
+CONDITIONAL_WHERE_AND_BRACES_MORE_ADV(OUT)=
+  id$Long$id first$string$engagement.first last$string$engagement.last
+  title$string$mediaTitle role$string$engagement.role ssn$string$engagement.ssn
+;
+
+CONDITIONAL_WHERE_AND_BRACES_MORE_ADV_2(QRY)=
+  select m.id @id, m.TITLE @title, e.ROLE @role
+  {? (:fname && :lname) || :ssn | , p.NAME_FIRST @first, p.NAME_LAST @last, p.SSN_NUMBER @ssn}
+  from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID
+  {? (:fname && :lname) || :ssn | left join PERSON p on e.PERSON = p.ID}
+  {= where
+   {? :lname && :fname | AND UPPER(p.NAME_LAST) = :+lname AND UPPER(p.NAME_FIRST) = :+fname}
+   {? :ssn | {& p.SSN_NUMBER = :ssn} }
+  }
+  order by id
+;
+CONDITIONAL_WHERE_AND_BRACES_MORE_ADV_2(OUT)=
+  first$string$engagement.first last$string$engagement.last
+  title$string$mediaTitle role$string$engagement.role ssn$string$engagement.ssn
+;
+
+  
+LIKE_BASIC(QRY)=
+  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  where 1=1
+  {& p.id = :id}
+  {& UPPER(p.NAME_FIRST) like :+name.first}
+  {? :name.last | and UPPER(p.NAME_LAST) like :+name.last}
+  {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
+  {#1 order by id}
+;
+LIKE_BASIC(OUT)=
+  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
+  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
+  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  version$Long$version
+;
+
+LIKE_BASIC_2(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p
+  where 1=1
+  {& p.id = :id}
+  {& UPPER(p.NAME_FIRST) like :+name.first}
+  {? :name.last | and UPPER(p.NAME_LAST) like :+name.last}
+  {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
+  {#1 order by id}
+;
+ 
+ 
+ORDER(QRY)=
+  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  {#1 order by id}
+  {#2 first}
+  {#3 last}
+  {#4 ssn}
+  {#5 country}
+;
+ORDER(OUT)=
+  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
+  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
+  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  version$Long$version
+;
+
+
+ENUM(QRY)=
+  select p.ID, p.SSN_NUMBER ssn, p.SSN_COUNTRY country, p.SEX, p.CLOTHES_SIZE clothesSize
+  from PERSON p
+  where 1=1
+  {& p.SEX = :sex^estring}
+  {& p.SSN_COUNTRY = $ssn.country^estring}
+  {& p.CLOTHES_SIZE = :clothesSize^eint}
+  {#1 order by id}
+;
+ENUM(OUT)=
+  id$Long ssn$string$ssn.number country$estring$ssn.country sex$estring
+  clothesSize$eint
+;
+
+ENUM_2(QRY)=
+  select p.ID @id, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country, p.SEX @sex, p.CLOTHES_SIZE @clothesSize
+  from PERSON p
+  where 1=1
+  {& p.SEX = :sex}
+  {& p.SSN_COUNTRY = $ssn.country}
+  {& p.CLOTHES_SIZE = :clothesSize}
+  {#1 order by id}
+;
+
+
+ENUM_IN(QRY)=
+  select p.ID, p.SSN_NUMBER ssn, p.SSN_COUNTRY country, p.SEX, p.CLOTHES_SIZE clothesSize
+  from PERSON p
+  where 1=1
+  {& p.SEX in :sexs^estring}
+  {& p.SSN_COUNTRY in $ssn.countries^estring}
+  {& p.CLOTHES_SIZE in :clothesSizes^eint}
+  {#1 order by id}
+;
+ENUM_IN(OUT)=
+  id$Long ssn$string$ssn.number country$estring$ssn.country sex$estring
+  clothesSize$eint
+;
+
+ENUM_IN_2(QRY)=
+  select p.ID @id, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country, p.SEX @sex, p.CLOTHES_SIZE @clothesSize
+  from PERSON p
+  where 1=1
+  {& p.SEX in :sexs}
+  {& p.SSN_COUNTRY in $ssn.countries}
+  {& p.CLOTHES_SIZE in :clothesSizes}
+  {#1 order by id}
+;
+
+
+ENUM_CONDITION(QRY)=
+  select p.ID, p.SSN_NUMBER ssn, p.SSN_COUNTRY country, p.SEX, p.CLOTHES_SIZE clothesSize
+  from PERSON p
+  where 1=1
+  {? :sex^estring^MALE | and p.SEX = 'M'}
+  {? $ssn.country^estring^US | and p.SSN_COUNTRY = 'US'}
+  {? :clothesSize^eint^MIDDLE | and p.CLOTHES_SIZE = 1}
+  {#1 order by id}
+;
+ENUM_CONDITION(OUT)=
+  id$Long ssn$string$ssn.number country$estring$ssn.country sex$estring
+  clothesSize$eint
+;
+
+ENUM_CONDITION_2(QRY)=
+  select p.ID @id, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country, p.SEX @sex, p.CLOTHES_SIZE @clothesSize
+  from PERSON p
+  where 1=1
+  {? :sex^estring^MALE | and p.SEX = 'M'}
+  {? $ssn.country^estring^US | and p.SSN_COUNTRY = 'US'}
+  {? :clothesSize^eint^MIDDLE | and p.CLOTHES_SIZE = 1}
+  {#1 order by id}
+;
+
+
+SIMPLE_ESCAPED(QRY)=
+  select p.ID @id, p.NAME_LAST @name.last,
+  '\:\$\@}|' @name.first^string
+  from PERSON p
+  order by id
+;
+  
+IN_META_ESCAPED(QRY)=
+  select p.ID @id,
+  { $-name.last @name.last^string, '\:\$\@\}\|' @name.first^string }
+  from PERSON p
+  order by id
+;
+  
+
+COLLECTIONS_UNDEFINED(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.LASTUPDATEDBY @lastUpdatedBy
+  from PERSON p
+  where 1=1
+  {& p.ID in :idSet}
+  {& p.LASTUPDATEDBY in :updatedBySet}
+  {& p.NAME_FIRST in :names.firstList | p.NAME_LAST in :names.lastList}
+  {#1 order by id}
+;
+  
+COLLECTIONS_STANDARD(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.LASTUPDATEDBY @lastUpdatedBy
+  from PERSON p
+  where 1=1
+  {& p.ID in :idSet^Long}
+  {& p.LASTUPDATEDBY in :updatedBySet^String}
+  {& p.NAME_FIRST in :names.firstList^String | p.NAME_LAST in :names.lastList^String}
+  {#1 order by id}
+;
+  
+PARAMETERS_MORE(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p
+  where 1=1
+  {& p.id = :id^long^null}
+  {& p.NAME_FIRST = :name.first^string^null | p.NAME_LAST = :name.last^string^null | p.SSN_NUMBER = :ssn.number^string^null}
+  {& p.SSN_COUNTRY = :ssn.country^estring^null | p.BIRTHDATE = :birthDate^date^null | p.SEX = :sex^estring^null}
+  {& p.CREATEDDATE = :createdDate^datetime^null | p.LASTUPDATEDBY = :lastUpdatedBy^string^null | p.LASTUPDATED = :lastUpdated^datetime^null}
+  {& p.CREATEDBY = :createdBy^string^null}
+  {& p.VERSION = :version^long^null}
+  {#1 order by id}
+;
+  
+PARAMETERS_TOP(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p
+  where p.id = :id^long^any
+  {? :createdBy | AND p.CREATEDBY=:createdBy | AND p.CREATEDBY is null }
+  {#1 order by id}
+;
+  
+
+CONDITIONS_MORE(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p
+  where 1=1
+  {? :id^long^null | AND p.ID is null | AND p.ID = :id}
+  {? :version^long^1 | AND (p.VERSION = 1 OR p.VERSION is null)}
+  {? $lastUpdatedBy^string^pes | AND p.LASTUPDATEDBY = 'dbunit' | AND p.LASTUPDATEDBY like '%'}
+  {#1 order by id}
+;
+  
+EXC_1(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first
+  from PERSON p
+  {= where
+   {& p.id = :id}
+   {& p.NAME_FIRST = :name.first}
+   {& p.SEX = $sex}
+   {& p.NAME_LAST = $name.last}
+  }
+;
+
+  
+ 
+STANDARD_TYPES(QRY)=
+  select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
+  t.t_short n_short, t.t_short, t.t_float n_float, t.t_float, t.t_double n_double, t.t_double,
+  t.t_char n_char, t.t_char, t.t_string,
+  t.t_time, t.t_date, t.t_datetime, t.t_timestamp,
+  t.t_boolean n_boolean, t.t_boolean,
+  t.t_big_integer, t.t_big_decimal,
+  t.a_byte an_byte, t.a_byte at_byte
+  from TYPES t
+  where id=1
+;
+STANDARD_TYPES(OUT)=
+  n_int$int t_int$int
+  n_long$long t_long$long
+  n_byte$byte t_byte$byte
+  n_short$short t_short$short
+  n_float$float t_float$float
+  n_double$double t_double$double
+  n_char$char t_char$char
+  t_string$string
+  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
+  n_boolean$boolean t_boolean$boolean
+  t_big_integer$bigint t_big_decimal$bigdec
+  an_byte$bytes at_byte$bytes
+;
+ 
+STANDARD_TYPES_2(QRY)=
+  select t_int @n_int^int, @t_int^int, t_long @n_long^long, @t_long^long, t_byte @n_byte^byte, @t_byte^byte,
+  t_short @n_short^short, @t_short^short, t_float @n_float^float, @t_float^float, t_double @n_double^double, @t_double^double,
+  t_char @n_char^char, @t_char^char, @t_string^string,
+  @t_time^time, @t_date^date, @t_datetime^datetime, @t_timestamp^timestamp,
+  t_boolean @n_boolean^boolean, @t_boolean^boolean,
+  @t_big_integer^bigint, @t_big_decimal^bigdec,
+  a_byte @an_byte^bytes, a_byte @at_byte^bytes
+  from TYPES
+  where id=1
+;
+  
+  
+UNDEFINED_TYPES(QRY)=
+  select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
+  t.t_short n_short, t.t_short, t.t_float n_float, t.t_float, t.t_double n_double, t.t_double,
+  t.t_char n_char, t.t_char, t.t_string,
+  t.t_time, t.t_date, t.t_datetime, t.t_timestamp,
+  t.t_boolean n_boolean, t.t_boolean,
+  t.t_big_integer, t.t_big_decimal,
+  t.a_byte an_byte, t.a_byte at_byte, t.a_text,
+  t.a_blob, t.a_clob
+  from TYPES t
+  where id=1
+;
+UNDEFINED_TYPES(OUT)=
+  n_int t_int
+  n_long t_long
+  n_byte t_byte
+  n_short t_short
+  n_float t_float
+  n_double t_double
+  n_char t_char
+  t_string
+  t_time t_date t_datetime t_timestamp
+  n_boolean t_boolean
+  t_big_integer t_big_decimal
+  an_byte at_byte a_text$text
+  a_blob a_clob
+;
+
+UNDEFINED_TYPES_2(QRY)=
+  select t_int @n_int, @t_int, t_long @n_long, @t_long, t_byte @n_byte, @t_byte,
+  t_short @n_short, @t_short, t_float @n_float, @t_float, t_double @n_double, @t_double,
+  t_char @n_char, @t_char, @t_string,
+  @t_time, @t_date, @t_datetime, @t_timestamp,
+  t_boolean @n_boolean, @t_boolean,
+  @t_big_integer, @t_big_decimal,
+  a_byte @an_byte, a_byte @at_byte, @a_text^text,
+  @a_blob, @a_clob
+  from TYPES t
+  where id=1
+;
+ 
+ 
+UNDEFINED_PARAMETERS(QRY)=
+  select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
+  t.t_short n_short, t.t_short, t.t_float n_float, t.t_float, t.t_double n_double, t.t_double,
+  t.t_char n_char, t.t_char, t.t_string,
+  t.t_time, t.t_date, t.t_datetime, t.t_timestamp,
+  t.t_boolean n_boolean, t.t_boolean,
+  t.t_big_integer, t.t_big_decimal,
+  t.a_byte an_byte, t.a_byte at_byte, t.a_text,
+  t.a_blob, t.a_clob
+  from TYPES t
+  where 1=1
+  {& t_int = :t_int}
+  {& t_long = :t_long}
+  {& t_byte = :t_byte}
+  {& a_byte = :an_byte}
+  {& t_short = :t_short}
+  {& t_float = :t_float}
+  {& t_double = :t_double}
+  {& t_char = :t_char}
+  {& t_string = :t_string}
+  {& t_boolean = :t_boolean}
+  {& t_date = :t_date}
+  {& t_time = :t_time}
+  {& t_datetime = :t_datetime}
+  {& t_timestamp = :t_timestamp}
+;
+UNDEFINED_PARAMETERS(OUT)=
+  n_int$int t_int$int
+  n_long$long t_long$long
+  n_byte$byte t_byte$byte
+  n_short$short t_short$short
+  n_float$float t_float$float
+  n_double$double t_double$double
+  n_char$char t_char$char
+  t_string$string
+  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
+  n_boolean$boolean t_boolean$boolean
+  t_big_integer$bigint t_big_decimal$bigdec
+  an_byte$bytes at_byte$bytes a_text$text
+  a_blob$blob a_clob$clob
+;
+
+ 
+STANDARD_PARAMETERS(QRY)=
+  select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
+  t.t_short n_short, t.t_short, t.t_float n_float, t.t_float, t.t_double n_double, t.t_double,
+  t.t_char n_char, t.t_char, t.t_string,
+  t.t_time, t.t_date, t.t_datetime, t.t_timestamp,
+  t.t_boolean n_boolean, t.t_boolean,
+  t.t_big_integer, t.t_big_decimal,
+  t.a_byte an_byte, t.a_byte at_byte, t.a_text,
+  t.a_blob, t.a_clob
+  from TYPES t
+  where 1=1
+  {& t_int = :t_int^int}
+  {& t_long = :t_long^long}
+  {& t_byte = :t_byte^byte}
+  {& a_byte = :an_byte^bytes}
+  {& t_short = :t_short^short}
+  {& t_float = :t_float^float}
+  {& t_double = :t_double^double}
+  {& t_char = :t_char^char}
+  {& t_string = :t_string^string}
+  {& t_boolean = :t_boolean^boolean}
+  {& t_date = :t_date^date}
+  {& t_time = :t_time^time}
+  {& t_datetime = :t_datetime^datetime}
+  {& t_timestamp = :t_timestamp^timestamp}
+;
+STANDARD_PARAMETERS(OUT)=
+  n_int$int t_int$int
+  n_long$long t_long$long
+  n_byte$byte t_byte$byte
+  n_short$short t_short$short
+  n_float$float t_float$float
+  n_double$double t_double$double
+  n_char$char t_char$char
+  t_string$string
+  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
+  n_boolean$boolean t_boolean$boolean
+  t_big_integer$bigint t_big_decimal$bigdec
+  an_byte$bytes at_byte$bytes a_text$text
+  a_blob$blob a_clob$clob
+;
+
+ 
+FROM_TO_PARAMETERS(QRY)=
+  select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
+  t.t_short n_short, t.t_short, t.t_float n_float, t.t_float, t.t_double n_double, t.t_double,
+  t.t_char n_char, t.t_char, t.t_string,
+  t.t_time, t.t_date, t.t_datetime, t.t_timestamp,
+  t.t_boolean n_boolean, t.t_boolean,
+  t.t_big_integer, t.t_big_decimal,
+  t.a_byte an_byte, t.a_byte at_byte, t.a_text,
+  t.a_blob, t.a_clob
+  from TYPES t
+  where 1=1
+  {& t_date >= :t_datetime^fromdate}
+  {& t_date < :t_timestamp^todate}
+;
+FROM_TO_PARAMETERS(OUT)=
+  n_int$int t_int$int
+  n_long$long t_long$long
+  n_byte$byte t_byte$byte
+  n_short$short t_short$short
+  n_float$float t_float$float
+  n_double$double t_double$double
+  n_char$char t_char$char
+  t_string$string
+  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
+  n_boolean$boolean t_boolean$boolean
+  t_big_integer$bigint t_big_decimal$bigdec
+  an_byte$bytes at_byte$bytes a_text$text
+  a_blob$blob a_clob$clob
+;
+
+ 
+CUSTOM_TYPE_IN_OUT(QRY)=
+  select c.ID @id, c.ADRESS @address, c.PHONE_NUMBER @phone^phone
+  from CONTACT c
+  {= where c.ID = :id}
+  {= where c.PHONE_NUMBER = :phone^phone}
+  {#1 order by c.ID}
+;
+  
+CUSTOM_TYPE_INSERT(CRUD)=
+  insert into CONTACT (ID, ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
+  {= values (:id^long^seq=SEQ1, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
+;
+  
+CUSTOM_TYPE_INSERT_2(CRUD)=
+  insert into CONTACT (ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
+  {= values (:id^long^idsel, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
+;
+  
+CUSTOM_TYPE_GET(CRUD)=
+  select c.ID @id, c.ADRESS @address, c.PHONE_NUMBER @phone^phone
+  from CONTACT c
+  {= where c.ID = :id}
+  {= where c.PHONE_NUMBER = :phone^phone}
+;
+
+
+INHERITANCE2_BASIC(QRY)=
+  select s.ID @id, s.NAME_FIRST @name.first, s.NAME_LAST @name.last, s.LIBRARY @library.id,
+  bd.TYPE @billingDetails==discriminator.type, bd.ID @billingDetails.id, bd.CC_NUMBER @billingDetails.number,
+  bd.CC_EXP_MONTH @billingDetails.expMonth^short, bd.CC_EXP_YEAR @billingDetails.expYear^short,
+  bd.BA_ACCOUNT_NUMBER @billingDetails.accountNumber, bd.BA_BANK_NAME @billingDetails.bankName,
+  bd.BA_SWIFT @billingDetails.swift
+  from SUBSCRIBER s left join BILLING_DETAILS bd on s.ID = bd.SUBSCRIBER
+  {#1 order by s.ID, bd.ID}
+;
+
+BASIC_LEFT_JOIN_NO_ID(QRY)=
+  select pm.LOCATION @location, pm.STATUS @status, pm.UUID @uuid
+  from PHYSICALMEDIA pm
+  {#1 order by pm.ID}
+;
+  
+BASIC_LEFT_JOIN_NO_ID_2(QRY)=
+  select pm.LOCATION, pm.STATUS, pm.UUID
+  from PHYSICALMEDIA pm
+  {#1 order by pm.ID}
+;
+BASIC_LEFT_JOIN_NO_ID_2(OUT)=
+  location status uuid
+;
+
+BASIC_LEFT_JOIN(QRY)=
+  select l.ID @id^long^id, l.NAME @name, pm.ID @media.id^long^id, pm.LOCATION @media.location
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  {#1 order by l.ID, pm.ID}
+;
+
+BASIC_LEFT_JOIN_2(QRY)=
+  select l.NAME @name, l.ID @id^long^id, pm.LOCATION @media.location, pm.ID @media.id^long^id
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  {#1 order by l.ID, pm.ID}
+;
+
+BASIC_2_LEFT_JOIN(QRY)=
+  select l.NAME @name, l.ID @id^long^id, pm.LOCATION @media.location, pm.ID @media.id^long^id
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
+  left join MEDIA m on m.ID = mpm.MEDIA
+  {#1 order by l.ID, pm.ID, m.ID}
+;
+
+BASIC_2_LEFT_JOIN_2(QRY)=
+  select l.NAME @name, l.ID @id^long^id, pm.LOCATION @media.location, pm.ID @media.id^long^id,
+  m.TITLE @media.media==movie.title, m.ID @media.media.id^long^id
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
+  left join MEDIA m on m.ID = mpm.MEDIA
+  {#1 order by l.ID, pm.ID, m.ID}
+;
+
+BASIC_2_LEFT_JOIN_3(QRY)=
+  select pm.LOCATION @media.location, m.ID @media.media==movie.id^long^id, l.NAME @name, l.ID @id^long^id,
+  pm.ID @media.id^long^id, m.TITLE @media.media.title
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
+  left join MEDIA m on m.ID = mpm.MEDIA
+  {#1 order by l.ID, pm.ID, m.ID}
+;
+
+BASIC_2_LEFT_JOIN_4(QRY)=
+  select pm.LOCATION @location, m.ID @mid, l.NAME @name, l.ID @lid, pm.ID @pid, m.TITLE @title
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
+  left join MEDIA m on m.ID = mpm.MEDIA
+  {#1 order by l.ID, pm.ID, m.ID}
+;
+
+BASIC_2_LEFT_JOIN_4(OUT)=
+  location$$media.location mid$$media.media==movie.id name lid$$id
+  pid$$media.id title$$media.media.title
+;
+
+BASIC_3_LEFT_JOIN(QRY)=
+  select l.ID @id^long^id, l.NAME @name, pm.ID @media.id^long^id, pm.LOCATION @media.location,
+  m.ID @media.media==movie.id^long^id, m.TITLE @media.media.title^string,
+  e.ID @media.media.engagements.id^long^id, e.ROLE @media.media.engagements.role,
+  p.ID @media.media.engagements.person.id^long^id, p.NAME_LAST @media.media.engagements.person.name.last,
+  p.SEX @media.media.engagements.person.sex, p.CLOTHES_SIZE @media.media.engagements.person.clothesSize
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
+  left join MEDIA m on m.ID = mpm.MEDIA left join ENGAGEMENT e on e.MEDIA = m.ID
+  left join PERSON p on p.ID = e.PERSON
+  {#1 order by l.ID, pm.ID, m.ID, e.ID, p.ID}
+;
+
+BASIC_4_LEFT_JOIN(QRY)=
+  select l.ID @id^long^id, l.NAME @name, pm.ID @media.id^long^id, pm.LOCATION @media.location,
+  m.ID @media.media==movie.id^long^id, m.TITLE @media.media.title^string,
+  mc.ID @media.media.mediaCharacters.id^long^id, mc.NAME @media.media.mediaCharacters.name,
+  p.ID @media.media.mediaCharacters.playedBy.id^long^id, p.NAME_LAST @media.media.mediaCharacters.playedBy.name.last,
+  p.SEX @media.media.mediaCharacters.playedBy.sex, p.CLOTHES_SIZE @media.media.mediaCharacters.playedBy.clothesSize
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
+  left join MEDIA m on m.ID = mpm.MEDIA left join EXISTSINMEDIA_MEDIACHARACTER emm on emm.EXISTSINMEDIA = m.ID
+  left join MEDIACHARACTER mc on mc.ID = emm.MEDIACHARACTER left join MEDIACHARACTER_PLAYEDBY mp on mp.MEDIACHARACTER = mc.ID
+  left join PERSON p on p.ID = mp.PLAYEDBY
+  {#1 order by l.ID, pm.ID, m.ID, mc.ID, p.ID}
+;
+
+BASIC_4_LEFT_JOIN_2(QRY)=
+  select l.ID @id, l.NAME @name, pm.ID @media.id, pm.LOCATION @media.location,
+  m.ID @media.media==movie.id, m.TITLE @media.media.title^string,
+  mc.ID @media.media.mediaCharacters.id, mc.NAME @media.media.mediaCharacters.name,
+  p.ID @media.media.mediaCharacters.playedBy.id, p.NAME_LAST @media.media.mediaCharacters.playedBy.name.last,
+  p.SEX @media.media.mediaCharacters.playedBy.sex, p.CLOTHES_SIZE @media.media.mediaCharacters.playedBy.clothesSize
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
+  left join MEDIA m on m.ID = mpm.MEDIA left join EXISTSINMEDIA_MEDIACHARACTER emm on emm.EXISTSINMEDIA = m.ID
+  left join MEDIACHARACTER mc on mc.ID = emm.MEDIACHARACTER left join MEDIACHARACTER_PLAYEDBY mp on mp.MEDIACHARACTER = mc.ID
+  left join PERSON p on p.ID = mp.PLAYEDBY
+  {#1 order by l.ID, pm.ID, m.ID, mc.ID, p.ID}
+;
+
+BASIC_LEFT_JOIN_LIST(QRY)=
+  select l.ID @id^long^id, l.NAME @name, pm.ID @mediaList.id^long^id, pm.LOCATION @mediaList.location
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  {#1 order by l.ID, pm.ID}
+;
+
+BASIC_LEFT_JOIN_LIST_2(QRY)=
+  select l.ID @id^long^id, l.NAME @name, pm.ID @mediaList=alist.id^long^id, pm.LOCATION @mediaList.location
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  {#1 order by l.ID, pm.ID}
+;
+
+BASIC_LEFT_JOIN_LIST_3(QRY)=
+  select l.ID @id, l.NAME @name, pm.ID @mediaList=alist.id, pm.LOCATION @mediaList.location
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  {#1 order by l.ID, pm.ID}
+;
+
+BASIC_LEFT_JOIN_LIST_4(QRY)=
+  select l.ID @lid, l.NAME @name, pm.ID @pid, pm.LOCATION @location
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  {#1 order by l.ID, pm.ID}
+;
+
+BASIC_LEFT_JOIN_LIST_4(OUT)=
+  lid$$id name pid$$mediaList=alist.id location$$mediaList.location
+;
+
+BASIC_LEFT_JOIN_SET(QRY)=
+  select l.ID @id^long^id, l.NAME @name, pm.ID @mediaSet.id^long^id, pm.LOCATION @mediaSet.location
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  {#1 order by l.ID, pm.ID}
+;
+
+BASIC_LEFT_JOIN_SET_2(QRY)=
+  select l.ID @id^long^id, l.NAME @name, pm.ID @mediaSet=aset.id^long^id, pm.LOCATION @mediaSet.location
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  {#1 order by l.ID, pm.ID}
+;
+
+BASIC_LEFT_JOIN_SET_3(QRY)=
+  select l.ID @id, l.NAME @name, pm.ID @mediaSet=aset.id, pm.LOCATION @mediaSet.location
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  {#1 order by l.ID, pm.ID}
+;
+
+BASIC_POLY_JOIN(QRY)=
+  select l.ID @id^long^id, l.NAME @name,
+  pm.ID @media.id^long^id, pm.LOCATION @media.location,
+  mo.MEDIA @media.media==movie.id^long^id, mo.URLIMDB @media.media.urlIMDB, mo.CATEGORY @media.media.category,
+  bk.MEDIA @media.media==book.id^long^id, bk.ISBN @media.media.isbn,
+  m.TITLE @media.media.title
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
+  left join MEDIA m on m.ID = mpm.MEDIA
+  left join MOVIE mo on mo.MEDIA = m.ID
+  left join BOOK bk on bk.MEDIA = m.ID
+  {= where pm.STATUS != :status}
+  {#1 order by l.ID, pm.ID, m.ID}
+;
+
+BASIC_POLY_JOIN_2(QRY)=
+  select l.ID @id, l.NAME @name,
+  pm.ID @media.id, pm.LOCATION @media.location,
+  mo.MEDIA @media.media==movie.id, mo.URLIMDB @media.media.urlIMDB, mo.CATEGORY @media.media.category,
+  bk.MEDIA @media.media==book.id, bk.ISBN @media.media.isbn,
+  m.TITLE @media.media.title
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
+  left join MEDIA m on m.ID = mpm.MEDIA
+  left join MOVIE mo on mo.MEDIA = m.ID
+  left join BOOK bk on bk.MEDIA = m.ID
+  {= where pm.STATUS != :status}
+  {#1 order by l.ID, pm.ID, m.ID}
+;
+
+BASIC_POLY2_JOIN(QRY)=
+  select pm.ID @id^long^id, pm.LOCATION @location,
+  mo.MEDIA @media==movie.id^long^id, mo.URLIMDB @media.urlIMDB, mo.CATEGORY @media.category,
+  bk.MEDIA @media==book.id^long^id, bk.ISBN @media.isbn,
+  m.TITLE @media.title
+  from PHYSICALMEDIA pm
+  left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
+  left join MEDIA m on m.ID = mpm.MEDIA
+  left join MOVIE mo on mo.MEDIA = m.ID
+  left join BOOK bk on bk.MEDIA = m.ID
+  {= where pm.STATUS = :status}
+  {#1 order by pm.ID, m.ID}
+;
+
+BASIC_POLY2_JOIN_2(QRY)=
+  select pm.ID @id, pm.LOCATION @location,
+  mo.MEDIA @media==movie.id, mo.URLIMDB @media.urlIMDB, mo.CATEGORY @media.category,
+  bk.MEDIA @media==book.id, bk.ISBN @media.isbn,
+  m.TITLE @media.title
+  from PHYSICALMEDIA pm
+  left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
+  left join MEDIA m on m.ID = mpm.MEDIA
+  left join MOVIE mo on mo.MEDIA = m.ID
+  left join BOOK bk on bk.MEDIA = m.ID
+  {= where pm.STATUS = :status}
+  {#1 order by pm.ID, m.ID}
+;
+
+BASIC_JOIN_ONE_TO_ONE_1(QRY)=
+  select p.ID @id, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country, p.NAME_FIRST @name.first, p.NAME_LAST @name.last,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.VERSION @version,
+  p.CLOTHES_SIZE @clothesSize,
+  c.ID @contact.id, c.ADRESS @contact.address, c.CITY @contact.city, c.ZIP @contact.zip, c.STATE @contact.state, c.UUID @contact.uuid,
+  c.CREATEDDATE @contact.createdDate, c.CREATEDBY @contact.createdBy, c.VERSION @contact.version
+  from PERSON p left join CONTACT c on p.CONTACT = c.ID
+  {= where p.ID = :id}
+  {#1 order by p.ID}
+;
+
+
+INSERT_PERSON(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  values (:id, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize)
+;
+  
+INSERT_PERSON_2(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  values (:id^long^seq=SEQ1, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp^any, :createdBy, :version, :clothesSize)
+;
+  
+INSERT_PERSON_3(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id^long^seq=SEQ1, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize) }
+;
+  
+INSERT_PERSON_4(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id^long^seq=SQLPROC_SEQUENCE, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize) }
+;
+  
+INSERT_PERSON_5(CRUD)=
+  insert into PERSON (SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id^long^idsel, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize) }
+;
+  
+INSERT_PERSON_6(CRUD)=
+  insert into PERSON (SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id^long^idsel=SEL1, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize) }
+;
+  
+INSERT_PERSON_7(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id^long^seq, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize) }
+;
+  
+CRUD_PERSON_SELECT(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy,
+  p.LASTUPDATED @lastUpdated^date, p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p
+  {= where
+   {& p.ID = :id}
+  }
+  order by id
+;
+
+UPDATE_PERSON(CRUD)=
+  update PERSON p
+  SET p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date^any
+  {= where p.ID = :id }
+;
+
+UPDATE_PERSON_2(CRUD)=
+  update PERSON p
+  {= set p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date}
+  {= where p.ID = :id }
+;
+
+DELETE_PERSON(CRUD)=
+  delete from PERSON
+  {= where ID = :id }
+;
+
+DELETE_PERSON_2(CRUD)=
+  delete from PERSON
+  {= where
+   {& ID = :id}
+   {? :lastUpdatedBy | AND LASTUPDATEDBY = :lastUpdatedBy | AND LASTUPDATEDBY is null}
+  }
+;
+
+DELETE_PERSON_3(CRUD)=
+  delete from PERSON
+  {= where
+   {& ID = :id^long^notnull}
+   {? :lastUpdatedBy | AND LASTUPDATEDBY = :lastUpdatedBy | AND LASTUPDATEDBY is null}
+  }
+;
+
+GET_PERSON(CRUD)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy,
+  p.LASTUPDATED @lastUpdated^date, p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p
+  {= where p.ID = :id}
+;
+
+GET_PERSON_2(CRUD)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy,
+  p.LASTUPDATED @lastUpdated^date, p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  from PERSON p
+  {= where p.NAME_FIRST = :name.first AND p.NAME_LAST = :name.last}
+;
+  
+  
+INSERT_PERSON_CALL_2(CALL)=
+  call new_person(:<id^long, :birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :=sex^estring)
+;
+  
+INSERT_PERSON_CALL(CALL)=
+  call new_person(:<id, :birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :=sex)
+;
+
+
+INSERT_PERSON_CALL_RESULT_SET_2(CALL)=
+  call new_person_ret(:birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+;
+INSERT_PERSON_CALL_RESULT_SET_2(OUT)=
+  id birthDate lastUpdated lastUpdatedBy
+  createdDate createdBy version contact$$contact.id ssn_number$$ssn.number
+  ssn_country$$ssn.country name_first$$name.first name_last$$name.last sex clothes_size$$clothesSize
+;
+
+INSERT_PERSON_CALL_RESULT_SET(CALL)=
+  call new_person_ret(:birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+;
+INSERT_PERSON_CALL_RESULT_SET(OUT)=
+  id$Long$id birthDate$date$birthDate lastUpdated$stamp$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  createdDate$stamp$createdDate createdBy$string$createdBy version$Long$version contact$Long$contact.id ssn_number$string$ssn.number
+  ssn_country$estring$ssn.country name_first$string$name.first name_last$string$name.last sex$estring$sex clothes_size$eint$clothesSize
+;
+
+
+INSERT_PERSON_CALL_RESULT_SET_2(CALL,ORACLE)=
+  :<1^oracle_cursor = call new_person_ret(:birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+;
+INSERT_PERSON_CALL_RESULT_SET_2(OUT,ORACLE)=
+  id birthDate lastUpdated lastUpdatedBy
+  createdDate createdBy version contact$$contact.id ssn_number$$ssn.number
+  ssn_country$$ssn.country name_first$$name.first name_last$$name.last sex clothes_size$$clothesSize
+;
+
+INSERT_PERSON_CALL_RESULT_SET(CALL,ORACLE)=
+  :<1^oracle_cursor = call new_person_ret(:birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+;
+INSERT_PERSON_CALL_RESULT_SET(OUT,ORACLE)=
+  id$Long$id birthDate$date$birthDate lastUpdated$stamp$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  createdDate$stamp$createdDate createdBy$string$createdBy version$Long$version contact$Long$contact.id ssn_number$string$ssn.number
+  ssn_country$estring$ssn.country name_first$string$name.first name_last$string$name.last sex$estring$sex clothes_size$eint$clothesSize
+;
+
+
+INSERT_PERSON_CALL_RESULT_SET_PROC(CALL,ORACLE)=
+  call new_person_ret_proc(:<1^oracle_cursor, :birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+;
+INSERT_PERSON_CALL_RESULT_SET_PROC(OUT,ORACLE)=
+  id birthDate lastUpdated lastUpdatedBy
+  createdDate createdBy version contact$$contact.id ssn_number$$ssn.number
+  ssn_country$$ssn.country name_first$$name.first name_last$$name.last sex clothes_size$$clothesSize
+;
+
+  
+SIMPLE_FUNCION(CALL,HSQLDB)=
+  call an_hour_before(:time)
+;
+SIMPLE_FUNCION(OUT,HSQLDB)=
+  1$stamp
+;
+  
+SIMPLE_FUNCION(CALL)=
+  :<1^stamp = call an_hour_before(:time)
+;
+  
+SIMPLE_FUNCION_TO_IN_FORM(CALL)=
+  :<time2 = call an_hour_before(:time)
+;
+  

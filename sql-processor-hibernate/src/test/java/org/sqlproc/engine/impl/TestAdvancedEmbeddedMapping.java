@@ -84,8 +84,8 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         String sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql,
-                "select m.id id, m.TITLE mediaTitle, e.ROLE role_0  from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "select m.id id, m.TITLE mediaTitle, e.ROLE role_0");
+        assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
 
         List<MediaTransport> list = sqlEngine.query(session, MediaTransport.class, sf);
 
@@ -103,9 +103,10 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select m.id id, m.TITLE mediaTitle, e.ROLE role_0  , p.NAME_FIRST first_1, p.NAME_LAST last_2 from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID  left join PERSON p on e.PERSON = p.ID");
+        assertContains(sql, "select m.id id, m.TITLE mediaTitle, e.ROLE role_0");
+        assertContains(sql, "p.NAME_FIRST first_1, p.NAME_LAST last_2");
+        assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "left join PERSON p on e.PERSON = p.ID");
         assertContains(sql, "WHERE UPPER(p.NAME_FIRST) = :fname", "WHERE UPPER(p.NAME_FIRST) = ?");
 
         list = sqlEngine.query(session, MediaTransport.class, sf);
@@ -127,8 +128,8 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         String sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql,
-                "select l.id id, l.NAME name, pm.location location  from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id");
+        assertContains(sql, "select l.id id, l.NAME name, pm.location location");
+        assertContains(sql, "from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id");
 
         List<LibraryTransport> list = sqlEngine.query(session, LibraryTransport.class, sf);
 
@@ -143,9 +144,12 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select l.id id, l.NAME name, pm.location location   , m.TITLE title, e.ROLE role   from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.id left join MEDIA m on mpm.MEDIA = m.id left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "select l.id id, l.NAME name, pm.location location");
+        assertContains(sql, "m.TITLE title, e.ROLE role");
+        assertContains(sql, "from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id");
+        assertContains(sql, "left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.id");
+        assertContains(sql, "left join MEDIA m on mpm.MEDIA = m.id");
+        assertContains(sql, "left join ENGAGEMENT e on e.MEDIA = m.ID");
         assertContains(sql, "WHERE UPPER(m.TITLE) = :media", "WHERE UPPER(m.TITLE) = ?");
 
         list = sqlEngine.query(session, LibraryTransport.class, sf);
@@ -164,11 +168,16 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select l.id id, l.NAME name, pm.location location   , m.TITLE title, e.ROLE role, p.NAME_FIRST first, p.NAME_LAST last   from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.id left join MEDIA m on mpm.MEDIA = m.id left join ENGAGEMENT e on e.MEDIA = m.ID left join PERSON p on e.PERSON = p.ID");
-        assertContains(sql, "WHERE UPPER(m.TITLE) = :media  AND  UPPER(p.NAME_FIRST) = :fname",
-                "WHERE UPPER(m.TITLE) = ?  AND  UPPER(p.NAME_FIRST) = ?");
+        assertContains(sql, "select l.id id, l.NAME name, pm.location location");
+        assertContains(sql, "m.TITLE title, e.ROLE role, p.NAME_FIRST first, p.NAME_LAST last");
+        assertContains(sql, "from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id");
+        assertContains(sql, "left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.id");
+        assertContains(sql, "left join MEDIA m on mpm.MEDIA = m.id");
+        assertContains(sql, "left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "left join PERSON p on e.PERSON = p.ID");
+        assertContains(sql, "WHERE UPPER(m.TITLE) = :media", "WHERE UPPER(m.TITLE) = ?");
+        assertContains(sql, "AND");
+        assertContains(sql, "UPPER(p.NAME_FIRST) = :fname", "UPPER(p.NAME_FIRST) = ?");
 
         list = sqlEngine.query(session, LibraryTransport.class, sf);
 
@@ -187,8 +196,8 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql,
-                "select l.id id, l.NAME name, pm.location location  from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id");
+        assertContains(sql, "select l.id id, l.NAME name, pm.location location");
+        assertContains(sql, "from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id");
         assertDoNotContain(sql, "WHERE");
 
         list = sqlEngine.query(session, LibraryTransport.class, sf);
@@ -209,8 +218,8 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         String sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql,
-                "select m.id id, m.TITLE title, e.ROLE role  from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
+        assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
 
         List<MediaTransport> list = sqlEngine.query(session, MediaTransport.class, sf);
 
@@ -228,9 +237,10 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select m.id id, m.TITLE title, e.ROLE role  , p.NAME_FIRST first, p.NAME_LAST last from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID  left join PERSON p on e.PERSON = p.ID");
+        assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
+        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last");
+        assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "left join PERSON p on e.PERSON = p.ID");
         assertContains(sql, "WHERE UPPER(p.NAME_FIRST) = :fname", "WHERE UPPER(p.NAME_FIRST) = ?");
 
         list = sqlEngine.query(session, MediaTransport.class, sf);
@@ -252,8 +262,8 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         String sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql,
-                "select m.id id, m.TITLE title, e.ROLE role  from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
+        assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
         assertDoNotContain(sql, "WHERE");
 
         List<MediaTransport> list = sqlEngine.query(session, MediaTransport.class, sf);
@@ -269,9 +279,10 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select m.id id, m.TITLE title, e.ROLE role  , p.NAME_FIRST first, p.NAME_LAST last from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID  left join PERSON p on e.PERSON = p.ID");
+        assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
+        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last");
+        assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "left join PERSON p on e.PERSON = p.ID");
         assertContains(sql, "WHERE UPPER(p.NAME_FIRST) = :fname", "WHERE UPPER(p.NAME_FIRST) = ?");
 
         list = sqlEngine.query(session, MediaTransport.class, sf);
@@ -290,11 +301,14 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select m.id id, m.TITLE title, e.ROLE role  , p.NAME_FIRST first, p.NAME_LAST last from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID  left join PERSON p on e.PERSON = p.ID");
-        assertContains(sql, "WHERE UPPER(p.NAME_LAST) = :lname   AND UPPER(p.NAME_FIRST) = :fname",
-                "WHERE UPPER(p.NAME_LAST) = ?   AND UPPER(p.NAME_FIRST) = ?");
+        assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
+        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last");
+        assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "left join PERSON p on e.PERSON = p.ID");
+        assertContains(sql, "WHERE UPPER(p.NAME_LAST) = :lname", "WHERE UPPER(p.NAME_LAST) = ?");
+        assertContains(sql, "AND");
+        assertContains(sql, "UPPER(p.NAME_FIRST) = :fname", "UPPER(p.NAME_FIRST) = ?");
 
         list = sqlEngine.query(session, MediaTransport.class, sf);
 
@@ -311,9 +325,10 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select m.id id, m.TITLE title, e.ROLE role  , p.NAME_FIRST first, p.NAME_LAST last from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID  left join PERSON p on e.PERSON = p.ID");
+        assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
+        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last");
+        assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "left join PERSON p on e.PERSON = p.ID");
         assertContains(sql, "WHERE UPPER(p.NAME_LAST) = :lname", "WHERE UPPER(p.NAME_LAST) = ?");
 
         list = sqlEngine.query(session, MediaTransport.class, sf);
@@ -336,8 +351,8 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         String sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql,
-                "select m.id id, m.TITLE title, e.ROLE role  from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
+        assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
         assertDoNotContain(sql, "WHERE");
 
         List<MediaTransport> list = sqlEngine.query(session, MediaTransport.class, sf);
@@ -354,9 +369,10 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select m.id id, m.TITLE title, e.ROLE role  , p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID  left join PERSON p on e.PERSON = p.ID");
+        assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
+        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn");
+        assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "left join PERSON p on e.PERSON = p.ID");
         assertContains(sql, "WHERE UPPER(p.NAME_LAST) = :lname AND UPPER(p.NAME_FIRST) = :fname",
                 "WHERE UPPER(p.NAME_LAST) = ? AND UPPER(p.NAME_FIRST) = ?");
 
@@ -376,9 +392,10 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select m.id id, m.TITLE title, e.ROLE role  , p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID  left join PERSON p on e.PERSON = p.ID");
+        assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
+        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER");
+        assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "left join PERSON p on e.PERSON = p.ID");
         assertContains(sql, "WHERE p.SSN_NUMBER = :ssn", "WHERE p.SSN_NUMBER = ?");
 
         list = sqlEngine.query(session, MediaTransport.class, sf);
@@ -399,12 +416,13 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "select m.id id, m.TITLE title, e.ROLE role  , p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID  left join PERSON p on e.PERSON = p.ID");
-        assertContains(sql,
-                "WHERE UPPER(p.NAME_LAST) = :lname AND UPPER(p.NAME_FIRST) = :fname  AND  p.SSN_NUMBER = :ssn",
-                "WHERE UPPER(p.NAME_LAST) = ? AND UPPER(p.NAME_FIRST) = ?  AND  p.SSN_NUMBER = ?");
+        assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
+        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn");
+        assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
+        assertContains(sql, "left join PERSON p on e.PERSON = p.ID");
+        assertContains(sql, "WHERE UPPER(p.NAME_LAST) = :lname AND UPPER(p.NAME_FIRST) = :fname",
+                "WHERE UPPER(p.NAME_LAST) = ? AND UPPER(p.NAME_FIRST) = ?");
+        assertContains(sql, "p.SSN_NUMBER = :ssn", "p.SSN_NUMBER = ?");
 
         list = sqlEngine.query(session, MediaTransport.class, sf);
 

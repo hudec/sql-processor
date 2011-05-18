@@ -48,6 +48,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected static final String STATEMENTS_PROPS = "STATEMENTS_PROPS";
     protected static final String STATEMENTS_FILES = "STATEMENTS_FILES";
     protected static final String DB_TYPE = "DB_TYPE";
+    protected static final String NEW_LOADER = "NEW_LOADER";
     protected static final String DATATYPE_FACTORY = "DATATYPE_FACTORY";
 
     protected static Properties testProperties;
@@ -71,6 +72,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
         testProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class, "test.properties");
         dbType = testProperties.getProperty(DB_TYPE);
+        newLoader = Boolean.parseBoolean(testProperties.getProperty(NEW_LOADER));
 
         if (containsProperty(testProperties, DDL_CREATE_DB)) {
             ddlCreateDbProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class,

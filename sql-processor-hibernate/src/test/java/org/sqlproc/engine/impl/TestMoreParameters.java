@@ -26,10 +26,12 @@ public class TestMoreParameters extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(
-                sql,
-                "AND  p.id = :id AND  p.NAME_FIRST = :name_first  AND  p.SSN_COUNTRY = :ssn_country  AND  p.CREATEDDATE = :createdDate  AND  p.CREATEDBY = :createdBy AND  p.VERSION = :version",
-                "AND  p.id = ? AND  p.NAME_FIRST = ?  AND  p.SSN_COUNTRY = ?  AND  p.CREATEDDATE = ?  AND  p.CREATEDBY = ? AND  p.VERSION = ?");
+        assertContains(sql, "AND  p.id = :id", "AND  p.id = ?");
+        assertContains(sql, "AND  p.NAME_FIRST = :name_first", "AND  p.NAME_FIRST = ?");
+        assertContains(sql, "AND  p.SSN_COUNTRY = :ssn_country", "AND  p.SSN_COUNTRY = ?");
+        assertContains(sql, "AND  p.CREATEDDATE = :createdDate", "AND  p.CREATEDDATE = ?");
+        assertContains(sql, "AND  p.CREATEDBY = :createdBy", "AND  p.CREATEDBY = ?");
+        assertContains(sql, "AND  p.VERSION = :version", "AND  p.VERSION = ?");
 
         List<Person> list = sqlEngine.query(session, Person.class);
         assertEquals(0, list.size());
@@ -50,9 +52,9 @@ public class TestMoreParameters extends TestDatabase {
 
         sql = sqlEngine.getSql(pf, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql,
-                "AND  p.NAME_LAST = :name_last  AND  p.BIRTHDATE = :birthDate  AND  p.LASTUPDATEDBY = :lastUpdatedBy",
-                "AND  p.NAME_LAST = ?  AND  p.BIRTHDATE = ?  AND  p.LASTUPDATEDBY = ?");
+        assertContains(sql, "AND  p.NAME_LAST = :name_last", "AND  p.NAME_LAST = ?");
+        assertContains(sql, "AND  p.BIRTHDATE = :birthDate", "AND  p.BIRTHDATE = ?");
+        assertContains(sql, "AND  p.LASTUPDATEDBY = :lastUpdatedBy", "AND  p.LASTUPDATEDBY = ?");
 
         list = sqlEngine.query(session, Person.class, pf);
         assertEquals(0, list.size());
@@ -67,8 +69,9 @@ public class TestMoreParameters extends TestDatabase {
 
         sql = sqlEngine.getSql(pf, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "AND  p.SSN_NUMBER = :ssn_number AND  p.SEX = :sex AND  p.LASTUPDATED = :lastUpdated",
-                "AND  p.SSN_NUMBER = ? AND  p.SEX = ? AND  p.LASTUPDATED = ?");
+        assertContains(sql, "AND  p.SSN_NUMBER = :ssn_number", "AND  p.SSN_NUMBER = ?");
+        assertContains(sql, "AND  p.SEX = :sex", "AND  p.SEX = ?");
+        assertContains(sql, "p.LASTUPDATED = :lastUpdated", "p.LASTUPDATED = ?");
 
         list = sqlEngine.query(session, Person.class, pf);
         assertEquals(0, list.size());
@@ -83,7 +86,8 @@ public class TestMoreParameters extends TestDatabase {
 
         sql = sqlEngine.getSql(pf, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "where 1=1       order by id ASC");
+        assertContains(sql, "where 1=1");
+        assertContains(sql, "order by id ASC");
 
         list = sqlEngine.query(session, Person.class, pf);
         assertEquals(2, list.size());
@@ -95,7 +99,8 @@ public class TestMoreParameters extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "where p.id = :id  AND p.CREATEDBY is null", "where p.id = ?  AND p.CREATEDBY is null");
+        assertContains(sql, "where p.id = :id", "where p.id = ?");
+        assertContains(sql, "AND p.CREATEDBY is null");
 
         List<Person> list = sqlEngine.query(session, Person.class);
         assertEquals(0, list.size());
@@ -105,7 +110,8 @@ public class TestMoreParameters extends TestDatabase {
 
         sql = sqlEngine.getSql(pf, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "where p.id = :id  AND p.CREATEDBY is null", "where p.id = ?  AND p.CREATEDBY is null");
+        assertContains(sql, "where p.id = :id", "where p.id = ?");
+        assertContains(sql, "AND p.CREATEDBY is null");
 
         list = sqlEngine.query(session, Person.class, pf);
         assertEquals(1, list.size());
@@ -115,7 +121,8 @@ public class TestMoreParameters extends TestDatabase {
 
         sql = sqlEngine.getSql(pf, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "where p.id = :id  AND p.CREATEDBY=:createdBy", "where p.id = ?  AND p.CREATEDBY=?");
+        assertContains(sql, "where p.id = :id", "where p.id = ?");
+        assertContains(sql, "AND p.CREATEDBY=:createdBy", "AND p.CREATEDBY=?");
 
         list = sqlEngine.query(session, Person.class, pf);
         assertEquals(0, list.size());

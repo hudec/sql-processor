@@ -44,8 +44,9 @@ public class TestCrud extends TestDatabase {
         p.setId(list.get(0).getId());
         String sql = crudEngine.getDeleteSql(p, p);
         logger.info(sql);
-        assertContains(sql, "delete from PERSON WHERE ID = :id  AND LASTUPDATEDBY is null",
-                "delete from PERSON WHERE ID = ?  AND LASTUPDATEDBY is null");
+        assertContains(sql, "delete from PERSON");
+        assertContains(sql, "WHERE ID = :id", "WHERE ID = ?");
+        assertContains(sql, "AND LASTUPDATEDBY is null");
 
         int count = crudEngine.delete(session, p);
         assertEquals(1, count);
@@ -102,7 +103,8 @@ public class TestCrud extends TestDatabase {
 
         String sql = crudEngine.getDeleteSql(p, null);
         logger.info(sql);
-        assertContains(sql, "delete from PERSON WHERE LASTUPDATEDBY is null");
+        assertContains(sql, "delete from PERSON");
+        assertContains(sql, "WHERE LASTUPDATEDBY is null");
 
         int count = crudEngine.delete(session, p);
         assertEquals(2, count);
@@ -127,7 +129,8 @@ public class TestCrud extends TestDatabase {
 
         String sql = crudEngine.getDeleteSql(p, null);
         logger.info(sql);
-        assertContains(sql, "delete from PERSON WHERE ID = :id", "delete from PERSON WHERE ID = ?");
+        assertContains(sql, "delete from PERSON");
+        assertContains(sql, "WHERE ID = :id", "WHERE ID = ?");
 
         int count = crudEngine.delete(session, p);
         assertEquals(1, count);
@@ -156,9 +159,10 @@ public class TestCrud extends TestDatabase {
 
         String sql = crudEngine.getUpdateSql(p, null);
         logger.info(sql);
-        assertContains(sql,
-                "update PERSON p SET p.NAME_FIRST = :name_first, p.CREATEDDATE = :createdDate WHERE p.ID = :id",
-                "update PERSON p SET p.NAME_FIRST = ?, p.CREATEDDATE = ? WHERE p.ID = ?");
+        assertContains(sql, "update PERSON p");
+        assertContains(sql, "SET p.NAME_FIRST = :name_first, p.CREATEDDATE = :createdDate",
+                "SET p.NAME_FIRST = ?, p.CREATEDDATE = ?");
+        assertContains(sql, "WHERE p.ID = :id", "WHERE p.ID = ?");
 
         int count = crudEngine.update(session, p);
         assertEquals(1, count);
@@ -192,9 +196,10 @@ public class TestCrud extends TestDatabase {
 
         String sql = crudEngine.getUpdateSql(p, null);
         logger.info(sql);
-        assertContains(sql,
-                "update PERSON p SET p.NAME_FIRST = :name_first, p.CREATEDDATE = :createdDate WHERE p.ID = :id",
-                "update PERSON p SET p.NAME_FIRST = ?, p.CREATEDDATE = ? WHERE p.ID = ?");
+        assertContains(sql, "update PERSON p");
+        assertContains(sql, "SET p.NAME_FIRST = :name_first, p.CREATEDDATE = :createdDate",
+                "SET p.NAME_FIRST = ?, p.CREATEDDATE = ?");
+        assertContains(sql, "WHERE p.ID = :id", "WHERE p.ID = ?");
 
         int count = crudEngine.update(session, p);
         assertEquals(1, count);

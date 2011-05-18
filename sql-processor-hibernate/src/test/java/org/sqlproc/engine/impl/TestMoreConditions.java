@@ -19,7 +19,8 @@ public class TestMoreConditions extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "AND p.ID is null    AND p.LASTUPDATEDBY like '%'");
+        assertContains(sql, "AND p.ID is null");
+        assertContains(sql, "AND p.LASTUPDATEDBY like '%'");
 
         List<Person> list = sqlEngine.query(session, Person.class);
         assertEquals(0, list.size());
@@ -30,8 +31,9 @@ public class TestMoreConditions extends TestDatabase {
 
         sql = sqlEngine.getSql(pf, pf, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "AND p.ID = :id  AND (p.VERSION = 1 OR p.VERSION is null)  AND p.LASTUPDATEDBY like '%'",
-                "AND p.ID = ?  AND (p.VERSION = 1 OR p.VERSION is null)  AND p.LASTUPDATEDBY like '%'");
+        assertContains(sql, "AND p.ID = :id", "AND p.ID = ?");
+        assertContains(sql, "AND (p.VERSION = 1 OR p.VERSION is null)", "AND (p.VERSION = 1 OR p.VERSION is null)");
+        assertContains(sql, "AND p.LASTUPDATEDBY like '%'", "AND p.LASTUPDATEDBY like '%'");
 
         list = sqlEngine.query(session, Person.class, pf, pf);
         assertEquals(1, list.size());
@@ -40,8 +42,9 @@ public class TestMoreConditions extends TestDatabase {
 
         sql = sqlEngine.getSql(pf, pf, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "AND p.ID = :id  AND (p.VERSION = 1 OR p.VERSION is null)  AND p.LASTUPDATEDBY like '%'",
-                "AND p.ID = ?  AND (p.VERSION = 1 OR p.VERSION is null)  AND p.LASTUPDATEDBY like '%'");
+        assertContains(sql, "AND p.ID = :id", "AND p.ID = ?");
+        assertContains(sql, "AND (p.VERSION = 1 OR p.VERSION is null)", "AND (p.VERSION = 1 OR p.VERSION is null)");
+        assertContains(sql, "AND p.LASTUPDATEDBY like '%'", "AND p.LASTUPDATEDBY like '%'");
 
         list = sqlEngine.query(session, Person.class, pf, pf);
         assertEquals(1, list.size());
@@ -50,8 +53,9 @@ public class TestMoreConditions extends TestDatabase {
 
         sql = sqlEngine.getSql(pf, pf, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "AND p.ID = :id  AND (p.VERSION = 1 OR p.VERSION is null)  AND p.LASTUPDATEDBY = 'dbunit'",
-                "AND p.ID = ?  AND (p.VERSION = 1 OR p.VERSION is null)  AND p.LASTUPDATEDBY = 'dbunit'");
+        assertContains(sql, "AND p.ID = :id", "AND p.ID = ?");
+        assertContains(sql, "AND (p.VERSION = 1 OR p.VERSION is null)", "AND (p.VERSION = 1 OR p.VERSION is null)");
+        assertContains(sql, "AND p.LASTUPDATEDBY = 'dbunit'", "AND p.LASTUPDATEDBY = 'dbunit'");
 
         list = sqlEngine.query(session, Person.class, pf, pf);
         assertEquals(1, list.size());
