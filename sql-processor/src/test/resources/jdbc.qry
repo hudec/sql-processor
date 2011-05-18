@@ -950,17 +950,17 @@ CUSTOM_TYPE_IN_OUT(QRY)=
   {#1 order by c.ID}
 ;
   
-CRUD_CUSTOM_TYPE_INSERT(CRUD)=
+CUSTOM_TYPE_INSERT(CRUD)=
   insert into CONTACT (ID, ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
   {= values (:id^long^seq=SEQ1, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
 ;
   
-CRUD_CUSTOM_TYPE_INSERT_2(CRUD)=
+CUSTOM_TYPE_INSERT_2(CRUD)=
   insert into CONTACT (ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
   {= values (:id^long^idsel, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
 ;
   
-CRUD_CUSTOM_TYPE_GET(CRUD)=
+CUSTOM_TYPE_GET(CRUD)=
   select c.ID @id, c.ADRESS @address, c.PHONE_NUMBER @phone^phone
   from CONTACT c
   {= where c.ID = :id}
