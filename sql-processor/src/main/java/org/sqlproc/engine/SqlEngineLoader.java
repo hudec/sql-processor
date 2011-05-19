@@ -223,14 +223,14 @@ public class SqlEngineLoader implements SqlEngineFactory {
      *            the properties name prefix to filter the META SQL statements, mapping rules and optional features
      * @param monitorFactory
      *            the monitor factory used in the process of the SQL Monitor instances creation
-     * @param selectQueries
+     * @param onlyStatements
      *            only statements and rules with the names in this set are picked up from the properties repository
      * @throws SqlEngineException
      *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
      */
     public SqlEngineLoader(Properties props, SqlTypeFactory typeFactory, String filter,
-            SqlMonitorFactory monitorFactory, String... selectQueries) {
-        this(props, typeFactory, filter, monitorFactory, null, selectQueries);
+            SqlMonitorFactory monitorFactory, String... onlyStatements) {
+        this(props, typeFactory, filter, monitorFactory, null, onlyStatements);
     }
 
     /**
@@ -252,18 +252,18 @@ public class SqlEngineLoader implements SqlEngineFactory {
      *            the monitor factory used in the process of the SQL Monitor instances creation
      * @param customTypes
      *            the custom META types
-     * @param selectQueries
+     * @param onlyStatements
      *            only statements and rules with the names in this set are picked up from the properties repository
      * @throws SqlEngineException
      *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
      */
     public SqlEngineLoader(Properties props, SqlTypeFactory typeFactory, String filter,
-            SqlMonitorFactory monitorFactory, List<SqlInternalType> customTypes, String... selectQueries)
+            SqlMonitorFactory monitorFactory, List<SqlInternalType> customTypes, String... onlyStatements)
             throws SqlEngineException {
         if (logger.isTraceEnabled()) {
             logger.trace(">> SqlEngineLoader, props=" + props + ", typeFactory=" + typeFactory + ", monitorFactory="
-                    + monitorFactory + ", filter=" + filter + ", customTypes=" + customTypes + ", selectQueries="
-                    + selectQueries);
+                    + monitorFactory + ", filter=" + filter + ", customTypes=" + customTypes + ", onlyStatements="
+                    + onlyStatements);
         }
 
         if (props == null)
@@ -274,8 +274,8 @@ public class SqlEngineLoader implements SqlEngineFactory {
         this.composedTypeFactory = new SqlComposedTypeFactory(typeFactory, customTypes);
 
         try {
-            Set<String> setSelectQueries = (selectQueries != null && selectQueries.length > 0) ? new HashSet<String>(
-                    Arrays.asList(selectQueries)) : null;
+            Set<String> setSelectQueries = (onlyStatements != null && onlyStatements.length > 0) ? new HashSet<String>(
+                    Arrays.asList(onlyStatements)) : null;
 
             String filterPrefix = (filter != null) ? filter.toUpperCase() : null;
             if (filterPrefix != null && !filterPrefix.endsWith("_"))
@@ -319,6 +319,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
             StringBuilder errors = new StringBuilder();
 
             Map<String, String> mapAll = new HashMap<String, String>();
+            // TODO - control duplicate statements, not finished
 
             for (Entry<Object, Object> entry : props.entrySet()) {
                 String key = ((String) entry.getKey()).toUpperCase();

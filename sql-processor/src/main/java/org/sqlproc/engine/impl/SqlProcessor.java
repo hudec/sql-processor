@@ -1,6 +1,7 @@
 package org.sqlproc.engine.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.antlr.runtime.RecognitionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineException;
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -23,7 +25,6 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  */
 public class SqlProcessor {
 
-    // TODO - control duplicate statements
     // TODO - better exception messages handling
 
     /**
@@ -105,6 +106,18 @@ public class SqlProcessor {
      * The collection of the SQL Processor default optional features.
      */
     private Map<String, Object> defaultFeatures;
+    /**
+     * Only statements and rules with the names in this set are picked up from the statements' repository.
+     */
+    private Set<String> onlyStatements;
+    /**
+     * The collection of all artifacts to enable duplicity control.
+     */
+    Set<String> allArtifactsNames;
+    /**
+     * The list of all warnings.
+     */
+    List<String> warnings;
 
     /**
      * Simple factory method (design pattern). The new instance is created from the String input by the ANTLR parser.
@@ -113,12 +126,20 @@ public class SqlProcessor {
      *            String representation of the META SQL queries/statements/output mappings
      * @param typeFactory
      *            the factory for the META types construction
+     * @param defaultFeatures
+     *            the default features based on {@link SqlFeature}
+     * @param onlyStatements
+     *            only the statements and rules with the names in this set are picked up from the statements' repository
+     * @param filters
+     *            only the artifacts without active filters and the artifacts with the active filter from mthis set are
+     *            picked up from the statements' repository
      * @return new container of pre-compiled META SQL queries/statements/output mappings
      * @throws SqlEngineException
      *             in the case of ANTLR parsing exception
      */
     public static SqlProcessor getInstance(StringBuilder sbStatements, SqlTypeFactory typeFactory,
-            Map<String, Object> defaultFeatures, Set<String> onlyNames, String... filters) throws SqlEngineException {
+            Map<String, Object> defaultFeatures, Set<String> onlyStatements, String... filters)
+            throws SqlEngineException {
         if (logger.isTraceEnabled()) {
             logger.trace(">> getInstance, sStatements=" + sbStatements);
         }
@@ -128,7 +149,7 @@ public class SqlProcessor {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
             try {
-                processor = parser.parse(typeFactory, defaultFeatures, onlyNames, filters);
+                processor = parser.parse(typeFactory, defaultFeatures, onlyStatements, filters);
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }
@@ -152,7 +173,7 @@ public class SqlProcessor {
     /**
      * Creates a new instance.
      */
-    SqlProcessor(Map<String, Object> defaultFeatures) {
+    SqlProcessor(Map<String, Object> defaultFeatures, Set<String> onlyStatements) {
         metaStatements = new LinkedHashMap<String, Map<String, SqlMetaStatement>>();
         for (StatementType type : StatementType.values())
             metaStatements.put(type.name(), new LinkedHashMap<String, SqlMetaStatement>());
@@ -162,6 +183,10 @@ public class SqlProcessor {
         this.defaultFeatures = defaultFeatures;
         features = new LinkedHashMap<String, Object>();
         features.putAll(defaultFeatures);
+        if (onlyStatements != null && !onlyStatements.isEmpty())
+            this.onlyStatements = onlyStatements;
+        allArtifactsNames = new HashSet<String>();
+        warnings = new ArrayList<String>();
     }
 
     /**
@@ -180,7 +205,7 @@ public class SqlProcessor {
      * Returns the collection of the META SQL statements.
      * 
      * @param type
-     *            the META SQL statement type
+     *            the String representation of the META SQL statement type
      * 
      * @return the collection of the META SQL statements
      */
@@ -189,9 +214,11 @@ public class SqlProcessor {
         return metaStatements.get(type);
     }
 
-    public boolean addMetaStatement(String type, String name, SqlMetaStatement statement, List<String> activeFilters,
+    boolean addMetaStatement(String type, String name, SqlMetaStatement statement, List<String> activeFilters,
             String... filters) {
         StatementType.valueOf(type);
+        if (doSkip(onlyStatements, name))
+            return false;
         FilterStatus status = commonFilters(filters, activeFilters);
         if (status == FilterStatus.NOK) {
             return false;
@@ -199,12 +226,15 @@ public class SqlProcessor {
         Map<String, SqlMetaStatement> statements = getMetaStatements(type);
         if (status == FilterStatus.OK_LOWER) {
             if (statements.containsKey(name)) {
+                warnings.add("The artifact " + uniqueArtifactName(type, name, activeFilters)
+                        + " is already defined, the first definition is used.");
                 return false;
             } else {
                 statements.put(name, statement);
                 return true;
             }
         } else {
+            duplicityControl(type, name, activeFilters);
             statements.put(name, statement);
             return true;
         }
@@ -226,7 +256,7 @@ public class SqlProcessor {
      * Returns the collection of the output value mappings.
      * 
      * @param type
-     *            the input/output mapping rule type
+     *            the String representation of the input/output mapping rule type
      * 
      * @return the collection of the output value mappings
      */
@@ -238,6 +268,8 @@ public class SqlProcessor {
     public boolean addMappingRule(String type, String name, SqlMappingRule mapping, List<String> activeFilters,
             String... filters) {
         MappingType.valueOf(type);
+        if (doSkip(onlyStatements, name))
+            return false;
         FilterStatus status = commonFilters(filters, activeFilters);
         if (status == FilterStatus.NOK) {
             return false;
@@ -245,12 +277,15 @@ public class SqlProcessor {
         Map<String, SqlMappingRule> mappings = getMappingRules(type);
         if (status == FilterStatus.OK_LOWER) {
             if (mappings.containsKey(name)) {
+                warnings.add("The artifact " + uniqueArtifactName(type, name, activeFilters)
+                        + " is already defined, the first definition is used.");
                 return false;
             } else {
                 mappings.put(name, mapping);
                 return true;
             }
         } else {
+            duplicityControl(type, name, activeFilters);
             mappings.put(name, mapping);
             return true;
         }
@@ -265,7 +300,7 @@ public class SqlProcessor {
         return features;
     }
 
-    private Object getFeature(String type, String feature) {
+    protected Object getFeature(String type, String feature) {
         FeatureType ftype = FeatureType.valueOf(type);
         if (ftype == FeatureType.LOPT) {
             return Long.parseLong(feature);
@@ -288,6 +323,8 @@ public class SqlProcessor {
         if (status == FilterStatus.OK_LOWER) {
             if (getFeatures().containsKey(name)) {
                 if (!defaultFeatures.containsKey(name)) {
+                    warnings.add("The artifact " + uniqueArtifactName(type, name, activeFilters)
+                            + " is already defined, the first definition is used.");
                     return false;
                 } else {
                     defaultFeatures.remove(name);
@@ -299,9 +336,29 @@ public class SqlProcessor {
                 return true;
             }
         } else {
+            duplicityControl(type, name, activeFilters);
             getFeatures().put(name, getFeature(type, feature));
             return true;
         }
+    }
+
+    protected boolean duplicityControl(String type, String name, List<String> activeFilters) {
+        String uniqueName = uniqueArtifactName(type, name, activeFilters);
+        if (allArtifactsNames.contains(uniqueName)) {
+            warnings.add("The artifact " + uniqueName + " is already defined, the latest definition is used.");
+            return true;
+        }
+        allArtifactsNames.add(uniqueName);
+        return false;
+    }
+
+    protected String uniqueArtifactName(String type, String name, List<String> activeFilters) {
+        return type + ":" + name
+                + (((activeFilters) != null && !activeFilters.isEmpty()) ? activeFilters.toString() : "");
+    }
+
+    public List<String> getWarnings() {
+        return warnings;
     }
 
     // in the case there are no filters
@@ -315,7 +372,7 @@ public class SqlProcessor {
         NOK, OK_LOWER, OK
     }
 
-    FilterStatus commonFilters(String[] filters, List<String> activeFilters) {
+    private FilterStatus commonFilters(String[] filters, List<String> activeFilters) {
         if (filters == null || filters.length == 0) {
             if (activeFilters == null || activeFilters.isEmpty()) {
                 return FilterStatus.OK;
@@ -333,5 +390,11 @@ public class SqlProcessor {
             }
             return commonList.isEmpty() ? FilterStatus.NOK : FilterStatus.OK;
         }
+    }
+
+    private boolean doSkip(Set<String> onlyStatements, String name) {
+        if (onlyStatements == null || onlyStatements.isEmpty())
+            return false;
+        return !onlyStatements.contains(name);
     }
 }

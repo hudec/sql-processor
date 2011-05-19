@@ -122,20 +122,20 @@ import org.sqlproc.engine.type.SqlMetaType;
     item.setMetaType(typeFactory.getMetaType(sMetaType));
   }
   
-  boolean doSkip(Set<String> onlyNames, String name) {
-    if (onlyNames == null || onlyNames.isEmpty())
+  boolean doSkip(Set<String> onlyStatements, String name) {
+    if (onlyStatements == null || onlyStatements.isEmpty())
       return false;
-    return !onlyNames.contains(name);
+    return !onlyStatements.contains(name);
   }
 }
 
-parse [SqlTypeFactory _typeFactory, Map<String, Object> defaultFeatures, Set<String> onlyNames, String[\] filters] returns [SqlProcessor processor]
-@init {$processor = new SqlProcessor(defaultFeatures); boolean skip; List<String> activeFilters;}
+parse [SqlTypeFactory _typeFactory, Map<String, Object> defaultFeatures, Set<String> onlyStatements, String[\] filters] returns [SqlProcessor processor]
+@init {$processor = new SqlProcessor(defaultFeatures, onlyStatements); boolean skip; List<String> activeFilters;}
         :  
         WS* (
-         (name=IDENT {skip=doSkip(onlyNames,$name.text);} LPAREN type=STATEMENT {activeFilters = new ArrayList<String>();} (COMMA filter=IDENT {activeFilters.add($filter.text);})* RPAREN EQUALS 
+         (name=IDENT {skip=doSkip(onlyStatements,$name.text);} LPAREN type=STATEMENT {activeFilters = new ArrayList<String>();} (COMMA filter=IDENT {activeFilters.add($filter.text);})* RPAREN EQUALS 
            metaStatement=meta[_typeFactory, skip] {processor.addMetaStatement($type.text, $name.text, metaStatement, activeFilters, filters);} SEMICOLON WS*)
-         | (name=IDENT {skip=doSkip(onlyNames,$name.text);} LPAREN type=MAPPING {activeFilters = new ArrayList<String>();} (COMMA filter=IDENT {activeFilters.add($filter.text);})* RPAREN EQUALS 
+         | (name=IDENT {skip=doSkip(onlyStatements,$name.text);} LPAREN type=MAPPING {activeFilters = new ArrayList<String>();} (COMMA filter=IDENT {activeFilters.add($filter.text);})* RPAREN EQUALS 
            mappingRule=mapping[_typeFactory, skip] {processor.addMappingRule($type.text, $name.text, mappingRule, activeFilters, filters);} SEMICOLON WS*)
          | (name=IDENT LPAREN type=OPTION {activeFilters = new ArrayList<String>();} (COMMA filter=IDENT {activeFilters.add($filter.text);})* RPAREN EQUALS 
            text=option {processor.addFeature($type.text, $name.text, text.toString(), activeFilters, filters);} SEMICOLON WS*)

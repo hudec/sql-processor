@@ -209,14 +209,14 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      *            the properties name prefix to filter the META SQL statements, mapping rules and optional features
      * @param monitorFactory
      *            the monitor factory used in the process of the SQL Monitor instances creation
-     * @param selectQueries
+     * @param onlyStatements
      *            only statements and rules with the names in this set are picked up from the properties repository
      * @throws SqlEngineException
      *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
      */
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, String filter,
-            SqlMonitorFactory monitorFactory, String... selectQueries) {
-        this(sbStatements, typeFactory, filter, monitorFactory, null, selectQueries);
+            SqlMonitorFactory monitorFactory, String... onlyStatements) {
+        this(sbStatements, typeFactory, filter, monitorFactory, null, onlyStatements);
     }
 
     /**
@@ -238,18 +238,18 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      *            the monitor factory used in the process of the SQL Monitor instances creation
      * @param customTypes
      *            the custom META types
-     * @param selectQueries
+     * @param onlyStatements
      *            only statements and rules with the names in this set are picked up from the properties repository
      * @throws SqlEngineException
      *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
      */
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, String filter,
-            SqlMonitorFactory monitorFactory, List<SqlInternalType> customTypes, String... selectQueries)
+            SqlMonitorFactory monitorFactory, List<SqlInternalType> customTypes, String... onlyStatements)
             throws SqlEngineException {
         if (logger.isTraceEnabled()) {
             logger.trace(">> SqlProcessorLoader, sbStatements=" + sbStatements + ", typeFactory=" + typeFactory
                     + ", monitorFactory=" + monitorFactory + ", filter=" + filter + ", customTypes=" + customTypes
-                    + ", selectQueries=" + selectQueries);
+                    + ", onlyStatements=" + onlyStatements);
         }
 
         if (sbStatements == null)
@@ -260,8 +260,8 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         this.composedTypeFactory = new SqlComposedTypeFactory(typeFactory, customTypes);
 
         try {
-            Set<String> setSelectQueries = (selectQueries != null && selectQueries.length > 0) ? new HashSet<String>(
-                    Arrays.asList(selectQueries)) : null;
+            Set<String> setSelectQueries = (onlyStatements != null && onlyStatements.length > 0) ? new HashSet<String>(
+                    Arrays.asList(onlyStatements)) : null;
 
             filter = (filter != null) ? filter.toUpperCase() : null;
             Map<String, Object> defaultFeatures = SqlUtils.getDefaultFeatures(filter);
@@ -278,6 +278,10 @@ public class SqlProcessorLoader implements SqlEngineFactory {
 
             if (errors.length() > 0)
                 throw new SqlEngineException(errors.toString());
+
+            if (!processor.getWarnings().isEmpty()) {
+                logger.warn("There're warnings in the process of statements parsing: " + processor.getWarnings());
+            }
 
             sqls = processor.getMetaStatements(SqlProcessor.StatementType.QRY);
             cruds = processor.getMetaStatements(SqlProcessor.StatementType.CRUD);
