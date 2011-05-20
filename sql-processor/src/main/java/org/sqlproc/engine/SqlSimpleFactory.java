@@ -165,10 +165,10 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlQueryEngine getQueryEngine(String name) {
-        if (loader == null) {
+        if (getLoader() == null) {
             init();
         }
-        return loader.getQueryEngine(name);
+        return getLoader().getQueryEngine(name);
     }
 
     /**
@@ -176,10 +176,10 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getCrudEngine(String name) {
-        if (loader == null) {
+        if (getLoader() == null) {
             init();
         }
-        return loader.getCrudEngine(name);
+        return getLoader().getCrudEngine(name);
     }
 
     /**
@@ -187,10 +187,10 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getProcedureEngine(String name) {
-        if (loader == null) {
+        if (getLoader() == null) {
             init();
         }
-        return loader.getProcedureEngine(name);
+        return getLoader().getProcedureEngine(name);
     }
 
     /**

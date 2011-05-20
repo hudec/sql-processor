@@ -13,6 +13,7 @@
         <module>simple-jdbc</module>
         <module>simple-hibernate</module>
         <module>simple-spring</module>
+        <module>simple-spring-new</module>
         <module>tutorial-hibernate</module>
         <module>catalog-jpa</module>
         <module>catalog-hibernate</module>
