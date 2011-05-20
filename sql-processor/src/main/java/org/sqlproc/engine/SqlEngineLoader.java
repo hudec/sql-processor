@@ -35,6 +35,8 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * grammar. <br>
  * All the properties with the key <code>CRUD_...</code> are parsed as the META SQL CRUD statements using the ANTLR
  * based grammar. <br>
+ * All the properties with the key <code>CALL_...</code> are parsed as the META SQL CALL statements using the ANTLR
+ * based grammar. These are used to call the stored procedures.<br>
  * All the properties with the key <code>OUT_...</code> are parsed as the mapping rules using the ANTLR based grammar.<br>
  * A pair of the META SQL statement and the (optional) mapping rule forms one named SQL Engine instance.<br>
  * All the properties with the key <code>SET_...</code> are taken as the optional features used in the process of the
@@ -80,7 +82,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * SqlCrudEngine sqlEngine = sqlLoader.getCrudEngine(&quot;ALL&quot;);
  * </pre>
  * <p>
- * Another possibility is to utilize SqlPropertiesLoader.
+ * Another possibility is to utilize {@link SqlPropertiesLoader}.
  * 
  * <pre>
  * SqlPropertiesLoader loader = new SqlPropertiesLoader(&quot;queries.properties&quot;, this.getClass());
@@ -118,7 +120,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
     private SqlTypeFactory composedTypeFactory;
 
     /**
-     * The collection of named SQL Engine (the primary SQL Processor class) instances.
+     * The collection of named SQL Engines (the primary SQL Processor class) instances.
      */
     private Map<String, SqlEngine> engines = new HashMap<String, SqlEngine>();
     /**
@@ -136,7 +138,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
     /**
      * The collection of named explicitly defined mapping rules.
      */
-    private Map<String, String> fields = new HashMap<String, String>();
+    private Map<String, String> outs = new HashMap<String, String>();
     /**
      * The collection of the SQL Processor optional features.
      */
@@ -364,8 +366,8 @@ public class SqlEngineLoader implements SqlEngineFactory {
                     if (setSelectQueries == null || setSelectQueries.contains(name)) {
                         if (mapAll.containsKey(key)) {
                             errors.append("Duplicate OUT: ").append(key).append("\n");
-                        } else if (!fields.containsKey(name) || keyWithFilterPrefix) {
-                            fields.put(name, value);
+                        } else if (!outs.containsKey(name) || keyWithFilterPrefix) {
+                            outs.put(name, value);
                         }
                     }
                 } else if (key.startsWith(SET_PREFIX)) {
@@ -382,7 +384,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
                 }
             }
 
-            for (String name : fields.keySet()) {
+            for (String name : outs.keySet()) {
                 if (!sqls.containsKey(name) && !calls.containsKey(name))
                     errors.append("For the OUT/FIELDS there's no QRY: ").append(name).append("\n");
             }
@@ -399,11 +401,11 @@ public class SqlEngineLoader implements SqlEngineFactory {
                     continue;
                 }
                 SqlMappingRule mapping = null;
-                if (!stmt.isHasOutputMapping() && !fields.containsKey(name)) {
+                if (!stmt.isHasOutputMapping() && !outs.containsKey(name)) {
                     errors.append("For the QRY there's no OUT: ").append(name).append("\n");
-                } else if (fields.containsKey(name)) {
+                } else if (outs.containsKey(name)) {
                     try {
-                        String sMapping = fields.get(name).trim();
+                        String sMapping = outs.get(name).trim();
                         if (sMapping.startsWith(FIELDS_REFERENCE)) {
                             String sRealMapping = props.getProperty(sMapping.substring(lFIELDS_REFERENCE).trim());
                             if (sRealMapping == null)
@@ -450,9 +452,9 @@ public class SqlEngineLoader implements SqlEngineFactory {
                     continue;
                 }
                 SqlMappingRule mapping = null;
-                if (fields.containsKey(name)) {
+                if (outs.containsKey(name)) {
                     try {
-                        String sMapping = fields.get(name).trim();
+                        String sMapping = outs.get(name).trim();
                         if (sMapping.startsWith(FIELDS_REFERENCE)) {
                             String sRealMapping = props.getProperty(sMapping.substring(lFIELDS_REFERENCE).trim());
                             if (sRealMapping == null)
@@ -481,7 +483,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
         } finally {
             if (logger.isDebugEnabled()) {
                 logger.debug("<< SqlEngineLoader, engines=" + engines + ", sqls=" + sqls + ", cruds=" + cruds
-                        + ", fields=" + fields + ", features=" + features);
+                        + ", fields=" + outs + ", features=" + features);
             }
         }
     }
@@ -514,7 +516,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
      * @return the mapping rule
      */
     public String getMappingRule(String name) {
-        return fields.get(name);
+        return outs.get(name);
     }
 
     /**

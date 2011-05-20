@@ -14,8 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The helper class for the properties file loading. The properties file can be located on the classpath, in the root
- * directory or in the user's home directory.
+ * The helper class for the file(s) loading. The file(s) can be located on the classpath, in the root directory or in
+ * the user's home directory. It's used for the purpose of the {@link SqlProcessorLoader} instance creation.
  * 
  * <p>
  * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
@@ -30,15 +30,15 @@ public class SqlFilesLoader {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
-     * Properties from the properties file.
+     * The string representation of the file(s) content.
      */
     private StringBuilder sbStatements;
 
     /**
-     * Reads the properties file and creates a new SqlPropertiesLoader instance.
+     * Reads the file(s) content and creates a new SqlFilesLoader instance.
      * 
      * @param fileName
-     *            Properties file name.
+     *            The name of the file to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
      */
@@ -47,12 +47,13 @@ public class SqlFilesLoader {
     }
 
     /**
-     * Reads the properties file and creates a new SqlPropertiesLoader instance.
+     * Reads the file(s) content and creates a new SqlFilesLoader instance.
      * 
      * @param fileName
-     *            Properties file name.
+     *            The name of the file to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
+     * @return the content of the specified file(s) as a String
      */
     public static StringBuilder getStatements(Class<?> loaderClass, String fileName) {
         SqlFilesLoader loader = new SqlFilesLoader(fileName, loaderClass);
@@ -60,10 +61,10 @@ public class SqlFilesLoader {
     }
 
     /**
-     * Reads the properties files and creates a new SqlPropertiesLoader instance.
+     * Reads the file(s) content and creates a new SqlFilesLoader instance.
      * 
-     * @param fileName
-     *            Properties file name.
+     * @param fileNames
+     *            The names of the files to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
      */
@@ -78,12 +79,13 @@ public class SqlFilesLoader {
     }
 
     /**
-     * Reads the properties files and creates a new SqlPropertiesLoader instance.
+     * Reads the file(s) content and creates a new SqlFilesLoader instance.
      * 
-     * @param fileName
-     *            Properties file name.
+     * @param fileNames
+     *            The name sof the files to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
+     * @return the content of the specified file(s) as a String
      */
     public static StringBuilder getStatements(Class<?> loaderClass, String... fileNames) {
         ArrayList<String> propsNames = new ArrayList<String>();
@@ -93,13 +95,13 @@ public class SqlFilesLoader {
     }
 
     /**
-     * Reads the properties file and creates a new Properties instance.
+     * Reads the file content and creates a String representation of this content.
      * 
      * @param fileName
-     *            Properties file name.
+     *            The name of the file to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
-     * @return a new Properties instance
+     * @return the content of the specified file as a String
      */
     private StringBuilder load(String fileName, Class<?> loaderClass) {
         if (logger.isTraceEnabled()) {
@@ -157,9 +159,9 @@ public class SqlFilesLoader {
     }
 
     /**
-     * Returns all properties.
+     * Returns the content of all read files.
      * 
-     * @return all properties
+     * @return the content of all read files
      */
     public StringBuilder getStatements() {
         return sbStatements;

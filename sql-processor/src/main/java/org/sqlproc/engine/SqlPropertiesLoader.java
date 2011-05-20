@@ -14,8 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The helper class for the properties file loading. The properties file can be located on the classpath, in the root
- * directory or in the user's home directory.
+ * The helper class for the property file loading. The property file can be located on the classpath, in the root
+ * directory or in the user's home directory. It's used for the purpose of the {@link SqlEngineLoader} instance
+ * creation.
  * 
  * <p>
  * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
@@ -30,15 +31,15 @@ public class SqlPropertiesLoader {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
-     * Properties from the properties file.
+     * Properties from the property file.
      */
     private Properties properties;
 
     /**
-     * Reads the properties file and creates a new SqlPropertiesLoader instance.
+     * Reads the property file and creates a new SqlPropertiesLoader instance.
      * 
      * @param fileName
-     *            Properties file name.
+     *            The name of the file to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
      */
@@ -47,12 +48,13 @@ public class SqlPropertiesLoader {
     }
 
     /**
-     * Reads the properties file and creates a new SqlPropertiesLoader instance.
+     * Reads the property file and creates a new SqlPropertiesLoader instance.
      * 
      * @param fileName
-     *            Properties file name.
+     *            The name of the file to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
+     * @return all properties from the specified file(s)
      */
     public static Properties getProperties(Class<?> loaderClass, String fileName) {
         SqlPropertiesLoader loader = new SqlPropertiesLoader(fileName, loaderClass);
@@ -60,10 +62,10 @@ public class SqlPropertiesLoader {
     }
 
     /**
-     * Reads the properties files and creates a new SqlPropertiesLoader instance.
+     * Reads the property files and creates a new SqlPropertiesLoader instance.
      * 
-     * @param fileName
-     *            Properties file name.
+     * @param fileNames
+     *            The names of the files to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
      */
@@ -80,12 +82,13 @@ public class SqlPropertiesLoader {
     }
 
     /**
-     * Reads the properties files and creates a new SqlPropertiesLoader instance.
+     * Reads the property files and creates a new SqlPropertiesLoader instance.
      * 
-     * @param fileName
-     *            Properties file name.
+     * @param fileNames
+     *            The names of the files to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
+     * @return all properties from the specified file(s)
      */
     public static Properties getProperties(Class<?> loaderClass, String... fileNames) {
         ArrayList<String> propsNames = new ArrayList<String>();
@@ -95,13 +98,13 @@ public class SqlPropertiesLoader {
     }
 
     /**
-     * Reads the properties file and creates a new Properties instance.
+     * Reads the property file and creates a new Properties instance.
      * 
      * @param fileName
-     *            Properties file name.
+     *            The name of the file to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
-     * @return a new Properties instance
+     * @return all properties from the specified file
      */
     private Properties load(String fileName, Class<?> loaderClass) {
         if (logger.isDebugEnabled()) {
@@ -150,10 +153,10 @@ public class SqlPropertiesLoader {
     }
 
     /**
-     * Returns the named property value from the properties file.
+     * Returns the named property value from the property file.
      * 
      * @param name
-     *            the name (=key in the properties file)
+     *            the name (=key in the property file)
      * @return the value of the property
      */
     public String get(String name) {

@@ -17,7 +17,7 @@ import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
- * Pre-compiled META SQL statements, output mappings and optional features.
+ * Pre-compiled META SQL statements, output mappings and optional features (also known as the SQL Processor artifacts).
  * 
  * Instance of this class is created by the ANTLR parser. The grammar is defined in SqlProcessor.g.
  * 
@@ -131,8 +131,8 @@ public class SqlProcessor {
      * @param onlyStatements
      *            only the statements and rules with the names in this set are picked up from the statements' repository
      * @param filters
-     *            only the artifacts without active filters and the artifacts with the active filter from mthis set are
-     *            picked up from the statements' repository
+     *            only the artifacts without active filters and the artifacts with the active filter from this
+     *            collections are picked up from the statements' repository
      * @return new container of pre-compiled META SQL queries/statements/output mappings
      * @throws SqlEngineException
      *             in the case of ANTLR parsing exception
@@ -214,12 +214,28 @@ public class SqlProcessor {
         return metaStatements.get(type);
     }
 
+    /**
+     * Adds a new META SQL statement. It's used internally by the ANTLR parser.
+     * 
+     * @param type
+     *            the String representation of the META SQL statement type
+     * @param name
+     *            the name of the META SQL statement
+     * @param statement
+     *            the META SQL statement
+     * @param activeFilters
+     *            the active filters from the META SQL statement definition
+     * @param filters
+     *            only the artifacts without active filters and the artifacts with the active filter from this
+     *            collections are taken into this instance of the SQL Processor
+     * @return the indicator this statement was taken into this instance of the SQL Processor
+     */
     boolean addMetaStatement(String type, String name, SqlMetaStatement statement, List<String> activeFilters,
             String... filters) {
         StatementType.valueOf(type);
-        if (doSkip(onlyStatements, name))
+        if (nameControl(onlyStatements, name))
             return false;
-        FilterStatus status = commonFilters(filters, activeFilters);
+        FilterStatus status = filtersControl(filters, activeFilters);
         if (status == FilterStatus.NOK) {
             return false;
         }
@@ -265,12 +281,28 @@ public class SqlProcessor {
         return mappingRules.get(type);
     }
 
+    /**
+     * Adds a new output value mapping. It's used internally by the ANTLR parser.
+     * 
+     * @param type
+     *            the String representation of the output value mapping type
+     * @param name
+     *            the name of the output value mapping
+     * @param mapping
+     *            the output value mapping
+     * @param activeFilters
+     *            the active filters from the output value mapping definition
+     * @param filters
+     *            only the artifacts without active filters and the artifacts with the active filter from this
+     *            collections are taken into this instance of the SQL Processor
+     * @return the indicator this output value mapping was taken into this instance of the SQL Processor
+     */
     public boolean addMappingRule(String type, String name, SqlMappingRule mapping, List<String> activeFilters,
             String... filters) {
         MappingType.valueOf(type);
-        if (doSkip(onlyStatements, name))
+        if (nameControl(onlyStatements, name))
             return false;
-        FilterStatus status = commonFilters(filters, activeFilters);
+        FilterStatus status = filtersControl(filters, activeFilters);
         if (status == FilterStatus.NOK) {
             return false;
         }
@@ -300,6 +332,15 @@ public class SqlProcessor {
         return features;
     }
 
+    /**
+     * Builds the correct class instance for the optional feature
+     * 
+     * @param type
+     *            the type of the optional feature based on enumaration {@link FeatureType}
+     * @param feature
+     *            the String representation of the optional feature
+     * @return the correct class instance for the optional feature
+     */
     protected Object getFeature(String type, String feature) {
         FeatureType ftype = FeatureType.valueOf(type);
         if (ftype == FeatureType.LOPT) {
@@ -314,9 +355,25 @@ public class SqlProcessor {
         return feature;
     }
 
+    /**
+     * Adds a new optional feature. It's used internally by the ANTLR parser.
+     * 
+     * @param type
+     *            the String representation of the optional feature type
+     * @param name
+     *            the name of the optional feature
+     * @param feature
+     *            the optional feature
+     * @param activeFilters
+     *            the active filters from the optional feature definition
+     * @param filters
+     *            only the artifacts without active filters and the artifacts with the active filter from this
+     *            collections are taken into this instance of the SQL Processor
+     * @return the indicator this optional feature was taken into this instance of the SQL Processor
+     */
     public boolean addFeature(String type, String name, String feature, List<String> activeFilters, String... filters) {
         FeatureType.valueOf(type);
-        FilterStatus status = commonFilters(filters, activeFilters);
+        FilterStatus status = filtersControl(filters, activeFilters);
         if (status == FilterStatus.NOK) {
             return false;
         }
@@ -342,6 +399,17 @@ public class SqlProcessor {
         }
     }
 
+    /**
+     * Controls if the name of the artifact isn't already used.
+     * 
+     * @param type
+     *            the String representation of the artifact type
+     * @param name
+     *            the name of the artifact
+     * @param activeFilters
+     *            the active filters from the artifact definition
+     * @return the indicator of the potential duplicity
+     */
     protected boolean duplicityControl(String type, String name, List<String> activeFilters) {
         String uniqueName = uniqueArtifactName(type, name, activeFilters);
         if (allArtifactsNames.contains(uniqueName)) {
@@ -352,27 +420,67 @@ public class SqlProcessor {
         return false;
     }
 
+    /**
+     * Builds the unique artifact name.
+     * 
+     * @param type
+     *            the String representation of the artifact type
+     * @param name
+     *            the name of the artifact
+     * @param activeFilters
+     *            the active filters from the artifact definition
+     * @return the unique artifact name
+     */
     protected String uniqueArtifactName(String type, String name, List<String> activeFilters) {
         return type + ":" + name
                 + (((activeFilters) != null && !activeFilters.isEmpty()) ? activeFilters.toString() : "");
     }
 
+    /**
+     * Returns the list of warnings, which can happen in the process of this instance creation and ALTLR parsing
+     * 
+     * @return the list of warnings
+     */
     public List<String> getWarnings() {
         return warnings;
     }
 
-    // in the case there are no filters
-    // - there are activeFilters, the artifact is dead - NOK
-    // - otherwise the artifact is ok - OK
-    // in the case there are filters
-    // - there are no activeFilters, the artifact is ok, but lower priority - OK_LOWER
-    // - there are activeFilters, and the intersection is not empty, the artifact is ok - OK
-    // - there are activeFilters, and the intersection is empty, the artifact is dead - NOK
+    /**
+     * This status is the result of the filters processing, based on the next rules: <br>
+     * in the case there are no filters <br>
+     * - there are activeFilters, the artifact is dead - NOK <br>
+     * - otherwise the artifact is ok - OK <br>
+     * in the case there are filters <br>
+     * - there are no activeFilters, the artifact is ok, but lower priority - OK_LOWER <br>
+     * - there are activeFilters, and the intersection is not empty, the artifact is ok - OK <br>
+     * - there are activeFilters, and the intersection is empty, the artifact is dead - NOK
+     */
     enum FilterStatus {
-        NOK, OK_LOWER, OK
+        /**
+         * The related artifact won't be used
+         */
+        NOK,
+        /**
+         * The related artifact will be used, but with lower priority
+         */
+        OK_LOWER,
+        /**
+         * The related artifact will be used
+         */
+        OK
     }
 
-    private FilterStatus commonFilters(String[] filters, List<String> activeFilters) {
+    /**
+     * Runs the business logic for the filters related to the artifact usability.
+     * 
+     * @param activeFilters
+     *            the active filters from the artifact definition
+     * @param filters
+     *            only the artifacts without active filters and the artifacts with the active filter from this
+     *            collections are taken into this instance of the SQL Processor
+     * @return the status, which control the artifact usability
+     */
+    protected FilterStatus filtersControl(String[] filters, List<String> activeFilters) {
         if (filters == null || filters.length == 0) {
             if (activeFilters == null || activeFilters.isEmpty()) {
                 return FilterStatus.OK;
@@ -392,7 +500,16 @@ public class SqlProcessor {
         }
     }
 
-    private boolean doSkip(Set<String> onlyStatements, String name) {
+    /**
+     * Controls, if the artifact name is listed in the provided container
+     * 
+     * @param onlyStatements
+     *            only the statements and rules with the names in this set are picked up from the statements' repository
+     * @param name
+     *            the artifact name
+     * @return the indicator if the artifact name is listed in the provided container
+     */
+    protected boolean nameControl(Set<String> onlyStatements, String name) {
         if (onlyStatements == null || onlyStatements.isEmpty())
             return false;
         return !onlyStatements.contains(name);

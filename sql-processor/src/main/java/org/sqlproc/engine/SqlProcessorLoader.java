@@ -20,23 +20,29 @@ import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
  * The helper class for the META SQL statements and mapping rules parsing. These statements and rules are taken from the
- * {@link java.util.Properties}.<br>
+ * file repository based on the provided ANTLR grammar.<br>
  * 
- * The purpose of this class is to load and analyze (=parse) the META SQL statements and mapping rules located in the
- * properties repository. The standard properties repository is the external properties file with the name
- * <code>queries.properties</code>.
+ * The purpose of this class is to load and analyze (=parse) the SQL Processor artifacts:
+ * <ul>
+ * <li>the META SQL statements</li>
+ * <li>the mapping rules</li>
+ * <li>the optional features</li>
+ * </ul>
  * 
  * <p>
  * This is rather a low level helper class. For more simple approach please see {@link SqlSimpleFactory}
  * 
  * <p>
- * All the properties with the key <code>QRY_...</code> are parsed as the META SQL queries using the ANTLR based
+ * All the statements with the name <code>name(QRY)</code> are parsed as the META SQL queries using the ANTLR based
  * grammar. <br>
- * All the properties with the key <code>CRUD_...</code> are parsed as the META SQL CRUD statements using the ANTLR
+ * All the statements with the name <code>name(CRUD)</code> are parsed as the META SQL CRUD statements using the ANTLR
  * based grammar. <br>
- * All the properties with the key <code>OUT_...</code> are parsed as the mapping rules using the ANTLR based grammar.<br>
+ * All the statements with the name <code>name(CALL)</code> are parsed as the META SQL CALL statements using the ANTLR
+ * based grammar. These are used to call the stored procedures.<br>
+ * All the statements with the name <code>name(OUT)</code> are parsed as the mapping rules using the ANTLR based
+ * grammar.<br>
  * A pair of the META SQL statement and the (optional) mapping rule forms one named SQL Engine instance.<br>
- * All the properties with the key <code>SET_...</code> are taken as the optional features used in the process of the
+ * All the statements with the name <code>name(OPT)</code> are taken as the optional features used in the process of the
  * SQL query/statement generation and execution.<br>
  * <p>
  * In the process of ANTLR based parsing different kinds of incorrect stuff can cause the {@link SqlEngineException} to
@@ -79,11 +85,11 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * SqlCrudEngine sqlEngine = sqlLoader.getCrudEngine(&quot;ALL&quot;);
  * </pre>
  * <p>
- * Another possibility is to utilize SqlPropertiesLoader.
+ * Another possibility is to utilize {@link SqlFilesLoader}.
  * 
  * <pre>
- * SqlPropertiesLoader loader = new SqlPropertiesLoader(&quot;queries.properties&quot;, this.getClass());
- * SqlProcessorLoader sqlLoader = new SqlProcessorLoader(loader.getProperties(), JdbcTypeFactory.getInstance());
+ * SqlFilesLoader loader = new SqlFilesLoader(&quot;statements.qry&quot;, this.getClass());
+ * SqlProcessorLoader sqlLoader = new SqlProcessorLoader(loader.getStatements(), JdbcTypeFactory.getInstance());
  * SqlEngine sqlEngine = sqlLoader.getQueryEngine(&quot;ALL&quot;);
  * </pre>
  * 
@@ -104,7 +110,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     private SqlTypeFactory composedTypeFactory;
     /**
-     * The collection of named SQL Engine (the primary SQL Processor class) instances.
+     * The collection of named SQL Engines (the primary SQL Processor class) instances.
      */
     private Map<String, SqlEngine> engines = new HashMap<String, SqlEngine>();
     /**
@@ -122,21 +128,21 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     /**
      * The collection of named explicitly defined mapping rules.
      */
-    private Map<String, SqlMappingRule> fields;
+    private Map<String, SqlMappingRule> outs;
     /**
      * The collection of the SQL Processor optional features.
      */
     private Map<String, Object> features;
 
     /**
-     * Creates a new instance of the SqlProcessorLoader from the properties repository (which is in fact a collection of
-     * the META SQL statements, mapping rules and optional features. During the instance construction all the statements
-     * are parsed and the collection of named SQL Engine instances is established. Later these instances are used for
-     * the SQL queries/statements execution. For the purpose of the META types construction (located inside the META SQL
-     * statements and mapping rules) a factory instance has to be supplied.
+     * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
+     * collection of the META SQL statements, mapping rules and optional features. During the instance construction all
+     * the statements are parsed and the collection of named SQL Engine instances is established. Later these instances
+     * are used for the SQL queries/statements execution. For the purpose of the META types construction (located inside
+     * the META SQL statements and mapping rules) a factory instance has to be supplied.
      * 
      * @param sbStatements
-     *            String representation of the META SQL queries/statements/output mappings
+     *            the String representation of the META SQL queries/statements/output mappings
      * @param typeFactory
      *            the factory for the META types construction
      * @throws SqlEngineException
@@ -147,14 +153,14 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     }
 
     /**
-     * Creates a new instance of the SqlProcessorLoader from the properties repository (which is in fact a collection of
-     * the META SQL statements, mapping rules and optional features. During the instance construction all the statements
-     * are parsed and the collection of named SQL Engine instances is established. Later these instances are used for
-     * the SQL queries/statements execution. For the purpose of the META types construction (located inside the META SQL
-     * statements and mapping rules) a factory instance has to be supplied.
+     * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
+     * collection of the META SQL statements, mapping rules and optional features. During the instance construction all
+     * the statements are parsed and the collection of named SQL Engine instances is established. Later these instances
+     * are used for the SQL queries/statements execution. For the purpose of the META types construction (located inside
+     * the META SQL statements and mapping rules) a factory instance has to be supplied.
      * 
      * @param sbStatements
-     *            String representation of the META SQL queries/statements/output mappings
+     *            the String representation of the META SQL queries/statements/output mappings
      * @param typeFactory
      *            the factory for the META types construction
      * @param filter
@@ -168,16 +174,16 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     }
 
     /**
-     * Creates a new instance of the SqlProcessorLoader from the properties repository (which is in fact a collection of
-     * the META SQL statements, mapping rules and optional features. During the instance construction all the statements
-     * are parsed and the collection of named SQL Engine instances is established. Later these instances are used for
-     * the SQL queries/statements execution. For the purpose of the META types construction (located inside the META SQL
-     * statements and mapping rules) a factory instance has to be supplied. Every instance of the SQL Engine is
-     * accompanied with the SQL Monitor for the runtime statistics gathering. For the creation of these monitors the SQL
-     * Monitor Factory can be used.
+     * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
+     * collection of the META SQL statements, mapping rules and optional features. During the instance construction all
+     * the statements are parsed and the collection of named SQL Engine instances is established. Later these instances
+     * are used for the SQL queries/statements execution. For the purpose of the META types construction (located inside
+     * the META SQL statements and mapping rules) a factory instance has to be supplied. Every instance of the SQL
+     * Engine is accompanied with the SQL Monitor for the runtime statistics gathering. For the creation of these
+     * monitors the SQL Monitor Factory can be used.
      * 
      * @param sbStatements
-     *            String representation of the META SQL queries/statements/output mappings
+     *            the String representation of the META SQL queries/statements/output mappings
      * @param typeFactory
      *            the factory for the META types construction
      * @param filter
@@ -193,16 +199,16 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     }
 
     /**
-     * Creates a new instance of the SqlProcessorLoader from the properties repository (which is in fact a collection of
-     * the META SQL statements, mapping rules and optional features. During the instance construction all the statements
-     * are parsed and the collection of named SQL Engine instances is established. Later these instances are used for
-     * the SQL queries/statements execution. For the purpose of the META types construction (located inside the META SQL
-     * statements and mapping rules) a factory instance has to be supplied. Every instance of the SQL Engine is
-     * accompanied with the SQL Monitor for the runtime statistics gathering. For the creation of these monitors the SQL
-     * Monitor Factory can be used.
+     * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
+     * collection of the META SQL statements, mapping rules and optional features. During the instance construction all
+     * the statements are parsed and the collection of named SQL Engine instances is established. Later these instances
+     * are used for the SQL queries/statements execution. For the purpose of the META types construction (located inside
+     * the META SQL statements and mapping rules) a factory instance has to be supplied. Every instance of the SQL
+     * Engine is accompanied with the SQL Monitor for the runtime statistics gathering. For the creation of these
+     * monitors the SQL Monitor Factory can be used.
      * 
      * @param sbStatements
-     *            String representation of the META SQL queries/statements/output mappings
+     *            the String representation of the META SQL queries/statements/output mappings
      * @param typeFactory
      *            the factory for the META types construction
      * @param filter
@@ -210,7 +216,8 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * @param monitorFactory
      *            the monitor factory used in the process of the SQL Monitor instances creation
      * @param onlyStatements
-     *            only statements and rules with the names in this set are picked up from the properties repository
+     *            only statements and rules with the names in this container are picked up from the properties
+     *            repository
      * @throws SqlEngineException
      *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
      */
@@ -220,16 +227,16 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     }
 
     /**
-     * Creates a new instance of the SqlProcessorLoader from the properties repository (which is in fact a collection of
-     * the META SQL statements, mapping rules and optional features. During the instance construction all the statements
-     * are parsed and the collection of named SQL Engine instances is established. Later these instances are used for
-     * the SQL queries/statements execution. For the purpose of the META types construction (located inside the META SQL
-     * statements and mapping rules) a factory instance has to be supplied. Every instance of the SQL Engine is
-     * accompanied with the SQL Monitor for the runtime statistics gathering. For the creation of these monitors the SQL
-     * Monitor Factory can be used.
+     * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
+     * collection of the META SQL statements, mapping rules and optional features. During the instance construction all
+     * the statements are parsed and the collection of named SQL Engine instances is established. Later these instances
+     * are used for the SQL queries/statements execution. For the purpose of the META types construction (located inside
+     * the META SQL statements and mapping rules) a factory instance has to be supplied. Every instance of the SQL
+     * Engine is accompanied with the SQL Monitor for the runtime statistics gathering. For the creation of these
+     * monitors the SQL Monitor Factory can be used.
      * 
      * @param sbStatements
-     *            String representation of the META SQL queries/statements/output mappings
+     *            the String representation of the META SQL queries/statements/output mappings
      * @param typeFactory
      *            the factory for the META types construction
      * @param filter
@@ -239,7 +246,8 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * @param customTypes
      *            the custom META types
      * @param onlyStatements
-     *            only statements and rules with the names in this set are picked up from the properties repository
+     *            only statements and rules with the names in this container are picked up from the properties
+     *            repository
      * @throws SqlEngineException
      *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
      */
@@ -286,10 +294,10 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             sqls = processor.getMetaStatements(SqlProcessor.StatementType.QRY);
             cruds = processor.getMetaStatements(SqlProcessor.StatementType.CRUD);
             calls = processor.getMetaStatements(SqlProcessor.StatementType.CALL);
-            fields = processor.getMappingRules(SqlProcessor.MappingType.OUT);
+            outs = processor.getMappingRules(SqlProcessor.MappingType.OUT);
             features = processor.getFeatures();
 
-            for (String name : fields.keySet()) {
+            for (String name : outs.keySet()) {
                 if (!sqls.containsKey(name) && !calls.containsKey(name))
                     errors.append("For the OUT/FIELDS there's no QRY: ").append(name).append("\n");
             }
@@ -301,10 +309,10 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                 SqlMetaStatement stmt = sqls.get(name);
 
                 SqlMappingRule mapping = null;
-                if (!stmt.isHasOutputMapping() && !fields.containsKey(name)) {
+                if (!stmt.isHasOutputMapping() && !outs.containsKey(name)) {
                     errors.append("For the QRY there's no OUT: ").append(name).append("\n");
-                } else if (fields.containsKey(name)) {
-                    mapping = fields.get(name);
+                } else if (outs.containsKey(name)) {
+                    mapping = outs.get(name);
                 } else {
                     mapping = new SqlMappingRule();
                 }
@@ -326,8 +334,8 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             for (String name : calls.keySet()) {
                 SqlMetaStatement stmt = calls.get(name);
                 SqlMappingRule mapping = null;
-                if (fields.containsKey(name)) {
-                    mapping = fields.get(name);
+                if (outs.containsKey(name)) {
+                    mapping = outs.get(name);
                 } else {
                     mapping = new SqlMappingRule();
                 }
@@ -343,7 +351,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         } finally {
             if (logger.isDebugEnabled()) {
                 logger.debug("<< SqlProcessorLoader, engines=" + engines + ", sqls=" + sqls + ", cruds=" + cruds
-                        + ", fields=" + fields + ", features=" + features);
+                        + ", fields=" + outs + ", features=" + features);
             }
         }
     }
@@ -351,7 +359,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     /**
      * Returns the collection of names of all initialized/constructed SQL Engine instances.
      * 
-     * @return Collection of all initialized SQL Engine instances' names
+     * @return The collection of all initialized SQL Engine instances' names
      */
     public Collection<String> getNames() {
         return engines.keySet();

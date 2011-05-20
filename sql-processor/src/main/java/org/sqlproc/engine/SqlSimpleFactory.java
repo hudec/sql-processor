@@ -55,26 +55,31 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  */
 public class SqlSimpleFactory implements SqlEngineFactory {
 
-    private static final String LINESEP = System.getProperty("line.separator");
-
     /**
-     * Default value for {@link SqlSimpleFactory#metaPropsName}.
+     * The platform based line separator.
+     */
+    private static final String LINESEP = System.getProperty("line.separator");
+    /**
+     * Default value for {@link SqlSimpleFactory#metaPropsNames}.
      */
     protected static final String DEFAULT_META_PROPS_NAME = "queries.properties";
     /**
-     * The names of property files, which hold a collection of META SQL statements, mapping rules and optional features.
+     * The names of property files, which hold a collection of the SQL Processor artifacts (META SQL statements, mapping
+     * rules and optional features).
      */
     private List<String> metaPropsNames = new ArrayList<String>();
     /**
-     * The names of files, which hold a collection of META SQL statements, mapping rules and optional features.
+     * The names of files, which hold a collection of the SQL Processor artifacts (META SQL statements, mapping rules
+     * and optional features).
      */
     private List<String> metaFilesNames = new ArrayList<String>();
     /**
-     * The collection of META SQL statements, mapping rules and optional features.
+     * The collection of all SQL Processor artifacts (META SQL statements, mapping rules and optional features).
      */
     private Properties metaProps;
     /**
-     * The String representation of META SQL statements, mapping rules and optional features.
+     * The String representation of all SQL Processor artifacts (META SQL statements, mapping rules and optional
+     * features).
      */
     private StringBuilder metaStatements;
     /**
@@ -82,7 +87,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     private SqlTypeFactory typeFactory;
     /**
-     * The properties name prefix to filter the META SQL statements, mapping rules and optional features.
+     * The name of the filter to filter the META SQL statements, mapping rules and optional features.
      */
     private String filter;
     /**
@@ -96,7 +101,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     /**
      * Only statements and rules with the names in this set are picked up from the properties repository.
      */
-    private String[] selectQueries;
+    private String[] onlyStatements;
     /**
      * The indicator the JDBC stack is used.
      */
@@ -106,7 +111,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     private SqlEngineLoader loader;
     /**
-     * The helper class for the META SQL statements and mapping rules parsing. All artifacts are loaded from new gammar
+     * The helper class for the META SQL statements and mapping rules parsing. All artifacts are loaded from new grammar
      * based files.
      */
     private SqlProcessorLoader processorLoader;
@@ -118,7 +123,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
-     * Dynamic init, called mainly from the Spring configuration initialization.
+     * Dynamic initialization, called mainly from the Spring configuration initialization.
      */
     synchronized public void init() {
         if (loader == null && processorLoader == null) {
@@ -133,7 +138,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                             metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
 
                         processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, filter, monitorFactory,
-                                customTypes, selectQueries);
+                                customTypes, onlyStatements);
                     } else {
                         Properties metaProperties = metaProps;
                         if (metaProperties == null) {
@@ -147,7 +152,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                         if (jdbc)
                             metaProperties.setProperty("SET_" + SqlFeature.JDBC, "true");
                         loader = new SqlEngineLoader(metaProperties, typeFactory, filter, monitorFactory, customTypes,
-                                selectQueries);
+                                onlyStatements);
                         metaProps = metaProperties;
                     }
                 }
@@ -203,7 +208,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * Sets the names of property files, which holds a collection of META SQL statements, mapping rules and optional
      * features.
      * 
-     * @param propsName
+     * @param propsNames
      *            the names of property files, which holds a collection of META SQL statements, mapping rules and
      *            optional features
      */
@@ -215,7 +220,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * Sets the names of property files, which holds a collection of META SQL statements, mapping rules and optional
      * features.
      * 
-     * @param propsName
+     * @param propsNames
      *            the names of property files, which holds a collection of META SQL statements, mapping rules and
      *            optional features
      */
@@ -236,59 +241,59 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     /**
      * Sets the names of files, which holds a collection of META SQL statements, mapping rules and optional features.
      * 
-     * @param propsName
+     * @param metaFilesNames
      *            the names of files, which holds a collection of META SQL statements, mapping rules and optional
      *            features
      */
-    public void setMetaFilesNames(List<String> propsNames) {
-        this.metaFilesNames = propsNames;
+    public void setMetaFilesNames(List<String> metaFilesNames) {
+        this.metaFilesNames = metaFilesNames;
     }
 
     /**
      * Sets the names of files, which holds a collection of META SQL statements, mapping rules and optional features.
      * 
-     * @param propsName
+     * @param metaFilesNames
      *            the names of files, which holds a collection of META SQL statements, mapping rules and optional
      *            features
      */
-    public void setMetaFilesNames(String... propsNames) {
+    public void setMetaFilesNames(String... metaFilesNames) {
         this.metaFilesNames = new ArrayList<String>();
-        Collections.addAll(metaFilesNames, propsNames);
+        Collections.addAll(this.metaFilesNames, metaFilesNames);
     }
 
     /**
-     * Returns the collection of META SQL statements, mapping rules and optional features.
+     * Returns the collection of the META SQL statements, mapping rules and optional features.
      * 
-     * @return the collection of META SQL statements, mapping rules and optional features
+     * @return the collection of the META SQL statements, mapping rules and optional features
      */
     public Properties getMetaProps() {
         return metaProps;
     }
 
     /**
-     * Sets the collection of META SQL statements, mapping rules and optional features.
+     * Sets the collection of the META SQL statements, mapping rules and optional features.
      * 
      * @param props
-     *            the collection of META SQL statements, mapping rules and optional features
+     *            the collection of the META SQL statements, mapping rules and optional features
      */
     public void setMetaProps(Properties props) {
         this.metaProps = props;
     }
 
     /**
-     * Returns the String representation of META SQL statements, mapping rules and optional features.
+     * Returns the String representation of the META SQL statements, mapping rules and optional features.
      * 
-     * @return the String representation of META SQL statements, mapping rules and optional features
+     * @return the String representation of the META SQL statements, mapping rules and optional features
      */
     public StringBuilder getMetaStatements() {
         return metaStatements;
     }
 
     /**
-     * Sets the String representation of META SQL statements, mapping rules and optional features.
+     * Sets the String representation of the META SQL statements, mapping rules and optional features.
      * 
-     * @param props
-     *            the String representation of META SQL statements, mapping rules and optional features
+     * @param metaStatements
+     *            the String representation of the META SQL statements, mapping rules and optional features
      */
     public void setMetaStatements(StringBuilder metaStatements) {
         this.metaStatements = metaStatements;
@@ -314,19 +319,19 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
-     * Returns the properties name prefix to filter the META SQL statements, mapping rules and optional features.
+     * Returns the name of the filter to filter the META SQL statements, mapping rules and optional features.
      * 
-     * @return the properties name prefix to filter the META SQL statements, mapping rules and optional features
+     * @return the name of the filter to filter the META SQL statements, mapping rules and optional features
      */
     public String getFilter() {
         return filter;
     }
 
     /**
-     * Sets the properties name prefix to filter the META SQL statements, mapping rules and optional features.
+     * Sets the name of the filter to filter the META SQL statements, mapping rules and optional features.
      * 
      * @param filter
-     *            the properties name prefix to filter the META SQL statements, mapping rules and optional features
+     *            the name of the filter to filter the META SQL statements, mapping rules and optional features
      */
     public void setFilter(String filter) {
         this.filter = filter;
@@ -382,7 +387,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
-     * Adds a new custom META types.
+     * Adds a new custom META type.
      * 
      * @param customType
      *            the custom META type
@@ -398,8 +403,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * 
      * @return the only statements and rules, which are picked up from the properties repository
      */
-    public String[] getSelectQueries() {
-        return selectQueries;
+    public String[] getOnlyStatements() {
+        return onlyStatements;
     }
 
     /**
@@ -408,11 +413,11 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * @param selectQueries
      *            the only statements and rules, which are picked up from the properties repository
      */
-    public void setSelectQueries(String[] selectQueries) {
+    public void setOnlyStatements(String[] selectQueries) {
         if (selectQueries != null)
-            this.selectQueries = Arrays.copyOf(selectQueries, selectQueries.length);
+            this.onlyStatements = Arrays.copyOf(selectQueries, selectQueries.length);
         else
-            this.selectQueries = null;
+            this.onlyStatements = null;
     }
 
     /**
@@ -435,9 +440,9 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
-     * Returns the internal SQL Engine loader.
+     * Returns the internal SQL engine or processor loader.
      * 
-     * @return the internal SQL Engine loader
+     * @return the internal SQL engine or processor loader
      */
     public SqlEngineFactory getLoader() {
         if (loader != null)
