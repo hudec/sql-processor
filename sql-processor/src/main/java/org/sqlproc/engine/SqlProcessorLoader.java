@@ -58,31 +58,28 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * <pre>
  * &lt;beans ...&gt;
  *   ...
- *   &lt;bean id="typeFactory" class="org.sqlproc.engine.jdbc.type.JdbcTypeFactory" factory-method="getInstance" /&gt;
- * 
- *   &lt;bean id="sqlQueries" class="org.springframework.beans.factory.config.PropertiesFactoryBean"&gt;
- *     &lt;property name="location"&gt;
- *       &lt;value>classpath:queries.properties&lt;/value&gt;
- *     &lt;/property&gt;
- *   &lt;/bean&gt;
- *   
- *   &lt;bean id="sqlLoader" class="org.sqlproc.engine.SqlProcessorLoader"&gt;
- *     &lt;constructor-arg ref="sqlQueries" /&gt;
- *     &lt;constructor-arg ref="typeFactory" /&gt;
- *   &lt;/bean&gt;
+ *     &lt;bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory" init-method="init"&gt;
+ *         &lt;property name="metaFilesNames"&gt;
+ *             &lt;list&gt;
+ *                 &lt;value&gt;statements.qry&lt;/value&gt;
+ *             &lt;/list&gt;
+ *         &lt;/property&gt;
+ *     &lt;/bean&gt;
  * &lt;/beans&gt;
  * </pre>
  * 
  * and use the next code to obtain an instance of the SQL Query engine
  * 
  * <pre>
- * SqlQueryEngine sqlEngine = sqlLoader.getQueryEngine(&quot;ALL&quot;);
+ * SqlEngineFactory sqlFactory = context.getBean(&quot;sqlFactory&quot;, SqlEngineFactory.class);
+ * SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine(&quot;ALL&quot;);
  * </pre>
  * 
  * or the next code to obtain an instance of the SQL CRUD engine
  * 
  * <pre>
- * SqlCrudEngine sqlEngine = sqlLoader.getCrudEngine(&quot;ALL&quot;);
+ * SqlEngineFactory sqlFactory = context.getBean(&quot;sqlFactory&quot;, SqlEngineFactory.class);
+ * SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine(&quot;ALL&quot;);
  * </pre>
  * <p>
  * Another possibility is to utilize {@link SqlFilesLoader}.
@@ -90,7 +87,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * <pre>
  * SqlFilesLoader loader = new SqlFilesLoader(&quot;statements.qry&quot;, this.getClass());
  * SqlProcessorLoader sqlLoader = new SqlProcessorLoader(loader.getStatements(), JdbcTypeFactory.getInstance());
- * SqlEngine sqlEngine = sqlLoader.getQueryEngine(&quot;ALL&quot;);
+ * SqlQueryEngine sqlEngine = sqlLoader.getQueryEngine(&quot;ALL&quot;);
  * </pre>
  * 
  * <p>
