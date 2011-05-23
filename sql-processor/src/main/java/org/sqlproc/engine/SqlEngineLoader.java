@@ -320,9 +320,6 @@ public class SqlEngineLoader implements SqlEngineFactory {
 
             StringBuilder errors = new StringBuilder();
 
-            Map<String, String> mapAll = new HashMap<String, String>();
-            // TODO - control duplicate statements, not finished
-
             for (Entry<Object, Object> entry : props.entrySet()) {
                 String key = ((String) entry.getKey()).toUpperCase();
                 String value = (String) entry.getValue();
@@ -337,36 +334,28 @@ public class SqlEngineLoader implements SqlEngineFactory {
                 if (key.startsWith(QUERY_PREFIX)) {
                     name = key.substring(lQUERY_PREFIX);
                     if (setSelectQueries == null || setSelectQueries.contains(name)) {
-                        if (mapAll.containsKey(key)) {
-                            errors.append("Duplicate QRY: ").append(key).append("\n");
-                        } else if (!sqls.containsKey(name) || keyWithFilterPrefix) {
+                        if (!sqls.containsKey(name) || keyWithFilterPrefix) {
                             sqls.put(name, value);
                         }
                     }
                 } else if (key.startsWith(CRUD_PREFIX)) {
                     name = key.substring(lCRUD_PREFIX);
                     if (setSelectQueries == null || setSelectQueries.contains(name)) {
-                        if (mapAll.containsKey(key)) {
-                            errors.append("Duplicate CRUD: ").append(key).append("\n");
-                        } else if (!cruds.containsKey(name) || keyWithFilterPrefix) {
+                        if (!cruds.containsKey(name) || keyWithFilterPrefix) {
                             cruds.put(name, value);
                         }
                     }
                 } else if (key.startsWith(CALL_PREFIX)) {
                     name = key.substring(lCALL_PREFIX);
                     if (setSelectQueries == null || setSelectQueries.contains(name)) {
-                        if (mapAll.containsKey(key)) {
-                            errors.append("Duplicate CALL: ").append(key).append("\n");
-                        } else if (!calls.containsKey(name) || keyWithFilterPrefix) {
+                        if (!calls.containsKey(name) || keyWithFilterPrefix) {
                             calls.put(name, value);
                         }
                     }
                 } else if (key.startsWith(OUTPUT_MAPPING_PREFIX)) {
                     name = key.substring(lOUTPUT_MAPPING_PREFIX);
                     if (setSelectQueries == null || setSelectQueries.contains(name)) {
-                        if (mapAll.containsKey(key)) {
-                            errors.append("Duplicate OUT: ").append(key).append("\n");
-                        } else if (!outs.containsKey(name) || keyWithFilterPrefix) {
+                        if (!outs.containsKey(name) || keyWithFilterPrefix) {
                             outs.put(name, value);
                         }
                     }
@@ -382,6 +371,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
                     // ignore the rest
                     continue;
                 }
+
             }
 
             for (String name : outs.keySet()) {
