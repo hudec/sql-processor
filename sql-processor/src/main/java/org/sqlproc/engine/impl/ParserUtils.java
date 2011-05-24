@@ -186,7 +186,7 @@ class ParserUtils {
         return null;
     }
 
-    public static ErrorMsg create(RecognitionException ex, String[] tokenNames) {
+    public static ErrorMsg create(String name, RecognitionException ex, String[] tokenNames) {
         String msg = "Parse error";
         try {
             if (ex instanceof MismatchedTokenException) {
@@ -203,10 +203,10 @@ class ParserUtils {
         } catch (Exception e) {
             // ignore
         }
-        return create(msg, ex, tokenNames);
+        return create(name, msg, ex, tokenNames);
     }
 
-    public static ErrorMsg create(String msg, RecognitionException ex, String[] tokenNames) {
+    public static ErrorMsg create(String name, String msg, RecognitionException ex, String[] tokenNames) {
         int length = 1;
         if (ex.token != null && ex.token.getText() != null) {
             length = ex.token.getText().length();
@@ -215,9 +215,9 @@ class ParserUtils {
             Token t = ex.token;
             if (t instanceof CommonToken) {
                 CommonToken ct = (CommonToken) t;
-                return new ErrorMsg(msg, ct.getStartIndex(), ct.getStopIndex() - ct.getStartIndex(), ct.getLine());
+                return new ErrorMsg(name, msg, ct.getStartIndex(), ct.getStopIndex() - ct.getStartIndex(), ct.getLine());
             }
         }
-        return new ErrorMsg(msg, ex.index >= 0 ? ex.index : 0, length, ex.line);
+        return new ErrorMsg(name, msg, ex.index >= 0 ? ex.index : 0, length, ex.line);
     }
 }

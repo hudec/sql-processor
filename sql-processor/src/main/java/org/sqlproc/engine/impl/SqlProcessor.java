@@ -113,11 +113,15 @@ public class SqlProcessor {
     /**
      * The collection of all artifacts to enable duplicity control.
      */
-    Set<String> allArtifactsNames;
+    private Set<String> allArtifactsNames;
     /**
      * The list of all warnings.
      */
-    List<String> warnings;
+    private List<String> warnings;
+    /**
+     * The list of all errors.
+     */
+    private List<ErrorMsg> errors;
 
     /**
      * Simple factory method (design pattern). The new instance is created from the String input by the ANTLR parser.
@@ -153,9 +157,9 @@ public class SqlProcessor {
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }
-            if (!lexer.getErrors().isEmpty() || !parser.getErrors().isEmpty()) {
+            if (!lexer.getErrors().isEmpty() || !parser.getErrors().isEmpty() || !processor.getErrors().isEmpty()) {
                 throw new SqlEngineException("Statement error for '" + sbStatements + "'", lexer.getErrors(),
-                        parser.getErrors());
+                        parser.getErrors(), processor.getErrors());
             }
             return processor;
         } finally {
@@ -187,6 +191,7 @@ public class SqlProcessor {
             this.onlyStatements = onlyStatements;
         allArtifactsNames = new HashSet<String>();
         warnings = new ArrayList<String>();
+        errors = new ArrayList<ErrorMsg>();
     }
 
     /**
@@ -223,6 +228,8 @@ public class SqlProcessor {
      *            the name of the META SQL statement
      * @param statement
      *            the META SQL statement
+     * @param errors
+     *            the list of potential errors created during the ANTLR based parsing
      * @param activeFilters
      *            the active filters from the META SQL statement definition
      * @param filters
@@ -230,11 +237,17 @@ public class SqlProcessor {
      *            collections are taken into this instance of the SQL Processor
      * @return the indicator this statement was taken into this instance of the SQL Processor
      */
-    boolean addMetaStatement(String type, String name, SqlMetaStatement statement, List<String> activeFilters,
-            String... filters) {
+    boolean addMetaStatement(String type, String name, SqlMetaStatement statement, List<ErrorMsg> errors,
+            List<String> activeFilters, String... filters) {
         StatementType.valueOf(type);
-        if (nameControl(onlyStatements, name))
+        if (nameControl(onlyStatements, name)) {
+            addWarnings(errors);
             return false;
+        }
+        if (errors != null && !errors.isEmpty()) {
+            this.errors.addAll(errors);
+            return false;
+        }
         FilterStatus status = filtersControl(filters, activeFilters);
         if (status == FilterStatus.NOK) {
             return false;
@@ -290,6 +303,10 @@ public class SqlProcessor {
      *            the name of the output value mapping
      * @param mapping
      *            the output value mapping
+     * @param mapping
+     *            the output value mapping
+     * @param errors
+     *            the list of potential errors created during the ANTLR based parsing
      * @param activeFilters
      *            the active filters from the output value mapping definition
      * @param filters
@@ -297,11 +314,17 @@ public class SqlProcessor {
      *            collections are taken into this instance of the SQL Processor
      * @return the indicator this output value mapping was taken into this instance of the SQL Processor
      */
-    public boolean addMappingRule(String type, String name, SqlMappingRule mapping, List<String> activeFilters,
-            String... filters) {
+    public boolean addMappingRule(String type, String name, SqlMappingRule mapping, List<ErrorMsg> errors,
+            List<String> activeFilters, String... filters) {
         MappingType.valueOf(type);
-        if (nameControl(onlyStatements, name))
+        if (nameControl(onlyStatements, name)) {
+            addWarnings(errors);
             return false;
+        }
+        if (errors != null && !errors.isEmpty()) {
+            this.errors.addAll(errors);
+            return false;
+        }
         FilterStatus status = filtersControl(filters, activeFilters);
         if (status == FilterStatus.NOK) {
             return false;
@@ -364,6 +387,8 @@ public class SqlProcessor {
      *            the name of the optional feature
      * @param feature
      *            the optional feature
+     * @param errors
+     *            the list of potential errors created during the ANTLR based parsing
      * @param activeFilters
      *            the active filters from the optional feature definition
      * @param filters
@@ -371,8 +396,13 @@ public class SqlProcessor {
      *            collections are taken into this instance of the SQL Processor
      * @return the indicator this optional feature was taken into this instance of the SQL Processor
      */
-    public boolean addFeature(String type, String name, String feature, List<String> activeFilters, String... filters) {
+    public boolean addFeature(String type, String name, String feature, List<ErrorMsg> errors,
+            List<String> activeFilters, String... filters) {
         FeatureType.valueOf(type);
+        if (errors != null && !errors.isEmpty()) {
+            this.errors.addAll(errors);
+            return false;
+        }
         FilterStatus status = filtersControl(filters, activeFilters);
         if (status == FilterStatus.NOK) {
             return false;
@@ -437,12 +467,35 @@ public class SqlProcessor {
     }
 
     /**
+     * Adds all parsing errors as warnings.
+     * 
+     * @param errors
+     *            the list of potential errors created during the ANTLR based parsing
+     */
+    protected void addWarnings(List<ErrorMsg> errors) {
+        if (errors == null || errors.isEmpty())
+            return;
+        for (ErrorMsg errorMsg : errors) {
+            warnings.add(errorMsg.toString());
+        }
+    }
+
+    /**
      * Returns the list of warnings, which can happen in the process of this instance creation and ALTLR parsing
      * 
      * @return the list of warnings
      */
     public List<String> getWarnings() {
         return warnings;
+    }
+
+    /**
+     * Returns the list of error, which can happen in the process of this instance creation and ALTLR parsing
+     * 
+     * @return the list of errors
+     */
+    public List<ErrorMsg> getErrors() {
+        return errors;
     }
 
     /**

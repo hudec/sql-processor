@@ -89,7 +89,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public SqlCrudEngine(String name, String statement, SqlTypeFactory typeFactory) throws SqlEngineException {
 
-        super(name, SqlMetaStatement.getInstance(statement, typeFactory), null, null, null, typeFactory);
+        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), null, null, null, typeFactory);
     }
 
     /**
@@ -116,7 +116,7 @@ public class SqlCrudEngine extends SqlEngine {
     public SqlCrudEngine(String name, String statement, SqlMonitor monitor, Map<String, Object> features,
             SqlTypeFactory typeFactory) throws SqlEngineException {
 
-        super(name, SqlMetaStatement.getInstance(statement, typeFactory), null, monitor, features, typeFactory);
+        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), null, monitor, features, typeFactory);
     }
 
     /**

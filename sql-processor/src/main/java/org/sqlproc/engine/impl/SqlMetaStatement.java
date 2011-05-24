@@ -90,6 +90,8 @@ public class SqlMetaStatement implements SqlMetaElement {
      * Simple factory method (design pattern). The new instance of precompiled META SQL is created from the String input
      * by the ANTLR parser.
      * 
+     * @param name
+     *            the name of this META SQL query/statement
      * @param statement
      *            String representation of META SQL query/statement
      * @param typeFactory
@@ -98,7 +100,8 @@ public class SqlMetaStatement implements SqlMetaElement {
      * @throws SqlEngineException
      *             in the case of ANTLR parsing exception
      */
-    public static SqlMetaStatement getInstance(String statement, SqlTypeFactory typeFactory) throws SqlEngineException {
+    public static SqlMetaStatement getInstance(String name, String statement, SqlTypeFactory typeFactory)
+            throws SqlEngineException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> getInstance, statement=" + statement);
         }
@@ -109,7 +112,7 @@ public class SqlMetaStatement implements SqlMetaElement {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
             try {
-                stmt = parser.meta(typeFactory, false);
+                stmt = parser.meta(name, typeFactory, false);
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }

@@ -19,13 +19,14 @@ import org.sqlproc.engine.type.SqlMetaType;
 
 @lexer::members {
   private List<ErrorMsg> errors = new ArrayList<ErrorMsg>();
+  
   public List<ErrorMsg> getErrors() {
     return errors;
   }
 
   public String getErrorMessage(RecognitionException e, String[] tokenNames) {
     String msg = super.getErrorMessage(e,tokenNames);
-    errors.add(ParserUtils.create(msg,e,tokenNames));
+    errors.add(ParserUtils.create(null,msg,e,tokenNames));
     return msg;
   }
 }
@@ -35,7 +36,10 @@ import org.sqlproc.engine.type.SqlMetaType;
     return input.LT(-1);
   }
 
+  private Stack artifactName = new Stack();
+  private Stack partialErrors = new Stack();
   private List<ErrorMsg> errors = new ArrayList<ErrorMsg>();
+  
   public List<ErrorMsg> getErrors() {
     return errors;
   }
@@ -43,7 +47,13 @@ import org.sqlproc.engine.type.SqlMetaType;
   @Override
   public void reportError(RecognitionException e) {
     String msg = super.getErrorMessage(e,tokenNames);
-    errors.add(ParserUtils.create(msg,e,tokenNames));
+    if ( artifactName.size()>0 ) {
+      String name = (String)artifactName.peek();
+      partialErrors.push(ParserUtils.create(name,msg,e,tokenNames));
+    }
+    else {
+      errors.add(ParserUtils.create(null,msg,e,tokenNames));
+    }
   }
   
   String getText(Token token) {
@@ -127,6 +137,35 @@ import org.sqlproc.engine.type.SqlMetaType;
       return false;
     return !onlyStatements.contains(name);
   }
+  
+  List<ErrorMsg> getPartialErrors() {
+    if (partialErrors.size()==0)
+      return null;
+    List<ErrorMsg> errorsList = new ArrayList<ErrorMsg>();
+    while ( partialErrors.size()>0 ) {
+      ErrorMsg errorMsg = (ErrorMsg) partialErrors.pop(); 
+      errorsList.add(errorMsg);
+    }
+    return errorsList;
+  }
+  
+  boolean add(SqlProcessor processor, String type, String name, SqlMetaStatement statement, List<String> activeFilters, String... filters) {
+    List<ErrorMsg> errorsList = getPartialErrors();
+    processor.addMetaStatement(type, name, statement, errorsList, activeFilters, filters);
+    return errorsList == null;
+  }
+  
+  boolean add(SqlProcessor processor, String type, String name, SqlMappingRule mapping, List<String> activeFilters, String... filters) {
+    List<ErrorMsg> errorsList = getPartialErrors();
+    processor.addMappingRule(type, name, mapping, errorsList, activeFilters, filters);
+    return errorsList == null;
+  }
+  
+  boolean add(SqlProcessor processor, String type, String name, String feature, List<String> activeFilters, String... filters) {
+    List<ErrorMsg> errorsList = getPartialErrors();
+    processor.addFeature(type, name, feature, errorsList, activeFilters, filters);
+    return errorsList == null;
+  }
 }
 
 parse [SqlTypeFactory _typeFactory, Map<String, Object> defaultFeatures, Set<String> onlyStatements, String[\] filters] returns [SqlProcessor processor]
@@ -134,18 +173,18 @@ parse [SqlTypeFactory _typeFactory, Map<String, Object> defaultFeatures, Set<Str
         :  
         WS* (
          (name=IDENT {skip=doSkip(onlyStatements,$name.text);} LPAREN type=STATEMENT {activeFilters = new ArrayList<String>();} (COMMA filter=IDENT {activeFilters.add($filter.text);})* RPAREN EQUALS 
-           metaStatement=meta[_typeFactory, skip] {processor.addMetaStatement($type.text, $name.text, metaStatement, activeFilters, filters);} SEMICOLON WS*)
+           metaStatement=meta[$name.text, _typeFactory, skip] {add(processor, $type.text, $name.text, metaStatement, activeFilters, filters);} SEMICOLON WS*)
          | (name=IDENT {skip=doSkip(onlyStatements,$name.text);} LPAREN type=MAPPING {activeFilters = new ArrayList<String>();} (COMMA filter=IDENT {activeFilters.add($filter.text);})* RPAREN EQUALS 
-           mappingRule=mapping[_typeFactory, skip] {processor.addMappingRule($type.text, $name.text, mappingRule, activeFilters, filters);} SEMICOLON WS*)
+           mappingRule=mapping[$name.text, _typeFactory, skip] {add(processor, $type.text, $name.text, mappingRule, activeFilters, filters);} SEMICOLON WS*)
          | (name=IDENT LPAREN type=OPTION {activeFilters = new ArrayList<String>();} (COMMA filter=IDENT {activeFilters.add($filter.text);})* RPAREN EQUALS 
-           text=option {processor.addFeature($type.text, $name.text, text.toString(), activeFilters, filters);} SEMICOLON WS*)
+           text=option[$name.text] {add(processor, $type.text, $name.text, text.toString(), activeFilters, filters);} SEMICOLON WS*)
         )+ EOF
 	;
 	
-meta [SqlTypeFactory _typeFactory, boolean _skip] returns [SqlMetaStatement metaStatement]
+meta [String name, SqlTypeFactory _typeFactory, boolean _skip] returns [SqlMetaStatement metaStatement]
 scope {StringBuilder text;boolean hasOutputMapping;SqlTypeFactory typeFactory;boolean skip;}
-@init {$metaStatement = new SqlMetaStatement(); $meta::text = new StringBuilder(); $meta::typeFactory=_typeFactory; $meta::skip=_skip;}
-@after {$metaStatement.setHasOutputMapping($meta::hasOutputMapping);}
+@init {artifactName.push(name); $metaStatement = new SqlMetaStatement(); $meta::text = new StringBuilder(); $meta::typeFactory=_typeFactory; $meta::skip=_skip;}
+@after {$metaStatement.setHasOutputMapping($meta::hasOutputMapping); artifactName.pop();}
 	: sql[metaStatement] EOF?
 	;
 
@@ -269,9 +308,10 @@ identifier returns [SqlMetaIdent result]
 	;
 
 
-mapping [SqlTypeFactory _typeFactory, boolean _skip] returns [SqlMappingRule sqlMapping]
+mapping [String name, SqlTypeFactory _typeFactory, boolean _skip] returns [SqlMappingRule sqlMapping]
 scope {SqlTypeFactory typeFactory;boolean skip;}
-@init {$sqlMapping = new SqlMappingRule();$mapping::typeFactory=_typeFactory; $mapping::skip=_skip;}
+@init {artifactName.push(name); $sqlMapping = new SqlMappingRule();$mapping::typeFactory=_typeFactory; $mapping::skip=_skip;}
+@after { artifactName.pop();}
 :
 (
   WS*
@@ -293,8 +333,9 @@ mappingItem returns[SqlMappingItem result]
 	 )?
 	;
 	
-option returns [StringBuilder text]
-@init {text = new StringBuilder();}
+option [String name] returns [StringBuilder text]
+@init {artifactName.push(name); text = new StringBuilder();}
+@after { artifactName.pop();}
 	: (~(SEMICOLON) {add(text);})+
 	;
 

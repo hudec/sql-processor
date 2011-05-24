@@ -156,8 +156,8 @@ public class SqlProcedureEngine extends SqlEngine {
     public SqlProcedureEngine(String name, String statement, String mapping, SqlTypeFactory typeFactory)
             throws SqlEngineException {
 
-        super(name, SqlMetaStatement.getInstance(statement, typeFactory), (mapping != null) ? SqlMappingRule
-                .getInstance(mapping, typeFactory) : null, null, null, typeFactory);
+        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), (mapping != null) ? SqlMappingRule
+                .getInstance(name, mapping, typeFactory) : null, null, null, typeFactory);
     }
 
     /**
@@ -186,8 +186,8 @@ public class SqlProcedureEngine extends SqlEngine {
     public SqlProcedureEngine(String name, String statement, String mapping, SqlMonitor monitor,
             Map<String, Object> features, SqlTypeFactory typeFactory) throws SqlEngineException {
 
-        super(name, SqlMetaStatement.getInstance(statement, typeFactory), (mapping != null) ? SqlMappingRule
-                .getInstance(mapping, typeFactory) : null, monitor, features, typeFactory);
+        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), (mapping != null) ? SqlMappingRule
+                .getInstance(name, mapping, typeFactory) : null, monitor, features, typeFactory);
     }
 
     /**

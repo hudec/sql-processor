@@ -7,13 +7,15 @@ package org.sqlproc.engine.impl;
  */
 public class ErrorMsg {
 
+    private String name;
     private String msg;
     private int start;
     private int length;
     private int line;
 
-    public ErrorMsg(String msg, int start, int length, int line) {
+    public ErrorMsg(String name, String msg, int start, int length, int line) {
         super();
+        this.name = name;
         this.msg = msg;
         this.start = start;
         this.length = length;
@@ -38,6 +40,7 @@ public class ErrorMsg {
 
     @Override
     public String toString() {
-        return msg + " (line:" + line + ", start:" + start + ", length:" + length + ")";
+        return ((name != null) ? name + ": " : "") + msg + " (line:" + line + ", start:" + start + ", length:" + length
+                + ")";
     }
 }

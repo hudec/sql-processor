@@ -385,7 +385,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
             for (String name : sqls.keySet()) {
                 SqlMetaStatement stmt = null;
                 try {
-                    stmt = SqlMetaStatement.getInstance(sqls.get(name), this.composedTypeFactory);
+                    stmt = SqlMetaStatement.getInstance(name, sqls.get(name), this.composedTypeFactory);
                 } catch (SqlEngineException see) {
                     errors.append(name + ":" + see.getMessage());
                     continue;
@@ -402,9 +402,9 @@ public class SqlEngineLoader implements SqlEngineFactory {
                                 errors.append("For IN/OUT doesn't exist reference: ").append(name).append("->")
                                         .append(sMapping).append("\n");
                             else
-                                mapping = SqlMappingRule.getInstance(sRealMapping, this.composedTypeFactory);
+                                mapping = SqlMappingRule.getInstance(name, sRealMapping, this.composedTypeFactory);
                         } else if (!sMapping.isEmpty()) {
-                            mapping = SqlMappingRule.getInstance(sMapping, this.composedTypeFactory);
+                            mapping = SqlMappingRule.getInstance(name, sMapping, this.composedTypeFactory);
                         } else {
                             mapping = new SqlMappingRule();
                         }
@@ -422,7 +422,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
             for (String name : cruds.keySet()) {
                 SqlMetaStatement stmt = null;
                 try {
-                    stmt = SqlMetaStatement.getInstance(cruds.get(name), this.composedTypeFactory);
+                    stmt = SqlMetaStatement.getInstance(name, cruds.get(name), this.composedTypeFactory);
                 } catch (SqlEngineException see) {
                     errors.append(see.getMessage());
                     continue;
@@ -436,7 +436,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
             for (String name : calls.keySet()) {
                 SqlMetaStatement stmt = null;
                 try {
-                    stmt = SqlMetaStatement.getInstance(calls.get(name), this.composedTypeFactory);
+                    stmt = SqlMetaStatement.getInstance(name, calls.get(name), this.composedTypeFactory);
                 } catch (SqlEngineException see) {
                     errors.append(name + ":" + see.getMessage());
                     continue;
@@ -451,9 +451,9 @@ public class SqlEngineLoader implements SqlEngineFactory {
                                 errors.append("For IN/OUT doesn't exist reference: ").append(name).append("->")
                                         .append(sMapping).append("\n");
                             else
-                                mapping = SqlMappingRule.getInstance(sRealMapping, this.composedTypeFactory);
+                                mapping = SqlMappingRule.getInstance(name, sRealMapping, this.composedTypeFactory);
                         } else if (!sMapping.isEmpty()) {
-                            mapping = SqlMappingRule.getInstance(sMapping, this.composedTypeFactory);
+                            mapping = SqlMappingRule.getInstance(name, sMapping, this.composedTypeFactory);
                         } else {
                             mapping = new SqlMappingRule();
                         }

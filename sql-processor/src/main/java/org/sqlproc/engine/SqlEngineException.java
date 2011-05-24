@@ -43,13 +43,32 @@ public class SqlEngineException extends RuntimeException {
      *            the optional list of (ANTLR) lexer errors
      * @param parserErrors
      *            the optional list of (ANTLR) parser errors
+     * @param processorErrors
+     *            the optional list of (ANTLR) processor errors
      */
-    public SqlEngineException(String msg, List<ErrorMsg> lexerErrors, List<ErrorMsg> parserErrors) {
+    public SqlEngineException(String msg, List<ErrorMsg> lexerErrors, List<ErrorMsg> parserErrors,
+            List<ErrorMsg> processorErrors) {
         super(msg);
         if (lexerErrors != null && !lexerErrors.isEmpty())
             errors.addAll(lexerErrors);
         if (parserErrors != null && !parserErrors.isEmpty())
             errors.addAll(parserErrors);
+        if (processorErrors != null && !processorErrors.isEmpty())
+            errors.addAll(processorErrors);
+    }
+
+    /**
+     * Creates a new instance of the exception in the process of lexer and parser processing.
+     * 
+     * @param msg
+     *            the error message
+     * @param lexerErrors
+     *            the optional list of (ANTLR) lexer errors
+     * @param parserErrors
+     *            the optional list of (ANTLR) parser errors
+     */
+    public SqlEngineException(String msg, List<ErrorMsg> lexerErrors, List<ErrorMsg> parserErrors) {
+        this(msg, lexerErrors, parserErrors, null);
     }
 
     /**

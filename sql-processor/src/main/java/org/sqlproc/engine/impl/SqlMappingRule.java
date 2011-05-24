@@ -44,6 +44,8 @@ public class SqlMappingRule {
      * Simple factory method (design pattern). The new instance of precompiled mapping rule is created from the String
      * input by the ANTLR parser.
      * 
+     * @param name
+     *            the name of this mapping rule
      * @param mappingStatement
      *            String representation of mapping rule
      * @param typeFactory
@@ -52,7 +54,7 @@ public class SqlMappingRule {
      * @throws SqlEngineException
      *             in the case of ANTRL parsing exception
      */
-    public static SqlMappingRule getInstance(String mappingStatement, SqlTypeFactory typeFactory)
+    public static SqlMappingRule getInstance(String name, String mappingStatement, SqlTypeFactory typeFactory)
             throws SqlEngineException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> getInstance, mappingStatement=" + mappingStatement);
@@ -64,7 +66,7 @@ public class SqlMappingRule {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
             try {
-                mapping = parser.mapping(typeFactory, false);
+                mapping = parser.mapping(name, typeFactory, false);
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }
