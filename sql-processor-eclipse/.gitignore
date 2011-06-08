@@ -1,0 +1,14 @@
+target
+build
+!.classpath
+!.project
+!.settings
+.DS_Store
+*.iml
+*.ipr
+*.iws
+*.log
+.springBeans
+.pydevproject
+*.swp
+bin

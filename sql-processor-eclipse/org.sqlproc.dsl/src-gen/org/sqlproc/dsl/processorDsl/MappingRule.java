@@ -1,0 +1,130 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ */
+package org.sqlproc.dsl.processorDsl;
+
+import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EObject;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Mapping Rule</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.MappingRule#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.MappingRule#getType <em>Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.MappingRule#getFilters <em>Filters</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.MappingRule#getMapping <em>Mapping</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingRule()
+ * @model
+ * @generated
+ */
+public interface MappingRule extends EObject
+{
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Name</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' containment reference.
+   * @see #setName(Name)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingRule_Name()
+   * @model containment="true"
+   * @generated
+   */
+  Name getName();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.MappingRule#getName <em>Name</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' containment reference.
+   * @see #getName()
+   * @generated
+   */
+  void setName(Name value);
+
+  /**
+   * Returns the value of the '<em><b>Type</b></em>' attribute.
+   * The literals are from the enumeration {@link org.sqlproc.dsl.processorDsl.MAPPING_TYPE}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Type</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Type</em>' attribute.
+   * @see org.sqlproc.dsl.processorDsl.MAPPING_TYPE
+   * @see #setType(MAPPING_TYPE)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingRule_Type()
+   * @model
+   * @generated
+   */
+  MAPPING_TYPE getType();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.MappingRule#getType <em>Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Type</em>' attribute.
+   * @see org.sqlproc.dsl.processorDsl.MAPPING_TYPE
+   * @see #getType()
+   * @generated
+   */
+  void setType(MAPPING_TYPE value);
+
+  /**
+   * Returns the value of the '<em><b>Filters</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.Filter}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Filters</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Filters</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingRule_Filters()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Filter> getFilters();
+
+  /**
+   * Returns the value of the '<em><b>Mapping</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Mapping</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Mapping</em>' containment reference.
+   * @see #setMapping(Mapping)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingRule_Mapping()
+   * @model containment="true"
+   * @generated
+   */
+  Mapping getMapping();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.MappingRule#getMapping <em>Mapping</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Mapping</em>' containment reference.
+   * @see #getMapping()
+   * @generated
+   */
+  void setMapping(Mapping value);
+
+} // MappingRule
