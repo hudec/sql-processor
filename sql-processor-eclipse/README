@@ -1,0 +1,7 @@
+To import into IDE the Eclipse 3.7 plus Xtext 2 are required.
+To build from the command line the Maven 3 is required plus
+the next command:
+ mvn3 clean install -Dtycho.targetPlatform=/home/hudec/eclipse
+
+The SQL Processor artifact file can be testx.qry accompanying
+this README.
