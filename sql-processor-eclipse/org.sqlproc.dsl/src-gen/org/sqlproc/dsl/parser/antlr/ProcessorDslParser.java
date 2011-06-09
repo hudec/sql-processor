@@ -25,7 +25,7 @@ public class ProcessorDslParser extends org.eclipse.xtext.parser.antlr.AbstractA
 	
 	@Override 
 	protected String getDefaultRuleName() {
-		return "Artifact";
+		return "Artifacts";
 	}
 	
 	public ProcessorDslGrammarAccess getGrammarAccess() {

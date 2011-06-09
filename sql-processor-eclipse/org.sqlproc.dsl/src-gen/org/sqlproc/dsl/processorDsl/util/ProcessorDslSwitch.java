@@ -75,10 +75,10 @@ public class ProcessorDslSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case ProcessorDslPackage.ARTIFACT:
+      case ProcessorDslPackage.ARTIFACTS:
       {
-        Artifact artifact = (Artifact)theEObject;
-        T result = caseArtifact(artifact);
+        Artifacts artifacts = (Artifacts)theEObject;
+        T result = caseArtifacts(artifacts);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -234,17 +234,17 @@ public class ProcessorDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Artifact</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Artifacts</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Artifact</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Artifacts</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseArtifact(Artifact object)
+  public T caseArtifacts(Artifacts object)
   {
     return null;
   }

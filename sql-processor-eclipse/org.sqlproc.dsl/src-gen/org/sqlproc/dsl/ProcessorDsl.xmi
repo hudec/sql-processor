@@ -6,9 +6,9 @@
   <metamodelDeclarations xsi:type="xtext:GeneratedMetamodel" name="processorDsl">
     <ePackage href="http://www.sqlproc.org/dsl/ProcessorDsl#/"/>
   </metamodelDeclarations>
-  <rules xsi:type="xtext:ParserRule" name="Artifact">
+  <rules xsi:type="xtext:ParserRule" name="Artifacts">
     <type metamodel="//@metamodelDeclarations.1">
-      <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//Artifact"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//Artifacts"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:RuleCall" cardinality="*" rule="//@rules.34"/>

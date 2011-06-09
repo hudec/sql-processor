@@ -37,7 +37,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getArtifactAccess().getAlternatives_1(), "rule__Artifact__Alternatives_1");
+					put(grammarAccess.getArtifactsAccess().getAlternatives_1(), "rule__Artifacts__Alternatives_1");
 					put(grammarAccess.getSqlFragmentAccess().getAlternatives(), "rule__SqlFragment__Alternatives");
 					put(grammarAccess.getSqlValueAccess().getAlternatives_0(), "rule__SqlValue__Alternatives_0");
 					put(grammarAccess.getSqlValueAccess().getAlternatives_1_0(), "rule__SqlValue__Alternatives_1_0");
@@ -66,10 +66,10 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureValueAccess().getAlternatives(), "rule__FeatureValue__Alternatives");
 					put(grammarAccess.getSTATEMEN_TYPEAccess().getAlternatives(), "rule__STATEMEN_TYPE__Alternatives");
 					put(grammarAccess.getOPTION_TYPEAccess().getAlternatives(), "rule__OPTION_TYPE__Alternatives");
-					put(grammarAccess.getArtifactAccess().getGroup(), "rule__Artifact__Group__0");
-					put(grammarAccess.getArtifactAccess().getGroup_1_0(), "rule__Artifact__Group_1_0__0");
-					put(grammarAccess.getArtifactAccess().getGroup_1_1(), "rule__Artifact__Group_1_1__0");
-					put(grammarAccess.getArtifactAccess().getGroup_1_2(), "rule__Artifact__Group_1_2__0");
+					put(grammarAccess.getArtifactsAccess().getGroup(), "rule__Artifacts__Group__0");
+					put(grammarAccess.getArtifactsAccess().getGroup_1_0(), "rule__Artifacts__Group_1_0__0");
+					put(grammarAccess.getArtifactsAccess().getGroup_1_1(), "rule__Artifacts__Group_1_1__0");
+					put(grammarAccess.getArtifactsAccess().getGroup_1_2(), "rule__Artifacts__Group_1_2__0");
 					put(grammarAccess.getMetaStatementAccess().getGroup(), "rule__MetaStatement__Group__0");
 					put(grammarAccess.getMetaStatementAccess().getGroup_3(), "rule__MetaStatement__Group_3__0");
 					put(grammarAccess.getSqlFragmentAccess().getGroup_1(), "rule__SqlFragment__Group_1__0");
@@ -133,9 +133,9 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOptionalFeatureAccess().getGroup_3(), "rule__OptionalFeature__Group_3__0");
 					put(grammarAccess.getNameAccess().getGroup(), "rule__Name__Group__0");
 					put(grammarAccess.getFilterAccess().getGroup(), "rule__Filter__Group__0");
-					put(grammarAccess.getArtifactAccess().getFeaturesAssignment_1_0_0(), "rule__Artifact__FeaturesAssignment_1_0_0");
-					put(grammarAccess.getArtifactAccess().getStatementsAssignment_1_1_0(), "rule__Artifact__StatementsAssignment_1_1_0");
-					put(grammarAccess.getArtifactAccess().getMappingsAssignment_1_2_0(), "rule__Artifact__MappingsAssignment_1_2_0");
+					put(grammarAccess.getArtifactsAccess().getFeaturesAssignment_1_0_0(), "rule__Artifacts__FeaturesAssignment_1_0_0");
+					put(grammarAccess.getArtifactsAccess().getStatementsAssignment_1_1_0(), "rule__Artifacts__StatementsAssignment_1_1_0");
+					put(grammarAccess.getArtifactsAccess().getMappingsAssignment_1_2_0(), "rule__Artifacts__MappingsAssignment_1_2_0");
 					put(grammarAccess.getMetaStatementAccess().getNameAssignment_0(), "rule__MetaStatement__NameAssignment_0");
 					put(grammarAccess.getMetaStatementAccess().getTypeAssignment_2(), "rule__MetaStatement__TypeAssignment_2");
 					put(grammarAccess.getMetaStatementAccess().getFiltersAssignment_3_1(), "rule__MetaStatement__FiltersAssignment_3_1");
@@ -233,7 +233,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
 		try {
 			org.sqlproc.dsl.ui.contentassist.antlr.internal.InternalProcessorDslParser typedParser = (org.sqlproc.dsl.ui.contentassist.antlr.internal.InternalProcessorDslParser) parser;
-			typedParser.entryRuleArtifact();
+			typedParser.entryRuleArtifacts();
 			return typedParser.getFollowElements();
 		} catch(RecognitionException ex) {
 			throw new RuntimeException(ex);

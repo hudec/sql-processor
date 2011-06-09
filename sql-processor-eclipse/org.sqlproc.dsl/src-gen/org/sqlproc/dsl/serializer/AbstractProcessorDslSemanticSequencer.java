@@ -13,7 +13,7 @@ import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEOb
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
-import org.sqlproc.dsl.processorDsl.Artifact;
+import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.Filter;
@@ -66,9 +66,9 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == ProcessorDslPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case ProcessorDslPackage.ARTIFACT:
-				if(context == grammarAccess.getArtifactRule()) {
-					sequence_Artifact_Artifact(context, (Artifact) semanticObject); 
+			case ProcessorDslPackage.ARTIFACTS:
+				if(context == grammarAccess.getArtifactsRule()) {
+					sequence_Artifacts_Artifacts(context, (Artifacts) semanticObject); 
 					return; 
 				}
 				else break;
@@ -211,7 +211,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    statements[0, *]
 	 *    mappings[0, *]
 	 */
-	protected void sequence_Artifact_Artifact(EObject context, Artifact semanticObject) {
+	protected void sequence_Artifacts_Artifacts(EObject context, Artifacts semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

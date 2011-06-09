@@ -94,7 +94,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
         
         @Override
         protected String getFirstRuleName() {
-        	return "Artifact";	
+        	return "Artifacts";	
        	}
        	
        	@Override
@@ -104,30 +104,30 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
 
 
-    // $ANTLR start "entryRuleArtifact"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:68:1: entryRuleArtifact returns [EObject current=null] : iv_ruleArtifact= ruleArtifact EOF ;
-    public final EObject entryRuleArtifact() throws RecognitionException {
+    // $ANTLR start "entryRuleArtifacts"
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:68:1: entryRuleArtifacts returns [EObject current=null] : iv_ruleArtifacts= ruleArtifacts EOF ;
+    public final EObject entryRuleArtifacts() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleArtifact = null;
+        EObject iv_ruleArtifacts = null;
 
 
         try {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:69:2: (iv_ruleArtifact= ruleArtifact EOF )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:70:2: iv_ruleArtifact= ruleArtifact EOF
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:69:2: (iv_ruleArtifacts= ruleArtifacts EOF )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:70:2: iv_ruleArtifacts= ruleArtifacts EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getArtifactRule()); 
+               newCompositeNode(grammarAccess.getArtifactsRule()); 
             }
-            pushFollow(FOLLOW_ruleArtifact_in_entryRuleArtifact75);
-            iv_ruleArtifact=ruleArtifact();
+            pushFollow(FOLLOW_ruleArtifacts_in_entryRuleArtifacts75);
+            iv_ruleArtifacts=ruleArtifacts();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleArtifact; 
+               current =iv_ruleArtifacts; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleArtifact85); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleArtifacts85); if (state.failed) return current;
 
             }
 
@@ -141,12 +141,12 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleArtifact"
+    // $ANTLR end "entryRuleArtifacts"
 
 
-    // $ANTLR start "ruleArtifact"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:77:1: ruleArtifact returns [EObject current=null] : ( (this_WS_0= RULE_WS )* ( ( ( (lv_features_1_0= ruleOptionalFeature ) ) (this_WS_2= RULE_WS )* ) | ( ( (lv_statements_3_0= ruleMetaStatement ) ) (this_WS_4= RULE_WS )* ) | ( ( (lv_mappings_5_0= ruleMappingRule ) ) (this_WS_6= RULE_WS )* ) )+ ) ;
-    public final EObject ruleArtifact() throws RecognitionException {
+    // $ANTLR start "ruleArtifacts"
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:77:1: ruleArtifacts returns [EObject current=null] : ( (this_WS_0= RULE_WS )* ( ( ( (lv_features_1_0= ruleOptionalFeature ) ) (this_WS_2= RULE_WS )* ) | ( ( (lv_statements_3_0= ruleMetaStatement ) ) (this_WS_4= RULE_WS )* ) | ( ( (lv_mappings_5_0= ruleMappingRule ) ) (this_WS_6= RULE_WS )* ) )+ ) ;
+    public final EObject ruleArtifacts() throws RecognitionException {
         EObject current = null;
 
         Token this_WS_0=null;
@@ -184,10 +184,10 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:81:3: this_WS_0= RULE_WS
             	    {
-            	    this_WS_0=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_ruleArtifact122); if (state.failed) return current;
+            	    this_WS_0=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_ruleArtifacts122); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
             	       
-            	          newLeafNode(this_WS_0, grammarAccess.getArtifactAccess().getWSTerminalRuleCall_0()); 
+            	          newLeafNode(this_WS_0, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_0()); 
             	          
             	    }
 
@@ -256,10 +256,10 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getArtifactAccess().getFeaturesOptionalFeatureParserRuleCall_1_0_0_0()); 
+            	      	        newCompositeNode(grammarAccess.getArtifactsAccess().getFeaturesOptionalFeatureParserRuleCall_1_0_0_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleOptionalFeature_in_ruleArtifact146);
+            	    pushFollow(FOLLOW_ruleOptionalFeature_in_ruleArtifacts146);
             	    lv_features_1_0=ruleOptionalFeature();
 
             	    state._fsp--;
@@ -267,7 +267,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getArtifactRule());
+            	      	            current = createModelElementForParent(grammarAccess.getArtifactsRule());
             	      	        }
             	             		add(
             	             			current, 
@@ -298,10 +298,10 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	    	case 1 :
             	    	    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:103:3: this_WS_2= RULE_WS
             	    	    {
-            	    	    this_WS_2=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_ruleArtifact158); if (state.failed) return current;
+            	    	    this_WS_2=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_ruleArtifacts158); if (state.failed) return current;
             	    	    if ( state.backtracking==0 ) {
             	    	       
-            	    	          newLeafNode(this_WS_2, grammarAccess.getArtifactAccess().getWSTerminalRuleCall_1_0_1()); 
+            	    	          newLeafNode(this_WS_2, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_0_1()); 
             	    	          
             	    	    }
 
@@ -333,10 +333,10 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getArtifactAccess().getStatementsMetaStatementParserRuleCall_1_1_0_0()); 
+            	      	        newCompositeNode(grammarAccess.getArtifactsAccess().getStatementsMetaStatementParserRuleCall_1_1_0_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleMetaStatement_in_ruleArtifact188);
+            	    pushFollow(FOLLOW_ruleMetaStatement_in_ruleArtifacts188);
             	    lv_statements_3_0=ruleMetaStatement();
 
             	    state._fsp--;
@@ -344,7 +344,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getArtifactRule());
+            	      	            current = createModelElementForParent(grammarAccess.getArtifactsRule());
             	      	        }
             	             		add(
             	             			current, 
@@ -375,10 +375,10 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	    	case 1 :
             	    	    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:126:3: this_WS_4= RULE_WS
             	    	    {
-            	    	    this_WS_4=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_ruleArtifact200); if (state.failed) return current;
+            	    	    this_WS_4=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_ruleArtifacts200); if (state.failed) return current;
             	    	    if ( state.backtracking==0 ) {
             	    	       
-            	    	          newLeafNode(this_WS_4, grammarAccess.getArtifactAccess().getWSTerminalRuleCall_1_1_1()); 
+            	    	          newLeafNode(this_WS_4, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_1_1()); 
             	    	          
             	    	    }
 
@@ -410,10 +410,10 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getArtifactAccess().getMappingsMappingRuleParserRuleCall_1_2_0_0()); 
+            	      	        newCompositeNode(grammarAccess.getArtifactsAccess().getMappingsMappingRuleParserRuleCall_1_2_0_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleMappingRule_in_ruleArtifact230);
+            	    pushFollow(FOLLOW_ruleMappingRule_in_ruleArtifacts230);
             	    lv_mappings_5_0=ruleMappingRule();
 
             	    state._fsp--;
@@ -421,7 +421,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getArtifactRule());
+            	      	            current = createModelElementForParent(grammarAccess.getArtifactsRule());
             	      	        }
             	             		add(
             	             			current, 
@@ -452,10 +452,10 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	    	case 1 :
             	    	    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:149:3: this_WS_6= RULE_WS
             	    	    {
-            	    	    this_WS_6=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_ruleArtifact242); if (state.failed) return current;
+            	    	    this_WS_6=(Token)match(input,RULE_WS,FOLLOW_RULE_WS_in_ruleArtifacts242); if (state.failed) return current;
             	    	    if ( state.backtracking==0 ) {
             	    	       
-            	    	          newLeafNode(this_WS_6, grammarAccess.getArtifactAccess().getWSTerminalRuleCall_1_2_1()); 
+            	    	          newLeafNode(this_WS_6, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_2_1()); 
             	    	          
             	    	    }
 
@@ -503,7 +503,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleArtifact"
+    // $ANTLR end "ruleArtifacts"
 
 
     // $ANTLR start "entryRuleMetaStatement"
@@ -13742,15 +13742,15 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
     }
  
 
-    public static final BitSet FOLLOW_ruleArtifact_in_entryRuleArtifact75 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleArtifact85 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WS_in_ruleArtifact122 = new BitSet(new long[]{0x0000000000020010L});
-    public static final BitSet FOLLOW_ruleOptionalFeature_in_ruleArtifact146 = new BitSet(new long[]{0x0000000000020012L});
-    public static final BitSet FOLLOW_RULE_WS_in_ruleArtifact158 = new BitSet(new long[]{0x0000000000020012L});
-    public static final BitSet FOLLOW_ruleMetaStatement_in_ruleArtifact188 = new BitSet(new long[]{0x0000000000020012L});
-    public static final BitSet FOLLOW_RULE_WS_in_ruleArtifact200 = new BitSet(new long[]{0x0000000000020012L});
-    public static final BitSet FOLLOW_ruleMappingRule_in_ruleArtifact230 = new BitSet(new long[]{0x0000000000020012L});
-    public static final BitSet FOLLOW_RULE_WS_in_ruleArtifact242 = new BitSet(new long[]{0x0000000000020012L});
+    public static final BitSet FOLLOW_ruleArtifacts_in_entryRuleArtifacts75 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleArtifacts85 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WS_in_ruleArtifacts122 = new BitSet(new long[]{0x0000000000020010L});
+    public static final BitSet FOLLOW_ruleOptionalFeature_in_ruleArtifacts146 = new BitSet(new long[]{0x0000000000020012L});
+    public static final BitSet FOLLOW_RULE_WS_in_ruleArtifacts158 = new BitSet(new long[]{0x0000000000020012L});
+    public static final BitSet FOLLOW_ruleMetaStatement_in_ruleArtifacts188 = new BitSet(new long[]{0x0000000000020012L});
+    public static final BitSet FOLLOW_RULE_WS_in_ruleArtifacts200 = new BitSet(new long[]{0x0000000000020012L});
+    public static final BitSet FOLLOW_ruleMappingRule_in_ruleArtifacts230 = new BitSet(new long[]{0x0000000000020012L});
+    public static final BitSet FOLLOW_RULE_WS_in_ruleArtifacts242 = new BitSet(new long[]{0x0000000000020012L});
     public static final BitSet FOLLOW_ruleMetaStatement_in_entryRuleMetaStatement282 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleMetaStatement292 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleName_in_ruleMetaStatement338 = new BitSet(new long[]{0x0000000000000020L});

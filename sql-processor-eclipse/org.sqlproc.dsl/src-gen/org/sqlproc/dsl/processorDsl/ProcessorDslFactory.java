@@ -26,13 +26,13 @@ public interface ProcessorDslFactory extends EFactory
   ProcessorDslFactory eINSTANCE = org.sqlproc.dsl.processorDsl.impl.ProcessorDslFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Artifact</em>'.
+   * Returns a new object of class '<em>Artifacts</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Artifact</em>'.
+   * @return a new object of class '<em>Artifacts</em>'.
    * @generated
    */
-  Artifact createArtifact();
+  Artifacts createArtifacts();
 
   /**
    * Returns a new object of class '<em>Meta Statement</em>'.

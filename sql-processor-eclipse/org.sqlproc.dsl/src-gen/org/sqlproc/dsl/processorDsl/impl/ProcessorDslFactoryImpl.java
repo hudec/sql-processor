@@ -68,7 +68,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     switch (eClass.getClassifierID())
     {
-      case ProcessorDslPackage.ARTIFACT: return createArtifact();
+      case ProcessorDslPackage.ARTIFACTS: return createArtifacts();
       case ProcessorDslPackage.META_STATEMENT: return createMetaStatement();
       case ProcessorDslPackage.SQL: return createSql();
       case ProcessorDslPackage.SQL_FRAGMENT: return createSqlFragment();
@@ -142,10 +142,10 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public Artifact createArtifact()
+  public Artifacts createArtifacts()
   {
-    ArtifactImpl artifact = new ArtifactImpl();
-    return artifact;
+    ArtifactsImpl artifacts = new ArtifactsImpl();
+    return artifacts;
   }
 
   /**

@@ -24,10 +24,10 @@
       <genEnumLiterals ecoreEnumLiteral="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OPTION_TYPE/SOPT"/>
       <genEnumLiterals ecoreEnumLiteral="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OPTION_TYPE/BOPT"/>
     </genEnums>
-    <genClasses ecoreClass="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Artifact">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Artifact/features"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Artifact/statements"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Artifact/mappings"/>
+    <genClasses ecoreClass="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Artifacts">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Artifacts/features"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Artifacts/statements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Artifacts/mappings"/>
     </genClasses>
     <genClasses ecoreClass="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MetaStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MetaStatement/name"/>

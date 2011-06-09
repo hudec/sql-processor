@@ -4,10 +4,12 @@ import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.validation.Check;
+import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Filter;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
@@ -21,6 +23,27 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Inject
     private IResourceServiceProvider.Registry resourceServiceProviderRegistry = IResourceServiceProvider.Registry.INSTANCE;
+
+    @Check
+    public void checkUniqueMetaStatementName(MetaStatement metaStatement) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(metaStatement);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+
+        for (MetaStatement metaStmt : artifacts.getStatements()) {
+            if (metaStmt == null || metaStmt == metaStatement)
+                continue;
+            if (equalsStatement(metaStatement, metaStmt)) {
+                error("Duplicate name : " + metaStatement.getName() + "[" + metaStatement.getType() + "]",
+                        ProcessorDslPackage.Literals.META_STATEMENT__NAME);
+                return;
+            }
+        }
+    }
+
+    // TODO, filtry muzou byt v ruznem poradi
 
     @Check
     public void checkDuplicityMetaStatement(MetaStatement metaStatement) {

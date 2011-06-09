@@ -16,8 +16,8 @@ import org.eclipse.xtext.service.AbstractElementFinder.*;
 public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
-	public class ArtifactElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Artifact");
+	public class ArtifactsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Artifacts");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cWSTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
@@ -34,7 +34,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMappingsMappingRuleParserRuleCall_1_2_0_0 = (RuleCall)cMappingsAssignment_1_2_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_1_2_1 = (RuleCall)cGroup_1_2.eContents().get(1);
 		
-		//Artifact:
+		//Artifacts:
 		//	WS* (features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS*)+;
 		public ParserRule getRule() { return rule; }
 
@@ -2409,7 +2409,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getBOPTBOPTKeyword_4_0() { return cBOPTBOPTKeyword_4_0; }
 	}
 	
-	private ArtifactElements pArtifact;
+	private ArtifactsElements pArtifacts;
 	private MetaStatementElements pMetaStatement;
 	private SqlElements pSql;
 	private SqlFragmentElements pSqlFragment;
@@ -2482,14 +2482,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 
 	
-	//Artifact:
+	//Artifacts:
 	//	WS* (features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS*)+;
-	public ArtifactElements getArtifactAccess() {
-		return (pArtifact != null) ? pArtifact : (pArtifact = new ArtifactElements());
+	public ArtifactsElements getArtifactsAccess() {
+		return (pArtifacts != null) ? pArtifacts : (pArtifacts = new ArtifactsElements());
 	}
 	
-	public ParserRule getArtifactRule() {
-		return getArtifactAccess().getRule();
+	public ParserRule getArtifactsRule() {
+		return getArtifactsAccess().getRule();
 	}
 
 	//MetaStatement:

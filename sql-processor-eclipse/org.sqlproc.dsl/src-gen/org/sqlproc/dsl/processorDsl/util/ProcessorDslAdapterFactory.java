@@ -78,9 +78,9 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
     new ProcessorDslSwitch<Adapter>()
     {
       @Override
-      public Adapter caseArtifact(Artifact object)
+      public Adapter caseArtifacts(Artifacts object)
       {
-        return createArtifactAdapter();
+        return createArtifactsAdapter();
       }
       @Override
       public Adapter caseMetaStatement(MetaStatement object)
@@ -210,16 +210,16 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.Artifact <em>Artifact</em>}'.
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.Artifacts <em>Artifacts</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.sqlproc.dsl.processorDsl.Artifact
+   * @see org.sqlproc.dsl.processorDsl.Artifacts
    * @generated
    */
-  public Adapter createArtifactAdapter()
+  public Adapter createArtifactsAdapter()
   {
     return null;
   }

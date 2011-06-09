@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.sqlproc.dsl.processorDsl.Artifact;
+import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.Filter;
@@ -51,7 +51,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass artifactEClass = null;
+  private EClass artifactsEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -289,9 +289,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getArtifact()
+  public EClass getArtifacts()
   {
-    return artifactEClass;
+    return artifactsEClass;
   }
 
   /**
@@ -299,9 +299,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getArtifact_Features()
+  public EReference getArtifacts_Features()
   {
-    return (EReference)artifactEClass.getEStructuralFeatures().get(0);
+    return (EReference)artifactsEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -309,9 +309,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getArtifact_Statements()
+  public EReference getArtifacts_Statements()
   {
-    return (EReference)artifactEClass.getEStructuralFeatures().get(1);
+    return (EReference)artifactsEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -319,9 +319,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getArtifact_Mappings()
+  public EReference getArtifacts_Mappings()
   {
-    return (EReference)artifactEClass.getEStructuralFeatures().get(2);
+    return (EReference)artifactsEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1224,10 +1224,10 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     isCreated = true;
 
     // Create classes and their features
-    artifactEClass = createEClass(ARTIFACT);
-    createEReference(artifactEClass, ARTIFACT__FEATURES);
-    createEReference(artifactEClass, ARTIFACT__STATEMENTS);
-    createEReference(artifactEClass, ARTIFACT__MAPPINGS);
+    artifactsEClass = createEClass(ARTIFACTS);
+    createEReference(artifactsEClass, ARTIFACTS__FEATURES);
+    createEReference(artifactsEClass, ARTIFACTS__STATEMENTS);
+    createEReference(artifactsEClass, ARTIFACTS__MAPPINGS);
 
     metaStatementEClass = createEClass(META_STATEMENT);
     createEReference(metaStatementEClass, META_STATEMENT__NAME);
@@ -1371,10 +1371,10 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     // Add supertypes to classes
 
     // Initialize classes and features; add operations and parameters
-    initEClass(artifactEClass, Artifact.class, "Artifact", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getArtifact_Features(), this.getOptionalFeature(), null, "features", null, 0, -1, Artifact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getArtifact_Statements(), this.getMetaStatement(), null, "statements", null, 0, -1, Artifact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getArtifact_Mappings(), this.getMappingRule(), null, "mappings", null, 0, -1, Artifact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(artifactsEClass, Artifacts.class, "Artifacts", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getArtifacts_Features(), this.getOptionalFeature(), null, "features", null, 0, -1, Artifacts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getArtifacts_Statements(), this.getMetaStatement(), null, "statements", null, 0, -1, Artifacts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getArtifacts_Mappings(), this.getMappingRule(), null, "mappings", null, 0, -1, Artifacts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(metaStatementEClass, MetaStatement.class, "MetaStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getMetaStatement_Name(), this.getName_(), null, "name", null, 0, 1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

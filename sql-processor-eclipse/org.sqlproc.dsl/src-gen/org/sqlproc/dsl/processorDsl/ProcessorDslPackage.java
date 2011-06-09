@@ -61,14 +61,14 @@ public interface ProcessorDslPackage extends EPackage
   ProcessorDslPackage eINSTANCE = org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl.init();
 
   /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ArtifactImpl <em>Artifact</em>}' class.
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl <em>Artifacts</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.ArtifactImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getArtifact()
+   * @see org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getArtifacts()
    * @generated
    */
-  int ARTIFACT = 0;
+  int ARTIFACTS = 0;
 
   /**
    * The feature id for the '<em><b>Features</b></em>' containment reference list.
@@ -77,7 +77,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ARTIFACT__FEATURES = 0;
+  int ARTIFACTS__FEATURES = 0;
 
   /**
    * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -86,7 +86,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ARTIFACT__STATEMENTS = 1;
+  int ARTIFACTS__STATEMENTS = 1;
 
   /**
    * The feature id for the '<em><b>Mappings</b></em>' containment reference list.
@@ -95,16 +95,16 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ARTIFACT__MAPPINGS = 2;
+  int ARTIFACTS__MAPPINGS = 2;
 
   /**
-   * The number of structural features of the '<em>Artifact</em>' class.
+   * The number of structural features of the '<em>Artifacts</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ARTIFACT_FEATURE_COUNT = 3;
+  int ARTIFACTS_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaStatementImpl <em>Meta Statement</em>}' class.
@@ -1104,47 +1104,47 @@ public interface ProcessorDslPackage extends EPackage
 
 
   /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.Artifact <em>Artifact</em>}'.
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.Artifacts <em>Artifacts</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Artifact</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Artifact
+   * @return the meta object for class '<em>Artifacts</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Artifacts
    * @generated
    */
-  EClass getArtifact();
+  EClass getArtifacts();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifact#getFeatures <em>Features</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getFeatures <em>Features</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Features</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Artifact#getFeatures()
-   * @see #getArtifact()
+   * @see org.sqlproc.dsl.processorDsl.Artifacts#getFeatures()
+   * @see #getArtifacts()
    * @generated
    */
-  EReference getArtifact_Features();
+  EReference getArtifacts_Features();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifact#getStatements <em>Statements</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getStatements <em>Statements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Statements</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Artifact#getStatements()
-   * @see #getArtifact()
+   * @see org.sqlproc.dsl.processorDsl.Artifacts#getStatements()
+   * @see #getArtifacts()
    * @generated
    */
-  EReference getArtifact_Statements();
+  EReference getArtifacts_Statements();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifact#getMappings <em>Mappings</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getMappings <em>Mappings</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Mappings</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Artifact#getMappings()
-   * @see #getArtifact()
+   * @see org.sqlproc.dsl.processorDsl.Artifacts#getMappings()
+   * @see #getArtifacts()
    * @generated
    */
-  EReference getArtifact_Mappings();
+  EReference getArtifacts_Mappings();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.MetaStatement <em>Meta Statement</em>}'.
@@ -2103,14 +2103,14 @@ public interface ProcessorDslPackage extends EPackage
   interface Literals
   {
     /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ArtifactImpl <em>Artifact</em>}' class.
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl <em>Artifacts</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.ArtifactImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getArtifact()
+     * @see org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getArtifacts()
      * @generated
      */
-    EClass ARTIFACT = eINSTANCE.getArtifact();
+    EClass ARTIFACTS = eINSTANCE.getArtifacts();
 
     /**
      * The meta object literal for the '<em><b>Features</b></em>' containment reference list feature.
@@ -2118,7 +2118,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ARTIFACT__FEATURES = eINSTANCE.getArtifact_Features();
+    EReference ARTIFACTS__FEATURES = eINSTANCE.getArtifacts_Features();
 
     /**
      * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
@@ -2126,7 +2126,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ARTIFACT__STATEMENTS = eINSTANCE.getArtifact_Statements();
+    EReference ARTIFACTS__STATEMENTS = eINSTANCE.getArtifacts_Statements();
 
     /**
      * The meta object literal for the '<em><b>Mappings</b></em>' containment reference list feature.
@@ -2134,7 +2134,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ARTIFACT__MAPPINGS = eINSTANCE.getArtifact_Mappings();
+    EReference ARTIFACTS__MAPPINGS = eINSTANCE.getArtifacts_Mappings();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaStatementImpl <em>Meta Statement</em>}' class.

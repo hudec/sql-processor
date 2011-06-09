@@ -104,25 +104,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
 
-    // $ANTLR start "entryRuleArtifact"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:62:1: entryRuleArtifact : ruleArtifact EOF ;
-    public final void entryRuleArtifact() throws RecognitionException {
+    // $ANTLR start "entryRuleArtifacts"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:62:1: entryRuleArtifacts : ruleArtifacts EOF ;
+    public final void entryRuleArtifacts() throws RecognitionException {
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:63:1: ( ruleArtifact EOF )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:64:1: ruleArtifact EOF
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:63:1: ( ruleArtifacts EOF )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:64:1: ruleArtifacts EOF
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactRule()); 
+               before(grammarAccess.getArtifactsRule()); 
             }
-            pushFollow(FOLLOW_ruleArtifact_in_entryRuleArtifact67);
-            ruleArtifact();
+            pushFollow(FOLLOW_ruleArtifacts_in_entryRuleArtifacts67);
+            ruleArtifacts();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactRule()); 
+               after(grammarAccess.getArtifactsRule()); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleArtifact74); if (state.failed) return ;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleArtifacts74); if (state.failed) return ;
 
             }
 
@@ -135,30 +135,30 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "entryRuleArtifact"
+    // $ANTLR end "entryRuleArtifacts"
 
 
-    // $ANTLR start "ruleArtifact"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:71:1: ruleArtifact : ( ( rule__Artifact__Group__0 ) ) ;
-    public final void ruleArtifact() throws RecognitionException {
+    // $ANTLR start "ruleArtifacts"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:71:1: ruleArtifacts : ( ( rule__Artifacts__Group__0 ) ) ;
+    public final void ruleArtifacts() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:75:2: ( ( ( rule__Artifact__Group__0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:76:1: ( ( rule__Artifact__Group__0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:75:2: ( ( ( rule__Artifacts__Group__0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:76:1: ( ( rule__Artifacts__Group__0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:76:1: ( ( rule__Artifact__Group__0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:77:1: ( rule__Artifact__Group__0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:76:1: ( ( rule__Artifacts__Group__0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:77:1: ( rule__Artifacts__Group__0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getGroup()); 
+               before(grammarAccess.getArtifactsAccess().getGroup()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:78:1: ( rule__Artifact__Group__0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:78:2: rule__Artifact__Group__0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:78:1: ( rule__Artifacts__Group__0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:78:2: rule__Artifacts__Group__0
             {
-            pushFollow(FOLLOW_rule__Artifact__Group__0_in_ruleArtifact100);
-            rule__Artifact__Group__0();
+            pushFollow(FOLLOW_rule__Artifacts__Group__0_in_ruleArtifacts100);
+            rule__Artifacts__Group__0();
 
             state._fsp--;
             if (state.failed) return ;
@@ -166,7 +166,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getGroup()); 
+               after(grammarAccess.getArtifactsAccess().getGroup()); 
             }
 
             }
@@ -186,7 +186,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "ruleArtifact"
+    // $ANTLR end "ruleArtifacts"
 
 
     // $ANTLR start "entryRuleMetaStatement"
@@ -2651,14 +2651,14 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     // $ANTLR end "ruleOPTION_TYPE"
 
 
-    // $ANTLR start "rule__Artifact__Alternatives_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:876:1: rule__Artifact__Alternatives_1 : ( ( ( rule__Artifact__Group_1_0__0 ) ) | ( ( rule__Artifact__Group_1_1__0 ) ) | ( ( rule__Artifact__Group_1_2__0 ) ) );
-    public final void rule__Artifact__Alternatives_1() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Alternatives_1"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:876:1: rule__Artifacts__Alternatives_1 : ( ( ( rule__Artifacts__Group_1_0__0 ) ) | ( ( rule__Artifacts__Group_1_1__0 ) ) | ( ( rule__Artifacts__Group_1_2__0 ) ) );
+    public final void rule__Artifacts__Alternatives_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:880:1: ( ( ( rule__Artifact__Group_1_0__0 ) ) | ( ( rule__Artifact__Group_1_1__0 ) ) | ( ( rule__Artifact__Group_1_2__0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:880:1: ( ( ( rule__Artifacts__Group_1_0__0 ) ) | ( ( rule__Artifacts__Group_1_1__0 ) ) | ( ( rule__Artifacts__Group_1_2__0 ) ) )
             int alt5=3;
             int LA5_0 = input.LA(1);
 
@@ -2714,19 +2714,19 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             }
             switch (alt5) {
                 case 1 :
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:881:1: ( ( rule__Artifact__Group_1_0__0 ) )
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:881:1: ( ( rule__Artifacts__Group_1_0__0 ) )
                     {
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:881:1: ( ( rule__Artifact__Group_1_0__0 ) )
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:882:1: ( rule__Artifact__Group_1_0__0 )
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:881:1: ( ( rule__Artifacts__Group_1_0__0 ) )
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:882:1: ( rule__Artifacts__Group_1_0__0 )
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getArtifactAccess().getGroup_1_0()); 
+                       before(grammarAccess.getArtifactsAccess().getGroup_1_0()); 
                     }
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:883:1: ( rule__Artifact__Group_1_0__0 )
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:883:2: rule__Artifact__Group_1_0__0
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:883:1: ( rule__Artifacts__Group_1_0__0 )
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:883:2: rule__Artifacts__Group_1_0__0
                     {
-                    pushFollow(FOLLOW_rule__Artifact__Group_1_0__0_in_rule__Artifact__Alternatives_11815);
-                    rule__Artifact__Group_1_0__0();
+                    pushFollow(FOLLOW_rule__Artifacts__Group_1_0__0_in_rule__Artifacts__Alternatives_11815);
+                    rule__Artifacts__Group_1_0__0();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -2734,7 +2734,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                     }
 
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getArtifactAccess().getGroup_1_0()); 
+                       after(grammarAccess.getArtifactsAccess().getGroup_1_0()); 
                     }
 
                     }
@@ -2743,19 +2743,19 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                     }
                     break;
                 case 2 :
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:887:6: ( ( rule__Artifact__Group_1_1__0 ) )
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:887:6: ( ( rule__Artifacts__Group_1_1__0 ) )
                     {
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:887:6: ( ( rule__Artifact__Group_1_1__0 ) )
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:888:1: ( rule__Artifact__Group_1_1__0 )
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:887:6: ( ( rule__Artifacts__Group_1_1__0 ) )
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:888:1: ( rule__Artifacts__Group_1_1__0 )
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getArtifactAccess().getGroup_1_1()); 
+                       before(grammarAccess.getArtifactsAccess().getGroup_1_1()); 
                     }
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:889:1: ( rule__Artifact__Group_1_1__0 )
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:889:2: rule__Artifact__Group_1_1__0
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:889:1: ( rule__Artifacts__Group_1_1__0 )
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:889:2: rule__Artifacts__Group_1_1__0
                     {
-                    pushFollow(FOLLOW_rule__Artifact__Group_1_1__0_in_rule__Artifact__Alternatives_11833);
-                    rule__Artifact__Group_1_1__0();
+                    pushFollow(FOLLOW_rule__Artifacts__Group_1_1__0_in_rule__Artifacts__Alternatives_11833);
+                    rule__Artifacts__Group_1_1__0();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -2763,7 +2763,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                     }
 
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getArtifactAccess().getGroup_1_1()); 
+                       after(grammarAccess.getArtifactsAccess().getGroup_1_1()); 
                     }
 
                     }
@@ -2772,19 +2772,19 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                     }
                     break;
                 case 3 :
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:893:6: ( ( rule__Artifact__Group_1_2__0 ) )
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:893:6: ( ( rule__Artifacts__Group_1_2__0 ) )
                     {
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:893:6: ( ( rule__Artifact__Group_1_2__0 ) )
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:894:1: ( rule__Artifact__Group_1_2__0 )
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:893:6: ( ( rule__Artifacts__Group_1_2__0 ) )
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:894:1: ( rule__Artifacts__Group_1_2__0 )
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getArtifactAccess().getGroup_1_2()); 
+                       before(grammarAccess.getArtifactsAccess().getGroup_1_2()); 
                     }
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:895:1: ( rule__Artifact__Group_1_2__0 )
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:895:2: rule__Artifact__Group_1_2__0
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:895:1: ( rule__Artifacts__Group_1_2__0 )
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:895:2: rule__Artifacts__Group_1_2__0
                     {
-                    pushFollow(FOLLOW_rule__Artifact__Group_1_2__0_in_rule__Artifact__Alternatives_11851);
-                    rule__Artifact__Group_1_2__0();
+                    pushFollow(FOLLOW_rule__Artifacts__Group_1_2__0_in_rule__Artifacts__Alternatives_11851);
+                    rule__Artifacts__Group_1_2__0();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -2792,7 +2792,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                     }
 
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getArtifactAccess().getGroup_1_2()); 
+                       after(grammarAccess.getArtifactsAccess().getGroup_1_2()); 
                     }
 
                     }
@@ -2814,7 +2814,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Alternatives_1"
+    // $ANTLR end "rule__Artifacts__Alternatives_1"
 
 
     // $ANTLR start "rule__SqlFragment__Alternatives"
@@ -9366,23 +9366,23 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     // $ANTLR end "rule__OPTION_TYPE__Alternatives"
 
 
-    // $ANTLR start "rule__Artifact__Group__0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2490:1: rule__Artifact__Group__0 : rule__Artifact__Group__0__Impl rule__Artifact__Group__1 ;
-    public final void rule__Artifact__Group__0() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group__0"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2490:1: rule__Artifacts__Group__0 : rule__Artifacts__Group__0__Impl rule__Artifacts__Group__1 ;
+    public final void rule__Artifacts__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2494:1: ( rule__Artifact__Group__0__Impl rule__Artifact__Group__1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2495:2: rule__Artifact__Group__0__Impl rule__Artifact__Group__1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2494:1: ( rule__Artifacts__Group__0__Impl rule__Artifacts__Group__1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2495:2: rule__Artifacts__Group__0__Impl rule__Artifacts__Group__1
             {
-            pushFollow(FOLLOW_rule__Artifact__Group__0__Impl_in_rule__Artifact__Group__06032);
-            rule__Artifact__Group__0__Impl();
+            pushFollow(FOLLOW_rule__Artifacts__Group__0__Impl_in_rule__Artifacts__Group__06032);
+            rule__Artifacts__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Artifact__Group__1_in_rule__Artifact__Group__06035);
-            rule__Artifact__Group__1();
+            pushFollow(FOLLOW_rule__Artifacts__Group__1_in_rule__Artifacts__Group__06035);
+            rule__Artifacts__Group__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9401,12 +9401,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group__0"
+    // $ANTLR end "rule__Artifacts__Group__0"
 
 
-    // $ANTLR start "rule__Artifact__Group__0__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2502:1: rule__Artifact__Group__0__Impl : ( ( RULE_WS )* ) ;
-    public final void rule__Artifact__Group__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group__0__Impl"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2502:1: rule__Artifacts__Group__0__Impl : ( ( RULE_WS )* ) ;
+    public final void rule__Artifacts__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -9418,7 +9418,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2508:1: ( RULE_WS )*
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getWSTerminalRuleCall_0()); 
+               before(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_0()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2509:1: ( RULE_WS )*
             loop34:
@@ -9435,7 +9435,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2509:3: RULE_WS
             	    {
-            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Artifact__Group__0__Impl6063); if (state.failed) return ;
+            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Artifacts__Group__0__Impl6063); if (state.failed) return ;
 
             	    }
             	    break;
@@ -9446,7 +9446,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             } while (true);
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getWSTerminalRuleCall_0()); 
+               after(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_0()); 
             }
 
             }
@@ -9466,21 +9466,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group__0__Impl"
+    // $ANTLR end "rule__Artifacts__Group__0__Impl"
 
 
-    // $ANTLR start "rule__Artifact__Group__1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2519:1: rule__Artifact__Group__1 : rule__Artifact__Group__1__Impl ;
-    public final void rule__Artifact__Group__1() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group__1"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2519:1: rule__Artifacts__Group__1 : rule__Artifacts__Group__1__Impl ;
+    public final void rule__Artifacts__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2523:1: ( rule__Artifact__Group__1__Impl )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2524:2: rule__Artifact__Group__1__Impl
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2523:1: ( rule__Artifacts__Group__1__Impl )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2524:2: rule__Artifacts__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__Artifact__Group__1__Impl_in_rule__Artifact__Group__16094);
-            rule__Artifact__Group__1__Impl();
+            pushFollow(FOLLOW_rule__Artifacts__Group__1__Impl_in_rule__Artifacts__Group__16094);
+            rule__Artifacts__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9499,33 +9499,33 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group__1"
+    // $ANTLR end "rule__Artifacts__Group__1"
 
 
-    // $ANTLR start "rule__Artifact__Group__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2530:1: rule__Artifact__Group__1__Impl : ( ( ( rule__Artifact__Alternatives_1 ) ) ( ( rule__Artifact__Alternatives_1 )* ) ) ;
-    public final void rule__Artifact__Group__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group__1__Impl"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2530:1: rule__Artifacts__Group__1__Impl : ( ( ( rule__Artifacts__Alternatives_1 ) ) ( ( rule__Artifacts__Alternatives_1 )* ) ) ;
+    public final void rule__Artifacts__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2534:1: ( ( ( ( rule__Artifact__Alternatives_1 ) ) ( ( rule__Artifact__Alternatives_1 )* ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2535:1: ( ( ( rule__Artifact__Alternatives_1 ) ) ( ( rule__Artifact__Alternatives_1 )* ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2534:1: ( ( ( ( rule__Artifacts__Alternatives_1 ) ) ( ( rule__Artifacts__Alternatives_1 )* ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2535:1: ( ( ( rule__Artifacts__Alternatives_1 ) ) ( ( rule__Artifacts__Alternatives_1 )* ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2535:1: ( ( ( rule__Artifact__Alternatives_1 ) ) ( ( rule__Artifact__Alternatives_1 )* ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2536:1: ( ( rule__Artifact__Alternatives_1 ) ) ( ( rule__Artifact__Alternatives_1 )* )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2535:1: ( ( ( rule__Artifacts__Alternatives_1 ) ) ( ( rule__Artifacts__Alternatives_1 )* ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2536:1: ( ( rule__Artifacts__Alternatives_1 ) ) ( ( rule__Artifacts__Alternatives_1 )* )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2536:1: ( ( rule__Artifact__Alternatives_1 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2537:1: ( rule__Artifact__Alternatives_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2536:1: ( ( rule__Artifacts__Alternatives_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2537:1: ( rule__Artifacts__Alternatives_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getAlternatives_1()); 
+               before(grammarAccess.getArtifactsAccess().getAlternatives_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2538:1: ( rule__Artifact__Alternatives_1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2538:2: rule__Artifact__Alternatives_1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2538:1: ( rule__Artifacts__Alternatives_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2538:2: rule__Artifacts__Alternatives_1
             {
-            pushFollow(FOLLOW_rule__Artifact__Alternatives_1_in_rule__Artifact__Group__1__Impl6123);
-            rule__Artifact__Alternatives_1();
+            pushFollow(FOLLOW_rule__Artifacts__Alternatives_1_in_rule__Artifacts__Group__1__Impl6123);
+            rule__Artifacts__Alternatives_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9533,18 +9533,18 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getAlternatives_1()); 
+               after(grammarAccess.getArtifactsAccess().getAlternatives_1()); 
             }
 
             }
 
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2541:1: ( ( rule__Artifact__Alternatives_1 )* )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2542:1: ( rule__Artifact__Alternatives_1 )*
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2541:1: ( ( rule__Artifacts__Alternatives_1 )* )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2542:1: ( rule__Artifacts__Alternatives_1 )*
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getAlternatives_1()); 
+               before(grammarAccess.getArtifactsAccess().getAlternatives_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2543:1: ( rule__Artifact__Alternatives_1 )*
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2543:1: ( rule__Artifacts__Alternatives_1 )*
             loop35:
             do {
                 int alt35=2;
@@ -9557,10 +9557,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
                 switch (alt35) {
             	case 1 :
-            	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2543:2: rule__Artifact__Alternatives_1
+            	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2543:2: rule__Artifacts__Alternatives_1
             	    {
-            	    pushFollow(FOLLOW_rule__Artifact__Alternatives_1_in_rule__Artifact__Group__1__Impl6135);
-            	    rule__Artifact__Alternatives_1();
+            	    pushFollow(FOLLOW_rule__Artifacts__Alternatives_1_in_rule__Artifacts__Group__1__Impl6135);
+            	    rule__Artifacts__Alternatives_1();
 
             	    state._fsp--;
             	    if (state.failed) return ;
@@ -9574,7 +9574,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             } while (true);
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getAlternatives_1()); 
+               after(grammarAccess.getArtifactsAccess().getAlternatives_1()); 
             }
 
             }
@@ -9597,26 +9597,26 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group__1__Impl"
+    // $ANTLR end "rule__Artifacts__Group__1__Impl"
 
 
-    // $ANTLR start "rule__Artifact__Group_1_0__0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2558:1: rule__Artifact__Group_1_0__0 : rule__Artifact__Group_1_0__0__Impl rule__Artifact__Group_1_0__1 ;
-    public final void rule__Artifact__Group_1_0__0() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group_1_0__0"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2558:1: rule__Artifacts__Group_1_0__0 : rule__Artifacts__Group_1_0__0__Impl rule__Artifacts__Group_1_0__1 ;
+    public final void rule__Artifacts__Group_1_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2562:1: ( rule__Artifact__Group_1_0__0__Impl rule__Artifact__Group_1_0__1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2563:2: rule__Artifact__Group_1_0__0__Impl rule__Artifact__Group_1_0__1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2562:1: ( rule__Artifacts__Group_1_0__0__Impl rule__Artifacts__Group_1_0__1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2563:2: rule__Artifacts__Group_1_0__0__Impl rule__Artifacts__Group_1_0__1
             {
-            pushFollow(FOLLOW_rule__Artifact__Group_1_0__0__Impl_in_rule__Artifact__Group_1_0__06172);
-            rule__Artifact__Group_1_0__0__Impl();
+            pushFollow(FOLLOW_rule__Artifacts__Group_1_0__0__Impl_in_rule__Artifacts__Group_1_0__06172);
+            rule__Artifacts__Group_1_0__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Artifact__Group_1_0__1_in_rule__Artifact__Group_1_0__06175);
-            rule__Artifact__Group_1_0__1();
+            pushFollow(FOLLOW_rule__Artifacts__Group_1_0__1_in_rule__Artifacts__Group_1_0__06175);
+            rule__Artifacts__Group_1_0__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9635,30 +9635,30 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group_1_0__0"
+    // $ANTLR end "rule__Artifacts__Group_1_0__0"
 
 
-    // $ANTLR start "rule__Artifact__Group_1_0__0__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2570:1: rule__Artifact__Group_1_0__0__Impl : ( ( rule__Artifact__FeaturesAssignment_1_0_0 ) ) ;
-    public final void rule__Artifact__Group_1_0__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group_1_0__0__Impl"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2570:1: rule__Artifacts__Group_1_0__0__Impl : ( ( rule__Artifacts__FeaturesAssignment_1_0_0 ) ) ;
+    public final void rule__Artifacts__Group_1_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2574:1: ( ( ( rule__Artifact__FeaturesAssignment_1_0_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2575:1: ( ( rule__Artifact__FeaturesAssignment_1_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2574:1: ( ( ( rule__Artifacts__FeaturesAssignment_1_0_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2575:1: ( ( rule__Artifacts__FeaturesAssignment_1_0_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2575:1: ( ( rule__Artifact__FeaturesAssignment_1_0_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2576:1: ( rule__Artifact__FeaturesAssignment_1_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2575:1: ( ( rule__Artifacts__FeaturesAssignment_1_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2576:1: ( rule__Artifacts__FeaturesAssignment_1_0_0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getFeaturesAssignment_1_0_0()); 
+               before(grammarAccess.getArtifactsAccess().getFeaturesAssignment_1_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2577:1: ( rule__Artifact__FeaturesAssignment_1_0_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2577:2: rule__Artifact__FeaturesAssignment_1_0_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2577:1: ( rule__Artifacts__FeaturesAssignment_1_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2577:2: rule__Artifacts__FeaturesAssignment_1_0_0
             {
-            pushFollow(FOLLOW_rule__Artifact__FeaturesAssignment_1_0_0_in_rule__Artifact__Group_1_0__0__Impl6202);
-            rule__Artifact__FeaturesAssignment_1_0_0();
+            pushFollow(FOLLOW_rule__Artifacts__FeaturesAssignment_1_0_0_in_rule__Artifacts__Group_1_0__0__Impl6202);
+            rule__Artifacts__FeaturesAssignment_1_0_0();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9666,7 +9666,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getFeaturesAssignment_1_0_0()); 
+               after(grammarAccess.getArtifactsAccess().getFeaturesAssignment_1_0_0()); 
             }
 
             }
@@ -9686,21 +9686,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group_1_0__0__Impl"
+    // $ANTLR end "rule__Artifacts__Group_1_0__0__Impl"
 
 
-    // $ANTLR start "rule__Artifact__Group_1_0__1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2587:1: rule__Artifact__Group_1_0__1 : rule__Artifact__Group_1_0__1__Impl ;
-    public final void rule__Artifact__Group_1_0__1() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group_1_0__1"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2587:1: rule__Artifacts__Group_1_0__1 : rule__Artifacts__Group_1_0__1__Impl ;
+    public final void rule__Artifacts__Group_1_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2591:1: ( rule__Artifact__Group_1_0__1__Impl )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2592:2: rule__Artifact__Group_1_0__1__Impl
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2591:1: ( rule__Artifacts__Group_1_0__1__Impl )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2592:2: rule__Artifacts__Group_1_0__1__Impl
             {
-            pushFollow(FOLLOW_rule__Artifact__Group_1_0__1__Impl_in_rule__Artifact__Group_1_0__16232);
-            rule__Artifact__Group_1_0__1__Impl();
+            pushFollow(FOLLOW_rule__Artifacts__Group_1_0__1__Impl_in_rule__Artifacts__Group_1_0__16232);
+            rule__Artifacts__Group_1_0__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9719,12 +9719,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group_1_0__1"
+    // $ANTLR end "rule__Artifacts__Group_1_0__1"
 
 
-    // $ANTLR start "rule__Artifact__Group_1_0__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2598:1: rule__Artifact__Group_1_0__1__Impl : ( ( RULE_WS )* ) ;
-    public final void rule__Artifact__Group_1_0__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group_1_0__1__Impl"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2598:1: rule__Artifacts__Group_1_0__1__Impl : ( ( RULE_WS )* ) ;
+    public final void rule__Artifacts__Group_1_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -9736,7 +9736,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2604:1: ( RULE_WS )*
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getWSTerminalRuleCall_1_0_1()); 
+               before(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_0_1()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2605:1: ( RULE_WS )*
             loop36:
@@ -9753,7 +9753,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2605:3: RULE_WS
             	    {
-            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Artifact__Group_1_0__1__Impl6260); if (state.failed) return ;
+            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Artifacts__Group_1_0__1__Impl6260); if (state.failed) return ;
 
             	    }
             	    break;
@@ -9764,7 +9764,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             } while (true);
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getWSTerminalRuleCall_1_0_1()); 
+               after(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_0_1()); 
             }
 
             }
@@ -9784,26 +9784,26 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group_1_0__1__Impl"
+    // $ANTLR end "rule__Artifacts__Group_1_0__1__Impl"
 
 
-    // $ANTLR start "rule__Artifact__Group_1_1__0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2619:1: rule__Artifact__Group_1_1__0 : rule__Artifact__Group_1_1__0__Impl rule__Artifact__Group_1_1__1 ;
-    public final void rule__Artifact__Group_1_1__0() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group_1_1__0"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2619:1: rule__Artifacts__Group_1_1__0 : rule__Artifacts__Group_1_1__0__Impl rule__Artifacts__Group_1_1__1 ;
+    public final void rule__Artifacts__Group_1_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2623:1: ( rule__Artifact__Group_1_1__0__Impl rule__Artifact__Group_1_1__1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2624:2: rule__Artifact__Group_1_1__0__Impl rule__Artifact__Group_1_1__1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2623:1: ( rule__Artifacts__Group_1_1__0__Impl rule__Artifacts__Group_1_1__1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2624:2: rule__Artifacts__Group_1_1__0__Impl rule__Artifacts__Group_1_1__1
             {
-            pushFollow(FOLLOW_rule__Artifact__Group_1_1__0__Impl_in_rule__Artifact__Group_1_1__06295);
-            rule__Artifact__Group_1_1__0__Impl();
+            pushFollow(FOLLOW_rule__Artifacts__Group_1_1__0__Impl_in_rule__Artifacts__Group_1_1__06295);
+            rule__Artifacts__Group_1_1__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Artifact__Group_1_1__1_in_rule__Artifact__Group_1_1__06298);
-            rule__Artifact__Group_1_1__1();
+            pushFollow(FOLLOW_rule__Artifacts__Group_1_1__1_in_rule__Artifacts__Group_1_1__06298);
+            rule__Artifacts__Group_1_1__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9822,30 +9822,30 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group_1_1__0"
+    // $ANTLR end "rule__Artifacts__Group_1_1__0"
 
 
-    // $ANTLR start "rule__Artifact__Group_1_1__0__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2631:1: rule__Artifact__Group_1_1__0__Impl : ( ( rule__Artifact__StatementsAssignment_1_1_0 ) ) ;
-    public final void rule__Artifact__Group_1_1__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group_1_1__0__Impl"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2631:1: rule__Artifacts__Group_1_1__0__Impl : ( ( rule__Artifacts__StatementsAssignment_1_1_0 ) ) ;
+    public final void rule__Artifacts__Group_1_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2635:1: ( ( ( rule__Artifact__StatementsAssignment_1_1_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2636:1: ( ( rule__Artifact__StatementsAssignment_1_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2635:1: ( ( ( rule__Artifacts__StatementsAssignment_1_1_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2636:1: ( ( rule__Artifacts__StatementsAssignment_1_1_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2636:1: ( ( rule__Artifact__StatementsAssignment_1_1_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2637:1: ( rule__Artifact__StatementsAssignment_1_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2636:1: ( ( rule__Artifacts__StatementsAssignment_1_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2637:1: ( rule__Artifacts__StatementsAssignment_1_1_0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getStatementsAssignment_1_1_0()); 
+               before(grammarAccess.getArtifactsAccess().getStatementsAssignment_1_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2638:1: ( rule__Artifact__StatementsAssignment_1_1_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2638:2: rule__Artifact__StatementsAssignment_1_1_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2638:1: ( rule__Artifacts__StatementsAssignment_1_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2638:2: rule__Artifacts__StatementsAssignment_1_1_0
             {
-            pushFollow(FOLLOW_rule__Artifact__StatementsAssignment_1_1_0_in_rule__Artifact__Group_1_1__0__Impl6325);
-            rule__Artifact__StatementsAssignment_1_1_0();
+            pushFollow(FOLLOW_rule__Artifacts__StatementsAssignment_1_1_0_in_rule__Artifacts__Group_1_1__0__Impl6325);
+            rule__Artifacts__StatementsAssignment_1_1_0();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9853,7 +9853,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getStatementsAssignment_1_1_0()); 
+               after(grammarAccess.getArtifactsAccess().getStatementsAssignment_1_1_0()); 
             }
 
             }
@@ -9873,21 +9873,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group_1_1__0__Impl"
+    // $ANTLR end "rule__Artifacts__Group_1_1__0__Impl"
 
 
-    // $ANTLR start "rule__Artifact__Group_1_1__1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2648:1: rule__Artifact__Group_1_1__1 : rule__Artifact__Group_1_1__1__Impl ;
-    public final void rule__Artifact__Group_1_1__1() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group_1_1__1"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2648:1: rule__Artifacts__Group_1_1__1 : rule__Artifacts__Group_1_1__1__Impl ;
+    public final void rule__Artifacts__Group_1_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2652:1: ( rule__Artifact__Group_1_1__1__Impl )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2653:2: rule__Artifact__Group_1_1__1__Impl
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2652:1: ( rule__Artifacts__Group_1_1__1__Impl )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2653:2: rule__Artifacts__Group_1_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__Artifact__Group_1_1__1__Impl_in_rule__Artifact__Group_1_1__16355);
-            rule__Artifact__Group_1_1__1__Impl();
+            pushFollow(FOLLOW_rule__Artifacts__Group_1_1__1__Impl_in_rule__Artifacts__Group_1_1__16355);
+            rule__Artifacts__Group_1_1__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -9906,12 +9906,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group_1_1__1"
+    // $ANTLR end "rule__Artifacts__Group_1_1__1"
 
 
-    // $ANTLR start "rule__Artifact__Group_1_1__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2659:1: rule__Artifact__Group_1_1__1__Impl : ( ( RULE_WS )* ) ;
-    public final void rule__Artifact__Group_1_1__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group_1_1__1__Impl"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2659:1: rule__Artifacts__Group_1_1__1__Impl : ( ( RULE_WS )* ) ;
+    public final void rule__Artifacts__Group_1_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -9923,7 +9923,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2665:1: ( RULE_WS )*
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getWSTerminalRuleCall_1_1_1()); 
+               before(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_1_1()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2666:1: ( RULE_WS )*
             loop37:
@@ -9940,7 +9940,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2666:3: RULE_WS
             	    {
-            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Artifact__Group_1_1__1__Impl6383); if (state.failed) return ;
+            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Artifacts__Group_1_1__1__Impl6383); if (state.failed) return ;
 
             	    }
             	    break;
@@ -9951,7 +9951,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             } while (true);
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getWSTerminalRuleCall_1_1_1()); 
+               after(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_1_1()); 
             }
 
             }
@@ -9971,26 +9971,26 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group_1_1__1__Impl"
+    // $ANTLR end "rule__Artifacts__Group_1_1__1__Impl"
 
 
-    // $ANTLR start "rule__Artifact__Group_1_2__0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2680:1: rule__Artifact__Group_1_2__0 : rule__Artifact__Group_1_2__0__Impl rule__Artifact__Group_1_2__1 ;
-    public final void rule__Artifact__Group_1_2__0() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group_1_2__0"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2680:1: rule__Artifacts__Group_1_2__0 : rule__Artifacts__Group_1_2__0__Impl rule__Artifacts__Group_1_2__1 ;
+    public final void rule__Artifacts__Group_1_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2684:1: ( rule__Artifact__Group_1_2__0__Impl rule__Artifact__Group_1_2__1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2685:2: rule__Artifact__Group_1_2__0__Impl rule__Artifact__Group_1_2__1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2684:1: ( rule__Artifacts__Group_1_2__0__Impl rule__Artifacts__Group_1_2__1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2685:2: rule__Artifacts__Group_1_2__0__Impl rule__Artifacts__Group_1_2__1
             {
-            pushFollow(FOLLOW_rule__Artifact__Group_1_2__0__Impl_in_rule__Artifact__Group_1_2__06418);
-            rule__Artifact__Group_1_2__0__Impl();
+            pushFollow(FOLLOW_rule__Artifacts__Group_1_2__0__Impl_in_rule__Artifacts__Group_1_2__06418);
+            rule__Artifacts__Group_1_2__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Artifact__Group_1_2__1_in_rule__Artifact__Group_1_2__06421);
-            rule__Artifact__Group_1_2__1();
+            pushFollow(FOLLOW_rule__Artifacts__Group_1_2__1_in_rule__Artifacts__Group_1_2__06421);
+            rule__Artifacts__Group_1_2__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -10009,30 +10009,30 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group_1_2__0"
+    // $ANTLR end "rule__Artifacts__Group_1_2__0"
 
 
-    // $ANTLR start "rule__Artifact__Group_1_2__0__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2692:1: rule__Artifact__Group_1_2__0__Impl : ( ( rule__Artifact__MappingsAssignment_1_2_0 ) ) ;
-    public final void rule__Artifact__Group_1_2__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group_1_2__0__Impl"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2692:1: rule__Artifacts__Group_1_2__0__Impl : ( ( rule__Artifacts__MappingsAssignment_1_2_0 ) ) ;
+    public final void rule__Artifacts__Group_1_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2696:1: ( ( ( rule__Artifact__MappingsAssignment_1_2_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2697:1: ( ( rule__Artifact__MappingsAssignment_1_2_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2696:1: ( ( ( rule__Artifacts__MappingsAssignment_1_2_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2697:1: ( ( rule__Artifacts__MappingsAssignment_1_2_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2697:1: ( ( rule__Artifact__MappingsAssignment_1_2_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2698:1: ( rule__Artifact__MappingsAssignment_1_2_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2697:1: ( ( rule__Artifacts__MappingsAssignment_1_2_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2698:1: ( rule__Artifacts__MappingsAssignment_1_2_0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getMappingsAssignment_1_2_0()); 
+               before(grammarAccess.getArtifactsAccess().getMappingsAssignment_1_2_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2699:1: ( rule__Artifact__MappingsAssignment_1_2_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2699:2: rule__Artifact__MappingsAssignment_1_2_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2699:1: ( rule__Artifacts__MappingsAssignment_1_2_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2699:2: rule__Artifacts__MappingsAssignment_1_2_0
             {
-            pushFollow(FOLLOW_rule__Artifact__MappingsAssignment_1_2_0_in_rule__Artifact__Group_1_2__0__Impl6448);
-            rule__Artifact__MappingsAssignment_1_2_0();
+            pushFollow(FOLLOW_rule__Artifacts__MappingsAssignment_1_2_0_in_rule__Artifacts__Group_1_2__0__Impl6448);
+            rule__Artifacts__MappingsAssignment_1_2_0();
 
             state._fsp--;
             if (state.failed) return ;
@@ -10040,7 +10040,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getMappingsAssignment_1_2_0()); 
+               after(grammarAccess.getArtifactsAccess().getMappingsAssignment_1_2_0()); 
             }
 
             }
@@ -10060,21 +10060,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group_1_2__0__Impl"
+    // $ANTLR end "rule__Artifacts__Group_1_2__0__Impl"
 
 
-    // $ANTLR start "rule__Artifact__Group_1_2__1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2709:1: rule__Artifact__Group_1_2__1 : rule__Artifact__Group_1_2__1__Impl ;
-    public final void rule__Artifact__Group_1_2__1() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group_1_2__1"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2709:1: rule__Artifacts__Group_1_2__1 : rule__Artifacts__Group_1_2__1__Impl ;
+    public final void rule__Artifacts__Group_1_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2713:1: ( rule__Artifact__Group_1_2__1__Impl )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2714:2: rule__Artifact__Group_1_2__1__Impl
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2713:1: ( rule__Artifacts__Group_1_2__1__Impl )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2714:2: rule__Artifacts__Group_1_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__Artifact__Group_1_2__1__Impl_in_rule__Artifact__Group_1_2__16478);
-            rule__Artifact__Group_1_2__1__Impl();
+            pushFollow(FOLLOW_rule__Artifacts__Group_1_2__1__Impl_in_rule__Artifacts__Group_1_2__16478);
+            rule__Artifacts__Group_1_2__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -10093,12 +10093,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group_1_2__1"
+    // $ANTLR end "rule__Artifacts__Group_1_2__1"
 
 
-    // $ANTLR start "rule__Artifact__Group_1_2__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2720:1: rule__Artifact__Group_1_2__1__Impl : ( ( RULE_WS )* ) ;
-    public final void rule__Artifact__Group_1_2__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__Group_1_2__1__Impl"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2720:1: rule__Artifacts__Group_1_2__1__Impl : ( ( RULE_WS )* ) ;
+    public final void rule__Artifacts__Group_1_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -10110,7 +10110,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2726:1: ( RULE_WS )*
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getWSTerminalRuleCall_1_2_1()); 
+               before(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_2_1()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2727:1: ( RULE_WS )*
             loop38:
@@ -10127,7 +10127,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:2727:3: RULE_WS
             	    {
-            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Artifact__Group_1_2__1__Impl6506); if (state.failed) return ;
+            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Artifacts__Group_1_2__1__Impl6506); if (state.failed) return ;
 
             	    }
             	    break;
@@ -10138,7 +10138,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             } while (true);
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getWSTerminalRuleCall_1_2_1()); 
+               after(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_2_1()); 
             }
 
             }
@@ -10158,7 +10158,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__Group_1_2__1__Impl"
+    // $ANTLR end "rule__Artifacts__Group_1_2__1__Impl"
 
 
     // $ANTLR start "rule__MetaStatement__Group__0"
@@ -25599,9 +25599,9 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     // $ANTLR end "rule__Filter__Group__1__Impl"
 
 
-    // $ANTLR start "rule__Artifact__FeaturesAssignment_1_0_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:8115:1: rule__Artifact__FeaturesAssignment_1_0_0 : ( ruleOptionalFeature ) ;
-    public final void rule__Artifact__FeaturesAssignment_1_0_0() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__FeaturesAssignment_1_0_0"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:8115:1: rule__Artifacts__FeaturesAssignment_1_0_0 : ( ruleOptionalFeature ) ;
+    public final void rule__Artifacts__FeaturesAssignment_1_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -25613,15 +25613,15 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:8121:1: ruleOptionalFeature
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getFeaturesOptionalFeatureParserRuleCall_1_0_0_0()); 
+               before(grammarAccess.getArtifactsAccess().getFeaturesOptionalFeatureParserRuleCall_1_0_0_0()); 
             }
-            pushFollow(FOLLOW_ruleOptionalFeature_in_rule__Artifact__FeaturesAssignment_1_0_017233);
+            pushFollow(FOLLOW_ruleOptionalFeature_in_rule__Artifacts__FeaturesAssignment_1_0_017233);
             ruleOptionalFeature();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getFeaturesOptionalFeatureParserRuleCall_1_0_0_0()); 
+               after(grammarAccess.getArtifactsAccess().getFeaturesOptionalFeatureParserRuleCall_1_0_0_0()); 
             }
 
             }
@@ -25641,12 +25641,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__FeaturesAssignment_1_0_0"
+    // $ANTLR end "rule__Artifacts__FeaturesAssignment_1_0_0"
 
 
-    // $ANTLR start "rule__Artifact__StatementsAssignment_1_1_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:8130:1: rule__Artifact__StatementsAssignment_1_1_0 : ( ruleMetaStatement ) ;
-    public final void rule__Artifact__StatementsAssignment_1_1_0() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__StatementsAssignment_1_1_0"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:8130:1: rule__Artifacts__StatementsAssignment_1_1_0 : ( ruleMetaStatement ) ;
+    public final void rule__Artifacts__StatementsAssignment_1_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -25658,15 +25658,15 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:8136:1: ruleMetaStatement
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getStatementsMetaStatementParserRuleCall_1_1_0_0()); 
+               before(grammarAccess.getArtifactsAccess().getStatementsMetaStatementParserRuleCall_1_1_0_0()); 
             }
-            pushFollow(FOLLOW_ruleMetaStatement_in_rule__Artifact__StatementsAssignment_1_1_017264);
+            pushFollow(FOLLOW_ruleMetaStatement_in_rule__Artifacts__StatementsAssignment_1_1_017264);
             ruleMetaStatement();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getStatementsMetaStatementParserRuleCall_1_1_0_0()); 
+               after(grammarAccess.getArtifactsAccess().getStatementsMetaStatementParserRuleCall_1_1_0_0()); 
             }
 
             }
@@ -25686,12 +25686,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__StatementsAssignment_1_1_0"
+    // $ANTLR end "rule__Artifacts__StatementsAssignment_1_1_0"
 
 
-    // $ANTLR start "rule__Artifact__MappingsAssignment_1_2_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:8145:1: rule__Artifact__MappingsAssignment_1_2_0 : ( ruleMappingRule ) ;
-    public final void rule__Artifact__MappingsAssignment_1_2_0() throws RecognitionException {
+    // $ANTLR start "rule__Artifacts__MappingsAssignment_1_2_0"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:8145:1: rule__Artifacts__MappingsAssignment_1_2_0 : ( ruleMappingRule ) ;
+    public final void rule__Artifacts__MappingsAssignment_1_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -25703,15 +25703,15 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:8151:1: ruleMappingRule
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getArtifactAccess().getMappingsMappingRuleParserRuleCall_1_2_0_0()); 
+               before(grammarAccess.getArtifactsAccess().getMappingsMappingRuleParserRuleCall_1_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleMappingRule_in_rule__Artifact__MappingsAssignment_1_2_017295);
+            pushFollow(FOLLOW_ruleMappingRule_in_rule__Artifacts__MappingsAssignment_1_2_017295);
             ruleMappingRule();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getArtifactAccess().getMappingsMappingRuleParserRuleCall_1_2_0_0()); 
+               after(grammarAccess.getArtifactsAccess().getMappingsMappingRuleParserRuleCall_1_2_0_0()); 
             }
 
             }
@@ -25731,7 +25731,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__Artifact__MappingsAssignment_1_2_0"
+    // $ANTLR end "rule__Artifacts__MappingsAssignment_1_2_0"
 
 
     // $ANTLR start "rule__MetaStatement__NameAssignment_0"
@@ -31195,9 +31195,9 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     }
  
 
-    public static final BitSet FOLLOW_ruleArtifact_in_entryRuleArtifact67 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleArtifact74 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Artifact__Group__0_in_ruleArtifact100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleArtifacts_in_entryRuleArtifacts67 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleArtifacts74 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group__0_in_ruleArtifacts100 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleMetaStatement_in_entryRuleMetaStatement127 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleMetaStatement134 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__MetaStatement__Group__0_in_ruleMetaStatement160 = new BitSet(new long[]{0x0000000000000002L});
@@ -31280,9 +31280,9 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     public static final BitSet FOLLOW_rule__STATEMEN_TYPE__Alternatives_in_ruleSTATEMEN_TYPE1705 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_34_in_ruleMAPPING_TYPE1742 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__OPTION_TYPE__Alternatives_in_ruleOPTION_TYPE1780 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Artifact__Group_1_0__0_in_rule__Artifact__Alternatives_11815 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Artifact__Group_1_1__0_in_rule__Artifact__Alternatives_11833 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Artifact__Group_1_2__0_in_rule__Artifact__Alternatives_11851 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group_1_0__0_in_rule__Artifacts__Alternatives_11815 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group_1_1__0_in_rule__Artifacts__Alternatives_11833 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group_1_2__0_in_rule__Artifacts__Alternatives_11851 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__SqlFragment__ValueAssignment_0_in_rule__SqlFragment__Alternatives1884 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__SqlFragment__Group_1__0_in_rule__SqlFragment__Alternatives1902 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__SqlFragment__Group_2__0_in_rule__SqlFragment__Alternatives1920 = new BitSet(new long[]{0x0000000000000002L});
@@ -31499,27 +31499,27 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     public static final BitSet FOLLOW_40_in_rule__OPTION_TYPE__Alternatives5957 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_41_in_rule__OPTION_TYPE__Alternatives5978 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_42_in_rule__OPTION_TYPE__Alternatives5999 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Artifact__Group__0__Impl_in_rule__Artifact__Group__06032 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__Artifact__Group__1_in_rule__Artifact__Group__06035 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WS_in_rule__Artifact__Group__0__Impl6063 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_rule__Artifact__Group__1__Impl_in_rule__Artifact__Group__16094 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Artifact__Alternatives_1_in_rule__Artifact__Group__1__Impl6123 = new BitSet(new long[]{0x0000000000000042L});
-    public static final BitSet FOLLOW_rule__Artifact__Alternatives_1_in_rule__Artifact__Group__1__Impl6135 = new BitSet(new long[]{0x0000000000000042L});
-    public static final BitSet FOLLOW_rule__Artifact__Group_1_0__0__Impl_in_rule__Artifact__Group_1_0__06172 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Artifact__Group_1_0__1_in_rule__Artifact__Group_1_0__06175 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Artifact__FeaturesAssignment_1_0_0_in_rule__Artifact__Group_1_0__0__Impl6202 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Artifact__Group_1_0__1__Impl_in_rule__Artifact__Group_1_0__16232 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WS_in_rule__Artifact__Group_1_0__1__Impl6260 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_rule__Artifact__Group_1_1__0__Impl_in_rule__Artifact__Group_1_1__06295 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Artifact__Group_1_1__1_in_rule__Artifact__Group_1_1__06298 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Artifact__StatementsAssignment_1_1_0_in_rule__Artifact__Group_1_1__0__Impl6325 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Artifact__Group_1_1__1__Impl_in_rule__Artifact__Group_1_1__16355 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WS_in_rule__Artifact__Group_1_1__1__Impl6383 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_rule__Artifact__Group_1_2__0__Impl_in_rule__Artifact__Group_1_2__06418 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_rule__Artifact__Group_1_2__1_in_rule__Artifact__Group_1_2__06421 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Artifact__MappingsAssignment_1_2_0_in_rule__Artifact__Group_1_2__0__Impl6448 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Artifact__Group_1_2__1__Impl_in_rule__Artifact__Group_1_2__16478 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WS_in_rule__Artifact__Group_1_2__1__Impl6506 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group__0__Impl_in_rule__Artifacts__Group__06032 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group__1_in_rule__Artifacts__Group__06035 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WS_in_rule__Artifacts__Group__0__Impl6063 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group__1__Impl_in_rule__Artifacts__Group__16094 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Artifacts__Alternatives_1_in_rule__Artifacts__Group__1__Impl6123 = new BitSet(new long[]{0x0000000000000042L});
+    public static final BitSet FOLLOW_rule__Artifacts__Alternatives_1_in_rule__Artifacts__Group__1__Impl6135 = new BitSet(new long[]{0x0000000000000042L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group_1_0__0__Impl_in_rule__Artifacts__Group_1_0__06172 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group_1_0__1_in_rule__Artifacts__Group_1_0__06175 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Artifacts__FeaturesAssignment_1_0_0_in_rule__Artifacts__Group_1_0__0__Impl6202 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group_1_0__1__Impl_in_rule__Artifacts__Group_1_0__16232 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WS_in_rule__Artifacts__Group_1_0__1__Impl6260 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group_1_1__0__Impl_in_rule__Artifacts__Group_1_1__06295 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group_1_1__1_in_rule__Artifacts__Group_1_1__06298 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Artifacts__StatementsAssignment_1_1_0_in_rule__Artifacts__Group_1_1__0__Impl6325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group_1_1__1__Impl_in_rule__Artifacts__Group_1_1__16355 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WS_in_rule__Artifacts__Group_1_1__1__Impl6383 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group_1_2__0__Impl_in_rule__Artifacts__Group_1_2__06418 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group_1_2__1_in_rule__Artifacts__Group_1_2__06421 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Artifacts__MappingsAssignment_1_2_0_in_rule__Artifacts__Group_1_2__0__Impl6448 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Artifacts__Group_1_2__1__Impl_in_rule__Artifacts__Group_1_2__16478 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WS_in_rule__Artifacts__Group_1_2__1__Impl6506 = new BitSet(new long[]{0x0000000000000102L});
     public static final BitSet FOLLOW_rule__MetaStatement__Group__0__Impl_in_rule__MetaStatement__Group__06541 = new BitSet(new long[]{0x0000000000001000L});
     public static final BitSet FOLLOW_rule__MetaStatement__Group__1_in_rule__MetaStatement__Group__06544 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__MetaStatement__NameAssignment_0_in_rule__MetaStatement__Group__0__Impl6571 = new BitSet(new long[]{0x0000000000000002L});
@@ -31981,9 +31981,9 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     public static final BitSet FOLLOW_rule__Filter__Group__1_in_rule__Filter__Group__017109 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Filter__Group__1__Impl_in_rule__Filter__Group__117167 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Filter__NameAssignment_1_in_rule__Filter__Group__1__Impl17194 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOptionalFeature_in_rule__Artifact__FeaturesAssignment_1_0_017233 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetaStatement_in_rule__Artifact__StatementsAssignment_1_1_017264 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMappingRule_in_rule__Artifact__MappingsAssignment_1_2_017295 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOptionalFeature_in_rule__Artifacts__FeaturesAssignment_1_0_017233 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetaStatement_in_rule__Artifacts__StatementsAssignment_1_1_017264 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMappingRule_in_rule__Artifacts__MappingsAssignment_1_2_017295 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleName_in_rule__MetaStatement__NameAssignment_017326 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSTATEMEN_TYPE_in_rule__MetaStatement__TypeAssignment_217357 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleFilter_in_rule__MetaStatement__FiltersAssignment_3_117388 = new BitSet(new long[]{0x0000000000000002L});

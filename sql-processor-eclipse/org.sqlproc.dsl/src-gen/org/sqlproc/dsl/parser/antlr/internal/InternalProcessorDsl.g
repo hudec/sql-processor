@@ -45,7 +45,7 @@ import org.sqlproc.dsl.services.ProcessorDslGrammarAccess;
     
     @Override
     protected String getFirstRuleName() {
-    	return "Artifact";	
+    	return "Artifacts";	
    	}
    	
    	@Override
@@ -64,32 +64,32 @@ import org.sqlproc.dsl.services.ProcessorDslGrammarAccess;
 
 
 
-// Entry rule entryRuleArtifact
-entryRuleArtifact returns [EObject current=null] 
+// Entry rule entryRuleArtifacts
+entryRuleArtifacts returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getArtifactRule()); }
-	 iv_ruleArtifact=ruleArtifact 
-	 { $current=$iv_ruleArtifact.current; } 
+	{ newCompositeNode(grammarAccess.getArtifactsRule()); }
+	 iv_ruleArtifacts=ruleArtifacts 
+	 { $current=$iv_ruleArtifacts.current; } 
 	 EOF 
 ;
 
-// Rule Artifact
-ruleArtifact returns [EObject current=null] 
+// Rule Artifacts
+ruleArtifacts returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 ((this_WS_0=RULE_WS
     { 
-    newLeafNode(this_WS_0, grammarAccess.getArtifactAccess().getWSTerminalRuleCall_0()); 
+    newLeafNode(this_WS_0, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_0()); 
     }
 )*(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArtifactAccess().getFeaturesOptionalFeatureParserRuleCall_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getFeaturesOptionalFeatureParserRuleCall_1_0_0_0()); 
 	    }
 		lv_features_1_0=ruleOptionalFeature		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getArtifactRule());
+	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
 	        }
        		add(
        			$current, 
@@ -102,17 +102,17 @@ ruleArtifact returns [EObject current=null]
 )
 )(this_WS_2=RULE_WS
     { 
-    newLeafNode(this_WS_2, grammarAccess.getArtifactAccess().getWSTerminalRuleCall_1_0_1()); 
+    newLeafNode(this_WS_2, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_0_1()); 
     }
 )*)
     |((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArtifactAccess().getStatementsMetaStatementParserRuleCall_1_1_0_0()); 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getStatementsMetaStatementParserRuleCall_1_1_0_0()); 
 	    }
 		lv_statements_3_0=ruleMetaStatement		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getArtifactRule());
+	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
 	        }
        		add(
        			$current, 
@@ -125,17 +125,17 @@ ruleArtifact returns [EObject current=null]
 )
 )(this_WS_4=RULE_WS
     { 
-    newLeafNode(this_WS_4, grammarAccess.getArtifactAccess().getWSTerminalRuleCall_1_1_1()); 
+    newLeafNode(this_WS_4, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_1_1()); 
     }
 )*)
     |((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArtifactAccess().getMappingsMappingRuleParserRuleCall_1_2_0_0()); 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getMappingsMappingRuleParserRuleCall_1_2_0_0()); 
 	    }
 		lv_mappings_5_0=ruleMappingRule		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getArtifactRule());
+	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
 	        }
        		add(
        			$current, 
@@ -148,7 +148,7 @@ ruleArtifact returns [EObject current=null]
 )
 )(this_WS_6=RULE_WS
     { 
-    newLeafNode(this_WS_6, grammarAccess.getArtifactAccess().getWSTerminalRuleCall_1_2_1()); 
+    newLeafNode(this_WS_6, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_2_1()); 
     }
 )*))+)
 ;
