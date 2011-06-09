@@ -30,9 +30,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Artifacts/mappings"/>
     </genClasses>
     <genClasses ecoreClass="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MetaStatement">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MetaStatement/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MetaStatement/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MetaStatement/type"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MetaStatement/filters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MetaStatement/filters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MetaStatement/statement"/>
     </genClasses>
     <genClasses ecoreClass="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Sql">
@@ -105,9 +105,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Identifier/vals"/>
     </genClasses>
     <genClasses ecoreClass="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MappingRule">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MappingRule/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MappingRule/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MappingRule/type"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MappingRule/filters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MappingRule/filters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MappingRule/mapping"/>
     </genClasses>
     <genClasses ecoreClass="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Mapping">
@@ -123,16 +123,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MappingIdentifier/vals"/>
     </genClasses>
     <genClasses ecoreClass="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OptionalFeature">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OptionalFeature/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OptionalFeature/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OptionalFeature/type"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OptionalFeature/filters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OptionalFeature/filters"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OptionalFeature/option"/>
-    </genClasses>
-    <genClasses ecoreClass="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Name">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Name/name"/>
-    </genClasses>
-    <genClasses ecoreClass="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Filter">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Filter/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

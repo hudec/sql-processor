@@ -2,6 +2,7 @@
  * <copyright>
  * </copyright>
  *
+
  */
 package org.sqlproc.dsl.processorDsl;
 
@@ -31,30 +32,30 @@ import org.eclipse.emf.ecore.EObject;
 public interface MetaStatement extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' containment reference.
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' containment reference.
-   * @see #setName(Name)
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
    * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMetaStatement_Name()
-   * @model containment="true"
+   * @model
    * @generated
    */
-  Name getName();
+  String getName();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.MetaStatement#getName <em>Name</em>}' containment reference.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.MetaStatement#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' containment reference.
+   * @param value the new value of the '<em>Name</em>' attribute.
    * @see #getName()
    * @generated
    */
-  void setName(Name value);
+  void setName(String value);
 
   /**
    * Returns the value of the '<em><b>Type</b></em>' attribute.
@@ -86,20 +87,20 @@ public interface MetaStatement extends EObject
   void setType(STATEMEN_TYPE value);
 
   /**
-   * Returns the value of the '<em><b>Filters</b></em>' containment reference list.
-   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.Filter}.
+   * Returns the value of the '<em><b>Filters</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Filters</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Filters</em>' attribute list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Filters</em>' containment reference list.
+   * @return the value of the '<em>Filters</em>' attribute list.
    * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMetaStatement_Filters()
-   * @model containment="true"
+   * @model unique="false"
    * @generated
    */
-  EList<Filter> getFilters();
+  EList<String> getFilters();
 
   /**
    * Returns the value of the '<em><b>Statement</b></em>' containment reference.

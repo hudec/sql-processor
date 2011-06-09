@@ -2,6 +2,7 @@
  * <copyright>
  * </copyright>
  *
+
  */
 package org.sqlproc.dsl.processorDsl;
 
@@ -204,24 +205,6 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   OptionalFeature createOptionalFeature();
-
-  /**
-   * Returns a new object of class '<em>Name</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Name</em>'.
-   * @generated
-   */
-  Name createName();
-
-  /**
-   * Returns a new object of class '<em>Filter</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Filter</em>'.
-   * @generated
-   */
-  Filter createFilter();
 
   /**
    * Returns the package supported by this factory.

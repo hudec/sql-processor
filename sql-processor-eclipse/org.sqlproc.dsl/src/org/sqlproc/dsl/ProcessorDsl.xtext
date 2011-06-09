@@ -8,7 +8,7 @@ Artifacts:
     WS* (features+=OptionalFeature WS*|statements+=MetaStatement WS*|mappings+=MappingRule WS*)+;
 
 MetaStatement:
-	name=Name LPAREN type=STATEMEN_TYPE (COMMA filters+=Filter)* RPAREN EQUALS statement=Sql SEMICOLON;
+	name=IDENT LPAREN type=STATEMEN_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS statement=Sql SEMICOLON;
 
 Sql: (sqls+=SqlFragment)+;
 
@@ -89,7 +89,7 @@ Identifier:
     (=> CARET type=IDENT (=> CARET vals+=(IDENT|NUMBER))*)?;
 
 MappingRule:
-	name=Name LPAREN type=MAPPING_TYPE (COMMA filters+=Filter)* RPAREN EQUALS mapping=Mapping SEMICOLON;
+	name=IDENT LPAREN type=MAPPING_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS mapping=Mapping SEMICOLON;
 
 Mapping:
 	WS* mappingItems+=MappingItem (WS+ mappingItems+=MappingItem)* WS*;
@@ -101,18 +101,11 @@ MappingIdentifier:
     name=(IDENT|IDENT_DOT) (CARET vals+=(IDENT|NUMBER))*;
 
 OptionalFeature:
-	name=Name LPAREN type=OPTION_TYPE (COMMA filters+=Filter)* RPAREN EQUALS option=FeatureValue SEMICOLON;
+	name=IDENT LPAREN type=OPTION_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS option=FeatureValue SEMICOLON;
 
 FeatureValue:
   (REST|IDENT_DOT|IDENT|NUMBER|WS|COLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|ESC_CHAR)+;
 
-Name:
-  {Name} name=IDENT
-;
-
-Filter:
-  {Filter} name=IDENT
-;
 
 enum STATEMEN_TYPE: QRY|CRUD|CALL;
 enum MAPPING_TYPE: OUT;

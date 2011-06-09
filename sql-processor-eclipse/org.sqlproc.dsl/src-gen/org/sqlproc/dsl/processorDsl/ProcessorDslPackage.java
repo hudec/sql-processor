@@ -2,6 +2,7 @@
  * <copyright>
  * </copyright>
  *
+
  */
 package org.sqlproc.dsl.processorDsl;
 
@@ -117,7 +118,7 @@ public interface ProcessorDslPackage extends EPackage
   int META_STATEMENT = 1;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' containment reference.
+   * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -135,7 +136,7 @@ public interface ProcessorDslPackage extends EPackage
   int META_STATEMENT__TYPE = 1;
 
   /**
-   * The feature id for the '<em><b>Filters</b></em>' containment reference list.
+   * The feature id for the '<em><b>Filters</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -806,7 +807,7 @@ public interface ProcessorDslPackage extends EPackage
   int MAPPING_RULE = 15;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' containment reference.
+   * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -824,7 +825,7 @@ public interface ProcessorDslPackage extends EPackage
   int MAPPING_RULE__TYPE = 1;
 
   /**
-   * The feature id for the '<em><b>Filters</b></em>' containment reference list.
+   * The feature id for the '<em><b>Filters</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -972,7 +973,7 @@ public interface ProcessorDslPackage extends EPackage
   int OPTIONAL_FEATURE = 19;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' containment reference.
+   * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -990,7 +991,7 @@ public interface ProcessorDslPackage extends EPackage
   int OPTIONAL_FEATURE__TYPE = 1;
 
   /**
-   * The feature id for the '<em><b>Filters</b></em>' containment reference list.
+   * The feature id for the '<em><b>Filters</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1017,62 +1018,6 @@ public interface ProcessorDslPackage extends EPackage
   int OPTIONAL_FEATURE_FEATURE_COUNT = 4;
 
   /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.NameImpl <em>Name</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.NameImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getName_()
-   * @generated
-   */
-  int NAME = 20;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NAME__NAME = 0;
-
-  /**
-   * The number of structural features of the '<em>Name</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NAME_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.FilterImpl <em>Filter</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.FilterImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getFilter()
-   * @generated
-   */
-  int FILTER = 21;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FILTER__NAME = 0;
-
-  /**
-   * The number of structural features of the '<em>Filter</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FILTER_FEATURE_COUNT = 1;
-
-  /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.STATEMEN_TYPE <em>STATEMEN TYPE</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1080,7 +1025,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getSTATEMEN_TYPE()
    * @generated
    */
-  int STATEMEN_TYPE = 22;
+  int STATEMEN_TYPE = 20;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.MAPPING_TYPE <em>MAPPING TYPE</em>}' enum.
@@ -1090,7 +1035,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMAPPING_TYPE()
    * @generated
    */
-  int MAPPING_TYPE = 23;
+  int MAPPING_TYPE = 21;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.OPTION_TYPE <em>OPTION TYPE</em>}' enum.
@@ -1100,7 +1045,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getOPTION_TYPE()
    * @generated
    */
-  int OPTION_TYPE = 24;
+  int OPTION_TYPE = 22;
 
 
   /**
@@ -1157,15 +1102,15 @@ public interface ProcessorDslPackage extends EPackage
   EClass getMetaStatement();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.MetaStatement#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.MetaStatement#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Name</em>'.
+   * @return the meta object for the attribute '<em>Name</em>'.
    * @see org.sqlproc.dsl.processorDsl.MetaStatement#getName()
    * @see #getMetaStatement()
    * @generated
    */
-  EReference getMetaStatement_Name();
+  EAttribute getMetaStatement_Name();
 
   /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.MetaStatement#getType <em>Type</em>}'.
@@ -1179,15 +1124,15 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getMetaStatement_Type();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.MetaStatement#getFilters <em>Filters</em>}'.
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.MetaStatement#getFilters <em>Filters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Filters</em>'.
+   * @return the meta object for the attribute list '<em>Filters</em>'.
    * @see org.sqlproc.dsl.processorDsl.MetaStatement#getFilters()
    * @see #getMetaStatement()
    * @generated
    */
-  EReference getMetaStatement_Filters();
+  EAttribute getMetaStatement_Filters();
 
   /**
    * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.MetaStatement#getStatement <em>Statement</em>}'.
@@ -1814,15 +1759,15 @@ public interface ProcessorDslPackage extends EPackage
   EClass getMappingRule();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.MappingRule#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.MappingRule#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Name</em>'.
+   * @return the meta object for the attribute '<em>Name</em>'.
    * @see org.sqlproc.dsl.processorDsl.MappingRule#getName()
    * @see #getMappingRule()
    * @generated
    */
-  EReference getMappingRule_Name();
+  EAttribute getMappingRule_Name();
 
   /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.MappingRule#getType <em>Type</em>}'.
@@ -1836,15 +1781,15 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getMappingRule_Type();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.MappingRule#getFilters <em>Filters</em>}'.
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.MappingRule#getFilters <em>Filters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Filters</em>'.
+   * @return the meta object for the attribute list '<em>Filters</em>'.
    * @see org.sqlproc.dsl.processorDsl.MappingRule#getFilters()
    * @see #getMappingRule()
    * @generated
    */
-  EReference getMappingRule_Filters();
+  EAttribute getMappingRule_Filters();
 
   /**
    * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.MappingRule#getMapping <em>Mapping</em>}'.
@@ -1964,15 +1909,15 @@ public interface ProcessorDslPackage extends EPackage
   EClass getOptionalFeature();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.OptionalFeature#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.OptionalFeature#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Name</em>'.
+   * @return the meta object for the attribute '<em>Name</em>'.
    * @see org.sqlproc.dsl.processorDsl.OptionalFeature#getName()
    * @see #getOptionalFeature()
    * @generated
    */
-  EReference getOptionalFeature_Name();
+  EAttribute getOptionalFeature_Name();
 
   /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.OptionalFeature#getType <em>Type</em>}'.
@@ -1986,15 +1931,15 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getOptionalFeature_Type();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.OptionalFeature#getFilters <em>Filters</em>}'.
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.OptionalFeature#getFilters <em>Filters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Filters</em>'.
+   * @return the meta object for the attribute list '<em>Filters</em>'.
    * @see org.sqlproc.dsl.processorDsl.OptionalFeature#getFilters()
    * @see #getOptionalFeature()
    * @generated
    */
-  EReference getOptionalFeature_Filters();
+  EAttribute getOptionalFeature_Filters();
 
   /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.OptionalFeature#getOption <em>Option</em>}'.
@@ -2006,48 +1951,6 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EAttribute getOptionalFeature_Option();
-
-  /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.Name <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Name</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Name
-   * @generated
-   */
-  EClass getName_();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Name#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Name#getName()
-   * @see #getName_()
-   * @generated
-   */
-  EAttribute getName_Name();
-
-  /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.Filter <em>Filter</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Filter</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Filter
-   * @generated
-   */
-  EClass getFilter();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Filter#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Filter#getName()
-   * @see #getFilter()
-   * @generated
-   */
-  EAttribute getFilter_Name();
 
   /**
    * Returns the meta object for enum '{@link org.sqlproc.dsl.processorDsl.STATEMEN_TYPE <em>STATEMEN TYPE</em>}'.
@@ -2147,12 +2050,12 @@ public interface ProcessorDslPackage extends EPackage
     EClass META_STATEMENT = eINSTANCE.getMetaStatement();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference META_STATEMENT__NAME = eINSTANCE.getMetaStatement_Name();
+    EAttribute META_STATEMENT__NAME = eINSTANCE.getMetaStatement_Name();
 
     /**
      * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
@@ -2163,12 +2066,12 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute META_STATEMENT__TYPE = eINSTANCE.getMetaStatement_Type();
 
     /**
-     * The meta object literal for the '<em><b>Filters</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Filters</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference META_STATEMENT__FILTERS = eINSTANCE.getMetaStatement_Filters();
+    EAttribute META_STATEMENT__FILTERS = eINSTANCE.getMetaStatement_Filters();
 
     /**
      * The meta object literal for the '<em><b>Statement</b></em>' containment reference feature.
@@ -2663,12 +2566,12 @@ public interface ProcessorDslPackage extends EPackage
     EClass MAPPING_RULE = eINSTANCE.getMappingRule();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MAPPING_RULE__NAME = eINSTANCE.getMappingRule_Name();
+    EAttribute MAPPING_RULE__NAME = eINSTANCE.getMappingRule_Name();
 
     /**
      * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
@@ -2679,12 +2582,12 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute MAPPING_RULE__TYPE = eINSTANCE.getMappingRule_Type();
 
     /**
-     * The meta object literal for the '<em><b>Filters</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Filters</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MAPPING_RULE__FILTERS = eINSTANCE.getMappingRule_Filters();
+    EAttribute MAPPING_RULE__FILTERS = eINSTANCE.getMappingRule_Filters();
 
     /**
      * The meta object literal for the '<em><b>Mapping</b></em>' containment reference feature.
@@ -2783,12 +2686,12 @@ public interface ProcessorDslPackage extends EPackage
     EClass OPTIONAL_FEATURE = eINSTANCE.getOptionalFeature();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference OPTIONAL_FEATURE__NAME = eINSTANCE.getOptionalFeature_Name();
+    EAttribute OPTIONAL_FEATURE__NAME = eINSTANCE.getOptionalFeature_Name();
 
     /**
      * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
@@ -2799,12 +2702,12 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute OPTIONAL_FEATURE__TYPE = eINSTANCE.getOptionalFeature_Type();
 
     /**
-     * The meta object literal for the '<em><b>Filters</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Filters</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference OPTIONAL_FEATURE__FILTERS = eINSTANCE.getOptionalFeature_Filters();
+    EAttribute OPTIONAL_FEATURE__FILTERS = eINSTANCE.getOptionalFeature_Filters();
 
     /**
      * The meta object literal for the '<em><b>Option</b></em>' attribute feature.
@@ -2813,42 +2716,6 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute OPTIONAL_FEATURE__OPTION = eINSTANCE.getOptionalFeature_Option();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.NameImpl <em>Name</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.NameImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getName_()
-     * @generated
-     */
-    EClass NAME = eINSTANCE.getName_();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute NAME__NAME = eINSTANCE.getName_Name();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.FilterImpl <em>Filter</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.FilterImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getFilter()
-     * @generated
-     */
-    EClass FILTER = eINSTANCE.getFilter();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute FILTER__NAME = eINSTANCE.getFilter_Name();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.STATEMEN_TYPE <em>STATEMEN TYPE</em>}' enum.

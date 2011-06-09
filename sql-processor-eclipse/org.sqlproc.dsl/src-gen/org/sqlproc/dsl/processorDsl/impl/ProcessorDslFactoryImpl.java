@@ -2,6 +2,7 @@
  * <copyright>
  * </copyright>
  *
+
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
@@ -88,8 +89,6 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.MAPPING_ITEM: return createMappingItem();
       case ProcessorDslPackage.MAPPING_IDENTIFIER: return createMappingIdentifier();
       case ProcessorDslPackage.OPTIONAL_FEATURE: return createOptionalFeature();
-      case ProcessorDslPackage.NAME: return createName();
-      case ProcessorDslPackage.FILTER: return createFilter();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -355,28 +354,6 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     OptionalFeatureImpl optionalFeature = new OptionalFeatureImpl();
     return optionalFeature;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Name createName()
-  {
-    NameImpl name = new NameImpl();
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Filter createFilter()
-  {
-    FilterImpl filter = new FilterImpl();
-    return filter;
   }
 
   /**
