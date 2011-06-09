@@ -73,11 +73,14 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
     private void provideHighlightingForFilters(EList<String> filters, ICompositeNode node,
             IHighlightedPositionAcceptor acceptor) {
         if (filters != null && !filters.isEmpty()) {
+            int count = filters.size();
             Iterator<INode> iterator = new NodeTreeIterator(node);
             while (iterator.hasNext()) {
                 INode inode = iterator.next();
                 if (filters.contains(inode.getText())) {
                     acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.FILTER);
+                    if (--count <= 0)
+                        return;
                 }
             }
         }
