@@ -4,19 +4,15 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
-import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.AbstractSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
-import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
-import org.sqlproc.dsl.processorDsl.Filter;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IfMetaSql;
 import org.sqlproc.dsl.processorDsl.IfSql;
@@ -29,7 +25,6 @@ import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaSql;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
-import org.sqlproc.dsl.processorDsl.Name;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.OrdSql;
 import org.sqlproc.dsl.processorDsl.OrdSql2;
@@ -81,12 +76,6 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 			case ProcessorDslPackage.CONSTANT:
 				if(context == grammarAccess.getConstantRule()) {
 					sequence_Constant_Constant(context, (Constant) semanticObject); 
-					return; 
-				}
-				else break;
-			case ProcessorDslPackage.FILTER:
-				if(context == grammarAccess.getFilterRule()) {
-					sequence_Filter_Filter(context, (Filter) semanticObject); 
 					return; 
 				}
 				else break;
@@ -159,12 +148,6 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 			case ProcessorDslPackage.META_STATEMENT:
 				if(context == grammarAccess.getMetaStatementRule()) {
 					sequence_MetaStatement_MetaStatement(context, (MetaStatement) semanticObject); 
-					return; 
-				}
-				else break;
-			case ProcessorDslPackage.NAME:
-				if(context == grammarAccess.getNameRule()) {
-					sequence_Name_Name(context, (Name) semanticObject); 
 					return; 
 				}
 				else break;
@@ -248,25 +231,6 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 */
 	protected void sequence_Constant_Constant(EObject context, Constant semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     name=IDENT
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 */
-	protected void sequence_Filter_Filter(EObject context, Filter semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.FILTER__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.FILTER__NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getFilterAccess().getNameIDENTTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.finish();
 	}
 	
 	
@@ -452,7 +416,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (name=Name type=MAPPING_TYPE filters+=Filter* mapping=Mapping)
+	 *     (name=IDENT type=MAPPING_TYPE filters+=IDENT* mapping=Mapping)
 	 *
 	 * Features:
 	 *    name[1, 1]
@@ -559,7 +523,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (name=Name type=STATEMEN_TYPE filters+=Filter* statement=Sql)
+	 *     (name=IDENT type=STATEMEN_TYPE filters+=IDENT* statement=Sql)
 	 *
 	 * Features:
 	 *    name[1, 1]
@@ -574,26 +538,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     name=IDENT
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 */
-	protected void sequence_Name_Name(EObject context, Name semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.NAME__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.NAME__NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getNameAccess().getNameIDENTTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (name=Name type=OPTION_TYPE filters+=Filter* option=FeatureValue)
+	 *     (name=IDENT type=OPTION_TYPE filters+=IDENT* option=FeatureValue)
 	 *
 	 * Features:
 	 *    name[1, 1]

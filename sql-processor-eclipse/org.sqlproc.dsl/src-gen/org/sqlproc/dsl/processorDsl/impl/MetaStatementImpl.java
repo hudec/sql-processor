@@ -2,6 +2,7 @@
  * <copyright>
  * </copyright>
  *
+
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
@@ -18,12 +19,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 
-import org.sqlproc.dsl.processorDsl.Filter;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
-import org.sqlproc.dsl.processorDsl.Name;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.STATEMEN_TYPE;
 import org.sqlproc.dsl.processorDsl.Sql;
@@ -47,14 +45,24 @@ import org.sqlproc.dsl.processorDsl.Sql;
 public class MetaStatementImpl extends MinimalEObjectImpl.Container implements MetaStatement
 {
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' containment reference.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getName()
    * @generated
    * @ordered
    */
-  protected Name name;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -77,14 +85,14 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
   protected STATEMEN_TYPE type = TYPE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getFilters() <em>Filters</em>}' containment reference list.
+   * The cached value of the '{@link #getFilters() <em>Filters</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getFilters()
    * @generated
    * @ordered
    */
-  protected EList<Filter> filters;
+  protected EList<String> filters;
 
   /**
    * The cached value of the '{@link #getStatement() <em>Statement</em>}' containment reference.
@@ -122,7 +130,7 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
    * <!-- end-user-doc -->
    * @generated
    */
-  public Name getName()
+  public String getName()
   {
     return name;
   }
@@ -132,37 +140,12 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetName(Name newName, NotificationChain msgs)
+  public void setName(String newName)
   {
-    Name oldName = name;
+    String oldName = name;
     name = newName;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.META_STATEMENT__NAME, oldName, newName);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(Name newName)
-  {
-    if (newName != name)
-    {
-      NotificationChain msgs = null;
-      if (name != null)
-        msgs = ((InternalEObject)name).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.META_STATEMENT__NAME, null, msgs);
-      if (newName != null)
-        msgs = ((InternalEObject)newName).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.META_STATEMENT__NAME, null, msgs);
-      msgs = basicSetName(newName, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.META_STATEMENT__NAME, newName, newName));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.META_STATEMENT__NAME, oldName, name));
   }
 
   /**
@@ -193,11 +176,11 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Filter> getFilters()
+  public EList<String> getFilters()
   {
     if (filters == null)
     {
-      filters = new EObjectContainmentEList<Filter>(Filter.class, this, ProcessorDslPackage.META_STATEMENT__FILTERS);
+      filters = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.META_STATEMENT__FILTERS);
     }
     return filters;
   }
@@ -260,10 +243,6 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.META_STATEMENT__NAME:
-        return basicSetName(null, msgs);
-      case ProcessorDslPackage.META_STATEMENT__FILTERS:
-        return ((InternalEList<?>)getFilters()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.META_STATEMENT__STATEMENT:
         return basicSetStatement(null, msgs);
     }
@@ -304,14 +283,14 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
     switch (featureID)
     {
       case ProcessorDslPackage.META_STATEMENT__NAME:
-        setName((Name)newValue);
+        setName((String)newValue);
         return;
       case ProcessorDslPackage.META_STATEMENT__TYPE:
         setType((STATEMEN_TYPE)newValue);
         return;
       case ProcessorDslPackage.META_STATEMENT__FILTERS:
         getFilters().clear();
-        getFilters().addAll((Collection<? extends Filter>)newValue);
+        getFilters().addAll((Collection<? extends String>)newValue);
         return;
       case ProcessorDslPackage.META_STATEMENT__STATEMENT:
         setStatement((Sql)newValue);
@@ -331,7 +310,7 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
     switch (featureID)
     {
       case ProcessorDslPackage.META_STATEMENT__NAME:
-        setName((Name)null);
+        setName(NAME_EDEFAULT);
         return;
       case ProcessorDslPackage.META_STATEMENT__TYPE:
         setType(TYPE_EDEFAULT);
@@ -357,7 +336,7 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
     switch (featureID)
     {
       case ProcessorDslPackage.META_STATEMENT__NAME:
-        return name != null;
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.META_STATEMENT__TYPE:
         return type != TYPE_EDEFAULT;
       case ProcessorDslPackage.META_STATEMENT__FILTERS:
@@ -379,8 +358,12 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (type: ");
+    result.append(" (name: ");
+    result.append(name);
+    result.append(", type: ");
     result.append(type);
+    result.append(", filters: ");
+    result.append(filters);
     result.append(')');
     return result.toString();
   }

@@ -173,19 +173,19 @@ ruleMetaStatement returns [EObject current=null]
     @after { leaveRule(); }:
 ((
 (
-		{ 
-	        newCompositeNode(grammarAccess.getMetaStatementAccess().getNameNameParserRuleCall_0_0()); 
-	    }
-		lv_name_0_0=ruleName		{
+		lv_name_0_0=RULE_IDENT
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getMetaStatementAccess().getNameIDENTTerminalRuleCall_0_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getMetaStatementRule());
+	            $current = createModelElement(grammarAccess.getMetaStatementRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"Name");
-	        afterParserOrEnumRuleCall();
+        		"IDENT");
 	    }
 
 )
@@ -217,19 +217,19 @@ ruleMetaStatement returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getMetaStatementAccess().getFiltersFilterParserRuleCall_3_1_0()); 
-	    }
-		lv_filters_4_0=ruleFilter		{
+		lv_filters_4_0=RULE_IDENT
+		{
+			newLeafNode(lv_filters_4_0, grammarAccess.getMetaStatementAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getMetaStatementRule());
+	            $current = createModelElement(grammarAccess.getMetaStatementRule());
 	        }
-       		add(
+       		addWithLastConsumed(
        			$current, 
        			"filters",
         		lv_filters_4_0, 
-        		"Filter");
-	        afterParserOrEnumRuleCall();
+        		"IDENT");
 	    }
 
 )
@@ -3294,19 +3294,19 @@ ruleMappingRule returns [EObject current=null]
     @after { leaveRule(); }:
 ((
 (
-		{ 
-	        newCompositeNode(grammarAccess.getMappingRuleAccess().getNameNameParserRuleCall_0_0()); 
-	    }
-		lv_name_0_0=ruleName		{
+		lv_name_0_0=RULE_IDENT
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getMappingRuleAccess().getNameIDENTTerminalRuleCall_0_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getMappingRuleRule());
+	            $current = createModelElement(grammarAccess.getMappingRuleRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"Name");
-	        afterParserOrEnumRuleCall();
+        		"IDENT");
 	    }
 
 )
@@ -3338,19 +3338,19 @@ ruleMappingRule returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getMappingRuleAccess().getFiltersFilterParserRuleCall_3_1_0()); 
-	    }
-		lv_filters_4_0=ruleFilter		{
+		lv_filters_4_0=RULE_IDENT
+		{
+			newLeafNode(lv_filters_4_0, grammarAccess.getMappingRuleAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getMappingRuleRule());
+	            $current = createModelElement(grammarAccess.getMappingRuleRule());
 	        }
-       		add(
+       		addWithLastConsumed(
        			$current, 
        			"filters",
         		lv_filters_4_0, 
-        		"Filter");
-	        afterParserOrEnumRuleCall();
+        		"IDENT");
 	    }
 
 )
@@ -3674,19 +3674,19 @@ ruleOptionalFeature returns [EObject current=null]
     @after { leaveRule(); }:
 ((
 (
-		{ 
-	        newCompositeNode(grammarAccess.getOptionalFeatureAccess().getNameNameParserRuleCall_0_0()); 
-	    }
-		lv_name_0_0=ruleName		{
+		lv_name_0_0=RULE_IDENT
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getOptionalFeatureAccess().getNameIDENTTerminalRuleCall_0_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getOptionalFeatureRule());
+	            $current = createModelElement(grammarAccess.getOptionalFeatureRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"Name");
-	        afterParserOrEnumRuleCall();
+        		"IDENT");
 	    }
 
 )
@@ -3718,19 +3718,19 @@ ruleOptionalFeature returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getOptionalFeatureAccess().getFiltersFilterParserRuleCall_3_1_0()); 
-	    }
-		lv_filters_4_0=ruleFilter		{
+		lv_filters_4_0=RULE_IDENT
+		{
+			newLeafNode(lv_filters_4_0, grammarAccess.getOptionalFeatureAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getOptionalFeatureRule());
+	            $current = createModelElement(grammarAccess.getOptionalFeatureRule());
 	        }
-       		add(
+       		addWithLastConsumed(
        			$current, 
        			"filters",
         		lv_filters_4_0, 
-        		"Filter");
-	        afterParserOrEnumRuleCall();
+        		"IDENT");
 	    }
 
 )
@@ -3986,96 +3986,6 @@ ruleFeatureValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTo
     }
 )+
     ;
-
-
-
-
-
-// Entry rule entryRuleName
-entryRuleName returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getNameRule()); }
-	 iv_ruleName=ruleName 
-	 { $current=$iv_ruleName.current; } 
-	 EOF 
-;
-
-// Rule Name
-ruleName returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getNameAccess().getNameAction_0(),
-            $current);
-    }
-)(
-(
-		lv_name_1_0=RULE_IDENT
-		{
-			newLeafNode(lv_name_1_0, grammarAccess.getNameAccess().getNameIDENTTerminalRuleCall_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getNameRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_1_0, 
-        		"IDENT");
-	    }
-
-)
-))
-;
-
-
-
-
-
-// Entry rule entryRuleFilter
-entryRuleFilter returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getFilterRule()); }
-	 iv_ruleFilter=ruleFilter 
-	 { $current=$iv_ruleFilter.current; } 
-	 EOF 
-;
-
-// Rule Filter
-ruleFilter returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getFilterAccess().getFilterAction_0(),
-            $current);
-    }
-)(
-(
-		lv_name_1_0=RULE_IDENT
-		{
-			newLeafNode(lv_name_1_0, grammarAccess.getFilterAccess().getNameIDENTTerminalRuleCall_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFilterRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_1_0, 
-        		"IDENT");
-	    }
-
-)
-))
-;
 
 
 

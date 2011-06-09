@@ -2,6 +2,7 @@
  * <copyright>
  * </copyright>
  *
+
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
@@ -16,7 +17,6 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
-import org.sqlproc.dsl.processorDsl.Filter;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IfMetaSql;
 import org.sqlproc.dsl.processorDsl.IfSql;
@@ -29,7 +29,6 @@ import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaSql;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
-import org.sqlproc.dsl.processorDsl.Name;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.OrdSql;
 import org.sqlproc.dsl.processorDsl.OrdSql2;
@@ -191,20 +190,6 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass nameEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass filterEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EEnum statemeN_TYPEEEnum = null;
 
   /**
@@ -339,9 +324,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMetaStatement_Name()
+  public EAttribute getMetaStatement_Name()
   {
-    return (EReference)metaStatementEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)metaStatementEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -359,9 +344,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMetaStatement_Filters()
+  public EAttribute getMetaStatement_Filters()
   {
-    return (EReference)metaStatementEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)metaStatementEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -949,9 +934,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMappingRule_Name()
+  public EAttribute getMappingRule_Name()
   {
-    return (EReference)mappingRuleEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)mappingRuleEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -969,9 +954,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMappingRule_Filters()
+  public EAttribute getMappingRule_Filters()
   {
-    return (EReference)mappingRuleEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)mappingRuleEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1089,9 +1074,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getOptionalFeature_Name()
+  public EAttribute getOptionalFeature_Name()
   {
-    return (EReference)optionalFeatureEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)optionalFeatureEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1109,9 +1094,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getOptionalFeature_Filters()
+  public EAttribute getOptionalFeature_Filters()
   {
-    return (EReference)optionalFeatureEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)optionalFeatureEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1122,46 +1107,6 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
   public EAttribute getOptionalFeature_Option()
   {
     return (EAttribute)optionalFeatureEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getName_()
-  {
-    return nameEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getName_Name()
-  {
-    return (EAttribute)nameEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getFilter()
-  {
-    return filterEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getFilter_Name()
-  {
-    return (EAttribute)filterEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1230,9 +1175,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEReference(artifactsEClass, ARTIFACTS__MAPPINGS);
 
     metaStatementEClass = createEClass(META_STATEMENT);
-    createEReference(metaStatementEClass, META_STATEMENT__NAME);
+    createEAttribute(metaStatementEClass, META_STATEMENT__NAME);
     createEAttribute(metaStatementEClass, META_STATEMENT__TYPE);
-    createEReference(metaStatementEClass, META_STATEMENT__FILTERS);
+    createEAttribute(metaStatementEClass, META_STATEMENT__FILTERS);
     createEReference(metaStatementEClass, META_STATEMENT__STATEMENT);
 
     sqlEClass = createEClass(SQL);
@@ -1305,9 +1250,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEAttribute(identifierEClass, IDENTIFIER__VALS);
 
     mappingRuleEClass = createEClass(MAPPING_RULE);
-    createEReference(mappingRuleEClass, MAPPING_RULE__NAME);
+    createEAttribute(mappingRuleEClass, MAPPING_RULE__NAME);
     createEAttribute(mappingRuleEClass, MAPPING_RULE__TYPE);
-    createEReference(mappingRuleEClass, MAPPING_RULE__FILTERS);
+    createEAttribute(mappingRuleEClass, MAPPING_RULE__FILTERS);
     createEReference(mappingRuleEClass, MAPPING_RULE__MAPPING);
 
     mappingEClass = createEClass(MAPPING);
@@ -1323,16 +1268,10 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEAttribute(mappingIdentifierEClass, MAPPING_IDENTIFIER__VALS);
 
     optionalFeatureEClass = createEClass(OPTIONAL_FEATURE);
-    createEReference(optionalFeatureEClass, OPTIONAL_FEATURE__NAME);
+    createEAttribute(optionalFeatureEClass, OPTIONAL_FEATURE__NAME);
     createEAttribute(optionalFeatureEClass, OPTIONAL_FEATURE__TYPE);
-    createEReference(optionalFeatureEClass, OPTIONAL_FEATURE__FILTERS);
+    createEAttribute(optionalFeatureEClass, OPTIONAL_FEATURE__FILTERS);
     createEAttribute(optionalFeatureEClass, OPTIONAL_FEATURE__OPTION);
-
-    nameEClass = createEClass(NAME);
-    createEAttribute(nameEClass, NAME__NAME);
-
-    filterEClass = createEClass(FILTER);
-    createEAttribute(filterEClass, FILTER__NAME);
 
     // Create enums
     statemeN_TYPEEEnum = createEEnum(STATEMEN_TYPE);
@@ -1377,9 +1316,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEReference(getArtifacts_Mappings(), this.getMappingRule(), null, "mappings", null, 0, -1, Artifacts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(metaStatementEClass, MetaStatement.class, "MetaStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getMetaStatement_Name(), this.getName_(), null, "name", null, 0, 1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetaStatement_Name(), ecorePackage.getEString(), "name", null, 0, 1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetaStatement_Type(), this.getSTATEMEN_TYPE(), "type", null, 0, 1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMetaStatement_Filters(), this.getFilter(), null, "filters", null, 0, -1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetaStatement_Filters(), ecorePackage.getEString(), "filters", null, 0, -1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMetaStatement_Statement(), this.getSql(), null, "statement", null, 0, 1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(sqlEClass, Sql.class, "Sql", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1452,9 +1391,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEAttribute(getIdentifier_Vals(), ecorePackage.getEString(), "vals", null, 0, -1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mappingRuleEClass, MappingRule.class, "MappingRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getMappingRule_Name(), this.getName_(), null, "name", null, 0, 1, MappingRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMappingRule_Name(), ecorePackage.getEString(), "name", null, 0, 1, MappingRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMappingRule_Type(), this.getMAPPING_TYPE(), "type", null, 0, 1, MappingRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMappingRule_Filters(), this.getFilter(), null, "filters", null, 0, -1, MappingRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMappingRule_Filters(), ecorePackage.getEString(), "filters", null, 0, -1, MappingRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMappingRule_Mapping(), this.getMapping(), null, "mapping", null, 0, 1, MappingRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mappingEClass, Mapping.class, "Mapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1470,16 +1409,10 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEAttribute(getMappingIdentifier_Vals(), ecorePackage.getEString(), "vals", null, 0, -1, MappingIdentifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(optionalFeatureEClass, OptionalFeature.class, "OptionalFeature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getOptionalFeature_Name(), this.getName_(), null, "name", null, 0, 1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOptionalFeature_Name(), ecorePackage.getEString(), "name", null, 0, 1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOptionalFeature_Type(), this.getOPTION_TYPE(), "type", null, 0, 1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getOptionalFeature_Filters(), this.getFilter(), null, "filters", null, 0, -1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOptionalFeature_Filters(), ecorePackage.getEString(), "filters", null, 0, -1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOptionalFeature_Option(), ecorePackage.getEString(), "option", null, 0, 1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(nameEClass, Name.class, "Name", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getName_Name(), ecorePackage.getEString(), "name", null, 0, 1, Name.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(filterEClass, Filter.class, "Filter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getFilter_Name(), ecorePackage.getEString(), "name", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(statemeN_TYPEEEnum, org.sqlproc.dsl.processorDsl.STATEMEN_TYPE.class, "STATEMEN_TYPE");

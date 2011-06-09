@@ -15,12 +15,10 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="ecore:EClass platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Name"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EEnum platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//STATEMEN_TYPE"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="filters" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Filter"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="filters" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="ecore:EClass platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Sql"
         containment="true"/>
   </eClassifiers>
@@ -122,12 +120,10 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MappingRule">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="ecore:EClass platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Name"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EEnum platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MAPPING_TYPE"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="filters" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Filter"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="filters" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="ecore:EClass platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Mapping"
         containment="true"/>
   </eClassifiers>
@@ -148,19 +144,11 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OptionalFeature">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="ecore:EClass platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Name"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EEnum platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OPTION_TYPE"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="filters" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Filter"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="filters" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="option" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Name">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Filter">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="STATEMEN_TYPE">
     <eLiterals name="QRY" literal="QRY"/>

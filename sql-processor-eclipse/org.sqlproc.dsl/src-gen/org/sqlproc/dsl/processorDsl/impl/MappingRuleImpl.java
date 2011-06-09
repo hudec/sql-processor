@@ -2,6 +2,7 @@
  * <copyright>
  * </copyright>
  *
+
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
@@ -18,14 +19,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 
-import org.sqlproc.dsl.processorDsl.Filter;
 import org.sqlproc.dsl.processorDsl.MAPPING_TYPE;
 import org.sqlproc.dsl.processorDsl.Mapping;
 import org.sqlproc.dsl.processorDsl.MappingRule;
-import org.sqlproc.dsl.processorDsl.Name;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -47,14 +45,24 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 public class MappingRuleImpl extends MinimalEObjectImpl.Container implements MappingRule
 {
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' containment reference.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getName()
    * @generated
    * @ordered
    */
-  protected Name name;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -77,14 +85,14 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
   protected MAPPING_TYPE type = TYPE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getFilters() <em>Filters</em>}' containment reference list.
+   * The cached value of the '{@link #getFilters() <em>Filters</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getFilters()
    * @generated
    * @ordered
    */
-  protected EList<Filter> filters;
+  protected EList<String> filters;
 
   /**
    * The cached value of the '{@link #getMapping() <em>Mapping</em>}' containment reference.
@@ -122,7 +130,7 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
    * <!-- end-user-doc -->
    * @generated
    */
-  public Name getName()
+  public String getName()
   {
     return name;
   }
@@ -132,37 +140,12 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetName(Name newName, NotificationChain msgs)
+  public void setName(String newName)
   {
-    Name oldName = name;
+    String oldName = name;
     name = newName;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.MAPPING_RULE__NAME, oldName, newName);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(Name newName)
-  {
-    if (newName != name)
-    {
-      NotificationChain msgs = null;
-      if (name != null)
-        msgs = ((InternalEObject)name).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.MAPPING_RULE__NAME, null, msgs);
-      if (newName != null)
-        msgs = ((InternalEObject)newName).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.MAPPING_RULE__NAME, null, msgs);
-      msgs = basicSetName(newName, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.MAPPING_RULE__NAME, newName, newName));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.MAPPING_RULE__NAME, oldName, name));
   }
 
   /**
@@ -193,11 +176,11 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Filter> getFilters()
+  public EList<String> getFilters()
   {
     if (filters == null)
     {
-      filters = new EObjectContainmentEList<Filter>(Filter.class, this, ProcessorDslPackage.MAPPING_RULE__FILTERS);
+      filters = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.MAPPING_RULE__FILTERS);
     }
     return filters;
   }
@@ -260,10 +243,6 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.MAPPING_RULE__NAME:
-        return basicSetName(null, msgs);
-      case ProcessorDslPackage.MAPPING_RULE__FILTERS:
-        return ((InternalEList<?>)getFilters()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.MAPPING_RULE__MAPPING:
         return basicSetMapping(null, msgs);
     }
@@ -304,14 +283,14 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
     switch (featureID)
     {
       case ProcessorDslPackage.MAPPING_RULE__NAME:
-        setName((Name)newValue);
+        setName((String)newValue);
         return;
       case ProcessorDslPackage.MAPPING_RULE__TYPE:
         setType((MAPPING_TYPE)newValue);
         return;
       case ProcessorDslPackage.MAPPING_RULE__FILTERS:
         getFilters().clear();
-        getFilters().addAll((Collection<? extends Filter>)newValue);
+        getFilters().addAll((Collection<? extends String>)newValue);
         return;
       case ProcessorDslPackage.MAPPING_RULE__MAPPING:
         setMapping((Mapping)newValue);
@@ -331,7 +310,7 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
     switch (featureID)
     {
       case ProcessorDslPackage.MAPPING_RULE__NAME:
-        setName((Name)null);
+        setName(NAME_EDEFAULT);
         return;
       case ProcessorDslPackage.MAPPING_RULE__TYPE:
         setType(TYPE_EDEFAULT);
@@ -357,7 +336,7 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
     switch (featureID)
     {
       case ProcessorDslPackage.MAPPING_RULE__NAME:
-        return name != null;
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.MAPPING_RULE__TYPE:
         return type != TYPE_EDEFAULT;
       case ProcessorDslPackage.MAPPING_RULE__FILTERS:
@@ -379,8 +358,12 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (type: ");
+    result.append(" (name: ");
+    result.append(name);
+    result.append(", type: ");
     result.append(type);
+    result.append(", filters: ");
+    result.append(filters);
     result.append(')');
     return result.toString();
   }

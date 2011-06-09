@@ -24,15 +24,15 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
     }
 
     String text(MetaStatement ele) {
-        return ele.getType().getName() + ": " + ele.getName().getName();
+        return ele.getType().getName() + ": " + ele.getName();
     }
 
     String text(OptionalFeature ele) {
-        return ele.getType().getName() + ": " + ele.getName().getName();
+        return ele.getType().getName() + ": " + ele.getName();
     }
 
     String text(MappingRule ele) {
-        return ele.getType().getName() + ": " + ele.getName().getName();
+        return ele.getType().getName() + ": " + ele.getName();
     }
 
     /*

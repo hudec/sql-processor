@@ -2,27 +2,23 @@
  * <copyright>
  * </copyright>
  *
+
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 
-import org.sqlproc.dsl.processorDsl.Filter;
-import org.sqlproc.dsl.processorDsl.Name;
 import org.sqlproc.dsl.processorDsl.OPTION_TYPE;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
@@ -46,14 +42,24 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements OptionalFeature
 {
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' containment reference.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getName()
    * @generated
    * @ordered
    */
-  protected Name name;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -76,14 +82,14 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
   protected OPTION_TYPE type = TYPE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getFilters() <em>Filters</em>}' containment reference list.
+   * The cached value of the '{@link #getFilters() <em>Filters</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getFilters()
    * @generated
    * @ordered
    */
-  protected EList<Filter> filters;
+  protected EList<String> filters;
 
   /**
    * The default value of the '{@link #getOption() <em>Option</em>}' attribute.
@@ -131,7 +137,7 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public Name getName()
+  public String getName()
   {
     return name;
   }
@@ -141,37 +147,12 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetName(Name newName, NotificationChain msgs)
+  public void setName(String newName)
   {
-    Name oldName = name;
+    String oldName = name;
     name = newName;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.OPTIONAL_FEATURE__NAME, oldName, newName);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(Name newName)
-  {
-    if (newName != name)
-    {
-      NotificationChain msgs = null;
-      if (name != null)
-        msgs = ((InternalEObject)name).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.OPTIONAL_FEATURE__NAME, null, msgs);
-      if (newName != null)
-        msgs = ((InternalEObject)newName).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.OPTIONAL_FEATURE__NAME, null, msgs);
-      msgs = basicSetName(newName, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.OPTIONAL_FEATURE__NAME, newName, newName));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.OPTIONAL_FEATURE__NAME, oldName, name));
   }
 
   /**
@@ -202,11 +183,11 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Filter> getFilters()
+  public EList<String> getFilters()
   {
     if (filters == null)
     {
-      filters = new EObjectContainmentEList<Filter>(Filter.class, this, ProcessorDslPackage.OPTIONAL_FEATURE__FILTERS);
+      filters = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.OPTIONAL_FEATURE__FILTERS);
     }
     return filters;
   }
@@ -232,24 +213,6 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
     option = newOption;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.OPTIONAL_FEATURE__OPTION, oldOption, option));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case ProcessorDslPackage.OPTIONAL_FEATURE__NAME:
-        return basicSetName(null, msgs);
-      case ProcessorDslPackage.OPTIONAL_FEATURE__FILTERS:
-        return ((InternalEList<?>)getFilters()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -286,14 +249,14 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
     switch (featureID)
     {
       case ProcessorDslPackage.OPTIONAL_FEATURE__NAME:
-        setName((Name)newValue);
+        setName((String)newValue);
         return;
       case ProcessorDslPackage.OPTIONAL_FEATURE__TYPE:
         setType((OPTION_TYPE)newValue);
         return;
       case ProcessorDslPackage.OPTIONAL_FEATURE__FILTERS:
         getFilters().clear();
-        getFilters().addAll((Collection<? extends Filter>)newValue);
+        getFilters().addAll((Collection<? extends String>)newValue);
         return;
       case ProcessorDslPackage.OPTIONAL_FEATURE__OPTION:
         setOption((String)newValue);
@@ -313,7 +276,7 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
     switch (featureID)
     {
       case ProcessorDslPackage.OPTIONAL_FEATURE__NAME:
-        setName((Name)null);
+        setName(NAME_EDEFAULT);
         return;
       case ProcessorDslPackage.OPTIONAL_FEATURE__TYPE:
         setType(TYPE_EDEFAULT);
@@ -339,7 +302,7 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
     switch (featureID)
     {
       case ProcessorDslPackage.OPTIONAL_FEATURE__NAME:
-        return name != null;
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.OPTIONAL_FEATURE__TYPE:
         return type != TYPE_EDEFAULT;
       case ProcessorDslPackage.OPTIONAL_FEATURE__FILTERS:
@@ -361,8 +324,12 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (type: ");
+    result.append(" (name: ");
+    result.append(name);
+    result.append(", type: ");
     result.append(type);
+    result.append(", filters: ");
+    result.append(filters);
     result.append(", option: ");
     result.append(option);
     result.append(')');
