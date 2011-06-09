@@ -5,6 +5,7 @@ package org.sqlproc.dsl.ui.labeling;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
+import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
@@ -23,15 +24,19 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
         super(delegate);
     }
 
-    String text(MetaStatement ele) {
+    public String text(Artifacts ele) {
+        return "MODEL";
+    }
+
+    public String text(MetaStatement ele) {
         return ele.getType().getName() + ": " + ele.getName();
     }
 
-    String text(OptionalFeature ele) {
+    public String text(MappingRule ele) {
         return ele.getType().getName() + ": " + ele.getName();
     }
 
-    String text(MappingRule ele) {
+    public String text(OptionalFeature ele) {
         return ele.getType().getName() + ": " + ele.getName();
     }
 

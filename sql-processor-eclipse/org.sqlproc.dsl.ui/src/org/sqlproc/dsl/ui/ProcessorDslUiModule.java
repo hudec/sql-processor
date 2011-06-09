@@ -4,14 +4,17 @@
 package org.sqlproc.dsl.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.outline.impl.OutlineFilterAndSorter.IComparator;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
+import org.sqlproc.dsl.ui.outline.OutlineComparator;
 
 /**
  * Use this class to register components to be used within the IDE.
  */
 public class ProcessorDslUiModule extends org.sqlproc.dsl.ui.AbstractProcessorDslUiModule {
+
     public ProcessorDslUiModule(AbstractUIPlugin plugin) {
         super(plugin);
     }
@@ -26,6 +29,11 @@ public class ProcessorDslUiModule extends org.sqlproc.dsl.ui.AbstractProcessorDs
 
     public Class<? extends ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
         return SemanticHighlightingCalculator.class;
+    }
+
+    @Override
+    public Class<? extends IComparator> bindOutlineFilterAndSorter$IComparator() {
+        return OutlineComparator.class;
     }
 
 }
