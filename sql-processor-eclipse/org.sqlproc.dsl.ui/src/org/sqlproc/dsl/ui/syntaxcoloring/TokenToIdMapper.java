@@ -1,4 +1,4 @@
-package org.sqlproc.dsl.ui;
+package org.sqlproc.dsl.ui.syntaxcoloring;
 
 import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultAntlrTokenToAttributeIdMapper;
 import org.sqlproc.dsl.parser.antlr.internal.InternalProcessorDslLexer;

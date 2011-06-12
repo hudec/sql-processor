@@ -4,11 +4,19 @@
 package org.sqlproc.dsl.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.xtext.ui.editor.outline.impl.OutlineFilterAndSorter.IComparator;
+import org.eclipse.xtext.ui.editor.outline.actions.IOutlineContribution;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
-import org.sqlproc.dsl.ui.outline.OutlineComparator;
+import org.sqlproc.dsl.ui.outline.FilterMappingRulesContribution;
+import org.sqlproc.dsl.ui.outline.FilterMetaStatementsContribution;
+import org.sqlproc.dsl.ui.outline.FilterOptionalFeaturesContribution;
+import org.sqlproc.dsl.ui.syntaxcoloring.HighlightingConfiguration;
+import org.sqlproc.dsl.ui.syntaxcoloring.SemanticHighlightingCalculator;
+import org.sqlproc.dsl.ui.syntaxcoloring.TokenToIdMapper;
+
+import com.google.inject.Binder;
+import com.google.inject.name.Names;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -31,9 +39,18 @@ public class ProcessorDslUiModule extends org.sqlproc.dsl.ui.AbstractProcessorDs
         return SemanticHighlightingCalculator.class;
     }
 
-    @Override
-    public Class<? extends IComparator> bindOutlineFilterAndSorter$IComparator() {
-        return OutlineComparator.class;
+    public void configureFilterOptionalFeaturesOutlineContribution(Binder binder) {
+        binder.bind(IOutlineContribution.class).annotatedWith(Names.named("FilterOptionalFeaturesContribution"))
+                .to(FilterOptionalFeaturesContribution.class);
     }
 
+    public void configureFilterMetaStatementsOutlineContribution(Binder binder) {
+        binder.bind(IOutlineContribution.class).annotatedWith(Names.named("FilterMetaStatementsContribution"))
+                .to(FilterMetaStatementsContribution.class);
+    }
+
+    public void configureFilterMappingRulesOutlineContribution(Binder binder) {
+        binder.bind(IOutlineContribution.class).annotatedWith(Names.named("FilterMappingRulesContribution"))
+                .to(FilterMappingRulesContribution.class);
+    }
 }

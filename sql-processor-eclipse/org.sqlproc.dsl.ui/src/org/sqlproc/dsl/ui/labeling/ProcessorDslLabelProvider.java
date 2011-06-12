@@ -29,18 +29,29 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
     }
 
     public String text(MetaStatement ele) {
-        return ele.getType().getName() + ": " + ele.getName();
+        // return ele.getType().getName() + ": " + ele.getName();
+        return ele.getName();
     }
 
     public String text(MappingRule ele) {
-        return ele.getType().getName() + ": " + ele.getName();
+        // return ele.getType().getName() + ": " + ele.getName();
+        return ele.getName();
     }
 
     public String text(OptionalFeature ele) {
-        return ele.getType().getName() + ": " + ele.getName();
+        // return ele.getType().getName() + ": " + ele.getName();
+        return ele.getName();
     }
 
-    /*
-     * String image(MyModel ele) { return "MyModel.gif"; }
-     */
+    String image(MetaStatement ele) {
+        return "SQL.gif";
+    }
+
+    String image(MappingRule ele) {
+        return "OUT.gif";
+    }
+
+    String image(OptionalFeature ele) {
+        return "OPT.gif";
+    }
 }

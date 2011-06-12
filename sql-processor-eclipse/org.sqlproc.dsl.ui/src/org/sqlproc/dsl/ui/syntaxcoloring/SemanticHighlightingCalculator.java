@@ -1,4 +1,4 @@
-package org.sqlproc.dsl.ui;
+package org.sqlproc.dsl.ui.syntaxcoloring;
 
 import java.util.Iterator;
 

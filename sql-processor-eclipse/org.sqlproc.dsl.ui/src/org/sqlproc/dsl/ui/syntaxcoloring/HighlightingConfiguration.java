@@ -1,4 +1,4 @@
-package org.sqlproc.dsl.ui;
+package org.sqlproc.dsl.ui.syntaxcoloring;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;

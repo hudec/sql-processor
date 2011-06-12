@@ -4,8 +4,8 @@
 package org.sqlproc.dsl.ui.outline;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
+import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
@@ -17,14 +17,21 @@ import org.sqlproc.dsl.processorDsl.OptionalFeature;
 public class ProcessorDslOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
     @Override
-    public void createChildren(IOutlineNode parent, EObject modelElement) {
-        if (modelElement instanceof MetaStatement)
-            return;
-        if (modelElement instanceof MappingRule)
-            return;
-        if (modelElement instanceof OptionalFeature)
-            return;
-        super.createChildren(parent, modelElement);
+    protected void _createChildren(DocumentRootNode parentNode, EObject rootElement) {
+        for (EObject content : rootElement.eContents()) {
+            createNode(parentNode, content);
+        }
     }
 
+    protected boolean _isLeaf(MetaStatement metaStatement) {
+        return true;
+    }
+
+    protected boolean _isLeaf(MappingRule mappingRule) {
+        return true;
+    }
+
+    protected boolean _isLeaf(OptionalFeature optionalFeature) {
+        return true;
+    }
 }
