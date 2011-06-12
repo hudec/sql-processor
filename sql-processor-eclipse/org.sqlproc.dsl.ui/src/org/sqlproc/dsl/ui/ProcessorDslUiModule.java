@@ -5,12 +5,14 @@ package org.sqlproc.dsl.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.ui.editor.outline.actions.IOutlineContribution;
+import org.eclipse.xtext.ui.editor.outline.impl.OutlineFilterAndSorter;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 import org.sqlproc.dsl.ui.outline.FilterMappingRulesContribution;
 import org.sqlproc.dsl.ui.outline.FilterMetaStatementsContribution;
 import org.sqlproc.dsl.ui.outline.FilterOptionalFeaturesContribution;
+import org.sqlproc.dsl.ui.outline.FixedOutlineFilterAndSorter;
 import org.sqlproc.dsl.ui.syntaxcoloring.HighlightingConfiguration;
 import org.sqlproc.dsl.ui.syntaxcoloring.SemanticHighlightingCalculator;
 import org.sqlproc.dsl.ui.syntaxcoloring.TokenToIdMapper;
@@ -37,6 +39,16 @@ public class ProcessorDslUiModule extends org.sqlproc.dsl.ui.AbstractProcessorDs
 
     public Class<? extends ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
         return SemanticHighlightingCalculator.class;
+    }
+
+    // @Override
+    // public Class<? extends IComparator> bindOutlineFilterAndSorter$IComparator() {
+    // return OutlineComparator.class;
+    //
+    // }
+
+    public Class<? extends OutlineFilterAndSorter> bindOutlineFilterAndSorter() {
+        return FixedOutlineFilterAndSorter.class;
     }
 
     public void configureFilterOptionalFeaturesOutlineContribution(Binder binder) {
