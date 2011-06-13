@@ -23,11 +23,12 @@ Import-Package: org.apache.log4j,
  org.eclipse.xtext.xtend2.lib
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.sqlproc.dsl,
- org.sqlproc.dsl.services,
+ org.sqlproc.dsl.parser.antlr,
+ org.sqlproc.dsl.parser.antlr.internal,
  org.sqlproc.dsl.processorDsl,
  org.sqlproc.dsl.processorDsl.impl,
  org.sqlproc.dsl.processorDsl.util,
  org.sqlproc.dsl.serializer,
- org.sqlproc.dsl.parser.antlr,
- org.sqlproc.dsl.parser.antlr.internal,
+ org.sqlproc.dsl.services,
+ org.sqlproc.dsl.util,
  org.sqlproc.dsl.validation
