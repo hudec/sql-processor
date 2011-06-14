@@ -6,6 +6,10 @@ package org.sqlproc.dsl.ui.labeling;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.Column;
+import org.sqlproc.dsl.processorDsl.Constant;
+import org.sqlproc.dsl.processorDsl.Identifier;
+import org.sqlproc.dsl.processorDsl.MappingIdentifier;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
@@ -29,17 +33,30 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
     }
 
     public String text(MetaStatement ele) {
-        // return ele.getType().getName() + ": " + ele.getName();
         return ele.getName();
     }
 
     public String text(MappingRule ele) {
-        // return ele.getType().getName() + ": " + ele.getName();
         return ele.getName();
     }
 
     public String text(OptionalFeature ele) {
-        // return ele.getType().getName() + ": " + ele.getName();
+        return ele.getName();
+    }
+
+    public String text(Identifier ele) {
+        return ele.getName();
+    }
+
+    public String text(Constant ele) {
+        return ele.getName();
+    }
+
+    public String text(Column ele) {
+        return ele.getName();
+    }
+
+    public String text(MappingIdentifier ele) {
         return ele.getName();
     }
 
@@ -53,5 +70,21 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
 
     String image(OptionalFeature ele) {
         return "OPT.gif";
+    }
+
+    String image(Identifier ele) {
+        return "IDNT.gif";
+    }
+
+    String image(Constant ele) {
+        return "CNST.gif";
+    }
+
+    String image(Column ele) {
+        return "COL.gif";
+    }
+
+    String image(MappingIdentifier ele) {
+        return "COL.gif";
     }
 }

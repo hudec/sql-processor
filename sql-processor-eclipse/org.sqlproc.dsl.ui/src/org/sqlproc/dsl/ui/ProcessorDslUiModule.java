@@ -41,12 +41,6 @@ public class ProcessorDslUiModule extends org.sqlproc.dsl.ui.AbstractProcessorDs
         return SemanticHighlightingCalculator.class;
     }
 
-    // @Override
-    // public Class<? extends IComparator> bindOutlineFilterAndSorter$IComparator() {
-    // return OutlineComparator.class;
-    //
-    // }
-
     public Class<? extends OutlineFilterAndSorter> bindOutlineFilterAndSorter() {
         return FixedOutlineFilterAndSorter.class;
     }

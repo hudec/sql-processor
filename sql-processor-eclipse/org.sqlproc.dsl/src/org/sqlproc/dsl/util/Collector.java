@@ -9,6 +9,9 @@ import org.sqlproc.dsl.processorDsl.IfSql;
 import org.sqlproc.dsl.processorDsl.IfSqlBool;
 import org.sqlproc.dsl.processorDsl.IfSqlCond;
 import org.sqlproc.dsl.processorDsl.IfSqlFragment;
+import org.sqlproc.dsl.processorDsl.MappingIdentifier;
+import org.sqlproc.dsl.processorDsl.MappingItem;
+import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OrdSql2;
 import org.sqlproc.dsl.processorDsl.SqlFragment;
@@ -93,6 +96,17 @@ public class Collector {
                     constants.add(ifSqlBool.getCnst());
                 } else if (ifSqlBool.getCond() != null) {
                     allVariables(ifSqlBool.getCond(), identifiers, constants, columns);
+                }
+            }
+        }
+    }
+
+    public static void allVariables(MappingRule mappingRule, Set<MappingIdentifier> columns) {
+
+        if (mappingRule.getMapping() != null && mappingRule.getMapping().getMappingItems() != null) {
+            for (MappingItem mappingItem : mappingRule.getMapping().getMappingItems()) {
+                if (mappingItem.getAttr() != null) {
+                    columns.add(mappingItem.getAttr());
                 }
             }
         }
