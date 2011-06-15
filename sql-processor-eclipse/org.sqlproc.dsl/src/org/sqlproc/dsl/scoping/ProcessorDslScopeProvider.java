@@ -3,15 +3,33 @@
  */
 package org.sqlproc.dsl.scoping;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 
 /**
  * This class contains custom scoping description.
  * 
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping
- * on how and when to use it 
- *
+ * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on how and when to use it
+ * 
  */
 public class ProcessorDslScopeProvider extends AbstractDeclarativeScopeProvider {
+
+    @Override
+    public IScope getScope(EObject context, EReference reference) {
+        IScope scope = super.getScope(context, reference);
+        // if (scope != null) {
+        // System.out.println("XXXXXXXXX " + context);
+        // System.out.println("XXXXXXXXX " + reference);
+        // System.out.println("XXXXXXXXX " + scope);
+        // Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        // for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+        // IEObjectDescription desc = iter.next();
+        // System.out.println("YYYYYYYY " + desc);
+        // }
+        // }
+        return scope;
+    }
 
 }

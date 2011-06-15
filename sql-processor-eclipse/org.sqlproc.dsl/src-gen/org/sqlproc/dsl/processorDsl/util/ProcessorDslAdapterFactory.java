@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl.util;
 
@@ -82,6 +81,36 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseArtifacts(Artifacts object)
       {
         return createArtifactsAdapter();
+      }
+      @Override
+      public Adapter casePojoDefinition(PojoDefinition object)
+      {
+        return createPojoDefinitionAdapter();
+      }
+      @Override
+      public Adapter casePojoUsage(PojoUsage object)
+      {
+        return createPojoUsageAdapter();
+      }
+      @Override
+      public Adapter caseColumnUsage(ColumnUsage object)
+      {
+        return createColumnUsageAdapter();
+      }
+      @Override
+      public Adapter caseIdentifierUsage(IdentifierUsage object)
+      {
+        return createIdentifierUsageAdapter();
+      }
+      @Override
+      public Adapter caseConstantUsage(ConstantUsage object)
+      {
+        return createConstantUsageAdapter();
+      }
+      @Override
+      public Adapter caseMappingUsage(MappingUsage object)
+      {
+        return createMappingUsageAdapter();
       }
       @Override
       public Adapter caseMetaStatement(MetaStatement object)
@@ -211,6 +240,96 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createArtifactsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.PojoDefinition <em>Pojo Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.PojoDefinition
+   * @generated
+   */
+  public Adapter createPojoDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.PojoUsage <em>Pojo Usage</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.PojoUsage
+   * @generated
+   */
+  public Adapter createPojoUsageAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ColumnUsage <em>Column Usage</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ColumnUsage
+   * @generated
+   */
+  public Adapter createColumnUsageAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.IdentifierUsage <em>Identifier Usage</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.IdentifierUsage
+   * @generated
+   */
+  public Adapter createIdentifierUsageAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ConstantUsage <em>Constant Usage</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ConstantUsage
+   * @generated
+   */
+  public Adapter createConstantUsageAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.MappingUsage <em>Mapping Usage</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.MappingUsage
+   * @generated
+   */
+  public Adapter createMappingUsageAdapter()
   {
     return null;
   }

@@ -5,37 +5,31 @@
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
-
-import org.sqlproc.dsl.processorDsl.MappingIdentifier;
+import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Mapping Identifier</b></em>'.
+ * An implementation of the model object '<em><b>Pojo Definition</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MappingIdentifierImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MappingIdentifierImpl#getVals <em>Vals</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl#getClass_ <em>Class</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class MappingIdentifierImpl extends MinimalEObjectImpl.Container implements MappingIdentifier
+public class PojoDefinitionImpl extends MinimalEObjectImpl.Container implements PojoDefinition
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -58,21 +52,31 @@ public class MappingIdentifierImpl extends MinimalEObjectImpl.Container implemen
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getVals() <em>Vals</em>}' attribute list.
+   * The default value of the '{@link #getClass_() <em>Class</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVals()
+   * @see #getClass_()
    * @generated
    * @ordered
    */
-  protected EList<String> vals;
+  protected static final String CLASS_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getClass_() <em>Class</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getClass_()
+   * @generated
+   * @ordered
+   */
+  protected String class_ = CLASS_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected MappingIdentifierImpl()
+  protected PojoDefinitionImpl()
   {
     super();
   }
@@ -85,7 +89,7 @@ public class MappingIdentifierImpl extends MinimalEObjectImpl.Container implemen
   @Override
   protected EClass eStaticClass()
   {
-    return ProcessorDslPackage.Literals.MAPPING_IDENTIFIER;
+    return ProcessorDslPackage.Literals.POJO_DEFINITION;
   }
 
   /**
@@ -108,7 +112,7 @@ public class MappingIdentifierImpl extends MinimalEObjectImpl.Container implemen
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.MAPPING_IDENTIFIER__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_DEFINITION__NAME, oldName, name));
   }
 
   /**
@@ -116,13 +120,22 @@ public class MappingIdentifierImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getVals()
+  public String getClass_()
   {
-    if (vals == null)
-    {
-      vals = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.MAPPING_IDENTIFIER__VALS);
-    }
-    return vals;
+    return class_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setClass(String newClass)
+  {
+    String oldClass = class_;
+    class_ = newClass;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_DEFINITION__CLASS, oldClass, class_));
   }
 
   /**
@@ -135,10 +148,10 @@ public class MappingIdentifierImpl extends MinimalEObjectImpl.Container implemen
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.MAPPING_IDENTIFIER__NAME:
+      case ProcessorDslPackage.POJO_DEFINITION__NAME:
         return getName();
-      case ProcessorDslPackage.MAPPING_IDENTIFIER__VALS:
-        return getVals();
+      case ProcessorDslPackage.POJO_DEFINITION__CLASS:
+        return getClass_();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -148,18 +161,16 @@ public class MappingIdentifierImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.MAPPING_IDENTIFIER__NAME:
+      case ProcessorDslPackage.POJO_DEFINITION__NAME:
         setName((String)newValue);
         return;
-      case ProcessorDslPackage.MAPPING_IDENTIFIER__VALS:
-        getVals().clear();
-        getVals().addAll((Collection<? extends String>)newValue);
+      case ProcessorDslPackage.POJO_DEFINITION__CLASS:
+        setClass((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -175,11 +186,11 @@ public class MappingIdentifierImpl extends MinimalEObjectImpl.Container implemen
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.MAPPING_IDENTIFIER__NAME:
+      case ProcessorDslPackage.POJO_DEFINITION__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case ProcessorDslPackage.MAPPING_IDENTIFIER__VALS:
-        getVals().clear();
+      case ProcessorDslPackage.POJO_DEFINITION__CLASS:
+        setClass(CLASS_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -195,10 +206,10 @@ public class MappingIdentifierImpl extends MinimalEObjectImpl.Container implemen
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.MAPPING_IDENTIFIER__NAME:
+      case ProcessorDslPackage.POJO_DEFINITION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ProcessorDslPackage.MAPPING_IDENTIFIER__VALS:
-        return vals != null && !vals.isEmpty();
+      case ProcessorDslPackage.POJO_DEFINITION__CLASS:
+        return CLASS_EDEFAULT == null ? class_ != null : !CLASS_EDEFAULT.equals(class_);
     }
     return super.eIsSet(featureID);
   }
@@ -216,10 +227,10 @@ public class MappingIdentifierImpl extends MinimalEObjectImpl.Container implemen
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", vals: ");
-    result.append(vals);
+    result.append(", class: ");
+    result.append(class_);
     result.append(')');
     return result.toString();
   }
 
-} //MappingIdentifierImpl
+} //PojoDefinitionImpl

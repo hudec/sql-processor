@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
@@ -70,6 +69,12 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
     switch (eClass.getClassifierID())
     {
       case ProcessorDslPackage.ARTIFACTS: return createArtifacts();
+      case ProcessorDslPackage.POJO_DEFINITION: return createPojoDefinition();
+      case ProcessorDslPackage.POJO_USAGE: return createPojoUsage();
+      case ProcessorDslPackage.COLUMN_USAGE: return createColumnUsage();
+      case ProcessorDslPackage.IDENTIFIER_USAGE: return createIdentifierUsage();
+      case ProcessorDslPackage.CONSTANT_USAGE: return createConstantUsage();
+      case ProcessorDslPackage.MAPPING_USAGE: return createMappingUsage();
       case ProcessorDslPackage.META_STATEMENT: return createMetaStatement();
       case ProcessorDslPackage.SQL: return createSql();
       case ProcessorDslPackage.SQL_FRAGMENT: return createSqlFragment();
@@ -145,6 +150,72 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     ArtifactsImpl artifacts = new ArtifactsImpl();
     return artifacts;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoDefinition createPojoDefinition()
+  {
+    PojoDefinitionImpl pojoDefinition = new PojoDefinitionImpl();
+    return pojoDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoUsage createPojoUsage()
+  {
+    PojoUsageImpl pojoUsage = new PojoUsageImpl();
+    return pojoUsage;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ColumnUsage createColumnUsage()
+  {
+    ColumnUsageImpl columnUsage = new ColumnUsageImpl();
+    return columnUsage;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IdentifierUsage createIdentifierUsage()
+  {
+    IdentifierUsageImpl identifierUsage = new IdentifierUsageImpl();
+    return identifierUsage;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ConstantUsage createConstantUsage()
+  {
+    ConstantUsageImpl constantUsage = new ConstantUsageImpl();
+    return constantUsage;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public MappingUsage createMappingUsage()
+  {
+    MappingUsageImpl mappingUsage = new MappingUsageImpl();
+    return mappingUsage;
   }
 
   /**

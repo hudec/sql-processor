@@ -5,7 +5,26 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 generate processorDsl "http://www.sqlproc.org/dsl/ProcessorDsl"
 
 Artifacts:
-    WS* (features+=OptionalFeature WS*|statements+=MetaStatement WS*|mappings+=MappingRule WS*)+;
+    WS* (features+=OptionalFeature WS*|statements+=MetaStatement WS*|mappings+=MappingRule WS*
+    	|pojos+=PojoDefinition WS*|usages+=PojoUsage WS*
+    )+;
+
+PojoDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
+	'pojo' name=IDENT class=(IDENT|IDENT_DOT) SEMICOLON;
+
+PojoUsage: ColumnUsage | IdentifierUsage | ConstantUsage | MappingUsage;
+
+ColumnUsage hidden(ML_COMMENT, SL_COMMENT, WS):
+	'col' statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
+
+IdentifierUsage hidden(ML_COMMENT, SL_COMMENT, WS):
+	'ident' statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
+
+ConstantUsage hidden(ML_COMMENT, SL_COMMENT, WS):
+	'const' statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
+
+MappingUsage hidden(ML_COMMENT, SL_COMMENT, WS):
+	'out' statement=[MappingRule|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
 
 MetaStatement:
 	name=IDENT LPAREN type=STATEMEN_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS statement=Sql SEMICOLON;

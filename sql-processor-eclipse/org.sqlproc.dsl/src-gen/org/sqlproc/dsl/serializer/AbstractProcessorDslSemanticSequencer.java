@@ -4,16 +4,22 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.AbstractSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
+import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
+import org.sqlproc.dsl.processorDsl.ColumnUsage;
 import org.sqlproc.dsl.processorDsl.Constant;
+import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.Identifier;
+import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.IfMetaSql;
 import org.sqlproc.dsl.processorDsl.IfSql;
 import org.sqlproc.dsl.processorDsl.IfSqlBool;
@@ -23,11 +29,13 @@ import org.sqlproc.dsl.processorDsl.Mapping;
 import org.sqlproc.dsl.processorDsl.MappingIdentifier;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
+import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaSql;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.OrdSql;
 import org.sqlproc.dsl.processorDsl.OrdSql2;
+import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Sql;
 import org.sqlproc.dsl.processorDsl.SqlFragment;
@@ -73,15 +81,36 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.COLUMN_USAGE:
+				if(context == grammarAccess.getPojoUsageRule() ||
+				   context == grammarAccess.getColumnUsageRule()) {
+					sequence_ColumnUsage_ColumnUsage(context, (ColumnUsage) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.CONSTANT:
 				if(context == grammarAccess.getConstantRule()) {
 					sequence_Constant_Constant(context, (Constant) semanticObject); 
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.CONSTANT_USAGE:
+				if(context == grammarAccess.getPojoUsageRule() ||
+				   context == grammarAccess.getConstantUsageRule()) {
+					sequence_ConstantUsage_ConstantUsage(context, (ConstantUsage) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.IDENTIFIER:
 				if(context == grammarAccess.getIdentifierRule()) {
 					sequence_Identifier_Identifier(context, (Identifier) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.IDENTIFIER_USAGE:
+				if(context == grammarAccess.getPojoUsageRule() ||
+				   context == grammarAccess.getIdentifierUsageRule()) {
+					sequence_IdentifierUsage_IdentifierUsage(context, (IdentifierUsage) semanticObject); 
 					return; 
 				}
 				else break;
@@ -139,6 +168,13 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.MAPPING_USAGE:
+				if(context == grammarAccess.getPojoUsageRule() ||
+				   context == grammarAccess.getMappingUsageRule()) {
+					sequence_MappingUsage_MappingUsage(context, (MappingUsage) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.META_SQL:
 				if(context == grammarAccess.getMetaSqlRule()) {
 					sequence_MetaSql_MetaSql(context, (MetaSql) semanticObject); 
@@ -169,6 +205,12 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.POJO_DEFINITION:
+				if(context == grammarAccess.getPojoDefinitionRule()) {
+					sequence_PojoDefinition_PojoDefinition(context, (PojoDefinition) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.SQL:
 				if(context == grammarAccess.getSqlRule()) {
 					sequence_Sql_Sql(context, (Sql) semanticObject); 
@@ -187,15 +229,40 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (features+=OptionalFeature | statements+=MetaStatement | mappings+=MappingRule)+
+	 *     (features+=OptionalFeature | statements+=MetaStatement | mappings+=MappingRule | pojos+=PojoDefinition | usages+=PojoUsage)+
 	 *
 	 * Features:
 	 *    features[0, *]
 	 *    statements[0, *]
 	 *    mappings[0, *]
+	 *    pojos[0, *]
+	 *    usages[0, *]
 	 */
 	protected void sequence_Artifacts_Artifacts(EObject context, Artifacts semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT])
+	 *
+	 * Features:
+	 *    pojo[1, 1]
+	 *    statement[1, 1]
+	 */
+	protected void sequence_ColumnUsage_ColumnUsage(EObject context, ColumnUsage semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.COLUMN_USAGE__STATEMENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.COLUMN_USAGE__STATEMENT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getColumnUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1(), semanticObject.getStatement());
+		feeder.accept(grammarAccess.getColumnUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1(), semanticObject.getPojo());
+		feeder.finish();
 	}
 	
 	
@@ -218,6 +285,29 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	
 	/**
 	 * Constraint:
+	 *     (statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT])
+	 *
+	 * Features:
+	 *    pojo[1, 1]
+	 *    statement[1, 1]
+	 */
+	protected void sequence_ConstantUsage_ConstantUsage(EObject context, ConstantUsage semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.CONSTANT_USAGE__STATEMENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.CONSTANT_USAGE__STATEMENT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getConstantUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1(), semanticObject.getStatement());
+		feeder.accept(grammarAccess.getConstantUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1(), semanticObject.getPojo());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     ((case=PLUS | case=MINUS)? (name=IDENT | name=IDENT_DOT) (type=IDENT (vals+=IDENT | vals+=NUMBER)*)?)
 	 *
 	 * Features:
@@ -231,6 +321,29 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 */
 	protected void sequence_Constant_Constant(EObject context, Constant semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT])
+	 *
+	 * Features:
+	 *    pojo[1, 1]
+	 *    statement[1, 1]
+	 */
+	protected void sequence_IdentifierUsage_IdentifierUsage(EObject context, IdentifierUsage semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.IDENTIFIER_USAGE__STATEMENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.IDENTIFIER_USAGE__STATEMENT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getIdentifierUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1(), semanticObject.getStatement());
+		feeder.accept(grammarAccess.getIdentifierUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1(), semanticObject.getPojo());
+		feeder.finish();
 	}
 	
 	
@@ -431,6 +544,29 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	
 	/**
 	 * Constraint:
+	 *     (statement=[MappingRule|IDENT] pojo=[PojoDefinition|IDENT])
+	 *
+	 * Features:
+	 *    pojo[1, 1]
+	 *    statement[1, 1]
+	 */
+	protected void sequence_MappingUsage_MappingUsage(EObject context, MappingUsage semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.MAPPING_USAGE__STATEMENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.MAPPING_USAGE__STATEMENT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getMappingUsageAccess().getStatementMappingRuleIDENTTerminalRuleCall_1_0_1(), semanticObject.getStatement());
+		feeder.accept(grammarAccess.getMappingUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1(), semanticObject.getPojo());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (mappingItems+=MappingItem mappingItems+=MappingItem*)
 	 *
 	 * Features:
@@ -579,6 +715,19 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    sqls[1, *]
 	 */
 	protected void sequence_OrdSql_OrdSql(EObject context, OrdSql semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=IDENT (class=IDENT | class=IDENT_DOT))
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    class[0, 2]
+	 */
+	protected void sequence_PojoDefinition_PojoDefinition(EObject context, PojoDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

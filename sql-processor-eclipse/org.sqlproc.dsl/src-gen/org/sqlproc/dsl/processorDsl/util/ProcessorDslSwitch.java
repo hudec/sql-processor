@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl.util;
 
@@ -80,6 +79,52 @@ public class ProcessorDslSwitch<T> extends Switch<T>
       {
         Artifacts artifacts = (Artifacts)theEObject;
         T result = caseArtifacts(artifacts);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.POJO_DEFINITION:
+      {
+        PojoDefinition pojoDefinition = (PojoDefinition)theEObject;
+        T result = casePojoDefinition(pojoDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.POJO_USAGE:
+      {
+        PojoUsage pojoUsage = (PojoUsage)theEObject;
+        T result = casePojoUsage(pojoUsage);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.COLUMN_USAGE:
+      {
+        ColumnUsage columnUsage = (ColumnUsage)theEObject;
+        T result = caseColumnUsage(columnUsage);
+        if (result == null) result = casePojoUsage(columnUsage);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.IDENTIFIER_USAGE:
+      {
+        IdentifierUsage identifierUsage = (IdentifierUsage)theEObject;
+        T result = caseIdentifierUsage(identifierUsage);
+        if (result == null) result = casePojoUsage(identifierUsage);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.CONSTANT_USAGE:
+      {
+        ConstantUsage constantUsage = (ConstantUsage)theEObject;
+        T result = caseConstantUsage(constantUsage);
+        if (result == null) result = casePojoUsage(constantUsage);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.MAPPING_USAGE:
+      {
+        MappingUsage mappingUsage = (MappingUsage)theEObject;
+        T result = caseMappingUsage(mappingUsage);
+        if (result == null) result = casePojoUsage(mappingUsage);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -232,6 +277,102 @@ public class ProcessorDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseArtifacts(Artifacts object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Pojo Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Pojo Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePojoDefinition(PojoDefinition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Pojo Usage</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Pojo Usage</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePojoUsage(PojoUsage object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Column Usage</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Column Usage</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseColumnUsage(ColumnUsage object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Identifier Usage</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Identifier Usage</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIdentifierUsage(IdentifierUsage object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Constant Usage</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Constant Usage</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseConstantUsage(ConstantUsage object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Mapping Usage</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Mapping Usage</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseMappingUsage(MappingUsage object)
   {
     return null;
   }

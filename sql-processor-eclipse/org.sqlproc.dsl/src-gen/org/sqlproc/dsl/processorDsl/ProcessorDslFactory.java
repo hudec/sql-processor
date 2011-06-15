@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl;
 
@@ -34,6 +33,60 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   Artifacts createArtifacts();
+
+  /**
+   * Returns a new object of class '<em>Pojo Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojo Definition</em>'.
+   * @generated
+   */
+  PojoDefinition createPojoDefinition();
+
+  /**
+   * Returns a new object of class '<em>Pojo Usage</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojo Usage</em>'.
+   * @generated
+   */
+  PojoUsage createPojoUsage();
+
+  /**
+   * Returns a new object of class '<em>Column Usage</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Column Usage</em>'.
+   * @generated
+   */
+  ColumnUsage createColumnUsage();
+
+  /**
+   * Returns a new object of class '<em>Identifier Usage</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Identifier Usage</em>'.
+   * @generated
+   */
+  IdentifierUsage createIdentifierUsage();
+
+  /**
+   * Returns a new object of class '<em>Constant Usage</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Constant Usage</em>'.
+   * @generated
+   */
+  ConstantUsage createConstantUsage();
+
+  /**
+   * Returns a new object of class '<em>Mapping Usage</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Mapping Usage</em>'.
+   * @generated
+   */
+  MappingUsage createMappingUsage();
 
   /**
    * Returns a new object of class '<em>Meta Statement</em>'.

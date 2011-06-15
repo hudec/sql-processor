@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
@@ -24,6 +23,8 @@ import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
+import org.sqlproc.dsl.processorDsl.PojoDefinition;
+import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -36,6 +37,8 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getFeatures <em>Features</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getStatements <em>Statements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getMappings <em>Mappings</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getPojos <em>Pojos</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getUsages <em>Usages</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,6 +75,26 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
    * @ordered
    */
   protected EList<MappingRule> mappings;
+
+  /**
+   * The cached value of the '{@link #getPojos() <em>Pojos</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPojos()
+   * @generated
+   * @ordered
+   */
+  protected EList<PojoDefinition> pojos;
+
+  /**
+   * The cached value of the '{@link #getUsages() <em>Usages</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUsages()
+   * @generated
+   * @ordered
+   */
+  protected EList<PojoUsage> usages;
 
   /**
    * <!-- begin-user-doc -->
@@ -141,6 +164,34 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<PojoDefinition> getPojos()
+  {
+    if (pojos == null)
+    {
+      pojos = new EObjectContainmentEList<PojoDefinition>(PojoDefinition.class, this, ProcessorDslPackage.ARTIFACTS__POJOS);
+    }
+    return pojos;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<PojoUsage> getUsages()
+  {
+    if (usages == null)
+    {
+      usages = new EObjectContainmentEList<PojoUsage>(PojoUsage.class, this, ProcessorDslPackage.ARTIFACTS__USAGES);
+    }
+    return usages;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -152,6 +203,10 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.ARTIFACTS__MAPPINGS:
         return ((InternalEList<?>)getMappings()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.ARTIFACTS__POJOS:
+        return ((InternalEList<?>)getPojos()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.ARTIFACTS__USAGES:
+        return ((InternalEList<?>)getUsages()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -172,6 +227,10 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         return getStatements();
       case ProcessorDslPackage.ARTIFACTS__MAPPINGS:
         return getMappings();
+      case ProcessorDslPackage.ARTIFACTS__POJOS:
+        return getPojos();
+      case ProcessorDslPackage.ARTIFACTS__USAGES:
+        return getUsages();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -199,6 +258,14 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         getMappings().clear();
         getMappings().addAll((Collection<? extends MappingRule>)newValue);
         return;
+      case ProcessorDslPackage.ARTIFACTS__POJOS:
+        getPojos().clear();
+        getPojos().addAll((Collection<? extends PojoDefinition>)newValue);
+        return;
+      case ProcessorDslPackage.ARTIFACTS__USAGES:
+        getUsages().clear();
+        getUsages().addAll((Collection<? extends PojoUsage>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -222,6 +289,12 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
       case ProcessorDslPackage.ARTIFACTS__MAPPINGS:
         getMappings().clear();
         return;
+      case ProcessorDslPackage.ARTIFACTS__POJOS:
+        getPojos().clear();
+        return;
+      case ProcessorDslPackage.ARTIFACTS__USAGES:
+        getUsages().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -242,6 +315,10 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         return statements != null && !statements.isEmpty();
       case ProcessorDslPackage.ARTIFACTS__MAPPINGS:
         return mappings != null && !mappings.isEmpty();
+      case ProcessorDslPackage.ARTIFACTS__POJOS:
+        return pojos != null && !pojos.isEmpty();
+      case ProcessorDslPackage.ARTIFACTS__USAGES:
+        return usages != null && !usages.isEmpty();
     }
     return super.eIsSet(featureID);
   }

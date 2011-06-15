@@ -150,8 +150,467 @@ ruleArtifacts returns [EObject current=null]
     { 
     newLeafNode(this_WS_6, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_2_1()); 
     }
+)*)
+    |((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getPojosPojoDefinitionParserRuleCall_1_3_0_0()); 
+	    }
+		lv_pojos_7_0=rulePojoDefinition		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
+	        }
+       		add(
+       			$current, 
+       			"pojos",
+        		lv_pojos_7_0, 
+        		"PojoDefinition");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(this_WS_8=RULE_WS
+    { 
+    newLeafNode(this_WS_8, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_3_1()); 
+    }
+)*)
+    |((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getUsagesPojoUsageParserRuleCall_1_4_0_0()); 
+	    }
+		lv_usages_9_0=rulePojoUsage		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
+	        }
+       		add(
+       			$current, 
+       			"usages",
+        		lv_usages_9_0, 
+        		"PojoUsage");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(this_WS_10=RULE_WS
+    { 
+    newLeafNode(this_WS_10, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_4_1()); 
+    }
 )*))+)
 ;
+
+
+
+
+
+// Entry rule entryRulePojoDefinition
+entryRulePojoDefinition returns [EObject current=null] 
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+	}
+	:
+	{ newCompositeNode(grammarAccess.getPojoDefinitionRule()); }
+	 iv_rulePojoDefinition=rulePojoDefinition 
+	 { $current=$iv_rulePojoDefinition.current; } 
+	 EOF 
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+// Rule PojoDefinition
+rulePojoDefinition returns [EObject current=null] 
+    @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='pojo' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getPojoDefinitionAccess().getPojoKeyword_0());
+    }
+(
+(
+		lv_name_1_0=RULE_IDENT
+		{
+			newLeafNode(lv_name_1_0, grammarAccess.getPojoDefinitionAccess().getNameIDENTTerminalRuleCall_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoDefinitionRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_1_0, 
+        		"IDENT");
+	    }
+
+)
+)(
+(
+(
+		lv_class_2_1=RULE_IDENT
+		{
+			newLeafNode(lv_class_2_1, grammarAccess.getPojoDefinitionAccess().getClassIDENTTerminalRuleCall_2_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoDefinitionRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"class",
+        		lv_class_2_1, 
+        		"IDENT");
+	    }
+
+    |		lv_class_2_2=RULE_IDENT_DOT
+		{
+			newLeafNode(lv_class_2_2, grammarAccess.getPojoDefinitionAccess().getClassIDENT_DOTTerminalRuleCall_2_0_1()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoDefinitionRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"class",
+        		lv_class_2_2, 
+        		"IDENT_DOT");
+	    }
+
+)
+
+)
+)this_SEMICOLON_3=RULE_SEMICOLON
+    { 
+    newLeafNode(this_SEMICOLON_3, grammarAccess.getPojoDefinitionAccess().getSEMICOLONTerminalRuleCall_3()); 
+    }
+)
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+
+
+
+
+// Entry rule entryRulePojoUsage
+entryRulePojoUsage returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getPojoUsageRule()); }
+	 iv_rulePojoUsage=rulePojoUsage 
+	 { $current=$iv_rulePojoUsage.current; } 
+	 EOF 
+;
+
+// Rule PojoUsage
+rulePojoUsage returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getPojoUsageAccess().getColumnUsageParserRuleCall_0()); 
+    }
+    this_ColumnUsage_0=ruleColumnUsage
+    { 
+        $current = $this_ColumnUsage_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getPojoUsageAccess().getIdentifierUsageParserRuleCall_1()); 
+    }
+    this_IdentifierUsage_1=ruleIdentifierUsage
+    { 
+        $current = $this_IdentifierUsage_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getPojoUsageAccess().getConstantUsageParserRuleCall_2()); 
+    }
+    this_ConstantUsage_2=ruleConstantUsage
+    { 
+        $current = $this_ConstantUsage_2.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getPojoUsageAccess().getMappingUsageParserRuleCall_3()); 
+    }
+    this_MappingUsage_3=ruleMappingUsage
+    { 
+        $current = $this_MappingUsage_3.current; 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleColumnUsage
+entryRuleColumnUsage returns [EObject current=null] 
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+	}
+	:
+	{ newCompositeNode(grammarAccess.getColumnUsageRule()); }
+	 iv_ruleColumnUsage=ruleColumnUsage 
+	 { $current=$iv_ruleColumnUsage.current; } 
+	 EOF 
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+// Rule ColumnUsage
+ruleColumnUsage returns [EObject current=null] 
+    @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='col' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getColumnUsageAccess().getColKeyword_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getColumnUsageRule());
+	        }
+        }
+	otherlv_1=RULE_IDENT
+	{
+		newLeafNode(otherlv_1, grammarAccess.getColumnUsageAccess().getStatementMetaStatementCrossReference_1_0()); 
+	}
+
+)
+)(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getColumnUsageRule());
+	        }
+        }
+	otherlv_2=RULE_IDENT
+	{
+		newLeafNode(otherlv_2, grammarAccess.getColumnUsageAccess().getPojoPojoDefinitionCrossReference_2_0()); 
+	}
+
+)
+)this_SEMICOLON_3=RULE_SEMICOLON
+    { 
+    newLeafNode(this_SEMICOLON_3, grammarAccess.getColumnUsageAccess().getSEMICOLONTerminalRuleCall_3()); 
+    }
+)
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+
+
+
+
+// Entry rule entryRuleIdentifierUsage
+entryRuleIdentifierUsage returns [EObject current=null] 
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+	}
+	:
+	{ newCompositeNode(grammarAccess.getIdentifierUsageRule()); }
+	 iv_ruleIdentifierUsage=ruleIdentifierUsage 
+	 { $current=$iv_ruleIdentifierUsage.current; } 
+	 EOF 
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+// Rule IdentifierUsage
+ruleIdentifierUsage returns [EObject current=null] 
+    @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='ident' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getIdentifierUsageAccess().getIdentKeyword_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIdentifierUsageRule());
+	        }
+        }
+	otherlv_1=RULE_IDENT
+	{
+		newLeafNode(otherlv_1, grammarAccess.getIdentifierUsageAccess().getStatementMetaStatementCrossReference_1_0()); 
+	}
+
+)
+)(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIdentifierUsageRule());
+	        }
+        }
+	otherlv_2=RULE_IDENT
+	{
+		newLeafNode(otherlv_2, grammarAccess.getIdentifierUsageAccess().getPojoPojoDefinitionCrossReference_2_0()); 
+	}
+
+)
+)this_SEMICOLON_3=RULE_SEMICOLON
+    { 
+    newLeafNode(this_SEMICOLON_3, grammarAccess.getIdentifierUsageAccess().getSEMICOLONTerminalRuleCall_3()); 
+    }
+)
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+
+
+
+
+// Entry rule entryRuleConstantUsage
+entryRuleConstantUsage returns [EObject current=null] 
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+	}
+	:
+	{ newCompositeNode(grammarAccess.getConstantUsageRule()); }
+	 iv_ruleConstantUsage=ruleConstantUsage 
+	 { $current=$iv_ruleConstantUsage.current; } 
+	 EOF 
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+// Rule ConstantUsage
+ruleConstantUsage returns [EObject current=null] 
+    @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='const' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getConstantUsageAccess().getConstKeyword_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConstantUsageRule());
+	        }
+        }
+	otherlv_1=RULE_IDENT
+	{
+		newLeafNode(otherlv_1, grammarAccess.getConstantUsageAccess().getStatementMetaStatementCrossReference_1_0()); 
+	}
+
+)
+)(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConstantUsageRule());
+	        }
+        }
+	otherlv_2=RULE_IDENT
+	{
+		newLeafNode(otherlv_2, grammarAccess.getConstantUsageAccess().getPojoPojoDefinitionCrossReference_2_0()); 
+	}
+
+)
+)this_SEMICOLON_3=RULE_SEMICOLON
+    { 
+    newLeafNode(this_SEMICOLON_3, grammarAccess.getConstantUsageAccess().getSEMICOLONTerminalRuleCall_3()); 
+    }
+)
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+
+
+
+
+// Entry rule entryRuleMappingUsage
+entryRuleMappingUsage returns [EObject current=null] 
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+	}
+	:
+	{ newCompositeNode(grammarAccess.getMappingUsageRule()); }
+	 iv_ruleMappingUsage=ruleMappingUsage 
+	 { $current=$iv_ruleMappingUsage.current; } 
+	 EOF 
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+// Rule MappingUsage
+ruleMappingUsage returns [EObject current=null] 
+    @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='out' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getMappingUsageAccess().getOutKeyword_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMappingUsageRule());
+	        }
+        }
+	otherlv_1=RULE_IDENT
+	{
+		newLeafNode(otherlv_1, grammarAccess.getMappingUsageAccess().getStatementMappingRuleCrossReference_1_0()); 
+	}
+
+)
+)(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMappingUsageRule());
+	        }
+        }
+	otherlv_2=RULE_IDENT
+	{
+		newLeafNode(otherlv_2, grammarAccess.getMappingUsageAccess().getPojoPojoDefinitionCrossReference_2_0()); 
+	}
+
+)
+)this_SEMICOLON_3=RULE_SEMICOLON
+    { 
+    newLeafNode(this_SEMICOLON_3, grammarAccess.getMappingUsageAccess().getSEMICOLONTerminalRuleCall_3()); 
+    }
+)
+;
+finally {
+	myHiddenTokenState.restore();
+}
 
 
 

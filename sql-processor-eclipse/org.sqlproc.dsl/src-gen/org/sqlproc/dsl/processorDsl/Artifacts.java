@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl;
 
@@ -21,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getFeatures <em>Features</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getStatements <em>Statements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getMappings <em>Mappings</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getPojos <em>Pojos</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getUsages <em>Usages</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,5 +78,37 @@ public interface Artifacts extends EObject
    * @generated
    */
   EList<MappingRule> getMappings();
+
+  /**
+   * Returns the value of the '<em><b>Pojos</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.PojoDefinition}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Pojos</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Pojos</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getArtifacts_Pojos()
+   * @model containment="true"
+   * @generated
+   */
+  EList<PojoDefinition> getPojos();
+
+  /**
+   * Returns the value of the '<em><b>Usages</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.PojoUsage}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Usages</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Usages</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getArtifacts_Usages()
+   * @model containment="true"
+   * @generated
+   */
+  EList<PojoUsage> getUsages();
 
 } // Artifacts
