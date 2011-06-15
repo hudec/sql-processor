@@ -1,0 +1,26 @@
+/*
+ * the result classes and input forms
+ */
+pojo person org.sqlproc.engine.model.Person;
+pojo person_form org.sqlproc.engine.form.PersonForm;
+
+/*
+ * the meta statements, the dynamic input values usage
+ */
+ ident SQL_EXT_BASIC person_form;
+
+/*
+ * the meta statements, the dynamic input values usage
+ */
+ const SQL_EXT_BASIC person_form;
+
+/*
+ * the implicit mapping rules in the meta statements, the result classes usage
+ */
+col ANSI_BASIC person;
+
+/*
+ * the explicit mapping rules, the result classes usage
+ */
+out ANSI_BASIC person;
+

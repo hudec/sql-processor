@@ -1,5 +1,5 @@
 /*
- * Advanced searching capability based on text fragment
+ * Advanced searching capability based on text fragment 
  */
 LIKE_STRING(OPT)=like;
 WILDCARD_CHARACTER(OPT)=%;
@@ -12,7 +12,7 @@ ID(OPT)=id;
 /*
  * Default sequences
  */
-SEQ1(OPT,HSQLDB)=call NEXT VALUE FOR SQLPROC_SEQUENCE;
+SEQ1(OPT,HSQLDB)=call NEXT VALUE FOR SQLPROC_SEQUENCE; 
 SEQ1(OPT,ORACLE)=select SQLPROC_SEQUENCE.nextval from dual;
 /*
  * Default select command to obtain a new created identity
