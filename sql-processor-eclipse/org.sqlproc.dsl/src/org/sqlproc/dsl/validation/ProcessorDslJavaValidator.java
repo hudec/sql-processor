@@ -4,9 +4,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.validation.Check;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.ColumnUsage;
+import org.sqlproc.dsl.processorDsl.ConstantUsage;
+import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.MappingRule;
+import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
+import org.sqlproc.dsl.processorDsl.PojoDefinition;
+import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator {
@@ -50,7 +56,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     }
 
     @Check
-    public void checkOptionalFeature(OptionalFeature optionalFeature) {
+    public void checkUniqueOptionalFeature(OptionalFeature optionalFeature) {
         Artifacts artifacts;
         EObject object = EcoreUtil.getRootContainer(optionalFeature);
         if (!(object instanceof Artifacts))
@@ -63,6 +69,109 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             if (equalsFeature(optionalFeature, feature)) {
                 error("Duplicate name : " + optionalFeature.getName() + "[" + optionalFeature.getType() + "]",
                         ProcessorDslPackage.Literals.OPTIONAL_FEATURE__NAME);
+                return;
+            }
+        }
+    }
+
+    @Check
+    public void checkUniquePojoDefinition(PojoDefinition pojoDefinition) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(pojoDefinition);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+
+        for (PojoDefinition definition : artifacts.getPojos()) {
+            if (definition == null || definition == pojoDefinition)
+                continue;
+            if (pojoDefinition.getName().equalsIgnoreCase(definition.getName())) {
+                error("Duplicate name : " + pojoDefinition.getName(),
+                        ProcessorDslPackage.Literals.POJO_DEFINITION__NAME);
+                return;
+            }
+        }
+    }
+
+    @Check
+    public void checkUniqueColumnUsage(ColumnUsage columnUsage) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(columnUsage);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+        for (PojoUsage usage : artifacts.getUsages()) {
+            if (usage == null || usage == columnUsage || !(usage instanceof ColumnUsage))
+                continue;
+            ColumnUsage column = (ColumnUsage) usage;
+            if (column.getStatement() == null)
+                continue;
+            if (columnUsage.getStatement().getName().equalsIgnoreCase(column.getStatement().getName())) {
+                error("Duplicate name : " + columnUsage.getStatement().getName() + "[col]",
+                        ProcessorDslPackage.Literals.COLUMN_USAGE__STATEMENT);
+                return;
+            }
+        }
+    }
+
+    @Check
+    public void checkUniqueIdentifierUsage(IdentifierUsage identifierUsage) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(identifierUsage);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+        for (PojoUsage usage : artifacts.getUsages()) {
+            if (usage == null || usage == identifierUsage || !(usage instanceof IdentifierUsage))
+                continue;
+            IdentifierUsage ident = (IdentifierUsage) usage;
+            if (ident.getStatement() == null)
+                continue;
+            if (identifierUsage.getStatement().getName().equalsIgnoreCase(ident.getStatement().getName())) {
+                error("Duplicate name : " + identifierUsage.getStatement().getName() + "[ident]",
+                        ProcessorDslPackage.Literals.IDENTIFIER_USAGE__STATEMENT);
+                return;
+            }
+        }
+    }
+
+    @Check
+    public void checkUniqueConstantUsage(ConstantUsage constantUsage) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(constantUsage);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+        for (PojoUsage usage : artifacts.getUsages()) {
+            if (usage == null || usage == constantUsage || !(usage instanceof ConstantUsage))
+                continue;
+            ConstantUsage constant = (ConstantUsage) usage;
+            if (constant.getStatement() == null)
+                continue;
+            if (constantUsage.getStatement().getName().equalsIgnoreCase(constant.getStatement().getName())) {
+                error("Duplicate name : " + constantUsage.getStatement().getName() + "[const]",
+                        ProcessorDslPackage.Literals.CONSTANT_USAGE__STATEMENT);
+                return;
+            }
+        }
+    }
+
+    @Check
+    public void checkUniqueMappingUsage(MappingUsage mappingUsage) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(mappingUsage);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+        for (PojoUsage usage : artifacts.getUsages()) {
+            if (usage == null || usage == mappingUsage || !(usage instanceof MappingUsage))
+                continue;
+            MappingUsage mapping = (MappingUsage) usage;
+            if (mapping.getStatement() == null)
+                continue;
+            if (mappingUsage.getStatement().getName().equalsIgnoreCase(mapping.getStatement().getName())) {
+                error("Duplicate name : " + mappingUsage.getStatement().getName() + "[col]",
+                        ProcessorDslPackage.Literals.MAPPING_USAGE__STATEMENT);
                 return;
             }
         }

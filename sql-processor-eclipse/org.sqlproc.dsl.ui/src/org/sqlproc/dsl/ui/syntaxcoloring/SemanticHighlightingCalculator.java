@@ -13,12 +13,17 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 import org.sqlproc.dsl.processorDsl.Column;
+import org.sqlproc.dsl.processorDsl.ColumnUsage;
 import org.sqlproc.dsl.processorDsl.Constant;
+import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.Identifier;
+import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.MappingIdentifier;
 import org.sqlproc.dsl.processorDsl.MappingRule;
+import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
+import org.sqlproc.dsl.processorDsl.PojoDefinition;
 
 public class SemanticHighlightingCalculator implements ISemanticHighlightingCalculator {
 
@@ -66,6 +71,38 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
             } else if (current instanceof MappingIdentifier) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 acceptor.addPosition(node.getOffset(), node.getLength(), HighlightingConfiguration.IDENTIFIER);
+            } else if (current instanceof PojoDefinition) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                PojoDefinition pojo = (PojoDefinition) current;
+                provideHighlightingForPojo(null, pojo.getName(), node, acceptor);
+            } else if (current instanceof ColumnUsage) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                ColumnUsage usage = (ColumnUsage) current;
+                MetaStatement statement = usage.getStatement();
+                PojoDefinition pojo = usage.getPojo();
+                if (statement != null && pojo != null)
+                    provideHighlightingForPojo(statement.getName(), pojo.getName(), node, acceptor);
+            } else if (current instanceof IdentifierUsage) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                IdentifierUsage usage = (IdentifierUsage) current;
+                MetaStatement statement = usage.getStatement();
+                PojoDefinition pojo = usage.getPojo();
+                if (statement != null && pojo != null)
+                    provideHighlightingForPojo(statement.getName(), pojo.getName(), node, acceptor);
+            } else if (current instanceof ConstantUsage) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                ConstantUsage usage = (ConstantUsage) current;
+                MetaStatement statement = usage.getStatement();
+                PojoDefinition pojo = usage.getPojo();
+                if (statement != null && pojo != null)
+                    provideHighlightingForPojo(statement.getName(), pojo.getName(), node, acceptor);
+            } else if (current instanceof MappingUsage) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                MappingUsage usage = (MappingUsage) current;
+                MappingRule rule = usage.getStatement();
+                PojoDefinition pojo = usage.getPojo();
+                if (rule != null && pojo != null)
+                    provideHighlightingForPojo(rule.getName(), pojo.getName(), node, acceptor);
             }
         }
     }
@@ -86,4 +123,22 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
         }
     }
 
+    private void provideHighlightingForPojo(String name, String pojo, ICompositeNode node,
+            IHighlightedPositionAcceptor acceptor) {
+        if (name == null && pojo == null)
+            return;
+        Iterator<INode> iterator = new NodeTreeIterator(node);
+        while (iterator.hasNext()) {
+            INode inode = iterator.next();
+            if (name != null && name.contains(inode.getText())) {
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.NAME);
+                if (pojo == null)
+                    return;
+            }
+            if (pojo != null && pojo.contains(inode.getText())) {
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.IDENTIFIER);
+                return;
+            }
+        }
+    }
 }

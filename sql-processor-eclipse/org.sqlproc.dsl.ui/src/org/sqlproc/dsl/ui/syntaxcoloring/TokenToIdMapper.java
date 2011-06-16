@@ -42,7 +42,9 @@ public class TokenToIdMapper extends DefaultAntlrTokenToAttributeIdMapper {
 
         if (tokenName.equals("'BOPT'") || tokenName.equals("'OUT'") || tokenName.equals("'SOPT'")
                 || tokenName.equals("'OPT'") || tokenName.equals("'QRY'") || tokenName.equals("'IOPT'")
-                || tokenName.equals("'LOPT'") || tokenName.equals("'CRUD'") || tokenName.equals("'CALL'"))
+                || tokenName.equals("'LOPT'") || tokenName.equals("'CRUD'") || tokenName.equals("'CALL'")
+                || tokenName.equals("'pojo'") || tokenName.equals("'col'") || tokenName.equals("'ident'")
+                || tokenName.equals("'const'") || tokenName.equals("'out'"))
             return HighlightingConfiguration.TYPE;
 
         return HighlightingConfiguration.DEFAULT;
