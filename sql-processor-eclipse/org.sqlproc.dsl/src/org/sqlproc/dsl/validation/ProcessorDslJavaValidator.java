@@ -76,12 +76,14 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkUniquePojoDefinition(PojoDefinition pojoDefinition) {
+        // if (!checkClass(pojoDefinition.getClass_()))
+        // error("Class name : " + pojoDefinition.getClass_() + " not exists",
+        // ProcessorDslPackage.Literals.POJO_DEFINITION__NAME);
         Artifacts artifacts;
         EObject object = EcoreUtil.getRootContainer(pojoDefinition);
         if (!(object instanceof Artifacts))
             return;
         artifacts = (Artifacts) object;
-
         for (PojoDefinition definition : artifacts.getPojos()) {
             if (definition == null || definition == pojoDefinition)
                 continue;
@@ -250,5 +252,16 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                         return true;
         }
         return false;
+    }
+
+    private boolean checkClass(String className) {
+        if (className == null)
+            return true;
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 }
