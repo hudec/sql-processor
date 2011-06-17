@@ -38,8 +38,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         System.out.println("pojoDefinition=" + pojoDefinition);
         System.out.println("pojoDefinition=" + pojoDefinition.getClass_());
         // TODO zjistit vsechny atributy tridy pojoDefinition.getClass_() a iterovat neco jako
-        String proposal = getValueConverter().toString("xxx", "STRING"); // xxx je jmeno atributu, bude asi nutno
-                                                                         // prizpusobit value converter
+        String proposal = getValueConverter().toString("xxx", "IDENT"); // xxx je jmeno atributu
         ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
         acceptor.accept(completionProposal);
     }
