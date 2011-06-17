@@ -28,7 +28,7 @@ pojo transport org.sqlproc.engine.form.TypesTransport;
  
 
 /*
- * the meta statements, the dynamic input values usage
+ * the meta statements, the static input values usage
  */
  const SQL_EXT_BASIC person_form;
  const SQL_EXT_BASIC_2 person_form;

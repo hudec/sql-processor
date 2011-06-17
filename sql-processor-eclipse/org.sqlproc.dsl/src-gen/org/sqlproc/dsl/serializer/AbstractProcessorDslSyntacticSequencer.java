@@ -15,33 +15,29 @@ import org.sqlproc.dsl.services.ProcessorDslGrammarAccess;
 public class AbstractProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected ProcessorDslGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_Artifacts_WSTerminalRuleCall_0_p;
 	protected AbstractElementAlias match_Artifacts_WSTerminalRuleCall_1_1_1_p;
-	protected AbstractElementAlias match_Artifacts_WSTerminalRuleCall_1_2_1_p;
 	protected AbstractElementAlias match_Artifacts_WSTerminalRuleCall_1_3_1_p;
 	protected AbstractElementAlias match_Artifacts_WSTerminalRuleCall_1_4_1_p;
 	protected AbstractElementAlias match_IfSqlCond_WSTerminalRuleCall_0_p;
 	protected AbstractElementAlias match_IfSqlCond_WSTerminalRuleCall_2_a;
 	protected AbstractElementAlias match_IfSqlCond_WSTerminalRuleCall_2_p;
 	protected AbstractElementAlias match_IfSqlCond_WSTerminalRuleCall_3_3_a;
-	protected AbstractElementAlias match_Mapping_WSTerminalRuleCall_0_p;
 	protected AbstractElementAlias match_Mapping_WSTerminalRuleCall_2_0_p;
-	protected AbstractElementAlias match_Mapping_WSTerminalRuleCall_3_p;
 	protected AbstractElementAlias match_MetaSql_WSTerminalRuleCall_4_1_a;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ProcessorDslGrammarAccess) access;
+		match_Artifacts_WSTerminalRuleCall_0_p = new TokenAlias(false, true, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_0());
 		match_Artifacts_WSTerminalRuleCall_1_1_1_p = new TokenAlias(false, true, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_1_1());
-		match_Artifacts_WSTerminalRuleCall_1_2_1_p = new TokenAlias(false, true, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_2_1());
 		match_Artifacts_WSTerminalRuleCall_1_3_1_p = new TokenAlias(false, true, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_3_1());
 		match_Artifacts_WSTerminalRuleCall_1_4_1_p = new TokenAlias(false, true, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_4_1());
 		match_IfSqlCond_WSTerminalRuleCall_0_p = new TokenAlias(false, true, grammarAccess.getIfSqlCondAccess().getWSTerminalRuleCall_0());
 		match_IfSqlCond_WSTerminalRuleCall_2_a = new TokenAlias(true, true, grammarAccess.getIfSqlCondAccess().getWSTerminalRuleCall_2());
 		match_IfSqlCond_WSTerminalRuleCall_2_p = new TokenAlias(false, true, grammarAccess.getIfSqlCondAccess().getWSTerminalRuleCall_2());
 		match_IfSqlCond_WSTerminalRuleCall_3_3_a = new TokenAlias(true, true, grammarAccess.getIfSqlCondAccess().getWSTerminalRuleCall_3_3());
-		match_Mapping_WSTerminalRuleCall_0_p = new TokenAlias(false, true, grammarAccess.getMappingAccess().getWSTerminalRuleCall_0());
 		match_Mapping_WSTerminalRuleCall_2_0_p = new TokenAlias(false, true, grammarAccess.getMappingAccess().getWSTerminalRuleCall_2_0());
-		match_Mapping_WSTerminalRuleCall_3_p = new TokenAlias(false, true, grammarAccess.getMappingAccess().getWSTerminalRuleCall_3());
 		match_MetaSql_WSTerminalRuleCall_4_1_a = new TokenAlias(true, true, grammarAccess.getMetaSqlAccess().getWSTerminalRuleCall_4_1());
 	}
 	
@@ -153,10 +149,10 @@ public class AbstractProcessorDslSyntacticSequencer extends AbstractSyntacticSeq
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
 		if (!transition.isSyntacticallyAmbiguous())
 			return;
-		if(match_Artifacts_WSTerminalRuleCall_1_1_1_p.equals(transition.getAmbiguousSyntax()))
+		if(match_Artifacts_WSTerminalRuleCall_0_p.equals(transition.getAmbiguousSyntax()))
+			emit_Artifacts_WSTerminalRuleCall_0_p(semanticObject, transition, fromNode, toNode);
+		else if(match_Artifacts_WSTerminalRuleCall_1_1_1_p.equals(transition.getAmbiguousSyntax()))
 			emit_Artifacts_WSTerminalRuleCall_1_1_1_p(semanticObject, transition, fromNode, toNode);
-		else if(match_Artifacts_WSTerminalRuleCall_1_2_1_p.equals(transition.getAmbiguousSyntax()))
-			emit_Artifacts_WSTerminalRuleCall_1_2_1_p(semanticObject, transition, fromNode, toNode);
 		else if(match_Artifacts_WSTerminalRuleCall_1_3_1_p.equals(transition.getAmbiguousSyntax()))
 			emit_Artifacts_WSTerminalRuleCall_1_3_1_p(semanticObject, transition, fromNode, toNode);
 		else if(match_Artifacts_WSTerminalRuleCall_1_4_1_p.equals(transition.getAmbiguousSyntax()))
@@ -169,12 +165,8 @@ public class AbstractProcessorDslSyntacticSequencer extends AbstractSyntacticSeq
 			emit_IfSqlCond_WSTerminalRuleCall_2_p(semanticObject, transition, fromNode, toNode);
 		else if(match_IfSqlCond_WSTerminalRuleCall_3_3_a.equals(transition.getAmbiguousSyntax()))
 			emit_IfSqlCond_WSTerminalRuleCall_3_3_a(semanticObject, transition, fromNode, toNode);
-		else if(match_Mapping_WSTerminalRuleCall_0_p.equals(transition.getAmbiguousSyntax()))
-			emit_Mapping_WSTerminalRuleCall_0_p(semanticObject, transition, fromNode, toNode);
 		else if(match_Mapping_WSTerminalRuleCall_2_0_p.equals(transition.getAmbiguousSyntax()))
 			emit_Mapping_WSTerminalRuleCall_2_0_p(semanticObject, transition, fromNode, toNode);
-		else if(match_Mapping_WSTerminalRuleCall_3_p.equals(transition.getAmbiguousSyntax()))
-			emit_Mapping_WSTerminalRuleCall_3_p(semanticObject, transition, fromNode, toNode);
 		else if(match_MetaSql_WSTerminalRuleCall_4_1_a.equals(transition.getAmbiguousSyntax()))
 			emit_MetaSql_WSTerminalRuleCall_4_1_a(semanticObject, transition, fromNode, toNode);
 		else acceptNodes(transition, fromNode, toNode);
@@ -184,7 +176,7 @@ public class AbstractProcessorDslSyntacticSequencer extends AbstractSyntacticSeq
 	 * Syntax:
 	 *     WS+
 	 */
-	protected void emit_Artifacts_WSTerminalRuleCall_1_1_1_p(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
+	protected void emit_Artifacts_WSTerminalRuleCall_0_p(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
 		acceptNodes(transition, fromNode, toNode);
 	}
 	
@@ -192,7 +184,7 @@ public class AbstractProcessorDslSyntacticSequencer extends AbstractSyntacticSeq
 	 * Syntax:
 	 *     WS+
 	 */
-	protected void emit_Artifacts_WSTerminalRuleCall_1_2_1_p(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
+	protected void emit_Artifacts_WSTerminalRuleCall_1_1_1_p(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
 		acceptNodes(transition, fromNode, toNode);
 	}
 	
@@ -248,23 +240,7 @@ public class AbstractProcessorDslSyntacticSequencer extends AbstractSyntacticSeq
 	 * Syntax:
 	 *     WS+
 	 */
-	protected void emit_Mapping_WSTerminalRuleCall_0_p(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
-		acceptNodes(transition, fromNode, toNode);
-	}
-	
-	/**
-	 * Syntax:
-	 *     WS+
-	 */
 	protected void emit_Mapping_WSTerminalRuleCall_2_0_p(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
-		acceptNodes(transition, fromNode, toNode);
-	}
-	
-	/**
-	 * Syntax:
-	 *     WS+
-	 */
-	protected void emit_Mapping_WSTerminalRuleCall_3_p(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
 		acceptNodes(transition, fromNode, toNode);
 	}
 	

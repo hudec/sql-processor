@@ -8,4 +8,9 @@ package org.sqlproc.dsl;
  */
 public class ProcessorDslRuntimeModule extends org.sqlproc.dsl.AbstractProcessorDslRuntimeModule {
 
+    @Override
+    public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
+        return ProcessorNameProvider.class;
+    }
+
 }
