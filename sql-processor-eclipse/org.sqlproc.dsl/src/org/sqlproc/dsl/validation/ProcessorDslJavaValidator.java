@@ -1,6 +1,9 @@
 package org.sqlproc.dsl.validation;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.validation.Check;
 import org.sqlproc.dsl.processorDsl.Artifacts;
@@ -76,9 +79,9 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkUniquePojoDefinition(PojoDefinition pojoDefinition) {
-        // if (!checkClass(pojoDefinition.getClass_()))
-        // error("Class name : " + pojoDefinition.getClass_() + " not exists",
-        // ProcessorDslPackage.Literals.POJO_DEFINITION__NAME);
+        if (!checkClass(pojoDefinition.getClass_()))
+            error("Class name : " + pojoDefinition.getClass_() + " not exists",
+                    ProcessorDslPackage.Literals.POJO_DEFINITION__NAME);
         Artifacts artifacts;
         EObject object = EcoreUtil.getRootContainer(pojoDefinition);
         if (!(object instanceof Artifacts))
@@ -257,10 +260,13 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     private boolean checkClass(String className) {
         if (className == null)
             return true;
+        ResourceSet rs = new ResourceSetImpl();
         try {
-            Class.forName(className);
+            URI uri = URI.createURI(className);
+            // TODO nejak vyresit dohledani tridy v resources
+            // rs.getResource(uri, true);
             return true;
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             return false;
         }
     }
