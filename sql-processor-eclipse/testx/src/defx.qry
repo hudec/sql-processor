@@ -34,13 +34,6 @@ pojo transport org.sqlproc.engine.form.TypesTransport;
  const SQL_EXT_BASIC_2 person_form;
  const SQL_IN_BRACES_ADV_2 person;
  const CONDITIONAL_JOIN_ADV_2 media;
- const CONDITIONAL_JOIN_2_LEVELS_ADV_2 library;
- const CONDITIONAL_WHERE_ADV_2 media;
- const COLLECTIONS_UNDEFINED person;
- const COLLECTIONS_STANDARD person;
- const LIKE_BASIC person_form;
- const LIKE_BASIC_2 person_form;
- const PARAMETERS_MORE person_form;
 
 /*
  * the implicit mapping rules in the meta statements, the result classes usage
