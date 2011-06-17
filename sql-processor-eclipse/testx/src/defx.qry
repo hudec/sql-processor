@@ -3,24 +3,103 @@
  */
 pojo person org.sqlproc.engine.model.Person;
 pojo person_form org.sqlproc.engine.form.PersonForm;
+pojo library org.sqlproc.engine.form.LibraryTransport;
+pojo media org.sqlproc.engine.form.MediaTransport;
+pojo subcriber org.sqlproc.engine.model.Subscriber;
+pojo transport org.sqlproc.engine.form.TypesTransport;
 
 /*
  * the meta statements, the dynamic input values usage
  */
  ident SQL_EXT_BASIC person_form;
+ ident SQL_EXT_BASIC_2 person_form;
+ ident SQL_IN_BRACES_ADV_2 person;
+ ident CONDITIONAL_JOIN_ADV_2 media;
+ ident CONDITIONAL_JOIN_2_LEVELS_ADV_2 library;
+ ident CONDITIONAL_WHERE_ADV_2 media;
+ ident CONDITIONAL_WHERE_AND_BRACES_ADV_2 media;
+ ident CONDITIONAL_WHERE_AND_BRACES_MORE_ADV_2 media;
+ ident COLLECTIONS_UNDEFINED person;
+ ident COLLECTIONS_STANDARD person;
+ ident LIKE_BASIC person_form;
+ ident LIKE_BASIC_2 person_form;
+ ident PARAMETERS_MORE person_form; 
+ ident UNDEFINED_TYPES_2 transport;
+ 
 
 /*
  * the meta statements, the dynamic input values usage
  */
  const SQL_EXT_BASIC person_form;
+ const SQL_EXT_BASIC_2 person_form;
+ const SQL_IN_BRACES_ADV_2 person;
+ const CONDITIONAL_JOIN_ADV_2 media;
+ const CONDITIONAL_JOIN_2_LEVELS_ADV_2 library;
+ const CONDITIONAL_WHERE_ADV_2 media;
+ const COLLECTIONS_UNDEFINED person;
+ const COLLECTIONS_STANDARD person;
+ const LIKE_BASIC person_form;
+ const LIKE_BASIC_2 person_form;
+ const PARAMETERS_MORE person_form;
 
 /*
  * the implicit mapping rules in the meta statements, the result classes usage
  */
+col BASIC person;
 col ANSI_BASIC person;
+col ANSI_BASIC_2 person;
+col ANSI_BASIC_3 person;
+col GET_PERSON person;
+col CRUD_PERSON_SELECT person;
+col DELETE_PERSON_3 person;
+col GET_PERSON_2 person;
+col UPDATE_PERSON_2 person;
+col UPDATE_PERSON person;
+col INSERT_PERSON_7 person;
+col INSERT_PERSON_6 person;
+col INSERT_PERSON_5 person;
+col INSERT_PERSON_4 person;
+col INSERT_PERSON_3 person;
+col INSERT_PERSON_2 person;
+col INSERT_PERSON person;
+col BASIC_LEFT_JOIN_LIST_4 library;
+col BASIC_LEFT_JOIN_LIST_3 library;
+col BASIC_LEFT_JOIN_LIST_2 library;
+col BASIC_LEFT_JOIN_SET library;
+col FORM_BASIC person;
+col FORM_BASIC_2 person;
+col INHERITANCE2_BASIC subcriber;
+col BASIC_JOIN_ONE_TO_ONE_1 person;
+col ORDER person;
+col INSERT_PERSON_CALL_RESULT_SET_PROC person;
+col INSERT_PERSON_CALL_RESULT_SET_2 person;
+col INSERT_PERSON_CALL_RESULT_SET person;
+col INSERT_PERSON_CALL_2 person;
+col INSERT_PERSON_CALL person;
+col SIMPLE_ESCAPED person;
+col IN_META_ESCAPED person;
+col STANDARD_PARAMETERS transport;
+col FROM_TO_PARAMETERS transport;
+col STANDARD_TYPES transport;
+col STANDARD_TYPES_2 transport;
+col UNDEFINED_PARAMETERS transport;
+col UNDEFINED_TYPES transport;
 
 /*
  * the explicit mapping rules, the result classes usage
  */
+out BASIC person;
 out ANSI_BASIC person;
+out ANSI_BASIC_2 person;
+out BASIC_LEFT_JOIN_LIST_4 library;
+out FORM_BASIC person;
+out ORDER person;
+out INSERT_PERSON_CALL_RESULT_SET_2 person;
+out INSERT_PERSON_CALL_RESULT_SET person;
+out INSERT_PERSON_CALL_RESULT_SET_PROC person;
+out STANDARD_PARAMETERS transport;
+out FROM_TO_PARAMETERS transport;
+out STANDARD_TYPES transport;
+out UNDEFINED_PARAMETERS transport;
+out UNDEFINED_TYPES transport;
 
