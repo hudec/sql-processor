@@ -1,9 +1,6 @@
 package org.sqlproc.dsl.validation;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.validation.Check;
 import org.sqlproc.dsl.processorDsl.Artifacts;
@@ -17,8 +14,14 @@ import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
+import org.sqlproc.dsl.resolver.PojoResolverFactory;
+
+import com.google.inject.Inject;
 
 public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator {
+
+    @Inject
+    PojoResolverFactory pojoResolverFactory;
 
     @Check
     public void checkUniqueMetaStatement(MetaStatement metaStatement) {
@@ -258,16 +261,12 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     }
 
     private boolean checkClass(String className) {
-        if (className == null)
+        if (className == null || pojoResolverFactory.getPojoResolver() == null)
             return true;
-        ResourceSet rs = new ResourceSetImpl();
-        try {
-            URI uri = URI.createURI(className);
-            // TODO nejak vyresit dohledani tridy v resources
-            // rs.getResource(uri, true);
-            return true;
-        } catch (Exception e) {
+
+        Class<?> clazz = pojoResolverFactory.getPojoResolver().loadClass(className);
+        if (clazz == null)
             return false;
-        }
+        return true;
     }
 }

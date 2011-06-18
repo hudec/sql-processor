@@ -24,11 +24,25 @@ import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
+import org.sqlproc.dsl.resolver.PojoResolver;
+import org.sqlproc.dsl.resolver.PojoResolverFactory;
+
+import com.google.inject.Inject;
 
 public class SemanticHighlightingCalculator implements ISemanticHighlightingCalculator {
 
+    @Inject
+    PojoResolver pojoResolver;
+
+    @Inject
+    PojoResolverFactory pojoResolverFactory;
+
     @Override
     public void provideHighlightingFor(XtextResource resource, IHighlightedPositionAcceptor acceptor) {
+        // tohle je blbarna, jak dostat tridu z org.sqlproc.dsl.ui dp org.sqlproc.dsl, mozna to jde jednoduseji
+        if (pojoResolverFactory != null && pojoResolverFactory.getPojoResolver() == null)
+            pojoResolverFactory.setPojoResolver(pojoResolver);
+
         if (resource == null)
             return;
 
