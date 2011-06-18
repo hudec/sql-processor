@@ -42,6 +42,7 @@ col BASIC person;
 col ANSI_BASIC person;
 col ANSI_BASIC_2 person;
 col ANSI_BASIC_3 person;
+col SQL_EXT_BASIC_2 person;
 col GET_PERSON person;
 col CRUD_PERSON_SELECT person;
 col DELETE_PERSON_3 person;

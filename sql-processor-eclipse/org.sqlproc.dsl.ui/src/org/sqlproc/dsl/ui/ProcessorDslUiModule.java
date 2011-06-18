@@ -9,10 +9,12 @@ import org.eclipse.xtext.ui.editor.outline.impl.OutlineFilterAndSorter;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
+import org.sqlproc.dsl.resolver.PojoResolver;
 import org.sqlproc.dsl.ui.outline.FilterMappingRulesContribution;
 import org.sqlproc.dsl.ui.outline.FilterMetaStatementsContribution;
 import org.sqlproc.dsl.ui.outline.FilterOptionalFeaturesContribution;
 import org.sqlproc.dsl.ui.outline.FixedOutlineFilterAndSorter;
+import org.sqlproc.dsl.ui.resolver.WorkspacePojoResolverImpl;
 import org.sqlproc.dsl.ui.syntaxcoloring.HighlightingConfiguration;
 import org.sqlproc.dsl.ui.syntaxcoloring.SemanticHighlightingCalculator;
 import org.sqlproc.dsl.ui.syntaxcoloring.TokenToIdMapper;
@@ -27,6 +29,10 @@ public class ProcessorDslUiModule extends org.sqlproc.dsl.ui.AbstractProcessorDs
 
     public ProcessorDslUiModule(AbstractUIPlugin plugin) {
         super(plugin);
+    }
+
+    public Class<? extends PojoResolver> bindPojoResolver() {
+        return WorkspacePojoResolverImpl.class;
     }
 
     public Class<? extends IHighlightingConfiguration> bindISemanticHighlightingConfiguration() {

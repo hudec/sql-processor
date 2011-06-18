@@ -3,6 +3,7 @@
  */
 package org.sqlproc.dsl.ui.contentassist;
 
+import java.beans.PropertyDescriptor;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EObject;
@@ -18,29 +19,101 @@ import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.ColumnUsage;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
+import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
+import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
+import org.sqlproc.dsl.resolver.PojoResolver;
+
+import com.google.inject.Inject;
 
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
 public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalProvider {
+
+    @Inject
+    PojoResolver pojoResolver;
+
+    @Override
     public void completeColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
+        if (!completeUsage(model, assignment, context, acceptor, ProcessorDslPackage.Literals.COLUMN_USAGE.getName()))
+            super.completeColumn_Name(model, assignment, context, acceptor);
+    }
+
+    @Override
+    public void completeConstant_Name(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!completeUsage(model, assignment, context, acceptor, ProcessorDslPackage.Literals.CONSTANT_USAGE.getName()))
+            super.completeConstant_Name(model, assignment, context, acceptor);
+    }
+
+    @Override
+    public void completeIdentifier_Name(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!completeUsage(model, assignment, context, acceptor,
+                ProcessorDslPackage.Literals.IDENTIFIER_USAGE.getName()))
+            super.completeIdentifier_Name(model, assignment, context, acceptor);
+    }
+
+    public boolean completeUsage(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor, String name) {
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
+        IScope scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
+        PojoDefinition pojoDefinition = findPojo(artifacts.eResource().getResourceSet(), scope, name,
+                metaStatement.getName());
+        if (pojoDefinition == null) {
+            String proposal = getValueConverter().toString("Error: I can't load pojo for " + model, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+            return true;
+        }
 
+        Class<?> pojoClass = pojoResolver.loadClass(pojoDefinition.getClass_());
+
+        PropertyDescriptor[] descriptors = pojoResolver.getPropertyDescriptors(pojoDefinition.getClass_());
+        if (descriptors == null) {
+            return false;
+        } else {
+            for (PropertyDescriptor descriptor : descriptors) {
+                String proposal = getValueConverter().toString(descriptor.getName(), "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
+            }
+            return true;
+        }
+    }
+
+    @Override
+    public void completeMappingIdentifier_Name(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
         IScope scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
         PojoDefinition pojoDefinition = findPojo(artifacts.eResource().getResourceSet(), scope,
-                ProcessorDslPackage.Literals.COLUMN_USAGE.getName(), metaStatement.getName());
-        System.out.println("pojoDefinition=" + pojoDefinition);
-        System.out.println("pojoDefinition=" + pojoDefinition.getClass_());
-        // TODO zjistit vsechny atributy tridy pojoDefinition.getClass_() a iterovat neco jako
-        String proposal = getValueConverter().toString("xxx", "IDENT"); // xxx je jmeno atributu
-        ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
-        acceptor.accept(completionProposal);
+                ProcessorDslPackage.Literals.MAPPING_USAGE.getName(), mappingRule.getName());
+        if (pojoDefinition == null) {
+            String proposal = getValueConverter().toString("Error: I can't load pojo for " + model, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+
+        Class<?> pojoClass = pojoResolver.loadClass(pojoDefinition.getClass_());
+
+        PropertyDescriptor[] descriptors = pojoResolver.getPropertyDescriptors(pojoDefinition.getClass_());
+        if (descriptors == null) {
+            super.completeMappingIdentifier_Name(model, assignment, context, acceptor);
+        } else {
+            for (PropertyDescriptor descriptor : descriptors) {
+                String proposal = getValueConverter().toString(descriptor.getName(), "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
+            }
+        }
     }
 
     protected PojoDefinition findPojo(ResourceSet resourceSet, IScope scope, String typeName, String name) {
@@ -48,10 +121,10 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
             IEObjectDescription description = iter.next();
             if (typeName.equals(description.getEClass().getName())) {
-                ColumnUsage usage = (ColumnUsage) resourceSet.getEObject(description.getEObjectURI(), true);
-                if (name.equals(getUsageName(usage))) {
+                PojoUsage pojoUsage = (PojoUsage) resourceSet.getEObject(description.getEObjectURI(), true);
+                if (name.equals(getUsageName(pojoUsage))) {
                     // return ((PojoUsage) description.getEObjectOrProxy()).getPojo(); // neni inicializovan!
-                    return usage.getPojo();
+                    return pojoUsage.getPojo();
                 }
             }
         }
