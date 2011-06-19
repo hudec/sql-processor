@@ -379,7 +379,7 @@ public class SpringQuery implements SqlQuery {
                 try {
                     setParameters(cs, null, 1);
                     boolean hasResultSet = cs.execute();
-                    if (hasResultSet) {
+                    if (hasResultSet || cs.getMoreResults()) {
                         rs = cs.getResultSet();
                         ResultSet rsToUse = rs;
                         if (jdbcTemplate.getNativeJdbcExtractor() != null) {

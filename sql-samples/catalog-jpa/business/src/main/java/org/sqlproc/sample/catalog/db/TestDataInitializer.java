@@ -152,7 +152,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         14,
                         "feline01",
                         "Saber Cat",
-                        "A great watch pet. Want to keep your roommates from stealing the beer from your refrigerator? This big-toothed crazy cat is better than a watchdog. Just place him on top of the refrigerator and watch him pounce when so-called friends try to sneak a beer. This cat is great fun at parties.",
+                        "A great watch pet. Want to keep your roommates from stealing the beer from your refrigerator? This big-toothed crazy cat is better than a watchdog. Just place him on top of the refrigerator and watch him pounce when so-called friends try to sneak a beer.",
                         "images/olie.jpg", "images/olie-s.jpg", 307.90);
                 loadImages(item, loader);
                 session.save(item);

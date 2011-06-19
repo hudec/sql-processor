@@ -1,3 +1,0 @@
-Due to bug in HSQLDB 2.0.0 this sample deosn't work.
-It's necessary to upade HSQLDB to the latest version,
-which isn't in the central Maven repo unfortunatelly.

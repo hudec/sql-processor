@@ -23,7 +23,7 @@
         <version.slf4j>1.5.2</version.slf4j>
         <version.junit>4.8.2</version.junit>
         <version.dbunit>2.2</version.dbunit>
-        <version.hsqldb>2.0.0</version.hsqldb>
+        <version.hsqldb>2.2.4</version.hsqldb>
         <version.joda-time>1.6.2</version.joda-time>
         <version.joda-time-hibernate>1.2</version.joda-time-hibernate>
         <version.javassist>3.8.0.GA</version.javassist>
