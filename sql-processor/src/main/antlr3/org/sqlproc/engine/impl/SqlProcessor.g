@@ -349,6 +349,8 @@ IDENT: ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z' | '0'..'9' | '_' | '=')*;
 NUMBER: DIGIT+;
 fragment
 DIGIT: ('0'..'9');
+ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/' {$channel=HIDDEN;} ;
+SL_COMMENT : '//' ~(('\n'|'\r'))* ('\r'? '\n')? {$channel=HIDDEN;} ;
 WS:    (' ' | '\t' | '\n' | '\r')+ ;
 AND:   '&' '&' ;
 OR:    '|' '|' ;
