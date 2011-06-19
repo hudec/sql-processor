@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -35,11 +34,11 @@ public class Item implements Serializable {
     private String imageurl;
     @Column(name = "IMAGETHUMBURL")
     private String imagethumburl;
-    @Lob
-    @Column(name = "IMAGE")
+    // @Lob
+    @Column(name = "IMAGE", columnDefinition = "LONGVARBINARY")
     private byte[] image;
-    @Lob
-    @Column(name = "IMAGETHUMB")
+    // @Lob
+    @Column(name = "IMAGETHUMB", columnDefinition = "LONGVARBINARY")
     private byte[] imagethumb;
     @Basic(optional = false)
     @Column(name = "PRICE")
