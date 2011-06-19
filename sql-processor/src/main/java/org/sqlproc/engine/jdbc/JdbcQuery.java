@@ -328,7 +328,7 @@ public class JdbcQuery implements SqlQuery {
                 cs.setQueryTimeout(timeout);
             setParameters(cs, null, 1);
             hasResultSet = cs.execute();
-            if (hasResultSet) {
+            if (hasResultSet || cs.getMoreResults()) {
                 rs = cs.getResultSet();
                 list = getResults(rs);
                 getParameters(cs, false);

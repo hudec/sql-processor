@@ -112,9 +112,6 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testCallableInsertResultDefaultTypes() {
-        if ("HSQLDB".equalsIgnoreCase(dbType))
-            return;
-
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);
@@ -150,9 +147,6 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testCallableInsertResultSetNull() {
-        if ("HSQLDB".equalsIgnoreCase(dbType))
-            return;
-
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);
@@ -188,9 +182,6 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testCallableInsertResultSet() {
-        if ("HSQLDB".equalsIgnoreCase(dbType))
-            return;
-
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);
