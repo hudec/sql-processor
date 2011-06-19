@@ -1,20 +1,34 @@
+/*
+ * Advanced searching capability based on text fragment 
+ */
 LIKE_STRING(OPT)=like;
 WILDCARD_CHARACTER(OPT)=%;
 SURROUND_QUERY_LIKE(BOPT)=true;
 SURROUND_QUERY_MIN_LEN(IOPT)=2;
+/*
+ * Default name of identity column
+ */
 ID(OPT)=id;
-SEQ1(OPT,HSQLDB)=call NEXT VALUE FOR SQLPROC_SEQUENCE;
+/*
+ * Default sequences
+ */
+SEQ1(OPT,HSQLDB)=call NEXT VALUE FOR SQLPROC_SEQUENCE; 
 SEQ1(OPT,ORACLE)=select SQLPROC_SEQUENCE.nextval from dual;
+/*
+ * Default select command to obtain a new created identity
+ */
 SEL1(OPT,HSQLDB)=call identity();
 SEL1(OPT,ORACLE)=select last_insert_id();
 
 
+// META SQL query
 ANSI_BASIC(QRY)=
   select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
   p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
   from PERSON p
   order by id
 ;
+// output mapping rule
 ANSI_BASIC(OUT)=
   id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
   country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
@@ -93,7 +107,6 @@ BASIC_2(QRY)=
   from PERSON p
   {#1 order by id}
 ;
-
 
 FORM_BASIC(QRY)=
   select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
@@ -280,7 +293,7 @@ INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(OUT)=
 ;
 
 INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY)=
-  select p.ID @id, $name.first @name.first^string, :name.last @name.last
+  select p.ID @id, $name.first @name.first^string, :name.last @name.last 
   from PERSON p {= where
    {& p.id = :id}
   }
@@ -296,12 +309,12 @@ INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,HSQLDB)=
   
   
 SQL_IN_BRACES_BASIC(QRY)=
-  select p.ID {, $name.first first, p.SSN_NUMBER ssn |, '' first, p.SSN_NUMBER ssn} {, :+name.last last |, '' last} {, p.BIRTHDATE}
+  select p.ID { , $name.first first, p.SSN_NUMBER ssn |, '' first, p.SSN_NUMBER ssn} { , :+name.last last |, '' last} { , p.BIRTHDATE}
   from PERSON p
   order by id
 ;
 SQL_IN_BRACES_BASIC(QRY,HSQLDB)=
-  select p.ID {, $name.first first, p.SSN_NUMBER ssn |, '' first, p.SSN_NUMBER ssn} {, cast(:+name.last as varchar(100)) last |, '' last} {, p.BIRTHDATE}
+  select p.ID { , $name.first first, p.SSN_NUMBER ssn |, '' first, p.SSN_NUMBER ssn} { , cast(:+name.last as varchar(100)) last |, '' last} { , p.BIRTHDATE}
   from PERSON p
   order by id
 ;
@@ -311,12 +324,12 @@ SQL_IN_BRACES_BASIC(OUT)=
 ;
 
 SQL_IN_BRACES_BASIC_2(QRY)=
-  select p.ID @id {, $name.first @first, p.SSN_NUMBER @ssn |, '' @first, p.SSN_NUMBER @ssn} {, :+name.last @last |, '' @last} {, p.BIRTHDATE @birthDate}
+  select p.ID @id { , $name.first @first, p.SSN_NUMBER @ssn |, '' @first, p.SSN_NUMBER @ssn} { , :+name.last @last |, '' @last} { , p.BIRTHDATE @birthDate}
   from PERSON p
   order by id
 ;
 SQL_IN_BRACES_BASIC_2(QRY,HSQLDB)=
-  select p.ID @id {, $name.first @first, p.SSN_NUMBER @ssn |, '' @first, p.SSN_NUMBER @ssn} {, cast(:+name.last as varchar(100)) @last |, '' @last} {, p.BIRTHDATE @birthDate}
+  select p.ID @id { , $name.first @first, p.SSN_NUMBER @ssn |, '' @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as varchar(100)) @last |, '' @last} { , p.BIRTHDATE @birthDate}
   from PERSON p
   order by id
 ;
@@ -326,12 +339,12 @@ SQL_IN_BRACES_BASIC_2(OUT)=
   
   
 SQL_IN_BRACES_ADV(QRY)=
-  select p.ID @id { {, $name.first @first, p.SSN_NUMBER @ssn} {, :+name.last @last}, :lastUpdatedBy @lastUpdatedBy}
+  select p.ID @id { { , $name.first @first, p.SSN_NUMBER @ssn} { , :+name.last @last}, :lastUpdatedBy @lastUpdatedBy}
   from PERSON p
   order by id
 ;
 SQL_IN_BRACES_ADV(QRY,HSQLDB)=
-  select p.ID @id { {, $name.first @first, p.SSN_NUMBER @ssn} {, cast(:+name.last as varchar(100)) @last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
+  select p.ID @id { { , $name.first @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as varchar(100)) @last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
   from PERSON p
   order by id
 ;
@@ -340,12 +353,12 @@ SQL_IN_BRACES_ADV(OUT)=
 ;
   
 SQL_IN_BRACES_ADV_2(QRY)=
-  select p.ID @id { {, $name.first @name.first^string, p.SSN_NUMBER @ssn.number} {, :+name.last @name.last}, :lastUpdatedBy @lastUpdatedBy}
+  select p.ID @id { { , $name.first @name.first^string, p.SSN_NUMBER @ssn.number} { , :+name.last @name.last}, :lastUpdatedBy @lastUpdatedBy}
   from PERSON p
   order by id
 ;
 SQL_IN_BRACES_ADV_2(QRY,HSQLDB)=
-  select p.ID @id { {, $name.first @name.first^string, p.SSN_NUMBER @ssn.number} {, cast(:+name.last as varchar(100)) @name.last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
+  select p.ID @id { { , $name.first @name.first^string, p.SSN_NUMBER @ssn.number} { , cast(:+name.last as varchar(100)) @name.last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
   from PERSON p
   order by id
 ;
@@ -968,6 +981,16 @@ CUSTOM_TYPE_GET(CRUD)=
 ;
 
 
+INHERITANCE2_BASIC(QRY)=
+  select s.ID @id, s.NAME_FIRST @name.first, s.NAME_LAST @name.last, s.LIBRARY @library.id,
+  bd.TYPE @billingDetails==discriminator.type, bd.ID @billingDetails.id, bd.CC_NUMBER @billingDetails.number^long,
+  bd.CC_EXP_MONTH @billingDetails.expMonth^short, bd.CC_EXP_YEAR @billingDetails.expYear^short,
+  bd.BA_ACCOUNT_NUMBER @billingDetails.accountNumber, bd.BA_BANK_NAME @billingDetails.bankName,
+  bd.BA_SWIFT @billingDetails.swift
+  from SUBSCRIBER s left join BILLING_DETAILS bd on s.ID = bd.SUBSCRIBER
+  {#1 order by s.ID, bd.ID}
+;
+
 BASIC_LEFT_JOIN_NO_ID(QRY)=
   select pm.LOCATION @location, pm.STATUS @status, pm.UUID @uuid
   from PHYSICALMEDIA pm
@@ -1327,7 +1350,7 @@ INSERT_PERSON_CALL_RESULT_SET_2(OUT,ORACLE)=
 INSERT_PERSON_CALL_RESULT_SET(CALL,ORACLE)=
   :<1^oracle_cursor = call new_person_ret(:birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
-INSERT_PERSON_CALL_RESULT_SET(OUT,ORACLE)=
+INSERT_PERSON_CALL_RESULT_SET(OUT,ORACLE)= 
   id$Long$id birthDate$date$birthDate lastUpdated$stamp$lastUpdated lastUpdatedBy$string$lastUpdatedBy
   createdDate$stamp$createdDate createdBy$string$createdBy version$Long$version contact$Long$contact.id ssn_number$string$ssn.number
   ssn_country$estring$ssn.country name_first$string$name.first name_last$string$name.last sex$estring$sex clothes_size$eint$clothesSize
