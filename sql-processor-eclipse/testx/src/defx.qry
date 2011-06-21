@@ -215,6 +215,7 @@ out STANDARD_TYPES transport;
 out UNDEFINED_PARAMETERS transport;
 out UNDEFINED_TYPES transport;
 out BASIC_LEFT_JOIN_NO_ID_2 physical_media;
+out BASIC_2_LEFT_JOIN_4 library;
 out BASIC_LEFT_JOIN_LIST_4 library;
 out INSERT_PERSON_CALL_RESULT_SET person;
 out INSERT_PERSON_CALL_RESULT_SET_2 person;

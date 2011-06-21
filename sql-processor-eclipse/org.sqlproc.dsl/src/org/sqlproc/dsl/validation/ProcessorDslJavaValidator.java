@@ -19,6 +19,7 @@ import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
+import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
@@ -283,6 +284,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     @Check
     public void checkColumn(Column column) {
         String columnUsageClass = null;
+        MappingUsage mappingUsage = null;
         MetaStatement statement = EcoreUtil2.getContainerOfType(column, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
         IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
@@ -294,13 +296,30 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                         .getEObject(description.getEObjectURI(), true);
                 if (pojoUsage instanceof ColumnUsage) {
                     columnUsageClass = ((ColumnUsage) pojoUsage).getPojo().getClass_();
-                    break;
+                }
+                if (pojoUsage instanceof MappingUsage) {
+                    mappingUsage = (MappingUsage) pojoUsage;
                 }
             }
         }
-        if (!checkClassProperty(columnUsageClass, column.getName()))
+        if (mappingUsage != null && mappingUsage.getStatement() != null
+                && mappingUsage.getStatement().getMapping() != null
+                && mappingUsage.getStatement().getMapping().getMappingItems() != null) {
+            for (MappingItem mappingItem : mappingUsage.getStatement().getMapping().getMappingItems()) {
+                if (mappingItem.getCol().equals(column.getName()))
+                    return;
+            }
+        }
+        switch (checkClassProperty(columnUsageClass, column.getName())) {
+        case 1:
+            warning("Problem property : " + column.getName() + "[" + columnUsageClass + "]",
+                    ProcessorDslPackage.Literals.COLUMN__NAME);
+            break;
+        case 2:
             error("Cannot find property : " + column.getName() + "[" + columnUsageClass + "]",
                     ProcessorDslPackage.Literals.COLUMN__NAME);
+            break;
+        }
     }
 
     @Check
@@ -321,9 +340,16 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 }
             }
         }
-        if (!checkClassProperty(identifierUsageClass, identifier.getName()))
+        switch (checkClassProperty(identifierUsageClass, identifier.getName())) {
+        case 1:
+            warning("Problem property : " + identifier.getName() + "[" + identifierUsageClass + "]",
+                    ProcessorDslPackage.Literals.IDENTIFIER__NAME);
+            break;
+        case 2:
             error("Cannot find property : " + identifier.getName() + "[" + identifierUsageClass + "]",
                     ProcessorDslPackage.Literals.IDENTIFIER__NAME);
+            break;
+        }
     }
 
     @Check
@@ -344,9 +370,16 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 }
             }
         }
-        if (!checkClassProperty(constantUsageClass, constant.getName()))
-            error("Cannot fing property : " + constant.getName() + "[" + constantUsageClass + "]",
+        switch (checkClassProperty(constantUsageClass, constant.getName())) {
+        case 1:
+            warning("Problem property : " + constant.getName() + "[" + constantUsageClass + "]",
                     ProcessorDslPackage.Literals.CONSTANT__NAME);
+            break;
+        case 2:
+            error("Cannot find property : " + constant.getName() + "[" + constantUsageClass + "]",
+                    ProcessorDslPackage.Literals.CONSTANT__NAME);
+            break;
+        }
     }
 
     @Check
@@ -367,9 +400,17 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 }
             }
         }
-        if (!checkClassProperty(mappingUsageClass, identifier.getName()))
+        switch (checkClassProperty(mappingUsageClass, identifier.getName())) {
+        case 1:
+            warning("Problem property : " + identifier.getName() + "[" + mappingUsageClass + "]",
+                    ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
+            break;
+        case 2:
             error("Cannot find property : " + identifier.getName() + "[" + mappingUsageClass + "]",
                     ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
+            break;
+
+        }
     }
 
     protected boolean isNumber(String param) {
@@ -382,14 +423,20 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         return true;
     }
 
-    protected boolean checkClassProperty(String className, String property) {
-        if (className == null || property == null || pojoResolverFactory.getPojoResolver() == null)
-            return true;
+    /**
+     * Validation property of class
+     * 
+     * @param className
+     * @param property
+     * @return 0 - OK, 1 - warning, 2 - error
+     */
+    protected int checkClassProperty(String className, String property) {
+        if (className == null || property == null || isNumber(property)
+                || pojoResolverFactory.getPojoResolver() == null)
+            return 0;
         PropertyDescriptor[] descriptors = pojoResolverFactory.getPojoResolver().getPropertyDescriptors(className);
         if (descriptors == null)
-            return false;
-        if (isNumber(property))
-            return true;
+            return 1;
         String checkProperty = property;
         int pos1 = checkProperty.indexOf('=');
         if (pos1 > 0) {
@@ -403,9 +450,9 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             checkProperty = checkProperty.substring(0, pos1);
         for (PropertyDescriptor descriptor : descriptors) {
             if (descriptor.getName().equals(checkProperty))
-                return true;
+                return 0;
         }
-        return false;
+        return 2;
 
     }
 }
