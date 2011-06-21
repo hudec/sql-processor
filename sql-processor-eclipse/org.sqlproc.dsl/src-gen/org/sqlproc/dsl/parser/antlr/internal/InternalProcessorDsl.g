@@ -3998,9 +3998,9 @@ ruleMappingItem returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMappingItemAccess().getAttrMappingIdentifierParserRuleCall_1_2_1_0()); 
+	        newCompositeNode(grammarAccess.getMappingItemAccess().getAttrMappingColumnParserRuleCall_1_2_1_0()); 
 	    }
-		lv_attr_4_0=ruleMappingIdentifier		{
+		lv_attr_4_0=ruleMappingColumn		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getMappingItemRule());
 	        }
@@ -4008,7 +4008,7 @@ ruleMappingItem returns [EObject current=null]
        			$current, 
        			"attr",
         		lv_attr_4_0, 
-        		"MappingIdentifier");
+        		"MappingColumn");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4020,17 +4020,17 @@ ruleMappingItem returns [EObject current=null]
 
 
 
-// Entry rule entryRuleMappingIdentifier
-entryRuleMappingIdentifier returns [EObject current=null] 
+// Entry rule entryRuleMappingColumn
+entryRuleMappingColumn returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getMappingIdentifierRule()); }
-	 iv_ruleMappingIdentifier=ruleMappingIdentifier 
-	 { $current=$iv_ruleMappingIdentifier.current; } 
+	{ newCompositeNode(grammarAccess.getMappingColumnRule()); }
+	 iv_ruleMappingColumn=ruleMappingColumn 
+	 { $current=$iv_ruleMappingColumn.current; } 
 	 EOF 
 ;
 
-// Rule MappingIdentifier
-ruleMappingIdentifier returns [EObject current=null] 
+// Rule MappingColumn
+ruleMappingColumn returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
@@ -4039,11 +4039,11 @@ ruleMappingIdentifier returns [EObject current=null]
 (
 		lv_name_0_1=RULE_IDENT
 		{
-			newLeafNode(lv_name_0_1, grammarAccess.getMappingIdentifierAccess().getNameIDENTTerminalRuleCall_0_0_0()); 
+			newLeafNode(lv_name_0_1, grammarAccess.getMappingColumnAccess().getNameIDENTTerminalRuleCall_0_0_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getMappingIdentifierRule());
+	            $current = createModelElement(grammarAccess.getMappingColumnRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -4054,11 +4054,11 @@ ruleMappingIdentifier returns [EObject current=null]
 
     |		lv_name_0_2=RULE_IDENT_DOT
 		{
-			newLeafNode(lv_name_0_2, grammarAccess.getMappingIdentifierAccess().getNameIDENT_DOTTerminalRuleCall_0_0_1()); 
+			newLeafNode(lv_name_0_2, grammarAccess.getMappingColumnAccess().getNameIDENT_DOTTerminalRuleCall_0_0_1()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getMappingIdentifierRule());
+	            $current = createModelElement(grammarAccess.getMappingColumnRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -4072,18 +4072,18 @@ ruleMappingIdentifier returns [EObject current=null]
 )
 )(this_CARET_1=RULE_CARET
     { 
-    newLeafNode(this_CARET_1, grammarAccess.getMappingIdentifierAccess().getCARETTerminalRuleCall_1_0()); 
+    newLeafNode(this_CARET_1, grammarAccess.getMappingColumnAccess().getCARETTerminalRuleCall_1_0()); 
     }
 (
 (
 (
 		lv_vals_2_1=RULE_IDENT
 		{
-			newLeafNode(lv_vals_2_1, grammarAccess.getMappingIdentifierAccess().getValsIDENTTerminalRuleCall_1_1_0_0()); 
+			newLeafNode(lv_vals_2_1, grammarAccess.getMappingColumnAccess().getValsIDENTTerminalRuleCall_1_1_0_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getMappingIdentifierRule());
+	            $current = createModelElement(grammarAccess.getMappingColumnRule());
 	        }
        		addWithLastConsumed(
        			$current, 
@@ -4094,11 +4094,11 @@ ruleMappingIdentifier returns [EObject current=null]
 
     |		lv_vals_2_2=RULE_NUMBER
 		{
-			newLeafNode(lv_vals_2_2, grammarAccess.getMappingIdentifierAccess().getValsNUMBERTerminalRuleCall_1_1_0_1()); 
+			newLeafNode(lv_vals_2_2, grammarAccess.getMappingColumnAccess().getValsNUMBERTerminalRuleCall_1_1_0_1()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getMappingIdentifierRule());
+	            $current = createModelElement(grammarAccess.getMappingColumnRule());
 	        }
        		addWithLastConsumed(
        			$current, 

@@ -18,7 +18,7 @@ import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
-import org.sqlproc.dsl.processorDsl.MappingIdentifier;
+import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
@@ -350,7 +350,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     }
 
     @Check
-    public void checkMappingIdentifier(MappingIdentifier identifier) {
+    public void checkMappingColumn(MappingColumn identifier) {
         String mappingUsageClass = null;
         MappingRule rule = EcoreUtil2.getContainerOfType(identifier, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(rule, Artifacts.class);
@@ -369,7 +369,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         }
         if (!checkClassProperty(mappingUsageClass, identifier.getName()))
             error("Cannot find property : " + identifier.getName() + "[" + mappingUsageClass + "]",
-                    ProcessorDslPackage.Literals.MAPPING_IDENTIFIER__NAME);
+                    ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
     }
 
     protected boolean isNumber(String param) {

@@ -11351,7 +11351,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleMappingItem"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3932:1: ruleMappingItem returns [EObject current=null] : ( ( ( (lv_col_0_1= RULE_IDENT | lv_col_0_2= RULE_NUMBER ) ) ) (this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingIdentifier ) ) )? )? ) ;
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3932:1: ruleMappingItem returns [EObject current=null] : ( ( ( (lv_col_0_1= RULE_IDENT | lv_col_0_2= RULE_NUMBER ) ) ) (this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingColumn ) ) )? )? ) ;
     public final EObject ruleMappingItem() throws RecognitionException {
         EObject current = null;
 
@@ -11366,11 +11366,11 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3935:28: ( ( ( ( (lv_col_0_1= RULE_IDENT | lv_col_0_2= RULE_NUMBER ) ) ) (this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingIdentifier ) ) )? )? ) )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3936:1: ( ( ( (lv_col_0_1= RULE_IDENT | lv_col_0_2= RULE_NUMBER ) ) ) (this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingIdentifier ) ) )? )? )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3935:28: ( ( ( ( (lv_col_0_1= RULE_IDENT | lv_col_0_2= RULE_NUMBER ) ) ) (this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingColumn ) ) )? )? ) )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3936:1: ( ( ( (lv_col_0_1= RULE_IDENT | lv_col_0_2= RULE_NUMBER ) ) ) (this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingColumn ) ) )? )? )
             {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3936:1: ( ( ( (lv_col_0_1= RULE_IDENT | lv_col_0_2= RULE_NUMBER ) ) ) (this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingIdentifier ) ) )? )? )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3936:2: ( ( (lv_col_0_1= RULE_IDENT | lv_col_0_2= RULE_NUMBER ) ) ) (this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingIdentifier ) ) )? )?
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3936:1: ( ( ( (lv_col_0_1= RULE_IDENT | lv_col_0_2= RULE_NUMBER ) ) ) (this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingColumn ) ) )? )? )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3936:2: ( ( (lv_col_0_1= RULE_IDENT | lv_col_0_2= RULE_NUMBER ) ) ) (this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingColumn ) ) )? )?
             {
             // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3936:2: ( ( (lv_col_0_1= RULE_IDENT | lv_col_0_2= RULE_NUMBER ) ) )
             // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3937:1: ( (lv_col_0_1= RULE_IDENT | lv_col_0_2= RULE_NUMBER ) )
@@ -11453,7 +11453,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3972:2: (this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingIdentifier ) ) )? )?
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3972:2: (this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingColumn ) ) )? )?
             int alt73=2;
             int LA73_0 = input.LA(1);
 
@@ -11462,7 +11462,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             }
             switch (alt73) {
                 case 1 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3972:3: this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingIdentifier ) ) )?
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3972:3: this_STRING_1= RULE_STRING ( (lv_type_2_0= RULE_IDENT ) )? (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingColumn ) ) )?
                     {
                     this_STRING_1=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleMappingItem9276); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -11511,7 +11511,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3994:3: (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingIdentifier ) ) )?
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3994:3: (this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingColumn ) ) )?
                     int alt72=2;
                     int LA72_0 = input.LA(1);
 
@@ -11520,7 +11520,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt72) {
                         case 1 :
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3994:4: this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingIdentifier ) )
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3994:4: this_STRING_3= RULE_STRING ( (lv_attr_4_0= ruleMappingColumn ) )
                             {
                             this_STRING_3=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleMappingItem9310); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
@@ -11528,19 +11528,19 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                                   newLeafNode(this_STRING_3, grammarAccess.getMappingItemAccess().getSTRINGTerminalRuleCall_1_2_0()); 
                                   
                             }
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3998:1: ( (lv_attr_4_0= ruleMappingIdentifier ) )
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3999:1: (lv_attr_4_0= ruleMappingIdentifier )
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3998:1: ( (lv_attr_4_0= ruleMappingColumn ) )
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3999:1: (lv_attr_4_0= ruleMappingColumn )
                             {
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3999:1: (lv_attr_4_0= ruleMappingIdentifier )
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4000:3: lv_attr_4_0= ruleMappingIdentifier
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:3999:1: (lv_attr_4_0= ruleMappingColumn )
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4000:3: lv_attr_4_0= ruleMappingColumn
                             {
                             if ( state.backtracking==0 ) {
                                
-                              	        newCompositeNode(grammarAccess.getMappingItemAccess().getAttrMappingIdentifierParserRuleCall_1_2_1_0()); 
+                              	        newCompositeNode(grammarAccess.getMappingItemAccess().getAttrMappingColumnParserRuleCall_1_2_1_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleMappingIdentifier_in_ruleMappingItem9330);
-                            lv_attr_4_0=ruleMappingIdentifier();
+                            pushFollow(FOLLOW_ruleMappingColumn_in_ruleMappingItem9330);
+                            lv_attr_4_0=ruleMappingColumn();
 
                             state._fsp--;
                             if (state.failed) return current;
@@ -11553,7 +11553,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"attr",
                                       		lv_attr_4_0, 
-                                      		"MappingIdentifier");
+                                      		"MappingColumn");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -11597,30 +11597,30 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleMappingItem"
 
 
-    // $ANTLR start "entryRuleMappingIdentifier"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4024:1: entryRuleMappingIdentifier returns [EObject current=null] : iv_ruleMappingIdentifier= ruleMappingIdentifier EOF ;
-    public final EObject entryRuleMappingIdentifier() throws RecognitionException {
+    // $ANTLR start "entryRuleMappingColumn"
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4024:1: entryRuleMappingColumn returns [EObject current=null] : iv_ruleMappingColumn= ruleMappingColumn EOF ;
+    public final EObject entryRuleMappingColumn() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleMappingIdentifier = null;
+        EObject iv_ruleMappingColumn = null;
 
 
         try {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4025:2: (iv_ruleMappingIdentifier= ruleMappingIdentifier EOF )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4026:2: iv_ruleMappingIdentifier= ruleMappingIdentifier EOF
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4025:2: (iv_ruleMappingColumn= ruleMappingColumn EOF )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4026:2: iv_ruleMappingColumn= ruleMappingColumn EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getMappingIdentifierRule()); 
+               newCompositeNode(grammarAccess.getMappingColumnRule()); 
             }
-            pushFollow(FOLLOW_ruleMappingIdentifier_in_entryRuleMappingIdentifier9370);
-            iv_ruleMappingIdentifier=ruleMappingIdentifier();
+            pushFollow(FOLLOW_ruleMappingColumn_in_entryRuleMappingColumn9370);
+            iv_ruleMappingColumn=ruleMappingColumn();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleMappingIdentifier; 
+               current =iv_ruleMappingColumn; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleMappingIdentifier9380); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleMappingColumn9380); if (state.failed) return current;
 
             }
 
@@ -11634,12 +11634,12 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleMappingIdentifier"
+    // $ANTLR end "entryRuleMappingColumn"
 
 
-    // $ANTLR start "ruleMappingIdentifier"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4033:1: ruleMappingIdentifier returns [EObject current=null] : ( ( ( (lv_name_0_1= RULE_IDENT | lv_name_0_2= RULE_IDENT_DOT ) ) ) (this_CARET_1= RULE_CARET ( ( (lv_vals_2_1= RULE_IDENT | lv_vals_2_2= RULE_NUMBER ) ) ) )* ) ;
-    public final EObject ruleMappingIdentifier() throws RecognitionException {
+    // $ANTLR start "ruleMappingColumn"
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4033:1: ruleMappingColumn returns [EObject current=null] : ( ( ( (lv_name_0_1= RULE_IDENT | lv_name_0_2= RULE_IDENT_DOT ) ) ) (this_CARET_1= RULE_CARET ( ( (lv_vals_2_1= RULE_IDENT | lv_vals_2_2= RULE_NUMBER ) ) ) )* ) ;
+    public final EObject ruleMappingColumn() throws RecognitionException {
         EObject current = null;
 
         Token lv_name_0_1=null;
@@ -11684,16 +11684,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4040:3: lv_name_0_1= RULE_IDENT
                     {
-                    lv_name_0_1=(Token)match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_ruleMappingIdentifier9424); if (state.failed) return current;
+                    lv_name_0_1=(Token)match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_ruleMappingColumn9424); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_name_0_1, grammarAccess.getMappingIdentifierAccess().getNameIDENTTerminalRuleCall_0_0_0()); 
+                      			newLeafNode(lv_name_0_1, grammarAccess.getMappingColumnAccess().getNameIDENTTerminalRuleCall_0_0_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getMappingIdentifierRule());
+                      	            current = createModelElement(grammarAccess.getMappingColumnRule());
                       	        }
                              		setWithLastConsumed(
                              			current, 
@@ -11708,16 +11708,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4055:8: lv_name_0_2= RULE_IDENT_DOT
                     {
-                    lv_name_0_2=(Token)match(input,RULE_IDENT_DOT,FOLLOW_RULE_IDENT_DOT_in_ruleMappingIdentifier9444); if (state.failed) return current;
+                    lv_name_0_2=(Token)match(input,RULE_IDENT_DOT,FOLLOW_RULE_IDENT_DOT_in_ruleMappingColumn9444); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_name_0_2, grammarAccess.getMappingIdentifierAccess().getNameIDENT_DOTTerminalRuleCall_0_0_1()); 
+                      			newLeafNode(lv_name_0_2, grammarAccess.getMappingColumnAccess().getNameIDENT_DOTTerminalRuleCall_0_0_1()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getMappingIdentifierRule());
+                      	            current = createModelElement(grammarAccess.getMappingColumnRule());
                       	        }
                              		setWithLastConsumed(
                              			current, 
@@ -11753,10 +11753,10 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4073:3: this_CARET_1= RULE_CARET ( ( (lv_vals_2_1= RULE_IDENT | lv_vals_2_2= RULE_NUMBER ) ) )
             	    {
-            	    this_CARET_1=(Token)match(input,RULE_CARET,FOLLOW_RULE_CARET_in_ruleMappingIdentifier9464); if (state.failed) return current;
+            	    this_CARET_1=(Token)match(input,RULE_CARET,FOLLOW_RULE_CARET_in_ruleMappingColumn9464); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
             	       
-            	          newLeafNode(this_CARET_1, grammarAccess.getMappingIdentifierAccess().getCARETTerminalRuleCall_1_0()); 
+            	          newLeafNode(this_CARET_1, grammarAccess.getMappingColumnAccess().getCARETTerminalRuleCall_1_0()); 
             	          
             	    }
             	    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4077:1: ( ( (lv_vals_2_1= RULE_IDENT | lv_vals_2_2= RULE_NUMBER ) ) )
@@ -11786,16 +11786,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	        case 1 :
             	            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4080:3: lv_vals_2_1= RULE_IDENT
             	            {
-            	            lv_vals_2_1=(Token)match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_ruleMappingIdentifier9482); if (state.failed) return current;
+            	            lv_vals_2_1=(Token)match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_ruleMappingColumn9482); if (state.failed) return current;
             	            if ( state.backtracking==0 ) {
 
-            	              			newLeafNode(lv_vals_2_1, grammarAccess.getMappingIdentifierAccess().getValsIDENTTerminalRuleCall_1_1_0_0()); 
+            	              			newLeafNode(lv_vals_2_1, grammarAccess.getMappingColumnAccess().getValsIDENTTerminalRuleCall_1_1_0_0()); 
             	              		
             	            }
             	            if ( state.backtracking==0 ) {
 
             	              	        if (current==null) {
-            	              	            current = createModelElement(grammarAccess.getMappingIdentifierRule());
+            	              	            current = createModelElement(grammarAccess.getMappingColumnRule());
             	              	        }
             	                     		addWithLastConsumed(
             	                     			current, 
@@ -11810,16 +11810,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             	        case 2 :
             	            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:4095:8: lv_vals_2_2= RULE_NUMBER
             	            {
-            	            lv_vals_2_2=(Token)match(input,RULE_NUMBER,FOLLOW_RULE_NUMBER_in_ruleMappingIdentifier9502); if (state.failed) return current;
+            	            lv_vals_2_2=(Token)match(input,RULE_NUMBER,FOLLOW_RULE_NUMBER_in_ruleMappingColumn9502); if (state.failed) return current;
             	            if ( state.backtracking==0 ) {
 
-            	              			newLeafNode(lv_vals_2_2, grammarAccess.getMappingIdentifierAccess().getValsNUMBERTerminalRuleCall_1_1_0_1()); 
+            	              			newLeafNode(lv_vals_2_2, grammarAccess.getMappingColumnAccess().getValsNUMBERTerminalRuleCall_1_1_0_1()); 
             	              		
             	            }
             	            if ( state.backtracking==0 ) {
 
             	              	        if (current==null) {
-            	              	            current = createModelElement(grammarAccess.getMappingIdentifierRule());
+            	              	            current = createModelElement(grammarAccess.getMappingColumnRule());
             	              	        }
             	                     		addWithLastConsumed(
             	                     			current, 
@@ -11868,7 +11868,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleMappingIdentifier"
+    // $ANTLR end "ruleMappingColumn"
 
 
     // $ANTLR start "entryRuleOptionalFeature"
@@ -15038,14 +15038,14 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_RULE_STRING_in_ruleMappingItem9276 = new BitSet(new long[]{0x0000000000002022L});
     public static final BitSet FOLLOW_RULE_IDENT_in_ruleMappingItem9292 = new BitSet(new long[]{0x0000000000002002L});
     public static final BitSet FOLLOW_RULE_STRING_in_ruleMappingItem9310 = new BitSet(new long[]{0x0000000000000060L});
-    public static final BitSet FOLLOW_ruleMappingIdentifier_in_ruleMappingItem9330 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMappingIdentifier_in_entryRuleMappingIdentifier9370 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleMappingIdentifier9380 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_ruleMappingIdentifier9424 = new BitSet(new long[]{0x0000000004000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_DOT_in_ruleMappingIdentifier9444 = new BitSet(new long[]{0x0000000004000002L});
-    public static final BitSet FOLLOW_RULE_CARET_in_ruleMappingIdentifier9464 = new BitSet(new long[]{0x0000000000040020L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_ruleMappingIdentifier9482 = new BitSet(new long[]{0x0000000004000002L});
-    public static final BitSet FOLLOW_RULE_NUMBER_in_ruleMappingIdentifier9502 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_ruleMappingColumn_in_ruleMappingItem9330 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMappingColumn_in_entryRuleMappingColumn9370 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleMappingColumn9380 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_ruleMappingColumn9424 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_DOT_in_ruleMappingColumn9444 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_RULE_CARET_in_ruleMappingColumn9464 = new BitSet(new long[]{0x0000000000040020L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_ruleMappingColumn9482 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_RULE_NUMBER_in_ruleMappingColumn9502 = new BitSet(new long[]{0x0000000004000002L});
     public static final BitSet FOLLOW_ruleOptionalFeature_in_entryRuleOptionalFeature9548 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOptionalFeature9558 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_IDENT_in_ruleOptionalFeature9600 = new BitSet(new long[]{0x0000000000000100L});

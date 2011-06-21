@@ -2259,13 +2259,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
 		private final RuleCall cSTRINGTerminalRuleCall_1_2_0 = (RuleCall)cGroup_1_2.eContents().get(0);
 		private final Assignment cAttrAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
-		private final RuleCall cAttrMappingIdentifierParserRuleCall_1_2_1_0 = (RuleCall)cAttrAssignment_1_2_1.eContents().get(0);
+		private final RuleCall cAttrMappingColumnParserRuleCall_1_2_1_0 = (RuleCall)cAttrAssignment_1_2_1.eContents().get(0);
 		
 		//MappingItem:
-		//	col=(IDENT | NUMBER) (STRING type=IDENT? (STRING attr=MappingIdentifier)?)?;
+		//	col=(IDENT | NUMBER) (STRING type=IDENT? (STRING attr=MappingColumn)?)?;
 		public ParserRule getRule() { return rule; }
 
-		//col=(IDENT | NUMBER) (STRING type=IDENT? (STRING attr=MappingIdentifier)?)?
+		//col=(IDENT | NUMBER) (STRING type=IDENT? (STRING attr=MappingColumn)?)?
 		public Group getGroup() { return cGroup; }
 
 		//col=(IDENT | NUMBER)
@@ -2280,7 +2280,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//NUMBER
 		public RuleCall getColNUMBERTerminalRuleCall_0_0_1() { return cColNUMBERTerminalRuleCall_0_0_1; }
 
-		//(STRING type=IDENT? (STRING attr=MappingIdentifier)?)?
+		//(STRING type=IDENT? (STRING attr=MappingColumn)?)?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//STRING
@@ -2292,21 +2292,21 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getTypeIDENTTerminalRuleCall_1_1_0() { return cTypeIDENTTerminalRuleCall_1_1_0; }
 
-		//(STRING attr=MappingIdentifier)?
+		//(STRING attr=MappingColumn)?
 		public Group getGroup_1_2() { return cGroup_1_2; }
 
 		//STRING
 		public RuleCall getSTRINGTerminalRuleCall_1_2_0() { return cSTRINGTerminalRuleCall_1_2_0; }
 
-		//attr=MappingIdentifier
+		//attr=MappingColumn
 		public Assignment getAttrAssignment_1_2_1() { return cAttrAssignment_1_2_1; }
 
-		//MappingIdentifier
-		public RuleCall getAttrMappingIdentifierParserRuleCall_1_2_1_0() { return cAttrMappingIdentifierParserRuleCall_1_2_1_0; }
+		//MappingColumn
+		public RuleCall getAttrMappingColumnParserRuleCall_1_2_1_0() { return cAttrMappingColumnParserRuleCall_1_2_1_0; }
 	}
 
-	public class MappingIdentifierElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MappingIdentifier");
+	public class MappingColumnElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MappingColumn");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final Alternatives cNameAlternatives_0_0 = (Alternatives)cNameAssignment_0.eContents().get(0);
@@ -2319,7 +2319,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValsIDENTTerminalRuleCall_1_1_0_0 = (RuleCall)cValsAlternatives_1_1_0.eContents().get(0);
 		private final RuleCall cValsNUMBERTerminalRuleCall_1_1_0_1 = (RuleCall)cValsAlternatives_1_1_0.eContents().get(1);
 		
-		//MappingIdentifier:
+		//MappingColumn:
 		//	name=(IDENT | IDENT_DOT) (CARET vals+=(IDENT | NUMBER))*;
 		public ParserRule getRule() { return rule; }
 
@@ -2671,7 +2671,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private MappingRuleElements pMappingRule;
 	private MappingElements pMapping;
 	private MappingItemElements pMappingItem;
-	private MappingIdentifierElements pMappingIdentifier;
+	private MappingColumnElements pMappingColumn;
 	private OptionalFeatureElements pOptionalFeature;
 	private FeatureValueElements pFeatureValue;
 	private STATEMEN_TYPEElements unknownRuleSTATEMEN_TYPE;
@@ -2999,7 +2999,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//MappingItem:
-	//	col=(IDENT | NUMBER) (STRING type=IDENT? (STRING attr=MappingIdentifier)?)?;
+	//	col=(IDENT | NUMBER) (STRING type=IDENT? (STRING attr=MappingColumn)?)?;
 	public MappingItemElements getMappingItemAccess() {
 		return (pMappingItem != null) ? pMappingItem : (pMappingItem = new MappingItemElements());
 	}
@@ -3008,14 +3008,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getMappingItemAccess().getRule();
 	}
 
-	//MappingIdentifier:
+	//MappingColumn:
 	//	name=(IDENT | IDENT_DOT) (CARET vals+=(IDENT | NUMBER))*;
-	public MappingIdentifierElements getMappingIdentifierAccess() {
-		return (pMappingIdentifier != null) ? pMappingIdentifier : (pMappingIdentifier = new MappingIdentifierElements());
+	public MappingColumnElements getMappingColumnAccess() {
+		return (pMappingColumn != null) ? pMappingColumn : (pMappingColumn = new MappingColumnElements());
 	}
 	
-	public ParserRule getMappingIdentifierRule() {
-		return getMappingIdentifierAccess().getRule();
+	public ParserRule getMappingColumnRule() {
+		return getMappingColumnAccess().getRule();
 	}
 
 	//OptionalFeature:

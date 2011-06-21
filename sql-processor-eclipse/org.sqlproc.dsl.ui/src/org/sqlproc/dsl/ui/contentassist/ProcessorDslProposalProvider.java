@@ -89,7 +89,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     }
 
     @Override
-    public void completeMappingIdentifier_Name(EObject model, Assignment assignment, ContentAssistContext context,
+    public void completeMappingColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
         MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
@@ -106,7 +106,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
 
         PropertyDescriptor[] descriptors = pojoResolver.getPropertyDescriptors(pojoDefinition.getClass_());
         if (descriptors == null) {
-            super.completeMappingIdentifier_Name(model, assignment, context, acceptor);
+            super.completeMappingColumn_Name(model, assignment, context, acceptor);
         } else {
             for (PropertyDescriptor descriptor : descriptors) {
                 String proposal = getValueConverter().toString(descriptor.getName(), "IDENT");

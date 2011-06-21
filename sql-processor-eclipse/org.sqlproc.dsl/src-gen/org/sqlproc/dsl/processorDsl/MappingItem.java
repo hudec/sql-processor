@@ -88,12 +88,12 @@ public interface MappingItem extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Attr</em>' containment reference.
-   * @see #setAttr(MappingIdentifier)
+   * @see #setAttr(MappingColumn)
    * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingItem_Attr()
    * @model containment="true"
    * @generated
    */
-  MappingIdentifier getAttr();
+  MappingColumn getAttr();
 
   /**
    * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.MappingItem#getAttr <em>Attr</em>}' containment reference.
@@ -103,6 +103,6 @@ public interface MappingItem extends EObject
    * @see #getAttr()
    * @generated
    */
-  void setAttr(MappingIdentifier value);
+  void setAttr(MappingColumn value);
 
 } // MappingItem

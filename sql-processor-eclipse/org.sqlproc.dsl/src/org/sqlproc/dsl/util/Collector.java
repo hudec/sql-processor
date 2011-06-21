@@ -9,7 +9,7 @@ import org.sqlproc.dsl.processorDsl.IfSql;
 import org.sqlproc.dsl.processorDsl.IfSqlBool;
 import org.sqlproc.dsl.processorDsl.IfSqlCond;
 import org.sqlproc.dsl.processorDsl.IfSqlFragment;
-import org.sqlproc.dsl.processorDsl.MappingIdentifier;
+import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
@@ -101,7 +101,7 @@ public class Collector {
         }
     }
 
-    public static void allVariables(MappingRule mappingRule, Set<MappingIdentifier> columns) {
+    public static void allVariables(MappingRule mappingRule, Set<MappingColumn> columns) {
 
         if (mappingRule.getMapping() != null && mappingRule.getMapping().getMappingItems() != null) {
             for (MappingItem mappingItem : mappingRule.getMapping().getMappingItems()) {

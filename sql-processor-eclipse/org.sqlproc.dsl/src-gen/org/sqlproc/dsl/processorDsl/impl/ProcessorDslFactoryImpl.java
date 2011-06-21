@@ -92,7 +92,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.MAPPING_RULE: return createMappingRule();
       case ProcessorDslPackage.MAPPING: return createMapping();
       case ProcessorDslPackage.MAPPING_ITEM: return createMappingItem();
-      case ProcessorDslPackage.MAPPING_IDENTIFIER: return createMappingIdentifier();
+      case ProcessorDslPackage.MAPPING_COLUMN: return createMappingColumn();
       case ProcessorDslPackage.OPTIONAL_FEATURE: return createOptionalFeature();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -410,10 +410,10 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public MappingIdentifier createMappingIdentifier()
+  public MappingColumn createMappingColumn()
   {
-    MappingIdentifierImpl mappingIdentifier = new MappingIdentifierImpl();
-    return mappingIdentifier;
+    MappingColumnImpl mappingColumn = new MappingColumnImpl();
+    return mappingColumn;
   }
 
   /**

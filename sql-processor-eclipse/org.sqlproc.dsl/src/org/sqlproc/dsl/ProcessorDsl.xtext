@@ -114,9 +114,9 @@ Mapping:
 	WS* mappingItems+=MappingItem (WS+ mappingItems+=MappingItem)* WS*;
 
 MappingItem:
-	col=(IDENT|NUMBER) (STRING (type=IDENT)? (STRING attr=MappingIdentifier)?)?;
+	col=(IDENT|NUMBER) (STRING (type=IDENT)? (STRING attr=MappingColumn)?)?;
 
-MappingIdentifier:
+MappingColumn:
     name=(IDENT|IDENT_DOT) (CARET vals+=(IDENT|NUMBER))*;
 
 OptionalFeature:

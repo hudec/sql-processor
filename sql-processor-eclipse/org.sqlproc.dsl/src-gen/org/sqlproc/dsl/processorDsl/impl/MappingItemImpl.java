@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.sqlproc.dsl.processorDsl.MappingIdentifier;
+import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
@@ -83,7 +83,7 @@ public class MappingItemImpl extends MinimalEObjectImpl.Container implements Map
    * @generated
    * @ordered
    */
-  protected MappingIdentifier attr;
+  protected MappingColumn attr;
 
   /**
    * <!-- begin-user-doc -->
@@ -157,7 +157,7 @@ public class MappingItemImpl extends MinimalEObjectImpl.Container implements Map
    * <!-- end-user-doc -->
    * @generated
    */
-  public MappingIdentifier getAttr()
+  public MappingColumn getAttr()
   {
     return attr;
   }
@@ -167,9 +167,9 @@ public class MappingItemImpl extends MinimalEObjectImpl.Container implements Map
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetAttr(MappingIdentifier newAttr, NotificationChain msgs)
+  public NotificationChain basicSetAttr(MappingColumn newAttr, NotificationChain msgs)
   {
-    MappingIdentifier oldAttr = attr;
+    MappingColumn oldAttr = attr;
     attr = newAttr;
     if (eNotificationRequired())
     {
@@ -184,7 +184,7 @@ public class MappingItemImpl extends MinimalEObjectImpl.Container implements Map
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAttr(MappingIdentifier newAttr)
+  public void setAttr(MappingColumn newAttr)
   {
     if (newAttr != attr)
     {
@@ -253,7 +253,7 @@ public class MappingItemImpl extends MinimalEObjectImpl.Container implements Map
         setType((String)newValue);
         return;
       case ProcessorDslPackage.MAPPING_ITEM__ATTR:
-        setAttr((MappingIdentifier)newValue);
+        setAttr((MappingColumn)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -276,7 +276,7 @@ public class MappingItemImpl extends MinimalEObjectImpl.Container implements Map
         setType(TYPE_EDEFAULT);
         return;
       case ProcessorDslPackage.MAPPING_ITEM__ATTR:
-        setAttr((MappingIdentifier)null);
+        setAttr((MappingColumn)null);
         return;
     }
     super.eUnset(featureID);

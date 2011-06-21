@@ -1156,14 +1156,14 @@ public interface ProcessorDslPackage extends EPackage
   int MAPPING_ITEM_FEATURE_COUNT = 3;
 
   /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.MappingIdentifierImpl <em>Mapping Identifier</em>}' class.
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.MappingColumnImpl <em>Mapping Column</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.MappingIdentifierImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingIdentifier()
+   * @see org.sqlproc.dsl.processorDsl.impl.MappingColumnImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingColumn()
    * @generated
    */
-  int MAPPING_IDENTIFIER = 24;
+  int MAPPING_COLUMN = 24;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1172,7 +1172,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MAPPING_IDENTIFIER__NAME = 0;
+  int MAPPING_COLUMN__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Vals</b></em>' attribute list.
@@ -1181,16 +1181,16 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MAPPING_IDENTIFIER__VALS = 1;
+  int MAPPING_COLUMN__VALS = 1;
 
   /**
-   * The number of structural features of the '<em>Mapping Identifier</em>' class.
+   * The number of structural features of the '<em>Mapping Column</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MAPPING_IDENTIFIER_FEATURE_COUNT = 2;
+  int MAPPING_COLUMN_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.OptionalFeatureImpl <em>Optional Feature</em>}' class.
@@ -2256,36 +2256,36 @@ public interface ProcessorDslPackage extends EPackage
   EReference getMappingItem_Attr();
 
   /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.MappingIdentifier <em>Mapping Identifier</em>}'.
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.MappingColumn <em>Mapping Column</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Mapping Identifier</em>'.
-   * @see org.sqlproc.dsl.processorDsl.MappingIdentifier
+   * @return the meta object for class '<em>Mapping Column</em>'.
+   * @see org.sqlproc.dsl.processorDsl.MappingColumn
    * @generated
    */
-  EClass getMappingIdentifier();
+  EClass getMappingColumn();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.MappingIdentifier#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.MappingColumn#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.sqlproc.dsl.processorDsl.MappingIdentifier#getName()
-   * @see #getMappingIdentifier()
+   * @see org.sqlproc.dsl.processorDsl.MappingColumn#getName()
+   * @see #getMappingColumn()
    * @generated
    */
-  EAttribute getMappingIdentifier_Name();
+  EAttribute getMappingColumn_Name();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.MappingIdentifier#getVals <em>Vals</em>}'.
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.MappingColumn#getVals <em>Vals</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute list '<em>Vals</em>'.
-   * @see org.sqlproc.dsl.processorDsl.MappingIdentifier#getVals()
-   * @see #getMappingIdentifier()
+   * @see org.sqlproc.dsl.processorDsl.MappingColumn#getVals()
+   * @see #getMappingColumn()
    * @generated
    */
-  EAttribute getMappingIdentifier_Vals();
+  EAttribute getMappingColumn_Vals();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.OptionalFeature <em>Optional Feature</em>}'.
@@ -3171,14 +3171,14 @@ public interface ProcessorDslPackage extends EPackage
     EReference MAPPING_ITEM__ATTR = eINSTANCE.getMappingItem_Attr();
 
     /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.MappingIdentifierImpl <em>Mapping Identifier</em>}' class.
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.MappingColumnImpl <em>Mapping Column</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.MappingIdentifierImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingIdentifier()
+     * @see org.sqlproc.dsl.processorDsl.impl.MappingColumnImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingColumn()
      * @generated
      */
-    EClass MAPPING_IDENTIFIER = eINSTANCE.getMappingIdentifier();
+    EClass MAPPING_COLUMN = eINSTANCE.getMappingColumn();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -3186,7 +3186,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute MAPPING_IDENTIFIER__NAME = eINSTANCE.getMappingIdentifier_Name();
+    EAttribute MAPPING_COLUMN__NAME = eINSTANCE.getMappingColumn_Name();
 
     /**
      * The meta object literal for the '<em><b>Vals</b></em>' attribute list feature.
@@ -3194,7 +3194,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute MAPPING_IDENTIFIER__VALS = eINSTANCE.getMappingIdentifier_Vals();
+    EAttribute MAPPING_COLUMN__VALS = eINSTANCE.getMappingColumn_Vals();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.OptionalFeatureImpl <em>Optional Feature</em>}' class.

@@ -11,22 +11,22 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Mapping Identifier</b></em>'.
+ * A representation of the model object '<em><b>Mapping Column</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.MappingIdentifier#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.MappingIdentifier#getVals <em>Vals</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.MappingColumn#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.MappingColumn#getVals <em>Vals</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingIdentifier()
+ * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingColumn()
  * @model
  * @generated
  */
-public interface MappingIdentifier extends EObject
+public interface MappingColumn extends EObject
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -38,14 +38,14 @@ public interface MappingIdentifier extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingIdentifier_Name()
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingColumn_Name()
    * @model
    * @generated
    */
   String getName();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.MappingIdentifier#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.MappingColumn#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Name</em>' attribute.
@@ -64,10 +64,10 @@ public interface MappingIdentifier extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Vals</em>' attribute list.
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingIdentifier_Vals()
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingColumn_Vals()
    * @model unique="false"
    * @generated
    */
   EList<String> getVals();
 
-} // MappingIdentifier
+} // MappingColumn

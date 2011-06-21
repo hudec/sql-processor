@@ -242,13 +242,13 @@ public interface ProcessorDslFactory extends EFactory
   MappingItem createMappingItem();
 
   /**
-   * Returns a new object of class '<em>Mapping Identifier</em>'.
+   * Returns a new object of class '<em>Mapping Column</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Mapping Identifier</em>'.
+   * @return a new object of class '<em>Mapping Column</em>'.
    * @generated
    */
-  MappingIdentifier createMappingIdentifier();
+  MappingColumn createMappingColumn();
 
   /**
    * Returns a new object of class '<em>Optional Feature</em>'.

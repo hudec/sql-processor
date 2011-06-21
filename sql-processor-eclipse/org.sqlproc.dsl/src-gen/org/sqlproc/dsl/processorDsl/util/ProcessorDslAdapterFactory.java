@@ -198,9 +198,9 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createMappingItemAdapter();
       }
       @Override
-      public Adapter caseMappingIdentifier(MappingIdentifier object)
+      public Adapter caseMappingColumn(MappingColumn object)
       {
-        return createMappingIdentifierAdapter();
+        return createMappingColumnAdapter();
       }
       @Override
       public Adapter caseOptionalFeature(OptionalFeature object)
@@ -590,16 +590,16 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.MappingIdentifier <em>Mapping Identifier</em>}'.
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.MappingColumn <em>Mapping Column</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.sqlproc.dsl.processorDsl.MappingIdentifier
+   * @see org.sqlproc.dsl.processorDsl.MappingColumn
    * @generated
    */
-  public Adapter createMappingIdentifierAdapter()
+  public Adapter createMappingColumnAdapter()
   {
     return null;
   }

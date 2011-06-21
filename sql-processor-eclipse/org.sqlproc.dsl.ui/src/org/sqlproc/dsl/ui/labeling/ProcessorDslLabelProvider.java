@@ -9,7 +9,7 @@ import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.Identifier;
-import org.sqlproc.dsl.processorDsl.MappingIdentifier;
+import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
@@ -56,7 +56,7 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
         return ele.getName();
     }
 
-    public String text(MappingIdentifier ele) {
+    public String text(MappingColumn ele) {
         return ele.getName();
     }
 
@@ -84,7 +84,7 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
         return "COL.gif";
     }
 
-    String image(MappingIdentifier ele) {
+    String image(MappingColumn ele) {
         return "COL.gif";
     }
 }

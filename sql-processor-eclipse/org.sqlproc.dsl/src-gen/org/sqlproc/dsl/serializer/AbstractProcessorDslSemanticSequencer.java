@@ -26,7 +26,7 @@ import org.sqlproc.dsl.processorDsl.IfSqlBool;
 import org.sqlproc.dsl.processorDsl.IfSqlCond;
 import org.sqlproc.dsl.processorDsl.IfSqlFragment;
 import org.sqlproc.dsl.processorDsl.Mapping;
-import org.sqlproc.dsl.processorDsl.MappingIdentifier;
+import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
@@ -150,9 +150,9 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 					return; 
 				}
 				else break;
-			case ProcessorDslPackage.MAPPING_IDENTIFIER:
-				if(context == grammarAccess.getMappingIdentifierRule()) {
-					sequence_MappingIdentifier_MappingIdentifier(context, (MappingIdentifier) semanticObject); 
+			case ProcessorDslPackage.MAPPING_COLUMN:
+				if(context == grammarAccess.getMappingColumnRule()) {
+					sequence_MappingColumn_MappingColumn(context, (MappingColumn) semanticObject); 
 					return; 
 				}
 				else break;
@@ -508,14 +508,14 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    name[0, 2]
 	 *    vals[0, *]
 	 */
-	protected void sequence_MappingIdentifier_MappingIdentifier(EObject context, MappingIdentifier semanticObject) {
+	protected void sequence_MappingColumn_MappingColumn(EObject context, MappingColumn semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     ((col=IDENT | col=NUMBER) (type=IDENT? attr=MappingIdentifier?)?)
+	 *     ((col=IDENT | col=NUMBER) (type=IDENT? attr=MappingColumn?)?)
 	 *
 	 * Features:
 	 *    col[0, 2]

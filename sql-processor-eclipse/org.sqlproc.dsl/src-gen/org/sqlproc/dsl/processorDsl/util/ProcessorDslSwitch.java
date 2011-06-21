@@ -247,10 +247,10 @@ public class ProcessorDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ProcessorDslPackage.MAPPING_IDENTIFIER:
+      case ProcessorDslPackage.MAPPING_COLUMN:
       {
-        MappingIdentifier mappingIdentifier = (MappingIdentifier)theEObject;
-        T result = caseMappingIdentifier(mappingIdentifier);
+        MappingColumn mappingColumn = (MappingColumn)theEObject;
+        T result = caseMappingColumn(mappingColumn);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -650,17 +650,17 @@ public class ProcessorDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Mapping Identifier</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Mapping Column</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Mapping Identifier</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Mapping Column</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseMappingIdentifier(MappingIdentifier object)
+  public T caseMappingColumn(MappingColumn object)
   {
     return null;
   }

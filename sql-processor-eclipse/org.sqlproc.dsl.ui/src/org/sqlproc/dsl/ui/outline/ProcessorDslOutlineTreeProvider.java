@@ -15,7 +15,7 @@ import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.Identifier;
-import org.sqlproc.dsl.processorDsl.MappingIdentifier;
+import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
@@ -93,16 +93,16 @@ public class ProcessorDslOutlineTreeProvider extends DefaultOutlineTreeProvider 
                 }
             }
         } else if (modelElement instanceof MappingRule) {
-            Set<MappingIdentifier> columns = new TreeSet<MappingIdentifier>(new Comparator<MappingIdentifier>() {
+            Set<MappingColumn> columns = new TreeSet<MappingColumn>(new Comparator<MappingColumn>() {
 
                 @Override
-                public int compare(MappingIdentifier o1, MappingIdentifier o2) {
+                public int compare(MappingColumn o1, MappingColumn o2) {
                     return o1.getName().compareTo(o2.getName());
                 }
             });
             Collector.allVariables((MappingRule) modelElement, columns);
             if (!columns.isEmpty()) {
-                for (MappingIdentifier column : columns) {
+                for (MappingColumn column : columns) {
                     createNode(parentNode, column);
                 }
             }
@@ -133,7 +133,7 @@ public class ProcessorDslOutlineTreeProvider extends DefaultOutlineTreeProvider 
         return true;
     }
 
-    protected boolean _isLeaf(MappingIdentifier column) {
+    protected boolean _isLeaf(MappingColumn column) {
         return true;
     }
 }

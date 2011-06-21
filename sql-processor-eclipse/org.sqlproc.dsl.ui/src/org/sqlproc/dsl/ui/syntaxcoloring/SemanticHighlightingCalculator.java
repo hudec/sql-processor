@@ -18,7 +18,7 @@ import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
-import org.sqlproc.dsl.processorDsl.MappingIdentifier;
+import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
@@ -82,7 +82,7 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
             } else if (current instanceof Column) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 acceptor.addPosition(node.getOffset(), node.getLength(), HighlightingConfiguration.COLUMN);
-            } else if (current instanceof MappingIdentifier) {
+            } else if (current instanceof MappingColumn) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 acceptor.addPosition(node.getOffset(), node.getLength(), HighlightingConfiguration.IDENTIFIER);
             } else if (current instanceof PojoDefinition) {

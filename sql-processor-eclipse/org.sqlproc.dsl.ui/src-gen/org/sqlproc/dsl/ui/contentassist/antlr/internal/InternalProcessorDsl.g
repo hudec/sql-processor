@@ -875,25 +875,25 @@ finally {
 
 
 
-// Entry rule entryRuleMappingIdentifier
-entryRuleMappingIdentifier 
+// Entry rule entryRuleMappingColumn
+entryRuleMappingColumn 
 :
-{ before(grammarAccess.getMappingIdentifierRule()); }
-	 ruleMappingIdentifier
-{ after(grammarAccess.getMappingIdentifierRule()); } 
+{ before(grammarAccess.getMappingColumnRule()); }
+	 ruleMappingColumn
+{ after(grammarAccess.getMappingColumnRule()); } 
 	 EOF 
 ;
 
-// Rule MappingIdentifier
-ruleMappingIdentifier
+// Rule MappingColumn
+ruleMappingColumn
     @init {
 		int stackSize = keepStackSize();
     }
 	:
 (
-{ before(grammarAccess.getMappingIdentifierAccess().getGroup()); }
-(rule__MappingIdentifier__Group__0)
-{ after(grammarAccess.getMappingIdentifierAccess().getGroup()); }
+{ before(grammarAccess.getMappingColumnAccess().getGroup()); }
+(rule__MappingColumn__Group__0)
+{ after(grammarAccess.getMappingColumnAccess().getGroup()); }
 )
 
 ;
@@ -2425,21 +2425,21 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__MappingIdentifier__NameAlternatives_0_0
+rule__MappingColumn__NameAlternatives_0_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getMappingIdentifierAccess().getNameIDENTTerminalRuleCall_0_0_0()); }
+{ before(grammarAccess.getMappingColumnAccess().getNameIDENTTerminalRuleCall_0_0_0()); }
 	RULE_IDENT
-{ after(grammarAccess.getMappingIdentifierAccess().getNameIDENTTerminalRuleCall_0_0_0()); }
+{ after(grammarAccess.getMappingColumnAccess().getNameIDENTTerminalRuleCall_0_0_0()); }
 )
 
     |(
-{ before(grammarAccess.getMappingIdentifierAccess().getNameIDENT_DOTTerminalRuleCall_0_0_1()); }
+{ before(grammarAccess.getMappingColumnAccess().getNameIDENT_DOTTerminalRuleCall_0_0_1()); }
 	RULE_IDENT_DOT
-{ after(grammarAccess.getMappingIdentifierAccess().getNameIDENT_DOTTerminalRuleCall_0_0_1()); }
+{ after(grammarAccess.getMappingColumnAccess().getNameIDENT_DOTTerminalRuleCall_0_0_1()); }
 )
 
 ;
@@ -2447,21 +2447,21 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__MappingIdentifier__ValsAlternatives_1_1_0
+rule__MappingColumn__ValsAlternatives_1_1_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getMappingIdentifierAccess().getValsIDENTTerminalRuleCall_1_1_0_0()); }
+{ before(grammarAccess.getMappingColumnAccess().getValsIDENTTerminalRuleCall_1_1_0_0()); }
 	RULE_IDENT
-{ after(grammarAccess.getMappingIdentifierAccess().getValsIDENTTerminalRuleCall_1_1_0_0()); }
+{ after(grammarAccess.getMappingColumnAccess().getValsIDENTTerminalRuleCall_1_1_0_0()); }
 )
 
     |(
-{ before(grammarAccess.getMappingIdentifierAccess().getValsNUMBERTerminalRuleCall_1_1_0_1()); }
+{ before(grammarAccess.getMappingColumnAccess().getValsNUMBERTerminalRuleCall_1_1_0_1()); }
 	RULE_NUMBER
-{ after(grammarAccess.getMappingIdentifierAccess().getValsNUMBERTerminalRuleCall_1_1_0_1()); }
+{ after(grammarAccess.getMappingColumnAccess().getValsNUMBERTerminalRuleCall_1_1_0_1()); }
 )
 
 ;
@@ -8522,27 +8522,27 @@ finally {
 
 
 
-rule__MappingIdentifier__Group__0
+rule__MappingColumn__Group__0
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__MappingIdentifier__Group__0__Impl
-	rule__MappingIdentifier__Group__1
+	rule__MappingColumn__Group__0__Impl
+	rule__MappingColumn__Group__1
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__MappingIdentifier__Group__0__Impl
+rule__MappingColumn__Group__0__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getMappingIdentifierAccess().getNameAssignment_0()); }
-(rule__MappingIdentifier__NameAssignment_0)
-{ after(grammarAccess.getMappingIdentifierAccess().getNameAssignment_0()); }
+{ before(grammarAccess.getMappingColumnAccess().getNameAssignment_0()); }
+(rule__MappingColumn__NameAssignment_0)
+{ after(grammarAccess.getMappingColumnAccess().getNameAssignment_0()); }
 )
 
 ;
@@ -8551,26 +8551,26 @@ finally {
 }
 
 
-rule__MappingIdentifier__Group__1
+rule__MappingColumn__Group__1
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__MappingIdentifier__Group__1__Impl
+	rule__MappingColumn__Group__1__Impl
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__MappingIdentifier__Group__1__Impl
+rule__MappingColumn__Group__1__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getMappingIdentifierAccess().getGroup_1()); }
-(rule__MappingIdentifier__Group_1__0)*
-{ after(grammarAccess.getMappingIdentifierAccess().getGroup_1()); }
+{ before(grammarAccess.getMappingColumnAccess().getGroup_1()); }
+(rule__MappingColumn__Group_1__0)*
+{ after(grammarAccess.getMappingColumnAccess().getGroup_1()); }
 )
 
 ;
@@ -8583,27 +8583,27 @@ finally {
 
 
 
-rule__MappingIdentifier__Group_1__0
+rule__MappingColumn__Group_1__0
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__MappingIdentifier__Group_1__0__Impl
-	rule__MappingIdentifier__Group_1__1
+	rule__MappingColumn__Group_1__0__Impl
+	rule__MappingColumn__Group_1__1
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__MappingIdentifier__Group_1__0__Impl
+rule__MappingColumn__Group_1__0__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getMappingIdentifierAccess().getCARETTerminalRuleCall_1_0()); }
+{ before(grammarAccess.getMappingColumnAccess().getCARETTerminalRuleCall_1_0()); }
 	RULE_CARET
-{ after(grammarAccess.getMappingIdentifierAccess().getCARETTerminalRuleCall_1_0()); }
+{ after(grammarAccess.getMappingColumnAccess().getCARETTerminalRuleCall_1_0()); }
 )
 
 ;
@@ -8612,26 +8612,26 @@ finally {
 }
 
 
-rule__MappingIdentifier__Group_1__1
+rule__MappingColumn__Group_1__1
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__MappingIdentifier__Group_1__1__Impl
+	rule__MappingColumn__Group_1__1__Impl
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__MappingIdentifier__Group_1__1__Impl
+rule__MappingColumn__Group_1__1__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getMappingIdentifierAccess().getValsAssignment_1_1()); }
-(rule__MappingIdentifier__ValsAssignment_1_1)
-{ after(grammarAccess.getMappingIdentifierAccess().getValsAssignment_1_1()); }
+{ before(grammarAccess.getMappingColumnAccess().getValsAssignment_1_1()); }
+(rule__MappingColumn__ValsAssignment_1_1)
+{ after(grammarAccess.getMappingColumnAccess().getValsAssignment_1_1()); }
 )
 
 ;
@@ -10398,8 +10398,8 @@ rule__MappingItem__AttrAssignment_1_2_1
     }
 :
 (
-{ before(grammarAccess.getMappingItemAccess().getAttrMappingIdentifierParserRuleCall_1_2_1_0()); }
-	ruleMappingIdentifier{ after(grammarAccess.getMappingItemAccess().getAttrMappingIdentifierParserRuleCall_1_2_1_0()); }
+{ before(grammarAccess.getMappingItemAccess().getAttrMappingColumnParserRuleCall_1_2_1_0()); }
+	ruleMappingColumn{ after(grammarAccess.getMappingItemAccess().getAttrMappingColumnParserRuleCall_1_2_1_0()); }
 )
 
 ;
@@ -10407,15 +10407,15 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__MappingIdentifier__NameAssignment_0
+rule__MappingColumn__NameAssignment_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getMappingIdentifierAccess().getNameAlternatives_0_0()); }
-(rule__MappingIdentifier__NameAlternatives_0_0)
-{ after(grammarAccess.getMappingIdentifierAccess().getNameAlternatives_0_0()); }
+{ before(grammarAccess.getMappingColumnAccess().getNameAlternatives_0_0()); }
+(rule__MappingColumn__NameAlternatives_0_0)
+{ after(grammarAccess.getMappingColumnAccess().getNameAlternatives_0_0()); }
 )
 
 ;
@@ -10423,15 +10423,15 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__MappingIdentifier__ValsAssignment_1_1
+rule__MappingColumn__ValsAssignment_1_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getMappingIdentifierAccess().getValsAlternatives_1_1_0()); }
-(rule__MappingIdentifier__ValsAlternatives_1_1_0)
-{ after(grammarAccess.getMappingIdentifierAccess().getValsAlternatives_1_1_0()); }
+{ before(grammarAccess.getMappingColumnAccess().getValsAlternatives_1_1_0()); }
+(rule__MappingColumn__ValsAlternatives_1_1_0)
+{ after(grammarAccess.getMappingColumnAccess().getValsAlternatives_1_1_0()); }
 )
 
 ;

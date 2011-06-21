@@ -26,7 +26,7 @@ import org.sqlproc.dsl.processorDsl.IfSqlBool;
 import org.sqlproc.dsl.processorDsl.IfSqlCond;
 import org.sqlproc.dsl.processorDsl.IfSqlFragment;
 import org.sqlproc.dsl.processorDsl.Mapping;
-import org.sqlproc.dsl.processorDsl.MappingIdentifier;
+import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
@@ -223,7 +223,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass mappingIdentifierEClass = null;
+  private EClass mappingColumnEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1231,9 +1231,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getMappingIdentifier()
+  public EClass getMappingColumn()
   {
-    return mappingIdentifierEClass;
+    return mappingColumnEClass;
   }
 
   /**
@@ -1241,9 +1241,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMappingIdentifier_Name()
+  public EAttribute getMappingColumn_Name()
   {
-    return (EAttribute)mappingIdentifierEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)mappingColumnEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1251,9 +1251,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMappingIdentifier_Vals()
+  public EAttribute getMappingColumn_Vals()
   {
-    return (EAttribute)mappingIdentifierEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)mappingColumnEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1481,9 +1481,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEAttribute(mappingItemEClass, MAPPING_ITEM__TYPE);
     createEReference(mappingItemEClass, MAPPING_ITEM__ATTR);
 
-    mappingIdentifierEClass = createEClass(MAPPING_IDENTIFIER);
-    createEAttribute(mappingIdentifierEClass, MAPPING_IDENTIFIER__NAME);
-    createEAttribute(mappingIdentifierEClass, MAPPING_IDENTIFIER__VALS);
+    mappingColumnEClass = createEClass(MAPPING_COLUMN);
+    createEAttribute(mappingColumnEClass, MAPPING_COLUMN__NAME);
+    createEAttribute(mappingColumnEClass, MAPPING_COLUMN__VALS);
 
     optionalFeatureEClass = createEClass(OPTIONAL_FEATURE);
     createEAttribute(optionalFeatureEClass, OPTIONAL_FEATURE__NAME);
@@ -1645,11 +1645,11 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEClass(mappingItemEClass, MappingItem.class, "MappingItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMappingItem_Col(), ecorePackage.getEString(), "col", null, 0, 1, MappingItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMappingItem_Type(), ecorePackage.getEString(), "type", null, 0, 1, MappingItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMappingItem_Attr(), this.getMappingIdentifier(), null, "attr", null, 0, 1, MappingItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMappingItem_Attr(), this.getMappingColumn(), null, "attr", null, 0, 1, MappingItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(mappingIdentifierEClass, MappingIdentifier.class, "MappingIdentifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getMappingIdentifier_Name(), ecorePackage.getEString(), "name", null, 0, 1, MappingIdentifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getMappingIdentifier_Vals(), ecorePackage.getEString(), "vals", null, 0, -1, MappingIdentifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(mappingColumnEClass, MappingColumn.class, "MappingColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getMappingColumn_Name(), ecorePackage.getEString(), "name", null, 0, 1, MappingColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMappingColumn_Vals(), ecorePackage.getEString(), "vals", null, 0, -1, MappingColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(optionalFeatureEClass, OptionalFeature.class, "OptionalFeature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOptionalFeature_Name(), ecorePackage.getEString(), "name", null, 0, 1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
