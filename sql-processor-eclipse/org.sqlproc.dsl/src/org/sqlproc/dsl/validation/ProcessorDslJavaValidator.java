@@ -1,6 +1,9 @@
 package org.sqlproc.dsl.validation;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EObject;
@@ -435,7 +438,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 || pojoResolverFactory.getPojoResolver() == null)
             return 0;
         PropertyDescriptor[] descriptors = pojoResolverFactory.getPojoResolver().getPropertyDescriptors(className);
-        if (descriptors == null)
+        if (descriptors == null || descriptors.length == 0)
             return 1;
         String checkProperty = property;
         int pos1 = checkProperty.indexOf('=');
@@ -444,15 +447,43 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             if (pos2 > pos1)
                 checkProperty = checkProperty.substring(0, pos1) + checkProperty.substring(pos2);
         }
-        // Kontrola zatim na uroven 1
+        String innerProperty = null;
         pos1 = checkProperty.indexOf('.');
-        if (pos1 > 0)
+        if (pos1 > 0) {
+            innerProperty = checkProperty.substring(pos1 + 1);
             checkProperty = checkProperty.substring(0, pos1);
-        for (PropertyDescriptor descriptor : descriptors) {
-            if (descriptor.getName().equals(checkProperty))
-                return 0;
         }
-        return 2;
-
+        PropertyDescriptor innerDesriptor = null;
+        for (PropertyDescriptor descriptor : descriptors) {
+            if (descriptor.getName().equals(checkProperty)) {
+                innerDesriptor = descriptor;
+                break;
+            }
+        }
+        if (innerDesriptor == null) {
+            Class<?> clazz = pojoResolverFactory.getPojoResolver().loadClass(className);
+            if (clazz != null && Modifier.isAbstract(clazz.getModifiers()))
+                return 1;
+            return 2;
+        }
+        if (innerProperty != null) {
+            Class<?> innerClass = innerDesriptor.getPropertyType();
+            if (innerClass.isArray()) {
+                ParameterizedType type = (ParameterizedType) innerDesriptor.getReadMethod().getGenericReturnType();
+                if (type.getActualTypeArguments() == null || type.getActualTypeArguments().length == 0)
+                    return 1;
+                innerClass = (Class<?>) type.getActualTypeArguments()[0];
+                return checkClassProperty(innerClass.getName(), innerProperty);
+            } else if (Collection.class.isAssignableFrom(innerClass)) {
+                ParameterizedType type = (ParameterizedType) innerDesriptor.getReadMethod().getGenericReturnType();
+                if (type.getActualTypeArguments() == null || type.getActualTypeArguments().length == 0)
+                    return 1;
+                innerClass = (Class<?>) type.getActualTypeArguments()[0];
+                return checkClassProperty(innerClass.getName(), innerProperty);
+            } else {
+                return checkClassProperty(innerClass.getName(), innerProperty);
+            }
+        }
+        return 0;
     }
 }
