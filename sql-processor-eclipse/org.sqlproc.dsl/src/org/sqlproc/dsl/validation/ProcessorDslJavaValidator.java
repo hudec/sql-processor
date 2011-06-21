@@ -299,7 +299,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             }
         }
         if (!checkClassProperty(columnUsageClass, column.getName()))
-            error("Cannot fing property : " + column.getName() + "[" + columnUsageClass + "]",
+            error("Cannot find property : " + column.getName() + "[" + columnUsageClass + "]",
                     ProcessorDslPackage.Literals.COLUMN__NAME);
     }
 
@@ -322,7 +322,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             }
         }
         if (!checkClassProperty(identifierUsageClass, identifier.getName()))
-            error("Cannot fing property : " + identifier.getName() + "[" + identifierUsageClass + "]",
+            error("Cannot find property : " + identifier.getName() + "[" + identifierUsageClass + "]",
                     ProcessorDslPackage.Literals.IDENTIFIER__NAME);
     }
 
@@ -351,7 +351,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkMappingIdentifier(MappingIdentifier identifier) {
-        String identifierUsageClass = null;
+        String mappingUsageClass = null;
         MappingRule rule = EcoreUtil2.getContainerOfType(identifier, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(rule, Artifacts.class);
         IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
@@ -362,29 +362,45 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
                         .getEObject(description.getEObjectURI(), true);
                 if (pojoUsage instanceof MappingUsage) {
-                    identifierUsageClass = ((MappingUsage) pojoUsage).getPojo().getClass_();
+                    mappingUsageClass = ((MappingUsage) pojoUsage).getPojo().getClass_();
                     break;
                 }
             }
         }
-        if (!checkClassProperty(identifierUsageClass, identifier.getName()))
-            error("Cannot fing property : " + identifier.getName() + "[" + identifierUsageClass + "]",
+        if (!checkClassProperty(mappingUsageClass, identifier.getName()))
+            error("Cannot find property : " + identifier.getName() + "[" + mappingUsageClass + "]",
                     ProcessorDslPackage.Literals.MAPPING_IDENTIFIER__NAME);
     }
 
+    protected boolean isNumber(String param) {
+        if (param == null)
+            return false;
+        for (int i = param.length() - 1; i >= 0; i--) {
+            if (!Character.isDigit(param.charAt(i)))
+                return false;
+        }
+        return true;
+    }
+
     protected boolean checkClassProperty(String className, String property) {
-        if (className == null || property == null)
-            return true;
-        if (className == null || pojoResolverFactory.getPojoResolver() == null)
+        if (className == null || property == null || pojoResolverFactory.getPojoResolver() == null)
             return true;
         PropertyDescriptor[] descriptors = pojoResolverFactory.getPojoResolver().getPropertyDescriptors(className);
         if (descriptors == null)
             return false;
-        // Kontrola zatim na uroven 1
+        if (isNumber(property))
+            return true;
         String checkProperty = property;
-        int pos = checkProperty.indexOf('.');
-        if (pos > 0)
-            checkProperty = checkProperty.substring(0, pos);
+        int pos1 = checkProperty.indexOf('=');
+        if (pos1 > 0) {
+            int pos2 = checkProperty.indexOf('.', pos1);
+            if (pos2 > pos1)
+                checkProperty = checkProperty.substring(0, pos1) + checkProperty.substring(pos2);
+        }
+        // Kontrola zatim na uroven 1
+        pos1 = checkProperty.indexOf('.');
+        if (pos1 > 0)
+            checkProperty = checkProperty.substring(0, pos1);
         for (PropertyDescriptor descriptor : descriptors) {
             if (descriptor.getName().equals(checkProperty))
                 return true;
