@@ -75,10 +75,10 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
         for (URLClassLoader loader : allLoaders) {
             try {
                 return loader.loadClass(name);
-            } catch (ClassNotFoundException e) {
-                LOGGER.warn("Can't find class '" + name + "'", e);
+            } catch (ClassNotFoundException ignore) {
             }
         }
+        LOGGER.warn("Can't find class '" + name + "' in any loader " + allLoaders);
         return null;
     }
 
