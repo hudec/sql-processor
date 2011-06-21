@@ -1,12 +1,24 @@
 package org.sqlproc.dsl.validation;
 
+import java.beans.PropertyDescriptor;
+import java.util.Iterator;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.validation.Check;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.ColumnUsage;
+import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
+import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
+import org.sqlproc.dsl.processorDsl.MappingIdentifier;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
@@ -23,6 +35,9 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     @Inject
     PojoResolverFactory pojoResolverFactory;
 
+    @Inject
+    IScopeProvider scopeProvider;
+
     @Check
     public void checkUniqueMetaStatement(MetaStatement metaStatement) {
         Artifacts artifacts;
@@ -30,7 +45,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         if (!(object instanceof Artifacts))
             return;
         artifacts = (Artifacts) object;
-
         for (MetaStatement metaStmt : artifacts.getStatements()) {
             if (metaStmt == null || metaStmt == metaStatement)
                 continue;
@@ -49,7 +63,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         if (!(object instanceof Artifacts))
             return;
         artifacts = (Artifacts) object;
-
         for (MappingRule rule : artifacts.getMappings()) {
             if (rule == null || rule == mappingRule)
                 continue;
@@ -68,7 +81,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         if (!(object instanceof Artifacts))
             return;
         artifacts = (Artifacts) object;
-
         for (OptionalFeature feature : artifacts.getFeatures()) {
             if (feature == null || feature == optionalFeature)
                 continue;
@@ -185,7 +197,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         }
     }
 
-    private boolean equalsStatement(MetaStatement statement1, MetaStatement statement2) {
+    protected boolean equalsStatement(MetaStatement statement1, MetaStatement statement2) {
         if (statement1 == null && statement2 == null)
             return true;
         if (statement1 == null || statement1.getName() == null)
@@ -210,7 +222,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         return false;
     }
 
-    private boolean equalsRule(MappingRule rule1, MappingRule rule2) {
+    protected boolean equalsRule(MappingRule rule1, MappingRule rule2) {
         if (rule1 == null && rule2 == null)
             return true;
         if (rule1 == null || rule1.getName() == null)
@@ -235,7 +247,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         return false;
     }
 
-    private boolean equalsFeature(OptionalFeature feature1, OptionalFeature feature2) {
+    protected boolean equalsFeature(OptionalFeature feature1, OptionalFeature feature2) {
         if (feature1 == null && feature2 == null)
             return true;
         if (feature1 == null || feature1.getName() == null)
@@ -260,13 +272,124 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         return false;
     }
 
-    private boolean checkClass(String className) {
+    protected boolean checkClass(String className) {
         if (className == null || pojoResolverFactory.getPojoResolver() == null)
             return true;
 
         Class<?> clazz = pojoResolverFactory.getPojoResolver().loadClass(className);
-        if (clazz == null)
+        return clazz != null;
+    }
+
+    @Check
+    public void checkColumn(Column column) {
+        String columnUsageClass = null;
+        MetaStatement statement = EcoreUtil2.getContainerOfType(column, MetaStatement.class);
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
+        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            if (QualifiedName.create(statement.getName()).equals(description.getName())) {
+                PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
+                        .getEObject(description.getEObjectURI(), true);
+                if (pojoUsage instanceof ColumnUsage) {
+                    columnUsageClass = ((ColumnUsage) pojoUsage).getPojo().getClass_();
+                    break;
+                }
+            }
+        }
+        if (!checkClassProperty(columnUsageClass, column.getName()))
+            error("Cannot fing property : " + column.getName() + "[" + columnUsageClass + "]",
+                    ProcessorDslPackage.Literals.COLUMN__NAME);
+    }
+
+    @Check
+    public void checkIdentifier(Identifier identifier) {
+        String identifierUsageClass = null;
+        MetaStatement statement = EcoreUtil2.getContainerOfType(identifier, MetaStatement.class);
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
+        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            if (QualifiedName.create(statement.getName()).equals(description.getName())) {
+                PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
+                        .getEObject(description.getEObjectURI(), true);
+                if (pojoUsage instanceof IdentifierUsage) {
+                    identifierUsageClass = ((IdentifierUsage) pojoUsage).getPojo().getClass_();
+                    break;
+                }
+            }
+        }
+        if (!checkClassProperty(identifierUsageClass, identifier.getName()))
+            error("Cannot fing property : " + identifier.getName() + "[" + identifierUsageClass + "]",
+                    ProcessorDslPackage.Literals.IDENTIFIER__NAME);
+    }
+
+    @Check
+    public void checkConstant(Constant constant) {
+        String constantUsageClass = null;
+        MetaStatement statement = EcoreUtil2.getContainerOfType(constant, MetaStatement.class);
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
+        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            if (QualifiedName.create(statement.getName()).equals(description.getName())) {
+                PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
+                        .getEObject(description.getEObjectURI(), true);
+                if (pojoUsage instanceof ConstantUsage) {
+                    constantUsageClass = ((ConstantUsage) pojoUsage).getPojo().getClass_();
+                    break;
+                }
+            }
+        }
+        if (!checkClassProperty(constantUsageClass, constant.getName()))
+            error("Cannot fing property : " + constant.getName() + "[" + constantUsageClass + "]",
+                    ProcessorDslPackage.Literals.CONSTANT__NAME);
+    }
+
+    @Check
+    public void checkMappingIdentifier(MappingIdentifier identifier) {
+        String identifierUsageClass = null;
+        MappingRule rule = EcoreUtil2.getContainerOfType(identifier, MappingRule.class);
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(rule, Artifacts.class);
+        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            if (QualifiedName.create(rule.getName()).equals(description.getName())) {
+                PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
+                        .getEObject(description.getEObjectURI(), true);
+                if (pojoUsage instanceof MappingUsage) {
+                    identifierUsageClass = ((MappingUsage) pojoUsage).getPojo().getClass_();
+                    break;
+                }
+            }
+        }
+        if (!checkClassProperty(identifierUsageClass, identifier.getName()))
+            error("Cannot fing property : " + identifier.getName() + "[" + identifierUsageClass + "]",
+                    ProcessorDslPackage.Literals.MAPPING_IDENTIFIER__NAME);
+    }
+
+    protected boolean checkClassProperty(String className, String property) {
+        if (className == null || property == null)
+            return true;
+        if (className == null || pojoResolverFactory.getPojoResolver() == null)
+            return true;
+        PropertyDescriptor[] descriptors = pojoResolverFactory.getPojoResolver().getPropertyDescriptors(className);
+        if (descriptors == null)
             return false;
-        return true;
+        // Kontrola zatim na uroven 1
+        String checkProperty = property;
+        int pos = checkProperty.indexOf('.');
+        if (pos > 0)
+            checkProperty = checkProperty.substring(0, pos);
+        for (PropertyDescriptor descriptor : descriptors) {
+            if (descriptor.getName().equals(checkProperty))
+                return true;
+        }
+        return false;
+
     }
 }
