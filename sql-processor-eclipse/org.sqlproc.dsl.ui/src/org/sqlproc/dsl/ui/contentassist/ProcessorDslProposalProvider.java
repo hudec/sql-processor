@@ -4,6 +4,8 @@
 package org.sqlproc.dsl.ui.contentassist;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EObject;
@@ -72,16 +74,23 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             acceptor.accept(completionProposal);
             return true;
         }
-
-        Class<?> pojoClass = pojoResolver.loadClass(pojoDefinition.getClass_());
-
-        PropertyDescriptor[] descriptors = pojoResolver.getPropertyDescriptors(pojoDefinition.getClass_());
+        String prefix = context.getPrefix();
+        int pos = prefix.lastIndexOf('.');
+        if (pos > 0) {
+            prefix = prefix.substring(0, pos + 1);
+        } else {
+            prefix = "";
+        }
+        String clazz = getClassName(pojoDefinition.getClass_(), prefix);
+        if (clazz == null)
+            return false;
+        PropertyDescriptor[] descriptors = pojoResolver.getPropertyDescriptors(clazz);
         if (descriptors == null) {
             return false;
         } else {
             for (PropertyDescriptor descriptor : descriptors) {
                 String proposal = getValueConverter().toString(descriptor.getName(), "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                ICompletionProposal completionProposal = createCompletionProposal(prefix + proposal, context);
                 acceptor.accept(completionProposal);
             }
             return true;
@@ -101,16 +110,23 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
             acceptor.accept(completionProposal);
         }
-
-        Class<?> pojoClass = pojoResolver.loadClass(pojoDefinition.getClass_());
-
-        PropertyDescriptor[] descriptors = pojoResolver.getPropertyDescriptors(pojoDefinition.getClass_());
+        String prefix = context.getPrefix();
+        int pos = prefix.lastIndexOf('.');
+        if (pos > 0) {
+            prefix = prefix.substring(0, pos + 1);
+        } else {
+            prefix = "";
+        }
+        String clazz = getClassName(pojoDefinition.getClass_(), prefix);
+        if (clazz == null)
+            return;
+        PropertyDescriptor[] descriptors = pojoResolver.getPropertyDescriptors(clazz);
         if (descriptors == null) {
             super.completeMappingColumn_Name(model, assignment, context, acceptor);
         } else {
             for (PropertyDescriptor descriptor : descriptors) {
                 String proposal = getValueConverter().toString(descriptor.getName(), "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                ICompletionProposal completionProposal = createCompletionProposal(prefix + proposal, context);
                 acceptor.accept(completionProposal);
             }
         }
@@ -141,5 +157,52 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         if (pojoUsage instanceof MappingUsage)
             return ((MappingUsage) pojoUsage).getStatement().getName();
         return "";
+    }
+
+    protected String getClassName(String baseClass, String property) {
+        if (baseClass == null || property == null)
+            return baseClass;
+        int pos1 = property.indexOf('.');
+        if (pos1 == -1)
+            return baseClass;
+        String checkProperty = property;
+        pos1 = checkProperty.indexOf('=');
+        if (pos1 > 0) {
+            int pos2 = checkProperty.indexOf('.', pos1);
+            if (pos2 > pos1)
+                checkProperty = checkProperty.substring(0, pos1) + checkProperty.substring(pos2);
+        }
+        String innerProperty = null;
+        pos1 = checkProperty.indexOf('.');
+        if (pos1 > 0) {
+            innerProperty = checkProperty.substring(pos1 + 1);
+            checkProperty = checkProperty.substring(0, pos1);
+        }
+        PropertyDescriptor[] descriptors = pojoResolver.getPropertyDescriptors(baseClass);
+        PropertyDescriptor innerDesriptor = null;
+        for (PropertyDescriptor descriptor : descriptors) {
+            if (descriptor.getName().equals(checkProperty)) {
+                innerDesriptor = descriptor;
+                break;
+            }
+        }
+        if (innerDesriptor == null)
+            return null;
+        Class<?> innerClass = innerDesriptor.getPropertyType();
+        if (innerClass.isArray()) {
+            ParameterizedType type = (ParameterizedType) innerDesriptor.getReadMethod().getGenericReturnType();
+            if (type.getActualTypeArguments() == null || type.getActualTypeArguments().length == 0)
+                return null;
+            innerClass = (Class<?>) type.getActualTypeArguments()[0];
+            return getClassName(innerClass.getName(), innerProperty);
+        } else if (Collection.class.isAssignableFrom(innerClass)) {
+            ParameterizedType type = (ParameterizedType) innerDesriptor.getReadMethod().getGenericReturnType();
+            if (type.getActualTypeArguments() == null || type.getActualTypeArguments().length == 0)
+                return null;
+            innerClass = (Class<?>) type.getActualTypeArguments()[0];
+            return getClassName(innerClass.getName(), innerProperty);
+        } else {
+            return getClassName(innerClass.getName(), innerProperty);
+        }
     }
 }

@@ -438,7 +438,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 || pojoResolverFactory.getPojoResolver() == null)
             return 0;
         PropertyDescriptor[] descriptors = pojoResolverFactory.getPojoResolver().getPropertyDescriptors(className);
-        if (descriptors == null || descriptors.length == 0)
+        if (descriptors == null)
             return 1;
         String checkProperty = property;
         int pos1 = checkProperty.indexOf('=');
