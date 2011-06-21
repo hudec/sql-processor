@@ -179,6 +179,8 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             checkProperty = checkProperty.substring(0, pos1);
         }
         PropertyDescriptor[] descriptors = pojoResolver.getPropertyDescriptors(baseClass);
+        if (descriptors == null)
+            return null;
         PropertyDescriptor innerDesriptor = null;
         for (PropertyDescriptor descriptor : descriptors) {
             if (descriptor.getName().equals(checkProperty)) {
