@@ -1379,6 +1379,6 @@ SIMPLE_FUNCION(CALL)=
 ;
   
 SIMPLE_FUNCION_TO_IN_FORM(CALL)=
-  :<time2 = call an_hour_before(:time)
+  :<timezoneOffset = call an_hour_before(:time)
 ;
   

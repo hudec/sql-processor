@@ -163,6 +163,32 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         return "";
     }
 
+    protected boolean isPrimitive(Class<?> clazz) {
+        if (clazz == null)
+            return true;
+        if (clazz.isPrimitive())
+            return true;
+        if (clazz == String.class)
+            return true;
+        if (clazz == java.util.Date.class)
+            return true;
+        if (clazz == java.sql.Date.class)
+            return true;
+        if (clazz == java.sql.Time.class)
+            return true;
+        if (clazz == java.sql.Timestamp.class)
+            return true;
+        if (clazz == java.sql.Blob.class)
+            return true;
+        if (clazz == java.sql.Clob.class)
+            return true;
+        if (clazz == java.math.BigDecimal.class)
+            return true;
+        if (clazz == java.math.BigInteger.class)
+            return true;
+        return false;
+    }
+
     protected String getClassName(String baseClass, String property) {
         if (baseClass == null || property == null)
             return baseClass;
@@ -200,14 +226,20 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             if (type.getActualTypeArguments() == null || type.getActualTypeArguments().length == 0)
                 return null;
             innerClass = (Class<?>) type.getActualTypeArguments()[0];
+            if (isPrimitive(innerClass))
+                return null;
             return getClassName(innerClass.getName(), innerProperty);
         } else if (Collection.class.isAssignableFrom(innerClass)) {
             ParameterizedType type = (ParameterizedType) innerDesriptor.getReadMethod().getGenericReturnType();
             if (type.getActualTypeArguments() == null || type.getActualTypeArguments().length == 0)
                 return null;
             innerClass = (Class<?>) type.getActualTypeArguments()[0];
+            if (isPrimitive(innerClass))
+                return null;
             return getClassName(innerClass.getName(), innerProperty);
         } else {
+            if (isPrimitive(innerClass))
+                return null;
             return getClassName(innerClass.getName(), innerProperty);
         }
     }

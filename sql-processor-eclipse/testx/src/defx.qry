@@ -20,6 +20,7 @@ pojo subcriber org.sqlproc.engine.model.Subscriber;
 pojo transport org.sqlproc.engine.form.TypesTransport;
 pojo search_form org.sqlproc.engine.form.SearchForm;
 pojo contact org.sqlproc.engine.model.Contact;
+pojo timestamp java.sql.Timestamp;
 
 /*
  * the meta statements, the dynamic input values usage
@@ -27,7 +28,9 @@ pojo contact org.sqlproc.engine.model.Contact;
 ident SQL_EXT_BASIC person_form;
 ident SQL_EXT_BASIC_2 person_form;
 ident FORM_BASIC person;
+ident FORM_BASIC_2 person;
 ident FORM_OR_BASIC person;
+ident FORM_OR_BASIC_2 person;
 ident SQL_IN_BRACES_ADV person;
 ident SQL_IN_BRACES_ADV_2 person;
 ident INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC person;
@@ -91,6 +94,8 @@ ident INSERT_PERSON_CALL_2 person;
 ident INSERT_PERSON_CALL_RESULT_SET person;
 ident INSERT_PERSON_CALL_RESULT_SET_2 person;
 ident INSERT_PERSON_CALL_RESULT_SET_PROC person;
+ident SIMPLE_FUNCION timestamp;
+ident SIMPLE_FUNCION_TO_IN_FORM timestamp;
 
 /*
  * the meta statements, the static input values usage
@@ -99,9 +104,11 @@ const SQL_EXT_BASIC person_form;
 const SQL_EXT_BASIC_2 person_form;
 const SQL_IN_BRACES_ADV_2 person_form;
 const CONSTANT_BASIC person_form;
+const CONSTANT_BASIC_2 person_form;
 const CONSTANT_OR_BASIC person_form;
 const CONSTANT_OR_BASIC_2 person_form;
 const CONSTANT_IN_ORDER_BASIC person_form;
+const CONSTANT_IN_ORDER_BASIC_2 person_form;
 const CONDITIONAL_JOIN_ADV_2 search_form;
 const INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC person_form; 
 const INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2 person_form;
@@ -110,6 +117,7 @@ const SQL_IN_BRACES_BASIC_2 person_form;
 const SQL_IN_BRACES_ADV person_form;
 const CONDITIONAL_JOIN_ADV search_form;
 const ENUM person_form;
+const ENUM_2 person_form;
 const ENUM_IN person_form;
 const ENUM_IN_2 person_form;
 const ENUM_CONDITION person_form;
@@ -122,6 +130,7 @@ const IN_META_ESCAPED person_form;
  * the implicit mapping rules in the meta statements, the result classes usage
  */
 col BASIC person;
+col BASIC_2 person;
 col ANSI_BASIC person;
 col ANSI_BASIC_2 person;
 col ANSI_BASIC_3 person;
@@ -144,6 +153,7 @@ col CONDITIONAL_WHERE_AND_BRACES_MORE_ADV_2 media;
 col LIKE_BASIC_2 person;
 col ORDER person;
 col ENUM_2 person;
+col ENUM_IN_2 person;
 col ENUM_CONDITION_2 person;
 col SIMPLE_ESCAPED person;
 col IN_META_ESCAPED person;
@@ -184,12 +194,14 @@ col BASIC_POLY_JOIN_2 library;
 col BASIC_POLY2_JOIN physical_media;
 col BASIC_POLY2_JOIN_2 physical_media;
 col BASIC_JOIN_ONE_TO_ONE_1 person;
+col CRUD_PERSON_SELECT person;
 col GET_PERSON person;
 col GET_PERSON_2 person;
 
 /*
  * the explicit mapping rules, the result classes usage
  */
+out SQL_EXT_BASIC person;
 out BASIC person;
 out ANSI_BASIC person;
 out ANSI_BASIC_2 person;

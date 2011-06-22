@@ -426,6 +426,32 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         return true;
     }
 
+    protected boolean isPrimitive(Class<?> clazz) {
+        if (clazz == null)
+            return true;
+        if (clazz.isPrimitive())
+            return true;
+        if (clazz == String.class)
+            return true;
+        if (clazz == java.util.Date.class)
+            return true;
+        if (clazz == java.sql.Date.class)
+            return true;
+        if (clazz == java.sql.Time.class)
+            return true;
+        if (clazz == java.sql.Timestamp.class)
+            return true;
+        if (clazz == java.sql.Blob.class)
+            return true;
+        if (clazz == java.sql.Clob.class)
+            return true;
+        if (clazz == java.math.BigDecimal.class)
+            return true;
+        if (clazz == java.math.BigInteger.class)
+            return true;
+        return false;
+    }
+
     /**
      * Validation property of class
      * 
@@ -434,9 +460,10 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
      * @return 0 - OK, 1 - warning, 2 - error
      */
     protected int checkClassProperty(String className, String property) {
-        if (className == null || property == null || isNumber(property)
-                || pojoResolverFactory.getPojoResolver() == null)
+        if (property == null || isNumber(property) || pojoResolverFactory.getPojoResolver() == null)
             return 0;
+        if (className == null)
+            return 2;
         PropertyDescriptor[] descriptors = pojoResolverFactory.getPojoResolver().getPropertyDescriptors(className);
         if (descriptors == null)
             return 1;
@@ -473,14 +500,20 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 if (type.getActualTypeArguments() == null || type.getActualTypeArguments().length == 0)
                     return 1;
                 innerClass = (Class<?>) type.getActualTypeArguments()[0];
+                if (isPrimitive(innerClass))
+                    return 2;
                 return checkClassProperty(innerClass.getName(), innerProperty);
             } else if (Collection.class.isAssignableFrom(innerClass)) {
                 ParameterizedType type = (ParameterizedType) innerDesriptor.getReadMethod().getGenericReturnType();
                 if (type.getActualTypeArguments() == null || type.getActualTypeArguments().length == 0)
                     return 1;
                 innerClass = (Class<?>) type.getActualTypeArguments()[0];
+                if (isPrimitive(innerClass))
+                    return 2;
                 return checkClassProperty(innerClass.getName(), innerProperty);
             } else {
+                if (isPrimitive(innerClass))
+                    return 2;
                 return checkClassProperty(innerClass.getName(), innerProperty);
             }
         }
