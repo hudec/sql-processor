@@ -29,7 +29,7 @@ public class TestBasic extends TestDatabase {
         assertContains(sql, "p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country");
         assertContains(sql, "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
         assertContains(sql, "from PERSON p");
-        assertContains(sql, "order by id");
+        assertContains(sql, "order by p.ID");
 
         List<Person> list = sqlEngine.query(session, Person.class);
 
@@ -458,7 +458,7 @@ public class TestBasic extends TestDatabase {
         assertContains(sql, "p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country");
         assertContains(sql, "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
         assertContains(sql, "from PERSON p");
-        assertContains(sql, "order by id");
+        assertContains(sql, "order by p.ID");
 
         List<Person> list = sqlEngine.query(session, Person.class, null);
 

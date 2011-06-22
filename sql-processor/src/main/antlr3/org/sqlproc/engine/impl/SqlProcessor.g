@@ -97,6 +97,14 @@ import org.sqlproc.engine.type.SqlMetaType;
     ParserUtils.addColumnAttr(item, col.getText());
   }
   
+  void addDatabaseColumn(Object target, SqlDatabaseColumn dbcol, StringBuilder text) {
+    ParserUtils.addDatabaseColumn(target, dbcol, text);
+  }
+  
+  SqlDatabaseColumn newDatabaseColumn(Token col) {
+    return ParserUtils.newDatabaseColumn(col.getText());
+  }
+  
   void addIdent(Object target, SqlMetaIdent ident, StringBuilder text) {
     ParserUtils.addIdent(target, ident, text);
   }
@@ -191,7 +199,7 @@ scope {StringBuilder text;boolean hasOutputMapping;SqlTypeFactory typeFactory;bo
 sql [SqlMetaStatement metaStatement]	
 @after {if(!$meta::skip) addText(metaStatement, $meta::text);}
 	:	
-	~(COLON | STRING | AT | LBRACE | SEMICOLON)
+	~(COLON | STRING | AT | PERCENT | LBRACE | SEMICOLON)
 		{if(!$meta::skip) add($meta::text);} sql[metaStatement]?
 	| COLON ident=identifier 
 		{if(!$meta::skip) addIdent(metaStatement, ident, $meta::text);} sql[metaStatement]?
@@ -199,6 +207,8 @@ sql [SqlMetaStatement metaStatement]
      		{if(!$meta::skip) addConstant(metaStatement, cnst, $meta::text);} sql[metaStatement]?
      	| AT col=column 
      		{if(!$meta::skip) addColumn(metaStatement, col, $meta::text);$meta::hasOutputMapping=true;} sql[metaStatement]?
+	| PERCENT dbcol=dbcolumn
+		{if(!$meta::skip) addDatabaseColumn(metaStatement, dbcol, $meta::text);} sql[metaStatement]?
      	| LBRACE metaSql[metaStatement] RBRACE sql[metaStatement]?
      	;
 
@@ -225,7 +235,7 @@ ifSql [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]
 @init {$metaIfItem = (metaIfItemIn !=null) ? metaIfItemIn : new SqlMetaIfItem();}
 @after {if(!$meta::skip) addText(metaIfItem, $meta::text);}
 	:
-	~(COLON | STRING | AT | LBRACE | BOR | RBRACE)
+	~(COLON | STRING | AT | PERCENT | LBRACE | BOR | RBRACE)
 		{if(!$meta::skip) add($meta::text);} ifSql[metaIfItem]?
 	| COLON ident=identifier 
 		{if(!$meta::skip) addIdent(metaIfItem, ident, $meta::text);} ifSql[metaIfItem]?
@@ -233,6 +243,8 @@ ifSql [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]
 		{if(!$meta::skip) addConstant(metaIfItem, cnst, $meta::text);} ifSql[metaIfItem]?
      	| AT col=column 
      		{if(!$meta::skip) addColumn(metaIfItem, col, $meta::text);$meta::hasOutputMapping=true;} ifSql[metaIfItem]?
+	| PERCENT dbcol=dbcolumn
+		{if(!$meta::skip) addDatabaseColumn(metaIfItem, dbcol, $meta::text);} ifSql[metaIfItem]?
 	| LBRACE ifMetaSql[metaIfItem] RBRACE ifSql[metaIfItem]?
 	;
      	
@@ -269,12 +281,14 @@ ifSqlBool [SqlMetaLogExpr metaLogExpr]
 ordSql [SqlMetaOrd ord]
 @after {if(!$meta::skip) addText(ord, $meta::text);}
  	:	
-	~(COLON | STRING | RBRACE)
+	~(COLON | STRING | PERCENT | RBRACE)
 		{if(!$meta::skip) add($meta::text);} ordSql[ord]?
 	| COLON ident=identifier 
 		{if(!$meta::skip) addIdent(ord, ident, $meta::text);} ordSql[ord]?
 	| STRING cnst=constant
 		{if(!$meta::skip) addConstant(ord, cnst, $meta::text);} ordSql[ord]?
+	| PERCENT dbcol=dbcolumn
+		{if(!$meta::skip) addDatabaseColumn(ord, dbcol, $meta::text);} ordSql[ord]?
 	;	
 
 column returns[SqlMappingItem result]
@@ -305,6 +319,13 @@ identifier returns [SqlMetaIdent result]
 	 (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, $value2.text); }
 	 )*
 	)?
+	;
+
+
+dbcolumn returns[SqlDatabaseColumn result]
+@init {$result = null;}
+	:	
+	(dbcol=IDENT_DOT | dbcol=IDENT) {if(!$meta::skip) $result = newDatabaseColumn(dbcol);}
 	;
 
 
@@ -371,7 +392,9 @@ fragment
 ESC_HASH:     '\\' '#' ;
 fragment
 ESC_AT:	      '\\' '@';
-ESC_CHAR:  (ESC_COLON | ESC_SEMICOLON | ESC_STRING | ESC_LBRACE | ESC_RBRACE | ESC_BOR | ESC_HASH | ESC_AT);
+fragment
+ESC_PERCENT:  '\\' '%';
+ESC_CHAR:  (ESC_COLON | ESC_SEMICOLON | ESC_STRING | ESC_LBRACE | ESC_RBRACE | ESC_BOR | ESC_HASH | ESC_AT | ESC_PERCENT);
 
 COLON:    ':' ;
 SEMICOLON:';' ;
@@ -395,4 +418,5 @@ CARET:    '^';
 EQUALS:   '=' ;
 LESS_THAN:'<' ;
 MORE_THAN:'>' ;
-REST:     ~(COLON | SEMICOLON | STRING | COMMA | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN);
+PERCENT:  '%' ;
+REST:     ~(COLON | SEMICOLON | STRING | COMMA | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN | PERCENT);

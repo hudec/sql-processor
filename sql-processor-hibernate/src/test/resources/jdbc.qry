@@ -740,7 +740,7 @@ CONDITIONS_MORE(QRY)=
   where 1=1
   {? :id^long^null | AND p.ID is null | AND p.ID = :id}
   {? :version^long^1 | AND (p.VERSION = 1 OR p.VERSION is null)}
-  {? $lastUpdatedBy^string^pes | AND p.LASTUPDATEDBY = 'dbunit' | AND p.LASTUPDATEDBY like '%'}
+  {? $lastUpdatedBy^string^pes | AND p.LASTUPDATEDBY = 'dbunit' | AND p.LASTUPDATEDBY like '\%'}
   {#1 order by id}
 ;
   

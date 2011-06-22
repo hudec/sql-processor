@@ -139,6 +139,37 @@ class ParserUtils {
         return null;
     }
 
+    static SqlDatabaseColumn newDatabaseColumn(String name) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("newDatabaseColumn " + name);
+        }
+        if (name.length() > 0) {
+            SqlDatabaseColumn col = new SqlDatabaseColumn(name);
+            return col;
+        }
+        return null;
+    }
+
+    static void addDatabaseColumn(Object target, SqlDatabaseColumn dbcol, StringBuilder text) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("addDatabaseColumn " + dbcol);
+        }
+        if (dbcol != null) {
+            if (target instanceof SqlMetaStatement) {
+                addText(target, text);
+                ((SqlMetaStatement) target).addElement(dbcol);
+            } else if (target instanceof SqlMetaOrd) {
+                addText(target, text);
+                ((SqlMetaOrd) target).addElement(dbcol);
+            } else if (target instanceof SqlMetaIfItem) {
+                addText(target, text);
+                ((SqlMetaIfItem) target).addElement(dbcol);
+            } else {
+                throw new RuntimeException("Invalid target for addIdent :" + target);
+            }
+        }
+    }
+
     static SqlMetaConst newConstant(String name, String caseConversion) {
         if (logger.isTraceEnabled()) {
             logger.trace("newConstant " + name);
