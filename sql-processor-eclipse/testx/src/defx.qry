@@ -20,7 +20,7 @@ pojo subcriber org.sqlproc.engine.model.Subscriber;
 pojo transport org.sqlproc.engine.form.TypesTransport;
 pojo search_form org.sqlproc.engine.form.SearchForm;
 pojo contact org.sqlproc.engine.model.Contact;
-pojo timestamp java.sql.Timestamp;
+pojo function_form org.sqlproc.engine.form.FormSimpleFunction;
 
 /*
  * the meta statements, the dynamic input values usage
@@ -94,8 +94,8 @@ ident INSERT_PERSON_CALL_2 person;
 ident INSERT_PERSON_CALL_RESULT_SET person;
 ident INSERT_PERSON_CALL_RESULT_SET_2 person;
 ident INSERT_PERSON_CALL_RESULT_SET_PROC person;
-ident SIMPLE_FUNCION timestamp;
-ident SIMPLE_FUNCION_TO_IN_FORM timestamp;
+ident SIMPLE_FUNCION function_form;
+ident SIMPLE_FUNCION_TO_IN_FORM function_form;
 
 /*
  * the meta statements, the static input values usage
