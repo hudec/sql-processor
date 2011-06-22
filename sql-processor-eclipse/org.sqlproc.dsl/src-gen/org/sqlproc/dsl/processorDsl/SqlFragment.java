@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.SqlFragment#getCnst <em>Cnst</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.SqlFragment#getIdent <em>Ident</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.SqlFragment#getMeta <em>Meta</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.SqlFragment#getDbcol <em>Dbcol</em>}</li>
  * </ul>
  * </p>
  *
@@ -158,5 +159,31 @@ public interface SqlFragment extends EObject
    * @generated
    */
   void setMeta(MetaSql value);
+
+  /**
+   * Returns the value of the '<em><b>Dbcol</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Dbcol</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Dbcol</em>' containment reference.
+   * @see #setDbcol(DatabaseColumn)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getSqlFragment_Dbcol()
+   * @model containment="true"
+   * @generated
+   */
+  DatabaseColumn getDbcol();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.SqlFragment#getDbcol <em>Dbcol</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Dbcol</em>' containment reference.
+   * @see #getDbcol()
+   * @generated
+   */
+  void setDbcol(DatabaseColumn value);
 
 } // SqlFragment

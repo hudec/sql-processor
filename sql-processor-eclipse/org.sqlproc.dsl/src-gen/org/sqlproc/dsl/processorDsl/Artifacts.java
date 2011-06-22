@@ -23,6 +23,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getPojos <em>Pojos</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getUsages <em>Usages</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getProperties <em>Properties</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getTables <em>Tables</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getTableUsages <em>Table Usages</em>}</li>
  * </ul>
  * </p>
  *
@@ -127,5 +129,37 @@ public interface Artifacts extends EObject
    * @generated
    */
   EList<Property> getProperties();
+
+  /**
+   * Returns the value of the '<em><b>Tables</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.TableDefinition}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Tables</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Tables</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getArtifacts_Tables()
+   * @model containment="true"
+   * @generated
+   */
+  EList<TableDefinition> getTables();
+
+  /**
+   * Returns the value of the '<em><b>Table Usages</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.TableUsage}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Table Usages</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Table Usages</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getArtifacts_TableUsages()
+   * @model containment="true"
+   * @generated
+   */
+  EList<TableUsage> getTableUsages();
 
 } // Artifacts

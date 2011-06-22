@@ -135,6 +135,20 @@ public class ProcessorDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.TABLE_DEFINITION:
+      {
+        TableDefinition tableDefinition = (TableDefinition)theEObject;
+        T result = caseTableDefinition(tableDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.TABLE_USAGE:
+      {
+        TableUsage tableUsage = (TableUsage)theEObject;
+        T result = caseTableUsage(tableUsage);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.META_STATEMENT:
       {
         MetaStatement metaStatement = (MetaStatement)theEObject;
@@ -230,6 +244,13 @@ public class ProcessorDslSwitch<T> extends Switch<T>
       {
         Identifier identifier = (Identifier)theEObject;
         T result = caseIdentifier(identifier);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.DATABASE_COLUMN:
+      {
+        DatabaseColumn databaseColumn = (DatabaseColumn)theEObject;
+        T result = caseDatabaseColumn(databaseColumn);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -396,6 +417,38 @@ public class ProcessorDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseMappingUsage(MappingUsage object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Table Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Table Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTableDefinition(TableDefinition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Table Usage</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Table Usage</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTableUsage(TableUsage object)
   {
     return null;
   }
@@ -620,6 +673,22 @@ public class ProcessorDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseIdentifier(Identifier object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Database Column</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Database Column</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDatabaseColumn(DatabaseColumn object)
   {
     return null;
   }

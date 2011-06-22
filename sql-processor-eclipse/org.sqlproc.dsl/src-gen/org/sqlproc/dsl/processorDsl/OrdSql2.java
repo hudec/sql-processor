@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.OrdSql2#getValue <em>Value</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.OrdSql2#getCnst <em>Cnst</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.OrdSql2#getIdent <em>Ident</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.OrdSql2#getDbcol <em>Dbcol</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,5 +105,31 @@ public interface OrdSql2 extends EObject
    * @generated
    */
   void setIdent(Identifier value);
+
+  /**
+   * Returns the value of the '<em><b>Dbcol</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Dbcol</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Dbcol</em>' containment reference.
+   * @see #setDbcol(DatabaseColumn)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getOrdSql2_Dbcol()
+   * @model containment="true"
+   * @generated
+   */
+  DatabaseColumn getDbcol();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.OrdSql2#getDbcol <em>Dbcol</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Dbcol</em>' containment reference.
+   * @see #getDbcol()
+   * @generated
+   */
+  void setDbcol(DatabaseColumn value);
 
 } // OrdSql2
