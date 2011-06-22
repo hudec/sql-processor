@@ -42,6 +42,10 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     @Inject
     IScopeProvider scopeProvider;
 
+    public enum ValidationResult {
+        OK, WARNING, ERROR;
+    }
+
     @Check
     public void checkUniqueMetaStatement(MetaStatement metaStatement) {
         Artifacts artifacts;
@@ -314,11 +318,11 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             }
         }
         switch (checkClassProperty(columnUsageClass, column.getName())) {
-        case 1:
+        case WARNING:
             warning("Problem property : " + column.getName() + "[" + columnUsageClass + "]",
                     ProcessorDslPackage.Literals.COLUMN__NAME);
             break;
-        case 2:
+        case ERROR:
             error("Cannot find property : " + column.getName() + "[" + columnUsageClass + "]",
                     ProcessorDslPackage.Literals.COLUMN__NAME);
             break;
@@ -344,11 +348,11 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             }
         }
         switch (checkClassProperty(identifierUsageClass, identifier.getName())) {
-        case 1:
+        case WARNING:
             warning("Problem property : " + identifier.getName() + "[" + identifierUsageClass + "]",
                     ProcessorDslPackage.Literals.IDENTIFIER__NAME);
             break;
-        case 2:
+        case ERROR:
             error("Cannot find property : " + identifier.getName() + "[" + identifierUsageClass + "]",
                     ProcessorDslPackage.Literals.IDENTIFIER__NAME);
             break;
@@ -374,11 +378,11 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             }
         }
         switch (checkClassProperty(constantUsageClass, constant.getName())) {
-        case 1:
+        case WARNING:
             warning("Problem property : " + constant.getName() + "[" + constantUsageClass + "]",
                     ProcessorDslPackage.Literals.CONSTANT__NAME);
             break;
-        case 2:
+        case ERROR:
             error("Cannot find property : " + constant.getName() + "[" + constantUsageClass + "]",
                     ProcessorDslPackage.Literals.CONSTANT__NAME);
             break;
@@ -404,11 +408,11 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             }
         }
         switch (checkClassProperty(mappingUsageClass, identifier.getName())) {
-        case 1:
+        case WARNING:
             warning("Problem property : " + identifier.getName() + "[" + mappingUsageClass + "]",
                     ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
             break;
-        case 2:
+        case ERROR:
             error("Cannot find property : " + identifier.getName() + "[" + mappingUsageClass + "]",
                     ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
             break;
@@ -457,16 +461,16 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
      * 
      * @param className
      * @param property
-     * @return 0 - OK, 1 - warning, 2 - error
+     * @return validation result
      */
-    protected int checkClassProperty(String className, String property) {
+    protected ValidationResult checkClassProperty(String className, String property) {
         if (property == null || isNumber(property) || pojoResolverFactory.getPojoResolver() == null)
-            return 0;
+            return ValidationResult.OK;
         if (className == null)
-            return 2;
+            return ValidationResult.ERROR;
         PropertyDescriptor[] descriptors = pojoResolverFactory.getPojoResolver().getPropertyDescriptors(className);
         if (descriptors == null)
-            return 1;
+            return ValidationResult.WARNING;
         String checkProperty = property;
         int pos1 = checkProperty.indexOf('=');
         if (pos1 > 0) {
@@ -490,33 +494,33 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         if (innerDesriptor == null) {
             Class<?> clazz = pojoResolverFactory.getPojoResolver().loadClass(className);
             if (clazz != null && Modifier.isAbstract(clazz.getModifiers()))
-                return 1;
-            return 2;
+                return ValidationResult.WARNING;
+            return ValidationResult.ERROR;
         }
         if (innerProperty != null) {
             Class<?> innerClass = innerDesriptor.getPropertyType();
             if (innerClass.isArray()) {
                 ParameterizedType type = (ParameterizedType) innerDesriptor.getReadMethod().getGenericReturnType();
                 if (type.getActualTypeArguments() == null || type.getActualTypeArguments().length == 0)
-                    return 1;
+                    return ValidationResult.WARNING;
                 innerClass = (Class<?>) type.getActualTypeArguments()[0];
                 if (isPrimitive(innerClass))
-                    return 2;
+                    return ValidationResult.ERROR;
                 return checkClassProperty(innerClass.getName(), innerProperty);
             } else if (Collection.class.isAssignableFrom(innerClass)) {
                 ParameterizedType type = (ParameterizedType) innerDesriptor.getReadMethod().getGenericReturnType();
                 if (type.getActualTypeArguments() == null || type.getActualTypeArguments().length == 0)
-                    return 1;
+                    return ValidationResult.WARNING;
                 innerClass = (Class<?>) type.getActualTypeArguments()[0];
                 if (isPrimitive(innerClass))
-                    return 2;
+                    return ValidationResult.ERROR;
                 return checkClassProperty(innerClass.getName(), innerProperty);
             } else {
                 if (isPrimitive(innerClass))
-                    return 2;
+                    return ValidationResult.ERROR;
                 return checkClassProperty(innerClass.getName(), innerProperty);
             }
         }
-        return 0;
+        return ValidationResult.OK;
     }
 }
