@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Test;
 import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.form.FormSimpleFunction;
 import org.sqlproc.engine.model.Country;
 import org.sqlproc.engine.model.Gender;
 import org.sqlproc.engine.model.Person;
@@ -16,27 +17,6 @@ public class TestProcedure extends TestDatabase {
 
     protected String getDataSetFile(String dbType) {
         return "dbunit/JoinsTest.xml";
-    }
-
-    public static class FormSimpleFunction {
-        private java.sql.Timestamp time;
-        private java.sql.Timestamp time2;
-
-        public java.sql.Timestamp getTime() {
-            return time;
-        }
-
-        public void setTime(java.sql.Timestamp time) {
-            this.time = time;
-        }
-
-        public java.sql.Timestamp getTime2() {
-            return time2;
-        }
-
-        public void setTime2(java.sql.Timestamp time2) {
-            this.time2 = time2;
-        }
     }
 
     @Test
@@ -53,8 +33,8 @@ public class TestProcedure extends TestDatabase {
 
         java.sql.Timestamp result = (java.sql.Timestamp) callableEngine.callFunction(session, f);
         assertNotNull(result);
-        assertNotNull(f.time2);
-        logger.info("New date is " + f.time2);
+        assertNotNull(f.getTime2());
+        logger.info("New date is " + f.getTime2());
     }
 
     @Test
@@ -68,7 +48,7 @@ public class TestProcedure extends TestDatabase {
 
         Object result = callableEngine.callFunction(session, f);
         assertNotNull(result);
-        assertNull(f.time2);
+        assertNull(f.getTime2());
         logger.info("New date is " + result);
     }
 
