@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
+import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.MetaSql;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
@@ -33,6 +34,7 @@ import org.sqlproc.dsl.processorDsl.SqlFragment;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.SqlFragmentImpl#getCnst <em>Cnst</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.SqlFragmentImpl#getIdent <em>Ident</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.SqlFragmentImpl#getMeta <em>Meta</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.SqlFragmentImpl#getDbcol <em>Dbcol</em>}</li>
  * </ul>
  * </p>
  *
@@ -99,6 +101,16 @@ public class SqlFragmentImpl extends MinimalEObjectImpl.Container implements Sql
    * @ordered
    */
   protected MetaSql meta;
+
+  /**
+   * The cached value of the '{@link #getDbcol() <em>Dbcol</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbcol()
+   * @generated
+   * @ordered
+   */
+  protected DatabaseColumn dbcol;
 
   /**
    * <!-- begin-user-doc -->
@@ -341,6 +353,54 @@ public class SqlFragmentImpl extends MinimalEObjectImpl.Container implements Sql
    * <!-- end-user-doc -->
    * @generated
    */
+  public DatabaseColumn getDbcol()
+  {
+    return dbcol;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDbcol(DatabaseColumn newDbcol, NotificationChain msgs)
+  {
+    DatabaseColumn oldDbcol = dbcol;
+    dbcol = newDbcol;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.SQL_FRAGMENT__DBCOL, oldDbcol, newDbcol);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbcol(DatabaseColumn newDbcol)
+  {
+    if (newDbcol != dbcol)
+    {
+      NotificationChain msgs = null;
+      if (dbcol != null)
+        msgs = ((InternalEObject)dbcol).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.SQL_FRAGMENT__DBCOL, null, msgs);
+      if (newDbcol != null)
+        msgs = ((InternalEObject)newDbcol).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.SQL_FRAGMENT__DBCOL, null, msgs);
+      msgs = basicSetDbcol(newDbcol, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.SQL_FRAGMENT__DBCOL, newDbcol, newDbcol));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -354,6 +414,8 @@ public class SqlFragmentImpl extends MinimalEObjectImpl.Container implements Sql
         return basicSetIdent(null, msgs);
       case ProcessorDslPackage.SQL_FRAGMENT__META:
         return basicSetMeta(null, msgs);
+      case ProcessorDslPackage.SQL_FRAGMENT__DBCOL:
+        return basicSetDbcol(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -378,6 +440,8 @@ public class SqlFragmentImpl extends MinimalEObjectImpl.Container implements Sql
         return getIdent();
       case ProcessorDslPackage.SQL_FRAGMENT__META:
         return getMeta();
+      case ProcessorDslPackage.SQL_FRAGMENT__DBCOL:
+        return getDbcol();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -406,6 +470,9 @@ public class SqlFragmentImpl extends MinimalEObjectImpl.Container implements Sql
         return;
       case ProcessorDslPackage.SQL_FRAGMENT__META:
         setMeta((MetaSql)newValue);
+        return;
+      case ProcessorDslPackage.SQL_FRAGMENT__DBCOL:
+        setDbcol((DatabaseColumn)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -436,6 +503,9 @@ public class SqlFragmentImpl extends MinimalEObjectImpl.Container implements Sql
       case ProcessorDslPackage.SQL_FRAGMENT__META:
         setMeta((MetaSql)null);
         return;
+      case ProcessorDslPackage.SQL_FRAGMENT__DBCOL:
+        setDbcol((DatabaseColumn)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -460,6 +530,8 @@ public class SqlFragmentImpl extends MinimalEObjectImpl.Container implements Sql
         return ident != null;
       case ProcessorDslPackage.SQL_FRAGMENT__META:
         return meta != null;
+      case ProcessorDslPackage.SQL_FRAGMENT__DBCOL:
+        return dbcol != null;
     }
     return super.eIsSet(featureID);
   }

@@ -76,6 +76,8 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.IDENTIFIER_USAGE: return createIdentifierUsage();
       case ProcessorDslPackage.CONSTANT_USAGE: return createConstantUsage();
       case ProcessorDslPackage.MAPPING_USAGE: return createMappingUsage();
+      case ProcessorDslPackage.TABLE_DEFINITION: return createTableDefinition();
+      case ProcessorDslPackage.TABLE_USAGE: return createTableUsage();
       case ProcessorDslPackage.META_STATEMENT: return createMetaStatement();
       case ProcessorDslPackage.SQL: return createSql();
       case ProcessorDslPackage.SQL_FRAGMENT: return createSqlFragment();
@@ -90,6 +92,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.COLUMN: return createColumn();
       case ProcessorDslPackage.CONSTANT: return createConstant();
       case ProcessorDslPackage.IDENTIFIER: return createIdentifier();
+      case ProcessorDslPackage.DATABASE_COLUMN: return createDatabaseColumn();
       case ProcessorDslPackage.MAPPING_RULE: return createMappingRule();
       case ProcessorDslPackage.MAPPING: return createMapping();
       case ProcessorDslPackage.MAPPING_ITEM: return createMappingItem();
@@ -228,6 +231,28 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     MappingUsageImpl mappingUsage = new MappingUsageImpl();
     return mappingUsage;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TableDefinition createTableDefinition()
+  {
+    TableDefinitionImpl tableDefinition = new TableDefinitionImpl();
+    return tableDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TableUsage createTableUsage()
+  {
+    TableUsageImpl tableUsage = new TableUsageImpl();
+    return tableUsage;
   }
 
   /**
@@ -382,6 +407,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     IdentifierImpl identifier = new IdentifierImpl();
     return identifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DatabaseColumn createDatabaseColumn()
+  {
+    DatabaseColumnImpl databaseColumn = new DatabaseColumnImpl();
+    return databaseColumn;
   }
 
   /**

@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.sqlproc.dsl.processorDsl.Constant;
+import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.OrdSql2;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
@@ -29,6 +30,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.OrdSql2Impl#getValue <em>Value</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.OrdSql2Impl#getCnst <em>Cnst</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.OrdSql2Impl#getIdent <em>Ident</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.OrdSql2Impl#getDbcol <em>Dbcol</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,6 +77,16 @@ public class OrdSql2Impl extends MinimalEObjectImpl.Container implements OrdSql2
    * @ordered
    */
   protected Identifier ident;
+
+  /**
+   * The cached value of the '{@link #getDbcol() <em>Dbcol</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbcol()
+   * @generated
+   * @ordered
+   */
+  protected DatabaseColumn dbcol;
 
   /**
    * <!-- begin-user-doc -->
@@ -221,6 +233,54 @@ public class OrdSql2Impl extends MinimalEObjectImpl.Container implements OrdSql2
    * <!-- end-user-doc -->
    * @generated
    */
+  public DatabaseColumn getDbcol()
+  {
+    return dbcol;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDbcol(DatabaseColumn newDbcol, NotificationChain msgs)
+  {
+    DatabaseColumn oldDbcol = dbcol;
+    dbcol = newDbcol;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.ORD_SQL2__DBCOL, oldDbcol, newDbcol);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbcol(DatabaseColumn newDbcol)
+  {
+    if (newDbcol != dbcol)
+    {
+      NotificationChain msgs = null;
+      if (dbcol != null)
+        msgs = ((InternalEObject)dbcol).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.ORD_SQL2__DBCOL, null, msgs);
+      if (newDbcol != null)
+        msgs = ((InternalEObject)newDbcol).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.ORD_SQL2__DBCOL, null, msgs);
+      msgs = basicSetDbcol(newDbcol, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.ORD_SQL2__DBCOL, newDbcol, newDbcol));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -230,6 +290,8 @@ public class OrdSql2Impl extends MinimalEObjectImpl.Container implements OrdSql2
         return basicSetCnst(null, msgs);
       case ProcessorDslPackage.ORD_SQL2__IDENT:
         return basicSetIdent(null, msgs);
+      case ProcessorDslPackage.ORD_SQL2__DBCOL:
+        return basicSetDbcol(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -250,6 +312,8 @@ public class OrdSql2Impl extends MinimalEObjectImpl.Container implements OrdSql2
         return getCnst();
       case ProcessorDslPackage.ORD_SQL2__IDENT:
         return getIdent();
+      case ProcessorDslPackage.ORD_SQL2__DBCOL:
+        return getDbcol();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -272,6 +336,9 @@ public class OrdSql2Impl extends MinimalEObjectImpl.Container implements OrdSql2
         return;
       case ProcessorDslPackage.ORD_SQL2__IDENT:
         setIdent((Identifier)newValue);
+        return;
+      case ProcessorDslPackage.ORD_SQL2__DBCOL:
+        setDbcol((DatabaseColumn)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -296,6 +363,9 @@ public class OrdSql2Impl extends MinimalEObjectImpl.Container implements OrdSql2
       case ProcessorDslPackage.ORD_SQL2__IDENT:
         setIdent((Identifier)null);
         return;
+      case ProcessorDslPackage.ORD_SQL2__DBCOL:
+        setDbcol((DatabaseColumn)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -316,6 +386,8 @@ public class OrdSql2Impl extends MinimalEObjectImpl.Container implements OrdSql2
         return cnst != null;
       case ProcessorDslPackage.ORD_SQL2__IDENT:
         return ident != null;
+      case ProcessorDslPackage.ORD_SQL2__DBCOL:
+        return dbcol != null;
     }
     return super.eIsSet(featureID);
   }

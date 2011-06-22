@@ -98,6 +98,24 @@ public interface ProcessorDslFactory extends EFactory
   MappingUsage createMappingUsage();
 
   /**
+   * Returns a new object of class '<em>Table Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Table Definition</em>'.
+   * @generated
+   */
+  TableDefinition createTableDefinition();
+
+  /**
+   * Returns a new object of class '<em>Table Usage</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Table Usage</em>'.
+   * @generated
+   */
+  TableUsage createTableUsage();
+
+  /**
    * Returns a new object of class '<em>Meta Statement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -222,6 +240,15 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   Identifier createIdentifier();
+
+  /**
+   * Returns a new object of class '<em>Database Column</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Database Column</em>'.
+   * @generated
+   */
+  DatabaseColumn createDatabaseColumn();
 
   /**
    * Returns a new object of class '<em>Mapping Rule</em>'.

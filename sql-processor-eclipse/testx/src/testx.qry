@@ -1,5 +1,5 @@
 /*
- * Advanced searching capability based on text fragment 
+ * Advanced searching capability based on text fragment
  */
 LIKE_STRING(OPT)=like;
 WILDCARD_CHARACTER(OPT)=%;
@@ -23,8 +23,8 @@ SEL1(OPT,ORACLE)=select last_insert_id();
 
 // META SQL query
 ANSI_BASIC(QRY)=
-  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
-  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  select %p.ID, %p.NAME_FIRST first, %p.NAME_LAST last, %p.SSN_NUMBER ssn, %p.SSN_COUNTRY country,
+  %p.BIRTHDATE, %p.SEX, p.CREATEDDATE, %p.CREATEDBY, %p.LASTUPDATED, %p.LASTUPDATEDBY, %p.VERSION
   from PERSON p
   order by id
 ;
@@ -37,11 +37,11 @@ ANSI_BASIC(OUT)=
 ;
 
 ANSI_BASIC_2(QRY)=
-  select p.ID @id, p.NAME_FIRST @first, p.NAME_LAST @last, p.SSN_NUMBER @ssn, p.SSN_COUNTRY @country,
-  p.BIRTHDATE @birthDate, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy,
-  p.LASTUPDATED @lastUpdated, p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  select %p.ID @id, %p.NAME_FIRST @first, %p.NAME_LAST @last, %p.SSN_NUMBER @ssn, %p.SSN_COUNTRY @country,
+  %p.BIRTHDATE @birthDate, %p.SEX @sex, %p.CREATEDDATE @createdDate, %p.CREATEDBY @createdBy,
+  %p.LASTUPDATED @lastUpdated, %p.LASTUPDATEDBY @lastUpdatedBy, %p.VERSION @version
   from PERSON p
-  order by id
+  order by %p.ID
 ;
 ANSI_BASIC_2(OUT)=
   first$$name.first last$$name.last ssn$$ssn.number
@@ -50,11 +50,11 @@ ANSI_BASIC_2(OUT)=
 ;
 
 ANSI_BASIC_3(QRY)=
-  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy,
-  p.LASTUPDATED @lastUpdated^date, p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  select %p.ID @id, %p.NAME_FIRST @name.first, %p.NAME_LAST @name.last, %p.SSN_NUMBER @ssn.number, %p.SSN_COUNTRY @ssn.country,
+  %p.BIRTHDATE @birthDate^date, %p.SEX @sex, %p.CREATEDDATE @createdDate^date, %p.CREATEDBY @createdBy,
+  %p.LASTUPDATED @lastUpdated^date, %p.LASTUPDATEDBY @lastUpdatedBy, %p.VERSION @version
   from PERSON p
-  order by id
+  order by %p.ID
 ;
 
 SQL_EXT_BASIC(QRY)=
@@ -740,7 +740,7 @@ CONDITIONS_MORE(QRY)=
   where 1=1
   {? :id^long^null | AND p.ID is null | AND p.ID = :id}
   {? :version^long^1 | AND (p.VERSION = 1 OR p.VERSION is null)}
-  {? $lastUpdatedBy^string^pes | AND p.LASTUPDATEDBY = 'dbunit' | AND p.LASTUPDATEDBY like '%'}
+  {? $lastUpdatedBy^string^pes | AND p.LASTUPDATEDBY = 'dbunit' | AND p.LASTUPDATEDBY like '\%'}
   {#1 order by id}
 ;
   

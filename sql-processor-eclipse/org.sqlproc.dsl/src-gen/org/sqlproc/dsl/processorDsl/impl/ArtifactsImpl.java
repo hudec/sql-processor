@@ -27,6 +27,8 @@ import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
+import org.sqlproc.dsl.processorDsl.TableDefinition;
+import org.sqlproc.dsl.processorDsl.TableUsage;
 
 /**
  * <!-- begin-user-doc -->
@@ -41,6 +43,8 @@ import org.sqlproc.dsl.processorDsl.Property;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getPojos <em>Pojos</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getUsages <em>Usages</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getProperties <em>Properties</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getTables <em>Tables</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getTableUsages <em>Table Usages</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,6 +111,26 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
    * @ordered
    */
   protected EList<Property> properties;
+
+  /**
+   * The cached value of the '{@link #getTables() <em>Tables</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTables()
+   * @generated
+   * @ordered
+   */
+  protected EList<TableDefinition> tables;
+
+  /**
+   * The cached value of the '{@link #getTableUsages() <em>Table Usages</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTableUsages()
+   * @generated
+   * @ordered
+   */
+  protected EList<TableUsage> tableUsages;
 
   /**
    * <!-- begin-user-doc -->
@@ -218,6 +242,34 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<TableDefinition> getTables()
+  {
+    if (tables == null)
+    {
+      tables = new EObjectContainmentEList<TableDefinition>(TableDefinition.class, this, ProcessorDslPackage.ARTIFACTS__TABLES);
+    }
+    return tables;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<TableUsage> getTableUsages()
+  {
+    if (tableUsages == null)
+    {
+      tableUsages = new EObjectContainmentEList<TableUsage>(TableUsage.class, this, ProcessorDslPackage.ARTIFACTS__TABLE_USAGES);
+    }
+    return tableUsages;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -235,6 +287,10 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         return ((InternalEList<?>)getUsages()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
         return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.ARTIFACTS__TABLES:
+        return ((InternalEList<?>)getTables()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
+        return ((InternalEList<?>)getTableUsages()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -261,6 +317,10 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         return getUsages();
       case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
         return getProperties();
+      case ProcessorDslPackage.ARTIFACTS__TABLES:
+        return getTables();
+      case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
+        return getTableUsages();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -300,6 +360,14 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         getProperties().clear();
         getProperties().addAll((Collection<? extends Property>)newValue);
         return;
+      case ProcessorDslPackage.ARTIFACTS__TABLES:
+        getTables().clear();
+        getTables().addAll((Collection<? extends TableDefinition>)newValue);
+        return;
+      case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
+        getTableUsages().clear();
+        getTableUsages().addAll((Collection<? extends TableUsage>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -332,6 +400,12 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
       case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
         getProperties().clear();
         return;
+      case ProcessorDslPackage.ARTIFACTS__TABLES:
+        getTables().clear();
+        return;
+      case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
+        getTableUsages().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -358,6 +432,10 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         return usages != null && !usages.isEmpty();
       case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
         return properties != null && !properties.isEmpty();
+      case ProcessorDslPackage.ARTIFACTS__TABLES:
+        return tables != null && !tables.isEmpty();
+      case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
+        return tableUsages != null && !tableUsages.isEmpty();
     }
     return super.eIsSet(featureID);
   }
