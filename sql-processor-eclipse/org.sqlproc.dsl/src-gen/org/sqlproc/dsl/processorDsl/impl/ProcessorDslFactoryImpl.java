@@ -69,6 +69,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
     switch (eClass.getClassifierID())
     {
       case ProcessorDslPackage.ARTIFACTS: return createArtifacts();
+      case ProcessorDslPackage.PROPERTY: return createProperty();
       case ProcessorDslPackage.POJO_DEFINITION: return createPojoDefinition();
       case ProcessorDslPackage.POJO_USAGE: return createPojoUsage();
       case ProcessorDslPackage.COLUMN_USAGE: return createColumnUsage();
@@ -150,6 +151,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     ArtifactsImpl artifacts = new ArtifactsImpl();
     return artifacts;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Property createProperty()
+  {
+    PropertyImpl property = new PropertyImpl();
+    return property;
   }
 
   /**

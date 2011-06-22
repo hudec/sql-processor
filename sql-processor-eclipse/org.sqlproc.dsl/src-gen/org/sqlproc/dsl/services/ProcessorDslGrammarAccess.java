@@ -41,21 +41,25 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cUsagesAssignment_1_4_0 = (Assignment)cGroup_1_4.eContents().get(0);
 		private final RuleCall cUsagesPojoUsageParserRuleCall_1_4_0_0 = (RuleCall)cUsagesAssignment_1_4_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_1_4_1 = (RuleCall)cGroup_1_4.eContents().get(1);
+		private final Group cGroup_1_5 = (Group)cAlternatives_1.eContents().get(5);
+		private final Assignment cPropertiesAssignment_1_5_0 = (Assignment)cGroup_1_5.eContents().get(0);
+		private final RuleCall cPropertiesPropertyParserRuleCall_1_5_0_0 = (RuleCall)cPropertiesAssignment_1_5_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_1_5_1 = (RuleCall)cGroup_1_5.eContents().get(1);
 		
 		//Artifacts:
 		//	WS* (features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS* | pojos+=PojoDefinition
-		//	WS* | usages+=PojoUsage WS*)+;
+		//	WS* | usages+=PojoUsage WS* | properties+=Property WS*)+;
 		public ParserRule getRule() { return rule; }
 
 		//WS* (features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS* | pojos+=PojoDefinition
-		//WS* | usages+=PojoUsage WS*)+
+		//WS* | usages+=PojoUsage WS* | properties+=Property WS*)+
 		public Group getGroup() { return cGroup; }
 
 		//WS*
 		public RuleCall getWSTerminalRuleCall_0() { return cWSTerminalRuleCall_0; }
 
 		//(features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS* | pojos+=PojoDefinition WS* |
-		//usages+=PojoUsage WS*)+
+		//usages+=PojoUsage WS* | properties+=Property WS*)+
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//features+=OptionalFeature WS*
@@ -117,6 +121,381 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//WS*
 		public RuleCall getWSTerminalRuleCall_1_4_1() { return cWSTerminalRuleCall_1_4_1; }
+
+		//properties+=Property WS*
+		public Group getGroup_1_5() { return cGroup_1_5; }
+
+		//properties+=Property
+		public Assignment getPropertiesAssignment_1_5_0() { return cPropertiesAssignment_1_5_0; }
+
+		//Property
+		public RuleCall getPropertiesPropertyParserRuleCall_1_5_0_0() { return cPropertiesPropertyParserRuleCall_1_5_0_0; }
+
+		//WS*
+		public RuleCall getWSTerminalRuleCall_1_5_1() { return cWSTerminalRuleCall_1_5_1; }
+	}
+
+	public class PropertyElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Property");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Assignment cPojoAssignment_0_0 = (Assignment)cAlternatives_0.eContents().get(0);
+		private final Keyword cPojoResolveReferencesKeyword_0_0_0 = (Keyword)cPojoAssignment_0_0.eContents().get(0);
+		private final Assignment cDatabaseAssignment_0_1 = (Assignment)cAlternatives_0.eContents().get(1);
+		private final Keyword cDatabaseDatabaseOnlineKeyword_0_1_0 = (Keyword)cDatabaseAssignment_0_1.eContents().get(0);
+		private final Group cGroup_0_2 = (Group)cAlternatives_0.eContents().get(2);
+		private final Keyword cDatabaseUrlKeyword_0_2_0 = (Keyword)cGroup_0_2.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_2_1 = (RuleCall)cGroup_0_2.eContents().get(1);
+		private final Assignment cDbUrlAssignment_0_2_2 = (Assignment)cGroup_0_2.eContents().get(2);
+		private final RuleCall cDbUrlPropertyValueParserRuleCall_0_2_2_0 = (RuleCall)cDbUrlAssignment_0_2_2.eContents().get(0);
+		private final Group cGroup_0_3 = (Group)cAlternatives_0.eContents().get(3);
+		private final Keyword cDatabaseUsernameKeyword_0_3_0 = (Keyword)cGroup_0_3.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_3_1 = (RuleCall)cGroup_0_3.eContents().get(1);
+		private final Assignment cDbUsernameAssignment_0_3_2 = (Assignment)cGroup_0_3.eContents().get(2);
+		private final RuleCall cDbUsernamePropertyValueParserRuleCall_0_3_2_0 = (RuleCall)cDbUsernameAssignment_0_3_2.eContents().get(0);
+		private final Group cGroup_0_4 = (Group)cAlternatives_0.eContents().get(4);
+		private final Keyword cDatabasePasswordKeyword_0_4_0 = (Keyword)cGroup_0_4.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_4_1 = (RuleCall)cGroup_0_4.eContents().get(1);
+		private final Assignment cDbPasswordAssignment_0_4_2 = (Assignment)cGroup_0_4.eContents().get(2);
+		private final RuleCall cDbPasswordPropertyValueParserRuleCall_0_4_2_0 = (RuleCall)cDbPasswordAssignment_0_4_2.eContents().get(0);
+		private final Group cGroup_0_5 = (Group)cAlternatives_0.eContents().get(5);
+		private final Keyword cDatabaseSchemaKeyword_0_5_0 = (Keyword)cGroup_0_5.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_5_1 = (RuleCall)cGroup_0_5.eContents().get(1);
+		private final Assignment cDbSchemaAssignment_0_5_2 = (Assignment)cGroup_0_5.eContents().get(2);
+		private final RuleCall cDbSchemaPropertyValueParserRuleCall_0_5_2_0 = (RuleCall)cDbSchemaAssignment_0_5_2.eContents().get(0);
+		private final Group cGroup_0_6 = (Group)cAlternatives_0.eContents().get(6);
+		private final Keyword cDatabaseDriverKeyword_0_6_0 = (Keyword)cGroup_0_6.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_6_1 = (RuleCall)cGroup_0_6.eContents().get(1);
+		private final Assignment cDbDriverAssignment_0_6_2 = (Assignment)cGroup_0_6.eContents().get(2);
+		private final RuleCall cDbDriverPropertyValueParserRuleCall_0_6_2_0 = (RuleCall)cDbDriverAssignment_0_6_2.eContents().get(0);
+		private final RuleCall cSEMICOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		
+		//Property:
+		//	(pojo?="resolve references" | database?="database online" | "database url" WS+ dbUrl=PropertyValue |
+		//	"database username" WS+ dbUsername=PropertyValue | "database password" WS+ dbPassword=PropertyValue |
+		//	"database schema" WS+ dbSchema=PropertyValue | "database driver" WS+ dbDriver=PropertyValue) SEMICOLON;
+		public ParserRule getRule() { return rule; }
+
+		//(pojo?="resolve references" | database?="database online" | "database url" WS+ dbUrl=PropertyValue | "database username"
+		//WS+ dbUsername=PropertyValue | "database password" WS+ dbPassword=PropertyValue | "database schema" WS+
+		//dbSchema=PropertyValue | "database driver" WS+ dbDriver=PropertyValue) SEMICOLON
+		public Group getGroup() { return cGroup; }
+
+		//pojo?="resolve references" | database?="database online" | "database url" WS+ dbUrl=PropertyValue | "database username"
+		//WS+ dbUsername=PropertyValue | "database password" WS+ dbPassword=PropertyValue | "database schema" WS+
+		//dbSchema=PropertyValue | "database driver" WS+ dbDriver=PropertyValue
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//pojo?="resolve references"
+		public Assignment getPojoAssignment_0_0() { return cPojoAssignment_0_0; }
+
+		//"resolve references"
+		public Keyword getPojoResolveReferencesKeyword_0_0_0() { return cPojoResolveReferencesKeyword_0_0_0; }
+
+		//database?="database online"
+		public Assignment getDatabaseAssignment_0_1() { return cDatabaseAssignment_0_1; }
+
+		//"database online"
+		public Keyword getDatabaseDatabaseOnlineKeyword_0_1_0() { return cDatabaseDatabaseOnlineKeyword_0_1_0; }
+
+		//"database url" WS+ dbUrl=PropertyValue
+		public Group getGroup_0_2() { return cGroup_0_2; }
+
+		//"database url"
+		public Keyword getDatabaseUrlKeyword_0_2_0() { return cDatabaseUrlKeyword_0_2_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_2_1() { return cWSTerminalRuleCall_0_2_1; }
+
+		//dbUrl=PropertyValue
+		public Assignment getDbUrlAssignment_0_2_2() { return cDbUrlAssignment_0_2_2; }
+
+		//PropertyValue
+		public RuleCall getDbUrlPropertyValueParserRuleCall_0_2_2_0() { return cDbUrlPropertyValueParserRuleCall_0_2_2_0; }
+
+		//"database username" WS+ dbUsername=PropertyValue
+		public Group getGroup_0_3() { return cGroup_0_3; }
+
+		//"database username"
+		public Keyword getDatabaseUsernameKeyword_0_3_0() { return cDatabaseUsernameKeyword_0_3_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_3_1() { return cWSTerminalRuleCall_0_3_1; }
+
+		//dbUsername=PropertyValue
+		public Assignment getDbUsernameAssignment_0_3_2() { return cDbUsernameAssignment_0_3_2; }
+
+		//PropertyValue
+		public RuleCall getDbUsernamePropertyValueParserRuleCall_0_3_2_0() { return cDbUsernamePropertyValueParserRuleCall_0_3_2_0; }
+
+		//"database password" WS+ dbPassword=PropertyValue
+		public Group getGroup_0_4() { return cGroup_0_4; }
+
+		//"database password"
+		public Keyword getDatabasePasswordKeyword_0_4_0() { return cDatabasePasswordKeyword_0_4_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_4_1() { return cWSTerminalRuleCall_0_4_1; }
+
+		//dbPassword=PropertyValue
+		public Assignment getDbPasswordAssignment_0_4_2() { return cDbPasswordAssignment_0_4_2; }
+
+		//PropertyValue
+		public RuleCall getDbPasswordPropertyValueParserRuleCall_0_4_2_0() { return cDbPasswordPropertyValueParserRuleCall_0_4_2_0; }
+
+		//"database schema" WS+ dbSchema=PropertyValue
+		public Group getGroup_0_5() { return cGroup_0_5; }
+
+		//"database schema"
+		public Keyword getDatabaseSchemaKeyword_0_5_0() { return cDatabaseSchemaKeyword_0_5_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_5_1() { return cWSTerminalRuleCall_0_5_1; }
+
+		//dbSchema=PropertyValue
+		public Assignment getDbSchemaAssignment_0_5_2() { return cDbSchemaAssignment_0_5_2; }
+
+		//PropertyValue
+		public RuleCall getDbSchemaPropertyValueParserRuleCall_0_5_2_0() { return cDbSchemaPropertyValueParserRuleCall_0_5_2_0; }
+
+		//"database driver" WS+ dbDriver=PropertyValue
+		public Group getGroup_0_6() { return cGroup_0_6; }
+
+		//"database driver"
+		public Keyword getDatabaseDriverKeyword_0_6_0() { return cDatabaseDriverKeyword_0_6_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_6_1() { return cWSTerminalRuleCall_0_6_1; }
+
+		//dbDriver=PropertyValue
+		public Assignment getDbDriverAssignment_0_6_2() { return cDbDriverAssignment_0_6_2; }
+
+		//PropertyValue
+		public RuleCall getDbDriverPropertyValueParserRuleCall_0_6_2_0() { return cDbDriverPropertyValueParserRuleCall_0_6_2_0; }
+
+		//SEMICOLON
+		public RuleCall getSEMICOLONTerminalRuleCall_1() { return cSEMICOLONTerminalRuleCall_1; }
+	}
+
+	public class PropertyValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final RuleCall cRESTTerminalRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
+		private final RuleCall cIDENT_DOTTerminalRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
+		private final RuleCall cIDENTTerminalRuleCall_0_2 = (RuleCall)cAlternatives_0.eContents().get(2);
+		private final RuleCall cNUMBERTerminalRuleCall_0_3 = (RuleCall)cAlternatives_0.eContents().get(3);
+		private final RuleCall cCOLONTerminalRuleCall_0_4 = (RuleCall)cAlternatives_0.eContents().get(4);
+		private final RuleCall cSTRINGTerminalRuleCall_0_5 = (RuleCall)cAlternatives_0.eContents().get(5);
+		private final RuleCall cCOMMATerminalRuleCall_0_6 = (RuleCall)cAlternatives_0.eContents().get(6);
+		private final RuleCall cMINUSTerminalRuleCall_0_7 = (RuleCall)cAlternatives_0.eContents().get(7);
+		private final RuleCall cPLUSTerminalRuleCall_0_8 = (RuleCall)cAlternatives_0.eContents().get(8);
+		private final RuleCall cLPARENTerminalRuleCall_0_9 = (RuleCall)cAlternatives_0.eContents().get(9);
+		private final RuleCall cRPARENTerminalRuleCall_0_10 = (RuleCall)cAlternatives_0.eContents().get(10);
+		private final RuleCall cLBRACETerminalRuleCall_0_11 = (RuleCall)cAlternatives_0.eContents().get(11);
+		private final RuleCall cRBRACETerminalRuleCall_0_12 = (RuleCall)cAlternatives_0.eContents().get(12);
+		private final RuleCall cQUESTITerminalRuleCall_0_13 = (RuleCall)cAlternatives_0.eContents().get(13);
+		private final RuleCall cNOTTerminalRuleCall_0_14 = (RuleCall)cAlternatives_0.eContents().get(14);
+		private final RuleCall cBANDTerminalRuleCall_0_15 = (RuleCall)cAlternatives_0.eContents().get(15);
+		private final RuleCall cBORTerminalRuleCall_0_16 = (RuleCall)cAlternatives_0.eContents().get(16);
+		private final RuleCall cHASHTerminalRuleCall_0_17 = (RuleCall)cAlternatives_0.eContents().get(17);
+		private final RuleCall cATTerminalRuleCall_0_18 = (RuleCall)cAlternatives_0.eContents().get(18);
+		private final RuleCall cCARETTerminalRuleCall_0_19 = (RuleCall)cAlternatives_0.eContents().get(19);
+		private final RuleCall cEQUALSTerminalRuleCall_0_20 = (RuleCall)cAlternatives_0.eContents().get(20);
+		private final RuleCall cLESS_THANTerminalRuleCall_0_21 = (RuleCall)cAlternatives_0.eContents().get(21);
+		private final RuleCall cMORE_THANTerminalRuleCall_0_22 = (RuleCall)cAlternatives_0.eContents().get(22);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives_1_0 = (Alternatives)cGroup_1.eContents().get(0);
+		private final RuleCall cRESTTerminalRuleCall_1_0_0 = (RuleCall)cAlternatives_1_0.eContents().get(0);
+		private final RuleCall cIDENT_DOTTerminalRuleCall_1_0_1 = (RuleCall)cAlternatives_1_0.eContents().get(1);
+		private final RuleCall cIDENTTerminalRuleCall_1_0_2 = (RuleCall)cAlternatives_1_0.eContents().get(2);
+		private final RuleCall cNUMBERTerminalRuleCall_1_0_3 = (RuleCall)cAlternatives_1_0.eContents().get(3);
+		private final RuleCall cWSTerminalRuleCall_1_0_4 = (RuleCall)cAlternatives_1_0.eContents().get(4);
+		private final RuleCall cCOLONTerminalRuleCall_1_0_5 = (RuleCall)cAlternatives_1_0.eContents().get(5);
+		private final RuleCall cSTRINGTerminalRuleCall_1_0_6 = (RuleCall)cAlternatives_1_0.eContents().get(6);
+		private final RuleCall cCOMMATerminalRuleCall_1_0_7 = (RuleCall)cAlternatives_1_0.eContents().get(7);
+		private final RuleCall cMINUSTerminalRuleCall_1_0_8 = (RuleCall)cAlternatives_1_0.eContents().get(8);
+		private final RuleCall cPLUSTerminalRuleCall_1_0_9 = (RuleCall)cAlternatives_1_0.eContents().get(9);
+		private final RuleCall cLPARENTerminalRuleCall_1_0_10 = (RuleCall)cAlternatives_1_0.eContents().get(10);
+		private final RuleCall cRPARENTerminalRuleCall_1_0_11 = (RuleCall)cAlternatives_1_0.eContents().get(11);
+		private final RuleCall cLBRACETerminalRuleCall_1_0_12 = (RuleCall)cAlternatives_1_0.eContents().get(12);
+		private final RuleCall cRBRACETerminalRuleCall_1_0_13 = (RuleCall)cAlternatives_1_0.eContents().get(13);
+		private final RuleCall cQUESTITerminalRuleCall_1_0_14 = (RuleCall)cAlternatives_1_0.eContents().get(14);
+		private final RuleCall cNOTTerminalRuleCall_1_0_15 = (RuleCall)cAlternatives_1_0.eContents().get(15);
+		private final RuleCall cBANDTerminalRuleCall_1_0_16 = (RuleCall)cAlternatives_1_0.eContents().get(16);
+		private final RuleCall cBORTerminalRuleCall_1_0_17 = (RuleCall)cAlternatives_1_0.eContents().get(17);
+		private final RuleCall cHASHTerminalRuleCall_1_0_18 = (RuleCall)cAlternatives_1_0.eContents().get(18);
+		private final RuleCall cATTerminalRuleCall_1_0_19 = (RuleCall)cAlternatives_1_0.eContents().get(19);
+		private final RuleCall cCARETTerminalRuleCall_1_0_20 = (RuleCall)cAlternatives_1_0.eContents().get(20);
+		private final RuleCall cEQUALSTerminalRuleCall_1_0_21 = (RuleCall)cAlternatives_1_0.eContents().get(21);
+		private final RuleCall cLESS_THANTerminalRuleCall_1_0_22 = (RuleCall)cAlternatives_1_0.eContents().get(22);
+		private final RuleCall cMORE_THANTerminalRuleCall_1_0_23 = (RuleCall)cAlternatives_1_0.eContents().get(23);
+		
+		//PropertyValue:
+		//	(REST | IDENT_DOT | IDENT | NUMBER | COLON | STRING | COMMA | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE |
+		//	QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN) => (REST | IDENT_DOT | IDENT | NUMBER
+		//	| WS | COLON | STRING | COMMA | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH |
+		//	AT | CARET | EQUALS | LESS_THAN | MORE_THAN)*;
+		public ParserRule getRule() { return rule; }
+
+		//(REST | IDENT_DOT | IDENT | NUMBER | COLON | STRING | COMMA | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI
+		//| NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN) => (REST | IDENT_DOT | IDENT | NUMBER | WS |
+		//COLON | STRING | COMMA | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH | AT |
+		//CARET | EQUALS | LESS_THAN | MORE_THAN)*
+		public Group getGroup() { return cGroup; }
+
+		//REST | IDENT_DOT | IDENT | NUMBER | COLON | STRING | COMMA | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI |
+		//NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//REST
+		public RuleCall getRESTTerminalRuleCall_0_0() { return cRESTTerminalRuleCall_0_0; }
+
+		//IDENT_DOT
+		public RuleCall getIDENT_DOTTerminalRuleCall_0_1() { return cIDENT_DOTTerminalRuleCall_0_1; }
+
+		//IDENT
+		public RuleCall getIDENTTerminalRuleCall_0_2() { return cIDENTTerminalRuleCall_0_2; }
+
+		//NUMBER
+		public RuleCall getNUMBERTerminalRuleCall_0_3() { return cNUMBERTerminalRuleCall_0_3; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_0_4() { return cCOLONTerminalRuleCall_0_4; }
+
+		//STRING
+		public RuleCall getSTRINGTerminalRuleCall_0_5() { return cSTRINGTerminalRuleCall_0_5; }
+
+		//COMMA
+		public RuleCall getCOMMATerminalRuleCall_0_6() { return cCOMMATerminalRuleCall_0_6; }
+
+		//MINUS
+		public RuleCall getMINUSTerminalRuleCall_0_7() { return cMINUSTerminalRuleCall_0_7; }
+
+		//PLUS
+		public RuleCall getPLUSTerminalRuleCall_0_8() { return cPLUSTerminalRuleCall_0_8; }
+
+		//LPAREN
+		public RuleCall getLPARENTerminalRuleCall_0_9() { return cLPARENTerminalRuleCall_0_9; }
+
+		//RPAREN
+		public RuleCall getRPARENTerminalRuleCall_0_10() { return cRPARENTerminalRuleCall_0_10; }
+
+		//LBRACE
+		public RuleCall getLBRACETerminalRuleCall_0_11() { return cLBRACETerminalRuleCall_0_11; }
+
+		//RBRACE
+		public RuleCall getRBRACETerminalRuleCall_0_12() { return cRBRACETerminalRuleCall_0_12; }
+
+		//QUESTI
+		public RuleCall getQUESTITerminalRuleCall_0_13() { return cQUESTITerminalRuleCall_0_13; }
+
+		//NOT
+		public RuleCall getNOTTerminalRuleCall_0_14() { return cNOTTerminalRuleCall_0_14; }
+
+		//BAND
+		public RuleCall getBANDTerminalRuleCall_0_15() { return cBANDTerminalRuleCall_0_15; }
+
+		//BOR
+		public RuleCall getBORTerminalRuleCall_0_16() { return cBORTerminalRuleCall_0_16; }
+
+		//HASH
+		public RuleCall getHASHTerminalRuleCall_0_17() { return cHASHTerminalRuleCall_0_17; }
+
+		//AT
+		public RuleCall getATTerminalRuleCall_0_18() { return cATTerminalRuleCall_0_18; }
+
+		//CARET
+		public RuleCall getCARETTerminalRuleCall_0_19() { return cCARETTerminalRuleCall_0_19; }
+
+		//EQUALS
+		public RuleCall getEQUALSTerminalRuleCall_0_20() { return cEQUALSTerminalRuleCall_0_20; }
+
+		//LESS_THAN
+		public RuleCall getLESS_THANTerminalRuleCall_0_21() { return cLESS_THANTerminalRuleCall_0_21; }
+
+		//MORE_THAN
+		public RuleCall getMORE_THANTerminalRuleCall_0_22() { return cMORE_THANTerminalRuleCall_0_22; }
+
+		//=> (REST | IDENT_DOT | IDENT | NUMBER | WS | COLON | STRING | COMMA | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE |
+		//QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN)*
+		public Group getGroup_1() { return cGroup_1; }
+
+		//REST | IDENT_DOT | IDENT | NUMBER | WS | COLON | STRING | COMMA | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE |
+		//QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN
+		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
+
+		//REST
+		public RuleCall getRESTTerminalRuleCall_1_0_0() { return cRESTTerminalRuleCall_1_0_0; }
+
+		//IDENT_DOT
+		public RuleCall getIDENT_DOTTerminalRuleCall_1_0_1() { return cIDENT_DOTTerminalRuleCall_1_0_1; }
+
+		//IDENT
+		public RuleCall getIDENTTerminalRuleCall_1_0_2() { return cIDENTTerminalRuleCall_1_0_2; }
+
+		//NUMBER
+		public RuleCall getNUMBERTerminalRuleCall_1_0_3() { return cNUMBERTerminalRuleCall_1_0_3; }
+
+		//WS
+		public RuleCall getWSTerminalRuleCall_1_0_4() { return cWSTerminalRuleCall_1_0_4; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1_0_5() { return cCOLONTerminalRuleCall_1_0_5; }
+
+		//STRING
+		public RuleCall getSTRINGTerminalRuleCall_1_0_6() { return cSTRINGTerminalRuleCall_1_0_6; }
+
+		//COMMA
+		public RuleCall getCOMMATerminalRuleCall_1_0_7() { return cCOMMATerminalRuleCall_1_0_7; }
+
+		//MINUS
+		public RuleCall getMINUSTerminalRuleCall_1_0_8() { return cMINUSTerminalRuleCall_1_0_8; }
+
+		//PLUS
+		public RuleCall getPLUSTerminalRuleCall_1_0_9() { return cPLUSTerminalRuleCall_1_0_9; }
+
+		//LPAREN
+		public RuleCall getLPARENTerminalRuleCall_1_0_10() { return cLPARENTerminalRuleCall_1_0_10; }
+
+		//RPAREN
+		public RuleCall getRPARENTerminalRuleCall_1_0_11() { return cRPARENTerminalRuleCall_1_0_11; }
+
+		//LBRACE
+		public RuleCall getLBRACETerminalRuleCall_1_0_12() { return cLBRACETerminalRuleCall_1_0_12; }
+
+		//RBRACE
+		public RuleCall getRBRACETerminalRuleCall_1_0_13() { return cRBRACETerminalRuleCall_1_0_13; }
+
+		//QUESTI
+		public RuleCall getQUESTITerminalRuleCall_1_0_14() { return cQUESTITerminalRuleCall_1_0_14; }
+
+		//NOT
+		public RuleCall getNOTTerminalRuleCall_1_0_15() { return cNOTTerminalRuleCall_1_0_15; }
+
+		//BAND
+		public RuleCall getBANDTerminalRuleCall_1_0_16() { return cBANDTerminalRuleCall_1_0_16; }
+
+		//BOR
+		public RuleCall getBORTerminalRuleCall_1_0_17() { return cBORTerminalRuleCall_1_0_17; }
+
+		//HASH
+		public RuleCall getHASHTerminalRuleCall_1_0_18() { return cHASHTerminalRuleCall_1_0_18; }
+
+		//AT
+		public RuleCall getATTerminalRuleCall_1_0_19() { return cATTerminalRuleCall_1_0_19; }
+
+		//CARET
+		public RuleCall getCARETTerminalRuleCall_1_0_20() { return cCARETTerminalRuleCall_1_0_20; }
+
+		//EQUALS
+		public RuleCall getEQUALSTerminalRuleCall_1_0_21() { return cEQUALSTerminalRuleCall_1_0_21; }
+
+		//LESS_THAN
+		public RuleCall getLESS_THANTerminalRuleCall_1_0_22() { return cLESS_THANTerminalRuleCall_1_0_22; }
+
+		//MORE_THAN
+		public RuleCall getMORE_THANTerminalRuleCall_1_0_23() { return cMORE_THANTerminalRuleCall_1_0_23; }
 	}
 
 	public class PojoDefinitionElements extends AbstractParserRuleElementFinder {
@@ -2645,6 +3024,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	private ArtifactsElements pArtifacts;
+	private PropertyElements pProperty;
+	private PropertyValueElements pPropertyValue;
 	private PojoDefinitionElements pPojoDefinition;
 	private PojoUsageElements pPojoUsage;
 	private ColumnUsageElements pColumnUsage;
@@ -2723,13 +3104,38 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//Artifacts:
 	//	WS* (features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS* | pojos+=PojoDefinition
-	//	WS* | usages+=PojoUsage WS*)+;
+	//	WS* | usages+=PojoUsage WS* | properties+=Property WS*)+;
 	public ArtifactsElements getArtifactsAccess() {
 		return (pArtifacts != null) ? pArtifacts : (pArtifacts = new ArtifactsElements());
 	}
 	
 	public ParserRule getArtifactsRule() {
 		return getArtifactsAccess().getRule();
+	}
+
+	//Property:
+	//	(pojo?="resolve references" | database?="database online" | "database url" WS+ dbUrl=PropertyValue |
+	//	"database username" WS+ dbUsername=PropertyValue | "database password" WS+ dbPassword=PropertyValue |
+	//	"database schema" WS+ dbSchema=PropertyValue | "database driver" WS+ dbDriver=PropertyValue) SEMICOLON;
+	public PropertyElements getPropertyAccess() {
+		return (pProperty != null) ? pProperty : (pProperty = new PropertyElements());
+	}
+	
+	public ParserRule getPropertyRule() {
+		return getPropertyAccess().getRule();
+	}
+
+	//PropertyValue:
+	//	(REST | IDENT_DOT | IDENT | NUMBER | COLON | STRING | COMMA | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE |
+	//	QUESTI | NOT | BAND | BOR | HASH | AT | CARET | EQUALS | LESS_THAN | MORE_THAN) => (REST | IDENT_DOT | IDENT | NUMBER
+	//	| WS | COLON | STRING | COMMA | MINUS | PLUS | LPAREN | RPAREN | LBRACE | RBRACE | QUESTI | NOT | BAND | BOR | HASH |
+	//	AT | CARET | EQUALS | LESS_THAN | MORE_THAN)*;
+	public PropertyValueElements getPropertyValueAccess() {
+		return (pPropertyValue != null) ? pPropertyValue : (pPropertyValue = new PropertyValueElements());
+	}
+	
+	public ParserRule getPropertyValueRule() {
+		return getPropertyValueAccess().getRule();
 	}
 
 	//PojoDefinition hidden(ML_COMMENT, SL_COMMENT, WS):

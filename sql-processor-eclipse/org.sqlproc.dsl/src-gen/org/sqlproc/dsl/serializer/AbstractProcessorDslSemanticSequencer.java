@@ -37,6 +37,7 @@ import org.sqlproc.dsl.processorDsl.OrdSql;
 import org.sqlproc.dsl.processorDsl.OrdSql2;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
+import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.Sql;
 import org.sqlproc.dsl.processorDsl.SqlFragment;
 import org.sqlproc.dsl.services.ProcessorDslGrammarAccess;
@@ -211,6 +212,12 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.PROPERTY:
+				if(context == grammarAccess.getPropertyRule()) {
+					sequence_Property_Property(context, (Property) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.SQL:
 				if(context == grammarAccess.getSqlRule()) {
 					sequence_Sql_Sql(context, (Sql) semanticObject); 
@@ -229,7 +236,14 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (features+=OptionalFeature | statements+=MetaStatement | mappings+=MappingRule | pojos+=PojoDefinition | usages+=PojoUsage)+
+	 *     (
+	 *         features+=OptionalFeature | 
+	 *         statements+=MetaStatement | 
+	 *         mappings+=MappingRule | 
+	 *         pojos+=PojoDefinition | 
+	 *         usages+=PojoUsage | 
+	 *         properties+=Property
+	 *     )+
 	 *
 	 * Features:
 	 *    features[0, *]
@@ -237,6 +251,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    mappings[0, *]
 	 *    pojos[0, *]
 	 *    usages[0, *]
+	 *    properties[0, *]
 	 */
 	protected void sequence_Artifacts_Artifacts(EObject context, Artifacts semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -728,6 +743,74 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    class[0, 2]
 	 */
 	protected void sequence_PojoDefinition_PojoDefinition(EObject context, PojoDefinition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         pojo?='resolve references' | 
+	 *         database?='database online' | 
+	 *         dbUrl=PropertyValue | 
+	 *         dbUsername=PropertyValue | 
+	 *         dbPassword=PropertyValue | 
+	 *         dbSchema=PropertyValue | 
+	 *         dbDriver=PropertyValue
+	 *     )
+	 *
+	 * Features:
+	 *    pojo[0, 1]
+	 *         EXCLUDE_IF_SET database
+	 *         EXCLUDE_IF_SET dbUrl
+	 *         EXCLUDE_IF_SET dbUsername
+	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET dbSchema
+	 *         EXCLUDE_IF_SET dbDriver
+	 *    database[0, 1]
+	 *         EXCLUDE_IF_SET pojo
+	 *         EXCLUDE_IF_SET dbUrl
+	 *         EXCLUDE_IF_SET dbUsername
+	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET dbSchema
+	 *         EXCLUDE_IF_SET dbDriver
+	 *    dbUrl[0, 1]
+	 *         EXCLUDE_IF_SET pojo
+	 *         EXCLUDE_IF_SET database
+	 *         EXCLUDE_IF_SET dbUsername
+	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET dbSchema
+	 *         EXCLUDE_IF_SET dbDriver
+	 *    dbUsername[0, 1]
+	 *         EXCLUDE_IF_SET pojo
+	 *         EXCLUDE_IF_SET database
+	 *         EXCLUDE_IF_SET dbUrl
+	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET dbSchema
+	 *         EXCLUDE_IF_SET dbDriver
+	 *    dbPassword[0, 1]
+	 *         EXCLUDE_IF_SET pojo
+	 *         EXCLUDE_IF_SET database
+	 *         EXCLUDE_IF_SET dbUrl
+	 *         EXCLUDE_IF_SET dbUsername
+	 *         EXCLUDE_IF_SET dbSchema
+	 *         EXCLUDE_IF_SET dbDriver
+	 *    dbSchema[0, 1]
+	 *         EXCLUDE_IF_SET pojo
+	 *         EXCLUDE_IF_SET database
+	 *         EXCLUDE_IF_SET dbUrl
+	 *         EXCLUDE_IF_SET dbUsername
+	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET dbDriver
+	 *    dbDriver[0, 1]
+	 *         EXCLUDE_IF_SET pojo
+	 *         EXCLUDE_IF_SET database
+	 *         EXCLUDE_IF_SET dbUrl
+	 *         EXCLUDE_IF_SET dbUsername
+	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET dbSchema
+	 */
+	protected void sequence_Property_Property(EObject context, Property semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

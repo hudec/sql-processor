@@ -6,8 +6,22 @@ generate processorDsl "http://www.sqlproc.org/dsl/ProcessorDsl"
 
 Artifacts:
     WS* (features+=OptionalFeature WS*|statements+=MetaStatement WS*|mappings+=MappingRule WS*
-    	|pojos+=PojoDefinition WS*|usages+=PojoUsage WS*
+    	|pojos+=PojoDefinition WS*|usages+=PojoUsage WS*|properties+=Property WS*
     )+;
+
+Property:
+	(pojo?='resolve references'
+	|database?='database online'
+	|'database url' WS+ dbUrl=PropertyValue
+	|'database username' WS+ dbUsername=PropertyValue
+	|'database password' WS+ dbPassword=PropertyValue
+	|'database schema' WS+ dbSchema=PropertyValue
+	|'database driver' WS+ dbDriver=PropertyValue
+	) SEMICOLON;
+
+PropertyValue:
+  (REST|IDENT_DOT|IDENT|NUMBER|COLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN)
+  (=> (REST|IDENT_DOT|IDENT|NUMBER|WS|COLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN)*);
 
 PojoDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
 	'pojo' name=IDENT class=(IDENT|IDENT_DOT) SEMICOLON;

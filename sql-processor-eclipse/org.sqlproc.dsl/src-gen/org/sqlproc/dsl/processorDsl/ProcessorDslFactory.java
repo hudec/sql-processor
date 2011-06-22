@@ -35,6 +35,15 @@ public interface ProcessorDslFactory extends EFactory
   Artifacts createArtifacts();
 
   /**
+   * Returns a new object of class '<em>Property</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property</em>'.
+   * @generated
+   */
+  Property createProperty();
+
+  /**
    * Returns a new object of class '<em>Pojo Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
