@@ -89,6 +89,8 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             return false;
         } else {
             for (PropertyDescriptor descriptor : descriptors) {
+                if ("class".equals(descriptor.getName()))
+                    continue;
                 String proposal = getValueConverter().toString(descriptor.getName(), "IDENT");
                 ICompletionProposal completionProposal = createCompletionProposal(prefix + proposal, context);
                 acceptor.accept(completionProposal);
@@ -125,6 +127,8 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             super.completeMappingColumn_Name(model, assignment, context, acceptor);
         } else {
             for (PropertyDescriptor descriptor : descriptors) {
+                if ("class".equals(descriptor.getName()))
+                    continue;
                 String proposal = getValueConverter().toString(descriptor.getName(), "IDENT");
                 ICompletionProposal completionProposal = createCompletionProposal(prefix + proposal, context);
                 acceptor.accept(completionProposal);
