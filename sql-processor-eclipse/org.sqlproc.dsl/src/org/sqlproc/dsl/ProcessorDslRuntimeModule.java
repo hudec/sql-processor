@@ -3,10 +3,10 @@
  */
 package org.sqlproc.dsl;
 
-import org.sqlproc.dsl.resolver.PojoResolverFactory;
-import org.sqlproc.dsl.resolver.PojoResolverFactoryBean;
 import org.sqlproc.dsl.resolver.ModelProperty;
 import org.sqlproc.dsl.resolver.ModelPropertyBean;
+import org.sqlproc.dsl.resolver.PojoResolverFactory;
+import org.sqlproc.dsl.resolver.PojoResolverFactoryBean;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -22,7 +22,7 @@ public class ProcessorDslRuntimeModule extends org.sqlproc.dsl.AbstractProcessor
         return PojoResolverFactoryBean.class;
     }
 
-    public Class<? extends ModelProperty> bindPojoStatus() {
+    public Class<? extends ModelProperty> bindModelProperty() {
         return ModelPropertyBean.class;
     }
 }

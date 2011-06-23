@@ -41,7 +41,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     PojoResolver pojoResolver;
 
     @Inject
-    ModelProperty pojoStatus;
+    ModelProperty modelProperty;
 
     @Override
     public void completeColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
@@ -67,7 +67,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
 
     public boolean completeUsage(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor, String name) {
-        if (!pojoStatus.resolvingPojo())
+        if (!modelProperty.resolvingPojo())
             return false;
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
@@ -108,7 +108,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     @Override
     public void completeMappingColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        if (!pojoStatus.resolvingPojo())
+        if (!modelProperty.resolvingPojo())
             return;
         MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);

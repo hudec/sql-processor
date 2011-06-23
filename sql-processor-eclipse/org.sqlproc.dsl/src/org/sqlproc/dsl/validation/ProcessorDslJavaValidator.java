@@ -45,7 +45,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     IScopeProvider scopeProvider;
 
     @Inject
-    ModelProperty pojoStatus;
+    ModelProperty modelProperty;
 
     public enum ValidationResult {
         OK, WARNING, ERROR;
@@ -53,7 +53,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkArtifacts(Artifacts artifacts) {
-        ((ModelPropertyBean) pojoStatus).setStatus(artifacts);
+        ((ModelPropertyBean) modelProperty).setStatus(artifacts);
     }
 
     @Check
@@ -112,7 +112,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkUniquePojoDefinition(PojoDefinition pojoDefinition) {
-        if (pojoStatus.resolvingPojo() && !checkClass(pojoDefinition.getClass_()))
+        if (modelProperty.resolvingPojo() && !checkClass(pojoDefinition.getClass_()))
             error("Class name : " + pojoDefinition.getClass_() + " not exists",
                     ProcessorDslPackage.Literals.POJO_DEFINITION__NAME);
         Artifacts artifacts;
@@ -300,7 +300,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkColumn(Column column) {
-        if (!pojoStatus.resolvingPojo())
+        if (!modelProperty.resolvingPojo())
             return;
         String columnUsageClass = null;
         MappingUsage mappingUsage = null;
@@ -343,7 +343,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkIdentifier(Identifier identifier) {
-        if (!pojoStatus.resolvingPojo())
+        if (!modelProperty.resolvingPojo())
             return;
         String identifierUsageClass = null;
         MetaStatement statement = EcoreUtil2.getContainerOfType(identifier, MetaStatement.class);
@@ -375,7 +375,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkConstant(Constant constant) {
-        if (!pojoStatus.resolvingPojo())
+        if (!modelProperty.resolvingPojo())
             return;
         String constantUsageClass = null;
         MetaStatement statement = EcoreUtil2.getContainerOfType(constant, MetaStatement.class);
@@ -407,7 +407,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkMappingColumn(MappingColumn identifier) {
-        if (!pojoStatus.resolvingPojo())
+        if (!modelProperty.resolvingPojo())
             return;
         String mappingUsageClass = null;
         MappingRule rule = EcoreUtil2.getContainerOfType(identifier, MappingRule.class);
