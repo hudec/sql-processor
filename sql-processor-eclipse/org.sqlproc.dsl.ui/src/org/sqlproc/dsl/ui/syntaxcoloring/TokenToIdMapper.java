@@ -32,6 +32,7 @@ public class TokenToIdMapper extends DefaultAntlrTokenToAttributeIdMapper {
                 || tokenType == InternalProcessorDslLexer.RULE_RPAREN
                 || tokenType == InternalProcessorDslLexer.RULE_BOR
                 || tokenType == InternalProcessorDslLexer.RULE_LESS_THAN
+                || tokenType == InternalProcessorDslLexer.RULE_PERCENT
                 // || tokenType == InternalProcessorDslLexer.RULE_IDENT_DOT
                 || tokenType == InternalProcessorDslLexer.RULE_AT)
             return HighlightingConfiguration.PUNCTATION;
@@ -44,7 +45,8 @@ public class TokenToIdMapper extends DefaultAntlrTokenToAttributeIdMapper {
                 || tokenName.equals("'OPT'") || tokenName.equals("'QRY'") || tokenName.equals("'IOPT'")
                 || tokenName.equals("'LOPT'") || tokenName.equals("'CRUD'") || tokenName.equals("'CALL'")
                 || tokenName.equals("'pojo'") || tokenName.equals("'col'") || tokenName.equals("'ident'")
-                || tokenName.equals("'const'") || tokenName.equals("'out'"))
+                || tokenName.equals("'const'") || tokenName.equals("'out'") || tokenName.equals("'table'")
+                || tokenName.equals("'dbcol'") || tokenName.equals("'prefix'"))
             return HighlightingConfiguration.TYPE;
 
         return HighlightingConfiguration.DEFAULT;

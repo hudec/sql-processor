@@ -24,6 +24,8 @@ import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
+import org.sqlproc.dsl.processorDsl.TableDefinition;
+import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.resolver.PojoResolver;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
 
@@ -117,6 +119,17 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 PojoDefinition pojo = usage.getPojo();
                 if (rule != null && pojo != null)
                     provideHighlightingForPojo(rule.getName(), pojo.getName(), node, acceptor);
+            } else if (current instanceof TableDefinition) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                TableDefinition table = (TableDefinition) current;
+                provideHighlightingForTable(null, table.getName(), node, acceptor);
+            } else if (current instanceof TableUsage) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                TableUsage usage = (TableUsage) current;
+                MetaStatement statement = usage.getStatement();
+                TableDefinition table = usage.getTable();
+                if (statement != null && table != null)
+                	provideHighlightingForTable(statement.getName(), table.getName(), node, acceptor);
             }
         }
     }
@@ -150,6 +163,25 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                     return;
             }
             if (pojo != null && pojo.contains(inode.getText())) {
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.IDENTIFIER);
+                return;
+            }
+        }
+    }
+
+    private void provideHighlightingForTable(String name, String table, ICompositeNode node,
+            IHighlightedPositionAcceptor acceptor) {
+        if (name == null && table == null)
+            return;
+        Iterator<INode> iterator = new NodeTreeIterator(node);
+        while (iterator.hasNext()) {
+            INode inode = iterator.next();
+            if (name != null && name.contains(inode.getText())) {
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.NAME);
+                if (table == null)
+                    return;
+            }
+            if (table != null && table.contains(inode.getText())) {
                 acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.IDENTIFIER);
                 return;
             }
