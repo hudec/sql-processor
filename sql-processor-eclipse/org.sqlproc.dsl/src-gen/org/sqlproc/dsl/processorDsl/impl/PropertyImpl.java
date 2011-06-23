@@ -22,8 +22,7 @@ import org.sqlproc.dsl.processorDsl.Property;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#isPojo <em>Pojo</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#isDatabase <em>Database</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbUrl <em>Db Url</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbUsername <em>Db Username</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbPassword <em>Db Password</em>}</li>
@@ -37,44 +36,24 @@ import org.sqlproc.dsl.processorDsl.Property;
 public class PropertyImpl extends MinimalEObjectImpl.Container implements Property
 {
   /**
-   * The default value of the '{@link #isPojo() <em>Pojo</em>}' attribute.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isPojo()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected static final boolean POJO_EDEFAULT = false;
+  protected static final String NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #isPojo() <em>Pojo</em>}' attribute.
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isPojo()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected boolean pojo = POJO_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #isDatabase() <em>Database</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isDatabase()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean DATABASE_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isDatabase() <em>Database</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isDatabase()
-   * @generated
-   * @ordered
-   */
-  protected boolean database = DATABASE_EDEFAULT;
+  protected String name = NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getDbUrl() <em>Db Url</em>}' attribute.
@@ -202,9 +181,9 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isPojo()
+  public String getName()
   {
-    return pojo;
+    return name;
   }
 
   /**
@@ -212,35 +191,12 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPojo(boolean newPojo)
+  public void setName(String newName)
   {
-    boolean oldPojo = pojo;
-    pojo = newPojo;
+    String oldName = name;
+    name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__POJO, oldPojo, pojo));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isDatabase()
-  {
-    return database;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDatabase(boolean newDatabase)
-  {
-    boolean oldDatabase = database;
-    database = newDatabase;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__DATABASE, oldDatabase, database));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__NAME, oldName, name));
   }
 
   /**
@@ -368,10 +324,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.PROPERTY__POJO:
-        return isPojo();
-      case ProcessorDslPackage.PROPERTY__DATABASE:
-        return isDatabase();
+      case ProcessorDslPackage.PROPERTY__NAME:
+        return getName();
       case ProcessorDslPackage.PROPERTY__DB_URL:
         return getDbUrl();
       case ProcessorDslPackage.PROPERTY__DB_USERNAME:
@@ -396,11 +350,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.PROPERTY__POJO:
-        setPojo((Boolean)newValue);
-        return;
-      case ProcessorDslPackage.PROPERTY__DATABASE:
-        setDatabase((Boolean)newValue);
+      case ProcessorDslPackage.PROPERTY__NAME:
+        setName((String)newValue);
         return;
       case ProcessorDslPackage.PROPERTY__DB_URL:
         setDbUrl((String)newValue);
@@ -431,11 +382,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.PROPERTY__POJO:
-        setPojo(POJO_EDEFAULT);
-        return;
-      case ProcessorDslPackage.PROPERTY__DATABASE:
-        setDatabase(DATABASE_EDEFAULT);
+      case ProcessorDslPackage.PROPERTY__NAME:
+        setName(NAME_EDEFAULT);
         return;
       case ProcessorDslPackage.PROPERTY__DB_URL:
         setDbUrl(DB_URL_EDEFAULT);
@@ -466,10 +414,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.PROPERTY__POJO:
-        return pojo != POJO_EDEFAULT;
-      case ProcessorDslPackage.PROPERTY__DATABASE:
-        return database != DATABASE_EDEFAULT;
+      case ProcessorDslPackage.PROPERTY__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.PROPERTY__DB_URL:
         return DB_URL_EDEFAULT == null ? dbUrl != null : !DB_URL_EDEFAULT.equals(dbUrl);
       case ProcessorDslPackage.PROPERTY__DB_USERNAME:
@@ -495,10 +441,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (pojo: ");
-    result.append(pojo);
-    result.append(", database: ");
-    result.append(database);
+    result.append(" (name: ");
+    result.append(name);
     result.append(", dbUrl: ");
     result.append(dbUrl);
     result.append(", dbUsername: ");

@@ -3,8 +3,9 @@
  */
 package org.sqlproc.dsl;
 
-import org.sqlproc.dsl.resolver.ModelProperty;
-import org.sqlproc.dsl.resolver.ModelPropertyBean;
+import org.eclipse.xtext.parser.IAstFactory;
+import org.sqlproc.dsl.property.ModelProperty;
+import org.sqlproc.dsl.property.ModelPropertyBean;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
 import org.sqlproc.dsl.resolver.PojoResolverFactoryBean;
 
@@ -13,6 +14,14 @@ import org.sqlproc.dsl.resolver.PojoResolverFactoryBean;
  */
 public class ProcessorDslRuntimeModule extends org.sqlproc.dsl.AbstractProcessorDslRuntimeModule {
 
+    public Class<? extends ModelProperty> bindModelProperty() {
+        return ModelPropertyBean.class;
+    }
+
+    public Class<? extends IAstFactory> bindIAstFactory() {
+        return ProcessorEcoreElementFactory.class;
+    }
+
     @Override
     public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
         return ProcessorNameProvider.class;
@@ -20,9 +29,5 @@ public class ProcessorDslRuntimeModule extends org.sqlproc.dsl.AbstractProcessor
 
     public Class<? extends PojoResolverFactory> bindPojoResolverFactory() {
         return PojoResolverFactoryBean.class;
-    }
-
-    public Class<? extends ModelProperty> bindModelProperty() {
-        return ModelPropertyBean.class;
     }
 }

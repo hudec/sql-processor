@@ -27,8 +27,8 @@ import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
+import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.PojoResolver;
-import org.sqlproc.dsl.resolver.ModelProperty;
 
 import com.google.inject.Inject;
 
@@ -67,7 +67,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
 
     public boolean completeUsage(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor, String name) {
-        if (!modelProperty.resolvingPojo())
+        if (!modelProperty.isResolvePojo())
             return false;
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
@@ -108,7 +108,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     @Override
     public void completeMappingColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        if (!modelProperty.resolvingPojo())
+        if (!modelProperty.isResolvePojo())
             return;
         MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);

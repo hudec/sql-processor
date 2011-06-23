@@ -1245,15 +1245,15 @@ rule__Property__Alternatives_0
     }
 :
 (
-{ before(grammarAccess.getPropertyAccess().getPojoAssignment_0_0()); }
-(rule__Property__PojoAssignment_0_0)
-{ after(grammarAccess.getPropertyAccess().getPojoAssignment_0_0()); }
+{ before(grammarAccess.getPropertyAccess().getNameAssignment_0_0()); }
+(rule__Property__NameAssignment_0_0)
+{ after(grammarAccess.getPropertyAccess().getNameAssignment_0_0()); }
 )
 
     |(
-{ before(grammarAccess.getPropertyAccess().getDatabaseAssignment_0_1()); }
-(rule__Property__DatabaseAssignment_0_1)
-{ after(grammarAccess.getPropertyAccess().getDatabaseAssignment_0_1()); }
+{ before(grammarAccess.getPropertyAccess().getNameAssignment_0_1()); }
+(rule__Property__NameAssignment_0_1)
+{ after(grammarAccess.getPropertyAccess().getNameAssignment_0_1()); }
 )
 
     |(
@@ -4048,11 +4048,9 @@ rule__Property__Group_0_2__0__Impl
     }
 :
 (
-{ before(grammarAccess.getPropertyAccess().getDatabaseUrlKeyword_0_2_0()); }
-
-	'database url' 
-
-{ after(grammarAccess.getPropertyAccess().getDatabaseUrlKeyword_0_2_0()); }
+{ before(grammarAccess.getPropertyAccess().getNameAssignment_0_2_0()); }
+(rule__Property__NameAssignment_0_2_0)
+{ after(grammarAccess.getPropertyAccess().getNameAssignment_0_2_0()); }
 )
 
 ;
@@ -4149,11 +4147,9 @@ rule__Property__Group_0_3__0__Impl
     }
 :
 (
-{ before(grammarAccess.getPropertyAccess().getDatabaseUsernameKeyword_0_3_0()); }
-
-	'database username' 
-
-{ after(grammarAccess.getPropertyAccess().getDatabaseUsernameKeyword_0_3_0()); }
+{ before(grammarAccess.getPropertyAccess().getNameAssignment_0_3_0()); }
+(rule__Property__NameAssignment_0_3_0)
+{ after(grammarAccess.getPropertyAccess().getNameAssignment_0_3_0()); }
 )
 
 ;
@@ -4250,11 +4246,9 @@ rule__Property__Group_0_4__0__Impl
     }
 :
 (
-{ before(grammarAccess.getPropertyAccess().getDatabasePasswordKeyword_0_4_0()); }
-
-	'database password' 
-
-{ after(grammarAccess.getPropertyAccess().getDatabasePasswordKeyword_0_4_0()); }
+{ before(grammarAccess.getPropertyAccess().getNameAssignment_0_4_0()); }
+(rule__Property__NameAssignment_0_4_0)
+{ after(grammarAccess.getPropertyAccess().getNameAssignment_0_4_0()); }
 )
 
 ;
@@ -4351,11 +4345,9 @@ rule__Property__Group_0_5__0__Impl
     }
 :
 (
-{ before(grammarAccess.getPropertyAccess().getDatabaseSchemaKeyword_0_5_0()); }
-
-	'database schema' 
-
-{ after(grammarAccess.getPropertyAccess().getDatabaseSchemaKeyword_0_5_0()); }
+{ before(grammarAccess.getPropertyAccess().getNameAssignment_0_5_0()); }
+(rule__Property__NameAssignment_0_5_0)
+{ after(grammarAccess.getPropertyAccess().getNameAssignment_0_5_0()); }
 )
 
 ;
@@ -4452,11 +4444,9 @@ rule__Property__Group_0_6__0__Impl
     }
 :
 (
-{ before(grammarAccess.getPropertyAccess().getDatabaseDriverKeyword_0_6_0()); }
-
-	'database driver' 
-
-{ after(grammarAccess.getPropertyAccess().getDatabaseDriverKeyword_0_6_0()); }
+{ before(grammarAccess.getPropertyAccess().getNameAssignment_0_6_0()); }
+(rule__Property__NameAssignment_0_6_0)
+{ after(grammarAccess.getPropertyAccess().getNameAssignment_0_6_0()); }
 )
 
 ;
@@ -11116,22 +11106,22 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Property__PojoAssignment_0_0
+rule__Property__NameAssignment_0_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getPropertyAccess().getPojoResolveReferencesKeyword_0_0_0()); }
+{ before(grammarAccess.getPropertyAccess().getNameResolveReferencesKeyword_0_0_0()); }
 (
-{ before(grammarAccess.getPropertyAccess().getPojoResolveReferencesKeyword_0_0_0()); }
+{ before(grammarAccess.getPropertyAccess().getNameResolveReferencesKeyword_0_0_0()); }
 
 	'resolve references' 
 
-{ after(grammarAccess.getPropertyAccess().getPojoResolveReferencesKeyword_0_0_0()); }
+{ after(grammarAccess.getPropertyAccess().getNameResolveReferencesKeyword_0_0_0()); }
 )
 
-{ after(grammarAccess.getPropertyAccess().getPojoResolveReferencesKeyword_0_0_0()); }
+{ after(grammarAccess.getPropertyAccess().getNameResolveReferencesKeyword_0_0_0()); }
 )
 
 ;
@@ -11139,22 +11129,45 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Property__DatabaseAssignment_0_1
+rule__Property__NameAssignment_0_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getPropertyAccess().getDatabaseDatabaseOnlineKeyword_0_1_0()); }
+{ before(grammarAccess.getPropertyAccess().getNameDatabaseOnlineKeyword_0_1_0()); }
 (
-{ before(grammarAccess.getPropertyAccess().getDatabaseDatabaseOnlineKeyword_0_1_0()); }
+{ before(grammarAccess.getPropertyAccess().getNameDatabaseOnlineKeyword_0_1_0()); }
 
 	'database online' 
 
-{ after(grammarAccess.getPropertyAccess().getDatabaseDatabaseOnlineKeyword_0_1_0()); }
+{ after(grammarAccess.getPropertyAccess().getNameDatabaseOnlineKeyword_0_1_0()); }
 )
 
-{ after(grammarAccess.getPropertyAccess().getDatabaseDatabaseOnlineKeyword_0_1_0()); }
+{ after(grammarAccess.getPropertyAccess().getNameDatabaseOnlineKeyword_0_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Property__NameAssignment_0_2_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPropertyAccess().getNameDatabaseUrlKeyword_0_2_0_0()); }
+(
+{ before(grammarAccess.getPropertyAccess().getNameDatabaseUrlKeyword_0_2_0_0()); }
+
+	'database url' 
+
+{ after(grammarAccess.getPropertyAccess().getNameDatabaseUrlKeyword_0_2_0_0()); }
+)
+
+{ after(grammarAccess.getPropertyAccess().getNameDatabaseUrlKeyword_0_2_0_0()); }
 )
 
 ;
@@ -11177,6 +11190,29 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__Property__NameAssignment_0_3_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPropertyAccess().getNameDatabaseUsernameKeyword_0_3_0_0()); }
+(
+{ before(grammarAccess.getPropertyAccess().getNameDatabaseUsernameKeyword_0_3_0_0()); }
+
+	'database username' 
+
+{ after(grammarAccess.getPropertyAccess().getNameDatabaseUsernameKeyword_0_3_0_0()); }
+)
+
+{ after(grammarAccess.getPropertyAccess().getNameDatabaseUsernameKeyword_0_3_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__Property__DbUsernameAssignment_0_3_2
     @init {
 		int stackSize = keepStackSize();
@@ -11185,6 +11221,29 @@ rule__Property__DbUsernameAssignment_0_3_2
 (
 { before(grammarAccess.getPropertyAccess().getDbUsernamePropertyValueParserRuleCall_0_3_2_0()); }
 	rulePropertyValue{ after(grammarAccess.getPropertyAccess().getDbUsernamePropertyValueParserRuleCall_0_3_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Property__NameAssignment_0_4_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPropertyAccess().getNameDatabasePasswordKeyword_0_4_0_0()); }
+(
+{ before(grammarAccess.getPropertyAccess().getNameDatabasePasswordKeyword_0_4_0_0()); }
+
+	'database password' 
+
+{ after(grammarAccess.getPropertyAccess().getNameDatabasePasswordKeyword_0_4_0_0()); }
+)
+
+{ after(grammarAccess.getPropertyAccess().getNameDatabasePasswordKeyword_0_4_0_0()); }
 )
 
 ;
@@ -11207,6 +11266,29 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__Property__NameAssignment_0_5_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPropertyAccess().getNameDatabaseSchemaKeyword_0_5_0_0()); }
+(
+{ before(grammarAccess.getPropertyAccess().getNameDatabaseSchemaKeyword_0_5_0_0()); }
+
+	'database schema' 
+
+{ after(grammarAccess.getPropertyAccess().getNameDatabaseSchemaKeyword_0_5_0_0()); }
+)
+
+{ after(grammarAccess.getPropertyAccess().getNameDatabaseSchemaKeyword_0_5_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__Property__DbSchemaAssignment_0_5_2
     @init {
 		int stackSize = keepStackSize();
@@ -11215,6 +11297,29 @@ rule__Property__DbSchemaAssignment_0_5_2
 (
 { before(grammarAccess.getPropertyAccess().getDbSchemaPropertyValueParserRuleCall_0_5_2_0()); }
 	rulePropertyValue{ after(grammarAccess.getPropertyAccess().getDbSchemaPropertyValueParserRuleCall_0_5_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Property__NameAssignment_0_6_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPropertyAccess().getNameDatabaseDriverKeyword_0_6_0_0()); }
+(
+{ before(grammarAccess.getPropertyAccess().getNameDatabaseDriverKeyword_0_6_0_0()); }
+
+	'database driver' 
+
+{ after(grammarAccess.getPropertyAccess().getNameDatabaseDriverKeyword_0_6_0_0()); }
+)
+
+{ after(grammarAccess.getPropertyAccess().getNameDatabaseDriverKeyword_0_6_0_0()); }
 )
 
 ;

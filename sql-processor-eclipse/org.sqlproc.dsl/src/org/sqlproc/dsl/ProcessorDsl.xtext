@@ -11,13 +11,13 @@ Artifacts:
     )+;
 
 Property:
-	(pojo?='resolve references'
-	|database?='database online'
-	|'database url' WS+ dbUrl=PropertyValue
-	|'database username' WS+ dbUsername=PropertyValue
-	|'database password' WS+ dbPassword=PropertyValue
-	|'database schema' WS+ dbSchema=PropertyValue
-	|'database driver' WS+ dbDriver=PropertyValue
+	(name='resolve references'
+	|name='database online'
+	|name='database url' WS+ dbUrl=PropertyValue
+	|name='database username' WS+ dbUsername=PropertyValue
+	|name='database password' WS+ dbPassword=PropertyValue
+	|name='database schema' WS+ dbSchema=PropertyValue
+	|name='database driver' WS+ dbDriver=PropertyValue
 	) SEMICOLON;
 
 PropertyValue:

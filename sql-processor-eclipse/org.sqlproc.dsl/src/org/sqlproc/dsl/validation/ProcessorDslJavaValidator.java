@@ -30,8 +30,7 @@ import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
-import org.sqlproc.dsl.resolver.ModelProperty;
-import org.sqlproc.dsl.resolver.ModelPropertyBean;
+import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
 
 import com.google.inject.Inject;
@@ -49,11 +48,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     public enum ValidationResult {
         OK, WARNING, ERROR;
-    }
-
-    @Check
-    public void checkArtifacts(Artifacts artifacts) {
-        ((ModelPropertyBean) modelProperty).setStatus(artifacts);
     }
 
     @Check
@@ -112,7 +106,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkUniquePojoDefinition(PojoDefinition pojoDefinition) {
-        if (modelProperty.resolvingPojo() && !checkClass(pojoDefinition.getClass_()))
+        if (modelProperty.isResolvePojo() && !checkClass(pojoDefinition.getClass_()))
             error("Class name : " + pojoDefinition.getClass_() + " not exists",
                     ProcessorDslPackage.Literals.POJO_DEFINITION__NAME);
         Artifacts artifacts;
@@ -300,7 +294,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkColumn(Column column) {
-        if (!modelProperty.resolvingPojo())
+        if (!modelProperty.isResolvePojo())
             return;
         String columnUsageClass = null;
         MappingUsage mappingUsage = null;
@@ -343,7 +337,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkIdentifier(Identifier identifier) {
-        if (!modelProperty.resolvingPojo())
+        if (!modelProperty.isResolvePojo())
             return;
         String identifierUsageClass = null;
         MetaStatement statement = EcoreUtil2.getContainerOfType(identifier, MetaStatement.class);
@@ -375,7 +369,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkConstant(Constant constant) {
-        if (!modelProperty.resolvingPojo())
+        if (!modelProperty.isResolvePojo())
             return;
         String constantUsageClass = null;
         MetaStatement statement = EcoreUtil2.getContainerOfType(constant, MetaStatement.class);
@@ -407,7 +401,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkMappingColumn(MappingColumn identifier) {
-        if (!modelProperty.resolvingPojo())
+        if (!modelProperty.isResolvePojo())
             return;
         String mappingUsageClass = null;
         MappingRule rule = EcoreUtil2.getContainerOfType(identifier, MappingRule.class);

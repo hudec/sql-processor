@@ -812,64 +812,81 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	/**
 	 * Constraint:
 	 *     (
-	 *         pojo?='resolve references' | 
-	 *         database?='database online' | 
-	 *         dbUrl=PropertyValue | 
-	 *         dbUsername=PropertyValue | 
-	 *         dbPassword=PropertyValue | 
-	 *         dbSchema=PropertyValue | 
-	 *         dbDriver=PropertyValue
+	 *         name='resolve references' | 
+	 *         name='database online' | 
+	 *         (name='database url' dbUrl=PropertyValue) | 
+	 *         (name='database username' dbUsername=PropertyValue) | 
+	 *         (name='database password' dbPassword=PropertyValue) | 
+	 *         (name='database schema' dbSchema=PropertyValue) | 
+	 *         (name='database driver' dbDriver=PropertyValue)
 	 *     )
 	 *
 	 * Features:
-	 *    pojo[0, 1]
-	 *         EXCLUDE_IF_SET database
-	 *         EXCLUDE_IF_SET dbUrl
+	 *    name[5, 7]
+	 *    dbUrl[1, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUsername
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbSchema
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbDriver
-	 *    database[0, 1]
-	 *         EXCLUDE_IF_SET pojo
+	 *    dbUsername[1, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl
-	 *         EXCLUDE_IF_SET dbUsername
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbSchema
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbDriver
-	 *    dbUrl[0, 1]
-	 *         EXCLUDE_IF_SET pojo
-	 *         EXCLUDE_IF_SET database
+	 *    dbPassword[1, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET dbUrl
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUsername
-	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbSchema
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbDriver
-	 *    dbUsername[0, 1]
-	 *         EXCLUDE_IF_SET pojo
-	 *         EXCLUDE_IF_SET database
+	 *    dbSchema[1, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl
-	 *         EXCLUDE_IF_SET dbPassword
-	 *         EXCLUDE_IF_SET dbSchema
-	 *         EXCLUDE_IF_SET dbDriver
-	 *    dbPassword[0, 1]
-	 *         EXCLUDE_IF_SET pojo
-	 *         EXCLUDE_IF_SET database
-	 *         EXCLUDE_IF_SET dbUrl
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUsername
-	 *         EXCLUDE_IF_SET dbSchema
-	 *         EXCLUDE_IF_SET dbDriver
-	 *    dbSchema[0, 1]
-	 *         EXCLUDE_IF_SET pojo
-	 *         EXCLUDE_IF_SET database
-	 *         EXCLUDE_IF_SET dbUrl
-	 *         EXCLUDE_IF_SET dbUsername
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbDriver
-	 *    dbDriver[0, 1]
-	 *         EXCLUDE_IF_SET pojo
-	 *         EXCLUDE_IF_SET database
+	 *    dbDriver[1, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUsername
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbSchema
 	 */
 	protected void sequence_Property_Property(EObject context, Property semanticObject) {

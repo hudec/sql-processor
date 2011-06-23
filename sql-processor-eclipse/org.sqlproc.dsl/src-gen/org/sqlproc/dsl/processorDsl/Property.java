@@ -15,8 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Property#isPojo <em>Pojo</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Property#isDatabase <em>Database</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbUrl <em>Db Url</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbUsername <em>Db Username</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbPassword <em>Db Password</em>}</li>
@@ -32,56 +31,30 @@ import org.eclipse.emf.ecore.EObject;
 public interface Property extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Pojo</b></em>' attribute.
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Pojo</em>' attribute isn't clear,
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Pojo</em>' attribute.
-   * @see #setPojo(boolean)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_Pojo()
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_Name()
    * @model
    * @generated
    */
-  boolean isPojo();
+  String getName();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#isPojo <em>Pojo</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Pojo</em>' attribute.
-   * @see #isPojo()
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
    * @generated
    */
-  void setPojo(boolean value);
-
-  /**
-   * Returns the value of the '<em><b>Database</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Database</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Database</em>' attribute.
-   * @see #setDatabase(boolean)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_Database()
-   * @model
-   * @generated
-   */
-  boolean isDatabase();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#isDatabase <em>Database</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Database</em>' attribute.
-   * @see #isDatabase()
-   * @generated
-   */
-  void setDatabase(boolean value);
+  void setName(String value);
 
   /**
    * Returns the value of the '<em><b>Db Url</b></em>' attribute.

@@ -288,41 +288,52 @@ ruleProperty returns [EObject current=null]
     @after { leaveRule(); }:
 (((
 (
-		lv_pojo_0_0=	'resolve references' 
+		lv_name_0_0=	'resolve references' 
     {
-        newLeafNode(lv_pojo_0_0, grammarAccess.getPropertyAccess().getPojoResolveReferencesKeyword_0_0_0());
+        newLeafNode(lv_name_0_0, grammarAccess.getPropertyAccess().getNameResolveReferencesKeyword_0_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPropertyRule());
 	        }
-       		setWithLastConsumed($current, "pojo", true, "resolve references");
+       		setWithLastConsumed($current, "name", lv_name_0_0, "resolve references");
 	    }
 
 )
 )
     |(
 (
-		lv_database_1_0=	'database online' 
+		lv_name_1_0=	'database online' 
     {
-        newLeafNode(lv_database_1_0, grammarAccess.getPropertyAccess().getDatabaseDatabaseOnlineKeyword_0_1_0());
+        newLeafNode(lv_name_1_0, grammarAccess.getPropertyAccess().getNameDatabaseOnlineKeyword_0_1_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPropertyRule());
 	        }
-       		setWithLastConsumed($current, "database", true, "database online");
+       		setWithLastConsumed($current, "name", lv_name_1_0, "database online");
 	    }
 
 )
 )
-    |(	otherlv_2='database url' 
+    |((
+(
+		lv_name_2_0=	'database url' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getPropertyAccess().getDatabaseUrlKeyword_0_2_0());
+        newLeafNode(lv_name_2_0, grammarAccess.getPropertyAccess().getNameDatabaseUrlKeyword_0_2_0_0());
     }
-(this_WS_3=RULE_WS
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_2_0, "database url");
+	    }
+
+)
+)(this_WS_3=RULE_WS
     { 
     newLeafNode(this_WS_3, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_2_1()); 
     }
@@ -345,11 +356,22 @@ ruleProperty returns [EObject current=null]
 
 )
 ))
-    |(	otherlv_5='database username' 
+    |((
+(
+		lv_name_5_0=	'database username' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getPropertyAccess().getDatabaseUsernameKeyword_0_3_0());
+        newLeafNode(lv_name_5_0, grammarAccess.getPropertyAccess().getNameDatabaseUsernameKeyword_0_3_0_0());
     }
-(this_WS_6=RULE_WS
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_5_0, "database username");
+	    }
+
+)
+)(this_WS_6=RULE_WS
     { 
     newLeafNode(this_WS_6, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_3_1()); 
     }
@@ -372,11 +394,22 @@ ruleProperty returns [EObject current=null]
 
 )
 ))
-    |(	otherlv_8='database password' 
+    |((
+(
+		lv_name_8_0=	'database password' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getPropertyAccess().getDatabasePasswordKeyword_0_4_0());
+        newLeafNode(lv_name_8_0, grammarAccess.getPropertyAccess().getNameDatabasePasswordKeyword_0_4_0_0());
     }
-(this_WS_9=RULE_WS
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_8_0, "database password");
+	    }
+
+)
+)(this_WS_9=RULE_WS
     { 
     newLeafNode(this_WS_9, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_4_1()); 
     }
@@ -399,11 +432,22 @@ ruleProperty returns [EObject current=null]
 
 )
 ))
-    |(	otherlv_11='database schema' 
+    |((
+(
+		lv_name_11_0=	'database schema' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getPropertyAccess().getDatabaseSchemaKeyword_0_5_0());
+        newLeafNode(lv_name_11_0, grammarAccess.getPropertyAccess().getNameDatabaseSchemaKeyword_0_5_0_0());
     }
-(this_WS_12=RULE_WS
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_11_0, "database schema");
+	    }
+
+)
+)(this_WS_12=RULE_WS
     { 
     newLeafNode(this_WS_12, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_5_1()); 
     }
@@ -426,11 +470,22 @@ ruleProperty returns [EObject current=null]
 
 )
 ))
-    |(	otherlv_14='database driver' 
+    |((
+(
+		lv_name_14_0=	'database driver' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getPropertyAccess().getDatabaseDriverKeyword_0_6_0());
+        newLeafNode(lv_name_14_0, grammarAccess.getPropertyAccess().getNameDatabaseDriverKeyword_0_6_0_0());
     }
-(this_WS_15=RULE_WS
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_14_0, "database driver");
+	    }
+
+)
+)(this_WS_15=RULE_WS
     { 
     newLeafNode(this_WS_15, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_6_1()); 
     }

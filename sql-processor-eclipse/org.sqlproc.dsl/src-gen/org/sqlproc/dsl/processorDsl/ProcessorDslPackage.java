@@ -162,22 +162,13 @@ public interface ProcessorDslPackage extends EPackage
   int PROPERTY = 1;
 
   /**
-   * The feature id for the '<em><b>Pojo</b></em>' attribute.
+   * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROPERTY__POJO = 0;
-
-  /**
-   * The feature id for the '<em><b>Database</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY__DATABASE = 1;
+  int PROPERTY__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Db Url</b></em>' attribute.
@@ -186,7 +177,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPERTY__DB_URL = 2;
+  int PROPERTY__DB_URL = 1;
 
   /**
    * The feature id for the '<em><b>Db Username</b></em>' attribute.
@@ -195,7 +186,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPERTY__DB_USERNAME = 3;
+  int PROPERTY__DB_USERNAME = 2;
 
   /**
    * The feature id for the '<em><b>Db Password</b></em>' attribute.
@@ -204,7 +195,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPERTY__DB_PASSWORD = 4;
+  int PROPERTY__DB_PASSWORD = 3;
 
   /**
    * The feature id for the '<em><b>Db Schema</b></em>' attribute.
@@ -213,7 +204,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPERTY__DB_SCHEMA = 5;
+  int PROPERTY__DB_SCHEMA = 4;
 
   /**
    * The feature id for the '<em><b>Db Driver</b></em>' attribute.
@@ -222,7 +213,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPERTY__DB_DRIVER = 6;
+  int PROPERTY__DB_DRIVER = 5;
 
   /**
    * The number of structural features of the '<em>Property</em>' class.
@@ -231,7 +222,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPERTY_FEATURE_COUNT = 7;
+  int PROPERTY_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.
@@ -1634,26 +1625,15 @@ public interface ProcessorDslPackage extends EPackage
   EClass getProperty();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Property#isPojo <em>Pojo</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Property#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Pojo</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Property#isPojo()
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Property#getName()
    * @see #getProperty()
    * @generated
    */
-  EAttribute getProperty_Pojo();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Property#isDatabase <em>Database</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Database</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Property#isDatabase()
-   * @see #getProperty()
-   * @generated
-   */
-  EAttribute getProperty_Database();
+  EAttribute getProperty_Name();
 
   /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Property#getDbUrl <em>Db Url</em>}'.
@@ -2975,20 +2955,12 @@ public interface ProcessorDslPackage extends EPackage
     EClass PROPERTY = eINSTANCE.getProperty();
 
     /**
-     * The meta object literal for the '<em><b>Pojo</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute PROPERTY__POJO = eINSTANCE.getProperty_Pojo();
-
-    /**
-     * The meta object literal for the '<em><b>Database</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PROPERTY__DATABASE = eINSTANCE.getProperty_Database();
+    EAttribute PROPERTY__NAME = eINSTANCE.getProperty_Name();
 
     /**
      * The meta object literal for the '<em><b>Db Url</b></em>' attribute feature.

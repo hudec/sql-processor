@@ -70,42 +70,52 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:Assignment" feature="pojo" operator="?=">
+        <elements xsi:type="xtext:Assignment" feature="name" operator="=">
           <terminal xsi:type="xtext:Keyword" value="resolve references"/>
         </elements>
-        <elements xsi:type="xtext:Assignment" feature="database" operator="?=">
+        <elements xsi:type="xtext:Assignment" feature="name" operator="=">
           <terminal xsi:type="xtext:Keyword" value="database online"/>
         </elements>
         <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Keyword" value="database url"/>
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="database url"/>
+          </elements>
           <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.43"/>
           <elements xsi:type="xtext:Assignment" feature="dbUrl" operator="=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.2"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Keyword" value="database username"/>
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="database username"/>
+          </elements>
           <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.43"/>
           <elements xsi:type="xtext:Assignment" feature="dbUsername" operator="=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.2"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Keyword" value="database password"/>
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="database password"/>
+          </elements>
           <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.43"/>
           <elements xsi:type="xtext:Assignment" feature="dbPassword" operator="=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.2"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Keyword" value="database schema"/>
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="database schema"/>
+          </elements>
           <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.43"/>
           <elements xsi:type="xtext:Assignment" feature="dbSchema" operator="=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.2"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Keyword" value="database driver"/>
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="database driver"/>
+          </elements>
           <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.43"/>
           <elements xsi:type="xtext:Assignment" feature="dbDriver" operator="=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.2"/>

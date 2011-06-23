@@ -3,7 +3,7 @@ database online;
 database driver oracle.jdbc.OracleDriver;
 database url jdbc:oracle:thin:@127.0.0.1:1521:xe;
 database username sql;
-database password sql;
+database password sql2;
 
 /*
  * the result classes and input forms
