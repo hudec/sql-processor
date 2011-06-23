@@ -129,7 +129,7 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 MetaStatement statement = usage.getStatement();
                 TableDefinition table = usage.getTable();
                 if (statement != null && table != null)
-                	provideHighlightingForTable(statement.getName(), table.getName(), node, acceptor);
+                    provideHighlightingForTable(statement.getName(), table.getName(), node, acceptor);
             }
         }
     }
