@@ -30,6 +30,8 @@ import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
+import org.sqlproc.dsl.processorDsl.TableDefinition;
+import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
 
@@ -534,5 +536,43 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             }
         }
         return ValidationResult.OK;
+    }
+
+    @Check
+    public void checkTableDefinition(TableDefinition tableDefinition) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(tableDefinition);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+        for (TableDefinition table : artifacts.getTables()) {
+            if (table == null || table == tableDefinition)
+                continue;
+            if (tableDefinition.getName().equalsIgnoreCase(table.getName())) {
+                error("Duplicate name : " + tableDefinition.getName() + "[table]",
+                        ProcessorDslPackage.Literals.TABLE_DEFINITION__NAME);
+                return;
+            }
+        }
+    }
+
+    @Check
+    public void checkTableUsage(TableUsage tableUsage) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(tableUsage);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+        for (TableUsage usage : artifacts.getTableUsages()) {
+            if (usage == null || usage == tableUsage)
+                continue;
+            if (tableUsage.getStatement().getName().equalsIgnoreCase(usage.getStatement().getName())
+                    && tableUsage.getTable().getName().equalsIgnoreCase(usage.getTable().getName())
+                    && tableUsage.getPrefix().equalsIgnoreCase(usage.getPrefix())) {
+                error("Duplicate name : " + tableUsage.getStatement().getName() + "[" + tableUsage.getTable().getName()
+                        + ":" + tableUsage.getPrefix() + "][dbcol]", ProcessorDslPackage.Literals.TABLE_USAGE__PREFIX);
+                return;
+            }
+        }
     }
 }
