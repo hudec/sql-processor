@@ -32,6 +32,7 @@ import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
+import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
 
 import com.google.inject.Inject;
@@ -40,6 +41,9 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Inject
     PojoResolverFactory pojoResolverFactory;
+
+    @Inject
+    DbResolver dbResolver;
 
     @Inject
     IScopeProvider scopeProvider;
@@ -577,5 +581,9 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             return false;
         return true;
 
+    }
+
+    protected boolean isResolveDb() {
+        return dbResolver.isResolveDb();
     }
 }
