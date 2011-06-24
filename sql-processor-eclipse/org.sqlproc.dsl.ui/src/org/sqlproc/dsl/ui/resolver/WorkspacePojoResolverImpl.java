@@ -32,8 +32,13 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
 
     private List<URLClassLoader> allLoaders;
     private boolean doResolvePojo;
+    private boolean doNextInit;
 
     public WorkspacePojoResolverImpl() {
+        init();
+    }
+
+    protected void init() {
         List<IJavaProject> javaProjects = new ArrayList<IJavaProject>();
         List<URLClassLoader> loaders = new ArrayList<URLClassLoader>();
         IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
@@ -64,15 +69,20 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
             }
         }
         this.allLoaders = loaders;
+        doNextInit = false;
     }
 
     @Override
     public List<URLClassLoader> getAllLoaders() {
+        if (doNextInit)
+            init();
         return allLoaders;
     }
 
     @Override
     public Class<?> loadClass(String name) {
+        if (doNextInit)
+            init();
         for (URLClassLoader loader : allLoaders) {
             try {
                 return loader.loadClass(name);
@@ -85,6 +95,8 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
 
     @Override
     public PropertyDescriptor[] getPropertyDescriptors(String name) {
+        if (doNextInit)
+            init();
         Class<?> beanClass = loadClass(name);
         if (beanClass == null)
             return null;
@@ -120,5 +132,10 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
     @Override
     public void setResolvePojo(boolean doResolvePojo) {
         this.doResolvePojo = doResolvePojo;
+    }
+
+    @Override
+    public void setNextInit() {
+        doNextInit = true;
     }
 }

@@ -15,4 +15,6 @@ public interface PojoResolver {
     public boolean isResolvePojo();
 
     public void setResolvePojo(boolean doResolvePojo);
+
+    void setNextInit();
 }

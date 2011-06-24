@@ -31,6 +31,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
 
     private boolean doNextReset = false;
 
+    // TODO - volat setNextInit() pro prebudovani resolveru pri zmene hodnot
     @Inject
     PojoResolverFactory pojoResolverFactory;
 
