@@ -6,7 +6,10 @@ import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.sqlproc.dsl.property.ModelProperty;
@@ -31,6 +34,9 @@ public class DbResolverBean implements DbResolver {
 
     private Connection connection;
     private final Object sync = new Object();
+
+    private List<String> tables = Collections.synchronizedList(new ArrayList<String>());
+    private Map<String, List<String>> columns = Collections.synchronizedMap(new HashMap<String, List<String>>());
 
     private boolean checkReconnect() {
         if (!modelProperty.isDoResolveDb()) {
@@ -131,6 +137,8 @@ public class DbResolverBean implements DbResolver {
                 ex.printStackTrace();
             }
             connection = null;
+            tables.clear();
+            columns.clear();
         }
     }
 
@@ -141,7 +149,8 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<String> getTables() {
-        List<String> tables = new ArrayList<String>();
+        if (!tables.isEmpty())
+            return tables;
         Connection conn = getConnection();
         if (conn != null) {
             ResultSet result = null;
@@ -149,7 +158,7 @@ public class DbResolverBean implements DbResolver {
                 DatabaseMetaData meta = connection.getMetaData();
                 result = meta.getTables(null, dbSchema, null, new String[] { "TABLE" });
                 while (result.next()) {
-                    tables.add(result.getString("TABLE_NAME"));
+                    tables.add(result.getString("TABLE_NAME").toUpperCase());
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -169,16 +178,17 @@ public class DbResolverBean implements DbResolver {
     public boolean checkTable(String table) {
         if (table == null)
             return false;
-        for (String tbl : getTables()) {
-            if (tbl.equalsIgnoreCase(table))
-                return true;
-        }
-        return false;
+        List<String> tbls = getTables();
+        return tbls.contains(table.toUpperCase());
     }
 
     @Override
     public List<String> getColumns(String table) {
-        List<String> columns = new ArrayList<String>();
+        if (table == null)
+            return Collections.emptyList();
+        if (columns.containsKey(table.toUpperCase()))
+            return columns.get(table);
+        List<String> cols = new ArrayList<String>();
         Connection conn = getConnection();
         if (conn != null && table != null) {
             ResultSet result = null;
@@ -186,8 +196,9 @@ public class DbResolverBean implements DbResolver {
                 DatabaseMetaData meta = connection.getMetaData();
                 result = meta.getTables(null, dbSchema, table, null);
                 while (result.next()) {
-                    columns.add(result.getString("COLUMN_NAME"));
+                    cols.add(result.getString("COLUMN_NAME").toUpperCase());
                 }
+                columns.put(table, cols);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             } finally {
@@ -199,17 +210,13 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         }
-        return columns;
+        return columns.get(table);
     }
 
     @Override
     public boolean checkColumn(String table, String column) {
         if (table == null || column == null)
             return false;
-        for (String col : getColumns(table)) {
-            if (col.equalsIgnoreCase(column))
-                return true;
-        }
-        return false;
+        return getColumns(table.toUpperCase()).contains(column.toUpperCase());
     }
 }

@@ -109,7 +109,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     public void completeMappingColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
         if (!isResolvePojo())
-            return;
+            super.completeMappingColumn_Name(model, assignment, context, acceptor);
         MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
         IScope scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
@@ -259,5 +259,30 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
 
     protected boolean isResolveDb() {
         return dbResolver.isResolveDb();
+    }
+
+    @Override
+    public void completeTableDefinition_Name(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(model, Artifacts.class);
+        for (PojoDefinition pojo : artifacts.getPojos()) {
+            String proposal = getValueConverter().toString(pojo.getName(), "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+    }
+
+    @Override
+    public void completeTableDefinition_Table(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb())
+            super.completeTableDefinition_Table(model, assignment, context, acceptor);
+        for (String table : dbResolver.getTables()) {
+            if (table.indexOf('$') >= 0)
+                continue;
+            String proposal = getValueConverter().toString(table, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
     }
 }

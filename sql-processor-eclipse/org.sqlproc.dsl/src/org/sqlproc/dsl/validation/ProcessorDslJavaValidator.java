@@ -554,9 +554,9 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 return;
             }
         }
-        if (isResolveDb() && !dbResolver.checkTable(tableDefinition.getName())) {
-            error("Cannot find table in DB : " + tableDefinition.getName(),
-                    ProcessorDslPackage.Literals.TABLE_DEFINITION__NAME);
+        if (isResolveDb() && !dbResolver.checkTable(tableDefinition.getTable())) {
+            error("Cannot find table in DB : " + tableDefinition.getTable(),
+                    ProcessorDslPackage.Literals.TABLE_DEFINITION__TABLE);
         }
     }
 
