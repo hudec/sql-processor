@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -31,58 +32,72 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
     private static final Class[] LIST_CLASS_PARAMETER = new Class[] { java.util.List.class };
 
     private List<URLClassLoader> allLoaders;
-    private boolean doResolvePojo;
-    private boolean doNextInit;
+    private Boolean status;
 
     public WorkspacePojoResolverImpl() {
-        init();
+        // init();
     }
 
-    protected void init() {
-        List<IJavaProject> javaProjects = new ArrayList<IJavaProject>();
-        List<URLClassLoader> loaders = new ArrayList<URLClassLoader>();
-        IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-        for (IProject project : projects) {
-            try {
-                project.open(null /* IProgressMonitor */);
-                IJavaProject javaProject = JavaCore.create(project);
-                javaProjects.add(javaProject);
-                String[] classPathEntries = JavaRuntime.computeDefaultRuntimeClassPath(javaProject);
-                List<URL> urlList = new ArrayList<URL>();
-                for (int i = 0; i < classPathEntries.length; i++) {
-                    String entry = classPathEntries[i];
-                    IPath path = new Path(entry);
-                    URL url;
-                    try {
-                        url = path.toFile().toURI().toURL();
-                        urlList.add(url);
-                    } catch (MalformedURLException e) {
-                        LOGGER.warn("Can't accept URL for '" + path + "'", e);
-                    }
-                }
-                ClassLoader parentClassLoader = javaProject.getClass().getClassLoader();
-                URL[] urls = (URL[]) urlList.toArray(new URL[urlList.size()]);
-                URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
-                loaders.add(classLoader);
-            } catch (CoreException e) {
-                LOGGER.warn("Can't handle project '" + project + "'", e);
-            }
+    protected void startStop() {
+        if (status == null) {
+            allLoaders = null;
+            return;
         }
-        this.allLoaders = loaders;
-        doNextInit = false;
+
+        if (!status && allLoaders != null) {
+            allLoaders = null;
+            System.out.println("UUUU STOP");
+            return;
+        }
+
+        if (status && allLoaders == null) {
+            System.out.println("UUUU START");
+            List<IJavaProject> javaProjects = new ArrayList<IJavaProject>();
+            List<URLClassLoader> loaders = new ArrayList<URLClassLoader>();
+            IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+            for (IProject project : projects) {
+                try {
+                    project.open(null /* IProgressMonitor */);
+                    IJavaProject javaProject = JavaCore.create(project);
+                    javaProjects.add(javaProject);
+                    String[] classPathEntries = JavaRuntime.computeDefaultRuntimeClassPath(javaProject);
+                    List<URL> urlList = new ArrayList<URL>();
+                    for (int i = 0; i < classPathEntries.length; i++) {
+                        String entry = classPathEntries[i];
+                        IPath path = new Path(entry);
+                        URL url;
+                        try {
+                            url = path.toFile().toURI().toURL();
+                            urlList.add(url);
+                        } catch (MalformedURLException e) {
+                            LOGGER.warn("Can't accept URL for '" + path + "'", e);
+                        }
+                    }
+                    ClassLoader parentClassLoader = javaProject.getClass().getClassLoader();
+                    URL[] urls = (URL[]) urlList.toArray(new URL[urlList.size()]);
+                    URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
+                    loaders.add(classLoader);
+                } catch (CoreException e) {
+                    LOGGER.warn("Can't handle project '" + project + "'", e);
+                }
+            }
+            this.allLoaders = loaders;
+        }
     }
 
     @Override
     public List<URLClassLoader> getAllLoaders() {
-        if (doNextInit)
-            init();
+        startStop();
+        if (allLoaders == null)
+            return Collections.EMPTY_LIST;
         return allLoaders;
     }
 
     @Override
     public Class<?> loadClass(String name) {
-        if (doNextInit)
-            init();
+        startStop();
+        if (allLoaders == null)
+            return null;
         for (URLClassLoader loader : allLoaders) {
             try {
                 return loader.loadClass(name);
@@ -95,8 +110,9 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
 
     @Override
     public PropertyDescriptor[] getPropertyDescriptors(String name) {
-        if (doNextInit)
-            init();
+        startStop();
+        if (allLoaders == null)
+            return null;
         Class<?> beanClass = loadClass(name);
         if (beanClass == null)
             return null;
@@ -126,16 +142,12 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
 
     @Override
     public boolean isResolvePojo() {
-        return doResolvePojo;
+        startStop();
+        return (status != null) ? status : false;
     }
 
     @Override
-    public void setResolvePojo(boolean doResolvePojo) {
-        this.doResolvePojo = doResolvePojo;
-    }
-
-    @Override
-    public void setNextInit() {
-        doNextInit = true;
+    public void nextStatus(boolean status) {
+        this.status = status;
     }
 }

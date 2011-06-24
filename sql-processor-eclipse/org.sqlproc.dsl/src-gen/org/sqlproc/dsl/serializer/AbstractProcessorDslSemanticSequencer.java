@@ -812,8 +812,8 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	/**
 	 * Constraint:
 	 *     (
-	 *         name='resolve references' | 
-	 *         name='database online' | 
+	 *         (name='resolve references' (doResolvePojo='ON' | doResolvePojo='OFF')) | 
+	 *         (name='database online' (doResolveDb='ON' | doResolveDb='OFF')) | 
 	 *         (name='database url' dbUrl=PropertyValue) | 
 	 *         (name='database username' dbUsername=PropertyValue) | 
 	 *         (name='database password' dbPassword=PropertyValue) | 
@@ -822,12 +822,46 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *     )
 	 *
 	 * Features:
-	 *    name[5, 7]
+	 *    name[7, 7]
+	 *    doResolvePojo[0, 2]
+	 *         EXCLUDE_IF_UNSET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET doResolveDb
+	 *         EXCLUDE_IF_SET doResolveDb
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET dbUrl
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET dbUsername
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET dbSchema
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET dbDriver
+	 *    doResolveDb[0, 2]
+	 *         EXCLUDE_IF_UNSET name
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET doResolvePojo
+	 *         EXCLUDE_IF_SET doResolvePojo
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET dbUrl
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET dbUsername
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET dbPassword
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET dbSchema
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET dbDriver
 	 *    dbUrl[1, 1]
 	 *         EXCLUDE_IF_UNSET name
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET doResolvePojo
+	 *         EXCLUDE_IF_SET doResolvePojo
 	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET doResolveDb
+	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUsername
 	 *         EXCLUDE_IF_SET name
@@ -840,7 +874,11 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_UNSET name
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET doResolvePojo
+	 *         EXCLUDE_IF_SET doResolvePojo
 	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET doResolveDb
+	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl
 	 *         EXCLUDE_IF_SET name
@@ -853,7 +891,11 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_UNSET name
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET doResolvePojo
+	 *         EXCLUDE_IF_SET doResolvePojo
 	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET doResolveDb
+	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl
 	 *         EXCLUDE_IF_SET name
@@ -866,7 +908,11 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_UNSET name
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET doResolvePojo
+	 *         EXCLUDE_IF_SET doResolvePojo
 	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET doResolveDb
+	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl
 	 *         EXCLUDE_IF_SET name
@@ -879,7 +925,11 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_UNSET name
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET doResolvePojo
+	 *         EXCLUDE_IF_SET doResolvePojo
 	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET doResolveDb
+	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl
 	 *         EXCLUDE_IF_SET name

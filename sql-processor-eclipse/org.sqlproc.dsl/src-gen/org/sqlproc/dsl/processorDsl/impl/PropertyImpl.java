@@ -23,6 +23,8 @@ import org.sqlproc.dsl.processorDsl.Property;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDoResolvePojo <em>Do Resolve Pojo</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDoResolveDb <em>Do Resolve Db</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbUrl <em>Db Url</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbUsername <em>Db Username</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbPassword <em>Db Password</em>}</li>
@@ -54,6 +56,46 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDoResolvePojo() <em>Do Resolve Pojo</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDoResolvePojo()
+   * @generated
+   * @ordered
+   */
+  protected static final String DO_RESOLVE_POJO_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDoResolvePojo() <em>Do Resolve Pojo</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDoResolvePojo()
+   * @generated
+   * @ordered
+   */
+  protected String doResolvePojo = DO_RESOLVE_POJO_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDoResolveDb() <em>Do Resolve Db</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDoResolveDb()
+   * @generated
+   * @ordered
+   */
+  protected static final String DO_RESOLVE_DB_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDoResolveDb() <em>Do Resolve Db</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDoResolveDb()
+   * @generated
+   * @ordered
+   */
+  protected String doResolveDb = DO_RESOLVE_DB_EDEFAULT;
 
   /**
    * The default value of the '{@link #getDbUrl() <em>Db Url</em>}' attribute.
@@ -204,6 +246,52 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDoResolvePojo()
+  {
+    return doResolvePojo;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDoResolvePojo(String newDoResolvePojo)
+  {
+    String oldDoResolvePojo = doResolvePojo;
+    doResolvePojo = newDoResolvePojo;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__DO_RESOLVE_POJO, oldDoResolvePojo, doResolvePojo));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getDoResolveDb()
+  {
+    return doResolveDb;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDoResolveDb(String newDoResolveDb)
+  {
+    String oldDoResolveDb = doResolveDb;
+    doResolveDb = newDoResolveDb;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__DO_RESOLVE_DB, oldDoResolveDb, doResolveDb));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getDbUrl()
   {
     return dbUrl;
@@ -326,6 +414,10 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
     {
       case ProcessorDslPackage.PROPERTY__NAME:
         return getName();
+      case ProcessorDslPackage.PROPERTY__DO_RESOLVE_POJO:
+        return getDoResolvePojo();
+      case ProcessorDslPackage.PROPERTY__DO_RESOLVE_DB:
+        return getDoResolveDb();
       case ProcessorDslPackage.PROPERTY__DB_URL:
         return getDbUrl();
       case ProcessorDslPackage.PROPERTY__DB_USERNAME:
@@ -352,6 +444,12 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
     {
       case ProcessorDslPackage.PROPERTY__NAME:
         setName((String)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__DO_RESOLVE_POJO:
+        setDoResolvePojo((String)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__DO_RESOLVE_DB:
+        setDoResolveDb((String)newValue);
         return;
       case ProcessorDslPackage.PROPERTY__DB_URL:
         setDbUrl((String)newValue);
@@ -385,6 +483,12 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
       case ProcessorDslPackage.PROPERTY__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case ProcessorDslPackage.PROPERTY__DO_RESOLVE_POJO:
+        setDoResolvePojo(DO_RESOLVE_POJO_EDEFAULT);
+        return;
+      case ProcessorDslPackage.PROPERTY__DO_RESOLVE_DB:
+        setDoResolveDb(DO_RESOLVE_DB_EDEFAULT);
+        return;
       case ProcessorDslPackage.PROPERTY__DB_URL:
         setDbUrl(DB_URL_EDEFAULT);
         return;
@@ -416,6 +520,10 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
     {
       case ProcessorDslPackage.PROPERTY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case ProcessorDslPackage.PROPERTY__DO_RESOLVE_POJO:
+        return DO_RESOLVE_POJO_EDEFAULT == null ? doResolvePojo != null : !DO_RESOLVE_POJO_EDEFAULT.equals(doResolvePojo);
+      case ProcessorDslPackage.PROPERTY__DO_RESOLVE_DB:
+        return DO_RESOLVE_DB_EDEFAULT == null ? doResolveDb != null : !DO_RESOLVE_DB_EDEFAULT.equals(doResolveDb);
       case ProcessorDslPackage.PROPERTY__DB_URL:
         return DB_URL_EDEFAULT == null ? dbUrl != null : !DB_URL_EDEFAULT.equals(dbUrl);
       case ProcessorDslPackage.PROPERTY__DB_USERNAME:
@@ -443,6 +551,10 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", doResolvePojo: ");
+    result.append(doResolvePojo);
+    result.append(", doResolveDb: ");
+    result.append(doResolveDb);
     result.append(", dbUrl: ");
     result.append(dbUrl);
     result.append(", dbUsername: ");

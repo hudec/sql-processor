@@ -171,10 +171,22 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Property");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_0_0 = (Assignment)cAlternatives_0.eContents().get(0);
-		private final Keyword cNameResolveReferencesKeyword_0_0_0 = (Keyword)cNameAssignment_0_0.eContents().get(0);
-		private final Assignment cNameAssignment_0_1 = (Assignment)cAlternatives_0.eContents().get(1);
-		private final Keyword cNameDatabaseOnlineKeyword_0_1_0 = (Keyword)cNameAssignment_0_1.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final Keyword cNameResolveReferencesKeyword_0_0_0_0 = (Keyword)cNameAssignment_0_0_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_0_1 = (RuleCall)cGroup_0_0.eContents().get(1);
+		private final Assignment cDoResolvePojoAssignment_0_0_2 = (Assignment)cGroup_0_0.eContents().get(2);
+		private final Alternatives cDoResolvePojoAlternatives_0_0_2_0 = (Alternatives)cDoResolvePojoAssignment_0_0_2.eContents().get(0);
+		private final Keyword cDoResolvePojoONKeyword_0_0_2_0_0 = (Keyword)cDoResolvePojoAlternatives_0_0_2_0.eContents().get(0);
+		private final Keyword cDoResolvePojoOFFKeyword_0_0_2_0_1 = (Keyword)cDoResolvePojoAlternatives_0_0_2_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
+		private final Assignment cNameAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
+		private final Keyword cNameDatabaseOnlineKeyword_0_1_0_0 = (Keyword)cNameAssignment_0_1_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_1_1 = (RuleCall)cGroup_0_1.eContents().get(1);
+		private final Assignment cDoResolveDbAssignment_0_1_2 = (Assignment)cGroup_0_1.eContents().get(2);
+		private final Alternatives cDoResolveDbAlternatives_0_1_2_0 = (Alternatives)cDoResolveDbAssignment_0_1_2.eContents().get(0);
+		private final Keyword cDoResolveDbONKeyword_0_1_2_0_0 = (Keyword)cDoResolveDbAlternatives_0_1_2_0.eContents().get(0);
+		private final Keyword cDoResolveDbOFFKeyword_0_1_2_0_1 = (Keyword)cDoResolveDbAlternatives_0_1_2_0.eContents().get(1);
 		private final Group cGroup_0_2 = (Group)cAlternatives_0.eContents().get(2);
 		private final Assignment cNameAssignment_0_2_0 = (Assignment)cGroup_0_2.eContents().get(0);
 		private final Keyword cNameDatabaseUrlKeyword_0_2_0_0 = (Keyword)cNameAssignment_0_2_0.eContents().get(0);
@@ -208,32 +220,71 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSEMICOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//Property:
-		//	(name="resolve references" | name="database online" | name="database url" WS+ dbUrl=PropertyValue |
-		//	name="database username" WS+ dbUsername=PropertyValue | name="database password" WS+ dbPassword=PropertyValue |
-		//	name="database schema" WS+ dbSchema=PropertyValue | name="database driver" WS+ dbDriver=PropertyValue) SEMICOLON;
+		//	(name="resolve references" WS+ doResolvePojo=("ON" | "OFF") | name="database online" WS+ doResolveDb=("ON" | "OFF") |
+		//	name="database url" WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue |
+		//	name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
+		//	name="database driver" WS+ dbDriver=PropertyValue) SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
-		//(name="resolve references" | name="database online" | name="database url" WS+ dbUrl=PropertyValue |
-		//name="database username" WS+ dbUsername=PropertyValue | name="database password" WS+ dbPassword=PropertyValue |
-		//name="database schema" WS+ dbSchema=PropertyValue | name="database driver" WS+ dbDriver=PropertyValue) SEMICOLON
+		//(name="resolve references" WS+ doResolvePojo=("ON" | "OFF") | name="database online" WS+ doResolveDb=("ON" | "OFF") |
+		//name="database url" WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue |
+		//name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
+		//name="database driver" WS+ dbDriver=PropertyValue) SEMICOLON
 		public Group getGroup() { return cGroup; }
 
-		//name="resolve references" | name="database online" | name="database url" WS+ dbUrl=PropertyValue |
-		//name="database username" WS+ dbUsername=PropertyValue | name="database password" WS+ dbPassword=PropertyValue |
-		//name="database schema" WS+ dbSchema=PropertyValue | name="database driver" WS+ dbDriver=PropertyValue
+		//name="resolve references" WS+ doResolvePojo=("ON" | "OFF") | name="database online" WS+ doResolveDb=("ON" | "OFF") |
+		//name="database url" WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue |
+		//name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
+		//name="database driver" WS+ dbDriver=PropertyValue
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
+		//name="resolve references" WS+ doResolvePojo=("ON" | "OFF")
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
 		//name="resolve references"
-		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
+		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
 
 		//"resolve references"
-		public Keyword getNameResolveReferencesKeyword_0_0_0() { return cNameResolveReferencesKeyword_0_0_0; }
+		public Keyword getNameResolveReferencesKeyword_0_0_0_0() { return cNameResolveReferencesKeyword_0_0_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_0_1() { return cWSTerminalRuleCall_0_0_1; }
+
+		//doResolvePojo=("ON" | "OFF")
+		public Assignment getDoResolvePojoAssignment_0_0_2() { return cDoResolvePojoAssignment_0_0_2; }
+
+		//"ON" | "OFF"
+		public Alternatives getDoResolvePojoAlternatives_0_0_2_0() { return cDoResolvePojoAlternatives_0_0_2_0; }
+
+		//"ON"
+		public Keyword getDoResolvePojoONKeyword_0_0_2_0_0() { return cDoResolvePojoONKeyword_0_0_2_0_0; }
+
+		//"OFF"
+		public Keyword getDoResolvePojoOFFKeyword_0_0_2_0_1() { return cDoResolvePojoOFFKeyword_0_0_2_0_1; }
+
+		//name="database online" WS+ doResolveDb=("ON" | "OFF")
+		public Group getGroup_0_1() { return cGroup_0_1; }
 
 		//name="database online"
-		public Assignment getNameAssignment_0_1() { return cNameAssignment_0_1; }
+		public Assignment getNameAssignment_0_1_0() { return cNameAssignment_0_1_0; }
 
 		//"database online"
-		public Keyword getNameDatabaseOnlineKeyword_0_1_0() { return cNameDatabaseOnlineKeyword_0_1_0; }
+		public Keyword getNameDatabaseOnlineKeyword_0_1_0_0() { return cNameDatabaseOnlineKeyword_0_1_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_1_1() { return cWSTerminalRuleCall_0_1_1; }
+
+		//doResolveDb=("ON" | "OFF")
+		public Assignment getDoResolveDbAssignment_0_1_2() { return cDoResolveDbAssignment_0_1_2; }
+
+		//"ON" | "OFF"
+		public Alternatives getDoResolveDbAlternatives_0_1_2_0() { return cDoResolveDbAlternatives_0_1_2_0; }
+
+		//"ON"
+		public Keyword getDoResolveDbONKeyword_0_1_2_0_0() { return cDoResolveDbONKeyword_0_1_2_0_0; }
+
+		//"OFF"
+		public Keyword getDoResolveDbOFFKeyword_0_1_2_0_1() { return cDoResolveDbOFFKeyword_0_1_2_0_1; }
 
 		//name="database url" WS+ dbUrl=PropertyValue
 		public Group getGroup_0_2() { return cGroup_0_2; }
@@ -3430,9 +3481,10 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Property:
-	//	(name="resolve references" | name="database online" | name="database url" WS+ dbUrl=PropertyValue |
-	//	name="database username" WS+ dbUsername=PropertyValue | name="database password" WS+ dbPassword=PropertyValue |
-	//	name="database schema" WS+ dbSchema=PropertyValue | name="database driver" WS+ dbDriver=PropertyValue) SEMICOLON;
+	//	(name="resolve references" WS+ doResolvePojo=("ON" | "OFF") | name="database online" WS+ doResolveDb=("ON" | "OFF") |
+	//	name="database url" WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue |
+	//	name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
+	//	name="database driver" WS+ dbDriver=PropertyValue) SEMICOLON;
 	public PropertyElements getPropertyAccess() {
 		return (pProperty != null) ? pProperty : (pProperty = new PropertyElements());
 	}

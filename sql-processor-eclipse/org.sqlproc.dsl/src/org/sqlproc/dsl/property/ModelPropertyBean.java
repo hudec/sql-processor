@@ -31,7 +31,6 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
 
     private boolean doNextReset = false;
 
-    // TODO - volat setNextInit() pro prebudovani resolveru pri zmene hodnot
     @Inject
     PojoResolverFactory pojoResolverFactory;
 
@@ -41,14 +40,16 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     public void notifyChanged(Notification msg) {
-        if (msg.getNotifier() == null)
+        if (msg.getNotifier() == null || msg.getFeature() == null)
             return;
 
         if (msg.getNotifier() instanceof Artifacts) {
-            if (msg.getFeature() != null && msg.getFeature() instanceof EReference
+            if (msg.getFeature() instanceof EReference
                     && ((EReference) msg.getFeature()).getName().equals("properties")) {
+
                 Property oldValue = (Property) msg.getOldValue();
                 Property newValue = (Property) msg.getNewValue();
+
                 if (msg.getEventType() == Notification.ADD) {
                     addValue(newValue);
                 } else if (msg.getEventType() == Notification.REMOVE) {
@@ -74,9 +75,11 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
 
     public void setValue(Property property) {
         if (RESOLVE_REFERENCES.equals(property.getName())) {
-            setDoResolvePojo(true);
+            doResolvePojo = "ON".equals(property.getDoResolvePojo());
+            if (pojoResolverFactory.getPojoResolver() != null)
+                pojoResolverFactory.getPojoResolver().nextStatus(doResolvePojo);
         } else if (DATABASE_ONLINE.equals(property.getName())) {
-            setDoResolveDb(true);
+            doResolveDb = "ON".equals(property.getDoResolveDb());
         } else if (DATABASE_URL.equals(property.getName())) {
             dbUrl = property.getDbUrl();
         } else if (DATABASE_USERNAME.equals(property.getName())) {
@@ -92,9 +95,11 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
 
     public void resetValue(Property property) {
         if (RESOLVE_REFERENCES.equals(property.getName())) {
-            setDoResolvePojo(false);
+            doResolvePojo = false;
+            if (pojoResolverFactory.getPojoResolver() != null)
+                pojoResolverFactory.getPojoResolver().nextStatus(doResolvePojo);
         } else if (DATABASE_ONLINE.equals(property.getName())) {
-            setDoResolveDb(false);
+            doResolveDb = false;
         } else if (DATABASE_URL.equals(property.getName())) {
             dbUrl = null;
         } else if (DATABASE_USERNAME.equals(property.getName())) {
@@ -109,25 +114,14 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     public void reset() {
-        setDoResolvePojo(false);
-        setDoResolveDb(false);
+        doResolvePojo = false;
+        doResolveDb = false;
         dbDriver = null;
         dbUrl = null;
         dbUsername = null;
         dbPassword = null;
         dbSchema = null;
         doNextReset = false;
-    }
-
-    public void setDoResolvePojo(boolean doResolvePojo) {
-        this.doResolvePojo = doResolvePojo;
-        if (pojoResolverFactory.getPojoResolver() != null) {
-            pojoResolverFactory.getPojoResolver().setResolvePojo(doResolvePojo);
-        }
-    }
-
-    public void setDoResolveDb(boolean doResolveDb) {
-        this.doResolveDb = doResolveDb;
     }
 
     @Override

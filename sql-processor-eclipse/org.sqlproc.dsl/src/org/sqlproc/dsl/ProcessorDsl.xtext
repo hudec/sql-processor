@@ -11,8 +11,8 @@ Artifacts:
     )+;
 
 Property:
-	(name='resolve references'
-	|name='database online'
+	(name='resolve references' WS+ doResolvePojo=('ON'|'OFF')
+	|name='database online' WS+ doResolveDb=('ON'|'OFF')
 	|name='database url' WS+ dbUrl=PropertyValue
 	|name='database username' WS+ dbUsername=PropertyValue
 	|name='database password' WS+ dbPassword=PropertyValue

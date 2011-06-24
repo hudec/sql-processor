@@ -36,6 +36,8 @@
     </genClasses>
     <genClasses ecoreClass="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Property">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Property/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Property/doResolvePojo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Property/doResolveDb"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Property/dbUrl"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Property/dbUsername"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Property/dbPassword"/>

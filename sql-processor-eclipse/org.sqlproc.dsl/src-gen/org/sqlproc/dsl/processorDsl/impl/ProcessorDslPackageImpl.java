@@ -463,7 +463,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getProperty_DbUrl()
+  public EAttribute getProperty_DoResolvePojo()
   {
     return (EAttribute)propertyEClass.getEStructuralFeatures().get(1);
   }
@@ -473,7 +473,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getProperty_DbUsername()
+  public EAttribute getProperty_DoResolveDb()
   {
     return (EAttribute)propertyEClass.getEStructuralFeatures().get(2);
   }
@@ -483,7 +483,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getProperty_DbPassword()
+  public EAttribute getProperty_DbUrl()
   {
     return (EAttribute)propertyEClass.getEStructuralFeatures().get(3);
   }
@@ -493,7 +493,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getProperty_DbSchema()
+  public EAttribute getProperty_DbUsername()
   {
     return (EAttribute)propertyEClass.getEStructuralFeatures().get(4);
   }
@@ -503,9 +503,29 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getProperty_DbDriver()
+  public EAttribute getProperty_DbPassword()
   {
     return (EAttribute)propertyEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getProperty_DbSchema()
+  {
+    return (EAttribute)propertyEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getProperty_DbDriver()
+  {
+    return (EAttribute)propertyEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -1630,6 +1650,8 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     propertyEClass = createEClass(PROPERTY);
     createEAttribute(propertyEClass, PROPERTY__NAME);
+    createEAttribute(propertyEClass, PROPERTY__DO_RESOLVE_POJO);
+    createEAttribute(propertyEClass, PROPERTY__DO_RESOLVE_DB);
     createEAttribute(propertyEClass, PROPERTY__DB_URL);
     createEAttribute(propertyEClass, PROPERTY__DB_USERNAME);
     createEAttribute(propertyEClass, PROPERTY__DB_PASSWORD);
@@ -1822,6 +1844,8 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getProperty_DoResolvePojo(), ecorePackage.getEString(), "doResolvePojo", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getProperty_DoResolveDb(), ecorePackage.getEString(), "doResolveDb", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getProperty_DbUrl(), ecorePackage.getEString(), "dbUrl", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getProperty_DbUsername(), ecorePackage.getEString(), "dbUsername", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getProperty_DbPassword(), ecorePackage.getEString(), "dbPassword", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
