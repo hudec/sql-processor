@@ -2,6 +2,7 @@ package org.sqlproc.dsl.resolver;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +20,9 @@ public class DbResolverBean implements DbResolver {
     @Inject
     ModelProperty modelProperty;
 
-    private boolean doResolveDb;
+    @Inject
+    PojoResolverFactory pojoResolverFactory;
+
     private String dbDriver;
     private String dbUrl;
     private String dbUsername;
@@ -87,12 +90,16 @@ public class DbResolverBean implements DbResolver {
             return connection;
         closeConnection();
         synchronized (sync) {
-            try {
-                Class.forName(dbDriver);
-                DriverManager.setLoginTimeout(2500);
-                connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            Class<?> driverClass = pojoResolverFactory.getPojoResolver().loadClass(dbDriver);
+            if (driverClass != null && Driver.class.isAssignableFrom(driverClass)) {
+                try {
+                    // Class.forName(dbDriver);
+                    DriverManager.registerDriver((Driver) driverClass.newInstance());
+                    DriverManager.setLoginTimeout(2500);
+                    connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
             return connection;
         }
@@ -106,12 +113,13 @@ public class DbResolverBean implements DbResolver {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+            connection = null;
         }
     }
 
     @Override
     public boolean isResolveDb() {
-        return doResolveDb;
+        return getConnection() != null;
     }
 
     @Override
