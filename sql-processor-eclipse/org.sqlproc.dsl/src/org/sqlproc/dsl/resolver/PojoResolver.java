@@ -12,7 +12,5 @@ public interface PojoResolver {
 
     public PropertyDescriptor[] getPropertyDescriptors(String name);
 
-    public boolean isResolvePojo();
-
-    void nextStatus(boolean status);
+    boolean isResolvePojo();
 }

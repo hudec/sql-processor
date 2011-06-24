@@ -253,9 +253,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     }
 
     protected boolean isResolvePojo() {
-        if (pojoResolver == null || !pojoResolver.isResolvePojo())
-            return false;
-        return true;
+        return pojoResolver.isResolvePojo();
 
     }
 

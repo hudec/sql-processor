@@ -20,8 +20,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.PojoResolver;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
@@ -31,63 +33,66 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
     private static final Class[] EMPTY_CLASS_PARAMETERS = new Class[0];
     private static final Class[] LIST_CLASS_PARAMETER = new Class[] { java.util.List.class };
 
+    @Inject
+    ModelProperty modelProperty;
+
     private List<URLClassLoader> allLoaders;
-    private Boolean status;
 
     public WorkspacePojoResolverImpl() {
         // init();
     }
 
-    protected void startStop() {
-        if (status == null) {
+    protected boolean checkReload() {
+        if (!modelProperty.isDoResolvePojo()) {
+            if (allLoaders != null)
+                System.out.println("POJO STOP");
             allLoaders = null;
-            return;
+            return false;
         }
 
-        if (!status && allLoaders != null) {
-            allLoaders = null;
-            System.out.println("UUUU STOP");
-            return;
-        }
+        if (allLoaders == null)
+            return true;
+        return false;
+    }
 
-        if (status && allLoaders == null) {
-            System.out.println("UUUU START");
-            List<IJavaProject> javaProjects = new ArrayList<IJavaProject>();
-            List<URLClassLoader> loaders = new ArrayList<URLClassLoader>();
-            IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-            for (IProject project : projects) {
-                try {
-                    project.open(null /* IProgressMonitor */);
-                    IJavaProject javaProject = JavaCore.create(project);
-                    javaProjects.add(javaProject);
-                    String[] classPathEntries = JavaRuntime.computeDefaultRuntimeClassPath(javaProject);
-                    List<URL> urlList = new ArrayList<URL>();
-                    for (int i = 0; i < classPathEntries.length; i++) {
-                        String entry = classPathEntries[i];
-                        IPath path = new Path(entry);
-                        URL url;
-                        try {
-                            url = path.toFile().toURI().toURL();
-                            urlList.add(url);
-                        } catch (MalformedURLException e) {
-                            LOGGER.warn("Can't accept URL for '" + path + "'", e);
-                        }
+    protected void init() {
+        System.out.println("POJO START");
+        List<IJavaProject> javaProjects = new ArrayList<IJavaProject>();
+        List<URLClassLoader> loaders = new ArrayList<URLClassLoader>();
+        IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+        for (IProject project : projects) {
+            try {
+                project.open(null /* IProgressMonitor */);
+                IJavaProject javaProject = JavaCore.create(project);
+                javaProjects.add(javaProject);
+                String[] classPathEntries = JavaRuntime.computeDefaultRuntimeClassPath(javaProject);
+                List<URL> urlList = new ArrayList<URL>();
+                for (int i = 0; i < classPathEntries.length; i++) {
+                    String entry = classPathEntries[i];
+                    IPath path = new Path(entry);
+                    URL url;
+                    try {
+                        url = path.toFile().toURI().toURL();
+                        urlList.add(url);
+                    } catch (MalformedURLException e) {
+                        LOGGER.warn("Can't accept URL for '" + path + "'", e);
                     }
-                    ClassLoader parentClassLoader = javaProject.getClass().getClassLoader();
-                    URL[] urls = (URL[]) urlList.toArray(new URL[urlList.size()]);
-                    URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
-                    loaders.add(classLoader);
-                } catch (CoreException e) {
-                    LOGGER.warn("Can't handle project '" + project + "'", e);
                 }
+                ClassLoader parentClassLoader = javaProject.getClass().getClassLoader();
+                URL[] urls = (URL[]) urlList.toArray(new URL[urlList.size()]);
+                URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
+                loaders.add(classLoader);
+            } catch (CoreException e) {
+                LOGGER.warn("Can't handle project '" + project + "'", e);
             }
-            this.allLoaders = loaders;
         }
+        this.allLoaders = loaders;
     }
 
     @Override
     public List<URLClassLoader> getAllLoaders() {
-        startStop();
+        if (checkReload())
+            init();
         if (allLoaders == null)
             return Collections.EMPTY_LIST;
         return allLoaders;
@@ -95,7 +100,8 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
 
     @Override
     public Class<?> loadClass(String name) {
-        startStop();
+        if (checkReload())
+            init();
         if (allLoaders == null)
             return null;
         for (URLClassLoader loader : allLoaders) {
@@ -110,7 +116,8 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
 
     @Override
     public PropertyDescriptor[] getPropertyDescriptors(String name) {
-        startStop();
+        if (checkReload())
+            init();
         if (allLoaders == null)
             return null;
         Class<?> beanClass = loadClass(name);
@@ -142,12 +149,8 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
 
     @Override
     public boolean isResolvePojo() {
-        startStop();
-        return (status != null) ? status : false;
-    }
-
-    @Override
-    public void nextStatus(boolean status) {
-        this.status = status;
+        if (checkReload())
+            init();
+        return allLoaders != null;
     }
 }

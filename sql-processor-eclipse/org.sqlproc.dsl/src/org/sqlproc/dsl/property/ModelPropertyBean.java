@@ -5,9 +5,7 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EReference;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Property;
-import org.sqlproc.dsl.resolver.PojoResolverFactory;
 
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
@@ -31,9 +29,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
 
     private boolean doNextReset = false;
 
-    @Inject
-    PojoResolverFactory pojoResolverFactory;
-
+    // TODO: tady je problem, jsou napr. dva objekty Artefacts, jeden neni aktualni, ale muze zpusobit vynulovani
     @Override
     public void setNextReset() {
         doNextReset = true;
@@ -59,8 +55,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 } else {
                     System.out.println("???????????? " + msg);
                 }
-                System.out.println("XXXX " + msg);
-                System.out.println("ZZZZ " + toString());
+                // System.out.println("XXXX " + msg);
+                System.out.println("MODEL " + toString());
                 return;
             }
         }
@@ -76,8 +72,6 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public void setValue(Property property) {
         if (RESOLVE_REFERENCES.equals(property.getName())) {
             doResolvePojo = "ON".equals(property.getDoResolvePojo());
-            if (pojoResolverFactory.getPojoResolver() != null)
-                pojoResolverFactory.getPojoResolver().nextStatus(doResolvePojo);
         } else if (DATABASE_ONLINE.equals(property.getName())) {
             doResolveDb = "ON".equals(property.getDoResolveDb());
         } else if (DATABASE_URL.equals(property.getName())) {
@@ -96,8 +90,6 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public void resetValue(Property property) {
         if (RESOLVE_REFERENCES.equals(property.getName())) {
             doResolvePojo = false;
-            if (pojoResolverFactory.getPojoResolver() != null)
-                pojoResolverFactory.getPojoResolver().nextStatus(doResolvePojo);
         } else if (DATABASE_ONLINE.equals(property.getName())) {
             doResolveDb = false;
         } else if (DATABASE_URL.equals(property.getName())) {

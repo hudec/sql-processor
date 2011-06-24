@@ -24,7 +24,7 @@ public class ProcessorEcoreElementFactory extends DefaultEcoreElementFactory {
             return null;
 
         if (model instanceof Artifacts) {
-            System.out.println("AAAAAAAA " + model);
+            // System.out.println("AAAAAAAA " + model);
 
             model.eAdapters().add(modelProperty);
             model.eSetDeliver(true);

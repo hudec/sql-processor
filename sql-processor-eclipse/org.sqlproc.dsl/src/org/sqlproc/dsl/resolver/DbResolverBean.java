@@ -3,11 +3,11 @@ package org.sqlproc.dsl.resolver;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.sqlproc.dsl.property.ModelProperty;
 
@@ -90,15 +90,30 @@ public class DbResolverBean implements DbResolver {
             return connection;
         closeConnection();
         synchronized (sync) {
+            System.out.println("DATA START");
             Class<?> driverClass = pojoResolverFactory.getPojoResolver().loadClass(dbDriver);
+            System.out.println("DATA DRIVER " + driverClass);
             if (driverClass != null && Driver.class.isAssignableFrom(driverClass)) {
+                // try {
+                // // Class.forName(dbDriver);
+                // DriverManager.registerDriver((Driver) driverClass.newInstance());
+                // DriverManager.setLoginTimeout(2500);
+                // connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+                // } catch (Exception ex) {
+                // ex.printStackTrace();
+                // }
                 try {
-                    // Class.forName(dbDriver);
-                    DriverManager.registerDriver((Driver) driverClass.newInstance());
-                    DriverManager.setLoginTimeout(2500);
-                    connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                    Driver driver = (Driver) driverClass.newInstance();
+                    Properties props = new Properties();
+                    props.setProperty("user", dbUsername);
+                    props.setProperty("password", dbPassword);
+                    connection = driver.connect(dbUrl, props);
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
             return connection;
@@ -108,8 +123,10 @@ public class DbResolverBean implements DbResolver {
     private void closeConnection() {
         synchronized (sync) {
             try {
-                if (connection != null)
+                if (connection != null) {
+                    System.out.println("DATA STOP");
                     connection.close();
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
