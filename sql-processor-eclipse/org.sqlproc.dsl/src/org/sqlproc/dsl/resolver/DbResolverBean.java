@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
 import org.sqlproc.dsl.property.ModelProperty;
 
 import com.google.inject.Inject;
@@ -25,6 +26,8 @@ public class DbResolverBean implements DbResolver {
 
     @Inject
     PojoResolverFactory pojoResolverFactory;
+
+    protected Logger LOGGER = Logger.getLogger(DbResolverBean.class);
 
     private String dbDriver;
     private String dbUrl;
@@ -115,11 +118,11 @@ public class DbResolverBean implements DbResolver {
                     props.setProperty("password", dbPassword);
                     connection = driver.connect(dbUrl, props);
                 } catch (InstantiationException e) {
-                    e.printStackTrace();
+                    LOGGER.error("getConnection error " + e);
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                    LOGGER.error("getConnection error " + e);
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    LOGGER.error("getConnection error " + e);
                 }
             }
             return connection;
@@ -133,8 +136,8 @@ public class DbResolverBean implements DbResolver {
                     System.out.println("DATA STOP");
                     connection.close();
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            } catch (SQLException e) {
+                LOGGER.error("closeConnection error " + e);
             }
             connection = null;
             tables.clear();
@@ -158,16 +161,16 @@ public class DbResolverBean implements DbResolver {
                 DatabaseMetaData meta = connection.getMetaData();
                 result = meta.getTables(null, dbSchema, null, new String[] { "TABLE" });
                 while (result.next()) {
-                    tables.add(result.getString("TABLE_NAME").toUpperCase());
+                    tables.add(result.getString("TABLE_NAME"));
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            } catch (SQLException e) {
+                LOGGER.error("getTables error " + e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+                } catch (SQLException e) {
+                    LOGGER.error("getTables error " + e);
                 }
             }
         }
@@ -179,14 +182,14 @@ public class DbResolverBean implements DbResolver {
         if (table == null)
             return false;
         List<String> tbls = getTables();
-        return tbls.contains(table.toUpperCase());
+        return tbls.contains(table);
     }
 
     @Override
     public List<String> getColumns(String table) {
         if (table == null)
             return Collections.emptyList();
-        if (columns.containsKey(table.toUpperCase()))
+        if (columns.containsKey(table))
             return columns.get(table);
         List<String> cols = new ArrayList<String>();
         Connection conn = getConnection();
@@ -196,17 +199,17 @@ public class DbResolverBean implements DbResolver {
                 DatabaseMetaData meta = connection.getMetaData();
                 result = meta.getTables(null, dbSchema, table, null);
                 while (result.next()) {
-                    cols.add(result.getString("COLUMN_NAME").toUpperCase());
+                    cols.add(result.getString("COLUMN_NAME"));
                 }
                 columns.put(table, cols);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            } catch (SQLException e) {
+                LOGGER.error("getColumns error " + e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+                } catch (SQLException e) {
+                    LOGGER.error("getColumns error " + e);
                 }
             }
         }
@@ -217,6 +220,6 @@ public class DbResolverBean implements DbResolver {
     public boolean checkColumn(String table, String column) {
         if (table == null || column == null)
             return false;
-        return getColumns(table.toUpperCase()).contains(column.toUpperCase());
+        return getColumns(table).contains(column);
     }
 }

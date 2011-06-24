@@ -119,7 +119,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         for (PojoDefinition definition : artifacts.getPojos()) {
             if (definition == null || definition == pojoDefinition)
                 continue;
-            if (pojoDefinition.getName().equalsIgnoreCase(definition.getName())) {
+            if (pojoDefinition.getName().equals(definition.getName())) {
                 error("Duplicate name : " + pojoDefinition.getName(),
                         ProcessorDslPackage.Literals.POJO_DEFINITION__NAME);
                 return;
@@ -140,7 +140,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             ColumnUsage column = (ColumnUsage) usage;
             if (column.getStatement() == null)
                 continue;
-            if (columnUsage.getStatement().getName().equalsIgnoreCase(column.getStatement().getName())) {
+            if (columnUsage.getStatement().getName().equals(column.getStatement().getName())) {
                 error("Duplicate name : " + columnUsage.getStatement().getName() + "[col]",
                         ProcessorDslPackage.Literals.COLUMN_USAGE__STATEMENT);
                 return;
@@ -161,7 +161,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             IdentifierUsage ident = (IdentifierUsage) usage;
             if (ident.getStatement() == null)
                 continue;
-            if (identifierUsage.getStatement().getName().equalsIgnoreCase(ident.getStatement().getName())) {
+            if (identifierUsage.getStatement().getName().equals(ident.getStatement().getName())) {
                 error("Duplicate name : " + identifierUsage.getStatement().getName() + "[ident]",
                         ProcessorDslPackage.Literals.IDENTIFIER_USAGE__STATEMENT);
                 return;
@@ -182,7 +182,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             ConstantUsage constant = (ConstantUsage) usage;
             if (constant.getStatement() == null)
                 continue;
-            if (constantUsage.getStatement().getName().equalsIgnoreCase(constant.getStatement().getName())) {
+            if (constantUsage.getStatement().getName().equals(constant.getStatement().getName())) {
                 error("Duplicate name : " + constantUsage.getStatement().getName() + "[const]",
                         ProcessorDslPackage.Literals.CONSTANT_USAGE__STATEMENT);
                 return;
@@ -203,7 +203,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             MappingUsage mapping = (MappingUsage) usage;
             if (mapping.getStatement() == null)
                 continue;
-            if (mappingUsage.getStatement().getName().equalsIgnoreCase(mapping.getStatement().getName())) {
+            if (mappingUsage.getStatement().getName().equals(mapping.getStatement().getName())) {
                 error("Duplicate name : " + mappingUsage.getStatement().getName() + "[col]",
                         ProcessorDslPackage.Literals.MAPPING_USAGE__STATEMENT);
                 return;
@@ -218,7 +218,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             return false;
         if (statement2 == null || statement2.getName() == null)
             return false;
-        if (statement1.getName().equalsIgnoreCase(statement2.getName()) && statement1.getType() == statement2.getType()) {
+        if (statement1.getName().equals(statement2.getName()) && statement1.getType() == statement2.getType()) {
             if (statement1.getFilters() == null && statement2.getFilters() == null)
                 return true;
             if (statement1.getFilters() == null)
@@ -230,7 +230,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             // Filtry musi byt disjunktni, pro jednu shodu je vysledek komparace kladny
             for (String filter1 : statement1.getFilters())
                 for (String filter2 : statement2.getFilters())
-                    if (filter1.equalsIgnoreCase(filter2))
+                    if (filter1.equals(filter2))
                         return true;
         }
         return false;
@@ -243,7 +243,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             return false;
         if (rule2 == null || rule2.getName() == null)
             return false;
-        if (rule1.getName().equalsIgnoreCase(rule2.getName()) && rule1.getType() == rule2.getType()) {
+        if (rule1.getName().equals(rule2.getName()) && rule1.getType() == rule2.getType()) {
             if (rule1.getFilters() == null && rule2.getFilters() == null)
                 return true;
             if (rule1.getFilters() == null)
@@ -255,7 +255,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             // Filtry musi byt disjunktni, pro jednu shodu je vysledek komparace kladny
             for (String filter1 : rule1.getFilters())
                 for (String filter2 : rule2.getFilters())
-                    if (filter1.equalsIgnoreCase(filter2))
+                    if (filter1.equals(filter2))
                         return true;
         }
         return false;
@@ -268,7 +268,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             return false;
         if (feature2 == null || feature2.getName() == null)
             return false;
-        if (feature1.getName().equalsIgnoreCase(feature2.getName()) && feature1.getType() == feature2.getType()) {
+        if (feature1.getName().equals(feature2.getName()) && feature1.getType() == feature2.getType()) {
             if (feature1.getFilters() == null && feature2.getFilters() == null)
                 return true;
             if (feature1.getFilters() == null)
@@ -280,7 +280,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             // Filtry musi byt disjunktni, pro jednu shodu je vysledek komparace kladny
             for (String filter1 : feature1.getFilters())
                 for (String filter2 : feature2.getFilters())
-                    if (filter1.equalsIgnoreCase(filter2))
+                    if (filter1.equals(filter2))
                         return true;
         }
         return false;
@@ -548,7 +548,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         for (TableDefinition table : artifacts.getTables()) {
             if (table == null || table == tableDefinition)
                 continue;
-            if (tableDefinition.getName().equalsIgnoreCase(table.getName())) {
+            if (tableDefinition.getName().equals(table.getName())) {
                 error("Duplicate name : " + tableDefinition.getName() + "[table]",
                         ProcessorDslPackage.Literals.TABLE_DEFINITION__NAME);
                 return;
@@ -570,9 +570,9 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         for (TableUsage usage : artifacts.getTableUsages()) {
             if (usage == null || usage == tableUsage)
                 continue;
-            if (tableUsage.getStatement().getName().equalsIgnoreCase(usage.getStatement().getName())
-                    && tableUsage.getTable().getName().equalsIgnoreCase(usage.getTable().getName())
-                    && tableUsage.getPrefix().equalsIgnoreCase(usage.getPrefix())) {
+            if (tableUsage.getStatement().getName().equals(usage.getStatement().getName())
+                    && tableUsage.getTable().getName().equals(usage.getTable().getName())
+                    && tableUsage.getPrefix().equals(usage.getPrefix())) {
                 error("Duplicate name : " + tableUsage.getStatement().getName() + "[" + tableUsage.getTable().getName()
                         + ":" + tableUsage.getPrefix() + "][dbcol]", ProcessorDslPackage.Literals.TABLE_USAGE__PREFIX);
                 return;
