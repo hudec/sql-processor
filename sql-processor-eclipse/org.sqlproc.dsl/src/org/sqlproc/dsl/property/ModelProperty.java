@@ -4,5 +4,5 @@ import org.eclipse.emf.common.notify.Adapter;
 
 public interface ModelProperty extends Adapter {
 
-    public void setNextReset();
+    void setNextReset();
 }
