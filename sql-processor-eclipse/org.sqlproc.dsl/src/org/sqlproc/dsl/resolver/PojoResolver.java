@@ -11,4 +11,8 @@ public interface PojoResolver {
     Class<?> loadClass(String name);
 
     public PropertyDescriptor[] getPropertyDescriptors(String name);
+
+    public boolean isResolvePojo();
+
+    public void setResolvePojo(boolean doResolvePojo);
 }

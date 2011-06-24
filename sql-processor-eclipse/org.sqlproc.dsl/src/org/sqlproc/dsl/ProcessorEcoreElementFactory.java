@@ -1,10 +1,10 @@
 package org.sqlproc.dsl;
 
-import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.parser.DefaultEcoreElementFactory;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.property.ModelProperty;
 
 import com.google.inject.Inject;
@@ -27,13 +27,16 @@ public class ProcessorEcoreElementFactory extends DefaultEcoreElementFactory {
         if (model instanceof Artifacts) {
             System.out.println("AAAAAAAA " + model);
 
-            Adapter adapter = modelProperty.getAdapter();
-            model.eAdapters().add(adapter);
+            model.eAdapters().add(modelProperty);
             model.eSetDeliver(true);
-            // adapter.setTarget(model);
 
             modelProperty.setNextReset();
         }
+
+        else if (model instanceof Property) {
+            System.out.println("BBBBBBBB " + model);
+        }
+
         return model;
     }
 }

@@ -31,6 +31,7 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
     private static final Class[] LIST_CLASS_PARAMETER = new Class[] { java.util.List.class };
 
     private List<URLClassLoader> allLoaders;
+    private boolean doResolvePojo;
 
     public WorkspacePojoResolverImpl() {
         List<IJavaProject> javaProjects = new ArrayList<IJavaProject>();
@@ -109,5 +110,15 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
 
         // descriptorsCache.put(beanClass, descriptors);
         return descriptors;
+    }
+
+    @Override
+    public boolean isResolvePojo() {
+        return doResolvePojo;
+    }
+
+    @Override
+    public void setResolvePojo(boolean doResolvePojo) {
+        this.doResolvePojo = doResolvePojo;
     }
 }

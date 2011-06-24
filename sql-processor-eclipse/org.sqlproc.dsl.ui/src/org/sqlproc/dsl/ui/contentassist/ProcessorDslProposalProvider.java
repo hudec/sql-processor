@@ -27,7 +27,6 @@ import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
-import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.PojoResolver;
 
 import com.google.inject.Inject;
@@ -39,9 +38,6 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
 
     @Inject
     PojoResolver pojoResolver;
-
-    @Inject
-    ModelProperty modelProperty;
 
     @Override
     public void completeColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
@@ -67,7 +63,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
 
     public boolean completeUsage(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor, String name) {
-        if (!modelProperty.isResolvePojo())
+        if (!isResolvePojo())
             return false;
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
@@ -108,7 +104,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     @Override
     public void completeMappingColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        if (!modelProperty.isResolvePojo())
+        if (!isResolvePojo())
             return;
         MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
@@ -250,5 +246,12 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
                 return null;
             return getClassName(innerClass.getName(), innerProperty);
         }
+    }
+
+    protected boolean isResolvePojo() {
+        if (pojoResolver == null || !pojoResolver.isResolvePojo())
+            return false;
+        return true;
+
     }
 }
