@@ -124,6 +124,34 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         doNextReset = false;
     }
 
+    public boolean isDoResolvePojo() {
+        return doResolvePojo;
+    }
+
+    public boolean isDoResolveDb() {
+        return doResolveDb;
+    }
+
+    public String getDbDriver() {
+        return dbDriver;
+    }
+
+    public String getDbUrl() {
+        return dbUrl;
+    }
+
+    public String getDbUsername() {
+        return dbUsername;
+    }
+
+    public String getDbPassword() {
+        return dbPassword;
+    }
+
+    public String getDbSchema() {
+        return dbSchema;
+    }
+
     @Override
     public String toString() {
         return "ModelPropertyBean [resolvePojo=" + doResolvePojo + ", resolveDb=" + doResolveDb + ", dbDriver="

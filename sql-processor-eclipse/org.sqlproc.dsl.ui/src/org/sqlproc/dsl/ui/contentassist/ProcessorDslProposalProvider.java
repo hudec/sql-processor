@@ -27,6 +27,7 @@ import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
+import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolver;
 
 import com.google.inject.Inject;
@@ -38,6 +39,9 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
 
     @Inject
     PojoResolver pojoResolver;
+
+    @Inject
+    DbResolver dbResolver;
 
     @Override
     public void completeColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
@@ -253,5 +257,9 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             return false;
         return true;
 
+    }
+
+    protected boolean isResolveDb() {
+        return dbResolver.isResolveDb();
     }
 }
