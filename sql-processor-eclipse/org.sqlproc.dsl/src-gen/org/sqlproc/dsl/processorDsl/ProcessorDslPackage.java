@@ -7,7 +7,6 @@ package org.sqlproc.dsl.processorDsl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -1503,36 +1502,6 @@ public interface ProcessorDslPackage extends EPackage
    */
   int OPTIONAL_FEATURE_FEATURE_COUNT = 4;
 
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.STATEMEN_TYPE <em>STATEMEN TYPE</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.STATEMEN_TYPE
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getSTATEMEN_TYPE()
-   * @generated
-   */
-  int STATEMEN_TYPE = 30;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.MAPPING_TYPE <em>MAPPING TYPE</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.MAPPING_TYPE
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMAPPING_TYPE()
-   * @generated
-   */
-  int MAPPING_TYPE = 31;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.OPTION_TYPE <em>OPTION TYPE</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.OPTION_TYPE
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getOPTION_TYPE()
-   * @generated
-   */
-  int OPTION_TYPE = 32;
-
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.Artifacts <em>Artifacts</em>}'.
@@ -2858,36 +2827,6 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getOptionalFeature_Option();
 
   /**
-   * Returns the meta object for enum '{@link org.sqlproc.dsl.processorDsl.STATEMEN_TYPE <em>STATEMEN TYPE</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>STATEMEN TYPE</em>'.
-   * @see org.sqlproc.dsl.processorDsl.STATEMEN_TYPE
-   * @generated
-   */
-  EEnum getSTATEMEN_TYPE();
-
-  /**
-   * Returns the meta object for enum '{@link org.sqlproc.dsl.processorDsl.MAPPING_TYPE <em>MAPPING TYPE</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>MAPPING TYPE</em>'.
-   * @see org.sqlproc.dsl.processorDsl.MAPPING_TYPE
-   * @generated
-   */
-  EEnum getMAPPING_TYPE();
-
-  /**
-   * Returns the meta object for enum '{@link org.sqlproc.dsl.processorDsl.OPTION_TYPE <em>OPTION TYPE</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>OPTION TYPE</em>'.
-   * @see org.sqlproc.dsl.processorDsl.OPTION_TYPE
-   * @generated
-   */
-  EEnum getOPTION_TYPE();
-
-  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3953,36 +3892,6 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute OPTIONAL_FEATURE__OPTION = eINSTANCE.getOptionalFeature_Option();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.STATEMEN_TYPE <em>STATEMEN TYPE</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.STATEMEN_TYPE
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getSTATEMEN_TYPE()
-     * @generated
-     */
-    EEnum STATEMEN_TYPE = eINSTANCE.getSTATEMEN_TYPE();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.MAPPING_TYPE <em>MAPPING TYPE</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.MAPPING_TYPE
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMAPPING_TYPE()
-     * @generated
-     */
-    EEnum MAPPING_TYPE = eINSTANCE.getMAPPING_TYPE();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.OPTION_TYPE <em>OPTION TYPE</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.OPTION_TYPE
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getOPTION_TYPE()
-     * @generated
-     */
-    EEnum OPTION_TYPE = eINSTANCE.getOPTION_TYPE();
 
   }
 

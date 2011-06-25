@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.sqlproc.dsl.ui
 Bundle-Vendor: My Company
-Bundle-Version: 1.0.0
+Bundle-Version: 0.9.0
 Bundle-SymbolicName: org.sqlproc.dsl.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.sqlproc.dsl;visibility:=reexport,

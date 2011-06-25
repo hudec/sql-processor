@@ -1,4 +1,4 @@
-resolve references ON;
+resolve references ON; 
 database online ON;
 database driver oracle.jdbc.OracleDriver;
 database url jdbc:oracle:thin:@127.0.0.1:1521:xe;

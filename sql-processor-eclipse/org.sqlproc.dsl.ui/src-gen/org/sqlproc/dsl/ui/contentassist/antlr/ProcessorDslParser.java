@@ -39,8 +39,6 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getArtifactsAccess().getAlternatives_1(), "rule__Artifacts__Alternatives_1");
 					put(grammarAccess.getPropertyAccess().getAlternatives_0(), "rule__Property__Alternatives_0");
-					put(grammarAccess.getPropertyAccess().getDoResolvePojoAlternatives_0_0_2_0(), "rule__Property__DoResolvePojoAlternatives_0_0_2_0");
-					put(grammarAccess.getPropertyAccess().getDoResolveDbAlternatives_0_1_2_0(), "rule__Property__DoResolveDbAlternatives_0_1_2_0");
 					put(grammarAccess.getPropertyValueAccess().getAlternatives_0(), "rule__PropertyValue__Alternatives_0");
 					put(grammarAccess.getPropertyValueAccess().getAlternatives_1_0(), "rule__PropertyValue__Alternatives_1_0");
 					put(grammarAccess.getPojoDefinitionAccess().getClassAlternatives_2_0(), "rule__PojoDefinition__ClassAlternatives_2_0");
@@ -72,8 +70,6 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMappingColumnAccess().getNameAlternatives_0_0(), "rule__MappingColumn__NameAlternatives_0_0");
 					put(grammarAccess.getMappingColumnAccess().getValsAlternatives_1_1_0(), "rule__MappingColumn__ValsAlternatives_1_1_0");
 					put(grammarAccess.getFeatureValueAccess().getAlternatives(), "rule__FeatureValue__Alternatives");
-					put(grammarAccess.getSTATEMEN_TYPEAccess().getAlternatives(), "rule__STATEMEN_TYPE__Alternatives");
-					put(grammarAccess.getOPTION_TYPEAccess().getAlternatives(), "rule__OPTION_TYPE__Alternatives");
 					put(grammarAccess.getArtifactsAccess().getGroup(), "rule__Artifacts__Group__0");
 					put(grammarAccess.getArtifactsAccess().getGroup_1_0(), "rule__Artifacts__Group_1_0__0");
 					put(grammarAccess.getArtifactsAccess().getGroup_1_1(), "rule__Artifacts__Group_1_1__0");

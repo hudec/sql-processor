@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 
-import org.sqlproc.dsl.processorDsl.OPTION_TYPE;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
@@ -68,7 +67,7 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
    * @generated
    * @ordered
    */
-  protected static final OPTION_TYPE TYPE_EDEFAULT = OPTION_TYPE.OPT;
+  protected static final String TYPE_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -78,7 +77,7 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
    * @generated
    * @ordered
    */
-  protected OPTION_TYPE type = TYPE_EDEFAULT;
+  protected String type = TYPE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getFilters() <em>Filters</em>}' attribute list.
@@ -159,7 +158,7 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public OPTION_TYPE getType()
+  public String getType()
   {
     return type;
   }
@@ -169,10 +168,10 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setType(OPTION_TYPE newType)
+  public void setType(String newType)
   {
-    OPTION_TYPE oldType = type;
-    type = newType == null ? TYPE_EDEFAULT : newType;
+    String oldType = type;
+    type = newType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.OPTIONAL_FEATURE__TYPE, oldType, type));
   }
@@ -251,7 +250,7 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
         setName((String)newValue);
         return;
       case ProcessorDslPackage.OPTIONAL_FEATURE__TYPE:
-        setType((OPTION_TYPE)newValue);
+        setType((String)newValue);
         return;
       case ProcessorDslPackage.OPTIONAL_FEATURE__FILTERS:
         getFilters().clear();
@@ -303,7 +302,7 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.OPTIONAL_FEATURE__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.OPTIONAL_FEATURE__TYPE:
-        return type != TYPE_EDEFAULT;
+        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
       case ProcessorDslPackage.OPTIONAL_FEATURE__FILTERS:
         return filters != null && !filters.isEmpty();
       case ProcessorDslPackage.OPTIONAL_FEATURE__OPTION:

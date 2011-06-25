@@ -151,6 +151,8 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
     public boolean isResolvePojo() {
         if (checkReload())
             init();
-        return allLoaders != null;
+        boolean result = allLoaders != null;
+        // System.out.println("POJO ACTIVE " + result);
+        return result;
     }
 }

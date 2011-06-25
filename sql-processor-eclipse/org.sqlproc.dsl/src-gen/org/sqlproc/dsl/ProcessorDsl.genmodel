@@ -9,21 +9,6 @@
     editorPluginID="org.sqlproc.dsl.editor">
   <genPackages prefix="ProcessorDsl" basePackage="org.sqlproc.dsl" disposableProviderFactory="true"
       ecorePackage="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//STATEMEN_TYPE">
-      <genEnumLiterals ecoreEnumLiteral="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//STATEMEN_TYPE/QRY"/>
-      <genEnumLiterals ecoreEnumLiteral="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//STATEMEN_TYPE/CRUD"/>
-      <genEnumLiterals ecoreEnumLiteral="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//STATEMEN_TYPE/CALL"/>
-    </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MAPPING_TYPE">
-      <genEnumLiterals ecoreEnumLiteral="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//MAPPING_TYPE/OUT"/>
-    </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OPTION_TYPE">
-      <genEnumLiterals ecoreEnumLiteral="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OPTION_TYPE/OPT"/>
-      <genEnumLiterals ecoreEnumLiteral="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OPTION_TYPE/LOPT"/>
-      <genEnumLiterals ecoreEnumLiteral="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OPTION_TYPE/IOPT"/>
-      <genEnumLiterals ecoreEnumLiteral="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OPTION_TYPE/SOPT"/>
-      <genEnumLiterals ecoreEnumLiteral="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//OPTION_TYPE/BOPT"/>
-    </genEnums>
     <genClasses ecoreClass="platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Artifacts">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Artifacts/features"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.sqlproc.dsl/src-gen/org/sqlproc/dsl/ProcessorDsl.ecore#//Artifacts/statements"/>

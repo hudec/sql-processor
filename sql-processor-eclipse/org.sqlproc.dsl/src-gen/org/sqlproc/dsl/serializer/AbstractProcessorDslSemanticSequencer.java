@@ -812,8 +812,8 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name='resolve references' (doResolvePojo='ON' | doResolvePojo='OFF')) | 
-	 *         (name='database online' (doResolveDb='ON' | doResolveDb='OFF')) | 
+	 *         (name='resolve references' doResolvePojo=ON_OFF) | 
+	 *         (name='database online' doResolveDb=ON_OFF) | 
 	 *         (name='database url' dbUrl=PropertyValue) | 
 	 *         (name='database username' dbUsername=PropertyValue) | 
 	 *         (name='database password' dbPassword=PropertyValue) | 
@@ -823,10 +823,10 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *
 	 * Features:
 	 *    name[7, 7]
-	 *    doResolvePojo[0, 2]
+	 *    doResolvePojo[1, 1]
 	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl
@@ -838,10 +838,10 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET dbSchema
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbDriver
-	 *    doResolveDb[0, 2]
+	 *    doResolveDb[1, 1]
 	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET doResolvePojo
 	 *         EXCLUDE_IF_SET doResolvePojo
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl
@@ -858,9 +858,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET doResolvePojo
-	 *         EXCLUDE_IF_SET doResolvePojo
 	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUsername
@@ -875,9 +873,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET doResolvePojo
-	 *         EXCLUDE_IF_SET doResolvePojo
 	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl
@@ -892,9 +888,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET doResolvePojo
-	 *         EXCLUDE_IF_SET doResolvePojo
 	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl
@@ -909,9 +903,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET doResolvePojo
-	 *         EXCLUDE_IF_SET doResolvePojo
 	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl
@@ -926,9 +918,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET doResolvePojo
-	 *         EXCLUDE_IF_SET doResolvePojo
 	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET doResolveDb
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbUrl

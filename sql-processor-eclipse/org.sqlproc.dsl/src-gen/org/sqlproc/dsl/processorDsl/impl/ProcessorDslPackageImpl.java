@@ -7,7 +7,6 @@ package org.sqlproc.dsl.processorDsl.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -263,27 +262,6 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * @generated
    */
   private EClass optionalFeatureEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EEnum statemeN_TYPEEEnum = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EEnum mappinG_TYPEEEnum = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EEnum optioN_TYPEEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -1583,36 +1561,6 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EEnum getSTATEMEN_TYPE()
-  {
-    return statemeN_TYPEEEnum;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EEnum getMAPPING_TYPE()
-  {
-    return mappinG_TYPEEEnum;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EEnum getOPTION_TYPE()
-  {
-    return optioN_TYPEEEnum;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public ProcessorDslFactory getProcessorDslFactory()
   {
     return (ProcessorDslFactory)getEFactoryInstance();
@@ -1790,11 +1738,6 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEAttribute(optionalFeatureEClass, OPTIONAL_FEATURE__TYPE);
     createEAttribute(optionalFeatureEClass, OPTIONAL_FEATURE__FILTERS);
     createEAttribute(optionalFeatureEClass, OPTIONAL_FEATURE__OPTION);
-
-    // Create enums
-    statemeN_TYPEEEnum = createEEnum(STATEMEN_TYPE);
-    mappinG_TYPEEEnum = createEEnum(MAPPING_TYPE);
-    optioN_TYPEEEnum = createEEnum(OPTION_TYPE);
   }
 
   /**
@@ -1882,7 +1825,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     initEClass(metaStatementEClass, MetaStatement.class, "MetaStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMetaStatement_Name(), ecorePackage.getEString(), "name", null, 0, 1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getMetaStatement_Type(), this.getSTATEMEN_TYPE(), "type", null, 0, 1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMetaStatement_Type(), ecorePackage.getEString(), "type", null, 0, 1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMetaStatement_Filters(), ecorePackage.getEString(), "filters", null, 0, -1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMetaStatement_Statement(), this.getSql(), null, "statement", null, 0, 1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1963,7 +1906,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     initEClass(mappingRuleEClass, MappingRule.class, "MappingRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMappingRule_Name(), ecorePackage.getEString(), "name", null, 0, 1, MappingRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getMappingRule_Type(), this.getMAPPING_TYPE(), "type", null, 0, 1, MappingRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMappingRule_Type(), ecorePackage.getEString(), "type", null, 0, 1, MappingRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getMappingRule_Filters(), ecorePackage.getEString(), "filters", null, 0, -1, MappingRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMappingRule_Mapping(), this.getMapping(), null, "mapping", null, 0, 1, MappingRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1981,25 +1924,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     initEClass(optionalFeatureEClass, OptionalFeature.class, "OptionalFeature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOptionalFeature_Name(), ecorePackage.getEString(), "name", null, 0, 1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getOptionalFeature_Type(), this.getOPTION_TYPE(), "type", null, 0, 1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOptionalFeature_Type(), ecorePackage.getEString(), "type", null, 0, 1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOptionalFeature_Filters(), ecorePackage.getEString(), "filters", null, 0, -1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOptionalFeature_Option(), ecorePackage.getEString(), "option", null, 0, 1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    // Initialize enums and add enum literals
-    initEEnum(statemeN_TYPEEEnum, org.sqlproc.dsl.processorDsl.STATEMEN_TYPE.class, "STATEMEN_TYPE");
-    addEEnumLiteral(statemeN_TYPEEEnum, org.sqlproc.dsl.processorDsl.STATEMEN_TYPE.QRY);
-    addEEnumLiteral(statemeN_TYPEEEnum, org.sqlproc.dsl.processorDsl.STATEMEN_TYPE.CRUD);
-    addEEnumLiteral(statemeN_TYPEEEnum, org.sqlproc.dsl.processorDsl.STATEMEN_TYPE.CALL);
-
-    initEEnum(mappinG_TYPEEEnum, org.sqlproc.dsl.processorDsl.MAPPING_TYPE.class, "MAPPING_TYPE");
-    addEEnumLiteral(mappinG_TYPEEEnum, org.sqlproc.dsl.processorDsl.MAPPING_TYPE.OUT);
-
-    initEEnum(optioN_TYPEEEnum, org.sqlproc.dsl.processorDsl.OPTION_TYPE.class, "OPTION_TYPE");
-    addEEnumLiteral(optioN_TYPEEEnum, org.sqlproc.dsl.processorDsl.OPTION_TYPE.OPT);
-    addEEnumLiteral(optioN_TYPEEEnum, org.sqlproc.dsl.processorDsl.OPTION_TYPE.LOPT);
-    addEEnumLiteral(optioN_TYPEEEnum, org.sqlproc.dsl.processorDsl.OPTION_TYPE.IOPT);
-    addEEnumLiteral(optioN_TYPEEEnum, org.sqlproc.dsl.processorDsl.OPTION_TYPE.SOPT);
-    addEEnumLiteral(optioN_TYPEEEnum, org.sqlproc.dsl.processorDsl.OPTION_TYPE.BOPT);
 
     // Create resource
     createResource(eNS_URI);

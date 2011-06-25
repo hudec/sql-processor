@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
-import org.sqlproc.dsl.processorDsl.STATEMEN_TYPE;
 import org.sqlproc.dsl.processorDsl.Sql;
 
 /**
@@ -71,7 +70,7 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
    * @generated
    * @ordered
    */
-  protected static final STATEMEN_TYPE TYPE_EDEFAULT = STATEMEN_TYPE.QRY;
+  protected static final String TYPE_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -81,7 +80,7 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
    * @generated
    * @ordered
    */
-  protected STATEMEN_TYPE type = TYPE_EDEFAULT;
+  protected String type = TYPE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getFilters() <em>Filters</em>}' attribute list.
@@ -152,7 +151,7 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
    * <!-- end-user-doc -->
    * @generated
    */
-  public STATEMEN_TYPE getType()
+  public String getType()
   {
     return type;
   }
@@ -162,10 +161,10 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setType(STATEMEN_TYPE newType)
+  public void setType(String newType)
   {
-    STATEMEN_TYPE oldType = type;
-    type = newType == null ? TYPE_EDEFAULT : newType;
+    String oldType = type;
+    type = newType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.META_STATEMENT__TYPE, oldType, type));
   }
@@ -285,7 +284,7 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
         setName((String)newValue);
         return;
       case ProcessorDslPackage.META_STATEMENT__TYPE:
-        setType((STATEMEN_TYPE)newValue);
+        setType((String)newValue);
         return;
       case ProcessorDslPackage.META_STATEMENT__FILTERS:
         getFilters().clear();
@@ -337,7 +336,7 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
       case ProcessorDslPackage.META_STATEMENT__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.META_STATEMENT__TYPE:
-        return type != TYPE_EDEFAULT;
+        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
       case ProcessorDslPackage.META_STATEMENT__FILTERS:
         return filters != null && !filters.isEmpty();
       case ProcessorDslPackage.META_STATEMENT__STATEMENT:

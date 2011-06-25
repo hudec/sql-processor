@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 
-import org.sqlproc.dsl.processorDsl.MAPPING_TYPE;
 import org.sqlproc.dsl.processorDsl.Mapping;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
@@ -71,7 +70,7 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
    * @generated
    * @ordered
    */
-  protected static final MAPPING_TYPE TYPE_EDEFAULT = MAPPING_TYPE.OUT;
+  protected static final String TYPE_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -81,7 +80,7 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
    * @generated
    * @ordered
    */
-  protected MAPPING_TYPE type = TYPE_EDEFAULT;
+  protected String type = TYPE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getFilters() <em>Filters</em>}' attribute list.
@@ -152,7 +151,7 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
    * <!-- end-user-doc -->
    * @generated
    */
-  public MAPPING_TYPE getType()
+  public String getType()
   {
     return type;
   }
@@ -162,10 +161,10 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setType(MAPPING_TYPE newType)
+  public void setType(String newType)
   {
-    MAPPING_TYPE oldType = type;
-    type = newType == null ? TYPE_EDEFAULT : newType;
+    String oldType = type;
+    type = newType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.MAPPING_RULE__TYPE, oldType, type));
   }
@@ -285,7 +284,7 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
         setName((String)newValue);
         return;
       case ProcessorDslPackage.MAPPING_RULE__TYPE:
-        setType((MAPPING_TYPE)newValue);
+        setType((String)newValue);
         return;
       case ProcessorDslPackage.MAPPING_RULE__FILTERS:
         getFilters().clear();
@@ -337,7 +336,7 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
       case ProcessorDslPackage.MAPPING_RULE__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.MAPPING_RULE__TYPE:
-        return type != TYPE_EDEFAULT;
+        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
       case ProcessorDslPackage.MAPPING_RULE__FILTERS:
         return filters != null && !filters.isEmpty();
       case ProcessorDslPackage.MAPPING_RULE__MAPPING:

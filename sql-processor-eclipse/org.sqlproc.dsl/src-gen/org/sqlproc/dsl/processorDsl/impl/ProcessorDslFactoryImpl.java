@@ -6,7 +6,6 @@
 package org.sqlproc.dsl.processorDsl.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -100,48 +99,6 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.OPTIONAL_FEATURE: return createOptionalFeature();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Object createFromString(EDataType eDataType, String initialValue)
-  {
-    switch (eDataType.getClassifierID())
-    {
-      case ProcessorDslPackage.STATEMEN_TYPE:
-        return createSTATEMEN_TYPEFromString(eDataType, initialValue);
-      case ProcessorDslPackage.MAPPING_TYPE:
-        return createMAPPING_TYPEFromString(eDataType, initialValue);
-      case ProcessorDslPackage.OPTION_TYPE:
-        return createOPTION_TYPEFromString(eDataType, initialValue);
-      default:
-        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-    }
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String convertToString(EDataType eDataType, Object instanceValue)
-  {
-    switch (eDataType.getClassifierID())
-    {
-      case ProcessorDslPackage.STATEMEN_TYPE:
-        return convertSTATEMEN_TYPEToString(eDataType, instanceValue);
-      case ProcessorDslPackage.MAPPING_TYPE:
-        return convertMAPPING_TYPEToString(eDataType, instanceValue);
-      case ProcessorDslPackage.OPTION_TYPE:
-        return convertOPTION_TYPEToString(eDataType, instanceValue);
-      default:
-        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
   }
 
@@ -473,72 +430,6 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     OptionalFeatureImpl optionalFeature = new OptionalFeatureImpl();
     return optionalFeature;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public STATEMEN_TYPE createSTATEMEN_TYPEFromString(EDataType eDataType, String initialValue)
-  {
-    STATEMEN_TYPE result = STATEMEN_TYPE.get(initialValue);
-    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String convertSTATEMEN_TYPEToString(EDataType eDataType, Object instanceValue)
-  {
-    return instanceValue == null ? null : instanceValue.toString();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public MAPPING_TYPE createMAPPING_TYPEFromString(EDataType eDataType, String initialValue)
-  {
-    MAPPING_TYPE result = MAPPING_TYPE.get(initialValue);
-    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String convertMAPPING_TYPEToString(EDataType eDataType, Object instanceValue)
-  {
-    return instanceValue == null ? null : instanceValue.toString();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public OPTION_TYPE createOPTION_TYPEFromString(EDataType eDataType, String initialValue)
-  {
-    OPTION_TYPE result = OPTION_TYPE.get(initialValue);
-    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String convertOPTION_TYPEToString(EDataType eDataType, Object instanceValue)
-  {
-    return instanceValue == null ? null : instanceValue.toString();
   }
 
   /**
