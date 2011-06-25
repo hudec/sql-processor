@@ -262,17 +262,6 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     }
 
     @Override
-    public void completeTableDefinition_Name(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        Artifacts artifacts = EcoreUtil2.getContainerOfType(model, Artifacts.class);
-        for (PojoDefinition pojo : artifacts.getPojos()) {
-            String proposal = getValueConverter().toString(pojo.getName(), "IDENT");
-            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
-            acceptor.accept(completionProposal);
-        }
-    }
-
-    @Override
     public void completeTableDefinition_Table(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
         if (!isResolveDb())
