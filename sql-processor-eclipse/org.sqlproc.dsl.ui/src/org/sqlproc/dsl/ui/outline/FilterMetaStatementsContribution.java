@@ -7,6 +7,7 @@
  *******************************************************************************/
 package org.sqlproc.dsl.ui.outline;
 
+import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.xtext.ui.PluginImageHelper;
@@ -19,7 +20,7 @@ import com.google.inject.Inject;
 
 public class FilterMetaStatementsContribution extends AbstractFilterOutlineContribution {
 
-    // public static final String PREFERENCE_KEY = "ui.outline.filterMetaStatements";
+    protected Logger LOGGER = Logger.getLogger(FilterMetaStatementsContribution.class);
 
     @Inject
     private PluginImageHelper imageHelper;
@@ -28,7 +29,9 @@ public class FilterMetaStatementsContribution extends AbstractFilterOutlineContr
     protected boolean apply(IOutlineNode node) {
         boolean result = !(node instanceof EObjectNode)
                 || !((EObjectNode) node).getEClass().equals(ProcessorDslPackage.Literals.META_STATEMENT);
-        System.out.println("meta " + node + " " + result);
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("META " + node + " " + result);
+        }
         return result;
     }
 

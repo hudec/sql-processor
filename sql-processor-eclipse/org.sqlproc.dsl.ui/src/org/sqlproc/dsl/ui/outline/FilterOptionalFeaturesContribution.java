@@ -7,6 +7,7 @@
  *******************************************************************************/
 package org.sqlproc.dsl.ui.outline;
 
+import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.xtext.ui.PluginImageHelper;
@@ -19,7 +20,7 @@ import com.google.inject.Inject;
 
 public class FilterOptionalFeaturesContribution extends AbstractFilterOutlineContribution {
 
-    // public static final String PREFERENCE_KEY = "ui.outline.filterOptionalFeatures";
+    protected Logger LOGGER = Logger.getLogger(FilterOptionalFeaturesContribution.class);
 
     @Inject
     private PluginImageHelper imageHelper;
@@ -28,7 +29,9 @@ public class FilterOptionalFeaturesContribution extends AbstractFilterOutlineCon
     protected boolean apply(IOutlineNode node) {
         boolean result = !(node instanceof EObjectNode)
                 || !((EObjectNode) node).getEClass().equals(ProcessorDslPackage.Literals.OPTIONAL_FEATURE);
-        System.out.println("opt " + node + " " + result);
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("OPT " + node + " " + result);
+        }
         return result;
     }
 

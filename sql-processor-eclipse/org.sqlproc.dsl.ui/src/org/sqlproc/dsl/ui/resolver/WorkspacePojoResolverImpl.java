@@ -30,22 +30,18 @@ import com.google.inject.Singleton;
 public class WorkspacePojoResolverImpl implements PojoResolver {
 
     protected Logger LOGGER = Logger.getLogger(WorkspacePojoResolverImpl.class);
-    private static final Class[] EMPTY_CLASS_PARAMETERS = new Class[0];
-    private static final Class[] LIST_CLASS_PARAMETER = new Class[] { java.util.List.class };
+    // private static final Class[] EMPTY_CLASS_PARAMETERS = new Class[0];
+    // private static final Class[] LIST_CLASS_PARAMETER = new Class[] { java.util.List.class };
 
     @Inject
     ModelProperty modelProperty;
 
     private List<URLClassLoader> allLoaders;
 
-    public WorkspacePojoResolverImpl() {
-        // init();
-    }
-
     protected boolean checkReload() {
         if (!modelProperty.isDoResolvePojo()) {
             if (allLoaders != null)
-                System.out.println("POJO STOP");
+                LOGGER.info("POJO STOP");
             allLoaders = null;
             return false;
         }
@@ -56,7 +52,7 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
     }
 
     protected void init() {
-        System.out.println("POJO START");
+        LOGGER.info("POJO START");
         List<IJavaProject> javaProjects = new ArrayList<IJavaProject>();
         List<URLClassLoader> loaders = new ArrayList<URLClassLoader>();
         IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
@@ -152,7 +148,6 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
         if (checkReload())
             init();
         boolean result = allLoaders != null;
-        // System.out.println("POJO ACTIVE " + result);
         return result;
     }
 }

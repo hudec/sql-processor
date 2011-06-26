@@ -99,9 +99,9 @@ public class DbResolverBean implements DbResolver {
             return connection;
         closeConnection();
         synchronized (sync) {
-            System.out.println("DATA START");
+            LOGGER.info("DATA START");
             Class<?> driverClass = pojoResolverFactory.getPojoResolver().loadClass(dbDriver);
-            System.out.println("DATA DRIVER " + driverClass);
+            LOGGER.info("DATA DRIVER " + driverClass);
             if (driverClass != null && Driver.class.isAssignableFrom(driverClass)) {
                 // try {
                 // // Class.forName(dbDriver);
@@ -117,6 +117,7 @@ public class DbResolverBean implements DbResolver {
                     props.setProperty("user", dbUsername);
                     props.setProperty("password", dbPassword);
                     connection = driver.connect(dbUrl, props);
+                    LOGGER.info("DATA CONNECTION " + connection);
                 } catch (InstantiationException e) {
                     LOGGER.error("getConnection error " + e);
                 } catch (IllegalAccessException e) {
@@ -133,7 +134,7 @@ public class DbResolverBean implements DbResolver {
         synchronized (sync) {
             try {
                 if (connection != null) {
-                    System.out.println("DATA STOP");
+                    LOGGER.info("DATA STOP");
                     connection.close();
                 }
             } catch (SQLException e) {

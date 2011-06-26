@@ -1,5 +1,6 @@
 package org.sqlproc.dsl.property;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EReference;
@@ -10,6 +11,8 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
+
+    protected Logger LOGGER = Logger.getLogger(ModelPropertyBean.class);
 
     public static final String RESOLVE_REFERENCES = "resolve references";
     public static final String DATABASE_ONLINE = "database online";
@@ -53,10 +56,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 } else if (msg.getEventType() == Notification.SET) {
                     setValue(newValue);
                 } else {
-                    System.out.println("???????????? " + msg);
+                    LOGGER.warn("UNNOWN PROPERTY ACTION " + msg);
                 }
-                // System.out.println("XXXX " + msg);
-                System.out.println("MODEL " + toString());
+                LOGGER.debug("PROPERTIES " + toString());
                 return;
             }
         }
