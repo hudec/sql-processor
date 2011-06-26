@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
+import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IfSql;
 import org.sqlproc.dsl.processorDsl.IfSqlBool;
@@ -19,7 +20,7 @@ import org.sqlproc.dsl.processorDsl.SqlFragment;
 public class Collector {
 
     public static void allVariables(MetaStatement metaStatement, Set<Identifier> identifiers, Set<Constant> constants,
-            Set<Column> columns) {
+            Set<Column> columns, Set<DatabaseColumn> databaseColumns) {
 
         if (metaStatement.getStatement() != null && metaStatement.getStatement().getSqls() != null) {
             for (SqlFragment sqlFragment : metaStatement.getStatement().getSqls()) {
@@ -29,14 +30,16 @@ public class Collector {
                     constants.add(sqlFragment.getCnst());
                 } else if (sqlFragment.getCol() != null) {
                     columns.add(sqlFragment.getCol());
+                } else if (sqlFragment.getDbcol() != null) {
+                    databaseColumns.add(sqlFragment.getDbcol());
                 } else if (sqlFragment.getMeta() != null) {
                     if (sqlFragment.getMeta().getIfs() != null) {
                         for (IfSql ifSql : sqlFragment.getMeta().getIfs()) {
-                            allVariables(ifSql, identifiers, constants, columns);
+                            allVariables(ifSql, identifiers, constants, columns, databaseColumns);
                         }
                     }
                     if (sqlFragment.getMeta().getCond() != null) {
-                        allVariables(sqlFragment.getMeta().getCond(), identifiers, constants, columns);
+                        allVariables(sqlFragment.getMeta().getCond(), identifiers, constants, columns, databaseColumns);
                     }
                     if (sqlFragment.getMeta().getOrd() != null && sqlFragment.getMeta().getOrd().getSqls() != null) {
                         for (OrdSql2 ordSql2 : sqlFragment.getMeta().getOrd().getSqls()) {
@@ -44,6 +47,8 @@ public class Collector {
                                 identifiers.add(sqlFragment.getIdent());
                             } else if (ordSql2.getCnst() != null) {
                                 constants.add(sqlFragment.getCnst());
+                            } else if (ordSql2.getDbcol() != null) {
+                                databaseColumns.add(ordSql2.getDbcol());
                             }
                         }
                     }
@@ -53,7 +58,7 @@ public class Collector {
     }
 
     public static void allVariables(IfSql ifSql, Set<Identifier> identifiers, Set<Constant> constants,
-            Set<Column> columns) {
+            Set<Column> columns, Set<DatabaseColumn> databaseColumns) {
 
         if (ifSql.getSqls() != null) {
             for (IfSqlFragment ifSqlFragment : ifSql.getSqls()) {
@@ -63,12 +68,15 @@ public class Collector {
                     constants.add(ifSqlFragment.getCnst());
                 } else if (ifSqlFragment.getCol() != null) {
                     columns.add(ifSqlFragment.getCol());
+                } else if (ifSqlFragment.getDbcol() != null) {
+                    databaseColumns.add(ifSqlFragment.getDbcol());
                 } else if (ifSqlFragment.getMeta() != null) {
                     if (ifSqlFragment.getMeta().getCond() != null) {
-                        allVariables(ifSqlFragment.getMeta().getCond(), identifiers, constants, columns);
+                        allVariables(ifSqlFragment.getMeta().getCond(), identifiers, constants, columns,
+                                databaseColumns);
                     } else if (ifSqlFragment.getMeta().getIfs() != null) {
                         for (IfSql ifSql2 : ifSqlFragment.getMeta().getIfs()) {
-                            allVariables(ifSql2, identifiers, constants, columns);
+                            allVariables(ifSql2, identifiers, constants, columns, databaseColumns);
                         }
                     }
                 }
@@ -77,7 +85,7 @@ public class Collector {
     }
 
     public static void allVariables(IfSqlCond ifSqlCond, Set<Identifier> identifiers, Set<Constant> constants,
-            Set<Column> columns) {
+            Set<Column> columns, Set<DatabaseColumn> databaseColumns) {
 
         if (ifSqlCond.getBool1() != null) {
             if (ifSqlCond.getBool1().getIdent() != null) {
@@ -85,7 +93,7 @@ public class Collector {
             } else if (ifSqlCond.getBool1().getCnst() != null) {
                 constants.add(ifSqlCond.getBool1().getCnst());
             } else if (ifSqlCond.getBool1().getCond() != null) {
-                allVariables(ifSqlCond.getBool1().getCond(), identifiers, constants, columns);
+                allVariables(ifSqlCond.getBool1().getCond(), identifiers, constants, columns, databaseColumns);
             }
         }
         if (ifSqlCond.getBool2() != null) {
@@ -95,7 +103,7 @@ public class Collector {
                 } else if (ifSqlBool.getCnst() != null) {
                     constants.add(ifSqlBool.getCnst());
                 } else if (ifSqlBool.getCond() != null) {
-                    allVariables(ifSqlBool.getCond(), identifiers, constants, columns);
+                    allVariables(ifSqlBool.getCond(), identifiers, constants, columns, databaseColumns);
                 }
             }
         }

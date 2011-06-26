@@ -58,26 +58,26 @@ ANSI_BASIC_3(QRY)=
 ;
 
 SQL_EXT_BASIC(QRY)=
-  select p.ID, $-name.first first, :+name.last last
-  from PERSON p
+  select %ID, $-name.first first, :+name.last last
+  from PERSON
   where 1=1
-  order by id
+  order by %ID
 ;
 SQL_EXT_BASIC(QRY,HSQLDB)=
-  select p.ID, $-name.first first, cast(:+name.last as varchar(100)) last
-  from PERSON p
+  select %ID, $-name.first first, cast(:+name.last as varchar(100)) last
+  from PERSON
   where 1=1
-  order by id
+  order by %ID
 ;
 SQL_EXT_BASIC(OUT)=
   id$Long$id first$string$name.first last$string$name.last
 ;
 
 SQL_EXT_BASIC_2(QRY)=
-  select p.ID @id, $-name.first @name.first^string, :+name.last @name.last
+  select %p.ID @id, $-name.first @name.first^string, :+name.last @name.last
   from PERSON p
   where 1=1
-  order by id
+  order by %p.ID
 ;
 SQL_EXT_BASIC_2(QRY,HSQLDB)=
   select p.ID @id, $-name.first @name.first^string, cast(:+name.last as varchar(100)) @name.last
@@ -88,10 +88,10 @@ SQL_EXT_BASIC_2(QRY,HSQLDB)=
 
 
 BASIC(QRY)=
-  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
-  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
-  from PERSON p
-  {#1 order by id}
+  select %ID, %NAME_FIRST first, %NAME_LAST last, %SSN_NUMBER ssn, %SSN_COUNTRY country,
+  %BIRTHDATE, %SEX, %CREATEDDATE, %CREATEDBY, %LASTUPDATED, %LASTUPDATEDBY, %VERSION
+  from PERSON
+  {#1 order by %ID}
 ;
 BASIC(OUT)=
   id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number

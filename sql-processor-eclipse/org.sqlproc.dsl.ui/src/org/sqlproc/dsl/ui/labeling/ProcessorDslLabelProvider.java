@@ -8,6 +8,7 @@ import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
+import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingRule;
@@ -60,6 +61,10 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
         return ele.getName();
     }
 
+    public String text(DatabaseColumn ele) {
+        return ele.getName();
+    }
+
     String image(MetaStatement ele) {
         return "SQL.gif";
     }
@@ -86,5 +91,9 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
 
     String image(MappingColumn ele) {
         return "COL.gif";
+    }
+
+    String image(DatabaseColumn ele) {
+        return "DBCOL.gif";
     }
 }

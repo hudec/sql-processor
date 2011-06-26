@@ -13,8 +13,9 @@ import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
  */
 public class ProcessorDslDescriptionLabelProvider extends DefaultDescriptionLabelProvider {
 
+    // TODO: when it is used?
+
     public String text(IEObjectDescription ele) {
-        System.out.println("xxxxxxxxx " + ele);
         return "" + ele.getName();
     }
 

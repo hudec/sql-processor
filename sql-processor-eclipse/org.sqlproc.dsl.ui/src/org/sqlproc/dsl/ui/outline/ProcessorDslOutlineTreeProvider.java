@@ -14,6 +14,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
+import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingRule;
@@ -76,7 +77,14 @@ public class ProcessorDslOutlineTreeProvider extends DefaultOutlineTreeProvider 
                     return o1.getName().compareTo(o2.getName());
                 }
             });
-            Collector.allVariables((MetaStatement) modelElement, identifiers, constants, columns);
+            Set<DatabaseColumn> databaseColumns = new TreeSet<DatabaseColumn>(new Comparator<DatabaseColumn>() {
+
+                @Override
+                public int compare(DatabaseColumn o1, DatabaseColumn o2) {
+                    return o1.getName().compareTo(o2.getName());
+                }
+            });
+            Collector.allVariables((MetaStatement) modelElement, identifiers, constants, columns, databaseColumns);
             if (!identifiers.isEmpty()) {
                 for (Identifier identifier : identifiers) {
                     createNode(parentNode, identifier);
@@ -89,6 +97,11 @@ public class ProcessorDslOutlineTreeProvider extends DefaultOutlineTreeProvider 
             }
             if (!columns.isEmpty()) {
                 for (Column column : columns) {
+                    createNode(parentNode, column);
+                }
+            }
+            if (!databaseColumns.isEmpty()) {
+                for (DatabaseColumn column : databaseColumns) {
                     createNode(parentNode, column);
                 }
             }
@@ -130,6 +143,10 @@ public class ProcessorDslOutlineTreeProvider extends DefaultOutlineTreeProvider 
     }
 
     protected boolean _isLeaf(Column column) {
+        return true;
+    }
+
+    protected boolean _isLeaf(DatabaseColumn column) {
         return true;
     }
 
