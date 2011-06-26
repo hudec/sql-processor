@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.sqlproc.dsl.tests
-Bundle-Vendor: My Company
-Bundle-Version: 0.9.0
+Bundle-Name: SQL Processor DSL Tests
+Bundle-Vendor: SQL Processor Team
+Bundle-Version: 0.9.0.qualifier
 Bundle-SymbolicName: org.sqlproc.dsl.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.sqlproc.dsl,
+Require-Bundle: org.sqlproc.dsl.grammar,
  org.sqlproc.dsl.ui,
  org.eclipse.core.runtime,
  org.eclipse.xtext,
