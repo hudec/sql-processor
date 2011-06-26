@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sqlproc.dsl</groupId>
-		<artifactId>sql-processor-dsl-parent</artifactId>
-		<version>0.9.0</version>
+		<artifactId>dsl-parent</artifactId>
+		<version>0.9.0-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
-	<artifactId>sql-processor-dsl-grammar</artifactId>
+	<artifactId>org.sqlproc.dsl.grammar</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<name>SQL Processor DSL - Grammar</name>
+	<name>SQL Processor DSL Grammar</name>
 
 	<build>
 		<plugins>
