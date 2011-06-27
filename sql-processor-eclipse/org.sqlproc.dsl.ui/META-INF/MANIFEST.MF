@@ -23,4 +23,4 @@ Import-Package: org.apache.log4j,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.sqlproc.dsl.ui.contentassist.antlr,
  org.sqlproc.dsl.ui.internal
-Bundle-Activator: org.sqlproc.dsl.ui.internal.ProcessorDslActivator
+Bundle-Activator: org.sqlproc.dsl.ui.ProcessorCustomizedActivator
