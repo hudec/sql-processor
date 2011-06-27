@@ -198,7 +198,7 @@ public class DbResolverBean implements DbResolver {
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = connection.getMetaData();
-                result = meta.getTables(null, dbSchema, table, null);
+                result = meta.getColumns(null, dbSchema, table, null);
                 while (result.next()) {
                     cols.add(result.getString("COLUMN_NAME"));
                 }

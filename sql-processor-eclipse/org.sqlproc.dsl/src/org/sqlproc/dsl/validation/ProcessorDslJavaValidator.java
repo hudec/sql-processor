@@ -19,6 +19,7 @@ import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.ColumnUsage;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
+import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
@@ -30,6 +31,7 @@ import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
+import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.resolver.DbResolver;
@@ -539,6 +541,23 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     }
 
     @Check
+    public void checkUniqueProperty(Property property) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(property);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+        for (Property prop : artifacts.getProperties()) {
+            if (prop == null || prop == property)
+                continue;
+            if (prop.getName().equals(property.getName())) {
+                error("Duplicate name : " + property.getName(), ProcessorDslPackage.Literals.PROPERTY__NAME);
+                return;
+            }
+        }
+    }
+
+    @Check
     public void checkTableDefinition(TableDefinition tableDefinition) {
         Artifacts artifacts;
         EObject object = EcoreUtil.getRootContainer(tableDefinition);
@@ -577,6 +596,38 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                         + ":" + tableUsage.getPrefix() + "][dbcol]", ProcessorDslPackage.Literals.TABLE_USAGE__PREFIX);
                 return;
             }
+        }
+    }
+
+    @Check
+    public void checkDatabaseColumn(DatabaseColumn databaseColumn) {
+        if (!isResolveDb())
+            return;
+        String prefix = databaseColumn.getName();
+        String column = null;
+        int pos = prefix.indexOf('.');
+        if (pos > 0) {
+            prefix = databaseColumn.getName().substring(0, pos);
+            column = databaseColumn.getName().substring(pos + 1);
+        } else
+            return;
+        String table = null;
+        MetaStatement statement = EcoreUtil2.getContainerOfType(databaseColumn, MetaStatement.class);
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
+        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            if (QualifiedName.create(prefix).equals(description.getName())) {
+                TableUsage tableUsage = (TableUsage) artifacts.eResource().getResourceSet()
+                        .getEObject(description.getEObjectURI(), true);
+                table = tableUsage.getTable() != null ? tableUsage.getTable().getName() : null;
+                break;
+            }
+        }
+        if (table != null && column != null && !dbResolver.checkColumn(table, databaseColumn.getName())) {
+            error("Cannot find column in DB : " + databaseColumn.getName() + "[" + table + "]",
+                    ProcessorDslPackage.Literals.DATABASE_COLUMN__NAME);
         }
     }
 

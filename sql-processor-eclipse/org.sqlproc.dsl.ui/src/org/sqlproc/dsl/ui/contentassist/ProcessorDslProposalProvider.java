@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
@@ -27,6 +28,8 @@ import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
+import org.sqlproc.dsl.processorDsl.TableDefinition;
+import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolver;
 
@@ -108,8 +111,10 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     @Override
     public void completeMappingColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        if (!isResolvePojo())
+        if (!isResolvePojo()) {
             super.completeMappingColumn_Name(model, assignment, context, acceptor);
+            return;
+        }
         MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
         IScope scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
@@ -264,8 +269,10 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     @Override
     public void completeTableDefinition_Table(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        if (!isResolveDb())
+        if (!isResolveDb()) {
             super.completeTableDefinition_Table(model, assignment, context, acceptor);
+            return;
+        }
         for (String table : dbResolver.getTables()) {
             if (table.indexOf('$') >= 0)
                 continue;
@@ -273,5 +280,50 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
             acceptor.accept(completionProposal);
         }
+    }
+
+    @Override
+    public void complete_DatabaseColumn(EObject model, RuleCall ruleCall, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb()) {
+            super.complete_DatabaseColumn(model, ruleCall, context, acceptor);
+            return;
+        }
+        String prefix = context.getPrefix();
+        int pos = prefix.indexOf('.');
+        if (pos > 0) {
+            prefix = prefix.substring(0, pos);
+        } else {
+            super.complete_DatabaseColumn(model, ruleCall, context, acceptor);
+            return;
+        }
+        MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
+        // PROC TOTO NEFUNGUJE???
+        IScope scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
+        TableDefinition table = findTable(artifacts.eResource().getResourceSet(), scope, metaStatement.getName(),
+                prefix);
+        if (table != null && table.getName() != null) {
+            for (String column : dbResolver.getColumns(table.getName())) {
+                String proposal = getValueConverter().toString(column, "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(prefix + '.' + proposal, context);
+                acceptor.accept(completionProposal);
+            }
+        }
+    }
+
+    protected TableDefinition findTable(ResourceSet resourceSet, IScope scope, String statementName, String prefix) {
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            System.out.println(description.getEClass().getName());
+            if (ProcessorDslPackage.Literals.TABLE_USAGE.getName().equals(description.getEClass().getName())) {
+                TableUsage tableUsage = (TableUsage) resourceSet.getEObject(description.getEObjectURI(), true);
+                if (statementName.equals(tableUsage.getStatement().getName()) && prefix.equals(tableUsage.getPrefix())) {
+                    return tableUsage.getTable();
+                }
+            }
+        }
+        return null;
     }
 }
