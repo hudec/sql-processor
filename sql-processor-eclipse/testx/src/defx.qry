@@ -4,6 +4,7 @@ database driver oracle.jdbc.OracleDriver;
 database url jdbc:oracle:thin:@127.0.0.1:1521:xe;
 database username sql;
 database password sql;
+database schema SQL;
 
 /*
  * the result classes and input forms
@@ -172,7 +173,7 @@ col CUSTOM_TYPE_IN_OUT contact;
 col CUSTOM_TYPE_GET contact;
 col INHERITANCE2_BASIC subcriber;
 col BASIC_LEFT_JOIN_NO_ID physical_media;
-col BASIC_LEFT_JOIN_NO_ID_2 physical_media;
+col BASIC_LEFT_JOIN_NO_ID_2 physical_media; 
 col BASIC_LEFT_JOIN library;
 col BASIC_LEFT_JOIN_2 library;
 col BASIC_2_LEFT_JOIN library;
