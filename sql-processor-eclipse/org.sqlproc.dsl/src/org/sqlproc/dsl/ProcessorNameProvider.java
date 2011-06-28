@@ -12,6 +12,7 @@ import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.util.SimpleAttributeResolver;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
+import org.sqlproc.dsl.processorDsl.TableUsage;
 
 import com.google.inject.Inject;
 
@@ -39,11 +40,32 @@ public class ProcessorNameProvider extends IQualifiedNameProvider.AbstractImpl {
             if (name == null)
                 return null;
             return qualifiedNameConverter.toQualifiedName(name);
+        } else if (obj instanceof TableUsage) {
+            String name = null;
+            ICompositeNode parserNode = NodeModelUtils.getNode(obj);
+            Iterable<ILeafNode> iterables = parserNode.getLeafNodes();
+            for (Iterator<ILeafNode> iter = iterables.iterator(); iter.hasNext();) {
+                ILeafNode node = iter.next();
+                if (node.isHidden())
+                    continue;
+                if (node.getGrammarElement() != null && node.getGrammarElement() instanceof CrossReference) {
+                    if (name == null)
+                        name = node.getText();
+                } else {
+                    if ("prefix".equals(node.getText()) || "dbcol".equals(node.getText()))
+                        continue;
+                    name = name + "_" + node.getText();
+                    break;
+                }
+            }
+            if (name == null)
+                return null;
+            System.out.println("XXXXXXXXXX " + name);
+            return qualifiedNameConverter.toQualifiedName(name);
         }
         String name = SimpleAttributeResolver.NAME_RESOLVER.apply(obj);
         if (name == null)
             return null;
         return qualifiedNameConverter.toQualifiedName(name);
     }
-
 }
