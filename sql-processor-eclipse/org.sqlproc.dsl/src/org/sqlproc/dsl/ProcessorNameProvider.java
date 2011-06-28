@@ -60,7 +60,6 @@ public class ProcessorNameProvider extends IQualifiedNameProvider.AbstractImpl {
             }
             if (name == null)
                 return null;
-            System.out.println("XXXXXXXXXX " + name);
             return qualifiedNameConverter.toQualifiedName(name);
         }
         String name = SimpleAttributeResolver.NAME_RESOLVER.apply(obj);
