@@ -379,9 +379,11 @@
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.40"/>
         </terminal>
       </elements>
-      <elements xsi:type="xtext:Keyword" value="prefix"/>
-      <elements xsi:type="xtext:Assignment" feature="prefix" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.40"/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="prefix"/>
+        <elements xsi:type="xtext:Assignment" feature="prefix" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.40"/>
+        </elements>
       </elements>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.49"/>
     </alternatives>

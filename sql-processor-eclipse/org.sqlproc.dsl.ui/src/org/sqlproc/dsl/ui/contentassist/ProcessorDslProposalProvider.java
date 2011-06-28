@@ -294,33 +294,56 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         if (pos > 0) {
             prefix = prefix.substring(0, pos);
         } else {
-            super.complete_DatabaseColumn(model, ruleCall, context, acceptor);
-            return;
+            prefix = null;
         }
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
-        // PROC TOTO NEFUNGUJE???
         IScope scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
-        TableDefinition table = findTable(artifacts.eResource().getResourceSet(), scope, metaStatement.getName(),
+        TableUsage tableUsage = findTableUsage(artifacts.eResource().getResourceSet(), scope, metaStatement.getName(),
                 prefix);
-        if (table != null && table.getName() != null) {
-            for (String column : dbResolver.getColumns(table.getName())) {
+        if (tableUsage == null || tableUsage.getTable() == null || tableUsage.getTable().getName() == null)
+            return;
+        scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES);
+        TableDefinition tableDefinition = findTableDefinition(artifacts.eResource().getResourceSet(), scope, tableUsage
+                .getTable().getName());
+        if (tableDefinition != null && tableDefinition.getTable() != null) {
+            for (String column : dbResolver.getColumns(tableDefinition.getTable())) {
                 String proposal = getValueConverter().toString(column, "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal(prefix + '.' + proposal, context);
+                String completion = prefix != null ? prefix + '.' + proposal : proposal;
+                ICompletionProposal completionProposal = createCompletionProposal(completion, context);
                 acceptor.accept(completionProposal);
             }
         }
     }
 
-    protected TableDefinition findTable(ResourceSet resourceSet, IScope scope, String statementName, String prefix) {
+    protected TableUsage findTableUsage(ResourceSet resourceSet, IScope scope, String statementName, String prefix) {
         Iterable<IEObjectDescription> iterable = scope.getAllElements();
         for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
             IEObjectDescription description = iter.next();
-            System.out.println(description.getEClass().getName());
             if (ProcessorDslPackage.Literals.TABLE_USAGE.getName().equals(description.getEClass().getName())) {
                 TableUsage tableUsage = (TableUsage) resourceSet.getEObject(description.getEObjectURI(), true);
-                if (statementName.equals(tableUsage.getStatement().getName()) && prefix.equals(tableUsage.getPrefix())) {
-                    return tableUsage.getTable();
+                if (statementName.equals(tableUsage.getStatement().getName())) {
+                    if (prefix == null && tableUsage.getPrefix() == null) {
+                        return tableUsage;
+                    }
+                    if (prefix != null && prefix.equals(tableUsage.getPrefix())) {
+                        return tableUsage;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    protected TableDefinition findTableDefinition(ResourceSet resourceSet, IScope scope, String name) {
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            if (ProcessorDslPackage.Literals.TABLE_DEFINITION.getName().equals(description.getEClass().getName())) {
+                TableDefinition tableDefinition = (TableDefinition) resourceSet.getEObject(description.getEObjectURI(),
+                        true);
+                if (name.equals(tableDefinition.getName())) {
+                    return tableDefinition;
                 }
             }
         }

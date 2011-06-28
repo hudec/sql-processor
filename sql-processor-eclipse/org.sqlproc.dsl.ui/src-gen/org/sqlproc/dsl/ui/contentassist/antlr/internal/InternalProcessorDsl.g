@@ -5753,11 +5753,9 @@ rule__TableUsage__Group__3__Impl
     }
 :
 (
-{ before(grammarAccess.getTableUsageAccess().getPrefixKeyword_3()); }
-
-	'prefix' 
-
-{ after(grammarAccess.getTableUsageAccess().getPrefixKeyword_3()); }
+{ before(grammarAccess.getTableUsageAccess().getGroup_3()); }
+(rule__TableUsage__Group_3__0)?
+{ after(grammarAccess.getTableUsageAccess().getGroup_3()); }
 )
 
 ;
@@ -5772,7 +5770,6 @@ rule__TableUsage__Group__4
     }
 :
 	rule__TableUsage__Group__4__Impl
-	rule__TableUsage__Group__5
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -5784,9 +5781,9 @@ rule__TableUsage__Group__4__Impl
     }
 :
 (
-{ before(grammarAccess.getTableUsageAccess().getPrefixAssignment_4()); }
-(rule__TableUsage__PrefixAssignment_4)
-{ after(grammarAccess.getTableUsageAccess().getPrefixAssignment_4()); }
+{ before(grammarAccess.getTableUsageAccess().getSEMICOLONTerminalRuleCall_4()); }
+	RULE_SEMICOLON
+{ after(grammarAccess.getTableUsageAccess().getSEMICOLONTerminalRuleCall_4()); }
 )
 
 ;
@@ -5795,26 +5792,39 @@ finally {
 }
 
 
-rule__TableUsage__Group__5
+
+
+
+
+
+
+
+
+
+
+rule__TableUsage__Group_3__0
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__TableUsage__Group__5__Impl
+	rule__TableUsage__Group_3__0__Impl
+	rule__TableUsage__Group_3__1
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__TableUsage__Group__5__Impl
+rule__TableUsage__Group_3__0__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getTableUsageAccess().getSEMICOLONTerminalRuleCall_5()); }
-	RULE_SEMICOLON
-{ after(grammarAccess.getTableUsageAccess().getSEMICOLONTerminalRuleCall_5()); }
+{ before(grammarAccess.getTableUsageAccess().getPrefixKeyword_3_0()); }
+
+	'prefix' 
+
+{ after(grammarAccess.getTableUsageAccess().getPrefixKeyword_3_0()); }
 )
 
 ;
@@ -5823,12 +5833,32 @@ finally {
 }
 
 
+rule__TableUsage__Group_3__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__TableUsage__Group_3__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
+rule__TableUsage__Group_3__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getTableUsageAccess().getPrefixAssignment_3_1()); }
+(rule__TableUsage__PrefixAssignment_3_1)
+{ after(grammarAccess.getTableUsageAccess().getPrefixAssignment_3_1()); }
+)
 
-
-
-
-
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 
 
@@ -11903,14 +11933,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__TableUsage__PrefixAssignment_4
+rule__TableUsage__PrefixAssignment_3_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getTableUsageAccess().getPrefixIDENTTerminalRuleCall_4_0()); }
-	RULE_IDENT{ after(grammarAccess.getTableUsageAccess().getPrefixIDENTTerminalRuleCall_4_0()); }
+{ before(grammarAccess.getTableUsageAccess().getPrefixIDENTTerminalRuleCall_3_1_0()); }
+	RULE_IDENT{ after(grammarAccess.getTableUsageAccess().getPrefixIDENTTerminalRuleCall_3_1_0()); }
 )
 
 ;

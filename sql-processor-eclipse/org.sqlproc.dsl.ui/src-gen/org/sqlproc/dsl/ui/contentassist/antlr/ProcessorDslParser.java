@@ -96,6 +96,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMappingUsageAccess().getGroup(), "rule__MappingUsage__Group__0");
 					put(grammarAccess.getTableDefinitionAccess().getGroup(), "rule__TableDefinition__Group__0");
 					put(grammarAccess.getTableUsageAccess().getGroup(), "rule__TableUsage__Group__0");
+					put(grammarAccess.getTableUsageAccess().getGroup_3(), "rule__TableUsage__Group_3__0");
 					put(grammarAccess.getMetaStatementAccess().getGroup(), "rule__MetaStatement__Group__0");
 					put(grammarAccess.getMetaStatementAccess().getGroup_3(), "rule__MetaStatement__Group_3__0");
 					put(grammarAccess.getSqlFragmentAccess().getGroup_1(), "rule__SqlFragment__Group_1__0");
@@ -196,7 +197,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTableDefinitionAccess().getTableAssignment_2(), "rule__TableDefinition__TableAssignment_2");
 					put(grammarAccess.getTableUsageAccess().getStatementAssignment_1(), "rule__TableUsage__StatementAssignment_1");
 					put(grammarAccess.getTableUsageAccess().getTableAssignment_2(), "rule__TableUsage__TableAssignment_2");
-					put(grammarAccess.getTableUsageAccess().getPrefixAssignment_4(), "rule__TableUsage__PrefixAssignment_4");
+					put(grammarAccess.getTableUsageAccess().getPrefixAssignment_3_1(), "rule__TableUsage__PrefixAssignment_3_1");
 					put(grammarAccess.getMetaStatementAccess().getNameAssignment_0(), "rule__MetaStatement__NameAssignment_0");
 					put(grammarAccess.getMetaStatementAccess().getTypeAssignment_2(), "rule__MetaStatement__TypeAssignment_2");
 					put(grammarAccess.getMetaStatementAccess().getFiltersAssignment_3_1(), "rule__MetaStatement__FiltersAssignment_3_1");

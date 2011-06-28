@@ -45,7 +45,7 @@ TableDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
 	'table' name=IDENT table=IDENT SEMICOLON;
 
 TableUsage hidden(ML_COMMENT, SL_COMMENT, WS):
-	'dbcol' statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] 'prefix' prefix=IDENT SEMICOLON;
+	'dbcol' statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] ('prefix' prefix=IDENT)? SEMICOLON;
 
 MetaStatement:
 	name=IDENT LPAREN type=STATEMEN_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS statement=Sql SEMICOLON;

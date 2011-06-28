@@ -948,16 +948,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTableAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cTableTableDefinitionCrossReference_2_0 = (CrossReference)cTableAssignment_2.eContents().get(0);
 		private final RuleCall cTableTableDefinitionIDENTTerminalRuleCall_2_0_1 = (RuleCall)cTableTableDefinitionCrossReference_2_0.eContents().get(1);
-		private final Keyword cPrefixKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cPrefixAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cPrefixIDENTTerminalRuleCall_4_0 = (RuleCall)cPrefixAssignment_4.eContents().get(0);
-		private final RuleCall cSEMICOLONTerminalRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cPrefixKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cPrefixAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cPrefixIDENTTerminalRuleCall_3_1_0 = (RuleCall)cPrefixAssignment_3_1.eContents().get(0);
+		private final RuleCall cSEMICOLONTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		
 		//TableUsage hidden(ML_COMMENT, SL_COMMENT, WS):
-		//	"dbcol" statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] "prefix" prefix=IDENT SEMICOLON;
+		//	"dbcol" statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] ("prefix" prefix=IDENT)? SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
-		//"dbcol" statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] "prefix" prefix=IDENT SEMICOLON
+		//"dbcol" statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] ("prefix" prefix=IDENT)? SEMICOLON
 		public Group getGroup() { return cGroup; }
 
 		//"dbcol"
@@ -981,17 +982,20 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getTableTableDefinitionIDENTTerminalRuleCall_2_0_1() { return cTableTableDefinitionIDENTTerminalRuleCall_2_0_1; }
 
+		//("prefix" prefix=IDENT)?
+		public Group getGroup_3() { return cGroup_3; }
+
 		//"prefix"
-		public Keyword getPrefixKeyword_3() { return cPrefixKeyword_3; }
+		public Keyword getPrefixKeyword_3_0() { return cPrefixKeyword_3_0; }
 
 		//prefix=IDENT
-		public Assignment getPrefixAssignment_4() { return cPrefixAssignment_4; }
+		public Assignment getPrefixAssignment_3_1() { return cPrefixAssignment_3_1; }
 
 		//IDENT
-		public RuleCall getPrefixIDENTTerminalRuleCall_4_0() { return cPrefixIDENTTerminalRuleCall_4_0; }
+		public RuleCall getPrefixIDENTTerminalRuleCall_3_1_0() { return cPrefixIDENTTerminalRuleCall_3_1_0; }
 
 		//SEMICOLON
-		public RuleCall getSEMICOLONTerminalRuleCall_5() { return cSEMICOLONTerminalRuleCall_5; }
+		public RuleCall getSEMICOLONTerminalRuleCall_4() { return cSEMICOLONTerminalRuleCall_4; }
 	}
 
 	public class MetaStatementElements extends AbstractParserRuleElementFinder {
@@ -3623,7 +3627,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TableUsage hidden(ML_COMMENT, SL_COMMENT, WS):
-	//	"dbcol" statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] "prefix" prefix=IDENT SEMICOLON;
+	//	"dbcol" statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] ("prefix" prefix=IDENT)? SEMICOLON;
 	public TableUsageElements getTableUsageAccess() {
 		return (pTableUsage != null) ? pTableUsage : (pTableUsage = new TableUsageElements());
 	}

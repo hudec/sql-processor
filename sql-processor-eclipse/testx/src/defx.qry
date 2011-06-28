@@ -263,3 +263,4 @@ table types TYPES;
  */
 dbcol ANSI_BASIC person prefix p;
 dbcol ANSI_BASIC_2 person prefix p;
+dbcol BASIC person;

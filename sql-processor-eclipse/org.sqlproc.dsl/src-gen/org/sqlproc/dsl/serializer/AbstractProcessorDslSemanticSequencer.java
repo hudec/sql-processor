@@ -1025,27 +1025,14 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     (statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] prefix=IDENT)
+	 *     (statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] prefix=IDENT?)
 	 *
 	 * Features:
 	 *    statement[1, 1]
 	 *    table[1, 1]
-	 *    prefix[1, 1]
+	 *    prefix[0, 1]
 	 */
 	protected void sequence_TableUsage_TableUsage(EObject context, TableUsage semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.TABLE_USAGE__STATEMENT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.TABLE_USAGE__STATEMENT));
-			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.TABLE_USAGE__TABLE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.TABLE_USAGE__TABLE));
-			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.TABLE_USAGE__PREFIX) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.TABLE_USAGE__PREFIX));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getTableUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1(), semanticObject.getStatement());
-		feeder.accept(grammarAccess.getTableUsageAccess().getTableTableDefinitionIDENTTerminalRuleCall_2_0_1(), semanticObject.getTable());
-		feeder.accept(grammarAccess.getTableUsageAccess().getPrefixIDENTTerminalRuleCall_4_0(), semanticObject.getPrefix());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 }

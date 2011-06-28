@@ -590,11 +590,19 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             if (usage == null || usage == tableUsage)
                 continue;
             if (tableUsage.getStatement().getName().equals(usage.getStatement().getName())
-                    && tableUsage.getTable().getName().equals(usage.getTable().getName())
-                    && tableUsage.getPrefix().equals(usage.getPrefix())) {
-                error("Duplicate name : " + tableUsage.getStatement().getName() + "[" + tableUsage.getTable().getName()
-                        + ":" + tableUsage.getPrefix() + "][dbcol]", ProcessorDslPackage.Literals.TABLE_USAGE__PREFIX);
-                return;
+                    && tableUsage.getTable().getName().equals(usage.getTable().getName())) {
+                if (tableUsage.getPrefix() == null && usage.getPrefix() == null) {
+                    error("Duplicate name : " + tableUsage.getStatement().getName() + "["
+                            + tableUsage.getTable().getName() + "][dbcol]",
+                            ProcessorDslPackage.Literals.TABLE_USAGE__TABLE);
+                    return;
+                }
+                if (tableUsage.getPrefix() != null && tableUsage.getPrefix().equals(usage.getPrefix())) {
+                    error("Duplicate name : " + tableUsage.getStatement().getName() + "["
+                            + tableUsage.getTable().getName() + ":" + tableUsage.getPrefix() + "][dbcol]",
+                            ProcessorDslPackage.Literals.TABLE_USAGE__TABLE);
+                    return;
+                }
             }
         }
     }
@@ -609,23 +617,15 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         if (pos > 0) {
             prefix = databaseColumn.getName().substring(0, pos);
             column = databaseColumn.getName().substring(pos + 1);
-        } else
-            return;
-        String table = null;
+        } else {
+            prefix = null;
+            column = databaseColumn.getName();
+        }
         MetaStatement statement = EcoreUtil2.getContainerOfType(databaseColumn, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
-        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
-        Iterable<IEObjectDescription> iterable = scope.getAllElements();
-        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-            IEObjectDescription description = iter.next();
-            if (QualifiedName.create(prefix).equals(description.getName())) {
-                TableUsage tableUsage = (TableUsage) artifacts.eResource().getResourceSet()
-                        .getEObject(description.getEObjectURI(), true);
-                table = tableUsage.getTable() != null ? tableUsage.getTable().getName() : null;
-                break;
-            }
-        }
-        if (table != null && column != null && !dbResolver.checkColumn(table, databaseColumn.getName())) {
+        TableDefinition tableDefinition = getTableDefinition(artifacts, statement, prefix);
+        String table = tableDefinition != null ? tableDefinition.getTable() : null;
+        if (table != null && column != null && !dbResolver.checkColumn(table, column)) {
             error("Cannot find column in DB : " + databaseColumn.getName() + "[" + table + "]",
                     ProcessorDslPackage.Literals.DATABASE_COLUMN__NAME);
         }
@@ -640,5 +640,43 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     protected boolean isResolveDb() {
         return dbResolver.isResolveDb();
+    }
+
+    protected TableDefinition getTableDefinition(Artifacts artifacts, MetaStatement statement, String prefix) {
+        TableUsage usage = null;
+        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            if (ProcessorDslPackage.Literals.TABLE_USAGE.getName().equals(description.getEClass().getName())) {
+                TableUsage tableUsage = (TableUsage) artifacts.eResource().getResourceSet()
+                        .getEObject(description.getEObjectURI(), true);
+                if (tableUsage.getStatement().getName().equals(statement.getName())) {
+                    if (prefix == null && tableUsage.getPrefix() == null) {
+                        usage = tableUsage;
+                        break;
+                    }
+                    if (prefix != null && prefix.equals(tableUsage.getPrefix())) {
+                        usage = tableUsage;
+                        break;
+                    }
+                }
+            }
+        }
+        if (usage != null && usage.getTable() != null && usage.getTable().getName() != null) {
+            scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES);
+            iterable = scope.getAllElements();
+            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+                IEObjectDescription description = iter.next();
+                if (ProcessorDslPackage.Literals.TABLE_DEFINITION.getName().equals(description.getEClass().getName())) {
+                    TableDefinition tableDefinition = (TableDefinition) artifacts.eResource().getResourceSet()
+                            .getEObject(description.getEObjectURI(), true);
+                    if (usage.getTable().getName().equals(tableDefinition.getName())) {
+                        return tableDefinition;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

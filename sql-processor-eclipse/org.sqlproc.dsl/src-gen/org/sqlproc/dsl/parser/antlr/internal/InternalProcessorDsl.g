@@ -1654,15 +1654,15 @@ ruleTableUsage returns [EObject current=null]
 	}
 
 )
-)	otherlv_3='prefix' 
+)(	otherlv_3='prefix' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getTableUsageAccess().getPrefixKeyword_3());
+    	newLeafNode(otherlv_3, grammarAccess.getTableUsageAccess().getPrefixKeyword_3_0());
     }
 (
 (
 		lv_prefix_4_0=RULE_IDENT
 		{
-			newLeafNode(lv_prefix_4_0, grammarAccess.getTableUsageAccess().getPrefixIDENTTerminalRuleCall_4_0()); 
+			newLeafNode(lv_prefix_4_0, grammarAccess.getTableUsageAccess().getPrefixIDENTTerminalRuleCall_3_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1676,9 +1676,9 @@ ruleTableUsage returns [EObject current=null]
 	    }
 
 )
-)this_SEMICOLON_5=RULE_SEMICOLON
+))?this_SEMICOLON_5=RULE_SEMICOLON
     { 
-    newLeafNode(this_SEMICOLON_5, grammarAccess.getTableUsageAccess().getSEMICOLONTerminalRuleCall_5()); 
+    newLeafNode(this_SEMICOLON_5, grammarAccess.getTableUsageAccess().getSEMICOLONTerminalRuleCall_4()); 
     }
 )
 ;
