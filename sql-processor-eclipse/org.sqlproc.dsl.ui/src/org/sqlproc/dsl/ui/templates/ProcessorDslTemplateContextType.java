@@ -1,6 +1,7 @@
 package org.sqlproc.dsl.ui.templates;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.templates.SimpleTemplateVariableResolver;
@@ -32,15 +33,18 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
     protected void addDefaultTemplateVariables() {
         super.addDefaultTemplateVariables();
         super.addResolver(new DbTableResolver());
+        super.addResolver(new PojoColumnResolver());
+        super.addResolver(new DbSelectColumnResolver());
+        super.addResolver(new DbInsertColumnResolver());
+        super.addResolver(new DbUpdateColumnResolver());
     }
 
     protected MetaStatement getMetaStatement(XtextTemplateContext xtextTemplateContext) {
         if (xtextTemplateContext == null)
             return null;
-        EObject object = xtextTemplateContext.getContentAssistContext().getRootModel();
-        if (object instanceof MetaStatement)
-            return (MetaStatement) object;
-        return null;
+        EObject object = xtextTemplateContext.getContentAssistContext().getCurrentModel();
+        MetaStatement statement = EcoreUtil2.getContainerOfType(object, MetaStatement.class);
+        return statement;
     }
 
     protected TableDefinition getTableDefinition(MetaStatement statement) {
@@ -78,6 +82,69 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         return null;
     }
 
+    protected String toCamelCase(String value) {
+        if (value == null)
+            return null;
+        String[] parts = value.split("_");
+        String camelCaseString = "";
+        for (String part : parts) {
+            if (camelCaseString.length() == 0)
+                camelCaseString = camelCaseString + part.toLowerCase();
+            else
+                camelCaseString = camelCaseString + part.substring(0, 1).toUpperCase()
+                        + part.substring(1).toLowerCase();
+        }
+        return camelCaseString;
+    }
+
+    protected String getPojoColumns(List<String> columns) {
+        if (columns == null)
+            return null;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < columns.size(); i++) {
+            builder.append(':').append(toCamelCase(columns.get(i)));
+            if (i < columns.size() - 1)
+                builder.append(", ");
+        }
+        return builder.toString();
+    }
+
+    protected String getSelectColumns(List<String> columns) {
+        if (columns == null)
+            return null;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < columns.size(); i++) {
+            builder.append(columns.get(i)).append(" @").append(toCamelCase(columns.get(i)));
+            if (i < columns.size() - 1)
+                builder.append(", ");
+        }
+        return builder.toString();
+    }
+
+    protected String getInsertColumns(List<String> columns) {
+        if (columns == null)
+            return null;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < columns.size(); i++) {
+            builder.append(columns.get(i));
+            if (i < columns.size() - 1)
+                builder.append(", ");
+        }
+        return builder.toString();
+    }
+
+    protected String getUpdateColumns(List<String> columns) {
+        if (columns == null)
+            return null;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < columns.size(); i++) {
+            builder.append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)));
+            if (i < columns.size() - 1)
+                builder.append(", ");
+        }
+        return builder.toString();
+    }
+
     public class DbTableResolver extends SimpleTemplateVariableResolver {
 
         public static final String NAME = "dbTable";
@@ -99,6 +166,101 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         protected boolean isUnambiguous(TemplateContext context) {
             return true;
         }
+    }
 
+    public class DbSelectColumnResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "dbSelectColumn";
+
+        public DbSelectColumnResolver() {
+            super(NAME, "DbSelectColumn");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
+            if (dbResolver.isResolveDb() && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition.getTable());
+                return getSelectColumns(dbColumns);
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class PojoColumnResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "pojoColumn";
+
+        public PojoColumnResolver() {
+            super(NAME, "PojoColumn");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
+            if (dbResolver.isResolveDb() && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition.getTable());
+                return getPojoColumns(dbColumns);
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class DbInsertColumnResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "dbInsertColumn";
+
+        public DbInsertColumnResolver() {
+            super(NAME, "DbInsertColumn");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
+            if (dbResolver.isResolveDb() && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition.getTable());
+                return getInsertColumns(dbColumns);
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class DbUpdateColumnResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "dbUpdateColumn";
+
+        public DbUpdateColumnResolver() {
+            super(NAME, "DbUpdateColumn");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
+            if (dbResolver.isResolveDb() && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition.getTable());
+                return getUpdateColumns(dbColumns);
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
     }
 }

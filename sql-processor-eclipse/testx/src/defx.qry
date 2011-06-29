@@ -200,6 +200,8 @@ col CRUD_PERSON_SELECT person;
 col GET_PERSON person;
 col GET_PERSON_2 person;
 
+col INSERT_INTO_PERSON person;
+
 /*
  * the explicit mapping rules, the result classes usage
  */
