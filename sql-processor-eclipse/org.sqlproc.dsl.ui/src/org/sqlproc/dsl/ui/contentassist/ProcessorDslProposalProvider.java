@@ -298,14 +298,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         }
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
-        IScope scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
-        TableUsage tableUsage = findTableUsage(artifacts.eResource().getResourceSet(), scope, metaStatement.getName(),
-                prefix);
-        if (tableUsage == null || tableUsage.getTable() == null || tableUsage.getTable().getName() == null)
-            return;
-        scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES);
-        TableDefinition tableDefinition = findTableDefinition(artifacts.eResource().getResourceSet(), scope, tableUsage
-                .getTable().getName());
+        TableDefinition tableDefinition = getTableDefinition(artifacts, metaStatement, prefix);
         if (tableDefinition != null && tableDefinition.getTable() != null) {
             for (String column : dbResolver.getColumns(tableDefinition.getTable())) {
                 String proposal = getValueConverter().toString(column, "IDENT");
@@ -316,34 +309,38 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         }
     }
 
-    protected TableUsage findTableUsage(ResourceSet resourceSet, IScope scope, String statementName, String prefix) {
+    protected TableDefinition getTableDefinition(Artifacts artifacts, MetaStatement statement, String prefix) {
+        TableUsage usage = null;
+        IScope scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
         Iterable<IEObjectDescription> iterable = scope.getAllElements();
         for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
             IEObjectDescription description = iter.next();
             if (ProcessorDslPackage.Literals.TABLE_USAGE.getName().equals(description.getEClass().getName())) {
-                TableUsage tableUsage = (TableUsage) resourceSet.getEObject(description.getEObjectURI(), true);
-                if (statementName.equals(tableUsage.getStatement().getName())) {
+                TableUsage tableUsage = (TableUsage) artifacts.eResource().getResourceSet()
+                        .getEObject(description.getEObjectURI(), true);
+                if (tableUsage.getStatement().getName().equals(statement.getName())) {
                     if (prefix == null && tableUsage.getPrefix() == null) {
-                        return tableUsage;
+                        usage = tableUsage;
+                        break;
                     }
                     if (prefix != null && prefix.equals(tableUsage.getPrefix())) {
-                        return tableUsage;
+                        usage = tableUsage;
+                        break;
                     }
                 }
             }
         }
-        return null;
-    }
-
-    protected TableDefinition findTableDefinition(ResourceSet resourceSet, IScope scope, String name) {
-        Iterable<IEObjectDescription> iterable = scope.getAllElements();
-        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-            IEObjectDescription description = iter.next();
-            if (ProcessorDslPackage.Literals.TABLE_DEFINITION.getName().equals(description.getEClass().getName())) {
-                TableDefinition tableDefinition = (TableDefinition) resourceSet.getEObject(description.getEObjectURI(),
-                        true);
-                if (name.equals(tableDefinition.getName())) {
-                    return tableDefinition;
+        if (usage != null && usage.getTable() != null && usage.getTable().getName() != null) {
+            scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES);
+            iterable = scope.getAllElements();
+            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+                IEObjectDescription description = iter.next();
+                if (ProcessorDslPackage.Literals.TABLE_DEFINITION.getName().equals(description.getEClass().getName())) {
+                    TableDefinition tableDefinition = (TableDefinition) artifacts.eResource().getResourceSet()
+                            .getEObject(description.getEObjectURI(), true);
+                    if (usage.getTable().getName().equals(tableDefinition.getName())) {
+                        return tableDefinition;
+                    }
                 }
             }
         }

@@ -9,6 +9,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.OutlineFilterAndSorter;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
+import org.eclipse.xtext.ui.editor.templates.XtextTemplateContextType;
 import org.sqlproc.dsl.resolver.PojoResolver;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
 import org.sqlproc.dsl.resolver.PojoResolverFactoryBean;
@@ -20,6 +21,7 @@ import org.sqlproc.dsl.ui.resolver.WorkspacePojoResolverImpl;
 import org.sqlproc.dsl.ui.syntaxcoloring.HighlightingConfiguration;
 import org.sqlproc.dsl.ui.syntaxcoloring.SemanticHighlightingCalculator;
 import org.sqlproc.dsl.ui.syntaxcoloring.TokenToIdMapper;
+import org.sqlproc.dsl.ui.templates.ProcessorDslTemplateContextType;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
@@ -71,4 +73,11 @@ public class ProcessorDslUiModule extends org.sqlproc.dsl.ui.AbstractProcessorDs
         binder.bind(IOutlineContribution.class).annotatedWith(Names.named("FilterMappingRulesContribution"))
                 .to(FilterMappingRulesContribution.class);
     }
+
+    @Override
+    public void configure(Binder binder) {
+        super.configure(binder);
+        binder.bind(XtextTemplateContextType.class).to(ProcessorDslTemplateContextType.class);
+    }
+
 }

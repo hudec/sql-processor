@@ -9,7 +9,7 @@ import java.util.Iterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
-import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.IScopeProvider;
@@ -49,6 +49,9 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Inject
     IScopeProvider scopeProvider;
+
+    @Inject
+    IQualifiedNameConverter qualifiedNameConverter;
 
     public enum ValidationResult {
         OK, WARNING, ERROR;
@@ -308,7 +311,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         Iterable<IEObjectDescription> iterable = scope.getAllElements();
         for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
             IEObjectDescription description = iter.next();
-            if (QualifiedName.create(statement.getName()).equals(description.getName())) {
+            if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
                 PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
                         .getEObject(description.getEObjectURI(), true);
                 if (pojoUsage instanceof ColumnUsage) {
@@ -350,7 +353,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         Iterable<IEObjectDescription> iterable = scope.getAllElements();
         for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
             IEObjectDescription description = iter.next();
-            if (QualifiedName.create(statement.getName()).equals(description.getName())) {
+            if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
                 PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
                         .getEObject(description.getEObjectURI(), true);
                 if (pojoUsage instanceof IdentifierUsage) {
@@ -382,7 +385,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         Iterable<IEObjectDescription> iterable = scope.getAllElements();
         for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
             IEObjectDescription description = iter.next();
-            if (QualifiedName.create(statement.getName()).equals(description.getName())) {
+            if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
                 PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
                         .getEObject(description.getEObjectURI(), true);
                 if (pojoUsage instanceof ConstantUsage) {
@@ -414,7 +417,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         Iterable<IEObjectDescription> iterable = scope.getAllElements();
         for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
             IEObjectDescription description = iter.next();
-            if (QualifiedName.create(rule.getName()).equals(description.getName())) {
+            if (qualifiedNameConverter.toQualifiedName(rule.getName()).equals(description.getName())) {
                 PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
                         .getEObject(description.getEObjectURI(), true);
                 if (pojoUsage instanceof MappingUsage) {
