@@ -4,6 +4,7 @@
 package org.sqlproc.dsl.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.contentassist.ITemplateProposalProvider;
 import org.eclipse.xtext.ui.editor.outline.actions.IOutlineContribution;
 import org.eclipse.xtext.ui.editor.outline.impl.OutlineFilterAndSorter;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultAntlrTokenToAttributeIdMapper;
@@ -22,6 +23,7 @@ import org.sqlproc.dsl.ui.syntaxcoloring.HighlightingConfiguration;
 import org.sqlproc.dsl.ui.syntaxcoloring.SemanticHighlightingCalculator;
 import org.sqlproc.dsl.ui.syntaxcoloring.TokenToIdMapper;
 import org.sqlproc.dsl.ui.templates.ProcessorDslTemplateContextType;
+import org.sqlproc.dsl.ui.templates.ProcessorTemplateProposalProvider;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
@@ -80,4 +82,8 @@ public class ProcessorDslUiModule extends org.sqlproc.dsl.ui.AbstractProcessorDs
         binder.bind(XtextTemplateContextType.class).to(ProcessorDslTemplateContextType.class);
     }
 
+    @Override
+    public Class<? extends ITemplateProposalProvider> bindITemplateProposalProvider() {
+        return ProcessorTemplateProposalProvider.class;
+    }
 }

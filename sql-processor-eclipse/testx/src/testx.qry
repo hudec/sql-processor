@@ -20,6 +20,7 @@ SEQ1(OPT,ORACLE)=select SQLPROC_SEQUENCE.nextval from dual;
 SEL1(OPT,HSQLDB)=call identity();
 SEL1(OPT,ORACLE)=select last_insert_id();
 
+INSERT_INTO_PERSON(CRUD)=  ;
 
 // META SQL query
 ANSI_BASIC(QRY)=

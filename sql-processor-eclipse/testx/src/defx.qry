@@ -97,6 +97,7 @@ ident INSERT_PERSON_CALL_RESULT_SET_2 person;
 ident INSERT_PERSON_CALL_RESULT_SET_PROC person;
 ident SIMPLE_FUNCION function_form;
 ident SIMPLE_FUNCION_TO_IN_FORM function_form;
+ident INSERT_INTO_PERSON person;
 
 /*
  * the meta statements, the static input values usage
@@ -264,3 +265,4 @@ table types TYPES;
 dbcol ANSI_BASIC person prefix p;
 dbcol ANSI_BASIC_2 person prefix p;
 dbcol BASIC person;
+dbcol INSERT_INTO_PERSON person;
