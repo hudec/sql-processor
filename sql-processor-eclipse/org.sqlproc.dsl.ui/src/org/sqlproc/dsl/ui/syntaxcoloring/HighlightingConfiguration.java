@@ -76,20 +76,21 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
     }
 
     public TextStyle commentStyle() {
-        TextStyle textStyle = defaultStyle().copy();
+        TextStyle textStyle = defaultStyle();
         textStyle.setColor(new RGB(63, 127, 95));
         return textStyle;
     }
 
     public TextStyle defaultStyle() {
         TextStyle textStyle = new TextStyle();
+        textStyle.setStyle(SWT.NORMAL);
         // textStyle.setBackgroundColor(new RGB(255, 255, 255));
         textStyle.setColor(new RGB(0, 0, 0));
         return textStyle;
     }
 
     public TextStyle nameStyle() {
-        TextStyle textStyle = defaultStyle().copy();
+        TextStyle textStyle = defaultStyle();
         textStyle.setColor(new RGB(127, 0, 85));
         textStyle.setStyle(SWT.BOLD);
         return textStyle;

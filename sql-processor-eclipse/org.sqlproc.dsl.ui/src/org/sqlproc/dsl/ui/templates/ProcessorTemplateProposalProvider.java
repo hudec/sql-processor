@@ -52,17 +52,22 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
             acceptor.accept(tp);
 
             template = new Template("sel", "CRUD select statement", "uniqueTemplateID",
-                    "\nselect ${dbSelectColumn}\n from ${dbTable}\n", false);// auto-insertable?
+                    "\n  select ${dbSelectColumn}\n  from ${dbTable}\n  where 1=1${dbCondColumn}\n", false);// auto-insertable?
             tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
             template = new Template("upd", "CRUD update statement", "uniqueTemplateID",
-                    "\nupdate ${dbTable}\n set (${dbUpdateColumn})\n where ID = :id\n", false);// auto-insertable?
+                    "\n  update ${dbTable}\n  set (${dbUpdateColumn})\n  where 1=1${dbCondColumn}\n", false);// auto-insertable?
             tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
             template = new Template("del", "CRUD delete statement", "uniqueTemplateID",
-                    "\ndelete from ${dbTable} where ID = :id\n", false);// auto-insertable?
+                    "\n  delete from ${dbTable}\n  where 1=1${dbCondColumn}\n", false);// auto-insertable?
             tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
+            // template = new Template("frm", "Form select statement", "uniqueTemplateID",
+            // "\n  select ${dbSelectColumn}\n  from ${dbTable}\n  where 1=1${dbCondColumn}\n", false);//
+            // auto-insertable?
+            // tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
+            // acceptor.accept(tp);
         }
     }
 }

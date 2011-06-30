@@ -37,6 +37,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         super.addResolver(new DbSelectColumnResolver());
         super.addResolver(new DbInsertColumnResolver());
         super.addResolver(new DbUpdateColumnResolver());
+        super.addResolver(new DbCondColumnResolver());
     }
 
     protected MetaStatement getMetaStatement(XtextTemplateContext xtextTemplateContext) {
@@ -90,7 +91,9 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         for (String part : parts) {
             if (camelCaseString.length() == 0)
                 camelCaseString = camelCaseString + part.toLowerCase();
-            else
+            else if (part.length() == 1)
+                camelCaseString = camelCaseString + part.toUpperCase();
+            else if (part.length() > 1)
                 camelCaseString = camelCaseString + part.substring(0, 1).toUpperCase()
                         + part.substring(1).toLowerCase();
         }
@@ -145,6 +148,20 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         return builder.toString();
     }
 
+    protected String getCondColumns(List<String> columns) {
+        if (columns == null)
+            return null;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < columns.size(); i++) {
+            builder.append("\n  {& ").append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)))
+                    .append('}');
+        }
+        return builder.toString();
+    }
+
+    /*
+     * Template variable resolvers
+     */
     public class DbTableResolver extends SimpleTemplateVariableResolver {
 
         public static final String NAME = "dbTable";
@@ -254,6 +271,30 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             if (dbResolver.isResolveDb() && tableDefinition != null) {
                 List<String> dbColumns = dbResolver.getColumns(tableDefinition.getTable());
                 return getUpdateColumns(dbColumns);
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class DbCondColumnResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "dbCondColumn";
+
+        public DbCondColumnResolver() {
+            super(NAME, "DbCondColumn");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
+            if (dbResolver.isResolveDb() && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition.getTable());
+                return getCondColumns(dbColumns);
             }
             return super.resolve(context);
         }
