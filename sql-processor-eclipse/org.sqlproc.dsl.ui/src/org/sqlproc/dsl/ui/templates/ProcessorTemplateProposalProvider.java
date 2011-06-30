@@ -42,7 +42,7 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
 
             // create a template on the fly
             Template template = new Template("ins", "CRUD insert statement", "uniqueTemplateID",
-                    "\ninsert into ${dbTable} (${dbInsertColumn})\n values (${pojoColumn})\n", false);// auto-insertable?
+                    "\n  insert into ${dbTable}\n  (${dbInsertColumn})\n  values (${pojoColumn})\n", false);// auto-insertable?
 
             // create a proposal
             TemplateProposal tp = createProposal(template, templateContext, context, getImage(template),
