@@ -20,6 +20,7 @@ import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
+import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
@@ -33,6 +34,9 @@ import org.sqlproc.dsl.resolver.PojoResolverFactory;
 import com.google.inject.Inject;
 
 public class SemanticHighlightingCalculator implements ISemanticHighlightingCalculator {
+
+    public static final String CARET = "^";
+    public static final String STRING = "$";
 
     @Inject
     PojoResolver pojoResolver;
@@ -78,16 +82,19 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 }
             } else if (current instanceof Constant) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
-                acceptor.addPosition(node.getOffset(), node.getLength(), HighlightingConfiguration.CONSTANT);
+                provideHighlightingForFragment(HighlightingConfiguration.CONSTANT, node, acceptor);
             } else if (current instanceof Identifier) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
-                acceptor.addPosition(node.getOffset(), node.getLength(), HighlightingConfiguration.IDENTIFIER);
+                provideHighlightingForFragment(HighlightingConfiguration.IDENTIFIER, node, acceptor);
             } else if (current instanceof Column) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
-                acceptor.addPosition(node.getOffset(), node.getLength(), HighlightingConfiguration.COLUMN);
+                provideHighlightingForFragment(HighlightingConfiguration.COLUMN, node, acceptor);
             } else if (current instanceof MappingColumn) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 acceptor.addPosition(node.getOffset(), node.getLength(), HighlightingConfiguration.COLUMN);
+            } else if (current instanceof MappingItem) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                provideHighlightingForMappingItem(node, acceptor);
             } else if (current instanceof DatabaseColumn) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 acceptor.addPosition(node.getOffset(), node.getLength(), HighlightingConfiguration.DATABASE_COLUMN);
@@ -188,6 +195,48 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
             if (table != null && table.contains(inode.getText())) {
                 acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.IDENTIFIER);
                 return;
+            }
+        }
+    }
+
+    private void provideHighlightingForFragment(String defaultColor, ICompositeNode node,
+            IHighlightedPositionAcceptor acceptor) {
+        Iterator<INode> iterator = new NodeTreeIterator(node);
+        int index = 0;
+        while (iterator.hasNext()) {
+            INode inode = iterator.next();
+            if (CARET.equals(inode.getText())) {
+                index++;
+                continue;
+            }
+            switch (index) {
+            case 1:
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.META_TYPE);
+                break;
+            case 2:
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.META_IDENT);
+                break;
+            default:
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), defaultColor);
+            }
+        }
+    }
+
+    private void provideHighlightingForMappingItem(ICompositeNode node, IHighlightedPositionAcceptor acceptor) {
+        Iterator<INode> iterator = new NodeTreeIterator(node);
+        int index = 0;
+        while (iterator.hasNext()) {
+            INode inode = iterator.next();
+            if (STRING.equals(inode.getText())) {
+                index++;
+                continue;
+            }
+            switch (index) {
+            case 1:
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.META_TYPE);
+                break;
+            default:
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.IDENTIFIER);
             }
         }
     }

@@ -5,8 +5,10 @@ package org.sqlproc.dsl.ui.contentassist;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.ParameterizedType;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -45,6 +47,82 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
 
     @Inject
     DbResolver dbResolver;
+
+    @Override
+    public void completeProperty_DoResolvePojo(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        List<String> values = Arrays.asList(new String[] { "ON", "OFF" });
+        addProposalList(values, "ON_OFF", context, acceptor);
+    }
+
+    @Override
+    public void completeProperty_DoResolveDb(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        List<String> values = Arrays.asList(new String[] { "ON", "OFF" });
+        addProposalList(values, "ON_OFF", context, acceptor);
+    }
+
+    @Override
+    public void completeMetaStatement_Type(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        List<String> values = Arrays.asList(new String[] { "QRY", "CRUD", "CALL" });
+        addProposalList(values, "STATEMEN_TYPE", context, acceptor);
+    }
+
+    @Override
+    public void completeMappingRule_Type(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        List<String> values = Arrays.asList(new String[] { "OUT" });
+        addProposalList(values, "MAPPING_TYPE", context, acceptor);
+    }
+
+    @Override
+    public void completeOptionalFeature_Type(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        List<String> values = Arrays.asList(new String[] { "OPT", "LOPT", "IOPT", "SOPT", "BOPT" });
+        addProposalList(values, "OPTION_TYPE", context, acceptor);
+    }
+
+    @Override
+    public void completeColumn_Type(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        addProposalTypes(context, acceptor);
+    }
+
+    @Override
+    public void completeConstant_Type(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        addProposalTypes(context, acceptor);
+    }
+
+    @Override
+    public void completeIdentifier_Type(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        addProposalTypes(context, acceptor);
+    }
+
+    @Override
+    public void completeMappingItem_Type(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        addProposalTypes(context, acceptor);
+    }
+
+    protected void addProposalList(List<String> values, String lexerRule, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (values == null)
+            return;
+        for (String value : values) {
+            String proposal = getValueConverter().toString(value, lexerRule);
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+    }
+
+    protected void addProposalTypes(ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        // TODO pripsat vsechny typy
+        List<String> values = Arrays.asList(new String[] { "string", "Long", "Int" });
+        addProposalList(values, "IDENT", context, acceptor);
+    }
 
     @Override
     public void completeColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,

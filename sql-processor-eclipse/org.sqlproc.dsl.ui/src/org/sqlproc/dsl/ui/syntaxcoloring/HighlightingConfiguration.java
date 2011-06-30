@@ -18,6 +18,8 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
     public static final String COLUMN = "column";
     public static final String DATABASE_COLUMN = "dbcolumn";
     public final static String FILTER = "filter";
+    public final static String META_TYPE = "metatype";
+    public final static String META_IDENT = "metaident";
 
     public void configure(IHighlightingConfigurationAcceptor acceptor) {
         // super.configure(acceptor);
@@ -31,6 +33,8 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
         acceptor.acceptDefaultHighlighting(DATABASE_COLUMN, "Database column", databaseColumnStyle());
         acceptor.acceptDefaultHighlighting(NAME, "Artifact name", nameStyle());
         acceptor.acceptDefaultHighlighting(FILTER, "Filters", filterStyle());
+        acceptor.acceptDefaultHighlighting(META_TYPE, "Meta type", metaTypeStyle());
+        acceptor.acceptDefaultHighlighting(META_IDENT, "Meta identifier", metaIdentStyle());
     }
 
     public TextStyle punctationStyle() {
@@ -99,6 +103,18 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
     public TextStyle filterStyle() {
         TextStyle textStyle = defaultStyle();
         textStyle.setStyle(SWT.ITALIC);
+        return textStyle;
+    }
+
+    public TextStyle metaTypeStyle() {
+        TextStyle textStyle = defaultStyle();
+        textStyle.setColor(new RGB(210, 105, 30));
+        return textStyle;
+    }
+
+    public TextStyle metaIdentStyle() {
+        TextStyle textStyle = defaultStyle();
+        textStyle.setColor(new RGB(34, 139, 34));
         return textStyle;
     }
 }
