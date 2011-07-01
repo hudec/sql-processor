@@ -48,63 +48,71 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     @Inject
     DbResolver dbResolver;
 
+    private static final List<String> ON_OFF = Arrays.asList(new String[] { "ON", "OFF" });
+    private static final List<String> STATEMEN_TYPE = Arrays.asList(new String[] { "QRY", "CRUD", "CALL" });
+    private static final List<String> MAPPING_TYPE = Arrays.asList(new String[] { "OUT" });
+    private static final List<String> OPTION_TYPE = Arrays
+            .asList(new String[] { "OPT", "LOPT", "IOPT", "SOPT", "BOPT" });
+    private static final List<String> TYPES = Arrays.asList(new String[] { "int", "integer", "long", "byte", "short",
+            "float", "double", "character", "char", "string", "str", "time", "date", "datetime", "timestamp", "stamp",
+            "bool", "boolean", "bigint", "biginteger", "bigdec", "bigdecimal", "bytearr", "bytearray", "bytes", "text",
+            "blob", "clob", "einteger", "eint", "enumstring", "estring", "fromdate", "todate", "h_big_decimal",
+            "h_big_integer", "h_blob", "h_boolean", "h_binary", "h_byte", "h_clob", "h_timestamp", "h_date",
+            "h_double", "h_float", "h_date", "h_character", "h_integer", "h_long", "h_short", "h_string", "h_text",
+            "h_timestamp", "h_time" });
+
     @Override
     public void completeProperty_DoResolvePojo(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        List<String> values = Arrays.asList(new String[] { "ON", "OFF" });
-        addProposalList(values, "ON_OFF", context, acceptor);
+        addProposalList(ON_OFF, "ON_OFF", context, acceptor);
     }
 
     @Override
     public void completeProperty_DoResolveDb(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        List<String> values = Arrays.asList(new String[] { "ON", "OFF" });
-        addProposalList(values, "ON_OFF", context, acceptor);
+        addProposalList(ON_OFF, "ON_OFF", context, acceptor);
     }
 
     @Override
     public void completeMetaStatement_Type(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        List<String> values = Arrays.asList(new String[] { "QRY", "CRUD", "CALL" });
-        addProposalList(values, "STATEMEN_TYPE", context, acceptor);
+        addProposalList(STATEMEN_TYPE, "STATEMEN_TYPE", context, acceptor);
     }
 
     @Override
     public void completeMappingRule_Type(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        List<String> values = Arrays.asList(new String[] { "OUT" });
-        addProposalList(values, "MAPPING_TYPE", context, acceptor);
+        addProposalList(MAPPING_TYPE, "MAPPING_TYPE", context, acceptor);
     }
 
     @Override
     public void completeOptionalFeature_Type(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        List<String> values = Arrays.asList(new String[] { "OPT", "LOPT", "IOPT", "SOPT", "BOPT" });
-        addProposalList(values, "OPTION_TYPE", context, acceptor);
+        addProposalList(OPTION_TYPE, "OPTION_TYPE", context, acceptor);
     }
 
     @Override
     public void completeColumn_Type(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        addProposalTypes(context, acceptor);
+        addProposalList(TYPES, "IDENT", context, acceptor);
     }
 
     @Override
     public void completeConstant_Type(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        addProposalTypes(context, acceptor);
+        addProposalList(TYPES, "IDENT", context, acceptor);
     }
 
     @Override
     public void completeIdentifier_Type(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        addProposalTypes(context, acceptor);
+        addProposalList(TYPES, "IDENT", context, acceptor);
     }
 
     @Override
     public void completeMappingItem_Type(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        addProposalTypes(context, acceptor);
+        addProposalList(TYPES, "IDENT", context, acceptor);
     }
 
     protected void addProposalList(List<String> values, String lexerRule, ContentAssistContext context,
@@ -116,12 +124,6 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
             acceptor.accept(completionProposal);
         }
-    }
-
-    protected void addProposalTypes(ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-        // TODO pripsat vsechny typy
-        List<String> values = Arrays.asList(new String[] { "string", "Long", "Int" });
-        addProposalList(values, "IDENT", context, acceptor);
     }
 
     @Override
