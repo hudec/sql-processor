@@ -42,25 +42,20 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
 
             // create a template on the fly
             Template template = new Template("ins", "CRUD insert statement", "uniqueTemplateID",
-                    "\n  insert into ${dbTable}\n  (${dbInsertColumn})\n  values (${pojoColumn})\n", false);// auto-insertable?
-
-            // create a proposal
+                    "\n  insert into ${dbTable}\n  (${dbInsertColumn})\n  {= values (${pojoColumn}) }\n", false);// auto-insertable?
             TemplateProposal tp = createProposal(template, templateContext, context, getImage(template),
                     getRelevance(template));
-
-            // make it available
             acceptor.accept(tp);
-
             template = new Template("sel", "CRUD select statement", "uniqueTemplateID",
-                    "\n  select ${dbSelectColumn}\n  from ${dbTable}\n  where 1=1${dbCondColumn}\n", false);// auto-insertable?
+                    "\n  select ${dbSelectColumn}\n  from ${dbTable}\n  {= where${dbCondColumn}\n  }\n", false);// auto-insertable?
             tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
             template = new Template("upd", "CRUD update statement", "uniqueTemplateID",
-                    "\n  update ${dbTable}\n  set (${dbUpdateColumn})\n  where 1=1${dbCondColumn}\n", false);// auto-insertable?
+                    "\n  update ${dbTable}\n  {= set (${dbUpdateColumn})}\n  {= where${dbCondColumn}\n  }\n", false);// auto-insertable?
             tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
             template = new Template("del", "CRUD delete statement", "uniqueTemplateID",
-                    "\n  delete from ${dbTable}\n  where 1=1${dbCondColumn}\n", false);// auto-insertable?
+                    "\n  delete from ${dbTable}\n  {= where${dbCondColumn}\n  }\n", false);// auto-insertable?
             tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
             // template = new Template("frm", "Form select statement", "uniqueTemplateID",
