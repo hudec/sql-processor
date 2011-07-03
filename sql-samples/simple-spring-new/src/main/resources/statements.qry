@@ -2,12 +2,13 @@ LIKE_STRING(OPT)=like;
 WILDCARD_CHARACTER(OPT)=%;
 SURROUND_QUERY_LIKE(BOPT)=true;
 SURROUND_QUERY_MIN_LEN(IOPT)=2;
+
 SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity();
 
 ALL_PEOPLE(QRY)=
-  select p.ID @id, p.NAME @name
-  from PERSON p
+  select ID @id, NAME @name
+  from PERSON
   {= where
    {& id=:id}
    {& UPPER(name)=:+name}
@@ -17,8 +18,8 @@ ALL_PEOPLE(QRY)=
 ;
 
 LIKE_PEOPLE(QRY)=
-  select p.ID @id, p.NAME @name
-  from PERSON p
+  select ID @id, NAME @name
+  from PERSON
   {= where
    {& id=:id}
    {& UPPER(name) like :+name}
@@ -146,7 +147,7 @@ ALL_SUBSCRIBERS_BILLING_DETAILS(QRY)=
   from SUBSCRIBER s left join BILLING_DETAILS bd on s.ID = bd.SUBSCRIBER
   {= where
    {& UPPER(s.name)=:+name}
-   {& bd.TYPE = :type}
+//   {& bd.TYPE = :type}
   }
   {#1 order by s.ID, bd.ID}
 ;
