@@ -9,6 +9,7 @@ import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
+import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingRule;
@@ -62,6 +63,10 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
     }
 
     public String text(DatabaseColumn ele) {
+        return ele.getName();
+    }
+
+    public String text(DatabaseTable ele) {
         return ele.getName();
     }
 

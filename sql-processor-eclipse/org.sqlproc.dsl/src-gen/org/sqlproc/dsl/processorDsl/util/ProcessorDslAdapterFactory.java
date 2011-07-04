@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl.util;
 
@@ -202,6 +201,11 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseDatabaseColumn(DatabaseColumn object)
       {
         return createDatabaseColumnAdapter();
+      }
+      @Override
+      public Adapter caseDatabaseTable(DatabaseTable object)
+      {
+        return createDatabaseTableAdapter();
       }
       @Override
       public Adapter caseMappingRule(MappingRule object)
@@ -621,6 +625,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDatabaseColumnAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DatabaseTable <em>Database Table</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseTable
+   * @generated
+   */
+  public Adapter createDatabaseTableAdapter()
   {
     return null;
   }

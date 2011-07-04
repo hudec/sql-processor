@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
@@ -93,6 +92,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.CONSTANT: return createConstant();
       case ProcessorDslPackage.IDENTIFIER: return createIdentifier();
       case ProcessorDslPackage.DATABASE_COLUMN: return createDatabaseColumn();
+      case ProcessorDslPackage.DATABASE_TABLE: return createDatabaseTable();
       case ProcessorDslPackage.MAPPING_RULE: return createMappingRule();
       case ProcessorDslPackage.MAPPING: return createMapping();
       case ProcessorDslPackage.MAPPING_ITEM: return createMappingItem();
@@ -376,6 +376,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     DatabaseColumnImpl databaseColumn = new DatabaseColumnImpl();
     return databaseColumn;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DatabaseTable createDatabaseTable()
+  {
+    DatabaseTableImpl databaseTable = new DatabaseTableImpl();
+    return databaseTable;
   }
 
   /**

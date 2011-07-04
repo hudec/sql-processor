@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl.util;
 
@@ -252,6 +251,13 @@ public class ProcessorDslSwitch<T> extends Switch<T>
       {
         DatabaseColumn databaseColumn = (DatabaseColumn)theEObject;
         T result = caseDatabaseColumn(databaseColumn);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.DATABASE_TABLE:
+      {
+        DatabaseTable databaseTable = (DatabaseTable)theEObject;
+        T result = caseDatabaseTable(databaseTable);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -690,6 +696,22 @@ public class ProcessorDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseDatabaseColumn(DatabaseColumn object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Database Table</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Database Table</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDatabaseTable(DatabaseTable object)
   {
     return null;
   }

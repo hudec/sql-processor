@@ -97,7 +97,6 @@ ident INSERT_PERSON_CALL_RESULT_SET_2 person;
 ident INSERT_PERSON_CALL_RESULT_SET_PROC person;
 ident SIMPLE_FUNCION function_form;
 ident SIMPLE_FUNCION_TO_IN_FORM function_form;
-ident INSERT_INTO_PERSON person;
 
 /*
  * the meta statements, the static input values usage
@@ -200,8 +199,6 @@ col CRUD_PERSON_SELECT person;
 col GET_PERSON person;
 col GET_PERSON_2 person;
 
-col INSERT_INTO_PERSON person;
-
 /*
  * the explicit mapping rules, the result classes usage
  */
@@ -266,5 +263,16 @@ table types TYPES;
  */
 dbcol ANSI_BASIC person prefix p;
 dbcol ANSI_BASIC_2 person prefix p;
+dbcol ANSI_BASIC_3 person prefix p;
+dbcol SQL_EXT_BASIC person;
+dbcol SQL_EXT_BASIC_2 person prefix p;
 dbcol BASIC person;
-dbcol INSERT_INTO_PERSON person;
+
+dbcol BASIC_4_LEFT_JOIN_2 library prefix l;
+dbcol BASIC_4_LEFT_JOIN_2 pmedia prefix pm;
+dbcol BASIC_4_LEFT_JOIN_2 pmedia_content prefix mpm;
+dbcol BASIC_4_LEFT_JOIN_2 media prefix m;
+dbcol BASIC_4_LEFT_JOIN_2 mchar_in_media prefix emm;
+dbcol BASIC_4_LEFT_JOIN_2 mcharacter prefix mc;
+dbcol BASIC_4_LEFT_JOIN_2 person prefix p;
+dbcol BASIC_4_LEFT_JOIN_2 played_by prefix mp;

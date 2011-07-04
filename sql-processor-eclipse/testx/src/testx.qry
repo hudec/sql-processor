@@ -20,13 +20,11 @@ SEQ1(OPT,ORACLE)=select SQLPROC_SEQUENCE.nextval from dual;
 SEL1(OPT,HSQLDB)=call identity();
 SEL1(OPT,ORACLE)=select last_insert_id();
 
-INSERT_INTO_PERSON(CRUD)=  ;
-
 // META SQL query
 ANSI_BASIC(QRY)=
   select %p.ID, %p.NAME_FIRST first, %p.NAME_LAST last, %p.SSN_NUMBER ssn, %p.SSN_COUNTRY country,
   %p.BIRTHDATE, %p.SEX, p.CREATEDDATE, %p.CREATEDBY, %p.LASTUPDATED, %p.LASTUPDATEDBY, %p.VERSION
-  from PERSON p
+  from %%PERSON p
   order by id
 ;
 // output mapping rule
@@ -41,7 +39,7 @@ ANSI_BASIC_2(QRY)=
   select %p.ID @id, %p.NAME_FIRST @first, %p.NAME_LAST @last, %p.SSN_NUMBER @ssn, %p.SSN_COUNTRY @country,
   %p.BIRTHDATE @birthDate, %p.SEX @sex, %p.CREATEDDATE @createdDate, %p.CREATEDBY @createdBy,
   %p.LASTUPDATED @lastUpdated, %p.LASTUPDATEDBY @lastUpdatedBy, %p.VERSION @version
-  from PERSON p
+  from %%PERSON p
   order by %p.ID
 ;
 ANSI_BASIC_2(OUT)=
@@ -54,19 +52,19 @@ ANSI_BASIC_3(QRY)=
   select %p.ID @id, %p.NAME_FIRST @name.first, %p.NAME_LAST @name.last, %p.SSN_NUMBER @ssn.number, %p.SSN_COUNTRY @ssn.country,
   %p.BIRTHDATE @birthDate^date, %p.SEX @sex, %p.CREATEDDATE @createdDate^date, %p.CREATEDBY @createdBy,
   %p.LASTUPDATED @lastUpdated^date, %p.LASTUPDATEDBY @lastUpdatedBy, %p.VERSION @version
-  from PERSON p
+  from %%PERSON p
   order by %p.ID
 ;
 
 SQL_EXT_BASIC(QRY)=
   select %ID, $-name.first first, :+name.last last
-  from PERSON
+  from %%PERSON
   where 1=1
   order by %ID
 ;
 SQL_EXT_BASIC(QRY,HSQLDB)=
   select %ID, $-name.first first, cast(:+name.last as varchar(100)) last
-  from PERSON
+  from %%PERSON
   where 1=1
   order by %ID
 ;
@@ -91,7 +89,7 @@ SQL_EXT_BASIC_2(QRY,HSQLDB)=
 BASIC(QRY)=
   select %ID, %NAME_FIRST first, %NAME_LAST last, %SSN_NUMBER ssn, %SSN_COUNTRY country,
   %BIRTHDATE, %SEX, %CREATEDDATE, %CREATEDBY, %LASTUPDATED, %LASTUPDATEDBY, %VERSION
-  from PERSON
+  from %%PERSON
   {#1 order by %ID}
 ;
 BASIC(OUT)=
@@ -1086,17 +1084,17 @@ BASIC_4_LEFT_JOIN(QRY)=
 ;
 
 BASIC_4_LEFT_JOIN_2(QRY)=
-  select l.ID @id, l.NAME @name, pm.ID @media.id, pm.LOCATION @media.location,
-  m.ID @media.media==movie.id, m.TITLE @media.media.title^string,
-  mc.ID @media.media.mediaCharacters.id, mc.NAME @media.media.mediaCharacters.name,
-  p.ID @media.media.mediaCharacters.playedBy.id, p.NAME_LAST @media.media.mediaCharacters.playedBy.name.last,
-  p.SEX @media.media.mediaCharacters.playedBy.sex, p.CLOTHES_SIZE @media.media.mediaCharacters.playedBy.clothesSize
-  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
-  left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
-  left join MEDIA m on m.ID = mpm.MEDIA left join EXISTSINMEDIA_MEDIACHARACTER emm on emm.EXISTSINMEDIA = m.ID
-  left join MEDIACHARACTER mc on mc.ID = emm.MEDIACHARACTER left join MEDIACHARACTER_PLAYEDBY mp on mp.MEDIACHARACTER = mc.ID
-  left join PERSON p on p.ID = mp.PLAYEDBY
-  {#1 order by l.ID, pm.ID, m.ID, mc.ID, p.ID}
+  select %l.ID @id, %l.NAME @name, %pm.ID @media.id, %pm.LOCATION @media.location,
+  %m.ID @media.media==movie.id, %m.TITLE @media.media.title^string,
+  %mc.ID @media.media.mediaCharacters.id, %mc.NAME @media.media.mediaCharacters.name,
+  %p.ID @media.media.mediaCharacters.playedBy.id, %p.NAME_LAST @media.media.mediaCharacters.playedBy.name.last,
+  %p.SEX @media.media.mediaCharacters.playedBy.sex, %p.CLOTHES_SIZE @media.media.mediaCharacters.playedBy.clothesSize
+  from %%LIBRARY l left join %%PHYSICALMEDIA pm on %l.ID = %pm.LIBRARY
+  left join %%MEDIA_PHYSICALMEDIA mpm on %mpm.PHYSICALMEDIA = %pm.ID
+  left join %%MEDIA m on %m.ID = %mpm.MEDIA left join %%EXISTSINMEDIA_MEDIACHARACTER emm on %emm.EXISTSINMEDIA = %m.ID
+  left join %%MEDIACHARACTER mc on %mc.ID = %emm.MEDIACHARACTER left join %%MEDIACHARACTER_PLAYEDBY mp on %mp.MEDIACHARACTER = %mc.ID
+  left join %%PERSON p on %p.ID = %mp.PLAYEDBY
+  {#1 order by %l.ID, %pm.ID, %m.ID, %mc.ID, %p.ID}
 ;
 
 BASIC_LEFT_JOIN_LIST(QRY)=

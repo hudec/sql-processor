@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl;
 
@@ -20,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.IfSqlFragment#getCol <em>Col</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.IfSqlFragment#getCnst <em>Cnst</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.IfSqlFragment#getIdent <em>Ident</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.IfSqlFragment#getDbtab <em>Dbtab</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.IfSqlFragment#getDbcol <em>Dbcol</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.IfSqlFragment#getMeta <em>Meta</em>}</li>
  * </ul>
@@ -134,6 +134,32 @@ public interface IfSqlFragment extends EObject
    * @generated
    */
   void setIdent(Identifier value);
+
+  /**
+   * Returns the value of the '<em><b>Dbtab</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Dbtab</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Dbtab</em>' containment reference.
+   * @see #setDbtab(DatabaseTable)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getIfSqlFragment_Dbtab()
+   * @model containment="true"
+   * @generated
+   */
+  DatabaseTable getDbtab();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.IfSqlFragment#getDbtab <em>Dbtab</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Dbtab</em>' containment reference.
+   * @see #getDbtab()
+   * @generated
+   */
+  void setDbtab(DatabaseTable value);
 
   /**
    * Returns the value of the '<em><b>Dbcol</b></em>' containment reference.

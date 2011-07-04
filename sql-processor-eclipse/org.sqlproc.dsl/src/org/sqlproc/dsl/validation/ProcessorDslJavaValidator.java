@@ -20,6 +20,7 @@ import org.sqlproc.dsl.processorDsl.ColumnUsage;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
+import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
@@ -615,22 +616,35 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         if (!isResolveDb())
             return;
         String prefix = databaseColumn.getName();
-        String column = null;
+        String columnName = null;
         int pos = prefix.indexOf('.');
         if (pos > 0) {
             prefix = databaseColumn.getName().substring(0, pos);
-            column = databaseColumn.getName().substring(pos + 1);
+            columnName = databaseColumn.getName().substring(pos + 1);
         } else {
             prefix = null;
-            column = databaseColumn.getName();
+            columnName = databaseColumn.getName();
         }
         MetaStatement statement = EcoreUtil2.getContainerOfType(databaseColumn, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
-        TableDefinition tableDefinition = getTableDefinition(artifacts, statement, prefix);
-        String table = tableDefinition != null ? tableDefinition.getTable() : null;
-        if (table != null && column != null && !dbResolver.checkColumn(table, column)) {
-            error("Cannot find column in DB : " + databaseColumn.getName() + "[" + table + "]",
+        TableDefinition tableDefinition = getTableDefinition(artifacts, statement, null, prefix);
+        String tableName = tableDefinition != null ? tableDefinition.getTable() : null;
+        if (tableName == null || !dbResolver.checkColumn(tableName, columnName)) {
+            error("Cannot find column in DB : " + databaseColumn.getName() + "[" + tableName + "]",
                     ProcessorDslPackage.Literals.DATABASE_COLUMN__NAME);
+        }
+    }
+
+    @Check
+    public void checkDatabaseTable(DatabaseTable databaseTable) {
+        if (!isResolveDb())
+            return;
+        String tableName = databaseTable.getName();
+        MetaStatement statement = EcoreUtil2.getContainerOfType(databaseTable, MetaStatement.class);
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
+        TableDefinition tableDefinition = getTableDefinition(artifacts, statement, tableName, null);
+        if (tableDefinition == null || !dbResolver.checkTable(tableName)) {
+            error("Cannot find table in DB : " + tableName, ProcessorDslPackage.Literals.DATABASE_TABLE__NAME);
         }
     }
 
@@ -645,7 +659,8 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         return dbResolver.isResolveDb();
     }
 
-    protected TableDefinition getTableDefinition(Artifacts artifacts, MetaStatement statement, String prefix) {
+    protected TableDefinition getTableDefinition(Artifacts artifacts, MetaStatement statement, String tableName,
+            String prefix) {
         TableUsage usage = null;
         IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
         Iterable<IEObjectDescription> iterable = scope.getAllElements();
@@ -655,6 +670,11 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 TableUsage tableUsage = (TableUsage) artifacts.eResource().getResourceSet()
                         .getEObject(description.getEObjectURI(), true);
                 if (tableUsage.getStatement().getName().equals(statement.getName())) {
+                    if (tableName != null && tableUsage.getTable() != null
+                            && tableName.equals(tableUsage.getTable().getTable())) {
+                        usage = tableUsage;
+                        break;
+                    }
                     if (prefix == null && tableUsage.getPrefix() == null) {
                         usage = tableUsage;
                         break;

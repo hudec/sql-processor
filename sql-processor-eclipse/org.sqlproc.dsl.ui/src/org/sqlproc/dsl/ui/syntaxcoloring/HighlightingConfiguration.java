@@ -17,6 +17,7 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
     public static final String IDENTIFIER = "identifier";
     public static final String COLUMN = "column";
     public static final String DATABASE_COLUMN = "dbcolumn";
+    public static final String DATABASE_TABLE = "dbtable";
     public final static String FILTER = "filter";
     public final static String META_TYPE = "metatype";
     public final static String META_IDENT = "metaident";
@@ -31,6 +32,7 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
         acceptor.acceptDefaultHighlighting(IDENTIFIER, "Identifier", identifierStyle());
         acceptor.acceptDefaultHighlighting(COLUMN, "Column", columnStyle());
         acceptor.acceptDefaultHighlighting(DATABASE_COLUMN, "Database column", databaseColumnStyle());
+        acceptor.acceptDefaultHighlighting(DATABASE_TABLE, "Database table", databaseTableStyle());
         acceptor.acceptDefaultHighlighting(NAME, "Artifact name", nameStyle());
         acceptor.acceptDefaultHighlighting(FILTER, "Filters", filterStyle());
         acceptor.acceptDefaultHighlighting(META_TYPE, "Meta type", metaTypeStyle());
@@ -68,6 +70,12 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
     }
 
     public TextStyle databaseColumnStyle() {
+        TextStyle textStyle = defaultStyle();
+        textStyle.setColor(new RGB(165, 42, 42));
+        return textStyle;
+    }
+
+    public TextStyle databaseTableStyle() {
         TextStyle textStyle = defaultStyle();
         textStyle.setColor(new RGB(165, 42, 42));
         return textStyle;

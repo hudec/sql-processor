@@ -58,7 +58,7 @@ SqlFragment:
     | STRING cnst=Constant
     | COLON ident=Identifier
     | LBRACE meta=MetaSql RBRACE
-    | PERCENT dbcol=DatabaseColumn
+    | PERCENT (PERCENT dbtab=DatabaseTable|dbcol=DatabaseColumn)
     ;
 
 SqlValue: //~(COLON | STRING | AT | LBRACE | SEMICOLON)
@@ -82,7 +82,7 @@ IfSqlFragment:
     | AT col=Column
     | STRING cnst=Constant
     | COLON ident=Identifier
-    | PERCENT dbcol=DatabaseColumn
+    | PERCENT (PERCENT dbtab=DatabaseTable|dbcol=DatabaseColumn)
     | LBRACE meta=IfMetaSql RBRACE
     ;
 
@@ -132,6 +132,9 @@ Identifier:
     (=> CARET type=IDENT (=> CARET vals+=(IDENT|NUMBER))*)?;
 
 DatabaseColumn:
+    name=(IDENT|IDENT_DOT);
+
+DatabaseTable:
     name=(IDENT|IDENT_DOT);
 
 MappingRule:

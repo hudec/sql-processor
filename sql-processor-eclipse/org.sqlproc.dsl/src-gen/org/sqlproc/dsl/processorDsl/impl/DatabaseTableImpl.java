@@ -8,46 +8,54 @@ package org.sqlproc.dsl.processorDsl.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.sqlproc.dsl.processorDsl.PojoDefinition;
-import org.sqlproc.dsl.processorDsl.PojoUsage;
+import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Pojo Usage</b></em>'.
+ * An implementation of the model object '<em><b>Database Table</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoUsageImpl#getPojo <em>Pojo</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabaseTableImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class PojoUsageImpl extends MinimalEObjectImpl.Container implements PojoUsage
+public class DatabaseTableImpl extends MinimalEObjectImpl.Container implements DatabaseTable
 {
   /**
-   * The cached value of the '{@link #getPojo() <em>Pojo</em>}' reference.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPojo()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected PojoDefinition pojo;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected PojoUsageImpl()
+  protected DatabaseTableImpl()
   {
     super();
   }
@@ -60,7 +68,7 @@ public class PojoUsageImpl extends MinimalEObjectImpl.Container implements PojoU
   @Override
   protected EClass eStaticClass()
   {
-    return ProcessorDslPackage.Literals.POJO_USAGE;
+    return ProcessorDslPackage.Literals.DATABASE_TABLE;
   }
 
   /**
@@ -68,19 +76,9 @@ public class PojoUsageImpl extends MinimalEObjectImpl.Container implements PojoU
    * <!-- end-user-doc -->
    * @generated
    */
-  public PojoDefinition getPojo()
+  public String getName()
   {
-    if (pojo != null && pojo.eIsProxy())
-    {
-      InternalEObject oldPojo = (InternalEObject)pojo;
-      pojo = (PojoDefinition)eResolveProxy(oldPojo);
-      if (pojo != oldPojo)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.POJO_USAGE__POJO, oldPojo, pojo));
-      }
-    }
-    return pojo;
+    return name;
   }
 
   /**
@@ -88,22 +86,12 @@ public class PojoUsageImpl extends MinimalEObjectImpl.Container implements PojoU
    * <!-- end-user-doc -->
    * @generated
    */
-  public PojoDefinition basicGetPojo()
+  public void setName(String newName)
   {
-    return pojo;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setPojo(PojoDefinition newPojo)
-  {
-    PojoDefinition oldPojo = pojo;
-    pojo = newPojo;
+    String oldName = name;
+    name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_USAGE__POJO, oldPojo, pojo));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_TABLE__NAME, oldName, name));
   }
 
   /**
@@ -116,9 +104,8 @@ public class PojoUsageImpl extends MinimalEObjectImpl.Container implements PojoU
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.POJO_USAGE__POJO:
-        if (resolve) return getPojo();
-        return basicGetPojo();
+      case ProcessorDslPackage.DATABASE_TABLE__NAME:
+        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -133,8 +120,8 @@ public class PojoUsageImpl extends MinimalEObjectImpl.Container implements PojoU
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.POJO_USAGE__POJO:
-        setPojo((PojoDefinition)newValue);
+      case ProcessorDslPackage.DATABASE_TABLE__NAME:
+        setName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -150,8 +137,8 @@ public class PojoUsageImpl extends MinimalEObjectImpl.Container implements PojoU
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.POJO_USAGE__POJO:
-        setPojo((PojoDefinition)null);
+      case ProcessorDslPackage.DATABASE_TABLE__NAME:
+        setName(NAME_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -167,10 +154,27 @@ public class PojoUsageImpl extends MinimalEObjectImpl.Container implements PojoU
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.POJO_USAGE__POJO:
-        return pojo != null;
+      case ProcessorDslPackage.DATABASE_TABLE__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
   }
 
-} //PojoUsageImpl
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
+  }
+
+} //DatabaseTableImpl

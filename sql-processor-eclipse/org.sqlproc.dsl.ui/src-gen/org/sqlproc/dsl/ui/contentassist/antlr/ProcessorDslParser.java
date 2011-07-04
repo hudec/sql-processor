@@ -44,10 +44,12 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPojoDefinitionAccess().getClassAlternatives_2_0(), "rule__PojoDefinition__ClassAlternatives_2_0");
 					put(grammarAccess.getPojoUsageAccess().getAlternatives(), "rule__PojoUsage__Alternatives");
 					put(grammarAccess.getSqlFragmentAccess().getAlternatives(), "rule__SqlFragment__Alternatives");
+					put(grammarAccess.getSqlFragmentAccess().getAlternatives_5_1(), "rule__SqlFragment__Alternatives_5_1");
 					put(grammarAccess.getSqlValueAccess().getAlternatives_0(), "rule__SqlValue__Alternatives_0");
 					put(grammarAccess.getSqlValueAccess().getAlternatives_1_0(), "rule__SqlValue__Alternatives_1_0");
 					put(grammarAccess.getMetaSqlAccess().getAlternatives(), "rule__MetaSql__Alternatives");
 					put(grammarAccess.getIfSqlFragmentAccess().getAlternatives(), "rule__IfSqlFragment__Alternatives");
+					put(grammarAccess.getIfSqlFragmentAccess().getAlternatives_4_1(), "rule__IfSqlFragment__Alternatives_4_1");
 					put(grammarAccess.getIfSqlValueAccess().getAlternatives_0(), "rule__IfSqlValue__Alternatives_0");
 					put(grammarAccess.getIfSqlValueAccess().getAlternatives_1_0(), "rule__IfSqlValue__Alternatives_1_0");
 					put(grammarAccess.getIfMetaSqlAccess().getAlternatives(), "rule__IfMetaSql__Alternatives");
@@ -66,6 +68,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIdentifierAccess().getNameAlternatives_2_0(), "rule__Identifier__NameAlternatives_2_0");
 					put(grammarAccess.getIdentifierAccess().getValsAlternatives_3_2_1_0(), "rule__Identifier__ValsAlternatives_3_2_1_0");
 					put(grammarAccess.getDatabaseColumnAccess().getNameAlternatives_0(), "rule__DatabaseColumn__NameAlternatives_0");
+					put(grammarAccess.getDatabaseTableAccess().getNameAlternatives_0(), "rule__DatabaseTable__NameAlternatives_0");
 					put(grammarAccess.getMappingItemAccess().getColAlternatives_0_0(), "rule__MappingItem__ColAlternatives_0_0");
 					put(grammarAccess.getMappingColumnAccess().getNameAlternatives_0_0(), "rule__MappingColumn__NameAlternatives_0_0");
 					put(grammarAccess.getMappingColumnAccess().getValsAlternatives_1_1_0(), "rule__MappingColumn__ValsAlternatives_1_1_0");
@@ -104,6 +107,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSqlFragmentAccess().getGroup_3(), "rule__SqlFragment__Group_3__0");
 					put(grammarAccess.getSqlFragmentAccess().getGroup_4(), "rule__SqlFragment__Group_4__0");
 					put(grammarAccess.getSqlFragmentAccess().getGroup_5(), "rule__SqlFragment__Group_5__0");
+					put(grammarAccess.getSqlFragmentAccess().getGroup_5_1_0(), "rule__SqlFragment__Group_5_1_0__0");
 					put(grammarAccess.getSqlValueAccess().getGroup(), "rule__SqlValue__Group__0");
 					put(grammarAccess.getSqlValueAccess().getGroup_1(), "rule__SqlValue__Group_1__0");
 					put(grammarAccess.getMetaSqlAccess().getGroup_0(), "rule__MetaSql__Group_0__0");
@@ -120,6 +124,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIfSqlFragmentAccess().getGroup_2(), "rule__IfSqlFragment__Group_2__0");
 					put(grammarAccess.getIfSqlFragmentAccess().getGroup_3(), "rule__IfSqlFragment__Group_3__0");
 					put(grammarAccess.getIfSqlFragmentAccess().getGroup_4(), "rule__IfSqlFragment__Group_4__0");
+					put(grammarAccess.getIfSqlFragmentAccess().getGroup_4_1_0(), "rule__IfSqlFragment__Group_4_1_0__0");
 					put(grammarAccess.getIfSqlFragmentAccess().getGroup_5(), "rule__IfSqlFragment__Group_5__0");
 					put(grammarAccess.getIfSqlValueAccess().getGroup(), "rule__IfSqlValue__Group__0");
 					put(grammarAccess.getIfSqlValueAccess().getGroup_1(), "rule__IfSqlValue__Group_1__0");
@@ -208,7 +213,8 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSqlFragmentAccess().getCnstAssignment_2_1(), "rule__SqlFragment__CnstAssignment_2_1");
 					put(grammarAccess.getSqlFragmentAccess().getIdentAssignment_3_1(), "rule__SqlFragment__IdentAssignment_3_1");
 					put(grammarAccess.getSqlFragmentAccess().getMetaAssignment_4_1(), "rule__SqlFragment__MetaAssignment_4_1");
-					put(grammarAccess.getSqlFragmentAccess().getDbcolAssignment_5_1(), "rule__SqlFragment__DbcolAssignment_5_1");
+					put(grammarAccess.getSqlFragmentAccess().getDbtabAssignment_5_1_0_1(), "rule__SqlFragment__DbtabAssignment_5_1_0_1");
+					put(grammarAccess.getSqlFragmentAccess().getDbcolAssignment_5_1_1(), "rule__SqlFragment__DbcolAssignment_5_1_1");
 					put(grammarAccess.getMetaSqlAccess().getIfsAssignment_0_1(), "rule__MetaSql__IfsAssignment_0_1");
 					put(grammarAccess.getMetaSqlAccess().getIfsAssignment_0_2_1(), "rule__MetaSql__IfsAssignment_0_2_1");
 					put(grammarAccess.getMetaSqlAccess().getTypeAssignment_1_0(), "rule__MetaSql__TypeAssignment_1_0");
@@ -231,7 +237,8 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIfSqlFragmentAccess().getColAssignment_1_1(), "rule__IfSqlFragment__ColAssignment_1_1");
 					put(grammarAccess.getIfSqlFragmentAccess().getCnstAssignment_2_1(), "rule__IfSqlFragment__CnstAssignment_2_1");
 					put(grammarAccess.getIfSqlFragmentAccess().getIdentAssignment_3_1(), "rule__IfSqlFragment__IdentAssignment_3_1");
-					put(grammarAccess.getIfSqlFragmentAccess().getDbcolAssignment_4_1(), "rule__IfSqlFragment__DbcolAssignment_4_1");
+					put(grammarAccess.getIfSqlFragmentAccess().getDbtabAssignment_4_1_0_1(), "rule__IfSqlFragment__DbtabAssignment_4_1_0_1");
+					put(grammarAccess.getIfSqlFragmentAccess().getDbcolAssignment_4_1_1(), "rule__IfSqlFragment__DbcolAssignment_4_1_1");
 					put(grammarAccess.getIfSqlFragmentAccess().getMetaAssignment_5_1(), "rule__IfSqlFragment__MetaAssignment_5_1");
 					put(grammarAccess.getIfMetaSqlAccess().getIfsAssignment_0_1(), "rule__IfMetaSql__IfsAssignment_0_1");
 					put(grammarAccess.getIfMetaSqlAccess().getIfsAssignment_0_2_1(), "rule__IfMetaSql__IfsAssignment_0_2_1");
@@ -272,6 +279,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIdentifierAccess().getTypeAssignment_3_1(), "rule__Identifier__TypeAssignment_3_1");
 					put(grammarAccess.getIdentifierAccess().getValsAssignment_3_2_1(), "rule__Identifier__ValsAssignment_3_2_1");
 					put(grammarAccess.getDatabaseColumnAccess().getNameAssignment(), "rule__DatabaseColumn__NameAssignment");
+					put(grammarAccess.getDatabaseTableAccess().getNameAssignment(), "rule__DatabaseTable__NameAssignment");
 					put(grammarAccess.getMappingRuleAccess().getNameAssignment_0(), "rule__MappingRule__NameAssignment_0");
 					put(grammarAccess.getMappingRuleAccess().getTypeAssignment_2(), "rule__MappingRule__TypeAssignment_2");
 					put(grammarAccess.getMappingRuleAccess().getFiltersAssignment_3_1(), "rule__MappingRule__FiltersAssignment_3_1");

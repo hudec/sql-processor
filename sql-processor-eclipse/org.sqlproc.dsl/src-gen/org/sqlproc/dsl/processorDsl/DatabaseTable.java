@@ -9,21 +9,21 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Database Column</b></em>'.
+ * A representation of the model object '<em><b>Database Table</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseColumn#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseTable#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseColumn()
+ * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseTable()
  * @model
  * @generated
  */
-public interface DatabaseColumn extends EObject
+public interface DatabaseTable extends EObject
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -35,14 +35,14 @@ public interface DatabaseColumn extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseColumn_Name()
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseTable_Name()
    * @model
    * @generated
    */
   String getName();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseColumn#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseTable#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Name</em>' attribute.
@@ -51,4 +51,4 @@ public interface DatabaseColumn extends EObject
    */
   void setName(String value);
 
-} // DatabaseColumn
+} // DatabaseTable

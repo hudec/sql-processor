@@ -19,6 +19,7 @@ import org.sqlproc.dsl.processorDsl.ColumnUsage;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
+import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.IfMetaSql;
@@ -108,6 +109,12 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 			case ProcessorDslPackage.DATABASE_COLUMN:
 				if(context == grammarAccess.getDatabaseColumnRule()) {
 					sequence_DatabaseColumn_DatabaseColumn(context, (DatabaseColumn) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.DATABASE_TABLE:
+				if(context == grammarAccess.getDatabaseTableRule()) {
+					sequence_DatabaseTable_DatabaseTable(context, (DatabaseTable) semanticObject); 
 					return; 
 				}
 				else break;
@@ -378,6 +385,18 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	
 	/**
 	 * Constraint:
+	 *     (name=IDENT | name=IDENT_DOT)
+	 *
+	 * Features:
+	 *    name[0, 2]
+	 */
+	protected void sequence_DatabaseTable_DatabaseTable(EObject context, DatabaseTable semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT])
 	 *
 	 * Features:
@@ -511,6 +530,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         col=Column | 
 	 *         cnst=Constant | 
 	 *         ident=Identifier | 
+	 *         dbtab=DatabaseTable | 
 	 *         dbcol=DatabaseColumn | 
 	 *         meta=IfMetaSql
 	 *     )
@@ -520,24 +540,35 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET col
 	 *         EXCLUDE_IF_SET cnst
 	 *         EXCLUDE_IF_SET ident
+	 *         EXCLUDE_IF_SET dbtab
 	 *         EXCLUDE_IF_SET dbcol
 	 *         EXCLUDE_IF_SET meta
 	 *    col[0, 1]
 	 *         EXCLUDE_IF_SET value
 	 *         EXCLUDE_IF_SET cnst
 	 *         EXCLUDE_IF_SET ident
+	 *         EXCLUDE_IF_SET dbtab
 	 *         EXCLUDE_IF_SET dbcol
 	 *         EXCLUDE_IF_SET meta
 	 *    cnst[0, 1]
 	 *         EXCLUDE_IF_SET value
 	 *         EXCLUDE_IF_SET col
 	 *         EXCLUDE_IF_SET ident
+	 *         EXCLUDE_IF_SET dbtab
 	 *         EXCLUDE_IF_SET dbcol
 	 *         EXCLUDE_IF_SET meta
 	 *    ident[0, 1]
 	 *         EXCLUDE_IF_SET value
 	 *         EXCLUDE_IF_SET col
 	 *         EXCLUDE_IF_SET cnst
+	 *         EXCLUDE_IF_SET dbtab
+	 *         EXCLUDE_IF_SET dbcol
+	 *         EXCLUDE_IF_SET meta
+	 *    dbtab[0, 1]
+	 *         EXCLUDE_IF_SET value
+	 *         EXCLUDE_IF_SET col
+	 *         EXCLUDE_IF_SET cnst
+	 *         EXCLUDE_IF_SET ident
 	 *         EXCLUDE_IF_SET dbcol
 	 *         EXCLUDE_IF_SET meta
 	 *    dbcol[0, 1]
@@ -545,12 +576,14 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET col
 	 *         EXCLUDE_IF_SET cnst
 	 *         EXCLUDE_IF_SET ident
+	 *         EXCLUDE_IF_SET dbtab
 	 *         EXCLUDE_IF_SET meta
 	 *    meta[0, 1]
 	 *         EXCLUDE_IF_SET value
 	 *         EXCLUDE_IF_SET col
 	 *         EXCLUDE_IF_SET cnst
 	 *         EXCLUDE_IF_SET ident
+	 *         EXCLUDE_IF_SET dbtab
 	 *         EXCLUDE_IF_SET dbcol
 	 */
 	protected void sequence_IfSqlFragment_IfSqlFragment(EObject context, IfSqlFragment semanticObject) {
@@ -942,6 +975,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         cnst=Constant | 
 	 *         ident=Identifier | 
 	 *         meta=MetaSql | 
+	 *         dbtab=DatabaseTable | 
 	 *         dbcol=DatabaseColumn
 	 *     )
 	 *
@@ -951,30 +985,42 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET cnst
 	 *         EXCLUDE_IF_SET ident
 	 *         EXCLUDE_IF_SET meta
+	 *         EXCLUDE_IF_SET dbtab
 	 *         EXCLUDE_IF_SET dbcol
 	 *    col[0, 1]
 	 *         EXCLUDE_IF_SET value
 	 *         EXCLUDE_IF_SET cnst
 	 *         EXCLUDE_IF_SET ident
 	 *         EXCLUDE_IF_SET meta
+	 *         EXCLUDE_IF_SET dbtab
 	 *         EXCLUDE_IF_SET dbcol
 	 *    cnst[0, 1]
 	 *         EXCLUDE_IF_SET value
 	 *         EXCLUDE_IF_SET col
 	 *         EXCLUDE_IF_SET ident
 	 *         EXCLUDE_IF_SET meta
+	 *         EXCLUDE_IF_SET dbtab
 	 *         EXCLUDE_IF_SET dbcol
 	 *    ident[0, 1]
 	 *         EXCLUDE_IF_SET value
 	 *         EXCLUDE_IF_SET col
 	 *         EXCLUDE_IF_SET cnst
 	 *         EXCLUDE_IF_SET meta
+	 *         EXCLUDE_IF_SET dbtab
 	 *         EXCLUDE_IF_SET dbcol
 	 *    meta[0, 1]
 	 *         EXCLUDE_IF_SET value
 	 *         EXCLUDE_IF_SET col
 	 *         EXCLUDE_IF_SET cnst
 	 *         EXCLUDE_IF_SET ident
+	 *         EXCLUDE_IF_SET dbtab
+	 *         EXCLUDE_IF_SET dbcol
+	 *    dbtab[0, 1]
+	 *         EXCLUDE_IF_SET value
+	 *         EXCLUDE_IF_SET col
+	 *         EXCLUDE_IF_SET cnst
+	 *         EXCLUDE_IF_SET ident
+	 *         EXCLUDE_IF_SET meta
 	 *         EXCLUDE_IF_SET dbcol
 	 *    dbcol[0, 1]
 	 *         EXCLUDE_IF_SET value
@@ -982,6 +1028,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET cnst
 	 *         EXCLUDE_IF_SET ident
 	 *         EXCLUDE_IF_SET meta
+	 *         EXCLUDE_IF_SET dbtab
 	 */
 	protected void sequence_SqlFragment_SqlFragment(EObject context, SqlFragment semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

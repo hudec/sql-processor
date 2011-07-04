@@ -426,4 +426,30 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         }
         return null;
     }
+
+    @Override
+    public void complete_DatabaseTable(EObject model, RuleCall ruleCall, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb()) {
+            super.complete_DatabaseTable(model, ruleCall, context, acceptor);
+            return;
+        }
+        MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
+
+        IScope scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            if (ProcessorDslPackage.Literals.TABLE_USAGE.getName().equals(description.getEClass().getName())) {
+                TableUsage tableUsage = (TableUsage) artifacts.eResource().getResourceSet()
+                        .getEObject(description.getEObjectURI(), true);
+                if (tableUsage.getStatement().getName().equals(metaStatement.getName())) {
+                    String proposal = getValueConverter().toString(tableUsage.getTable().getTable(), "IDENT");
+                    ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                    acceptor.accept(completionProposal);
+                }
+            }
+        }
+    }
 }

@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
@@ -18,6 +17,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
+import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IfMetaSql;
 import org.sqlproc.dsl.processorDsl.IfSqlFragment;
@@ -34,6 +34,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IfSqlFragmentImpl#getCol <em>Col</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IfSqlFragmentImpl#getCnst <em>Cnst</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IfSqlFragmentImpl#getIdent <em>Ident</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IfSqlFragmentImpl#getDbtab <em>Dbtab</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IfSqlFragmentImpl#getDbcol <em>Dbcol</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IfSqlFragmentImpl#getMeta <em>Meta</em>}</li>
  * </ul>
@@ -92,6 +93,16 @@ public class IfSqlFragmentImpl extends MinimalEObjectImpl.Container implements I
    * @ordered
    */
   protected Identifier ident;
+
+  /**
+   * The cached value of the '{@link #getDbtab() <em>Dbtab</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbtab()
+   * @generated
+   * @ordered
+   */
+  protected DatabaseTable dbtab;
 
   /**
    * The cached value of the '{@link #getDbcol() <em>Dbcol</em>}' containment reference.
@@ -306,6 +317,54 @@ public class IfSqlFragmentImpl extends MinimalEObjectImpl.Container implements I
    * <!-- end-user-doc -->
    * @generated
    */
+  public DatabaseTable getDbtab()
+  {
+    return dbtab;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDbtab(DatabaseTable newDbtab, NotificationChain msgs)
+  {
+    DatabaseTable oldDbtab = dbtab;
+    dbtab = newDbtab;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.IF_SQL_FRAGMENT__DBTAB, oldDbtab, newDbtab);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbtab(DatabaseTable newDbtab)
+  {
+    if (newDbtab != dbtab)
+    {
+      NotificationChain msgs = null;
+      if (dbtab != null)
+        msgs = ((InternalEObject)dbtab).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.IF_SQL_FRAGMENT__DBTAB, null, msgs);
+      if (newDbtab != null)
+        msgs = ((InternalEObject)newDbtab).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.IF_SQL_FRAGMENT__DBTAB, null, msgs);
+      msgs = basicSetDbtab(newDbtab, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.IF_SQL_FRAGMENT__DBTAB, newDbtab, newDbtab));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public DatabaseColumn getDbcol()
   {
     return dbcol;
@@ -413,6 +472,8 @@ public class IfSqlFragmentImpl extends MinimalEObjectImpl.Container implements I
         return basicSetCnst(null, msgs);
       case ProcessorDslPackage.IF_SQL_FRAGMENT__IDENT:
         return basicSetIdent(null, msgs);
+      case ProcessorDslPackage.IF_SQL_FRAGMENT__DBTAB:
+        return basicSetDbtab(null, msgs);
       case ProcessorDslPackage.IF_SQL_FRAGMENT__DBCOL:
         return basicSetDbcol(null, msgs);
       case ProcessorDslPackage.IF_SQL_FRAGMENT__META:
@@ -439,6 +500,8 @@ public class IfSqlFragmentImpl extends MinimalEObjectImpl.Container implements I
         return getCnst();
       case ProcessorDslPackage.IF_SQL_FRAGMENT__IDENT:
         return getIdent();
+      case ProcessorDslPackage.IF_SQL_FRAGMENT__DBTAB:
+        return getDbtab();
       case ProcessorDslPackage.IF_SQL_FRAGMENT__DBCOL:
         return getDbcol();
       case ProcessorDslPackage.IF_SQL_FRAGMENT__META:
@@ -468,6 +531,9 @@ public class IfSqlFragmentImpl extends MinimalEObjectImpl.Container implements I
         return;
       case ProcessorDslPackage.IF_SQL_FRAGMENT__IDENT:
         setIdent((Identifier)newValue);
+        return;
+      case ProcessorDslPackage.IF_SQL_FRAGMENT__DBTAB:
+        setDbtab((DatabaseTable)newValue);
         return;
       case ProcessorDslPackage.IF_SQL_FRAGMENT__DBCOL:
         setDbcol((DatabaseColumn)newValue);
@@ -501,6 +567,9 @@ public class IfSqlFragmentImpl extends MinimalEObjectImpl.Container implements I
       case ProcessorDslPackage.IF_SQL_FRAGMENT__IDENT:
         setIdent((Identifier)null);
         return;
+      case ProcessorDslPackage.IF_SQL_FRAGMENT__DBTAB:
+        setDbtab((DatabaseTable)null);
+        return;
       case ProcessorDslPackage.IF_SQL_FRAGMENT__DBCOL:
         setDbcol((DatabaseColumn)null);
         return;
@@ -529,6 +598,8 @@ public class IfSqlFragmentImpl extends MinimalEObjectImpl.Container implements I
         return cnst != null;
       case ProcessorDslPackage.IF_SQL_FRAGMENT__IDENT:
         return ident != null;
+      case ProcessorDslPackage.IF_SQL_FRAGMENT__DBTAB:
+        return dbtab != null;
       case ProcessorDslPackage.IF_SQL_FRAGMENT__DBCOL:
         return dbcol != null;
       case ProcessorDslPackage.IF_SQL_FRAGMENT__META:

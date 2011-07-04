@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl;
 
@@ -250,6 +249,15 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   DatabaseColumn createDatabaseColumn();
+
+  /**
+   * Returns a new object of class '<em>Database Table</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Database Table</em>'.
+   * @generated
+   */
+  DatabaseTable createDatabaseTable();
 
   /**
    * Returns a new object of class '<em>Mapping Rule</em>'.

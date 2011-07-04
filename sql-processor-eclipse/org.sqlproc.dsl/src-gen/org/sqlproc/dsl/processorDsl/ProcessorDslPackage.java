@@ -2,7 +2,6 @@
  * <copyright>
  * </copyright>
  *
-
  */
 package org.sqlproc.dsl.processorDsl;
 
@@ -677,13 +676,22 @@ public interface ProcessorDslPackage extends EPackage
   int SQL_FRAGMENT__META = 4;
 
   /**
+   * The feature id for the '<em><b>Dbtab</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SQL_FRAGMENT__DBTAB = 5;
+
+  /**
    * The feature id for the '<em><b>Dbcol</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SQL_FRAGMENT__DBCOL = 5;
+  int SQL_FRAGMENT__DBCOL = 6;
 
   /**
    * The number of structural features of the '<em>Sql Fragment</em>' class.
@@ -692,7 +700,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SQL_FRAGMENT_FEATURE_COUNT = 6;
+  int SQL_FRAGMENT_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaSqlImpl <em>Meta Sql</em>}' class.
@@ -833,13 +841,22 @@ public interface ProcessorDslPackage extends EPackage
   int IF_SQL_FRAGMENT__IDENT = 3;
 
   /**
+   * The feature id for the '<em><b>Dbtab</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_SQL_FRAGMENT__DBTAB = 4;
+
+  /**
    * The feature id for the '<em><b>Dbcol</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int IF_SQL_FRAGMENT__DBCOL = 4;
+  int IF_SQL_FRAGMENT__DBCOL = 5;
 
   /**
    * The feature id for the '<em><b>Meta</b></em>' containment reference.
@@ -848,7 +865,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int IF_SQL_FRAGMENT__META = 5;
+  int IF_SQL_FRAGMENT__META = 6;
 
   /**
    * The number of structural features of the '<em>If Sql Fragment</em>' class.
@@ -857,7 +874,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int IF_SQL_FRAGMENT_FEATURE_COUNT = 6;
+  int IF_SQL_FRAGMENT_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.IfMetaSqlImpl <em>If Meta Sql</em>}' class.
@@ -1283,6 +1300,34 @@ public interface ProcessorDslPackage extends EPackage
   int DATABASE_COLUMN_FEATURE_COUNT = 1;
 
   /**
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DatabaseTableImpl <em>Database Table</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.sqlproc.dsl.processorDsl.impl.DatabaseTableImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseTable()
+   * @generated
+   */
+  int DATABASE_TABLE = 25;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_TABLE__NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>Database Table</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_TABLE_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.MappingRuleImpl <em>Mapping Rule</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1290,7 +1335,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingRule()
    * @generated
    */
-  int MAPPING_RULE = 25;
+  int MAPPING_RULE = 26;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1345,7 +1390,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMapping()
    * @generated
    */
-  int MAPPING = 26;
+  int MAPPING = 27;
 
   /**
    * The feature id for the '<em><b>Mapping Items</b></em>' containment reference list.
@@ -1373,7 +1418,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingItem()
    * @generated
    */
-  int MAPPING_ITEM = 27;
+  int MAPPING_ITEM = 28;
 
   /**
    * The feature id for the '<em><b>Col</b></em>' attribute.
@@ -1419,7 +1464,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingColumn()
    * @generated
    */
-  int MAPPING_COLUMN = 28;
+  int MAPPING_COLUMN = 29;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1456,7 +1501,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getOptionalFeature()
    * @generated
    */
-  int OPTIONAL_FEATURE = 29;
+  int OPTIONAL_FEATURE = 30;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2053,6 +2098,17 @@ public interface ProcessorDslPackage extends EPackage
   EReference getSqlFragment_Meta();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.SqlFragment#getDbtab <em>Dbtab</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Dbtab</em>'.
+   * @see org.sqlproc.dsl.processorDsl.SqlFragment#getDbtab()
+   * @see #getSqlFragment()
+   * @generated
+   */
+  EReference getSqlFragment_Dbtab();
+
+  /**
    * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.SqlFragment#getDbcol <em>Dbcol</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2202,6 +2258,17 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EReference getIfSqlFragment_Ident();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.IfSqlFragment#getDbtab <em>Dbtab</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Dbtab</em>'.
+   * @see org.sqlproc.dsl.processorDsl.IfSqlFragment#getDbtab()
+   * @see #getIfSqlFragment()
+   * @generated
+   */
+  EReference getIfSqlFragment_Dbtab();
 
   /**
    * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.IfSqlFragment#getDbcol <em>Dbcol</em>}'.
@@ -2622,6 +2689,27 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EAttribute getDatabaseColumn_Name();
+
+  /**
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.DatabaseTable <em>Database Table</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Database Table</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseTable
+   * @generated
+   */
+  EClass getDatabaseTable();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseTable#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseTable#getName()
+   * @see #getDatabaseTable()
+   * @generated
+   */
+  EAttribute getDatabaseTable_Name();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.MappingRule <em>Mapping Rule</em>}'.
@@ -3285,6 +3373,14 @@ public interface ProcessorDslPackage extends EPackage
     EReference SQL_FRAGMENT__META = eINSTANCE.getSqlFragment_Meta();
 
     /**
+     * The meta object literal for the '<em><b>Dbtab</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SQL_FRAGMENT__DBTAB = eINSTANCE.getSqlFragment_Dbtab();
+
+    /**
      * The meta object literal for the '<em><b>Dbcol</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3401,6 +3497,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EReference IF_SQL_FRAGMENT__IDENT = eINSTANCE.getIfSqlFragment_Ident();
+
+    /**
+     * The meta object literal for the '<em><b>Dbtab</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference IF_SQL_FRAGMENT__DBTAB = eINSTANCE.getIfSqlFragment_Dbtab();
 
     /**
      * The meta object literal for the '<em><b>Dbcol</b></em>' containment reference feature.
@@ -3731,6 +3835,24 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute DATABASE_COLUMN__NAME = eINSTANCE.getDatabaseColumn_Name();
+
+    /**
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.DatabaseTableImpl <em>Database Table</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.sqlproc.dsl.processorDsl.impl.DatabaseTableImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseTable()
+     * @generated
+     */
+    EClass DATABASE_TABLE = eINSTANCE.getDatabaseTable();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DATABASE_TABLE__NAME = eINSTANCE.getDatabaseTable_Name();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.MappingRuleImpl <em>Mapping Rule</em>}' class.
