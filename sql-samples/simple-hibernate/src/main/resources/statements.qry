@@ -1,0 +1,153 @@
+LIKE_STRING(OPT)=like;
+WILDCARD_CHARACTER(OPT)=%;
+SURROUND_QUERY_LIKE(BOPT)=true;
+SURROUND_QUERY_MIN_LEN(IOPT)=2;
+
+SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
+SEL1(OPT)=call identity();
+
+ALL_PEOPLE(QRY)=
+  select ID @id, NAME @name
+  from PERSON
+  {= where
+   {& id=:id}
+   {& UPPER(name)=:+name}
+  }
+  {#1 order by ID}
+  {#2 order by NAME}
+;
+
+LIKE_PEOPLE(QRY)=
+  select ID @id, NAME @name
+  from PERSON
+  {= where
+   {& id=:id}
+   {& UPPER(name) like :+name}
+  }
+  {#1 order by ID}
+  {#2 order by NAME}
+;
+
+INSERT_PERSON(CRUD)=
+  insert into PERSON (id, name)
+  {= values (:id^long^seq=SEQ1, :name) }
+;
+  
+INSERT_PERSON2(CRUD)=
+  insert into PERSON (name)
+  {= values (:id^long^idsel, :name) }
+;
+
+GET_PERSON(CRUD)=
+  select @id, @name
+  from PERSON
+  {= where id=:id}
+;
+
+UPDATE_PERSON(CRUD)=
+  update PERSON
+  {= set name = :name}
+  {= where {& id = :id^long^notnull}}
+;
+  
+DELETE_PERSON(CRUD)=
+  delete from PERSON
+  {= where {& id = :id^long^notnull}}
+;
+
+INSERT_CONTACT(CRUD)=
+  insert into CONTACT (id, person_id, address)
+  {= values (:id^long^seq=SEQ1, :personId, :address) }
+;
+
+ALL_PEOPLE_AND_CONTACTS(QRY)=
+  select p.ID @id^long^id, p.NAME @name, c.ID @contacts.id^long^id, p.ID @contacts.personId, c.ADDRESS @contacts.address
+  from PERSON p left join CONTACT c on p.ID = c.PERSON_ID
+  {= where
+   {& id=:id}
+   {& UPPER(name) like :+name}
+  }
+  {#1 order by p.NAME, c.ADDRESS}
+;
+
+INSERT_MEDIA(CRUD)=
+  insert into MEDIA (id, title)
+  {= values (:id^long^seq=SEQ1, :title) }
+;
+
+INSERT_MOVIE(CRUD)=
+  insert into MOVIE (media_id, urlimdb, playlength)
+  {= values (:id, :urlIMDB, :playLength) }
+;
+
+INSERT_BOOK(CRUD)=
+  insert into BOOK (media_id, isbn)
+  {= values (:id, :isbn) }
+;
+
+CREATE_LIBRARY(CRUD)=
+  insert into PERSON_LIBRARY (id, person_id, media_id)
+  {= values (:id^long^seq=SEQ1, :personId, :mediaId) }
+;
+
+ALL_PEOPLE_LIBRARY(QRY)=
+  select p.ID @id^long^id, p.NAME @name, mo.MEDIA_ID @library==movie.id^long^id, bk.MEDIA_ID @library==book.id^long^id,
+  m.TITLE @library.title, mo.URLIMDB @library.urlIMDB, mo.PLAYLENGTH @library.playLength, bk.ISBN @library.isbn
+  from PERSON p left join PERSON_LIBRARY l on p.ID = l.PERSON_ID
+  left join MEDIA m on m.ID = l.MEDIA_ID
+  left join MOVIE mo on mo.MEDIA_ID = m.ID
+  left join BOOK bk on bk.MEDIA_ID = m.ID
+  {= where
+   {& id=:id}
+   {& UPPER(name) like :+name}
+  }
+  {#1 order by p.NAME, m.TITLE}
+;
+
+INSERT_CONTACT_CUSTOM(CRUD)=
+  insert into CONTACT (id, person_id, address, phone_number)
+  {= values (:id^long^seq=SEQ1, :personId, :address, :homePhone^phone) }
+;
+
+ALL_PEOPLE_AND_CONTACTS_CUSTOM(QRY)=
+  select p.ID @id^long^id, p.NAME @name, c.ID @contacts.id^long^id, p.ID @contacts.personId, c.ADDRESS @contacts.address,
+  c.PHONE_NUMBER @contacts.homePhone^phone
+  from PERSON p left join CONTACT c on p.ID = c.PERSON_ID
+  {= where
+   {& c.ID=:id}
+   {& c.PHONE_NUMBER = :homePhone^phone}
+  }
+  {#1 order by p.NAME, c.ADDRESS}
+;
+  
+INSERT_LIBRARY(CRUD)=
+  insert into LIBRARY (id, name)
+  {= values (:id^long^seq=SEQ1, :name) }
+;
+  
+INSERT_SUBSCRIBER(CRUD)=
+  insert into SUBSCRIBER (id, library, name)
+  {= values (:id^long^seq=SEQ1, :library.id, :name) }
+;
+  
+INSERT_CREDIT_CARD(CRUD)=
+  insert into BILLING_DETAILS (id, subscriber, type, cc_number)
+  {= values (:id^long^seq=SEQ1, :subscriber.id, 'CC', :number) }
+;
+  
+INSERT_BANK_ACCOUNT(CRUD)=
+  insert into BILLING_DETAILS (id, subscriber, type, ba_account)
+  {= values (:id^long^seq=SEQ1, :subscriber.id, 'BA', :account) }
+;
+
+ALL_SUBSCRIBERS_BILLING_DETAILS(QRY)=
+  select s.ID @id^long^id, s.NAME @name, s.LIBRARY @library.id^long^id,
+  bd.TYPE @billingDetails==discriminator.type, bd.ID @billingDetails.id^long^id,
+  bd.CC_NUMBER @billingDetails.number^long, bd.BA_ACCOUNT @billingDetails.account
+  from SUBSCRIBER s left join BILLING_DETAILS bd on s.ID = bd.SUBSCRIBER
+  {= where
+   {& UPPER(s.name)=:+name}
+//   {& bd.TYPE = :type}
+  }
+  {#1 order by s.ID, bd.ID}
+;

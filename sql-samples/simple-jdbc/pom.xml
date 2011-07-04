@@ -2,10 +2,10 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc.samples</groupId>
-    <artifactId>simple-hibernate</artifactId>
+    <artifactId>simple-jdbc</artifactId>
     <version>1.6.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>SQL Processor Samples, Simple (Hibernate) based on property file</name>
+    <name>SQL Processor Samples, Simple (JDBC)</name>
 
     <parent>
         <groupId>org.sqlproc</groupId>
@@ -17,18 +17,11 @@
     <properties>
         <version.sql-processor>1.6.0-SNAPSHOT</version.sql-processor>
         <version.antlr>3.2</version.antlr>
-        <version.hibernate>3.5.6-Final</version.hibernate>
-        <version.hibernate.validator>4.1.0.Final</version.hibernate.validator>
         <version.log4j>1.2.15</version.log4j>
         <version.slf4j>1.5.2</version.slf4j>
         <version.junit>4.8.2</version.junit>
-        <version.dbunit>2.2</version.dbunit>
         <version.hsqldb>2.2.4</version.hsqldb>
-        <version.joda-time>1.6.2</version.joda-time>
-        <version.joda-time-hibernate>1.2</version.joda-time-hibernate>
-        <version.javassist>3.8.0.GA</version.javassist>
     </properties>
-
 
     <build>
         <plugins>
@@ -85,23 +78,6 @@
             <version>${version.sql-processor}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.sqlproc</groupId>
-            <artifactId>sql-processor-hibernate</artifactId>
-            <version>${version.sql-processor}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${version.hibernate}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>${version.javassist}</version>
-        </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
