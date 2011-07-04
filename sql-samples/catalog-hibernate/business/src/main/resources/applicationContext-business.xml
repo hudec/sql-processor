@@ -56,14 +56,12 @@
 
     <bean id="itemDao" class="org.sqlproc.sample.catalog.dao.ItemDao" parent="dao" />
 
-    <bean id="sqlQueries" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location">
-            <value>classpath:queries.properties</value>
-        </property>
-    </bean>
-
     <bean id="sqlFactory" class="org.sqlproc.engine.hibernate.HibernateEngineFactory">
-        <property name="metaProps" ref="sqlQueries" />
+        <property name="metaFilesNames">
+            <list>
+                <value>statements.qry</value>
+            </list>
+        </property>
         <property name="filter" value="${db.type}" />
     </bean>
 
