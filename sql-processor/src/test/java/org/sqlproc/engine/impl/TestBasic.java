@@ -83,10 +83,10 @@ public class TestBasic extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,");
-        assertContains(sql, "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
-        assertContains(sql, "from PERSON p");
-        assertContains(sql, "order by id ASC");
+        assertContains(sql, "ID, NAME_FIRST first, NAME_LAST last, SSN_NUMBER ssn, SSN_COUNTRY country,");
+        assertContains(sql, "BIRTHDATE, SEX, CREATEDDATE, CREATEDBY, LASTUPDATED, LASTUPDATEDBY, VERSION");
+        assertContains(sql, "from PERSON");
+        assertContains(sql, "order by ID ASC");
 
         List<Person> list = sqlEngine.query(session, Person.class, null, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
 

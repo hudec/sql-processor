@@ -170,6 +170,37 @@ class ParserUtils {
         }
     }
 
+    static SqlDatabaseTable newDatabaseTable(String name) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("newDatabaseTable " + name);
+        }
+        if (name.length() > 0) {
+            SqlDatabaseTable tab = new SqlDatabaseTable(name);
+            return tab;
+        }
+        return null;
+    }
+
+    static void addDatabaseTable(Object target, SqlDatabaseTable dbtab, StringBuilder text) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("addDatabaseTable " + dbtab);
+        }
+        if (dbtab != null) {
+            if (target instanceof SqlMetaStatement) {
+                addText(target, text);
+                ((SqlMetaStatement) target).addElement(dbtab);
+            } else if (target instanceof SqlMetaOrd) {
+                addText(target, text);
+                ((SqlMetaOrd) target).addElement(dbtab);
+            } else if (target instanceof SqlMetaIfItem) {
+                addText(target, text);
+                ((SqlMetaIfItem) target).addElement(dbtab);
+            } else {
+                throw new RuntimeException("Invalid target for addIdent :" + target);
+            }
+        }
+    }
+
     static SqlMetaConst newConstant(String name, String caseConversion) {
         if (logger.isTraceEnabled()) {
             logger.trace("newConstant " + name);

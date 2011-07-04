@@ -105,6 +105,14 @@ import org.sqlproc.engine.type.SqlMetaType;
     return ParserUtils.newDatabaseColumn(col.getText());
   }
   
+  void addDatabaseTable(Object target, SqlDatabaseTable dbtab, StringBuilder text) {
+    ParserUtils.addDatabaseTable(target, dbtab, text);
+  }
+  
+  SqlDatabaseTable newDatabaseTable(Token col) {
+    return ParserUtils.newDatabaseTable(col.getText());
+  }
+  
   void addIdent(Object target, SqlMetaIdent ident, StringBuilder text) {
     ParserUtils.addIdent(target, ident, text);
   }
@@ -207,8 +215,8 @@ sql [SqlMetaStatement metaStatement]
      		{if(!$meta::skip) addConstant(metaStatement, cnst, $meta::text);} sql[metaStatement]?
      	| AT col=column 
      		{if(!$meta::skip) addColumn(metaStatement, col, $meta::text);$meta::hasOutputMapping=true;} sql[metaStatement]?
-	| PERCENT dbcol=dbcolumn
-		{if(!$meta::skip) addDatabaseColumn(metaStatement, dbcol, $meta::text);} sql[metaStatement]?
+	|  PERCENT (PERCENT dbtab=dbtable {if(!$meta::skip) addDatabaseTable(metaStatement, dbtab, $meta::text);} sql[metaStatement]? 
+	            | dbcol=dbcolumn {if(!$meta::skip) addDatabaseColumn(metaStatement, dbcol, $meta::text);} sql[metaStatement]?)
      	| LBRACE metaSql[metaStatement] RBRACE sql[metaStatement]?
      	;
 
@@ -243,8 +251,8 @@ ifSql [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]
 		{if(!$meta::skip) addConstant(metaIfItem, cnst, $meta::text);} ifSql[metaIfItem]?
      	| AT col=column 
      		{if(!$meta::skip) addColumn(metaIfItem, col, $meta::text);$meta::hasOutputMapping=true;} ifSql[metaIfItem]?
-	| PERCENT dbcol=dbcolumn
-		{if(!$meta::skip) addDatabaseColumn(metaIfItem, dbcol, $meta::text);} ifSql[metaIfItem]?
+	| PERCENT (PERCENT dbtab=dbtable {if(!$meta::skip) addDatabaseTable(metaIfItem, dbtab, $meta::text);} ifSql[metaIfItem]? 
+	            | dbcol=dbcolumn {if(!$meta::skip) addDatabaseColumn(metaIfItem, dbcol, $meta::text);} ifSql[metaIfItem]?)
 	| LBRACE ifMetaSql[metaIfItem] RBRACE ifSql[metaIfItem]?
 	;
      	
@@ -326,6 +334,12 @@ dbcolumn returns[SqlDatabaseColumn result]
 @init {$result = null;}
 	:	
 	(dbcol=IDENT_DOT | dbcol=IDENT) {if(!$meta::skip) $result = newDatabaseColumn(dbcol);}
+	;
+
+dbtable returns[SqlDatabaseTable result]
+@init {$result = null;}
+	:	
+	(dbtab=IDENT_DOT | dbtab=IDENT) {if(!$meta::skip) $result = newDatabaseTable(dbtab);}
 	;
 
 

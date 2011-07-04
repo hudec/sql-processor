@@ -30,7 +30,7 @@ public class TestEmbeddedMapping extends TestDatabase {
         assertContains(sql, "p.BIRTHDATE birthDate, p.SEX sex, p.CREATEDDATE createdDate, p.CREATEDBY createdBy,");
         assertContains(sql, "p.LASTUPDATED lastUpdated, p.LASTUPDATEDBY lastUpdatedBy, p.VERSION version");
         assertContains(sql, "from PERSON p");
-        assertContains(sql, "order by id");
+        assertContains(sql, "order by p.ID");
 
         List<Person> list = sqlEngine.query(session, Person.class, new Object());
 
@@ -63,7 +63,7 @@ public class TestEmbeddedMapping extends TestDatabase {
         assertContains(sql, "p.BIRTHDATE birthDate, p.SEX sex, p.CREATEDDATE createdDate, p.CREATEDBY createdBy,");
         assertContains(sql, "p.LASTUPDATED lastUpdated, p.LASTUPDATEDBY lastUpdatedBy, p.VERSION version");
         assertContains(sql, "from PERSON");
-        assertContains(sql, "order by id");
+        assertContains(sql, "order by p.ID");
 
         List<Person> list = sqlEngine.query(session, Person.class, new Object());
 
@@ -483,7 +483,7 @@ public class TestEmbeddedMapping extends TestDatabase {
         assertContains(sql, "p.BIRTHDATE birthDate, p.SEX sex, p.CREATEDDATE createdDate, p.CREATEDBY createdBy,");
         assertContains(sql, "p.LASTUPDATED lastUpdated, p.LASTUPDATEDBY lastUpdatedBy, p.VERSION version");
         assertContains(sql, "from PERSON p");
-        assertContains(sql, "order by id");
+        assertContains(sql, "order by p.ID");
 
         List<Person> list = sqlEngine.query(session, Person.class, null);
 
