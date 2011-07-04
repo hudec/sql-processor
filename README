@@ -15,6 +15,7 @@ Project content
 * sql-processor - the SQL Processor core and the JDBC stack
 * sql-processor-hibernate - the SQL Processor extension, the Hibernate stack
 * sql-processor-spring - the SQL Processor extension, the Spring stack
+* sql-processor-eclipse - the SQL Processor Eclipse plugin
 * sql-samples - the samples to demonstrate the SQL Processor features
 ** simple-jdbc -  the Simple tutorial for the JDBC stack
 ** simple-hibernate -  the Simple tutorial for the Hibernate stack
@@ -22,5 +23,4 @@ Project content
 ** catalog-jpa - the working Web application based on JPA and the Hibernate stack
 ** catalog-hibernate - the working Web application based on the Hibernate stack
 ** catalog-spring - the working Web application based on the Spring stack
-** tutorial-hibernate - another tutorial, right now it's deprecated
 
