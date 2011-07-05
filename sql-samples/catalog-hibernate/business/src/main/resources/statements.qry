@@ -25,12 +25,12 @@ GET_ITEM(CRUD)=
   select @itemid, @productid, @name, @description, @imageurl, @imagethumburl,
          @image, @imagethumb, @price
   from item it
-  {= where it.itemid=:itemid}
+  {= where it.itemid=:itemid^long^notnull}
 ;
 
 DELETE_ITEM(CRUD)=
   delete from item it
-  {= where it.itemid=:itemid}
+  {= where it.itemid=:itemid^long^notnull}
 ;
 
 INSERT_ITEM(CRUD)=
@@ -43,5 +43,5 @@ UPDATE_ITEM(CRUD)=
   {= set it.productid = :productid, it.name = :name, it.description = :description,
       it.imageurl = :imageurl, it.imagethumburl = :imagethumburl, it.image = :image,
       it.imagethumb = :imagethumb, it.price = :price}
-  {= where it.itemid = :itemid }
+  {= where it.itemid = :itemid^long^notnull}
 ;
