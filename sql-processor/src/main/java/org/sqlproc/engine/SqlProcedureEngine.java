@@ -43,7 +43,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * ;
  * </pre>
  * 
- * You can see that the name of META SQL statement should has the type (inside the parenthesis) <code>CALL_</code>.
+ * You can see that the name of META SQL statement should has the type (inside the parenthesis) <code>CALL</code>.
  * There's used an output mapping with one mapping item. The database column name is <code>1</code>, so this name is
  * used as an index to retrieve the output value from the result set. At the same time the META type <code>stamp</code>
  * is used, as there's no result class with the output attribute, which can hold the type of the output value.
@@ -74,7 +74,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * 
  * <pre>
  * SIMPLE_FUNCION(CALL)=
- *   :<1^stamp = call an_hour_before(:time)
+ *   :&lt;1^stamp = call an_hour_before(:time)
  * ;
  * </pre>
  * 
@@ -120,7 +120,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * 
  * <pre>
  * SIMPLE_FUNCION(CALL)=
- *   :<time2 = call an_hour_before(:time)
+ *   :&lt;time2 = call an_hour_before(:time)
  * ;
  * </pre>
  * 

@@ -17,11 +17,11 @@ import org.sqlproc.engine.hibernate.type.HibernateTypeFactory;
  * &lt;beans ...&gt;
  *   ...
  *   &lt;bean id="sqlFactory" class="rg.sqlproc.engine.hibernate.HibernateEngineFactory" init-method="init"&gt;
- *     <property name="metaFilesNames">
- *       <list>
- *         <value>statements.qry</value>
- *       </list>
- *     </property>
+ *     &lt;property name="metaFilesNames">
+ *       &lt;list>
+ *         &lt;value>statements.qry&lt;/value>
+ *       &lt;/list>
+ *     &lt;/property>
  *   &lt;/bean&gt;
  * &lt;/beans&gt;
  * </pre>
