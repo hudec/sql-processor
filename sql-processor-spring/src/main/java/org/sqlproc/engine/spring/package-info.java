@@ -4,8 +4,8 @@
  * The simple usage can be the next one:
  * 
  * <pre>
- * // by default it loads &quot;queries.properties&quot; file
- * SqlEngineFactory sqlFactory = new JdbcEngineFactory();
+ * JdbcEngineFactory sqlFactory = new JdbcEngineFactory();
+ * sqlFactory.setMetaFilesNames(&quot;statements.qry&quot;); // the meta statements file
  * SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine(&quot;ALL_PEOPLE&quot;);
  * 
  * // for the case it runs on the top of the Spring stack

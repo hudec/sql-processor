@@ -27,8 +27,8 @@ class SqlDatabaseTable implements SqlMetaSimple {
      * @param name
      *            the name of a database table
      */
-    SqlDatabaseTable(String sql) {
-        this.name = sql;
+    SqlDatabaseTable(String name) {
+        this.name = name;
     }
 
     /**

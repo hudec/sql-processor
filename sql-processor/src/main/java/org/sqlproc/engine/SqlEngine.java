@@ -62,9 +62,10 @@ public class SqlEngine {
     /**
      * Creates a new instance of the SqlEngine from one META SQL statement and one SQL Mapping rule instance. Both
      * parameters are already pre-compiled instances using the ANTLR parsers. This is the recommended usage for the
-     * runtime performance optimization. This constructor is devoted to be used from the SqlEngineLoader, which is able
-     * to read all statements definitions from an external queries.properties file and create the named SqlEngine
-     * instances. Also an external SQL Monitor for the runtime statistics gathering can be engaged.
+     * runtime performance optimization. This constructor is devoted to be used from the {@link SqlProcessorLoader} or
+     * {@link SqlEngineLoader}, which are able to read all statements definitions from an external meta statements file
+     * and create the named SqlEngine instances. Also an external SQL Monitor for the runtime statistics gathering can
+     * be engaged.
      * 
      * @param name
      *            the name of this SQL Engine instance

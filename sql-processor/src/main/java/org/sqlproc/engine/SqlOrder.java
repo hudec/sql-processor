@@ -13,18 +13,23 @@ import java.util.List;
  * For example there's a table PERSON with two columns - ID and NAME. The META SQL query can be the next one:
  * 
  * <pre>
- * LIST_ALL_SQL= \
- *   select p.ID, p.NAME \
- *   from PERSON p \
- *   {#1 order by ID} \
+ * ALL_PEOPLE(QRY)=
+ *   select ID @id, NAME @name
+ *   from PERSON
+ *   {= where
+ *    {& id=:id}
+ *    {& UPPER(name)=:+name}
+ *   }
+ *   {#1 order by ID}
  *   {#2 order by NAME}
+ * ;
  * </pre>
  * 
  * <p>
  * In the case of the SQL Processor invocation
  * 
  * <pre>
- * SqlEngine sqlEngine = sqlLoader.getQueryEngine(&quot;ALL&quot;);
+ * SqlEngine sqlEngine = sqlLoader.getQueryEngine(&quot;ALL_PEOPLE&quot;);
  * List&lt;Person&gt; list = sqlEngine.query(session, Person.class, null, SqlOrder.getAscOrder(1));
  * </pre>
  * 
@@ -34,7 +39,7 @@ import java.util.List;
  * In the case of the SQL Processor invocation
  * 
  * <pre>
- * SqlEngine sqlEngine = sqlLoader.getQueryEngine(&quot;ALL&quot;);
+ * SqlEngine sqlEngine = sqlLoader.getQueryEngine(&quot;ALL_PEOPLE&quot;);
  * List&lt;Person&gt; list = sqlEngine.query(session, Person.class, new Object(), SqlOrder.getDescOrder(2));
  * </pre>
  * 

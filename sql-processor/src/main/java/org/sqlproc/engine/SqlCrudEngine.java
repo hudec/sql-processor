@@ -20,21 +20,22 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * Instance of this class holds one META SQL statement.
  * <p>
  * For example there's a table PERSON with two columns - ID and NAME. <br>
- * In queries.properties there's the next definition:
+ * In the meta statements file statements.qry there's the next definition:
  * 
  * <pre>
- * CRUD_UPDATE_PERSON= \
- *  update PERSON \
- *  {= set name = :name} \
- *  {= where {& id = :id^long^notnull}}
+ * UPDATE_PERSON(CRUD)=
+ *   update PERSON
+ *   {= set name = :name}
+ *   {= where {& id = :id^long^notnull}}
+ * ;
  * </pre>
  * 
  * <p>
  * In the case of the SQL Processor initialization
  * 
  * <pre>
- * // by default it loads &quot;queries.properties&quot; file
- * SqlEngineFactory sqlFactory = new JdbcEngineFactory();
+ * JdbcEngineFactory sqlFactory = new JdbcEngineFactory();
+ * sqlFactory.setMetaFilesNames(&quot;statements.qry&quot;); // the meta statements file
  * SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine(&quot;UPDATE_PERSON&quot;);
  * 
  * // for the case it runs on the top of the JDBC stack
@@ -75,8 +76,9 @@ public class SqlCrudEngine extends SqlEngine {
     /**
      * Creates a new instance of the SqlCrudEngine from one META SQL statement string. Constructor will call the
      * internal ANTLR parser for the CRUD statement construction. This constructor is devoted to manual META SQL
-     * statements construction. More obvious is to put the META SQL statements definitions into queries.properties file
-     * and engage the SqlEngineLoader for the SqlCrudEngine instances construction.
+     * statements construction. More obvious is to put the META SQL statements definitions into the meta statements file
+     * and engage the {@link SqlProcessorLoader} or {@link SqlEngineLoader} for the SqlCrudEngine instances
+     * construction.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -97,8 +99,8 @@ public class SqlCrudEngine extends SqlEngine {
      * internal ANTLR parser for the CRUD statement instances construction. Compared to the previous constructor, an
      * external SQL Monitor for the runtime statistics gathering is engaged and the optional features can be involved.
      * This constructor is devoted to manual META SQL statements construction. More obvious is to put the META SQL
-     * statements definitions into queries.properties file and engage the SqlEngineLoader for the SqlCrudEngine
-     * instances construction.
+     * statements definitions into the meta statements file and engage the {@link SqlProcessorLoader} or
+     * {@link SqlEngineLoader} for the SqlCrudEngine instances construction.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -123,7 +125,7 @@ public class SqlCrudEngine extends SqlEngine {
      * Creates a new instance of the SqlCrudEngine from one META SQL statement instance. This instance is already
      * pre-compiled using the ANTLR parser. This is the recommended usage for the runtime performance optimization. This
      * constructor is devoted to be used from the SqlEngineLoader, which is able to read all statements definitions from
-     * an external queries.properties and create the named SqlCrudEngine instances.
+     * an external meta statements file and create the named SqlCrudEngine instances.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -141,7 +143,7 @@ public class SqlCrudEngine extends SqlEngine {
      * Creates a new instance of the SqlCrudEngine from one META SQL statement instance. This instance is already
      * pre-compiled using the ANTLR parsers. This is the recommended usage for the runtime performance optimization.
      * This constructor is devoted to be used from the SqlEngineLoader, which is able to read all statements definitions
-     * from an external queries.properties and create the named SqlCrudEngine instances. Compared to the previous
+     * from an external meta statements file and create the named SqlCrudEngine instances. Compared to the previous
      * constructor, an external SQL Monitor for the runtime statistics gathering is engaged and the optional features
      * can be involved.
      * 
@@ -642,8 +644,8 @@ public class SqlCrudEngine extends SqlEngine {
 
     /**
      * Returns the name of this META SQL, which uniquely identifies the instance. In the case the META SQL statement is
-     * located in the queries.properties file, this name is the unique part of the keys in this file. For example for
-     * the name ALL in the queries.properties file there's the META SQL statement with the name CRUD_ALL.
+     * located in the meta statements file, this name is the unique part of the keys in this file. For example for the
+     * name ALL in the meta statements file there's the META SQL statement with the name ALL(CRUD).
      * 
      * @return The name of the SQL engine instance.
      */

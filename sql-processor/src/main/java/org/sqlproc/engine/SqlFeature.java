@@ -5,49 +5,44 @@ package org.sqlproc.engine;
  * SQL Processor initialization.
  * 
  * <p>
- * The features can be incorporated into queries.properties file in the form of <code> SET_...</code> properties.
+ * The features can be incorporated into the meta statements file in the form of <code> name(OPT)=...;</code>.
  * 
  * <p>
  * For example the SQL Processor supports the special searching feature based on text fragments. Lets have a table
  * PERSON with two columns - ID and NAME. <br>
- * In queries.properties there's the next definition:
+ * In the meta statements file statements.qry there's the next definition:
  * 
  * <pre>
- * SET_LIKE_STRING=like
- * SET_WILDCARD_CHARACTER=%
- * SET_SURROUND_QUERY_LIKE=true
- * SET_SURROUND_QUERY_MIN_LEN=2
+ * LIKE_STRING(OPT)=like;
+ * WILDCARD_CHARACTER(OPT)=%;
+ * SURROUND_QUERY_LIKE(BOPT)=true;
+ * SURROUND_QUERY_MIN_LEN(IOPT)=2;
  * 
- * QRY_LIKE_PEOPLE= \
- *   select p.ID @id, p.NAME @name \
- *   from PERSON p \
- *   {= where \
- *    {& id=:id} \
- *    {& UPPER(name) like :+name} \
- *   } \
- *   {#1 order by ID} \
+ * LIKE_PEOPLE(QRY)=
+ *   select p.ID @id, p.NAME @name
+ *   from PERSON p
+ *   {= where
+ *    {& id=:id}
+ *    {& UPPER(name) like :+name}
+ *   }
+ *   {#1 order by ID}
  *   {#2 order by NAME}
+ * ;
  * </pre>
  * 
  * <p>
- * The special searching capability is activated with the next statement in queries.properties:
- * 
- * <pre>
- * SET_SURROUND_QUERY_LIKE = true
- * </pre>
- * 
- * In this case every query with the <code>like</code> command is identified and a dynamic input parameter, which
- * belongs to this query condition, is handled in a special way. The value for this parameter is surrounded with
- * wildcard character <code>%</code>. This character is defined in queries.properties with the key
- * <code>SET_WILDCARD_CHARACTER</code>. In the runtime to activate this feature, the parameter value has to have the
- * minimal length = 2. This minimal length is defined in queries.properties with the key
- * <code>SET_SURROUND_QUERY_MIN_LEN</code>.
+ * The special searching capability is activated with the key <code>SURROUND_QUERY_LIKE(BOPT)=true</code>. In this case
+ * every query with the like keyword (defined with the key <code>LIKE_STRING</code>) is identified and any dynamic input
+ * value, which belongs to this query condition, is handled in a special way. The value for this input value is
+ * surrounded with wild-card character <code>%</code>. This character is defined with the key
+ * <code>WILDCARD_CHARACTER</code>. In the runtime to activate this feature, the input value has to have the minimal
+ * length = 2. This minimal length is defined with the key <code>SURROUND_QUERY_MIN_LEN</code>.
  * 
  * In the case of SQL Processor initialization
  * 
  * <pre>
- * // by default it loads &quot;queries.properties&quot; file
- * SqlEngineFactory sqlFactory = new JdbcEngineFactory();
+ * JdbcEngineFactory sqlFactory = new JdbcEngineFactory();
+ * sqlFactory.setMetaFilesNames(&quot;statements.qry&quot;); // the meta statements file
  * SqlEngine sqlEngine = sqlFactory.getSqlEngine(&quot;LIKE_PEOPLE&quot;);
  * 
  * // for the case it runs on the top of the JDBC stack

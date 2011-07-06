@@ -1,6 +1,8 @@
 package org.sqlproc.engine.hibernate;
 
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlEngineLoader;
+import org.sqlproc.engine.SqlProcessorLoader;
 import org.sqlproc.engine.SqlSimpleFactory;
 import org.sqlproc.engine.hibernate.type.HibernateTypeFactory;
 
@@ -8,7 +10,23 @@ import org.sqlproc.engine.hibernate.type.HibernateTypeFactory;
  * The implementation of the {@link SqlEngineFactory} optimized for the Hibernate stack.
  * 
  * <p>
- * It's suitable mainly for the Spring DI based configuration, like the next one:<br>
+ * It's suitable mainly for the Spring DI based configuration, like the next one for the new loader
+ * {@link SqlProcessorLoader}:<br>
+ * 
+ * <pre>
+ * &lt;beans ...&gt;
+ *   ...
+ *   &lt;bean id="sqlFactory" class="rg.sqlproc.engine.hibernate.HibernateEngineFactory" init-method="init"&gt;
+ *     <property name="metaFilesNames">
+ *       <list>
+ *         <value>statements.qry</value>
+ *       </list>
+ *     </property>
+ *   &lt;/bean&gt;
+ * &lt;/beans&gt;
+ * </pre>
+ * 
+ * or like the next one for the old loader {@link SqlEngineLoader}:<br>
  * 
  * <pre>
  * &lt;beans ...&gt;
@@ -19,7 +37,7 @@ import org.sqlproc.engine.hibernate.type.HibernateTypeFactory;
  *     &lt;/property&gt;
  *   &lt;/bean&gt;
  *   
- *   &lt;bean id="sqlFactory" class="org.sqlproc.engine.hibernate.HibernateEngineFactory" init-method="init"&gt;
+ *   &lt;bean id="sqlFactory" class="rg.sqlproc.engine.hibernate.HibernateEngineFactory" init-method="init"&gt;
  *     &lt;property name="metaProps" ref="sqlQueries" /&gt;
  *   &lt;/bean&gt;
  * &lt;/beans&gt;

@@ -14,7 +14,26 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * The simple implementation of the {@link SqlEngineFactory}.
  * 
  * <p>
- * It's suitable mainly for the Spring DI based configuration, like the next one:<br>
+ * It's suitable mainly for the Spring DI based configuration, like the next one for the new loader
+ * {@link SqlProcessorLoader}:<br>
+ * 
+ * <pre>
+ * &lt;beans ...&gt;
+ *   ...
+ *   &lt;bean id="typeFactory" class="org.sqlproc.engine.jdbc.type.JdbcTypeFactory" factory-method="getInstance" /&gt;
+ * 
+ *   &lt;bean id="sqlFactory" class="org.sqlproc.engine.SqlSimpleFactory" init-method="init"&gt;
+ *     <property name="metaFilesNames">
+ *       <list>
+ *         <value>statements.qry</value>
+ *       </list>
+ *     </property>
+ *     &lt;property name="typeFactory" ref="typeFactory" /&gt;
+ *   &lt;/bean&gt;
+ * &lt;/beans&gt;
+ * </pre>
+ * 
+ * or like the next one for the old loader {@link SqlEngineLoader}:<br>
  * 
  * <pre>
  * &lt;beans ...&gt;

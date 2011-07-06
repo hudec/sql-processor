@@ -303,8 +303,6 @@ public class SqlProcessor {
      *            the name of the output value mapping
      * @param mapping
      *            the output value mapping
-     * @param mapping
-     *            the output value mapping
      * @param errors
      *            the list of potential errors created during the ANTLR based parsing
      * @param activeFilters

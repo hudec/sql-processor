@@ -19,7 +19,7 @@ public interface SqlMonitorFactory {
      * The main contract of this factory.
      * 
      * @param name
-     *            the name of a META SQL in the queries.properties file, which can be used to identify also the monitor
+     *            the name of a META SQL in the meta statements file, which can be used to identify also the monitor
      *            instance itself
      * @param features
      *            the optional configuration of the SQL Processor using a Map of features

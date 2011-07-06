@@ -35,15 +35,18 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * statement and mapping rule should be used
  * 
  * <pre>
- * CALL_SIMPLE_FUNCION= \
+ * SIMPLE_FUNCION(CALL)=
  *   call an_hour_before(:time)
- * OUT_SIMPLE_FUNCION=1$stamp
+ * ;
+ * SIMPLE_FUNCION(OUT)=
+ *   1$stamp
+ * ;
  * </pre>
  * 
- * You can see that the name of META SQL statement should start with the prefix <code>CALL_</code>. There's used an
- * output mapping with one mapping item. The database column name is <code>1</code>, so this name is used as an index to
- * retrieve the output value from the result set. At the same time the META type <code>stamp</code> is used, as there's
- * no result class with the output attribute, which can hold the type of the output value.
+ * You can see that the name of META SQL statement should has the type (inside the parenthesis) <code>CALL_</code>.
+ * There's used an output mapping with one mapping item. The database column name is <code>1</code>, so this name is
+ * used as an index to retrieve the output value from the result set. At the same time the META type <code>stamp</code>
+ * is used, as there's no result class with the output attribute, which can hold the type of the output value.
  * 
  * <p>
  * For ORACLE it can be
@@ -70,8 +73,9 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * To invoke them the next META SQL statement without any mapping rule should be used, as there's no output result set
  * 
  * <pre>
- * CALL_SIMPLE_FUNCION= \
+ * SIMPLE_FUNCION(CALL)=
  *   :<1^stamp = call an_hour_before(:time)
+ * ;
  * </pre>
  * 
  * You can see there's a special input value <code>:<1^stamp</code> with the name <code>1</code>, which is used as an
@@ -82,7 +86,8 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * In the case of the SQL Processor initialization
  * 
  * <pre>
- * SqlEngineFactory sqlFactory = new JdbcEngineFactory();
+ * JdbcEngineFactory sqlFactory = new JdbcEngineFactory();
+ * sqlFactory.setMetaFilesNames(&quot;statements.qry&quot;); // the meta statements file
  * SqlProcedureEngine sqlEngine = sqlFactory.getProcedureEngine(&quot;SIMPLE_FUNCION&quot;);
  * Connection connection = DriverManager.getConnection(&quot;jdbc:hsqldb:mem:sqlproc&quot;, &quot;sa&quot;, &quot;&quot;);
  * SqlSession session = new JdbcSimpleSession(connection);
@@ -114,8 +119,9 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * statement
  * 
  * <pre>
- * CALL_SIMPLE_FUNCION= \
- *   :&lt;time2 = call an_hour_before(:time)
+ * SIMPLE_FUNCION(CALL)=
+ *   :<time2 = call an_hour_before(:time)
+ * ;
  * </pre>
  * 
  * and run the function in the following way
@@ -139,8 +145,8 @@ public class SqlProcedureEngine extends SqlEngine {
      * Creates a new instance of the SqlProcedureEngine from one stored procedure execution META SQL statement and one
      * SQL mapping rule string. Constructor will call the internal ANTLR parsers for the statement and the mapping rule
      * instances construction. This constructor is devoted to manual META SQL statement and mapping rules construction.
-     * More obvious is to put these definitions into queries.properties file and engage the SqlEngineLoader for the
-     * SqlProcedureEngine instances construction.
+     * More obvious is to put these definitions into the meta statements file and engage the {@link SqlProcessorLoader}
+     * or {@link SqlEngineLoader} for the SqlProcedureEngine instances construction.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -165,8 +171,9 @@ public class SqlProcedureEngine extends SqlEngine {
      * and one SQL Mapping rule string. Constructor will call the internal ANTLR parsers for the statement and the
      * mapping rule instances construction. Compared to the previous constructor, an external SQL Monitor for the
      * runtime statistics gathering is engaged and the optional features can be involved. This constructor is devoted to
-     * manual META SQL statement and mapping rules construction. More obvious is to put these definitions into
-     * queries.properties file and engage the SqlEngineLoader for instances construction.
+     * manual META SQL statement and mapping rules construction. More obvious is to put these definitions into the meta
+     * statements file and engage the {@link SqlProcessorLoader} or {@link SqlEngineLoader} for the SqlProcedureEngine
+     * instances construction.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -194,8 +201,8 @@ public class SqlProcedureEngine extends SqlEngine {
      * Creates a new instance of the SqlProcedureEngine from one stored procedure execution META SQL statement and one
      * SQL mapping rule instances. Both parameters are already pre-compiled instances using the ANTLR parsers. This is
      * the recommended usage for the runtime performance optimization. This constructor is devoted to be used from the
-     * SqlEngineLoader, which is able to read all statements and mapping rules definitions from an external
-     * queries.properties and create the named SqlProcedureEngine instances.
+     * SqlEngineLoader, which is able to read all statements and mapping rules definitions from an external meta
+     * statements file and create the named SqlProcedureEngine instances.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -216,9 +223,9 @@ public class SqlProcedureEngine extends SqlEngine {
      * Creates a new instance of the SqlProcedureEngine from one stored procedure execution META SQL statement and one
      * SQL mapping rule instances. Both parameters are already pre-compiled instances using the ANTLR parsers. This is
      * the recommended usage for the runtime performance optimization. This constructor is devoted to be used from the
-     * SqlEngineLoader, which is able to read all statements and mapping rules definitions from an external
-     * queries.properties and create the named instances. Compared to the previous constructor, an external SQL Monitor
-     * for the runtime statistics gathering is engaged and the optional features can be involved.
+     * SqlEngineLoader, which is able to read all statements and mapping rules definitions from an external meta
+     * statements file and create the named instances. Compared to the previous constructor, an external SQL Monitor for
+     * the runtime statistics gathering is engaged and the optional features can be involved.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -542,8 +549,8 @@ public class SqlProcedureEngine extends SqlEngine {
 
     /**
      * Returns the name of this META SQL, which uniquely identifies the instance. In the case the META SQL statement is
-     * located in the queries.properties file, this name is the unique part of the keys in this file. For example for
-     * the name ALL in the queries.properties file there's the META SQL statement with the name CRUD_ALL.
+     * located in the meta statements file, this name is the unique part of the keys in this file. For example for the
+     * name ALL in the meta statements file there's the META SQL statement with the name ALL(CALL).
      * 
      * @return The name of the SQL engine instance.
      */

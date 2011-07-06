@@ -27,8 +27,8 @@ class SqlDatabaseColumn implements SqlMetaSimple {
      * @param name
      *            the name of a database column
      */
-    SqlDatabaseColumn(String sql) {
-        this.name = sql;
+    SqlDatabaseColumn(String name) {
+        this.name = name;
     }
 
     /**
