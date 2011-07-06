@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.model.Engagement;
 import org.sqlproc.engine.model.Gender;
@@ -21,6 +22,40 @@ public class TestJoins extends TestDatabase {
 
     protected String getDataSetFile(String dbType) {
         return "dbunit/JoinsTest.xml";
+    }
+
+    @Test
+    public void testBasicLeftJoinList6() {
+        SqlCrudEngine sqlEngine = getCrudEngine("BASIC_LEFT_JOIN_LIST_6");
+
+        Library ll = new Library();
+        ll.setId(1L);
+        String sql = sqlEngine.getGetSql(ll, null);
+        logger.info(sql);
+
+        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
+        moreResultClasses.put("alist", ArrayList.class);
+        Library l = sqlEngine.get(session, Library.class, ll, null, 0, moreResultClasses);
+
+        assertNotNull(l);
+        assert5(l);
+    }
+
+    @Test
+    public void testBasicLeftJoinList5() {
+        SqlCrudEngine sqlEngine = getCrudEngine("BASIC_LEFT_JOIN_LIST_5");
+
+        Library ll = new Library();
+        ll.setId(1L);
+        String sql = sqlEngine.getGetSql(ll, null);
+        logger.info(sql);
+
+        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
+        moreResultClasses.put("alist", ArrayList.class);
+        Library l = sqlEngine.get(session, Library.class, ll, null, 0, moreResultClasses);
+
+        assertNotNull(l);
+        assert5(l);
     }
 
     @Test

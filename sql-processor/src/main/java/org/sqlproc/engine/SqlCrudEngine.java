@@ -164,6 +164,32 @@ public class SqlCrudEngine extends SqlEngine {
     }
 
     /**
+     * Creates a new instance of the SqlCrudEngine from one META SQL statement instance. This instance is already
+     * pre-compiled using the ANTLR parsers. This is the recommended usage for the runtime performance optimization.
+     * This constructor is devoted to be used from the SqlEngineLoader, which is able to read all statements definitions
+     * from an external meta statements file and create the named SqlCrudEngine instances. Compared to the previous
+     * constructor, an external SQL Monitor for the runtime statistics gathering is engaged and the optional features
+     * can be involved.
+     * 
+     * @param name
+     *            the name of this SQL Engine instance
+     * @param statement
+     *            the pre-compiled META SQL CRUD statement
+     * @param mapping
+     *            the pre-compiled SQL mapping rule
+     * @param monitor
+     *            the SQL Monitor for the runtime statistics gathering
+     * @param features
+     *            the optional SQL Processor features
+     * @param typeFactory
+     *            the factory for the META types construction
+     */
+    public SqlCrudEngine(String name, SqlMetaStatement statement, SqlMappingRule mapping, SqlMonitor monitor,
+            Map<String, Object> features, SqlTypeFactory typeFactory) {
+        super(name, statement, mapping, monitor, features, typeFactory);
+    }
+
+    /**
      * Runs the META SQL insert statement to persist a database row. This is one of the overriden methods. For the
      * parameters description please see the most complex execution method
      * {@link #insert(SqlSession, Object, Object, int)} .

@@ -1125,6 +1125,22 @@ BASIC_LEFT_JOIN_LIST_4(OUT)=
   lid$$id name pid$$mediaList=alist.id location$$mediaList.location
 ;
 
+BASIC_LEFT_JOIN_LIST_5(CRUD)=
+  select l.ID @lid, l.NAME @name, pm.ID @pid, pm.LOCATION @location
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  {= where l.ID = :id}
+;
+
+BASIC_LEFT_JOIN_LIST_5(OUT)=
+  lid$$id name pid$$mediaList=alist.id location$$mediaList.location
+;
+
+BASIC_LEFT_JOIN_LIST_6(CRUD)=
+  select l.ID @id, l.NAME @name, pm.ID @mediaList=alist.id, pm.LOCATION @mediaList.location
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  {= where l.ID = :id}
+;
+
 BASIC_LEFT_JOIN_SET(QRY)=
   select l.ID @id^long^id, l.NAME @name, pm.ID @mediaSet.id^long^id, pm.LOCATION @mediaSet.location
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY

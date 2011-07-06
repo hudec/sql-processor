@@ -375,7 +375,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
             }
 
             for (String name : outs.keySet()) {
-                if (!sqls.containsKey(name) && !calls.containsKey(name))
+                if (!sqls.containsKey(name) && !calls.containsKey(name) && !cruds.containsKey(name))
                     errors.append("For the OUT/FIELDS there's no QRY: ").append(name).append("\n");
             }
 
@@ -427,9 +427,30 @@ public class SqlEngineLoader implements SqlEngineFactory {
                     errors.append(see.getMessage());
                     continue;
                 }
+                SqlMappingRule mapping = null;
+                if (outs.containsKey(name)) {
+                    try {
+                        String sMapping = outs.get(name).trim();
+                        if (sMapping.startsWith(FIELDS_REFERENCE)) {
+                            String sRealMapping = props.getProperty(sMapping.substring(lFIELDS_REFERENCE).trim());
+                            if (sRealMapping == null)
+                                errors.append("For IN/OUT doesn't exist reference: ").append(name).append("->")
+                                        .append(sMapping).append("\n");
+                            else
+                                mapping = SqlMappingRule.getInstance(name, sRealMapping, this.composedTypeFactory);
+                        } else if (!sMapping.isEmpty()) {
+                            mapping = SqlMappingRule.getInstance(name, sMapping, this.composedTypeFactory);
+                        } else {
+                            mapping = new SqlMappingRule();
+                        }
+                    } catch (SqlEngineException see) {
+                        errors.append(see.getMessage());
+                    }
+                }
                 SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
                 if (stmt != null) {
-                    engines.put(name, new SqlCrudEngine(name, stmt, monitor, features, this.composedTypeFactory));
+                    engines.put(name, new SqlCrudEngine(name, stmt, mapping, monitor, features,
+                            this.composedTypeFactory));
                 }
             }
 
