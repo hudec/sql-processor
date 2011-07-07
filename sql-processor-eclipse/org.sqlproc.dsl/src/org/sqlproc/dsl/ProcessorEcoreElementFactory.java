@@ -1,8 +1,13 @@
 package org.sqlproc.dsl;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.notify.impl.BasicNotifierImpl.EObservableAdapterList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.nodemodel.impl.CompositeNodeWithSemanticElement;
 import org.eclipse.xtext.parser.DefaultEcoreElementFactory;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.property.ModelProperty;
@@ -29,14 +34,37 @@ public class ProcessorEcoreElementFactory extends DefaultEcoreElementFactory {
         if (model instanceof Artifacts) {
             LOGGER.debug("ARTIFACTS " + model);
 
-            model.eAdapters().add(modelProperty);
+            EList<Adapter> adapters = model.eAdapters();
+            adapters.add(modelProperty);
             model.eSetDeliver(true);
+
+            // if (adapters instanceof EObservableAdapterList) {
+            // EObservableAdapterList observable = (EObservableAdapterList) adapters;
+            // observable.addListener(listener);
+            // }
 
             modelProperty.setNextReset();
         }
 
         return model;
     }
+
+    EObservableAdapterList.Listener listener = new EObservableAdapterList.Listener() {
+
+        @Override
+        public void removed(Notifier notifier, Adapter adapter) {
+            System.out.println("Removed adapter '" + adapter + "' from '" + notifier + "'");
+        }
+
+        @Override
+        public void added(Notifier notifier, Adapter adapter) {
+            System.out.println("Added adapter '" + adapter + "' to '" + notifier + "'");
+            if (adapter instanceof CompositeNodeWithSemanticElement) {
+                CompositeNodeWithSemanticElement node = (CompositeNodeWithSemanticElement) adapter;
+                LOGGER.debug("ARTIFACTS " + node);
+            }
+        }
+    };
 
     // @Override
     // public void set(EObject object, String feature, Object value, String ruleName, INode node)

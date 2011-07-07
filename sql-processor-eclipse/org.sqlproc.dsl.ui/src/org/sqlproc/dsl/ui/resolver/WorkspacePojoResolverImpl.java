@@ -71,7 +71,7 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
                         url = path.toFile().toURI().toURL();
                         urlList.add(url);
                     } catch (MalformedURLException e) {
-                        LOGGER.warn("Can't accept URL for '" + path + "'", e);
+                        LOGGER.warn("Can't accept URL for '" + path + "': " + e.getMessage());
                     }
                 }
                 ClassLoader parentClassLoader = javaProject.getClass().getClassLoader();
@@ -79,7 +79,7 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
                 URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
                 loaders.add(classLoader);
             } catch (CoreException e) {
-                LOGGER.warn("Can't handle project '" + project + "'", e);
+                LOGGER.warn("Can't handle project '" + project + "': " + e.getMessage());
             }
         }
         this.allLoaders = loaders;
