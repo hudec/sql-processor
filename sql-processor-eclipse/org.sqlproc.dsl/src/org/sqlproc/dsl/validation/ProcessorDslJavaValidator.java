@@ -593,18 +593,24 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         for (TableUsage usage : artifacts.getTableUsages()) {
             if (usage == null || usage == tableUsage)
                 continue;
-            if (tableUsage.getStatement().getName().equals(usage.getStatement().getName())
-                    && tableUsage.getTable().getName().equals(usage.getTable().getName())) {
-                if (tableUsage.getPrefix() == null && usage.getPrefix() == null) {
-                    error("Duplicate name : " + tableUsage.getStatement().getName() + "["
-                            + tableUsage.getTable().getName() + "][dbcol]",
-                            ProcessorDslPackage.Literals.TABLE_USAGE__TABLE);
-                    return;
+            if (tableUsage.getStatement().getName().equals(usage.getStatement().getName())) {
+                if (tableUsage.getTable().getName().equals(usage.getTable().getName())) {
+                    if (tableUsage.getPrefix() == null && usage.getPrefix() == null) {
+                        error("Duplicate name : " + tableUsage.getStatement().getName() + "["
+                                + tableUsage.getTable().getName() + "][dbcol]",
+                                ProcessorDslPackage.Literals.TABLE_USAGE__TABLE);
+                        return;
+                    }
+                    if (tableUsage.getPrefix() != null && tableUsage.getPrefix().equals(usage.getPrefix())) {
+                        error("Duplicate name : " + tableUsage.getStatement().getName() + "["
+                                + tableUsage.getTable().getName() + ":" + tableUsage.getPrefix() + "][dbcol]",
+                                ProcessorDslPackage.Literals.TABLE_USAGE__TABLE);
+                        return;
+                    }
                 }
                 if (tableUsage.getPrefix() != null && tableUsage.getPrefix().equals(usage.getPrefix())) {
-                    error("Duplicate name : " + tableUsage.getStatement().getName() + "["
-                            + tableUsage.getTable().getName() + ":" + tableUsage.getPrefix() + "][dbcol]",
-                            ProcessorDslPackage.Literals.TABLE_USAGE__TABLE);
+                    error("Duplicate name : " + tableUsage.getStatement().getName() + "[" + tableUsage.getPrefix()
+                            + "][dbcol]", ProcessorDslPackage.Literals.TABLE_USAGE__PREFIX);
                     return;
                 }
             }
