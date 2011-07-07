@@ -3,19 +3,19 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc.samples</groupId>
     <artifactId>simple-hibernate</artifactId>
-    <version>1.6.0-SNAPSHOT</version>
+    <version>1.6.0</version>
     <packaging>jar</packaging>
     <name>SQL Processor Samples, Simple (Hibernate) based on property file</name>
 
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-samples</artifactId>
-        <version>1.6.0-SNAPSHOT</version>
+        <version>1.6.0</version>
         <relativePath>..</relativePath>
     </parent>
 
     <properties>
-        <version.sql-processor>1.6.0-SNAPSHOT</version.sql-processor>
+        <version.sql-processor>1.6.0</version.sql-processor>
         <version.antlr>3.2</version.antlr>
         <version.hibernate>3.5.6-Final</version.hibernate>
         <version.hibernate.validator>4.1.0.Final</version.hibernate.validator>
