@@ -1,11 +1,17 @@
 package org.sqlproc.dsl.property;
 
+import java.util.Map;
+import java.util.WeakHashMap;
+
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
+import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.parser.IParseResult;
+import org.eclipse.xtext.resource.XtextResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Property;
 
@@ -24,29 +30,54 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_SCHEMA = "database schema";
     public static final String DATABASE_DRIVER = "database driver";
 
-    private boolean doResolvePojo;
-    private boolean doResolveDb;
-    private String dbDriver;
-    private String dbUrl;
-    private String dbUsername;
-    private String dbPassword;
-    private String dbSchema;
+    public static class ModelValues {
+        public boolean doResolvePojo;
+        public boolean doResolveDb;
+        public String dbDriver;
+        public String dbUrl;
+        public String dbUsername;
+        public String dbPassword;
+        public String dbSchema;
+        public boolean doNextReset = false;
 
-    private boolean doNextReset = false;
-
-    // TODO: tady je problem, jsou napr. dva objekty Artefacts, jeden neni aktualni, ale muze zpusobit vynulovani
-    @Override
-    public void setNextReset() {
-        doNextReset = true;
+        @Override
+        public String toString() {
+            return "ModelValues [resolvePojo=" + doResolvePojo + ", resolveDb=" + doResolveDb + ", dbDriver="
+                    + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername + ", dbPassword=" + dbPassword
+                    + ", dbSchema=" + dbSchema + "]";
+        }
     }
+
+    private Map<Artifacts, ModelValues> modelValues = new WeakHashMap<Artifacts, ModelValues>();
+    private Map<Artifacts, String> artifacts2dirs = new WeakHashMap<Artifacts, String>();
+    private Map<String, Artifacts> dirs2artifacts = new WeakHashMap<String, Artifacts>();
 
     public void notifyChanged(Notification msg) {
         if (msg.getNotifier() == null && (msg.getFeature() == null || msg.getFeatureID(Resource.class) == 0))
             return;
 
-        if (msg.getNotifier() instanceof LazyLinkingResource) {
+        if (msg.getNotifier() instanceof XtextResource) {
             if (msg.getFeatureID(Resource.class) == Resource.RESOURCE__IS_LOADED) {
-                LOGGER.debug("LOADED RESOUCE " + msg.getNotifier());
+                XtextResource resource = (XtextResource) msg.getNotifier();
+                IParseResult parseResult = resource.getParseResult();
+                EObject rootASTElement = parseResult.getRootASTElement();
+                LOGGER.debug("LOADED RESOURCE " + resource + " for " + rootASTElement);
+                String uri = (rootASTElement != null && rootASTElement instanceof Artifacts && resource.getURI() != null) ? resource
+                        .getURI().toString() : null;
+                String dir = null;
+                if (uri != null) {
+                    dir = uri;
+                    int ix = uri.lastIndexOf("/");
+                    if (ix > 0)
+                        dir = uri.substring(0, ix);
+                }
+                if (dir != null) {
+                    Artifacts artifacts = (Artifacts) rootASTElement;
+                    artifacts2dirs.put(artifacts, dir);
+                    if (modelValues.containsKey(artifacts))
+                        dirs2artifacts.put(dir, artifacts);
+                }
+                LOGGER.debug("MODEL " + this.toString());
             }
         } else if (msg.getNotifier() instanceof Artifacts) {
             if (msg.getFeature() instanceof EReference
@@ -54,13 +85,14 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
 
                 Property oldValue = (Property) msg.getOldValue();
                 Property newValue = (Property) msg.getNewValue();
+                Artifacts artifacts = (Artifacts) newValue.eContainer();
 
                 if (msg.getEventType() == Notification.ADD) {
-                    addValue(newValue);
+                    addValue(artifacts, newValue);
                 } else if (msg.getEventType() == Notification.REMOVE) {
-                    resetValue(newValue);
+                    resetValue(artifacts, newValue);
                 } else if (msg.getEventType() == Notification.SET) {
-                    setValue(newValue);
+                    setValue(artifacts, newValue);
                 } else {
                     LOGGER.warn("UNNOWN PROPERTY ACTION " + msg);
                 }
@@ -70,92 +102,103 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         }
     }
 
-    public void addValue(Property property) {
-        if (doNextReset) {
-            reset();
-        }
-        setValue(property);
+    public void addValue(Artifacts artifacts, Property property) {
+        if (modelValues.get(artifacts) == null)
+            modelValues.put(artifacts, new ModelValues());
+        setValue(artifacts, property);
     }
 
-    public void setValue(Property property) {
+    public void setValue(Artifacts artifacts, Property property) {
+        if (modelValues.get(artifacts) == null)
+            modelValues.put(artifacts, new ModelValues());
         if (RESOLVE_REFERENCES.equals(property.getName())) {
-            doResolvePojo = "ON".equals(property.getDoResolvePojo());
+            modelValues.get(artifacts).doResolvePojo = "ON".equals(property.getDoResolvePojo());
         } else if (DATABASE_ONLINE.equals(property.getName())) {
-            doResolveDb = "ON".equals(property.getDoResolveDb());
+            modelValues.get(artifacts).doResolveDb = "ON".equals(property.getDoResolveDb());
         } else if (DATABASE_URL.equals(property.getName())) {
-            dbUrl = property.getDbUrl();
+            modelValues.get(artifacts).dbUrl = property.getDbUrl();
         } else if (DATABASE_USERNAME.equals(property.getName())) {
-            dbUsername = property.getDbUsername();
+            modelValues.get(artifacts).dbUsername = property.getDbUsername();
         } else if (DATABASE_PASSWORD.equals(property.getName())) {
-            dbPassword = property.getDbPassword();
+            modelValues.get(artifacts).dbPassword = property.getDbPassword();
         } else if (DATABASE_SCHEMA.equals(property.getName())) {
-            dbSchema = property.getDbSchema();
+            modelValues.get(artifacts).dbSchema = property.getDbSchema();
         } else if (DATABASE_DRIVER.equals(property.getName())) {
-            dbDriver = property.getDbDriver();
+            modelValues.get(artifacts).dbDriver = property.getDbDriver();
         }
     }
 
-    public void resetValue(Property property) {
+    public void resetValue(Artifacts artifacts, Property property) {
+        if (modelValues.get(artifacts) == null)
+            modelValues.put(artifacts, new ModelValues());
         if (RESOLVE_REFERENCES.equals(property.getName())) {
-            doResolvePojo = false;
+            modelValues.get(artifacts).doResolvePojo = false;
         } else if (DATABASE_ONLINE.equals(property.getName())) {
-            doResolveDb = false;
+            modelValues.get(artifacts).doResolveDb = false;
         } else if (DATABASE_URL.equals(property.getName())) {
-            dbUrl = null;
+            modelValues.get(artifacts).dbUrl = null;
         } else if (DATABASE_USERNAME.equals(property.getName())) {
-            dbUsername = null;
+            modelValues.get(artifacts).dbUsername = null;
         } else if (DATABASE_PASSWORD.equals(property.getName())) {
-            dbPassword = null;
+            modelValues.get(artifacts).dbPassword = null;
         } else if (DATABASE_SCHEMA.equals(property.getName())) {
-            dbSchema = null;
+            modelValues.get(artifacts).dbSchema = null;
         } else if (DATABASE_DRIVER.equals(property.getName())) {
-            dbDriver = null;
+            modelValues.get(artifacts).dbDriver = null;
         }
     }
 
-    public void reset() {
-        doResolvePojo = false;
-        doResolveDb = false;
-        dbDriver = null;
-        dbUrl = null;
-        dbUsername = null;
-        dbPassword = null;
-        dbSchema = null;
-        doNextReset = false;
+    public boolean isDoResolvePojo(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.doResolvePojo : false;
     }
 
-    public boolean isDoResolvePojo() {
-        return doResolvePojo;
+    public boolean isDoResolveDb(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.doResolveDb : false;
     }
 
-    public boolean isDoResolveDb() {
-        return doResolveDb;
+    public String getDbDriver(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.dbDriver : null;
     }
 
-    public String getDbDriver() {
-        return dbDriver;
+    public String getDbUrl(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.dbUrl : null;
     }
 
-    public String getDbUrl() {
-        return dbUrl;
+    public String getDbUsername(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.dbUsername : null;
     }
 
-    public String getDbUsername() {
-        return dbUsername;
+    public String getDbPassword(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.dbPassword : null;
     }
 
-    public String getDbPassword() {
-        return dbPassword;
+    public String getDbSchema(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.dbSchema : null;
     }
 
-    public String getDbSchema() {
-        return dbSchema;
+    protected ModelValues getModelValues(EObject model) {
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(model, Artifacts.class);
+        if (artifacts == null)
+            return null;
+        String dir = artifacts2dirs.get(artifacts);
+        if (dir == null)
+            return null;
+        Artifacts modelArtifacts = dirs2artifacts.get(dir);
+        if (modelArtifacts == null)
+            return null;
+        return modelValues.get(modelArtifacts);
     }
 
     @Override
     public String toString() {
-        return "ModelPropertyBean [resolvePojo=" + doResolvePojo + ", resolveDb=" + doResolveDb + ", dbDriver="
-                + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername + ", dbPassword=" + dbPassword
-                + ", dbSchema=" + dbSchema + "]";
+        return "ModelPropertyBean [modelValues=" + modelValues + ", artifacts2dirs=" + artifacts2dirs
+                + ", dirs2artifacts=" + dirs2artifacts + "]";
     }
 }

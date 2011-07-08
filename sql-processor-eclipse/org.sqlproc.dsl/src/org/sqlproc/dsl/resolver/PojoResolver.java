@@ -4,6 +4,8 @@ import java.beans.PropertyDescriptor;
 import java.net.URLClassLoader;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
+
 public interface PojoResolver {
 
     List<URLClassLoader> getAllLoaders();
@@ -12,5 +14,5 @@ public interface PojoResolver {
 
     public PropertyDescriptor[] getPropertyDescriptors(String name);
 
-    boolean isResolvePojo();
+    boolean isResolvePojo(EObject model);
 }

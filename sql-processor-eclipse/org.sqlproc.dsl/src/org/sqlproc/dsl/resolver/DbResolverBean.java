@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.EObject;
 import org.sqlproc.dsl.property.ModelProperty;
 
 import com.google.inject.Inject;
@@ -41,52 +42,52 @@ public class DbResolverBean implements DbResolver {
     private List<String> tables = Collections.synchronizedList(new ArrayList<String>());
     private Map<String, List<String>> columns = Collections.synchronizedMap(new HashMap<String, List<String>>());
 
-    private boolean checkReconnect() {
-        if (!modelProperty.isDoResolveDb()) {
-            closeConnection();
+    private boolean checkReconnect(EObject model) {
+        if (!modelProperty.isDoResolveDb(model)) {
+            closeConnection(model);
             return false;
         }
         boolean reconnect = false;
-        if (modelProperty.getDbDriver() != null) {
-            if (!modelProperty.getDbDriver().equals(dbDriver)) {
-                dbDriver = modelProperty.getDbDriver();
+        if (modelProperty.getDbDriver(model) != null) {
+            if (!modelProperty.getDbDriver(model).equals(dbDriver)) {
+                dbDriver = modelProperty.getDbDriver(model);
                 reconnect = true;
             }
         } else {
             dbDriver = null;
-            closeConnection();
+            closeConnection(model);
         }
-        if (modelProperty.getDbUrl() != null) {
-            if (!modelProperty.getDbUrl().equals(dbUrl)) {
-                dbUrl = modelProperty.getDbUrl();
+        if (modelProperty.getDbUrl(model) != null) {
+            if (!modelProperty.getDbUrl(model).equals(dbUrl)) {
+                dbUrl = modelProperty.getDbUrl(model);
                 reconnect = true;
             }
         } else {
             dbUrl = null;
-            closeConnection();
+            closeConnection(model);
         }
 
-        if (modelProperty.getDbUsername() != null) {
-            if (!modelProperty.getDbUsername().equals(dbUsername)) {
-                dbUsername = modelProperty.getDbUsername();
+        if (modelProperty.getDbUsername(model) != null) {
+            if (!modelProperty.getDbUsername(model).equals(dbUsername)) {
+                dbUsername = modelProperty.getDbUsername(model);
                 reconnect = true;
             }
         } else {
             dbUsername = null;
-            closeConnection();
+            closeConnection(model);
         }
-        if (modelProperty.getDbPassword() != null) {
-            if (!modelProperty.getDbPassword().equals(dbPassword)) {
-                dbPassword = modelProperty.getDbPassword();
+        if (modelProperty.getDbPassword(model) != null) {
+            if (!modelProperty.getDbPassword(model).equals(dbPassword)) {
+                dbPassword = modelProperty.getDbPassword(model);
                 reconnect = true;
             }
         } else {
             dbPassword = null;
-            closeConnection();
+            closeConnection(model);
         }
-        if (modelProperty.getDbSchema() != null) {
-            if (!modelProperty.getDbSchema().equals(dbSchema)) {
-                dbSchema = modelProperty.getDbSchema();
+        if (modelProperty.getDbSchema(model) != null) {
+            if (!modelProperty.getDbSchema(model).equals(dbSchema)) {
+                dbSchema = modelProperty.getDbSchema(model);
             }
         } else
             dbSchema = null;
@@ -94,10 +95,10 @@ public class DbResolverBean implements DbResolver {
         return reconnect;
     }
 
-    private Connection getConnection() {
-        if (!checkReconnect())
+    private Connection getConnection(EObject model) {
+        if (!checkReconnect(model))
             return connection;
-        closeConnection();
+        closeConnection(model);
         synchronized (sync) {
             LOGGER.info("DATA START");
             Class<?> driverClass = pojoResolverFactory.getPojoResolver().loadClass(dbDriver);
@@ -130,7 +131,7 @@ public class DbResolverBean implements DbResolver {
         }
     }
 
-    private void closeConnection() {
+    private void closeConnection(EObject model) {
         synchronized (sync) {
             try {
                 if (connection != null) {
@@ -147,15 +148,15 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
-    public boolean isResolveDb() {
-        return getConnection() != null;
+    public boolean isResolveDb(EObject model) {
+        return getConnection(model) != null;
     }
 
     @Override
-    public List<String> getTables() {
+    public List<String> getTables(EObject model) {
         if (!tables.isEmpty())
             return tables;
-        Connection conn = getConnection();
+        Connection conn = getConnection(model);
         if (conn != null) {
             ResultSet result = null;
             try {
@@ -179,21 +180,21 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
-    public boolean checkTable(String table) {
+    public boolean checkTable(EObject model, String table) {
         if (table == null)
             return false;
-        List<String> tbls = getTables();
+        List<String> tbls = getTables(model);
         return tbls.contains(table);
     }
 
     @Override
-    public List<String> getColumns(String table) {
+    public List<String> getColumns(EObject model, String table) {
         if (table == null)
             return Collections.emptyList();
         if (columns.containsKey(table))
             return columns.get(table);
         List<String> cols = new ArrayList<String>();
-        Connection conn = getConnection();
+        Connection conn = getConnection(model);
         if (conn != null && table != null) {
             ResultSet result = null;
             try {
@@ -218,9 +219,9 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
-    public boolean checkColumn(String table, String column) {
+    public boolean checkColumn(EObject model, String table, String column) {
         if (table == null || column == null)
             return false;
-        return getColumns(table).contains(column);
+        return getColumns(model, table).contains(column);
     }
 }

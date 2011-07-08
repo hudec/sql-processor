@@ -42,8 +42,6 @@ public class ProcessorEcoreElementFactory extends DefaultEcoreElementFactory {
             // EObservableAdapterList observable = (EObservableAdapterList) adapters;
             // observable.addListener(listener);
             // }
-
-            modelProperty.setNextReset();
         }
 
         return model;

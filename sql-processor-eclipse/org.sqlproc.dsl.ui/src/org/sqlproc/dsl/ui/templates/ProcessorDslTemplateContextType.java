@@ -196,8 +196,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         @Override
         protected String resolve(TemplateContext context) {
             TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
-            if (dbResolver.isResolveDb() && tableDefinition != null) {
-                List<String> dbColumns = dbResolver.getColumns(tableDefinition.getTable());
+            if (dbResolver.isResolveDb(tableDefinition) && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition, tableDefinition.getTable());
                 return getSelectColumns(dbColumns);
             }
             return super.resolve(context);
@@ -220,8 +220,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         @Override
         protected String resolve(TemplateContext context) {
             TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
-            if (dbResolver.isResolveDb() && tableDefinition != null) {
-                List<String> dbColumns = dbResolver.getColumns(tableDefinition.getTable());
+            if (dbResolver.isResolveDb(tableDefinition) && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition, tableDefinition.getTable());
                 return getPojoColumns(dbColumns);
             }
             return super.resolve(context);
@@ -244,8 +244,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         @Override
         protected String resolve(TemplateContext context) {
             TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
-            if (dbResolver.isResolveDb() && tableDefinition != null) {
-                List<String> dbColumns = dbResolver.getColumns(tableDefinition.getTable());
+            if (dbResolver.isResolveDb(tableDefinition) && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition, tableDefinition.getTable());
                 return getInsertColumns(dbColumns);
             }
             return super.resolve(context);
@@ -268,8 +268,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         @Override
         protected String resolve(TemplateContext context) {
             TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
-            if (dbResolver.isResolveDb() && tableDefinition != null) {
-                List<String> dbColumns = dbResolver.getColumns(tableDefinition.getTable());
+            if (dbResolver.isResolveDb(tableDefinition) && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition, tableDefinition.getTable());
                 return getUpdateColumns(dbColumns);
             }
             return super.resolve(context);
@@ -292,8 +292,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         @Override
         protected String resolve(TemplateContext context) {
             TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
-            if (dbResolver.isResolveDb() && tableDefinition != null) {
-                List<String> dbColumns = dbResolver.getColumns(tableDefinition.getTable());
+            if (dbResolver.isResolveDb(tableDefinition) && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition, tableDefinition.getTable());
                 return getCondColumns(dbColumns);
             }
             return super.resolve(context);

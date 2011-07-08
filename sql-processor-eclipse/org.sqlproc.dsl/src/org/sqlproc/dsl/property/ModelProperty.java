@@ -1,22 +1,21 @@
 package org.sqlproc.dsl.property;
 
 import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.ecore.EObject;
 
 public interface ModelProperty extends Adapter {
 
-    public void setNextReset();
+    public boolean isDoResolvePojo(EObject model);
 
-    public boolean isDoResolvePojo();
+    public boolean isDoResolveDb(EObject model);
 
-    public boolean isDoResolveDb();
+    public String getDbDriver(EObject model);
 
-    public String getDbDriver();
+    public String getDbUrl(EObject model);
 
-    public String getDbUrl();
+    public String getDbUsername(EObject model);
 
-    public String getDbUsername();
+    public String getDbPassword(EObject model);
 
-    public String getDbPassword();
-
-    public String getDbSchema();
+    public String getDbSchema(EObject model);
 }

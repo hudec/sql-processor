@@ -150,7 +150,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
 
     public boolean completeUsage(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor, String name) {
-        if (!isResolvePojo())
+        if (!isResolvePojo(model))
             return false;
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
@@ -191,7 +191,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     @Override
     public void completeMappingColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        if (!isResolvePojo()) {
+        if (!isResolvePojo(model)) {
             super.completeMappingColumn_Name(model, assignment, context, acceptor);
             return;
         }
@@ -337,23 +337,23 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         }
     }
 
-    protected boolean isResolvePojo() {
-        return pojoResolver.isResolvePojo();
+    protected boolean isResolvePojo(EObject model) {
+        return pojoResolver.isResolvePojo(model);
 
     }
 
-    protected boolean isResolveDb() {
-        return dbResolver.isResolveDb();
+    protected boolean isResolveDb(EObject model) {
+        return dbResolver.isResolveDb(model);
     }
 
     @Override
     public void completeTableDefinition_Table(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        if (!isResolveDb()) {
+        if (!isResolveDb(model)) {
             super.completeTableDefinition_Table(model, assignment, context, acceptor);
             return;
         }
-        for (String table : dbResolver.getTables()) {
+        for (String table : dbResolver.getTables(model)) {
             if (table.indexOf('$') >= 0)
                 continue;
             String proposal = getValueConverter().toString(table, "IDENT");
@@ -365,7 +365,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     @Override
     public void complete_DatabaseColumn(EObject model, RuleCall ruleCall, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        if (!isResolveDb()) {
+        if (!isResolveDb(model)) {
             super.complete_DatabaseColumn(model, ruleCall, context, acceptor);
             return;
         }
@@ -380,7 +380,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
         TableDefinition tableDefinition = getTableDefinition(artifacts, metaStatement, prefix);
         if (tableDefinition != null && tableDefinition.getTable() != null) {
-            for (String column : dbResolver.getColumns(tableDefinition.getTable())) {
+            for (String column : dbResolver.getColumns(model, tableDefinition.getTable())) {
                 String proposal = getValueConverter().toString(column, "IDENT");
                 String completion = prefix != null ? prefix + '.' + proposal : proposal;
                 ICompletionProposal completionProposal = createCompletionProposal(completion, context);
@@ -430,7 +430,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     @Override
     public void complete_DatabaseTable(EObject model, RuleCall ruleCall, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        if (!isResolveDb()) {
+        if (!isResolveDb(model)) {
             super.complete_DatabaseTable(model, ruleCall, context, acceptor);
             return;
         }

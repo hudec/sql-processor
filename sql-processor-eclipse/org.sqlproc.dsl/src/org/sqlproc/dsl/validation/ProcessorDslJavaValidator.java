@@ -114,7 +114,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkUniquePojoDefinition(PojoDefinition pojoDefinition) {
-        if (isResolvePojo() && !checkClass(pojoDefinition.getClass_()))
+        if (isResolvePojo(pojoDefinition) && !checkClass(pojoDefinition.getClass_()))
             error("Class name : " + pojoDefinition.getClass_() + " not exists",
                     ProcessorDslPackage.Literals.POJO_DEFINITION__NAME);
         Artifacts artifacts;
@@ -302,7 +302,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkColumn(Column column) {
-        if (!isResolvePojo())
+        if (!isResolvePojo(column))
             return;
         String columnUsageClass = null;
         MappingUsage mappingUsage = null;
@@ -345,7 +345,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkIdentifier(Identifier identifier) {
-        if (!isResolvePojo())
+        if (!isResolvePojo(identifier))
             return;
         String identifierUsageClass = null;
         MetaStatement statement = EcoreUtil2.getContainerOfType(identifier, MetaStatement.class);
@@ -377,7 +377,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkConstant(Constant constant) {
-        if (!isResolvePojo())
+        if (!isResolvePojo(constant))
             return;
         String constantUsageClass = null;
         MetaStatement statement = EcoreUtil2.getContainerOfType(constant, MetaStatement.class);
@@ -409,7 +409,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkMappingColumn(MappingColumn identifier) {
-        if (!isResolvePojo())
+        if (!isResolvePojo(identifier))
             return;
         String mappingUsageClass = null;
         MappingRule rule = EcoreUtil2.getContainerOfType(identifier, MappingRule.class);
@@ -577,7 +577,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 return;
             }
         }
-        if (isResolveDb() && !dbResolver.checkTable(tableDefinition.getTable())) {
+        if (isResolveDb(tableDefinition) && !dbResolver.checkTable(tableDefinition, tableDefinition.getTable())) {
             error("Cannot find table in DB : " + tableDefinition.getTable(),
                     ProcessorDslPackage.Literals.TABLE_DEFINITION__TABLE);
         }
@@ -619,7 +619,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkDatabaseColumn(DatabaseColumn databaseColumn) {
-        if (!isResolveDb())
+        if (!isResolveDb(databaseColumn))
             return;
         String prefix = databaseColumn.getName();
         String columnName = null;
@@ -635,7 +635,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
         TableDefinition tableDefinition = getTableDefinition(artifacts, statement, null, prefix);
         String tableName = tableDefinition != null ? tableDefinition.getTable() : null;
-        if (tableName == null || !dbResolver.checkColumn(tableName, columnName)) {
+        if (tableName == null || !dbResolver.checkColumn(databaseColumn, tableName, columnName)) {
             error("Cannot find column in DB : " + databaseColumn.getName() + "[" + tableName + "]",
                     ProcessorDslPackage.Literals.DATABASE_COLUMN__NAME);
         }
@@ -643,26 +643,27 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Check
     public void checkDatabaseTable(DatabaseTable databaseTable) {
-        if (!isResolveDb())
+        if (!isResolveDb(databaseTable))
             return;
         String tableName = databaseTable.getName();
         MetaStatement statement = EcoreUtil2.getContainerOfType(databaseTable, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
         TableDefinition tableDefinition = getTableDefinition(artifacts, statement, tableName, null);
-        if (tableDefinition == null || !dbResolver.checkTable(tableName)) {
+        if (tableDefinition == null || !dbResolver.checkTable(databaseTable, tableName)) {
             error("Cannot find table in DB : " + tableName, ProcessorDslPackage.Literals.DATABASE_TABLE__NAME);
         }
     }
 
-    protected boolean isResolvePojo() {
-        if (pojoResolverFactory.getPojoResolver() == null || !pojoResolverFactory.getPojoResolver().isResolvePojo())
+    protected boolean isResolvePojo(EObject model) {
+        if (pojoResolverFactory.getPojoResolver() == null
+                || !pojoResolverFactory.getPojoResolver().isResolvePojo(model))
             return false;
         return true;
 
     }
 
-    protected boolean isResolveDb() {
-        return dbResolver.isResolveDb();
+    protected boolean isResolveDb(EObject model) {
+        return dbResolver.isResolveDb(model);
     }
 
     protected TableDefinition getTableDefinition(Artifacts artifacts, MetaStatement statement, String tableName,

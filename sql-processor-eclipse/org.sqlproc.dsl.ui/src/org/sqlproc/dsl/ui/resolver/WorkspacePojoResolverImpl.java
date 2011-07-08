@@ -8,7 +8,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -17,6 +16,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
@@ -37,19 +37,6 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
     ModelProperty modelProperty;
 
     private List<URLClassLoader> allLoaders;
-
-    protected boolean checkReload() {
-        if (!modelProperty.isDoResolvePojo()) {
-            if (allLoaders != null)
-                LOGGER.info("POJO STOP");
-            allLoaders = null;
-            return false;
-        }
-
-        if (allLoaders == null)
-            return true;
-        return false;
-    }
 
     protected void init() {
         LOGGER.info("POJO START");
@@ -87,19 +74,15 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
 
     @Override
     public List<URLClassLoader> getAllLoaders() {
-        if (checkReload())
-            init();
         if (allLoaders == null)
-            return Collections.EMPTY_LIST;
+            init();
         return allLoaders;
     }
 
     @Override
     public Class<?> loadClass(String name) {
-        if (checkReload())
-            init();
         if (allLoaders == null)
-            return null;
+            init();
         for (URLClassLoader loader : allLoaders) {
             try {
                 return loader.loadClass(name);
@@ -112,10 +95,8 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
 
     @Override
     public PropertyDescriptor[] getPropertyDescriptors(String name) {
-        if (checkReload())
-            init();
         if (allLoaders == null)
-            return null;
+            init();
         Class<?> beanClass = loadClass(name);
         if (beanClass == null)
             return null;
@@ -144,10 +125,13 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
     }
 
     @Override
-    public boolean isResolvePojo() {
-        if (checkReload())
+    public boolean isResolvePojo(EObject model) {
+        if (!modelProperty.isDoResolvePojo(model)) {
+            return false;
+        }
+        if (allLoaders == null) {
             init();
-        boolean result = allLoaders != null;
-        return result;
+        }
+        return allLoaders != null;
     }
 }
