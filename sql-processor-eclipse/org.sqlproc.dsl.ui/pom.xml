@@ -11,5 +11,14 @@
 	<artifactId>org.sqlproc.dsl.ui</artifactId>
 	<packaging>eclipse-plugin</packaging>
 	<name>SQL Processor DSL UI</name>
+    
+    <build>
+        <resources>
+            <resource>
+                <directory>icons</directory>
+                <targetPath>icons</targetPath>
+            </resource>
+        </resources>
+    </build>
 </project>
 
