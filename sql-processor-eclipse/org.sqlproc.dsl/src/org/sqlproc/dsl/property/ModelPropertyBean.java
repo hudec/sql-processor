@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Property;
 
@@ -39,10 +41,14 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     public void notifyChanged(Notification msg) {
-        if (msg.getNotifier() == null || msg.getFeature() == null)
+        if (msg.getNotifier() == null && (msg.getFeature() == null || msg.getFeatureID(Resource.class) == 0))
             return;
 
-        if (msg.getNotifier() instanceof Artifacts) {
+        if (msg.getNotifier() instanceof LazyLinkingResource) {
+            if (msg.getFeatureID(Resource.class) == Resource.RESOURCE__IS_LOADED) {
+                LOGGER.debug("LOADED RESOUCE " + msg.getNotifier());
+            }
+        } else if (msg.getNotifier() instanceof Artifacts) {
             if (msg.getFeature() instanceof EReference
                     && ((EReference) msg.getFeature()).getName().equals("properties")) {
 
