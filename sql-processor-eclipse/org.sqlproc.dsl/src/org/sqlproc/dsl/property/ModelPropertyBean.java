@@ -1,5 +1,6 @@
 package org.sqlproc.dsl.property;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -50,15 +51,16 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
 
     private Map<Artifacts, ModelValues> modelValues = new WeakHashMap<Artifacts, ModelValues>();
     private Map<Artifacts, String> artifacts2dirs = new WeakHashMap<Artifacts, String>();
-    private Map<String, Artifacts> dirs2artifacts = new WeakHashMap<String, Artifacts>();
+    private Map<String, Artifacts> dirs2artifacts = new HashMap<String, Artifacts>();
 
     public void notifyChanged(Notification msg) {
         if (msg.getNotifier() == null && (msg.getFeature() == null || msg.getFeatureID(Resource.class) == 0))
             return;
 
         if (msg.getNotifier() instanceof XtextResource) {
-            if (msg.getFeatureID(Resource.class) == Resource.RESOURCE__IS_LOADED) {
-                XtextResource resource = (XtextResource) msg.getNotifier();
+            int featureID = msg.getFeatureID(Resource.class);
+            XtextResource resource = (XtextResource) msg.getNotifier();
+            if (featureID == Resource.RESOURCE__IS_LOADED || featureID == Resource.RESOURCE__IS_MODIFIED) {
                 IParseResult parseResult = resource.getParseResult();
                 EObject rootASTElement = (parseResult != null) ? parseResult.getRootASTElement() : null;
                 LOGGER.debug("LOADED RESOURCE " + resource + " for " + rootASTElement);
@@ -99,7 +101,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 } else {
                     LOGGER.warn("UNNOWN PROPERTY ACTION " + msg);
                 }
-                LOGGER.debug("PROPERTY " + ((newValue != null) ? newValue.getName() : "null"));
+                // LOGGER.debug("PROPERTY " + ((newValue != null) ? newValue.getName() : "null"));
                 return;
             }
         }
@@ -166,14 +168,21 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     @Override
     public ModelValues getModelValues(EObject model) {
         Artifacts artifacts = EcoreUtil2.getContainerOfType(model, Artifacts.class);
-        if (artifacts == null)
+        if (artifacts == null) {
+            LOGGER.error("UKNOWN ARTIFACTS FOR " + model);
             return null;
+        }
+        if (artifacts.eResource() == null) {
+            LOGGER.warn("UKNOWN RESOURCE FOR " + artifacts);
+        }
         String dir = artifacts2dirs.get(artifacts);
         if (dir == null)
             return null;
         Artifacts modelArtifacts = dirs2artifacts.get(dir);
-        if (modelArtifacts == null)
+        if (modelArtifacts == null) {
+            LOGGER.warn("UKNOWN " + artifacts + " eResource: " + artifacts.eResource());
             return null;
+        }
         return modelValues.get(modelArtifacts);
     }
 

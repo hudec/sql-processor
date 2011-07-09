@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.WeakHashMap;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
@@ -50,7 +49,7 @@ public class DbResolverBean implements DbResolver {
 
     protected Logger LOGGER = Logger.getLogger(DbResolverBean.class);
 
-    private Map<String, DatabaseValues> connections = new WeakHashMap<String, DatabaseValues>();
+    private Map<String, DatabaseValues> connections = new HashMap<String, DatabaseValues>();
 
     private final Object sync = new Object();
 
