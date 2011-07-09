@@ -180,7 +180,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             return null;
         Artifacts modelArtifacts = dirs2artifacts.get(dir);
         if (modelArtifacts == null) {
-            LOGGER.warn("UKNOWN " + artifacts + " eResource: " + artifacts.eResource());
+            // LOGGER.warn("UKNOWN " + artifacts + " eResource: " + artifacts.eResource());
             return null;
         }
         return modelValues.get(modelArtifacts);
