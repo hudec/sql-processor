@@ -38,13 +38,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public String dbUsername;
         public String dbPassword;
         public String dbSchema;
-        public boolean doNextReset = false;
+        public String dir;
 
         @Override
         public String toString() {
-            return "ModelValues [resolvePojo=" + doResolvePojo + ", resolveDb=" + doResolveDb + ", dbDriver="
+            return "ModelValues [doResolvePojo=" + doResolvePojo + ", doResolveDb=" + doResolveDb + ", dbDriver="
                     + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername + ", dbPassword=" + dbPassword
-                    + ", dbSchema=" + dbSchema + "]";
+                    + ", dbSchema=" + dbSchema + ", dir=" + dir + "]";
         }
     }
 
@@ -60,7 +60,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             if (msg.getFeatureID(Resource.class) == Resource.RESOURCE__IS_LOADED) {
                 XtextResource resource = (XtextResource) msg.getNotifier();
                 IParseResult parseResult = resource.getParseResult();
-                EObject rootASTElement = parseResult.getRootASTElement();
+                EObject rootASTElement = (parseResult != null) ? parseResult.getRootASTElement() : null;
                 LOGGER.debug("LOADED RESOURCE " + resource + " for " + rootASTElement);
                 String uri = (rootASTElement != null && rootASTElement instanceof Artifacts && resource.getURI() != null) ? resource
                         .getURI().toString() : null;
@@ -74,8 +74,11 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 if (dir != null) {
                     Artifacts artifacts = (Artifacts) rootASTElement;
                     artifacts2dirs.put(artifacts, dir);
-                    if (modelValues.containsKey(artifacts))
+                    ModelValues modelModelValues = modelValues.get(artifacts);
+                    if (modelModelValues != null) {
+                        modelModelValues.dir = dir;
                         dirs2artifacts.put(dir, artifacts);
+                    }
                 }
                 LOGGER.debug("MODEL " + this.toString());
             }
@@ -96,7 +99,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 } else {
                     LOGGER.warn("UNNOWN PROPERTY ACTION " + msg);
                 }
-                LOGGER.debug("PROPERTIES " + toString());
+                LOGGER.debug("PROPERTY " + ((newValue != null) ? newValue.getName() : "null"));
                 return;
             }
         }
@@ -148,42 +151,20 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         }
     }
 
+    @Override
     public boolean isDoResolvePojo(EObject model) {
-        ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.doResolvePojo : false;
+        ModelValues modelModelValues = getModelValues(model);
+        return (modelValues != null) ? modelModelValues.doResolvePojo : false;
     }
 
+    @Override
     public boolean isDoResolveDb(EObject model) {
-        ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.doResolveDb : false;
+        ModelValues modelModelValues = getModelValues(model);
+        return (modelValues != null) ? modelModelValues.doResolveDb : false;
     }
 
-    public String getDbDriver(EObject model) {
-        ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.dbDriver : null;
-    }
-
-    public String getDbUrl(EObject model) {
-        ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.dbUrl : null;
-    }
-
-    public String getDbUsername(EObject model) {
-        ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.dbUsername : null;
-    }
-
-    public String getDbPassword(EObject model) {
-        ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.dbPassword : null;
-    }
-
-    public String getDbSchema(EObject model) {
-        ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.dbSchema : null;
-    }
-
-    protected ModelValues getModelValues(EObject model) {
+    @Override
+    public ModelValues getModelValues(EObject model) {
         Artifacts artifacts = EcoreUtil2.getContainerOfType(model, Artifacts.class);
         if (artifacts == null)
             return null;

@@ -11,16 +11,36 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.WeakHashMap;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.sqlproc.dsl.property.ModelProperty;
+import org.sqlproc.dsl.property.ModelPropertyBean;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
 public class DbResolverBean implements DbResolver {
+
+    public static class DatabaseValues {
+        public String dbDriver;
+        public String dbUrl;
+        public String dbUsername;
+        public String dbPassword;
+        public String dbSchema;
+        public String dir;
+        public Connection connection;
+        boolean doReconnect;
+
+        @Override
+        public String toString() {
+            return "DatabaseValues [dbDriver=" + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername
+                    + ", dbPassword=" + dbPassword + ", dbSchema=" + dbSchema + ", connection=" + connection + "]";
+        }
+
+    }
 
     @Inject
     ModelProperty modelProperty;
@@ -30,95 +50,101 @@ public class DbResolverBean implements DbResolver {
 
     protected Logger LOGGER = Logger.getLogger(DbResolverBean.class);
 
-    private String dbDriver;
-    private String dbUrl;
-    private String dbUsername;
-    private String dbPassword;
-    private String dbSchema;
+    private Map<String, DatabaseValues> connections = new WeakHashMap<String, DatabaseValues>();
 
-    private Connection connection;
     private final Object sync = new Object();
 
-    private List<String> tables = Collections.synchronizedList(new ArrayList<String>());
-    private Map<String, List<String>> columns = Collections.synchronizedMap(new HashMap<String, List<String>>());
+    private Map<String, List<String>> tables = Collections.synchronizedMap(new HashMap<String, List<String>>());
+    private Map<String, Map<String, List<String>>> columns = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
 
-    private boolean checkReconnect(EObject model) {
-        if (!modelProperty.isDoResolveDb(model)) {
-            closeConnection(model);
-            return false;
-        }
-        boolean reconnect = false;
-        if (modelProperty.getDbDriver(model) != null) {
-            if (!modelProperty.getDbDriver(model).equals(dbDriver)) {
-                dbDriver = modelProperty.getDbDriver(model);
-                reconnect = true;
-            }
-        } else {
-            dbDriver = null;
-            closeConnection(model);
-        }
-        if (modelProperty.getDbUrl(model) != null) {
-            if (!modelProperty.getDbUrl(model).equals(dbUrl)) {
-                dbUrl = modelProperty.getDbUrl(model);
-                reconnect = true;
-            }
-        } else {
-            dbUrl = null;
-            closeConnection(model);
+    private DatabaseValues checkReconnect(EObject model) {
+
+        ModelPropertyBean.ModelValues modelModelValues = modelProperty.getModelValues(model);
+        DatabaseValues modelDatabaseValues = connections.get(modelModelValues.dir);
+        if (modelDatabaseValues == null) {
+            modelDatabaseValues = new DatabaseValues();
+            modelDatabaseValues.dir = modelModelValues.dir;
+            connections.put(modelModelValues.dir, modelDatabaseValues);
         }
 
-        if (modelProperty.getDbUsername(model) != null) {
-            if (!modelProperty.getDbUsername(model).equals(dbUsername)) {
-                dbUsername = modelProperty.getDbUsername(model);
-                reconnect = true;
+        if (!modelModelValues.doResolveDb) {
+            closeConnection(modelDatabaseValues);
+            return null;
+        }
+
+        modelDatabaseValues.doReconnect = (modelDatabaseValues.connection != null) ? false : true;
+
+        if (modelModelValues.dbDriver != null) {
+            if (!modelModelValues.dbDriver.equals(modelDatabaseValues.dbDriver)) {
+                modelDatabaseValues.dbDriver = modelModelValues.dbDriver;
+                modelDatabaseValues.doReconnect = true;
             }
         } else {
-            dbUsername = null;
-            closeConnection(model);
+            modelDatabaseValues.dbDriver = null;
+            closeConnection(modelDatabaseValues);
+            return null;
         }
-        if (modelProperty.getDbPassword(model) != null) {
-            if (!modelProperty.getDbPassword(model).equals(dbPassword)) {
-                dbPassword = modelProperty.getDbPassword(model);
-                reconnect = true;
+        if (modelModelValues.dbUrl != null) {
+            if (!modelModelValues.dbUrl.equals(modelDatabaseValues.dbUrl)) {
+                modelDatabaseValues.dbUrl = modelModelValues.dbUrl;
+                modelDatabaseValues.doReconnect = true;
             }
         } else {
-            dbPassword = null;
-            closeConnection(model);
+            modelDatabaseValues.dbUrl = null;
+            closeConnection(modelDatabaseValues);
+            return null;
         }
-        if (modelProperty.getDbSchema(model) != null) {
-            if (!modelProperty.getDbSchema(model).equals(dbSchema)) {
-                dbSchema = modelProperty.getDbSchema(model);
+
+        if (modelModelValues.dbUsername != null) {
+            if (!modelModelValues.dbUsername.equals(modelDatabaseValues.dbUsername)) {
+                modelDatabaseValues.dbUsername = modelModelValues.dbUsername;
+                modelDatabaseValues.doReconnect = true;
+            }
+        } else {
+            modelDatabaseValues.dbUsername = null;
+            closeConnection(modelDatabaseValues);
+            return null;
+        }
+        if (modelModelValues.dbPassword != null) {
+            if (!modelModelValues.dbPassword.equals(modelDatabaseValues.dbPassword)) {
+                modelDatabaseValues.dbPassword = modelModelValues.dbPassword;
+                modelDatabaseValues.doReconnect = true;
+            }
+        } else {
+            modelDatabaseValues.dbPassword = null;
+            closeConnection(modelDatabaseValues);
+            return null;
+        }
+        if (modelModelValues.dbSchema != null) {
+            if (!modelModelValues.dbSchema.equals(modelDatabaseValues.dbSchema)) {
+                modelDatabaseValues.dbSchema = modelModelValues.dbSchema;
             }
         } else
-            dbSchema = null;
+            modelDatabaseValues.dbSchema = null;
 
-        return reconnect;
+        return modelDatabaseValues;
     }
 
-    private Connection getConnection(EObject model) {
-        if (!checkReconnect(model))
-            return connection;
-        closeConnection(model);
+    private DatabaseValues getConnection(EObject model) {
+        DatabaseValues modelDatabaseValues = checkReconnect(model);
+        if (modelDatabaseValues == null)
+            return null;
+        if (!modelDatabaseValues.doReconnect)
+            return modelDatabaseValues;
+        closeConnection(modelDatabaseValues);
         synchronized (sync) {
-            LOGGER.info("DATA START");
-            Class<?> driverClass = pojoResolverFactory.getPojoResolver().loadClass(dbDriver);
+            LOGGER.info("DATA START FOR " + modelDatabaseValues.dir);
+            Class<?> driverClass = pojoResolverFactory.getPojoResolver().loadClass(modelDatabaseValues.dbDriver);
             LOGGER.info("DATA DRIVER " + driverClass);
             if (driverClass != null && Driver.class.isAssignableFrom(driverClass)) {
-                // try {
-                // // Class.forName(dbDriver);
-                // DriverManager.registerDriver((Driver) driverClass.newInstance());
-                // DriverManager.setLoginTimeout(2500);
-                // connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-                // } catch (Exception ex) {
-                // ex.printStackTrace();
-                // }
                 try {
                     Driver driver = (Driver) driverClass.newInstance();
                     Properties props = new Properties();
-                    props.setProperty("user", dbUsername);
-                    props.setProperty("password", dbPassword);
-                    connection = driver.connect(dbUrl, props);
-                    LOGGER.info("DATA CONNECTION " + connection);
+                    props.setProperty("user", modelDatabaseValues.dbUsername);
+                    props.setProperty("password", modelDatabaseValues.dbPassword);
+                    modelDatabaseValues.connection = driver.connect(modelDatabaseValues.dbUrl, props);
+                    LOGGER.info("DATA CONNECTION " + modelDatabaseValues.connection);
                 } catch (InstantiationException e) {
                     LOGGER.error("getConnection error " + e);
                 } catch (IllegalAccessException e) {
@@ -127,23 +153,23 @@ public class DbResolverBean implements DbResolver {
                     LOGGER.error("getConnection error " + e);
                 }
             }
-            return connection;
+            return modelDatabaseValues;
         }
     }
 
-    private void closeConnection(EObject model) {
+    private void closeConnection(DatabaseValues modelDatabaseValues) {
         synchronized (sync) {
             try {
-                if (connection != null) {
-                    LOGGER.info("DATA STOP");
-                    connection.close();
+                if (modelDatabaseValues.connection != null) {
+                    LOGGER.info("DATA STOP FOR " + modelDatabaseValues.dir);
+                    modelDatabaseValues.connection.close();
                 }
             } catch (SQLException e) {
                 LOGGER.error("closeConnection error " + e);
             }
-            connection = null;
-            tables.clear();
-            columns.clear();
+            modelDatabaseValues.connection = null;
+            tables.remove(modelDatabaseValues.dir);
+            columns.remove(modelDatabaseValues.dir);
         }
     }
 
@@ -154,16 +180,21 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<String> getTables(EObject model) {
-        if (!tables.isEmpty())
-            return tables;
-        Connection conn = getConnection(model);
-        if (conn != null) {
+        DatabaseValues modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.EMPTY_LIST;
+        List<String> tablesForModel = tables.get(modelDatabaseValues.dir);
+        if (tablesForModel != null)
+            return tablesForModel;
+        tablesForModel = Collections.synchronizedList(new ArrayList<String>());
+        tables.put(modelDatabaseValues.dir, tablesForModel);
+        if (modelDatabaseValues.connection != null) {
             ResultSet result = null;
             try {
-                DatabaseMetaData meta = connection.getMetaData();
-                result = meta.getTables(null, dbSchema, null, new String[] { "TABLE" });
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getTables(null, modelDatabaseValues.dbSchema, null, new String[] { "TABLE" });
                 while (result.next()) {
-                    tables.add(result.getString("TABLE_NAME"));
+                    tablesForModel.add(result.getString("TABLE_NAME"));
                 }
             } catch (SQLException e) {
                 LOGGER.error("getTables error " + e);
@@ -176,7 +207,7 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         }
-        return tables;
+        return tablesForModel;
     }
 
     @Override
@@ -190,20 +221,33 @@ public class DbResolverBean implements DbResolver {
     @Override
     public List<String> getColumns(EObject model, String table) {
         if (table == null)
-            return Collections.emptyList();
-        if (columns.containsKey(table))
-            return columns.get(table);
-        List<String> cols = new ArrayList<String>();
-        Connection conn = getConnection(model);
-        if (conn != null && table != null) {
+            return Collections.EMPTY_LIST;
+        DatabaseValues modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.EMPTY_LIST;
+        boolean doInit = false;
+        Map<String, List<String>> allColumnsForModel = columns.get(modelDatabaseValues.dir);
+        if (allColumnsForModel == null) {
+            allColumnsForModel = Collections.synchronizedMap(new HashMap<String, List<String>>());
+            columns.put(modelDatabaseValues.dir, allColumnsForModel);
+            doInit = true;
+        }
+        List<String> columnsForModel = allColumnsForModel.get(table);
+        if (columnsForModel == null) {
+            columnsForModel = Collections.synchronizedList(new ArrayList<String>());
+            allColumnsForModel.put(table, columnsForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return columnsForModel;
+        if (modelDatabaseValues.connection != null) {
             ResultSet result = null;
             try {
-                DatabaseMetaData meta = connection.getMetaData();
-                result = meta.getColumns(null, dbSchema, table, null);
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getColumns(null, modelDatabaseValues.dbSchema, table, null);
                 while (result.next()) {
-                    cols.add(result.getString("COLUMN_NAME"));
+                    columnsForModel.add(result.getString("COLUMN_NAME"));
                 }
-                columns.put(table, cols);
             } catch (SQLException e) {
                 LOGGER.error("getColumns error " + e);
             } finally {
@@ -215,7 +259,7 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         }
-        return columns.get(table);
+        return columnsForModel;
     }
 
     @Override
