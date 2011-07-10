@@ -3,7 +3,6 @@
  */
 package org.sqlproc.dsl;
 
-import org.eclipse.xtext.parser.IAstFactory;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.property.ModelPropertyBean;
@@ -21,9 +20,9 @@ public class ProcessorDslRuntimeModule extends org.sqlproc.dsl.AbstractProcessor
         return ModelPropertyBean.class;
     }
 
-    public Class<? extends IAstFactory> bindIAstFactory() {
-        return ProcessorEcoreElementFactory.class;
-    }
+    // public Class<? extends IAstFactory> bindIAstFactory() {
+    // return ProcessorEcoreElementFactory.class;
+    // }
 
     @Override
     public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {

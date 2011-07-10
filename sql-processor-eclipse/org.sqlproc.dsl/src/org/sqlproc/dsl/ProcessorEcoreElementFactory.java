@@ -18,6 +18,8 @@ public class ProcessorEcoreElementFactory extends DefaultEcoreElementFactory {
 
     protected Logger LOGGER = Logger.getLogger(ProcessorEcoreElementFactory.class);
 
+    // This class is obsolete, just to document the possibilities
+
     @Inject
     ModelProperty modelProperty;
 
