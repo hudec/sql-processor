@@ -58,7 +58,8 @@ public class DbResolverBean implements DbResolver {
             .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
 
     private DatabaseValues checkReconnect(EObject model) {
-
+        if (model == null)
+            return null;
         ModelPropertyBean.ModelValues modelModelValues = modelProperty.getModelValues(model);
         DatabaseValues modelDatabaseValues = connections.get(modelModelValues.dir);
         if (modelDatabaseValues == null) {

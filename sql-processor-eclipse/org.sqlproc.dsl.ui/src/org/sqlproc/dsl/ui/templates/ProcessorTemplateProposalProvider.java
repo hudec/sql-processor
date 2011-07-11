@@ -9,6 +9,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ITemplateAcceptor;
 import org.eclipse.xtext.ui.editor.templates.ContextTypeIdHelper;
 import org.eclipse.xtext.ui.editor.templates.DefaultTemplateProposalProvider;
+import org.sqlproc.dsl.processorDsl.SqlFragment;
 import org.sqlproc.dsl.services.ProcessorDslGrammarAccess;
 
 import com.google.inject.Inject;
@@ -38,7 +39,8 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
 
         // create the template only if that id fits the id of
         // the current template context type
-        if (templateContext.getContextType().getId().equals(id)) {
+        if (templateContext.getContextType().getId().equals(id)
+                && (context.getPreviousModel() == null || context.getPreviousModel() instanceof SqlFragment)) {
 
             // create a template on the fly
             Template template = new Template("ins", "CRUD insert statement", "uniqueTemplateID",

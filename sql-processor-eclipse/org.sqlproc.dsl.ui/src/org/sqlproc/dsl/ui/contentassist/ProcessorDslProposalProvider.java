@@ -7,6 +7,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,18 +49,26 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     @Inject
     DbResolver dbResolver;
 
-    private static final List<String> ON_OFF = Arrays.asList(new String[] { "ON", "OFF" });
-    private static final List<String> STATEMEN_TYPE = Arrays.asList(new String[] { "QRY", "CRUD", "CALL" });
-    private static final List<String> MAPPING_TYPE = Arrays.asList(new String[] { "OUT" });
-    private static final List<String> OPTION_TYPE = Arrays
-            .asList(new String[] { "OPT", "LOPT", "IOPT", "SOPT", "BOPT" });
-    private static final List<String> TYPES = Arrays.asList(new String[] { "int", "integer", "long", "byte", "short",
-            "float", "double", "character", "char", "string", "str", "time", "date", "datetime", "timestamp", "stamp",
-            "bool", "boolean", "bigint", "biginteger", "bigdec", "bigdecimal", "bytearr", "bytearray", "bytes", "text",
-            "blob", "clob", "einteger", "eint", "enumstring", "estring", "fromdate", "todate", "h_big_decimal",
-            "h_big_integer", "h_blob", "h_boolean", "h_binary", "h_byte", "h_clob", "h_timestamp", "h_date",
-            "h_double", "h_float", "h_date", "h_character", "h_integer", "h_long", "h_short", "h_string", "h_text",
-            "h_timestamp", "h_time" });
+    private static final List<String> ON_OFF = Collections
+            .unmodifiableList(Arrays.asList(new String[] { "ON", "OFF" }));
+    private static final List<String> STATEMEN_TYPE = Collections.unmodifiableList(Arrays.asList(new String[] { "QRY",
+            "CRUD", "CALL" }));
+    private static final List<String> MAPPING_TYPE = Collections
+            .unmodifiableList(Arrays.asList(new String[] { "OUT" }));
+    private static final List<String> OPTION_TYPE = Collections.unmodifiableList(Arrays.asList(new String[] { "OPT",
+            "LOPT", "IOPT", "SOPT", "BOPT" }));
+    private static final List<String> TYPES = Collections.unmodifiableList(Arrays.asList(new String[] { "int",
+            "integer", "long", "byte", "short", "float", "double", "character", "char", "string", "str", "time",
+            "date", "datetime", "timestamp", "stamp", "bool", "boolean", "bigint", "biginteger", "bigdec",
+            "bigdecimal", "bytearr", "bytearray", "bytes", "text", "blob", "clob", "einteger", "eint", "enumstring",
+            "estring", "fromdate", "todate", "h_big_decimal", "h_big_integer", "h_blob", "h_boolean", "h_binary",
+            "h_byte", "h_clob", "h_timestamp", "h_date", "h_double", "h_float", "h_date", "h_character", "h_integer",
+            "h_long", "h_short", "h_string", "h_text", "h_timestamp", "h_time" }));
+    private static final List<String> F_TYPES = Collections.unmodifiableList(Arrays.asList(new String[] { "set",
+            "update", "values" }));
+    private static final List<String> IDENT_VALS = Collections.unmodifiableList(Arrays.asList(new String[] { "any",
+            "null", "notnull", "seq=", "idsel=" }));
+    private static final List<String> COL_VALS = Collections.unmodifiableList(Arrays.asList(new String[] { "id" }));
 
     @Override
     public void completeProperty_DoResolvePojo(EObject model, Assignment assignment, ContentAssistContext context,
@@ -124,6 +133,36 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
             acceptor.accept(completionProposal);
         }
+    }
+
+    @Override
+    public void completeMetaSql_Ftype(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        addProposalList(F_TYPES, "IDENT", context, acceptor);
+    }
+
+    @Override
+    public void completeConstant_Vals(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        addProposalList(IDENT_VALS, "IDENT", context, acceptor);
+    }
+
+    @Override
+    public void completeIdentifier_Vals(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        addProposalList(IDENT_VALS, "IDENT", context, acceptor);
+    }
+
+    @Override
+    public void completeColumn_Vals(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        addProposalList(COL_VALS, "IDENT", context, acceptor);
+    }
+
+    @Override
+    public void completeMappingColumn_Vals(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        addProposalList(COL_VALS, "IDENT", context, acceptor);
     }
 
     @Override
