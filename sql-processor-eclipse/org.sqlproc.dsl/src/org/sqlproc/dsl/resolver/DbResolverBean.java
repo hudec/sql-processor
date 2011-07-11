@@ -49,12 +49,12 @@ public class DbResolverBean implements DbResolver {
 
     protected Logger LOGGER = Logger.getLogger(DbResolverBean.class);
 
-    private Map<String, DatabaseValues> connections = new HashMap<String, DatabaseValues>();
-
     private final Object sync = new Object();
 
-    private Map<String, List<String>> tables = Collections.synchronizedMap(new HashMap<String, List<String>>());
-    private Map<String, Map<String, List<String>>> columns = Collections
+    private final Map<String, DatabaseValues> connections = new HashMap<String, DatabaseValues>();
+
+    private final Map<String, List<String>> tables = Collections.synchronizedMap(new HashMap<String, List<String>>());
+    private final Map<String, Map<String, List<String>>> columns = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
 
     private DatabaseValues checkReconnect(EObject model) {

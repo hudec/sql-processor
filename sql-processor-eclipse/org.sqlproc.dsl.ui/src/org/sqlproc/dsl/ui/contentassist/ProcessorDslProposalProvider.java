@@ -65,7 +65,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             "h_byte", "h_clob", "h_timestamp", "h_date", "h_double", "h_float", "h_date", "h_character", "h_integer",
             "h_long", "h_short", "h_string", "h_text", "h_timestamp", "h_time" }));
     private static final List<String> F_TYPES = Collections.unmodifiableList(Arrays.asList(new String[] { "set",
-            "update", "values" }));
+            "update", "values", "where" }));
     private static final List<String> IDENT_VALS = Collections.unmodifiableList(Arrays.asList(new String[] { "any",
             "null", "notnull", "seq=", "idsel=" }));
     private static final List<String> COL_VALS = Collections.unmodifiableList(Arrays.asList(new String[] { "id" }));

@@ -3,8 +3,11 @@ package org.sqlproc.dsl.validation;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -27,6 +30,7 @@ import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
+import org.sqlproc.dsl.processorDsl.MetaSql;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
@@ -56,6 +60,28 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     public enum ValidationResult {
         OK, WARNING, ERROR;
+    }
+
+    private static final List<String> F_TYPES = Collections.unmodifiableList(Arrays.asList(new String[] { "set",
+            "update", "values", "where" }));
+
+    @Check
+    public void checkMetaSqlFtype(MetaSql metaSql) {
+        if (metaSql.getFtype() == null)
+            return;
+        if (!findInList(F_TYPES, metaSql.getFtype())) {
+            error("Invalid ftype : " + metaSql.getFtype(), ProcessorDslPackage.Literals.META_SQL__FTYPE);
+        }
+    }
+
+    private boolean findInList(List<String> list, String value) {
+        if (list == null)
+            return false;
+        for (String item : list) {
+            if (item.equals(value))
+                return true;
+        }
+        return false;
     }
 
     @Check
