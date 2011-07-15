@@ -192,7 +192,7 @@ public class DbResolverBean implements DbResolver {
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
-                result = meta.getTables(null, modelDatabaseValues.dbSchema, null, new String[] { "TABLE" });
+                result = meta.getTables(null, modelDatabaseValues.dbSchema, null, new String[] { "TABLE", "VIEW" });
                 while (result.next()) {
                     tablesForModel.add(result.getString("TABLE_NAME"));
                 }
