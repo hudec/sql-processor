@@ -21,6 +21,7 @@
         <version.slf4j>1.5.2</version.slf4j>
         <version.junit>4.8.2</version.junit>
         <version.hsqldb>2.2.4</version.hsqldb>
+        <version.oracle>10.2.0.4</version.oracle>
     </properties>
 
     <build>
@@ -111,6 +112,11 @@
             <artifactId>hsqldb</artifactId>
             <version>${version.hsqldb}</version>
         </dependency>
+        <!-- dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc14</artifactId>
+            <version>${version.oracle}</version>
+        </dependency-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
