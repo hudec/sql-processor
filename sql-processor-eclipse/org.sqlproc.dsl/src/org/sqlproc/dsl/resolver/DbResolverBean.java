@@ -51,7 +51,8 @@ public class DbResolverBean implements DbResolver {
 
     private final Object sync = new Object();
 
-    private final Map<String, DatabaseValues> connections = new HashMap<String, DatabaseValues>();
+    private final Map<String, DatabaseValues> connections = Collections
+            .synchronizedMap(new HashMap<String, DatabaseValues>());
 
     private final Map<String, List<String>> tables = Collections.synchronizedMap(new HashMap<String, List<String>>());
     private final Map<String, Map<String, List<String>>> columns = Collections
@@ -214,8 +215,7 @@ public class DbResolverBean implements DbResolver {
     public boolean checkTable(EObject model, String table) {
         if (table == null)
             return false;
-        List<String> tbls = getTables(model);
-        return tbls.contains(table);
+        return getTables(model).contains(table);
     }
 
     @Override
