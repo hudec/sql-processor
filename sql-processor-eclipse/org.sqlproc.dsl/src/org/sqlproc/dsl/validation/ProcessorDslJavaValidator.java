@@ -69,16 +69,16 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     public void checkMetaSqlFtype(MetaSql metaSql) {
         if (metaSql.getFtype() == null)
             return;
-        if (!findInList(F_TYPES, metaSql.getFtype())) {
+        if (!findInListIgnoreCase(F_TYPES, metaSql.getFtype())) {
             error("Invalid ftype : " + metaSql.getFtype(), ProcessorDslPackage.Literals.META_SQL__FTYPE);
         }
     }
 
-    private boolean findInList(List<String> list, String value) {
+    private boolean findInListIgnoreCase(List<String> list, String value) {
         if (list == null)
             return false;
         for (String item : list) {
-            if (item.equals(value))
+            if (item.equalsIgnoreCase(value))
                 return true;
         }
         return false;
