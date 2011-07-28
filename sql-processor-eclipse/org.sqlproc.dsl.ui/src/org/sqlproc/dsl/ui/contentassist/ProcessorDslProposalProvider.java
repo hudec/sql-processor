@@ -67,7 +67,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     private static final List<String> F_TYPES = Collections.unmodifiableList(Arrays.asList(new String[] { "set",
             "update", "values", "where" }));
     private static final List<String> IDENT_VALS = Collections.unmodifiableList(Arrays.asList(new String[] { "any",
-            "null", "notnull", "seq=", "idsel=" }));
+            "null", "notnull", "seq", "seq=", "idsel", "idsel=" }));
     private static final List<String> COL_VALS = Collections.unmodifiableList(Arrays.asList(new String[] { "id" }));
 
     @Override
