@@ -3,25 +3,115 @@
  */
 package org.sqlproc.dsl.formatting;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
+import org.sqlproc.dsl.services.ProcessorDslGrammarAccess;
 
 /**
  * This class contains custom formatting description.
  * 
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#formatting
- * on how and when to use it 
+ * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#formatting on how and when to use it
  * 
  * Also see {@link org.eclipse.xtext.xtext.XtextFormattingTokenSerializer} as an example
  */
 public class ProcessorDslFormatter extends AbstractDeclarativeFormatter {
-	
-	@Override
-	protected void configureFormatting(FormattingConfig c) {
-// It's usually a good idea to activate the following three statements.
-// They will add and preserve newlines around comments
-//		c.setLinewrap(0, 1, 2).before(getGrammarAccess().getSL_COMMENTRule());
-//		c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
-//		c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
-	}
+
+    @Override
+    protected void configureFormatting(FormattingConfig c) {
+        ProcessorDslGrammarAccess grammarAccess = (ProcessorDslGrammarAccess) getGrammarAccess();
+
+        // c.setAutoLinewrap(120);
+
+        c.setNoSpace().before(grammarAccess.getSEMICOLONRule());
+
+        c.setLinewrap().after(grammarAccess.getPropertyRule());
+        c.setLinewrap().after(grammarAccess.getPojoDefinitionRule());
+        c.setLinewrap().after(grammarAccess.getIdentifierUsageRule());
+        c.setLinewrap().after(grammarAccess.getColumnUsageRule());
+        c.setLinewrap().after(grammarAccess.getConstantUsageRule());
+        c.setLinewrap().after(grammarAccess.getMappingUsageRule());
+        c.setLinewrap().after(grammarAccess.getTableDefinitionRule());
+        c.setLinewrap().after(grammarAccess.getTableUsageRule());
+        c.setLinewrap().after(grammarAccess.getMetaStatementRule());
+        c.setLinewrap().after(grammarAccess.getOptionalFeatureRule());
+
+        setNoSpace(c, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_0());
+        setNoSpace(c, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_0_1());
+        setNoSpace(c, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_1_1());
+        setNoSpace(c, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_2_1());
+        setNoSpace(c, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_3_1());
+        setNoSpace(c, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_4_1());
+        setNoSpace(c, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_5_1());
+        setNoSpace(c, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_6_1());
+        setNoSpace(c, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_7_1());
+
+        setNoSpace(c, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_0_1());
+        setNoSpace(c, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_1_1());
+        setNoSpace(c, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_2_1());
+        setNoSpace(c, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_3_1());
+        setNoSpace(c, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_4_1());
+        setNoSpace(c, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_5_1());
+        setNoSpace(c, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_6_1());
+
+        setNoSpace(c, grammarAccess.getMetaSqlAccess().getWSTerminalRuleCall_0_0());
+        setNoSpace(c, grammarAccess.getMetaSqlAccess().getWSTerminalRuleCall_4_1());
+
+        setNoSpace(c, grammarAccess.getIfMetaSqlAccess().getWSTerminalRuleCall_0_0());
+
+        setNoSpace(c, grammarAccess.getIfSqlCondAccess().getWSTerminalRuleCall_0());
+        setNoSpace(c, grammarAccess.getIfSqlCondAccess().getWSTerminalRuleCall_2());
+        setNoSpace(c, grammarAccess.getIfSqlCondAccess().getWSTerminalRuleCall_3_1());
+        setNoSpace(c, grammarAccess.getIfSqlCondAccess().getWSTerminalRuleCall_3_3());
+
+        setNoSpace(c, grammarAccess.getMappingAccess().getWSTerminalRuleCall_0());
+        setNoSpace(c, grammarAccess.getMappingAccess().getWSTerminalRuleCall_2_0());
+        setNoSpace(c, grammarAccess.getMappingAccess().getWSTerminalRuleCall_3());
+
+        setNoSpace(c, grammarAccess.getIdentifierRule());
+        setNoSpace(c, grammarAccess.getColumnRule());
+        setNoSpace(c, grammarAccess.getConstantRule());
+        setNoSpace(c, grammarAccess.getMappingItemRule());
+        setNoSpace(c, grammarAccess.getDatabaseColumnRule());
+        setNoSpace(c, grammarAccess.getDatabaseTableRule());
+        setNoSpace(c, grammarAccess.getMetaSqlAccess().getFtypeIDENTTerminalRuleCall_4_2_0());
+
+        setNoSpace(c, grammarAccess.getNUMBERRule());
+        // setNoSpace(c, grammarAccess.getWSRule());
+        setNoSpace(c, grammarAccess.getANDRule());
+        setNoSpace(c, grammarAccess.getORRule());
+        setNoSpace(c, grammarAccess.getESC_CHARRule());
+        setNoSpace(c, grammarAccess.getCOLONRule());
+        // setNoSpace(c, grammarAccess.getSEMICOLONRule());
+        setNoSpace(c, grammarAccess.getSTRINGRule());
+        setNoSpace(c, grammarAccess.getCOMMARule());
+        setNoSpace(c, grammarAccess.getMINUSRule());
+        setNoSpace(c, grammarAccess.getPLUSRule());
+        setNoSpace(c, grammarAccess.getLPARENRule());
+        setNoSpace(c, grammarAccess.getRPARENRule());
+        setNoSpace(c, grammarAccess.getLBRACERule());
+        setNoSpace(c, grammarAccess.getRBRACERule());
+        setNoSpace(c, grammarAccess.getQUESTIRule());
+        setNoSpace(c, grammarAccess.getNOTRule());
+        setNoSpace(c, grammarAccess.getBANDRule());
+        setNoSpace(c, grammarAccess.getBORRule());
+        setNoSpace(c, grammarAccess.getHASHRule());
+        setNoSpace(c, grammarAccess.getATRule());
+        setNoSpace(c, grammarAccess.getCARETRule());
+        setNoSpace(c, grammarAccess.getEQUALSRule());
+        setNoSpace(c, grammarAccess.getLESS_THANRule());
+        setNoSpace(c, grammarAccess.getMORE_THANRule());
+        setNoSpace(c, grammarAccess.getPERCENTRule());
+
+        c.setLinewrap(0, 1, 2).before(grammarAccess.getSL_COMMENTRule());
+        c.setLinewrap(0, 1, 2).before(grammarAccess.getML_COMMENTRule());
+        c.setLinewrap(0, 1, 1).after(grammarAccess.getML_COMMENTRule());
+    }
+
+    private void setNoSpace(FormattingConfig config, EObject eObject) {
+        if (config != null && eObject != null) {
+            config.setNoSpace().after(eObject);
+            config.setNoSpace().before(eObject);
+        }
+    }
 }

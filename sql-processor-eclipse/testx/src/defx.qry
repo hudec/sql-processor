@@ -58,7 +58,7 @@ ident ENUM_CONDITION person_form;
 ident ENUM_CONDITION_2 person_form;
 ident COLLECTIONS_UNDEFINED collection_form;
 ident COLLECTIONS_STANDARD collection_form;
-ident PARAMETERS_MORE person_form; 
+ident PARAMETERS_MORE person_form;
 ident PARAMETERS_TOP person_form;
 ident CONDITIONS_MORE person_form;
 ident EXC_1 person_form;
@@ -86,7 +86,7 @@ ident CRUD_PERSON_SELECT person;
 ident UPDATE_PERSON person;
 ident UPDATE_PERSON_2 person;
 ident DELETE_PERSON person;
-ident DELETE_PERSON_2 person; 
+ident DELETE_PERSON_2 person;
 ident DELETE_PERSON_3 person;
 ident GET_PERSON person;
 ident GET_PERSON_2 person;
@@ -111,9 +111,9 @@ const CONSTANT_OR_BASIC_2 person_form;
 const CONSTANT_IN_ORDER_BASIC person_form;
 const CONSTANT_IN_ORDER_BASIC_2 person_form;
 const CONDITIONAL_JOIN_ADV_2 search_form;
-const INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC person_form; 
+const INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC person_form;
 const INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2 person_form;
-const SQL_IN_BRACES_BASIC person_form; 
+const SQL_IN_BRACES_BASIC person_form;
 const SQL_IN_BRACES_BASIC_2 person_form;
 const SQL_IN_BRACES_ADV person_form;
 const CONDITIONAL_JOIN_ADV search_form;
@@ -161,7 +161,7 @@ col IN_META_ESCAPED person;
 col COLLECTIONS_UNDEFINED person;
 col COLLECTIONS_STANDARD person;
 col PARAMETERS_MORE person;
-col PARAMETERS_TOP person; 
+col PARAMETERS_TOP person;
 col CONDITIONS_MORE person;
 col EXC_1 person;
 col STANDARD_TYPES transport;
@@ -173,7 +173,7 @@ col CUSTOM_TYPE_IN_OUT contact;
 col CUSTOM_TYPE_GET contact;
 col INHERITANCE2_BASIC subcriber;
 col BASIC_LEFT_JOIN_NO_ID physical_media;
-col BASIC_LEFT_JOIN_NO_ID_2 physical_media; 
+col BASIC_LEFT_JOIN_NO_ID_2 physical_media;
 col BASIC_LEFT_JOIN library;
 col BASIC_LEFT_JOIN_2 library;
 col BASIC_2_LEFT_JOIN library;
@@ -257,7 +257,7 @@ table mchar_in_media EXISTSINMEDIA_MEDIACHARACTER;
 table played_by MEDIACHARACTER_PLAYEDBY;
 table pmedia_content MEDIA_PHYSICALMEDIA;
 table types TYPES;
- 
+
 /*
  * the usage of database columns
  */
@@ -267,7 +267,6 @@ dbcol ANSI_BASIC_3 person prefix p;
 dbcol SQL_EXT_BASIC person;
 dbcol SQL_EXT_BASIC_2 person prefix p;
 dbcol BASIC person;
-
 dbcol BASIC_4_LEFT_JOIN_2 library prefix l;
 dbcol BASIC_4_LEFT_JOIN_2 pmedia prefix pm;
 dbcol BASIC_4_LEFT_JOIN_2 pmedia_content prefix mpm;

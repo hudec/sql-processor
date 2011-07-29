@@ -1,6 +1,6 @@
 /*
  * Advanced searching capability based on text fragment
- */
+ */ 
 LIKE_STRING(OPT)=like;
 WILDCARD_CHARACTER(OPT)=%;
 SURROUND_QUERY_LIKE(BOPT)=true;
