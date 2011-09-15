@@ -2,9 +2,11 @@ package org.sqlproc.engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.impl.SqlMappingResult;
@@ -397,6 +399,13 @@ public class SqlQueryEngine extends SqlEngine {
                     Object[] previousResultValue = null;
                     boolean[] changedIdentities = null;
                     Map<String, Object> instances = new HashMap<String, Object>();
+                    // the next is workaround for the next problem
+                    // A is joined to different entities B and C the identities are the next ones
+                    // A=1, B=11, C=21
+                    // A=1, B=12, C=21
+                    // A=1, B=11, C=22
+                    // A=1, B=12, C=22
+                    Map<Integer, Set<Object>> ids = new HashMap<Integer, Set<Object>>();
 
                     for (Iterator i$ = list.iterator(); i$.hasNext();) {
                         Object resultRow = i$.next();
@@ -408,14 +417,17 @@ public class SqlQueryEngine extends SqlEngine {
                                 mappingResult.getMainIdentityIndex());
                         if (changedIdentity) {
                             changedIdentities = SqlUtils.initChangedIdentities(resultValue.length, true);
+                            for (Integer idx : mappingResult.getIdentitiesIndexes()) {
+                                ids.put(idx, new HashSet<Object>());
+                            }
                         }
 
                         resultInstance = (changedIdentity) ? BeanUtils.getInstance(resultClass) : previousInstance;
                         if (resultInstance == null) {
                             throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                         }
-                        mappingResult.setQueryResultData(resultInstance, resultValue, instances, changedIdentities,
-                                moreResultClasses);
+                        mappingResult.setQueryResultData(resultInstance, resultValue, instances, ids,
+                                changedIdentities, moreResultClasses);
                         if (changedIdentity)
                             result.add(resultInstance);
                         previousInstance = resultInstance;

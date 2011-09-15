@@ -327,7 +327,7 @@ public class SqlProcedureEngine extends SqlEngine {
                         if (resultInstance == null) {
                             throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                         }
-                        mappingResult.setQueryResultData(resultInstance, resultValue, instances, null, null);
+                        mappingResult.setQueryResultData(resultInstance, resultValue, instances, null, null, null);
                         result.add(resultInstance);
                     }
                     return result;

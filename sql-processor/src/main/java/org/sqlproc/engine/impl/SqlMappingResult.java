@@ -207,12 +207,13 @@ public class SqlMappingResult {
      *             in the case of any problem with output values handling
      */
     public void setQueryResultData(Object resultInstance, Object[] resultValues, Map<String, Object> instances,
-            boolean[] changedIdentities, Map<String, Class<?>> moreResultClasses) throws SqlRuntimeException {
+            Map<Integer, Set<Object>> ids, boolean[] changedIdentities, Map<String, Class<?>> moreResultClasses)
+            throws SqlRuntimeException {
         int i = 0;
         Set<String> allocatedContainers = new HashSet<String>();
         for (SqlMappingItem item : mappings.values()) {
-            item.setQueryResultData(resultInstance, resultValues[i], instances, allocatedContainers, changedIdentities,
-                    identities, moreResultClasses);
+            item.setQueryResultData(resultInstance, i, resultValues, instances, ids, allocatedContainers,
+                    changedIdentities, identities, moreResultClasses);
             i++;
         }
     }
@@ -241,5 +242,14 @@ public class SqlMappingResult {
             }
         }
         calculateIdentities();
+    }
+
+    /**
+     * Return the list of identities indexes in the list of output values
+     * 
+     * @return the list of identities indexes in the list of output values
+     */
+    public List<Integer> getIdentitiesIndexes() {
+        return identitiesIndexes;
     }
 }

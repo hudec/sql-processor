@@ -327,7 +327,7 @@ class SqlMappingItem implements SqlMetaElement {
      *            the query execution output value
      * @param instances
      *            the already allocated instances for the case of one-to-many or many-to-many repeated rows
-     * @param allocatedCllections
+     * @param allocatedCollections
      *            the already allocated collection instances for one database output result set
      * @param changedIdentities
      *            the indicators of changed identities for the case of one-to-many or many-to-many repeated rows
@@ -339,16 +339,34 @@ class SqlMappingItem implements SqlMetaElement {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with output values handling
      */
-    void setQueryResultData(Object resultInstance, Object resultValue, Map<String, Object> instances,
-            Set<String> allocatedCllections, boolean[] changedIdentities, Map<String, SqlMappingIdentity> identities,
+    void setQueryResultData(Object resultInstance, int resultIndex, Object[] resultValues,
+            Map<String, Object> instances, Map<Integer, Set<Object>> ids, Set<String> allocatedCollections,
+            boolean[] changedIdentities, Map<String, SqlMappingIdentity> identities,
             Map<String, Class<?>> moreResultClasses) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>>  setQueryResultData, fullName=" + getFullName() + ", resultInstance=" + resultInstance
-                    + ", resultValue=" + resultValue);
+            logger.trace(">>> setQueryResultData, fullName=" + getFullName() + ", resultInstance=" + resultInstance
+                    + ", resultValue=" + resultValues[resultIndex]);
         }
-        if (resultValue == null) {
+        if (resultValues[resultIndex] == null) {
             return;
         }
+
+        Integer idIndex = null;
+        Object id = null;
+        if (identities.get(getFullName()).identityIndexes != null) {
+            for (Integer i : identities.get(getFullName()).identityIndexes) {
+                Object o = resultValues[i];
+                if (o != null) {
+                    idIndex = i;
+                    id = o;
+                    break;
+                }
+            }
+        }
+        if (logger.isTraceEnabled()) {
+            logger.trace("=== setQueryResultData, fullName=" + getFullName() + ", id=" + id + ", idIndex=" + idIndex);
+        }
+
         boolean changed = SqlUtils.changedIdentity(changedIdentities, identities.get(getFullName()).identityIndexes);
         if (!changed)
             return;
@@ -361,7 +379,7 @@ class SqlMappingItem implements SqlMetaElement {
             String name = attr.getName();
 
             if (logger.isTraceEnabled()) {
-                logger.trace("===  setQueryResultData, fullName=" + getFullName() + ", name=" + name + ", identities="
+                logger.trace("=== setQueryResultData, fullName=" + getFullName() + ", name=" + name + ", identities="
                         + identities.get(attr.getFullName()));
             }
 
@@ -411,14 +429,14 @@ class SqlMappingItem implements SqlMetaElement {
                 if (!exit && nextObj instanceof Collection) {
                     SqlMappingIdentity ident = identities.get(attr.getFullName());
                     if (SqlUtils.changedIdentity(changedIdentities, ident.identityIndexes)
-                            && !allocatedCllections.contains(attr.getFullName())) {
-                        allocatedCllections.add(attr.getFullName());
+                            && !allocatedCollections.contains(attr.getFullName())) {
+                        allocatedCollections.add(attr.getFullName());
                         String typeName = (moreResultClasses != null) ? values.get(attr.getFullName()
                                 + SqlUtils.SUPPVAL_GTYPE) : null;
                         Class<?> typeClass = null;
                         if (typeName != null) {
                             if (typeName.toLowerCase().startsWith(SqlUtils.SUPPVAL_DISCRIMINATOR))
-                                typeClass = moreResultClasses.get(resultValue);
+                                typeClass = moreResultClasses.get(resultValues[resultIndex]);
                             else
                                 typeClass = moreResultClasses.get(typeName);
                         }
@@ -429,7 +447,10 @@ class SqlMappingItem implements SqlMetaElement {
                         if (typeClass != null) {
                             Object itemObj = BeanUtils.getInstance(typeClass);
                             if (itemObj != null) {
-                                ((Collection) nextObj).add(itemObj);
+                                if (!ids.get(idIndex).contains(id)) {
+                                    ((Collection) nextObj).add(itemObj);
+                                    ids.get(idIndex).add(id);
+                                }
                                 nextObj = itemObj;
                                 instances.put(attr.getFullName(), nextObj);
                             } else if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
@@ -468,10 +489,10 @@ class SqlMappingItem implements SqlMetaElement {
         }
 
         if (logger.isTraceEnabled()) {
-            logger.trace("<<<  setQueryResultData, fullName=" + getFullName() + ", name=" + getName() + ", obj=" + obj
-                    + ", resultValue=" + resultValue);
+            logger.trace("<<< setQueryResultData, fullName=" + getFullName() + ", name=" + getName() + ", obj=" + obj
+                    + ", resultValue=" + resultValues[resultIndex]);
         }
-        sqlType.setResult(obj, getName(), resultValue);
+        sqlType.setResult(obj, getName(), resultValues[resultIndex]);
     }
 
     /**
