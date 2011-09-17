@@ -341,7 +341,7 @@ class SqlMappingItem implements SqlMetaElement {
      */
     void setQueryResultData(Object resultInstance, int resultIndex, Object[] resultValues,
             Map<String, Object> instances, Map<Integer, Set<Object>> ids, Set<String> allocatedCollections,
-            boolean[] changedIdentities, Map<String, SqlMappingIdentity> identities,
+            Boolean[] changedIdentities, Map<String, SqlMappingIdentity> identities,
             Map<String, Class<?>> moreResultClasses) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setQueryResultData, fullName=" + getFullName() + ", resultInstance=" + resultInstance

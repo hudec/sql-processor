@@ -385,7 +385,7 @@ public class SqlCrudEngine extends SqlEngine {
                     E previousInstance = null;
                     Object[] resultValue = null;
                     Object[] previousResultValue = null;
-                    boolean[] changedIdentities = null;
+                    Boolean[] changedIdentities = null;
                     Map<String, Object> instances = new HashMap<String, Object>();
                     // the next is workaround for the next problem
                     // A is joined to different entities B and C the identities are the next ones
@@ -399,7 +399,8 @@ public class SqlCrudEngine extends SqlEngine {
                         Object resultRow = i$.next();
                         resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
                                 : (new Object[] { resultRow });
-                        changedIdentities = SqlUtils.changedIdentities(resultValue, previousResultValue);
+                        changedIdentities = SqlUtils.changedIdentities(resultValue, previousResultValue,
+                                mappingResult.getIdentitiesIndexes());
 
                         boolean changedIdentity = SqlUtils.changedIdentity(changedIdentities,
                                 mappingResult.getMainIdentityIndex());
@@ -410,7 +411,8 @@ public class SqlCrudEngine extends SqlEngine {
                             for (Integer idx : mappingResult.getIdentitiesIndexes()) {
                                 ids.put(idx, new HashSet<Object>());
                             }
-                            changedIdentities = SqlUtils.initChangedIdentities(resultValue.length, true);
+                            changedIdentities = SqlUtils.initChangedIdentities(resultValue.length, true,
+                                    mappingResult.getIdentitiesIndexes());
                         }
 
                         resultInstance = (changedIdentity) ? BeanUtils.getInstance(resultClass) : previousInstance;

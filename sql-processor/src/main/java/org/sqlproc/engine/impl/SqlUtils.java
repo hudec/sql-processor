@@ -188,26 +188,28 @@ public class SqlUtils {
     }
 
     // identities
-    public static boolean[] initChangedIdentities(int length, boolean changed) {
-        boolean[] changedIdentities = new boolean[length];
-        if (changed) {
-            for (int i = 0; i < length; i++) {
-                changedIdentities[i] = true;
-            }
-            return changedIdentities;
+    public static Boolean[] initChangedIdentities(int length, boolean changed, List<Integer> identityIndexes) {
+        Boolean[] changedIdentities = new Boolean[length];
+        for (Integer identityIndex : identityIndexes) {
+            changedIdentities[identityIndex] = changed;
         }
         return changedIdentities;
     }
 
-    public static boolean[] changedIdentities(Object resultValue[], Object[] previousResultValue) {
-        boolean[] changedIdentities = initChangedIdentities(resultValue.length, previousResultValue == null);
+    public static Boolean[] changedIdentities(Object resultValue[], Object[] previousResultValue,
+            List<Integer> identityIndexes) {
+        if (identityIndexes == null || identityIndexes.isEmpty())
+            return null;
+
+        Boolean[] changedIdentities = initChangedIdentities(resultValue.length, previousResultValue == null,
+                identityIndexes);
         if (previousResultValue == null) {
             return changedIdentities;
         }
 
-        for (int i = 0; i < resultValue.length; i++) {
-            Object newIdentity = resultValue[i];
-            Object previousIdentity = previousResultValue[i];
+        for (Integer identityIndex : identityIndexes) {
+            Object newIdentity = resultValue[identityIndex];
+            Object previousIdentity = previousResultValue[identityIndex];
             boolean result = false;
             if (previousIdentity != null && newIdentity == null)
                 result = true;
@@ -217,19 +219,19 @@ public class SqlUtils {
                 result = false;
             else
                 result = !previousIdentity.equals(newIdentity);
-            changedIdentities[i] = result;
+            changedIdentities[identityIndex] = result;
         }
         return changedIdentities;
     }
 
-    public static boolean changedIdentity(boolean[] changedIdentities, Integer identityIndex) {
+    public static boolean changedIdentity(Boolean[] changedIdentities, Integer identityIndex) {
         if (changedIdentities == null || identityIndex == null)
             return true;
         return changedIdentities[identityIndex];
     }
 
-    public static boolean changedIdentity(boolean[] changedIdentities, List<Integer> identityIndexes) {
-        if (changedIdentities == null || identityIndexes == null)
+    public static boolean changedIdentity(Boolean[] changedIdentities, List<Integer> identityIndexes) {
+        if (changedIdentities == null || identityIndexes == null || identityIndexes.isEmpty())
             return true;
         for (Integer identityIndex : identityIndexes) {
             if (changedIdentities[identityIndex])

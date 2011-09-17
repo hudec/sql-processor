@@ -207,7 +207,7 @@ public class SqlMappingResult {
      *             in the case of any problem with output values handling
      */
     public void setQueryResultData(Object resultInstance, Object[] resultValues, Map<String, Object> instances,
-            Map<Integer, Set<Object>> ids, boolean[] changedIdentities, Map<String, Class<?>> moreResultClasses)
+            Map<Integer, Set<Object>> ids, Boolean[] changedIdentities, Map<String, Class<?>> moreResultClasses)
             throws SqlRuntimeException {
         int i = 0;
         Set<String> allocatedContainers = new HashSet<String>();
