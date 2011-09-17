@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.MethodUtils;
@@ -188,24 +187,15 @@ public class SqlUtils {
     }
 
     // identities
-    public static Boolean[] initChangedIdentities(int length, boolean changed, List<Integer> identityIndexes) {
-        Boolean[] changedIdentities = new Boolean[length];
-        for (Integer identityIndex : identityIndexes) {
-            changedIdentities[identityIndex] = changed;
-        }
-        return changedIdentities;
-    }
 
-    public static Boolean[] changedIdentities(Object resultValue[], Object[] previousResultValue,
-            List<Integer> identityIndexes) {
-        if (identityIndexes == null || identityIndexes.isEmpty())
-            return null;
+    public static boolean changedIdentities(Object resultValue[], Object[] previousResultValue,
+            Integer... identityIndexes) {
+        if (identityIndexes == null || identityIndexes.length == 0
+                || (identityIndexes.length == 1 && identityIndexes[0] == null))
+            return true;
 
-        Boolean[] changedIdentities = initChangedIdentities(resultValue.length, previousResultValue == null,
-                identityIndexes);
-        if (previousResultValue == null) {
-            return changedIdentities;
-        }
+        if (previousResultValue == null)
+            return true;
 
         for (Integer identityIndex : identityIndexes) {
             Object newIdentity = resultValue[identityIndex];
@@ -219,24 +209,10 @@ public class SqlUtils {
                 result = false;
             else
                 result = !previousIdentity.equals(newIdentity);
-            changedIdentities[identityIndex] = result;
-        }
-        return changedIdentities;
-    }
-
-    public static boolean changedIdentity(Boolean[] changedIdentities, Integer identityIndex) {
-        if (changedIdentities == null || identityIndex == null)
-            return true;
-        return changedIdentities[identityIndex];
-    }
-
-    public static boolean changedIdentity(Boolean[] changedIdentities, List<Integer> identityIndexes) {
-        if (changedIdentities == null || identityIndexes == null || identityIndexes.isEmpty())
-            return true;
-        for (Integer identityIndex : identityIndexes) {
-            if (changedIdentities[identityIndex])
+            if (result)
                 return true;
         }
+
         return false;
     }
 

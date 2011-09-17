@@ -1,6 +1,7 @@
 package org.sqlproc.engine.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -76,6 +77,15 @@ public class SqlMappingResult {
      */
     public Integer getMainIdentityIndex() {
         return mainIdentityIndex;
+    }
+
+    /**
+     * Return the list of identities indexes in the list of output values
+     * 
+     * @return the list of identities indexes in the list of output values
+     */
+    public List<Integer> getIdentitiesIndexes() {
+        return identitiesIndexes;
     }
 
     /**
@@ -207,14 +217,21 @@ public class SqlMappingResult {
      *             in the case of any problem with output values handling
      */
     public void setQueryResultData(Object resultInstance, Object[] resultValues, Map<String, Object> instances,
-            Map<Integer, Set<Object>> ids, Boolean[] changedIdentities, Map<String, Class<?>> moreResultClasses)
-            throws SqlRuntimeException {
+            Map<Integer, Set<Object>> ids, Map<String, Class<?>> moreResultClasses) throws SqlRuntimeException {
         int i = 0;
         Set<String> allocatedContainers = new HashSet<String>();
+        Map<Integer, Set<Object>> idsProcessed = getIds();
+
         for (SqlMappingItem item : mappings.values()) {
-            item.setQueryResultData(resultInstance, i, resultValues, instances, ids, allocatedContainers,
-                    changedIdentities, identities, moreResultClasses);
+            item.setQueryResultData(resultInstance, i, resultValues, instances, ids, idsProcessed, allocatedContainers,
+                    identities, moreResultClasses);
             i++;
+        }
+
+        if (ids != null) {
+            for (Integer idx : getIdentitiesIndexes()) {
+                ids.get(idx).addAll(idsProcessed.get(idx));
+            }
         }
     }
 
@@ -244,12 +261,13 @@ public class SqlMappingResult {
         calculateIdentities();
     }
 
-    /**
-     * Return the list of identities indexes in the list of output values
-     * 
-     * @return the list of identities indexes in the list of output values
-     */
-    public List<Integer> getIdentitiesIndexes() {
-        return identitiesIndexes;
+    public Map<Integer, Set<Object>> getIds() {
+        if (getMainIdentityIndex() == null || getIdentitiesIndexes() == null)
+            return null;
+        Map<Integer, Set<Object>> ids = new HashMap<Integer, Set<Object>>();
+        for (Integer idx : getIdentitiesIndexes()) {
+            ids.put(idx, new HashSet<Object>());
+        }
+        return ids;
     }
 }

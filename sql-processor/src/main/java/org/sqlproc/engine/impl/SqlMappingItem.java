@@ -318,6 +318,18 @@ class SqlMappingItem implements SqlMetaElement {
         }
     }
 
+    Integer getIdIndex(Object[] resultValues, Map<String, SqlMappingIdentity> identities, String fullName) {
+        if (identities.get(fullName).identityIndexes != null) {
+            for (Integer i : identities.get(fullName).identityIndexes) {
+                Object o = resultValues[i];
+                if (o != null) {
+                    return i;
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * Initializes the attribute of the result class with the output value from the SQL query execution.
      * 
@@ -340,8 +352,8 @@ class SqlMappingItem implements SqlMetaElement {
      *             in the case of any problem with output values handling
      */
     void setQueryResultData(Object resultInstance, int resultIndex, Object[] resultValues,
-            Map<String, Object> instances, Map<Integer, Set<Object>> ids, Set<String> allocatedCollections,
-            Boolean[] changedIdentities, Map<String, SqlMappingIdentity> identities,
+            Map<String, Object> instances, Map<Integer, Set<Object>> ids, Map<Integer, Set<Object>> idsProcessed,
+            Set<String> allocatedCollections, Map<String, SqlMappingIdentity> identities,
             Map<String, Class<?>> moreResultClasses) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setQueryResultData, fullName=" + getFullName() + ", resultInstance=" + resultInstance
@@ -351,25 +363,16 @@ class SqlMappingItem implements SqlMetaElement {
             return;
         }
 
-        Integer idIndex = null;
-        Object id = null;
-        if (identities.get(getFullName()).identityIndexes != null) {
-            for (Integer i : identities.get(getFullName()).identityIndexes) {
-                Object o = resultValues[i];
-                if (o != null) {
-                    idIndex = i;
-                    id = o;
-                    break;
-                }
-            }
-        }
+        Integer idIndex = getIdIndex(resultValues, identities, getFullName());
+        Object id = (idIndex != null) ? resultValues[idIndex] : null;
         if (logger.isTraceEnabled()) {
             logger.trace("=== setQueryResultData, fullName=" + getFullName() + ", id=" + id + ", idIndex=" + idIndex);
         }
+        if (idIndex != null && id != null && ids != null) {
+            if (ids.get(idIndex).contains(id))
+                return;
+        }
 
-        boolean changed = SqlUtils.changedIdentity(changedIdentities, identities.get(getFullName()).identityIndexes);
-        if (!changed)
-            return;
         boolean exit = false;
         Object obj = resultInstance;
         int count = attributes.size();
@@ -427,9 +430,9 @@ class SqlMappingItem implements SqlMetaElement {
                     }
                 }
                 if (!exit && nextObj instanceof Collection) {
-                    SqlMappingIdentity ident = identities.get(attr.getFullName());
-                    if (SqlUtils.changedIdentity(changedIdentities, ident.identityIndexes)
-                            && !allocatedCollections.contains(attr.getFullName())) {
+                    Integer idIndexAttr = getIdIndex(resultValues, identities, attr.getFullName());
+                    Object idAttr = (idIndexAttr != null) ? resultValues[idIndexAttr] : null;
+                    if (!ids.get(idIndexAttr).contains(idAttr) && !allocatedCollections.contains(attr.getFullName())) {
                         allocatedCollections.add(attr.getFullName());
                         String typeName = (moreResultClasses != null) ? values.get(attr.getFullName()
                                 + SqlUtils.SUPPVAL_GTYPE) : null;
@@ -449,7 +452,7 @@ class SqlMappingItem implements SqlMetaElement {
                             if (itemObj != null) {
                                 if (!ids.get(idIndex).contains(id)) {
                                     ((Collection) nextObj).add(itemObj);
-                                    ids.get(idIndex).add(id);
+                                    idsProcessed.get(idIndex).add(id);
                                 }
                                 nextObj = itemObj;
                                 instances.put(attr.getFullName(), nextObj);

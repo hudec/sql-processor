@@ -385,7 +385,6 @@ public class SqlCrudEngine extends SqlEngine {
                     E previousInstance = null;
                     Object[] resultValue = null;
                     Object[] previousResultValue = null;
-                    Boolean[] changedIdentities = null;
                     Map<String, Object> instances = new HashMap<String, Object>();
                     // the next is workaround for the next problem
                     // A is joined to different entities B and C the identities are the next ones
@@ -399,10 +398,8 @@ public class SqlCrudEngine extends SqlEngine {
                         Object resultRow = i$.next();
                         resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
                                 : (new Object[] { resultRow });
-                        changedIdentities = SqlUtils.changedIdentities(resultValue, previousResultValue,
-                                mappingResult.getIdentitiesIndexes());
 
-                        boolean changedIdentity = SqlUtils.changedIdentity(changedIdentities,
+                        boolean changedIdentity = SqlUtils.changedIdentities(resultValue, previousResultValue,
                                 mappingResult.getMainIdentityIndex());
                         if (changedIdentity) {
                             if (resultInstance != null) {
@@ -411,16 +408,14 @@ public class SqlCrudEngine extends SqlEngine {
                             for (Integer idx : mappingResult.getIdentitiesIndexes()) {
                                 ids.put(idx, new HashSet<Object>());
                             }
-                            changedIdentities = SqlUtils.initChangedIdentities(resultValue.length, true,
-                                    mappingResult.getIdentitiesIndexes());
                         }
 
                         resultInstance = (changedIdentity) ? BeanUtils.getInstance(resultClass) : previousInstance;
                         if (resultInstance == null) {
                             throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                         }
-                        mappingResult.setQueryResultData(resultInstance, resultValue, instances, ids,
-                                changedIdentities, moreResultClasses);
+                        mappingResult
+                                .setQueryResultData(resultInstance, resultValue, instances, ids, moreResultClasses);
                         previousInstance = resultInstance;
                         previousResultValue = resultValue;
                     }
