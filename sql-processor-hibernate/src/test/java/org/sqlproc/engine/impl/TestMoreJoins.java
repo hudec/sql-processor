@@ -7,9 +7,11 @@ import java.util.Map;
 import org.junit.Test;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.model.Book;
+import org.sqlproc.engine.model.Engagement;
 import org.sqlproc.engine.model.Genre;
 import org.sqlproc.engine.model.Library;
 import org.sqlproc.engine.model.Media;
+import org.sqlproc.engine.model.MediaCharacter;
 import org.sqlproc.engine.model.Movie;
 import org.sqlproc.engine.model.Person;
 import org.sqlproc.engine.model.PhysicalMedia;
@@ -18,6 +20,54 @@ public class TestMoreJoins extends TestDatabase {
 
     protected String getDataSetFile(String dbType) {
         return "dbunit/MoreJoinsTest.xml";
+    }
+
+    @Test
+    public void testBasicTwoJoins() {
+        SqlQueryEngine sqlEngine = getSqlEngine("BASIC_TWO_JOINS");
+
+        String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
+        logger.info(sql);
+
+        List<Movie> list = sqlEngine.query(session, Movie.class, null, SqlQueryEngine.ASC_ORDER);
+
+        assertEquals(4, list.size());
+        Movie mo = list.get(1);
+        assertEquals("Die Another Day", mo.getTitle());
+        assertEquals(2, mo.getEngagements().size());
+        for (Engagement en : mo.getEngagements()) {
+            if (en.getId() == 1L) {
+                assertEquals(1L, (long) en.getPerson().getId());
+                assertEquals("Brosnan", en.getPerson().getName().getLast());
+                assertEquals("Pierce", en.getPerson().getName().getFirst());
+            } else if (en.getId() == 2L) {
+                assertEquals(2L, (long) en.getPerson().getId());
+                assertEquals("Berry", en.getPerson().getName().getLast());
+                assertEquals("Halle", en.getPerson().getName().getFirst());
+            } else {
+                fail("Incorrect engagement id " + en.getId());
+            }
+        }
+        assertEquals(2, mo.getMediaCharacters().size());
+        for (MediaCharacter mc : mo.getMediaCharacters()) {
+            if (mc.getId() == 2L) {
+                assertEquals(1, mc.getPlayedBy().size());
+                for (Person pe : mc.getPlayedBy()) {
+                    assertEquals(1L, (long) pe.getId());
+                    assertEquals("Brosnan", pe.getName().getLast());
+                    assertEquals("Pierce", pe.getName().getFirst());
+                }
+            } else if (mc.getId() == 3L) {
+                assertEquals(1, mc.getPlayedBy().size());
+                for (Person pe : mc.getPlayedBy()) {
+                    assertEquals(2L, (long) pe.getId());
+                    assertEquals("Berry", pe.getName().getLast());
+                    assertEquals("Halle", pe.getName().getFirst());
+                }
+            } else {
+                fail("Incorrect media character id " + mc.getId());
+            }
+        }
     }
 
     @Test
