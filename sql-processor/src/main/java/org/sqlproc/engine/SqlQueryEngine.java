@@ -13,7 +13,6 @@ import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
 import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlProcessResult;
-import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -357,7 +356,6 @@ public class SqlQueryEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    @SuppressWarnings("unchecked")
     public <E> List<E> query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final SqlOrder order, final int maxTimeout, final int maxResults,
             final int firstResult, final Map<String, Class<?>> moreResultClasses) throws SqlProcessorException,
@@ -390,36 +388,32 @@ public class SqlQueryEngine extends SqlEngine {
                         query.setMaxResults(maxResults);
                     }
 
+                    @SuppressWarnings("rawtypes")
                     List list = query.list();
                     List<E> result = new ArrayList<E>();
                     E resultInstance = null;
-                    E previousInstance = null;
                     Object[] resultValue = null;
-                    Object[] previousResultValue = null;
                     Map<String, Object> instances = new HashMap<String, Object>();
-                    // the next is workaround for the next problem
-                    // A is joined to different entities B and C the identities are the next ones
-                    // A=1, B=11, C=21
-                    // A=1, B=12, C=21
-                    // A=1, B=11, C=22
-                    // A=1, B=12, C=22
-                    Map<Integer, Set<Object>> ids = new HashMap<Integer, Set<Object>>();
+                    Map<Integer, Set<Object>> ids = null;
 
-                    for (Iterator i$ = list.iterator(); i$.hasNext();) {
+                    for (@SuppressWarnings("rawtypes")
+                    Iterator i$ = list.iterator(); i$.hasNext();) {
                         Object resultRow = i$.next();
                         resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
                                 : (new Object[] { resultRow });
 
-                        boolean changedIdentity = SqlUtils.changedIdentities(resultValue, previousResultValue,
-                                mappingResult.getMainIdentityIndex());
+                        boolean changedIdentity = ids == null
+                                || !ids.get(mappingResult.getMainIdentityIndex()).contains(
+                                        resultValue[mappingResult.getMainIdentityIndex()]);
+
                         if (changedIdentity) {
                             ids = mappingResult.getIds();
+                            resultInstance = BeanUtils.getInstance(resultClass);
+                            if (resultInstance == null) {
+                                throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+                            }
                         }
 
-                        resultInstance = (changedIdentity) ? BeanUtils.getInstance(resultClass) : previousInstance;
-                        if (resultInstance == null) {
-                            throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
-                        }
                         mappingResult
                                 .setQueryResultData(resultInstance, resultValue, instances, ids, moreResultClasses);
                         if (changedIdentity) {
@@ -429,8 +423,6 @@ public class SqlQueryEngine extends SqlEngine {
                                         resultValue[mappingResult.getMainIdentityIndex()]);
                             }
                         }
-                        previousInstance = resultInstance;
-                        previousResultValue = resultValue;
                     }
                     return result;
                 }

@@ -186,36 +186,6 @@ public class SqlUtils {
         return false;
     }
 
-    // identities
-
-    public static boolean changedIdentities(Object resultValue[], Object[] previousResultValue,
-            Integer... identityIndexes) {
-        if (identityIndexes == null || identityIndexes.length == 0
-                || (identityIndexes.length == 1 && identityIndexes[0] == null))
-            return true;
-
-        if (previousResultValue == null)
-            return true;
-
-        for (Integer identityIndex : identityIndexes) {
-            Object newIdentity = resultValue[identityIndex];
-            Object previousIdentity = previousResultValue[identityIndex];
-            boolean result = false;
-            if (previousIdentity != null && newIdentity == null)
-                result = true;
-            else if (previousIdentity == null && newIdentity != null)
-                result = true;
-            else if (previousIdentity == null && newIdentity == null)
-                result = false;
-            else
-                result = !previousIdentity.equals(newIdentity);
-            if (result)
-                return true;
-        }
-
-        return false;
-    }
-
     // date, time
 
     public static java.sql.Date getDate(int year, int month, int day) {

@@ -291,7 +291,6 @@ public class SqlProcedureEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    @SuppressWarnings("unchecked")
     public <E> List<E> callQuery(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
@@ -313,13 +312,15 @@ public class SqlProcedureEngine extends SqlEngine {
                     SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, null, query);
 
+                    @SuppressWarnings("rawtypes")
                     List list = query.callList();
                     List<E> result = new ArrayList<E>();
                     E resultInstance = null;
                     Object[] resultValue = null;
                     Map<String, Object> instances = new HashMap<String, Object>();
 
-                    for (Iterator i$ = list.iterator(); i$.hasNext();) {
+                    for (@SuppressWarnings("rawtypes")
+                    Iterator i$ = list.iterator(); i$.hasNext();) {
                         Object resultRow = i$.next();
                         resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
                                 : (new Object[] { resultRow });
@@ -380,7 +381,6 @@ public class SqlProcedureEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    @SuppressWarnings("unchecked")
     public int callUpdate(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
@@ -451,7 +451,6 @@ public class SqlProcedureEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    @SuppressWarnings("unchecked")
     public Object callFunction(final SqlSession session, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {

@@ -1,7 +1,6 @@
 package org.sqlproc.engine;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,6 @@ import org.sqlproc.engine.impl.SqlMappingResult;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
 import org.sqlproc.engine.impl.SqlProcessResult;
-import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -196,7 +194,6 @@ public class SqlCrudEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #insert(SqlSession, Object, Object, int)} .
      */
-    @SuppressWarnings("unchecked")
     public int insert(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
         return insert(session, dynamicInputValues, null, 0);
@@ -207,7 +204,6 @@ public class SqlCrudEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #insert(SqlSession, Object, Object, int)} .
      */
-    @SuppressWarnings("unchecked")
     public int insert(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues)
             throws SqlProcessorException, SqlRuntimeException {
         return insert(session, dynamicInputValues, staticInputValues, 0);
@@ -240,7 +236,6 @@ public class SqlCrudEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    @SuppressWarnings("unchecked")
     public int insert(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
@@ -278,7 +273,6 @@ public class SqlCrudEngine extends SqlEngine {
      * description please see the most complex execution method
      * {@link #get(SqlSession, Class, Object, Object, int, Map)} .
      */
-    @SuppressWarnings("unchecked")
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues)
             throws SqlProcessorException, SqlRuntimeException {
         return get(session, resultClass, dynamicInputValues, null, 0);
@@ -289,7 +283,6 @@ public class SqlCrudEngine extends SqlEngine {
      * description please see the most complex execution method
      * {@link #get(SqlSession, Class, Object, Object, int, Map)} .
      */
-    @SuppressWarnings("unchecked")
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues) throws SqlProcessorException, SqlRuntimeException {
         return get(session, resultClass, dynamicInputValues, staticInputValues, 0);
@@ -300,7 +293,6 @@ public class SqlCrudEngine extends SqlEngine {
      * description please see the most complex execution method
      * {@link #get(SqlSession, Class, Object, Object, int, Map)} .
      */
-    @SuppressWarnings("unchecked")
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final Map<String, Class<?>> moreResultClasses)
             throws SqlProcessorException, SqlRuntimeException {
@@ -312,7 +304,6 @@ public class SqlCrudEngine extends SqlEngine {
      * description please see the most complex execution method
      * {@link #get(SqlSession, Class, Object, Object, int, Map)} .
      */
-    @SuppressWarnings("unchecked")
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         return get(session, resultClass, dynamicInputValues, staticInputValues, maxTimeout, null);
@@ -356,7 +347,6 @@ public class SqlCrudEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    @SuppressWarnings("unchecked")
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout, final Map<String, Class<?>> moreResultClasses)
             throws SqlProcessorException, SqlRuntimeException {
@@ -380,44 +370,42 @@ public class SqlCrudEngine extends SqlEngine {
                     SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, moreResultClasses, query);
 
+                    @SuppressWarnings("rawtypes")
                     List list = query.list();
                     E resultInstance = null;
-                    E previousInstance = null;
                     Object[] resultValue = null;
-                    Object[] previousResultValue = null;
                     Map<String, Object> instances = new HashMap<String, Object>();
-                    // the next is workaround for the next problem
-                    // A is joined to different entities B and C the identities are the next ones
-                    // A=1, B=11, C=21
-                    // A=1, B=12, C=21
-                    // A=1, B=11, C=22
-                    // A=1, B=12, C=22
-                    Map<Integer, Set<Object>> ids = new HashMap<Integer, Set<Object>>();
+                    Map<Integer, Set<Object>> ids = null;
 
-                    for (Iterator i$ = list.iterator(); i$.hasNext();) {
+                    for (@SuppressWarnings("rawtypes")
+                    Iterator i$ = list.iterator(); i$.hasNext();) {
                         Object resultRow = i$.next();
                         resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
                                 : (new Object[] { resultRow });
 
-                        boolean changedIdentity = SqlUtils.changedIdentities(resultValue, previousResultValue,
-                                mappingResult.getMainIdentityIndex());
+                        boolean changedIdentity = ids == null
+                                || !ids.get(mappingResult.getMainIdentityIndex()).contains(
+                                        resultValue[mappingResult.getMainIdentityIndex()]);
+
                         if (changedIdentity) {
                             if (resultInstance != null) {
                                 throw new SqlProcessorException("There's no unique result");
                             }
-                            for (Integer idx : mappingResult.getIdentitiesIndexes()) {
-                                ids.put(idx, new HashSet<Object>());
+                            ids = mappingResult.getIds();
+                            resultInstance = BeanUtils.getInstance(resultClass);
+                            if (resultInstance == null) {
+                                throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                             }
                         }
 
-                        resultInstance = (changedIdentity) ? BeanUtils.getInstance(resultClass) : previousInstance;
-                        if (resultInstance == null) {
-                            throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
-                        }
                         mappingResult
                                 .setQueryResultData(resultInstance, resultValue, instances, ids, moreResultClasses);
-                        previousInstance = resultInstance;
-                        previousResultValue = resultValue;
+                        if (changedIdentity) {
+                            if (ids != null) {
+                                ids.get(mappingResult.getMainIdentityIndex()).add(
+                                        resultValue[mappingResult.getMainIdentityIndex()]);
+                            }
+                        }
                     }
                     return resultInstance;
                 }
@@ -435,7 +423,6 @@ public class SqlCrudEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #update(SqlSession, Object, Object, int)} .
      */
-    @SuppressWarnings("unchecked")
     public int update(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
         return update(session, dynamicInputValues, null, 0);
@@ -446,7 +433,6 @@ public class SqlCrudEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #update(SqlSession, Object, Object, int)} .
      */
-    @SuppressWarnings("unchecked")
     public int update(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues)
             throws SqlProcessorException, SqlRuntimeException {
         return update(session, dynamicInputValues, staticInputValues, 0);
@@ -480,7 +466,6 @@ public class SqlCrudEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    @SuppressWarnings("unchecked")
     public int update(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
@@ -516,7 +501,6 @@ public class SqlCrudEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #delete(SqlSession, Object, Object, int)} .
      */
-    @SuppressWarnings("unchecked")
     public int delete(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
         return delete(session, dynamicInputValues, null, 0);
@@ -527,7 +511,6 @@ public class SqlCrudEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #delete(SqlSession, Object, Object, int)} .
      */
-    @SuppressWarnings("unchecked")
     public int delete(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues)
             throws SqlProcessorException, SqlRuntimeException {
         return delete(session, dynamicInputValues, staticInputValues, 0);
@@ -560,7 +543,6 @@ public class SqlCrudEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    @SuppressWarnings("unchecked")
     public int delete(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {

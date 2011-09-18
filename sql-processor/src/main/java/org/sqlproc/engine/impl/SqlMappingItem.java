@@ -450,9 +450,9 @@ class SqlMappingItem implements SqlMetaElement {
                         if (typeClass != null) {
                             Object itemObj = BeanUtils.getInstance(typeClass);
                             if (itemObj != null) {
-                                if (!ids.get(idIndex).contains(id)) {
+                                if (!idsProcessed.get(idIndexAttr).contains(idAttr)) {
                                     ((Collection) nextObj).add(itemObj);
-                                    idsProcessed.get(idIndex).add(id);
+                                    idsProcessed.get(idIndexAttr).add(idAttr);
                                 }
                                 nextObj = itemObj;
                                 instances.put(attr.getFullName(), nextObj);
