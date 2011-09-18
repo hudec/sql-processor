@@ -13,6 +13,7 @@ package org.sqlproc.engine;
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SqlProcessorException extends RuntimeException {
+    private static final long serialVersionUID = -3445190167492657525L;
 
     /**
      * Creates a new instance of the exception.

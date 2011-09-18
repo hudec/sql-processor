@@ -57,21 +57,9 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      */
     private Integer orderIndex;
     /**
-     * Context of the processing;
-     */
-    private SqlProcessContext ctx;
-    /**
      * The indicator that a the next possible text has to be skipped. It's used for the identity based on select.
      */
     private boolean skipNextText;
-
-    /**
-     * Creates a new instance.
-     */
-    SqlProcessResult(SqlProcessContext ctx) {
-        this();
-        this.ctx = ctx;
-    }
 
     /**
      * Creates a new instance.

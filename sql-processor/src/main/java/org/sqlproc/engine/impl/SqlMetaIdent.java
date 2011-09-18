@@ -51,7 +51,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
      * The list of sub-elements. Every sub-element represents the name of an attribute in the input class (the static
      * parameters class). In case there're more names, the input classes are embedded one in other.
      */
-    private List<SqlMetaIdentItem> elements;
+    private List<String> elements;
     /**
      * The type of this input value. It can be Hibernate or an internal type.
      */
@@ -95,7 +95,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
      *            the type of this input value, which can be Hibernate or an internal type
      */
     SqlMetaIdent(SqlInputValue.Code caseConversion, SqlInputValue.Mode inOutMode, boolean not, SqlType type) {
-        this.elements = new ArrayList<SqlMetaIdentItem>();
+        this.elements = new ArrayList<String>();
         this.caseConversion = caseConversion;
         this.inOutMode = inOutMode;
         this.not = not;
@@ -111,22 +111,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
      */
     void addIdent(String name) {
         String[] names = name.split("=");
-        int size = elements.size();
-        SqlMetaIdentItem lastItem = (SqlMetaIdentItem) (size > 0 ? elements.get(size - 1) : null);
-        if (lastItem != null)
-            lastItem.setType(SqlMetaIdentItem.Type.REF);
-        elements.add(new SqlMetaIdentItem(names[0], SqlMetaIdentItem.Type.VAL));
-    }
-
-    /**
-     * Adds a new name. This is the name of an attribute in the input class (the static parameters class). In case
-     * there're more names, the input classes are embedded one in other.
-     * 
-     * @param element
-     *            an object representation of the next name in the list of names
-     */
-    void addIdent(SqlMetaIdentItem element) {
-        elements.add(element);
+        elements.add(names[0]);
     }
 
     /**
@@ -216,15 +201,14 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         StringBuilder s = new StringBuilder(elements.size() * 32);
         s.append(IDENT_PREFIX);
 
-        int size = elements.size();
         int count = 1;
         String sequenceName = values.get(SqlUtils.SUPPVAL_SEQUENCE);
         String identitySelectName = values.get(SqlUtils.SUPPVAL_IDENTITY_SELECT);
         String attributeName = null;
         Class<?> attributeType = (obj != null) ? obj.getClass() : null;
 
-        for (SqlMetaIdentItem item : this.elements) {
-            attributeName = item.getName();
+        for (String item : this.elements) {
+            attributeName = item;
             if (Character.isDigit(attributeName.charAt(0))) {
                 s.append(attributeName);
                 if (obj != null) {
@@ -252,7 +236,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             // break;
             if (obj != null) {
                 parentObj = obj;
-                obj = BeanUtils.getProperty(obj, item.getName());
+                obj = BeanUtils.getProperty(obj, item);
             }
             count++;
         }
@@ -336,9 +320,9 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
 
         Object obj = ctx.dynamicInputValues;
 
-        for (SqlMetaIdentItem item : this.elements) {
+        for (String item : this.elements) {
             if (obj != null) {
-                obj = BeanUtils.getProperty(obj, item.getName());
+                obj = BeanUtils.getProperty(obj, item);
             }
         }
 

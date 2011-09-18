@@ -18,6 +18,7 @@ import org.sqlproc.engine.impl.ErrorMsg;
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SqlEngineException extends RuntimeException {
+    private static final long serialVersionUID = 3902062078303952832L;
 
     /**
      * The list of parsing errors.

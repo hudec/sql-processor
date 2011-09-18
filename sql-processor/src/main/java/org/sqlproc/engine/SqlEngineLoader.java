@@ -109,7 +109,7 @@ public class SqlEngineLoader implements SqlEngineFactory {
     private static final String QUERY_PREFIX = "QRY_";
     private static final int lQUERY_PREFIX = QUERY_PREFIX.length();
     private static final String INPUT_MAPPING_PREFIX = "IN_";
-    private static final int lINPUT_MAPPING_PREFIX = INPUT_MAPPING_PREFIX.length();
+    // private static final int lINPUT_MAPPING_PREFIX = INPUT_MAPPING_PREFIX.length();
     private static final String OUTPUT_MAPPING_PREFIX = "OUT_";
     private static final int lOUTPUT_MAPPING_PREFIX = OUTPUT_MAPPING_PREFIX.length();
     private static final String CRUD_PREFIX = "CRUD_";

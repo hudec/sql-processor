@@ -179,7 +179,7 @@ class SqlInputValue {
         this.inputValue = inputValue;
         this.parentInputValue = parentInputValue;
         this.inputValueType = inputValueType;
-        if (valueType == Type.SEQUENCE_BASED)
+        if (this.valueType == Type.SEQUENCE_BASED)
             this.sequence = sequenceOrIdentitySelect;
         else
             this.identitySelect = sequenceOrIdentitySelect;

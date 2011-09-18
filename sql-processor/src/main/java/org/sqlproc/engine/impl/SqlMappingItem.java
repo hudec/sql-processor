@@ -445,7 +445,7 @@ class SqlMappingItem implements SqlMetaElement {
                         }
                         if (typeClass == null) {
                             ParameterizedType paramType = (ParameterizedType) m.getGenericReturnType();
-                            typeClass = (Class) paramType.getActualTypeArguments()[0];
+                            typeClass = (Class<?>) paramType.getActualTypeArguments()[0];
                         }
                         if (typeClass != null) {
                             Object itemObj = BeanUtils.getInstance(typeClass);

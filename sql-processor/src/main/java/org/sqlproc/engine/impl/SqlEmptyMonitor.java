@@ -14,6 +14,7 @@ public class SqlEmptyMonitor implements SqlMonitor {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("unchecked")
     @Override
     public <E> List<E> runList(Runner runner, Class<E> resultClass) {
 
@@ -23,6 +24,7 @@ public class SqlEmptyMonitor implements SqlMonitor {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("unchecked")
     @Override
     public <E> E run(Runner runner, Class<E> resultClass) {
         return (E) runner.run();

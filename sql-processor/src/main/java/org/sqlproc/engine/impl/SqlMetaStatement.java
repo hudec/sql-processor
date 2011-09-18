@@ -202,7 +202,7 @@ public class SqlMetaStatement implements SqlMetaElement {
      */
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
-        SqlProcessResult result = new SqlProcessResult(ctx);
+        SqlProcessResult result = new SqlProcessResult();
         StringBuilder s = new StringBuilder();
         result.setSql(s);
         List<SqlProcessResult> orderByResult = new ArrayList<SqlProcessResult>();

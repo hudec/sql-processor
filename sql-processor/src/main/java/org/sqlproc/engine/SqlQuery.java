@@ -59,6 +59,7 @@ public interface SqlQuery {
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
+    @SuppressWarnings("rawtypes")
     List list() throws SqlProcessorException;
 
     /**
@@ -88,6 +89,7 @@ public interface SqlQuery {
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
+    @SuppressWarnings("rawtypes")
     List callList() throws SqlProcessorException;
 
     /**

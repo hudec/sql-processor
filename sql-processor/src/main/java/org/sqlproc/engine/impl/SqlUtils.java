@@ -48,6 +48,7 @@ public class SqlUtils {
         return null;
     }
 
+    @SuppressWarnings("rawtypes")
     public static Class getEnumToClass(Class clazz) {
         if (clazz == null)
             return null;

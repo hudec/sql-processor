@@ -25,6 +25,7 @@ public class BeanUtils {
     static final Logger logger = LoggerFactory.getLogger(BeanUtils.class);
 
     // used only for the output values handling, it's tested for the result null
+    @SuppressWarnings("unchecked")
     public static <E> E getInstance(Class<E> clazz) {
         try {
             Object o = ConstructorUtils.invokeConstructor(clazz, (Object[]) null);
