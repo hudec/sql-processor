@@ -205,10 +205,9 @@ public class SqlMappingResult {
      *            the instance of the result class
      * @param resultValues
      *            the query execution output values
-     * @param instances
-     *            the already allocated instances for the case of one-to-many or many-to-many repeated rows
-     * @param changedIdentities
-     *            the indicators of changed identities for the case of one-to-many or many-to-many repeated rows
+     * @param ids
+     *            the instances of all already used identities together with the related result instances based on
+     *            identities indices
      * @param moreResultClasses
      *            more result classes used for the return values, like the collections classes or the collections items
      * @throws org.sqlproc.engine.SqlRuntimeException
@@ -257,6 +256,13 @@ public class SqlMappingResult {
         calculateIdentities();
     }
 
+    /**
+     * Construct the empty structure used for the instances of all already used identities together with the related
+     * result instances based on identities indices.
+     * 
+     * @return the empty structure used for the instances of all already used identities together with the related
+     *         result instances based on identities indices
+     */
     public Map<Integer, Map<Object, Object>> getIds() {
         if (getMainIdentityIndex() == null || getIdentitiesIndexes() == null)
             return null;

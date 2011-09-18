@@ -335,16 +335,16 @@ class SqlMappingItem implements SqlMetaElement {
      * 
      * @param resultInstance
      *            the instance of the result class
-     * @param resultValue
-     *            the query execution output value
-     * @param instances
-     *            the already allocated instances for the case of one-to-many or many-to-many repeated rows
-     * @param allocatedCollections
-     *            the already allocated collection instances for one database output result set
-     * @param changedIdentities
-     *            the indicators of changed identities for the case of one-to-many or many-to-many repeated rows
-     * @param identities
-     *            the collections of identities related to all output columns
+     * @param resultIndex
+     *            the index of the processed query execution output value
+     * @param resultValues
+     *            the query execution output values
+     * @param ids
+     *            the instances of all already used identities together with the related result instances based on
+     *            identities indices
+     * @param idsProcessed
+     *            the instances of all already used identities together with the related result instances based on
+     *            identities indices - the working copy
      * @param moreResultClasses
      *            more result classes used for the return values, like the classes for the collections or the
      *            collections items
