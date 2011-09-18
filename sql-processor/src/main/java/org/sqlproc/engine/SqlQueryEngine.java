@@ -1,11 +1,9 @@
 package org.sqlproc.engine;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.impl.SqlMappingResult;
@@ -393,8 +391,7 @@ public class SqlQueryEngine extends SqlEngine {
                     List<E> result = new ArrayList<E>();
                     E resultInstance = null;
                     Object[] resultValue = null;
-                    Map<String, Object> instances = new HashMap<String, Object>();
-                    Map<Integer, Set<Object>> ids = null;
+                    Map<Integer, Map<Object, Object>> ids = null;
 
                     for (@SuppressWarnings("rawtypes")
                     Iterator i$ = list.iterator(); i$.hasNext();) {
@@ -403,7 +400,7 @@ public class SqlQueryEngine extends SqlEngine {
                                 : (new Object[] { resultRow });
 
                         boolean changedIdentity = ids == null
-                                || !ids.get(mappingResult.getMainIdentityIndex()).contains(
+                                || !ids.get(mappingResult.getMainIdentityIndex()).containsKey(
                                         resultValue[mappingResult.getMainIdentityIndex()]);
 
                         if (changedIdentity) {
@@ -414,13 +411,12 @@ public class SqlQueryEngine extends SqlEngine {
                             }
                         }
 
-                        mappingResult
-                                .setQueryResultData(resultInstance, resultValue, instances, ids, moreResultClasses);
+                        mappingResult.setQueryResultData(resultInstance, resultValue, ids, moreResultClasses);
                         if (changedIdentity) {
                             result.add(resultInstance);
                             if (ids != null) {
-                                ids.get(mappingResult.getMainIdentityIndex()).add(
-                                        resultValue[mappingResult.getMainIdentityIndex()]);
+                                ids.get(mappingResult.getMainIdentityIndex()).put(
+                                        resultValue[mappingResult.getMainIdentityIndex()], resultInstance);
                             }
                         }
                     }

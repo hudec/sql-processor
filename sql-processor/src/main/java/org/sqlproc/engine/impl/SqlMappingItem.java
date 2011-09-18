@@ -352,9 +352,9 @@ class SqlMappingItem implements SqlMetaElement {
      *             in the case of any problem with output values handling
      */
     void setQueryResultData(Object resultInstance, int resultIndex, Object[] resultValues,
-            Map<String, Object> instances, Map<Integer, Set<Object>> ids, Map<Integer, Set<Object>> idsProcessed,
-            Set<String> allocatedCollections, Map<String, SqlMappingIdentity> identities,
-            Map<String, Class<?>> moreResultClasses) throws SqlRuntimeException {
+            Map<Integer, Map<Object, Object>> ids, Map<Integer, Map<Object, Object>> idsProcessed,
+            Map<String, SqlMappingIdentity> identities, Map<String, Class<?>> moreResultClasses)
+            throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setQueryResultData, fullName=" + getFullName() + ", resultInstance=" + resultInstance
                     + ", resultValue=" + resultValues[resultIndex]);
@@ -369,7 +369,7 @@ class SqlMappingItem implements SqlMetaElement {
             logger.trace("=== setQueryResultData, fullName=" + getFullName() + ", id=" + id + ", idIndex=" + idIndex);
         }
         if (idIndex != null && id != null && ids != null) {
-            if (ids.get(idIndex).contains(id))
+            if (ids.get(idIndex).containsKey(id))
                 return;
         }
 
@@ -417,6 +417,14 @@ class SqlMappingItem implements SqlMetaElement {
                         nextObj = BeanUtils.getInstance(typeClass);
                         if (nextObj != null) {
                             BeanUtils.setProperty(obj, name, nextObj);
+                            if (!(nextObj instanceof Collection)) {
+                                Integer idIndexAttr = getIdIndex(resultValues, identities, attr.getFullName());
+                                Object idAttr = (idIndexAttr != null) ? resultValues[idIndexAttr] : null;
+                                if (idIndexAttr != null && idAttr != null
+                                        && !idsProcessed.get(idIndexAttr).containsKey(idAttr)) {
+                                    idsProcessed.get(idIndexAttr).put(idAttr, nextObj);
+                                }
+                            }
                         } else if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                             logger.error("There's problem to instantiate " + typeClass
                                     + ", complete attribute name is '" + attr.getFullName()
@@ -432,8 +440,11 @@ class SqlMappingItem implements SqlMetaElement {
                 if (!exit && nextObj instanceof Collection) {
                     Integer idIndexAttr = getIdIndex(resultValues, identities, attr.getFullName());
                     Object idAttr = (idIndexAttr != null) ? resultValues[idIndexAttr] : null;
-                    if (!ids.get(idIndexAttr).contains(idAttr) && !allocatedCollections.contains(attr.getFullName())) {
-                        allocatedCollections.add(attr.getFullName());
+                    if (ids.get(idIndexAttr).containsKey(idAttr)) {
+                        nextObj = ids.get(idIndexAttr).get(idAttr);
+                    } else if (idsProcessed.get(idIndexAttr).containsKey(idAttr)) {
+                        nextObj = idsProcessed.get(idIndexAttr).get(idAttr);
+                    } else {
                         String typeName = (moreResultClasses != null) ? values.get(attr.getFullName()
                                 + SqlUtils.SUPPVAL_GTYPE) : null;
                         Class<?> typeClass = null;
@@ -450,12 +461,10 @@ class SqlMappingItem implements SqlMetaElement {
                         if (typeClass != null) {
                             Object itemObj = BeanUtils.getInstance(typeClass);
                             if (itemObj != null) {
-                                if (!idsProcessed.get(idIndexAttr).contains(idAttr)) {
-                                    ((Collection) nextObj).add(itemObj);
-                                    idsProcessed.get(idIndexAttr).add(idAttr);
-                                }
+                                ((Collection) nextObj).add(itemObj);
+                                idsProcessed.get(idIndexAttr).put(idAttr, itemObj);
                                 nextObj = itemObj;
-                                instances.put(attr.getFullName(), nextObj);
+                                // instances.put(attr.getFullName(), nextObj);
                             } else if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                                 logger.error("There's problem to instantiate " + typeClass
                                         + ", complete attribute name is " + attr.getFullName()
@@ -476,8 +485,6 @@ class SqlMappingItem implements SqlMetaElement {
                                     + ", complete attribute name is " + attr.getFullName() + ", possible type name is "
                                     + typeName);
                         }
-                    } else {
-                        nextObj = instances.get(attr.getFullName());
                     }
                 }
                 obj = nextObj;

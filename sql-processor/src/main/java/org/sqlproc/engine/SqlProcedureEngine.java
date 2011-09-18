@@ -1,7 +1,6 @@
 package org.sqlproc.engine;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -317,7 +316,6 @@ public class SqlProcedureEngine extends SqlEngine {
                     List<E> result = new ArrayList<E>();
                     E resultInstance = null;
                     Object[] resultValue = null;
-                    Map<String, Object> instances = new HashMap<String, Object>();
 
                     for (@SuppressWarnings("rawtypes")
                     Iterator i$ = list.iterator(); i$.hasNext();) {
@@ -328,7 +326,7 @@ public class SqlProcedureEngine extends SqlEngine {
                         if (resultInstance == null) {
                             throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                         }
-                        mappingResult.setQueryResultData(resultInstance, resultValue, instances, null, null);
+                        mappingResult.setQueryResultData(resultInstance, resultValue, null, null);
                         result.add(resultInstance);
                     }
                     return result;

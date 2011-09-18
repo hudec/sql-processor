@@ -2,11 +2,9 @@ package org.sqlproc.engine.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -216,21 +214,19 @@ public class SqlMappingResult {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with output values handling
      */
-    public void setQueryResultData(Object resultInstance, Object[] resultValues, Map<String, Object> instances,
-            Map<Integer, Set<Object>> ids, Map<String, Class<?>> moreResultClasses) throws SqlRuntimeException {
+    public void setQueryResultData(Object resultInstance, Object[] resultValues, Map<Integer, Map<Object, Object>> ids,
+            Map<String, Class<?>> moreResultClasses) throws SqlRuntimeException {
         int i = 0;
-        Set<String> allocatedContainers = new HashSet<String>();
-        Map<Integer, Set<Object>> idsProcessed = getIds();
+        Map<Integer, Map<Object, Object>> idsProcessed = getIds();
 
         for (SqlMappingItem item : mappings.values()) {
-            item.setQueryResultData(resultInstance, i, resultValues, instances, ids, idsProcessed, allocatedContainers,
-                    identities, moreResultClasses);
+            item.setQueryResultData(resultInstance, i, resultValues, ids, idsProcessed, identities, moreResultClasses);
             i++;
         }
 
         if (ids != null) {
             for (Integer idx : getIdentitiesIndexes()) {
-                ids.get(idx).addAll(idsProcessed.get(idx));
+                ids.get(idx).putAll(idsProcessed.get(idx));
             }
         }
     }
@@ -261,12 +257,12 @@ public class SqlMappingResult {
         calculateIdentities();
     }
 
-    public Map<Integer, Set<Object>> getIds() {
+    public Map<Integer, Map<Object, Object>> getIds() {
         if (getMainIdentityIndex() == null || getIdentitiesIndexes() == null)
             return null;
-        Map<Integer, Set<Object>> ids = new HashMap<Integer, Set<Object>>();
+        Map<Integer, Map<Object, Object>> ids = new HashMap<Integer, Map<Object, Object>>();
         for (Integer idx : getIdentitiesIndexes()) {
-            ids.put(idx, new HashSet<Object>());
+            ids.put(idx, new HashMap<Object, Object>());
         }
         return ids;
     }
