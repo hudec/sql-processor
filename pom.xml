@@ -245,7 +245,7 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.Oracle10gDialect</db.dialect>
                 <db.driver>oracle.jdbc.OracleDriver</db.driver>
-                <db.url>jdbc:oracle:thin:@oracle.i.cz:1521:ora11g</db.url>
+                <db.url>jdbc:oracle:thin:@oracle:1521:ora11g</db.url>
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
@@ -269,6 +269,29 @@
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
                 <db.driver>com.mysql.jdbc.Driver</db.driver>
                 <db.url>jdbc:mysql://127.0.0.1:3306/sqlproc?zeroDateTimeBehavior=convertToNull</db.url>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <DB_TYPE>MYSQL</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.ext.mysql.MySqlDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${version.mysql}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>mysql-bamboo</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
+                <db.driver>com.mysql.jdbc.Driver</db.driver>
+                <db.url>jdbc:mysql://mysql:3306/sqlproc?zeroDateTimeBehavior=convertToNull</db.url>
                 <db.username>sqlproc</db.username>
                 <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
