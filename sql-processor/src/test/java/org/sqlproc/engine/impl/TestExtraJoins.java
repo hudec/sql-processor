@@ -48,7 +48,7 @@ public class TestExtraJoins extends TestDatabase {
         PhysicalMedia pm5 = assertPhysicalMedia(li1.getMedia(), 5L, "pm5", 0);
 
         Media me1 = assertMedia(pm1.getMedia(), 1L, "me1", 3);
-        // Media me2 = assertMedia(pm1.getMedia(), 2L, "me2", 3); it should be 3!
+        Media me2 = assertMedia(pm1.getMedia(), 2L, "me2", 3);
     }
 
     private Library assertLibrary(List<Library> list, long id, String name, int size) {

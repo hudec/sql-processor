@@ -318,9 +318,43 @@ class SqlMappingItem implements SqlMetaElement {
         }
     }
 
-    Integer getIdIndex(Object[] resultValues, Map<String, SqlMappingIdentity> identities, String fullName) {
+    /**
+     * Returns the index of the identity column identified by fullName
+     * 
+     * @param resultValues
+     *            the query execution output values
+     * @param identities
+     *            the collection of identities related to all output columns
+     * @param fullName
+     *            the identity attribute name
+     * @return the index of the identity column identified by fullName
+     */
+    private Integer getIdIndex(Object[] resultValues, Map<String, SqlMappingIdentity> identities, String fullName) {
         if (identities.get(fullName).identityIndexes != null) {
             for (Integer i : identities.get(fullName).identityIndexes) {
+                Object o = resultValues[i];
+                if (o != null) {
+                    return i;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the parent index of the identity column identified by fullName
+     * 
+     * @param resultValues
+     *            the query execution output values
+     * @param identities
+     *            the collection of identities related to all output columns
+     * @param fullName
+     *            the identity attribute name
+     * @return the parent index of the identity column identified by fullName
+     */
+    private Integer getParentIdIndex(Object[] resultValues, Map<String, SqlMappingIdentity> identities, String fullName) {
+        if (identities.get(fullName).parentIdentityIndexes != null) {
+            for (Integer i : identities.get(fullName).parentIdentityIndexes) {
                 Object o = resultValues[i];
                 if (o != null) {
                     return i;
@@ -345,6 +379,8 @@ class SqlMappingItem implements SqlMetaElement {
      * @param idsProcessed
      *            the instances of all already used identities together with the related result instances based on
      *            identities indices - the working copy
+     * @param identities
+     *            the collection of identities related to all output columns
      * @param moreResultClasses
      *            more result classes used for the return values, like the classes for the collections or the
      *            collections items
@@ -365,12 +401,23 @@ class SqlMappingItem implements SqlMetaElement {
 
         Integer idIndex = getIdIndex(resultValues, identities, getFullName());
         Object id = (idIndex != null) ? resultValues[idIndex] : null;
+        Integer parentIdIndex = null;
+        Object parentId = null;
+        String parentName = null;
         if (logger.isTraceEnabled()) {
             logger.trace("=== setQueryResultData, fullName=" + getFullName() + ", id=" + id + ", idIndex=" + idIndex);
         }
         if (idIndex != null && id != null && ids != null) {
-            if (ids.get(idIndex).containsKey(id))
-                return;
+            if (ids.get(idIndex).containsKey(id)) {
+                Integer idDistance = identities.get(getFullName()).idenityDistance;
+                if (idDistance == null || idDistance != 0)
+                    return;
+                parentIdIndex = getParentIdIndex(resultValues, identities, getFullName());
+                if (parentIdIndex == null)
+                    return;
+                parentId = resultValues[parentIdIndex];
+                parentName = getFullName().substring(0, getFullName().lastIndexOf("."));
+            }
         }
 
         boolean exit = false;
@@ -441,7 +488,16 @@ class SqlMappingItem implements SqlMetaElement {
                     Integer idIndexAttr = getIdIndex(resultValues, identities, attr.getFullName());
                     Object idAttr = (idIndexAttr != null) ? resultValues[idIndexAttr] : null;
                     if (ids.get(idIndexAttr).containsKey(idAttr)) {
-                        nextObj = ids.get(idIndexAttr).get(idAttr);
+                        if (parentIdIndex != null && parentName.equals(attr.getFullName())) {
+                            Object itemObj = ids.get(idIndexAttr).get(idAttr);
+                            logger.info("=== setQueryResultData, handling many-to-many, itemObj=" + itemObj + " for "
+                                    + parentName);
+                            ((Collection) nextObj).add(itemObj);
+                            idsProcessed.get(idIndexAttr).put(idAttr, itemObj);
+                            nextObj = itemObj;
+                        } else {
+                            nextObj = ids.get(idIndexAttr).get(idAttr);
+                        }
                     } else if (idsProcessed.get(idIndexAttr).containsKey(idAttr)) {
                         nextObj = idsProcessed.get(idIndexAttr).get(idAttr);
                     } else {

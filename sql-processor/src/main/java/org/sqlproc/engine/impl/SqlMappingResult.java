@@ -173,6 +173,22 @@ public class SqlMappingResult {
                 }
             }
         }
+        for (Map.Entry<String, SqlMappingIdentity> entry : identities.entrySet()) {
+            SqlMappingIdentity ident = entry.getValue();
+            if (ident.idenityDistance == null || ident.idenityDistance != 0)
+                continue;
+            String name = entry.getKey();
+            int ix = name.lastIndexOf('.');
+            if (ix < 0)
+                continue;
+            ix = name.substring(0, ix).lastIndexOf('.');
+            if (ix < 0)
+                continue;
+            String parentName = name.substring(0, ix);
+            SqlMappingIdentity parentIdent = identities.get(parentName);
+            ident.parentIdentityIndexes = parentIdent.identityIndexes;
+        }
+
         if (logger.isTraceEnabled()) {
             logger.trace("<<<  calculateIdentities, identities=" + identities + ", identitiesIndexes="
                     + identitiesIndexes + ", mainIdentityIndex=" + mainIdentityIndex);

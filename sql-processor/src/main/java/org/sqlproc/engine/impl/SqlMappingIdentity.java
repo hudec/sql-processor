@@ -19,6 +19,12 @@ class SqlMappingIdentity {
      */
     List<Integer> identityIndexes;
     /**
+     * The list of all parent alternative identities. More identities happen in the case of the result classes
+     * inheritance. This version of SQL Processor supports table per subclass (represent is a (inheritance)
+     * relationships as has a (foreign key) relationships).
+     */
+    List<Integer> parentIdentityIndexes;
+    /**
      * The distance from the identity column.
      */
     Integer idenityDistance;
@@ -75,7 +81,8 @@ class SqlMappingIdentity {
      */
     @Override
     public String toString() {
-        return "Attribute [identityIndexes=" + identityIndexes + ", idenityDistance=" + idenityDistance + ", item="
+        return "Attribute [identityIndexes=" + identityIndexes + ", idenityDistance=" + idenityDistance
+                + ", parentIdentityIndexes=" + parentIdentityIndexes + ", item="
                 + ((item != null) ? item.getFullName() : "null") + ", itemAttribute="
                 + ((itemAttribute != null) ? itemAttribute.getFullName() : "null") + "]";
     }
