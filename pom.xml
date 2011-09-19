@@ -241,6 +241,29 @@
             </dependencies>
         </profile>
         <profile>
+            <id>oracle-bamboo</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.Oracle10gDialect</db.dialect>
+                <db.driver>oracle.jdbc.OracleDriver</db.driver>
+                <db.url>jdbc:oracle:thin:@oracle.i.cz:1521:ora11g</db.url>
+                <db.username>sql</db.username>
+                <db.password>sql</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <DB_TYPE>ORACLE</DB_TYPE>
+                <DATATYPE_FACTORY>org.sqlproc.engine.impl.OracleDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.oracle</groupId>
+                    <artifactId>ojdbc14</artifactId>
+                    <version>${version.oracle}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>mysql</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
