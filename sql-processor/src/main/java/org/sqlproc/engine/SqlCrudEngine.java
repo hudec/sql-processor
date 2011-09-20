@@ -395,17 +395,19 @@ public class SqlCrudEngine extends SqlEngine {
                                 throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                             }
                             if (ids != null) {
-                                ids.get(mappingResult.getMainIdentityIndex()).put(resultInstance,
+                                ids.get(mappingResult.getMainIdentityIndex()).put(
+                                        resultValue[mappingResult.getMainIdentityIndex()],
                                         new HashMap<Object, Object>());
                             }
                         }
 
                         mappingResult.setQueryResultData(resultInstance, resultValue, ids, moreResultClasses);
                         if (changedIdentity) {
-                            // if (ids != null) {
-                            // ids.get(mappingResult.getMainIdentityIndex()).put(
-                            // resultValue[mappingResult.getMainIdentityIndex()], resultInstance);
-                            // }
+                            if (ids != null) {
+                                ids.get(mappingResult.getMainIdentityIndex())
+                                        .get(resultValue[mappingResult.getMainIdentityIndex()])
+                                        .put(resultValue[mappingResult.getMainIdentityIndex()], resultInstance);
+                            }
                         }
                     }
                     return resultInstance;
