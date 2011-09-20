@@ -1,5 +1,6 @@
 package org.sqlproc.engine;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -372,7 +373,7 @@ public class SqlCrudEngine extends SqlEngine {
                     List list = query.list();
                     E resultInstance = null;
                     Object[] resultValue = null;
-                    Map<Integer, Map<Object, Object>> ids = null;
+                    Map<Integer, Map<Object, Map<Object, Object>>> ids = null;
 
                     for (@SuppressWarnings("rawtypes")
                     Iterator i$ = list.iterator(); i$.hasNext();) {
@@ -393,14 +394,18 @@ public class SqlCrudEngine extends SqlEngine {
                             if (resultInstance == null) {
                                 throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                             }
+                            if (ids != null) {
+                                ids.get(mappingResult.getMainIdentityIndex()).put(resultInstance,
+                                        new HashMap<Object, Object>());
+                            }
                         }
 
                         mappingResult.setQueryResultData(resultInstance, resultValue, ids, moreResultClasses);
                         if (changedIdentity) {
-                            if (ids != null) {
-                                ids.get(mappingResult.getMainIdentityIndex()).put(
-                                        resultValue[mappingResult.getMainIdentityIndex()], resultInstance);
-                            }
+                            // if (ids != null) {
+                            // ids.get(mappingResult.getMainIdentityIndex()).put(
+                            // resultValue[mappingResult.getMainIdentityIndex()], resultInstance);
+                            // }
                         }
                     }
                     return resultInstance;

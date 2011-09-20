@@ -173,6 +173,7 @@ public class SqlMappingResult {
                 }
             }
         }
+        Map<List<Integer>, List<Integer>> parentIdentityIndexes = new HashMap<List<Integer>, List<Integer>>();
         for (Map.Entry<String, SqlMappingIdentity> entry : identities.entrySet()) {
             SqlMappingIdentity ident = entry.getValue();
             if (ident.idenityDistance == null || ident.idenityDistance != 0)
@@ -187,6 +188,17 @@ public class SqlMappingResult {
             String parentName = name.substring(0, ix);
             SqlMappingIdentity parentIdent = identities.get(parentName);
             ident.parentIdentityIndexes = parentIdent.identityIndexes;
+            parentIdentityIndexes.put(ident.identityIndexes, parentIdent.identityIndexes);
+        }
+        for (Map.Entry<String, SqlMappingIdentity> entry : identities.entrySet()) {
+            SqlMappingIdentity ident = entry.getValue();
+
+            if (parentIdentityIndexes.containsKey(ident.identityIndexes)) {
+                ident.parentIdentityIndexes = parentIdentityIndexes.get(ident.identityIndexes);
+            } else {
+                ident.parentIdentityIndexes = new ArrayList<Integer>();
+                ident.parentIdentityIndexes.add(mainIdentityIndex);
+            }
         }
 
         if (logger.isTraceEnabled()) {
@@ -229,10 +241,11 @@ public class SqlMappingResult {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with output values handling
      */
-    public void setQueryResultData(Object resultInstance, Object[] resultValues, Map<Integer, Map<Object, Object>> ids,
-            Map<String, Class<?>> moreResultClasses) throws SqlRuntimeException {
+    public void setQueryResultData(Object resultInstance, Object[] resultValues,
+            Map<Integer, Map<Object, Map<Object, Object>>> ids, Map<String, Class<?>> moreResultClasses)
+            throws SqlRuntimeException {
         int i = 0;
-        Map<Integer, Map<Object, Object>> idsProcessed = getIds();
+        Map<Integer, Map<Object, Map<Object, Object>>> idsProcessed = getIds();
 
         for (SqlMappingItem item : mappings.values()) {
             item.setQueryResultData(resultInstance, i, resultValues, ids, idsProcessed, identities, moreResultClasses);
@@ -241,7 +254,12 @@ public class SqlMappingResult {
 
         if (ids != null) {
             for (Integer idx : getIdentitiesIndexes()) {
-                ids.get(idx).putAll(idsProcessed.get(idx));
+                for (Map.Entry<Object, Map<Object, Object>> entry : idsProcessed.get(idx).entrySet()) {
+                    if (!ids.get(idx).containsKey(entry.getKey())) {
+                        ids.get(idx).put(entry.getKey(), new HashMap<Object, Object>());
+                    }
+                    ids.get(idx).get(entry.getKey()).putAll(entry.getValue());
+                }
             }
         }
     }
@@ -279,12 +297,12 @@ public class SqlMappingResult {
      * @return the empty structure used for the instances of all already used identities together with the related
      *         result instances based on identities indices
      */
-    public Map<Integer, Map<Object, Object>> getIds() {
+    public Map<Integer, Map<Object, Map<Object, Object>>> getIds() {
         if (getMainIdentityIndex() == null || getIdentitiesIndexes() == null)
             return null;
-        Map<Integer, Map<Object, Object>> ids = new HashMap<Integer, Map<Object, Object>>();
+        Map<Integer, Map<Object, Map<Object, Object>>> ids = new HashMap<Integer, Map<Object, Map<Object, Object>>>();
         for (Integer idx : getIdentitiesIndexes()) {
-            ids.put(idx, new HashMap<Object, Object>());
+            ids.put(idx, new HashMap<Object, Map<Object, Object>>());
         }
         return ids;
     }
