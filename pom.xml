@@ -291,7 +291,7 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
                 <db.driver>com.mysql.jdbc.Driver</db.driver>
-                <db.url>jdbc:mysql://mysql:3306/sqlproc?zeroDateTimeBehavior=convertToNull&amp;noAccessToProcedureBodies=true</db.url>
+                <db.url>jdbc:mysql://mysql:3306/sqlproc?zeroDateTimeBehavior=convertToNull</db.url>
                 <db.username>sqlproc</db.username>
                 <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
