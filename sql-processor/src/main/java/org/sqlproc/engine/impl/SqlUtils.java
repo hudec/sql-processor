@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.MethodUtils;
@@ -367,5 +368,33 @@ public class SqlUtils {
             }
         }
         return features;
+    }
+
+    // identifiers
+    public static String getIdsKey(Object[] resultValues, Map<String, SqlMappingIdentity> identities, String fullName) {
+        String idsKey = "";
+        int i = 0;
+
+        SqlMappingIdentity ident = identities.get(fullName);
+        for (List<Integer> identityIndexes : ident.allIdentityIndexes) {
+            for (Integer identityIndex : identityIndexes) {
+                Object o = resultValues[identityIndex];
+                if (o != null) {
+                    if (i > 0)
+                        idsKey += '-';
+                    idsKey += identityIndex;
+                    idsKey += '-';
+                    idsKey += o;
+                    break;
+                }
+            }
+            ++i;
+        }
+        return idsKey;
+    }
+
+    public static String getIdsKey(Object[] resultValues, Integer mainIdentityIndex) {
+        String idsKey = "" + mainIdentityIndex + "-" + resultValues[mainIdentityIndex];
+        return idsKey;
     }
 }

@@ -23,7 +23,7 @@ class SqlMappingIdentity {
      * inheritance. This version of SQL Processor supports table per subclass (represent is a (inheritance)
      * relationships as has a (foreign key) relationships).
      */
-    List<Integer> parentIdentityIndexes;
+    List<List<Integer>> allIdentityIndexes;
     /**
      * The distance from the identity column.
      */
@@ -82,7 +82,7 @@ class SqlMappingIdentity {
     @Override
     public String toString() {
         return "Attribute [identityIndexes=" + identityIndexes + ", idenityDistance=" + idenityDistance
-                + ", parentIdentityIndexes=" + parentIdentityIndexes + ", item="
+                + ", allIdentityIndexes=" + allIdentityIndexes + ", item="
                 + ((item != null) ? item.getFullName() : "null") + ", itemAttribute="
                 + ((itemAttribute != null) ? itemAttribute.getFullName() : "null") + "]";
     }

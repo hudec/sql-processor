@@ -138,7 +138,7 @@ public class TestAdvanced extends TestDatabase {
         LibraryTransport gt = list.get(0);
         assertEquals(new Long(1), gt.getId());
         assertEquals("LibraryServiceTest", gt.getName());
-        assertEquals("abc456", gt.getLocation());
+        assertEquals("abc123", gt.getLocation());
 
         sf = new SearchForm();
         sf.setMedia("Die Another Day");
@@ -193,7 +193,7 @@ public class TestAdvanced extends TestDatabase {
         gt = list.get(0);
         assertEquals(new Long(1), gt.getId());
         assertEquals("LibraryServiceTest", gt.getName());
-        assertEquals("abc456", gt.getLocation());
+        assertEquals("abc123", gt.getLocation());
         if (gt.getMedia() != null) {
             assertEquals("", gt.getMedia().getMediaTitle());
             assertEquals("", gt.getMedia().getEngagement().getRole());

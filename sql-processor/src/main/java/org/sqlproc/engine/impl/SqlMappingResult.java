@@ -174,30 +174,34 @@ public class SqlMappingResult {
             }
         }
         Map<List<Integer>, List<Integer>> parentIdentityIndexes = new HashMap<List<Integer>, List<Integer>>();
+        List<Integer> mainIdentityIndexes = new ArrayList<Integer>();
+        mainIdentityIndexes.add(mainIdentityIndex);
         for (Map.Entry<String, SqlMappingIdentity> entry : identities.entrySet()) {
+            String fullName = entry.getKey();
             SqlMappingIdentity ident = entry.getValue();
-            if (ident.idenityDistance == null || ident.idenityDistance != 0)
-                continue;
-            String name = entry.getKey();
-            int ix = name.lastIndexOf('.');
-            if (ix < 0)
-                continue;
-            ix = name.substring(0, ix).lastIndexOf('.');
-            if (ix < 0)
-                continue;
-            String parentName = name.substring(0, ix);
-            SqlMappingIdentity parentIdent = identities.get(parentName);
-            ident.parentIdentityIndexes = parentIdent.identityIndexes;
-            parentIdentityIndexes.put(ident.identityIndexes, parentIdent.identityIndexes);
-        }
-        for (Map.Entry<String, SqlMappingIdentity> entry : identities.entrySet()) {
-            SqlMappingIdentity ident = entry.getValue();
+            ident.allIdentityIndexes = new ArrayList<List<Integer>>();
+            ident.allIdentityIndexes.add(mainIdentityIndexes);
 
-            if (parentIdentityIndexes.containsKey(ident.identityIndexes)) {
-                ident.parentIdentityIndexes = parentIdentityIndexes.get(ident.identityIndexes);
-            } else {
-                ident.parentIdentityIndexes = new ArrayList<Integer>();
-                ident.parentIdentityIndexes.add(mainIdentityIndex);
+            List<Integer> lastIdentityIndexes = null;
+            int size = ident.item.getAttributes().size();
+            for (int i = 0; i < size; i++) {
+                SqlMappingAttribute attr = ident.item.getAttributes().get(i);
+                SqlMappingIdentity ident2 = identities.get(attr.getFullName());
+                if (ident2.identityIndexes == lastIdentityIndexes)
+                    continue;
+                boolean theSame = true;
+                if (lastIdentityIndexes != null && ident2.identityIndexes.size() == lastIdentityIndexes.size()) {
+                    for (int j = 0; j < lastIdentityIndexes.size(); j++) {
+                        if (!ident2.identityIndexes.get(j).equals(lastIdentityIndexes.get(j))) {
+                            theSame = false;
+                            break;
+                        }
+                    }
+                    if (!theSame)
+                        ident.allIdentityIndexes.add(lastIdentityIndexes = ident2.identityIndexes);
+                } else {
+                    ident.allIdentityIndexes.add(lastIdentityIndexes = ident2.identityIndexes);
+                }
             }
         }
 
@@ -241,11 +245,10 @@ public class SqlMappingResult {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with output values handling
      */
-    public void setQueryResultData(Object resultInstance, Object[] resultValues,
-            Map<Integer, Map<Object, Map<Object, Object>>> ids, Map<String, Class<?>> moreResultClasses)
-            throws SqlRuntimeException {
+    public void setQueryResultData(Object resultInstance, Object[] resultValues, Map<String, Object> ids,
+            Map<String, Class<?>> moreResultClasses) throws SqlRuntimeException {
         int i = 0;
-        Map<Integer, Map<Object, Map<Object, Object>>> idsProcessed = getIds();
+        Map<String, Object> idsProcessed = new HashMap<String, Object>();
 
         for (SqlMappingItem item : mappings.values()) {
             item.setQueryResultData(resultInstance, i, resultValues, ids, idsProcessed, identities, moreResultClasses);
@@ -253,13 +256,8 @@ public class SqlMappingResult {
         }
 
         if (ids != null) {
-            for (Integer idx : getIdentitiesIndexes()) {
-                for (Map.Entry<Object, Map<Object, Object>> entry : idsProcessed.get(idx).entrySet()) {
-                    if (!ids.get(idx).containsKey(entry.getKey())) {
-                        ids.get(idx).put(entry.getKey(), new HashMap<Object, Object>());
-                    }
-                    ids.get(idx).get(entry.getKey()).putAll(entry.getValue());
-                }
+            for (Map.Entry<String, Object> entry : idsProcessed.entrySet()) {
+                ids.put(entry.getKey(), entry.getValue());
             }
         }
     }
@@ -297,13 +295,10 @@ public class SqlMappingResult {
      * @return the empty structure used for the instances of all already used identities together with the related
      *         result instances based on identities indices
      */
-    public Map<Integer, Map<Object, Map<Object, Object>>> getIds() {
+    public Map<String, Object> getIds() {
         if (getMainIdentityIndex() == null || getIdentitiesIndexes() == null)
             return null;
-        Map<Integer, Map<Object, Map<Object, Object>>> ids = new HashMap<Integer, Map<Object, Map<Object, Object>>>();
-        for (Integer idx : getIdentitiesIndexes()) {
-            ids.put(idx, new HashMap<Object, Map<Object, Object>>());
-        }
+        Map<String, Object> ids = new HashMap<String, Object>();
         return ids;
     }
 }

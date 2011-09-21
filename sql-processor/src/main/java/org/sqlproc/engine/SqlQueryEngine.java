@@ -1,7 +1,6 @@
 package org.sqlproc.engine;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
 import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlProcessResult;
+import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -392,7 +392,7 @@ public class SqlQueryEngine extends SqlEngine {
                     List<E> result = new ArrayList<E>();
                     E resultInstance = null;
                     Object[] resultValue = null;
-                    Map<Integer, Map<Object, Map<Object, Object>>> ids = null;
+                    Map<String, Object> ids = null;
 
                     for (@SuppressWarnings("rawtypes")
                     Iterator i$ = list.iterator(); i$.hasNext();) {
@@ -400,9 +400,12 @@ public class SqlQueryEngine extends SqlEngine {
                         resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
                                 : (new Object[] { resultRow });
 
-                        boolean changedIdentity = ids == null
-                                || !ids.get(mappingResult.getMainIdentityIndex()).containsKey(
-                                        resultValue[mappingResult.getMainIdentityIndex()]);
+                        boolean changedIdentity = true;
+                        if (ids != null) {
+                            String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                            if (ids.containsKey(idsKey))
+                                changedIdentity = false;
+                        }
 
                         if (changedIdentity) {
                             ids = mappingResult.getIds();
@@ -410,20 +413,14 @@ public class SqlQueryEngine extends SqlEngine {
                             if (resultInstance == null) {
                                 throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                             }
-                            if (ids != null) {
-                                ids.get(mappingResult.getMainIdentityIndex()).put(
-                                        resultValue[mappingResult.getMainIdentityIndex()],
-                                        new HashMap<Object, Object>());
-                            }
                         }
 
                         mappingResult.setQueryResultData(resultInstance, resultValue, ids, moreResultClasses);
                         if (changedIdentity) {
                             result.add(resultInstance);
                             if (ids != null) {
-                                ids.get(mappingResult.getMainIdentityIndex())
-                                        .get(resultValue[mappingResult.getMainIdentityIndex()])
-                                        .put(resultValue[mappingResult.getMainIdentityIndex()], resultInstance);
+                                String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                                ids.put(idsKey, resultInstance);
                             }
                         }
                     }
