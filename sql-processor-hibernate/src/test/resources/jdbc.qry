@@ -1249,15 +1249,25 @@ EXTRA_JOIN(QRY)=
   mo.MEDIA @media.media==movie.id^long^id, mo.URLIMDB @media.media.urlIMDB,
   bk.MEDIA @media.media==book.id^long^id, bk.ISBN @media.media.isbn,
   m.TITLE @media.media.title,
-  mc.ID @media.media.mediaCharacters.id, mc.NAME @media.media.mediaCharacters.name
+  en.ID @media.media.engagements.id, en.ROLE @media.media.engagements.role,
+  p1.ID @media.media.engagements.person.id, p1.NAME_FIRST @media.media.engagements.person.name.first,  
+  p1.NAME_LAST @media.media.engagements.person.name.last,
+  mc.ID @media.media.mediaCharacters.id, mc.NAME @media.media.mediaCharacters.name,
+  p2.ID @media.media.mediaCharacters.playedBy.id, p2.NAME_FIRST @media.media.mediaCharacters.playedBy.name.first,  
+  p2.NAME_LAST @media.media.mediaCharacters.playedBy.name.last
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
   left join MEDIA m on m.ID = mpm.MEDIA
   left join MOVIE mo on mo.MEDIA = m.ID
   left join BOOK bk on bk.MEDIA = m.ID
+  left join ENGAGEMENT en on en.MEDIA = m.ID
+  left join PERSON p1 on p1.ID = en.PERSON
   left join EXISTSINMEDIA_MEDIACHARACTER em on em.EXISTSINMEDIA = m.ID
   left join MEDIACHARACTER mc on mc.ID = em.MEDIACHARACTER
+  left join MEDIACHARACTER_PLAYEDBY pb on pb.MEDIACHARACTER = mc.ID
+  left join PERSON p2 on p2.ID = pb.PLAYEDBY
   {#1 order by l.ID, pm.ID, m.ID}
+  {#2 order by m.ID}
 ;
 
 

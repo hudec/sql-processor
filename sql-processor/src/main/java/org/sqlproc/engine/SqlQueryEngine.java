@@ -392,7 +392,7 @@ public class SqlQueryEngine extends SqlEngine {
                     List<E> result = new ArrayList<E>();
                     E resultInstance = null;
                     Object[] resultValue = null;
-                    Map<String, Object> ids = null;
+                    Map<String, Object> ids = mappingResult.getIds();
 
                     for (@SuppressWarnings("rawtypes")
                     Iterator i$ = list.iterator(); i$.hasNext();) {
@@ -403,12 +403,13 @@ public class SqlQueryEngine extends SqlEngine {
                         boolean changedIdentity = true;
                         if (ids != null) {
                             String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
-                            if (ids.containsKey(idsKey))
+                            if (ids.containsKey(idsKey)) {
+                                resultInstance = (E) ids.get(idsKey);
                                 changedIdentity = false;
+                            }
                         }
 
                         if (changedIdentity) {
-                            ids = mappingResult.getIds();
                             resultInstance = BeanUtils.getInstance(resultClass);
                             if (resultInstance == null) {
                                 throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
@@ -416,6 +417,7 @@ public class SqlQueryEngine extends SqlEngine {
                         }
 
                         mappingResult.setQueryResultData(resultInstance, resultValue, ids, moreResultClasses);
+
                         if (changedIdentity) {
                             result.add(resultInstance);
                             if (ids != null) {

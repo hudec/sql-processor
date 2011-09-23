@@ -373,7 +373,7 @@ public class SqlCrudEngine extends SqlEngine {
                     List list = query.list();
                     E resultInstance = null;
                     Object[] resultValue = null;
-                    Map<String, Object> ids = null;
+                    Map<String, Object> ids = mappingResult.getIds();
 
                     for (@SuppressWarnings("rawtypes")
                     Iterator i$ = list.iterator(); i$.hasNext();) {
@@ -392,7 +392,6 @@ public class SqlCrudEngine extends SqlEngine {
                             if (resultInstance != null) {
                                 throw new SqlProcessorException("There's no unique result");
                             }
-                            ids = mappingResult.getIds();
                             resultInstance = BeanUtils.getInstance(resultClass);
                             if (resultInstance == null) {
                                 throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
