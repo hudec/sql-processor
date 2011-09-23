@@ -1270,6 +1270,18 @@ EXTRA_JOIN(QRY)=
   {#2 order by m.ID}
 ;
 
+ANSI_BASIC_ASTERISK(QRY)=
+  select p\.*
+  from %%PERSON p
+  order by %p.ID
+;
+ANSI_BASIC_ASTERISK(OUT)=
+  id$Long$id NAME_FIRST$string$name.first NAME_LAST$string$name.last SSN_NUMBER$string$ssn.number
+  SSN_COUNTRY$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
+  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  version$Long$version
+;
+
 
 INSERT_PERSON(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
