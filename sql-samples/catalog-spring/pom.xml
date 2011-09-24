@@ -4,21 +4,21 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc.samples</groupId>
     <artifactId>catalog-spring</artifactId>
-    <version>1.6.1-SNAPSHOT</version>
+    <version>1.6.1</version>
     <packaging>pom</packaging>
     <name>SQL Processor Samples, Catalog (Spring)</name>
 
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-samples</artifactId>
-        <version>1.6.1-SNAPSHOT</version>
+        <version>1.6.1</version>
         <relativePath>..</relativePath>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.sql-processor>1.6.1-SNAPSHOT</version.sql-processor>
+        <version.sql-processor>1.6.1</version.sql-processor>
 
         <version.spring>3.0.5.RELEASE</version.spring>
         <version.aspectj>1.6.8</version.aspectj>
@@ -35,7 +35,7 @@
         <version.commons-dbcp>1.4</version.commons-dbcp>
         <version.commons-collection>3.2.1</version.commons-collection>
         <version.hibernate>3.5.6-Final</version.hibernate>
-        <version.hibernate-jpa>1.6.1-SNAPSHOT.Final</version.hibernate-jpa>
+        <version.hibernate-jpa>1.6.1.Final</version.hibernate-jpa>
         <version.javassist>3.9.0.GA</version.javassist>
         <version.wicket>1.4.13</version.wicket>
     </properties>
@@ -117,7 +117,7 @@
             <dependency>
                 <groupId>org.sqlproc.samples</groupId>
                 <artifactId>catalog-spring-business</artifactId>
-                <version>1.6.1-SNAPSHOT</version>
+                <version>1.6.1</version>
                 <type>jar</type>
             </dependency>
             <dependency>
