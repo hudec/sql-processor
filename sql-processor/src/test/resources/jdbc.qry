@@ -36,9 +36,9 @@ ANSI_BASIC(OUT)=
 ;
 
 ANSI_BASIC_2(QRY)=
-  select %p.ID @id, %p.NAME_FIRST @first, %p.NAME_LAST @last, %p.SSN_NUMBER @ssn, %p.SSN_COUNTRY @country,
+  select %p.ID @id, %p.NAME_FIRST as @first, %p.NAME_LAST as @last, %p.SSN_NUMBER @ssn, %p.SSN_COUNTRY @country,
   %p.BIRTHDATE @birthDate, %p.SEX @sex, %p.CREATEDDATE @createdDate, %p.CREATEDBY @createdBy,
-  %p.LASTUPDATED @lastUpdated, %p.LASTUPDATEDBY @lastUpdatedBy, %p.VERSION @version
+  %p.LASTUPDATED @lastUpdated, %p.LASTUPDATEDBY @lastUpdatedBy, %p.VERSION as @version
   from %%PERSON p
   order by %p.ID
 ;
@@ -51,7 +51,7 @@ ANSI_BASIC_2(OUT)=
 ANSI_BASIC_3(QRY)=
   select %p.ID @id, %p.NAME_FIRST @name.first, %p.NAME_LAST @name.last, %p.SSN_NUMBER @ssn.number, %p.SSN_COUNTRY @ssn.country,
   %p.BIRTHDATE @birthDate^date, %p.SEX @sex, %p.CREATEDDATE @createdDate^date, %p.CREATEDBY @createdBy,
-  %p.LASTUPDATED @lastUpdated^date, %p.LASTUPDATEDBY @lastUpdatedBy, %p.VERSION @version
+  %p.LASTUPDATED @lastUpdated^date, %p.LASTUPDATEDBY @lastUpdatedBy, %p.VERSION as @version
   from %%PERSON p
   order by %p.ID
 ;
@@ -102,7 +102,7 @@ BASIC(OUT)=
 BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
-  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   {#1 order by id}
 ;
@@ -130,7 +130,7 @@ FORM_BASIC(OUT)=
 FORM_BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
-  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p {= where
    {& p.id = :id}
    {& p.NAME_FIRST = :name.first | p.NAME_LAST = :name.last | p.SSN_NUMBER = :ssn.number}
@@ -164,7 +164,7 @@ FORM_OR_BASIC(OUT)=
 FORM_OR_BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
-  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p {= where
    {& p.id = :id}
    {| p.NAME_FIRST = :name.first | p.NAME_LAST = :name.last | p.SSN_NUMBER = :ssn.number}
@@ -198,7 +198,7 @@ CONSTANT_BASIC(OUT)=
 CONSTANT_BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
-  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p {= where
    {& p.id = $id}
    {& p.NAME_FIRST = $name.first | p.NAME_LAST = $name.last | p.SSN_NUMBER = $ssn.number}
@@ -232,7 +232,7 @@ CONSTANT_OR_BASIC(OUT)=
 CONSTANT_OR_BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
-  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p {= where
    {& p.id = $id}
    {| p.NAME_FIRST = $name.first | p.NAME_LAST = $name.last | p.SSN_NUMBER = $ssn.number}
@@ -263,7 +263,7 @@ CONSTANT_IN_ORDER_BASIC(OUT)=
 CONSTANT_IN_ORDER_BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
-  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p {= where
    {& p.id in $idSet}
   }
@@ -323,12 +323,12 @@ SQL_IN_BRACES_BASIC(OUT)=
 ;
 
 SQL_IN_BRACES_BASIC_2(QRY)=
-  select p.ID @id { , $name.first @first, p.SSN_NUMBER @ssn |, '' @first, p.SSN_NUMBER @ssn} { , :+name.last @last |, '' @last} { , p.BIRTHDATE @birthDate}
+  select p.ID @id { , $name.first as @first, p.SSN_NUMBER @ssn |, '' as @first, p.SSN_NUMBER @ssn} { , :+name.last as @last |, '' as @last} { , p.BIRTHDATE @birthDate}
   from PERSON p
   order by id
 ;
 SQL_IN_BRACES_BASIC_2(QRY,HSQLDB)=
-  select p.ID @id { , $name.first @first, p.SSN_NUMBER @ssn |, '' @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as varchar(100)) @last |, '' @last} { , p.BIRTHDATE @birthDate}
+  select p.ID @id { , $name.first as @first, p.SSN_NUMBER @ssn |, '' as @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as varchar(100)) as @last |, '' as @last} { , p.BIRTHDATE @birthDate}
   from PERSON p
   order by id
 ;
@@ -421,10 +421,10 @@ CONDITIONAL_JOIN_2_LEVELS_ADV(OUT)=
 ;
   
 CONDITIONAL_JOIN_2_LEVELS_ADV_2(QRY)=
-  select l.id @id, l.NAME as @name, pm.location @location
+  select l.id @id, l.NAME as @name, pm.location as @location
   {? :media |
-    {? :fname | , m.TITLE @title, e.ROLE @role, p.NAME_FIRST @first, p.NAME_LAST @last
-              | , m.TITLE @title, e.ROLE @role
+    {? :fname | , m.TITLE @title, e.ROLE as @role, p.NAME_FIRST as @first, p.NAME_LAST as @last
+              | , m.TITLE @title, e.ROLE as @role
     }
   }
   from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id
@@ -465,8 +465,8 @@ CONDITIONAL_WHERE_ADV(OUT)=
 ;
 
 CONDITIONAL_WHERE_ADV_2(QRY)=
-  select m.id @id, m.TITLE @title, e.ROLE @role
-  {? :fname | , p.NAME_FIRST @first, p.NAME_LAST @last}
+  select m.id @id, m.TITLE @title, e.ROLE as @role
+  {? :fname | , p.NAME_FIRST as @first, p.NAME_LAST as @last}
   from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID
   {? :fname | left join PERSON p on e.PERSON = p.ID}
   {= where
@@ -497,8 +497,8 @@ CONDITIONAL_WHERE_AND_BRACES_ADV(OUT)=
 ;
 
 CONDITIONAL_WHERE_AND_BRACES_ADV_2(QRY)=
-  select m.id @id, m.TITLE @title, e.ROLE @role
-  {? :fname || :lname | , p.NAME_FIRST @first, p.NAME_LAST @last}
+  select m.id @id, m.TITLE @title, e.ROLE as @role
+  {? :fname || :lname | , p.NAME_FIRST as @first, p.NAME_LAST as @last}
   from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID
   {? :fname || :lname | left join PERSON p on e.PERSON = p.ID}
   {= where
@@ -529,7 +529,7 @@ CONDITIONAL_WHERE_AND_BRACES_MORE_ADV(OUT)=
 ;
 
 CONDITIONAL_WHERE_AND_BRACES_MORE_ADV_2(QRY)=
-  select m.id @id, m.TITLE @title, e.ROLE @role
+  select m.id @id, m.TITLE @title, e.ROLE as @role
   {? (:fname && :lname) || :ssn | , p.NAME_FIRST as @first, p.NAME_LAST as @last, p.SSN_NUMBER @ssn}
   from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID
   {? (:fname && :lname) || :ssn | left join PERSON p on e.PERSON = p.ID}
@@ -546,7 +546,7 @@ CONDITIONAL_WHERE_AND_BRACES_MORE_ADV_2(OUT)=
 
   
 LIKE_BASIC(QRY)=
-  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
   p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
   from PERSON p
   where 1=1
@@ -566,7 +566,7 @@ LIKE_BASIC(OUT)=
 LIKE_BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
-  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   where 1=1
   {& p.id = :id}
@@ -578,7 +578,7 @@ LIKE_BASIC_2(QRY)=
  
  
 ORDER(QRY)=
-  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
   p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
   from PERSON p
   {#1 order by id}
@@ -708,7 +708,7 @@ COLLECTIONS_STANDARD(QRY)=
 PARAMETERS_MORE(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
-  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   where 1=1
   {& p.id = :id^long^null}
@@ -723,7 +723,7 @@ PARAMETERS_MORE(QRY)=
 PARAMETERS_TOP(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
-  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   where p.id = :id^long^any
   {? :createdBy | AND p.CREATEDBY=:createdBy | AND p.CREATEDBY is null }
@@ -734,7 +734,7 @@ PARAMETERS_TOP(QRY)=
 CONDITIONS_MORE(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
-  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION @version
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   where 1=1
   {? :id^long^null | AND p.ID is null | AND p.ID = :id}
@@ -1190,7 +1190,7 @@ BASIC_POLY_JOIN_2(QRY)=
 ;
 
 BASIC_POLY2_JOIN(QRY)=
-  select pm.ID @id^long^id, pm.LOCATION @location,
+  select pm.ID @id^long^id, pm.LOCATION as @location,
   mo.MEDIA @media==movie.id^long^id, mo.URLIMDB @media.urlIMDB, mo.CATEGORY @media.category,
   bk.MEDIA @media==book.id^long^id, bk.ISBN @media.isbn,
   m.TITLE @media.title
@@ -1204,7 +1204,7 @@ BASIC_POLY2_JOIN(QRY)=
 ;
 
 BASIC_POLY2_JOIN_2(QRY)=
-  select pm.ID @id, pm.LOCATION @location,
+  select pm.ID @id, pm.LOCATION as @location,
   mo.MEDIA @media==movie.id, mo.URLIMDB @media.urlIMDB, mo.CATEGORY @media.category,
   bk.MEDIA @media==book.id, bk.ISBN @media.isbn,
   m.TITLE @media.title
@@ -1219,7 +1219,7 @@ BASIC_POLY2_JOIN_2(QRY)=
 
 BASIC_JOIN_ONE_TO_ONE_1(QRY)=
   select p.ID @id, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country, p.NAME_FIRST @name.first, p.NAME_LAST @name.last,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.VERSION @version,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.VERSION as @version,
   p.CLOTHES_SIZE @clothesSize,
   c.ID @contact.id, c.ADRESS @contact.address, c.CITY @contact.city, c.ZIP @contact.zip, c.STATE @contact.state, c.UUID @contact.uuid,
   c.CREATEDDATE @contact.createdDate, c.CREATEDBY @contact.createdBy, c.VERSION @contact.version
