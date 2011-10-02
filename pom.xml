@@ -32,6 +32,7 @@
         <version.javassist>3.8.0.GA</version.javassist>
         <version.oracle>10.2.0.4</version.oracle>
         <version.mysql>5.1.14</version.mysql>
+        <version.postgresql>8.4-701.jdbc4</version.postgresql>
         <version.beanutils>1.8.3</version.beanutils>
         <version.dbcp>1.4</version.dbcp>
 
@@ -282,6 +283,29 @@
                     <groupId>mysql</groupId>
                     <artifactId>mysql-connector-java</artifactId>
                     <version>${version.mysql}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>postgresql</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.PostgreSQLDialect</db.dialect>
+                <db.driver>org.postgresql.Driver</db.driver>
+                <db.url>jdbc:postgresql://127.0.0.1:5432/sql</db.url>
+                <db.username>sql</db.username>
+                <db.password>sql</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <DB_TYPE>POSTGRESQL</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.dataset.datatype.DefaultDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${version.postgresql}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

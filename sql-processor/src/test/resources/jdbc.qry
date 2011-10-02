@@ -22,7 +22,7 @@ SEL1(OPT,ORACLE)=select last_insert_id();
 
 // META SQL query
 ANSI_BASIC(QRY)=
-  select %p.ID, %p.NAME_FIRST first, %p.NAME_LAST last, %p.SSN_NUMBER ssn, %p.SSN_COUNTRY country,
+  select %p.ID, %p.NAME_FIRST as first, %p.NAME_LAST as last, %p.SSN_NUMBER ssn, %p.SSN_COUNTRY country,
   %p.BIRTHDATE, %p.SEX, p.CREATEDDATE, %p.CREATEDBY, %p.LASTUPDATED, %p.LASTUPDATEDBY, %p.VERSION
   from %%PERSON p
   order by %p.ID
@@ -57,13 +57,13 @@ ANSI_BASIC_3(QRY)=
 ;
 
 SQL_EXT_BASIC(QRY)=
-  select %ID, $-name.first first, :+name.last last
+  select %ID, $-name.first as first, :+name.last as last
   from %%PERSON
   where 1=1
   order by %ID
 ;
 SQL_EXT_BASIC(QRY,HSQLDB)=
-  select %ID, $-name.first first, cast(:+name.last as varchar(100)) last
+  select %ID, $-name.first as first, cast(:+name.last as varchar(100)) as last
   from %%PERSON
   where 1=1
   order by %ID
@@ -87,7 +87,7 @@ SQL_EXT_BASIC_2(QRY,HSQLDB)=
 
 
 BASIC(QRY)=
-  select %ID, %NAME_FIRST first, %NAME_LAST last, %SSN_NUMBER ssn, %SSN_COUNTRY country,
+  select %ID, %NAME_FIRST as first, %NAME_LAST as last, %SSN_NUMBER ssn, %SSN_COUNTRY country,
   %BIRTHDATE, %SEX, %CREATEDDATE, %CREATEDBY, %LASTUPDATED, %LASTUPDATEDBY, %VERSION
   from %%PERSON
   {#1 order by %ID}
@@ -108,7 +108,7 @@ BASIC_2(QRY)=
 ;
 
 FORM_BASIC(QRY)=
-  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
   p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
   from PERSON p
   where 1=1
@@ -144,7 +144,7 @@ FORM_BASIC_2(QRY)=
 
 
 FORM_OR_BASIC(QRY)=
-  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
   p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
   from PERSON p
   where 1=1
@@ -176,7 +176,7 @@ FORM_OR_BASIC_2(QRY)=
 
 
 CONSTANT_BASIC(QRY)=
-  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
   p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
   from PERSON p
   where 1=1
@@ -212,7 +212,7 @@ CONSTANT_BASIC_2(QRY)=
 
 
 CONSTANT_OR_BASIC(QRY)=
-  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
   p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
   from PERSON p
   where 1=1
@@ -244,7 +244,7 @@ CONSTANT_OR_BASIC_2(QRY)=
 
   
 CONSTANT_IN_ORDER_BASIC(QRY)=
-  select p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
   p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
   from PERSON p
   where 1=1
@@ -274,14 +274,14 @@ CONSTANT_IN_ORDER_BASIC_2(QRY)=
 
   
 INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY)=
-  select p.ID, $name.first first, :name.last last
+  select p.ID, $name.first as first, :name.last as last
   from PERSON p
   where 1=1
   {& p.id = :id}
   {#1 order by id}
 ;
 INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY,HSQLDB)=
-  select p.ID, $name.first first, cast(:name.last as varchar(100)) last
+  select p.ID, $name.first as first, cast(:name.last as varchar(100)) as last
   from PERSON p
   where 1=1
   {& p.id = :id}
@@ -308,12 +308,12 @@ INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,HSQLDB)=
   
   
 SQL_IN_BRACES_BASIC(QRY)=
-  select p.ID { , $name.first first, p.SSN_NUMBER ssn |, '' first, p.SSN_NUMBER ssn} { , :+name.last last |, '' last} { , p.BIRTHDATE}
+  select p.ID { , $name.first as first, p.SSN_NUMBER ssn |, '' as first, p.SSN_NUMBER ssn} { , :+name.last as last |, '' as last} { , p.BIRTHDATE}
   from PERSON p
   order by id
 ;
 SQL_IN_BRACES_BASIC(QRY,HSQLDB)=
-  select p.ID { , $name.first first, p.SSN_NUMBER ssn |, '' first, p.SSN_NUMBER ssn} { , cast(:+name.last as varchar(100)) last |, '' last} { , p.BIRTHDATE}
+  select p.ID { , $name.first as first, p.SSN_NUMBER ssn |, '' as first, p.SSN_NUMBER ssn} { , cast(:+name.last as varchar(100)) as last |, '' as last} { , p.BIRTHDATE}
   from PERSON p
   order by id
 ;
