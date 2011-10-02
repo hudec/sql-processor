@@ -128,7 +128,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         String sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "select l.id id, l.NAME name, pm.location location");
+        assertContains(sql, "select l.id id, l.NAME as name, pm.location location");
         assertContains(sql, "from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id");
 
         List<LibraryTransport> list = sqlEngine.query(session, LibraryTransport.class, sf);
@@ -144,7 +144,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "select l.id id, l.NAME name, pm.location location");
+        assertContains(sql, "select l.id id, l.NAME as name, pm.location location");
         assertContains(sql, "m.TITLE title, e.ROLE role");
         assertContains(sql, "from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id");
         assertContains(sql, "left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.id");
@@ -168,7 +168,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "select l.id id, l.NAME name, pm.location location");
+        assertContains(sql, "select l.id id, l.NAME as name, pm.location location");
         assertContains(sql, "m.TITLE title, e.ROLE role, p.NAME_FIRST first, p.NAME_LAST last");
         assertContains(sql, "from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id");
         assertContains(sql, "left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.id");
@@ -196,7 +196,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "select l.id id, l.NAME name, pm.location location");
+        assertContains(sql, "select l.id id, l.NAME as name, pm.location location");
         assertContains(sql, "from LIBRARY l left join PHYSICALMEDIA pm on pm.LIBRARY = l.id");
         assertDoNotContain(sql, "WHERE");
 
@@ -370,7 +370,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
         assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
-        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn");
+        assertContains(sql, "p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn");
         assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
         assertContains(sql, "left join PERSON p on e.PERSON = p.ID");
         assertContains(sql, "WHERE UPPER(p.NAME_LAST) = :lname AND UPPER(p.NAME_FIRST) = :fname",
@@ -393,7 +393,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
         assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
-        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER");
+        assertContains(sql, "p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER");
         assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
         assertContains(sql, "left join PERSON p on e.PERSON = p.ID");
         assertContains(sql, "WHERE p.SSN_NUMBER = :ssn", "WHERE p.SSN_NUMBER = ?");
@@ -417,7 +417,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
         sql = sqlEngine.getSql(sf, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
         assertContains(sql, "select m.id id, m.TITLE title, e.ROLE role");
-        assertContains(sql, "p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn");
+        assertContains(sql, "p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn");
         assertContains(sql, "from MEDIA m left join ENGAGEMENT e on e.MEDIA = m.ID");
         assertContains(sql, "left join PERSON p on e.PERSON = p.ID");
         assertContains(sql, "WHERE UPPER(p.NAME_LAST) = :lname AND UPPER(p.NAME_FIRST) = :fname",
