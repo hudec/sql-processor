@@ -14,11 +14,13 @@ ID(OPT)=id;
  */
 SEQ1(OPT,HSQLDB)=call NEXT VALUE FOR SQLPROC_SEQUENCE; 
 SEQ1(OPT,ORACLE)=select SQLPROC_SEQUENCE.nextval from dual;
+SEQ1(OPT,POSTGRESQL)=select nextval('SQLPROC_SEQUENCE');
 /*
  * Default select command to obtain a new created identity
  */
 SEL1(OPT,HSQLDB)=call identity();
 SEL1(OPT,ORACLE)=select last_insert_id();
+SEL1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
 
 // META SQL query
 ANSI_BASIC(QRY)=
@@ -1334,11 +1336,21 @@ UPDATE_PERSON(CRUD)=
   SET p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date^any
   {= where p.ID = :id }
 ;
+UPDATE_PERSON(CRUD,POSTGRESQL)=
+  update PERSON
+  SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date^any
+  {= where ID = :id }
+;
 
 UPDATE_PERSON_2(CRUD)=
   update PERSON p
   {= set p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date}
   {= where p.ID = :id }
+;
+UPDATE_PERSON_2(CRUD,POSTGRESQL)=
+  update PERSON
+  {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date}
+  {= where ID = :id }
 ;
 
 DELETE_PERSON(CRUD)=

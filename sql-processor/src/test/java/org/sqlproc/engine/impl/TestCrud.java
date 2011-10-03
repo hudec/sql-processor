@@ -159,10 +159,12 @@ public class TestCrud extends TestDatabase {
 
         String sql = crudEngine.getUpdateSql(p, null);
         logger.info(sql);
-        assertContains(sql, "update PERSON p");
-        assertContains(sql, "SET p.NAME_FIRST = :name_first, p.CREATEDDATE = :createdDate",
-                "SET p.NAME_FIRST = ?, p.CREATEDDATE = ?");
-        assertContains(sql, "WHERE p.ID = :id", "WHERE p.ID = ?");
+        assertContains(sql, "update PERSON");
+        assertContains(sql, "SET");
+        assertContains(sql, "NAME_FIRST = :name_first", "NAME_FIRST = ?");
+        assertContains(sql, "CREATEDDATE = :createdDate", "CREATEDDATE = ?");
+        assertContains(sql, "WHERE");
+        assertContains(sql, "ID = :id", "ID = ?");
 
         int count = crudEngine.update(session, p);
         assertEquals(1, count);
@@ -196,10 +198,12 @@ public class TestCrud extends TestDatabase {
 
         String sql = crudEngine.getUpdateSql(p, null);
         logger.info(sql);
-        assertContains(sql, "update PERSON p");
-        assertContains(sql, "SET p.NAME_FIRST = :name_first, p.CREATEDDATE = :createdDate",
-                "SET p.NAME_FIRST = ?, p.CREATEDDATE = ?");
-        assertContains(sql, "WHERE p.ID = :id", "WHERE p.ID = ?");
+        assertContains(sql, "update PERSON");
+        assertContains(sql, "SET");
+        assertContains(sql, "NAME_FIRST = :name_first", "NAME_FIRST = ?");
+        assertContains(sql, "CREATEDDATE = :createdDate", "CREATEDDATE = ?");
+        assertContains(sql, "WHERE");
+        assertContains(sql, "ID = :id", "ID = ?");
 
         int count = crudEngine.update(session, p);
         assertEquals(1, count);
@@ -303,7 +307,7 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsert5() {
-        if ("ORACLE".equalsIgnoreCase(dbType))
+        if ("ORACLE".equalsIgnoreCase(dbType) || "POSTGRESQL".equalsIgnoreCase(dbType))
             return;
 
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
