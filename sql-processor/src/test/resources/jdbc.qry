@@ -21,6 +21,7 @@ SEQ1(OPT,POSTGRESQL)=select nextval('SQLPROC_SEQUENCE');
 SEL1(OPT,HSQLDB)=call identity();
 SEL1(OPT,ORACLE)=select last_insert_id();
 SEL1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
+SEL2(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('contact','id'));
 
 // META SQL query
 ANSI_BASIC(QRY)=
@@ -972,6 +973,10 @@ CUSTOM_TYPE_INSERT(CRUD)=
 CUSTOM_TYPE_INSERT_2(CRUD)=
   insert into CONTACT (ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
   {= values (:id^long^idsel, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
+;
+CUSTOM_TYPE_INSERT_2(CRUD,POSTGRESQL)=
+  insert into CONTACT (ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
+  {= values (:id^long^idsel=SEL2, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
 ;
   
 CUSTOM_TYPE_GET(CRUD)=
