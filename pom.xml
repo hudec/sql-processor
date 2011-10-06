@@ -42,8 +42,8 @@
         <db.username>sa</db.username>
         <db.password />
         <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-        <DDL_CREATE_DB>ddl/hsqldb_create.properties</DDL_CREATE_DB>
-        <DDL_DROP_DB>ddl/hsqldb_drop.properties</DDL_DROP_DB>
+        <DDL_CREATE_DB>ddl/hsqldb.ddl</DDL_CREATE_DB>
+        <DDL_DROP_DB></DDL_DROP_DB>
         <NEW_LOADER>true</NEW_LOADER>
         <DB_TYPE>HSQLDB</DB_TYPE>
         <DATATYPE_FACTORY>org.sqlproc.engine.impl.HsqlDataTypeFactory</DATATYPE_FACTORY>

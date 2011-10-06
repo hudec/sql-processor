@@ -20,6 +20,47 @@ public class TestCrud extends TestDatabase {
     }
 
     @Test
+    public void testInsertEmpty() {
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        List<Person> list = sqlEngine.query(session, Person.class);
+        assertEquals(2, list.size());
+
+        Person p = new Person();
+        p.setId(3L);
+        p.setSsn(new Ssn());
+        p.getSsn().setNumber("");
+        p.getSsn().setCountry(Country.UNITED_STATES);
+        p.setName(new PersonName());
+        p.getName().setFirst("");
+        p.getName().setLast("Stephens");
+        p.setAge(1969, 4, 21);
+        p.setSex(Gender.MALE);
+        p.setCreatedDate(new Date());
+        p.setCreatedBy("wlado");
+        p.setVersion(1L);
+        p.setClothesSize(Size.MIDDLE);
+
+        SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON");
+
+        String sql = crudEngine.getInsertSql(p, null);
+        logger.info(sql);
+
+        int count = crudEngine.insert(session, p);
+        assertEquals(1, count);
+        logger.info("new id: " + p.getId());
+        assertNotNull(p.getId());
+
+        Person p2 = new Person();
+        p2.setId(p.getId());
+        list = sqlEngine.query(session, Person.class, p2);
+        assertEquals(1, list.size());
+        Person p3 = list.get(0);
+        assertEquals("", p3.getName().getFirst());
+        assertEquals("Stephens", p3.getName().getLast());
+    }
+
+    @Test
     public void testGetNull() {
         SqlCrudEngine sqlEngine = getCrudEngine("GET_PERSON");
 

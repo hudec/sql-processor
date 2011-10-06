@@ -1,5 +1,9 @@
 package org.sqlproc.engine.impl;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -54,8 +58,8 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected static Properties queriesProperties;
     protected static StringBuilder metaStatements;
     protected static String dbType;
-    protected static Properties ddlCreateDbProperties;
-    protected static Properties ddlDropDbProperties;
+    protected static List<String> ddlCreateDb;
+    protected static List<String> ddlDropDb;
     protected static boolean dbCreated = false;
     protected static boolean newLoader = false;
 
@@ -74,12 +78,10 @@ public abstract class TestDatabase extends DatabaseTestCase {
         newLoader = Boolean.parseBoolean(testProperties.getProperty(NEW_LOADER));
 
         if (containsProperty(testProperties, DDL_CREATE_DB)) {
-            ddlCreateDbProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class,
-                    testProperties.getProperty(DDL_CREATE_DB));
+            ddlCreateDb = loadDDL(testProperties.getProperty(DDL_CREATE_DB));
         }
         if (containsProperty(testProperties, DDL_DROP_DB)) {
-            ddlDropDbProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class,
-                    testProperties.getProperty(DDL_DROP_DB));
+            ddlDropDb = loadDDL(testProperties.getProperty(DDL_DROP_DB));
         }
         String[] metaPropsNames = testProperties.getProperty(STATEMENTS_PROPS).split("\\s+");
         queriesProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class, metaPropsNames);
@@ -131,10 +133,10 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected abstract String getDataSetFile(String dbType);
 
     protected DatabaseOperation getSetUpOperation() throws Exception {
-        if (dbCreated || ddlCreateDbProperties == null) {
+        if (dbCreated || ddlCreateDb == null) {
             return DatabaseOperation.CLEAN_INSERT;
         } else {
-            DatabaseOperation operation = new CompositeOperation(new BatchOperation(ddlCreateDbProperties),
+            DatabaseOperation operation = new CompositeOperation(new BatchOperation(ddlCreateDb),
                     DatabaseOperation.CLEAN_INSERT);
             dbCreated = true;
             return operation;
@@ -161,12 +163,42 @@ public abstract class TestDatabase extends DatabaseTestCase {
         session.getConnection().close();
     }
 
+    private static List<String> loadDDL(String filename) {
+        List<String> sqls = new ArrayList<String>();
+
+        try {
+            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
+            BufferedReader r = new BufferedReader(new InputStreamReader(in));
+            String line = null;
+            String EOL = System.getProperty("line.separator");
+            StringBuilder sql = new StringBuilder();
+
+            while ((line = r.readLine()) != null) {
+                if (!TestUtils.isBlank(line) && !line.startsWith("--")) {
+                    sql.append(line + EOL);
+                } else {
+                    if (sql.length() > 0) {
+                        sqls.add(sql.toString());
+                        sql = new StringBuilder();
+                    }
+                }
+            }
+            if (sql.length() > 0) {
+                sqls.add(sql.toString());
+            }
+            in.close();
+        } catch (IOException e) {
+            return null;
+        }
+        return sqls;
+    }
+
     private static class BatchOperation extends DatabaseOperation {
 
-        Properties ddls;
+        List<String> sqls;
 
-        BatchOperation(Properties ddls) {
-            this.ddls = ddls;
+        BatchOperation(List<String> sqls) {
+            this.sqls = sqls;
         }
 
         public void execute(IDatabaseConnection connection, IDataSet dataSet) throws DatabaseUnitException,
@@ -174,13 +206,8 @@ public abstract class TestDatabase extends DatabaseTestCase {
             Statement stmt = null;
             try {
                 stmt = connection.getConnection().createStatement();
-                for (int i = 1; i <= 60; i++) {
-                    String ddl = ddlCreateDbProperties.getProperty("s" + i);
-                    if (ddl == null)
-                        continue;
-                    System.out.println(ddl);
-                    stmt.addBatch(ddl);
-                }
+                for (String sql : sqls)
+                    stmt.addBatch(sql);
                 stmt.executeBatch();
             } catch (SQLException e) {
                 System.out.println("SQLException: " + e.getMessage());

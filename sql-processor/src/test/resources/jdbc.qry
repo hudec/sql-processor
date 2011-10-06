@@ -1292,7 +1292,7 @@ ANSI_BASIC_ASTERISK(OUT)=
 
 INSERT_PERSON(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
-  values (:id, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize)
+  values (:id, :ssn.number^string^any, :ssn.country, :name.first^string^any, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize)
 ;
   
 INSERT_PERSON_2(CRUD)=
