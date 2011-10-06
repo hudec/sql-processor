@@ -21,6 +21,9 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsertEmpty() {
+        if ("oracle".equalsIgnoreCase(dbType))
+            return;
+
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);

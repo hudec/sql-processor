@@ -20,7 +20,8 @@ public class TestOrder extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,");
+        assertContains(sql,
+                "p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,");
         assertContains(sql, "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
         assertContains(sql, "from PERSON p");
         assertContains(sql, "order by id ASC");
@@ -29,7 +30,8 @@ public class TestOrder extends TestDatabase {
 
         sql = sqlEngine.getSql(null, null, getDescOrder(2));
         logger.info(sql);
-        assertContains(sql, "p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,");
+        assertContains(sql,
+                "p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,");
         assertContains(sql, "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
         assertContains(sql, "from PERSON p");
         assertContains(sql, "order by first DESC");
@@ -38,7 +40,8 @@ public class TestOrder extends TestDatabase {
 
         sql = sqlEngine.getSql(null, null, getDescOrder(1).addAscOrder(4));
         logger.info(sql);
-        assertContains(sql, "p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,");
+        assertContains(sql,
+                "p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,");
         assertContains(sql, "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
         assertContains(sql, "from PERSON p");
         assertContains(sql, "order by id DESC, ssn ASC");
@@ -47,7 +50,8 @@ public class TestOrder extends TestDatabase {
 
         sql = sqlEngine.getSql(null, null, getDescOrder(1).addAscOrder(4).addDescOrder(3));
         logger.info(sql);
-        assertContains(sql, "p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,");
+        assertContains(sql,
+                "p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,");
         assertContains(sql, "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
         assertContains(sql, "from PERSON p");
         assertContains(sql, "order by id DESC, ssn ASC, last DESC");

@@ -26,7 +26,7 @@ public class TestBasic extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country");
+        assertContains(sql, "p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country");
         assertContains(sql, "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
         assertContains(sql, "from PERSON p");
         assertContains(sql, "order by p.ID");
@@ -65,8 +65,8 @@ public class TestBasic extends TestDatabase {
 
         String sql = sqlEngine.getSql(pf, pfc, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "'pierce' first");
-        assertContains(sql, ":name_last last", " last");
+        assertContains(sql, "'pierce' as first");
+        assertContains(sql, ":name_last as last", " as last");
 
         List<Person> list = sqlEngine.query(session, Person.class, pf, pfc, 0, 0);
 
@@ -83,7 +83,7 @@ public class TestBasic extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "ID, NAME_FIRST first, NAME_LAST last, SSN_NUMBER ssn, SSN_COUNTRY country,");
+        assertContains(sql, "ID, NAME_FIRST as first, NAME_LAST as last, SSN_NUMBER ssn, SSN_COUNTRY country,");
         assertContains(sql, "BIRTHDATE, SEX, CREATEDDATE, CREATEDBY, LASTUPDATED, LASTUPDATEDBY, VERSION");
         assertContains(sql, "from PERSON");
         assertContains(sql, "order by ID ASC");
@@ -389,8 +389,8 @@ public class TestBasic extends TestDatabase {
 
         String sql = sqlEngine.getSql(pf, pfc, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
-        assertContains(sql, "'Pierce' first");
-        assertContains(sql, ":name_last last", " last");
+        assertContains(sql, "'Pierce' as first");
+        assertContains(sql, ":name_last last", " as last");
         assertContains(sql, "order by id ASC");
 
         List<Person> list = sqlEngine.query(session, Person.class, pf, pfc, 0, 0);
@@ -416,8 +416,8 @@ public class TestBasic extends TestDatabase {
 
         String sql = sqlEngine.getSql(pf, pfc, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "'Pierce' first");
-        assertContains(sql, ":name_last last", " last");
+        assertContains(sql, "'Pierce' as first");
+        assertContains(sql, ":name_last as last", " as last");
         assertContains(sql, "p.SSN_NUMBER");
         assertContains(sql, "p.BIRTHDATE");
 
@@ -431,7 +431,7 @@ public class TestBasic extends TestDatabase {
 
         sql = sqlEngine.getSql(null, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertDoNotContain(sql, "'Pierce' first");
+        assertDoNotContain(sql, "'Pierce' as first");
         assertDoNotContain(sql, ":name_last last");
         assertEquals("Pierce", p.getName().getFirst());
         assertEquals("BROSNAN", p.getName().getLast());
@@ -455,7 +455,7 @@ public class TestBasic extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "p.ID, p.NAME_FIRST first, p.NAME_LAST last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country");
+        assertContains(sql, "p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country");
         assertContains(sql, "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
         assertContains(sql, "from PERSON p");
         assertContains(sql, "order by p.ID");

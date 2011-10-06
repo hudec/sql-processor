@@ -13,6 +13,8 @@ public class TestStandardTypes extends TestDatabase {
     protected String getDataSetFile(String dbType) {
         if (dbType.equalsIgnoreCase("oracle"))
             return "dbunit/TypesTest_oracle.xml";
+        else if (dbType.equalsIgnoreCase("postgresql"))
+            return "dbunit/TypesTest_postgresql.xml";
         else
             return "dbunit/TypesTest.xml";
     }
@@ -56,9 +58,9 @@ public class TestStandardTypes extends TestDatabase {
         assertEquals("14:55:02", t.getT_time().toString());
         assertEquals("2009-08-31", t.getT_date().toString());
         assertEquals("2009-08-31 14:55:02.0", t.getT_datetime().toString());
-        if ("MYSQL".equalsIgnoreCase(dbType))
+        if ("mysql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
-        else if ("HSQLDB".equalsIgnoreCase(dbType))
+        else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
         else
             assertEquals("2009-08-31 14:55:02.123456789", t.getT_timestamp().toString());
@@ -114,9 +116,9 @@ public class TestStandardTypes extends TestDatabase {
         assertEquals("14:55:02", t.getT_time().toString());
         assertEquals("2009-08-31", t.getT_date().toString());
         assertEquals("2009-08-31 14:55:02.0", t.getT_datetime().toString());
-        if ("MYSQL".equalsIgnoreCase(dbType))
+        if ("mysql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
-        else if ("HSQLDB".equalsIgnoreCase(dbType))
+        else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
         else
             assertEquals("2009-08-31 14:55:02.123456789", t.getT_timestamp().toString());

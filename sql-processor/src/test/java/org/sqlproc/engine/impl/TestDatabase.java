@@ -55,13 +55,11 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected static final String DATATYPE_FACTORY = "DATATYPE_FACTORY";
 
     protected static Properties testProperties;
-    protected static Properties queriesProperties;
     protected static StringBuilder metaStatements;
     protected static String dbType;
     protected static List<String> ddlCreateDb;
     protected static List<String> ddlDropDb;
     protected static boolean dbCreated = false;
-    protected static boolean newLoader = false;
 
     protected static List<SqlInternalType> customTypes = new ArrayList<SqlInternalType>();
     static {
@@ -75,7 +73,6 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
         testProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class, "test.properties");
         dbType = testProperties.getProperty(DB_TYPE);
-        newLoader = Boolean.parseBoolean(testProperties.getProperty(NEW_LOADER));
 
         if (containsProperty(testProperties, DDL_CREATE_DB)) {
             ddlCreateDb = loadDDL(testProperties.getProperty(DDL_CREATE_DB));
@@ -83,9 +80,6 @@ public abstract class TestDatabase extends DatabaseTestCase {
         if (containsProperty(testProperties, DDL_DROP_DB)) {
             ddlDropDb = loadDDL(testProperties.getProperty(DDL_DROP_DB));
         }
-        String[] metaPropsNames = testProperties.getProperty(STATEMENTS_PROPS).split("\\s+");
-        queriesProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class, metaPropsNames);
-        queriesProperties.setProperty("SET_" + SqlFeature.JDBC, "true");
 
         String[] metaFilesNames = testProperties.getProperty(STATEMENTS_FILES).split("\\s+");
         metaStatements = SqlFilesLoader.getStatements(DatabaseTestCase.class, metaFilesNames);
@@ -232,13 +226,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
         SqlProcessContext.nullFeatures();
         SqlProcessContext.nullTypeFactory();
         SqlEngineFactory factory;
-        if (newLoader) {
-            factory = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(), dbType, null, customTypes,
-                    name);
-        } else {
-            factory = new SqlEngineLoader(queriesProperties, JdbcTypeFactory.getInstance(), dbType, null, customTypes,
-                    name);
-        }
+        factory = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(), dbType, null, customTypes, name);
         assertNotNull(factory);
         return factory;
     }

@@ -14,6 +14,8 @@ public class TestUndefinedTypes extends TestDatabase {
     protected String getDataSetFile(String dbType) {
         if (dbType.equalsIgnoreCase("oracle"))
             return "dbunit/TypesTest_oracle.xml";
+        else if (dbType.equalsIgnoreCase("postgresql"))
+            return "dbunit/TypesTest_postgresql.xml";
         else
             return "dbunit/TypesTest.xml";
     }
@@ -57,9 +59,9 @@ public class TestUndefinedTypes extends TestDatabase {
         assertEquals("14:55:02", t.getT_time().toString());
         assertEquals("2009-08-31", t.getT_date().toString());
         assertEquals("2009-08-31 14:55:02.0", t.getT_datetime().toString());
-        if ("MYSQL".equalsIgnoreCase(dbType))
+        if ("mysql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
-        else if ("HSQLDB".equalsIgnoreCase(dbType))
+        else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
         else
             assertEquals("2009-08-31 14:55:02.123456789", t.getT_timestamp().toString());
@@ -78,8 +80,10 @@ public class TestUndefinedTypes extends TestDatabase {
             assertEquals(t.getAn_byte()[i], t.getAt_byte()[i].byteValue());
         assertEquals("hello", t.getA_text());
 
-        assertEquals("byebye", new String(t.getA_blob().getBytes(1L, (int) t.getA_blob().length())));
-        assertEquals("dovi", t.getA_clob().getSubString(1L, (int) t.getA_clob().length()));
+        if (!dbType.equalsIgnoreCase("postgresql")) {
+            assertEquals("byebye", new String(t.getA_blob().getBytes(1L, (int) t.getA_blob().length())));
+            assertEquals("dovi", t.getA_clob().getSubString(1L, (int) t.getA_clob().length()));
+        }
     }
 
     @Test
@@ -121,9 +125,9 @@ public class TestUndefinedTypes extends TestDatabase {
         assertEquals("14:55:02", t.getT_time().toString());
         assertEquals("2009-08-31", t.getT_date().toString());
         assertEquals("2009-08-31 14:55:02.0", t.getT_datetime().toString());
-        if ("MYSQL".equalsIgnoreCase(dbType))
+        if ("mysql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
-        else if ("HSQLDB".equalsIgnoreCase(dbType))
+        else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
         else
             assertEquals("2009-08-31 14:55:02.123456789", t.getT_timestamp().toString());
@@ -142,7 +146,9 @@ public class TestUndefinedTypes extends TestDatabase {
             assertEquals(t.getAn_byte()[i], t.getAt_byte()[i].byteValue());
         assertEquals("hello", t.getA_text());
 
-        assertEquals("byebye", new String(t.getA_blob().getBytes(1L, (int) t.getA_blob().length())));
-        assertEquals("dovi", t.getA_clob().getSubString(1L, (int) t.getA_clob().length()));
+        if (!dbType.equalsIgnoreCase("postgresql")) {
+            assertEquals("byebye", new String(t.getA_blob().getBytes(1L, (int) t.getA_blob().length())));
+            assertEquals("dovi", t.getA_clob().getSubString(1L, (int) t.getA_clob().length()));
+        }
     }
 }
