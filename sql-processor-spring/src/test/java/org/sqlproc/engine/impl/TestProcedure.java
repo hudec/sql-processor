@@ -97,7 +97,7 @@ public class TestProcedure extends TestDatabase {
         List<Person> list = sqlEngine.query(session, Person.class);
         assertEquals(2, list.size());
 
-        Person p = new Person();
+        final Person p = new Person();
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -106,14 +106,17 @@ public class TestProcedure extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
 
-        SqlProcedureEngine callableEngine = getProcedureEngine("INSERT_PERSON_CALL_RESULT_SET_2");
+        final SqlProcedureEngine callableEngine = getProcedureEngine("INSERT_PERSON_CALL_RESULT_SET_2");
 
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        Boolean autocommit = switchAutocommit(false, "postgresql");
-        list = callableEngine.callQuery(session, Person.class, p);
-        switchAutocommit(autocommit, "postgresql");
+        list = doInTransaction(new TestOperation<List<Person>>() {
+            @Override
+            public List<Person> doTest() {
+                return callableEngine.callQuery(session, Person.class, p);
+            }
+        }, "postgresql");
         assertEquals(1, list.size());
         Person p2 = list.get(0);
         logger.info("New person is " + p2);
@@ -134,7 +137,7 @@ public class TestProcedure extends TestDatabase {
         List<Person> list = sqlEngine.query(session, Person.class);
         assertEquals(2, list.size());
 
-        Person p = new Person();
+        final Person p = new Person();
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -143,14 +146,17 @@ public class TestProcedure extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
 
-        SqlProcedureEngine callableEngine = getProcedureEngine("INSERT_PERSON_CALL_RESULT_SET");
+        final SqlProcedureEngine callableEngine = getProcedureEngine("INSERT_PERSON_CALL_RESULT_SET");
 
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        Boolean autocommit = switchAutocommit(false, "postgresql");
-        list = callableEngine.callQuery(session, Person.class, p);
-        switchAutocommit(autocommit, "postgresql");
+        list = doInTransaction(new TestOperation<List<Person>>() {
+            @Override
+            public List<Person> doTest() {
+                return callableEngine.callQuery(session, Person.class, p);
+            }
+        }, "postgresql");
         assertEquals(1, list.size());
         Person p2 = list.get(0);
         logger.info("New person is " + p2);
@@ -171,7 +177,7 @@ public class TestProcedure extends TestDatabase {
         List<Person> list = sqlEngine.query(session, Person.class);
         assertEquals(2, list.size());
 
-        Person p = new Person();
+        final Person p = new Person();
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -181,14 +187,17 @@ public class TestProcedure extends TestDatabase {
         p.setAge(1969, 4, 21);
         p.setSex(Gender.FEMALE);
 
-        SqlProcedureEngine callableEngine = getProcedureEngine("INSERT_PERSON_CALL_RESULT_SET");
+        final SqlProcedureEngine callableEngine = getProcedureEngine("INSERT_PERSON_CALL_RESULT_SET");
 
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
-        Boolean autocommit = switchAutocommit(false, "postgresql");
-        list = callableEngine.callQuery(session, Person.class, p);
-        switchAutocommit(autocommit, "postgresql");
+        list = doInTransaction(new TestOperation<List<Person>>() {
+            @Override
+            public List<Person> doTest() {
+                return callableEngine.callQuery(session, Person.class, p);
+            }
+        }, "postgresql");
         assertEquals(1, list.size());
         Person p2 = list.get(0);
         logger.info("New person is " + p2);

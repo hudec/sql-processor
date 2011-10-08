@@ -27,6 +27,11 @@ import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFilesLoader;
@@ -66,6 +71,8 @@ public abstract class TestDatabase extends DatabaseTestCase {
     }
 
     protected static JdbcTemplate jdbcTemplate;
+    protected static DataSourceTransactionManager transactionManager;
+    protected static TransactionTemplate txTemplate;
     protected SpringSimpleSession session;
 
     static {
@@ -93,6 +100,9 @@ public abstract class TestDatabase extends DatabaseTestCase {
         dataSource.setAccessToUnderlyingConnectionAllowed(true);
         jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);
+        transactionManager = new DataSourceTransactionManager();
+        transactionManager.setDataSource(dataSource);
+        txTemplate = new TransactionTemplate(transactionManager);
     }
 
     public TestDatabase() {
@@ -281,21 +291,17 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return true;
     }
 
-    protected Boolean switchAutocommit(Boolean autocommit, String databaseType) {
-        if (databaseType != null && !dbType.equalsIgnoreCase(databaseType))
-            return null;
-        Boolean oldAutocommit = null;
-        try {
-            oldAutocommit = session.getJdbcTemplate().getDataSource().getConnection().getAutoCommit();
-        } catch (SQLException e) {
+    protected <T> T doInTransaction(final TestOperation<T> testTransaction, String databaseType) {
+        if (databaseType == null || !dbType.equalsIgnoreCase(databaseType)) {
+            return testTransaction.doTest();
         }
-        if (autocommit != null) {
-            try {
-                session.getJdbcTemplate().getDataSource().getConnection().setAutoCommit(autocommit);
-            } catch (SQLException e) {
+        return txTemplate.execute(new TransactionCallback<T>() {
+            @Override
+            public T doInTransaction(TransactionStatus status) {
+                return testTransaction.doTest();
             }
-        }
-        return oldAutocommit;
+        });
+
     }
 
     public static class DbConnection extends DatabaseConnection {

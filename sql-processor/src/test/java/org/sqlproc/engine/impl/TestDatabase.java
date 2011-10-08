@@ -296,6 +296,13 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return oldAutocommit;
     }
 
+    protected <T> T doInTransaction(final TestOperation<T> testTransaction, String databaseType) {
+        Boolean autocommit = switchAutocommit(false, databaseType);
+        T result = testTransaction.doTest();
+        switchAutocommit(autocommit, databaseType);
+        return result;
+    }
+
     public static class DbConnection extends DatabaseConnection {
 
         Connection wrapperConnection;
