@@ -333,6 +333,29 @@
             </dependencies>
         </profile>
         <profile>
+            <id>postgresql-bamboo</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.PostgreSQLDialect</db.dialect>
+                <db.driver>org.postgresql.Driver</db.driver>
+                <db.url>jdbc:postgresql://komin:5432/sql</db.url>
+                <db.username>sql</db.username>
+                <db.password>sql</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <DB_TYPE>POSTGRESQL</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.dataset.datatype.DefaultDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${version.postgresql}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>release-sign-artifacts</id>
             <activation>
                 <property>
