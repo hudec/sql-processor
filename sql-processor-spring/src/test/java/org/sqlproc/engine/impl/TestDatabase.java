@@ -29,8 +29,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
-import org.sqlproc.engine.SqlEngineLoader;
-import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlProcessorLoader;
@@ -281,6 +279,23 @@ public abstract class TestDatabase extends DatabaseTestCase {
         if (s == null || s.trim().length() == 0)
             return false;
         return true;
+    }
+
+    protected Boolean switchAutocommit(Boolean autocommit, String databaseType) {
+        if (databaseType != null && !dbType.equalsIgnoreCase(databaseType))
+            return null;
+        Boolean oldAutocommit = null;
+        try {
+            oldAutocommit = session.getJdbcTemplate().getDataSource().getConnection().getAutoCommit();
+        } catch (SQLException e) {
+        }
+        if (autocommit != null) {
+            try {
+                session.getJdbcTemplate().getDataSource().getConnection().setAutoCommit(autocommit);
+            } catch (SQLException e) {
+            }
+        }
+        return oldAutocommit;
     }
 
     public static class DbConnection extends DatabaseConnection {

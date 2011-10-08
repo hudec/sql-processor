@@ -21,7 +21,7 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testSimpleFunctionToInForm() {
-        if ("HSQLDB".equalsIgnoreCase(dbType))
+        if ("hsqldb".equalsIgnoreCase(dbType))
             return;
 
         SqlProcedureEngine callableEngine = getProcedureEngine("SIMPLE_FUNCION_TO_IN_FORM");
@@ -54,7 +54,7 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testCallableInsertResultProcDefaultTypes() {
-        if (!"ORACLE".equalsIgnoreCase(dbType))
+        if (!"oracle".equalsIgnoreCase(dbType))
             return;
 
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
@@ -111,7 +111,9 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
+        Boolean autocommit = switchAutocommit(false, "postgresql");
         list = callableEngine.callQuery(session, Person.class, p);
+        switchAutocommit(autocommit, "postgresql");
         assertEquals(1, list.size());
         Person p2 = list.get(0);
         logger.info("New person is " + p2);
@@ -146,7 +148,9 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
+        Boolean autocommit = switchAutocommit(false, "postgresql");
         list = callableEngine.callQuery(session, Person.class, p);
+        switchAutocommit(autocommit, "postgresql");
         assertEquals(1, list.size());
         Person p2 = list.get(0);
         logger.info("New person is " + p2);
@@ -182,7 +186,9 @@ public class TestProcedure extends TestDatabase {
         String sql = callableEngine.getCallSql(p, null);
         logger.info(sql);
 
+        Boolean autocommit = switchAutocommit(false, "postgresql");
         list = callableEngine.callQuery(session, Person.class, p);
+        switchAutocommit(autocommit, "postgresql");
         assertEquals(1, list.size());
         Person p2 = list.get(0);
         logger.info("New person is " + p2);

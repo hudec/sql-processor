@@ -377,32 +377,21 @@ CREATE FUNCTION an_hour_before(TIMESTAMP) RETURNS TIMESTAMP AS $$
   SELECT $1 - interval '1 HOUR'
 $$ LANGUAGE SQL;
 
-CREATE PROCEDURE new_person(OUT newid INT, IN birthdate DATE, IN ssn_number VARCHAR(20), IN ssn_country VARCHAR(100), IN name_first VARCHAR(100), IN name_last VARCHAR(100), INOUT sex VARCHAR(100))
-  MODIFIES SQL DATA
-  BEGIN ATOMIC
-    DECLARE sex1 VARCHAR(100);
-    IF sex IS NULL THEN
-      SET sex1 = 'M';
-    ELSE
-      SET sex1 = sex;
-    END IF;
-    INSERT INTO PERSON VALUES (DEFAULT, birthdate, CURRENT_TIMESTAMP, 'test', NULL, NULL, 1, NULL, ssn_number, ssn_country, name_first, name_last, sex1, NULL);
-    SET newid = IDENTITY();
-    SET sex = sex1;
+CREATE OR REPLACE FUNCTION new_person(OUT newid BIGINT, IN birthdate DATE, IN ssn_number VARCHAR(20), IN ssn_country VARCHAR(100), IN name_first VARCHAR(100), IN name_last VARCHAR(100), INOUT sex VARCHAR(100)) AS $$
+  BEGIN
+    sex := COALESCE(sex, 'M');
+    INSERT INTO PERSON VALUES (DEFAULT, birthdate, CURRENT_TIMESTAMP, 'test', NULL, NULL, 1, NULL, ssn_number, ssn_country, name_first, name_last, sex, NULL);
+    newid := currval('person_id_seq');
   END
-;
+$$ LANGUAGE plpgsql;
 
-CREATE PROCEDURE new_person_ret(IN birthdate DATE, IN ssn_number VARCHAR(20), IN ssn_country VARCHAR(100), IN name_first VARCHAR(100), IN name_last VARCHAR(100), IN sex VARCHAR(100))
-  MODIFIES SQL DATA DYNAMIC RESULT SETS 1
-  BEGIN ATOMIC
-    DECLARE sex1 VARCHAR(100);
-    DECLARE result CURSOR FOR SELECT * FROM PERSON WHERE ID = IDENTITY();
-    IF sex IS NULL THEN
-      SET sex1 = 'M';
-    ELSE
-      SET sex1 = sex;
-    END IF;
-    INSERT INTO PERSON VALUES (DEFAULT, birthdate, CURRENT_TIMESTAMP, 'test', NULL, NULL, 1, NULL, ssn_number, ssn_country, name_first, name_last, sex1, NULL);
-    OPEN result;
+CREATE OR REPLACE FUNCTION new_person_ret(IN birthdate DATE, IN ssn_number VARCHAR(20), IN ssn_country VARCHAR(100), IN name_first VARCHAR(100), IN name_last VARCHAR(100), IN sex VARCHAR(100)) RETURNS REFCURSOR AS $$
+  DECLARE
+    result REFCURSOR;
+  BEGIN
+    INSERT INTO PERSON VALUES (DEFAULT, birthdate, CURRENT_TIMESTAMP, 'test', NULL, NULL, 1, NULL, ssn_number, ssn_country, name_first, name_last, COALESCE(sex, 'M'), NULL);
+    OPEN result FOR SELECT * FROM PERSON WHERE ID = currval('person_id_seq');
+    RETURN result;
   END
-;
+$$ LANGUAGE plpgsql;
+
