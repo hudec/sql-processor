@@ -95,6 +95,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
+@Deprecated
 public class SqlEngineLoader implements SqlEngineFactory {
 
     /**

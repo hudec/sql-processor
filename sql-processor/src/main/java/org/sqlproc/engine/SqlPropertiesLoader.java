@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
+@Deprecated
 public class SqlPropertiesLoader {
 
     /**

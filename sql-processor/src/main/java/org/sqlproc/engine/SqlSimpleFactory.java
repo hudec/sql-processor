@@ -86,6 +86,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * The names of property files, which hold a collection of the SQL Processor artifacts (META SQL statements, mapping
      * rules and optional features).
      */
+    @Deprecated
     private List<String> metaPropsNames = new ArrayList<String>();
     /**
      * The names of files, which hold a collection of the SQL Processor artifacts (META SQL statements, mapping rules
@@ -95,6 +96,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     /**
      * The collection of all SQL Processor artifacts (META SQL statements, mapping rules and optional features).
      */
+    @Deprecated
     private Properties metaProps;
     /**
      * The String representation of all SQL Processor artifacts (META SQL statements, mapping rules and optional
@@ -128,6 +130,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     /**
      * The helper class for the META SQL statements and mapping rules parsing. All artifacts are loaded from properties.
      */
+    @Deprecated
     private SqlEngineLoader loader;
     /**
      * The helper class for the META SQL statements and mapping rules parsing. All artifacts are loaded from new grammar
