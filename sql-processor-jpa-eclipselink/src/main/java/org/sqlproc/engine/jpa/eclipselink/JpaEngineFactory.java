@@ -7,7 +7,7 @@ import org.sqlproc.engine.SqlSimpleFactory;
 import org.sqlproc.engine.jdbc.type.JdbcTypeFactory;
 
 /**
- * The implementation of the {@link SqlEngineFactory} optimized for the EclipseLink stack.
+ * The implementation of the {@link SqlEngineFactory} optimized for the EclipseLink stack accessed in a JPA 2 style.
  * 
  * <p>
  * It's suitable mainly for the Spring DI based configuration, like the next one for the new loader
@@ -16,7 +16,7 @@ import org.sqlproc.engine.jdbc.type.JdbcTypeFactory;
  * <pre>
  * &lt;beans ...&gt;
  *   ...
- *   &lt;bean id="sqlFactory" class="rg.sqlproc.engine.hibernate.HibernateEngineFactory" init-method="init"&gt;
+ *   &lt;bean id="sqlFactory" class="org.sqlproc.engine.jpa.eclipselink.JpaEngineFactory" init-method="init"&gt;
  *     &lt;property name="metaFilesNames">
  *       &lt;list>
  *         &lt;value>statements.qry&lt;/value>
@@ -37,7 +37,7 @@ import org.sqlproc.engine.jdbc.type.JdbcTypeFactory;
  *     &lt;/property&gt;
  *   &lt;/bean&gt;
  *   
- *   &lt;bean id="sqlFactory" class="rg.sqlproc.engine.hibernate.HibernateEngineFactory" init-method="init"&gt;
+ *   &lt;bean id="sqlFactory" class="rg.sqlproc.engine.jpa.eclipselink.JpaEngineFactory" init-method="init"&gt;
  *     &lt;property name="metaProps" ref="sqlQueries" /&gt;
  *   &lt;/bean&gt;
  * &lt;/beans&gt;
@@ -58,12 +58,13 @@ import org.sqlproc.engine.jdbc.type.JdbcTypeFactory;
  * <p>
  * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
  * 
- * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
+ * @author <a href="mailto:winkler.marek@gmail.com">Marek Winkler</a>
+ * @author <a href="mailto:ondrej.kotek@gmail.com">Ondrej Kotek</a>
  */
 public class JpaEngineFactory extends SqlSimpleFactory {
 
     /**
-     * Creates a new instance with default values for the Hibernate stack.
+     * Creates a new instance with default values for the EclipseLink stack.
      */
     public JpaEngineFactory() {
         super();
