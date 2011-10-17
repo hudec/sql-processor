@@ -1,0 +1,19 @@
+LIKE_STRING(OPT)=like;
+WILDCARD_CHARACTER(OPT)=%;
+SURROUND_QUERY_LIKE(BOPT)=true;
+SURROUND_QUERY_MIN_LEN(IOPT)=2;
+
+ITEMS(QRY)=
+  select @itemid, @productid, @name, @description, @imageurl, @imagethumburl,
+         @image, @imagethumb, @price
+  from item it
+  {= where
+   {& it.itemid=:itemid}
+   {& UPPER(it.name) like :+name}
+   {& UPPER(it.description) like :+description}
+   {& it.price >= :priceFrom}
+   {& it.price <= :priceTo}
+  }
+  {#1 order by name}
+  {#2 order by price}
+;

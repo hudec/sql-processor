@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+  <head>
+    <title></title>
+    <link wicket:id='stylesheet'/>
+  </head>
+  <body>
+    <span wicket:id='mainNavigation'/>
+
+        <table>
+            <tr>
+                <th> Name </th>
+                <th> Photo</th>
+                <th> Price </th>
+             
+
+            </tr>
+            <tr wicket:id="rows" >
+                 <td>
+                    <a wicket:id = "details" href="#">
+                        <span wicket:id = "name">name</span>
+                    </a>
+                </td>
+         
+                <td>  <img wicket:id="imagethumb"/></td>
+
+
+           <td><span wicket:id="price"></span></td>
+
+            </tr>
+        </table>
+        <span wicket:id="pager">navigation controls here</span>
+        <form wicket:id="listForm">
+           <input type="submit" wicket:id = "doNew" value="New"/>
+           <input type="submit" wicket:id = "doSearch" value="Search"/>
+        </form>
+  </body>
+</html>

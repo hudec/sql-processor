@@ -16,6 +16,7 @@
         <module>catalog-jpa</module>
         <module>catalog-hibernate</module>
         <module>catalog-spring</module>
+        <module>catalog-jpa-eclipselink</module>
     </modules>
 
     <scm>
