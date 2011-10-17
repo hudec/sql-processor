@@ -658,7 +658,7 @@ public class SpringQuery implements SqlQuery {
                 parameterOutValuesToPickup.put(i, ix + i);
             }
         }
-        ix = setLimits(ps, limitType, ix, true);
+        ix = setLimits(ps, limitType, ix + parameters.size(), true);
     }
 
     /**

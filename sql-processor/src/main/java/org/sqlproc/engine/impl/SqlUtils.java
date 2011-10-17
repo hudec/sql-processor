@@ -254,14 +254,14 @@ public class SqlUtils {
             return null;
         int ix = limitPattern.indexOf("$S");
         if (ix >= 0) {
-            limitType.afterSql = limitPattern.indexOf(ix, '$') > 0;
+            limitType.afterSql = limitPattern.indexOf("$", ix + 1) > 0;
             queryResult.append(limitPattern.substring(0, ix));
             queryResult.append(queryString);
             queryResult.append(limitPattern.substring(ix + 2));
         } else {
             ix = limitPattern.indexOf("$s");
             if (ix >= 0) {
-                limitType.afterSql = limitPattern.indexOf(ix, '$') > 0;
+                limitType.afterSql = limitPattern.indexOf("$", ix + 1) > 0;
                 int ix2 = queryString.toLowerCase().indexOf("select");
                 if (ix2 < 0)
                     return null;
