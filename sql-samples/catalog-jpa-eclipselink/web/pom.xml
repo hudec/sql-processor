@@ -67,9 +67,19 @@
                     </connectors>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codeartisans.asadmin</groupId>
+                <artifactId>asadmin-maven-plugin</artifactId>
+                <configuration>
+                    <user>admin</user>
+                    <glassfishHome>${glassfish.directory}</glassfishHome>
+                    <domain>${project.artifactId}</domain>
+                    <!-- <contextRoot>${project.artifactId}</contextRoot> -->
+                    <appArchive>${project.build.directory}/catalog.war</appArchive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
 
     <dependencies>
         <dependency>

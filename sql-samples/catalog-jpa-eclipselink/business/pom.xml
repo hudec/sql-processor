@@ -21,10 +21,16 @@
                 <directory>src/main/resources</directory>
                 <excludes>
                     <exclude>jdbc</exclude>
+                    <exclude>META-INF</exclude>
                 </excludes>
             </resource>
             <resource>
                 <directory>src/main/resources/jdbc</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources/META-INF</directory>
+                <targetPath>META-INF</targetPath>
                 <filtering>true</filtering>
             </resource>
         </resources>

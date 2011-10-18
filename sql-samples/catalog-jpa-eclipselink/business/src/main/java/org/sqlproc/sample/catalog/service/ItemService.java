@@ -21,12 +21,12 @@ public class ItemService {
 
     @Transactional
     public Long create(Item item) {
-        return itemDao.store(item).getItemid();
+        return itemDao.create(item).getItemid();
     }
 
     @Transactional
     public Long update(Item item) {
-        return itemDao.store(item).getItemid();
+        return itemDao.update(item).getItemid();
     }
 
     @Transactional

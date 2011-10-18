@@ -32,12 +32,14 @@ public class ItemDao {
         return entity;
     }
 
-    public Item store(Item entity) {
-        if (this.entityManager.contains(entity)) {
-            entity = this.entityManager.merge(entity);
-        } else {
-            this.entityManager.persist(entity);
-        }
+    public Item create(Item entity) {
+        this.entityManager.persist(entity);
+        this.entityManager.flush();
+        return entity;
+    }
+
+    public Item update(Item entity) {
+        entity = this.entityManager.merge(entity);
         this.entityManager.flush();
         return entity;
     }

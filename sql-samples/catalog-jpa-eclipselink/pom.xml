@@ -38,22 +38,15 @@
         <version.javassist>3.9.0.GA</version.javassist>
         <version.wicket>1.4.13</version.wicket>
 
-        <!-- <db.driver>org.hsqldb.jdbcDriver</db.driver>
-        <db.datasource.driver>org.hsqldb.jdbcDataSource</db.datasource.driver>
-        <db.url>jdbc:hsqldb:mem:sqlproc</db.url>
+        <db.driver>org.hsqldb.jdbcDriver</db.driver>
+        <db.datasource>org.hsqldb.jdbc.JDBCDataSource</db.datasource>
+        <db.url>jdbc:hsqldb:mem:sqlproc-catalogdb</db.url>
+        <db.name>sqlproc-catalogdb</db.name>
         <db.username>sa</db.username>
         <db.password />
         <DB_TYPE>HSQLDB</DB_TYPE>
         <TARGET_DB>org.eclipse.persistence.platform.database.HSQLPlatform</TARGET_DB>
-        -->
-        <db.driver>org.apache.derby.jdbc.ClientDriver</db.driver>
-        <db.datasource.driver>org.apache.derby.jdbc.ClientDataSource</db.datasource.driver>
-        <db.url>jdbc:derby://localhost:1527/catalog-db</db.url>
-        <db.username>sa</db.username>
-        <db.password />
-        <db.name>catalog-db</db.name>
-        <DB_TYPE>DERBY</DB_TYPE>
-        <TARGET_DB>org.eclipse.persistence.platform.database.DerbyPlatform</TARGET_DB>
+        <glassfish.directory>/Users/win/ROB/glassfish/</glassfish.directory>
     </properties>
 
     <modules>
@@ -123,6 +116,11 @@
                     <groupId>org.mortbay.jetty</groupId>
                     <artifactId>maven-jetty-plugin</artifactId>
                     <version>6.1.25</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codeartisans.asadmin</groupId>
+                    <artifactId>asadmin-maven-plugin</artifactId>
+                    <version>0.8</version>
                 </plugin>
             </plugins>
         </pluginManagement>
