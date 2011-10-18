@@ -8,7 +8,7 @@
             connection-leak-reclaim="false"
             connection-leak-timeout-in-seconds="0"
             connection-validation-method="auto-commit"
-            datasource-classname="${db.datasource}"
+            datasource-classname="${jdbc.datasource}"
             fail-all-connections="false"
             idle-timeout-in-seconds="300"
             is-connection-validation-required="false"
@@ -27,14 +27,11 @@
             steady-pool-size="8"
             validate-atmost-once-period-in-seconds="0"
             wrap-jdbc-objects="false">
-        <!--  <property name="serverName" value="localhost"/>
-        <property name="portNumber" value="1527"/> -->
-        <property name="databaseName" value="${db.name}"/>
-        <property name="User" value="${db.username}"/>
-        <property name="Password" value="${db.password}"/>
-        <property name="URL" value="${db.url}"/>
+        <property name="User" value="${jdbc.user}"/>
+        <property name="Password" value="${jdbc.password}"/>
+        <property name="URL" value="${jdbc.url}"/>
         <property name="ConnectionAttributes" value="create=true"/>
-        <property name="driverClass" value="${db.driver}"/>
+        <property name="driverClass" value="${jdbc.driver}"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true"
             pool-name="${project.artifactId}-pool"

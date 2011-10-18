@@ -37,16 +37,6 @@
         <version.commons-collection>3.2.1</version.commons-collection>
         <version.javassist>3.9.0.GA</version.javassist>
         <version.wicket>1.4.13</version.wicket>
-
-        <db.driver>org.hsqldb.jdbcDriver</db.driver>
-        <db.datasource>org.hsqldb.jdbc.JDBCDataSource</db.datasource>
-        <db.url>jdbc:hsqldb:mem:sqlproc-catalogdb</db.url>
-        <db.name>sqlproc-catalogdb</db.name>
-        <db.username>sa</db.username>
-        <db.password />
-        <DB_TYPE>HSQLDB</DB_TYPE>
-        <TARGET_DB>org.eclipse.persistence.platform.database.HSQLPlatform</TARGET_DB>
-        <glassfish.directory>/Users/win/ROB/glassfish/</glassfish.directory>
     </properties>
 
     <modules>
@@ -329,15 +319,16 @@
                 <jdbc.url>jdbc:hsqldb:mem:catalog</jdbc.url>
                 <jdbc.user>sa</jdbc.user>
                 <jdbc.password></jdbc.password>
-                <hibernate.dialect>org.hibernate.dialect.HSQLDialect</hibernate.dialect>
-                <hibernate.show_sql>true</hibernate.show_sql>
-                <hibernate.format_sql>true</hibernate.format_sql>
-                <hibernate.generate_statistics>true</hibernate.generate_statistics>
+                <jdbc.datasource>org.hsqldb.jdbc.JDBCDataSource</jdbc.datasource>
+                <db.type>hsqldb</db.type>
+                <db.name>catalog</db.name>
+                <db.platform>org.eclipse.persistence.platform.database.HSQLPlatform</db.platform>
                 <init.data>true</init.data>
             </properties>
         </profile>
         <profile>
             <id>oracle</id>
+            <!-- not tested yet -->
             <properties>
                 <jdbc.driver>oracle.jdbc.OracleDriver</jdbc.driver>
                 <jdbc.url>jdbc:oracle:thin:@localhost:1521:xe</jdbc.url>
@@ -347,6 +338,7 @@
                 <hibernate.show_sql>true</hibernate.show_sql>
                 <hibernate.format_sql>true</hibernate.format_sql>
                 <hibernate.generate_statistics>true</hibernate.generate_statistics>
+                <db.type>oracle</db.type>
                 <init.data>false</init.data>
             </properties>
         </profile>

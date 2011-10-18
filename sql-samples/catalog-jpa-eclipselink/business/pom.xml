@@ -19,18 +19,19 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+                <filtering>true</filtering>
                 <excludes>
                     <exclude>jdbc</exclude>
-                    <exclude>META-INF</exclude>
+                    <exclude>images</exclude>
                 </excludes>
             </resource>
             <resource>
-                <directory>src/main/resources/jdbc</directory>
-                <filtering>true</filtering>
+                <directory>src/main/resources/images</directory>
+                <filtering>false</filtering>
+                <targetPath>images</targetPath>
             </resource>
             <resource>
-                <directory>src/main/resources/META-INF</directory>
-                <targetPath>META-INF</targetPath>
+                <directory>src/main/resources/jdbc</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
