@@ -5,6 +5,24 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
     <persistence-unit name="catalogPersistenceUnit"
+                      transaction-type="RESOURCE_LOCAL">
+
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <!-- the JDBC connection settings are overriden in applicationContext-business.xml
+             by org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean -->
+        <properties>
+            <property name="eclipselink.target-database"
+                      value="${db.platform}"/>
+            <!-- drops and re-creates all tables during deployment, for testing only -->
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+            <property name="eclipselink.logging.level" value="INFO"/>
+        </properties>
+    </persistence-unit>
+
+    <!-- an example of JTA container managed data source configuration,
+         requires JDBC data source called jdbc/catalog configured in Java EE server domain;
+         see catalog-jpa-eclipselink-web/src/main/webapp/WEB-INF/glassfish-resources.xml for an example using GlassFish 3.1 --> 
+    <persistence-unit name="catalogPersistenceUnitJTA"
                       transaction-type="JTA">
 
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
@@ -12,6 +30,7 @@
         <properties>
             <property name="eclipselink.target-database"
                       value="${db.platform}"/>
+            <!-- drops and re-creates all tables during deployment, for testing only -->
             <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
             <property name="eclipselink.logging.level" value="INFO"/>
         </properties>
