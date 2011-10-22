@@ -22,7 +22,7 @@ import org.sqlproc.engine.SqlRuntimeException;
  * rows in the output result set. This is used for the associations (one-to-one, one-to-many and many-to-many).
  * 
  * The main runtime contracts are {@link #setQueryResultMapping(Class, Map, SqlQuery)} and
- * {@link SqlMappingResult#setQueryResultData(Object, Object[], Map, boolean[], Map)}.
+ * {@link SqlMappingResult#setQueryResultData(Object, Object[], Map, Map)}.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
