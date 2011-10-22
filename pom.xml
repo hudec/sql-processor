@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc</groupId>
     <artifactId>sql-processor-parent</artifactId>
-    <version>1.6.2-SNAPSHOT</version>
+    <version>1.6.2</version>
     <packaging>pom</packaging>
     <name>SQL Processor, Parent Module</name>
     <description>SQL Processor - Data Driven Queries</description>
@@ -43,7 +43,7 @@
         <db.password />
         <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
         <DDL_CREATE_DB>ddl/hsqldb.ddl</DDL_CREATE_DB>
-        <DDL_DROP_DB></DDL_DROP_DB>
+        <DDL_DROP_DB />
         <DB_TYPE>HSQLDB</DB_TYPE>
         <DATATYPE_FACTORY>org.sqlproc.engine.impl.HsqlDataTypeFactory</DATATYPE_FACTORY>
     </properties>
