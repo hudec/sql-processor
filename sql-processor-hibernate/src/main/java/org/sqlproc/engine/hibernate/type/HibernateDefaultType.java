@@ -1,5 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -9,15 +10,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Hibernate;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.LongType;
+import org.hibernate.dialect.Dialect;
+import org.hibernate.engine.SessionImplementor;
+import org.hibernate.type.AbstractSingleColumnStandardBasicType;
+import org.hibernate.type.DiscriminatorType;
+import org.hibernate.type.PrimitiveType;
 import org.hibernate.type.Type;
+import org.hibernate.type.VersionType;
+import org.hibernate.type.descriptor.ValueExtractor;
+import org.hibernate.type.descriptor.WrapperOptions;
+import org.hibernate.type.descriptor.java.JavaTypeDescriptor;
+import org.hibernate.type.descriptor.java.LongTypeDescriptor;
+import org.hibernate.type.descriptor.sql.BasicExtractor;
+import org.hibernate.type.descriptor.sql.BigIntTypeDescriptor;
+import org.hibernate.type.descriptor.sql.IntegerTypeDescriptor;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.impl.BeanUtils;
@@ -37,40 +50,159 @@ public class HibernateDefaultType extends SqlMetaType {
      * The map between the Java types and the Hibernate types.
      */
     static Map<Class<?>, Type> hibernateTypes = new HashMap<Class<?>, Type>();
+
     /**
      * The extended Hibernate type INTEGER.
      */
-    static IntegerType INTEGER = new IntegerType() {
+    static public class MyIntegerTypeDescriptor extends IntegerTypeDescriptor {
+        public static final MyIntegerTypeDescriptor INSTANCE = new MyIntegerTypeDescriptor();
+
         @Override
-        public Object get(ResultSet rs, String name) throws SQLException {
-            if (Character.isDigit(name.charAt(0))) {
-                return new Integer(rs.getInt(Integer.parseInt(name)));
-            } else {
-                return new Integer(rs.getInt(name));
-            }
+        public <X> ValueExtractor<X> getExtractor(final JavaTypeDescriptor<X> javaTypeDescriptor) {
+            return new BasicExtractor<X>(javaTypeDescriptor, this) {
+                @Override
+                protected X doExtract(ResultSet rs, String name, WrapperOptions options) throws SQLException {
+                    if (Character.isDigit(name.charAt(0))) {
+                        return javaTypeDescriptor.wrap(rs.getInt(Integer.parseInt(name)), options);
+                    } else {
+                        return javaTypeDescriptor.wrap(rs.getInt(name), options);
+                    }
+                }
+            };
         }
-    };
+    }
+
+    static public class MyIntegerType extends AbstractSingleColumnStandardBasicType<Integer> implements
+            PrimitiveType<Integer>, DiscriminatorType<Integer>, VersionType<Integer> {
+
+        public static final MyIntegerType INSTANCE = new MyIntegerType();
+
+        @SuppressWarnings({ "UnnecessaryBoxing" })
+        public static final Integer ZERO = Integer.valueOf(0);
+
+        public MyIntegerType() {
+            super(MyIntegerTypeDescriptor.INSTANCE, org.hibernate.type.descriptor.java.IntegerTypeDescriptor.INSTANCE);
+        }
+
+        public String getName() {
+            return "integer";
+        }
+
+        @Override
+        public String[] getRegistrationKeys() {
+            return new String[] { getName(), int.class.getName(), Integer.class.getName() };
+        }
+
+        public Serializable getDefaultValue() {
+            return ZERO;
+        }
+
+        public Class getPrimitiveClass() {
+            return int.class;
+        }
+
+        public String objectToSQLString(Integer value, Dialect dialect) throws Exception {
+            return toString(value);
+        }
+
+        public Integer stringToObject(String xml) {
+            return fromString(xml);
+        }
+
+        public Integer seed(SessionImplementor session) {
+            return ZERO;
+        }
+
+        @SuppressWarnings({ "UnnecessaryBoxing", "UnnecessaryUnboxing" })
+        public Integer next(Integer current, SessionImplementor session) {
+            return Integer.valueOf(current.intValue() + 1);
+        }
+
+        public Comparator<Integer> getComparator() {
+            return getJavaTypeDescriptor().getComparator();
+        }
+    }
+
     /**
      * The extended Hibernate type LONG.
      */
-    static LongType LONG = new LongType() {
+    static public class MyBigIntTypeDescriptor extends BigIntTypeDescriptor {
+        public static final MyBigIntTypeDescriptor INSTANCE = new MyBigIntTypeDescriptor();
+
         @Override
-        public Object get(ResultSet rs, String name) throws SQLException {
-            if (Character.isDigit(name.charAt(0))) {
-                return new Long(rs.getLong(Integer.parseInt(name)));
-            } else {
-                return new Long(rs.getLong(name));
-            }
+        public <X> ValueExtractor<X> getExtractor(final JavaTypeDescriptor<X> javaTypeDescriptor) {
+            return new BasicExtractor<X>(javaTypeDescriptor, this) {
+                @Override
+                protected X doExtract(ResultSet rs, String name, WrapperOptions options) throws SQLException {
+                    if (Character.isDigit(name.charAt(0))) {
+                        return javaTypeDescriptor.wrap(rs.getLong(Integer.parseInt(name)), options);
+                    } else {
+                        return javaTypeDescriptor.wrap(rs.getLong(name), options);
+                    }
+                }
+            };
         }
     };
+
+    static public class MyLongType extends AbstractSingleColumnStandardBasicType<Long> implements PrimitiveType<Long>,
+            DiscriminatorType<Long>, VersionType<Long> {
+
+        public static final MyLongType INSTANCE = new MyLongType();
+
+        @SuppressWarnings({ "UnnecessaryBoxing" })
+        private static final Long ZERO = Long.valueOf(0);
+
+        public MyLongType() {
+            super(MyBigIntTypeDescriptor.INSTANCE, LongTypeDescriptor.INSTANCE);
+        }
+
+        public String getName() {
+            return "long";
+        }
+
+        @Override
+        public String[] getRegistrationKeys() {
+            return new String[] { getName(), long.class.getName(), Long.class.getName() };
+        }
+
+        public Serializable getDefaultValue() {
+            return ZERO;
+        }
+
+        public Class getPrimitiveClass() {
+            return long.class;
+        }
+
+        public Long stringToObject(String xml) throws Exception {
+            return new Long(xml);
+        }
+
+        @SuppressWarnings({ "UnnecessaryBoxing", "UnnecessaryUnboxing" })
+        public Long next(Long current, SessionImplementor session) {
+            return Long.valueOf(current.longValue() + 1);
+        }
+
+        public Long seed(SessionImplementor session) {
+            return ZERO;
+        }
+
+        public Comparator<Long> getComparator() {
+            return getJavaTypeDescriptor().getComparator();
+        }
+
+        public String objectToSQLString(Long value, Dialect dialect) throws Exception {
+            return value.toString();
+        }
+    }
+
     /**
      * Static initialization.
      */
     static {
-        hibernateTypes.put(int.class, INTEGER);
-        hibernateTypes.put(Integer.class, INTEGER);
-        hibernateTypes.put(long.class, LONG);
-        hibernateTypes.put(Long.class, LONG);
+        hibernateTypes.put(int.class, MyIntegerType.INSTANCE);
+        hibernateTypes.put(Integer.class, MyIntegerType.INSTANCE);
+        hibernateTypes.put(long.class, MyLongType.INSTANCE);
+        hibernateTypes.put(Long.class, MyLongType.INSTANCE);
         hibernateTypes.put(short.class, Hibernate.SHORT);
         hibernateTypes.put(Short.class, Hibernate.SHORT);
         hibernateTypes.put(byte.class, Hibernate.BYTE);

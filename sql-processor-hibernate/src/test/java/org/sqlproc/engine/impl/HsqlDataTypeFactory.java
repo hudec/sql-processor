@@ -1,21 +1,20 @@
 package org.sqlproc.engine.impl;
 
+import org.dbunit.dataset.datatype.DataType;
+import org.dbunit.dataset.datatype.DataTypeException;
+import org.dbunit.ext.hsqldb.HsqldbDataTypeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.dbunit.dataset.datatype.*;
 
-import java.sql.*;
+public class HsqlDataTypeFactory extends HsqldbDataTypeFactory {
 
-public class HsqlDataTypeFactory extends DefaultDataTypeFactory {
-	
-	protected final Logger log = LoggerFactory.getLogger(getClass());
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
-	public DataType createDataType(int sqlType, String sqlTypeName)
-			throws DataTypeException {
-		if (sqlType == Types.BOOLEAN) {
-			return DataType.BOOLEAN;
-		}
+    public DataType createDataType(int sqlType, String sqlTypeName) throws DataTypeException {
+        // if (sqlType == Types.BOOLEAN) {
+        // return DataType.BOOLEAN;
+        // }
 
-		return super.createDataType(sqlType, sqlTypeName);
-	}
+        return super.createDataType(sqlType, sqlTypeName);
+    }
 }

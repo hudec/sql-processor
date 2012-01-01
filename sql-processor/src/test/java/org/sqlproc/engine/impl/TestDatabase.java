@@ -307,12 +307,12 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
         Connection wrapperConnection;
 
-        public DbConnection(Connection connection) {
+        public DbConnection(Connection connection) throws DatabaseUnitException {
             super(((PoolableConnection) ((Connection) BeanUtils.getProperty(connection, "delegate"))).getDelegate());
             wrapperConnection = connection;
         }
 
-        public DbConnection(Connection connection, String schema) {
+        public DbConnection(Connection connection, String schema) throws DatabaseUnitException {
             super(((PoolableConnection) ((Connection) BeanUtils.getProperty(connection, "delegate"))).getDelegate());
             wrapperConnection = connection;
         }

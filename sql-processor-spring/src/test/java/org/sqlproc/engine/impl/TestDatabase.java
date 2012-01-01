@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -308,12 +307,12 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
         Connection wrapperConnection;
 
-        public DbConnection(Connection connection) {
+        public DbConnection(Connection connection) throws DatabaseUnitException {
             super(((PoolableConnection) ((Connection) BeanUtils.getProperty(connection, "delegate"))).getDelegate());
             wrapperConnection = connection;
         }
 
-        public DbConnection(Connection connection, String schema) {
+        public DbConnection(Connection connection, String schema) throws DatabaseUnitException {
             super(((PoolableConnection) ((Connection) BeanUtils.getProperty(connection, "delegate"))).getDelegate());
             wrapperConnection = connection;
         }

@@ -4,40 +4,35 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc.samples</groupId>
     <artifactId>catalog-hibernate</artifactId>
-    <version>1.6.3-SNAPSHOT</version>
+    <version>1.7.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>SQL Processor Samples, Catalog (Hibernate)</name>
 
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-samples</artifactId>
-        <version>1.6.3-SNAPSHOT</version>
+        <version>1.7.0-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.sql-processor>1.6.3-SNAPSHOT</version.sql-processor>
+        <version.sql-processor>1.7.0-SNAPSHOT</version.sql-processor>
 
-        <version.spring>3.0.5.RELEASE</version.spring>
-        <version.aspectj>1.6.8</version.aspectj>
-        <version.javasimon>3.0.0-SNAPSHOT</version.javasimon>
-        <version.log4j>1.2.15</version.log4j>
-        <version.slf4j>1.5.8</version.slf4j>
-        <version.junit>4.6</version.junit>
-        <version.cglib>2.2</version.cglib>
+        <version.spring>3.1.0.RELEASE</version.spring>
+        <version.log4j>1.2.16</version.log4j>
+        <version.slf4j>1.6.4</version.slf4j>
+        <version.junit>4.10</version.junit>
+        <version.cglib>2.2.2</version.cglib>
         <version.oracle>10.2.0.4</version.oracle>
-        <version.hsqldb>2.2.4</version.hsqldb>
+        <version.hsqldb>2.2.6</version.hsqldb>
         <version.servlet-api>2.5</version.servlet-api>
-        <version.commons.logging>1.1.1</version.commons.logging>
-        <version.commons-io>2.0</version.commons-io>
         <version.commons-dbcp>1.4</version.commons-dbcp>
-        <version.commons-collection>3.2.1</version.commons-collection>
-        <version.hibernate>3.5.6-Final</version.hibernate>
-        <version.hibernate-jpa>1.6.3-SNAPSHOT.Final</version.hibernate-jpa>
-        <version.javassist>3.9.0.GA</version.javassist>
-        <version.wicket>1.4.13</version.wicket>
+        <version.hibernate>3.6.9.Final</version.hibernate>
+        <version.hibernate-annotations>3.5.6-Final</version.hibernate-annotations>
+        <version.javassist>3.12.1.GA</version.javassist>
+        <version.wicket>1.4.19</version.wicket>
     </properties>
 
     <modules>
@@ -117,7 +112,7 @@
             <dependency>
                 <groupId>org.sqlproc.samples</groupId>
                 <artifactId>catalog-hibernate-business</artifactId>
-                <version>1.6.3-SNAPSHOT</version>
+                <version>1.7.0-SNAPSHOT</version>
                 <type>jar</type>
             </dependency>
             <dependency>
@@ -256,7 +251,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-annotations</artifactId>
-                <version>${version.hibernate}</version>
+                <version>${version.hibernate-annotations}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
