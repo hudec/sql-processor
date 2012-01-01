@@ -822,38 +822,38 @@ rulePropertyValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleT
     { 
     newLeafNode(this_OPTION_TYPE_30, grammarAccess.getPropertyValueAccess().getOPTION_TYPETerminalRuleCall_0_30()); 
     }
-)(((RULE_REST
-    |RULE_IDENT_DOT
-    |RULE_IDENT
-    |RULE_NUMBER
-    |RULE_WS
-    |RULE_COLON
-    |RULE_STRING
-    |RULE_COMMA
-    |RULE_MINUS
-    |RULE_PLUS
-    |RULE_LPAREN
-    |RULE_RPAREN
-    |RULE_LBRACE
-    |RULE_RBRACE
-    |RULE_QUESTI
-    |RULE_NOT
-    |RULE_BAND
-    |RULE_BOR
-    |RULE_HASH
-    |RULE_AT
-    |RULE_CARET
-    |RULE_EQUALS
-    |RULE_LESS_THAN
-    |RULE_MORE_THAN
-    |RULE_PERCENT
-    |RULE_AND
-    |RULE_OR
-    |RULE_ESC_CHAR
-    |RULE_ON_OFF
-    |RULE_STATEMEN_TYPE
-    |RULE_MAPPING_TYPE
-    |RULE_OPTION_TYPE))=>(    this_REST_31=RULE_REST    {
+)((( RULE_REST
+    | RULE_IDENT_DOT
+    | RULE_IDENT
+    | RULE_NUMBER
+    | RULE_WS
+    | RULE_COLON
+    | RULE_STRING
+    | RULE_COMMA
+    | RULE_MINUS
+    | RULE_PLUS
+    | RULE_LPAREN
+    | RULE_RPAREN
+    | RULE_LBRACE
+    | RULE_RBRACE
+    | RULE_QUESTI
+    | RULE_NOT
+    | RULE_BAND
+    | RULE_BOR
+    | RULE_HASH
+    | RULE_AT
+    | RULE_CARET
+    | RULE_EQUALS
+    | RULE_LESS_THAN
+    | RULE_MORE_THAN
+    | RULE_PERCENT
+    | RULE_AND
+    | RULE_OR
+    | RULE_ESC_CHAR
+    | RULE_ON_OFF
+    | RULE_STATEMEN_TYPE
+    | RULE_MAPPING_TYPE
+    | RULE_OPTION_TYPE))=>(    this_REST_31=RULE_REST    {
 		$current.merge(this_REST_31);
     }
 
@@ -2252,33 +2252,33 @@ ruleSqlValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken(
     { 
     newLeafNode(this_OPTION_TYPE_26, grammarAccess.getSqlValueAccess().getOPTION_TYPETerminalRuleCall_0_26()); 
     }
-)(((RULE_REST
-    |RULE_IDENT_DOT
-    |RULE_IDENT
-    |RULE_NUMBER
-    |RULE_WS
-    |RULE_COMMA
-    |RULE_MINUS
-    |RULE_PLUS
-    |RULE_LPAREN
-    |RULE_RPAREN
-    |RULE_RBRACE
-    |RULE_QUESTI
-    |RULE_NOT
-    |RULE_BAND
-    |RULE_BOR
-    |RULE_HASH
-    |RULE_CARET
-    |RULE_EQUALS
-    |RULE_LESS_THAN
-    |RULE_MORE_THAN
-    |RULE_AND
-    |RULE_OR
-    |RULE_ESC_CHAR
-    |RULE_ON_OFF
-    |RULE_STATEMEN_TYPE
-    |RULE_MAPPING_TYPE
-    |RULE_OPTION_TYPE))=>(    this_REST_27=RULE_REST    {
+)((( RULE_REST
+    | RULE_IDENT_DOT
+    | RULE_IDENT
+    | RULE_NUMBER
+    | RULE_WS
+    | RULE_COMMA
+    | RULE_MINUS
+    | RULE_PLUS
+    | RULE_LPAREN
+    | RULE_RPAREN
+    | RULE_RBRACE
+    | RULE_QUESTI
+    | RULE_NOT
+    | RULE_BAND
+    | RULE_BOR
+    | RULE_HASH
+    | RULE_CARET
+    | RULE_EQUALS
+    | RULE_LESS_THAN
+    | RULE_MORE_THAN
+    | RULE_AND
+    | RULE_OR
+    | RULE_ESC_CHAR
+    | RULE_ON_OFF
+    | RULE_STATEMEN_TYPE
+    | RULE_MAPPING_TYPE
+    | RULE_OPTION_TYPE))=>(    this_REST_27=RULE_REST    {
 		$current.merge(this_REST_27);
     }
 
@@ -3305,32 +3305,32 @@ ruleIfSqlValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToke
     { 
     newLeafNode(this_OPTION_TYPE_25, grammarAccess.getIfSqlValueAccess().getOPTION_TYPETerminalRuleCall_0_25()); 
     }
-)(((RULE_REST
-    |RULE_IDENT_DOT
-    |RULE_IDENT
-    |RULE_NUMBER
-    |RULE_WS
-    |RULE_SEMICOLON
-    |RULE_COMMA
-    |RULE_MINUS
-    |RULE_PLUS
-    |RULE_LPAREN
-    |RULE_RPAREN
-    |RULE_QUESTI
-    |RULE_NOT
-    |RULE_BAND
-    |RULE_HASH
-    |RULE_CARET
-    |RULE_EQUALS
-    |RULE_LESS_THAN
-    |RULE_MORE_THAN
-    |RULE_AND
-    |RULE_OR
-    |RULE_ESC_CHAR
-    |RULE_ON_OFF
-    |RULE_STATEMEN_TYPE
-    |RULE_MAPPING_TYPE
-    |RULE_OPTION_TYPE))=>(    this_REST_26=RULE_REST    {
+)((( RULE_REST
+    | RULE_IDENT_DOT
+    | RULE_IDENT
+    | RULE_NUMBER
+    | RULE_WS
+    | RULE_SEMICOLON
+    | RULE_COMMA
+    | RULE_MINUS
+    | RULE_PLUS
+    | RULE_LPAREN
+    | RULE_RPAREN
+    | RULE_QUESTI
+    | RULE_NOT
+    | RULE_BAND
+    | RULE_HASH
+    | RULE_CARET
+    | RULE_EQUALS
+    | RULE_LESS_THAN
+    | RULE_MORE_THAN
+    | RULE_AND
+    | RULE_OR
+    | RULE_ESC_CHAR
+    | RULE_ON_OFF
+    | RULE_STATEMEN_TYPE
+    | RULE_MAPPING_TYPE
+    | RULE_OPTION_TYPE))=>(    this_REST_26=RULE_REST    {
 		$current.merge(this_REST_26);
     }
 
@@ -4456,35 +4456,35 @@ ruleOrdSqlValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTok
     { 
     newLeafNode(this_OPTION_TYPE_28, grammarAccess.getOrdSqlValueAccess().getOPTION_TYPETerminalRuleCall_0_28()); 
     }
-)(((RULE_REST
-    |RULE_IDENT_DOT
-    |RULE_IDENT
-    |RULE_NUMBER
-    |RULE_WS
-    |RULE_SEMICOLON
-    |RULE_COMMA
-    |RULE_MINUS
-    |RULE_PLUS
-    |RULE_LPAREN
-    |RULE_RPAREN
-    |RULE_LBRACE
-    |RULE_QUESTI
-    |RULE_NOT
-    |RULE_BAND
-    |RULE_BOR
-    |RULE_HASH
-    |RULE_AT
-    |RULE_CARET
-    |RULE_EQUALS
-    |RULE_LESS_THAN
-    |RULE_MORE_THAN
-    |RULE_AND
-    |RULE_OR
-    |RULE_ESC_CHAR
-    |RULE_ON_OFF
-    |RULE_STATEMEN_TYPE
-    |RULE_MAPPING_TYPE
-    |RULE_OPTION_TYPE))=>(    this_REST_29=RULE_REST    {
+)((( RULE_REST
+    | RULE_IDENT_DOT
+    | RULE_IDENT
+    | RULE_NUMBER
+    | RULE_WS
+    | RULE_SEMICOLON
+    | RULE_COMMA
+    | RULE_MINUS
+    | RULE_PLUS
+    | RULE_LPAREN
+    | RULE_RPAREN
+    | RULE_LBRACE
+    | RULE_QUESTI
+    | RULE_NOT
+    | RULE_BAND
+    | RULE_BOR
+    | RULE_HASH
+    | RULE_AT
+    | RULE_CARET
+    | RULE_EQUALS
+    | RULE_LESS_THAN
+    | RULE_MORE_THAN
+    | RULE_AND
+    | RULE_OR
+    | RULE_ESC_CHAR
+    | RULE_ON_OFF
+    | RULE_STATEMEN_TYPE
+    | RULE_MAPPING_TYPE
+    | RULE_OPTION_TYPE))=>(    this_REST_29=RULE_REST    {
 		$current.merge(this_REST_29);
     }
 

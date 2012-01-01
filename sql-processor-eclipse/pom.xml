@@ -9,7 +9,7 @@
     <name>SQL Processor DSL Parent</name>
 
     <properties>
-        <version.tycho>0.12.0</version.tycho>
+        <version.tycho>0.13.0</version.tycho>
     </properties>
 
     <modules>

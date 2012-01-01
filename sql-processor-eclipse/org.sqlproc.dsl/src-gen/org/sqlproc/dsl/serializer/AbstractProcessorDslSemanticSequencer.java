@@ -76,185 +76,185 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 		if(semanticObject.eClass().getEPackage() == ProcessorDslPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case ProcessorDslPackage.ARTIFACTS:
 				if(context == grammarAccess.getArtifactsRule()) {
-					sequence_Artifacts_Artifacts(context, (Artifacts) semanticObject); 
+					sequence_Artifacts(context, (Artifacts) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.COLUMN:
 				if(context == grammarAccess.getColumnRule()) {
-					sequence_Column_Column(context, (Column) semanticObject); 
+					sequence_Column(context, (Column) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.COLUMN_USAGE:
-				if(context == grammarAccess.getPojoUsageRule() ||
-				   context == grammarAccess.getColumnUsageRule()) {
-					sequence_ColumnUsage_ColumnUsage(context, (ColumnUsage) semanticObject); 
+				if(context == grammarAccess.getColumnUsageRule() ||
+				   context == grammarAccess.getPojoUsageRule()) {
+					sequence_ColumnUsage(context, (ColumnUsage) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.CONSTANT:
 				if(context == grammarAccess.getConstantRule()) {
-					sequence_Constant_Constant(context, (Constant) semanticObject); 
+					sequence_Constant(context, (Constant) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.CONSTANT_USAGE:
-				if(context == grammarAccess.getPojoUsageRule() ||
-				   context == grammarAccess.getConstantUsageRule()) {
-					sequence_ConstantUsage_ConstantUsage(context, (ConstantUsage) semanticObject); 
+				if(context == grammarAccess.getConstantUsageRule() ||
+				   context == grammarAccess.getPojoUsageRule()) {
+					sequence_ConstantUsage(context, (ConstantUsage) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.DATABASE_COLUMN:
 				if(context == grammarAccess.getDatabaseColumnRule()) {
-					sequence_DatabaseColumn_DatabaseColumn(context, (DatabaseColumn) semanticObject); 
+					sequence_DatabaseColumn(context, (DatabaseColumn) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.DATABASE_TABLE:
 				if(context == grammarAccess.getDatabaseTableRule()) {
-					sequence_DatabaseTable_DatabaseTable(context, (DatabaseTable) semanticObject); 
+					sequence_DatabaseTable(context, (DatabaseTable) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.IDENTIFIER:
 				if(context == grammarAccess.getIdentifierRule()) {
-					sequence_Identifier_Identifier(context, (Identifier) semanticObject); 
+					sequence_Identifier(context, (Identifier) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.IDENTIFIER_USAGE:
-				if(context == grammarAccess.getPojoUsageRule() ||
-				   context == grammarAccess.getIdentifierUsageRule()) {
-					sequence_IdentifierUsage_IdentifierUsage(context, (IdentifierUsage) semanticObject); 
+				if(context == grammarAccess.getIdentifierUsageRule() ||
+				   context == grammarAccess.getPojoUsageRule()) {
+					sequence_IdentifierUsage(context, (IdentifierUsage) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.IF_META_SQL:
 				if(context == grammarAccess.getIfMetaSqlRule()) {
-					sequence_IfMetaSql_IfMetaSql(context, (IfMetaSql) semanticObject); 
+					sequence_IfMetaSql(context, (IfMetaSql) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.IF_SQL:
 				if(context == grammarAccess.getIfSqlRule()) {
-					sequence_IfSql_IfSql(context, (IfSql) semanticObject); 
+					sequence_IfSql(context, (IfSql) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.IF_SQL_BOOL:
 				if(context == grammarAccess.getIfSqlBoolRule()) {
-					sequence_IfSqlBool_IfSqlBool(context, (IfSqlBool) semanticObject); 
+					sequence_IfSqlBool(context, (IfSqlBool) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.IF_SQL_COND:
 				if(context == grammarAccess.getIfSqlCondRule()) {
-					sequence_IfSqlCond_IfSqlCond(context, (IfSqlCond) semanticObject); 
+					sequence_IfSqlCond(context, (IfSqlCond) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.IF_SQL_FRAGMENT:
 				if(context == grammarAccess.getIfSqlFragmentRule()) {
-					sequence_IfSqlFragment_IfSqlFragment(context, (IfSqlFragment) semanticObject); 
+					sequence_IfSqlFragment(context, (IfSqlFragment) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.MAPPING:
 				if(context == grammarAccess.getMappingRule()) {
-					sequence_Mapping_Mapping(context, (Mapping) semanticObject); 
+					sequence_Mapping(context, (Mapping) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.MAPPING_COLUMN:
 				if(context == grammarAccess.getMappingColumnRule()) {
-					sequence_MappingColumn_MappingColumn(context, (MappingColumn) semanticObject); 
+					sequence_MappingColumn(context, (MappingColumn) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.MAPPING_ITEM:
 				if(context == grammarAccess.getMappingItemRule()) {
-					sequence_MappingItem_MappingItem(context, (MappingItem) semanticObject); 
+					sequence_MappingItem(context, (MappingItem) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.MAPPING_RULE:
 				if(context == grammarAccess.getMappingRuleRule()) {
-					sequence_MappingRule_MappingRule(context, (MappingRule) semanticObject); 
+					sequence_MappingRule(context, (MappingRule) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.MAPPING_USAGE:
-				if(context == grammarAccess.getPojoUsageRule() ||
-				   context == grammarAccess.getMappingUsageRule()) {
-					sequence_MappingUsage_MappingUsage(context, (MappingUsage) semanticObject); 
+				if(context == grammarAccess.getMappingUsageRule() ||
+				   context == grammarAccess.getPojoUsageRule()) {
+					sequence_MappingUsage(context, (MappingUsage) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.META_SQL:
 				if(context == grammarAccess.getMetaSqlRule()) {
-					sequence_MetaSql_MetaSql(context, (MetaSql) semanticObject); 
+					sequence_MetaSql(context, (MetaSql) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.META_STATEMENT:
 				if(context == grammarAccess.getMetaStatementRule()) {
-					sequence_MetaStatement_MetaStatement(context, (MetaStatement) semanticObject); 
+					sequence_MetaStatement(context, (MetaStatement) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.OPTIONAL_FEATURE:
 				if(context == grammarAccess.getOptionalFeatureRule()) {
-					sequence_OptionalFeature_OptionalFeature(context, (OptionalFeature) semanticObject); 
+					sequence_OptionalFeature(context, (OptionalFeature) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.ORD_SQL:
 				if(context == grammarAccess.getOrdSqlRule()) {
-					sequence_OrdSql_OrdSql(context, (OrdSql) semanticObject); 
+					sequence_OrdSql(context, (OrdSql) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.ORD_SQL2:
 				if(context == grammarAccess.getOrdSql2Rule()) {
-					sequence_OrdSql2_OrdSql2(context, (OrdSql2) semanticObject); 
+					sequence_OrdSql2(context, (OrdSql2) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.POJO_DEFINITION:
 				if(context == grammarAccess.getPojoDefinitionRule()) {
-					sequence_PojoDefinition_PojoDefinition(context, (PojoDefinition) semanticObject); 
+					sequence_PojoDefinition(context, (PojoDefinition) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.PROPERTY:
 				if(context == grammarAccess.getPropertyRule()) {
-					sequence_Property_Property(context, (Property) semanticObject); 
+					sequence_Property(context, (Property) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.SQL:
 				if(context == grammarAccess.getSqlRule()) {
-					sequence_Sql_Sql(context, (Sql) semanticObject); 
+					sequence_Sql(context, (Sql) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.SQL_FRAGMENT:
 				if(context == grammarAccess.getSqlFragmentRule()) {
-					sequence_SqlFragment_SqlFragment(context, (SqlFragment) semanticObject); 
+					sequence_SqlFragment(context, (SqlFragment) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.TABLE_DEFINITION:
 				if(context == grammarAccess.getTableDefinitionRule()) {
-					sequence_TableDefinition_TableDefinition(context, (TableDefinition) semanticObject); 
+					sequence_TableDefinition(context, (TableDefinition) semanticObject); 
 					return; 
 				}
 				else break;
 			case ProcessorDslPackage.TABLE_USAGE:
 				if(context == grammarAccess.getTableUsageRule()) {
-					sequence_TableUsage_TableUsage(context, (TableUsage) semanticObject); 
+					sequence_TableUsage(context, (TableUsage) semanticObject); 
 					return; 
 				}
 				else break;
@@ -285,7 +285,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    tables[0, *]
 	 *    tableUsages[0, *]
 	 */
-	protected void sequence_Artifacts_Artifacts(EObject context, Artifacts semanticObject) {
+	protected void sequence_Artifacts(EObject context, Artifacts semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -298,7 +298,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    pojo[1, 1]
 	 *    statement[1, 1]
 	 */
-	protected void sequence_ColumnUsage_ColumnUsage(EObject context, ColumnUsage semanticObject) {
+	protected void sequence_ColumnUsage(EObject context, ColumnUsage semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO));
@@ -325,7 +325,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    vals[0, *]
 	 *         EXCLUDE_IF_UNSET type
 	 */
-	protected void sequence_Column_Column(EObject context, Column semanticObject) {
+	protected void sequence_Column(EObject context, Column semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -338,7 +338,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    pojo[1, 1]
 	 *    statement[1, 1]
 	 */
-	protected void sequence_ConstantUsage_ConstantUsage(EObject context, ConstantUsage semanticObject) {
+	protected void sequence_ConstantUsage(EObject context, ConstantUsage semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO));
@@ -366,7 +366,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    vals[0, *]
 	 *         EXCLUDE_IF_UNSET type
 	 */
-	protected void sequence_Constant_Constant(EObject context, Constant semanticObject) {
+	protected void sequence_Constant(EObject context, Constant semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -378,7 +378,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 * Features:
 	 *    name[0, 2]
 	 */
-	protected void sequence_DatabaseColumn_DatabaseColumn(EObject context, DatabaseColumn semanticObject) {
+	protected void sequence_DatabaseColumn(EObject context, DatabaseColumn semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -390,7 +390,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 * Features:
 	 *    name[0, 2]
 	 */
-	protected void sequence_DatabaseTable_DatabaseTable(EObject context, DatabaseTable semanticObject) {
+	protected void sequence_DatabaseTable(EObject context, DatabaseTable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -403,7 +403,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    pojo[1, 1]
 	 *    statement[1, 1]
 	 */
-	protected void sequence_IdentifierUsage_IdentifierUsage(EObject context, IdentifierUsage semanticObject) {
+	protected void sequence_IdentifierUsage(EObject context, IdentifierUsage semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO));
@@ -437,7 +437,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    vals[0, *]
 	 *         EXCLUDE_IF_UNSET type
 	 */
-	protected void sequence_Identifier_Identifier(EObject context, Identifier semanticObject) {
+	protected void sequence_Identifier(EObject context, Identifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -452,11 +452,11 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *     )
 	 *
 	 * Features:
-	 *    ifs[4, *]
-	 *    type[3, 3]
+	 *    ifs[0, *]
+	 *    type[0, 3]
 	 *         EXCLUDE_IF_SET ifs
 	 *         EXCLUDE_IF_SET ifs
-	 *    cond[1, 1]
+	 *    cond[0, 1]
 	 *         EXCLUDE_IF_UNSET type
 	 *         MANDATORY_IF_SET type
 	 *         EXCLUDE_IF_UNSET ifs
@@ -471,7 +471,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET ifs
 	 *         EXCLUDE_IF_SET ifs
 	 */
-	protected void sequence_IfMetaSql_IfMetaSql(EObject context, IfMetaSql semanticObject) {
+	protected void sequence_IfMetaSql(EObject context, IfMetaSql semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -482,26 +482,26 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *
 	 * Features:
 	 *    not[0, 3]
-	 *    cnst[1, 1]
+	 *    cnst[0, 1]
 	 *         MANDATORY_IF_SET not
 	 *         EXCLUDE_IF_SET not
 	 *         EXCLUDE_IF_SET ident
 	 *         EXCLUDE_IF_SET not
 	 *         EXCLUDE_IF_SET cond
-	 *    ident[1, 1]
+	 *    ident[0, 1]
 	 *         MANDATORY_IF_SET not
 	 *         EXCLUDE_IF_SET not
 	 *         EXCLUDE_IF_SET cnst
 	 *         EXCLUDE_IF_SET not
 	 *         EXCLUDE_IF_SET cond
-	 *    cond[1, 1]
+	 *    cond[0, 1]
 	 *         MANDATORY_IF_SET not
 	 *         EXCLUDE_IF_SET not
 	 *         EXCLUDE_IF_SET cnst
 	 *         EXCLUDE_IF_SET not
 	 *         EXCLUDE_IF_SET ident
 	 */
-	protected void sequence_IfSqlBool_IfSqlBool(EObject context, IfSqlBool semanticObject) {
+	protected void sequence_IfSqlBool(EObject context, IfSqlBool semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -512,13 +512,13 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *
 	 * Features:
 	 *    bool1[1, 1]
-	 *    oper[0, 2]
+	 *    oper[0, *]
 	 *         SAME_OR_LESS bool2
 	 *    bool2[0, *]
 	 *         SAME_OR_MORE oper
 	 *         SAME_OR_MORE oper
 	 */
-	protected void sequence_IfSqlCond_IfSqlCond(EObject context, IfSqlCond semanticObject) {
+	protected void sequence_IfSqlCond(EObject context, IfSqlCond semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -586,7 +586,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET dbtab
 	 *         EXCLUDE_IF_SET dbcol
 	 */
-	protected void sequence_IfSqlFragment_IfSqlFragment(EObject context, IfSqlFragment semanticObject) {
+	protected void sequence_IfSqlFragment(EObject context, IfSqlFragment semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -598,7 +598,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 * Features:
 	 *    sqls[1, *]
 	 */
-	protected void sequence_IfSql_IfSql(EObject context, IfSql semanticObject) {
+	protected void sequence_IfSql(EObject context, IfSql semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -611,7 +611,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    name[0, 2]
 	 *    vals[0, *]
 	 */
-	protected void sequence_MappingColumn_MappingColumn(EObject context, MappingColumn semanticObject) {
+	protected void sequence_MappingColumn(EObject context, MappingColumn semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -625,7 +625,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    type[0, 1]
 	 *    attr[0, 1]
 	 */
-	protected void sequence_MappingItem_MappingItem(EObject context, MappingItem semanticObject) {
+	protected void sequence_MappingItem(EObject context, MappingItem semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -640,7 +640,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    filters[0, *]
 	 *    mapping[1, 1]
 	 */
-	protected void sequence_MappingRule_MappingRule(EObject context, MappingRule semanticObject) {
+	protected void sequence_MappingRule(EObject context, MappingRule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -653,7 +653,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    pojo[1, 1]
 	 *    statement[1, 1]
 	 */
-	protected void sequence_MappingUsage_MappingUsage(EObject context, MappingUsage semanticObject) {
+	protected void sequence_MappingUsage(EObject context, MappingUsage semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.POJO_USAGE__POJO));
@@ -675,7 +675,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 * Features:
 	 *    mappingItems[1, *]
 	 */
-	protected void sequence_Mapping_Mapping(EObject context, Mapping semanticObject) {
+	protected void sequence_Mapping(EObject context, Mapping semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -692,13 +692,13 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *     )
 	 *
 	 * Features:
-	 *    ifs[5, *]
+	 *    ifs[0, *]
 	 *         EXCLUDE_IF_SET type
 	 *         EXCLUDE_IF_SET ord
-	 *    type[5, 5]
+	 *    type[0, 5]
 	 *         EXCLUDE_IF_SET ifs
 	 *         EXCLUDE_IF_SET ifs
-	 *    cond[1, 1]
+	 *    cond[0, 1]
 	 *         EXCLUDE_IF_UNSET type
 	 *         MANDATORY_IF_SET type
 	 *         EXCLUDE_IF_UNSET ifs
@@ -717,7 +717,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET ifs
 	 *         EXCLUDE_IF_SET type
 	 *         EXCLUDE_IF_SET ord
-	 *    ftype[1, 1]
+	 *    ftype[0, 1]
 	 *         EXCLUDE_IF_UNSET type
 	 *         MANDATORY_IF_SET type
 	 *         EXCLUDE_IF_UNSET ifs
@@ -736,7 +736,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET ifs
 	 *         EXCLUDE_IF_SET type
 	 *         EXCLUDE_IF_SET ord
-	 *    ord[1, 1]
+	 *    ord[0, 1]
 	 *         EXCLUDE_IF_UNSET type
 	 *         MANDATORY_IF_SET type
 	 *         EXCLUDE_IF_SET ifs
@@ -755,7 +755,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET ftype
 	 *         EXCLUDE_IF_SET ifs
 	 */
-	protected void sequence_MetaSql_MetaSql(EObject context, MetaSql semanticObject) {
+	protected void sequence_MetaSql(EObject context, MetaSql semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -770,7 +770,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    filters[0, *]
 	 *    statement[1, 1]
 	 */
-	protected void sequence_MetaStatement_MetaStatement(EObject context, MetaStatement semanticObject) {
+	protected void sequence_MetaStatement(EObject context, MetaStatement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -785,7 +785,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    filters[0, *]
 	 *    option[1, 1]
 	 */
-	protected void sequence_OptionalFeature_OptionalFeature(EObject context, OptionalFeature semanticObject) {
+	protected void sequence_OptionalFeature(EObject context, OptionalFeature semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -812,7 +812,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET cnst
 	 *         EXCLUDE_IF_SET ident
 	 */
-	protected void sequence_OrdSql2_OrdSql2(EObject context, OrdSql2 semanticObject) {
+	protected void sequence_OrdSql2(EObject context, OrdSql2 semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -824,7 +824,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 * Features:
 	 *    sqls[1, *]
 	 */
-	protected void sequence_OrdSql_OrdSql(EObject context, OrdSql semanticObject) {
+	protected void sequence_OrdSql(EObject context, OrdSql semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -837,7 +837,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    name[1, 1]
 	 *    class[0, 2]
 	 */
-	protected void sequence_PojoDefinition_PojoDefinition(EObject context, PojoDefinition semanticObject) {
+	protected void sequence_PojoDefinition(EObject context, PojoDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -855,8 +855,8 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *     )
 	 *
 	 * Features:
-	 *    name[7, 7]
-	 *    doResolvePojo[1, 1]
+	 *    name[0, 7]
+	 *    doResolvePojo[0, 1]
 	 *         EXCLUDE_IF_UNSET name
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
@@ -871,7 +871,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET dbSchema
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbDriver
-	 *    doResolveDb[1, 1]
+	 *    doResolveDb[0, 1]
 	 *         EXCLUDE_IF_UNSET name
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
@@ -886,7 +886,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET dbSchema
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbDriver
-	 *    dbUrl[1, 1]
+	 *    dbUrl[0, 1]
 	 *         EXCLUDE_IF_UNSET name
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
@@ -901,7 +901,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET dbSchema
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbDriver
-	 *    dbUsername[1, 1]
+	 *    dbUsername[0, 1]
 	 *         EXCLUDE_IF_UNSET name
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
@@ -916,7 +916,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET dbSchema
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbDriver
-	 *    dbPassword[1, 1]
+	 *    dbPassword[0, 1]
 	 *         EXCLUDE_IF_UNSET name
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
@@ -931,7 +931,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET dbSchema
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbDriver
-	 *    dbSchema[1, 1]
+	 *    dbSchema[0, 1]
 	 *         EXCLUDE_IF_UNSET name
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
@@ -946,7 +946,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET dbPassword
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbDriver
-	 *    dbDriver[1, 1]
+	 *    dbDriver[0, 1]
 	 *         EXCLUDE_IF_UNSET name
 	 *         MANDATORY_IF_SET name
 	 *         EXCLUDE_IF_SET name
@@ -962,7 +962,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET name
 	 *         EXCLUDE_IF_SET dbSchema
 	 */
-	protected void sequence_Property_Property(EObject context, Property semanticObject) {
+	protected void sequence_Property(EObject context, Property semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1030,7 +1030,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         EXCLUDE_IF_SET meta
 	 *         EXCLUDE_IF_SET dbtab
 	 */
-	protected void sequence_SqlFragment_SqlFragment(EObject context, SqlFragment semanticObject) {
+	protected void sequence_SqlFragment(EObject context, SqlFragment semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1042,7 +1042,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 * Features:
 	 *    sqls[1, *]
 	 */
-	protected void sequence_Sql_Sql(EObject context, Sql semanticObject) {
+	protected void sequence_Sql(EObject context, Sql semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1055,7 +1055,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    name[1, 1]
 	 *    table[1, 1]
 	 */
-	protected void sequence_TableDefinition_TableDefinition(EObject context, TableDefinition semanticObject) {
+	protected void sequence_TableDefinition(EObject context, TableDefinition semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.TABLE_DEFINITION__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.TABLE_DEFINITION__NAME));
@@ -1079,7 +1079,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    table[1, 1]
 	 *    prefix[0, 1]
 	 */
-	protected void sequence_TableUsage_TableUsage(EObject context, TableUsage semanticObject) {
+	protected void sequence_TableUsage(EObject context, TableUsage semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }
