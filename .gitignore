@@ -11,3 +11,4 @@ build
 .springBeans
 .pydevproject
 *.swp
+*~
