@@ -304,7 +304,7 @@ column returns[SqlMappingItem result]
 	:	
 	(col=IDENT_DOT | col=IDENT | col=NUMBER) {if(!$meta::skip) $result = newColumn(col);}
 	(options {greedy=true;} : CARET type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); }
-	 (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, $value2.text); }
+	 (options {greedy=true;} : CARET (value=IDENT | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, null); }
 	 )*
 	)?
 	;
@@ -314,7 +314,7 @@ constant returns [SqlMetaConst result]
 	:	
 	(caseCnst=PLUS | caseCnst=MINUS)? (cnst=IDENT_DOT | cnst=IDENT) {if(!$meta::skip) $result = newConstant(cnst, $caseCnst);}
 	(options {greedy=true;} : CARET type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); }
-	 (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, $value2.text); }
+	 (options {greedy=true;} : CARET (value=IDENT | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, null); }
 	 )*
 	)?
 	;
@@ -324,7 +324,7 @@ identifier returns [SqlMetaIdent result]
 	:	
 	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)? (ident=IDENT_DOT | ident=IDENT | ident=NUMBER) {if(!$meta::skip) $result = newIdent($ident, $modeIdent, $caseIdent);}
 	(options {greedy=true;} : CARET type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); }
-	 (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, $value2.text); }
+	 (options {greedy=true;} : CARET (value=IDENT | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, null); }
 	 )*
 	)?
 	;
@@ -362,7 +362,7 @@ mappingItem returns[SqlMappingItem result]
 	(col=IDENT | col=NUMBER) {if(!$mapping::skip) $result = newColumn(col);}
 	 (options {greedy=true;} : STRING (type=IDENT { if(!$mapping::skip) setMetaType($mapping::typeFactory, $result, $type.text); })?
 	  (STRING (col=IDENT_DOT | col=IDENT) { if(!$mapping::skip) addColumnAttr($result, $col); }
-	   (options {greedy=true;} : CARET (value=IDENT (options {greedy=true;} :EQUALS value2=IDENT)? | value=NUMBER) { if(!$mapping::skip) $result.setValues($value.text, $value2.text); }
+	   (options {greedy=true;} : CARET (value=IDENT | value=NUMBER) { if(!$mapping::skip) $result.setValues($value.text, null); }
 	   )*
   	  )?
 	 )?
