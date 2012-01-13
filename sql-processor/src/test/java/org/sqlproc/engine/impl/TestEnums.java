@@ -313,4 +313,56 @@ public class TestEnums extends TestDatabase {
 
         list = sqlEngine.query(session, Person.class, pf, pf, SqlQueryEngine.ASC_ORDER);
     }
+
+    @Test
+    public void testEnumsCondition3() {
+        SqlQueryEngine sqlEngine = getSqlEngine("ENUM_CONDITION_3");
+
+        PersonForm pf = new PersonForm();
+        pf.setSex(Gender.MALE);
+        pf.setSsn(new SsnForm());
+        pf.getSsn().setCountry(Country.UNITED_STATES);
+        pf.setClothesSize(Size.MIDDLE);
+
+        String sql = sqlEngine.getSql(pf, pf, SqlQueryEngine.ASC_ORDER);
+        logger.info(sql);
+        assertContains(sql, "and p.SEX =");
+        assertContains(sql, "and p.SSN_COUNTRY =");
+        assertContains(sql, "and p.CLOTHES_SIZE =");
+
+        List<Person> list = sqlEngine.query(session, Person.class, pf, pf, SqlQueryEngine.ASC_ORDER);
+
+        assertTrue(list.size() > 0);
+        Person p = list.get(0);
+        assertEquals(new Long(2), p.getId());
+        assertEquals(Gender.MALE, p.getSex());
+        assertNotNull(p.getSsn());
+        assertEquals("123456", p.getSsn().getNumber());
+        assertEquals(Country.UNITED_STATES, p.getSsn().getCountry());
+        assertEquals(Size.MIDDLE, p.getClothesSize());
+
+        pf = new PersonForm();
+
+        sql = sqlEngine.getSql(pf, pf, SqlQueryEngine.ASC_ORDER);
+        logger.info(sql);
+        assertDoNotContain(sql, "and p.SEX =");
+        assertDoNotContain(sql, "and p.SSN_COUNTRY =");
+        assertDoNotContain(sql, "and p.CLOTHES_SIZE =");
+
+        list = sqlEngine.query(session, Person.class, pf, pf, SqlQueryEngine.ASC_ORDER);
+
+        pf = new PersonForm();
+        pf.setSex(Gender.FEMALE);
+        pf.setSsn(new SsnForm());
+        pf.getSsn().setCountry(Country.CZECH_REPUBLIC);
+        pf.setClothesSize(Size.SMALL);
+
+        sql = sqlEngine.getSql(pf, pf, SqlQueryEngine.ASC_ORDER);
+        logger.info(sql);
+        assertDoNotContain(sql, "and p.SEX =");
+        assertDoNotContain(sql, "and p.SSN_COUNTRY =");
+        assertDoNotContain(sql, "and p.CLOTHES_SIZE =");
+
+        list = sqlEngine.query(session, Person.class, pf, pf, SqlQueryEngine.ASC_ORDER);
+    }
 }

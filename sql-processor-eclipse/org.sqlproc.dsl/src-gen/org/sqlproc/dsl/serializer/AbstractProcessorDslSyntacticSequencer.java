@@ -26,6 +26,9 @@ public class AbstractProcessorDslSyntacticSequencer extends AbstractSyntacticSeq
 	protected AbstractElementAlias match_Artifacts_WSTerminalRuleCall_1_5_1_a;
 	protected AbstractElementAlias match_Artifacts_WSTerminalRuleCall_1_6_1_a;
 	protected AbstractElementAlias match_Artifacts_WSTerminalRuleCall_1_7_1_a;
+	protected AbstractElementAlias match_Column_CARETTerminalRuleCall_1_0_q;
+	protected AbstractElementAlias match_Constant_CARETTerminalRuleCall_2_0_q;
+	protected AbstractElementAlias match_Identifier_CARETTerminalRuleCall_3_0_q;
 	protected AbstractElementAlias match_IfSqlCond_WSTerminalRuleCall_0_a;
 	protected AbstractElementAlias match_IfSqlCond_WSTerminalRuleCall_2_a;
 	protected AbstractElementAlias match_IfSqlCond_WSTerminalRuleCall_3_1_a;
@@ -55,6 +58,9 @@ public class AbstractProcessorDslSyntacticSequencer extends AbstractSyntacticSeq
 		match_Artifacts_WSTerminalRuleCall_1_5_1_a = new TokenAlias(true, true, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_5_1());
 		match_Artifacts_WSTerminalRuleCall_1_6_1_a = new TokenAlias(true, true, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_6_1());
 		match_Artifacts_WSTerminalRuleCall_1_7_1_a = new TokenAlias(true, true, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_7_1());
+		match_Column_CARETTerminalRuleCall_1_0_q = new TokenAlias(true, false, grammarAccess.getColumnAccess().getCARETTerminalRuleCall_1_0());
+		match_Constant_CARETTerminalRuleCall_2_0_q = new TokenAlias(true, false, grammarAccess.getConstantAccess().getCARETTerminalRuleCall_2_0());
+		match_Identifier_CARETTerminalRuleCall_3_0_q = new TokenAlias(true, false, grammarAccess.getIdentifierAccess().getCARETTerminalRuleCall_3_0());
 		match_IfSqlCond_WSTerminalRuleCall_0_a = new TokenAlias(true, true, grammarAccess.getIfSqlCondAccess().getWSTerminalRuleCall_0());
 		match_IfSqlCond_WSTerminalRuleCall_2_a = new TokenAlias(true, true, grammarAccess.getIfSqlCondAccess().getWSTerminalRuleCall_2());
 		match_IfSqlCond_WSTerminalRuleCall_3_1_a = new TokenAlias(true, true, grammarAccess.getIfSqlCondAccess().getWSTerminalRuleCall_3_1());
@@ -208,6 +214,12 @@ public class AbstractProcessorDslSyntacticSequencer extends AbstractSyntacticSeq
 				emit_Artifacts_WSTerminalRuleCall_1_6_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Artifacts_WSTerminalRuleCall_1_7_1_a.equals(syntax))
 				emit_Artifacts_WSTerminalRuleCall_1_7_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Column_CARETTerminalRuleCall_1_0_q.equals(syntax))
+				emit_Column_CARETTerminalRuleCall_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Constant_CARETTerminalRuleCall_2_0_q.equals(syntax))
+				emit_Constant_CARETTerminalRuleCall_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Identifier_CARETTerminalRuleCall_3_0_q.equals(syntax))
+				emit_Identifier_CARETTerminalRuleCall_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_IfSqlCond_WSTerminalRuleCall_0_a.equals(syntax))
 				emit_IfSqlCond_WSTerminalRuleCall_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_IfSqlCond_WSTerminalRuleCall_2_a.equals(syntax))
@@ -313,6 +325,30 @@ public class AbstractProcessorDslSyntacticSequencer extends AbstractSyntacticSeq
 	 *     WS*
 	 */
 	protected void emit_Artifacts_WSTerminalRuleCall_1_7_1_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     CARET?
+	 */
+	protected void emit_Column_CARETTerminalRuleCall_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     CARET?
+	 */
+	protected void emit_Constant_CARETTerminalRuleCall_2_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     CARET?
+	 */
+	protected void emit_Identifier_CARETTerminalRuleCall_3_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

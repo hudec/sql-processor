@@ -672,6 +672,16 @@ ENUM_CONDITION_2(QRY)=
   {#1 order by id}
 ;
 
+ENUM_CONDITION_3(QRY)=
+  select p.ID @id, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country, p.SEX @sex, p.CLOTHES_SIZE @clothesSize
+  from PERSON p
+  where 1=1
+  {? :sex^^MALE | and p.SEX = 'M'}
+  {? $ssn.country^^US | and p.SSN_COUNTRY = 'US'}
+  {? :clothesSize^^MIDDLE | and p.CLOTHES_SIZE = 1}
+  {#1 order by id}
+;
+
 
 SIMPLE_ESCAPED(QRY)=
   select p.ID @id, p.NAME_LAST @name.last,
@@ -723,6 +733,21 @@ PARAMETERS_MORE(QRY)=
   {#1 order by id}
 ;
   
+PARAMETERS_MORE_2(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
+  from PERSON p
+  where 1=1
+  {& p.id = :id^^null}
+  {& p.NAME_FIRST = :name.first^^null | p.NAME_LAST = :name.last^^null | p.SSN_NUMBER = :ssn.number^^null}
+  {& p.SSN_COUNTRY = :ssn.country^^null | p.BIRTHDATE = :birthDate^^null | p.SEX = :sex^^null}
+  {& p.CREATEDDATE = :createdDate^^null | p.LASTUPDATEDBY = :lastUpdatedBy^^null | p.LASTUPDATED = :lastUpdated^^null}
+  {& p.CREATEDBY = :createdBy^^null}
+  {& p.VERSION = :version^^null}
+  {#1 order by id}
+;
+  
 PARAMETERS_TOP(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
@@ -743,6 +768,18 @@ CONDITIONS_MORE(QRY)=
   {? :id^long^null | AND p.ID is null | AND p.ID = :id}
   {? :version^long^1 | AND (p.VERSION = 1 OR p.VERSION is null)}
   {? $lastUpdatedBy^string^pes | AND p.LASTUPDATEDBY = 'dbunit' | AND p.LASTUPDATEDBY like '\%'}
+  {#1 order by id}
+;
+
+CONDITIONS_MORE_2(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
+  from PERSON p
+  where 1=1
+  {? :id^^null | AND p.ID is null | AND p.ID = :id}
+  {? :version^^1 | AND (p.VERSION = 1 OR p.VERSION is null)}
+  {? $lastUpdatedBy^^pes | AND p.LASTUPDATEDBY = 'dbunit' | AND p.LASTUPDATEDBY like '\%'}
   {#1 order by id}
 ;
   
@@ -979,6 +1016,20 @@ CUSTOM_TYPE_INSERT_2(CRUD,POSTGRESQL)=
   {= values (:id^long^idsel=SEL2, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
 ;
   
+CUSTOM_TYPE_INSERT_3(CRUD)=
+  insert into CONTACT (ID, ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
+  {= values (:id^^seq=SEQ1, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
+;
+  
+CUSTOM_TYPE_INSERT_4(CRUD)=
+  insert into CONTACT (ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
+  {= values (:id^^idsel, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
+;
+CUSTOM_TYPE_INSERT_4(CRUD,POSTGRESQL)=
+  insert into CONTACT (ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
+  {= values (:id^^idsel=SEL2, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
+;
+  
 CUSTOM_TYPE_GET(CRUD)=
   select c.ID @id, c.ADRESS @address, c.PHONE_NUMBER @phone^phone
   from CONTACT c
@@ -1020,6 +1071,12 @@ BASIC_LEFT_JOIN(QRY)=
 
 BASIC_LEFT_JOIN_2(QRY)=
   select l.NAME as @name, l.ID @id^long^id, pm.LOCATION @media.location, pm.ID @media.id^long^id
+  from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
+  {#1 order by l.ID, pm.ID}
+;
+
+BASIC_LEFT_JOIN_3(QRY)=
+  select l.ID @id^^id, l.NAME as @name, pm.ID @media.id^^id, pm.LOCATION @media.location
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   {#1 order by l.ID, pm.ID}
 ;
@@ -1375,6 +1432,14 @@ DELETE_PERSON_3(CRUD)=
   delete from PERSON
   {= where
    {& ID = :id^long^notnull}
+   {? :lastUpdatedBy | AND LASTUPDATEDBY = :lastUpdatedBy | AND LASTUPDATEDBY is null}
+  }
+;
+
+DELETE_PERSON_4(CRUD)=
+  delete from PERSON
+  {= where
+   {& ID = :id^^notnull}
    {? :lastUpdatedBy | AND LASTUPDATEDBY = :lastUpdatedBy | AND LASTUPDATEDBY is null}
   }
 ;

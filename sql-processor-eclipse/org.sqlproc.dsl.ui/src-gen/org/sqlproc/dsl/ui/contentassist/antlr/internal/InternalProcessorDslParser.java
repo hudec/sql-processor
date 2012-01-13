@@ -9688,14 +9688,14 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             case RULE_NOT:
                 {
                 switch ( input.LA(2) ) {
-                case RULE_STRING:
-                    {
-                    alt22=1;
-                    }
-                    break;
                 case RULE_LPAREN:
                     {
                     alt22=3;
+                    }
+                    break;
+                case RULE_STRING:
+                    {
+                    alt22=1;
                     }
                     break;
                 case RULE_COLON:
@@ -30892,12 +30892,8 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( (LA81_0==RULE_CARET) ) {
                 int LA81_1 = input.LA(2);
 
-                if ( (LA81_1==RULE_IDENT) ) {
-                    int LA81_3 = input.LA(3);
-
-                    if ( (synpred355_InternalProcessorDsl()) ) {
-                        alt81=1;
-                    }
+                if ( (synpred355_InternalProcessorDsl()) ) {
+                    alt81=1;
                 }
             }
             switch (alt81) {
@@ -31063,29 +31059,44 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Column__Group_1__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9737:1: rule__Column__Group_1__1__Impl : ( ( rule__Column__TypeAssignment_1_1 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9737:1: rule__Column__Group_1__1__Impl : ( ( rule__Column__TypeAssignment_1_1 )? ) ;
     public final void rule__Column__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9741:1: ( ( ( rule__Column__TypeAssignment_1_1 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9742:1: ( ( rule__Column__TypeAssignment_1_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9741:1: ( ( ( rule__Column__TypeAssignment_1_1 )? ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9742:1: ( ( rule__Column__TypeAssignment_1_1 )? )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9742:1: ( ( rule__Column__TypeAssignment_1_1 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9743:1: ( rule__Column__TypeAssignment_1_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9742:1: ( ( rule__Column__TypeAssignment_1_1 )? )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9743:1: ( rule__Column__TypeAssignment_1_1 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getColumnAccess().getTypeAssignment_1_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9744:1: ( rule__Column__TypeAssignment_1_1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9744:2: rule__Column__TypeAssignment_1_1
-            {
-            pushFollow(FOLLOW_rule__Column__TypeAssignment_1_1_in_rule__Column__Group_1__1__Impl21084);
-            rule__Column__TypeAssignment_1_1();
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9744:1: ( rule__Column__TypeAssignment_1_1 )?
+            int alt82=2;
+            int LA82_0 = input.LA(1);
 
-            state._fsp--;
-            if (state.failed) return ;
+            if ( (LA82_0==RULE_IDENT) ) {
+                int LA82_1 = input.LA(2);
+
+                if ( (synpred356_InternalProcessorDsl()) ) {
+                    alt82=1;
+                }
+            }
+            switch (alt82) {
+                case 1 :
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9744:2: rule__Column__TypeAssignment_1_1
+                    {
+                    pushFollow(FOLLOW_rule__Column__TypeAssignment_1_1_in_rule__Column__Group_1__1__Impl21084);
+                    rule__Column__TypeAssignment_1_1();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+
+                    }
+                    break;
 
             }
 
@@ -31123,7 +31134,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9758:1: ( rule__Column__Group_1__2__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9759:2: rule__Column__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__Column__Group_1__2__Impl_in_rule__Column__Group_1__221114);
+            pushFollow(FOLLOW_rule__Column__Group_1__2__Impl_in_rule__Column__Group_1__221115);
             rule__Column__Group_1__2__Impl();
 
             state._fsp--;
@@ -31163,28 +31174,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getColumnAccess().getGroup_1_2()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9772:1: ( rule__Column__Group_1_2__0 )*
-            loop82:
+            loop83:
             do {
-                int alt82=2;
-                int LA82_0 = input.LA(1);
+                int alt83=2;
+                int LA83_0 = input.LA(1);
 
-                if ( (LA82_0==RULE_CARET) ) {
-                    int LA82_2 = input.LA(2);
+                if ( (LA83_0==RULE_CARET) ) {
+                    int LA83_2 = input.LA(2);
 
-                    if ( (LA82_2==RULE_IDENT) ) {
-                        int LA82_3 = input.LA(3);
+                    if ( (LA83_2==RULE_IDENT) ) {
+                        int LA83_3 = input.LA(3);
 
-                        if ( (synpred356_InternalProcessorDsl()) ) {
-                            alt82=1;
+                        if ( (synpred357_InternalProcessorDsl()) ) {
+                            alt83=1;
                         }
 
 
                     }
-                    else if ( (LA82_2==RULE_NUMBER) ) {
-                        int LA82_4 = input.LA(3);
+                    else if ( (LA83_2==RULE_NUMBER) ) {
+                        int LA83_4 = input.LA(3);
 
-                        if ( (synpred356_InternalProcessorDsl()) ) {
-                            alt82=1;
+                        if ( (synpred357_InternalProcessorDsl()) ) {
+                            alt83=1;
                         }
 
 
@@ -31194,11 +31205,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                 }
 
 
-                switch (alt82) {
+                switch (alt83) {
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9772:2: rule__Column__Group_1_2__0
             	    {
-            	    pushFollow(FOLLOW_rule__Column__Group_1_2__0_in_rule__Column__Group_1__2__Impl21141);
+            	    pushFollow(FOLLOW_rule__Column__Group_1_2__0_in_rule__Column__Group_1__2__Impl21142);
             	    rule__Column__Group_1_2__0();
 
             	    state._fsp--;
@@ -31208,7 +31219,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             	    break;
 
             	default :
-            	    break loop82;
+            	    break loop83;
                 }
             } while (true);
 
@@ -31246,12 +31257,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9792:1: ( rule__Column__Group_1_2__0__Impl rule__Column__Group_1_2__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9793:2: rule__Column__Group_1_2__0__Impl rule__Column__Group_1_2__1
             {
-            pushFollow(FOLLOW_rule__Column__Group_1_2__0__Impl_in_rule__Column__Group_1_2__021178);
+            pushFollow(FOLLOW_rule__Column__Group_1_2__0__Impl_in_rule__Column__Group_1_2__021179);
             rule__Column__Group_1_2__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Column__Group_1_2__1_in_rule__Column__Group_1_2__021181);
+            pushFollow(FOLLOW_rule__Column__Group_1_2__1_in_rule__Column__Group_1_2__021182);
             rule__Column__Group_1_2__1();
 
             state._fsp--;
@@ -31293,7 +31304,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9807:1: ( RULE_CARET )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9807:3: RULE_CARET
             {
-            match(input,RULE_CARET,FOLLOW_RULE_CARET_in_rule__Column__Group_1_2__0__Impl21209); if (state.failed) return ;
+            match(input,RULE_CARET,FOLLOW_RULE_CARET_in_rule__Column__Group_1_2__0__Impl21210); if (state.failed) return ;
 
             }
 
@@ -31331,7 +31342,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9821:1: ( rule__Column__Group_1_2__1__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9822:2: rule__Column__Group_1_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__Column__Group_1_2__1__Impl_in_rule__Column__Group_1_2__121239);
+            pushFollow(FOLLOW_rule__Column__Group_1_2__1__Impl_in_rule__Column__Group_1_2__121240);
             rule__Column__Group_1_2__1__Impl();
 
             state._fsp--;
@@ -31373,7 +31384,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9835:1: ( rule__Column__ValsAssignment_1_2_1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9835:2: rule__Column__ValsAssignment_1_2_1
             {
-            pushFollow(FOLLOW_rule__Column__ValsAssignment_1_2_1_in_rule__Column__Group_1_2__1__Impl21266);
+            pushFollow(FOLLOW_rule__Column__ValsAssignment_1_2_1_in_rule__Column__Group_1_2__1__Impl21267);
             rule__Column__ValsAssignment_1_2_1();
 
             state._fsp--;
@@ -31415,12 +31426,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9853:1: ( rule__Constant__Group__0__Impl rule__Constant__Group__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9854:2: rule__Constant__Group__0__Impl rule__Constant__Group__1
             {
-            pushFollow(FOLLOW_rule__Constant__Group__0__Impl_in_rule__Constant__Group__021300);
+            pushFollow(FOLLOW_rule__Constant__Group__0__Impl_in_rule__Constant__Group__021301);
             rule__Constant__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Constant__Group__1_in_rule__Constant__Group__021303);
+            pushFollow(FOLLOW_rule__Constant__Group__1_in_rule__Constant__Group__021304);
             rule__Constant__Group__1();
 
             state._fsp--;
@@ -31460,17 +31471,17 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getConstantAccess().getCaseAssignment_0()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9868:1: ( rule__Constant__CaseAssignment_0 )?
-            int alt83=2;
-            int LA83_0 = input.LA(1);
+            int alt84=2;
+            int LA84_0 = input.LA(1);
 
-            if ( ((LA83_0>=RULE_MINUS && LA83_0<=RULE_PLUS)) ) {
-                alt83=1;
+            if ( ((LA84_0>=RULE_MINUS && LA84_0<=RULE_PLUS)) ) {
+                alt84=1;
             }
-            switch (alt83) {
+            switch (alt84) {
                 case 1 :
                     // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9868:2: rule__Constant__CaseAssignment_0
                     {
-                    pushFollow(FOLLOW_rule__Constant__CaseAssignment_0_in_rule__Constant__Group__0__Impl21330);
+                    pushFollow(FOLLOW_rule__Constant__CaseAssignment_0_in_rule__Constant__Group__0__Impl21331);
                     rule__Constant__CaseAssignment_0();
 
                     state._fsp--;
@@ -31515,12 +31526,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9882:1: ( rule__Constant__Group__1__Impl rule__Constant__Group__2 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9883:2: rule__Constant__Group__1__Impl rule__Constant__Group__2
             {
-            pushFollow(FOLLOW_rule__Constant__Group__1__Impl_in_rule__Constant__Group__121361);
+            pushFollow(FOLLOW_rule__Constant__Group__1__Impl_in_rule__Constant__Group__121362);
             rule__Constant__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Constant__Group__2_in_rule__Constant__Group__121364);
+            pushFollow(FOLLOW_rule__Constant__Group__2_in_rule__Constant__Group__121365);
             rule__Constant__Group__2();
 
             state._fsp--;
@@ -31562,7 +31573,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9897:1: ( rule__Constant__NameAssignment_1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9897:2: rule__Constant__NameAssignment_1
             {
-            pushFollow(FOLLOW_rule__Constant__NameAssignment_1_in_rule__Constant__Group__1__Impl21391);
+            pushFollow(FOLLOW_rule__Constant__NameAssignment_1_in_rule__Constant__Group__1__Impl21392);
             rule__Constant__NameAssignment_1();
 
             state._fsp--;
@@ -31604,7 +31615,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9911:1: ( rule__Constant__Group__2__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9912:2: rule__Constant__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__Constant__Group__2__Impl_in_rule__Constant__Group__221421);
+            pushFollow(FOLLOW_rule__Constant__Group__2__Impl_in_rule__Constant__Group__221422);
             rule__Constant__Group__2__Impl();
 
             state._fsp--;
@@ -31644,25 +31655,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getConstantAccess().getGroup_2()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9925:1: ( rule__Constant__Group_2__0 )?
-            int alt84=2;
-            int LA84_0 = input.LA(1);
+            int alt85=2;
+            int LA85_0 = input.LA(1);
 
-            if ( (LA84_0==RULE_CARET) ) {
-                int LA84_1 = input.LA(2);
+            if ( (LA85_0==RULE_CARET) ) {
+                int LA85_1 = input.LA(2);
 
-                if ( (LA84_1==RULE_IDENT) ) {
-                    int LA84_3 = input.LA(3);
-
-                    if ( (synpred358_InternalProcessorDsl()) ) {
-                        alt84=1;
-                    }
+                if ( (synpred359_InternalProcessorDsl()) ) {
+                    alt85=1;
                 }
             }
-            switch (alt84) {
+            switch (alt85) {
                 case 1 :
                     // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9925:2: rule__Constant__Group_2__0
                     {
-                    pushFollow(FOLLOW_rule__Constant__Group_2__0_in_rule__Constant__Group__2__Impl21448);
+                    pushFollow(FOLLOW_rule__Constant__Group_2__0_in_rule__Constant__Group__2__Impl21449);
                     rule__Constant__Group_2__0();
 
                     state._fsp--;
@@ -31707,12 +31714,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9945:1: ( rule__Constant__Group_2__0__Impl rule__Constant__Group_2__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9946:2: rule__Constant__Group_2__0__Impl rule__Constant__Group_2__1
             {
-            pushFollow(FOLLOW_rule__Constant__Group_2__0__Impl_in_rule__Constant__Group_2__021485);
+            pushFollow(FOLLOW_rule__Constant__Group_2__0__Impl_in_rule__Constant__Group_2__021486);
             rule__Constant__Group_2__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Constant__Group_2__1_in_rule__Constant__Group_2__021488);
+            pushFollow(FOLLOW_rule__Constant__Group_2__1_in_rule__Constant__Group_2__021489);
             rule__Constant__Group_2__1();
 
             state._fsp--;
@@ -31754,7 +31761,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9960:1: ( RULE_CARET )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9960:3: RULE_CARET
             {
-            match(input,RULE_CARET,FOLLOW_RULE_CARET_in_rule__Constant__Group_2__0__Impl21516); if (state.failed) return ;
+            match(input,RULE_CARET,FOLLOW_RULE_CARET_in_rule__Constant__Group_2__0__Impl21517); if (state.failed) return ;
 
             }
 
@@ -31792,12 +31799,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9974:1: ( rule__Constant__Group_2__1__Impl rule__Constant__Group_2__2 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9975:2: rule__Constant__Group_2__1__Impl rule__Constant__Group_2__2
             {
-            pushFollow(FOLLOW_rule__Constant__Group_2__1__Impl_in_rule__Constant__Group_2__121546);
+            pushFollow(FOLLOW_rule__Constant__Group_2__1__Impl_in_rule__Constant__Group_2__121547);
             rule__Constant__Group_2__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Constant__Group_2__2_in_rule__Constant__Group_2__121549);
+            pushFollow(FOLLOW_rule__Constant__Group_2__2_in_rule__Constant__Group_2__121550);
             rule__Constant__Group_2__2();
 
             state._fsp--;
@@ -31821,29 +31828,44 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Constant__Group_2__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9982:1: rule__Constant__Group_2__1__Impl : ( ( rule__Constant__TypeAssignment_2_1 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9982:1: rule__Constant__Group_2__1__Impl : ( ( rule__Constant__TypeAssignment_2_1 )? ) ;
     public final void rule__Constant__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9986:1: ( ( ( rule__Constant__TypeAssignment_2_1 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9987:1: ( ( rule__Constant__TypeAssignment_2_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9986:1: ( ( ( rule__Constant__TypeAssignment_2_1 )? ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9987:1: ( ( rule__Constant__TypeAssignment_2_1 )? )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9987:1: ( ( rule__Constant__TypeAssignment_2_1 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9988:1: ( rule__Constant__TypeAssignment_2_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9987:1: ( ( rule__Constant__TypeAssignment_2_1 )? )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9988:1: ( rule__Constant__TypeAssignment_2_1 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantAccess().getTypeAssignment_2_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9989:1: ( rule__Constant__TypeAssignment_2_1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9989:2: rule__Constant__TypeAssignment_2_1
-            {
-            pushFollow(FOLLOW_rule__Constant__TypeAssignment_2_1_in_rule__Constant__Group_2__1__Impl21576);
-            rule__Constant__TypeAssignment_2_1();
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9989:1: ( rule__Constant__TypeAssignment_2_1 )?
+            int alt86=2;
+            int LA86_0 = input.LA(1);
 
-            state._fsp--;
-            if (state.failed) return ;
+            if ( (LA86_0==RULE_IDENT) ) {
+                int LA86_1 = input.LA(2);
+
+                if ( (synpred360_InternalProcessorDsl()) ) {
+                    alt86=1;
+                }
+            }
+            switch (alt86) {
+                case 1 :
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9989:2: rule__Constant__TypeAssignment_2_1
+                    {
+                    pushFollow(FOLLOW_rule__Constant__TypeAssignment_2_1_in_rule__Constant__Group_2__1__Impl21577);
+                    rule__Constant__TypeAssignment_2_1();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+
+                    }
+                    break;
 
             }
 
@@ -31881,7 +31903,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10003:1: ( rule__Constant__Group_2__2__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10004:2: rule__Constant__Group_2__2__Impl
             {
-            pushFollow(FOLLOW_rule__Constant__Group_2__2__Impl_in_rule__Constant__Group_2__221606);
+            pushFollow(FOLLOW_rule__Constant__Group_2__2__Impl_in_rule__Constant__Group_2__221608);
             rule__Constant__Group_2__2__Impl();
 
             state._fsp--;
@@ -31921,28 +31943,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getConstantAccess().getGroup_2_2()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10017:1: ( rule__Constant__Group_2_2__0 )*
-            loop85:
+            loop87:
             do {
-                int alt85=2;
-                int LA85_0 = input.LA(1);
+                int alt87=2;
+                int LA87_0 = input.LA(1);
 
-                if ( (LA85_0==RULE_CARET) ) {
-                    int LA85_2 = input.LA(2);
+                if ( (LA87_0==RULE_CARET) ) {
+                    int LA87_2 = input.LA(2);
 
-                    if ( (LA85_2==RULE_IDENT) ) {
-                        int LA85_3 = input.LA(3);
+                    if ( (LA87_2==RULE_IDENT) ) {
+                        int LA87_3 = input.LA(3);
 
-                        if ( (synpred359_InternalProcessorDsl()) ) {
-                            alt85=1;
+                        if ( (synpred361_InternalProcessorDsl()) ) {
+                            alt87=1;
                         }
 
 
                     }
-                    else if ( (LA85_2==RULE_NUMBER) ) {
-                        int LA85_4 = input.LA(3);
+                    else if ( (LA87_2==RULE_NUMBER) ) {
+                        int LA87_4 = input.LA(3);
 
-                        if ( (synpred359_InternalProcessorDsl()) ) {
-                            alt85=1;
+                        if ( (synpred361_InternalProcessorDsl()) ) {
+                            alt87=1;
                         }
 
 
@@ -31952,11 +31974,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                 }
 
 
-                switch (alt85) {
+                switch (alt87) {
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10017:2: rule__Constant__Group_2_2__0
             	    {
-            	    pushFollow(FOLLOW_rule__Constant__Group_2_2__0_in_rule__Constant__Group_2__2__Impl21633);
+            	    pushFollow(FOLLOW_rule__Constant__Group_2_2__0_in_rule__Constant__Group_2__2__Impl21635);
             	    rule__Constant__Group_2_2__0();
 
             	    state._fsp--;
@@ -31966,7 +31988,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             	    break;
 
             	default :
-            	    break loop85;
+            	    break loop87;
                 }
             } while (true);
 
@@ -32004,12 +32026,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10037:1: ( rule__Constant__Group_2_2__0__Impl rule__Constant__Group_2_2__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10038:2: rule__Constant__Group_2_2__0__Impl rule__Constant__Group_2_2__1
             {
-            pushFollow(FOLLOW_rule__Constant__Group_2_2__0__Impl_in_rule__Constant__Group_2_2__021670);
+            pushFollow(FOLLOW_rule__Constant__Group_2_2__0__Impl_in_rule__Constant__Group_2_2__021672);
             rule__Constant__Group_2_2__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Constant__Group_2_2__1_in_rule__Constant__Group_2_2__021673);
+            pushFollow(FOLLOW_rule__Constant__Group_2_2__1_in_rule__Constant__Group_2_2__021675);
             rule__Constant__Group_2_2__1();
 
             state._fsp--;
@@ -32051,7 +32073,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10052:1: ( RULE_CARET )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10052:3: RULE_CARET
             {
-            match(input,RULE_CARET,FOLLOW_RULE_CARET_in_rule__Constant__Group_2_2__0__Impl21701); if (state.failed) return ;
+            match(input,RULE_CARET,FOLLOW_RULE_CARET_in_rule__Constant__Group_2_2__0__Impl21703); if (state.failed) return ;
 
             }
 
@@ -32089,7 +32111,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10066:1: ( rule__Constant__Group_2_2__1__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10067:2: rule__Constant__Group_2_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__Constant__Group_2_2__1__Impl_in_rule__Constant__Group_2_2__121731);
+            pushFollow(FOLLOW_rule__Constant__Group_2_2__1__Impl_in_rule__Constant__Group_2_2__121733);
             rule__Constant__Group_2_2__1__Impl();
 
             state._fsp--;
@@ -32131,7 +32153,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10080:1: ( rule__Constant__ValsAssignment_2_2_1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10080:2: rule__Constant__ValsAssignment_2_2_1
             {
-            pushFollow(FOLLOW_rule__Constant__ValsAssignment_2_2_1_in_rule__Constant__Group_2_2__1__Impl21758);
+            pushFollow(FOLLOW_rule__Constant__ValsAssignment_2_2_1_in_rule__Constant__Group_2_2__1__Impl21760);
             rule__Constant__ValsAssignment_2_2_1();
 
             state._fsp--;
@@ -32173,12 +32195,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10098:1: ( rule__Identifier__Group__0__Impl rule__Identifier__Group__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10099:2: rule__Identifier__Group__0__Impl rule__Identifier__Group__1
             {
-            pushFollow(FOLLOW_rule__Identifier__Group__0__Impl_in_rule__Identifier__Group__021792);
+            pushFollow(FOLLOW_rule__Identifier__Group__0__Impl_in_rule__Identifier__Group__021794);
             rule__Identifier__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Identifier__Group__1_in_rule__Identifier__Group__021795);
+            pushFollow(FOLLOW_rule__Identifier__Group__1_in_rule__Identifier__Group__021797);
             rule__Identifier__Group__1();
 
             state._fsp--;
@@ -32218,17 +32240,17 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getIdentifierAccess().getModeAssignment_0()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10113:1: ( rule__Identifier__ModeAssignment_0 )?
-            int alt86=2;
-            int LA86_0 = input.LA(1);
+            int alt88=2;
+            int LA88_0 = input.LA(1);
 
-            if ( ((LA86_0>=RULE_EQUALS && LA86_0<=RULE_MORE_THAN)) ) {
-                alt86=1;
+            if ( ((LA88_0>=RULE_EQUALS && LA88_0<=RULE_MORE_THAN)) ) {
+                alt88=1;
             }
-            switch (alt86) {
+            switch (alt88) {
                 case 1 :
                     // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10113:2: rule__Identifier__ModeAssignment_0
                     {
-                    pushFollow(FOLLOW_rule__Identifier__ModeAssignment_0_in_rule__Identifier__Group__0__Impl21822);
+                    pushFollow(FOLLOW_rule__Identifier__ModeAssignment_0_in_rule__Identifier__Group__0__Impl21824);
                     rule__Identifier__ModeAssignment_0();
 
                     state._fsp--;
@@ -32273,12 +32295,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10127:1: ( rule__Identifier__Group__1__Impl rule__Identifier__Group__2 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10128:2: rule__Identifier__Group__1__Impl rule__Identifier__Group__2
             {
-            pushFollow(FOLLOW_rule__Identifier__Group__1__Impl_in_rule__Identifier__Group__121853);
+            pushFollow(FOLLOW_rule__Identifier__Group__1__Impl_in_rule__Identifier__Group__121855);
             rule__Identifier__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Identifier__Group__2_in_rule__Identifier__Group__121856);
+            pushFollow(FOLLOW_rule__Identifier__Group__2_in_rule__Identifier__Group__121858);
             rule__Identifier__Group__2();
 
             state._fsp--;
@@ -32318,17 +32340,17 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getIdentifierAccess().getCaseAssignment_1()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10142:1: ( rule__Identifier__CaseAssignment_1 )?
-            int alt87=2;
-            int LA87_0 = input.LA(1);
+            int alt89=2;
+            int LA89_0 = input.LA(1);
 
-            if ( ((LA87_0>=RULE_MINUS && LA87_0<=RULE_PLUS)) ) {
-                alt87=1;
+            if ( ((LA89_0>=RULE_MINUS && LA89_0<=RULE_PLUS)) ) {
+                alt89=1;
             }
-            switch (alt87) {
+            switch (alt89) {
                 case 1 :
                     // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10142:2: rule__Identifier__CaseAssignment_1
                     {
-                    pushFollow(FOLLOW_rule__Identifier__CaseAssignment_1_in_rule__Identifier__Group__1__Impl21883);
+                    pushFollow(FOLLOW_rule__Identifier__CaseAssignment_1_in_rule__Identifier__Group__1__Impl21885);
                     rule__Identifier__CaseAssignment_1();
 
                     state._fsp--;
@@ -32373,12 +32395,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10156:1: ( rule__Identifier__Group__2__Impl rule__Identifier__Group__3 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10157:2: rule__Identifier__Group__2__Impl rule__Identifier__Group__3
             {
-            pushFollow(FOLLOW_rule__Identifier__Group__2__Impl_in_rule__Identifier__Group__221914);
+            pushFollow(FOLLOW_rule__Identifier__Group__2__Impl_in_rule__Identifier__Group__221916);
             rule__Identifier__Group__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Identifier__Group__3_in_rule__Identifier__Group__221917);
+            pushFollow(FOLLOW_rule__Identifier__Group__3_in_rule__Identifier__Group__221919);
             rule__Identifier__Group__3();
 
             state._fsp--;
@@ -32420,7 +32442,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10171:1: ( rule__Identifier__NameAssignment_2 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10171:2: rule__Identifier__NameAssignment_2
             {
-            pushFollow(FOLLOW_rule__Identifier__NameAssignment_2_in_rule__Identifier__Group__2__Impl21944);
+            pushFollow(FOLLOW_rule__Identifier__NameAssignment_2_in_rule__Identifier__Group__2__Impl21946);
             rule__Identifier__NameAssignment_2();
 
             state._fsp--;
@@ -32462,7 +32484,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10185:1: ( rule__Identifier__Group__3__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10186:2: rule__Identifier__Group__3__Impl
             {
-            pushFollow(FOLLOW_rule__Identifier__Group__3__Impl_in_rule__Identifier__Group__321974);
+            pushFollow(FOLLOW_rule__Identifier__Group__3__Impl_in_rule__Identifier__Group__321976);
             rule__Identifier__Group__3__Impl();
 
             state._fsp--;
@@ -32502,25 +32524,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getIdentifierAccess().getGroup_3()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10199:1: ( rule__Identifier__Group_3__0 )?
-            int alt88=2;
-            int LA88_0 = input.LA(1);
+            int alt90=2;
+            int LA90_0 = input.LA(1);
 
-            if ( (LA88_0==RULE_CARET) ) {
-                int LA88_1 = input.LA(2);
+            if ( (LA90_0==RULE_CARET) ) {
+                int LA90_1 = input.LA(2);
 
-                if ( (LA88_1==RULE_IDENT) ) {
-                    int LA88_3 = input.LA(3);
-
-                    if ( (synpred362_InternalProcessorDsl()) ) {
-                        alt88=1;
-                    }
+                if ( (synpred364_InternalProcessorDsl()) ) {
+                    alt90=1;
                 }
             }
-            switch (alt88) {
+            switch (alt90) {
                 case 1 :
                     // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10199:2: rule__Identifier__Group_3__0
                     {
-                    pushFollow(FOLLOW_rule__Identifier__Group_3__0_in_rule__Identifier__Group__3__Impl22001);
+                    pushFollow(FOLLOW_rule__Identifier__Group_3__0_in_rule__Identifier__Group__3__Impl22003);
                     rule__Identifier__Group_3__0();
 
                     state._fsp--;
@@ -32565,12 +32583,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10221:1: ( rule__Identifier__Group_3__0__Impl rule__Identifier__Group_3__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10222:2: rule__Identifier__Group_3__0__Impl rule__Identifier__Group_3__1
             {
-            pushFollow(FOLLOW_rule__Identifier__Group_3__0__Impl_in_rule__Identifier__Group_3__022040);
+            pushFollow(FOLLOW_rule__Identifier__Group_3__0__Impl_in_rule__Identifier__Group_3__022042);
             rule__Identifier__Group_3__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Identifier__Group_3__1_in_rule__Identifier__Group_3__022043);
+            pushFollow(FOLLOW_rule__Identifier__Group_3__1_in_rule__Identifier__Group_3__022045);
             rule__Identifier__Group_3__1();
 
             state._fsp--;
@@ -32612,7 +32630,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10236:1: ( RULE_CARET )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10236:3: RULE_CARET
             {
-            match(input,RULE_CARET,FOLLOW_RULE_CARET_in_rule__Identifier__Group_3__0__Impl22071); if (state.failed) return ;
+            match(input,RULE_CARET,FOLLOW_RULE_CARET_in_rule__Identifier__Group_3__0__Impl22073); if (state.failed) return ;
 
             }
 
@@ -32650,12 +32668,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10250:1: ( rule__Identifier__Group_3__1__Impl rule__Identifier__Group_3__2 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10251:2: rule__Identifier__Group_3__1__Impl rule__Identifier__Group_3__2
             {
-            pushFollow(FOLLOW_rule__Identifier__Group_3__1__Impl_in_rule__Identifier__Group_3__122101);
+            pushFollow(FOLLOW_rule__Identifier__Group_3__1__Impl_in_rule__Identifier__Group_3__122103);
             rule__Identifier__Group_3__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Identifier__Group_3__2_in_rule__Identifier__Group_3__122104);
+            pushFollow(FOLLOW_rule__Identifier__Group_3__2_in_rule__Identifier__Group_3__122106);
             rule__Identifier__Group_3__2();
 
             state._fsp--;
@@ -32679,29 +32697,44 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Identifier__Group_3__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10258:1: rule__Identifier__Group_3__1__Impl : ( ( rule__Identifier__TypeAssignment_3_1 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10258:1: rule__Identifier__Group_3__1__Impl : ( ( rule__Identifier__TypeAssignment_3_1 )? ) ;
     public final void rule__Identifier__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10262:1: ( ( ( rule__Identifier__TypeAssignment_3_1 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10263:1: ( ( rule__Identifier__TypeAssignment_3_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10262:1: ( ( ( rule__Identifier__TypeAssignment_3_1 )? ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10263:1: ( ( rule__Identifier__TypeAssignment_3_1 )? )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10263:1: ( ( rule__Identifier__TypeAssignment_3_1 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10264:1: ( rule__Identifier__TypeAssignment_3_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10263:1: ( ( rule__Identifier__TypeAssignment_3_1 )? )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10264:1: ( rule__Identifier__TypeAssignment_3_1 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierAccess().getTypeAssignment_3_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10265:1: ( rule__Identifier__TypeAssignment_3_1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10265:2: rule__Identifier__TypeAssignment_3_1
-            {
-            pushFollow(FOLLOW_rule__Identifier__TypeAssignment_3_1_in_rule__Identifier__Group_3__1__Impl22131);
-            rule__Identifier__TypeAssignment_3_1();
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10265:1: ( rule__Identifier__TypeAssignment_3_1 )?
+            int alt91=2;
+            int LA91_0 = input.LA(1);
 
-            state._fsp--;
-            if (state.failed) return ;
+            if ( (LA91_0==RULE_IDENT) ) {
+                int LA91_1 = input.LA(2);
+
+                if ( (synpred365_InternalProcessorDsl()) ) {
+                    alt91=1;
+                }
+            }
+            switch (alt91) {
+                case 1 :
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10265:2: rule__Identifier__TypeAssignment_3_1
+                    {
+                    pushFollow(FOLLOW_rule__Identifier__TypeAssignment_3_1_in_rule__Identifier__Group_3__1__Impl22133);
+                    rule__Identifier__TypeAssignment_3_1();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+
+                    }
+                    break;
 
             }
 
@@ -32739,7 +32772,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10279:1: ( rule__Identifier__Group_3__2__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10280:2: rule__Identifier__Group_3__2__Impl
             {
-            pushFollow(FOLLOW_rule__Identifier__Group_3__2__Impl_in_rule__Identifier__Group_3__222161);
+            pushFollow(FOLLOW_rule__Identifier__Group_3__2__Impl_in_rule__Identifier__Group_3__222164);
             rule__Identifier__Group_3__2__Impl();
 
             state._fsp--;
@@ -32779,28 +32812,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getIdentifierAccess().getGroup_3_2()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10293:1: ( rule__Identifier__Group_3_2__0 )*
-            loop89:
+            loop92:
             do {
-                int alt89=2;
-                int LA89_0 = input.LA(1);
+                int alt92=2;
+                int LA92_0 = input.LA(1);
 
-                if ( (LA89_0==RULE_CARET) ) {
-                    int LA89_2 = input.LA(2);
+                if ( (LA92_0==RULE_CARET) ) {
+                    int LA92_2 = input.LA(2);
 
-                    if ( (LA89_2==RULE_IDENT) ) {
-                        int LA89_3 = input.LA(3);
+                    if ( (LA92_2==RULE_IDENT) ) {
+                        int LA92_3 = input.LA(3);
 
-                        if ( (synpred363_InternalProcessorDsl()) ) {
-                            alt89=1;
+                        if ( (synpred366_InternalProcessorDsl()) ) {
+                            alt92=1;
                         }
 
 
                     }
-                    else if ( (LA89_2==RULE_NUMBER) ) {
-                        int LA89_4 = input.LA(3);
+                    else if ( (LA92_2==RULE_NUMBER) ) {
+                        int LA92_4 = input.LA(3);
 
-                        if ( (synpred363_InternalProcessorDsl()) ) {
-                            alt89=1;
+                        if ( (synpred366_InternalProcessorDsl()) ) {
+                            alt92=1;
                         }
 
 
@@ -32810,11 +32843,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                 }
 
 
-                switch (alt89) {
+                switch (alt92) {
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10293:2: rule__Identifier__Group_3_2__0
             	    {
-            	    pushFollow(FOLLOW_rule__Identifier__Group_3_2__0_in_rule__Identifier__Group_3__2__Impl22188);
+            	    pushFollow(FOLLOW_rule__Identifier__Group_3_2__0_in_rule__Identifier__Group_3__2__Impl22191);
             	    rule__Identifier__Group_3_2__0();
 
             	    state._fsp--;
@@ -32824,7 +32857,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             	    break;
 
             	default :
-            	    break loop89;
+            	    break loop92;
                 }
             } while (true);
 
@@ -32862,12 +32895,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10313:1: ( rule__Identifier__Group_3_2__0__Impl rule__Identifier__Group_3_2__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10314:2: rule__Identifier__Group_3_2__0__Impl rule__Identifier__Group_3_2__1
             {
-            pushFollow(FOLLOW_rule__Identifier__Group_3_2__0__Impl_in_rule__Identifier__Group_3_2__022225);
+            pushFollow(FOLLOW_rule__Identifier__Group_3_2__0__Impl_in_rule__Identifier__Group_3_2__022228);
             rule__Identifier__Group_3_2__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Identifier__Group_3_2__1_in_rule__Identifier__Group_3_2__022228);
+            pushFollow(FOLLOW_rule__Identifier__Group_3_2__1_in_rule__Identifier__Group_3_2__022231);
             rule__Identifier__Group_3_2__1();
 
             state._fsp--;
@@ -32909,7 +32942,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10328:1: ( RULE_CARET )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10328:3: RULE_CARET
             {
-            match(input,RULE_CARET,FOLLOW_RULE_CARET_in_rule__Identifier__Group_3_2__0__Impl22256); if (state.failed) return ;
+            match(input,RULE_CARET,FOLLOW_RULE_CARET_in_rule__Identifier__Group_3_2__0__Impl22259); if (state.failed) return ;
 
             }
 
@@ -32947,7 +32980,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10342:1: ( rule__Identifier__Group_3_2__1__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10343:2: rule__Identifier__Group_3_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__Identifier__Group_3_2__1__Impl_in_rule__Identifier__Group_3_2__122286);
+            pushFollow(FOLLOW_rule__Identifier__Group_3_2__1__Impl_in_rule__Identifier__Group_3_2__122289);
             rule__Identifier__Group_3_2__1__Impl();
 
             state._fsp--;
@@ -32989,7 +33022,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10356:1: ( rule__Identifier__ValsAssignment_3_2_1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10356:2: rule__Identifier__ValsAssignment_3_2_1
             {
-            pushFollow(FOLLOW_rule__Identifier__ValsAssignment_3_2_1_in_rule__Identifier__Group_3_2__1__Impl22313);
+            pushFollow(FOLLOW_rule__Identifier__ValsAssignment_3_2_1_in_rule__Identifier__Group_3_2__1__Impl22316);
             rule__Identifier__ValsAssignment_3_2_1();
 
             state._fsp--;
@@ -33031,12 +33064,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10374:1: ( rule__MappingRule__Group__0__Impl rule__MappingRule__Group__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10375:2: rule__MappingRule__Group__0__Impl rule__MappingRule__Group__1
             {
-            pushFollow(FOLLOW_rule__MappingRule__Group__0__Impl_in_rule__MappingRule__Group__022347);
+            pushFollow(FOLLOW_rule__MappingRule__Group__0__Impl_in_rule__MappingRule__Group__022350);
             rule__MappingRule__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingRule__Group__1_in_rule__MappingRule__Group__022350);
+            pushFollow(FOLLOW_rule__MappingRule__Group__1_in_rule__MappingRule__Group__022353);
             rule__MappingRule__Group__1();
 
             state._fsp--;
@@ -33078,7 +33111,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10389:1: ( rule__MappingRule__NameAssignment_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10389:2: rule__MappingRule__NameAssignment_0
             {
-            pushFollow(FOLLOW_rule__MappingRule__NameAssignment_0_in_rule__MappingRule__Group__0__Impl22377);
+            pushFollow(FOLLOW_rule__MappingRule__NameAssignment_0_in_rule__MappingRule__Group__0__Impl22380);
             rule__MappingRule__NameAssignment_0();
 
             state._fsp--;
@@ -33120,12 +33153,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10403:1: ( rule__MappingRule__Group__1__Impl rule__MappingRule__Group__2 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10404:2: rule__MappingRule__Group__1__Impl rule__MappingRule__Group__2
             {
-            pushFollow(FOLLOW_rule__MappingRule__Group__1__Impl_in_rule__MappingRule__Group__122407);
+            pushFollow(FOLLOW_rule__MappingRule__Group__1__Impl_in_rule__MappingRule__Group__122410);
             rule__MappingRule__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingRule__Group__2_in_rule__MappingRule__Group__122410);
+            pushFollow(FOLLOW_rule__MappingRule__Group__2_in_rule__MappingRule__Group__122413);
             rule__MappingRule__Group__2();
 
             state._fsp--;
@@ -33164,7 +33197,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getLPARENTerminalRuleCall_1()); 
             }
-            match(input,RULE_LPAREN,FOLLOW_RULE_LPAREN_in_rule__MappingRule__Group__1__Impl22437); if (state.failed) return ;
+            match(input,RULE_LPAREN,FOLLOW_RULE_LPAREN_in_rule__MappingRule__Group__1__Impl22440); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingRuleAccess().getLPARENTerminalRuleCall_1()); 
             }
@@ -33199,12 +33232,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10432:1: ( rule__MappingRule__Group__2__Impl rule__MappingRule__Group__3 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10433:2: rule__MappingRule__Group__2__Impl rule__MappingRule__Group__3
             {
-            pushFollow(FOLLOW_rule__MappingRule__Group__2__Impl_in_rule__MappingRule__Group__222466);
+            pushFollow(FOLLOW_rule__MappingRule__Group__2__Impl_in_rule__MappingRule__Group__222469);
             rule__MappingRule__Group__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingRule__Group__3_in_rule__MappingRule__Group__222469);
+            pushFollow(FOLLOW_rule__MappingRule__Group__3_in_rule__MappingRule__Group__222472);
             rule__MappingRule__Group__3();
 
             state._fsp--;
@@ -33246,7 +33279,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10447:1: ( rule__MappingRule__TypeAssignment_2 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10447:2: rule__MappingRule__TypeAssignment_2
             {
-            pushFollow(FOLLOW_rule__MappingRule__TypeAssignment_2_in_rule__MappingRule__Group__2__Impl22496);
+            pushFollow(FOLLOW_rule__MappingRule__TypeAssignment_2_in_rule__MappingRule__Group__2__Impl22499);
             rule__MappingRule__TypeAssignment_2();
 
             state._fsp--;
@@ -33288,12 +33321,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10461:1: ( rule__MappingRule__Group__3__Impl rule__MappingRule__Group__4 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10462:2: rule__MappingRule__Group__3__Impl rule__MappingRule__Group__4
             {
-            pushFollow(FOLLOW_rule__MappingRule__Group__3__Impl_in_rule__MappingRule__Group__322526);
+            pushFollow(FOLLOW_rule__MappingRule__Group__3__Impl_in_rule__MappingRule__Group__322529);
             rule__MappingRule__Group__3__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingRule__Group__4_in_rule__MappingRule__Group__322529);
+            pushFollow(FOLLOW_rule__MappingRule__Group__4_in_rule__MappingRule__Group__322532);
             rule__MappingRule__Group__4();
 
             state._fsp--;
@@ -33333,21 +33366,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getMappingRuleAccess().getGroup_3()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10476:1: ( rule__MappingRule__Group_3__0 )*
-            loop90:
+            loop93:
             do {
-                int alt90=2;
-                int LA90_0 = input.LA(1);
+                int alt93=2;
+                int LA93_0 = input.LA(1);
 
-                if ( (LA90_0==RULE_COMMA) ) {
-                    alt90=1;
+                if ( (LA93_0==RULE_COMMA) ) {
+                    alt93=1;
                 }
 
 
-                switch (alt90) {
+                switch (alt93) {
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10476:2: rule__MappingRule__Group_3__0
             	    {
-            	    pushFollow(FOLLOW_rule__MappingRule__Group_3__0_in_rule__MappingRule__Group__3__Impl22556);
+            	    pushFollow(FOLLOW_rule__MappingRule__Group_3__0_in_rule__MappingRule__Group__3__Impl22559);
             	    rule__MappingRule__Group_3__0();
 
             	    state._fsp--;
@@ -33357,7 +33390,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             	    break;
 
             	default :
-            	    break loop90;
+            	    break loop93;
                 }
             } while (true);
 
@@ -33395,12 +33428,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10490:1: ( rule__MappingRule__Group__4__Impl rule__MappingRule__Group__5 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10491:2: rule__MappingRule__Group__4__Impl rule__MappingRule__Group__5
             {
-            pushFollow(FOLLOW_rule__MappingRule__Group__4__Impl_in_rule__MappingRule__Group__422587);
+            pushFollow(FOLLOW_rule__MappingRule__Group__4__Impl_in_rule__MappingRule__Group__422590);
             rule__MappingRule__Group__4__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingRule__Group__5_in_rule__MappingRule__Group__422590);
+            pushFollow(FOLLOW_rule__MappingRule__Group__5_in_rule__MappingRule__Group__422593);
             rule__MappingRule__Group__5();
 
             state._fsp--;
@@ -33439,7 +33472,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getRPARENTerminalRuleCall_4()); 
             }
-            match(input,RULE_RPAREN,FOLLOW_RULE_RPAREN_in_rule__MappingRule__Group__4__Impl22617); if (state.failed) return ;
+            match(input,RULE_RPAREN,FOLLOW_RULE_RPAREN_in_rule__MappingRule__Group__4__Impl22620); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingRuleAccess().getRPARENTerminalRuleCall_4()); 
             }
@@ -33474,12 +33507,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10519:1: ( rule__MappingRule__Group__5__Impl rule__MappingRule__Group__6 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10520:2: rule__MappingRule__Group__5__Impl rule__MappingRule__Group__6
             {
-            pushFollow(FOLLOW_rule__MappingRule__Group__5__Impl_in_rule__MappingRule__Group__522646);
+            pushFollow(FOLLOW_rule__MappingRule__Group__5__Impl_in_rule__MappingRule__Group__522649);
             rule__MappingRule__Group__5__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingRule__Group__6_in_rule__MappingRule__Group__522649);
+            pushFollow(FOLLOW_rule__MappingRule__Group__6_in_rule__MappingRule__Group__522652);
             rule__MappingRule__Group__6();
 
             state._fsp--;
@@ -33518,7 +33551,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getEQUALSTerminalRuleCall_5()); 
             }
-            match(input,RULE_EQUALS,FOLLOW_RULE_EQUALS_in_rule__MappingRule__Group__5__Impl22676); if (state.failed) return ;
+            match(input,RULE_EQUALS,FOLLOW_RULE_EQUALS_in_rule__MappingRule__Group__5__Impl22679); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingRuleAccess().getEQUALSTerminalRuleCall_5()); 
             }
@@ -33553,12 +33586,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10548:1: ( rule__MappingRule__Group__6__Impl rule__MappingRule__Group__7 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10549:2: rule__MappingRule__Group__6__Impl rule__MappingRule__Group__7
             {
-            pushFollow(FOLLOW_rule__MappingRule__Group__6__Impl_in_rule__MappingRule__Group__622705);
+            pushFollow(FOLLOW_rule__MappingRule__Group__6__Impl_in_rule__MappingRule__Group__622708);
             rule__MappingRule__Group__6__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingRule__Group__7_in_rule__MappingRule__Group__622708);
+            pushFollow(FOLLOW_rule__MappingRule__Group__7_in_rule__MappingRule__Group__622711);
             rule__MappingRule__Group__7();
 
             state._fsp--;
@@ -33600,7 +33633,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10563:1: ( rule__MappingRule__MappingAssignment_6 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10563:2: rule__MappingRule__MappingAssignment_6
             {
-            pushFollow(FOLLOW_rule__MappingRule__MappingAssignment_6_in_rule__MappingRule__Group__6__Impl22735);
+            pushFollow(FOLLOW_rule__MappingRule__MappingAssignment_6_in_rule__MappingRule__Group__6__Impl22738);
             rule__MappingRule__MappingAssignment_6();
 
             state._fsp--;
@@ -33642,7 +33675,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10577:1: ( rule__MappingRule__Group__7__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10578:2: rule__MappingRule__Group__7__Impl
             {
-            pushFollow(FOLLOW_rule__MappingRule__Group__7__Impl_in_rule__MappingRule__Group__722765);
+            pushFollow(FOLLOW_rule__MappingRule__Group__7__Impl_in_rule__MappingRule__Group__722768);
             rule__MappingRule__Group__7__Impl();
 
             state._fsp--;
@@ -33681,7 +33714,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getSEMICOLONTerminalRuleCall_7()); 
             }
-            match(input,RULE_SEMICOLON,FOLLOW_RULE_SEMICOLON_in_rule__MappingRule__Group__7__Impl22792); if (state.failed) return ;
+            match(input,RULE_SEMICOLON,FOLLOW_RULE_SEMICOLON_in_rule__MappingRule__Group__7__Impl22795); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingRuleAccess().getSEMICOLONTerminalRuleCall_7()); 
             }
@@ -33716,12 +33749,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10621:1: ( rule__MappingRule__Group_3__0__Impl rule__MappingRule__Group_3__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10622:2: rule__MappingRule__Group_3__0__Impl rule__MappingRule__Group_3__1
             {
-            pushFollow(FOLLOW_rule__MappingRule__Group_3__0__Impl_in_rule__MappingRule__Group_3__022837);
+            pushFollow(FOLLOW_rule__MappingRule__Group_3__0__Impl_in_rule__MappingRule__Group_3__022840);
             rule__MappingRule__Group_3__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingRule__Group_3__1_in_rule__MappingRule__Group_3__022840);
+            pushFollow(FOLLOW_rule__MappingRule__Group_3__1_in_rule__MappingRule__Group_3__022843);
             rule__MappingRule__Group_3__1();
 
             state._fsp--;
@@ -33760,7 +33793,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getCOMMATerminalRuleCall_3_0()); 
             }
-            match(input,RULE_COMMA,FOLLOW_RULE_COMMA_in_rule__MappingRule__Group_3__0__Impl22867); if (state.failed) return ;
+            match(input,RULE_COMMA,FOLLOW_RULE_COMMA_in_rule__MappingRule__Group_3__0__Impl22870); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingRuleAccess().getCOMMATerminalRuleCall_3_0()); 
             }
@@ -33795,7 +33828,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10650:1: ( rule__MappingRule__Group_3__1__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10651:2: rule__MappingRule__Group_3__1__Impl
             {
-            pushFollow(FOLLOW_rule__MappingRule__Group_3__1__Impl_in_rule__MappingRule__Group_3__122896);
+            pushFollow(FOLLOW_rule__MappingRule__Group_3__1__Impl_in_rule__MappingRule__Group_3__122899);
             rule__MappingRule__Group_3__1__Impl();
 
             state._fsp--;
@@ -33837,7 +33870,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10664:1: ( rule__MappingRule__FiltersAssignment_3_1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10664:2: rule__MappingRule__FiltersAssignment_3_1
             {
-            pushFollow(FOLLOW_rule__MappingRule__FiltersAssignment_3_1_in_rule__MappingRule__Group_3__1__Impl22923);
+            pushFollow(FOLLOW_rule__MappingRule__FiltersAssignment_3_1_in_rule__MappingRule__Group_3__1__Impl22926);
             rule__MappingRule__FiltersAssignment_3_1();
 
             state._fsp--;
@@ -33879,12 +33912,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10682:1: ( rule__Mapping__Group__0__Impl rule__Mapping__Group__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10683:2: rule__Mapping__Group__0__Impl rule__Mapping__Group__1
             {
-            pushFollow(FOLLOW_rule__Mapping__Group__0__Impl_in_rule__Mapping__Group__022957);
+            pushFollow(FOLLOW_rule__Mapping__Group__0__Impl_in_rule__Mapping__Group__022960);
             rule__Mapping__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Mapping__Group__1_in_rule__Mapping__Group__022960);
+            pushFollow(FOLLOW_rule__Mapping__Group__1_in_rule__Mapping__Group__022963);
             rule__Mapping__Group__1();
 
             state._fsp--;
@@ -33924,27 +33957,27 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getMappingAccess().getWSTerminalRuleCall_0()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10697:1: ( RULE_WS )*
-            loop91:
+            loop94:
             do {
-                int alt91=2;
-                int LA91_0 = input.LA(1);
+                int alt94=2;
+                int LA94_0 = input.LA(1);
 
-                if ( (LA91_0==RULE_WS) ) {
-                    alt91=1;
+                if ( (LA94_0==RULE_WS) ) {
+                    alt94=1;
                 }
 
 
-                switch (alt91) {
+                switch (alt94) {
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10697:3: RULE_WS
             	    {
-            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Mapping__Group__0__Impl22988); if (state.failed) return ;
+            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Mapping__Group__0__Impl22991); if (state.failed) return ;
 
             	    }
             	    break;
 
             	default :
-            	    break loop91;
+            	    break loop94;
                 }
             } while (true);
 
@@ -33982,12 +34015,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10711:1: ( rule__Mapping__Group__1__Impl rule__Mapping__Group__2 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10712:2: rule__Mapping__Group__1__Impl rule__Mapping__Group__2
             {
-            pushFollow(FOLLOW_rule__Mapping__Group__1__Impl_in_rule__Mapping__Group__123019);
+            pushFollow(FOLLOW_rule__Mapping__Group__1__Impl_in_rule__Mapping__Group__123022);
             rule__Mapping__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Mapping__Group__2_in_rule__Mapping__Group__123022);
+            pushFollow(FOLLOW_rule__Mapping__Group__2_in_rule__Mapping__Group__123025);
             rule__Mapping__Group__2();
 
             state._fsp--;
@@ -34029,7 +34062,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10726:1: ( rule__Mapping__MappingItemsAssignment_1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10726:2: rule__Mapping__MappingItemsAssignment_1
             {
-            pushFollow(FOLLOW_rule__Mapping__MappingItemsAssignment_1_in_rule__Mapping__Group__1__Impl23049);
+            pushFollow(FOLLOW_rule__Mapping__MappingItemsAssignment_1_in_rule__Mapping__Group__1__Impl23052);
             rule__Mapping__MappingItemsAssignment_1();
 
             state._fsp--;
@@ -34071,12 +34104,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10740:1: ( rule__Mapping__Group__2__Impl rule__Mapping__Group__3 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10741:2: rule__Mapping__Group__2__Impl rule__Mapping__Group__3
             {
-            pushFollow(FOLLOW_rule__Mapping__Group__2__Impl_in_rule__Mapping__Group__223079);
+            pushFollow(FOLLOW_rule__Mapping__Group__2__Impl_in_rule__Mapping__Group__223082);
             rule__Mapping__Group__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Mapping__Group__3_in_rule__Mapping__Group__223082);
+            pushFollow(FOLLOW_rule__Mapping__Group__3_in_rule__Mapping__Group__223085);
             rule__Mapping__Group__3();
 
             state._fsp--;
@@ -34116,15 +34149,15 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getMappingAccess().getGroup_2()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10755:1: ( rule__Mapping__Group_2__0 )*
-            loop92:
+            loop95:
             do {
-                int alt92=2;
-                alt92 = dfa92.predict(input);
-                switch (alt92) {
+                int alt95=2;
+                alt95 = dfa95.predict(input);
+                switch (alt95) {
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10755:2: rule__Mapping__Group_2__0
             	    {
-            	    pushFollow(FOLLOW_rule__Mapping__Group_2__0_in_rule__Mapping__Group__2__Impl23109);
+            	    pushFollow(FOLLOW_rule__Mapping__Group_2__0_in_rule__Mapping__Group__2__Impl23112);
             	    rule__Mapping__Group_2__0();
 
             	    state._fsp--;
@@ -34134,7 +34167,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             	    break;
 
             	default :
-            	    break loop92;
+            	    break loop95;
                 }
             } while (true);
 
@@ -34172,7 +34205,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10769:1: ( rule__Mapping__Group__3__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10770:2: rule__Mapping__Group__3__Impl
             {
-            pushFollow(FOLLOW_rule__Mapping__Group__3__Impl_in_rule__Mapping__Group__323140);
+            pushFollow(FOLLOW_rule__Mapping__Group__3__Impl_in_rule__Mapping__Group__323143);
             rule__Mapping__Group__3__Impl();
 
             state._fsp--;
@@ -34212,27 +34245,27 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getMappingAccess().getWSTerminalRuleCall_3()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10783:1: ( RULE_WS )*
-            loop93:
+            loop96:
             do {
-                int alt93=2;
-                int LA93_0 = input.LA(1);
+                int alt96=2;
+                int LA96_0 = input.LA(1);
 
-                if ( (LA93_0==RULE_WS) ) {
-                    alt93=1;
+                if ( (LA96_0==RULE_WS) ) {
+                    alt96=1;
                 }
 
 
-                switch (alt93) {
+                switch (alt96) {
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10783:3: RULE_WS
             	    {
-            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Mapping__Group__3__Impl23168); if (state.failed) return ;
+            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Mapping__Group__3__Impl23171); if (state.failed) return ;
 
             	    }
             	    break;
 
             	default :
-            	    break loop93;
+            	    break loop96;
                 }
             } while (true);
 
@@ -34270,12 +34303,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10805:1: ( rule__Mapping__Group_2__0__Impl rule__Mapping__Group_2__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10806:2: rule__Mapping__Group_2__0__Impl rule__Mapping__Group_2__1
             {
-            pushFollow(FOLLOW_rule__Mapping__Group_2__0__Impl_in_rule__Mapping__Group_2__023207);
+            pushFollow(FOLLOW_rule__Mapping__Group_2__0__Impl_in_rule__Mapping__Group_2__023210);
             rule__Mapping__Group_2__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__Mapping__Group_2__1_in_rule__Mapping__Group_2__023210);
+            pushFollow(FOLLOW_rule__Mapping__Group_2__1_in_rule__Mapping__Group_2__023213);
             rule__Mapping__Group_2__1();
 
             state._fsp--;
@@ -34320,7 +34353,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10821:1: ( RULE_WS )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10821:3: RULE_WS
             {
-            match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Mapping__Group_2__0__Impl23240); if (state.failed) return ;
+            match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Mapping__Group_2__0__Impl23243); if (state.failed) return ;
 
             }
 
@@ -34337,27 +34370,27 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getMappingAccess().getWSTerminalRuleCall_2_0()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10826:1: ( RULE_WS )*
-            loop94:
+            loop97:
             do {
-                int alt94=2;
-                int LA94_0 = input.LA(1);
+                int alt97=2;
+                int LA97_0 = input.LA(1);
 
-                if ( (LA94_0==RULE_WS) ) {
-                    alt94=1;
+                if ( (LA97_0==RULE_WS) ) {
+                    alt97=1;
                 }
 
 
-                switch (alt94) {
+                switch (alt97) {
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10826:3: RULE_WS
             	    {
-            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Mapping__Group_2__0__Impl23253); if (state.failed) return ;
+            	    match(input,RULE_WS,FOLLOW_RULE_WS_in_rule__Mapping__Group_2__0__Impl23256); if (state.failed) return ;
 
             	    }
             	    break;
 
             	default :
-            	    break loop94;
+            	    break loop97;
                 }
             } while (true);
 
@@ -34398,7 +34431,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10841:1: ( rule__Mapping__Group_2__1__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10842:2: rule__Mapping__Group_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__Mapping__Group_2__1__Impl_in_rule__Mapping__Group_2__123286);
+            pushFollow(FOLLOW_rule__Mapping__Group_2__1__Impl_in_rule__Mapping__Group_2__123289);
             rule__Mapping__Group_2__1__Impl();
 
             state._fsp--;
@@ -34440,7 +34473,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10855:1: ( rule__Mapping__MappingItemsAssignment_2_1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10855:2: rule__Mapping__MappingItemsAssignment_2_1
             {
-            pushFollow(FOLLOW_rule__Mapping__MappingItemsAssignment_2_1_in_rule__Mapping__Group_2__1__Impl23313);
+            pushFollow(FOLLOW_rule__Mapping__MappingItemsAssignment_2_1_in_rule__Mapping__Group_2__1__Impl23316);
             rule__Mapping__MappingItemsAssignment_2_1();
 
             state._fsp--;
@@ -34482,12 +34515,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10873:1: ( rule__MappingItem__Group__0__Impl rule__MappingItem__Group__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10874:2: rule__MappingItem__Group__0__Impl rule__MappingItem__Group__1
             {
-            pushFollow(FOLLOW_rule__MappingItem__Group__0__Impl_in_rule__MappingItem__Group__023347);
+            pushFollow(FOLLOW_rule__MappingItem__Group__0__Impl_in_rule__MappingItem__Group__023350);
             rule__MappingItem__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingItem__Group__1_in_rule__MappingItem__Group__023350);
+            pushFollow(FOLLOW_rule__MappingItem__Group__1_in_rule__MappingItem__Group__023353);
             rule__MappingItem__Group__1();
 
             state._fsp--;
@@ -34529,7 +34562,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10888:1: ( rule__MappingItem__ColAssignment_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10888:2: rule__MappingItem__ColAssignment_0
             {
-            pushFollow(FOLLOW_rule__MappingItem__ColAssignment_0_in_rule__MappingItem__Group__0__Impl23377);
+            pushFollow(FOLLOW_rule__MappingItem__ColAssignment_0_in_rule__MappingItem__Group__0__Impl23380);
             rule__MappingItem__ColAssignment_0();
 
             state._fsp--;
@@ -34571,7 +34604,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10902:1: ( rule__MappingItem__Group__1__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10903:2: rule__MappingItem__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__MappingItem__Group__1__Impl_in_rule__MappingItem__Group__123407);
+            pushFollow(FOLLOW_rule__MappingItem__Group__1__Impl_in_rule__MappingItem__Group__123410);
             rule__MappingItem__Group__1__Impl();
 
             state._fsp--;
@@ -34611,17 +34644,17 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getMappingItemAccess().getGroup_1()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10916:1: ( rule__MappingItem__Group_1__0 )?
-            int alt95=2;
-            int LA95_0 = input.LA(1);
+            int alt98=2;
+            int LA98_0 = input.LA(1);
 
-            if ( (LA95_0==RULE_STRING) ) {
-                alt95=1;
+            if ( (LA98_0==RULE_STRING) ) {
+                alt98=1;
             }
-            switch (alt95) {
+            switch (alt98) {
                 case 1 :
                     // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10916:2: rule__MappingItem__Group_1__0
                     {
-                    pushFollow(FOLLOW_rule__MappingItem__Group_1__0_in_rule__MappingItem__Group__1__Impl23434);
+                    pushFollow(FOLLOW_rule__MappingItem__Group_1__0_in_rule__MappingItem__Group__1__Impl23437);
                     rule__MappingItem__Group_1__0();
 
                     state._fsp--;
@@ -34666,12 +34699,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10934:1: ( rule__MappingItem__Group_1__0__Impl rule__MappingItem__Group_1__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10935:2: rule__MappingItem__Group_1__0__Impl rule__MappingItem__Group_1__1
             {
-            pushFollow(FOLLOW_rule__MappingItem__Group_1__0__Impl_in_rule__MappingItem__Group_1__023469);
+            pushFollow(FOLLOW_rule__MappingItem__Group_1__0__Impl_in_rule__MappingItem__Group_1__023472);
             rule__MappingItem__Group_1__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingItem__Group_1__1_in_rule__MappingItem__Group_1__023472);
+            pushFollow(FOLLOW_rule__MappingItem__Group_1__1_in_rule__MappingItem__Group_1__023475);
             rule__MappingItem__Group_1__1();
 
             state._fsp--;
@@ -34710,7 +34743,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingItemAccess().getSTRINGTerminalRuleCall_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__MappingItem__Group_1__0__Impl23499); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__MappingItem__Group_1__0__Impl23502); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingItemAccess().getSTRINGTerminalRuleCall_1_0()); 
             }
@@ -34745,12 +34778,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10963:1: ( rule__MappingItem__Group_1__1__Impl rule__MappingItem__Group_1__2 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10964:2: rule__MappingItem__Group_1__1__Impl rule__MappingItem__Group_1__2
             {
-            pushFollow(FOLLOW_rule__MappingItem__Group_1__1__Impl_in_rule__MappingItem__Group_1__123528);
+            pushFollow(FOLLOW_rule__MappingItem__Group_1__1__Impl_in_rule__MappingItem__Group_1__123531);
             rule__MappingItem__Group_1__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingItem__Group_1__2_in_rule__MappingItem__Group_1__123531);
+            pushFollow(FOLLOW_rule__MappingItem__Group_1__2_in_rule__MappingItem__Group_1__123534);
             rule__MappingItem__Group_1__2();
 
             state._fsp--;
@@ -34790,17 +34823,17 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getMappingItemAccess().getTypeAssignment_1_1()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10978:1: ( rule__MappingItem__TypeAssignment_1_1 )?
-            int alt96=2;
-            int LA96_0 = input.LA(1);
+            int alt99=2;
+            int LA99_0 = input.LA(1);
 
-            if ( (LA96_0==RULE_IDENT) ) {
-                alt96=1;
+            if ( (LA99_0==RULE_IDENT) ) {
+                alt99=1;
             }
-            switch (alt96) {
+            switch (alt99) {
                 case 1 :
                     // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10978:2: rule__MappingItem__TypeAssignment_1_1
                     {
-                    pushFollow(FOLLOW_rule__MappingItem__TypeAssignment_1_1_in_rule__MappingItem__Group_1__1__Impl23558);
+                    pushFollow(FOLLOW_rule__MappingItem__TypeAssignment_1_1_in_rule__MappingItem__Group_1__1__Impl23561);
                     rule__MappingItem__TypeAssignment_1_1();
 
                     state._fsp--;
@@ -34845,7 +34878,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10992:1: ( rule__MappingItem__Group_1__2__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10993:2: rule__MappingItem__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__MappingItem__Group_1__2__Impl_in_rule__MappingItem__Group_1__223589);
+            pushFollow(FOLLOW_rule__MappingItem__Group_1__2__Impl_in_rule__MappingItem__Group_1__223592);
             rule__MappingItem__Group_1__2__Impl();
 
             state._fsp--;
@@ -34885,17 +34918,17 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getMappingItemAccess().getGroup_1_2()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11006:1: ( rule__MappingItem__Group_1_2__0 )?
-            int alt97=2;
-            int LA97_0 = input.LA(1);
+            int alt100=2;
+            int LA100_0 = input.LA(1);
 
-            if ( (LA97_0==RULE_STRING) ) {
-                alt97=1;
+            if ( (LA100_0==RULE_STRING) ) {
+                alt100=1;
             }
-            switch (alt97) {
+            switch (alt100) {
                 case 1 :
                     // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11006:2: rule__MappingItem__Group_1_2__0
                     {
-                    pushFollow(FOLLOW_rule__MappingItem__Group_1_2__0_in_rule__MappingItem__Group_1__2__Impl23616);
+                    pushFollow(FOLLOW_rule__MappingItem__Group_1_2__0_in_rule__MappingItem__Group_1__2__Impl23619);
                     rule__MappingItem__Group_1_2__0();
 
                     state._fsp--;
@@ -34940,12 +34973,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11026:1: ( rule__MappingItem__Group_1_2__0__Impl rule__MappingItem__Group_1_2__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11027:2: rule__MappingItem__Group_1_2__0__Impl rule__MappingItem__Group_1_2__1
             {
-            pushFollow(FOLLOW_rule__MappingItem__Group_1_2__0__Impl_in_rule__MappingItem__Group_1_2__023653);
+            pushFollow(FOLLOW_rule__MappingItem__Group_1_2__0__Impl_in_rule__MappingItem__Group_1_2__023656);
             rule__MappingItem__Group_1_2__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingItem__Group_1_2__1_in_rule__MappingItem__Group_1_2__023656);
+            pushFollow(FOLLOW_rule__MappingItem__Group_1_2__1_in_rule__MappingItem__Group_1_2__023659);
             rule__MappingItem__Group_1_2__1();
 
             state._fsp--;
@@ -34984,7 +35017,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingItemAccess().getSTRINGTerminalRuleCall_1_2_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__MappingItem__Group_1_2__0__Impl23683); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__MappingItem__Group_1_2__0__Impl23686); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingItemAccess().getSTRINGTerminalRuleCall_1_2_0()); 
             }
@@ -35019,7 +35052,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11055:1: ( rule__MappingItem__Group_1_2__1__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11056:2: rule__MappingItem__Group_1_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__MappingItem__Group_1_2__1__Impl_in_rule__MappingItem__Group_1_2__123712);
+            pushFollow(FOLLOW_rule__MappingItem__Group_1_2__1__Impl_in_rule__MappingItem__Group_1_2__123715);
             rule__MappingItem__Group_1_2__1__Impl();
 
             state._fsp--;
@@ -35061,7 +35094,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11069:1: ( rule__MappingItem__AttrAssignment_1_2_1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11069:2: rule__MappingItem__AttrAssignment_1_2_1
             {
-            pushFollow(FOLLOW_rule__MappingItem__AttrAssignment_1_2_1_in_rule__MappingItem__Group_1_2__1__Impl23739);
+            pushFollow(FOLLOW_rule__MappingItem__AttrAssignment_1_2_1_in_rule__MappingItem__Group_1_2__1__Impl23742);
             rule__MappingItem__AttrAssignment_1_2_1();
 
             state._fsp--;
@@ -35103,12 +35136,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11087:1: ( rule__MappingColumn__Group__0__Impl rule__MappingColumn__Group__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11088:2: rule__MappingColumn__Group__0__Impl rule__MappingColumn__Group__1
             {
-            pushFollow(FOLLOW_rule__MappingColumn__Group__0__Impl_in_rule__MappingColumn__Group__023773);
+            pushFollow(FOLLOW_rule__MappingColumn__Group__0__Impl_in_rule__MappingColumn__Group__023776);
             rule__MappingColumn__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingColumn__Group__1_in_rule__MappingColumn__Group__023776);
+            pushFollow(FOLLOW_rule__MappingColumn__Group__1_in_rule__MappingColumn__Group__023779);
             rule__MappingColumn__Group__1();
 
             state._fsp--;
@@ -35150,7 +35183,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11102:1: ( rule__MappingColumn__NameAssignment_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11102:2: rule__MappingColumn__NameAssignment_0
             {
-            pushFollow(FOLLOW_rule__MappingColumn__NameAssignment_0_in_rule__MappingColumn__Group__0__Impl23803);
+            pushFollow(FOLLOW_rule__MappingColumn__NameAssignment_0_in_rule__MappingColumn__Group__0__Impl23806);
             rule__MappingColumn__NameAssignment_0();
 
             state._fsp--;
@@ -35192,7 +35225,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11116:1: ( rule__MappingColumn__Group__1__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11117:2: rule__MappingColumn__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__MappingColumn__Group__1__Impl_in_rule__MappingColumn__Group__123833);
+            pushFollow(FOLLOW_rule__MappingColumn__Group__1__Impl_in_rule__MappingColumn__Group__123836);
             rule__MappingColumn__Group__1__Impl();
 
             state._fsp--;
@@ -35232,21 +35265,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getMappingColumnAccess().getGroup_1()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11130:1: ( rule__MappingColumn__Group_1__0 )*
-            loop98:
+            loop101:
             do {
-                int alt98=2;
-                int LA98_0 = input.LA(1);
+                int alt101=2;
+                int LA101_0 = input.LA(1);
 
-                if ( (LA98_0==RULE_CARET) ) {
-                    alt98=1;
+                if ( (LA101_0==RULE_CARET) ) {
+                    alt101=1;
                 }
 
 
-                switch (alt98) {
+                switch (alt101) {
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11130:2: rule__MappingColumn__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__MappingColumn__Group_1__0_in_rule__MappingColumn__Group__1__Impl23860);
+            	    pushFollow(FOLLOW_rule__MappingColumn__Group_1__0_in_rule__MappingColumn__Group__1__Impl23863);
             	    rule__MappingColumn__Group_1__0();
 
             	    state._fsp--;
@@ -35256,7 +35289,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             	    break;
 
             	default :
-            	    break loop98;
+            	    break loop101;
                 }
             } while (true);
 
@@ -35294,12 +35327,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11148:1: ( rule__MappingColumn__Group_1__0__Impl rule__MappingColumn__Group_1__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11149:2: rule__MappingColumn__Group_1__0__Impl rule__MappingColumn__Group_1__1
             {
-            pushFollow(FOLLOW_rule__MappingColumn__Group_1__0__Impl_in_rule__MappingColumn__Group_1__023895);
+            pushFollow(FOLLOW_rule__MappingColumn__Group_1__0__Impl_in_rule__MappingColumn__Group_1__023898);
             rule__MappingColumn__Group_1__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__MappingColumn__Group_1__1_in_rule__MappingColumn__Group_1__023898);
+            pushFollow(FOLLOW_rule__MappingColumn__Group_1__1_in_rule__MappingColumn__Group_1__023901);
             rule__MappingColumn__Group_1__1();
 
             state._fsp--;
@@ -35338,7 +35371,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingColumnAccess().getCARETTerminalRuleCall_1_0()); 
             }
-            match(input,RULE_CARET,FOLLOW_RULE_CARET_in_rule__MappingColumn__Group_1__0__Impl23925); if (state.failed) return ;
+            match(input,RULE_CARET,FOLLOW_RULE_CARET_in_rule__MappingColumn__Group_1__0__Impl23928); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingColumnAccess().getCARETTerminalRuleCall_1_0()); 
             }
@@ -35373,7 +35406,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11177:1: ( rule__MappingColumn__Group_1__1__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11178:2: rule__MappingColumn__Group_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__MappingColumn__Group_1__1__Impl_in_rule__MappingColumn__Group_1__123954);
+            pushFollow(FOLLOW_rule__MappingColumn__Group_1__1__Impl_in_rule__MappingColumn__Group_1__123957);
             rule__MappingColumn__Group_1__1__Impl();
 
             state._fsp--;
@@ -35415,7 +35448,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11191:1: ( rule__MappingColumn__ValsAssignment_1_1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11191:2: rule__MappingColumn__ValsAssignment_1_1
             {
-            pushFollow(FOLLOW_rule__MappingColumn__ValsAssignment_1_1_in_rule__MappingColumn__Group_1__1__Impl23981);
+            pushFollow(FOLLOW_rule__MappingColumn__ValsAssignment_1_1_in_rule__MappingColumn__Group_1__1__Impl23984);
             rule__MappingColumn__ValsAssignment_1_1();
 
             state._fsp--;
@@ -35457,12 +35490,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11209:1: ( rule__OptionalFeature__Group__0__Impl rule__OptionalFeature__Group__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11210:2: rule__OptionalFeature__Group__0__Impl rule__OptionalFeature__Group__1
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__0__Impl_in_rule__OptionalFeature__Group__024015);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__0__Impl_in_rule__OptionalFeature__Group__024018);
             rule__OptionalFeature__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__1_in_rule__OptionalFeature__Group__024018);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__1_in_rule__OptionalFeature__Group__024021);
             rule__OptionalFeature__Group__1();
 
             state._fsp--;
@@ -35504,7 +35537,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11224:1: ( rule__OptionalFeature__NameAssignment_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11224:2: rule__OptionalFeature__NameAssignment_0
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__NameAssignment_0_in_rule__OptionalFeature__Group__0__Impl24045);
+            pushFollow(FOLLOW_rule__OptionalFeature__NameAssignment_0_in_rule__OptionalFeature__Group__0__Impl24048);
             rule__OptionalFeature__NameAssignment_0();
 
             state._fsp--;
@@ -35546,12 +35579,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11238:1: ( rule__OptionalFeature__Group__1__Impl rule__OptionalFeature__Group__2 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11239:2: rule__OptionalFeature__Group__1__Impl rule__OptionalFeature__Group__2
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__1__Impl_in_rule__OptionalFeature__Group__124075);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__1__Impl_in_rule__OptionalFeature__Group__124078);
             rule__OptionalFeature__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__2_in_rule__OptionalFeature__Group__124078);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__2_in_rule__OptionalFeature__Group__124081);
             rule__OptionalFeature__Group__2();
 
             state._fsp--;
@@ -35590,7 +35623,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getLPARENTerminalRuleCall_1()); 
             }
-            match(input,RULE_LPAREN,FOLLOW_RULE_LPAREN_in_rule__OptionalFeature__Group__1__Impl24105); if (state.failed) return ;
+            match(input,RULE_LPAREN,FOLLOW_RULE_LPAREN_in_rule__OptionalFeature__Group__1__Impl24108); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getOptionalFeatureAccess().getLPARENTerminalRuleCall_1()); 
             }
@@ -35625,12 +35658,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11267:1: ( rule__OptionalFeature__Group__2__Impl rule__OptionalFeature__Group__3 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11268:2: rule__OptionalFeature__Group__2__Impl rule__OptionalFeature__Group__3
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__2__Impl_in_rule__OptionalFeature__Group__224134);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__2__Impl_in_rule__OptionalFeature__Group__224137);
             rule__OptionalFeature__Group__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__3_in_rule__OptionalFeature__Group__224137);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__3_in_rule__OptionalFeature__Group__224140);
             rule__OptionalFeature__Group__3();
 
             state._fsp--;
@@ -35672,7 +35705,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11282:1: ( rule__OptionalFeature__TypeAssignment_2 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11282:2: rule__OptionalFeature__TypeAssignment_2
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__TypeAssignment_2_in_rule__OptionalFeature__Group__2__Impl24164);
+            pushFollow(FOLLOW_rule__OptionalFeature__TypeAssignment_2_in_rule__OptionalFeature__Group__2__Impl24167);
             rule__OptionalFeature__TypeAssignment_2();
 
             state._fsp--;
@@ -35714,12 +35747,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11296:1: ( rule__OptionalFeature__Group__3__Impl rule__OptionalFeature__Group__4 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11297:2: rule__OptionalFeature__Group__3__Impl rule__OptionalFeature__Group__4
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__3__Impl_in_rule__OptionalFeature__Group__324194);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__3__Impl_in_rule__OptionalFeature__Group__324197);
             rule__OptionalFeature__Group__3__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__4_in_rule__OptionalFeature__Group__324197);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__4_in_rule__OptionalFeature__Group__324200);
             rule__OptionalFeature__Group__4();
 
             state._fsp--;
@@ -35759,21 +35792,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                before(grammarAccess.getOptionalFeatureAccess().getGroup_3()); 
             }
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11311:1: ( rule__OptionalFeature__Group_3__0 )*
-            loop99:
+            loop102:
             do {
-                int alt99=2;
-                int LA99_0 = input.LA(1);
+                int alt102=2;
+                int LA102_0 = input.LA(1);
 
-                if ( (LA99_0==RULE_COMMA) ) {
-                    alt99=1;
+                if ( (LA102_0==RULE_COMMA) ) {
+                    alt102=1;
                 }
 
 
-                switch (alt99) {
+                switch (alt102) {
             	case 1 :
             	    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11311:2: rule__OptionalFeature__Group_3__0
             	    {
-            	    pushFollow(FOLLOW_rule__OptionalFeature__Group_3__0_in_rule__OptionalFeature__Group__3__Impl24224);
+            	    pushFollow(FOLLOW_rule__OptionalFeature__Group_3__0_in_rule__OptionalFeature__Group__3__Impl24227);
             	    rule__OptionalFeature__Group_3__0();
 
             	    state._fsp--;
@@ -35783,7 +35816,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             	    break;
 
             	default :
-            	    break loop99;
+            	    break loop102;
                 }
             } while (true);
 
@@ -35821,12 +35854,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11325:1: ( rule__OptionalFeature__Group__4__Impl rule__OptionalFeature__Group__5 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11326:2: rule__OptionalFeature__Group__4__Impl rule__OptionalFeature__Group__5
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__4__Impl_in_rule__OptionalFeature__Group__424255);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__4__Impl_in_rule__OptionalFeature__Group__424258);
             rule__OptionalFeature__Group__4__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__5_in_rule__OptionalFeature__Group__424258);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__5_in_rule__OptionalFeature__Group__424261);
             rule__OptionalFeature__Group__5();
 
             state._fsp--;
@@ -35865,7 +35898,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getRPARENTerminalRuleCall_4()); 
             }
-            match(input,RULE_RPAREN,FOLLOW_RULE_RPAREN_in_rule__OptionalFeature__Group__4__Impl24285); if (state.failed) return ;
+            match(input,RULE_RPAREN,FOLLOW_RULE_RPAREN_in_rule__OptionalFeature__Group__4__Impl24288); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getOptionalFeatureAccess().getRPARENTerminalRuleCall_4()); 
             }
@@ -35900,12 +35933,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11354:1: ( rule__OptionalFeature__Group__5__Impl rule__OptionalFeature__Group__6 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11355:2: rule__OptionalFeature__Group__5__Impl rule__OptionalFeature__Group__6
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__5__Impl_in_rule__OptionalFeature__Group__524314);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__5__Impl_in_rule__OptionalFeature__Group__524317);
             rule__OptionalFeature__Group__5__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__6_in_rule__OptionalFeature__Group__524317);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__6_in_rule__OptionalFeature__Group__524320);
             rule__OptionalFeature__Group__6();
 
             state._fsp--;
@@ -35944,7 +35977,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getEQUALSTerminalRuleCall_5()); 
             }
-            match(input,RULE_EQUALS,FOLLOW_RULE_EQUALS_in_rule__OptionalFeature__Group__5__Impl24344); if (state.failed) return ;
+            match(input,RULE_EQUALS,FOLLOW_RULE_EQUALS_in_rule__OptionalFeature__Group__5__Impl24347); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getOptionalFeatureAccess().getEQUALSTerminalRuleCall_5()); 
             }
@@ -35979,12 +36012,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11383:1: ( rule__OptionalFeature__Group__6__Impl rule__OptionalFeature__Group__7 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11384:2: rule__OptionalFeature__Group__6__Impl rule__OptionalFeature__Group__7
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__6__Impl_in_rule__OptionalFeature__Group__624373);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__6__Impl_in_rule__OptionalFeature__Group__624376);
             rule__OptionalFeature__Group__6__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__7_in_rule__OptionalFeature__Group__624376);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__7_in_rule__OptionalFeature__Group__624379);
             rule__OptionalFeature__Group__7();
 
             state._fsp--;
@@ -36026,7 +36059,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11398:1: ( rule__OptionalFeature__OptionAssignment_6 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11398:2: rule__OptionalFeature__OptionAssignment_6
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__OptionAssignment_6_in_rule__OptionalFeature__Group__6__Impl24403);
+            pushFollow(FOLLOW_rule__OptionalFeature__OptionAssignment_6_in_rule__OptionalFeature__Group__6__Impl24406);
             rule__OptionalFeature__OptionAssignment_6();
 
             state._fsp--;
@@ -36068,7 +36101,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11412:1: ( rule__OptionalFeature__Group__7__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11413:2: rule__OptionalFeature__Group__7__Impl
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__Group__7__Impl_in_rule__OptionalFeature__Group__724433);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group__7__Impl_in_rule__OptionalFeature__Group__724436);
             rule__OptionalFeature__Group__7__Impl();
 
             state._fsp--;
@@ -36107,7 +36140,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getSEMICOLONTerminalRuleCall_7()); 
             }
-            match(input,RULE_SEMICOLON,FOLLOW_RULE_SEMICOLON_in_rule__OptionalFeature__Group__7__Impl24460); if (state.failed) return ;
+            match(input,RULE_SEMICOLON,FOLLOW_RULE_SEMICOLON_in_rule__OptionalFeature__Group__7__Impl24463); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getOptionalFeatureAccess().getSEMICOLONTerminalRuleCall_7()); 
             }
@@ -36142,12 +36175,12 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11456:1: ( rule__OptionalFeature__Group_3__0__Impl rule__OptionalFeature__Group_3__1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11457:2: rule__OptionalFeature__Group_3__0__Impl rule__OptionalFeature__Group_3__1
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__Group_3__0__Impl_in_rule__OptionalFeature__Group_3__024505);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group_3__0__Impl_in_rule__OptionalFeature__Group_3__024508);
             rule__OptionalFeature__Group_3__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__OptionalFeature__Group_3__1_in_rule__OptionalFeature__Group_3__024508);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group_3__1_in_rule__OptionalFeature__Group_3__024511);
             rule__OptionalFeature__Group_3__1();
 
             state._fsp--;
@@ -36186,7 +36219,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getCOMMATerminalRuleCall_3_0()); 
             }
-            match(input,RULE_COMMA,FOLLOW_RULE_COMMA_in_rule__OptionalFeature__Group_3__0__Impl24535); if (state.failed) return ;
+            match(input,RULE_COMMA,FOLLOW_RULE_COMMA_in_rule__OptionalFeature__Group_3__0__Impl24538); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getOptionalFeatureAccess().getCOMMATerminalRuleCall_3_0()); 
             }
@@ -36221,7 +36254,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11485:1: ( rule__OptionalFeature__Group_3__1__Impl )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11486:2: rule__OptionalFeature__Group_3__1__Impl
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__Group_3__1__Impl_in_rule__OptionalFeature__Group_3__124564);
+            pushFollow(FOLLOW_rule__OptionalFeature__Group_3__1__Impl_in_rule__OptionalFeature__Group_3__124567);
             rule__OptionalFeature__Group_3__1__Impl();
 
             state._fsp--;
@@ -36263,7 +36296,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11499:1: ( rule__OptionalFeature__FiltersAssignment_3_1 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11499:2: rule__OptionalFeature__FiltersAssignment_3_1
             {
-            pushFollow(FOLLOW_rule__OptionalFeature__FiltersAssignment_3_1_in_rule__OptionalFeature__Group_3__1__Impl24591);
+            pushFollow(FOLLOW_rule__OptionalFeature__FiltersAssignment_3_1_in_rule__OptionalFeature__Group_3__1__Impl24594);
             rule__OptionalFeature__FiltersAssignment_3_1();
 
             state._fsp--;
@@ -36311,7 +36344,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getFeaturesOptionalFeatureParserRuleCall_1_0_0_0()); 
             }
-            pushFollow(FOLLOW_ruleOptionalFeature_in_rule__Artifacts__FeaturesAssignment_1_0_024630);
+            pushFollow(FOLLOW_ruleOptionalFeature_in_rule__Artifacts__FeaturesAssignment_1_0_024633);
             ruleOptionalFeature();
 
             state._fsp--;
@@ -36356,7 +36389,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getStatementsMetaStatementParserRuleCall_1_1_0_0()); 
             }
-            pushFollow(FOLLOW_ruleMetaStatement_in_rule__Artifacts__StatementsAssignment_1_1_024661);
+            pushFollow(FOLLOW_ruleMetaStatement_in_rule__Artifacts__StatementsAssignment_1_1_024664);
             ruleMetaStatement();
 
             state._fsp--;
@@ -36401,7 +36434,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getMappingsMappingRuleParserRuleCall_1_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleMappingRule_in_rule__Artifacts__MappingsAssignment_1_2_024692);
+            pushFollow(FOLLOW_ruleMappingRule_in_rule__Artifacts__MappingsAssignment_1_2_024695);
             ruleMappingRule();
 
             state._fsp--;
@@ -36446,7 +36479,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getPojosPojoDefinitionParserRuleCall_1_3_0_0()); 
             }
-            pushFollow(FOLLOW_rulePojoDefinition_in_rule__Artifacts__PojosAssignment_1_3_024723);
+            pushFollow(FOLLOW_rulePojoDefinition_in_rule__Artifacts__PojosAssignment_1_3_024726);
             rulePojoDefinition();
 
             state._fsp--;
@@ -36491,7 +36524,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getUsagesPojoUsageParserRuleCall_1_4_0_0()); 
             }
-            pushFollow(FOLLOW_rulePojoUsage_in_rule__Artifacts__UsagesAssignment_1_4_024754);
+            pushFollow(FOLLOW_rulePojoUsage_in_rule__Artifacts__UsagesAssignment_1_4_024757);
             rulePojoUsage();
 
             state._fsp--;
@@ -36536,7 +36569,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getPropertiesPropertyParserRuleCall_1_5_0_0()); 
             }
-            pushFollow(FOLLOW_ruleProperty_in_rule__Artifacts__PropertiesAssignment_1_5_024785);
+            pushFollow(FOLLOW_ruleProperty_in_rule__Artifacts__PropertiesAssignment_1_5_024788);
             ruleProperty();
 
             state._fsp--;
@@ -36581,7 +36614,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getTablesTableDefinitionParserRuleCall_1_6_0_0()); 
             }
-            pushFollow(FOLLOW_ruleTableDefinition_in_rule__Artifacts__TablesAssignment_1_6_024816);
+            pushFollow(FOLLOW_ruleTableDefinition_in_rule__Artifacts__TablesAssignment_1_6_024819);
             ruleTableDefinition();
 
             state._fsp--;
@@ -36626,7 +36659,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getTableUsagesTableUsageParserRuleCall_1_7_0_0()); 
             }
-            pushFollow(FOLLOW_ruleTableUsage_in_rule__Artifacts__TableUsagesAssignment_1_7_024847);
+            pushFollow(FOLLOW_ruleTableUsage_in_rule__Artifacts__TableUsagesAssignment_1_7_024850);
             ruleTableUsage();
 
             state._fsp--;
@@ -36677,7 +36710,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameResolveReferencesKeyword_0_0_0_0()); 
             }
-            match(input,47,FOLLOW_47_in_rule__Property__NameAssignment_0_0_024883); if (state.failed) return ;
+            match(input,47,FOLLOW_47_in_rule__Property__NameAssignment_0_0_024886); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameResolveReferencesKeyword_0_0_0_0()); 
             }
@@ -36724,7 +36757,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDoResolvePojoON_OFFTerminalRuleCall_0_0_2_0()); 
             }
-            match(input,RULE_ON_OFF,FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolvePojoAssignment_0_0_224922); if (state.failed) return ;
+            match(input,RULE_ON_OFF,FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolvePojoAssignment_0_0_224925); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getDoResolvePojoON_OFFTerminalRuleCall_0_0_2_0()); 
             }
@@ -36771,7 +36804,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameDatabaseOnlineKeyword_0_1_0_0()); 
             }
-            match(input,48,FOLLOW_48_in_rule__Property__NameAssignment_0_1_024958); if (state.failed) return ;
+            match(input,48,FOLLOW_48_in_rule__Property__NameAssignment_0_1_024961); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameDatabaseOnlineKeyword_0_1_0_0()); 
             }
@@ -36818,7 +36851,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDoResolveDbON_OFFTerminalRuleCall_0_1_2_0()); 
             }
-            match(input,RULE_ON_OFF,FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolveDbAssignment_0_1_224997); if (state.failed) return ;
+            match(input,RULE_ON_OFF,FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolveDbAssignment_0_1_225000); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getDoResolveDbON_OFFTerminalRuleCall_0_1_2_0()); 
             }
@@ -36865,7 +36898,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameDatabaseUrlKeyword_0_2_0_0()); 
             }
-            match(input,49,FOLLOW_49_in_rule__Property__NameAssignment_0_2_025033); if (state.failed) return ;
+            match(input,49,FOLLOW_49_in_rule__Property__NameAssignment_0_2_025036); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameDatabaseUrlKeyword_0_2_0_0()); 
             }
@@ -36912,7 +36945,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDbUrlPropertyValueParserRuleCall_0_2_2_0()); 
             }
-            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbUrlAssignment_0_2_225072);
+            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbUrlAssignment_0_2_225075);
             rulePropertyValue();
 
             state._fsp--;
@@ -36963,7 +36996,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameDatabaseUsernameKeyword_0_3_0_0()); 
             }
-            match(input,50,FOLLOW_50_in_rule__Property__NameAssignment_0_3_025108); if (state.failed) return ;
+            match(input,50,FOLLOW_50_in_rule__Property__NameAssignment_0_3_025111); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameDatabaseUsernameKeyword_0_3_0_0()); 
             }
@@ -37010,7 +37043,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDbUsernamePropertyValueParserRuleCall_0_3_2_0()); 
             }
-            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbUsernameAssignment_0_3_225147);
+            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbUsernameAssignment_0_3_225150);
             rulePropertyValue();
 
             state._fsp--;
@@ -37061,7 +37094,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameDatabasePasswordKeyword_0_4_0_0()); 
             }
-            match(input,51,FOLLOW_51_in_rule__Property__NameAssignment_0_4_025183); if (state.failed) return ;
+            match(input,51,FOLLOW_51_in_rule__Property__NameAssignment_0_4_025186); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameDatabasePasswordKeyword_0_4_0_0()); 
             }
@@ -37108,7 +37141,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDbPasswordPropertyValueParserRuleCall_0_4_2_0()); 
             }
-            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbPasswordAssignment_0_4_225222);
+            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbPasswordAssignment_0_4_225225);
             rulePropertyValue();
 
             state._fsp--;
@@ -37159,7 +37192,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameDatabaseSchemaKeyword_0_5_0_0()); 
             }
-            match(input,52,FOLLOW_52_in_rule__Property__NameAssignment_0_5_025258); if (state.failed) return ;
+            match(input,52,FOLLOW_52_in_rule__Property__NameAssignment_0_5_025261); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameDatabaseSchemaKeyword_0_5_0_0()); 
             }
@@ -37206,7 +37239,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDbSchemaPropertyValueParserRuleCall_0_5_2_0()); 
             }
-            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbSchemaAssignment_0_5_225297);
+            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbSchemaAssignment_0_5_225300);
             rulePropertyValue();
 
             state._fsp--;
@@ -37257,7 +37290,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameDatabaseDriverKeyword_0_6_0_0()); 
             }
-            match(input,53,FOLLOW_53_in_rule__Property__NameAssignment_0_6_025333); if (state.failed) return ;
+            match(input,53,FOLLOW_53_in_rule__Property__NameAssignment_0_6_025336); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameDatabaseDriverKeyword_0_6_0_0()); 
             }
@@ -37304,7 +37337,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDbDriverPropertyValueParserRuleCall_0_6_2_0()); 
             }
-            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbDriverAssignment_0_6_225372);
+            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbDriverAssignment_0_6_225375);
             rulePropertyValue();
 
             state._fsp--;
@@ -37349,7 +37382,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoDefinitionAccess().getNameIDENTTerminalRuleCall_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoDefinition__NameAssignment_125403); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoDefinition__NameAssignment_125406); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoDefinitionAccess().getNameIDENTTerminalRuleCall_1_0()); 
             }
@@ -37393,7 +37426,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11922:1: ( rule__PojoDefinition__ClassAlternatives_2_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11922:2: rule__PojoDefinition__ClassAlternatives_2_0
             {
-            pushFollow(FOLLOW_rule__PojoDefinition__ClassAlternatives_2_0_in_rule__PojoDefinition__ClassAssignment_225434);
+            pushFollow(FOLLOW_rule__PojoDefinition__ClassAlternatives_2_0_in_rule__PojoDefinition__ClassAssignment_225437);
             rule__PojoDefinition__ClassAlternatives_2_0();
 
             state._fsp--;
@@ -37447,7 +37480,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getColumnUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ColumnUsage__StatementAssignment_125471); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ColumnUsage__StatementAssignment_125474); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getColumnUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
@@ -37500,7 +37533,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getColumnUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ColumnUsage__PojoAssignment_225510); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ColumnUsage__PojoAssignment_225513); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getColumnUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
@@ -37553,7 +37586,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__StatementAssignment_125549); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__StatementAssignment_125552); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIdentifierUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
@@ -37606,7 +37639,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__PojoAssignment_225588); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__PojoAssignment_225591); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIdentifierUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
@@ -37659,7 +37692,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ConstantUsage__StatementAssignment_125627); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ConstantUsage__StatementAssignment_125630); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getConstantUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
@@ -37712,7 +37745,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ConstantUsage__PojoAssignment_225666); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ConstantUsage__PojoAssignment_225669); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getConstantUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
@@ -37765,7 +37798,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingUsageAccess().getStatementMappingRuleIDENTTerminalRuleCall_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingUsage__StatementAssignment_125705); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingUsage__StatementAssignment_125708); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingUsageAccess().getStatementMappingRuleIDENTTerminalRuleCall_1_0_1()); 
             }
@@ -37818,7 +37851,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingUsage__PojoAssignment_225744); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingUsage__PojoAssignment_225747); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
@@ -37865,7 +37898,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTableDefinitionAccess().getNameIDENTTerminalRuleCall_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableDefinition__NameAssignment_125779); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableDefinition__NameAssignment_125782); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getTableDefinitionAccess().getNameIDENTTerminalRuleCall_1_0()); 
             }
@@ -37906,7 +37939,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTableDefinitionAccess().getTableIDENTTerminalRuleCall_2_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableDefinition__TableAssignment_225810); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableDefinition__TableAssignment_225813); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getTableDefinitionAccess().getTableIDENTTerminalRuleCall_2_0()); 
             }
@@ -37953,7 +37986,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTableUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableUsage__StatementAssignment_125845); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableUsage__StatementAssignment_125848); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getTableUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
@@ -38006,7 +38039,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTableUsageAccess().getTableTableDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableUsage__TableAssignment_225884); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableUsage__TableAssignment_225887); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getTableUsageAccess().getTableTableDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
@@ -38053,7 +38086,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTableUsageAccess().getPrefixIDENTTerminalRuleCall_3_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableUsage__PrefixAssignment_3_125919); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableUsage__PrefixAssignment_3_125922); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getTableUsageAccess().getPrefixIDENTTerminalRuleCall_3_1_0()); 
             }
@@ -38094,7 +38127,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaStatementAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MetaStatement__NameAssignment_025950); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MetaStatement__NameAssignment_025953); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaStatementAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
@@ -38135,7 +38168,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaStatementAccess().getTypeSTATEMEN_TYPETerminalRuleCall_2_0()); 
             }
-            match(input,RULE_STATEMEN_TYPE,FOLLOW_RULE_STATEMEN_TYPE_in_rule__MetaStatement__TypeAssignment_225981); if (state.failed) return ;
+            match(input,RULE_STATEMEN_TYPE,FOLLOW_RULE_STATEMEN_TYPE_in_rule__MetaStatement__TypeAssignment_225984); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaStatementAccess().getTypeSTATEMEN_TYPETerminalRuleCall_2_0()); 
             }
@@ -38176,7 +38209,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaStatementAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MetaStatement__FiltersAssignment_3_126012); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MetaStatement__FiltersAssignment_3_126015); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaStatementAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
             }
@@ -38217,7 +38250,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaStatementAccess().getStatementSqlParserRuleCall_6_0()); 
             }
-            pushFollow(FOLLOW_ruleSql_in_rule__MetaStatement__StatementAssignment_626043);
+            pushFollow(FOLLOW_ruleSql_in_rule__MetaStatement__StatementAssignment_626046);
             ruleSql();
 
             state._fsp--;
@@ -38262,7 +38295,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlAccess().getSqlsSqlFragmentParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruleSqlFragment_in_rule__Sql__SqlsAssignment26074);
+            pushFollow(FOLLOW_ruleSqlFragment_in_rule__Sql__SqlsAssignment26077);
             ruleSqlFragment();
 
             state._fsp--;
@@ -38307,7 +38340,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getValueSqlValueParserRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleSqlValue_in_rule__SqlFragment__ValueAssignment_026105);
+            pushFollow(FOLLOW_ruleSqlValue_in_rule__SqlFragment__ValueAssignment_026108);
             ruleSqlValue();
 
             state._fsp--;
@@ -38352,7 +38385,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getColColumnParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleColumn_in_rule__SqlFragment__ColAssignment_1_126136);
+            pushFollow(FOLLOW_ruleColumn_in_rule__SqlFragment__ColAssignment_1_126139);
             ruleColumn();
 
             state._fsp--;
@@ -38397,7 +38430,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getCnstConstantParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleConstant_in_rule__SqlFragment__CnstAssignment_2_126167);
+            pushFollow(FOLLOW_ruleConstant_in_rule__SqlFragment__CnstAssignment_2_126170);
             ruleConstant();
 
             state._fsp--;
@@ -38442,7 +38475,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getIdentIdentifierParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIdentifier_in_rule__SqlFragment__IdentAssignment_3_126198);
+            pushFollow(FOLLOW_ruleIdentifier_in_rule__SqlFragment__IdentAssignment_3_126201);
             ruleIdentifier();
 
             state._fsp--;
@@ -38487,7 +38520,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getMetaMetaSqlParserRuleCall_4_1_0()); 
             }
-            pushFollow(FOLLOW_ruleMetaSql_in_rule__SqlFragment__MetaAssignment_4_126229);
+            pushFollow(FOLLOW_ruleMetaSql_in_rule__SqlFragment__MetaAssignment_4_126232);
             ruleMetaSql();
 
             state._fsp--;
@@ -38532,7 +38565,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getDbtabDatabaseTableParserRuleCall_5_1_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleDatabaseTable_in_rule__SqlFragment__DbtabAssignment_5_1_0_126260);
+            pushFollow(FOLLOW_ruleDatabaseTable_in_rule__SqlFragment__DbtabAssignment_5_1_0_126263);
             ruleDatabaseTable();
 
             state._fsp--;
@@ -38577,7 +38610,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getDbcolDatabaseColumnParserRuleCall_5_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleDatabaseColumn_in_rule__SqlFragment__DbcolAssignment_5_1_126291);
+            pushFollow(FOLLOW_ruleDatabaseColumn_in_rule__SqlFragment__DbcolAssignment_5_1_126294);
             ruleDatabaseColumn();
 
             state._fsp--;
@@ -38622,7 +38655,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_126322);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_126325);
             ruleIfSql();
 
             state._fsp--;
@@ -38667,7 +38700,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_0_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_2_126353);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_2_126356);
             ruleIfSql();
 
             state._fsp--;
@@ -38712,7 +38745,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getTypeQUESTITerminalRuleCall_1_0_0()); 
             }
-            match(input,RULE_QUESTI,FOLLOW_RULE_QUESTI_in_rule__MetaSql__TypeAssignment_1_026384); if (state.failed) return ;
+            match(input,RULE_QUESTI,FOLLOW_RULE_QUESTI_in_rule__MetaSql__TypeAssignment_1_026387); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaSqlAccess().getTypeQUESTITerminalRuleCall_1_0_0()); 
             }
@@ -38753,7 +38786,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getCondIfSqlCondParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlCond_in_rule__MetaSql__CondAssignment_1_126415);
+            pushFollow(FOLLOW_ruleIfSqlCond_in_rule__MetaSql__CondAssignment_1_126418);
             ruleIfSqlCond();
 
             state._fsp--;
@@ -38798,7 +38831,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_1_3_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_326446);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_326449);
             ruleIfSql();
 
             state._fsp--;
@@ -38843,7 +38876,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_1_4_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_4_126477);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_4_126480);
             ruleIfSql();
 
             state._fsp--;
@@ -38888,7 +38921,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getTypeBANDTerminalRuleCall_2_0_0()); 
             }
-            match(input,RULE_BAND,FOLLOW_RULE_BAND_in_rule__MetaSql__TypeAssignment_2_026508); if (state.failed) return ;
+            match(input,RULE_BAND,FOLLOW_RULE_BAND_in_rule__MetaSql__TypeAssignment_2_026511); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaSqlAccess().getTypeBANDTerminalRuleCall_2_0_0()); 
             }
@@ -38929,7 +38962,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_126539);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_126542);
             ruleIfSql();
 
             state._fsp--;
@@ -38974,7 +39007,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_2_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_2_126570);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_2_126573);
             ruleIfSql();
 
             state._fsp--;
@@ -39019,7 +39052,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getTypeBORTerminalRuleCall_3_0_0()); 
             }
-            match(input,RULE_BOR,FOLLOW_RULE_BOR_in_rule__MetaSql__TypeAssignment_3_026601); if (state.failed) return ;
+            match(input,RULE_BOR,FOLLOW_RULE_BOR_in_rule__MetaSql__TypeAssignment_3_026604); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaSqlAccess().getTypeBORTerminalRuleCall_3_0_0()); 
             }
@@ -39060,7 +39093,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_126632);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_126635);
             ruleIfSql();
 
             state._fsp--;
@@ -39105,7 +39138,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_3_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_2_126663);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_2_126666);
             ruleIfSql();
 
             state._fsp--;
@@ -39150,7 +39183,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getTypeEQUALSTerminalRuleCall_4_0_0()); 
             }
-            match(input,RULE_EQUALS,FOLLOW_RULE_EQUALS_in_rule__MetaSql__TypeAssignment_4_026694); if (state.failed) return ;
+            match(input,RULE_EQUALS,FOLLOW_RULE_EQUALS_in_rule__MetaSql__TypeAssignment_4_026697); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaSqlAccess().getTypeEQUALSTerminalRuleCall_4_0_0()); 
             }
@@ -39191,7 +39224,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getFtypeIDENTTerminalRuleCall_4_2_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MetaSql__FtypeAssignment_4_226725); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MetaSql__FtypeAssignment_4_226728); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaSqlAccess().getFtypeIDENTTerminalRuleCall_4_2_0()); 
             }
@@ -39232,7 +39265,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_4_3_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_4_326756);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_4_326759);
             ruleIfSql();
 
             state._fsp--;
@@ -39277,7 +39310,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getTypeHASHTerminalRuleCall_5_0_0()); 
             }
-            match(input,RULE_HASH,FOLLOW_RULE_HASH_in_rule__MetaSql__TypeAssignment_5_026787); if (state.failed) return ;
+            match(input,RULE_HASH,FOLLOW_RULE_HASH_in_rule__MetaSql__TypeAssignment_5_026790); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaSqlAccess().getTypeHASHTerminalRuleCall_5_0_0()); 
             }
@@ -39318,7 +39351,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getOrdOrdSqlParserRuleCall_5_2_0()); 
             }
-            pushFollow(FOLLOW_ruleOrdSql_in_rule__MetaSql__OrdAssignment_5_226818);
+            pushFollow(FOLLOW_ruleOrdSql_in_rule__MetaSql__OrdAssignment_5_226821);
             ruleOrdSql();
 
             state._fsp--;
@@ -39363,7 +39396,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlAccess().getSqlsIfSqlFragmentParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlFragment_in_rule__IfSql__SqlsAssignment26849);
+            pushFollow(FOLLOW_ruleIfSqlFragment_in_rule__IfSql__SqlsAssignment26852);
             ruleIfSqlFragment();
 
             state._fsp--;
@@ -39408,7 +39441,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getValueIfSqlValueParserRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlValue_in_rule__IfSqlFragment__ValueAssignment_026880);
+            pushFollow(FOLLOW_ruleIfSqlValue_in_rule__IfSqlFragment__ValueAssignment_026883);
             ruleIfSqlValue();
 
             state._fsp--;
@@ -39453,7 +39486,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getColColumnParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleColumn_in_rule__IfSqlFragment__ColAssignment_1_126911);
+            pushFollow(FOLLOW_ruleColumn_in_rule__IfSqlFragment__ColAssignment_1_126914);
             ruleColumn();
 
             state._fsp--;
@@ -39498,7 +39531,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getCnstConstantParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleConstant_in_rule__IfSqlFragment__CnstAssignment_2_126942);
+            pushFollow(FOLLOW_ruleConstant_in_rule__IfSqlFragment__CnstAssignment_2_126945);
             ruleConstant();
 
             state._fsp--;
@@ -39543,7 +39576,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getIdentIdentifierParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIdentifier_in_rule__IfSqlFragment__IdentAssignment_3_126973);
+            pushFollow(FOLLOW_ruleIdentifier_in_rule__IfSqlFragment__IdentAssignment_3_126976);
             ruleIdentifier();
 
             state._fsp--;
@@ -39588,7 +39621,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getDbtabDatabaseTableParserRuleCall_4_1_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleDatabaseTable_in_rule__IfSqlFragment__DbtabAssignment_4_1_0_127004);
+            pushFollow(FOLLOW_ruleDatabaseTable_in_rule__IfSqlFragment__DbtabAssignment_4_1_0_127007);
             ruleDatabaseTable();
 
             state._fsp--;
@@ -39633,7 +39666,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getDbcolDatabaseColumnParserRuleCall_4_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleDatabaseColumn_in_rule__IfSqlFragment__DbcolAssignment_4_1_127035);
+            pushFollow(FOLLOW_ruleDatabaseColumn_in_rule__IfSqlFragment__DbcolAssignment_4_1_127038);
             ruleDatabaseColumn();
 
             state._fsp--;
@@ -39678,7 +39711,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getMetaIfMetaSqlParserRuleCall_5_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfMetaSql_in_rule__IfSqlFragment__MetaAssignment_5_127066);
+            pushFollow(FOLLOW_ruleIfMetaSql_in_rule__IfSqlFragment__MetaAssignment_5_127069);
             ruleIfMetaSql();
 
             state._fsp--;
@@ -39723,7 +39756,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_127097);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_127100);
             ruleIfSql();
 
             state._fsp--;
@@ -39768,7 +39801,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_0_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_2_127128);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_2_127131);
             ruleIfSql();
 
             state._fsp--;
@@ -39813,7 +39846,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getTypeQUESTITerminalRuleCall_1_0_0()); 
             }
-            match(input,RULE_QUESTI,FOLLOW_RULE_QUESTI_in_rule__IfMetaSql__TypeAssignment_1_027159); if (state.failed) return ;
+            match(input,RULE_QUESTI,FOLLOW_RULE_QUESTI_in_rule__IfMetaSql__TypeAssignment_1_027162); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIfMetaSqlAccess().getTypeQUESTITerminalRuleCall_1_0_0()); 
             }
@@ -39854,7 +39887,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getCondIfSqlCondParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlCond_in_rule__IfMetaSql__CondAssignment_1_127190);
+            pushFollow(FOLLOW_ruleIfSqlCond_in_rule__IfMetaSql__CondAssignment_1_127193);
             ruleIfSqlCond();
 
             state._fsp--;
@@ -39899,7 +39932,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_1_3_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_327221);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_327224);
             ruleIfSql();
 
             state._fsp--;
@@ -39944,7 +39977,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_1_4_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_4_127252);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_4_127255);
             ruleIfSql();
 
             state._fsp--;
@@ -39989,7 +40022,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getTypeBANDTerminalRuleCall_2_0_0()); 
             }
-            match(input,RULE_BAND,FOLLOW_RULE_BAND_in_rule__IfMetaSql__TypeAssignment_2_027283); if (state.failed) return ;
+            match(input,RULE_BAND,FOLLOW_RULE_BAND_in_rule__IfMetaSql__TypeAssignment_2_027286); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIfMetaSqlAccess().getTypeBANDTerminalRuleCall_2_0_0()); 
             }
@@ -40030,7 +40063,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_127314);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_127317);
             ruleIfSql();
 
             state._fsp--;
@@ -40075,7 +40108,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_2_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_2_127345);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_2_127348);
             ruleIfSql();
 
             state._fsp--;
@@ -40120,7 +40153,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getTypeBORTerminalRuleCall_3_0_0()); 
             }
-            match(input,RULE_BOR,FOLLOW_RULE_BOR_in_rule__IfMetaSql__TypeAssignment_3_027376); if (state.failed) return ;
+            match(input,RULE_BOR,FOLLOW_RULE_BOR_in_rule__IfMetaSql__TypeAssignment_3_027379); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIfMetaSqlAccess().getTypeBORTerminalRuleCall_3_0_0()); 
             }
@@ -40161,7 +40194,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_127407);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_127410);
             ruleIfSql();
 
             state._fsp--;
@@ -40206,7 +40239,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_3_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_2_127438);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_2_127441);
             ruleIfSql();
 
             state._fsp--;
@@ -40251,7 +40284,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlCondAccess().getBool1IfSqlBoolParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool1Assignment_127469);
+            pushFollow(FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool1Assignment_127472);
             ruleIfSqlBool();
 
             state._fsp--;
@@ -40299,7 +40332,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12923:1: ( rule__IfSqlCond__OperAlternatives_3_0_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12923:2: rule__IfSqlCond__OperAlternatives_3_0_0
             {
-            pushFollow(FOLLOW_rule__IfSqlCond__OperAlternatives_3_0_0_in_rule__IfSqlCond__OperAssignment_3_027500);
+            pushFollow(FOLLOW_rule__IfSqlCond__OperAlternatives_3_0_0_in_rule__IfSqlCond__OperAssignment_3_027503);
             rule__IfSqlCond__OperAlternatives_3_0_0();
 
             state._fsp--;
@@ -40347,7 +40380,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlCondAccess().getBool2IfSqlBoolParserRuleCall_3_2_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool2Assignment_3_227533);
+            pushFollow(FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool2Assignment_3_227536);
             ruleIfSqlBool();
 
             state._fsp--;
@@ -40392,7 +40425,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlBoolAccess().getNotNOTTerminalRuleCall_0_0_0()); 
             }
-            match(input,RULE_NOT,FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_0_027564); if (state.failed) return ;
+            match(input,RULE_NOT,FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_0_027567); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIfSqlBoolAccess().getNotNOTTerminalRuleCall_0_0_0()); 
             }
@@ -40433,7 +40466,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlBoolAccess().getCnstConstantParserRuleCall_0_2_0()); 
             }
-            pushFollow(FOLLOW_ruleConstant_in_rule__IfSqlBool__CnstAssignment_0_227595);
+            pushFollow(FOLLOW_ruleConstant_in_rule__IfSqlBool__CnstAssignment_0_227598);
             ruleConstant();
 
             state._fsp--;
@@ -40478,7 +40511,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlBoolAccess().getNotNOTTerminalRuleCall_1_0_0()); 
             }
-            match(input,RULE_NOT,FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_1_027626); if (state.failed) return ;
+            match(input,RULE_NOT,FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_1_027629); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIfSqlBoolAccess().getNotNOTTerminalRuleCall_1_0_0()); 
             }
@@ -40519,7 +40552,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlBoolAccess().getIdentIdentifierParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleIdentifier_in_rule__IfSqlBool__IdentAssignment_1_227657);
+            pushFollow(FOLLOW_ruleIdentifier_in_rule__IfSqlBool__IdentAssignment_1_227660);
             ruleIdentifier();
 
             state._fsp--;
@@ -40564,7 +40597,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlBoolAccess().getNotNOTTerminalRuleCall_2_0_0()); 
             }
-            match(input,RULE_NOT,FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_2_027688); if (state.failed) return ;
+            match(input,RULE_NOT,FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_2_027691); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIfSqlBoolAccess().getNotNOTTerminalRuleCall_2_0_0()); 
             }
@@ -40605,7 +40638,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlBoolAccess().getCondIfSqlCondParserRuleCall_2_2_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlCond_in_rule__IfSqlBool__CondAssignment_2_227719);
+            pushFollow(FOLLOW_ruleIfSqlCond_in_rule__IfSqlBool__CondAssignment_2_227722);
             ruleIfSqlCond();
 
             state._fsp--;
@@ -40650,7 +40683,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOrdSqlAccess().getSqlsOrdSql2ParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruleOrdSql2_in_rule__OrdSql__SqlsAssignment27750);
+            pushFollow(FOLLOW_ruleOrdSql2_in_rule__OrdSql__SqlsAssignment27753);
             ruleOrdSql2();
 
             state._fsp--;
@@ -40695,7 +40728,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOrdSql2Access().getValueOrdSqlValueParserRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleOrdSqlValue_in_rule__OrdSql2__ValueAssignment_027781);
+            pushFollow(FOLLOW_ruleOrdSqlValue_in_rule__OrdSql2__ValueAssignment_027784);
             ruleOrdSqlValue();
 
             state._fsp--;
@@ -40740,7 +40773,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOrdSql2Access().getCnstConstantParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleConstant_in_rule__OrdSql2__CnstAssignment_1_127812);
+            pushFollow(FOLLOW_ruleConstant_in_rule__OrdSql2__CnstAssignment_1_127815);
             ruleConstant();
 
             state._fsp--;
@@ -40785,7 +40818,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOrdSql2Access().getIdentIdentifierParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIdentifier_in_rule__OrdSql2__IdentAssignment_2_127843);
+            pushFollow(FOLLOW_ruleIdentifier_in_rule__OrdSql2__IdentAssignment_2_127846);
             ruleIdentifier();
 
             state._fsp--;
@@ -40830,7 +40863,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOrdSql2Access().getDbcolDatabaseColumnParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleDatabaseColumn_in_rule__OrdSql2__DbcolAssignment_3_127874);
+            pushFollow(FOLLOW_ruleDatabaseColumn_in_rule__OrdSql2__DbcolAssignment_3_127877);
             ruleDatabaseColumn();
 
             state._fsp--;
@@ -40878,7 +40911,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13119:1: ( rule__Column__NameAlternatives_0_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13119:2: rule__Column__NameAlternatives_0_0
             {
-            pushFollow(FOLLOW_rule__Column__NameAlternatives_0_0_in_rule__Column__NameAssignment_027905);
+            pushFollow(FOLLOW_rule__Column__NameAlternatives_0_0_in_rule__Column__NameAssignment_027908);
             rule__Column__NameAlternatives_0_0();
 
             state._fsp--;
@@ -40926,7 +40959,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getColumnAccess().getTypeIDENTTerminalRuleCall_1_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__Column__TypeAssignment_1_127938); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__Column__TypeAssignment_1_127941); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getColumnAccess().getTypeIDENTTerminalRuleCall_1_1_0()); 
             }
@@ -40970,7 +41003,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13150:1: ( rule__Column__ValsAlternatives_1_2_1_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13150:2: rule__Column__ValsAlternatives_1_2_1_0
             {
-            pushFollow(FOLLOW_rule__Column__ValsAlternatives_1_2_1_0_in_rule__Column__ValsAssignment_1_2_127969);
+            pushFollow(FOLLOW_rule__Column__ValsAlternatives_1_2_1_0_in_rule__Column__ValsAssignment_1_2_127972);
             rule__Column__ValsAlternatives_1_2_1_0();
 
             state._fsp--;
@@ -41021,7 +41054,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13166:1: ( rule__Constant__CaseAlternatives_0_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13166:2: rule__Constant__CaseAlternatives_0_0
             {
-            pushFollow(FOLLOW_rule__Constant__CaseAlternatives_0_0_in_rule__Constant__CaseAssignment_028002);
+            pushFollow(FOLLOW_rule__Constant__CaseAlternatives_0_0_in_rule__Constant__CaseAssignment_028005);
             rule__Constant__CaseAlternatives_0_0();
 
             state._fsp--;
@@ -41072,7 +41105,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13182:1: ( rule__Constant__NameAlternatives_1_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13182:2: rule__Constant__NameAlternatives_1_0
             {
-            pushFollow(FOLLOW_rule__Constant__NameAlternatives_1_0_in_rule__Constant__NameAssignment_128035);
+            pushFollow(FOLLOW_rule__Constant__NameAlternatives_1_0_in_rule__Constant__NameAssignment_128038);
             rule__Constant__NameAlternatives_1_0();
 
             state._fsp--;
@@ -41120,7 +41153,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantAccess().getTypeIDENTTerminalRuleCall_2_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__Constant__TypeAssignment_2_128068); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__Constant__TypeAssignment_2_128071); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getConstantAccess().getTypeIDENTTerminalRuleCall_2_1_0()); 
             }
@@ -41164,7 +41197,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13213:1: ( rule__Constant__ValsAlternatives_2_2_1_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13213:2: rule__Constant__ValsAlternatives_2_2_1_0
             {
-            pushFollow(FOLLOW_rule__Constant__ValsAlternatives_2_2_1_0_in_rule__Constant__ValsAssignment_2_2_128099);
+            pushFollow(FOLLOW_rule__Constant__ValsAlternatives_2_2_1_0_in_rule__Constant__ValsAssignment_2_2_128102);
             rule__Constant__ValsAlternatives_2_2_1_0();
 
             state._fsp--;
@@ -41215,7 +41248,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13229:1: ( rule__Identifier__ModeAlternatives_0_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13229:2: rule__Identifier__ModeAlternatives_0_0
             {
-            pushFollow(FOLLOW_rule__Identifier__ModeAlternatives_0_0_in_rule__Identifier__ModeAssignment_028132);
+            pushFollow(FOLLOW_rule__Identifier__ModeAlternatives_0_0_in_rule__Identifier__ModeAssignment_028135);
             rule__Identifier__ModeAlternatives_0_0();
 
             state._fsp--;
@@ -41266,7 +41299,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13245:1: ( rule__Identifier__CaseAlternatives_1_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13245:2: rule__Identifier__CaseAlternatives_1_0
             {
-            pushFollow(FOLLOW_rule__Identifier__CaseAlternatives_1_0_in_rule__Identifier__CaseAssignment_128165);
+            pushFollow(FOLLOW_rule__Identifier__CaseAlternatives_1_0_in_rule__Identifier__CaseAssignment_128168);
             rule__Identifier__CaseAlternatives_1_0();
 
             state._fsp--;
@@ -41317,7 +41350,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13261:1: ( rule__Identifier__NameAlternatives_2_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13261:2: rule__Identifier__NameAlternatives_2_0
             {
-            pushFollow(FOLLOW_rule__Identifier__NameAlternatives_2_0_in_rule__Identifier__NameAssignment_228198);
+            pushFollow(FOLLOW_rule__Identifier__NameAlternatives_2_0_in_rule__Identifier__NameAssignment_228201);
             rule__Identifier__NameAlternatives_2_0();
 
             state._fsp--;
@@ -41365,7 +41398,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierAccess().getTypeIDENTTerminalRuleCall_3_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__Identifier__TypeAssignment_3_128231); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__Identifier__TypeAssignment_3_128234); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIdentifierAccess().getTypeIDENTTerminalRuleCall_3_1_0()); 
             }
@@ -41409,7 +41442,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13292:1: ( rule__Identifier__ValsAlternatives_3_2_1_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13292:2: rule__Identifier__ValsAlternatives_3_2_1_0
             {
-            pushFollow(FOLLOW_rule__Identifier__ValsAlternatives_3_2_1_0_in_rule__Identifier__ValsAssignment_3_2_128262);
+            pushFollow(FOLLOW_rule__Identifier__ValsAlternatives_3_2_1_0_in_rule__Identifier__ValsAssignment_3_2_128265);
             rule__Identifier__ValsAlternatives_3_2_1_0();
 
             state._fsp--;
@@ -41460,7 +41493,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13308:1: ( rule__DatabaseColumn__NameAlternatives_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13308:2: rule__DatabaseColumn__NameAlternatives_0
             {
-            pushFollow(FOLLOW_rule__DatabaseColumn__NameAlternatives_0_in_rule__DatabaseColumn__NameAssignment28295);
+            pushFollow(FOLLOW_rule__DatabaseColumn__NameAlternatives_0_in_rule__DatabaseColumn__NameAssignment28298);
             rule__DatabaseColumn__NameAlternatives_0();
 
             state._fsp--;
@@ -41511,7 +41544,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13324:1: ( rule__DatabaseTable__NameAlternatives_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13324:2: rule__DatabaseTable__NameAlternatives_0
             {
-            pushFollow(FOLLOW_rule__DatabaseTable__NameAlternatives_0_in_rule__DatabaseTable__NameAssignment28328);
+            pushFollow(FOLLOW_rule__DatabaseTable__NameAlternatives_0_in_rule__DatabaseTable__NameAssignment28331);
             rule__DatabaseTable__NameAlternatives_0();
 
             state._fsp--;
@@ -41559,7 +41592,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingRule__NameAssignment_028361); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingRule__NameAssignment_028364); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingRuleAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
@@ -41600,7 +41633,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getTypeMAPPING_TYPETerminalRuleCall_2_0()); 
             }
-            match(input,RULE_MAPPING_TYPE,FOLLOW_RULE_MAPPING_TYPE_in_rule__MappingRule__TypeAssignment_228392); if (state.failed) return ;
+            match(input,RULE_MAPPING_TYPE,FOLLOW_RULE_MAPPING_TYPE_in_rule__MappingRule__TypeAssignment_228395); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingRuleAccess().getTypeMAPPING_TYPETerminalRuleCall_2_0()); 
             }
@@ -41641,7 +41674,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingRule__FiltersAssignment_3_128423); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingRule__FiltersAssignment_3_128426); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingRuleAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
             }
@@ -41682,7 +41715,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getMappingMappingParserRuleCall_6_0()); 
             }
-            pushFollow(FOLLOW_ruleMapping_in_rule__MappingRule__MappingAssignment_628454);
+            pushFollow(FOLLOW_ruleMapping_in_rule__MappingRule__MappingAssignment_628457);
             ruleMapping();
 
             state._fsp--;
@@ -41727,7 +41760,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingAccess().getMappingItemsMappingItemParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_128485);
+            pushFollow(FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_128488);
             ruleMappingItem();
 
             state._fsp--;
@@ -41772,7 +41805,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingAccess().getMappingItemsMappingItemParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_2_128516);
+            pushFollow(FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_2_128519);
             ruleMappingItem();
 
             state._fsp--;
@@ -41820,7 +41853,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13430:1: ( rule__MappingItem__ColAlternatives_0_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13430:2: rule__MappingItem__ColAlternatives_0_0
             {
-            pushFollow(FOLLOW_rule__MappingItem__ColAlternatives_0_0_in_rule__MappingItem__ColAssignment_028547);
+            pushFollow(FOLLOW_rule__MappingItem__ColAlternatives_0_0_in_rule__MappingItem__ColAssignment_028550);
             rule__MappingItem__ColAlternatives_0_0();
 
             state._fsp--;
@@ -41868,7 +41901,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingItemAccess().getTypeIDENTTerminalRuleCall_1_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingItem__TypeAssignment_1_128580); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingItem__TypeAssignment_1_128583); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingItemAccess().getTypeIDENTTerminalRuleCall_1_1_0()); 
             }
@@ -41909,7 +41942,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingItemAccess().getAttrMappingColumnParserRuleCall_1_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleMappingColumn_in_rule__MappingItem__AttrAssignment_1_2_128611);
+            pushFollow(FOLLOW_ruleMappingColumn_in_rule__MappingItem__AttrAssignment_1_2_128614);
             ruleMappingColumn();
 
             state._fsp--;
@@ -41957,7 +41990,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13476:1: ( rule__MappingColumn__NameAlternatives_0_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13476:2: rule__MappingColumn__NameAlternatives_0_0
             {
-            pushFollow(FOLLOW_rule__MappingColumn__NameAlternatives_0_0_in_rule__MappingColumn__NameAssignment_028642);
+            pushFollow(FOLLOW_rule__MappingColumn__NameAlternatives_0_0_in_rule__MappingColumn__NameAssignment_028645);
             rule__MappingColumn__NameAlternatives_0_0();
 
             state._fsp--;
@@ -42008,7 +42041,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13492:1: ( rule__MappingColumn__ValsAlternatives_1_1_0 )
             // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13492:2: rule__MappingColumn__ValsAlternatives_1_1_0
             {
-            pushFollow(FOLLOW_rule__MappingColumn__ValsAlternatives_1_1_0_in_rule__MappingColumn__ValsAssignment_1_128675);
+            pushFollow(FOLLOW_rule__MappingColumn__ValsAlternatives_1_1_0_in_rule__MappingColumn__ValsAssignment_1_128678);
             rule__MappingColumn__ValsAlternatives_1_1_0();
 
             state._fsp--;
@@ -42056,7 +42089,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__OptionalFeature__NameAssignment_028708); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__OptionalFeature__NameAssignment_028711); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getOptionalFeatureAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
@@ -42097,7 +42130,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getTypeOPTION_TYPETerminalRuleCall_2_0()); 
             }
-            match(input,RULE_OPTION_TYPE,FOLLOW_RULE_OPTION_TYPE_in_rule__OptionalFeature__TypeAssignment_228739); if (state.failed) return ;
+            match(input,RULE_OPTION_TYPE,FOLLOW_RULE_OPTION_TYPE_in_rule__OptionalFeature__TypeAssignment_228742); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getOptionalFeatureAccess().getTypeOPTION_TYPETerminalRuleCall_2_0()); 
             }
@@ -42138,7 +42171,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__OptionalFeature__FiltersAssignment_3_128770); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__OptionalFeature__FiltersAssignment_3_128773); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getOptionalFeatureAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
             }
@@ -42179,7 +42212,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getOptionFeatureValueParserRuleCall_6_0()); 
             }
-            pushFollow(FOLLOW_ruleFeatureValue_in_rule__OptionalFeature__OptionAssignment_628801);
+            pushFollow(FOLLOW_ruleFeatureValue_in_rule__OptionalFeature__OptionAssignment_628804);
             ruleFeatureValue();
 
             state._fsp--;
@@ -42269,11 +42302,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
     // $ANTLR start synpred356_InternalProcessorDsl
     public final void synpred356_InternalProcessorDsl_fragment() throws RecognitionException {   
-        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9772:2: ( rule__Column__Group_1_2__0 )
-        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9772:2: rule__Column__Group_1_2__0
+        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9744:2: ( rule__Column__TypeAssignment_1_1 )
+        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9744:2: rule__Column__TypeAssignment_1_1
         {
-        pushFollow(FOLLOW_rule__Column__Group_1_2__0_in_synpred356_InternalProcessorDsl21141);
-        rule__Column__Group_1_2__0();
+        pushFollow(FOLLOW_rule__Column__TypeAssignment_1_1_in_synpred356_InternalProcessorDsl21084);
+        rule__Column__TypeAssignment_1_1();
 
         state._fsp--;
         if (state.failed) return ;
@@ -42282,28 +42315,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     }
     // $ANTLR end synpred356_InternalProcessorDsl
 
-    // $ANTLR start synpred358_InternalProcessorDsl
-    public final void synpred358_InternalProcessorDsl_fragment() throws RecognitionException {   
-        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9925:2: ( rule__Constant__Group_2__0 )
-        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9925:2: rule__Constant__Group_2__0
+    // $ANTLR start synpred357_InternalProcessorDsl
+    public final void synpred357_InternalProcessorDsl_fragment() throws RecognitionException {   
+        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9772:2: ( rule__Column__Group_1_2__0 )
+        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9772:2: rule__Column__Group_1_2__0
         {
-        pushFollow(FOLLOW_rule__Constant__Group_2__0_in_synpred358_InternalProcessorDsl21448);
-        rule__Constant__Group_2__0();
+        pushFollow(FOLLOW_rule__Column__Group_1_2__0_in_synpred357_InternalProcessorDsl21142);
+        rule__Column__Group_1_2__0();
 
         state._fsp--;
         if (state.failed) return ;
 
         }
     }
-    // $ANTLR end synpred358_InternalProcessorDsl
+    // $ANTLR end synpred357_InternalProcessorDsl
 
     // $ANTLR start synpred359_InternalProcessorDsl
     public final void synpred359_InternalProcessorDsl_fragment() throws RecognitionException {   
-        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10017:2: ( rule__Constant__Group_2_2__0 )
-        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10017:2: rule__Constant__Group_2_2__0
+        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9925:2: ( rule__Constant__Group_2__0 )
+        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9925:2: rule__Constant__Group_2__0
         {
-        pushFollow(FOLLOW_rule__Constant__Group_2_2__0_in_synpred359_InternalProcessorDsl21633);
-        rule__Constant__Group_2_2__0();
+        pushFollow(FOLLOW_rule__Constant__Group_2__0_in_synpred359_InternalProcessorDsl21449);
+        rule__Constant__Group_2__0();
 
         state._fsp--;
         if (state.failed) return ;
@@ -42312,12 +42345,42 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     }
     // $ANTLR end synpred359_InternalProcessorDsl
 
-    // $ANTLR start synpred362_InternalProcessorDsl
-    public final void synpred362_InternalProcessorDsl_fragment() throws RecognitionException {   
+    // $ANTLR start synpred360_InternalProcessorDsl
+    public final void synpred360_InternalProcessorDsl_fragment() throws RecognitionException {   
+        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9989:2: ( rule__Constant__TypeAssignment_2_1 )
+        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:9989:2: rule__Constant__TypeAssignment_2_1
+        {
+        pushFollow(FOLLOW_rule__Constant__TypeAssignment_2_1_in_synpred360_InternalProcessorDsl21577);
+        rule__Constant__TypeAssignment_2_1();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred360_InternalProcessorDsl
+
+    // $ANTLR start synpred361_InternalProcessorDsl
+    public final void synpred361_InternalProcessorDsl_fragment() throws RecognitionException {   
+        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10017:2: ( rule__Constant__Group_2_2__0 )
+        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10017:2: rule__Constant__Group_2_2__0
+        {
+        pushFollow(FOLLOW_rule__Constant__Group_2_2__0_in_synpred361_InternalProcessorDsl21635);
+        rule__Constant__Group_2_2__0();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred361_InternalProcessorDsl
+
+    // $ANTLR start synpred364_InternalProcessorDsl
+    public final void synpred364_InternalProcessorDsl_fragment() throws RecognitionException {   
         // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10199:2: ( rule__Identifier__Group_3__0 )
         // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10199:2: rule__Identifier__Group_3__0
         {
-        pushFollow(FOLLOW_rule__Identifier__Group_3__0_in_synpred362_InternalProcessorDsl22001);
+        pushFollow(FOLLOW_rule__Identifier__Group_3__0_in_synpred364_InternalProcessorDsl22003);
         rule__Identifier__Group_3__0();
 
         state._fsp--;
@@ -42325,14 +42388,29 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
         }
     }
-    // $ANTLR end synpred362_InternalProcessorDsl
+    // $ANTLR end synpred364_InternalProcessorDsl
 
-    // $ANTLR start synpred363_InternalProcessorDsl
-    public final void synpred363_InternalProcessorDsl_fragment() throws RecognitionException {   
+    // $ANTLR start synpred365_InternalProcessorDsl
+    public final void synpred365_InternalProcessorDsl_fragment() throws RecognitionException {   
+        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10265:2: ( rule__Identifier__TypeAssignment_3_1 )
+        // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10265:2: rule__Identifier__TypeAssignment_3_1
+        {
+        pushFollow(FOLLOW_rule__Identifier__TypeAssignment_3_1_in_synpred365_InternalProcessorDsl22133);
+        rule__Identifier__TypeAssignment_3_1();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred365_InternalProcessorDsl
+
+    // $ANTLR start synpred366_InternalProcessorDsl
+    public final void synpred366_InternalProcessorDsl_fragment() throws RecognitionException {   
         // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10293:2: ( rule__Identifier__Group_3_2__0 )
         // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:10293:2: rule__Identifier__Group_3_2__0
         {
-        pushFollow(FOLLOW_rule__Identifier__Group_3_2__0_in_synpred363_InternalProcessorDsl22188);
+        pushFollow(FOLLOW_rule__Identifier__Group_3_2__0_in_synpred366_InternalProcessorDsl22191);
         rule__Identifier__Group_3_2__0();
 
         state._fsp--;
@@ -42340,10 +42418,24 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
         }
     }
-    // $ANTLR end synpred363_InternalProcessorDsl
+    // $ANTLR end synpred366_InternalProcessorDsl
 
     // Delegated rules
 
+    public final boolean synpred361_InternalProcessorDsl() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred361_InternalProcessorDsl_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
     public final boolean synpred356_InternalProcessorDsl() {
         state.backtracking++;
         int start = input.mark();
@@ -42386,11 +42478,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         state.failed=false;
         return success;
     }
-    public final boolean synpred358_InternalProcessorDsl() {
+    public final boolean synpred357_InternalProcessorDsl() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred358_InternalProcessorDsl_fragment(); // can never throw exception
+            synpred357_InternalProcessorDsl_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred360_InternalProcessorDsl() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred360_InternalProcessorDsl_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -42414,11 +42520,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         state.failed=false;
         return success;
     }
-    public final boolean synpred362_InternalProcessorDsl() {
+    public final boolean synpred364_InternalProcessorDsl() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred362_InternalProcessorDsl_fragment(); // can never throw exception
+            synpred364_InternalProcessorDsl_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -42456,11 +42562,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         state.failed=false;
         return success;
     }
-    public final boolean synpred363_InternalProcessorDsl() {
+    public final boolean synpred366_InternalProcessorDsl() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred363_InternalProcessorDsl_fragment(); // can never throw exception
+            synpred366_InternalProcessorDsl_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred365_InternalProcessorDsl() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred365_InternalProcessorDsl_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -42476,7 +42596,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     protected DFA61 dfa61 = new DFA61(this);
     protected DFA67 dfa67 = new DFA67(this);
     protected DFA80 dfa80 = new DFA80(this);
-    protected DFA92 dfa92 = new DFA92(this);
+    protected DFA95 dfa95 = new DFA95(this);
     static final String DFA5_eotS =
         "\13\uffff";
     static final String DFA5_eofS =
@@ -42486,7 +42606,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     static final String DFA5_maxS =
         "\1\65\1\15\5\uffff\1\42\3\uffff";
     static final String DFA5_acceptS =
-        "\2\uffff\1\4\1\5\1\6\1\7\1\10\1\uffff\1\2\1\1\1\3";
+        "\2\uffff\1\4\1\5\1\6\1\7\1\10\1\uffff\1\1\1\3\1\2";
     static final String DFA5_specialS =
         "\13\uffff}>";
     static final String[] DFA5_transitionS = {
@@ -42497,7 +42617,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             "",
             "",
             "",
-            "\1\10\1\12\1\11",
+            "\1\12\1\11\1\10",
             "",
             "",
             ""
@@ -42547,9 +42667,9 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     static final String DFA61_acceptS =
         "\1\uffff\1\2\33\uffff\1\1";
     static final String DFA61_specialS =
-        "\2\uffff\1\11\1\4\1\12\1\31\1\16\1\23\1\6\1\21\1\1\1\2\1\22\1\10"+
-        "\1\24\1\17\1\32\1\14\1\26\1\25\1\7\1\20\1\5\1\27\1\13\1\30\1\0\1"+
-        "\15\1\3\1\uffff}>";
+        "\2\uffff\1\30\1\1\1\13\1\24\1\7\1\0\1\17\1\5\1\20\1\3\1\23\1\2\1"+
+        "\16\1\25\1\6\1\32\1\22\1\10\1\27\1\11\1\26\1\21\1\4\1\31\1\12\1"+
+        "\15\1\14\1\uffff}>";
     static final String[] DFA61_transitionS = {
             "\1\2\1\3\1\4\1\5\2\1\1\7\1\10\1\11\1\12\1\13\1\1\1\14\1\15\1"+
             "\16\1\17\1\20\1\21\1\1\1\22\1\23\1\24\1\25\1\1\1\26\1\27\1\30"+
@@ -42622,10 +42742,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA61_26 = input.LA(1);
+                        int LA61_7 = input.LA(1);
 
                          
-                        int index61_26 = input.index();
+                        int index61_7 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
@@ -42633,55 +42753,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index61_26);
+                        input.seek(index61_7);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA61_10 = input.LA(1);
-
-                         
-                        int index61_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA61_11 = input.LA(1);
-
-                         
-                        int index61_11 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_11);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA61_28 = input.LA(1);
-
-                         
-                        int index61_28 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_28);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
                         int LA61_3 = input.LA(1);
 
                          
@@ -42696,52 +42771,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index61_3);
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
-                        int LA61_22 = input.LA(1);
-
-                         
-                        int index61_22 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_22);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA61_8 = input.LA(1);
-
-                         
-                        int index61_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA61_20 = input.LA(1);
-
-                         
-                        int index61_20 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_20);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
+                    case 2 : 
                         int LA61_13 = input.LA(1);
 
                          
@@ -42756,11 +42786,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index61_13);
                         if ( s>=0 ) return s;
                         break;
-                    case 9 : 
-                        int LA61_2 = input.LA(1);
+                    case 3 : 
+                        int LA61_11 = input.LA(1);
 
                          
-                        int index61_2 = input.index();
+                        int index61_11 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
@@ -42768,25 +42798,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index61_2);
+                        input.seek(index61_11);
                         if ( s>=0 ) return s;
                         break;
-                    case 10 : 
-                        int LA61_4 = input.LA(1);
-
-                         
-                        int index61_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
+                    case 4 : 
                         int LA61_24 = input.LA(1);
 
                          
@@ -42801,11 +42816,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index61_24);
                         if ( s>=0 ) return s;
                         break;
-                    case 12 : 
-                        int LA61_17 = input.LA(1);
+                    case 5 : 
+                        int LA61_9 = input.LA(1);
 
                          
-                        int index61_17 = input.index();
+                        int index61_9 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
@@ -42813,7 +42828,112 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index61_17);
+                        input.seek(index61_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA61_16 = input.LA(1);
+
+                         
+                        int index61_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_16);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA61_6 = input.LA(1);
+
+                         
+                        int index61_6 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_6);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA61_19 = input.LA(1);
+
+                         
+                        int index61_19 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_19);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA61_21 = input.LA(1);
+
+                         
+                        int index61_21 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_21);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA61_26 = input.LA(1);
+
+                         
+                        int index61_26 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_26);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA61_4 = input.LA(1);
+
+                         
+                        int index61_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_4);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA61_28 = input.LA(1);
+
+                         
+                        int index61_28 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_28);
                         if ( s>=0 ) return s;
                         break;
                     case 13 : 
@@ -42832,96 +42952,6 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         if ( s>=0 ) return s;
                         break;
                     case 14 : 
-                        int LA61_6 = input.LA(1);
-
-                         
-                        int index61_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA61_15 = input.LA(1);
-
-                         
-                        int index61_15 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_15);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA61_21 = input.LA(1);
-
-                         
-                        int index61_21 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_21);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA61_9 = input.LA(1);
-
-                         
-                        int index61_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_9);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 18 : 
-                        int LA61_12 = input.LA(1);
-
-                         
-                        int index61_12 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_12);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
-                        int LA61_7 = input.LA(1);
-
-                         
-                        int index61_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index61_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 20 : 
                         int LA61_14 = input.LA(1);
 
                          
@@ -42936,11 +42966,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index61_14);
                         if ( s>=0 ) return s;
                         break;
-                    case 21 : 
-                        int LA61_19 = input.LA(1);
+                    case 15 : 
+                        int LA61_8 = input.LA(1);
 
                          
-                        int index61_19 = input.index();
+                        int index61_8 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
@@ -42948,14 +42978,14 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index61_19);
+                        input.seek(index61_8);
                         if ( s>=0 ) return s;
                         break;
-                    case 22 : 
-                        int LA61_18 = input.LA(1);
+                    case 16 : 
+                        int LA61_10 = input.LA(1);
 
                          
-                        int index61_18 = input.index();
+                        int index61_10 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
@@ -42963,10 +42993,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index61_18);
+                        input.seek(index61_10);
                         if ( s>=0 ) return s;
                         break;
-                    case 23 : 
+                    case 17 : 
                         int LA61_23 = input.LA(1);
 
                          
@@ -42981,11 +43011,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index61_23);
                         if ( s>=0 ) return s;
                         break;
-                    case 24 : 
-                        int LA61_25 = input.LA(1);
+                    case 18 : 
+                        int LA61_18 = input.LA(1);
 
                          
-                        int index61_25 = input.index();
+                        int index61_18 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
@@ -42993,10 +43023,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index61_25);
+                        input.seek(index61_18);
                         if ( s>=0 ) return s;
                         break;
-                    case 25 : 
+                    case 19 : 
+                        int LA61_12 = input.LA(1);
+
+                         
+                        int index61_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 20 : 
                         int LA61_5 = input.LA(1);
 
                          
@@ -43011,11 +43056,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index61_5);
                         if ( s>=0 ) return s;
                         break;
-                    case 26 : 
-                        int LA61_16 = input.LA(1);
+                    case 21 : 
+                        int LA61_15 = input.LA(1);
 
                          
-                        int index61_16 = input.index();
+                        int index61_15 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
@@ -43023,7 +43068,82 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index61_16);
+                        input.seek(index61_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA61_22 = input.LA(1);
+
+                         
+                        int index61_22 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_22);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA61_20 = input.LA(1);
+
+                         
+                        int index61_20 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_20);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA61_2 = input.LA(1);
+
+                         
+                        int index61_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_2);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
+                        int LA61_25 = input.LA(1);
+
+                         
+                        int index61_25 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_25);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 26 : 
+                        int LA61_17 = input.LA(1);
+
+                         
+                        int index61_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred335_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index61_17);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -43045,9 +43165,9 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     static final String DFA67_acceptS =
         "\1\uffff\1\2\32\uffff\1\1";
     static final String DFA67_specialS =
-        "\2\uffff\1\5\1\22\1\1\1\20\1\26\1\4\1\27\1\13\1\11\1\31\1\6\1\25"+
-        "\1\16\1\0\1\23\1\10\1\21\1\2\1\17\1\3\1\7\1\24\1\30\1\12\1\15\1"+
-        "\14\1\uffff}>";
+        "\2\uffff\1\31\1\11\1\21\1\3\1\17\1\30\1\16\1\2\1\20\1\0\1\27\1\13"+
+        "\1\22\1\5\1\7\1\26\1\12\1\25\1\4\1\6\1\15\1\1\1\10\1\24\1\14\1\23"+
+        "\1\uffff}>";
     static final String[] DFA67_transitionS = {
             "\1\2\1\3\1\4\1\5\2\1\1\10\1\11\1\12\1\13\1\14\2\1\1\15\1\16"+
             "\1\17\1\1\1\20\1\1\1\21\1\22\1\23\1\24\1\1\1\25\1\26\1\27\1"+
@@ -43119,10 +43239,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA67_15 = input.LA(1);
+                        int LA67_11 = input.LA(1);
 
                          
-                        int index67_15 = input.index();
+                        int index67_11 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
@@ -43130,295 +43250,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index67_15);
+                        input.seek(index67_11);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA67_4 = input.LA(1);
-
-                         
-                        int index67_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA67_19 = input.LA(1);
-
-                         
-                        int index67_19 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_19);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA67_21 = input.LA(1);
-
-                         
-                        int index67_21 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_21);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA67_7 = input.LA(1);
-
-                         
-                        int index67_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA67_2 = input.LA(1);
-
-                         
-                        int index67_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA67_12 = input.LA(1);
-
-                         
-                        int index67_12 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_12);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA67_22 = input.LA(1);
-
-                         
-                        int index67_22 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_22);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA67_17 = input.LA(1);
-
-                         
-                        int index67_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA67_10 = input.LA(1);
-
-                         
-                        int index67_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA67_25 = input.LA(1);
-
-                         
-                        int index67_25 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_25);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA67_9 = input.LA(1);
-
-                         
-                        int index67_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_9);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA67_27 = input.LA(1);
-
-                         
-                        int index67_27 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_27);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA67_26 = input.LA(1);
-
-                         
-                        int index67_26 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_26);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA67_14 = input.LA(1);
-
-                         
-                        int index67_14 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_14);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA67_20 = input.LA(1);
-
-                         
-                        int index67_20 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_20);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA67_5 = input.LA(1);
-
-                         
-                        int index67_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA67_18 = input.LA(1);
-
-                         
-                        int index67_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_18);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 18 : 
-                        int LA67_3 = input.LA(1);
-
-                         
-                        int index67_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
-                        int LA67_16 = input.LA(1);
-
-                         
-                        int index67_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index67_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 20 : 
                         int LA67_23 = input.LA(1);
 
                          
@@ -43433,11 +43268,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index67_23);
                         if ( s>=0 ) return s;
                         break;
-                    case 21 : 
-                        int LA67_13 = input.LA(1);
+                    case 2 : 
+                        int LA67_9 = input.LA(1);
 
                          
-                        int index67_13 = input.index();
+                        int index67_9 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
@@ -43445,14 +43280,14 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index67_13);
+                        input.seek(index67_9);
                         if ( s>=0 ) return s;
                         break;
-                    case 22 : 
-                        int LA67_6 = input.LA(1);
+                    case 3 : 
+                        int LA67_5 = input.LA(1);
 
                          
-                        int index67_6 = input.index();
+                        int index67_5 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
@@ -43460,14 +43295,14 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index67_6);
+                        input.seek(index67_5);
                         if ( s>=0 ) return s;
                         break;
-                    case 23 : 
-                        int LA67_8 = input.LA(1);
+                    case 4 : 
+                        int LA67_20 = input.LA(1);
 
                          
-                        int index67_8 = input.index();
+                        int index67_20 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
@@ -43475,10 +43310,55 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index67_8);
+                        input.seek(index67_20);
                         if ( s>=0 ) return s;
                         break;
-                    case 24 : 
+                    case 5 : 
+                        int LA67_15 = input.LA(1);
+
+                         
+                        int index67_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA67_21 = input.LA(1);
+
+                         
+                        int index67_21 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_21);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA67_16 = input.LA(1);
+
+                         
+                        int index67_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_16);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
                         int LA67_24 = input.LA(1);
 
                          
@@ -43493,11 +43373,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index67_24);
                         if ( s>=0 ) return s;
                         break;
-                    case 25 : 
-                        int LA67_11 = input.LA(1);
+                    case 9 : 
+                        int LA67_3 = input.LA(1);
 
                          
-                        int index67_11 = input.index();
+                        int index67_3 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
@@ -43505,7 +43385,247 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index67_11);
+                        input.seek(index67_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA67_18 = input.LA(1);
+
+                         
+                        int index67_18 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_18);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA67_13 = input.LA(1);
+
+                         
+                        int index67_13 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_13);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA67_26 = input.LA(1);
+
+                         
+                        int index67_26 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_26);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA67_22 = input.LA(1);
+
+                         
+                        int index67_22 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_22);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA67_8 = input.LA(1);
+
+                         
+                        int index67_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA67_6 = input.LA(1);
+
+                         
+                        int index67_6 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_6);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA67_10 = input.LA(1);
+
+                         
+                        int index67_10 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_10);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA67_4 = input.LA(1);
+
+                         
+                        int index67_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_4);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
+                        int LA67_14 = input.LA(1);
+
+                         
+                        int index67_14 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_14);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 19 : 
+                        int LA67_27 = input.LA(1);
+
+                         
+                        int index67_27 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_27);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 20 : 
+                        int LA67_25 = input.LA(1);
+
+                         
+                        int index67_25 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_25);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 21 : 
+                        int LA67_19 = input.LA(1);
+
+                         
+                        int index67_19 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_19);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA67_17 = input.LA(1);
+
+                         
+                        int index67_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA67_12 = input.LA(1);
+
+                         
+                        int index67_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA67_7 = input.LA(1);
+
+                         
+                        int index67_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
+                        int LA67_2 = input.LA(1);
+
+                         
+                        int index67_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred341_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index67_2);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -43527,9 +43647,9 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     static final String DFA80_acceptS =
         "\1\uffff\1\2\35\uffff\1\1";
     static final String DFA80_specialS =
-        "\2\uffff\1\13\1\0\1\22\1\5\1\23\1\7\1\31\1\12\1\27\1\24\1\11\1\33"+
-        "\1\15\1\20\1\3\1\21\1\1\1\17\1\2\1\25\1\4\1\32\1\16\1\30\1\10\1"+
-        "\6\1\26\1\14\1\34\1\uffff}>";
+        "\2\uffff\1\4\1\24\1\7\1\23\1\1\1\21\1\31\1\6\1\32\1\15\1\13\1\34"+
+        "\1\10\1\30\1\17\1\0\1\26\1\12\1\22\1\3\1\20\1\5\1\11\1\27\1\33\1"+
+        "\14\1\16\1\2\1\25\1\uffff}>";
     static final String[] DFA80_transitionS = {
             "\1\2\1\3\1\4\1\5\2\1\1\10\1\11\1\12\1\13\1\14\1\15\1\1\1\16"+
             "\1\17\1\20\1\21\1\22\1\23\1\24\1\25\1\26\1\27\1\1\1\30\1\31"+
@@ -43604,261 +43724,6 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA80_3 = input.LA(1);
-
-                         
-                        int index80_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA80_18 = input.LA(1);
-
-                         
-                        int index80_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_18);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA80_20 = input.LA(1);
-
-                         
-                        int index80_20 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_20);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA80_16 = input.LA(1);
-
-                         
-                        int index80_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA80_22 = input.LA(1);
-
-                         
-                        int index80_22 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_22);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA80_5 = input.LA(1);
-
-                         
-                        int index80_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA80_27 = input.LA(1);
-
-                         
-                        int index80_27 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_27);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA80_7 = input.LA(1);
-
-                         
-                        int index80_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA80_26 = input.LA(1);
-
-                         
-                        int index80_26 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_26);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA80_12 = input.LA(1);
-
-                         
-                        int index80_12 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_12);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA80_9 = input.LA(1);
-
-                         
-                        int index80_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_9);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA80_2 = input.LA(1);
-
-                         
-                        int index80_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA80_29 = input.LA(1);
-
-                         
-                        int index80_29 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_29);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA80_14 = input.LA(1);
-
-                         
-                        int index80_14 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_14);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA80_24 = input.LA(1);
-
-                         
-                        int index80_24 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_24);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA80_19 = input.LA(1);
-
-                         
-                        int index80_19 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_19);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA80_15 = input.LA(1);
-
-                         
-                        int index80_15 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_15);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
                         int LA80_17 = input.LA(1);
 
                          
@@ -43873,22 +43738,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index80_17);
                         if ( s>=0 ) return s;
                         break;
-                    case 18 : 
-                        int LA80_4 = input.LA(1);
-
-                         
-                        int index80_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
+                    case 1 : 
                         int LA80_6 = input.LA(1);
 
                          
@@ -43903,11 +43753,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index80_6);
                         if ( s>=0 ) return s;
                         break;
-                    case 20 : 
-                        int LA80_11 = input.LA(1);
+                    case 2 : 
+                        int LA80_29 = input.LA(1);
 
                          
-                        int index80_11 = input.index();
+                        int index80_29 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
@@ -43915,10 +43765,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index80_11);
+                        input.seek(index80_29);
                         if ( s>=0 ) return s;
                         break;
-                    case 21 : 
+                    case 3 : 
                         int LA80_21 = input.LA(1);
 
                          
@@ -43933,7 +43783,157 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index80_21);
                         if ( s>=0 ) return s;
                         break;
-                    case 22 : 
+                    case 4 : 
+                        int LA80_2 = input.LA(1);
+
+                         
+                        int index80_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_2);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA80_23 = input.LA(1);
+
+                         
+                        int index80_23 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_23);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA80_9 = input.LA(1);
+
+                         
+                        int index80_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA80_4 = input.LA(1);
+
+                         
+                        int index80_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_4);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA80_14 = input.LA(1);
+
+                         
+                        int index80_14 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_14);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA80_24 = input.LA(1);
+
+                         
+                        int index80_24 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_24);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA80_19 = input.LA(1);
+
+                         
+                        int index80_19 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_19);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA80_12 = input.LA(1);
+
+                         
+                        int index80_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA80_27 = input.LA(1);
+
+                         
+                        int index80_27 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_27);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA80_11 = input.LA(1);
+
+                         
+                        int index80_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_11);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
                         int LA80_28 = input.LA(1);
 
                          
@@ -43948,11 +43948,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index80_28);
                         if ( s>=0 ) return s;
                         break;
-                    case 23 : 
-                        int LA80_10 = input.LA(1);
+                    case 15 : 
+                        int LA80_16 = input.LA(1);
 
                          
-                        int index80_10 = input.index();
+                        int index80_16 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
@@ -43960,10 +43960,115 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index80_10);
+                        input.seek(index80_16);
                         if ( s>=0 ) return s;
                         break;
-                    case 24 : 
+                    case 16 : 
+                        int LA80_22 = input.LA(1);
+
+                         
+                        int index80_22 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_22);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA80_7 = input.LA(1);
+
+                         
+                        int index80_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
+                        int LA80_20 = input.LA(1);
+
+                         
+                        int index80_20 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_20);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 19 : 
+                        int LA80_5 = input.LA(1);
+
+                         
+                        int index80_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 20 : 
+                        int LA80_3 = input.LA(1);
+
+                         
+                        int index80_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 21 : 
+                        int LA80_30 = input.LA(1);
+
+                         
+                        int index80_30 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_30);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA80_18 = input.LA(1);
+
+                         
+                        int index80_18 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_18);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
                         int LA80_25 = input.LA(1);
 
                          
@@ -43976,6 +44081,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
                          
                         input.seek(index80_25);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA80_15 = input.LA(1);
+
+                         
+                        int index80_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_15);
                         if ( s>=0 ) return s;
                         break;
                     case 25 : 
@@ -43994,10 +44114,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         if ( s>=0 ) return s;
                         break;
                     case 26 : 
-                        int LA80_23 = input.LA(1);
+                        int LA80_10 = input.LA(1);
 
                          
-                        int index80_23 = input.index();
+                        int index80_10 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
@@ -44005,10 +44125,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index80_23);
+                        input.seek(index80_10);
                         if ( s>=0 ) return s;
                         break;
                     case 27 : 
+                        int LA80_26 = input.LA(1);
+
+                         
+                        int index80_26 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index80_26);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 28 : 
                         int LA80_13 = input.LA(1);
 
                          
@@ -44023,21 +44158,6 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index80_13);
                         if ( s>=0 ) return s;
                         break;
-                    case 28 : 
-                        int LA80_30 = input.LA(1);
-
-                         
-                        int index80_30 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred354_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index80_30);
-                        if ( s>=0 ) return s;
-                        break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
@@ -44046,19 +44166,19 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             throw nvae;
         }
     }
-    static final String DFA92_eotS =
+    static final String DFA95_eotS =
         "\5\uffff";
-    static final String DFA92_eofS =
+    static final String DFA95_eofS =
         "\2\2\1\uffff\1\2\1\uffff";
-    static final String DFA92_minS =
+    static final String DFA95_minS =
         "\1\43\1\6\1\uffff\1\6\1\uffff";
-    static final String DFA92_maxS =
+    static final String DFA95_maxS =
         "\2\44\1\uffff\1\44\1\uffff";
-    static final String DFA92_acceptS =
+    static final String DFA95_acceptS =
         "\2\uffff\1\2\1\uffff\1\1";
-    static final String DFA92_specialS =
+    static final String DFA95_specialS =
         "\5\uffff}>";
-    static final String[] DFA92_transitionS = {
+    static final String[] DFA95_transitionS = {
             "\1\1\1\2",
             "\2\4\33\uffff\1\3\1\2",
             "",
@@ -44066,34 +44186,34 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             ""
     };
 
-    static final short[] DFA92_eot = DFA.unpackEncodedString(DFA92_eotS);
-    static final short[] DFA92_eof = DFA.unpackEncodedString(DFA92_eofS);
-    static final char[] DFA92_min = DFA.unpackEncodedStringToUnsignedChars(DFA92_minS);
-    static final char[] DFA92_max = DFA.unpackEncodedStringToUnsignedChars(DFA92_maxS);
-    static final short[] DFA92_accept = DFA.unpackEncodedString(DFA92_acceptS);
-    static final short[] DFA92_special = DFA.unpackEncodedString(DFA92_specialS);
-    static final short[][] DFA92_transition;
+    static final short[] DFA95_eot = DFA.unpackEncodedString(DFA95_eotS);
+    static final short[] DFA95_eof = DFA.unpackEncodedString(DFA95_eofS);
+    static final char[] DFA95_min = DFA.unpackEncodedStringToUnsignedChars(DFA95_minS);
+    static final char[] DFA95_max = DFA.unpackEncodedStringToUnsignedChars(DFA95_maxS);
+    static final short[] DFA95_accept = DFA.unpackEncodedString(DFA95_acceptS);
+    static final short[] DFA95_special = DFA.unpackEncodedString(DFA95_specialS);
+    static final short[][] DFA95_transition;
 
     static {
-        int numStates = DFA92_transitionS.length;
-        DFA92_transition = new short[numStates][];
+        int numStates = DFA95_transitionS.length;
+        DFA95_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA92_transition[i] = DFA.unpackEncodedString(DFA92_transitionS[i]);
+            DFA95_transition[i] = DFA.unpackEncodedString(DFA95_transitionS[i]);
         }
     }
 
-    class DFA92 extends DFA {
+    class DFA95 extends DFA {
 
-        public DFA92(BaseRecognizer recognizer) {
+        public DFA95(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 92;
-            this.eot = DFA92_eot;
-            this.eof = DFA92_eof;
-            this.min = DFA92_min;
-            this.max = DFA92_max;
-            this.accept = DFA92_accept;
-            this.special = DFA92_special;
-            this.transition = DFA92_transition;
+            this.decisionNumber = 95;
+            this.eot = DFA95_eot;
+            this.eof = DFA95_eof;
+            this.min = DFA95_min;
+            this.max = DFA95_max;
+            this.accept = DFA95_accept;
+            this.special = DFA95_special;
+            this.transition = DFA95_transition;
         }
         public String getDescription() {
             return "()* loopback of 10755:1: ( rule__Mapping__Group_2__0 )*";
@@ -45084,302 +45204,305 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     public static final BitSet FOLLOW_rule__Column__NameAssignment_0_in_rule__Column__Group__0__Impl20901 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Column__Group__1__Impl_in_rule__Column__Group__120931 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Column__Group_1__0_in_rule__Column__Group__1__Impl20958 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Column__Group_1__0__Impl_in_rule__Column__Group_1__020993 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__Column__Group_1__0__Impl_in_rule__Column__Group_1__020993 = new BitSet(new long[]{0x0000000000800040L});
     public static final BitSet FOLLOW_rule__Column__Group_1__1_in_rule__Column__Group_1__020996 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_CARET_in_rule__Column__Group_1__0__Impl21024 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Column__Group_1__1__Impl_in_rule__Column__Group_1__121054 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_rule__Column__Group_1__1__Impl_in_rule__Column__Group_1__121054 = new BitSet(new long[]{0x0000000000800040L});
     public static final BitSet FOLLOW_rule__Column__Group_1__2_in_rule__Column__Group_1__121057 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Column__TypeAssignment_1_1_in_rule__Column__Group_1__1__Impl21084 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Column__Group_1__2__Impl_in_rule__Column__Group_1__221114 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Column__Group_1_2__0_in_rule__Column__Group_1__2__Impl21141 = new BitSet(new long[]{0x0000000000800002L});
-    public static final BitSet FOLLOW_rule__Column__Group_1_2__0__Impl_in_rule__Column__Group_1_2__021178 = new BitSet(new long[]{0x00000000000000C0L});
-    public static final BitSet FOLLOW_rule__Column__Group_1_2__1_in_rule__Column__Group_1_2__021181 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_CARET_in_rule__Column__Group_1_2__0__Impl21209 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Column__Group_1_2__1__Impl_in_rule__Column__Group_1_2__121239 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Column__ValsAssignment_1_2_1_in_rule__Column__Group_1_2__1__Impl21266 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__Group__0__Impl_in_rule__Constant__Group__021300 = new BitSet(new long[]{0x0000000000001860L});
-    public static final BitSet FOLLOW_rule__Constant__Group__1_in_rule__Constant__Group__021303 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__CaseAssignment_0_in_rule__Constant__Group__0__Impl21330 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__Group__1__Impl_in_rule__Constant__Group__121361 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_rule__Constant__Group__2_in_rule__Constant__Group__121364 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__NameAssignment_1_in_rule__Constant__Group__1__Impl21391 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__Group__2__Impl_in_rule__Constant__Group__221421 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__Group_2__0_in_rule__Constant__Group__2__Impl21448 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__Group_2__0__Impl_in_rule__Constant__Group_2__021485 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__Constant__Group_2__1_in_rule__Constant__Group_2__021488 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_CARET_in_rule__Constant__Group_2__0__Impl21516 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__Group_2__1__Impl_in_rule__Constant__Group_2__121546 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_rule__Constant__Group_2__2_in_rule__Constant__Group_2__121549 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__TypeAssignment_2_1_in_rule__Constant__Group_2__1__Impl21576 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__Group_2__2__Impl_in_rule__Constant__Group_2__221606 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__Group_2_2__0_in_rule__Constant__Group_2__2__Impl21633 = new BitSet(new long[]{0x0000000000800002L});
-    public static final BitSet FOLLOW_rule__Constant__Group_2_2__0__Impl_in_rule__Constant__Group_2_2__021670 = new BitSet(new long[]{0x00000000000000C0L});
-    public static final BitSet FOLLOW_rule__Constant__Group_2_2__1_in_rule__Constant__Group_2_2__021673 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_CARET_in_rule__Constant__Group_2_2__0__Impl21701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__Group_2_2__1__Impl_in_rule__Constant__Group_2_2__121731 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__ValsAssignment_2_2_1_in_rule__Constant__Group_2_2__1__Impl21758 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group__0__Impl_in_rule__Identifier__Group__021792 = new BitSet(new long[]{0x00000000070018E0L});
-    public static final BitSet FOLLOW_rule__Identifier__Group__1_in_rule__Identifier__Group__021795 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__ModeAssignment_0_in_rule__Identifier__Group__0__Impl21822 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group__1__Impl_in_rule__Identifier__Group__121853 = new BitSet(new long[]{0x00000000070018E0L});
-    public static final BitSet FOLLOW_rule__Identifier__Group__2_in_rule__Identifier__Group__121856 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__CaseAssignment_1_in_rule__Identifier__Group__1__Impl21883 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group__2__Impl_in_rule__Identifier__Group__221914 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_rule__Identifier__Group__3_in_rule__Identifier__Group__221917 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__NameAssignment_2_in_rule__Identifier__Group__2__Impl21944 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group__3__Impl_in_rule__Identifier__Group__321974 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group_3__0_in_rule__Identifier__Group__3__Impl22001 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group_3__0__Impl_in_rule__Identifier__Group_3__022040 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__Identifier__Group_3__1_in_rule__Identifier__Group_3__022043 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_CARET_in_rule__Identifier__Group_3__0__Impl22071 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group_3__1__Impl_in_rule__Identifier__Group_3__122101 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_rule__Identifier__Group_3__2_in_rule__Identifier__Group_3__122104 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__TypeAssignment_3_1_in_rule__Identifier__Group_3__1__Impl22131 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group_3__2__Impl_in_rule__Identifier__Group_3__222161 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group_3_2__0_in_rule__Identifier__Group_3__2__Impl22188 = new BitSet(new long[]{0x0000000000800002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group_3_2__0__Impl_in_rule__Identifier__Group_3_2__022225 = new BitSet(new long[]{0x00000000000000C0L});
-    public static final BitSet FOLLOW_rule__Identifier__Group_3_2__1_in_rule__Identifier__Group_3_2__022228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_CARET_in_rule__Identifier__Group_3_2__0__Impl22256 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group_3_2__1__Impl_in_rule__Identifier__Group_3_2__122286 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__ValsAssignment_3_2_1_in_rule__Identifier__Group_3_2__1__Impl22313 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__0__Impl_in_rule__MappingRule__Group__022347 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__1_in_rule__MappingRule__Group__022350 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__NameAssignment_0_in_rule__MappingRule__Group__0__Impl22377 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__1__Impl_in_rule__MappingRule__Group__122407 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__2_in_rule__MappingRule__Group__122410 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_LPAREN_in_rule__MappingRule__Group__1__Impl22437 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__2__Impl_in_rule__MappingRule__Group__222466 = new BitSet(new long[]{0x0000000000004400L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__3_in_rule__MappingRule__Group__222469 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__TypeAssignment_2_in_rule__MappingRule__Group__2__Impl22496 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__3__Impl_in_rule__MappingRule__Group__322526 = new BitSet(new long[]{0x0000000000004400L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__4_in_rule__MappingRule__Group__322529 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group_3__0_in_rule__MappingRule__Group__3__Impl22556 = new BitSet(new long[]{0x0000000000000402L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__4__Impl_in_rule__MappingRule__Group__422587 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__5_in_rule__MappingRule__Group__422590 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_RPAREN_in_rule__MappingRule__Group__4__Impl22617 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__5__Impl_in_rule__MappingRule__Group__522646 = new BitSet(new long[]{0x00000008000000C0L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__6_in_rule__MappingRule__Group__522649 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_EQUALS_in_rule__MappingRule__Group__5__Impl22676 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__6__Impl_in_rule__MappingRule__Group__622705 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__7_in_rule__MappingRule__Group__622708 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__MappingAssignment_6_in_rule__MappingRule__Group__6__Impl22735 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group__7__Impl_in_rule__MappingRule__Group__722765 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_SEMICOLON_in_rule__MappingRule__Group__7__Impl22792 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group_3__0__Impl_in_rule__MappingRule__Group_3__022837 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group_3__1_in_rule__MappingRule__Group_3__022840 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_COMMA_in_rule__MappingRule__Group_3__0__Impl22867 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__Group_3__1__Impl_in_rule__MappingRule__Group_3__122896 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingRule__FiltersAssignment_3_1_in_rule__MappingRule__Group_3__1__Impl22923 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Mapping__Group__0__Impl_in_rule__Mapping__Group__022957 = new BitSet(new long[]{0x00000008000000C0L});
-    public static final BitSet FOLLOW_rule__Mapping__Group__1_in_rule__Mapping__Group__022960 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WS_in_rule__Mapping__Group__0__Impl22988 = new BitSet(new long[]{0x0000000800000002L});
-    public static final BitSet FOLLOW_rule__Mapping__Group__1__Impl_in_rule__Mapping__Group__123019 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_rule__Mapping__Group__2_in_rule__Mapping__Group__123022 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Mapping__MappingItemsAssignment_1_in_rule__Mapping__Group__1__Impl23049 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Mapping__Group__2__Impl_in_rule__Mapping__Group__223079 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_rule__Mapping__Group__3_in_rule__Mapping__Group__223082 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Mapping__Group_2__0_in_rule__Mapping__Group__2__Impl23109 = new BitSet(new long[]{0x0000000800000002L});
-    public static final BitSet FOLLOW_rule__Mapping__Group__3__Impl_in_rule__Mapping__Group__323140 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WS_in_rule__Mapping__Group__3__Impl23168 = new BitSet(new long[]{0x0000000800000002L});
-    public static final BitSet FOLLOW_rule__Mapping__Group_2__0__Impl_in_rule__Mapping__Group_2__023207 = new BitSet(new long[]{0x00000008000000C0L});
-    public static final BitSet FOLLOW_rule__Mapping__Group_2__1_in_rule__Mapping__Group_2__023210 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_WS_in_rule__Mapping__Group_2__0__Impl23240 = new BitSet(new long[]{0x0000000800000002L});
-    public static final BitSet FOLLOW_RULE_WS_in_rule__Mapping__Group_2__0__Impl23253 = new BitSet(new long[]{0x0000000800000002L});
-    public static final BitSet FOLLOW_rule__Mapping__Group_2__1__Impl_in_rule__Mapping__Group_2__123286 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Mapping__MappingItemsAssignment_2_1_in_rule__Mapping__Group_2__1__Impl23313 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group__0__Impl_in_rule__MappingItem__Group__023347 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group__1_in_rule__MappingItem__Group__023350 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__ColAssignment_0_in_rule__MappingItem__Group__0__Impl23377 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group__1__Impl_in_rule__MappingItem__Group__123407 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group_1__0_in_rule__MappingItem__Group__1__Impl23434 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group_1__0__Impl_in_rule__MappingItem__Group_1__023469 = new BitSet(new long[]{0x0000000000000240L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group_1__1_in_rule__MappingItem__Group_1__023472 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__MappingItem__Group_1__0__Impl23499 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group_1__1__Impl_in_rule__MappingItem__Group_1__123528 = new BitSet(new long[]{0x0000000000000240L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group_1__2_in_rule__MappingItem__Group_1__123531 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__TypeAssignment_1_1_in_rule__MappingItem__Group_1__1__Impl23558 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group_1__2__Impl_in_rule__MappingItem__Group_1__223589 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group_1_2__0_in_rule__MappingItem__Group_1__2__Impl23616 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group_1_2__0__Impl_in_rule__MappingItem__Group_1_2__023653 = new BitSet(new long[]{0x0000000000000060L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group_1_2__1_in_rule__MappingItem__Group_1_2__023656 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__MappingItem__Group_1_2__0__Impl23683 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__Group_1_2__1__Impl_in_rule__MappingItem__Group_1_2__123712 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__AttrAssignment_1_2_1_in_rule__MappingItem__Group_1_2__1__Impl23739 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingColumn__Group__0__Impl_in_rule__MappingColumn__Group__023773 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_rule__MappingColumn__Group__1_in_rule__MappingColumn__Group__023776 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingColumn__NameAssignment_0_in_rule__MappingColumn__Group__0__Impl23803 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingColumn__Group__1__Impl_in_rule__MappingColumn__Group__123833 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingColumn__Group_1__0_in_rule__MappingColumn__Group__1__Impl23860 = new BitSet(new long[]{0x0000000000800002L});
-    public static final BitSet FOLLOW_rule__MappingColumn__Group_1__0__Impl_in_rule__MappingColumn__Group_1__023895 = new BitSet(new long[]{0x00000000000000C0L});
-    public static final BitSet FOLLOW_rule__MappingColumn__Group_1__1_in_rule__MappingColumn__Group_1__023898 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_CARET_in_rule__MappingColumn__Group_1__0__Impl23925 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingColumn__Group_1__1__Impl_in_rule__MappingColumn__Group_1__123954 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingColumn__ValsAssignment_1_1_in_rule__MappingColumn__Group_1__1__Impl23981 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__0__Impl_in_rule__OptionalFeature__Group__024015 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__1_in_rule__OptionalFeature__Group__024018 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__NameAssignment_0_in_rule__OptionalFeature__Group__0__Impl24045 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__1__Impl_in_rule__OptionalFeature__Group__124075 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__2_in_rule__OptionalFeature__Group__124078 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_LPAREN_in_rule__OptionalFeature__Group__1__Impl24105 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__2__Impl_in_rule__OptionalFeature__Group__224134 = new BitSet(new long[]{0x0000000000004400L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__3_in_rule__OptionalFeature__Group__224137 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__TypeAssignment_2_in_rule__OptionalFeature__Group__2__Impl24164 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__3__Impl_in_rule__OptionalFeature__Group__324194 = new BitSet(new long[]{0x0000000000004400L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__4_in_rule__OptionalFeature__Group__324197 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group_3__0_in_rule__OptionalFeature__Group__3__Impl24224 = new BitSet(new long[]{0x0000000000000402L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__4__Impl_in_rule__OptionalFeature__Group__424255 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__5_in_rule__OptionalFeature__Group__424258 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_RPAREN_in_rule__OptionalFeature__Group__4__Impl24285 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__5__Impl_in_rule__OptionalFeature__Group__524314 = new BitSet(new long[]{0x0000000FFFFFFFF0L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__6_in_rule__OptionalFeature__Group__524317 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_EQUALS_in_rule__OptionalFeature__Group__5__Impl24344 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__6__Impl_in_rule__OptionalFeature__Group__624373 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__7_in_rule__OptionalFeature__Group__624376 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__OptionAssignment_6_in_rule__OptionalFeature__Group__6__Impl24403 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group__7__Impl_in_rule__OptionalFeature__Group__724433 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_SEMICOLON_in_rule__OptionalFeature__Group__7__Impl24460 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group_3__0__Impl_in_rule__OptionalFeature__Group_3__024505 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group_3__1_in_rule__OptionalFeature__Group_3__024508 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_COMMA_in_rule__OptionalFeature__Group_3__0__Impl24535 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__Group_3__1__Impl_in_rule__OptionalFeature__Group_3__124564 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__OptionalFeature__FiltersAssignment_3_1_in_rule__OptionalFeature__Group_3__1__Impl24591 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOptionalFeature_in_rule__Artifacts__FeaturesAssignment_1_0_024630 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetaStatement_in_rule__Artifacts__StatementsAssignment_1_1_024661 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMappingRule_in_rule__Artifacts__MappingsAssignment_1_2_024692 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePojoDefinition_in_rule__Artifacts__PojosAssignment_1_3_024723 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePojoUsage_in_rule__Artifacts__UsagesAssignment_1_4_024754 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleProperty_in_rule__Artifacts__PropertiesAssignment_1_5_024785 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTableDefinition_in_rule__Artifacts__TablesAssignment_1_6_024816 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTableUsage_in_rule__Artifacts__TableUsagesAssignment_1_7_024847 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_47_in_rule__Property__NameAssignment_0_0_024883 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolvePojoAssignment_0_0_224922 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_48_in_rule__Property__NameAssignment_0_1_024958 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolveDbAssignment_0_1_224997 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_rule__Property__NameAssignment_0_2_025033 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbUrlAssignment_0_2_225072 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_50_in_rule__Property__NameAssignment_0_3_025108 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbUsernameAssignment_0_3_225147 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_51_in_rule__Property__NameAssignment_0_4_025183 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbPasswordAssignment_0_4_225222 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_52_in_rule__Property__NameAssignment_0_5_025258 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbSchemaAssignment_0_5_225297 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_53_in_rule__Property__NameAssignment_0_6_025333 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbDriverAssignment_0_6_225372 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoDefinition__NameAssignment_125403 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoDefinition__ClassAlternatives_2_0_in_rule__PojoDefinition__ClassAssignment_225434 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ColumnUsage__StatementAssignment_125471 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ColumnUsage__PojoAssignment_225510 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__StatementAssignment_125549 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__PojoAssignment_225588 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ConstantUsage__StatementAssignment_125627 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ConstantUsage__PojoAssignment_225666 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingUsage__StatementAssignment_125705 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingUsage__PojoAssignment_225744 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableDefinition__NameAssignment_125779 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableDefinition__TableAssignment_225810 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableUsage__StatementAssignment_125845 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableUsage__TableAssignment_225884 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableUsage__PrefixAssignment_3_125919 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MetaStatement__NameAssignment_025950 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STATEMEN_TYPE_in_rule__MetaStatement__TypeAssignment_225981 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MetaStatement__FiltersAssignment_3_126012 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSql_in_rule__MetaStatement__StatementAssignment_626043 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSqlFragment_in_rule__Sql__SqlsAssignment26074 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSqlValue_in_rule__SqlFragment__ValueAssignment_026105 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleColumn_in_rule__SqlFragment__ColAssignment_1_126136 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConstant_in_rule__SqlFragment__CnstAssignment_2_126167 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIdentifier_in_rule__SqlFragment__IdentAssignment_3_126198 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetaSql_in_rule__SqlFragment__MetaAssignment_4_126229 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDatabaseTable_in_rule__SqlFragment__DbtabAssignment_5_1_0_126260 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDatabaseColumn_in_rule__SqlFragment__DbcolAssignment_5_1_126291 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_126322 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_2_126353 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_QUESTI_in_rule__MetaSql__TypeAssignment_1_026384 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlCond_in_rule__MetaSql__CondAssignment_1_126415 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_326446 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_4_126477 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_BAND_in_rule__MetaSql__TypeAssignment_2_026508 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_126539 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_2_126570 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_BOR_in_rule__MetaSql__TypeAssignment_3_026601 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_126632 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_2_126663 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_EQUALS_in_rule__MetaSql__TypeAssignment_4_026694 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MetaSql__FtypeAssignment_4_226725 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_4_326756 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_HASH_in_rule__MetaSql__TypeAssignment_5_026787 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOrdSql_in_rule__MetaSql__OrdAssignment_5_226818 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlFragment_in_rule__IfSql__SqlsAssignment26849 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlValue_in_rule__IfSqlFragment__ValueAssignment_026880 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleColumn_in_rule__IfSqlFragment__ColAssignment_1_126911 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConstant_in_rule__IfSqlFragment__CnstAssignment_2_126942 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIdentifier_in_rule__IfSqlFragment__IdentAssignment_3_126973 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDatabaseTable_in_rule__IfSqlFragment__DbtabAssignment_4_1_0_127004 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDatabaseColumn_in_rule__IfSqlFragment__DbcolAssignment_4_1_127035 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfMetaSql_in_rule__IfSqlFragment__MetaAssignment_5_127066 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_127097 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_2_127128 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_QUESTI_in_rule__IfMetaSql__TypeAssignment_1_027159 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlCond_in_rule__IfMetaSql__CondAssignment_1_127190 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_327221 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_4_127252 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_BAND_in_rule__IfMetaSql__TypeAssignment_2_027283 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_127314 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_2_127345 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_BOR_in_rule__IfMetaSql__TypeAssignment_3_027376 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_127407 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_2_127438 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool1Assignment_127469 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IfSqlCond__OperAlternatives_3_0_0_in_rule__IfSqlCond__OperAssignment_3_027500 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool2Assignment_3_227533 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_0_027564 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConstant_in_rule__IfSqlBool__CnstAssignment_0_227595 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_1_027626 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIdentifier_in_rule__IfSqlBool__IdentAssignment_1_227657 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_2_027688 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlCond_in_rule__IfSqlBool__CondAssignment_2_227719 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOrdSql2_in_rule__OrdSql__SqlsAssignment27750 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOrdSqlValue_in_rule__OrdSql2__ValueAssignment_027781 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConstant_in_rule__OrdSql2__CnstAssignment_1_127812 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIdentifier_in_rule__OrdSql2__IdentAssignment_2_127843 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDatabaseColumn_in_rule__OrdSql2__DbcolAssignment_3_127874 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Column__NameAlternatives_0_0_in_rule__Column__NameAssignment_027905 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__Column__TypeAssignment_1_127938 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Column__ValsAlternatives_1_2_1_0_in_rule__Column__ValsAssignment_1_2_127969 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__CaseAlternatives_0_0_in_rule__Constant__CaseAssignment_028002 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__NameAlternatives_1_0_in_rule__Constant__NameAssignment_128035 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__Constant__TypeAssignment_2_128068 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__ValsAlternatives_2_2_1_0_in_rule__Constant__ValsAssignment_2_2_128099 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__ModeAlternatives_0_0_in_rule__Identifier__ModeAssignment_028132 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__CaseAlternatives_1_0_in_rule__Identifier__CaseAssignment_128165 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__NameAlternatives_2_0_in_rule__Identifier__NameAssignment_228198 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__Identifier__TypeAssignment_3_128231 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__ValsAlternatives_3_2_1_0_in_rule__Identifier__ValsAssignment_3_2_128262 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DatabaseColumn__NameAlternatives_0_in_rule__DatabaseColumn__NameAssignment28295 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DatabaseTable__NameAlternatives_0_in_rule__DatabaseTable__NameAssignment28328 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingRule__NameAssignment_028361 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_MAPPING_TYPE_in_rule__MappingRule__TypeAssignment_228392 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingRule__FiltersAssignment_3_128423 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMapping_in_rule__MappingRule__MappingAssignment_628454 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_128485 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_2_128516 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__ColAlternatives_0_0_in_rule__MappingItem__ColAssignment_028547 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingItem__TypeAssignment_1_128580 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMappingColumn_in_rule__MappingItem__AttrAssignment_1_2_128611 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingColumn__NameAlternatives_0_0_in_rule__MappingColumn__NameAssignment_028642 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingColumn__ValsAlternatives_1_1_0_in_rule__MappingColumn__ValsAssignment_1_128675 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__OptionalFeature__NameAssignment_028708 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_OPTION_TYPE_in_rule__OptionalFeature__TypeAssignment_228739 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__OptionalFeature__FiltersAssignment_3_128770 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFeatureValue_in_rule__OptionalFeature__OptionAssignment_628801 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Column__Group_1__2__Impl_in_rule__Column__Group_1__221115 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Column__Group_1_2__0_in_rule__Column__Group_1__2__Impl21142 = new BitSet(new long[]{0x0000000000800002L});
+    public static final BitSet FOLLOW_rule__Column__Group_1_2__0__Impl_in_rule__Column__Group_1_2__021179 = new BitSet(new long[]{0x00000000000000C0L});
+    public static final BitSet FOLLOW_rule__Column__Group_1_2__1_in_rule__Column__Group_1_2__021182 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_CARET_in_rule__Column__Group_1_2__0__Impl21210 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Column__Group_1_2__1__Impl_in_rule__Column__Group_1_2__121240 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Column__ValsAssignment_1_2_1_in_rule__Column__Group_1_2__1__Impl21267 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__Group__0__Impl_in_rule__Constant__Group__021301 = new BitSet(new long[]{0x0000000000001860L});
+    public static final BitSet FOLLOW_rule__Constant__Group__1_in_rule__Constant__Group__021304 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__CaseAssignment_0_in_rule__Constant__Group__0__Impl21331 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__Group__1__Impl_in_rule__Constant__Group__121362 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_rule__Constant__Group__2_in_rule__Constant__Group__121365 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__NameAssignment_1_in_rule__Constant__Group__1__Impl21392 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__Group__2__Impl_in_rule__Constant__Group__221422 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__Group_2__0_in_rule__Constant__Group__2__Impl21449 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__Group_2__0__Impl_in_rule__Constant__Group_2__021486 = new BitSet(new long[]{0x0000000000800040L});
+    public static final BitSet FOLLOW_rule__Constant__Group_2__1_in_rule__Constant__Group_2__021489 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_CARET_in_rule__Constant__Group_2__0__Impl21517 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__Group_2__1__Impl_in_rule__Constant__Group_2__121547 = new BitSet(new long[]{0x0000000000800040L});
+    public static final BitSet FOLLOW_rule__Constant__Group_2__2_in_rule__Constant__Group_2__121550 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__TypeAssignment_2_1_in_rule__Constant__Group_2__1__Impl21577 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__Group_2__2__Impl_in_rule__Constant__Group_2__221608 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__Group_2_2__0_in_rule__Constant__Group_2__2__Impl21635 = new BitSet(new long[]{0x0000000000800002L});
+    public static final BitSet FOLLOW_rule__Constant__Group_2_2__0__Impl_in_rule__Constant__Group_2_2__021672 = new BitSet(new long[]{0x00000000000000C0L});
+    public static final BitSet FOLLOW_rule__Constant__Group_2_2__1_in_rule__Constant__Group_2_2__021675 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_CARET_in_rule__Constant__Group_2_2__0__Impl21703 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__Group_2_2__1__Impl_in_rule__Constant__Group_2_2__121733 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__ValsAssignment_2_2_1_in_rule__Constant__Group_2_2__1__Impl21760 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group__0__Impl_in_rule__Identifier__Group__021794 = new BitSet(new long[]{0x00000000070018E0L});
+    public static final BitSet FOLLOW_rule__Identifier__Group__1_in_rule__Identifier__Group__021797 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__ModeAssignment_0_in_rule__Identifier__Group__0__Impl21824 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group__1__Impl_in_rule__Identifier__Group__121855 = new BitSet(new long[]{0x00000000070018E0L});
+    public static final BitSet FOLLOW_rule__Identifier__Group__2_in_rule__Identifier__Group__121858 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__CaseAssignment_1_in_rule__Identifier__Group__1__Impl21885 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group__2__Impl_in_rule__Identifier__Group__221916 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_rule__Identifier__Group__3_in_rule__Identifier__Group__221919 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__NameAssignment_2_in_rule__Identifier__Group__2__Impl21946 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group__3__Impl_in_rule__Identifier__Group__321976 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group_3__0_in_rule__Identifier__Group__3__Impl22003 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group_3__0__Impl_in_rule__Identifier__Group_3__022042 = new BitSet(new long[]{0x0000000000800040L});
+    public static final BitSet FOLLOW_rule__Identifier__Group_3__1_in_rule__Identifier__Group_3__022045 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_CARET_in_rule__Identifier__Group_3__0__Impl22073 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group_3__1__Impl_in_rule__Identifier__Group_3__122103 = new BitSet(new long[]{0x0000000000800040L});
+    public static final BitSet FOLLOW_rule__Identifier__Group_3__2_in_rule__Identifier__Group_3__122106 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__TypeAssignment_3_1_in_rule__Identifier__Group_3__1__Impl22133 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group_3__2__Impl_in_rule__Identifier__Group_3__222164 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group_3_2__0_in_rule__Identifier__Group_3__2__Impl22191 = new BitSet(new long[]{0x0000000000800002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group_3_2__0__Impl_in_rule__Identifier__Group_3_2__022228 = new BitSet(new long[]{0x00000000000000C0L});
+    public static final BitSet FOLLOW_rule__Identifier__Group_3_2__1_in_rule__Identifier__Group_3_2__022231 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_CARET_in_rule__Identifier__Group_3_2__0__Impl22259 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group_3_2__1__Impl_in_rule__Identifier__Group_3_2__122289 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__ValsAssignment_3_2_1_in_rule__Identifier__Group_3_2__1__Impl22316 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__0__Impl_in_rule__MappingRule__Group__022350 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__1_in_rule__MappingRule__Group__022353 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__NameAssignment_0_in_rule__MappingRule__Group__0__Impl22380 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__1__Impl_in_rule__MappingRule__Group__122410 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__2_in_rule__MappingRule__Group__122413 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_LPAREN_in_rule__MappingRule__Group__1__Impl22440 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__2__Impl_in_rule__MappingRule__Group__222469 = new BitSet(new long[]{0x0000000000004400L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__3_in_rule__MappingRule__Group__222472 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__TypeAssignment_2_in_rule__MappingRule__Group__2__Impl22499 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__3__Impl_in_rule__MappingRule__Group__322529 = new BitSet(new long[]{0x0000000000004400L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__4_in_rule__MappingRule__Group__322532 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group_3__0_in_rule__MappingRule__Group__3__Impl22559 = new BitSet(new long[]{0x0000000000000402L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__4__Impl_in_rule__MappingRule__Group__422590 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__5_in_rule__MappingRule__Group__422593 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_RPAREN_in_rule__MappingRule__Group__4__Impl22620 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__5__Impl_in_rule__MappingRule__Group__522649 = new BitSet(new long[]{0x00000008000000C0L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__6_in_rule__MappingRule__Group__522652 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_EQUALS_in_rule__MappingRule__Group__5__Impl22679 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__6__Impl_in_rule__MappingRule__Group__622708 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__7_in_rule__MappingRule__Group__622711 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__MappingAssignment_6_in_rule__MappingRule__Group__6__Impl22738 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group__7__Impl_in_rule__MappingRule__Group__722768 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_SEMICOLON_in_rule__MappingRule__Group__7__Impl22795 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group_3__0__Impl_in_rule__MappingRule__Group_3__022840 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group_3__1_in_rule__MappingRule__Group_3__022843 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_COMMA_in_rule__MappingRule__Group_3__0__Impl22870 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__Group_3__1__Impl_in_rule__MappingRule__Group_3__122899 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingRule__FiltersAssignment_3_1_in_rule__MappingRule__Group_3__1__Impl22926 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Mapping__Group__0__Impl_in_rule__Mapping__Group__022960 = new BitSet(new long[]{0x00000008000000C0L});
+    public static final BitSet FOLLOW_rule__Mapping__Group__1_in_rule__Mapping__Group__022963 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WS_in_rule__Mapping__Group__0__Impl22991 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_rule__Mapping__Group__1__Impl_in_rule__Mapping__Group__123022 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_rule__Mapping__Group__2_in_rule__Mapping__Group__123025 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Mapping__MappingItemsAssignment_1_in_rule__Mapping__Group__1__Impl23052 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Mapping__Group__2__Impl_in_rule__Mapping__Group__223082 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_rule__Mapping__Group__3_in_rule__Mapping__Group__223085 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Mapping__Group_2__0_in_rule__Mapping__Group__2__Impl23112 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_rule__Mapping__Group__3__Impl_in_rule__Mapping__Group__323143 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WS_in_rule__Mapping__Group__3__Impl23171 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_rule__Mapping__Group_2__0__Impl_in_rule__Mapping__Group_2__023210 = new BitSet(new long[]{0x00000008000000C0L});
+    public static final BitSet FOLLOW_rule__Mapping__Group_2__1_in_rule__Mapping__Group_2__023213 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_WS_in_rule__Mapping__Group_2__0__Impl23243 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_RULE_WS_in_rule__Mapping__Group_2__0__Impl23256 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_rule__Mapping__Group_2__1__Impl_in_rule__Mapping__Group_2__123289 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Mapping__MappingItemsAssignment_2_1_in_rule__Mapping__Group_2__1__Impl23316 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group__0__Impl_in_rule__MappingItem__Group__023350 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group__1_in_rule__MappingItem__Group__023353 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__ColAssignment_0_in_rule__MappingItem__Group__0__Impl23380 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group__1__Impl_in_rule__MappingItem__Group__123410 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group_1__0_in_rule__MappingItem__Group__1__Impl23437 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group_1__0__Impl_in_rule__MappingItem__Group_1__023472 = new BitSet(new long[]{0x0000000000000240L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group_1__1_in_rule__MappingItem__Group_1__023475 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__MappingItem__Group_1__0__Impl23502 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group_1__1__Impl_in_rule__MappingItem__Group_1__123531 = new BitSet(new long[]{0x0000000000000240L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group_1__2_in_rule__MappingItem__Group_1__123534 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__TypeAssignment_1_1_in_rule__MappingItem__Group_1__1__Impl23561 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group_1__2__Impl_in_rule__MappingItem__Group_1__223592 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group_1_2__0_in_rule__MappingItem__Group_1__2__Impl23619 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group_1_2__0__Impl_in_rule__MappingItem__Group_1_2__023656 = new BitSet(new long[]{0x0000000000000060L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group_1_2__1_in_rule__MappingItem__Group_1_2__023659 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__MappingItem__Group_1_2__0__Impl23686 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__Group_1_2__1__Impl_in_rule__MappingItem__Group_1_2__123715 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__AttrAssignment_1_2_1_in_rule__MappingItem__Group_1_2__1__Impl23742 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingColumn__Group__0__Impl_in_rule__MappingColumn__Group__023776 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_rule__MappingColumn__Group__1_in_rule__MappingColumn__Group__023779 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingColumn__NameAssignment_0_in_rule__MappingColumn__Group__0__Impl23806 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingColumn__Group__1__Impl_in_rule__MappingColumn__Group__123836 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingColumn__Group_1__0_in_rule__MappingColumn__Group__1__Impl23863 = new BitSet(new long[]{0x0000000000800002L});
+    public static final BitSet FOLLOW_rule__MappingColumn__Group_1__0__Impl_in_rule__MappingColumn__Group_1__023898 = new BitSet(new long[]{0x00000000000000C0L});
+    public static final BitSet FOLLOW_rule__MappingColumn__Group_1__1_in_rule__MappingColumn__Group_1__023901 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_CARET_in_rule__MappingColumn__Group_1__0__Impl23928 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingColumn__Group_1__1__Impl_in_rule__MappingColumn__Group_1__123957 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingColumn__ValsAssignment_1_1_in_rule__MappingColumn__Group_1__1__Impl23984 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__0__Impl_in_rule__OptionalFeature__Group__024018 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__1_in_rule__OptionalFeature__Group__024021 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__NameAssignment_0_in_rule__OptionalFeature__Group__0__Impl24048 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__1__Impl_in_rule__OptionalFeature__Group__124078 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__2_in_rule__OptionalFeature__Group__124081 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_LPAREN_in_rule__OptionalFeature__Group__1__Impl24108 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__2__Impl_in_rule__OptionalFeature__Group__224137 = new BitSet(new long[]{0x0000000000004400L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__3_in_rule__OptionalFeature__Group__224140 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__TypeAssignment_2_in_rule__OptionalFeature__Group__2__Impl24167 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__3__Impl_in_rule__OptionalFeature__Group__324197 = new BitSet(new long[]{0x0000000000004400L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__4_in_rule__OptionalFeature__Group__324200 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group_3__0_in_rule__OptionalFeature__Group__3__Impl24227 = new BitSet(new long[]{0x0000000000000402L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__4__Impl_in_rule__OptionalFeature__Group__424258 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__5_in_rule__OptionalFeature__Group__424261 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_RPAREN_in_rule__OptionalFeature__Group__4__Impl24288 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__5__Impl_in_rule__OptionalFeature__Group__524317 = new BitSet(new long[]{0x0000000FFFFFFFF0L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__6_in_rule__OptionalFeature__Group__524320 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_EQUALS_in_rule__OptionalFeature__Group__5__Impl24347 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__6__Impl_in_rule__OptionalFeature__Group__624376 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__7_in_rule__OptionalFeature__Group__624379 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__OptionAssignment_6_in_rule__OptionalFeature__Group__6__Impl24406 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group__7__Impl_in_rule__OptionalFeature__Group__724436 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_SEMICOLON_in_rule__OptionalFeature__Group__7__Impl24463 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group_3__0__Impl_in_rule__OptionalFeature__Group_3__024508 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group_3__1_in_rule__OptionalFeature__Group_3__024511 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_COMMA_in_rule__OptionalFeature__Group_3__0__Impl24538 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__Group_3__1__Impl_in_rule__OptionalFeature__Group_3__124567 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__OptionalFeature__FiltersAssignment_3_1_in_rule__OptionalFeature__Group_3__1__Impl24594 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOptionalFeature_in_rule__Artifacts__FeaturesAssignment_1_0_024633 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetaStatement_in_rule__Artifacts__StatementsAssignment_1_1_024664 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMappingRule_in_rule__Artifacts__MappingsAssignment_1_2_024695 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePojoDefinition_in_rule__Artifacts__PojosAssignment_1_3_024726 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePojoUsage_in_rule__Artifacts__UsagesAssignment_1_4_024757 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleProperty_in_rule__Artifacts__PropertiesAssignment_1_5_024788 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTableDefinition_in_rule__Artifacts__TablesAssignment_1_6_024819 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTableUsage_in_rule__Artifacts__TableUsagesAssignment_1_7_024850 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_47_in_rule__Property__NameAssignment_0_0_024886 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolvePojoAssignment_0_0_224925 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_48_in_rule__Property__NameAssignment_0_1_024961 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolveDbAssignment_0_1_225000 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_49_in_rule__Property__NameAssignment_0_2_025036 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbUrlAssignment_0_2_225075 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_50_in_rule__Property__NameAssignment_0_3_025111 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbUsernameAssignment_0_3_225150 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_51_in_rule__Property__NameAssignment_0_4_025186 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbPasswordAssignment_0_4_225225 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_52_in_rule__Property__NameAssignment_0_5_025261 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbSchemaAssignment_0_5_225300 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_53_in_rule__Property__NameAssignment_0_6_025336 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbDriverAssignment_0_6_225375 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoDefinition__NameAssignment_125406 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoDefinition__ClassAlternatives_2_0_in_rule__PojoDefinition__ClassAssignment_225437 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ColumnUsage__StatementAssignment_125474 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ColumnUsage__PojoAssignment_225513 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__StatementAssignment_125552 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__PojoAssignment_225591 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ConstantUsage__StatementAssignment_125630 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ConstantUsage__PojoAssignment_225669 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingUsage__StatementAssignment_125708 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingUsage__PojoAssignment_225747 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableDefinition__NameAssignment_125782 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableDefinition__TableAssignment_225813 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableUsage__StatementAssignment_125848 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableUsage__TableAssignment_225887 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableUsage__PrefixAssignment_3_125922 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MetaStatement__NameAssignment_025953 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STATEMEN_TYPE_in_rule__MetaStatement__TypeAssignment_225984 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MetaStatement__FiltersAssignment_3_126015 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSql_in_rule__MetaStatement__StatementAssignment_626046 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSqlFragment_in_rule__Sql__SqlsAssignment26077 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSqlValue_in_rule__SqlFragment__ValueAssignment_026108 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleColumn_in_rule__SqlFragment__ColAssignment_1_126139 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConstant_in_rule__SqlFragment__CnstAssignment_2_126170 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIdentifier_in_rule__SqlFragment__IdentAssignment_3_126201 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetaSql_in_rule__SqlFragment__MetaAssignment_4_126232 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDatabaseTable_in_rule__SqlFragment__DbtabAssignment_5_1_0_126263 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDatabaseColumn_in_rule__SqlFragment__DbcolAssignment_5_1_126294 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_126325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_2_126356 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_QUESTI_in_rule__MetaSql__TypeAssignment_1_026387 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlCond_in_rule__MetaSql__CondAssignment_1_126418 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_326449 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_4_126480 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_BAND_in_rule__MetaSql__TypeAssignment_2_026511 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_126542 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_2_126573 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_BOR_in_rule__MetaSql__TypeAssignment_3_026604 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_126635 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_2_126666 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_EQUALS_in_rule__MetaSql__TypeAssignment_4_026697 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MetaSql__FtypeAssignment_4_226728 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_4_326759 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_HASH_in_rule__MetaSql__TypeAssignment_5_026790 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOrdSql_in_rule__MetaSql__OrdAssignment_5_226821 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlFragment_in_rule__IfSql__SqlsAssignment26852 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlValue_in_rule__IfSqlFragment__ValueAssignment_026883 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleColumn_in_rule__IfSqlFragment__ColAssignment_1_126914 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConstant_in_rule__IfSqlFragment__CnstAssignment_2_126945 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIdentifier_in_rule__IfSqlFragment__IdentAssignment_3_126976 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDatabaseTable_in_rule__IfSqlFragment__DbtabAssignment_4_1_0_127007 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDatabaseColumn_in_rule__IfSqlFragment__DbcolAssignment_4_1_127038 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfMetaSql_in_rule__IfSqlFragment__MetaAssignment_5_127069 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_127100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_2_127131 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_QUESTI_in_rule__IfMetaSql__TypeAssignment_1_027162 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlCond_in_rule__IfMetaSql__CondAssignment_1_127193 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_327224 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_4_127255 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_BAND_in_rule__IfMetaSql__TypeAssignment_2_027286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_127317 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_2_127348 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_BOR_in_rule__IfMetaSql__TypeAssignment_3_027379 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_127410 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_2_127441 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool1Assignment_127472 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IfSqlCond__OperAlternatives_3_0_0_in_rule__IfSqlCond__OperAssignment_3_027503 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool2Assignment_3_227536 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_0_027567 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConstant_in_rule__IfSqlBool__CnstAssignment_0_227598 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_1_027629 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIdentifier_in_rule__IfSqlBool__IdentAssignment_1_227660 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_2_027691 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlCond_in_rule__IfSqlBool__CondAssignment_2_227722 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOrdSql2_in_rule__OrdSql__SqlsAssignment27753 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOrdSqlValue_in_rule__OrdSql2__ValueAssignment_027784 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConstant_in_rule__OrdSql2__CnstAssignment_1_127815 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIdentifier_in_rule__OrdSql2__IdentAssignment_2_127846 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDatabaseColumn_in_rule__OrdSql2__DbcolAssignment_3_127877 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Column__NameAlternatives_0_0_in_rule__Column__NameAssignment_027908 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__Column__TypeAssignment_1_127941 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Column__ValsAlternatives_1_2_1_0_in_rule__Column__ValsAssignment_1_2_127972 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__CaseAlternatives_0_0_in_rule__Constant__CaseAssignment_028005 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__NameAlternatives_1_0_in_rule__Constant__NameAssignment_128038 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__Constant__TypeAssignment_2_128071 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__ValsAlternatives_2_2_1_0_in_rule__Constant__ValsAssignment_2_2_128102 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__ModeAlternatives_0_0_in_rule__Identifier__ModeAssignment_028135 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__CaseAlternatives_1_0_in_rule__Identifier__CaseAssignment_128168 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__NameAlternatives_2_0_in_rule__Identifier__NameAssignment_228201 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__Identifier__TypeAssignment_3_128234 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__ValsAlternatives_3_2_1_0_in_rule__Identifier__ValsAssignment_3_2_128265 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DatabaseColumn__NameAlternatives_0_in_rule__DatabaseColumn__NameAssignment28298 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DatabaseTable__NameAlternatives_0_in_rule__DatabaseTable__NameAssignment28331 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingRule__NameAssignment_028364 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_MAPPING_TYPE_in_rule__MappingRule__TypeAssignment_228395 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingRule__FiltersAssignment_3_128426 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMapping_in_rule__MappingRule__MappingAssignment_628457 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_128488 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_2_128519 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__ColAlternatives_0_0_in_rule__MappingItem__ColAssignment_028550 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingItem__TypeAssignment_1_128583 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMappingColumn_in_rule__MappingItem__AttrAssignment_1_2_128614 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingColumn__NameAlternatives_0_0_in_rule__MappingColumn__NameAssignment_028645 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingColumn__ValsAlternatives_1_1_0_in_rule__MappingColumn__ValsAssignment_1_128678 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__OptionalFeature__NameAssignment_028711 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_OPTION_TYPE_in_rule__OptionalFeature__TypeAssignment_228742 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__OptionalFeature__FiltersAssignment_3_128773 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFeatureValue_in_rule__OptionalFeature__OptionAssignment_628804 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__SqlValue__Group_1__0_in_synpred335_InternalProcessorDsl15060 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__IfSqlValue__Group_1__0_in_synpred341_InternalProcessorDsl17789 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__OrdSqlValue__Group_1__0_in_synpred354_InternalProcessorDsl20777 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Column__Group_1__0_in_synpred355_InternalProcessorDsl20958 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Column__Group_1_2__0_in_synpred356_InternalProcessorDsl21141 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__Group_2__0_in_synpred358_InternalProcessorDsl21448 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__Group_2_2__0_in_synpred359_InternalProcessorDsl21633 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group_3__0_in_synpred362_InternalProcessorDsl22001 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__Group_3_2__0_in_synpred363_InternalProcessorDsl22188 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Column__TypeAssignment_1_1_in_synpred356_InternalProcessorDsl21084 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Column__Group_1_2__0_in_synpred357_InternalProcessorDsl21142 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__Group_2__0_in_synpred359_InternalProcessorDsl21449 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__TypeAssignment_2_1_in_synpred360_InternalProcessorDsl21577 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__Group_2_2__0_in_synpred361_InternalProcessorDsl21635 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group_3__0_in_synpred364_InternalProcessorDsl22003 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__TypeAssignment_3_1_in_synpred365_InternalProcessorDsl22133 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__Group_3_2__0_in_synpred366_InternalProcessorDsl22191 = new BitSet(new long[]{0x0000000000000002L});
 
 }

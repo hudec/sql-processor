@@ -121,15 +121,15 @@ OrdSqlValue: //~(COLON | STRING | PERCENT | RBRACE)
 
 Column:
     name=(IDENT|IDENT_DOT|NUMBER)
-    (=> CARET type=IDENT (=> CARET vals+=(IDENT|NUMBER))*)?;
+    (=> CARET (=> type=IDENT)? (=> CARET vals+=(IDENT|NUMBER))*)?;
 
 Constant:
     (case=(PLUS|MINUS))? name=(IDENT|IDENT_DOT)
-    (=> CARET type=IDENT (=> CARET vals+=(IDENT|NUMBER))*)?;
+    (=> CARET (=> type=IDENT)? (=> CARET vals+=(IDENT|NUMBER))*)?;
 
 Identifier:
     (mode=(EQUALS|LESS_THAN|MORE_THAN))? (case=(PLUS|MINUS))? name=(IDENT|IDENT_DOT|NUMBER)
-    (=> CARET type=IDENT (=> CARET vals+=(IDENT|NUMBER))*)?;
+    (=> CARET (=> type=IDENT)? (=> CARET vals+=(IDENT|NUMBER))*)?;
 
 DatabaseColumn:
     name=(IDENT|IDENT_DOT);

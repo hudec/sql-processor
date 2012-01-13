@@ -315,15 +315,12 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     ((name=IDENT | name=IDENT_DOT | name=NUMBER) (type=IDENT (vals+=IDENT | vals+=NUMBER)*)?)
+	 *     ((name=IDENT | name=IDENT_DOT | name=NUMBER) (type=IDENT? (vals+=IDENT | vals+=NUMBER)*)?)
 	 *
 	 * Features:
 	 *    name[0, 3]
 	 *    type[0, 1]
-	 *         MANDATORY_IF_SET vals
-	 *         MANDATORY_IF_SET vals
 	 *    vals[0, *]
-	 *         EXCLUDE_IF_UNSET type
 	 */
 	protected void sequence_Column(EObject context, Column semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -355,16 +352,13 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	
 	/**
 	 * Constraint:
-	 *     ((case=PLUS | case=MINUS)? (name=IDENT | name=IDENT_DOT) (type=IDENT (vals+=IDENT | vals+=NUMBER)*)?)
+	 *     ((case=PLUS | case=MINUS)? (name=IDENT | name=IDENT_DOT) (type=IDENT? (vals+=IDENT | vals+=NUMBER)*)?)
 	 *
 	 * Features:
 	 *    case[0, 2]
 	 *    name[0, 2]
 	 *    type[0, 1]
-	 *         MANDATORY_IF_SET vals
-	 *         MANDATORY_IF_SET vals
 	 *    vals[0, *]
-	 *         EXCLUDE_IF_UNSET type
 	 */
 	protected void sequence_Constant(EObject context, Constant semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -424,7 +418,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *         (mode=EQUALS | mode=LESS_THAN | mode=MORE_THAN)? 
 	 *         (case=PLUS | case=MINUS)? 
 	 *         (name=IDENT | name=IDENT_DOT | name=NUMBER) 
-	 *         (type=IDENT (vals+=IDENT | vals+=NUMBER)*)?
+	 *         (type=IDENT? (vals+=IDENT | vals+=NUMBER)*)?
 	 *     )
 	 *
 	 * Features:
@@ -432,10 +426,7 @@ public class AbstractProcessorDslSemanticSequencer extends AbstractSemanticSeque
 	 *    case[0, 2]
 	 *    name[0, 3]
 	 *    type[0, 1]
-	 *         MANDATORY_IF_SET vals
-	 *         MANDATORY_IF_SET vals
 	 *    vals[0, *]
-	 *         EXCLUDE_IF_UNSET type
 	 */
 	protected void sequence_Identifier(EObject context, Identifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

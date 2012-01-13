@@ -303,7 +303,7 @@ column returns[SqlMappingItem result]
 @init {$result = null;}
 	:	
 	(col=IDENT_DOT | col=IDENT | col=NUMBER) {if(!$meta::skip) $result = newColumn(col);}
-	(options {greedy=true;} : CARET type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); }
+	(options {greedy=true;} : CARET (options {greedy=true;} : type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); })?
 	 (options {greedy=true;} : CARET (value=IDENT | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, null); }
 	 )*
 	)?
@@ -313,7 +313,7 @@ constant returns [SqlMetaConst result]
 @init {$result = null;}
 	:	
 	(caseCnst=PLUS | caseCnst=MINUS)? (cnst=IDENT_DOT | cnst=IDENT) {if(!$meta::skip) $result = newConstant(cnst, $caseCnst);}
-	(options {greedy=true;} : CARET type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); }
+	(options {greedy=true;} : CARET (options {greedy=true;} : type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); })?
 	 (options {greedy=true;} : CARET (value=IDENT | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, null); }
 	 )*
 	)?
@@ -323,7 +323,7 @@ identifier returns [SqlMetaIdent result]
 @init {$result = null;}
 	:	
 	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)? (ident=IDENT_DOT | ident=IDENT | ident=NUMBER) {if(!$meta::skip) $result = newIdent($ident, $modeIdent, $caseIdent);}
-	(options {greedy=true;} : CARET type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); }
+	(options {greedy=true;} : CARET (options {greedy=true;} : type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); })?
 	 (options {greedy=true;} : CARET (value=IDENT | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, null); }
 	 )*
 	)?

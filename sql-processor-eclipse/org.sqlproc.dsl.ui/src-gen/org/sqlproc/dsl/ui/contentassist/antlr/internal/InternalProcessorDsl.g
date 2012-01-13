@@ -9741,7 +9741,7 @@ rule__Column__Group_1__1__Impl
 :
 (
 { before(grammarAccess.getColumnAccess().getTypeAssignment_1_1()); }
-(rule__Column__TypeAssignment_1_1)
+(rule__Column__TypeAssignment_1_1)?
 { after(grammarAccess.getColumnAccess().getTypeAssignment_1_1()); }
 )
 
@@ -9986,7 +9986,7 @@ rule__Constant__Group_2__1__Impl
 :
 (
 { before(grammarAccess.getConstantAccess().getTypeAssignment_2_1()); }
-(rule__Constant__TypeAssignment_2_1)
+(rule__Constant__TypeAssignment_2_1)?
 { after(grammarAccess.getConstantAccess().getTypeAssignment_2_1()); }
 )
 
@@ -10262,7 +10262,7 @@ rule__Identifier__Group_3__1__Impl
 :
 (
 { before(grammarAccess.getIdentifierAccess().getTypeAssignment_3_1()); }
-(rule__Identifier__TypeAssignment_3_1)
+(rule__Identifier__TypeAssignment_3_1)?
 { after(grammarAccess.getIdentifierAccess().getTypeAssignment_3_1()); }
 )
 

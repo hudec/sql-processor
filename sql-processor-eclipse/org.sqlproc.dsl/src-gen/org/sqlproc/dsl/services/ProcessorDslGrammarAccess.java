@@ -2767,10 +2767,10 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValsNUMBERTerminalRuleCall_1_2_1_0_1 = (RuleCall)cValsAlternatives_1_2_1_0.eContents().get(1);
 		
 		//Column:
-		//	name=(IDENT | IDENT_DOT | NUMBER) (CARET type=IDENT (CARET vals+=(IDENT | NUMBER))*)?;
+		//	name=(IDENT | IDENT_DOT | NUMBER) (CARET => type=IDENT? (CARET vals+=(IDENT | NUMBER))*)?;
 		public ParserRule getRule() { return rule; }
 
-		//name=(IDENT | IDENT_DOT | NUMBER) (CARET type=IDENT (CARET vals+=(IDENT | NUMBER))*)?
+		//name=(IDENT | IDENT_DOT | NUMBER) (CARET => type=IDENT? (CARET vals+=(IDENT | NUMBER))*)?
 		public Group getGroup() { return cGroup; }
 
 		//name=(IDENT | IDENT_DOT | NUMBER)
@@ -2788,13 +2788,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//NUMBER
 		public RuleCall getNameNUMBERTerminalRuleCall_0_0_2() { return cNameNUMBERTerminalRuleCall_0_0_2; }
 
-		//(=> CARET type=IDENT (CARET vals+=(IDENT | NUMBER))*)?
+		//(=> CARET => type=IDENT? (CARET vals+=(IDENT | NUMBER))*)?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//=> CARET
 		public RuleCall getCARETTerminalRuleCall_1_0() { return cCARETTerminalRuleCall_1_0; }
 
-		//type=IDENT
+		//=> type=IDENT?
 		public Assignment getTypeAssignment_1_1() { return cTypeAssignment_1_1; }
 
 		//IDENT
@@ -2842,10 +2842,10 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValsNUMBERTerminalRuleCall_2_2_1_0_1 = (RuleCall)cValsAlternatives_2_2_1_0.eContents().get(1);
 		
 		//Constant:
-		//	case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT) (CARET type=IDENT (CARET vals+=(IDENT | NUMBER))*)?;
+		//	case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT) (CARET => type=IDENT? (CARET vals+=(IDENT | NUMBER))*)?;
 		public ParserRule getRule() { return rule; }
 
-		//case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT) (CARET type=IDENT (CARET vals+=(IDENT | NUMBER))*)?
+		//case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT) (CARET => type=IDENT? (CARET vals+=(IDENT | NUMBER))*)?
 		public Group getGroup() { return cGroup; }
 
 		//case=(PLUS | MINUS)?
@@ -2872,13 +2872,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT_DOT
 		public RuleCall getNameIDENT_DOTTerminalRuleCall_1_0_1() { return cNameIDENT_DOTTerminalRuleCall_1_0_1; }
 
-		//(=> CARET type=IDENT (CARET vals+=(IDENT | NUMBER))*)?
+		//(=> CARET => type=IDENT? (CARET vals+=(IDENT | NUMBER))*)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//=> CARET
 		public RuleCall getCARETTerminalRuleCall_2_0() { return cCARETTerminalRuleCall_2_0; }
 
-		//type=IDENT
+		//=> type=IDENT?
 		public Assignment getTypeAssignment_2_1() { return cTypeAssignment_2_1; }
 
 		//IDENT
@@ -2932,12 +2932,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValsNUMBERTerminalRuleCall_3_2_1_0_1 = (RuleCall)cValsAlternatives_3_2_1_0.eContents().get(1);
 		
 		//Identifier:
-		//	mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT | NUMBER) (CARET type=IDENT (CARET
-		//	vals+=(IDENT | NUMBER))*)?;
+		//	mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT | NUMBER) (CARET => type=IDENT?
+		//	(CARET vals+=(IDENT | NUMBER))*)?;
 		public ParserRule getRule() { return rule; }
 
-		//mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT | NUMBER) (CARET type=IDENT (CARET
-		//vals+=(IDENT | NUMBER))*)?
+		//mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT | NUMBER) (CARET => type=IDENT?
+		//(CARET vals+=(IDENT | NUMBER))*)?
 		public Group getGroup() { return cGroup; }
 
 		//mode=(EQUALS | LESS_THAN | MORE_THAN)?
@@ -2982,13 +2982,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//NUMBER
 		public RuleCall getNameNUMBERTerminalRuleCall_2_0_2() { return cNameNUMBERTerminalRuleCall_2_0_2; }
 
-		//(=> CARET type=IDENT (CARET vals+=(IDENT | NUMBER))*)?
+		//(=> CARET => type=IDENT? (CARET vals+=(IDENT | NUMBER))*)?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//=> CARET
 		public RuleCall getCARETTerminalRuleCall_3_0() { return cCARETTerminalRuleCall_3_0; }
 
-		//type=IDENT
+		//=> type=IDENT?
 		public Assignment getTypeAssignment_3_1() { return cTypeAssignment_3_1; }
 
 		//IDENT
@@ -3862,7 +3862,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Column:
-	//	name=(IDENT | IDENT_DOT | NUMBER) (CARET type=IDENT (CARET vals+=(IDENT | NUMBER))*)?;
+	//	name=(IDENT | IDENT_DOT | NUMBER) (CARET => type=IDENT? (CARET vals+=(IDENT | NUMBER))*)?;
 	public ColumnElements getColumnAccess() {
 		return (pColumn != null) ? pColumn : (pColumn = new ColumnElements());
 	}
@@ -3872,7 +3872,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Constant:
-	//	case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT) (CARET type=IDENT (CARET vals+=(IDENT | NUMBER))*)?;
+	//	case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT) (CARET => type=IDENT? (CARET vals+=(IDENT | NUMBER))*)?;
 	public ConstantElements getConstantAccess() {
 		return (pConstant != null) ? pConstant : (pConstant = new ConstantElements());
 	}
@@ -3882,8 +3882,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Identifier:
-	//	mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT | NUMBER) (CARET type=IDENT (CARET
-	//	vals+=(IDENT | NUMBER))*)?;
+	//	mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT | NUMBER) (CARET => type=IDENT?
+	//	(CARET vals+=(IDENT | NUMBER))*)?;
 	public IdentifierElements getIdentifierAccess() {
 		return (pIdentifier != null) ? pIdentifier : (pIdentifier = new IdentifierElements());
 	}

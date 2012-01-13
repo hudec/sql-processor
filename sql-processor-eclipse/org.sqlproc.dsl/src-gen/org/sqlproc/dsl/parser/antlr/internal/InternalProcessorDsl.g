@@ -4791,7 +4791,12 @@ ruleColumn returns [EObject current=null]
     { 
     newLeafNode(this_CARET_1, grammarAccess.getColumnAccess().getCARETTerminalRuleCall_1_0()); 
     }
-)(
+)((
+(
+RULE_IDENT
+
+)
+)=>
 (
 		lv_type_2_0=RULE_IDENT
 		{
@@ -4809,7 +4814,7 @@ ruleColumn returns [EObject current=null]
 	    }
 
 )
-)(((	RULE_CARET)=>this_CARET_3=RULE_CARET
+)?(((	RULE_CARET)=>this_CARET_3=RULE_CARET
     { 
     newLeafNode(this_CARET_3, grammarAccess.getColumnAccess().getCARETTerminalRuleCall_1_2_0()); 
     }
@@ -4946,7 +4951,12 @@ ruleConstant returns [EObject current=null]
     { 
     newLeafNode(this_CARET_2, grammarAccess.getConstantAccess().getCARETTerminalRuleCall_2_0()); 
     }
-)(
+)((
+(
+RULE_IDENT
+
+)
+)=>
 (
 		lv_type_3_0=RULE_IDENT
 		{
@@ -4964,7 +4974,7 @@ ruleConstant returns [EObject current=null]
 	    }
 
 )
-)(((	RULE_CARET)=>this_CARET_4=RULE_CARET
+)?(((	RULE_CARET)=>this_CARET_4=RULE_CARET
     { 
     newLeafNode(this_CARET_4, grammarAccess.getConstantAccess().getCARETTerminalRuleCall_2_2_0()); 
     }
@@ -5167,7 +5177,12 @@ ruleIdentifier returns [EObject current=null]
     { 
     newLeafNode(this_CARET_3, grammarAccess.getIdentifierAccess().getCARETTerminalRuleCall_3_0()); 
     }
-)(
+)((
+(
+RULE_IDENT
+
+)
+)=>
 (
 		lv_type_4_0=RULE_IDENT
 		{
@@ -5185,7 +5200,7 @@ ruleIdentifier returns [EObject current=null]
 	    }
 
 )
-)(((	RULE_CARET)=>this_CARET_5=RULE_CARET
+)?(((	RULE_CARET)=>this_CARET_5=RULE_CARET
     { 
     newLeafNode(this_CARET_5, grammarAccess.getIdentifierAccess().getCARETTerminalRuleCall_3_2_0()); 
     }
