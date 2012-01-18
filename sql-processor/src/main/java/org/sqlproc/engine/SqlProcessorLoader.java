@@ -14,6 +14,7 @@ import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
 import org.sqlproc.engine.impl.SqlProcessor;
 import org.sqlproc.engine.impl.SqlUtils;
+import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlComposedTypeFactory;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlTypeFactory;
@@ -107,6 +108,10 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     private SqlTypeFactory composedTypeFactory;
     /**
+     * The factory for the SQL Processor plugins. This is the basic facility to alter the SQL Processor processing.
+     */
+    private SqlPluginFactory pluginFactory;
+    /**
      * The collection of named SQL Engines (the primary SQL Processor class) instances.
      */
     private Map<String, SqlEngine> engines = new HashMap<String, SqlEngine>();
@@ -142,11 +147,14 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      *            the String representation of the META SQL queries/statements/output mappings
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      * @throws SqlEngineException
      *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
      */
-    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory) throws SqlEngineException {
-        this(sbStatements, typeFactory, null, null, null, (String[]) null);
+    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory)
+            throws SqlEngineException {
+        this(sbStatements, typeFactory, pluginFactory, null, null, null, (String[]) null);
     }
 
     /**
@@ -160,14 +168,16 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      *            the String representation of the META SQL queries/statements/output mappings
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      * @param filter
      *            the properties name prefix to filter the META SQL statements, mapping rules and optional features
      * @throws SqlEngineException
      *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
      */
-    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, String filter)
-            throws SqlEngineException {
-        this(sbStatements, typeFactory, filter, null, null, (String[]) null);
+    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
+            String filter) throws SqlEngineException {
+        this(sbStatements, typeFactory, pluginFactory, filter, null, null, (String[]) null);
     }
 
     /**
@@ -183,6 +193,8 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      *            the String representation of the META SQL queries/statements/output mappings
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      * @param filter
      *            the properties name prefix to filter the META SQL statements, mapping rules and optional features
      * @param monitorFactory
@@ -190,9 +202,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * @throws SqlEngineException
      *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
      */
-    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, String filter,
-            SqlMonitorFactory monitorFactory) throws SqlEngineException {
-        this(sbStatements, typeFactory, filter, monitorFactory, null, (String[]) null);
+    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
+            String filter, SqlMonitorFactory monitorFactory) throws SqlEngineException {
+        this(sbStatements, typeFactory, pluginFactory, filter, monitorFactory, null, (String[]) null);
     }
 
     /**
@@ -208,6 +220,8 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      *            the String representation of the META SQL queries/statements/output mappings
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      * @param filter
      *            the properties name prefix to filter the META SQL statements, mapping rules and optional features
      * @param monitorFactory
@@ -218,9 +232,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * @throws SqlEngineException
      *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
      */
-    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, String filter,
-            SqlMonitorFactory monitorFactory, String... onlyStatements) {
-        this(sbStatements, typeFactory, filter, monitorFactory, null, onlyStatements);
+    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
+            String filter, SqlMonitorFactory monitorFactory, String... onlyStatements) {
+        this(sbStatements, typeFactory, pluginFactory, filter, monitorFactory, null, onlyStatements);
     }
 
     /**
@@ -236,6 +250,8 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      *            the String representation of the META SQL queries/statements/output mappings
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      * @param filter
      *            the properties name prefix to filter the META SQL statements, mapping rules and optional features
      * @param monitorFactory
@@ -248,13 +264,13 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * @throws SqlEngineException
      *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
      */
-    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, String filter,
-            SqlMonitorFactory monitorFactory, List<SqlInternalType> customTypes, String... onlyStatements)
-            throws SqlEngineException {
+    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
+            String filter, SqlMonitorFactory monitorFactory, List<SqlInternalType> customTypes,
+            String... onlyStatements) throws SqlEngineException {
         if (logger.isTraceEnabled()) {
             logger.trace(">> SqlProcessorLoader, sbStatements=" + sbStatements + ", typeFactory=" + typeFactory
-                    + ", monitorFactory=" + monitorFactory + ", filter=" + filter + ", customTypes=" + customTypes
-                    + ", onlyStatements=" + onlyStatements);
+                    + ", pluginFactory=" + pluginFactory + ", monitorFactory=" + monitorFactory + ", filter=" + filter
+                    + ", customTypes=" + customTypes + ", onlyStatements=" + onlyStatements);
         }
 
         if (sbStatements == null)
@@ -263,6 +279,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             throw new SqlEngineException("Missing the META types factory");
 
         this.composedTypeFactory = new SqlComposedTypeFactory(typeFactory, customTypes);
+        this.pluginFactory = pluginFactory;
 
         try {
             Set<String> setSelectQueries = (onlyStatements != null && onlyStatements.length > 0) ? new HashSet<String>(
@@ -316,7 +333,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                 SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
                 if (stmt != null) {
                     engines.put(name, new SqlQueryEngine(name, stmt, mapping, monitor, features,
-                            this.composedTypeFactory));
+                            this.composedTypeFactory, this.pluginFactory));
                 }
             }
 
@@ -329,7 +346,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                 SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
                 if (stmt != null) {
                     engines.put(name, new SqlCrudEngine(name, stmt, mapping, monitor, features,
-                            this.composedTypeFactory));
+                            this.composedTypeFactory, this.pluginFactory));
                 }
             }
 
@@ -344,7 +361,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                 SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
                 if (stmt != null) {
                     engines.put(name, new SqlProcedureEngine(name, stmt, mapping, monitor, features,
-                            this.composedTypeFactory));
+                            this.composedTypeFactory, this.pluginFactory));
                 }
             }
 

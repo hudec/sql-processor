@@ -10,6 +10,7 @@ import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
 import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.SqlUtils;
+import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -85,12 +86,16 @@ public class SqlCrudEngine extends SqlEngine {
      *            the META SQL CRUD statement
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      * @throws SqlEngineException
      *             in the case the provided statements are not compliant with the ANTLR grammar
      */
-    public SqlCrudEngine(String name, String statement, SqlTypeFactory typeFactory) throws SqlEngineException {
+    public SqlCrudEngine(String name, String statement, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory)
+            throws SqlEngineException {
 
-        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), null, null, null, typeFactory);
+        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), null, null, null, typeFactory,
+                pluginFactory);
     }
 
     /**
@@ -111,13 +116,16 @@ public class SqlCrudEngine extends SqlEngine {
      *            the optional SQL Processor features
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      * @throws SqlEngineException
      *             in the case the provided statements are not compliant with the ANTLR grammar
      */
     public SqlCrudEngine(String name, String statement, SqlMonitor monitor, Map<String, Object> features,
-            SqlTypeFactory typeFactory) throws SqlEngineException {
+            SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) throws SqlEngineException {
 
-        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), null, monitor, features, typeFactory);
+        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), null, monitor, features, typeFactory,
+                pluginFactory);
     }
 
     /**
@@ -132,10 +140,13 @@ public class SqlCrudEngine extends SqlEngine {
      *            the pre-compiled META SQL CRUD statement
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      */
-    public SqlCrudEngine(String name, SqlMetaStatement statement, SqlTypeFactory typeFactory) {
+    public SqlCrudEngine(String name, SqlMetaStatement statement, SqlTypeFactory typeFactory,
+            SqlPluginFactory pluginFactory) {
 
-        super(name, statement, null, null, null, typeFactory);
+        super(name, statement, null, null, null, typeFactory, pluginFactory);
     }
 
     /**
@@ -156,10 +167,12 @@ public class SqlCrudEngine extends SqlEngine {
      *            the optional SQL Processor features
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      */
     public SqlCrudEngine(String name, SqlMetaStatement statement, SqlMonitor monitor, Map<String, Object> features,
-            SqlTypeFactory typeFactory) {
-        super(name, statement, null, monitor, features, typeFactory);
+            SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
+        super(name, statement, null, monitor, features, typeFactory, pluginFactory);
     }
 
     /**
@@ -182,10 +195,12 @@ public class SqlCrudEngine extends SqlEngine {
      *            the optional SQL Processor features
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      */
     public SqlCrudEngine(String name, SqlMetaStatement statement, SqlMappingRule mapping, SqlMonitor monitor,
-            Map<String, Object> features, SqlTypeFactory typeFactory) {
-        super(name, statement, mapping, monitor, features, typeFactory);
+            Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
+        super(name, statement, mapping, monitor, features, typeFactory, pluginFactory);
     }
 
     /**
@@ -248,7 +263,7 @@ public class SqlCrudEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CREATE,
-                            dynamicInputValues, staticInputValues, null, features, typeFactory);
+                            dynamicInputValues, staticInputValues, null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (maxTimeout > 0)
                         query.setTimeout(maxTimeout);
@@ -361,7 +376,7 @@ public class SqlCrudEngine extends SqlEngine {
             result = monitor.run(new SqlMonitor.Runner() {
                 public E run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.RETRIEVE,
-                            dynamicInputValues, staticInputValues, null, features, typeFactory);
+                            dynamicInputValues, staticInputValues, null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (maxTimeout > 0)
                         query.setTimeout(maxTimeout);
@@ -478,7 +493,7 @@ public class SqlCrudEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.UPDATE,
-                            dynamicInputValues, staticInputValues, null, features, typeFactory);
+                            dynamicInputValues, staticInputValues, null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (maxTimeout > 0)
                         query.setTimeout(maxTimeout);
@@ -555,7 +570,7 @@ public class SqlCrudEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.DELETE,
-                            dynamicInputValues, staticInputValues, null, features, typeFactory);
+                            dynamicInputValues, staticInputValues, null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (maxTimeout > 0)
                         query.setTimeout(maxTimeout);
@@ -646,7 +661,7 @@ public class SqlCrudEngine extends SqlEngine {
 
                 public String run() {
                     SqlProcessResult processResult = statement.process(statementType, dynamicInputValues,
-                            staticInputValues, null, features, typeFactory);
+                            staticInputValues, null, features, typeFactory, pluginFactory);
                     return processResult.getSql().toString();
                 }
             }, String.class);

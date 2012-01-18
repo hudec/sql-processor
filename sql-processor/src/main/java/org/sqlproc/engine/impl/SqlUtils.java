@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,9 +19,6 @@ import org.sqlproc.engine.SqlFeature;
  */
 public class SqlUtils {
 
-    static final String SUPPVAL_NOTNULL = "notnull";
-    static final String SUPPVAL_ANY = "any";
-    static final String SUPPVAL_NULL = "null";
     static final String SUPPVAL_SEQUENCE = "seq";
     static final String SUPPVAL_IDENTITY_SELECT = "idsel";
     static final String SUPPVAL_ID = "id";
@@ -76,87 +72,6 @@ public class SqlUtils {
             }
         }
         return null;
-    }
-
-    // the emptiness of input values
-
-    public static boolean isEmpty(Object obj, SqlType sqlType, boolean inSqlSetOrInsert)
-            throws IllegalArgumentException {
-        String value = (sqlType != null && sqlType.getValue() != null) ? sqlType.getValue().toLowerCase() : null;
-
-        if (SUPPVAL_NOTNULL.equalsIgnoreCase(value)) {
-            if (obj == null)
-                throw new IllegalArgumentException(SUPPVAL_NOTNULL);
-        }
-
-        if (inSqlSetOrInsert) {
-            if (obj == null)
-                return true;
-        }
-
-        if (SUPPVAL_ANY.equalsIgnoreCase(value)) {
-            return true;
-        } else if (SUPPVAL_NULL.equalsIgnoreCase(value)) {
-            if (obj == null)
-                return true;
-            else
-                return false;
-        } else {
-            if (obj == null) {
-                return false;
-            } else if (obj instanceof Collection<?>) {
-                if (((Collection<?>) obj).isEmpty())
-                    return false;
-            } else if (obj.toString().length() <= 0) {
-                return false;
-            }
-            return true;
-        }
-    }
-
-    // the true of boolean expressions
-
-    public static boolean isTrue(Object obj, SqlType sqlType) {
-        if (sqlType == null || sqlType.getValue() == null) {
-            if (obj != null) {
-                if (obj instanceof Boolean) {
-                    return ((Boolean) obj).booleanValue();
-                } else if (obj instanceof String) {
-                    String str = ((String) obj).trim();
-                    return (str.length() > 0 && !str.equalsIgnoreCase("false"));
-                } else if (obj instanceof Number) {
-                    return ((Number) obj).longValue() > 0;
-                } else if (obj.getClass().isEnum()) {
-                    return true;
-                } else {
-                    return true; // not null
-                }
-            }
-            return false;
-        } else {
-            if (obj == null) {
-                if (sqlType.getValue().toLowerCase().equalsIgnoreCase(SUPPVAL_NULL))
-                    return true;
-                else
-                    return false;
-            } else {
-                if (obj.getClass().isEnum()) {
-                    if (obj.toString().equals(sqlType.getValue())) {
-                        return true;
-                    } else if (sqlType.getMetaType() == SqlProcessContext.getTypeFactory().getEnumStringType()) {
-                        return sqlType.getValue().equals(getEnumToValue(obj));
-                    } else if (sqlType.getMetaType() == SqlProcessContext.getTypeFactory().getEnumIntegerType()) {
-                        return sqlType.getValue().equals(getEnumToValue(obj).toString());
-                    } else
-                        return false;
-                } else {
-                    if (obj.toString().equals(sqlType.getValue()))
-                        return true;
-                    else
-                        return false;
-                }
-            }
-        }
     }
 
     // miscs

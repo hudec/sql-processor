@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.SqlOrder;
+import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -188,12 +189,15 @@ public class SqlMetaStatement implements SqlMetaElement {
      *            the optional SQL Processor features
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      * @return the crate for ANSI SQL and other attributes, which control the SQL statement itself
      */
     public SqlProcessResult process(Type sqlStatementType, Object dynamicInputValues, Object staticInputValues,
-            List<SqlOrder> order, Map<String, Object> features, SqlTypeFactory typeFactory) {
+            List<SqlOrder> order, Map<String, Object> features, SqlTypeFactory typeFactory,
+            SqlPluginFactory pluginFactory) {
         SqlProcessContext ctx = new SqlProcessContext(sqlStatementType, dynamicInputValues, staticInputValues, order,
-                features, typeFactory);
+                features, typeFactory, pluginFactory);
         return this.process(ctx);
     }
 

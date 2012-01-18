@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
+import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
@@ -108,6 +109,10 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     private SqlTypeFactory typeFactory;
     /**
+     * The factory for the SQL Processor plugins.
+     */
+    protected SqlPluginFactory pluginFactory;
+    /**
      * The name of the filter to filter the META SQL statements, mapping rules and optional features.
      */
     private String filter;
@@ -159,8 +164,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                         if (jdbc)
                             metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
 
-                        processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, filter, monitorFactory,
-                                customTypes, onlyStatements);
+                        processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory, filter,
+                                monitorFactory, customTypes, onlyStatements);
                     } else {
                         Properties metaProperties = metaProps;
                         if (metaProperties == null) {
@@ -173,8 +178,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                         }
                         if (jdbc)
                             metaProperties.setProperty("SET_" + SqlFeature.JDBC, "true");
-                        loader = new SqlEngineLoader(metaProperties, typeFactory, filter, monitorFactory, customTypes,
-                                onlyStatements);
+                        loader = new SqlEngineLoader(metaProperties, typeFactory, pluginFactory, filter,
+                                monitorFactory, customTypes, onlyStatements);
                         metaProps = metaProperties;
                     }
                 }
@@ -338,6 +343,25 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     public void setTypeFactory(SqlTypeFactory typeFactory) {
         this.typeFactory = typeFactory;
+    }
+
+    /**
+     * Returns the factory for the SQL Processor plugins.
+     * 
+     * @return the factory for the SQL Processor plugins
+     */
+    public SqlPluginFactory getPluginFactory() {
+        return pluginFactory;
+    }
+
+    /**
+     * Sets the factory for the SQL Processor plugins.
+     * 
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
+     */
+    public void setPluginFactory(SqlPluginFactory pluginFactory) {
+        this.pluginFactory = pluginFactory;
     }
 
     /**

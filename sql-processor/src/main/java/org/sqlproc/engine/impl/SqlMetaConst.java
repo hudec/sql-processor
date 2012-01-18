@@ -203,7 +203,11 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
         }
 
         try {
-            result.add(SqlUtils.isEmpty(obj, sqlType, ctx.inSqlSetOrInsert));
+            result.add(SqlProcessContext
+                    .getPluginFactory()
+                    .getIsEmptyPlugin()
+                    .isEmpty(obj, (sqlType == null) ? null : sqlType.getMetaType(),
+                            (sqlType == null) ? null : sqlType.getValue(), ctx.inSqlSetOrInsert));
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
         }
@@ -303,7 +307,11 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
             }
         }
 
-        boolean result = SqlUtils.isTrue(obj, sqlType);
+        boolean result = SqlProcessContext
+                .getPluginFactory()
+                .getIsTruePlugin()
+                .isTrue(obj, (sqlType == null) ? null : sqlType.getMetaType(),
+                        (sqlType == null) ? null : sqlType.getValue());
         return (this.not ? !result : result);
     }
 }

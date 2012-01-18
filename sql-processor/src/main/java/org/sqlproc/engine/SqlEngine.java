@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.impl.SqlEmptyMonitor;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
+import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -18,7 +19,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlEngine {
+public abstract class SqlEngine {
 
     /**
      * The internal slf4j logger.
@@ -60,6 +61,11 @@ public class SqlEngine {
     protected SqlTypeFactory typeFactory;
 
     /**
+     * The factory for the SQL Processor plugins. This is the basic facility to alter the SQL Processor processing.
+     */
+    protected SqlPluginFactory pluginFactory;
+
+    /**
      * Creates a new instance of the SqlEngine from one META SQL statement and one SQL Mapping rule instance. Both
      * parameters are already pre-compiled instances using the ANTLR parsers. This is the recommended usage for the
      * runtime performance optimization. This constructor is devoted to be used from the {@link SqlProcessorLoader} or
@@ -79,15 +85,18 @@ public class SqlEngine {
      *            the optional SQL Processor features
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      */
     public SqlEngine(String name, SqlMetaStatement statement, SqlMappingRule mapping, SqlMonitor monitor,
-            Map<String, Object> features, SqlTypeFactory typeFactory) {
+            Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
         this.name = name;
         this.statement = statement;
         this.mapping = mapping;
         this.features = (features != null) ? features : new HashMap<String, Object>();
         this.monitor = (monitor != null) ? monitor : new SqlEmptyMonitor();
         this.typeFactory = typeFactory;
+        this.pluginFactory = pluginFactory;
     }
 
 }
