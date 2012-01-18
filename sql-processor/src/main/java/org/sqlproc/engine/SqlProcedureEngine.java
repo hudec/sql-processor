@@ -10,6 +10,7 @@ import org.sqlproc.engine.impl.SqlMappingResult;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
 import org.sqlproc.engine.impl.SqlProcessResult;
+import org.sqlproc.engine.plugins.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -155,14 +156,16 @@ public class SqlProcedureEngine extends SqlEngine {
      *            the SQL mapping rule
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      * @throws SqlEngineException
      *             in the case the provided statements are not compliant with the ANTLR grammar
      */
-    public SqlProcedureEngine(String name, String statement, String mapping, SqlTypeFactory typeFactory)
-            throws SqlEngineException {
+    public SqlProcedureEngine(String name, String statement, String mapping, SqlTypeFactory typeFactory,
+            SqlPluginFactory pluginFactory) throws SqlEngineException {
 
         super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), (mapping != null) ? SqlMappingRule
-                .getInstance(name, mapping, typeFactory) : null, null, null, typeFactory);
+                .getInstance(name, mapping, typeFactory) : null, null, null, typeFactory, pluginFactory);
     }
 
     /**
@@ -186,14 +189,17 @@ public class SqlProcedureEngine extends SqlEngine {
      *            the optional SQL Processor features
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      * @throws SqlEngineException
      *             mainly in the case the provided statements are not compliant with the ANTLR grammar
      */
     public SqlProcedureEngine(String name, String statement, String mapping, SqlMonitor monitor,
-            Map<String, Object> features, SqlTypeFactory typeFactory) throws SqlEngineException {
+            Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory)
+            throws SqlEngineException {
 
         super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), (mapping != null) ? SqlMappingRule
-                .getInstance(name, mapping, typeFactory) : null, monitor, features, typeFactory);
+                .getInstance(name, mapping, typeFactory) : null, monitor, features, typeFactory, pluginFactory);
     }
 
     /**
@@ -211,11 +217,13 @@ public class SqlProcedureEngine extends SqlEngine {
      *            the pre-compiled SQL mapping rule
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      */
     public SqlProcedureEngine(String name, SqlMetaStatement statement, SqlMappingRule mapping,
-            SqlTypeFactory typeFactory) {
+            SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
 
-        super(name, statement, mapping, null, null, typeFactory);
+        super(name, statement, mapping, null, null, typeFactory, pluginFactory);
     }
 
     /**
@@ -238,10 +246,12 @@ public class SqlProcedureEngine extends SqlEngine {
      *            the optional SQL Processor features
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      */
     public SqlProcedureEngine(String name, SqlMetaStatement statement, SqlMappingRule mapping, SqlMonitor monitor,
-            Map<String, Object> features, SqlTypeFactory typeFactory) {
-        super(name, statement, mapping, monitor, features, typeFactory);
+            Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
+        super(name, statement, mapping, monitor, features, typeFactory, pluginFactory);
     }
 
     /**
@@ -303,7 +313,7 @@ public class SqlProcedureEngine extends SqlEngine {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            staticInputValues, null, features, typeFactory);
+                            staticInputValues, null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (maxTimeout > 0)
                         query.setTimeout(maxTimeout);
@@ -392,7 +402,7 @@ public class SqlProcedureEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            staticInputValues, null, features, typeFactory);
+                            staticInputValues, null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (maxTimeout > 0)
                         query.setTimeout(maxTimeout);
@@ -462,7 +472,7 @@ public class SqlProcedureEngine extends SqlEngine {
             result = monitor.run(new SqlMonitor.Runner() {
                 public Object run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            staticInputValues, null, features, typeFactory);
+                            staticInputValues, null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (maxTimeout > 0)
                         query.setTimeout(maxTimeout);
@@ -532,7 +542,7 @@ public class SqlProcedureEngine extends SqlEngine {
 
                 public String run() {
                     SqlProcessResult processResult = statement.process(statementType, dynamicInputValues,
-                            staticInputValues, null, features, typeFactory);
+                            staticInputValues, null, features, typeFactory, pluginFactory);
                     return processResult.getSql().toString();
                 }
             }, String.class);

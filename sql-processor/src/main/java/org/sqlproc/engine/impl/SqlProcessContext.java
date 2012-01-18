@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.sqlproc.engine.SqlOrder;
+import org.sqlproc.engine.plugins.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -50,6 +51,12 @@ public class SqlProcessContext {
     private static final ThreadLocal<SqlTypeFactory> currentTypeFactory = new ThreadLocal<SqlTypeFactory>();
 
     /**
+     * The thread local holder for the factory for the SQL Processor plugins. This is the basic facility to alter the
+     * SQL Processor processing.
+     */
+    private static final ThreadLocal<SqlPluginFactory> currentPluginFactory = new ThreadLocal<SqlPluginFactory>();
+
+    /**
      * Creates a new instance.
      * 
      * @param sqlStatementType
@@ -64,15 +71,19 @@ public class SqlProcessContext {
      *            the optional features
      * @param typeFactory
      *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
      */
     SqlProcessContext(SqlMetaStatement.Type sqlStatementType, Object dynamicInputValues, Object staticInputValues,
-            List<SqlOrder> order, Map<String, Object> features, SqlTypeFactory typeFactory) {
+            List<SqlOrder> order, Map<String, Object> features, SqlTypeFactory typeFactory,
+            SqlPluginFactory pluginFactory) {
         this.sqlStatementType = sqlStatementType;
         this.dynamicInputValues = dynamicInputValues;
         this.staticInputValues = staticInputValues;
         this.order = order;
         setFeatures(features);
         setTypeFactory(typeFactory);
+        setPluginFactory(pluginFactory);
     }
 
     public SqlMetaStatement.Type getSqlStatementType() {
@@ -229,7 +240,7 @@ public class SqlProcessContext {
     static void setTypeFactory(final SqlTypeFactory typeFactory) {
         // if (currentTypeFactory.get() != null)
         // return;
-        if (currentTypeFactory == null) {
+        if (typeFactory == null) {
             throw new IllegalArgumentException("Argument typeFactory can not be null");
         }
         currentTypeFactory.set(typeFactory);
@@ -240,5 +251,41 @@ public class SqlProcessContext {
      */
     static void nullTypeFactory() {
         currentTypeFactory.set(null);
+    }
+
+    /**
+     * Returns the factory for the current thread responsible for the SQL Processor plugins.
+     * 
+     * @return the current thread's factory for the SQL Processor plugins
+     */
+    public static SqlPluginFactory getPluginFactory() {
+        final SqlPluginFactory pluginFactory = currentPluginFactory.get();
+        if (pluginFactory == null) {
+            throw new RuntimeException("There is no pluginFactory attached to current thread "
+                    + Thread.currentThread().getName());
+        }
+        return pluginFactory;
+    }
+
+    /**
+     * THIS METHOD IS NOT PART OF THE SQL PROCESSOR PUBLIC API. DO NOT USE IT.
+     * 
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
+     */
+    static void setPluginFactory(final SqlPluginFactory pluginFactory) {
+        // if (currentPluginFactory.get() != null)
+        // return;
+        if (pluginFactory == null) {
+            throw new IllegalArgumentException("Argument pluginFactory can not be null");
+        }
+        currentPluginFactory.set(pluginFactory);
+    }
+
+    /**
+     * THIS METHOD IS NOT PART OF THE SQL PROCESSOR PUBLIC API. DO NOT USE IT. IT'S USED ONLY FROM JUNIT TESTS.
+     */
+    static void nullPluginFactory() {
+        currentPluginFactory.set(null);
     }
 }

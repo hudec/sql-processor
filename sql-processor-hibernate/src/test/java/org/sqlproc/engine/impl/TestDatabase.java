@@ -34,6 +34,7 @@ import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.hibernate.HibernateSimpleSession;
 import org.sqlproc.engine.hibernate.type.HibernateTypeFactory;
+import org.sqlproc.engine.plugins.DefaultSqlPluginFactory;
 import org.sqlproc.engine.type.PhoneNumberType;
 import org.sqlproc.engine.type.SqlInternalType;
 
@@ -216,8 +217,8 @@ public abstract class TestDatabase extends DatabaseTestCase {
         SqlProcessContext.nullFeatures();
         SqlProcessContext.nullTypeFactory();
         SqlEngineFactory factory;
-        factory = new SqlProcessorLoader(metaStatements, HibernateTypeFactory.getInstance(), dbType, null, customTypes,
-                name);
+        factory = new SqlProcessorLoader(metaStatements, HibernateTypeFactory.getInstance(),
+                DefaultSqlPluginFactory.getInstance(), dbType, null, customTypes, name);
         assertNotNull(factory);
         return factory;
     }
