@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.SqlOrder;
-import org.sqlproc.engine.plugins.SqlPluginFactory;
+import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**

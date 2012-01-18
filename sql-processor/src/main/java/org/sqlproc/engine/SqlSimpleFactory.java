@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
-import org.sqlproc.engine.plugins.SqlPluginFactory;
+import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlTypeFactory;
 

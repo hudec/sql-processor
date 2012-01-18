@@ -35,7 +35,7 @@ import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.jdbc.type.JdbcTypeFactory;
-import org.sqlproc.engine.plugins.SimpleSqlPluginFactory;
+import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
 import org.sqlproc.engine.type.PhoneNumberType;
 import org.sqlproc.engine.type.SqlInternalType;
 

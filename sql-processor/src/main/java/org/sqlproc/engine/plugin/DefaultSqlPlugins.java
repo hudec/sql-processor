@@ -1,4 +1,4 @@
-package org.sqlproc.engine.plugins;
+package org.sqlproc.engine.plugin;
 
 import java.util.Collection;
 
@@ -6,10 +6,24 @@ import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.SqlMetaType;
 
+/**
+ * The SQL Processor plugins standard implementation.
+ * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
+ */
 public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
 
+    /**
+     * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
+     */
     public static final String SUPPVAL_NOTNULL = "notnull";
+    /**
+     * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
+     */
     public static final String SUPPVAL_ANY = "any";
+    /**
+     * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
+     */
     public static final String SUPPVAL_NULL = "null";
 
     /**

@@ -34,7 +34,7 @@ import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.hibernate.HibernateSimpleSession;
 import org.sqlproc.engine.hibernate.type.HibernateTypeFactory;
-import org.sqlproc.engine.plugins.SimpleSqlPluginFactory;
+import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
 import org.sqlproc.engine.type.PhoneNumberType;
 import org.sqlproc.engine.type.SqlInternalType;
 

@@ -4,13 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.sqlproc.engine.SqlOrder;
-import org.sqlproc.engine.plugins.SqlPluginFactory;
+import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
  * The crate (design pattern) for all input parameters for the
- * {@link SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, List, Map, SqlTypeFactory)}
- * .
+ * {@link SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, List, Map, SqlTypeFactory, SqlPluginFactory)}
  * 
  * Also can work as a context for a dynamic ANSI SQL query generation. This processing is based on the contract
  * {@link SqlMetaElement#process(SqlProcessContext)}.
