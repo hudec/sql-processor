@@ -39,7 +39,7 @@ import org.sqlproc.engine.SqlProcessorLoader;
 import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.jdbc.type.JdbcTypeFactory;
-import org.sqlproc.engine.plugins.DefaultSqlPluginFactory;
+import org.sqlproc.engine.plugins.SimpleSqlPluginFactory;
 import org.sqlproc.engine.spring.SpringSimpleSession;
 import org.sqlproc.engine.type.PhoneNumberType;
 import org.sqlproc.engine.type.SqlInternalType;
@@ -237,7 +237,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
         SqlProcessContext.nullTypeFactory();
         SqlEngineFactory factory;
         factory = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(),
-                DefaultSqlPluginFactory.getInstance(), dbType, null, customTypes, name);
+                SimpleSqlPluginFactory.getInstance(), dbType, null, customTypes, name);
         assertNotNull(factory);
         return factory;
     }

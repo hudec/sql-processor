@@ -6,7 +6,7 @@ import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.SqlMetaType;
 
-public class DefaultSqlPluginAdapter implements IsEmptyPlugin, IsTruePlugin {
+public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
 
     public static final String SUPPVAL_NOTNULL = "notnull";
     public static final String SUPPVAL_ANY = "any";
