@@ -107,8 +107,8 @@ public class TestMoreParameters extends TestDatabase {
         assertContains(sql, "AND  p.CREATEDBY = :createdBy", "AND  p.CREATEDBY = ?");
         assertContains(sql, "AND  p.VERSION = :version", "AND  p.VERSION = ?");
 
-        List<Person> list = sqlEngine.query(session, Person.class);
-        assertEquals(0, list.size());
+        // List<Person> list = sqlEngine.query(session, Person.class);
+        // assertEquals(0, list.size());
 
         PersonForm pf = new PersonForm();
         pf.setId(2L);
@@ -130,7 +130,7 @@ public class TestMoreParameters extends TestDatabase {
         assertContains(sql, "AND  p.BIRTHDATE = :birthDate", "AND  p.BIRTHDATE = ?");
         assertContains(sql, "AND  p.LASTUPDATEDBY = :lastUpdatedBy", "AND  p.LASTUPDATEDBY = ?");
 
-        list = sqlEngine.query(session, Person.class, pf);
+        List<Person> list = sqlEngine.query(session, Person.class, pf);
         assertEquals(0, list.size());
 
         pf.getName().setLast("A");

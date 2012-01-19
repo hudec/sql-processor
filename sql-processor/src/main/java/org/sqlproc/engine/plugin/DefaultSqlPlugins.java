@@ -99,8 +99,12 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
                         return sqlMetaTypeExt.equals(SqlUtils.getEnumToValue(obj));
                     } else if (sqlMetaType == SqlProcessContext.getTypeFactory().getEnumIntegerType()) {
                         return sqlMetaTypeExt.equals(SqlUtils.getEnumToValue(obj).toString());
-                    } else
+                    } else {
+                        Object enumVal = SqlUtils.getEnumToValue(obj);
+                        if (enumVal.toString().equals(sqlMetaTypeExt))
+                            return true;
                         return false;
+                    }
                 } else {
                     if (obj.toString().equals(sqlMetaTypeExt))
                         return true;
