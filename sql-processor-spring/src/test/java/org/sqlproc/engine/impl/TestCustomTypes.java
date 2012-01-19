@@ -82,6 +82,72 @@ public class TestCustomTypes extends TestDatabase {
     }
 
     @Test
+    public void testInsert3() {
+        if ("MYSQL".equalsIgnoreCase(dbType))
+            return;
+
+        Contact c = new Contact();
+        c.setAddress("Janského 2438");
+        c.setCity("Prague");
+        c.setZip("15500");
+        c.setState(null);
+        c.setUuid("2");
+        c.setCreatedDate(new Date());
+        c.setCreatedBy("wlado");
+        c.setVersion(1L);
+        c.setPhone(new PhoneNumber(111, 222, 3333));
+
+        SqlCrudEngine insertEngine = getCrudEngine("CUSTOM_TYPE_INSERT_3");
+
+        String sql = insertEngine.getInsertSql(c, null);
+        logger.info(sql);
+
+        int count = insertEngine.insert(session, c);
+        assertEquals(1, count);
+
+        SqlCrudEngine getEngine = getCrudEngine("CUSTOM_TYPE_GET");
+        Contact form = new Contact();
+        form.setPhone(new PhoneNumber(111, 222, 3333));
+
+        Contact cc = getEngine.get(session, Contact.class, form);
+        assertNotNull(cc);
+        assertEquals("111-222-3333", cc.getPhone().toString());
+    }
+
+    @Test
+    public void testInsert4() {
+        if ("ORACLE".equalsIgnoreCase(dbType))
+            return;
+
+        Contact c = new Contact();
+        c.setAddress("Janského 2438");
+        c.setCity("Prague");
+        c.setZip("15500");
+        c.setState(null);
+        c.setUuid("2");
+        c.setCreatedDate(new Date());
+        c.setCreatedBy("wlado");
+        c.setVersion(1L);
+        c.setPhone(new PhoneNumber(111, 222, 3333));
+
+        SqlCrudEngine insertEngine = getCrudEngine("CUSTOM_TYPE_INSERT_4");
+
+        String sql = insertEngine.getInsertSql(c, null);
+        logger.info(sql);
+
+        int count = insertEngine.insert(session, c);
+        assertEquals(1, count);
+
+        SqlCrudEngine getEngine = getCrudEngine("CUSTOM_TYPE_GET");
+        Contact form = new Contact();
+        form.setPhone(new PhoneNumber(111, 222, 3333));
+
+        Contact cc = getEngine.get(session, Contact.class, form);
+        assertNotNull(cc);
+        assertEquals("111-222-3333", cc.getPhone().toString());
+    }
+
+    @Test
     public void testCustomInDynamic() {
         SqlQueryEngine selectEngine = getSqlEngine("CUSTOM_TYPE_IN_OUT");
 

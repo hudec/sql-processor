@@ -303,11 +303,11 @@ public class HibernateDefaultType extends SqlMetaType {
         }
         if (!(inputValue instanceof Collection)) {
             if (inputType.isEnum()) {
-                Object o = SqlUtils.getEnumToValue(inputValue);
-                if (o != null && o instanceof Integer) {
-                    query.setParameter(paramName, (Integer) o, Hibernate.INTEGER);
-                } else if (o != null && o instanceof String) {
-                    query.setParameter(paramName, (String) o, Hibernate.STRING);
+                Class clazz = SqlUtils.getEnumToClass(inputType);
+                if (clazz == String.class) {
+                    HibernateTypeFactory.ENUM_STRING.setParameter(query, paramName, inputValue, inputType, ingoreError);
+                } else if (clazz == Integer.class) {
+                    HibernateTypeFactory.ENUM_INT.setParameter(query, paramName, inputValue, inputType, ingoreError);
                 } else {
                     if (ingoreError) {
                         logger.error("Incorrect type based enum " + inputValue + " for " + paramName);

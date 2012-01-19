@@ -107,6 +107,38 @@ public class TestCrud extends TestDatabase {
     }
 
     @Test
+    public void testDelete4() {
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        Person p = new Person();
+
+        List<Person> list = sqlEngine.query(session, Person.class, p);
+        assertEquals(2, list.size());
+
+        SqlCrudEngine crudEngine = getCrudEngine("DELETE_PERSON_4");
+
+        p.setId(list.get(0).getId());
+        String sql = crudEngine.getDeleteSql(p, p);
+        logger.info(sql);
+        assertContains(sql, "delete from PERSON");
+        assertContains(sql, "WHERE ID = :id", "WHERE ID = ?");
+        assertContains(sql, "AND LASTUPDATEDBY is null");
+
+        int count = crudEngine.delete(session, p);
+        assertEquals(1, count);
+
+        list = sqlEngine.query(session, Person.class);
+        assertEquals(1, list.size());
+
+        try {
+            count = crudEngine.delete(session, null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertContains(e.getMessage(), "notnull");
+        }
+    }
+
+    @Test
     public void testGet2() {
         SqlCrudEngine sqlEngine = getCrudEngine("GET_PERSON_2");
 

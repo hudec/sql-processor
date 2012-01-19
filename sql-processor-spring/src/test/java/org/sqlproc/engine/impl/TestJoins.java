@@ -468,6 +468,20 @@ public class TestJoins extends TestDatabase {
     }
 
     @Test
+    public void testBasicLeftJoin3() {
+        SqlQueryEngine sqlEngine = getSqlEngine("BASIC_LEFT_JOIN_3");
+
+        String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
+        logger.info(sql);
+
+        List<Library> list = sqlEngine.query(session, Library.class);
+
+        assertEquals(1, list.size());
+        Library l = list.get(0);
+        assert1(l);
+    }
+
+    @Test
     public void testBasicLeftJoin2() {
         SqlQueryEngine sqlEngine = getSqlEngine("BASIC_LEFT_JOIN_2");
 
