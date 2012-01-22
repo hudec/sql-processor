@@ -27,4 +27,11 @@ public interface SqlPluginFactory {
      * @return the SQL Processor plugin devoted to the COUNT SQL construction
      */
     public SqlCountPlugin getSqlCountPlugin();
+
+    /**
+     * Returns the SQL Processor plugin devoted to the FROM-TO SQL construction.
+     * 
+     * @return the SQL Processor plugin devoted to the FROM-TO SQL construction
+     */
+    public SqlFromToPlugin getSqlFromToPlugin();
 }

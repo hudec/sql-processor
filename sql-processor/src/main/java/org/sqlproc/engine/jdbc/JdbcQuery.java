@@ -18,8 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
-import org.sqlproc.engine.impl.SqlUtils;
+import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.jdbc.type.JdbcSqlType;
+import org.sqlproc.engine.plugin.SqlFromToPlugin;
 import org.sqlproc.engine.type.IdentitySetter;
 import org.sqlproc.engine.type.OutValueSetter;
 import org.sqlproc.engine.type.SqlProviderType;
@@ -159,8 +160,8 @@ public class JdbcQuery implements SqlQuery {
     @Override
     public List list() throws SqlProcessorException {
         StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
-        final SqlUtils.LimitType limitType = (maxResults != null) ? SqlUtils.limitQuery(queryString, queryResult,
-                firstResult, maxResults) : null;
+        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? SqlProcessContext.getPluginFactory()
+                .getSqlFromToPlugin().limitQuery(queryString, queryResult, firstResult, maxResults) : null;
         final String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
             logger.debug("list, query=" + query);
@@ -561,8 +562,8 @@ public class JdbcQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>PreparedStatement</code>
      */
-    protected void setParameters(PreparedStatement ps, SqlUtils.LimitType limitType, int start) throws SQLException,
-            SqlProcessorException {
+    protected void setParameters(PreparedStatement ps, SqlFromToPlugin.LimitType limitType, int start)
+            throws SQLException, SqlProcessorException {
         int ix = start;
         ix = setLimits(ps, limitType, ix, false);
         for (int i = 0, n = parameters.size(); i < n; i++) {
@@ -624,7 +625,7 @@ public class JdbcQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>PreparedStatement</code>
      */
-    protected int setLimits(PreparedStatement ps, SqlUtils.LimitType limitType, int ix, boolean afterSql)
+    protected int setLimits(PreparedStatement ps, SqlFromToPlugin.LimitType limitType, int ix, boolean afterSql)
             throws SQLException {
         if (limitType == null)
             return ix;

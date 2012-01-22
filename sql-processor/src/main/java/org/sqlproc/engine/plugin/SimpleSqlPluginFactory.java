@@ -63,6 +63,11 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     private SqlCountPlugin sqlCountPlugin;
 
     /**
+     * The SQL Processor plugin devoted to the FROM-TO SQL construction.
+     */
+    private SqlFromToPlugin sqlFromToPlugin;
+
+    /**
      * The private constructor.
      */
     private SimpleSqlPluginFactory() {
@@ -103,6 +108,14 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlFromToPlugin getSqlFromToPlugin() {
+        return (sqlFromToPlugin != null) ? sqlFromToPlugin : defaultSqlPlugins;
+    }
+
+    /**
      * Sets the SQL Processor plugin devoted to evaluate the boolean value of the logical expression.
      * 
      * @param isTruePlugin
@@ -130,5 +143,15 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
      */
     public void setSqlCountPlugin(SqlCountPlugin sqlCountPlugin) {
         this.sqlCountPlugin = sqlCountPlugin;
+    }
+
+    /**
+     * Sets the SQL Processor plugin devoted to the FROM-TO SQL construction.
+     * 
+     * @param sqlFromToPlugin
+     *            the SQL Processor plugin devoted to the FROM-TO SQL construction
+     */
+    public void setSqlFromToPlugin(SqlFromToPlugin sqlFromToPlugin) {
+        this.sqlFromToPlugin = sqlFromToPlugin;
     }
 }

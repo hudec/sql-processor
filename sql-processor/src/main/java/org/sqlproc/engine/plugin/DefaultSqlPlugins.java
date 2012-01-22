@@ -2,6 +2,7 @@ package org.sqlproc.engine.plugin;
 
 import java.util.Collection;
 
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.SqlMetaType;
@@ -11,7 +12,7 @@ import org.sqlproc.engine.type.SqlMetaType;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountPlugin {
+public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountPlugin, SqlFromToPlugin {
 
     /**
      * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
@@ -134,4 +135,81 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         return s1.substring(0, start) + "select count(" + s1.substring(start + 6) + ") as vysledek " + s2;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public LimitType limitQuery(String queryString, StringBuilder queryResult, Integer firstResult, Integer maxResults) {
+        LimitType limitType = new LimitType();
+
+        if (maxResults == null || maxResults <= 0)
+            return null;
+        if (firstResult != null && firstResult > 0) {
+            limitType.alsoFirst = true;
+            String limitPattern = SqlProcessContext.getFeature(SqlFeature.LIMIT_FROM_TO);
+            limitType = limitQuery(limitPattern, limitType, queryString, queryResult, firstResult, maxResults);
+            return limitType;
+        } else {
+            String limitPattern = SqlProcessContext.getFeature(SqlFeature.LIMIT_TO);
+            limitType = limitQuery(limitPattern, limitType, queryString, queryResult, firstResult, maxResults);
+            return limitType;
+        }
+    }
+
+    private LimitType limitQuery(String limitPattern, LimitType limitType, String queryString,
+            StringBuilder queryResult, Integer firstResult, Integer maxResults) {
+        if (limitPattern == null)
+            return null;
+        int ix = limitPattern.indexOf("$S");
+        if (ix >= 0) {
+            limitType.afterSql = limitPattern.indexOf("$", ix + 1) > 0;
+            queryResult.append(limitPattern.substring(0, ix));
+            queryResult.append(queryString);
+            queryResult.append(limitPattern.substring(ix + 2));
+        } else {
+            ix = limitPattern.indexOf("$s");
+            if (ix >= 0) {
+                limitType.afterSql = limitPattern.indexOf("$", ix + 1) > 0;
+                int ix2 = queryString.toLowerCase().indexOf("select");
+                if (ix2 < 0)
+                    return null;
+                queryResult.append(limitPattern.substring(0, ix));
+                queryResult.append(queryString.substring(ix2 + 6));
+                queryResult.append(limitPattern.substring(ix + 2));
+            } else {
+                return null;
+            }
+        }
+        if (limitType.alsoFirst) {
+            ix = queryResult.indexOf("$F");
+            if (ix >= 0) {
+                if (queryResult.indexOf("$m", ix) < 0 && queryResult.indexOf("$M", ix) < 0)
+                    limitType.maxBeforeFirst = true;
+                queryResult.replace(ix, ix + 2, "?");
+            } else {
+                ix = queryResult.indexOf("$F");
+                if (ix >= 0) {
+                    limitType.zeroBasedFirst = true;
+                    if (queryResult.indexOf("$m", ix) < 0 && queryResult.indexOf("$M", ix) < 0)
+                        limitType.maxBeforeFirst = true;
+                    queryResult.replace(ix, ix + 2, "?");
+                } else {
+                    return null;
+                }
+            }
+        }
+        ix = queryResult.indexOf("$M");
+        if (ix >= 0) {
+            queryResult.replace(ix, ix + 2, "?");
+        } else {
+            ix = queryResult.indexOf("$m");
+            if (ix >= 0) {
+                limitType.rowidBasedMax = true;
+                queryResult.replace(ix, ix + 2, "?");
+            } else {
+                return null;
+            }
+        }
+        return limitType;
+    }
 }
