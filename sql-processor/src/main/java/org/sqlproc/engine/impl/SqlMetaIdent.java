@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlRuntimeException;
+import org.sqlproc.engine.plugin.SqlIdentityPlugin;
+import org.sqlproc.engine.plugin.SqlSequencePlugin;
 import org.sqlproc.engine.type.SqlMetaType;
 
 /**
@@ -141,10 +143,10 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             value = value.substring(0, ix);
         }
         if (value2 == null) {
-            if (value.equals(SqlUtils.SUPPVAL_IDENTITY_SELECT))
-                values.put(value, SqlUtils.SUPPVAL_IDENTITY_SELECT);
-            else if (value.equals(SqlUtils.SUPPVAL_SEQUENCE))
-                values.put(value, SqlUtils.SUPPVAL_SEQUENCE);
+            if (value.equals(SqlIdentityPlugin.SUPPVAL_IDENTITY_SELECT))
+                values.put(value, SqlIdentityPlugin.SUPPVAL_IDENTITY_SELECT);
+            else if (value.equals(SqlSequencePlugin.SUPPVAL_SEQUENCE))
+                values.put(value, SqlSequencePlugin.SUPPVAL_SEQUENCE);
             else
                 sqlType.setValue(value);
         } else {
@@ -202,8 +204,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         s.append(IDENT_PREFIX);
 
         int count = 1;
-        String sequenceName = values.get(SqlUtils.SUPPVAL_SEQUENCE);
-        String identitySelectName = values.get(SqlUtils.SUPPVAL_IDENTITY_SELECT);
+        String sequenceName = values.get(SqlSequencePlugin.SUPPVAL_SEQUENCE);
+        String identitySelectName = values.get(SqlIdentityPlugin.SUPPVAL_IDENTITY_SELECT);
         String attributeName = null;
         Class<?> attributeType = (obj != null) ? obj.getClass() : null;
 
@@ -242,7 +244,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         }
 
         if (sequenceName != null) {
-            String sequence = SqlUtils.sequence(sequenceName);
+            String sequence = SqlProcessContext.getPluginFactory().getSqlSequencePlugin().sequenceSelect(sequenceName);
             if (sequence == null) {
                 throw new SqlRuntimeException("Missing sequence " + sequenceName);
             }
@@ -253,7 +255,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             result.addIdentity(attributeName, identityInputValue);
             result.setSql(new StringBuilder(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : s.toString()));
         } else if (identitySelectName != null) {
-            String identitySelect = SqlUtils.identitySelect(identitySelectName);
+            String identitySelect = SqlProcessContext.getPluginFactory().getSqlIdentityPlugin()
+                    .identitySelect(identitySelectName, null, null);
             if (identitySelect == null) {
                 throw new SqlRuntimeException("Missing identity select " + identitySelectName);
             }

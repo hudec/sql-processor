@@ -68,6 +68,16 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     private SqlFromToPlugin sqlFromToPlugin;
 
     /**
+     * The SQL Processor plugin devoted to the sequence SELECT SQL construction.
+     */
+    private SqlSequencePlugin sqlSequencePlugin;
+
+    /**
+     * The SQL Processor plugin devoted to the identity SELECT SQL construction.
+     */
+    private SqlIdentityPlugin sqlIdentityPlugin;
+
+    /**
      * The private constructor.
      */
     private SimpleSqlPluginFactory() {
@@ -116,6 +126,22 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlSequencePlugin getSqlSequencePlugin() {
+        return (sqlSequencePlugin != null) ? sqlSequencePlugin : defaultSqlPlugins;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlIdentityPlugin getSqlIdentityPlugin() {
+        return (sqlIdentityPlugin != null) ? sqlIdentityPlugin : defaultSqlPlugins;
+    }
+
+    /**
      * Sets the SQL Processor plugin devoted to evaluate the boolean value of the logical expression.
      * 
      * @param isTruePlugin
@@ -153,5 +179,25 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
      */
     public void setSqlFromToPlugin(SqlFromToPlugin sqlFromToPlugin) {
         this.sqlFromToPlugin = sqlFromToPlugin;
+    }
+
+    /**
+     * Sets the SQL Processor plugin devoted to the sequence SELECT SQL construction.
+     * 
+     * @param sqlSequencePlugin
+     *            the SQL Processor plugin devoted to the sequence SELECT SQL construction
+     */
+    public void setSqlSequencePlugin(SqlSequencePlugin sqlSequencePlugin) {
+        this.sqlSequencePlugin = sqlSequencePlugin;
+    }
+
+    /**
+     * Sets the SQL Processor plugin devoted to the identity SELECT SQL construction.
+     * 
+     * @param sqlIdentityPlugin
+     *            the SQL Processor plugin devoted to the identity SELECT SQL construction
+     */
+    public void setSqlIdentityPlugin(SqlIdentityPlugin sqlIdentityPlugin) {
+        this.sqlIdentityPlugin = sqlIdentityPlugin;
     }
 }

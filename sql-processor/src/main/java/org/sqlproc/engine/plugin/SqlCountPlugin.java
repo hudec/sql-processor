@@ -1,6 +1,5 @@
 package org.sqlproc.engine.plugin;
 
-
 /**
  * The SQL Processor plugin devoted to the COUNT SQL construction.
  * 
@@ -16,5 +15,5 @@ public interface SqlCountPlugin {
      *            original META SQL
      * @return the COUNT SQL
      */
-    public String getSqlCount(StringBuilder sql);
+    public String sqlCount(StringBuilder sql);
 }

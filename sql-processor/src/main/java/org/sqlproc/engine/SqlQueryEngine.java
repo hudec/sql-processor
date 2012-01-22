@@ -522,7 +522,7 @@ public class SqlQueryEngine extends SqlEngine {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             staticInputValues, order.getOrders(), features, typeFactory, pluginFactory);
-                    SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().getSqlCount(
+                    SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
                             processResult.getSql()));
                     SqlProcessContext.getTypeFactory().getDefaultType()
                             .addScalar(queryCount, "vysledek", Integer.class);

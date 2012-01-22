@@ -34,4 +34,18 @@ public interface SqlPluginFactory {
      * @return the SQL Processor plugin devoted to the FROM-TO SQL construction
      */
     public SqlFromToPlugin getSqlFromToPlugin();
+
+    /**
+     * Returns the SQL Processor plugin devoted to the sequence SELECT SQL construction.
+     * 
+     * @return the SQL Processor plugin devoted to the sequence SELECT SQL construction
+     */
+    public SqlSequencePlugin getSqlSequencePlugin();
+
+    /**
+     * Returns the SQL Processor plugin devoted to the identity SELECT SQL construction.
+     * 
+     * @return the SQL Processor plugin devoted to the identity SELECT SQL construction
+     */
+    public SqlIdentityPlugin getSqlIdentityPlugin();
 }

@@ -19,8 +19,6 @@ import org.sqlproc.engine.SqlFeature;
  */
 public class SqlUtils {
 
-    static final String SUPPVAL_SEQUENCE = "seq";
-    static final String SUPPVAL_IDENTITY_SELECT = "idsel";
     static final String SUPPVAL_ID = "id";
     static final String SUPPVAL_GTYPE = "gtype";
     static final String SUPPVAL_TYPE = "type";
@@ -133,34 +131,6 @@ public class SqlUtils {
         cal.set(Calendar.MINUTE, minute);
         cal.set(Calendar.SECOND, second);
         return cal.getTime();
-    }
-
-    // sequence
-
-    public static String sequence(String sequenceName) {
-        String sequence = SqlProcessContext.getFeature(sequenceName);
-        if (sequence != null)
-            return sequence;
-        String sequencePattern = SqlProcessContext.getFeature(SqlFeature.SEQ);
-        if (sequencePattern == null)
-            return null;
-        int ix = sequencePattern.indexOf("$n");
-        if (ix < 0)
-            return sequencePattern;
-        if (SqlUtils.SUPPVAL_SEQUENCE.equals(sequenceName))
-            return sequencePattern.substring(0, ix) + SqlFeature.DEFAULT_SEQ_NAME + sequencePattern.substring(ix + 2);
-        else
-            return sequencePattern.substring(0, ix) + sequenceName + sequencePattern.substring(ix + 2);
-    }
-
-    // identity select
-
-    public static String identitySelect(String identitySelectName) {
-        String identitySelect = (SqlUtils.SUPPVAL_IDENTITY_SELECT.equals(identitySelectName)) ? null
-                : SqlProcessContext.getFeature(identitySelectName);
-        if (identitySelect != null)
-            return identitySelect;
-        return SqlProcessContext.getFeature(SqlFeature.IDSEL);
     }
 
     // default features

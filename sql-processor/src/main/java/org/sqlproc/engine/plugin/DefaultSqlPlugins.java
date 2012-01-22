@@ -12,7 +12,8 @@ import org.sqlproc.engine.type.SqlMetaType;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountPlugin, SqlFromToPlugin {
+public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountPlugin, SqlFromToPlugin,
+        SqlSequencePlugin, SqlIdentityPlugin {
 
     /**
      * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
@@ -120,7 +121,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public String getSqlCount(StringBuilder sql) {
+    public String sqlCount(StringBuilder sql) {
         String s = sql.toString().toUpperCase();
         int start = s.indexOf("ID");
         int end = s.indexOf("FROM");
@@ -211,5 +212,37 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             }
         }
         return limitType;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String identitySelect(String identitySelectName, String tableName, String columnName) {
+        String identitySelect = (SqlIdentityPlugin.SUPPVAL_IDENTITY_SELECT.equals(identitySelectName)) ? null
+                : SqlProcessContext.getFeature(identitySelectName);
+        if (identitySelect != null)
+            return identitySelect;
+        return SqlProcessContext.getFeature(SqlFeature.IDSEL);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String sequenceSelect(String sequenceName) {
+        String sequence = SqlProcessContext.getFeature(sequenceName);
+        if (sequence != null)
+            return sequence;
+        String sequencePattern = SqlProcessContext.getFeature(SqlFeature.SEQ);
+        if (sequencePattern == null)
+            return null;
+        int ix = sequencePattern.indexOf("$n");
+        if (ix < 0)
+            return sequencePattern;
+        if (SqlSequencePlugin.SUPPVAL_SEQUENCE.equals(sequenceName))
+            return sequencePattern.substring(0, ix) + SqlFeature.DEFAULT_SEQ_NAME + sequencePattern.substring(ix + 2);
+        else
+            return sequencePattern.substring(0, ix) + sequenceName + sequencePattern.substring(ix + 2);
     }
 }
