@@ -11,7 +11,7 @@ import org.sqlproc.engine.type.SqlMetaType;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
+public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountPlugin {
 
     /**
      * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
@@ -113,6 +113,25 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
                 }
             }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getSqlCount(StringBuilder sql) {
+        String s = sql.toString().toUpperCase();
+        int start = s.indexOf("ID");
+        int end = s.indexOf("FROM");
+        StringBuilder sb = sql;
+        if (start < 0 || end < 0 || start > end)
+            return "select count(*) as vysledek from (" + sb.toString() + ") derived";
+        String s1 = sb.substring(0, start + 2);
+        String s2 = sb.substring(end);
+        start = s1.toUpperCase().indexOf("SELECT");
+        if (start < 0)
+            return "select count(*) as vysledek from (" + sb.toString() + ") derived";
+        return s1.substring(0, start) + "select count(" + s1.substring(start + 6) + ") as vysledek " + s2;
     }
 
 }

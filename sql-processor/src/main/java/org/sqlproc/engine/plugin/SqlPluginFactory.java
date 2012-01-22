@@ -20,4 +20,11 @@ public interface SqlPluginFactory {
      * @return the SQL Processor plugin devoted to evaluate the boolean value of the logical expression
      */
     public IsTruePlugin getIsTruePlugin();
+
+    /**
+     * Returns the SQL Processor plugin devoted to the COUNT SQL construction.
+     * 
+     * @return the SQL Processor plugin devoted to the COUNT SQL construction
+     */
+    public SqlCountPlugin getSqlCountPlugin();
 }

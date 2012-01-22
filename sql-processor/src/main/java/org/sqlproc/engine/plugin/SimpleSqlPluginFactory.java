@@ -58,6 +58,11 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     private IsEmptyPlugin isEmptyPlugin;
 
     /**
+     * The SQL Processor plugin devoted to the COUNT SQL construction.
+     */
+    private SqlCountPlugin sqlCountPlugin;
+
+    /**
      * The private constructor.
      */
     private SimpleSqlPluginFactory() {
@@ -90,6 +95,14 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCountPlugin getSqlCountPlugin() {
+        return (sqlCountPlugin != null) ? sqlCountPlugin : defaultSqlPlugins;
+    }
+
+    /**
      * Sets the SQL Processor plugin devoted to evaluate the boolean value of the logical expression.
      * 
      * @param isTruePlugin
@@ -107,5 +120,15 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
      */
     public void setIsEmptyPlugin(IsEmptyPlugin isEmptyPlugin) {
         this.isEmptyPlugin = isEmptyPlugin;
+    }
+
+    /**
+     * Sets the SQL Processor plugin devoted to the COUNT SQL construction.
+     * 
+     * @param sqlCountPlugin
+     *            the SQL Processor plugin devoted to the COUNT SQL construction
+     */
+    public void setSqlCountPlugin(SqlCountPlugin sqlCountPlugin) {
+        this.sqlCountPlugin = sqlCountPlugin;
     }
 }

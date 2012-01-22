@@ -522,7 +522,8 @@ public class SqlQueryEngine extends SqlEngine {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             staticInputValues, order.getOrders(), features, typeFactory, pluginFactory);
-                    SqlQuery queryCount = session.createSqlQuery(countSql(processResult));
+                    SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().getSqlCount(
+                            processResult.getSql()));
                     SqlProcessContext.getTypeFactory().getDefaultType()
                             .addScalar(queryCount, "vysledek", Integer.class);
                     if (maxTimeout > 0)
@@ -537,23 +538,6 @@ public class SqlQueryEngine extends SqlEngine {
                 logger.debug("<< queryCount, count=" + count);
             }
         }
-    }
-
-    // TODO - lepsi optimalizaci na dotaz - upravou puvodniho SQL dotazu
-
-    private String countSql(SqlProcessResult processResult) {
-        String s = processResult.getSql().toString().toUpperCase();
-        int start = s.indexOf("ID");
-        int end = s.indexOf("FROM");
-        StringBuilder sb = processResult.getSql();
-        if (start < 0 || end < 0 || start > end)
-            return "select count(*) as vysledek from (" + sb.toString() + ") derived";
-        String s1 = sb.substring(0, start + 2);
-        String s2 = sb.substring(end);
-        start = s1.toUpperCase().indexOf("SELECT");
-        if (start < 0)
-            return "select count(*) as vysledek from (" + sb.toString() + ") derived";
-        return s1.substring(0, start) + "select count(" + s1.substring(start + 6) + ") as vysledek " + s2;
     }
 
     /**
