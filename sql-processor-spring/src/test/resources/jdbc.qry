@@ -1551,4 +1551,23 @@ SIMPLE_FUNCION(CALL)=
 SIMPLE_FUNCION_TO_IN_FORM(CALL)=
   :<time2 = call an_hour_before(:time)
 ;
-  
+
+
+PLUGIN_IS_EMPTY(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last
+  from PERSON p
+  {= where
+  	p.id = :id^long^any
+  	{& p.CREATED_BY = :createdBy^string^zero}
+  }
+;
+
+PLUGIN_IS_TRUE(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last
+  from PERSON p
+  {= where
+    {? :id^long^null | AND p.ID is null | AND p.ID = :id}
+    {? :createdBy^string^zero | AND p.CREATED_BY = :createdBy | AND p.CREATED_BY is null}
+  }
+;
+

@@ -36,6 +36,7 @@ import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.jdbc.type.JdbcTypeFactory;
 import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
+import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.PhoneNumberType;
 import org.sqlproc.engine.type.SqlInternalType;
 
@@ -219,6 +220,23 @@ public abstract class TestDatabase extends DatabaseTestCase {
             }
         }
 
+    }
+
+    protected SqlEngineFactory getEngineFactory(String name, SqlPluginFactory sqlPluginFactory) {
+        SqlProcessContext.nullFeatures();
+        SqlProcessContext.nullTypeFactory();
+        SqlEngineFactory factory;
+        factory = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(), sqlPluginFactory, dbType, null,
+                customTypes, name);
+        assertNotNull(factory);
+        return factory;
+    }
+
+    protected SqlQueryEngine getQueryEngine(String name, SqlPluginFactory sqlPluginFactory) {
+        SqlEngineFactory factory = getEngineFactory(name, sqlPluginFactory);
+        SqlQueryEngine sqlEngine = factory.getQueryEngine(name);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
     }
 
     SqlEngineFactory getEngineFactory(String name) {
