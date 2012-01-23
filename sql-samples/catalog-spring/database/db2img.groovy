@@ -14,15 +14,26 @@ class sql {
 
 		def sql = Sql.newInstance( 'jdbc:oracle:thin:@localhost:1521:xe', 'CATALOG', 'CATALOG123', 'oracle.jdbc.driver.OracleDriver' );
 		
-		sql.eachRow("select IMAGE, IMAGEURL from ITEM where ITEMID = ? for update", [1], {
+		sql.eachRow("select ITEMID, IMAGEURL, IMAGE, IMAGETHUMBURL, IMAGETHUMB from ITEM order by ITEMID") {
 			println it.IMAGEURL
-			java.sql.Blob blob = it.IMAGE
-     	InputStream is = blob.getBinaryStream()
-			FileOutputStream out = new FileOutputStream("xxx")
-			copy(is, out, 4096)
-			out.flush()
-			out.close()
-		});
+			if (it.IMAGE != null) {
+				java.sql.Blob blob = it.IMAGE
+	     		InputStream is = blob.getBinaryStream()
+				FileOutputStream out = new FileOutputStream(new File(it.IMAGEURL))
+				copy(is, out, 4096)
+				out.flush()
+				out.close()
+			}
+			println it.IMAGETHUMBURL
+			if (it.IMAGETHUMB != null) {
+				java.sql.Blob blob = it.IMAGETHUMB
+	     		InputStream is = blob.getBinaryStream()
+				FileOutputStream out = new FileOutputStream(new File(it.IMAGETHUMBURL))
+				copy(is, out, 4096)
+				out.flush()
+				out.close()
+			}
+		}
 	}
 	
 	public static int copy(InputStream ins, OutputStream out, int bufSize)
