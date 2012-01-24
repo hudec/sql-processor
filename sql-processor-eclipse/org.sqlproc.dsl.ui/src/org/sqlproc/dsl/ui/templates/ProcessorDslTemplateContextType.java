@@ -182,7 +182,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         boolean verFind = false;
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < columns.size(); i++) {
-            if (!idFind && columns.get(i).toUpperCase().indexOf("ID_") == 0) {
+            if (!idFind
+                    && (columns.get(i).toUpperCase().equals("ID") || columns.get(i).toUpperCase().indexOf("ID_") == 0)) {
                 idFind = true;
                 continue;
             }
@@ -204,7 +205,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         boolean verFind = false;
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < columns.size(); i++) {
-            if (!idFind && columns.get(i).toUpperCase().indexOf("ID_") == 0) {
+            if (!idFind
+                    && (columns.get(i).toUpperCase().equals("ID") || columns.get(i).toUpperCase().indexOf("ID_") == 0)) {
                 idFind = true;
                 builder.append("\n  {& ").append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)))
                         .append(" }");
