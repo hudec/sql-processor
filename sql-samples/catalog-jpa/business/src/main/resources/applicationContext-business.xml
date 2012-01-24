@@ -53,12 +53,19 @@
 
     <bean id="itemDao" class="org.sqlproc.sample.catalog.dao.ItemDao" parent="dao" />
 
-    <bean id="sqlFactory" class="org.sqlproc.engine.hibernate.HibernateEngineFactory">
+    <bean id="typeFactory" class="org.sqlproc.engine.hibernate.type.HibernateTypeFactory" />
+
+    <bean id="pluginFactory" class="org.sqlproc.engine.plugin.SimpleSqlPluginFactory" />
+
+    <bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory">
         <property name="metaFilesNames">
             <list>
                 <value>statements.qry</value>
             </list>
         </property>
+        <property name="filter" value="${db.type}" />
+        <property name="typeFactory" ref="typeFactory"/>
+        <property name="pluginFactory" ref="pluginFactory" />
     </bean>
 
     <bean id="itemService" class="org.sqlproc.sample.catalog.service.ItemService" />

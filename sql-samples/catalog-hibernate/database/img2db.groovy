@@ -16,57 +16,28 @@ class sql {
 		
 		sql.connection.autoCommit = false
 
-		(1..29).each({ num ->
-			sql.eachRow("select IMAGE, IMAGEURL from ITEM where ITEMID = ? for update", [num], {
-				println it.IMAGEURL
-				java.sql.Blob blob = it.IMAGE
+		sql.eachRow("select ITEMID, IMAGEURL, IMAGETHUMBURL from ITEM order by ITEMID") {
+			println it.IMAGEURL
+			if (it.IMAGEURL != null) {
 				FileInputStream fis = new FileInputStream(new File(it.IMAGEURL))
-				OutputStream out = blob.getBinaryOutputStream();
-				byte[] data = new byte[fis.available()]
-				fis.read(data)
+				def ps = sql.connection.prepareStatement("update ITEM set IMAGE = ? where ITEMID = ?");
+				ps.setBinaryStream(1, fis, fis.available());
+				ps.setObject(2, it.ITEMID);
+				ps.execute()
+				ps.close()
 				fis.close()
-				out.write(data)
-				out.close()
-      	sql.commit()
-			});
-		});
-	
-		(1..29).each({ num ->
-			sql.eachRow("select IMAGETHUMB, IMAGETHUMBURL from ITEM where ITEMID = ? for update", [num], {
-				println it.IMAGETHUMBURL
-				java.sql.Blob blob = it.IMAGETHUMB
-				FileInputStream fis = new FileInputStream(new File(it.IMAGETHUMBURL))
-				OutputStream out = blob.getBinaryOutputStream();
-				byte[] data = new byte[fis.available()]
-				fis.read(data)
-				fis.close()
-				out.write(data)
-				out.close()
-       	sql.commit()
-			});
-		});
-	}
-	
-	public static int copy(InputStream ins, OutputStream out, int bufSize)
-		throws IOException
-	{
-		if (bufSize <= 0)
-		{
-			throw new IllegalArgumentException("The parameter 'bufSize' must not be <= 0");
-		}
-
-		final byte[] buffer = new byte[bufSize];
-		int bytesCopied = 0;
-		while (true)
-		{
-			int byteCount = ins.read(buffer, 0, buffer.length);
-			if (byteCount <= 0)
-			{
-				break;
 			}
-			out.write(buffer, 0, byteCount);
-			bytesCopied += byteCount;
-		}
-		return bytesCopied;
+			println it.IMAGETHUMBURL
+			if (it.IMAGETHUMBURL != null) {
+				FileInputStream fis = new FileInputStream(new File(it.IMAGETHUMBURL))
+				def ps = sql.connection.prepareStatement("update ITEM set IMAGETHUMB = ? where ITEMID = ?");
+				ps.setBinaryStream(1, fis, fis.available());
+				ps.setObject(2, it.ITEMID);
+				ps.execute()
+				ps.close()
+				fis.close()
+			}
+  			sql.commit()
+		}	
 	}
 }
