@@ -329,6 +329,7 @@
                 <hibernate.format_sql>true</hibernate.format_sql>
                 <hibernate.generate_statistics>true</hibernate.generate_statistics>
                 <init.data>true</init.data>
+                <db.type>hsqldb</db.type>
             </properties>
         </profile>
         <profile>
@@ -343,6 +344,7 @@
                 <hibernate.format_sql>true</hibernate.format_sql>
                 <hibernate.generate_statistics>true</hibernate.generate_statistics>
                 <init.data>false</init.data>
+                <db.type>oracle</db.type>
             </properties>
         </profile>
     </profiles>
