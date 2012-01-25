@@ -368,7 +368,7 @@
                 <DDL_CREATE_DB />
                 <DDL_DROP_DB />
                 <DB_TYPE>INFORMIX</DB_TYPE>
-                <DATATYPE_FACTORY>org.dbunit.dataset.datatype.DefaultDataTypeFactory</DATATYPE_FACTORY>
+                <DATATYPE_FACTORY>org.sqlproc.engine.type.InformixDbUnitDataTypeFactory</DATATYPE_FACTORY>
             </properties>
             <dependencies>
                 <!-- Download informix JDBC Driver, install it, then copy the below 2 jar files
@@ -403,7 +403,7 @@
                 <DDL_CREATE_DB />
                 <DDL_DROP_DB />
                 <DB_TYPE>INFORMIX</DB_TYPE>
-                <DATATYPE_FACTORY>org.dbunit.dataset.datatype.DefaultDataTypeFactory</DATATYPE_FACTORY>
+                <DATATYPE_FACTORY>org.sqlproc.engine.type.InformixDbUnitDataTypeFactory</DATATYPE_FACTORY>
             </properties>
             <dependencies>
                 <!-- Download informix JDBC Driver, install it, then copy the below 2 jar files

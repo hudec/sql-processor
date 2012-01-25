@@ -21,7 +21,7 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testSimpleFunctionToInForm() {
-        if ("hsqldb".equalsIgnoreCase(dbType))
+        if ("hsqldb".equalsIgnoreCase(dbType) || "informix".equalsIgnoreCase(dbType))
             return;
 
         SqlProcedureEngine callableEngine = getProcedureEngine("SIMPLE_FUNCION_TO_IN_FORM");

@@ -16,6 +16,8 @@ public class TestUndefinedTypes extends TestDatabase {
             return "dbunit/TypesTest_oracle.xml";
         else if (dbType.equalsIgnoreCase("postgresql"))
             return "dbunit/TypesTest_postgresql.xml";
+        else if (dbType.equalsIgnoreCase("informix"))
+            return "dbunit/TypesTest_informix.xml";
         else
             return "dbunit/TypesTest.xml";
     }
