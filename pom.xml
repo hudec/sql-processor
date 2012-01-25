@@ -33,6 +33,7 @@
         <version.oracle>10.2.0.4</version.oracle>
         <version.mysql>5.1.18</version.mysql>
         <version.postgresql>9.1-901.jdbc4</version.postgresql>
+        <version.informix>3.5</version.informix>
         <version.beanutils>1.8.3</version.beanutils>
         <version.dbcp>1.4</version.dbcp>
 
@@ -351,6 +352,76 @@
                     <groupId>postgresql</groupId>
                     <artifactId>postgresql</artifactId>
                     <version>${version.postgresql}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>informix</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.InformixDialect</db.dialect>
+                <db.driver>com.informix.jdbc.IfxDriver</db.driver>
+                <db.url>jdbc:informix-sqli://127.0.0.1:1551/sql:informixserver=local</db.url>
+                <db.username>sql</db.username>
+                <db.password>sql</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <DB_TYPE>INFORMIX</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.dataset.datatype.DefaultDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <!-- Download informix JDBC Driver, install it, then copy the below 2 jar files
+                     to local maven repository:
+
+                    * ifxjdbc.jar => <MAVEN_REPO>\com\ibm\informix\ifxjdbc\${version.informix}\ifxjdbc-${version.informix}.jar
+                    * ifxjdbcx.jar => <MAVEN_REPO>\com\ibm\informix\ifxjdbcx\${version.informix}\ifxjdbcx-${version.informix}.jar
+                -->
+                <dependency>
+                    <groupId>com.ibm.informix</groupId>
+                    <artifactId>ifxjdbc</artifactId>
+                    <version>${version.informix}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.ibm.informix</groupId>
+                    <artifactId>ifxjdbcx</artifactId>
+                    <version>${version.informix}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>informix-bamboo</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.InformixDialect</db.dialect>
+                <db.driver>com.informix.jdbc.IfxDriver</db.driver>
+                <db.url>jdbc:informix-sqli://popel:1551/sql:informixserver=popel_11;DB_LOCALE=en_US.57372</db.url>
+                <db.username>sql</db.username>
+                <db.password>sql</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <DB_TYPE>INFORMIX</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.dataset.datatype.DefaultDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <!-- Download informix JDBC Driver, install it, then copy the below 2 jar files
+                     to local maven repository:
+
+                    * ifxjdbc.jar => <MAVEN_REPO>\com\ibm\informix\ifxjdbc\${version.informix}\ifxjdbc-${version.informix}.jar
+                    * ifxjdbcx.jar => <MAVEN_REPO>\com\ibm\informix\ifxjdbcx\${version.informix}\ifxjdbcx-${version.informix}.jar
+                -->
+                <dependency>
+                    <groupId>com.ibm.informix</groupId>
+                    <artifactId>ifxjdbc</artifactId>
+                    <version>${version.informix}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.ibm.informix</groupId>
+                    <artifactId>ifxjdbcx</artifactId>
+                    <version>${version.informix}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

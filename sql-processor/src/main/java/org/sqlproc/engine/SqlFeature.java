@@ -88,6 +88,11 @@ public interface SqlFeature {
      */
     public static final String MYSQL = "MYSQL";
     /**
+     * The filter for Informix devoted optional features. It can be used for the construction of {@link SqlEngineLoader}
+     * .
+     */
+    public static final String INFORMIX = "INFORMIX";
+    /**
      * <code>SET_WILDCARD_CHARACTER</code> is the key for the wildcard character for the SQL <code>like</code> command.
      */
     public static final String WILDCARD_CHARACTER = "WILDCARD_CHARACTER";
@@ -244,6 +249,17 @@ public interface SqlFeature {
      */
     public static final String POSTGRESQL_DEFAULT_LIMIT_TO = "$S limit $M";
     /**
+     * <code>INFORMIX_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key
+     * <code>SET_LIMIT_FROM_TO</code> in the case the filter value <code>INFORMIX</code> is used for the
+     * {@link SqlEngineLoader} instance creation.
+     */
+    public static final String INFORMIX_DEFAULT_LIMIT_FROM_TO = "select skip $F first $M $s";
+    /**
+     * <code>INFORMIX_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the
+     * case the filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    public static final String INFORMIX_DEFAULT_LIMIT_TO = "select first $M $s";
+    /**
      * <code>SET_SEQ</code> is the key for the SQL query pattern used for the sequences. This pattern can be combined
      * with the sequence name used in the META SQL query in the next way:
      * <ul>
@@ -266,6 +282,11 @@ public interface SqlFeature {
      * filter value <code>POSTGRESQL</code> is used for the {@link SqlEngineLoader} instance creation.
      */
     public static final String POSTGRESQL_DEFAULT_SEQ = "select nextval('$n')";
+    /**
+     * <code>INFORMIX_DEFAULT_SEQ</code> is the default value related to the key <code>SET_SEQ</code> in the case the
+     * filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    public static final String INFORMIX_DEFAULT_SEQ = "SELECT FIRST 1 $n.NEXTVAL FROM systables";
     /**
      * <code>DEFAULT_SEQ_NAME</code> is the default sequence name.
      */
@@ -291,4 +312,9 @@ public interface SqlFeature {
      */
     // TODO $t - table name, $c - column name
     // public static final String POSTGRESQL_DEFAULT_IDSEL = "select currval(pg_get_serial_sequence('$t','$c'))";
+    /**
+     * <code>INFORMIX_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case
+     * the filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    public static final String INFORMIX_DEFAULT_IDSEL = "SELECT FIRST 1 dbinfo('bigserial') FROM systables";
 }
