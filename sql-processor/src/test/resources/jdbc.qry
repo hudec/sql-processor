@@ -951,21 +951,6 @@ UNDEFINED_PARAMETERS(QRY)=
   {& t_datetime = :t_datetime}
   {& t_timestamp = :t_timestamp}
 ;
-UNDEFINED_PARAMETERS(OUT)=
-  n_int$int t_int$int
-  n_long$long t_long$long
-  n_byte$byte t_byte$byte
-  n_short$short t_short$short
-  n_float$float t_float$float
-  n_double$double t_double$double
-  n_char$char t_char$char
-  t_string$string
-  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
-  n_boolean$boolean t_boolean$boolean
-  t_big_integer$bigint t_big_decimal$bigdec
-  an_byte$bytes at_byte$bytes a_text$text
-  a_blob$blob a_clob$clob
-;
 UNDEFINED_PARAMETERS(QRY,INFORMIX)=
   select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
   t.t_short n_short, t.t_short, t.t_float n_float, t.t_float, t.t_double n_double, t.t_double,
@@ -991,7 +976,7 @@ UNDEFINED_PARAMETERS(QRY,INFORMIX)=
   {& t_datetime = :t_datetime}
   {& t_timestamp = :t_timestamp}
 ;
-UNDEFINED_PARAMETERS(OUT,INFORMIX)=
+UNDEFINED_PARAMETERS(OUT)=
   n_int$int t_int$int
   n_long$long t_long$long
   n_byte$byte t_byte$byte

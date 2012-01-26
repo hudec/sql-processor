@@ -18,6 +18,8 @@ public class TestHibernateParameters extends TestDatabase {
             return "dbunit/TypesTest_oracle.xml";
         else if (dbType.equalsIgnoreCase("postgresql"))
             return "dbunit/TypesTest_postgresql.xml";
+        else if (dbType.equalsIgnoreCase("informix"))
+            return "dbunit/TypesTest_informix.xml";
         else
             return "dbunit/TypesTest.xml";
     }
@@ -40,7 +42,11 @@ public class TestHibernateParameters extends TestDatabase {
         if (!dbType.equalsIgnoreCase("oracle") && !dbType.equalsIgnoreCase("postgresql")) // TODO
             criteria.setT_time(SqlUtils.getTime(14, 55, 2));
         criteria.setT_datetime(SqlUtils.getDateTime(2009, 7, 31, 14, 55, 2));
-        criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123456789"));
+        if (dbType.equalsIgnoreCase("informix")) {
+            criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123"));
+        } else {
+            criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123456789"));
+        }
         criteria.setAn_byte("ahoj".getBytes());
 
         String sql = sqlEngine.getSql(criteria, null, SqlQueryEngine.NO_ORDER);
@@ -58,7 +64,8 @@ public class TestHibernateParameters extends TestDatabase {
         // assertContains(sql, "AND  t_time =");
         // assertContains(sql, "AND  t_datetime =");
         // assertContains(sql, "AND  t_timestamp =");
-        assertContains(sql, "AND  a_byte =");
+        if (!dbType.equalsIgnoreCase("informix"))
+            assertContains(sql, "AND  a_byte =");
 
         List<TypesTransport> list = sqlEngine.query(session, TypesTransport.class, criteria, null,
                 SqlQueryEngine.NO_ORDER, 0, 0, 0);
@@ -96,6 +103,8 @@ public class TestHibernateParameters extends TestDatabase {
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
         else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
+        else if ("informix".equalsIgnoreCase(dbType))
+            assertEquals("2009-08-31 14:55:02.123", t.getT_timestamp().toString());
         else
             assertEquals("2009-08-31 14:55:02.123456789", t.getT_timestamp().toString());
 

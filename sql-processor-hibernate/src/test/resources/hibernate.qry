@@ -77,6 +77,31 @@ HIBERNATE_PARAMETERS(QRY)=
   {& t_datetime = :t_datetime^datetime}
   {& t_timestamp = :t_timestamp^h_TIMESTAMP}
 ;
+HIBERNATE_PARAMETERS(QRY,INFORMIX)=
+  select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
+  t.t_short n_short, t.t_short, t.t_float n_float, t.t_float, t.t_double n_double, t.t_double,
+  t.t_char n_char, t.t_char, t.t_string,
+  t.t_time, t.t_date, t.t_datetime, t.t_timestamp,
+  t.t_boolean n_boolean, t.t_boolean,
+  t.t_big_integer, t.t_big_decimal,
+  t.a_byte an_byte, t.a_byte at_byte, t.a_text,
+  t.a_blob, t.a_clob
+  from TYPES t
+  where 1=1
+  {& t_int = :t_int^h_INTEGER}
+  {& t_long = :t_long^h_LONG}
+  {& t_byte = :t_byte^h_BYTE}
+  {& t_short = :t_short^h_SHORT}
+  {& t_float = :t_float^h_FLOAT}
+  {& t_double = :t_double^h_DOUBLE}
+  {& t_char = :t_char^h_CHARACTER}
+  {& t_string = :t_string^h_STRING}
+  {& t_boolean = :t_boolean^h_BOOLEAN}
+  {& t_date = :t_date^h_DATE}
+  {& t_time = :t_time^h_TIME}
+  {& t_datetime = :t_datetime^datetime}
+  {& t_timestamp = :t_timestamp^h_TIMESTAMP}
+;
 HIBERNATE_PARAMETERS(OUT)=
   n_int$h_INTEGER t_int$h_INTEGER
   n_long$h_LONG t_long$h_LONG
@@ -92,8 +117,8 @@ HIBERNATE_PARAMETERS(OUT)=
   an_byte$h_BINARY at_byte$h_WRAPPER_BINARY a_text$h_TEXT
   a_blob$h_BLOB a_clob$h_CLOB
 ;
-  
-  
+
+
 INHERITANCE2_BASIC(QRY)=
   select s.ID @id, s.NAME_FIRST @name.first, s.NAME_LAST @name.last, s.LIBRARY @library.id,
   bd.TYPE @billingDetails==discriminator.type, bd.ID @billingDetails.id, bd.CC_NUMBER @billingDetails.number^long,
