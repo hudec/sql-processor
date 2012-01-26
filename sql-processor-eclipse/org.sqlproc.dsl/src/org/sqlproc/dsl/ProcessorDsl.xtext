@@ -165,12 +165,12 @@ terminal IDENT_DOT: IDENT ('.' IDENT)+;
 terminal IDENT: ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'=')*;
 terminal NUMBER: ('0'..'9')+;
 
+terminal ESC_CHAR:  '\\' (COLON | SEMICOLON | STRING | LBRACE | RBRACE | BOR | HASH | AT | PERCENT | '/');
 terminal ML_COMMENT : '/*' -> '*/' ;
 terminal SL_COMMENT : '//' !('\n'|'\r')* ('\r'? '\n')? ;
 terminal WS:    (' '|'\t'|'\n'|'\r')+ ;
 terminal AND:   '&' '&' ;
 terminal OR:    '|' '|' ;
-terminal ESC_CHAR:  '\\' (COLON | SEMICOLON | STRING | LBRACE | RBRACE | BOR | HASH | AT | PERCENT);
 
 terminal COLON:    ':' ;
 terminal SEMICOLON:';' ;
