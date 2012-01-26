@@ -67,8 +67,14 @@ SQL_EXT_BASIC(QRY)=
   where 1=1
   order by %ID
 ;
-SQL_EXT_BASIC(QRY,HSQLDB,INFORMIX)=
+SQL_EXT_BASIC(QRY,HSQLDB)=
   select %ID, $-name.first as first, cast(:+name.last as varchar(100)) as last
+  from %%PERSON
+  where 1=1
+  order by %ID
+;
+SQL_EXT_BASIC(QRY,INFORMIX)=
+  select %ID, $-name.first as first, cast(:+name.last as lvarchar(100)) as last
   from %%PERSON
   where 1=1
   order by %ID
@@ -83,8 +89,14 @@ SQL_EXT_BASIC_2(QRY)=
   where 1=1
   order by %p.ID
 ;
-SQL_EXT_BASIC_2(QRY,HSQLDB,INFORMIX)=
+SQL_EXT_BASIC_2(QRY,HSQLDB)=
   select p.ID @id, $-name.first @name.first^string, cast(:+name.last as varchar(100)) @name.last
+  from PERSON p
+  where 1=1
+  order by id
+;
+SQL_EXT_BASIC_2(QRY,INFORMIX)=
+  select p.ID @id, $-name.first @name.first^string, cast(:+name.last as lvarchar(100)) @name.last
   from PERSON p
   where 1=1
   order by id
@@ -285,8 +297,15 @@ INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY)=
   {& p.id = :id}
   {#1 order by id}
 ;
-INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY,HSQLDB,INFORMIX)=
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY,HSQLDB)=
   select p.ID, $name.first as first, cast(:name.last as varchar(100)) as last
+  from PERSON p
+  where 1=1
+  {& p.id = :id}
+  {#1 order by id}
+;
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY,INFORMIX)=
+  select p.ID, $name.first as first, cast(:name.last as lvarchar(100)) as last
   from PERSON p
   where 1=1
   {& p.id = :id}
@@ -303,8 +322,15 @@ INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY)=
   }
   {#1 order by id}
 ;
-INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,HSQLDB,INFORMIX)=
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,HSQLDB)=
   select p.ID @id, $name.first @name.first^string, cast(:name.last as varchar(100)) @name.last
+  from PERSON p {= where
+   {& p.id = :id}
+  }
+  {#1 order by id}
+;
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,INFORMIX)=
+  select p.ID @id, $name.first @name.first^string, cast(:name.last as lvarchar(100)) @name.last
   from PERSON p {= where
    {& p.id = :id}
   }
@@ -317,8 +343,13 @@ SQL_IN_BRACES_BASIC(QRY)=
   from PERSON p
   order by id
 ;
-SQL_IN_BRACES_BASIC(QRY,HSQLDB,INFORMIX)=
+SQL_IN_BRACES_BASIC(QRY,HSQLDB)=
   select p.ID { , $name.first as first, p.SSN_NUMBER ssn |, '' as first, p.SSN_NUMBER ssn} { , cast(:+name.last as varchar(100)) as last |, '' as last} { , p.BIRTHDATE}
+  from PERSON p
+  order by id
+;
+SQL_IN_BRACES_BASIC(QRY,INFORMIX)=
+  select p.ID { , $name.first as first, p.SSN_NUMBER ssn |, '' as first, p.SSN_NUMBER ssn} { , cast(:+name.last as lvarchar(100)) as last |, '' as last} { , p.BIRTHDATE}
   from PERSON p
   order by id
 ;
@@ -332,8 +363,13 @@ SQL_IN_BRACES_BASIC_2(QRY)=
   from PERSON p
   order by id
 ;
-SQL_IN_BRACES_BASIC_2(QRY,HSQLDB,INFORMIX)=
+SQL_IN_BRACES_BASIC_2(QRY,HSQLDB)=
   select p.ID @id { , $name.first as @first, p.SSN_NUMBER @ssn |, '' as @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as varchar(100)) as @last |, '' as @last} { , p.BIRTHDATE @birthDate}
+  from PERSON p
+  order by id
+;
+SQL_IN_BRACES_BASIC_2(QRY,INFORMIX)=
+  select p.ID @id { , $name.first as @first, p.SSN_NUMBER @ssn |, '' as @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as lvarchar(100)) as @last |, '' as @last} { , p.BIRTHDATE @birthDate}
   from PERSON p
   order by id
 ;
@@ -347,8 +383,13 @@ SQL_IN_BRACES_ADV(QRY)=
   from PERSON p
   order by id
 ;
-SQL_IN_BRACES_ADV(QRY,HSQLDB,INFORMIX)=
+SQL_IN_BRACES_ADV(QRY,HSQLDB)=
   select p.ID @id { { , $name.first as @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as varchar(100)) as @last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
+  from PERSON p
+  order by id
+;
+SQL_IN_BRACES_ADV(QRY,INFORMIX)=
+  select p.ID @id { { , $name.first as @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as lvarchar(100)) as @last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
   from PERSON p
   order by id
 ;
@@ -361,8 +402,13 @@ SQL_IN_BRACES_ADV_2(QRY)=
   from PERSON p
   order by id
 ;
-SQL_IN_BRACES_ADV_2(QRY,HSQLDB,INFORMIX)=
+SQL_IN_BRACES_ADV_2(QRY,HSQLDB)=
   select p.ID @id { { , $name.first @name.first^string, p.SSN_NUMBER @ssn.number} { , cast(:+name.last as varchar(100)) @name.last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
+  from PERSON p
+  order by id
+;
+SQL_IN_BRACES_ADV_2(QRY,INFORMIX)=
+  select p.ID @id { { , $name.first @name.first^string, p.SSN_NUMBER @ssn.number} { , cast(:+name.last as lvarchar(100)) @name.last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
   from PERSON p
   order by id
 ;
