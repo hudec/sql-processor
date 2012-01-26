@@ -291,4 +291,8 @@ public interface SqlFeature {
      */
     // TODO $t - table name, $c - column name
     // public static final String POSTGRESQL_DEFAULT_IDSEL = "select currval(pg_get_serial_sequence('$t','$c'))";
+    /**
+     * <code>DEFAULT_VERSION_COLUMN</code> is the default name of the column devoted to the optimistic locking.
+     */
+    public static final String DEFAULT_VERSION_COLUMN = "version";
 }
