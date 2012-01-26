@@ -1056,7 +1056,8 @@ STANDARD_PARAMETERS(QRY,INFORMIX)=
   t.t_time, t.t_date, t.t_datetime, t.t_timestamp,
   t.t_boolean n_boolean, t.t_boolean,
   t.t_big_integer, t.t_big_decimal,
-  t.a_byte an_byte, t.a_byte at_byte, t.a_text
+  t.a_byte an_byte, t.a_byte at_byte, t.a_text,
+  t.a_blob, t.a_clob
   from TYPES t
   where 1=1
   {& t_int = :t_int^int}
@@ -1086,6 +1087,7 @@ STANDARD_PARAMETERS(OUT,INFORMIX)=
   n_boolean$boolean t_boolean$boolean
   t_big_integer$bigint t_big_decimal$bigdec
   an_byte$bytes at_byte$bytes a_text$text
+  a_blob$blob a_clob$clob
 ;
  
 FROM_TO_PARAMETERS(QRY)=
