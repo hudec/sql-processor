@@ -41,9 +41,9 @@ DROP SEQUENCE SQLPROC_SEQUENCE;
 
 -- Drom procedures a functions
 
-DROP FUNCTION new_person;
+DROP PROCEDURE new_person;
 
-DROP PROCEDURE new_person_ret;
+DROP FUNCTION new_person_ret;
 
 DROP FUNCTION an_hour_before;
 
@@ -415,41 +415,41 @@ ALTER TABLE BILLING_DETAILS ADD CONSTRAINT
 
 -- Procedures
 
-CREATE FUNCTION new_person(newid INTEGER, birthdate DATE, ssn_number VARCHAR(20), ssn_country VARCHAR(100), name_first VARCHAR(100), name_last VARCHAR(100), sex VARCHAR(100))
-    RETURNING INTEGER AS newid, VARCHAR(100) AS sex;
-
-  DEFINE sex1 VARCHAR(100);
-  DEFINE newid1 INTEGER;
-
+CREATE PROCEDURE new_person(OUT newid INTEGER, birthdate DATE, ssn_number VARCHAR(20), ssn_country VARCHAR(100), name_first VARCHAR(100), name_last VARCHAR(100), INOUT sex VARCHAR(100));
   IF (sex IS NULL) THEN
-    LET sex1 = 'M';
-  ELSE
-    LET sex1 = sex;
+    LET sex = 'M';
   END IF;
 
-  SELECT FIRST 1 sqlproc_sequence.NEXTVAL INTO newid1 FROM systables;
+  SELECT FIRST 1 sqlproc_sequence.NEXTVAL INTO newid FROM systables;
   INSERT INTO PERSON (ID, BIRTHDATE, LASTUPDATED, LASTUPDATEDBY, CREATEDDATE, CREATEDBY, VERSION, CONTACT, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, SEX, CLOTHES_SIZE) 
-    VALUES (newid1, birthdate, CURRENT, 'test', NULL, NULL, 1, NULL, ssn_number, ssn_country, name_first, name_last, sex1, NULL);
-  
-  RETURN newid1, sex1;
-END FUNCTION;
+    VALUES (newid, birthdate, CURRENT, 'test', NULL, NULL, 1, NULL, ssn_number, ssn_country, name_first, name_last, sex, NULL);
+END PROCEDURE;
 
-CREATE PROCEDURE new_person_ret(birthdate DATE, ssn_number VARCHAR(20), ssn_country VARCHAR(100), name_first VARCHAR(100), name_last VARCHAR(100), sex VARCHAR(100))
+CREATE FUNCTION new_person_ret(birthdate DATE, ssn_number VARCHAR(20), ssn_country VARCHAR(100), name_first VARCHAR(100), name_last VARCHAR(100), sex VARCHAR(100))
+    RETURNING INTEGER AS id, DATE AS birthDate, DATE AS lastUpdated, VARCHAR(100) AS lastUpdatedBy,
+              DATE AS createdDate, VARCHAR(100) AS createdBy, INTEGER AS version, BIGINT AS contact,
+              VARCHAR (100) AS ssn_number, VARCHAR(100) AS ssn_country, VARCHAR(100) AS name_first,
+              VARCHAR(100) AS name_last, VARCHAR(100) AS sex, INTEGER AS clothes_size;
+
+  DEFINE IDr, VERSIONr, CLOTHES_SIZEr INTEGER;
+  DEFINE BIRTHDATEr, LASTUPDATEDr, CREATEDDATEr DATE;
+  DEFINE LASTUPDATEDBYr, CREATEDBYr, SSN_NUMBERr, SSN_COUNTRYr, NAME_FIRSTr, NAME_LASTr, SEXr VARCHAR(100);
+  DEFINE CONTACTr BIGINT;
   DEFINE temp_id INTEGER;
-  DEFINE sex1 VARCHAR(100);
-  DEFINE birthdate1 DATE;
 
   IF (sex IS NULL) THEN
-    LET sex1 = 'M';
-  ELSE
-    LET sex1 = sex;
+    LET sex = 'M';
   END IF;
 
   SELECT FIRST 1 sqlproc_sequence.NEXTVAL INTO temp_id FROM systables;
   INSERT INTO PERSON (ID, BIRTHDATE, LASTUPDATED, LASTUPDATEDBY, CREATEDDATE, CREATEDBY, VERSION, CONTACT, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, SEX, CLOTHES_SIZE) 
-    VALUES (temp_id, birthdate, CURRENT, 'test', NULL, NULL, 1, NULL, ssn_number, ssn_country, name_first, name_last, sex1, NULL);
-  SELECT BIRTHDATE INTO birthdate1 FROM PERSON WHERE ID = temp_id;
-END PROCEDURE;
+    VALUES (temp_id, birthdate, CURRENT, 'test', NULL, NULL, 1, NULL, ssn_number, ssn_country, name_first, name_last, sex, NULL);
+  SELECT ID, BIRTHDATE, LASTUPDATED, LASTUPDATEDBY, CREATEDDATE, CREATEDBY, VERSION, CONTACT, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, SEX, CLOTHES_SIZE
+    INTO IDr, BIRTHDATEr, LASTUPDATEDr, LASTUPDATEDBYr, CREATEDDATEr, CREATEDBYr, VERSIONr, CONTACTr, SSN_NUMBERr, SSN_COUNTRYr, NAME_FIRSTr, NAME_LASTr, SEXr, CLOTHES_SIZEr
+    FROM PERSON WHERE ID = temp_id;
+
+  RETURN IDr, BIRTHDATEr, LASTUPDATEDr, LASTUPDATEDBYr, CREATEDDATEr, CREATEDBYr, VERSIONr, CONTACTr, SSN_NUMBERr, SSN_COUNTRYr, NAME_FIRSTr, NAME_LASTr, SEXr, CLOTHES_SIZEr;
+END FUNCTION;
 
 CREATE FUNCTION an_hour_before(t DATETIME YEAR TO FRACTION) RETURNING DATETIME YEAR TO FRACTION;
   RETURN (t - INTERVAL (1) HOUR TO HOUR);

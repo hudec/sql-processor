@@ -67,13 +67,7 @@ SQL_EXT_BASIC(QRY)=
   where 1=1
   order by %ID
 ;
-SQL_EXT_BASIC(QRY,HSQLDB)=
-  select %ID, $-name.first as first, cast(:+name.last as varchar(100)) as last
-  from %%PERSON
-  where 1=1
-  order by %ID
-;
-SQL_EXT_BASIC(QRY,INFORMIX)=
+SQL_EXT_BASIC(QRY,HSQLDB,INFORMIX)=
   select %ID, $-name.first as first, cast(:+name.last as varchar(100)) as last
   from %%PERSON
   where 1=1
@@ -89,13 +83,7 @@ SQL_EXT_BASIC_2(QRY)=
   where 1=1
   order by %p.ID
 ;
-SQL_EXT_BASIC_2(QRY,HSQLDB)=
-  select p.ID @id, $-name.first @name.first^string, cast(:+name.last as varchar(100)) @name.last
-  from PERSON p
-  where 1=1
-  order by id
-;
-SQL_EXT_BASIC_2(QRY,INFORMIX)=
+SQL_EXT_BASIC_2(QRY,HSQLDB,INFORMIX)=
   select p.ID @id, $-name.first @name.first^string, cast(:+name.last as varchar(100)) @name.last
   from PERSON p
   where 1=1
@@ -297,14 +285,7 @@ INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY)=
   {& p.id = :id}
   {#1 order by id}
 ;
-INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY,HSQLDB)=
-  select p.ID, $name.first as first, cast(:name.last as varchar(100)) as last
-  from PERSON p
-  where 1=1
-  {& p.id = :id}
-  {#1 order by id}
-;
-INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY,INFORMIX)=
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY,HSQLDB,INFORMIX)=
   select p.ID, $name.first as first, cast(:name.last as varchar(100)) as last
   from PERSON p
   where 1=1
@@ -322,14 +303,7 @@ INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY)=
   }
   {#1 order by id}
 ;
-INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,HSQLDB)=
-  select p.ID @id, $name.first @name.first^string, cast(:name.last as varchar(100)) @name.last
-  from PERSON p {= where
-   {& p.id = :id}
-  }
-  {#1 order by id}
-;
-INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,INFORMIX)=
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,HSQLDB,INFORMIX)=
   select p.ID @id, $name.first @name.first^string, cast(:name.last as varchar(100)) @name.last
   from PERSON p {= where
    {& p.id = :id}
@@ -343,12 +317,7 @@ SQL_IN_BRACES_BASIC(QRY)=
   from PERSON p
   order by id
 ;
-SQL_IN_BRACES_BASIC(QRY,HSQLDB)=
-  select p.ID { , $name.first as first, p.SSN_NUMBER ssn |, '' as first, p.SSN_NUMBER ssn} { , cast(:+name.last as varchar(100)) as last |, '' as last} { , p.BIRTHDATE}
-  from PERSON p
-  order by id
-;
-SQL_IN_BRACES_BASIC(QRY,INFORMIX)=
+SQL_IN_BRACES_BASIC(QRY,HSQLDB,INFORMIX)=
   select p.ID { , $name.first as first, p.SSN_NUMBER ssn |, '' as first, p.SSN_NUMBER ssn} { , cast(:+name.last as varchar(100)) as last |, '' as last} { , p.BIRTHDATE}
   from PERSON p
   order by id
@@ -363,12 +332,7 @@ SQL_IN_BRACES_BASIC_2(QRY)=
   from PERSON p
   order by id
 ;
-SQL_IN_BRACES_BASIC_2(QRY,HSQLDB)=
-  select p.ID @id { , $name.first as @first, p.SSN_NUMBER @ssn |, '' as @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as varchar(100)) as @last |, '' as @last} { , p.BIRTHDATE @birthDate}
-  from PERSON p
-  order by id
-;
-SQL_IN_BRACES_BASIC_2(QRY,INFORMIX)=
+SQL_IN_BRACES_BASIC_2(QRY,HSQLDB,INFORMIX)=
   select p.ID @id { , $name.first as @first, p.SSN_NUMBER @ssn |, '' as @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as varchar(100)) as @last |, '' as @last} { , p.BIRTHDATE @birthDate}
   from PERSON p
   order by id
@@ -383,12 +347,7 @@ SQL_IN_BRACES_ADV(QRY)=
   from PERSON p
   order by id
 ;
-SQL_IN_BRACES_ADV(QRY,HSQLDB)=
-  select p.ID @id { { , $name.first as @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as varchar(100)) as @last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
-  from PERSON p
-  order by id
-;
-SQL_IN_BRACES_ADV(QRY,INFORMIX)=
+SQL_IN_BRACES_ADV(QRY,HSQLDB,INFORMIX)=
   select p.ID @id { { , $name.first as @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as varchar(100)) as @last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
   from PERSON p
   order by id
@@ -402,12 +361,7 @@ SQL_IN_BRACES_ADV_2(QRY)=
   from PERSON p
   order by id
 ;
-SQL_IN_BRACES_ADV_2(QRY,HSQLDB)=
-  select p.ID @id { { , $name.first @name.first^string, p.SSN_NUMBER @ssn.number} { , cast(:+name.last as varchar(100)) @name.last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
-  from PERSON p
-  order by id
-;
-SQL_IN_BRACES_ADV_2(QRY,INFORMIX)=
+SQL_IN_BRACES_ADV_2(QRY,HSQLDB,INFORMIX)=
   select p.ID @id { { , $name.first @name.first^string, p.SSN_NUMBER @ssn.number} { , cast(:+name.last as varchar(100)) @name.last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
   from PERSON p
   order by id
@@ -966,6 +920,46 @@ UNDEFINED_PARAMETERS(OUT)=
   an_byte$bytes at_byte$bytes a_text$text
   a_blob$blob a_clob$clob
 ;
+UNDEFINED_PARAMETERS(QRY,INFORMIX)=
+  select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
+  t.t_short n_short, t.t_short, t.t_float n_float, t.t_float, t.t_double n_double, t.t_double,
+  t.t_char n_char, t.t_char, t.t_string,
+  t.t_time, t.t_date, t.t_datetime, t.t_timestamp,
+  t.t_boolean n_boolean, t.t_boolean,
+  t.t_big_integer, t.t_big_decimal,
+  t.a_byte an_byte, t.a_byte at_byte, t.a_text,
+  t.a_blob, t.a_clob
+  from TYPES t
+  where 1=1
+  {& t_int = :t_int}
+  {& t_long = :t_long}
+  {& t_byte = :t_byte}
+  {& t_short = :t_short}
+  {& t_float = :t_float}
+  {& t_double = :t_double}
+  {& t_char = :t_char}
+  {& t_string = :t_string}
+  {& t_boolean = :t_boolean}
+  {& t_date = :t_date}
+  {& t_time = :t_time}
+  {& t_datetime = :t_datetime}
+  {& t_timestamp = :t_timestamp}
+;
+UNDEFINED_PARAMETERS(OUT,INFORMIX)=
+  n_int$int t_int$int
+  n_long$long t_long$long
+  n_byte$byte t_byte$byte
+  n_short$short t_short$short
+  n_float$float t_float$float
+  n_double$double t_double$double
+  n_char$char t_char$char
+  t_string$string
+  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
+  n_boolean$boolean t_boolean$boolean
+  t_big_integer$bigint t_big_decimal$bigdec
+  an_byte$bytes at_byte$bytes a_text$text
+  a_blob$blob a_clob$clob
+;
 
  
 STANDARD_PARAMETERS(QRY)=
@@ -1009,7 +1003,44 @@ STANDARD_PARAMETERS(OUT)=
   an_byte$bytes at_byte$bytes a_text$text
   a_blob$blob a_clob$clob
 ;
-
+STANDARD_PARAMETERS(QRY,INFORMIX)=
+  select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
+  t.t_short n_short, t.t_short, t.t_float n_float, t.t_float, t.t_double n_double, t.t_double,
+  t.t_char n_char, t.t_char, t.t_string,
+  t.t_time, t.t_date, t.t_datetime, t.t_timestamp,
+  t.t_boolean n_boolean, t.t_boolean,
+  t.t_big_integer, t.t_big_decimal,
+  t.a_byte an_byte, t.a_byte at_byte, t.a_text
+  from TYPES t
+  where 1=1
+  {& t_int = :t_int^int}
+  {& t_long = :t_long^long}
+  {& t_byte = :t_byte^byte}
+  {& t_short = :t_short^short}
+  {& t_float = :t_float^float}
+  {& t_double = :t_double^double}
+  {& t_char = :t_char^char}
+  {& t_string = :t_string^string}
+  {& t_boolean = :t_boolean^boolean}
+  {& t_date = :t_date^date}
+  {& t_time = :t_time^time}
+  {& t_datetime = :t_datetime^datetime}
+  {& t_timestamp = :t_timestamp^timestamp}
+;
+STANDARD_PARAMETERS(OUT,INFORMIX)=
+  n_int$int t_int$int
+  n_long$long t_long$long
+  n_byte$byte t_byte$byte
+  n_short$short t_short$short
+  n_float$float t_float$float
+  n_double$double t_double$double
+  n_char$char t_char$char
+  t_string$string
+  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
+  n_boolean$boolean t_boolean$boolean
+  t_big_integer$bigint t_big_decimal$bigdec
+  an_byte$bytes at_byte$bytes a_text$text
+;
  
 FROM_TO_PARAMETERS(QRY)=
   select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
@@ -1446,12 +1477,7 @@ UPDATE_PERSON(CRUD)=
   SET p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date^any
   {= where p.ID = :id }
 ;
-UPDATE_PERSON(CRUD,POSTGRESQL)=
-  update PERSON
-  SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date^any
-  {= where ID = :id }
-;
-UPDATE_PERSON(CRUD,INFORMIX)=
+UPDATE_PERSON(CRUD,POSTGRESQL,INFORMIX)=
   update PERSON
   SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date^any
   {= where ID = :id }
@@ -1462,12 +1488,7 @@ UPDATE_PERSON_2(CRUD)=
   {= set p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date}
   {= where p.ID = :id }
 ;
-UPDATE_PERSON_2(CRUD,POSTGRESQL)=
-  update PERSON
-  {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date}
-  {= where ID = :id }
-;
-UPDATE_PERSON_2(CRUD,INFORMIX)=
+UPDATE_PERSON_2(CRUD,POSTGRESQL,INFORMIX)=
   update PERSON
   {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date}
   {= where ID = :id }
@@ -1595,16 +1616,10 @@ INSERT_PERSON_CALL_RESULT_SET_PROC(OUT,ORACLE)=
 ;
 
   
-SIMPLE_FUNCION(CALL,HSQLDB)=
+SIMPLE_FUNCION(CALL,HSQLDB,INFORMIX)=
   call an_hour_before(:time)
 ;
-SIMPLE_FUNCION(OUT,HSQLDB)=
-  1$stamp
-;
-SIMPLE_FUNCION(CALL,INFORMIX)=
-  call an_hour_before(:time)
-;
-SIMPLE_FUNCION(OUT,INFORMIX)=
+SIMPLE_FUNCION(OUT,HSQLDB,INFORMIX)=
   1$stamp
 ;
 SIMPLE_FUNCION(CALL)=
