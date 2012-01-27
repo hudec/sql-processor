@@ -6,7 +6,7 @@
     <packaging>pom</packaging>
     <name>SQL Processor, Parent Module</name>
     <description>SQL Processor - Data Driven Queries</description>
-    <url>http://code.google.com/p/sql-processor/</url>
+    <url>https://github.com/hudec/sql-processor</url>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -371,12 +371,6 @@
                 <DATATYPE_FACTORY>org.sqlproc.engine.type.InformixDbUnitDataTypeFactory</DATATYPE_FACTORY>
             </properties>
             <dependencies>
-                <!-- Download informix JDBC Driver, install it, then copy the below 2 jar files
-                     to local maven repository:
-
-                    * ifxjdbc.jar => <MAVEN_REPO>\com\ibm\informix\ifxjdbc\${version.informix}\ifxjdbc-${version.informix}.jar
-                    * ifxjdbcx.jar => <MAVEN_REPO>\com\ibm\informix\ifxjdbcx\${version.informix}\ifxjdbcx-${version.informix}.jar
-                -->
                 <dependency>
                     <groupId>com.ibm.informix</groupId>
                     <artifactId>ifxjdbc</artifactId>
@@ -406,12 +400,6 @@
                 <DATATYPE_FACTORY>org.sqlproc.engine.type.InformixDbUnitDataTypeFactory</DATATYPE_FACTORY>
             </properties>
             <dependencies>
-                <!-- Download informix JDBC Driver, install it, then copy the below 2 jar files
-                     to local maven repository:
-
-                    * ifxjdbc.jar => <MAVEN_REPO>\com\ibm\informix\ifxjdbc\${version.informix}\ifxjdbc-${version.informix}.jar
-                    * ifxjdbcx.jar => <MAVEN_REPO>\com\ibm\informix\ifxjdbcx\${version.informix}\ifxjdbcx-${version.informix}.jar
-                -->
                 <dependency>
                     <groupId>com.ibm.informix</groupId>
                     <artifactId>ifxjdbc</artifactId>
