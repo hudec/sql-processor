@@ -183,7 +183,7 @@ public class DbResolverBean implements DbResolver {
     public List<String> getTables(EObject model) {
         DatabaseValues modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         List<String> tablesForModel = tables.get(modelDatabaseValues.dir);
         if (tablesForModel != null)
             return tablesForModel;
@@ -221,10 +221,10 @@ public class DbResolverBean implements DbResolver {
     @Override
     public List<String> getColumns(EObject model, String table) {
         if (table == null)
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         DatabaseValues modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         boolean doInit = false;
         Map<String, List<String>> allColumnsForModel = columns.get(modelDatabaseValues.dir);
         if (allColumnsForModel == null) {

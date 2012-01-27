@@ -317,4 +317,8 @@ public interface SqlFeature {
      * the filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_IDSEL = "SELECT FIRST 1 dbinfo('bigserial') FROM systables";
+    /*
+     * <code>DEFAULT_VERSION_COLUMN</code> is the default name of the column devoted to the optimistic locking.
+     */
+    public static final String DEFAULT_VERSION_COLUMN = "version";
 }

@@ -59,6 +59,7 @@
                 <value>statements.qry</value>
             </list>
         </property>
+        <property name="filter" value="${db.type}" />
     </bean>
 
     <bean id="itemService" class="org.sqlproc.sample.catalog.service.ItemService" />

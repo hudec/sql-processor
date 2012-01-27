@@ -63,7 +63,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     }
 
     private static final List<String> F_TYPES = Collections.unmodifiableList(Arrays.asList(new String[] { "set",
-            "update", "values", "where" }));
+            "update", "values", "where", "set=opt", "where=opt" }));
 
     @Check
     public void checkMetaSqlFtype(MetaSql metaSql) {

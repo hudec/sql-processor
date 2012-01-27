@@ -31,6 +31,7 @@
         <version.commons-dbcp>1.4</version.commons-dbcp>
         <version.javassist>3.12.1.GA</version.javassist>
         <version.wicket>1.4.19</version.wicket>
+        <version.ehcache>2.5.0</version.ehcache>
     </properties>
 
     <modules>
@@ -266,6 +267,13 @@
                 <artifactId>aspectjweaver</artifactId>
                 <version>${version.aspectj}</version>
             </dependency>
+        
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache-core</artifactId>
+                <version>${version.ehcache}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

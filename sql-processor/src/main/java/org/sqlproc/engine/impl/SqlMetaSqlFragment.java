@@ -65,6 +65,10 @@ class SqlMetaSqlFragment implements SqlMetaElement {
      * The type if this element. It controls, how the related ANSI SQL fragment is added to the final ANSI SQL.
      */
     Type type = null;
+    /**
+     * The indicator for the types WHERE and SET in the case of optimistic locking.
+     */
+    boolean optimistic;
 
     /**
      * Creates a new instance. It's used from inside ANTLR parser.
@@ -84,7 +88,10 @@ class SqlMetaSqlFragment implements SqlMetaElement {
      *            the type, which is used to control, how the related ANSI SQL fragment is added to the final ANSI SQL.
      */
     SqlMetaSqlFragment(String type) {
-        this(Type.valueOf(type.toUpperCase()));
+        this(Type.valueOf(SqlUtils.beforeChar(type, '=').toUpperCase()));
+        String s = SqlUtils.afterChar(type, '=');
+        if (s != null && s.equalsIgnoreCase("opt"))
+            optimistic = true;
     }
 
     /**

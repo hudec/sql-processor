@@ -3541,12 +3541,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tIDENT_DOT;
 	private TerminalRule tIDENT;
 	private TerminalRule tNUMBER;
+	private TerminalRule tESC_CHAR;
 	private TerminalRule tML_COMMENT;
 	private TerminalRule tSL_COMMENT;
 	private TerminalRule tWS;
 	private TerminalRule tAND;
 	private TerminalRule tOR;
-	private TerminalRule tESC_CHAR;
 	private TerminalRule tCOLON;
 	private TerminalRule tSEMICOLON;
 	private TerminalRule tSTRING;
@@ -4016,6 +4016,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return (tNUMBER != null) ? tNUMBER : (tNUMBER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NUMBER"));
 	} 
 
+	//terminal ESC_CHAR:
+	//	"\\" (COLON | SEMICOLON | STRING | LBRACE | RBRACE | BOR | HASH | AT | PERCENT | "/");
+	public TerminalRule getESC_CHARRule() {
+		return (tESC_CHAR != null) ? tESC_CHAR : (tESC_CHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ESC_CHAR"));
+	} 
+
 	//terminal ML_COMMENT:
 	//	"/ *"->"* /";
 	public TerminalRule getML_COMMENTRule() {
@@ -4044,12 +4050,6 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	"|" "|";
 	public TerminalRule getORRule() {
 		return (tOR != null) ? tOR : (tOR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "OR"));
-	} 
-
-	//terminal ESC_CHAR:
-	//	"\\" (COLON | SEMICOLON | STRING | LBRACE | RBRACE | BOR | HASH | AT | PERCENT);
-	public TerminalRule getESC_CHARRule() {
-		return (tESC_CHAR != null) ? tESC_CHAR : (tESC_CHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ESC_CHAR"));
 	} 
 
 	//terminal COLON:

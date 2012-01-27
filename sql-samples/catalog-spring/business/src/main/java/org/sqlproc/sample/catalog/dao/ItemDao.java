@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
@@ -27,6 +29,7 @@ public class ItemDao {
         return session;
     }
 
+    @Cacheable(value = "itemCache", key = "#id")
     public Item findById(Long id) {
         SqlSession session = getSqlSession();
         Item item = getCrudEngine("GET_ITEM").get(session, Item.class, new Item(id));
@@ -34,6 +37,7 @@ public class ItemDao {
         return item;
     }
 
+    @CacheEvict(value = "itemCache", key = "#item.itemid")
     public Item create(Item item) {
         SqlSession session = getSqlSession();
         logger.info("create: " + item.toDebugString());
@@ -42,6 +46,7 @@ public class ItemDao {
         return item;
     }
 
+    @CacheEvict(value = "itemCache", key = "#item.itemid")
     public Item update(Item item) {
         SqlSession session = getSqlSession();
         logger.info("update: " + item.toDebugString());
@@ -50,6 +55,7 @@ public class ItemDao {
         return item;
     }
 
+    @CacheEvict(value = "itemCache", key = "#id")
     public void delete(Long id) {
         SqlSession session = getSqlSession();
         logger.info("delete: " + id);

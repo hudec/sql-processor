@@ -101,6 +101,22 @@ public class SqlUtils {
         return false;
     }
 
+    public static String beforeChar(String s, char c) {
+        int ix = s.indexOf(c);
+        if (ix < 0)
+            return s;
+        else
+            return s.substring(0, ix);
+    }
+
+    public static String afterChar(String s, char c) {
+        int ix = s.indexOf(c);
+        if (ix < 0)
+            return null;
+        else
+            return s.substring(ix + 1);
+    }
+
     // date, time
 
     public static java.sql.Date getDate(int year, int month, int day) {

@@ -56,6 +56,14 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
                     "\n  update ${dbTable}\n  {= set (${dbUpdateColumn})}\n  {= where${dbCondColumn}\n  }\n", false);// auto-insertable?
             tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
+            template = new Template(
+                    "upd-opt",
+                    "CRUD optimistic update statement",
+                    "uniqueTemplateID",
+                    "\n  update ${dbTable}\n  {= set (${dbVerUpdateColumn}${dbOptUpdateColumn})}\n  {= where${dbOptCondColumn}\n  }\n",
+                    false);// auto-insertable?
+            tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
+            acceptor.accept(tp);
             template = new Template("del", "CRUD delete statement", "uniqueTemplateID",
                     "\n  delete from ${dbTable}\n  {= where${dbCondColumn}\n  }\n", false);// auto-insertable?
             tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));

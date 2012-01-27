@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.impl.SqlEmptyMonitor;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
+import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
@@ -96,7 +97,7 @@ public abstract class SqlEngine {
         this.features = (features != null) ? features : new HashMap<String, Object>();
         this.monitor = (monitor != null) ? monitor : new SqlEmptyMonitor();
         this.typeFactory = typeFactory;
-        this.pluginFactory = pluginFactory;
+        this.pluginFactory = (pluginFactory != null) ? pluginFactory : SimpleSqlPluginFactory.getInstance();
     }
 
 }

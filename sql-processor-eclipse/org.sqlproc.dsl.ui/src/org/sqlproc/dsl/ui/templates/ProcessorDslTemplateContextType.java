@@ -38,6 +38,9 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         super.addResolver(new DbInsertColumnResolver());
         super.addResolver(new DbUpdateColumnResolver());
         super.addResolver(new DbCondColumnResolver());
+        super.addResolver(new DbVerUpdateColumnResolver());
+        super.addResolver(new DbOptUpdateColumnResolver());
+        super.addResolver(new DbOptCondColumnResolver());
     }
 
     protected MetaStatement getMetaStatement(XtextTemplateContext xtextTemplateContext) {
@@ -154,7 +157,67 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < columns.size(); i++) {
             builder.append("\n  {& ").append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)))
-                    .append('}');
+                    .append(" }");
+        }
+        return builder.toString();
+    }
+
+    protected String getVerUpdateColumns(List<String> columns) {
+        if (columns == null)
+            return null;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < columns.size(); i++) {
+            if (columns.get(i).toUpperCase().indexOf("VER") == 0) {
+                builder.append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i))).append(" + 1, ");
+                break;
+            }
+        }
+        return builder.toString();
+    }
+
+    protected String getOptUpdateColumns(List<String> columns) {
+        if (columns == null)
+            return null;
+        boolean idFind = false;
+        boolean verFind = false;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < columns.size(); i++) {
+            if (!idFind
+                    && (columns.get(i).toUpperCase().equals("ID") || columns.get(i).toUpperCase().indexOf("ID_") == 0)) {
+                idFind = true;
+                continue;
+            }
+            if (!verFind && columns.get(i).toUpperCase().indexOf("VER") == 0) {
+                verFind = true;
+                continue;
+            }
+            builder.append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)));
+            if (i < columns.size() - 1)
+                builder.append(", ");
+        }
+        return builder.toString();
+    }
+
+    protected String getOptCondColumns(List<String> columns) {
+        if (columns == null)
+            return null;
+        boolean idFind = false;
+        boolean verFind = false;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < columns.size(); i++) {
+            if (!idFind
+                    && (columns.get(i).toUpperCase().equals("ID") || columns.get(i).toUpperCase().indexOf("ID_") == 0)) {
+                idFind = true;
+                builder.append("\n  {& ").append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)))
+                        .append(" }");
+                continue;
+            }
+            if (!verFind && columns.get(i).toUpperCase().indexOf("VER") == 0) {
+                verFind = true;
+                builder.append("\n  {& ").append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)))
+                        .append(" }");
+                continue;
+            }
         }
         return builder.toString();
     }
@@ -295,6 +358,78 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             if (dbResolver.isResolveDb(tableDefinition) && tableDefinition != null) {
                 List<String> dbColumns = dbResolver.getColumns(tableDefinition, tableDefinition.getTable());
                 return getCondColumns(dbColumns);
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class DbVerUpdateColumnResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "dbVerUpdateColumn";
+
+        public DbVerUpdateColumnResolver() {
+            super(NAME, "DbVerUpdateColumn");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
+            if (dbResolver.isResolveDb(tableDefinition) && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition, tableDefinition.getTable());
+                return getVerUpdateColumns(dbColumns);
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class DbOptUpdateColumnResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "dbOptUpdateColumn";
+
+        public DbOptUpdateColumnResolver() {
+            super(NAME, "DbOptUpdateColumn");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
+            if (dbResolver.isResolveDb(tableDefinition) && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition, tableDefinition.getTable());
+                return getOptUpdateColumns(dbColumns);
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class DbOptCondColumnResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "dbOptCondColumn";
+
+        public DbOptCondColumnResolver() {
+            super(NAME, "DbOptCondColumn");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
+            if (dbResolver.isResolveDb(tableDefinition) && tableDefinition != null) {
+                List<String> dbColumns = dbResolver.getColumns(tableDefinition, tableDefinition.getTable());
+                return getOptCondColumns(dbColumns);
             }
             return super.resolve(context);
         }
