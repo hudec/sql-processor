@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EObject;
 
 public interface PojoResolver {
 
+    public static final String POJO_ANNOTATION_CLASS = "org.sqlproc.engine.annotation.Pojo";
+
     List<URLClassLoader> getAllLoaders();
 
     Class<?> loadClass(String name);
@@ -15,4 +17,6 @@ public interface PojoResolver {
     public PropertyDescriptor[] getPropertyDescriptors(String name);
 
     boolean isResolvePojo(EObject model);
+
+    List<Class<?>> getPojoClasses();
 }

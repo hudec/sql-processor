@@ -4,6 +4,7 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.annotation.Annotation;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -17,7 +18,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.sqlproc.dsl.property.ModelProperty;
@@ -134,4 +138,37 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
         }
         return allLoaders != null;
     }
+
+    @Override
+    public List<Class<?>> getPojoClasses() {
+        List<Class<?>> pojos = new ArrayList<Class<?>>();
+        IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+        for (IProject project : projects) {
+            try {
+                project.open(null /* IProgressMonitor */);
+                IJavaProject javaProject = JavaCore.create(project);
+                for (IPackageFragment fragment : javaProject.getPackageFragments()) {
+                    if (fragment.getKind() == IPackageFragmentRoot.K_SOURCE) {
+                        for (ICompilationUnit unit : fragment.getCompilationUnits()) {
+                            if (unit.getTypes() != null && unit.getTypes().length > 0) {
+                                String classname = unit.getParent().getElementName() + "."
+                                        + unit.getTypes()[0].getElementName();
+                                Class<?> clazz = loadClass(classname);
+                                for (Annotation annotation : clazz.getAnnotations()) {
+                                    if (POJO_ANNOTATION_CLASS.equals(annotation.annotationType().getName())) {
+                                        pojos.add(clazz);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (CoreException e) {
+                LOGGER.warn("Can't handle project '" + project + "': " + e.getMessage());
+            }
+        }
+        return pojos;
+    }
+
 }
