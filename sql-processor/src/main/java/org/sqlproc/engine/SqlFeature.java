@@ -93,6 +93,11 @@ public interface SqlFeature {
      */
     public static final String INFORMIX = "INFORMIX";
     /**
+     * The filter for MS SQL Server devoted optional features. It can be used for the construction of
+     * {@link SqlEngineLoader}.
+     */
+    public static final String MSSQL = "MSSQL";
+    /**
      * <code>SET_WILDCARD_CHARACTER</code> is the key for the wildcard character for the SQL <code>like</code> command.
      */
     public static final String WILDCARD_CHARACTER = "WILDCARD_CHARACTER";
@@ -260,6 +265,16 @@ public interface SqlFeature {
      */
     public static final String INFORMIX_DEFAULT_LIMIT_TO = "select first $M $s";
     /**
+     * <code>MSSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
+     * in the case the filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    public static final String MSSQL_DEFAULT_LIMIT_FROM_TO = "select * from ( select ROW_NUMBER() OVER(ORDER BY id) rownum_, id from ($S) ) row_ where rownum_ between $F AND $m";
+    /**
+     * <code>MSSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the case
+     * the filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    public static final String MSSQL_DEFAULT_LIMIT_TO = "select top $M $s";
+    /**
      * <code>SET_SEQ</code> is the key for the SQL query pattern used for the sequences. This pattern can be combined
      * with the sequence name used in the META SQL query in the next way:
      * <ul>
@@ -317,6 +332,11 @@ public interface SqlFeature {
      * the filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_IDSEL = "SELECT FIRST 1 dbinfo('bigserial') FROM systables";
+    /**
+     * <code>MSSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
+     * filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    public static final String MSSQL_DEFAULT_IDSEL = "select scope_identity()";
     /*
      * <code>DEFAULT_VERSION_COLUMN</code> is the default name of the column devoted to the optimistic locking.
      */

@@ -34,6 +34,7 @@
         <version.mysql>5.1.18</version.mysql>
         <version.postgresql>9.1-901.jdbc4</version.postgresql>
         <version.informix>3.5</version.informix>
+        <version.mssql>3.0</version.mssql>
         <version.beanutils>1.8.3</version.beanutils>
         <version.dbcp>1.4</version.dbcp>
 
@@ -410,6 +411,52 @@
                     <groupId>com.ibm.informix</groupId>
                     <artifactId>ifxjdbcx</artifactId>
                     <version>${version.informix}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>mssql</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.SQLServer2008Dialect</db.dialect>
+                <db.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</db.driver>
+                <db.url>jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=sql</db.url>
+                <db.username>sql</db.username>
+                <db.password>sql</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <DB_TYPE>MSSQL</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.ext.mssql.MsSqlDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>sqljdbc</artifactId>
+                    <version>${version.mssql}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>mssql-bamboo</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.SQLServer2008Dialect</db.dialect>
+                <db.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</db.driver>
+                <db.url>jdbc:microsoft:sqlserver://popel:1433;DatabaseName=sql</db.url>
+                <db.username>sql</db.username>
+                <db.password>sql</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <DB_TYPE>MSSQL</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.ext.mssql.MsSqlDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>sqljdbc</artifactId>
+                    <version>${version.mssql}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
