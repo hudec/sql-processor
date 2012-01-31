@@ -24,6 +24,9 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.PlatformUI;
 import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.PojoResolver;
 
@@ -34,8 +37,6 @@ import com.google.inject.Singleton;
 public class WorkspacePojoResolverImpl implements PojoResolver {
 
     protected Logger LOGGER = Logger.getLogger(WorkspacePojoResolverImpl.class);
-    // private static final Class[] EMPTY_CLASS_PARAMETERS = new Class[0];
-    // private static final Class[] LIST_CLASS_PARAMETER = new Class[] { java.util.List.class };
 
     @Inject
     ModelProperty modelProperty;
@@ -142,8 +143,10 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
     @Override
     public List<Class<?>> getPojoClasses() {
         List<Class<?>> pojos = new ArrayList<Class<?>>();
-        IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-        for (IProject project : projects) {
+        IEditorPart editorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+        if (editorPart != null) {
+            IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
+            IProject project = input.getFile().getProject();
             try {
                 project.open(null /* IProgressMonitor */);
                 IJavaProject javaProject = JavaCore.create(project);
@@ -154,6 +157,8 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
                                 String classname = unit.getParent().getElementName() + "."
                                         + unit.getTypes()[0].getElementName();
                                 Class<?> clazz = loadClass(classname);
+                                if (clazz == null)
+                                    continue;
                                 for (Annotation annotation : clazz.getAnnotations()) {
                                     if (POJO_ANNOTATION_CLASS.equals(annotation.annotationType().getName())) {
                                         pojos.add(clazz);
