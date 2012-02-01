@@ -336,7 +336,7 @@ public interface SqlFeature {
      * <code>MSSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
      * filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
      */
-    public static final String MSSQL_DEFAULT_IDSEL = "select scope_identity()";
+    public static final String MSSQL_DEFAULT_IDSEL = "select @@identity";
     /*
      * <code>DEFAULT_VERSION_COLUMN</code> is the default name of the column devoted to the optimistic locking.
      */

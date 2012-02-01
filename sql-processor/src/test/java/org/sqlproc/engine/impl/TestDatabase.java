@@ -21,6 +21,7 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
+import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.operation.CompositeOperation;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.Ignore;
@@ -127,11 +128,17 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected abstract String getDataSetFile(String dbType);
 
     protected DatabaseOperation getSetUpOperation() throws Exception {
-        if (dbCreated || ddlCreateDb == null) {
-            return DatabaseOperation.CLEAN_INSERT;
+        final DatabaseOperation cleanInsertOperation;
+        if (dbType.equalsIgnoreCase("mssql")) {
+            cleanInsertOperation = InsertIdentityOperation.CLEAN_INSERT;
         } else {
-            DatabaseOperation operation = new CompositeOperation(new BatchOperation(ddlCreateDb),
-                    DatabaseOperation.CLEAN_INSERT);
+            cleanInsertOperation = DatabaseOperation.CLEAN_INSERT;
+        }
+
+        if (dbCreated || ddlCreateDb == null) {
+            return cleanInsertOperation;
+        } else {
+            DatabaseOperation operation = new CompositeOperation(new BatchOperation(ddlCreateDb), cleanInsertOperation);
             dbCreated = true;
             return operation;
         }

@@ -420,7 +420,7 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.SQLServer2008Dialect</db.dialect>
                 <db.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</db.driver>
-                <db.url>jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=sql</db.url>
+                <db.url>jdbc:sqlserver://localhost:1433;DatabaseName=sql</db.url>
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
@@ -432,7 +432,7 @@
             <dependencies>
                 <dependency>
                     <groupId>com.microsoft.sqlserver</groupId>
-                    <artifactId>sqljdbc</artifactId>
+                    <artifactId>sqljdbc4</artifactId>
                     <version>${version.mssql}</version>
                     <scope>test</scope>
                 </dependency>
@@ -443,7 +443,7 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.SQLServer2008Dialect</db.dialect>
                 <db.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</db.driver>
-                <db.url>jdbc:microsoft:sqlserver://popel:1433;DatabaseName=sql</db.url>
+                <db.url>jdbc:sqlserver://mrkev:1433;databaseName=sql;selectMethod=direct;sendStringParametersAsUnicode=true</db.url>
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
@@ -455,7 +455,7 @@
             <dependencies>
                 <dependency>
                     <groupId>com.microsoft.sqlserver</groupId>
-                    <artifactId>sqljdbc</artifactId>
+                    <artifactId>sqljdbc4</artifactId>
                     <version>${version.mssql}</version>
                     <scope>test</scope>
                 </dependency>

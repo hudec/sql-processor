@@ -8,7 +8,11 @@ DROP TABLE EXISTSINMEDIA_MEDIACHARACTER;
 
 
 -- Drop normal entities
-    
+
+DROP TABLE BILLING_DETAILS;
+
+DROP TABLE SUBSCRIBER;
+
 DROP TABLE PHYSICALMEDIA;
 
 DROP TABLE MOVIE;
@@ -29,16 +33,12 @@ DROP TABLE MEDIA;
 
 DROP TABLE TYPES;
 
-DROP TABLE BILLING_DETAILS;
-
-DROP TABLE SUBSCRIBER;
-
 
 -- Drom procedures a functions
 
 DROP PROCEDURE new_person;
 
-DROP FUNCTION new_person_ret;
+DROP PROCEDURE new_person_ret;
 
 DROP FUNCTION an_hour_before;
 
@@ -337,14 +337,13 @@ ALTER TABLE BILLING_DETAILS ADD CONSTRAINT FK_BILLING_DETAILS_SUBSCRIBER
 
 
 -- Procedures
-CREATE PROCEDURE new_person(@newid INT OUTPUT, @birthdate DATE, @ssn_number VARCHAR(20), @ssn_country VARCHAR(100), @name_first VARCHAR(100), @name_last VARCHAR(100), INOUT @sex VARCHAR(100)) AS
+CREATE PROCEDURE new_person(@newid INT OUTPUT, @birthdate DATE, @ssn_number VARCHAR(20), @ssn_country VARCHAR(100), @name_first VARCHAR(100), @name_last VARCHAR(100), @sex VARCHAR(100) OUTPUT) AS
 BEGIN
-  DECLARE @sex1 VARCHAR(100);
-  SET @sex1 = ISNULL(@sex,'M');
+  SET @sex = ISNULL(@sex,'M');
 
   INSERT INTO PERSON (BIRTHDATE, LASTUPDATED, LASTUPDATEDBY, CREATEDDATE, CREATEDBY, VERSION, CONTACT, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, SEX, CLOTHES_SIZE) 
-    VALUES (@birthdate, CURRENT_TIMESTAMP, 'test', NULL, NULL, 1, NULL, @ssn_number, @ssn_country, @name_first, @name_last, @sex1, NULL);
-  SELECT SCOPE_IDENTITY() INTO @newid;
+    VALUES (@birthdate, CURRENT_TIMESTAMP, 'test', NULL, NULL, 1, NULL, @ssn_number, @ssn_country, @name_first, @name_last, @sex, NULL);
+  SET @newid = SCOPE_IDENTITY();
 END;
 
 CREATE PROCEDURE new_person_ret(@birthdate DATE, @ssn_number VARCHAR(20), @ssn_country VARCHAR(100), @name_first VARCHAR(100), @name_last VARCHAR(100), @sex VARCHAR(100)) AS
@@ -355,7 +354,7 @@ BEGIN
 
   INSERT INTO PERSON (BIRTHDATE, LASTUPDATED, LASTUPDATEDBY, CREATEDDATE, CREATEDBY, VERSION, CONTACT, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, SEX, CLOTHES_SIZE) 
     VALUES (@birthdate, CURRENT_TIMESTAMP, 'test', NULL, NULL, 1, NULL, @ssn_number, @ssn_country, @name_first, @name_last, @sex1, NULL);
-  SELECT SCOPE_IDENTITY() INTO @temp_id;
+  SET @temp_id = SCOPE_IDENTITY();
   SELECT * FROM PERSON WHERE ID = @temp_id;
 END;
 
