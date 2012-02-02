@@ -45,7 +45,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         super.addResolver(new DbVerUpdateColumnResolver());
         super.addResolver(new DbOptUpdateColumnResolver());
         super.addResolver(new DbOptCondColumnResolver());
-        super.addResolver(new PojoDefinitionResolver());
+        super.addResolver(new PojoDefinitionsResolver());
+        super.addResolver(new TableDefinitionsResolver());
     }
 
     protected Artifacts getArtifacts(XtextTemplateContext xtextTemplateContext) {
@@ -251,6 +252,16 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         StringBuilder builder = new StringBuilder();
         for (Class<?> clazz : pojoClasses) {
             builder.append("pojo ").append(toCamelCase(clazz)).append(' ').append(clazz.getName()).append(";\n");
+        }
+        return builder.toString();
+    }
+
+    protected String getTableDefinitions(List<String> tables) {
+        if (tables == null)
+            return null;
+        StringBuilder builder = new StringBuilder();
+        for (String table : tables) {
+            builder.append("tables ").append(toCamelCase(table)).append(' ').append(table).append(";\n");
         }
         return builder.toString();
     }
@@ -473,12 +484,12 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         }
     }
 
-    public class PojoDefinitionResolver extends SimpleTemplateVariableResolver {
+    public class PojoDefinitionsResolver extends SimpleTemplateVariableResolver {
 
-        public static final String NAME = "pojoDefinition";
+        public static final String NAME = "pojoDefinitions";
 
-        public PojoDefinitionResolver() {
-            super(NAME, "PojoDefinition");
+        public PojoDefinitionsResolver() {
+            super(NAME, "PojoDefinitions");
         }
 
         @Override
@@ -487,6 +498,30 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             if (artifacts != null && pojoResolver.isResolvePojo(artifacts)) {
                 List<Class<?>> pojoClasses = pojoResolver.getPojoClasses();
                 return getPojoDefinitions(pojoClasses);
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class TableDefinitionsResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "tableDefinitions";
+
+        public TableDefinitionsResolver() {
+            super(NAME, "TableDefinitions");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
+            if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
+                List<String> tables = dbResolver.getTables(artifacts);
+                return getTableDefinitions(tables);
             }
             return super.resolve(context);
         }
