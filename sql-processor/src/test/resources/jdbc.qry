@@ -24,7 +24,7 @@ SEL1(OPT,ORACLE)=select last_insert_id();
 SEL1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
 SEL2(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('contact','id'));
 SEL1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
-SEL1(OPT,MSSQL)=scope_identity();
+SEL1(OPT,MSSQL)=select scope_identity();
 
 // META SQL query
 ANSI_BASIC(QRY)=
@@ -1035,7 +1035,7 @@ STANDARD_PARAMETERS(OUT)=
   an_byte$bytes at_byte$bytes a_text$text
   a_blob$blob a_clob$clob
 ;
-STANDARD_PARAMETERS(QRY,INFORMIX,MSSQL)=
+STANDARD_PARAMETERS(QRY,INFORMIX)=
   select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
   t.t_short n_short, t.t_short, t.t_float n_float, t.t_float, t.t_double n_double, t.t_double,
   t.t_char n_char, t.t_char, t.t_string,
@@ -1060,7 +1060,7 @@ STANDARD_PARAMETERS(QRY,INFORMIX,MSSQL)=
   {& t_datetime = :t_datetime^datetime}
   {& t_timestamp = :t_timestamp^timestamp}
 ;
-STANDARD_PARAMETERS(OUT,INFORMIX,MSSQL)=
+STANDARD_PARAMETERS(OUT,INFORMIX)=
   n_int$int t_int$int
   n_long$long t_long$long
   n_byte$byte t_byte$byte

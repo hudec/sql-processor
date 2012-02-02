@@ -188,7 +188,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                     limitType.maxBeforeFirst = true;
                 queryResult.replace(ix, ix + 2, "?");
             } else {
-                ix = queryResult.indexOf("$F");
+                ix = queryResult.indexOf("$f");
                 if (ix >= 0) {
                     limitType.zeroBasedFirst = true;
                     if (queryResult.indexOf("$m", ix) < 0 && queryResult.indexOf("$M", ix) < 0)

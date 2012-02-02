@@ -41,7 +41,8 @@ public class TestUndefinedParameters extends TestDatabase {
         criteria.setT_string("abc");
         criteria.setT_boolean(Boolean.TRUE);
         criteria.setT_date(SqlUtils.getDate(2009, 7, 31));
-        if (!dbType.equalsIgnoreCase("oracle") && !dbType.equalsIgnoreCase("postgresql")) // TODO
+        if (!"oracle".equalsIgnoreCase(dbType) && !"postgresql".equalsIgnoreCase(dbType)
+                && !"mssql".equalsIgnoreCase(dbType)) // TODO
             criteria.setT_time(SqlUtils.getTime(14, 55, 2));
         criteria.setT_datetime(SqlUtils.getDateTime(2009, 7, 31, 14, 55, 2));
         if (dbType.equalsIgnoreCase("informix") || "mssql".equalsIgnoreCase(dbType)) {
@@ -124,7 +125,7 @@ public class TestUndefinedParameters extends TestDatabase {
             assertEquals(t.getAn_byte()[i], t.getAt_byte()[i].byteValue());
         assertEquals("hello", t.getA_text());
 
-        if (!dbType.equalsIgnoreCase("postgresql")) {
+        if (!"postgresql".equalsIgnoreCase(dbType)) {
             assertNotNull(t.getA_blob());
             assertNotNull(t.getA_clob());
             assertEquals("byebye", new String(t.getA_blob().getBytes(1L, (int) t.getA_blob().length())));

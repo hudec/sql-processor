@@ -443,7 +443,7 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.SQLServer2008Dialect</db.dialect>
                 <db.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</db.driver>
-                <db.url>jdbc:sqlserver://mrkev:1433;databaseName=sql;selectMethod=direct;sendTimeAsDatetime=false;sendStringParametersAsUnicode=true</db.url>
+                <db.url>jdbc:sqlserver://mrkev:1433;databaseName=sql;selectMethod=direct;sendTimeAsDatetime=true;sendStringParametersAsUnicode=true</db.url>
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
