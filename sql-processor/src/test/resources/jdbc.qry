@@ -24,7 +24,7 @@ SEL1(OPT,ORACLE)=select last_insert_id();
 SEL1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
 SEL2(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('contact','id'));
 SEL1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
-SEL1(OPT,MSSQL)=select scope_identity();
+SEL1(OPT,MSSQL)=select cast(@@identity as bigint);
 
 // META SQL query
 ANSI_BASIC(QRY)=
@@ -1465,10 +1465,12 @@ INSERT_PERSON(CRUD)=
   values (:id, :ssn.number^string^any, :ssn.country, :name.first^string^any, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize)
 ;
 INSERT_PERSON(CRUD,MSSQL)=
-  insert into PERSON (SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
-  values (:ssn.number^string^any, :ssn.country, :name.first^string^any, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize)
+  set identity_insert PERSON on
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  values (:id, :ssn.number^string^any, :ssn.country, :name.first^string^any, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize)
+  set identity_insert PERSON off
 ;
-  
+
 INSERT_PERSON_2(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
   values (:id^long^seq=SEQ1, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp^any, :createdBy, :version, :clothesSize)

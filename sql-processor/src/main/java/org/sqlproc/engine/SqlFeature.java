@@ -271,12 +271,6 @@ public interface SqlFeature {
     public static final String MSSQL_DEFAULT_LIMIT_FROM_TO = "with sql_proc_vars (f, m) as (select $F, $M) "
             + "select sql_proc_t.* from ( select sql_proc_t1.*, ROW_NUMBER() OVER (ORDER BY id) as 'rownum_' from (select top (select top (1) m + f from sql_proc_vars) $s) sql_proc_t1 ) sql_proc_t where "
             + "rownum_ between (select top (1) f + 1 from sql_proc_vars) AND (select top (1) m + f from sql_proc_vars)";
-    // "select * from (SELECT top ($m) * FROM ($s)) as foo except select * from (SELECT top ($f) * FROM ($s)) as bar";
-    // "SELECT TOP ($m) t.* FROM ($s) t WHERE id NOT IN (SELECT TOP ($f) t2.id FROM ($s) t2 ORDER BY t2.id)";
-    // "WITH t1 AS (SELECT t2.*, ROW_NUMBER() OVER (ORDER BY id) AS 'RowNumber' FROM ($s) t2) SELECT * FROM t1 WHERE RowNumber BETWEEN 3 AND 5";
-    // "SELECT * FROM (SELECT TOP (5) t.*, ROW_NUMBER() OVER (ORDER BY t.id) AS rn FROM ($s) t) to WHERE rn > 3";
-    // "SELECT t1.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY id) AS row, t1.* FROM ($s) t1) t2 WHERE t2.row BETWEEN 2 AND 5";
-    // "select t.* from ( select t1.*, ROW_NUMBER() OVER (ORDER BY id) as 'rownum_' from (select top (7) $s) t1 ) t where rownum_ > $F AND rownum_ < $F + $M";
     /**
      * <code>MSSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the case
      * the filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
@@ -344,7 +338,7 @@ public interface SqlFeature {
      * <code>MSSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
      * filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
      */
-    public static final String MSSQL_DEFAULT_IDSEL = "select scope_identity()";
+    public static final String MSSQL_DEFAULT_IDSEL = "select cast(@@identity as bigint)";
     /*
      * <code>DEFAULT_VERSION_COLUMN</code> is the default name of the column devoted to the optimistic locking.
      */
