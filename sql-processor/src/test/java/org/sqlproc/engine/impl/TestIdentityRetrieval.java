@@ -108,12 +108,12 @@ public class TestIdentityRetrieval extends TestDatabase {
 
         logger.info(sql);
 
-        Statement statement = null;
+        PreparedStatement statement = null;
         ResultSet rs = null;
 
         try {
-            statement = connection.createStatement();
-            statement.execute(sql, Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.execute();
             assertEquals(1, statement.getUpdateCount());
 
             rs = statement.getGeneratedKeys();
