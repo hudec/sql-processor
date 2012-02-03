@@ -233,7 +233,11 @@ public class TestProcedure extends TestDatabase {
         logger.info(sql);
 
         int count = callableEngine.callUpdate(session, p);
-        assertTrue("Number of updated rows is 0 or 1", count == 0 || count == -1);
+        if ("mssql".equalsIgnoreCase(dbType)) {
+            assertTrue("Number of updated rows is not 1", count == 1);
+        } else {
+            assertTrue("Number of updated rows is not 0 or -1", count == 0 || count == -1);
+        }
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
         assertEquals(Gender.MALE, p.getSex());
@@ -265,7 +269,11 @@ public class TestProcedure extends TestDatabase {
         logger.info(sql);
 
         int count = callableEngine.callUpdate(session, p);
-        assertTrue("Number of updated rows is 0 or 1", count == 0 || count == -1);
+        if ("mssql".equalsIgnoreCase(dbType)) {
+            assertTrue("Number of updated rows is not 1", count == 1);
+        } else {
+            assertTrue("Number of updated rows is not 0 or -1", count == 0 || count == -1);
+        }
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
 
@@ -295,7 +303,11 @@ public class TestProcedure extends TestDatabase {
         logger.info(sql);
 
         int count = callableEngine.callUpdate(session, p);
-        assertTrue("Number of updated rows is 0 or 1", count == 0 || count == -1);
+        if ("mssql".equalsIgnoreCase(dbType)) {
+            assertTrue("Number of updated rows is not 1", count == 1);
+        } else {
+            assertTrue("Number of updated rows is not 0 or -1", count == 0 || count == -1);
+        }
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
         assertEquals(Gender.MALE, p.getSex());
@@ -327,7 +339,11 @@ public class TestProcedure extends TestDatabase {
         logger.info(sql);
 
         int count = callableEngine.callUpdate(session, p);
-        assertTrue("Number of updated rows is 0 or 1", count == 0 || count == -1);
+        if ("mssql".equalsIgnoreCase(dbType)) {
+            assertTrue("Number of updated rows is not 1", count == 1);
+        } else {
+            assertTrue("Number of updated rows is not 0 or -1", count == 0 || count == -1);
+        }
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
 

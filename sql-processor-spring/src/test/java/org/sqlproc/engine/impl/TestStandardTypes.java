@@ -17,6 +17,8 @@ public class TestStandardTypes extends TestDatabase {
             return "dbunit/TypesTest_postgresql.xml";
         else if (dbType.equalsIgnoreCase("informix"))
             return "dbunit/TypesTest_informix.xml";
+        else if (dbType.equalsIgnoreCase("mssql"))
+            return "dbunit/TypesTest_mssql.xml";
         else
             return "dbunit/TypesTest.xml";
     }

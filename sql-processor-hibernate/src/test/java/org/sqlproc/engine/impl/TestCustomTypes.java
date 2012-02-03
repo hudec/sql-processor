@@ -17,7 +17,7 @@ public class TestCustomTypes extends TestDatabase {
 
     @Test
     public void testInsert() {
-        if ("MYSQL".equalsIgnoreCase(dbType))
+        if ("MYSQL".equalsIgnoreCase(dbType) || "MSSQL".equalsIgnoreCase(dbType))
             return;
 
         Contact c = new Contact();
@@ -83,7 +83,7 @@ public class TestCustomTypes extends TestDatabase {
 
     @Test
     public void testInsert3() {
-        if ("MYSQL".equalsIgnoreCase(dbType))
+        if ("MYSQL".equalsIgnoreCase(dbType) || "MSSQL".equalsIgnoreCase(dbType))
             return;
 
         Contact c = new Contact();
