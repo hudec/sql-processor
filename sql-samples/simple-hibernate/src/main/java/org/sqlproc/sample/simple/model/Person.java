@@ -2,6 +2,9 @@ package org.sqlproc.sample.simple.model;
 
 import java.util.List;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class Person {
 
     private Long id;

@@ -1,5 +1,8 @@
 package org.sqlproc.sample.simple.model;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class Book extends Media {
 
     private String isbn;

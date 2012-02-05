@@ -1,5 +1,8 @@
 package org.sqlproc.sample.simple.model;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public final class PhoneNumber {
     private final int area; // area code (3 digits)
     private final int exch; // exchange (3 digits)

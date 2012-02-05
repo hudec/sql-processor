@@ -1,5 +1,8 @@
 package org.sqlproc.sample.simple.model;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public abstract class BillingDetails {
     private Long id;
     // discriminator, CC=CreditCard, BA=BankAccount

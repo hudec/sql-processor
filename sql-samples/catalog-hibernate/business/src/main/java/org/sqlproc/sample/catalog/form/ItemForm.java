@@ -3,6 +3,9 @@ package org.sqlproc.sample.catalog.form;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class ItemForm implements Serializable {
     private Long itemid;
     private String name;

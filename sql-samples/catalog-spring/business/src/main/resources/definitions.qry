@@ -2,11 +2,11 @@ resolve references ON;
 database online OFF;
 
 pojo item org.sqlproc.sample.catalog.model.Item;
-pojo item_form org.sqlproc.sample.catalog.form.ItemForm;
+pojo itemForm org.sqlproc.sample.catalog.form.ItemForm;
 
-ident ITEMS item_form;
-ident GET_ITEM item_form;
-ident DELETE_ITEM item_form;
+ident ITEMS itemForm;
+ident GET_ITEM itemForm;
+ident DELETE_ITEM itemForm;
 ident INSERT_ITEM item;
 ident UPDATE_ITEM item;
 

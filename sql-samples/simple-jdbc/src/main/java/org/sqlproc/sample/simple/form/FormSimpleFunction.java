@@ -1,5 +1,8 @@
 package org.sqlproc.sample.simple.form;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class FormSimpleFunction {
     private java.sql.Timestamp time;
     private java.sql.Timestamp time2;
