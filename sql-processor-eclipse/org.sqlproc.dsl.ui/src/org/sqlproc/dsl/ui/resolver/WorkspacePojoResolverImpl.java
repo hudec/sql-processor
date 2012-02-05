@@ -53,28 +53,34 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
                 project.open(null /* IProgressMonitor */);
                 IJavaProject javaProject = JavaCore.create(project);
                 javaProjects.add(javaProject);
-                String[] classPathEntries = JavaRuntime.computeDefaultRuntimeClassPath(javaProject);
-                List<URL> urlList = new ArrayList<URL>();
-                for (int i = 0; i < classPathEntries.length; i++) {
-                    String entry = classPathEntries[i];
-                    IPath path = new Path(entry);
-                    URL url;
-                    try {
-                        url = path.toFile().toURI().toURL();
-                        urlList.add(url);
-                    } catch (MalformedURLException e) {
-                        LOGGER.warn("Can't accept URL for '" + path + "': " + e.getMessage());
-                    }
-                }
-                ClassLoader parentClassLoader = javaProject.getClass().getClassLoader();
-                URL[] urls = (URL[]) urlList.toArray(new URL[urlList.size()]);
-                URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
+                URLClassLoader classLoader = getProjectClassLoader(javaProject);
                 loaders.add(classLoader);
             } catch (CoreException e) {
                 LOGGER.warn("Can't handle project '" + project + "': " + e.getMessage());
             }
         }
         this.allLoaders = loaders;
+    }
+
+    @SuppressWarnings("unused")
+    private URLClassLoader getProjectClassLoader(IJavaProject javaProject) throws CoreException {
+        String[] classPathEntries = JavaRuntime.computeDefaultRuntimeClassPath(javaProject);
+        List<URL> urlList = new ArrayList<URL>();
+        for (int i = 0; i < classPathEntries.length; i++) {
+            String entry = classPathEntries[i];
+            IPath path = new Path(entry);
+            URL url;
+            try {
+                url = path.toFile().toURI().toURL();
+                urlList.add(url);
+            } catch (MalformedURLException e) {
+                LOGGER.warn("Can't accept URL for '" + path + "': " + e.getMessage());
+            }
+        }
+        ClassLoader parentClassLoader = javaProject.getClass().getClassLoader();
+        URL[] urls = (URL[]) urlList.toArray(new URL[urlList.size()]);
+        URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
+        return classLoader;
     }
 
     @Override
@@ -150,13 +156,20 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
             try {
                 project.open(null /* IProgressMonitor */);
                 IJavaProject javaProject = JavaCore.create(project);
+                URLClassLoader classLoader = getProjectClassLoader(javaProject);
+
                 for (IPackageFragment fragment : javaProject.getPackageFragments()) {
                     if (fragment.getKind() == IPackageFragmentRoot.K_SOURCE) {
                         for (ICompilationUnit unit : fragment.getCompilationUnits()) {
                             if (unit.getTypes() != null && unit.getTypes().length > 0) {
                                 String classname = unit.getParent().getElementName() + "."
                                         + unit.getTypes()[0].getElementName();
-                                Class<?> clazz = loadClass(classname);
+                                // Class<?> clazz = loadClass(classname);
+                                Class<?> clazz = null;
+                                try {
+                                    clazz = classLoader.loadClass(classname);
+                                } catch (ClassNotFoundException ignore) {
+                                }
                                 if (clazz == null)
                                     continue;
                                 for (Annotation annotation : clazz.getAnnotations()) {

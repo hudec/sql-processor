@@ -2,6 +2,8 @@ package org.sqlproc.dsl.ui.templates;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.templates.SimpleTemplateVariableResolver;
@@ -249,9 +251,14 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
     protected String getPojoDefinitions(List<Class<?>> pojoClasses) {
         if (pojoClasses == null)
             return null;
-        StringBuilder builder = new StringBuilder();
+        TreeMap<String, String> map = new TreeMap<String, String>();
         for (Class<?> clazz : pojoClasses) {
-            builder.append("pojo ").append(toCamelCase(clazz)).append(' ').append(clazz.getName()).append(";\n");
+            map.put(toCamelCase(clazz), clazz.getName());
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (Entry<String, String> pojo : map.entrySet()) {
+            builder.append("pojo ").append(pojo.getKey()).append(' ').append(pojo.getValue()).append(";\n");
         }
         return builder.toString();
     }
@@ -259,9 +266,14 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
     protected String getTableDefinitions(List<String> tables) {
         if (tables == null)
             return null;
-        StringBuilder builder = new StringBuilder();
+        TreeMap<String, String> map = new TreeMap<String, String>();
         for (String table : tables) {
-            builder.append("tables ").append(toCamelCase(table)).append(' ').append(table).append(";\n");
+            map.put(toCamelCase(table), table);
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (Entry<String, String> table : map.entrySet()) {
+            builder.append("table ").append(table.getKey()).append(' ').append(table.getValue()).append(";\n");
         }
         return builder.toString();
     }
