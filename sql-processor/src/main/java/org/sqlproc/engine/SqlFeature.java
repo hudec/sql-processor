@@ -264,13 +264,14 @@ public interface SqlFeature {
      * case the filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_LIMIT_TO = "select first $M $s";
-    /**
+    /*
+     * Unsupported now.
+     * 
      * <code>MSSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
      * in the case the filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
      */
-    public static final String MSSQL_DEFAULT_LIMIT_FROM_TO = "with sql_proc_vars (f, m) as (select $F, $M) "
-            + "select sql_proc_t.* from ( select sql_proc_t1.*, ROW_NUMBER() OVER (ORDER BY id) as 'rownum_' from (select top (select top (1) m + f from sql_proc_vars) $s) sql_proc_t1 ) sql_proc_t where "
-            + "rownum_ between (select top (1) f + 1 from sql_proc_vars) AND (select top (1) m + f from sql_proc_vars)";
+    // version for MS SQL Server 2012:
+    // public static final String MSSQL_DEFAULT_LIMIT_FROM_TO = "$S OFFSET ($F) ROWS FETCH NEXT ($M) ROWS ONLY";
     /**
      * <code>MSSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the case
      * the filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
