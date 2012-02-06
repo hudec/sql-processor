@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,6 +17,7 @@ import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.impl.SqlProcessContext;
@@ -227,7 +229,11 @@ public class JdbcQuery implements SqlQuery {
         }
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement(queryString);
+            if (SqlProcessContext.isFeature(SqlFeature.GENERATED_KEYS)) {
+                ps = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+            } else {
+                ps = connection.prepareStatement(queryString);
+            }
             if (timeout != null)
                 ps.setQueryTimeout(timeout);
             setParameters(ps, null, 1);
@@ -237,7 +243,11 @@ public class JdbcQuery implements SqlQuery {
             }
             if (!identities.isEmpty()) {
                 String identityName = identities.get(0);
-                doIdentitySelect(identityName);
+                if (SqlProcessContext.isFeature(SqlFeature.GENERATED_KEYS)) {
+                    getGeneratedKeys(identityName, ps);
+                } else {
+                    doIdentitySelect(identityName);
+                }
             }
             return updated;
         } catch (SQLException he) {
@@ -246,6 +256,50 @@ public class JdbcQuery implements SqlQuery {
             if (ps != null) {
                 try {
                     ps.close();
+                } catch (SQLException ignore) {
+                }
+            }
+        }
+    }
+
+    /**
+     * Retrieves the value of auto-generated identity from executed prepared statement.
+     * 
+     * @param identityName
+     *            the identity name from the META SQL statement
+     * @param statement
+     *            statement to retrieve auto-generated keys from
+     */
+    protected void getGeneratedKeys(String identityName, Statement statement) {
+        IdentitySetter identitySetter = identitySetters.get(identityName);
+        Object identityType = identityTypes.get(identityName);
+        if (logger.isDebugEnabled()) {
+            logger.debug("identity, name=" + identityName + ", getGeneratedKeys(), identityType=" + identityType);
+        }
+
+        ResultSet rs = null;
+        Object identityValue = null;
+        try {
+            rs = statement.getGeneratedKeys();
+            while (rs.next()) {
+                if (identityType != null && identityType instanceof JdbcSqlType) {
+                    identityValue = ((JdbcSqlType) identityType).get(rs, identityName);
+                } else {
+                    identityValue = rs.getObject(1);
+                }
+                if (rs.wasNull())
+                    identityValue = null;
+            }
+            identitySetter.setIdentity(identityValue);
+            if (logger.isDebugEnabled()) {
+                logger.debug("identity, result=" + identityValue);
+            }
+        } catch (SQLException he) {
+            throw new SqlProcessorException("Statement.getGeneratedKeys() failed.", he);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
                 } catch (SQLException ignore) {
                 }
             }
@@ -286,7 +340,7 @@ public class JdbcQuery implements SqlQuery {
                 logger.debug("identity, result=" + identityValue);
             }
         } catch (SQLException he) {
-            throw new SqlProcessorException(he);
+            throw new SqlProcessorException("Identity select failed.", he);
         } finally {
             if (rs != null) {
                 try {

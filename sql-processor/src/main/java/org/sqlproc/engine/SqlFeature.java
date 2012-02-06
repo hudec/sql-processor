@@ -324,7 +324,7 @@ public interface SqlFeature {
     /**
      * <code>GENERATED_KEYS</code> is the key for using auto generated identities through JDBC function after the INSERT
      * command. In the case it's value is defined as true, the JDBC function is used, otherwise the <code>IDSEL</code>
-     * is used.
+     * is used. The default value related to this key is <code>false</code>.
      */
     public static final String GENERATED_KEYS = "GENERATED_KEYS";
 }
