@@ -317,8 +317,14 @@ public interface SqlFeature {
      * the filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_IDSEL = "SELECT FIRST 1 dbinfo('bigserial') FROM systables";
-    /*
+    /**
      * <code>DEFAULT_VERSION_COLUMN</code> is the default name of the column devoted to the optimistic locking.
      */
     public static final String DEFAULT_VERSION_COLUMN = "version";
+    /**
+     * <code>GENERATED_KEYS</code> is the key for using auto generated identities through JDBC function after the INSERT
+     * command. In the case it's value is defined as true, the JDBC function is used, otherwise the <code>IDSEL</code>
+     * is used.
+     */
+    public static final String GENERATED_KEYS = "GENERATED_KEYS";
 }
