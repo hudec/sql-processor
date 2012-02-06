@@ -57,6 +57,19 @@
 
     <bean id="itemDao" class="org.sqlproc.sample.catalog.dao.ItemDao" parent="dao" />
 
+    <bean id="sqlJmxRegisterCallback" class="org.javasimon.jmx.JmxRegisterCallback">
+        <constructor-arg name="domain" value="sql-processor"/>
+    </bean>
+
+    <bean id="sqlMonitoringManager" class="org.sqlproc.sample.catalog.monitor.MonitoringManager">
+        <property name="jmxRegisterCallback" ref="sqlJmxRegisterCallback" />
+    </bean>
+
+    <bean id="sqlMonitorFactory" class="org.sqlproc.sample.catalog.monitor.SimonSqlMonitorFactory">
+        <property name="manager" ref="sqlMonitoringManager" />
+        <property name="monitorName" value="catalog" />
+    </bean>
+
     <bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory">
         <property name="metaFilesNames">
             <list>
@@ -64,6 +77,7 @@
             </list>
         </property>
         <property name="filter" value="${db.type}" />
+        <property name="monitorFactory" ref="sqlMonitorFactory"/>
     </bean>
 
     <bean id="itemService" class="org.sqlproc.sample.catalog.service.ItemService" />
