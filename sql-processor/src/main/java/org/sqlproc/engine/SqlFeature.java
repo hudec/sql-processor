@@ -260,6 +260,16 @@ public interface SqlFeature {
      */
     public static final String INFORMIX_DEFAULT_LIMIT_TO = "select first $M $s";
     /**
+     * <code>DB2_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code> in
+     * the case the filter value <code>DB2</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    public static final String DB2_DEFAULT_LIMIT_FROM_TO = "select * from ( select row_.*, rownum rownum_ from ($S) row_ where rownum <= $m) where rownum_ > $F";
+    /**
+     * <code>DB2_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the case
+     * the filter value <code>DB2</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    public static final String DB2_DEFAULT_LIMIT_TO = "select * from ($S) where rownum <= $m";
+    /**
      * <code>SET_SEQ</code> is the key for the SQL query pattern used for the sequences. This pattern can be combined
      * with the sequence name used in the META SQL query in the next way:
      * <ul>
