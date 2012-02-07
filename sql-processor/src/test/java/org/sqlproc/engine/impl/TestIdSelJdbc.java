@@ -13,14 +13,14 @@ import org.sqlproc.engine.model.PersonName;
 import org.sqlproc.engine.model.Size;
 import org.sqlproc.engine.model.Ssn;
 
-public class TestGetGeneratedKeys extends TestDatabase {
+public class TestIdSelJdbc extends TestDatabase {
 
     protected String getDataSetFile(String dbType) {
         return "dbunit/JoinsTest.xml";
     }
 
     @Test
-    public void testInsert6() {
+    public void testInsertUsingJdbcIdentities() {
         if ("ORACLE".equalsIgnoreCase(dbType))
             return;
 
@@ -44,7 +44,7 @@ public class TestGetGeneratedKeys extends TestDatabase {
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
 
-        SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_6", "GEN_KEY_TEST_TRUE");
+        SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_6", "IDSEL_JDBC_TRUE");
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
@@ -64,7 +64,7 @@ public class TestGetGeneratedKeys extends TestDatabase {
     }
 
     @Test
-    public void testInsert6WithFalse() {
+    public void testInsertNotUsingJdbcIdentities() {
         if ("ORACLE".equalsIgnoreCase(dbType))
             return;
 
@@ -88,7 +88,7 @@ public class TestGetGeneratedKeys extends TestDatabase {
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
 
-        SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_6", "GEN_KEY_TEST_FALSE");
+        SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_6", "IDSEL_JDBC_FALSE");
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);

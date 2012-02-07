@@ -229,7 +229,9 @@ public class JdbcQuery implements SqlQuery {
         }
         PreparedStatement ps = null;
         try {
-            if (SqlProcessContext.isFeature(SqlFeature.GENERATED_KEYS)) {
+            final boolean retrieveIdentityFromStatement = isSetJDBCIdentity();
+
+            if (retrieveIdentityFromStatement) {
                 ps = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
             } else {
                 ps = connection.prepareStatement(queryString);
@@ -243,7 +245,7 @@ public class JdbcQuery implements SqlQuery {
             }
             if (!identities.isEmpty()) {
                 String identityName = identities.get(0);
-                if (SqlProcessContext.isFeature(SqlFeature.GENERATED_KEYS)) {
+                if (retrieveIdentityFromStatement) {
                     getGeneratedKeys(identityName, ps);
                 } else {
                     doIdentitySelect(identityName);
@@ -260,6 +262,16 @@ public class JdbcQuery implements SqlQuery {
                 }
             }
         }
+    }
+
+    private boolean isSetJDBCIdentity() {
+        for (String identityName : identities) {
+            IdentitySetter identitySetter = identitySetters.get(identityName);
+            if (identitySetter.getIdentitySelect().equals(SqlFeature.IDSEL_JDBC)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

@@ -318,13 +318,20 @@ public interface SqlFeature {
      */
     public static final String INFORMIX_DEFAULT_IDSEL = "SELECT FIRST 1 dbinfo('bigserial') FROM systables";
     /**
+     * <code>IDSEL_JDBC</code> is the special value related to the key <code>SET_IDSEL</code> indicating that the
+     * generated identity value is determined using JDBC 4 capabilities to return generated keys for SQL statement. This
+     * feature requires that both the database and the JDBC driver support it.
+     */
+    public static final String IDSEL_JDBC = "JDBC";
+    /**
+     * <code>MSSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
+     * filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     * <p/>
+     * The default value is {@link #IDSEL_JDBC}.
+     */
+    public static final String MSSQL_DEFAULT_IDSEL = IDSEL_JDBC;
+    /**
      * <code>DEFAULT_VERSION_COLUMN</code> is the default name of the column devoted to the optimistic locking.
      */
     public static final String DEFAULT_VERSION_COLUMN = "version";
-    /**
-     * <code>GENERATED_KEYS</code> is the key for using auto generated identities through JDBC function after the INSERT
-     * command. In the case it's value is defined as true, the JDBC function is used, otherwise the <code>IDSEL</code>
-     * is used. The default value related to this key is <code>false</code>.
-     */
-    public static final String GENERATED_KEYS = "GENERATED_KEYS";
 }

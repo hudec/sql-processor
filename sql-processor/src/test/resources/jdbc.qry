@@ -25,14 +25,12 @@ SEL1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
 SEL2(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('contact','id'));
 SEL1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
 /*
- * Optional settings for testing getting generated keys through JDBC function.
+ * Settings for testing getting generated keys through JDBC function.
  */
-GENERATED_KEYS(BOPT,GEN_KEY_TEST_TRUE)=true;
-SEL1(OPT,GEN_KEY_TEST_TRUE)=genenerates test exception;
-//GENERATED_KEYS(BOPT,GEN_KEY_TEST_FALSE)=false;
-SEL1(OPT,GEN_KEY_TEST_FALSE)=genenerates test exception;
+SEL1(OPT,IDSEL_JDBC_TRUE)=JDBC;
+SEL1(OPT,IDSEL_JDBC_FALSE)=generates test exception;
 
- 
+
 // META SQL query
 ANSI_BASIC(QRY)=
   select %p.ID, %p.NAME_FIRST as first, %p.NAME_LAST as last, %p.SSN_NUMBER ssn, %p.SSN_COUNTRY country,
