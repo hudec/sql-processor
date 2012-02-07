@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,6 +27,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.support.JdbcUtils;
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.impl.SqlProcessContext;
@@ -241,7 +243,12 @@ public class SpringQuery implements SqlQuery {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement(queryString);
+                PreparedStatement ps;
+                if (isSetJDBCIdentity()) {
+                    ps = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+                } else {
+                    ps = con.prepareStatement(queryString);
+                }
                 if (timeout != null)
                     ps.setQueryTimeout(timeout);
                 return ps;
@@ -255,10 +262,17 @@ public class SpringQuery implements SqlQuery {
         };
 
         try {
-            int updated = update(psc, pss);
+            int updated = 0;
             if (!identities.isEmpty()) {
                 String identityName = identities.get(0);
-                doIdentitySelect(identityName);
+                if (isSetJDBCIdentity()) {
+                    updated = updateWithGenKeys(psc, pss, identityName);
+                } else {
+                    updated = updateWithoutGenKeys(psc, pss);
+                    doIdentitySelect(identityName);
+                }
+            } else {
+                updated = updateWithoutGenKeys(psc, pss);
             }
             if (logger.isDebugEnabled()) {
                 logger.debug("update, number of updated rows=" + updated);
@@ -267,6 +281,16 @@ public class SpringQuery implements SqlQuery {
         } catch (DataAccessException dae) {
             throw new SqlProcessorException(dae);
         }
+    }
+
+    private boolean isSetJDBCIdentity() {
+        for (String identityName : identities) {
+            IdentitySetter identitySetter = identitySetters.get(identityName);
+            if (identitySetter.getIdentitySelect().equals(SqlFeature.IDSEL_JDBC)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -314,14 +338,92 @@ public class SpringQuery implements SqlQuery {
                 logger.debug("identity, result=" + identityValue);
             }
         } catch (DataAccessException dae) {
-            throw new SqlProcessorException(dae);
+            throw new SqlProcessorException("Identity select failed.", dae);
+        }
+    }
+
+    /**
+     * Retrieves the value of auto-generated identity from executed prepared statement.
+     * 
+     * @param identityName
+     *            the identity name from the META SQL statement
+     * @param statement
+     *            statement to retrieve auto-generated keys from
+     */
+    private void getGeneratedKeys(String identityName, Statement statement) {
+        IdentitySetter identitySetter = identitySetters.get(identityName);
+        Object identityType = identityTypes.get(identityName);
+        if (logger.isDebugEnabled()) {
+            logger.debug("identity, name=" + identityName + ", getGeneratedKeys(), identityType=" + identityType);
+        }
+
+        ResultSet rs = null;
+        Object identityValue = null;
+        try {
+            rs = statement.getGeneratedKeys();
+            while (rs.next()) {
+                if (identityType != null && identityType instanceof JdbcSqlType) {
+                    identityValue = ((JdbcSqlType) identityType).get(rs, identityName);
+                } else {
+                    identityValue = rs.getObject(1);
+                }
+                if (rs.wasNull())
+                    identityValue = null;
+            }
+            identitySetter.setIdentity(identityValue);
+            if (logger.isDebugEnabled()) {
+                logger.debug("identity, result=" + identityValue);
+            }
+        } catch (SQLException he) {
+            throw new SqlProcessorException("Statement.getGeneratedKeys() failed.", he);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
         }
     }
 
     /**
      * This is a workaround, as this method is not visible in JdbcTemplate.
+     * <p/>
+     * It executes the prepared SQL statement and retrieves the values of generated identities from the statement. The
+     * generated identities cannot be obtained later because the ResultSet {@link PreparedStatement#getGeneratedKeys()}
+     * is closed after this method finishes.
      */
-    protected int update(final PreparedStatementCreator psc, final PreparedStatementSetter pss)
+    protected int updateWithGenKeys(final PreparedStatementCreator psc, final PreparedStatementSetter pss,
+            final String identityName) throws DataAccessException {
+
+        logger.debug("Executing prepared SQL update with generated keys retrieval");
+        return jdbcTemplate.execute(psc, new PreparedStatementCallback<Integer>() {
+            public Integer doInPreparedStatement(PreparedStatement ps) throws SQLException {
+                try {
+                    if (pss != null) {
+                        pss.setValues(ps);
+                    }
+                    int rows = ps.executeUpdate();
+                    if (logger.isDebugEnabled()) {
+                        logger.debug("SQL update affected " + rows + " rows");
+                    }
+                    if (identityName != null) {
+                        getGeneratedKeys(identityName, ps);
+                    }
+                    return rows;
+                } finally {
+                    if (pss instanceof ParameterDisposer) {
+                        ((ParameterDisposer) pss).cleanupParameters();
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * This is a workaround, as this method is not visible in JdbcTemplate.
+     */
+    protected int updateWithoutGenKeys(final PreparedStatementCreator psc, final PreparedStatementSetter pss)
             throws DataAccessException {
 
         logger.debug("Executing prepared SQL update");
