@@ -16,7 +16,7 @@ SEQ1(OPT,HSQLDB)=call NEXT VALUE FOR SQLPROC_SEQUENCE;
 SEQ1(OPT,ORACLE)=select SQLPROC_SEQUENCE.nextval from dual;
 SEQ1(OPT,POSTGRESQL)=select nextval('SQLPROC_SEQUENCE');
 SEQ1(OPT,INFORMIX)=SELECT FIRST 1 SQLPROC_SEQUENCE.NEXTVAL FROM systables;
-SEQ1(OPT,DB2)=NEXT VAL FOR SQLPROC_SEQUENCE;
+SEQ1(OPT,DB2)=values nextval for SQLPROC_SEQUENCE;
 /*
  * Default select command to obtain a new created identity
  */
@@ -25,7 +25,7 @@ SEL1(OPT,ORACLE)=select last_insert_id();
 SEL1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
 SEL2(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('contact','id'));
 SEL1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
-SEL1(OPT,DB2)=identity_val_local();
+SEL1(OPT,DB2)=select identity_val_local();
 
 // META SQL query
 ANSI_BASIC(QRY)=

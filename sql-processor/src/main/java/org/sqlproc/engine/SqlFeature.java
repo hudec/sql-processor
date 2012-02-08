@@ -298,6 +298,12 @@ public interface SqlFeature {
      */
     public static final String INFORMIX_DEFAULT_SEQ = "SELECT FIRST 1 $n.NEXTVAL FROM systables";
     /**
+     * <code>DB2_DEFAULT_SEQ</code> is the default value related to the key <code>SET_SEQ</code> in the case the filter
+     * value <code>DB2</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    public static final String DB2_DEFAULT_SEQ = "values nextval for $n";
+
+    /**
      * <code>DEFAULT_SEQ_NAME</code> is the default sequence name.
      */
     public static final String DEFAULT_SEQ_NAME = "SQLPROC_SEQUENCE";
@@ -327,6 +333,11 @@ public interface SqlFeature {
      * the filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_IDSEL = "SELECT FIRST 1 dbinfo('bigserial') FROM systables";
+    /**
+     * <code>DB2_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
+     * filter value <code>DB2</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    public static final String DB2_DEFAULT_IDSEL = "SELECT identity_val_local()";
     /*
      * <code>DEFAULT_VERSION_COLUMN</code> is the default name of the column devoted to the optimistic locking.
      */
