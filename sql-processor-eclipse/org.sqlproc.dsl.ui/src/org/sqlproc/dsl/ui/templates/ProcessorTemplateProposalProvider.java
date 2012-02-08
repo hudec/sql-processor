@@ -74,5 +74,22 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
             // tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
             // acceptor.accept(tp);
         }
+
+        String idDef = helper.getId(ga.getOptionalFeatureRule());
+
+        // create the template only if that id fits the id of
+        // the current template context type
+        if (templateContext.getContextType().getId().equals(idDef)) {
+
+            // create a template on the fly
+            Template template = new Template("pojos", "Pojo definitions", "uniqueTemplateID", "${pojoDefinitions}",
+                    false);// auto-insertable?
+            TemplateProposal tp = createProposal(template, templateContext, context, getImage(template),
+                    getRelevance(template));
+            acceptor.accept(tp);
+            template = new Template("tables", "Table definitions", "uniqueTemplateID", "${tableDefinitions}", false);// auto-insertable?
+            tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
+            acceptor.accept(tp);
+        }
     }
 }

@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 @Entity
 @Table(name = "ITEM")
 @SequenceGenerator(name = "seq_item", sequenceName = "ITEM_SEQ", initialValue = 100)

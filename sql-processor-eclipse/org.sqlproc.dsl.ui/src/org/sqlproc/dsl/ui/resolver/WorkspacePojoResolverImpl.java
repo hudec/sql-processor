@@ -4,6 +4,7 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.annotation.Annotation;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -17,9 +18,15 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.PlatformUI;
 import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.PojoResolver;
 
@@ -30,8 +37,6 @@ import com.google.inject.Singleton;
 public class WorkspacePojoResolverImpl implements PojoResolver {
 
     protected Logger LOGGER = Logger.getLogger(WorkspacePojoResolverImpl.class);
-    // private static final Class[] EMPTY_CLASS_PARAMETERS = new Class[0];
-    // private static final Class[] LIST_CLASS_PARAMETER = new Class[] { java.util.List.class };
 
     @Inject
     ModelProperty modelProperty;
@@ -48,28 +53,34 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
                 project.open(null /* IProgressMonitor */);
                 IJavaProject javaProject = JavaCore.create(project);
                 javaProjects.add(javaProject);
-                String[] classPathEntries = JavaRuntime.computeDefaultRuntimeClassPath(javaProject);
-                List<URL> urlList = new ArrayList<URL>();
-                for (int i = 0; i < classPathEntries.length; i++) {
-                    String entry = classPathEntries[i];
-                    IPath path = new Path(entry);
-                    URL url;
-                    try {
-                        url = path.toFile().toURI().toURL();
-                        urlList.add(url);
-                    } catch (MalformedURLException e) {
-                        LOGGER.warn("Can't accept URL for '" + path + "': " + e.getMessage());
-                    }
-                }
-                ClassLoader parentClassLoader = javaProject.getClass().getClassLoader();
-                URL[] urls = (URL[]) urlList.toArray(new URL[urlList.size()]);
-                URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
+                URLClassLoader classLoader = getProjectClassLoader(javaProject);
                 loaders.add(classLoader);
             } catch (CoreException e) {
                 LOGGER.warn("Can't handle project '" + project + "': " + e.getMessage());
             }
         }
         this.allLoaders = loaders;
+    }
+
+    @SuppressWarnings("unused")
+    private URLClassLoader getProjectClassLoader(IJavaProject javaProject) throws CoreException {
+        String[] classPathEntries = JavaRuntime.computeDefaultRuntimeClassPath(javaProject);
+        List<URL> urlList = new ArrayList<URL>();
+        for (int i = 0; i < classPathEntries.length; i++) {
+            String entry = classPathEntries[i];
+            IPath path = new Path(entry);
+            URL url;
+            try {
+                url = path.toFile().toURI().toURL();
+                urlList.add(url);
+            } catch (MalformedURLException e) {
+                LOGGER.warn("Can't accept URL for '" + path + "': " + e.getMessage());
+            }
+        }
+        ClassLoader parentClassLoader = javaProject.getClass().getClassLoader();
+        URL[] urls = (URL[]) urlList.toArray(new URL[urlList.size()]);
+        URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
+        return classLoader;
     }
 
     @Override
@@ -134,4 +145,48 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
         }
         return allLoaders != null;
     }
+
+    @Override
+    public List<Class<?>> getPojoClasses() {
+        List<Class<?>> pojos = new ArrayList<Class<?>>();
+        IEditorPart editorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+        if (editorPart != null) {
+            IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
+            IProject project = input.getFile().getProject();
+            try {
+                project.open(null /* IProgressMonitor */);
+                IJavaProject javaProject = JavaCore.create(project);
+                URLClassLoader classLoader = getProjectClassLoader(javaProject);
+
+                for (IPackageFragment fragment : javaProject.getPackageFragments()) {
+                    if (fragment.getKind() == IPackageFragmentRoot.K_SOURCE) {
+                        for (ICompilationUnit unit : fragment.getCompilationUnits()) {
+                            if (unit.getTypes() != null && unit.getTypes().length > 0) {
+                                String classname = unit.getParent().getElementName() + "."
+                                        + unit.getTypes()[0].getElementName();
+                                // Class<?> clazz = loadClass(classname);
+                                Class<?> clazz = null;
+                                try {
+                                    clazz = classLoader.loadClass(classname);
+                                } catch (ClassNotFoundException ignore) {
+                                }
+                                if (clazz == null)
+                                    continue;
+                                for (Annotation annotation : clazz.getAnnotations()) {
+                                    if (POJO_ANNOTATION_CLASS.equals(annotation.annotationType().getName())) {
+                                        pojos.add(clazz);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (CoreException e) {
+                LOGGER.warn("Can't handle project '" + project + "': " + e.getMessage());
+            }
+        }
+        return pojos;
+    }
+
 }

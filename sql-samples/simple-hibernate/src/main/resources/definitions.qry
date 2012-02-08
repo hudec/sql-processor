@@ -1,17 +1,18 @@
 resolve references ON;
 database online OFF;
 
-pojo person org.sqlproc.sample.simple.model.Person;
+pojo bankAccount org.sqlproc.sample.simple.model.BankAccount;
+pojo billingDetails org.sqlproc.sample.simple.model.BillingDetails;
+pojo book org.sqlproc.sample.simple.model.Book;
 pojo contact org.sqlproc.sample.simple.model.Contact;
+pojo creditCard org.sqlproc.sample.simple.model.CreditCard;
+pojo library org.sqlproc.sample.simple.model.Library;
 pojo media org.sqlproc.sample.simple.model.Media;
 pojo movie org.sqlproc.sample.simple.model.Movie;
-pojo book org.sqlproc.sample.simple.model.Book;
-pojo library org.sqlproc.sample.simple.model.Library;
-pojo person_library org.sqlproc.sample.simple.model.PersonLibrary;
+pojo person org.sqlproc.sample.simple.model.Person;
+pojo personLibrary org.sqlproc.sample.simple.model.PersonLibrary;
+pojo phoneNumber org.sqlproc.sample.simple.model.PhoneNumber;
 pojo subscriber org.sqlproc.sample.simple.model.Subscriber;
-pojo billing_details  org.sqlproc.sample.simple.model.BillingDetails;
-pojo credit_card  org.sqlproc.sample.simple.model.CreditCard;
-pojo bank_account org.sqlproc.sample.simple.model.BankAccount;
 
 ident ALL_PEOPLE person;
 ident LIKE_PEOPLE person;
@@ -25,14 +26,14 @@ ident ALL_PEOPLE_AND_CONTACTS person;
 ident INSERT_MEDIA media;
 ident INSERT_MOVIE movie;
 ident INSERT_BOOK book;
-ident CREATE_LIBRARY person_library;
+ident CREATE_LIBRARY personLibrary;
 ident ALL_PEOPLE_LIBRARY person;
 ident INSERT_CONTACT_CUSTOM contact;
 ident ALL_PEOPLE_AND_CONTACTS_CUSTOM contact;
 ident INSERT_LIBRARY library;
 ident INSERT_SUBSCRIBER subscriber;
-ident INSERT_CREDIT_CARD credit_card;
-ident INSERT_BANK_ACCOUNT bank_account;
+ident INSERT_CREDIT_CARD creditCard;
+ident INSERT_BANK_ACCOUNT bankAccount;
 ident ALL_SUBSCRIBERS_BILLING_DETAILS subscriber;
 
 col ALL_PEOPLE person;

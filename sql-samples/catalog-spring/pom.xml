@@ -4,21 +4,21 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc.samples</groupId>
     <artifactId>catalog-spring</artifactId>
-    <version>1.7.0-SNAPSHOT</version>
+    <version>1.7.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>SQL Processor Samples, Catalog (Spring)</name>
 
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-samples</artifactId>
-        <version>1.7.0-SNAPSHOT</version>
+        <version>1.7.1-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.sql-processor>1.7.0-SNAPSHOT</version.sql-processor>
+        <version.sql-processor>1.7.1-SNAPSHOT</version.sql-processor>
 
         <version.spring>3.1.0.RELEASE</version.spring>
         <version.log4j>1.2.16</version.log4j>
@@ -32,6 +32,7 @@
         <version.javassist>3.12.1.GA</version.javassist>
         <version.wicket>1.4.19</version.wicket>
         <version.ehcache>2.5.0</version.ehcache>
+        <version.javasimon>3.1.0</version.javasimon>
     </properties>
 
     <modules>
@@ -111,7 +112,7 @@
             <dependency>
                 <groupId>org.sqlproc.samples</groupId>
                 <artifactId>catalog-spring-business</artifactId>
-                <version>1.7.0-SNAPSHOT</version>
+                <version>1.7.1-SNAPSHOT</version>
                 <type>jar</type>
             </dependency>
             <dependency>
@@ -183,6 +184,7 @@
                 <artifactId>wicket-spring</artifactId>
                 <version>${version.wicket}</version>
             </dependency>
+
             <!-- Spring -->
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -251,6 +253,29 @@
                 <!-- scope compile otherwise assembly messes up -->
             </dependency>
 
+            <!-- Javasimon -->
+            <dependency>
+                <groupId>org.javasimon</groupId>
+                <artifactId>javasimon-core</artifactId>
+                <version>${version.javasimon}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.javasimon</groupId>
+                <artifactId>javasimon-jdbc4</artifactId>
+                <version>${version.javasimon}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.javasimon</groupId>
+                <artifactId>javasimon-javaee</artifactId>
+                <version>${version.javasimon}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.javasimon</groupId>
+                <artifactId>javasimon-spring</artifactId>
+                <version>${version.javasimon}</version>
+            </dependency>
+
+            <!-- LIBS -->
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
@@ -261,13 +286,13 @@
                 <artifactId>commons-dbcp</artifactId>
                 <version>${version.commons-dbcp}</version>
             </dependency>
-
             <dependency>
                 <groupId>aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
                 <version>${version.aspectj}</version>
             </dependency>
-        
+
+            <!-- Cache -->
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache-core</artifactId>

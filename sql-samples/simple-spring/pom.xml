@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc.samples</groupId>
     <artifactId>simple-spring</artifactId>
-    <version>1.7.0-SNAPSHOT</version>
+    <version>1.7.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>SQL Processor Samples, New Simple (Spring)</name>
     <description>It's based on the new loader.</description>
@@ -11,12 +11,12 @@
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-samples</artifactId>
-        <version>1.7.0-SNAPSHOT</version>
+        <version>1.7.1-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <properties>
-        <version.sql-processor>1.7.0-SNAPSHOT</version.sql-processor>
+        <version.sql-processor>1.7.1-SNAPSHOT</version.sql-processor>
         <version.antlr>3.4</version.antlr>
         <version.spring>3.1.0.RELEASE</version.spring>
         <version.commons-dbcp>1.4</version.commons-dbcp>

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class Item implements Serializable {
 
     private Long itemid;
