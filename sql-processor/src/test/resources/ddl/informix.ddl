@@ -39,7 +39,7 @@ DROP TABLE SUBSCRIBER CASCADE;
 DROP SEQUENCE SQLPROC_SEQUENCE;
 
 
--- Drom procedures a functions
+-- Drop procedures and functions
 
 DROP PROCEDURE new_person;
 
