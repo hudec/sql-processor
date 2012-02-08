@@ -319,7 +319,7 @@ public interface SqlFeature {
     public static final String INFORMIX_DEFAULT_IDSEL = "SELECT FIRST 1 dbinfo('bigserial') FROM systables";
     /**
      * <code>IDSEL_JDBC</code> is the special value related to the key <code>SET_IDSEL</code> indicating that the
-     * generated identity value is determined using JDBC 4 capabilities to return generated keys for SQL statement. This
+     * generated identity value is determined using JDBC capabilities to return generated keys for SQL statement. This
      * feature requires that both the database and the JDBC driver support it.
      */
     public static final String IDSEL_JDBC = "JDBC";
