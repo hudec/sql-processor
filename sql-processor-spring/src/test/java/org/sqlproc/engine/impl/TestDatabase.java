@@ -260,6 +260,16 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return factory;
     }
 
+    SqlEngineFactory getEngineFactory(String name, String filter) {
+        SqlProcessContext.nullFeatures();
+        SqlProcessContext.nullTypeFactory();
+        SqlEngineFactory factory;
+        factory = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(),
+                SimpleSqlPluginFactory.getInstance(), filter, null, customTypes, name);
+        assertNotNull(factory);
+        return factory;
+    }
+
     SqlQueryEngine getQueryEngine(String name) {
         SqlEngineFactory factory = getEngineFactory(name);
         SqlQueryEngine sqlEngine = factory.getQueryEngine(name);
@@ -269,6 +279,13 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
     SqlQueryEngine getSqlEngine(String name) {
         return getQueryEngine(name);
+    }
+
+    SqlCrudEngine getCrudEngine(String name, String filter) {
+        SqlEngineFactory factory = getEngineFactory(name, filter);
+        SqlCrudEngine sqlEngine = factory.getCrudEngine(name);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
     }
 
     SqlCrudEngine getCrudEngine(String name) {

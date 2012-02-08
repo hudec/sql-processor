@@ -317,7 +317,20 @@ public interface SqlFeature {
      * the filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_IDSEL = "SELECT FIRST 1 dbinfo('bigserial') FROM systables";
-    /*
+    /**
+     * <code>IDSEL_JDBC</code> is the special value related to the key <code>SET_IDSEL</code> indicating that the
+     * generated identity value is determined using JDBC capabilities to return generated keys for SQL statement. This
+     * feature requires that both the database and the JDBC driver support it.
+     */
+    public static final String IDSEL_JDBC = "JDBC";
+    /**
+     * <code>MSSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
+     * filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     * <p/>
+     * The default value is {@link #IDSEL_JDBC}.
+     */
+    public static final String MSSQL_DEFAULT_IDSEL = IDSEL_JDBC;
+    /**
      * <code>DEFAULT_VERSION_COLUMN</code> is the default name of the column devoted to the optimistic locking.
      */
     public static final String DEFAULT_VERSION_COLUMN = "version";

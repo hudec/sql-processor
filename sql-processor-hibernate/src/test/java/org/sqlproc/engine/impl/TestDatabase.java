@@ -232,6 +232,23 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return sqlEngine;
     }
 
+    protected SqlEngineFactory getEngineFactory(String name, String filter) {
+        SqlProcessContext.nullFeatures();
+        SqlProcessContext.nullTypeFactory();
+        SqlEngineFactory factory;
+        factory = new SqlProcessorLoader(metaStatements, HibernateTypeFactory.getInstance(),
+                SimpleSqlPluginFactory.getInstance(), filter, null, customTypes, name);
+        assertNotNull(factory);
+        return factory;
+    }
+
+    SqlCrudEngine getCrudEngine(String name, String filter) {
+        SqlEngineFactory factory = getEngineFactory(name, filter);
+        SqlCrudEngine sqlEngine = factory.getCrudEngine(name);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
+    }
+
     SqlEngineFactory getEngineFactory(String name) {
         SqlProcessContext.nullFeatures();
         SqlProcessContext.nullTypeFactory();

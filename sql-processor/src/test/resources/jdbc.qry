@@ -24,6 +24,12 @@ SEL1(OPT,ORACLE)=select last_insert_id();
 SEL1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
 SEL2(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('contact','id'));
 SEL1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
+/*
+ * Settings for testing getting generated keys through JDBC function.
+ */
+SEL1(OPT,IDSEL_JDBC_TRUE)=JDBC;
+SEL1(OPT,IDSEL_JDBC_FALSE)=generates test exception;
+
 
 // META SQL query
 ANSI_BASIC(QRY)=
