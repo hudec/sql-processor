@@ -34,6 +34,7 @@
         <version.mysql>5.1.18</version.mysql>
         <version.postgresql>9.1-901.jdbc4</version.postgresql>
         <version.informix>3.5</version.informix>
+        <version.db2>3.52.95</version.db2>
         <version.beanutils>1.8.3</version.beanutils>
         <version.dbcp>1.4</version.dbcp>
 
@@ -410,6 +411,52 @@
                     <groupId>com.ibm.informix</groupId>
                     <artifactId>ifxjdbcx</artifactId>
                     <version>${version.informix}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>db2</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.DB2Dialect</db.dialect>
+                <db.driver>com.ibm.db2.jcc.DB2Driver</db.driver>
+                <db.url>jdbc:db2://127.0.0.1:48065/test_db</db.url>
+                <db.username>db2test</db.username>
+                <db.password>db21234</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <DB_TYPE>DB2</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.ext.db2.Db2DataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.ibm.db2</groupId>
+                    <artifactId>db2-jdbc</artifactId>
+                    <version>${version.db2}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>db2-bamboo</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.DB2Dialect</db.dialect>
+                <db.driver>com.ibm.db2.jcc.DB2Driver</db.driver>
+                <db.url>jdbc:db2://popel:48065/test_db</db.url>
+                <db.username>db2test</db.username>
+                <db.password>db21234</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <DB_TYPE>DB2</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.ext.db2.Db2DataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.ibm.db2</groupId>
+                    <artifactId>db2-jdbc</artifactId>
+                    <version>${version.db2}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
