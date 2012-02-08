@@ -9,6 +9,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.type.Type;
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.type.IdentitySetter;
@@ -122,6 +123,10 @@ public class HibernateQuery implements SqlQuery {
      */
     @Override
     public int update() throws SqlProcessorException {
+        if (isSetJDBCIdentity()) {
+            throw new UnsupportedOperationException(
+                    "JDBC identity select (IDSEL_JDBC) not supported in Hibernate stack.");
+        }
         try {
             int updated = query.executeUpdate();
             if (!identities.isEmpty()) {
@@ -132,6 +137,16 @@ public class HibernateQuery implements SqlQuery {
         } catch (HibernateException he) {
             throw new SqlProcessorException(he);
         }
+    }
+
+    private boolean isSetJDBCIdentity() {
+        for (String identityName : identities) {
+            IdentitySetter identitySetter = identitySetters.get(identityName);
+            if (identitySetter.getIdentitySelect().equals(SqlFeature.IDSEL_JDBC)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
