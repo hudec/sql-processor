@@ -358,7 +358,7 @@ BEGIN
   SET newid = IDENTITY_VAL_LOCAL();
 END
 
-CREATE PROCEDURE new_person_ret(IN birthdate DATE, IN ssn_number VARCHAR(20), IN ssn_country VARCHAR(100), IN name_first VARCHAR(100), IN name_last VARCHAR(100), IN sex VARCHAR(100))
+CREATE OR REPLACE PROCEDURE new_person_ret(IN birthdate DATE, IN ssn_number VARCHAR(20), IN ssn_country VARCHAR(100), IN name_first VARCHAR(100), IN name_last VARCHAR(100), IN sex VARCHAR(100))
     DYNAMIC RESULT SETS 1
     LANGUAGE SQL
     MODIFIES SQL DATA
