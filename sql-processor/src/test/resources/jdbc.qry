@@ -25,7 +25,7 @@ SEL1(OPT,ORACLE)=select last_insert_id();
 SEL1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
 SEL2(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('contact','id'));
 SEL1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
-SEL1(OPT,DB2)=select identity_val_local();
+SEL1(OPT,DB2)=select identity_val_local() from sysibm.dual;
 
 // META SQL query
 ANSI_BASIC(QRY)=
@@ -1512,7 +1512,7 @@ UPDATE_PERSON(CRUD)=
   SET p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date^any
   {= where p.ID = :id }
 ;
-UPDATE_PERSON(CRUD,POSTGRESQL,INFORMIX)=
+UPDATE_PERSON(CRUD,POSTGRESQL,INFORMIX,DB2)=
   update PERSON
   SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date^any
   {= where ID = :id }
@@ -1523,7 +1523,7 @@ UPDATE_PERSON_2(CRUD)=
   {= set p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date}
   {= where p.ID = :id }
 ;
-UPDATE_PERSON_2(CRUD,POSTGRESQL,INFORMIX)=
+UPDATE_PERSON_2(CRUD,POSTGRESQL,INFORMIX,DB2)=
   update PERSON
   {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date}
   {= where ID = :id }
