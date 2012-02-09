@@ -50,7 +50,7 @@ public class TestCustomTypes extends TestDatabase {
 
     @Test
     public void testInsert2() {
-        if ("ORACLE".equalsIgnoreCase(dbType))
+        if ("ORACLE".equalsIgnoreCase(dbType) || "MSSQL".equalsIgnoreCase(dbType))
             return;
 
         Contact c = new Contact();
@@ -116,7 +116,7 @@ public class TestCustomTypes extends TestDatabase {
 
     @Test
     public void testInsert4() {
-        if ("ORACLE".equalsIgnoreCase(dbType))
+        if ("ORACLE".equalsIgnoreCase(dbType) || "MSSQL".equalsIgnoreCase(dbType))
             return;
 
         Contact c = new Contact();

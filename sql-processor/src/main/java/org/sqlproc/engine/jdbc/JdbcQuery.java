@@ -285,6 +285,9 @@ public class JdbcQuery implements SqlQuery {
     protected void getGeneratedKeys(String identityName, Statement statement) {
         IdentitySetter identitySetter = identitySetters.get(identityName);
         Object identityType = identityTypes.get(identityName);
+        if (identityType == null) {
+            identityType = parameterTypes.get(identityName);
+        }
         if (logger.isDebugEnabled()) {
             logger.debug("identity, name=" + identityName + ", getGeneratedKeys(), identityType=" + identityType);
         }

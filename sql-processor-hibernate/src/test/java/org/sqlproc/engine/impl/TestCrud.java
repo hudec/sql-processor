@@ -339,7 +339,7 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsert6() {
-        if ("ORACLE".equalsIgnoreCase(dbType))
+        if ("ORACLE".equalsIgnoreCase(dbType) || "MSSQL".equalsIgnoreCase(dbType))
             return;
 
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
@@ -383,7 +383,8 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsert5() {
-        if ("ORACLE".equalsIgnoreCase(dbType) || "POSTGRESQL".equalsIgnoreCase(dbType))
+        if ("ORACLE".equalsIgnoreCase(dbType) || "POSTGRESQL".equalsIgnoreCase(dbType)
+                || "MSSQL".equalsIgnoreCase(dbType))
             return;
 
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");

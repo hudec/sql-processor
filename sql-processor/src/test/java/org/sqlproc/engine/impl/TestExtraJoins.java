@@ -241,6 +241,9 @@ public class TestExtraJoins extends TestDatabase {
 
     @Test
     public void testExtraJoinPagedFrom() {
+        if ("mssql".equalsIgnoreCase(dbType))
+            return;
+
         SqlQueryEngine sqlEngine = getSqlEngine("EXTRA_JOIN");
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);

@@ -114,7 +114,7 @@ public class JdbcDefaultType extends SqlMetaType {
         } else {
             Method m = BeanUtils.getSetter(resultInstance, attributeName, attributeType);
             if (resultValue != null && resultValue instanceof BigDecimal)
-                resultValue = handleBigDecimal(attributeType, resultValue);
+                resultValue = SqlUtils.convertBigDecimal(attributeType, resultValue);
             if (m != null) {
                 BeanUtils.simpleInvokeMethod(m, resultInstance, resultValue);
             } else if (ingoreError) {
@@ -189,22 +189,5 @@ public class JdbcDefaultType extends SqlMetaType {
                 query.setParameterList(paramName, ((Collection) inputValue).toArray());
             }
         }
-    }
-
-    // special Oracle feature
-    private Object handleBigDecimal(Class<?> attributeType, Object resultValue) {
-        if (resultValue == null || !(resultValue instanceof BigDecimal))
-            return resultValue;
-        BigDecimal result = (BigDecimal) resultValue;
-        if (attributeType == Byte.class || attributeType == byte.class) {
-            return result.byteValue();
-        } else if (attributeType == Integer.class || attributeType == int.class) {
-            return result.intValue();
-        } else if (attributeType == Long.class || attributeType == long.class) {
-            return result.longValue();
-        } else if (attributeType == Short.class || attributeType == short.class) {
-            return result.shortValue();
-        }
-        return result;
     }
 }
