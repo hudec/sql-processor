@@ -1664,6 +1664,12 @@ INSERT_PERSON_CALL_RESULT_SET_PROC(OUT,ORACLE)=
 ;
 
 
+SIMPLE_FUNCION_QRY(QRY,DB2)=
+  SELECT an_hour_before(:time^stamp) FROM SYSIBM.DUAL
+;
+SIMPLE_FUNCION_QRY(OUT,DB2)=
+  1$stamp$time2
+;
 SIMPLE_FUNCION(CALL,HSQLDB,INFORMIX)=
   call an_hour_before(:time)
 ;
@@ -1673,7 +1679,7 @@ SIMPLE_FUNCION(OUT,HSQLDB,INFORMIX)=
 SIMPLE_FUNCION(CALL)=
   :<1^stamp = call an_hour_before(:time)
 ;
-  
+
 SIMPLE_FUNCION_TO_IN_FORM(CALL)=
   :<time2 = call an_hour_before(:time)
 ;
