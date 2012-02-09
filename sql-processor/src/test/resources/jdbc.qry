@@ -1525,9 +1525,14 @@ UPDATE_PERSON(CRUD)=
   SET p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date^any
   {= where p.ID = :id }
 ;
-UPDATE_PERSON(CRUD,POSTGRESQL,INFORMIX,MSSQL,DB2)=
+UPDATE_PERSON(CRUD,POSTGRESQL,INFORMIX,MSSQL)=
   update PERSON
   SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date^any
+  {= where ID = :id }
+;
+UPDATE_PERSON(CRUD,DB2)=
+  update PERSON
+  SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate^stamp^any
   {= where ID = :id }
 ;
 
@@ -1536,9 +1541,14 @@ UPDATE_PERSON_2(CRUD)=
   {= set p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date}
   {= where p.ID = :id }
 ;
-UPDATE_PERSON_2(CRUD,POSTGRESQL,INFORMIX,MSSQL,DB2)=
+UPDATE_PERSON_2(CRUD,POSTGRESQL,INFORMIX,MSSQL)=
   update PERSON
   {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date}
+  {= where ID = :id }
+;
+UPDATE_PERSON_2(CRUD,DB2)=
+  update PERSON
+  {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate^stamp}
   {= where ID = :id }
 ;
 
