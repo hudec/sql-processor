@@ -21,6 +21,7 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
+import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.operation.CompositeOperation;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.Ignore;
@@ -139,11 +140,17 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected abstract String getDataSetFile(String dbType);
 
     protected DatabaseOperation getSetUpOperation() throws Exception {
-        if (dbCreated || ddlCreateDb == null) {
-            return DatabaseOperation.CLEAN_INSERT;
+        final DatabaseOperation cleanInsertOperation;
+        if (dbType.equalsIgnoreCase("mssql")) {
+            cleanInsertOperation = InsertIdentityOperation.CLEAN_INSERT;
         } else {
-            DatabaseOperation operation = new CompositeOperation(new BatchOperation(ddlCreateDb),
-                    DatabaseOperation.CLEAN_INSERT);
+            cleanInsertOperation = DatabaseOperation.CLEAN_INSERT;
+        }
+
+        if (dbCreated || ddlCreateDb == null) {
+            return cleanInsertOperation;
+        } else {
+            DatabaseOperation operation = new CompositeOperation(new BatchOperation(ddlCreateDb), cleanInsertOperation);
             dbCreated = true;
             return operation;
         }
@@ -260,6 +267,16 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return factory;
     }
 
+    SqlEngineFactory getEngineFactory(String name, String filter) {
+        SqlProcessContext.nullFeatures();
+        SqlProcessContext.nullTypeFactory();
+        SqlEngineFactory factory;
+        factory = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(),
+                SimpleSqlPluginFactory.getInstance(), filter, null, customTypes, name);
+        assertNotNull(factory);
+        return factory;
+    }
+
     SqlQueryEngine getQueryEngine(String name) {
         SqlEngineFactory factory = getEngineFactory(name);
         SqlQueryEngine sqlEngine = factory.getQueryEngine(name);
@@ -269,6 +286,13 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
     SqlQueryEngine getSqlEngine(String name) {
         return getQueryEngine(name);
+    }
+
+    SqlCrudEngine getCrudEngine(String name, String filter) {
+        SqlEngineFactory factory = getEngineFactory(name, filter);
+        SqlCrudEngine sqlEngine = factory.getCrudEngine(name);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
     }
 
     SqlCrudEngine getCrudEngine(String name) {

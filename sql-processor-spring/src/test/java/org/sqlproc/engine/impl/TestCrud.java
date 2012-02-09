@@ -295,7 +295,7 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsert7() {
-        if ("MYSQL".equalsIgnoreCase(dbType))
+        if ("mysql".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
             return;
 
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
@@ -427,7 +427,7 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsert4() {
-        if ("MYSQL".equalsIgnoreCase(dbType))
+        if ("MYSQL".equalsIgnoreCase(dbType) || "MSSQL".equalsIgnoreCase(dbType))
             return;
 
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
@@ -471,7 +471,7 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsert3() {
-        if ("MYSQL".equalsIgnoreCase(dbType))
+        if ("MYSQL".equalsIgnoreCase(dbType) || "MSSQL".equalsIgnoreCase(dbType))
             return;
 
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
@@ -515,7 +515,7 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsert2() {
-        if ("MYSQL".equalsIgnoreCase(dbType))
+        if ("MYSQL".equalsIgnoreCase(dbType) || "MSSQL".equalsIgnoreCase(dbType))
             return;
 
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");

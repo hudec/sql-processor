@@ -20,6 +20,8 @@ public class TestStandardParameters extends TestDatabase {
             return "dbunit/TypesTest_postgresql.xml";
         else if (dbType.equalsIgnoreCase("informix"))
             return "dbunit/TypesTest_informix.xml";
+        else if (dbType.equalsIgnoreCase("mssql"))
+            return "dbunit/TypesTest_mssql.xml";
         else if (dbType.equalsIgnoreCase("db2"))
             return "dbunit/TypesTest_db2.xml";
         else
@@ -41,10 +43,11 @@ public class TestStandardParameters extends TestDatabase {
         criteria.setT_string("abc");
         criteria.setT_boolean(Boolean.TRUE);
         criteria.setT_date(SqlUtils.getDate(2009, 7, 31));
-        if (!dbType.equalsIgnoreCase("oracle") && !dbType.equalsIgnoreCase("postgresql")) // TODO
+        if (!"oracle".equalsIgnoreCase(dbType) && !"postgresql".equalsIgnoreCase(dbType)
+                && !"mssql".equalsIgnoreCase(dbType)) // TODO
             criteria.setT_time(SqlUtils.getTime(14, 55, 2));
         criteria.setT_datetime(SqlUtils.getDateTime(2009, 7, 31, 14, 55, 2));
-        if (dbType.equalsIgnoreCase("informix")) {
+        if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
             criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123"));
         } else {
             criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123456789"));
@@ -106,7 +109,7 @@ public class TestStandardParameters extends TestDatabase {
         else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType)
                 || "db2".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
-        else if ("informix".equalsIgnoreCase(dbType))
+        else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123", t.getT_timestamp().toString());
         else
             assertEquals("2009-08-31 14:55:02.123456789", t.getT_timestamp().toString());
@@ -125,7 +128,7 @@ public class TestStandardParameters extends TestDatabase {
             assertEquals(t.getAn_byte()[i], t.getAt_byte()[i].byteValue());
         assertEquals("hello", t.getA_text());
 
-        if (!dbType.equalsIgnoreCase("postgresql")) {
+        if (!"postgresql".equalsIgnoreCase(dbType)) {
             assertNotNull(t.getA_blob());
             assertNotNull(t.getA_clob());
             assertEquals("byebye", new String(t.getA_blob().getBytes(1L, (int) t.getA_blob().length())));
@@ -139,7 +142,11 @@ public class TestStandardParameters extends TestDatabase {
 
         TypesTransport criteria = new TypesTransport();
         criteria.setT_datetime(SqlUtils.getDateTime(2009, 7, 31, 15, 55, 2));
-        criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123456789"));
+        if ("mssql".equalsIgnoreCase(dbType)) {
+            criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123"));
+        } else {
+            criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123456789"));
+        }
 
         String sql = sqlEngine.getSql(criteria, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
@@ -183,7 +190,7 @@ public class TestStandardParameters extends TestDatabase {
         else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType)
                 || "db2".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
-        else if ("informix".equalsIgnoreCase(dbType))
+        else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123", t.getT_timestamp().toString());
         else
             assertEquals("2009-08-31 14:55:02.123456789", t.getT_timestamp().toString());
@@ -202,7 +209,7 @@ public class TestStandardParameters extends TestDatabase {
             assertEquals(t.getAn_byte()[i], t.getAt_byte()[i].byteValue());
         assertEquals("hello", t.getA_text());
 
-        if (!dbType.equalsIgnoreCase("postgresql")) {
+        if (!"postgresql".equalsIgnoreCase(dbType)) {
             assertEquals("byebye", new String(t.getA_blob().getBytes(1L, (int) t.getA_blob().length())));
             assertEquals("dovi", t.getA_clob().getSubString(1L, (int) t.getA_clob().length()));
         }

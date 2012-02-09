@@ -24,6 +24,13 @@ SEL1(OPT,ORACLE)=select last_insert_id();
 SEL1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
 SEL2(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('contact','id'));
 SEL1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
+SEL1(OPT,MSSQL)=JDBC;
+/*
+ * Settings for testing getting generated keys through JDBC function.
+ */
+SEL1(OPT,IDSEL_JDBC_TRUE)=JDBC;
+SEL1(OPT,IDSEL_JDBC_FALSE)=generates test exception;
+
 
 // META SQL query
 ANSI_BASIC(QRY)=
@@ -1463,7 +1470,13 @@ INSERT_PERSON(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
   values (:id, :ssn.number^string^any, :ssn.country, :name.first^string^any, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize)
 ;
-  
+INSERT_PERSON(CRUD,MSSQL)=
+  set identity_insert PERSON on
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  values (:id, :ssn.number^string^any, :ssn.country, :name.first^string^any, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize)
+  set identity_insert PERSON off
+;
+
 INSERT_PERSON_2(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
   values (:id^long^seq=SEQ1, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp^any, :createdBy, :version, :clothesSize)
@@ -1510,7 +1523,7 @@ UPDATE_PERSON(CRUD)=
   SET p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date^any
   {= where p.ID = :id }
 ;
-UPDATE_PERSON(CRUD,POSTGRESQL,INFORMIX)=
+UPDATE_PERSON(CRUD,POSTGRESQL,INFORMIX,MSSQL)=
   update PERSON
   SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date^any
   {= where ID = :id }
@@ -1521,7 +1534,7 @@ UPDATE_PERSON_2(CRUD)=
   {= set p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date}
   {= where p.ID = :id }
 ;
-UPDATE_PERSON_2(CRUD,POSTGRESQL,INFORMIX)=
+UPDATE_PERSON_2(CRUD,POSTGRESQL,INFORMIX,MSSQL)=
   update PERSON
   {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date}
   {= where ID = :id }
@@ -1648,7 +1661,7 @@ INSERT_PERSON_CALL_RESULT_SET_PROC(OUT,ORACLE)=
   ssn_country$$ssn.country name_first$$name.first name_last$$name.last sex clothes_size$$clothesSize
 ;
 
-  
+
 SIMPLE_FUNCION(CALL,HSQLDB,INFORMIX)=
   call an_hour_before(:time)
 ;

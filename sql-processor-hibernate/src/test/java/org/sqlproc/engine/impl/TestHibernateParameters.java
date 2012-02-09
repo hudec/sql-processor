@@ -20,6 +20,8 @@ public class TestHibernateParameters extends TestDatabase {
             return "dbunit/TypesTest_postgresql.xml";
         else if (dbType.equalsIgnoreCase("informix"))
             return "dbunit/TypesTest_informix.xml";
+        else if (dbType.equalsIgnoreCase("mssql"))
+            return "dbunit/TypesTest_mssql.xml";
         else
             return "dbunit/TypesTest.xml";
     }
@@ -39,10 +41,11 @@ public class TestHibernateParameters extends TestDatabase {
         criteria.setT_string("abc");
         criteria.setT_boolean(Boolean.TRUE);
         criteria.setT_date(SqlUtils.getDate(2009, 7, 31));
-        if (!dbType.equalsIgnoreCase("oracle") && !dbType.equalsIgnoreCase("postgresql")) // TODO
+        if (!"oracle".equalsIgnoreCase(dbType) && !"postgresql".equalsIgnoreCase(dbType)
+                && !"mssql".equalsIgnoreCase(dbType)) // TODO
             criteria.setT_time(SqlUtils.getTime(14, 55, 2));
         criteria.setT_datetime(SqlUtils.getDateTime(2009, 7, 31, 14, 55, 2));
-        if (dbType.equalsIgnoreCase("informix")) {
+        if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
             criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123"));
         } else {
             criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123456789"));
@@ -64,7 +67,7 @@ public class TestHibernateParameters extends TestDatabase {
         // assertContains(sql, "AND  t_time =");
         // assertContains(sql, "AND  t_datetime =");
         // assertContains(sql, "AND  t_timestamp =");
-        if (!dbType.equalsIgnoreCase("informix"))
+        if (!"informix".equalsIgnoreCase(dbType))
             assertContains(sql, "AND  a_byte =");
 
         List<TypesTransport> list = sqlEngine.query(session, TypesTransport.class, criteria, null,
@@ -103,7 +106,7 @@ public class TestHibernateParameters extends TestDatabase {
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
         else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
-        else if ("informix".equalsIgnoreCase(dbType))
+        else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123", t.getT_timestamp().toString());
         else
             assertEquals("2009-08-31 14:55:02.123456789", t.getT_timestamp().toString());

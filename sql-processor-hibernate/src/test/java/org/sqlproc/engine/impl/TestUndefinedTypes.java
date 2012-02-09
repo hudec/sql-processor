@@ -18,6 +18,8 @@ public class TestUndefinedTypes extends TestDatabase {
             return "dbunit/TypesTest_postgresql.xml";
         else if (dbType.equalsIgnoreCase("informix"))
             return "dbunit/TypesTest_informix.xml";
+        else if (dbType.equalsIgnoreCase("mssql"))
+            return "dbunit/TypesTest_mssql.xml";
         else
             return "dbunit/TypesTest.xml";
     }
@@ -65,7 +67,7 @@ public class TestUndefinedTypes extends TestDatabase {
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
         else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
-        else if ("informix".equalsIgnoreCase(dbType))
+        else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123", t.getT_timestamp().toString());
         else
             assertEquals("2009-08-31 14:55:02.123456789", t.getT_timestamp().toString());
@@ -133,7 +135,7 @@ public class TestUndefinedTypes extends TestDatabase {
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
         else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
-        else if ("informix".equalsIgnoreCase(dbType))
+        else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123", t.getT_timestamp().toString());
         else
             assertEquals("2009-08-31 14:55:02.123456789", t.getT_timestamp().toString());

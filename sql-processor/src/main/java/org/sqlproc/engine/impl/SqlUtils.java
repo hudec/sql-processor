@@ -3,6 +3,7 @@ package org.sqlproc.engine.impl;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -73,6 +74,22 @@ public class SqlUtils {
     }
 
     // miscs
+
+    public static Object convertBigDecimal(Class<?> attributeType, Object resultValue) {
+        if (resultValue == null || !(resultValue instanceof BigDecimal))
+            return resultValue;
+        BigDecimal result = (BigDecimal) resultValue;
+        if (attributeType == Byte.class || attributeType == byte.class) {
+            return result.byteValue();
+        } else if (attributeType == Integer.class || attributeType == int.class) {
+            return result.intValue();
+        } else if (attributeType == Long.class || attributeType == long.class) {
+            return result.longValue();
+        } else if (attributeType == Short.class || attributeType == short.class) {
+            return result.shortValue();
+        }
+        return result;
+    }
 
     public static Byte[] toBytes(byte[] barr) {
         if (barr == null)

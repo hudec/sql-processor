@@ -93,6 +93,11 @@ public interface SqlFeature {
      */
     public static final String INFORMIX = "INFORMIX";
     /**
+     * The filter for MS SQL Server devoted optional features. It can be used for the construction of
+     * {@link SqlEngineLoader}.
+     */
+    public static final String MSSQL = "MSSQL";
+    /**
      * <code>SET_WILDCARD_CHARACTER</code> is the key for the wildcard character for the SQL <code>like</code> command.
      */
     public static final String WILDCARD_CHARACTER = "WILDCARD_CHARACTER";
@@ -259,6 +264,19 @@ public interface SqlFeature {
      * case the filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_LIMIT_TO = "select first $M $s";
+    /*
+     * Unsupported now.
+     * 
+     * <code>MSSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
+     * in the case the filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    // version for MS SQL Server 2012:
+    // public static final String MSSQL_DEFAULT_LIMIT_FROM_TO = "$S OFFSET ($F) ROWS FETCH NEXT ($M) ROWS ONLY";
+    /**
+     * <code>MSSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the case
+     * the filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    public static final String MSSQL_DEFAULT_LIMIT_TO = "select top ($M) $s";
     /**
      * <code>DB2_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code> in
      * the case the filter value <code>DB2</code> is used for the {@link SqlEngineLoader} instance creation.
@@ -313,6 +331,12 @@ public interface SqlFeature {
      */
     public static final String IDSEL = "IDSEL";
     /**
+     * <code>IDSEL_JDBC</code> is the special value related to the key <code>SET_IDSEL</code> indicating that the
+     * generated identity value is determined using JDBC capabilities to return generated keys for SQL statement. This
+     * feature requires that both the database and the JDBC driver support it.
+     */
+    public static final String IDSEL_JDBC = "JDBC";
+    /**
      * <code>HSQLDB_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
      * filter value <code>HSQLDB</code> is used for the {@link SqlEngineLoader} instance creation.
      */
@@ -333,6 +357,14 @@ public interface SqlFeature {
      * the filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_IDSEL = "SELECT FIRST 1 dbinfo('bigserial') FROM systables";
+    /**
+     * <code>MSSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
+     * filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     * <p/>
+     * The default value is {@link #IDSEL_JDBC}.
+     */
+    public static final String MSSQL_DEFAULT_IDSEL = IDSEL_JDBC;
+    /**
     /**
      * <code>DB2_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
      * filter value <code>DB2</code> is used for the {@link SqlEngineLoader} instance creation.

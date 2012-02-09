@@ -208,7 +208,8 @@ class SqlInputValue {
             SqlProcessContext.getTypeFactory().getIdentityType().setParameter(query, paramName, new IdentitySetter() {
                 @Override
                 public void setIdentity(Object identity) {
-                    SqlInputValue.this.identity = identity;
+                    SqlInputValue.this.identity = SqlUtils.convertBigDecimal(SqlInputValue.this.inputValueType,
+                            identity);
                 }
 
                 @Override
