@@ -1675,7 +1675,7 @@ INSERT_PERSON_CALL_RESULT_SET_PROC(OUT,ORACLE)=
 
 
 SIMPLE_FUNCION_QRY(QRY,DB2)=
-  SELECT an_hour_before(:time^stamp) FROM SYSIBM.DUAL
+  SELECT an_hour_before(CAST(:time^stamp AS timestamp)) FROM SYSIBM.DUAL
 ;
 SIMPLE_FUNCION_QRY(OUT,DB2)=
   1$stamp$time2
