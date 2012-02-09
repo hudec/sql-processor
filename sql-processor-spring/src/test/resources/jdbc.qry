@@ -16,6 +16,7 @@ SEQ1(OPT,HSQLDB)=call NEXT VALUE FOR SQLPROC_SEQUENCE;
 SEQ1(OPT,ORACLE)=select SQLPROC_SEQUENCE.nextval from dual;
 SEQ1(OPT,POSTGRESQL)=select nextval('SQLPROC_SEQUENCE');
 SEQ1(OPT,INFORMIX)=SELECT FIRST 1 SQLPROC_SEQUENCE.NEXTVAL FROM systables;
+SEQ1(OPT,DB2)=values nextval for SQLPROC_SEQUENCE;
 /*
  * Default select command to obtain a new created identity
  */
@@ -25,6 +26,7 @@ SEL1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
 SEL2(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('contact','id'));
 SEL1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
 SEL1(OPT,MSSQL)=JDBC;
+SEL1(OPT,DB2)=select identity_val_local() from sysibm.dual;
 /*
  * Settings for testing getting generated keys through JDBC function.
  */
@@ -74,7 +76,7 @@ SQL_EXT_BASIC(QRY)=
   where 1=1
   order by %ID
 ;
-SQL_EXT_BASIC(QRY,HSQLDB)=
+SQL_EXT_BASIC(QRY,HSQLDB,DB2)=
   select %ID, $-name.first as first, cast(:+name.last as varchar(100)) as last
   from %%PERSON
   where 1=1
@@ -96,7 +98,7 @@ SQL_EXT_BASIC_2(QRY)=
   where 1=1
   order by %p.ID
 ;
-SQL_EXT_BASIC_2(QRY,HSQLDB)=
+SQL_EXT_BASIC_2(QRY,HSQLDB,DB2)=
   select p.ID @id, $-name.first @name.first^string, cast(:+name.last as varchar(100)) @name.last
   from PERSON p
   where 1=1
@@ -304,7 +306,7 @@ INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY)=
   {& p.id = :id}
   {#1 order by id}
 ;
-INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY,HSQLDB)=
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY,HSQLDB,DB2)=
   select p.ID, $name.first as first, cast(:name.last as varchar(100)) as last
   from PERSON p
   where 1=1
@@ -329,7 +331,7 @@ INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY)=
   }
   {#1 order by id}
 ;
-INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,HSQLDB)=
+INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,HSQLDB,DB2)=
   select p.ID @id, $name.first @name.first^string, cast(:name.last as varchar(100)) @name.last
   from PERSON p {= where
    {& p.id = :id}
@@ -350,7 +352,7 @@ SQL_IN_BRACES_BASIC(QRY)=
   from PERSON p
   order by id
 ;
-SQL_IN_BRACES_BASIC(QRY,HSQLDB)=
+SQL_IN_BRACES_BASIC(QRY,HSQLDB,DB2)=
   select p.ID { , $name.first as first, p.SSN_NUMBER ssn |, '' as first, p.SSN_NUMBER ssn} { , cast(:+name.last as varchar(100)) as last |, '' as last} { , p.BIRTHDATE}
   from PERSON p
   order by id
@@ -370,7 +372,7 @@ SQL_IN_BRACES_BASIC_2(QRY)=
   from PERSON p
   order by id
 ;
-SQL_IN_BRACES_BASIC_2(QRY,HSQLDB)=
+SQL_IN_BRACES_BASIC_2(QRY,HSQLDB,DB2)=
   select p.ID @id { , $name.first as @first, p.SSN_NUMBER @ssn |, '' as @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as varchar(100)) as @last |, '' as @last} { , p.BIRTHDATE @birthDate}
   from PERSON p
   order by id
@@ -390,7 +392,7 @@ SQL_IN_BRACES_ADV(QRY)=
   from PERSON p
   order by id
 ;
-SQL_IN_BRACES_ADV(QRY,HSQLDB)=
+SQL_IN_BRACES_ADV(QRY,HSQLDB,DB2)=
   select p.ID @id { { , $name.first as @first, p.SSN_NUMBER @ssn} { , cast(:+name.last as varchar(100)) as @last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
   from PERSON p
   order by id
@@ -409,7 +411,7 @@ SQL_IN_BRACES_ADV_2(QRY)=
   from PERSON p
   order by id
 ;
-SQL_IN_BRACES_ADV_2(QRY,HSQLDB)=
+SQL_IN_BRACES_ADV_2(QRY,HSQLDB,DB2)=
   select p.ID @id { { , $name.first @name.first^string, p.SSN_NUMBER @ssn.number} { , cast(:+name.last as varchar(100)) @name.last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
   from PERSON p
   order by id
@@ -1528,6 +1530,11 @@ UPDATE_PERSON(CRUD,POSTGRESQL,INFORMIX,MSSQL)=
   SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date^any
   {= where ID = :id }
 ;
+UPDATE_PERSON(CRUD,DB2)=
+  update PERSON
+  SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate^stamp^any
+  {= where ID = :id }
+;
 
 UPDATE_PERSON_2(CRUD)=
   update PERSON p
@@ -1537,6 +1544,11 @@ UPDATE_PERSON_2(CRUD)=
 UPDATE_PERSON_2(CRUD,POSTGRESQL,INFORMIX,MSSQL)=
   update PERSON
   {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date}
+  {= where ID = :id }
+;
+UPDATE_PERSON_2(CRUD,DB2)=
+  update PERSON
+  {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate^stamp}
   {= where ID = :id }
 ;
 
@@ -1662,6 +1674,12 @@ INSERT_PERSON_CALL_RESULT_SET_PROC(OUT,ORACLE)=
 ;
 
 
+SIMPLE_FUNCION_QRY(QRY,DB2)=
+  SELECT an_hour_before(CAST(:time^stamp AS timestamp)) FROM SYSIBM.DUAL
+;
+SIMPLE_FUNCION_QRY(OUT,DB2)=
+  1$stamp$time2
+;
 SIMPLE_FUNCION(CALL,HSQLDB,INFORMIX)=
   call an_hour_before(:time)
 ;
@@ -1671,7 +1689,7 @@ SIMPLE_FUNCION(OUT,HSQLDB,INFORMIX)=
 SIMPLE_FUNCION(CALL)=
   :<1^stamp = call an_hour_before(:time)
 ;
-  
+
 SIMPLE_FUNCION_TO_IN_FORM(CALL)=
   :<time2 = call an_hour_before(:time)
 ;

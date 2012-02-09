@@ -467,7 +467,7 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.DB2Dialect</db.dialect>
                 <db.driver>com.ibm.db2.jcc.DB2Driver</db.driver>
-                <db.url>jdbc:db2://127.0.0.1:48065/test_db</db.url>
+                <db.url>jdbc:db2://127.0.0.1:48065/test_db:deferPrepares=0;progressiveStreaming=2;</db.url>
                 <db.username>db2test</db.username>
                 <db.password>db21234</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
@@ -490,7 +490,7 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.DB2Dialect</db.dialect>
                 <db.driver>com.ibm.db2.jcc.DB2Driver</db.driver>
-                <db.url>jdbc:db2://popel:48065/test_db</db.url>
+                <db.url>jdbc:db2://popel:48065/test_db:deferPrepares=0;progressiveStreaming=2;</db.url>
                 <db.username>db2test</db.username>
                 <db.password>db21234</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>

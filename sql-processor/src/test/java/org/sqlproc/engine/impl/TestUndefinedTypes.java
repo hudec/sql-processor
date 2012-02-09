@@ -20,6 +20,8 @@ public class TestUndefinedTypes extends TestDatabase {
             return "dbunit/TypesTest_informix.xml";
         else if (dbType.equalsIgnoreCase("mssql"))
             return "dbunit/TypesTest_mssql.xml";
+        else if (dbType.equalsIgnoreCase("db2"))
+            return "dbunit/TypesTest_db2.xml";
         else
             return "dbunit/TypesTest.xml";
     }

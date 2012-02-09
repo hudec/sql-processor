@@ -21,7 +21,7 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testSimpleFunctionToInForm() {
-        if ("hsqldb".equalsIgnoreCase(dbType) || "informix".equalsIgnoreCase(dbType))
+        if ("hsqldb".equalsIgnoreCase(dbType) || "informix".equalsIgnoreCase(dbType) || "db2".equalsIgnoreCase(dbType))
             return;
 
         SqlProcedureEngine callableEngine = getProcedureEngine("SIMPLE_FUNCION_TO_IN_FORM");
@@ -39,6 +39,11 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testSimpleFunction() {
+        if ("db2".equalsIgnoreCase(dbType)) {
+            this.simpleFunctionDB2();
+            return;
+        }
+
         SqlProcedureEngine callableEngine = getProcedureEngine("SIMPLE_FUNCION");
 
         FormSimpleFunction f = new FormSimpleFunction();
@@ -50,6 +55,20 @@ public class TestProcedure extends TestDatabase {
         assertNotNull(result);
         assertNull(f.getTime2());
         logger.info("New date is " + result);
+    }
+
+    private void simpleFunctionDB2() {
+        SqlQueryEngine queryEngine = getQueryEngine("SIMPLE_FUNCION_QRY");
+
+        FormSimpleFunction f = new FormSimpleFunction();
+        f.setTime(new java.sql.Timestamp(new Date().getTime()));
+        String sql = queryEngine.getSql(f, null, SqlQueryEngine.NO_ORDER);
+        logger.info(sql);
+
+        List<FormSimpleFunction> resultList = queryEngine.query(session, FormSimpleFunction.class, f);
+        FormSimpleFunction result = resultList.get(0);
+        assertNotNull(result.getTime2());
+        logger.info("New date is " + result.getTime2());
     }
 
     @Test
