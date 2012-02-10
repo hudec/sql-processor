@@ -216,12 +216,12 @@ public interface SqlFeature {
      * <code>HSQLDB_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
      * in the case the filter value <code>HSQLDB</code> is used for the {@link SqlEngineLoader} instance creation.
      */
-    public static final String HSQLDB_DEFAULT_LIMIT_FROM_TO = "select limit $F $M $s";
+    public static final String HSQLDB_DEFAULT_LIMIT_FROM_TO = "$S offset $F limit $M using index";
     /**
      * <code>HSQLDB_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the
      * case the filter value <code>HSQLDB</code> is used for the {@link SqlEngineLoader} instance creation.
      */
-    public static final String HSQLDB_DEFAULT_LIMIT_TO = "select top $M $s";
+    public static final String HSQLDB_DEFAULT_LIMIT_TO = "$S limit $M using index";
     /**
      * <code>ORACLE_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
      * in the case the filter value <code>ORACLE</code> is used for the {@link SqlEngineLoader} instance creation.
@@ -365,8 +365,7 @@ public interface SqlFeature {
      */
     public static final String MSSQL_DEFAULT_IDSEL = IDSEL_JDBC;
     /**
-    /**
-     * <code>DB2_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
+     * /** <code>DB2_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
      * filter value <code>DB2</code> is used for the {@link SqlEngineLoader} instance creation.
      */
     public static final String DB2_DEFAULT_IDSEL = "SELECT identity_val_local() FROM SYSIBM.DUAL";
