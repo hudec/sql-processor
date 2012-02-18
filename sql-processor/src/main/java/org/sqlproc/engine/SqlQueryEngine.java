@@ -387,6 +387,7 @@ public class SqlQueryEngine extends SqlEngine {
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (maxTimeout > 0)
                         query.setTimeout(maxTimeout);
+                    query.setOrdered(order != null && order != NO_ORDER);
                     processResult.setQueryParams(session, query);
                     SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, moreResultClasses, query);
@@ -528,6 +529,7 @@ public class SqlQueryEngine extends SqlEngine {
                             .addScalar(queryCount, "vysledek", Integer.class);
                     if (maxTimeout > 0)
                         queryCount.setTimeout(maxTimeout);
+                    queryCount.setOrdered(order != null && order != NO_ORDER);
                     processResult.setQueryParams(session, queryCount);
                     return (Integer) queryCount.unique();
                 }

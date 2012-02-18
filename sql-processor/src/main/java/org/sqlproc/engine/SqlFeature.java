@@ -202,6 +202,11 @@ public interface SqlFeature {
      */
     public static final String LIMIT_FROM_TO = "LIMIT_FROM_TO";
     /**
+     * <code>LIMIT_FROM_TO_ORDERED</code> is the key for the SQL query pattern used to limit the query results in the
+     * case the query output is sorted. Right now it's used only for HSQLDB.
+     */
+    public static final String LIMIT_FROM_TO_ORDERED = "LIMIT_FROM_TO_ORDERED";
+    /**
      * <code>SET_LIMIT_TO</code> is the key for the SQL query pattern used to limit the query results. This pattern has
      * to be combined with the original SQL query and the limit in the next way:
      * <ul>
@@ -213,15 +218,32 @@ public interface SqlFeature {
      */
     public static final String LIMIT_TO = "LIMIT_TO";
     /**
+     * <code>LIMIT_TO_ORDERED</code> is the key for the SQL query pattern used to limit the query results in the case
+     * the query output is sorted. Right now it's used only for HSQLDB.
+     */
+    public static final String LIMIT_TO_ORDERED = "LIMIT_TO_ORDERED";
+    /**
      * <code>HSQLDB_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
      * in the case the filter value <code>HSQLDB</code> is used for the {@link SqlEngineLoader} instance creation.
      */
-    public static final String HSQLDB_DEFAULT_LIMIT_FROM_TO = "$S offset $F limit $M using index";
+    public static final String HSQLDB_DEFAULT_LIMIT_FROM_TO = "$S offset $F limit $M";
     /**
-     * <code>HSQLDB_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the
-     * case the filter value <code>HSQLDB</code> is used for the {@link SqlEngineLoader} instance creation.
+     * <code>HSQLDB_DEFAULT_LIMIT_FROM_TO_ORDERED</code> is the default value related to the key
+     * <code>LIMIT_FROM_TO_ORDERED</code> in the case the filter value <code>HSQLDB</code> is used for the
+     * {@link SqlEngineLoader} instance creation.
      */
-    public static final String HSQLDB_DEFAULT_LIMIT_TO = "$S limit $M using index";
+    public static final String HSQLDB_DEFAULT_LIMIT_FROM_TO_ORDERED = "$S offset $F limit $M using index";
+    /**
+     * <code>HSQLDB_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case
+     * the filter value <code>HSQLDB</code> is used for the {@link SqlEngineLoader} instance creation.
+     */
+    public static final String HSQLDB_DEFAULT_LIMIT_TO = "$S limit $M";
+    /**
+     * <code>HSQLDB_DEFAULT_LIMIT_TO_ORDERED</code> is the default value related to the key
+     * <code>LIMIT_TO_ORDERED</code> in the case the filter value <code>HSQLDB</code> is used for the
+     * {@link SqlEngineLoader} instance creation.
+     */
+    public static final String HSQLDB_DEFAULT_LIMIT_TO_ORDERED = "$S limit $M using index";
     /**
      * <code>ORACLE_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
      * in the case the filter value <code>ORACLE</code> is used for the {@link SqlEngineLoader} instance creation.

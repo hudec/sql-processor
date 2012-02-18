@@ -116,6 +116,10 @@ public class SpringQuery implements SqlQuery {
      * The maximum number of rows to retrieve.
      */
     Integer maxResults;
+    /**
+     * The SQL output is sorted.
+     */
+    boolean ordered;
 
     /**
      * Creates a new instance of this adapter.
@@ -170,10 +174,19 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
+    public SqlQuery setOrdered(boolean ordered) {
+        this.ordered = ordered;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List list() throws SqlProcessorException {
         final StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
         final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? SqlProcessContext.getPluginFactory()
-                .getSqlFromToPlugin().limitQuery(queryString, queryResult, firstResult, maxResults) : null;
+                .getSqlFromToPlugin().limitQuery(queryString, queryResult, firstResult, maxResults, ordered) : null;
         final String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
             logger.debug("list, query=" + query);

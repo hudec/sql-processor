@@ -47,7 +47,10 @@ public interface SqlFromToPlugin {
      * @param maxResults
      *            The max number of SQL execution output rows, which can be returned in the result list. The primary
      *            usage is to support the pagination.
+     * @param ordered
+     *            the SQL output is sorted
      * @return the characteristic of FROM and TO restrictions used in {@link SqlQuery#list()}
      */
-    public LimitType limitQuery(String queryString, StringBuilder queryResult, Integer firstResult, Integer maxResults);
+    public LimitType limitQuery(String queryString, StringBuilder queryResult, Integer firstResult, Integer maxResults,
+            boolean ordered);
 }

@@ -52,6 +52,15 @@ public interface SqlQuery {
     SqlQuery setMaxResults(int maxResults);
 
     /**
+     * Sets the indicator the SQL output is sorted.
+     * 
+     * @param ordered
+     *            the indicator the SQL output is sorted
+     * @return this instance to enable the methods chaining
+     */
+    SqlQuery setOrdered(boolean ordered);
+
+    /**
      * Returns the query results as a <tt>List</tt>. If the query contains multiple results per row, the results are
      * returned in an instance of <tt>Object[]</tt>.
      * 

@@ -98,6 +98,14 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
+    public SqlQuery setOrdered(boolean ordered) {
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List list() throws SqlProcessorException {
         try {
             return query.list();

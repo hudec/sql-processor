@@ -140,18 +140,25 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public LimitType limitQuery(String queryString, StringBuilder queryResult, Integer firstResult, Integer maxResults) {
+    public LimitType limitQuery(String queryString, StringBuilder queryResult, Integer firstResult, Integer maxResults,
+            boolean ordered) {
         LimitType limitType = new LimitType();
 
         if (maxResults == null || maxResults <= 0)
             return null;
         if (firstResult != null && firstResult > 0) {
             limitType.alsoFirst = true;
-            String limitPattern = SqlProcessContext.getFeature(SqlFeature.LIMIT_FROM_TO);
+            String limitPattern = (ordered) ? SqlProcessContext.getFeature(SqlFeature.LIMIT_FROM_TO_ORDERED)
+                    : SqlProcessContext.getFeature(SqlFeature.LIMIT_FROM_TO);
+            if (limitPattern == null && ordered)
+                limitPattern = SqlProcessContext.getFeature(SqlFeature.LIMIT_FROM_TO);
             limitType = limitQuery(limitPattern, limitType, queryString, queryResult, firstResult, maxResults);
             return limitType;
         } else {
-            String limitPattern = SqlProcessContext.getFeature(SqlFeature.LIMIT_TO);
+            String limitPattern = (ordered) ? SqlProcessContext.getFeature(SqlFeature.LIMIT_TO_ORDERED)
+                    : SqlProcessContext.getFeature(SqlFeature.LIMIT_TO);
+            if (limitPattern == null && ordered)
+                limitPattern = SqlProcessContext.getFeature(SqlFeature.LIMIT_TO);
             limitType = limitQuery(limitPattern, limitType, queryString, queryResult, firstResult, maxResults);
             return limitType;
         }
