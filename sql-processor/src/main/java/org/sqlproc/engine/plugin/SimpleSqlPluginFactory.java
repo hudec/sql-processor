@@ -40,7 +40,7 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     /**
      * The private static instance of this factory.
      */
-    private static SqlPluginFactory factory = new SimpleSqlPluginFactory();
+    private static SimpleSqlPluginFactory factory = new SimpleSqlPluginFactory();
 
     /**
      * The SQL Processor plugins standard implementation.
@@ -89,7 +89,7 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
      * 
      * @return the META types factory for the JDBC stack
      */
-    public static SqlPluginFactory getInstance() {
+    public static SimpleSqlPluginFactory getInstance() {
         return factory;
     }
 
