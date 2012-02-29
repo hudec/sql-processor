@@ -3,19 +3,19 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc.samples</groupId>
     <artifactId>simple-hibernate</artifactId>
-    <version>1.7.1</version>
+    <version>1.7.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>SQL Processor Samples, Simple (Hibernate)</name>
 
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-samples</artifactId>
-        <version>1.7.1</version>
+        <version>1.7.2-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <properties>
-        <version.sql-processor>1.7.1</version.sql-processor>
+        <version.sql-processor>1.7.2-SNAPSHOT</version.sql-processor>
         <version.antlr>3.4</version.antlr>
         <version.hibernate>3.6.9.Final</version.hibernate>
         <version.hibernate.validator>4.2.0.Final</version.hibernate.validator>
@@ -24,7 +24,7 @@
         <version.junit>4.10</version.junit>
         <version.dbunit>2.4.7</version.dbunit>
         <version.hsqldb>2.2.8</version.hsqldb>
-        <!-- version.joda-time>1.7.1</version.joda-time>
+        <!-- version.joda-time>1.7.2-SNAPSHOT</version.joda-time>
         <version.joda-time-hibernate>1.2</version.joda-time-hibernate-->
         <version.javassist>3.12.1.GA</version.javassist>
     </properties>

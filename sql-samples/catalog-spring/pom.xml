@@ -4,21 +4,21 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc.samples</groupId>
     <artifactId>catalog-spring</artifactId>
-    <version>1.7.1</version>
+    <version>1.7.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>SQL Processor Samples, Catalog (Spring)</name>
 
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-samples</artifactId>
-        <version>1.7.1</version>
+        <version>1.7.2-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.sql-processor>1.7.1</version.sql-processor>
+        <version.sql-processor>1.7.2-SNAPSHOT</version.sql-processor>
 
         <version.spring>3.1.0.RELEASE</version.spring>
         <version.log4j>1.2.16</version.log4j>
@@ -112,7 +112,7 @@
             <dependency>
                 <groupId>org.sqlproc.samples</groupId>
                 <artifactId>catalog-spring-business</artifactId>
-                <version>1.7.1</version>
+                <version>1.7.2-SNAPSHOT</version>
                 <type>jar</type>
             </dependency>
             <dependency>
