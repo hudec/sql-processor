@@ -19,7 +19,7 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.eclipse.xtext.common.types
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib
-Bundle-RequiredExecutionEnvironment: J2SE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.sqlproc.dsl,
  org.sqlproc.dsl.services,
  org.sqlproc.dsl.processorDsl,
