@@ -41,7 +41,7 @@
                     <pomDependencies>consider</pomDependencies>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <groupId>org.eclipse.tycho</groupId>
                 <artifactId>maven-osgi-compiler-plugin</artifactId>
                 <version>${version.tycho}</version>
@@ -49,7 +49,7 @@
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
-            </plugin>
+            </plugin-->
         </plugins>
         <pluginManagement>
             <plugins>
