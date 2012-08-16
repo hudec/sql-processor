@@ -1,0 +1,28 @@
+To import this plugin into IDE the STS 3.0.0 plus Xtext 2.3 are required.
+
+The minimum installation is the next one:
+- spring-tool-suite-3.0.0.RELEASE-e4.2-linux-gtk-installer.sh
+and the plugins:
+    Ecore Tools SDK 1.1.0
+    EMF - Eclipse Modeling Framework SDK 2.8.0
+    MWE 2 language SDK 2.3.0
+    MWE 2 runtime SDK 2.3.0
+    Xpand SDK 1.2.1
+    Xtext SDK 2.3.0
+
+To build from the command line the Maven 3 is required plus
+the next command:
+
+ mvn clean install -Dtycho.targetPlatform=/home/hudec/eclipse
+
+or simple (using Eclipse P2 repositories)
+
+ mvn clean install
+
+To install this plugin, copy the next jars into eclipse/dropins
+directory:
+./org.sqlproc.dsl/target/org.sqlproc.dsl-1.1.0-SNAPSHOT.jar
+./org.sqlproc.dsl.ui/target/org.sqlproc.dsl.ui-1.1.0-SNAPSHOT.jar
+
+
+
