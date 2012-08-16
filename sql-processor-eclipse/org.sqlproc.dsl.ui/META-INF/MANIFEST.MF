@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.sqlproc.dsl.ui
-Bundle-Vendor: My Company
-Bundle-Version: 1.0.0.qualifier
+Bundle-Name: SQL Processor DSL UI
+Bundle-Vendor: SQL Processor Team
+Bundle-Version: 1.1.0.qualifier
 Bundle-SymbolicName: org.sqlproc.dsl.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.sqlproc.dsl;visibility:=reexport,
@@ -16,8 +16,10 @@ Require-Bundle: org.sqlproc.dsl;visibility:=reexport,
  org.eclipse.xtext.common.types.ui,
  org.eclipse.xtext.ui.codetemplates.ui,
  org.eclipse.compare
-Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Import-Package: org.apache.log4j,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.launching
+Bundle-RequiredExecutionEnvironment: J2SE-1.6
 Export-Package: org.sqlproc.dsl.ui.contentassist,
  org.sqlproc.dsl.ui.contentassist.antlr,
  org.sqlproc.dsl.ui.internal
