@@ -1,0 +1,199 @@
+grammar org.sqlproc.dsl.ProcessorDsl hidden(ML_COMMENT, SL_COMMENT)	
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+generate processorDsl "http://www.sqlproc.org/dsl/ProcessorDsl"
+
+Artifacts:
+    WS* (features+=OptionalFeature WS*|statements+=MetaStatement WS*|mappings+=MappingRule WS*
+    	|pojos+=PojoDefinition WS*|usages+=PojoUsage WS*|properties+=Property WS*|tables+=TableDefinition WS*
+    	|tableUsages+=TableUsage WS*
+    )+;
+
+Property:
+	(name='resolve references' WS+ doResolvePojo=ON_OFF
+	|name='database online' WS+ doResolveDb=ON_OFF
+	|name='database url' WS+ dbUrl=PropertyValue
+	|name='database username' WS+ dbUsername=PropertyValue
+	|name='database password' WS+ dbPassword=PropertyValue
+	|name='database schema' WS+ dbSchema=PropertyValue
+	|name='database driver' WS+ dbDriver=PropertyValue
+	) SEMICOLON;
+
+PropertyValue:
+  (REST|IDENT_DOT|IDENT|NUMBER|COLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|PERCENT|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)
+  (=> (REST|IDENT_DOT|IDENT|NUMBER|WS|COLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|PERCENT|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)*);
+
+PojoDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
+	'pojo' name=IDENT class=(IDENT|IDENT_DOT) SEMICOLON;
+
+PojoUsage: ColumnUsage | IdentifierUsage | ConstantUsage | MappingUsage;
+
+ColumnUsage hidden(ML_COMMENT, SL_COMMENT, WS):
+	'col' statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
+
+IdentifierUsage hidden(ML_COMMENT, SL_COMMENT, WS):
+	'ident' statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
+
+ConstantUsage hidden(ML_COMMENT, SL_COMMENT, WS):
+	'const' statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
+
+MappingUsage hidden(ML_COMMENT, SL_COMMENT, WS):
+	'out' statement=[MappingRule|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
+
+TableDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
+	'table' name=IDENT table=IDENT SEMICOLON;
+
+TableUsage hidden(ML_COMMENT, SL_COMMENT, WS):
+	'dbcol' statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] ('prefix' prefix=IDENT)? SEMICOLON;
+
+MetaStatement:
+	name=IDENT LPAREN type=STATEMEN_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS statement=Sql SEMICOLON;
+
+Sql: (sqls+=SqlFragment)+;
+
+SqlFragment:
+	value=SqlValue
+    | AT col=Column
+    | STRING cnst=Constant
+    | COLON ident=Identifier
+    | LBRACE meta=MetaSql RBRACE
+    | PERCENT (PERCENT dbtab=DatabaseTable|dbcol=DatabaseColumn)
+    ;
+
+SqlValue: //~(COLON | STRING | AT | LBRACE | SEMICOLON)
+  (REST|IDENT_DOT|IDENT|NUMBER|WS|COMMA|MINUS|PLUS|LPAREN|RPAREN|RBRACE|QUESTI|NOT|BAND|BOR|HASH|CARET|EQUALS|LESS_THAN|MORE_THAN|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)
+  (=> (REST|IDENT_DOT|IDENT|NUMBER|WS|COMMA|MINUS|PLUS|LPAREN|RPAREN|RBRACE|QUESTI|NOT|BAND|BOR|HASH|CARET|EQUALS|LESS_THAN|MORE_THAN|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)*);
+
+
+MetaSql:
+    WS ifs+=IfSql (BOR ifs+=IfSql)*
+    | type=QUESTI cond=IfSqlCond BOR ifs+=IfSql (BOR ifs+=IfSql)*
+    | type=BAND ifs+=IfSql (BOR ifs+=IfSql)*
+    | type=BOR ifs+=IfSql (BOR ifs+=IfSql)*
+    | type=EQUALS WS* ftype=IDENT ifs+=IfSql
+    | type=HASH NUMBER ord=OrdSql
+    ;
+
+IfSql: (sqls+=IfSqlFragment)+;
+
+IfSqlFragment:
+	value=IfSqlValue
+    | AT col=Column
+    | STRING cnst=Constant
+    | COLON ident=Identifier
+    | PERCENT (PERCENT dbtab=DatabaseTable|dbcol=DatabaseColumn)
+    | LBRACE meta=IfMetaSql RBRACE
+    ;
+
+IfSqlValue: //~(COLON | STRING | AT | LBRACE | BOR | RBRACE)
+  (REST|IDENT_DOT|IDENT|NUMBER|WS|SEMICOLON|COMMA|MINUS|PLUS|LPAREN|RPAREN|QUESTI|NOT|BAND|HASH|CARET|EQUALS|LESS_THAN|MORE_THAN|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)
+  (=> (REST|IDENT_DOT|IDENT|NUMBER|WS|SEMICOLON|COMMA|MINUS|PLUS|LPAREN|RPAREN|QUESTI|NOT|BAND|HASH|CARET|EQUALS|LESS_THAN|MORE_THAN|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)*);
+
+IfMetaSql:
+    WS ifs+=IfSql (BOR ifs+=IfSql)*
+    | type=QUESTI cond=IfSqlCond BOR ifs+=IfSql (BOR ifs+=IfSql)*
+    | type=BAND ifs+=IfSql (BOR ifs+=IfSql)*
+    | type=BOR ifs+=IfSql (BOR ifs+=IfSql)*
+    ;
+
+IfSqlCond:
+    WS* bool1=IfSqlBool WS* (oper+=(AND|OR) WS* bool2+=IfSqlBool WS*)*;
+
+IfSqlBool:
+    (not?=NOT)? STRING cnst=Constant
+    | (not?=NOT)? COLON ident=Identifier
+    | (not?=NOT)? LPAREN cond=IfSqlCond RPAREN
+    ;
+
+OrdSql: (sqls+=OrdSql2)+;
+
+OrdSql2:
+    value=OrdSqlValue
+    | STRING cnst=Constant
+    | COLON ident=Identifier
+    | PERCENT dbcol=DatabaseColumn
+    ;
+
+OrdSqlValue: //~(COLON | STRING | PERCENT | RBRACE)
+  (REST|IDENT_DOT|IDENT|NUMBER|WS|SEMICOLON|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)
+  (=> (REST|IDENT_DOT|IDENT|NUMBER|WS|SEMICOLON|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)*);
+
+Column:
+    name=(IDENT|IDENT_DOT|NUMBER)
+    (=> CARET (=> type=IDENT)? (=> CARET vals+=(IDENT|NUMBER))*)?;
+
+Constant:
+    (case=(PLUS|MINUS))? name=(IDENT|IDENT_DOT)
+    (=> CARET (=> type=IDENT)? (=> CARET vals+=(IDENT|NUMBER))*)?;
+
+Identifier:
+    (mode=(EQUALS|LESS_THAN|MORE_THAN))? (case=(PLUS|MINUS))? name=(IDENT|IDENT_DOT|NUMBER)
+    (=> CARET (=> type=IDENT)? (=> CARET vals+=(IDENT|NUMBER))*)?;
+
+DatabaseColumn:
+    name=(IDENT|IDENT_DOT);
+
+DatabaseTable:
+    name=(IDENT|IDENT_DOT);
+
+MappingRule:
+	name=IDENT LPAREN type=MAPPING_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS mapping=Mapping SEMICOLON;
+
+Mapping:
+	WS* mappingItems+=MappingItem (WS+ mappingItems+=MappingItem)* WS*;
+
+MappingItem:
+	col=(IDENT|NUMBER) (STRING (type=IDENT)? (STRING attr=MappingColumn)?)?;
+
+MappingColumn:
+    name=(IDENT|IDENT_DOT) (CARET vals+=(IDENT|NUMBER))*;
+
+OptionalFeature:
+	name=IDENT LPAREN type=OPTION_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS option=FeatureValue SEMICOLON;
+
+FeatureValue:
+  (REST|IDENT_DOT|IDENT|NUMBER|WS|COLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|PERCENT|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)+;
+
+
+terminal ON_OFF: 'ON'|'OFF';
+terminal STATEMEN_TYPE: 'QRY'|'CRUD'|'CALL';
+terminal MAPPING_TYPE: 'OUT';
+terminal OPTION_TYPE: 'OPT'|'LOPT'|'IOPT'|'SOPT'|'BOPT';
+
+terminal IDENT_DOT: IDENT ('.' IDENT)+;
+terminal IDENT: ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'=')*;
+terminal NUMBER: ('0'..'9')+;
+
+terminal ESC_CHAR:  '\\' (COLON | SEMICOLON | STRING | LBRACE | RBRACE | BOR | HASH | AT | PERCENT | '/');
+terminal ML_COMMENT : '/*' -> '*/' ;
+terminal SL_COMMENT : '//' !('\n'|'\r')* ('\r'? '\n')? ;
+terminal WS:    (' '|'\t'|'\n'|'\r')+ ;
+terminal AND:   '&' '&' ;
+terminal OR:    '|' '|' ;
+
+terminal COLON:    ':' ;
+terminal SEMICOLON:';' ;
+terminal STRING:   '$' ;
+terminal COMMA:    ',' ;
+terminal MINUS:    '-' ;
+terminal PLUS:     '+' ;
+terminal LPAREN:   '(' ;
+terminal RPAREN:   ')' ;
+terminal LBRACE:   '{' ;
+terminal RBRACE:   '}' ;
+terminal QUESTI:   '?' ;
+terminal NOT:      '!' ;
+terminal BAND:     '&' ;
+terminal BOR:      '|' ;
+terminal HASH:     '#' ;
+terminal AT:	   '@';
+terminal CARET:    '^';
+terminal EQUALS:   '=' ;
+terminal LESS_THAN:'<' ;
+terminal MORE_THAN:'>' ;
+terminal PERCENT:  '%' ;
+
+terminal REST: !(SEMICOLON);
+
+//     (REST|IDENT_DOT|IDENT|NUMBER|WS|COLON|SEMICOLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|PERCENT|AND|OR|ESC_CHAR)
