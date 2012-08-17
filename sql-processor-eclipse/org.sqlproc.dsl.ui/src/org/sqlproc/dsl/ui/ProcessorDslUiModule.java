@@ -45,7 +45,8 @@ public class ProcessorDslUiModule extends org.sqlproc.dsl.ui.AbstractProcessorDs
         return WorkspacePojoResolverImpl.class;
     }
 
-    public Class<? extends IHighlightingConfiguration> bindISemanticHighlightingConfiguration() {
+    @Override
+    public Class<? extends IHighlightingConfiguration> bindIHighlightingConfiguration() {
         return HighlightingConfiguration.class;
     }
 

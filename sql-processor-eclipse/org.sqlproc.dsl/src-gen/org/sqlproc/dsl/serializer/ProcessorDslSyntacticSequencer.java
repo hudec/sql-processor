@@ -7,6 +7,7 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
+import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
@@ -45,6 +46,12 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_Property_WSTerminalRuleCall_0_4_1_p;
 	protected AbstractElementAlias match_Property_WSTerminalRuleCall_0_5_1_p;
 	protected AbstractElementAlias match_Property_WSTerminalRuleCall_0_6_1_p;
+	protected AbstractElementAlias match_XBlockExpression_SemicolonKeyword_2_1_q;
+	protected AbstractElementAlias match_XConstructorCall___LeftParenthesisKeyword_4_0_RightParenthesisKeyword_4_2__q;
+	protected AbstractElementAlias match_XExpressionInClosure_SemicolonKeyword_1_1_q;
+	protected AbstractElementAlias match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q;
+	protected AbstractElementAlias match_XParenthesizedExpression_LeftParenthesisKeyword_0_a;
+	protected AbstractElementAlias match_XParenthesizedExpression_LeftParenthesisKeyword_0_p;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -77,6 +84,12 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_Property_WSTerminalRuleCall_0_4_1_p = new TokenAlias(true, false, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_4_1());
 		match_Property_WSTerminalRuleCall_0_5_1_p = new TokenAlias(true, false, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_5_1());
 		match_Property_WSTerminalRuleCall_0_6_1_p = new TokenAlias(true, false, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_6_1());
+		match_XBlockExpression_SemicolonKeyword_2_1_q = new TokenAlias(false, true, grammarAccess.getXBlockExpressionAccess().getSemicolonKeyword_2_1());
+		match_XConstructorCall___LeftParenthesisKeyword_4_0_RightParenthesisKeyword_4_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getXConstructorCallAccess().getLeftParenthesisKeyword_4_0()), new TokenAlias(false, false, grammarAccess.getXConstructorCallAccess().getRightParenthesisKeyword_4_2()));
+		match_XExpressionInClosure_SemicolonKeyword_1_1_q = new TokenAlias(false, true, grammarAccess.getXExpressionInClosureAccess().getSemicolonKeyword_1_1());
+		match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getXFunctionTypeRefAccess().getLeftParenthesisKeyword_0_0()), new TokenAlias(false, false, grammarAccess.getXFunctionTypeRefAccess().getRightParenthesisKeyword_0_2()));
+		match_XParenthesizedExpression_LeftParenthesisKeyword_0_a = new TokenAlias(true, true, grammarAccess.getXParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
+		match_XParenthesizedExpression_LeftParenthesisKeyword_0_p = new TokenAlias(true, false, grammarAccess.getXParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
 	}
 	
 	@Override
@@ -99,8 +112,8 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 			return getLPARENToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getNOTRule())
 			return getNOTToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getNUMBERRule())
-			return getNUMBERToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getOpSingleAssignRule())
+			return getOpSingleAssignToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getPERCENTRule())
 			return getPERCENTToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getRBRACERule())
@@ -113,6 +126,8 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 			return getSTRINGToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getWSRule())
 			return getWSToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.get_NUMBERRule())
+			return get_NUMBERToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
@@ -198,12 +213,14 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
-	 * terminal NUMBER: ('0'..'9')+;
+	 * OpSingleAssign:
+	 * 	'='
+	 * ;
 	 */
-	protected String getNUMBERToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	protected String getOpSingleAssignToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return "";
+		return "=";
 	}
 	
 	/**
@@ -258,6 +275,15 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 		if (node != null)
 			return getTokenText(node);
 		return " ";
+	}
+	
+	/**
+	 * terminal _NUMBER: ('0'..'9')+;
+	 */
+	protected String get_NUMBERToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "";
 	}
 	
 	@Override
@@ -322,6 +348,18 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_Property_WSTerminalRuleCall_0_5_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Property_WSTerminalRuleCall_0_6_1_p.equals(syntax))
 				emit_Property_WSTerminalRuleCall_0_6_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_XBlockExpression_SemicolonKeyword_2_1_q.equals(syntax))
+				emit_XBlockExpression_SemicolonKeyword_2_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_XConstructorCall___LeftParenthesisKeyword_4_0_RightParenthesisKeyword_4_2__q.equals(syntax))
+				emit_XConstructorCall___LeftParenthesisKeyword_4_0_RightParenthesisKeyword_4_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_XExpressionInClosure_SemicolonKeyword_1_1_q.equals(syntax))
+				emit_XExpressionInClosure_SemicolonKeyword_1_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q.equals(syntax))
+				emit_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_XParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
+				emit_XParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_XParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
+				emit_XParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -547,6 +585,54 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     WS+
 	 */
 	protected void emit_Property_WSTerminalRuleCall_0_6_1_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     ';'?
+	 */
+	protected void emit_XBlockExpression_SemicolonKeyword_2_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     ('(' ')')?
+	 */
+	protected void emit_XConstructorCall___LeftParenthesisKeyword_4_0_RightParenthesisKeyword_4_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     ';'?
+	 */
+	protected void emit_XExpressionInClosure_SemicolonKeyword_1_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     ('(' ')')?
+	 */
+	protected void emit_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     '('*
+	 */
+	protected void emit_XParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     '('+
+	 */
+	protected void emit_XParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

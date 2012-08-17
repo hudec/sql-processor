@@ -2,11 +2,11 @@ package org.sqlproc.dsl.ui.syntaxcoloring;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfigurationAcceptor;
 import org.eclipse.xtext.ui.editor.utils.TextStyle;
+import org.eclipse.xtext.xbase.ui.highlighting.XbaseHighlightingConfiguration;
 
-public class HighlightingConfiguration extends DefaultHighlightingConfiguration {
+public class HighlightingConfiguration extends XbaseHighlightingConfiguration {
 
     public final static String PUNCTATION = "punctation";
     public final static String TYPE = "type";
