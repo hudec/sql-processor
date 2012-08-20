@@ -23,7 +23,7 @@ Import hidden(ML_COMMENT, SL_COMMENT, WS):
 	'import' importedNamespace = QualifiedNameWithWildcard;
 
 PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-	'pojo' name=IDENT
+	'pojo' (abstract?='abstract')? name=IDENT
 	('extends' superType=[PojoEntity|IDENT])? LBRACE
 		features+=PojoProperty*
 	RBRACE;

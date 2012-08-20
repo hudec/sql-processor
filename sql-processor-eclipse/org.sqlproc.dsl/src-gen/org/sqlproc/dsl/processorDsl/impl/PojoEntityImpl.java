@@ -28,6 +28,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#isAbstract <em>Abstract</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getSuperType <em>Super Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getFeatures <em>Features</em>}</li>
@@ -38,6 +39,26 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  */
 public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
 {
+  /**
+   * The default value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAbstract()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ABSTRACT_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAbstract()
+   * @generated
+   * @ordered
+   */
+  protected boolean abstract_ = ABSTRACT_EDEFAULT;
+
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -97,6 +118,29 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   protected EClass eStaticClass()
   {
     return ProcessorDslPackage.Literals.POJO_ENTITY;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isAbstract()
+  {
+    return abstract_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAbstract(boolean newAbstract)
+  {
+    boolean oldAbstract = abstract_;
+    abstract_ = newAbstract;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_ENTITY__ABSTRACT, oldAbstract, abstract_));
   }
 
   /**
@@ -205,6 +249,8 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_ENTITY__ABSTRACT:
+        return isAbstract();
       case ProcessorDslPackage.POJO_ENTITY__NAME:
         return getName();
       case ProcessorDslPackage.POJO_ENTITY__SUPER_TYPE:
@@ -227,6 +273,9 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_ENTITY__ABSTRACT:
+        setAbstract((Boolean)newValue);
+        return;
       case ProcessorDslPackage.POJO_ENTITY__NAME:
         setName((String)newValue);
         return;
@@ -251,6 +300,9 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_ENTITY__ABSTRACT:
+        setAbstract(ABSTRACT_EDEFAULT);
+        return;
       case ProcessorDslPackage.POJO_ENTITY__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -274,6 +326,8 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_ENTITY__ABSTRACT:
+        return abstract_ != ABSTRACT_EDEFAULT;
       case ProcessorDslPackage.POJO_ENTITY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.POJO_ENTITY__SUPER_TYPE:
@@ -295,7 +349,9 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
+    result.append(" (abstract: ");
+    result.append(abstract_);
+    result.append(", name: ");
     result.append(name);
     result.append(')');
     return result.toString();

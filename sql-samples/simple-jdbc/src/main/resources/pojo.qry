@@ -1,17 +1,22 @@
 package org.sqlproc.sample.simple.model {
 	
-	pojo Media {
+	pojo abstract Media {
 		id : java.lang.Long
 		title : java.lang.String
+	}
+	
+	pojo Book extends Media {
+		isbn : java.lang.String
+	}
+	
+	pojo Movie extends Media {
+		urlIMDB : java.lang.String
+		playLength : java.lang.Integer
 	}
 	
 	pojo Library {
 		id : java.lang.Long
 		name : java.lang.String
-	}
-	
-	pojo Book extends Media {
-		isbn : java.lang.String
 	}
 	
 	pojo PhoneNumber {
@@ -23,7 +28,7 @@ package org.sqlproc.sample.simple.model {
 	pojo Contact {
 		id : java.lang.Long
 		personId : java.lang.Long
-		String : java.lang.String
+		address : java.lang.String
 		homePhone :: PhoneNumber
 	}
 	
@@ -35,9 +40,30 @@ package org.sqlproc.sample.simple.model {
 		billingDetails : java.util.List
 	}
 	
-	pojo BillingDetails {
+	pojo abstract BillingDetails {
 		id : java.lang.Long
 		type : java.lang.String
 		subscriber :: Subscriber
+	}
+	
+	pojo BankAccount extends BillingDetails {
+		account : java.lang.String
+	}
+	
+	pojo CreditCard extends BillingDetails {
+		number : java.lang.Long
+	}
+	
+	pojo PersonLibrary {
+		id : java.lang.Long
+		personId : java.lang.Long
+		mediaId : java.lang.Long
+	}
+	
+	pojo Person {
+		id : java.lang.Long
+		name : java.lang.String
+		contacts : java.util.List
+		library : java.util.List
 	}
 }

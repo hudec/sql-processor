@@ -92,7 +92,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPackageDeclarationAccess().getGroup(), "rule__PackageDeclaration__Group__0");
 					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
 					put(grammarAccess.getPojoEntityAccess().getGroup(), "rule__PojoEntity__Group__0");
-					put(grammarAccess.getPojoEntityAccess().getGroup_2(), "rule__PojoEntity__Group_2__0");
+					put(grammarAccess.getPojoEntityAccess().getGroup_3(), "rule__PojoEntity__Group_3__0");
 					put(grammarAccess.getPojoPropertyAccess().getGroup(), "rule__PojoProperty__Group__0");
 					put(grammarAccess.getPojoPropertyAccess().getGroup_1_1(), "rule__PojoProperty__Group_1_1__0");
 					put(grammarAccess.getPojoPropertyAccess().getGroup_1_1_1_0(), "rule__PojoProperty__Group_1_1_1_0__0");
@@ -193,9 +193,10 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPackageDeclarationAccess().getNameAssignment_1(), "rule__PackageDeclaration__NameAssignment_1");
 					put(grammarAccess.getPackageDeclarationAccess().getElementsAssignment_3(), "rule__PackageDeclaration__ElementsAssignment_3");
 					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");
-					put(grammarAccess.getPojoEntityAccess().getNameAssignment_1(), "rule__PojoEntity__NameAssignment_1");
-					put(grammarAccess.getPojoEntityAccess().getSuperTypeAssignment_2_1(), "rule__PojoEntity__SuperTypeAssignment_2_1");
-					put(grammarAccess.getPojoEntityAccess().getFeaturesAssignment_4(), "rule__PojoEntity__FeaturesAssignment_4");
+					put(grammarAccess.getPojoEntityAccess().getAbstractAssignment_1(), "rule__PojoEntity__AbstractAssignment_1");
+					put(grammarAccess.getPojoEntityAccess().getNameAssignment_2(), "rule__PojoEntity__NameAssignment_2");
+					put(grammarAccess.getPojoEntityAccess().getSuperTypeAssignment_3_1(), "rule__PojoEntity__SuperTypeAssignment_3_1");
+					put(grammarAccess.getPojoEntityAccess().getFeaturesAssignment_5(), "rule__PojoEntity__FeaturesAssignment_5");
 					put(grammarAccess.getPojoPropertyAccess().getNameAssignment_0(), "rule__PojoProperty__NameAssignment_0");
 					put(grammarAccess.getPojoPropertyAccess().getNativeAssignment_1_0(), "rule__PojoProperty__NativeAssignment_1_0");
 					put(grammarAccess.getPojoPropertyAccess().getRefAssignment_1_1_1_0_1(), "rule__PojoProperty__RefAssignment_1_1_1_0_1");

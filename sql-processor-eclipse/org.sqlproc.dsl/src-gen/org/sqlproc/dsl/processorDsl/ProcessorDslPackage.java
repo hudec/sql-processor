@@ -251,13 +251,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_ENTITY = 4;
 
   /**
+   * The feature id for the '<em><b>Abstract</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_ENTITY__ABSTRACT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_ENTITY__NAME = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 0;
+  int POJO_ENTITY__NAME = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Super Type</b></em>' reference.
@@ -266,7 +275,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_ENTITY__SUPER_TYPE = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 1;
+  int POJO_ENTITY__SUPER_TYPE = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Features</b></em>' containment reference list.
@@ -275,7 +284,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_ENTITY__FEATURES = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 2;
+  int POJO_ENTITY__FEATURES = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Pojo Entity</em>' class.
@@ -284,7 +293,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_ENTITY_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 3;
+  int POJO_ENTITY_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl <em>Pojo Property</em>}' class.
@@ -1923,6 +1932,17 @@ public interface ProcessorDslPackage extends EPackage
   EClass getPojoEntity();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoEntity#isAbstract <em>Abstract</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Abstract</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoEntity#isAbstract()
+   * @see #getPojoEntity()
+   * @generated
+   */
+  EAttribute getPojoEntity_Abstract();
+
+  /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3445,6 +3465,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EClass POJO_ENTITY = eINSTANCE.getPojoEntity();
+
+    /**
+     * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_ENTITY__ABSTRACT = eINSTANCE.getPojoEntity_Abstract();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
