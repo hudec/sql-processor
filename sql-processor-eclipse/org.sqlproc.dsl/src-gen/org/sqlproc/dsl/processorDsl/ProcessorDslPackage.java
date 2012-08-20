@@ -342,13 +342,31 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_PROPERTY__TYPE = 3;
 
   /**
+   * The feature id for the '<em><b>Gref</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_PROPERTY__GREF = 4;
+
+  /**
+   * The feature id for the '<em><b>Gtype</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_PROPERTY__GTYPE = 5;
+
+  /**
    * The number of structural features of the '<em>Pojo Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY_FEATURE_COUNT = 4;
+  int POJO_PROPERTY_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl <em>Property</em>}' class.
@@ -2030,6 +2048,28 @@ public interface ProcessorDslPackage extends EPackage
   EReference getPojoProperty_Type();
 
   /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoProperty#getGref <em>Gref</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Gref</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoProperty#getGref()
+   * @see #getPojoProperty()
+   * @generated
+   */
+  EReference getPojoProperty_Gref();
+
+  /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoProperty#getGtype <em>Gtype</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Gtype</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoProperty#getGtype()
+   * @see #getPojoProperty()
+   * @generated
+   */
+  EReference getPojoProperty_Gtype();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.Property <em>Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3539,6 +3579,22 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EReference POJO_PROPERTY__TYPE = eINSTANCE.getPojoProperty_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Gref</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference POJO_PROPERTY__GREF = eINSTANCE.getPojoProperty_Gref();
+
+    /**
+     * The meta object literal for the '<em><b>Gtype</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference POJO_PROPERTY__GTYPE = eINSTANCE.getPojoProperty_Gtype();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl <em>Property</em>}' class.

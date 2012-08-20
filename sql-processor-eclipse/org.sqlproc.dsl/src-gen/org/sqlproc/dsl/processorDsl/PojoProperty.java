@@ -18,6 +18,8 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getNative <em>Native</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getRef <em>Ref</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getType <em>Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getGref <em>Gref</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getGtype <em>Gtype</em>}</li>
  * </ul>
  * </p>
  *
@@ -130,5 +132,57 @@ public interface PojoProperty extends EObject
    * @generated
    */
   void setType(JvmType value);
+
+  /**
+   * Returns the value of the '<em><b>Gref</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Gref</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Gref</em>' reference.
+   * @see #setGref(PojoEntity)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoProperty_Gref()
+   * @model
+   * @generated
+   */
+  PojoEntity getGref();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoProperty#getGref <em>Gref</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Gref</em>' reference.
+   * @see #getGref()
+   * @generated
+   */
+  void setGref(PojoEntity value);
+
+  /**
+   * Returns the value of the '<em><b>Gtype</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Gtype</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Gtype</em>' reference.
+   * @see #setGtype(JvmType)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoProperty_Gtype()
+   * @model
+   * @generated
+   */
+  JvmType getGtype();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoProperty#getGtype <em>Gtype</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Gtype</em>' reference.
+   * @see #getGtype()
+   * @generated
+   */
+  void setGtype(JvmType value);
 
 } // PojoProperty

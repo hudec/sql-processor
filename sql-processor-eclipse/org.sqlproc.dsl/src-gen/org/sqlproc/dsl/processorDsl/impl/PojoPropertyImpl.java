@@ -27,6 +27,8 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getNative <em>Native</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getRef <em>Ref</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getGref <em>Gref</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getGtype <em>Gtype</em>}</li>
  * </ul>
  * </p>
  *
@@ -93,6 +95,26 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
    * @ordered
    */
   protected JvmType type;
+
+  /**
+   * The cached value of the '{@link #getGref() <em>Gref</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGref()
+   * @generated
+   * @ordered
+   */
+  protected PojoEntity gref;
+
+  /**
+   * The cached value of the '{@link #getGtype() <em>Gtype</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGtype()
+   * @generated
+   * @ordered
+   */
+  protected JvmType gtype;
 
   /**
    * <!-- begin-user-doc -->
@@ -252,6 +274,92 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
    * <!-- end-user-doc -->
    * @generated
    */
+  public PojoEntity getGref()
+  {
+    if (gref != null && gref.eIsProxy())
+    {
+      InternalEObject oldGref = (InternalEObject)gref;
+      gref = (PojoEntity)eResolveProxy(oldGref);
+      if (gref != oldGref)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.POJO_PROPERTY__GREF, oldGref, gref));
+      }
+    }
+    return gref;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoEntity basicGetGref()
+  {
+    return gref;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setGref(PojoEntity newGref)
+  {
+    PojoEntity oldGref = gref;
+    gref = newGref;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_PROPERTY__GREF, oldGref, gref));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JvmType getGtype()
+  {
+    if (gtype != null && gtype.eIsProxy())
+    {
+      InternalEObject oldGtype = (InternalEObject)gtype;
+      gtype = (JvmType)eResolveProxy(oldGtype);
+      if (gtype != oldGtype)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.POJO_PROPERTY__GTYPE, oldGtype, gtype));
+      }
+    }
+    return gtype;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JvmType basicGetGtype()
+  {
+    return gtype;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setGtype(JvmType newGtype)
+  {
+    JvmType oldGtype = gtype;
+    gtype = newGtype;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_PROPERTY__GTYPE, oldGtype, gtype));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -267,6 +375,12 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
       case ProcessorDslPackage.POJO_PROPERTY__TYPE:
         if (resolve) return getType();
         return basicGetType();
+      case ProcessorDslPackage.POJO_PROPERTY__GREF:
+        if (resolve) return getGref();
+        return basicGetGref();
+      case ProcessorDslPackage.POJO_PROPERTY__GTYPE:
+        if (resolve) return getGtype();
+        return basicGetGtype();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -292,6 +406,12 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
         return;
       case ProcessorDslPackage.POJO_PROPERTY__TYPE:
         setType((JvmType)newValue);
+        return;
+      case ProcessorDslPackage.POJO_PROPERTY__GREF:
+        setGref((PojoEntity)newValue);
+        return;
+      case ProcessorDslPackage.POJO_PROPERTY__GTYPE:
+        setGtype((JvmType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -319,6 +439,12 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
       case ProcessorDslPackage.POJO_PROPERTY__TYPE:
         setType((JvmType)null);
         return;
+      case ProcessorDslPackage.POJO_PROPERTY__GREF:
+        setGref((PojoEntity)null);
+        return;
+      case ProcessorDslPackage.POJO_PROPERTY__GTYPE:
+        setGtype((JvmType)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -341,6 +467,10 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
         return ref != null;
       case ProcessorDslPackage.POJO_PROPERTY__TYPE:
         return type != null;
+      case ProcessorDslPackage.POJO_PROPERTY__GREF:
+        return gref != null;
+      case ProcessorDslPackage.POJO_PROPERTY__GTYPE:
+        return gtype != null;
     }
     return super.eIsSet(featureID);
   }

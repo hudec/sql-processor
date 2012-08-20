@@ -37,7 +37,7 @@ package org.sqlproc.sample.simple.model {
 		name : java.lang.String
 		contact :: Contact
 		library :: Library
-		billingDetails : java.util.List
+		billingDetails : java.util.List <:BillingDetails>
 	}
 	
 	pojo abstract BillingDetails {
@@ -63,7 +63,7 @@ package org.sqlproc.sample.simple.model {
 	pojo Person {
 		id : java.lang.Long
 		name : java.lang.String
-		contacts : java.util.List
-		library : java.util.List
+		contacts : java.util.List <:Contact>
+		library : java.util.List <:Media>
 	}
 }

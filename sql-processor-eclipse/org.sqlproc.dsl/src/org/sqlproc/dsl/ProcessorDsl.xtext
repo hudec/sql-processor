@@ -29,11 +29,11 @@ PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
 	RBRACE;
 
 PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
-	name=IDENT (native = ('byte'|'short'|'int'|'long'|'float'|'double'|'boolean') | COLON (COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName]));
+	name=IDENT (native = ('byte'|'short'|'int'|'long'|'float'|'double'|'boolean') | COLON (COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName]))
+	(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?;
 
 QualifiedNameWithWildcard:
-  QualifiedName '.*'?
-; 
+  QualifiedName '.*'?; 
 
 QualifiedName: (IDENT|IDENT_DOT);
 

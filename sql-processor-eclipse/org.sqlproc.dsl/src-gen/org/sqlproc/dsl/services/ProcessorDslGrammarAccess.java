@@ -379,14 +379,28 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTypeAssignment_1_1_1_1 = (Assignment)cAlternatives_1_1_1.eContents().get(1);
 		private final CrossReference cTypeJvmTypeCrossReference_1_1_1_1_0 = (CrossReference)cTypeAssignment_1_1_1_1.eContents().get(0);
 		private final RuleCall cTypeJvmTypeQualifiedNameParserRuleCall_1_1_1_1_0_1 = (RuleCall)cTypeJvmTypeCrossReference_1_1_1_1_0.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final RuleCall cLESS_THANTerminalRuleCall_2_0 = (RuleCall)cGroup_2.eContents().get(0);
+		private final Alternatives cAlternatives_2_1 = (Alternatives)cGroup_2.eContents().get(1);
+		private final Group cGroup_2_1_0 = (Group)cAlternatives_2_1.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_2_1_0_0 = (RuleCall)cGroup_2_1_0.eContents().get(0);
+		private final Assignment cGrefAssignment_2_1_0_1 = (Assignment)cGroup_2_1_0.eContents().get(1);
+		private final CrossReference cGrefPojoEntityCrossReference_2_1_0_1_0 = (CrossReference)cGrefAssignment_2_1_0_1.eContents().get(0);
+		private final RuleCall cGrefPojoEntityIDENTTerminalRuleCall_2_1_0_1_0_1 = (RuleCall)cGrefPojoEntityCrossReference_2_1_0_1_0.eContents().get(1);
+		private final Assignment cGtypeAssignment_2_1_1 = (Assignment)cAlternatives_2_1.eContents().get(1);
+		private final CrossReference cGtypeJvmTypeCrossReference_2_1_1_0 = (CrossReference)cGtypeAssignment_2_1_1.eContents().get(0);
+		private final RuleCall cGtypeJvmTypeQualifiedNameParserRuleCall_2_1_1_0_1 = (RuleCall)cGtypeJvmTypeCrossReference_2_1_1_0.eContents().get(1);
+		private final RuleCall cMORE_THANTerminalRuleCall_2_2 = (RuleCall)cGroup_2.eContents().get(2);
 		
 		//PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 		//	name=IDENT (native=("byte" | "short" | "int" | "long" | "float" | "double" | "boolean") | COLON (COLON
-		//	ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName]));
+		//	ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
+		//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?;
 		public ParserRule getRule() { return rule; }
 
 		//name=IDENT (native=("byte" | "short" | "int" | "long" | "float" | "double" | "boolean") | COLON (COLON
-		//ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName]))
+		//ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
+		//gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?
 		public Group getGroup() { return cGroup; }
 
 		//name=IDENT
@@ -458,6 +472,42 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//QualifiedName
 		public RuleCall getTypeJvmTypeQualifiedNameParserRuleCall_1_1_1_1_0_1() { return cTypeJvmTypeQualifiedNameParserRuleCall_1_1_1_1_0_1; }
+
+		//(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//LESS_THAN
+		public RuleCall getLESS_THANTerminalRuleCall_2_0() { return cLESS_THANTerminalRuleCall_2_0; }
+
+		//COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]
+		public Alternatives getAlternatives_2_1() { return cAlternatives_2_1; }
+
+		//COLON gref=[PojoEntity|IDENT]
+		public Group getGroup_2_1_0() { return cGroup_2_1_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_2_1_0_0() { return cCOLONTerminalRuleCall_2_1_0_0; }
+
+		//gref=[PojoEntity|IDENT]
+		public Assignment getGrefAssignment_2_1_0_1() { return cGrefAssignment_2_1_0_1; }
+
+		//[PojoEntity|IDENT]
+		public CrossReference getGrefPojoEntityCrossReference_2_1_0_1_0() { return cGrefPojoEntityCrossReference_2_1_0_1_0; }
+
+		//IDENT
+		public RuleCall getGrefPojoEntityIDENTTerminalRuleCall_2_1_0_1_0_1() { return cGrefPojoEntityIDENTTerminalRuleCall_2_1_0_1_0_1; }
+
+		//gtype=[jvmTypes::JvmType|QualifiedName]
+		public Assignment getGtypeAssignment_2_1_1() { return cGtypeAssignment_2_1_1; }
+
+		//[jvmTypes::JvmType|QualifiedName]
+		public CrossReference getGtypeJvmTypeCrossReference_2_1_1_0() { return cGtypeJvmTypeCrossReference_2_1_1_0; }
+
+		//QualifiedName
+		public RuleCall getGtypeJvmTypeQualifiedNameParserRuleCall_2_1_1_0_1() { return cGtypeJvmTypeQualifiedNameParserRuleCall_2_1_1_0_1; }
+
+		//MORE_THAN
+		public RuleCall getMORE_THANTerminalRuleCall_2_2() { return cMORE_THANTerminalRuleCall_2_2; }
 	}
 
 	public class QualifiedNameWithWildcardElements extends AbstractParserRuleElementFinder {
@@ -3997,7 +4047,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 	//	name=IDENT (native=("byte" | "short" | "int" | "long" | "float" | "double" | "boolean") | COLON (COLON
-	//	ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName]));
+	//	ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
+	//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?;
 	public PojoPropertyElements getPojoPropertyAccess() {
 		return (pPojoProperty != null) ? pPojoProperty : (pPojoProperty = new PojoPropertyElements());
 	}

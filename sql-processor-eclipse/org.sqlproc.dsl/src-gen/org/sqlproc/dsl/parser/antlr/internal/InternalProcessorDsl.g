@@ -782,7 +782,48 @@ rulePojoProperty returns [EObject current=null]
 	    }
 
 )
-)))))
+))))(this_LESS_THAN_6=RULE_LESS_THAN
+    { 
+    newLeafNode(this_LESS_THAN_6, grammarAccess.getPojoPropertyAccess().getLESS_THANTerminalRuleCall_2_0()); 
+    }
+((this_COLON_7=RULE_COLON
+    { 
+    newLeafNode(this_COLON_7, grammarAccess.getPojoPropertyAccess().getCOLONTerminalRuleCall_2_1_0_0()); 
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoPropertyRule());
+	        }
+        }
+	otherlv_8=RULE_IDENT
+	{
+		newLeafNode(otherlv_8, grammarAccess.getPojoPropertyAccess().getGrefPojoEntityCrossReference_2_1_0_1_0()); 
+	}
+
+)
+))
+    |(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoPropertyRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getPojoPropertyAccess().getGtypeJvmTypeCrossReference_2_1_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))this_MORE_THAN_10=RULE_MORE_THAN
+    { 
+    newLeafNode(this_MORE_THAN_10, grammarAccess.getPojoPropertyAccess().getMORE_THANTerminalRuleCall_2_2()); 
+    }
+)?)
 ;
 finally {
 	myHiddenTokenState.restore();
