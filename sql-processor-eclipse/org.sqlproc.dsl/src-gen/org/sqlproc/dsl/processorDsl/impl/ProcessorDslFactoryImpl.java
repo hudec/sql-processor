@@ -65,6 +65,11 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
     switch (eClass.getClassifierID())
     {
       case ProcessorDslPackage.ARTIFACTS: return createArtifacts();
+      case ProcessorDslPackage.PACKAGE_DECLARATION: return createPackageDeclaration();
+      case ProcessorDslPackage.ABSTRACT_POJO_ENTITY: return createAbstractPojoEntity();
+      case ProcessorDslPackage.IMPORT: return createImport();
+      case ProcessorDslPackage.POJO_ENTITY: return createPojoEntity();
+      case ProcessorDslPackage.POJO_PROPERTY: return createPojoProperty();
       case ProcessorDslPackage.PROPERTY: return createProperty();
       case ProcessorDslPackage.POJO_DEFINITION: return createPojoDefinition();
       case ProcessorDslPackage.POJO_USAGE: return createPojoUsage();
@@ -109,6 +114,61 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     ArtifactsImpl artifacts = new ArtifactsImpl();
     return artifacts;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PackageDeclaration createPackageDeclaration()
+  {
+    PackageDeclarationImpl packageDeclaration = new PackageDeclarationImpl();
+    return packageDeclaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AbstractPojoEntity createAbstractPojoEntity()
+  {
+    AbstractPojoEntityImpl abstractPojoEntity = new AbstractPojoEntityImpl();
+    return abstractPojoEntity;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Import createImport()
+  {
+    ImportImpl import_ = new ImportImpl();
+    return import_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoEntity createPojoEntity()
+  {
+    PojoEntityImpl pojoEntity = new PojoEntityImpl();
+    return pojoEntity;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoProperty createPojoProperty()
+  {
+    PojoPropertyImpl pojoProperty = new PojoPropertyImpl();
+    return pojoProperty;
   }
 
   /**

@@ -139,7 +139,7 @@ BEGIN
    SELECT HIBERNATE_SEQUENCE.nextval INTO newid FROM dual;
    INSERT INTO PERSON (ID, NAME) 
    VALUES (newid, name);
-END;
+END new_person;
 
 CREATE OR REPLACE FUNCTION an_hour_before (t IN DATE)
 RETURN DATE

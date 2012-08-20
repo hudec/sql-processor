@@ -1,0 +1,11 @@
+package org.sqlproc.sample.simple.model {
+	
+	pojo Media {
+		id : java.lang.Long
+		title : java.lang.String
+	}
+	
+	pojo Book extends Media {
+		isbn : java.lang.String
+	}
+}

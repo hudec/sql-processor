@@ -112,11 +112,11 @@
             <artifactId>hsqldb</artifactId>
             <version>${version.hsqldb}</version>
         </dependency>
-        <!-- dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc14</artifactId>
-            <version>${version.oracle}</version>
-        </dependency-->
+        <dependency>
+            <groupId>oracle.jdbc</groupId>
+            <artifactId>OracleDriver</artifactId>
+            <version>6</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
