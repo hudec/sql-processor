@@ -29,7 +29,7 @@ PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
 	RBRACE;
 
 PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
-	name=IDENT COLON type=[jvmTypes::JvmType|QualifiedName];
+	name=IDENT (native = ('byte'|'short'|'int'|'long'|'float'|'double'|'boolean') | COLON (COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName]));
 
 QualifiedNameWithWildcard:
   QualifiedName '.*'?

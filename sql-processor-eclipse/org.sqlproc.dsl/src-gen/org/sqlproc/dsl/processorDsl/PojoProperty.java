@@ -15,6 +15,8 @@ import org.eclipse.xtext.common.types.JvmType;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getNative <em>Native</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getRef <em>Ref</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getType <em>Type</em>}</li>
  * </ul>
  * </p>
@@ -50,6 +52,58 @@ public interface PojoProperty extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Native</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Native</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Native</em>' attribute.
+   * @see #setNative(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoProperty_Native()
+   * @model
+   * @generated
+   */
+  String getNative();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoProperty#getNative <em>Native</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Native</em>' attribute.
+   * @see #getNative()
+   * @generated
+   */
+  void setNative(String value);
+
+  /**
+   * Returns the value of the '<em><b>Ref</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Ref</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Ref</em>' reference.
+   * @see #setRef(PojoEntity)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoProperty_Ref()
+   * @model
+   * @generated
+   */
+  PojoEntity getRef();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoProperty#getRef <em>Ref</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Ref</em>' reference.
+   * @see #getRef()
+   * @generated
+   */
+  void setRef(PojoEntity value);
 
   /**
    * Returns the value of the '<em><b>Type</b></em>' reference.

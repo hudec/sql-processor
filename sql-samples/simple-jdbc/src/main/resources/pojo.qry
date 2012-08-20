@@ -5,7 +5,39 @@ package org.sqlproc.sample.simple.model {
 		title : java.lang.String
 	}
 	
+	pojo Library {
+		id : java.lang.Long
+		name : java.lang.String
+	}
+	
 	pojo Book extends Media {
 		isbn : java.lang.String
+	}
+	
+	pojo PhoneNumber {
+		area int
+		exch int
+		ext int
+	}
+	
+	pojo Contact {
+		id : java.lang.Long
+		personId : java.lang.Long
+		String : java.lang.String
+		homePhone :: PhoneNumber
+	}
+	
+	pojo Subscriber {
+		id : java.lang.Long
+		name : java.lang.String
+		contact :: Contact
+		library :: Library
+		billingDetails : java.util.List
+	}
+	
+	pojo BillingDetails {
+		id : java.lang.Long
+		type : java.lang.String
+		subscriber :: Subscriber
 	}
 }
