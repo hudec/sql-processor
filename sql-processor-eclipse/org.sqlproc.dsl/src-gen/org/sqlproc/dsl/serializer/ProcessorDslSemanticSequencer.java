@@ -612,17 +612,15 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (
 	 *         name=IDENT 
 	 *         (
-	 *             native='byte' | 
-	 *             native='short' | 
-	 *             native='int' | 
-	 *             native='long' | 
-	 *             native='float' | 
-	 *             native='double' | 
-	 *             native='boolean' | 
-	 *             ref=[PojoEntity|IDENT] | 
-	 *             type=[JvmType|QualifiedName]
-	 *         ) 
-	 *         (gref=[PojoEntity|IDENT] | gtype=[JvmType|QualifiedName])?
+	 *             native='_byte' | 
+	 *             native='_short' | 
+	 *             native='_int' | 
+	 *             native='_long' | 
+	 *             native='_float' | 
+	 *             native='_double' | 
+	 *             native='_boolean' | 
+	 *             ((ref=[PojoEntity|IDENT] | type=[JvmType|QualifiedName]) (gref=[PojoEntity|IDENT] | gtype=[JvmType|QualifiedName])?)
+	 *         )
 	 *     )
 	 */
 	protected void sequence_PojoProperty(EObject context, PojoProperty semanticObject) {

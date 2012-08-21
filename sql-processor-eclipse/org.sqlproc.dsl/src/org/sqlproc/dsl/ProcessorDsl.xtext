@@ -11,32 +11,6 @@ Artifacts:
     	|tableUsages+=TableUsage WS*|pojoPackages+=PackageDeclaration WS*
     )+;
 
-PackageDeclaration hidden(ML_COMMENT, SL_COMMENT, WS):
-	'package' name=(IDENT|IDENT_DOT) LBRACE
-		elements+=AbstractPojoEntity*
-	RBRACE;
-
-AbstractPojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-	PackageDeclaration | PojoEntity | Import;
-
-Import hidden(ML_COMMENT, SL_COMMENT, WS):
-	'import' importedNamespace = QualifiedNameWithWildcard;
-
-PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-	'pojo' (abstract?='abstract')? name=IDENT
-	('extends' superType=[PojoEntity|IDENT])? LBRACE
-		features+=PojoProperty*
-	RBRACE;
-
-PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
-	name=IDENT (native = ('byte'|'short'|'int'|'long'|'float'|'double'|'boolean') | COLON (COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName]))
-	(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?;
-
-QualifiedNameWithWildcard:
-  QualifiedName '.*'?; 
-
-QualifiedName: (IDENT|IDENT_DOT);
-
 Property:
 	(name='resolve references' WS+ doResolvePojo=ON_OFF
 	|name='database online' WS+ doResolveDb=ON_OFF
@@ -179,10 +153,6 @@ MappingColumn:
 OptionalFeature:
 	name=IDENT LPAREN type=OPTION_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS option=FeatureValue SEMICOLON;
 
-FeatureValue:
-  (REST|IDENT_DOT|IDENT|_NUMBER|WS|COLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|PERCENT|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)+;
-
-
 terminal ON_OFF: 'ON'|'OFF';
 terminal STATEMEN_TYPE: 'QRY'|'CRUD'|'CALL';
 terminal MAPPING_TYPE: 'OUT';
@@ -222,5 +192,37 @@ terminal MORE_THAN:'>' ;
 terminal PERCENT:  '%' ;
 
 terminal REST: !(SEMICOLON);
+
+
+FeatureValue:
+  (REST|IDENT_DOT|IDENT|_NUMBER|WS|COLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|PERCENT|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)+;
+
+PackageDeclaration hidden(ML_COMMENT, SL_COMMENT, WS):
+	'package' name=(IDENT|IDENT_DOT) LBRACE
+		elements+=AbstractPojoEntity*
+	RBRACE;
+
+AbstractPojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
+	PackageDeclaration | PojoEntity | Import;
+
+Import hidden(ML_COMMENT, SL_COMMENT, WS):
+	'import' importedNamespace = QualifiedNameWithWildcard;
+
+PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
+	'pojo' (abstract?='abstract')? name=IDENT
+	('extends' superType=[PojoEntity|IDENT])? LBRACE
+		features+=PojoProperty*
+	RBRACE;
+
+PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
+	name=IDENT (native = ('_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') | 
+	(COLON (COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName]))
+	(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?)
+;
+
+QualifiedNameWithWildcard:
+  QualifiedName '.*'?; 
+
+QualifiedName: (IDENT|IDENT_DOT);
 
 //     (REST|IDENT_DOT|IDENT|_NUMBER|WS|COLON|SEMICOLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|PERCENT|AND|OR|ESC_CHAR)

@@ -32,51 +32,6 @@ public interface ProcessorDslFactory extends EFactory
   Artifacts createArtifacts();
 
   /**
-   * Returns a new object of class '<em>Package Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Package Declaration</em>'.
-   * @generated
-   */
-  PackageDeclaration createPackageDeclaration();
-
-  /**
-   * Returns a new object of class '<em>Abstract Pojo Entity</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Abstract Pojo Entity</em>'.
-   * @generated
-   */
-  AbstractPojoEntity createAbstractPojoEntity();
-
-  /**
-   * Returns a new object of class '<em>Import</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Import</em>'.
-   * @generated
-   */
-  Import createImport();
-
-  /**
-   * Returns a new object of class '<em>Pojo Entity</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Pojo Entity</em>'.
-   * @generated
-   */
-  PojoEntity createPojoEntity();
-
-  /**
-   * Returns a new object of class '<em>Pojo Property</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Pojo Property</em>'.
-   * @generated
-   */
-  PojoProperty createPojoProperty();
-
-  /**
    * Returns a new object of class '<em>Property</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -345,6 +300,51 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   OptionalFeature createOptionalFeature();
+
+  /**
+   * Returns a new object of class '<em>Package Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Package Declaration</em>'.
+   * @generated
+   */
+  PackageDeclaration createPackageDeclaration();
+
+  /**
+   * Returns a new object of class '<em>Abstract Pojo Entity</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Abstract Pojo Entity</em>'.
+   * @generated
+   */
+  AbstractPojoEntity createAbstractPojoEntity();
+
+  /**
+   * Returns a new object of class '<em>Import</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Import</em>'.
+   * @generated
+   */
+  Import createImport();
+
+  /**
+   * Returns a new object of class '<em>Pojo Entity</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojo Entity</em>'.
+   * @generated
+   */
+  PojoEntity createPojoEntity();
+
+  /**
+   * Returns a new object of class '<em>Pojo Property</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojo Property</em>'.
+   * @generated
+   */
+  PojoProperty createPojoProperty();
 
   /**
    * Returns the package supported by this factory.

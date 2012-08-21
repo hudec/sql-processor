@@ -1,5 +1,5 @@
 package org.sqlproc.sample.simple.model {
-	
+
 	pojo abstract Media {
 		id : java.lang.Long
 		title : java.lang.String
@@ -20,9 +20,9 @@ package org.sqlproc.sample.simple.model {
 	}
 	
 	pojo PhoneNumber {
-		area int
-		exch int
-		ext int
+		area _int
+		exch _int
+		ext _int
 	}
 	
 	pojo Contact {
