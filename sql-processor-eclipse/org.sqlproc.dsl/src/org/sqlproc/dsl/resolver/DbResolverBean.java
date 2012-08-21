@@ -57,6 +57,8 @@ public class DbResolverBean implements DbResolver {
     private final Map<String, List<String>> tables = Collections.synchronizedMap(new HashMap<String, List<String>>());
     private final Map<String, Map<String, List<String>>> columns = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
+    private final Map<String, Map<String, List<DbColumn>>> dbColumns = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<DbColumn>>>());
 
     private DatabaseValues checkReconnect(EObject model) {
         if (model == null)
@@ -267,5 +269,57 @@ public class DbResolverBean implements DbResolver {
         if (table == null || column == null)
             return false;
         return getColumns(model, table).contains(column);
+    }
+
+    @Override
+    public List<DbColumn> getDbColumns(EObject model, String table) {
+        if (table == null)
+            return Collections.emptyList();
+        DatabaseValues modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        boolean doInit = false;
+        Map<String, List<DbColumn>> allColumnsForModel = dbColumns.get(modelDatabaseValues.dir);
+        if (allColumnsForModel == null) {
+            allColumnsForModel = Collections.synchronizedMap(new HashMap<String, List<DbColumn>>());
+            dbColumns.put(modelDatabaseValues.dir, allColumnsForModel);
+            doInit = true;
+        }
+        List<DbColumn> columnsForModel = allColumnsForModel.get(table);
+        if (columnsForModel == null) {
+            columnsForModel = Collections.synchronizedList(new ArrayList<DbColumn>());
+            allColumnsForModel.put(table, columnsForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return columnsForModel;
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getColumns(null, modelDatabaseValues.dbSchema, table, null);
+                while (result.next()) {
+                    DbColumn dbColumn = new DbColumn();
+                    dbColumn.setName(result.getString("COLUMN_NAME"));
+                    dbColumn.setType(result.getString("TYPE_NAME"));
+                    dbColumn.setSize(result.getInt("COLUMN_SIZE"));
+                    dbColumn.setSqlType(result.getInt("DATA_TYPE"));
+                    dbColumn.setNullable(result.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls);
+                    dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
+                    columnsForModel.add(dbColumn);
+                }
+            } catch (SQLException e) {
+                LOGGER.error("getDbColumns error " + e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    LOGGER.error("getDbColumns error " + e);
+                }
+            }
+        }
+        Collections.sort(columnsForModel);
+        return columnsForModel;
     }
 }
