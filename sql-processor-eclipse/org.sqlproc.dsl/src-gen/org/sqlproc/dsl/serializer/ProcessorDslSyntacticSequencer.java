@@ -105,6 +105,8 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 			return getMORE_THANToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getNOTRule())
 			return getNOTToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getNUMBERRule())
+			return getNUMBERToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getPERCENTRule())
 			return getPERCENTToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getRBRACERule())
@@ -117,8 +119,6 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 			return getSTRINGToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getWSRule())
 			return getWSToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.get_NUMBERRule())
-			return get_NUMBERToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
@@ -222,6 +222,15 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
+	 * terminal NUMBER: ('0'..'9')+;
+	 */
+	protected String getNUMBERToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "";
+	}
+	
+	/**
 	 * terminal PERCENT:  '%' ;
 	 */
 	protected String getPERCENTToken(EObject semanticObject, RuleCall ruleCall, INode node) {
@@ -273,15 +282,6 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 		if (node != null)
 			return getTokenText(node);
 		return " ";
-	}
-	
-	/**
-	 * terminal _NUMBER: ('0'..'9')+;
-	 */
-	protected String get_NUMBERToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "";
 	}
 	
 	@Override

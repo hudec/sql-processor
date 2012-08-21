@@ -76,7 +76,7 @@ public class ProcessorDslFormatter extends AbstractDeclarativeFormatter {
         c.setNoSpace().around(grammarAccess.getDatabaseTableRule());
         c.setNoSpace().around(grammarAccess.getMetaSqlAccess().getFtypeIDENTTerminalRuleCall_4_2_0());
 
-        c.setNoSpace().around(grammarAccess.get_NUMBERRule());
+        c.setNoSpace().around(grammarAccess.getNUMBERRule());
         // c.setNoSpace().around(grammarAccess.getWSRule());
         c.setNoSpace().around(grammarAccess.getANDRule());
         c.setNoSpace().around(grammarAccess.getORRule());

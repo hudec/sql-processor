@@ -21,6 +21,9 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
     public final static String FILTER = "filter";
     public final static String META_TYPE = "metatype";
     public final static String META_IDENT = "metaident";
+    public final static String PACKAGE_NAME = "packageName";
+    public final static String ENTITY_NAME = "entityName";
+    public final static String PROPERTY_NAME = "propertyName";
 
     public void configure(IHighlightingConfigurationAcceptor acceptor) {
         // super.configure(acceptor);
@@ -37,6 +40,9 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
         acceptor.acceptDefaultHighlighting(FILTER, "Filters", filterStyle());
         acceptor.acceptDefaultHighlighting(META_TYPE, "Meta type", metaTypeStyle());
         acceptor.acceptDefaultHighlighting(META_IDENT, "Meta identifier", metaIdentStyle());
+        acceptor.acceptDefaultHighlighting(PACKAGE_NAME, "Pojo package name", packageNameStyle());
+        acceptor.acceptDefaultHighlighting(ENTITY_NAME, "Pojo entity name", entityNameStyle());
+        acceptor.acceptDefaultHighlighting(PROPERTY_NAME, "Pojo property name", propertyNameStyle());
     }
 
     public TextStyle punctationStyle() {
@@ -78,6 +84,24 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
     public TextStyle databaseTableStyle() {
         TextStyle textStyle = defaultStyle();
         textStyle.setColor(new RGB(165, 42, 42));
+        return textStyle;
+    }
+
+    public TextStyle packageNameStyle() {
+        TextStyle textStyle = defaultStyle();
+        textStyle.setColor(new RGB(165, 42, 42));
+        return textStyle;
+    }
+
+    public TextStyle entityNameStyle() {
+        TextStyle textStyle = defaultStyle();
+        textStyle.setColor(new RGB(165, 42, 42));
+        return textStyle;
+    }
+
+    public TextStyle propertyNameStyle() {
+        TextStyle textStyle = defaultStyle();
+        textStyle.setColor(new RGB(42, 0, 255));
         return textStyle;
     }
 

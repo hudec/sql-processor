@@ -26,7 +26,10 @@ import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
+import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
+import org.sqlproc.dsl.processorDsl.PojoEntity;
+import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.resolver.PojoResolver;
@@ -145,6 +148,24 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 TableDefinition table = usage.getTable();
                 if (statement != null && table != null)
                     provideHighlightingForTable(statement.getName(), table.getName(), node, acceptor);
+            } else if (current instanceof PackageDeclaration) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                PackageDeclaration pkg = (PackageDeclaration) current;
+                provideHighlightingForPojoPackage(pkg.getName(), node, acceptor);
+            } else if (current instanceof PojoEntity) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                PojoEntity pojo = (PojoEntity) current;
+                provideHighlightingForPojoEntity(pojo.getName(), node, acceptor);
+            } else if (current instanceof PojoProperty) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                PojoProperty property = (PojoProperty) current;
+                provideHighlightingForPojoProperty(property.getName(), node, acceptor);
+                PojoEntity ref = property.getRef();
+                if (ref != null)
+                    provideHighlightingForPojoEntity(ref.getName(), node, acceptor);
+                PojoEntity gref = property.getGref();
+                if (gref != null)
+                    provideHighlightingForPojoEntity(gref.getName(), node, acceptor);
             }
         }
     }
@@ -179,6 +200,48 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
             }
             if (pojo != null && pojo.contains(inode.getText())) {
                 acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.IDENTIFIER);
+                return;
+            }
+        }
+    }
+
+    private void provideHighlightingForPojoPackage(String pojo, ICompositeNode node,
+            IHighlightedPositionAcceptor acceptor) {
+        if (pojo == null)
+            return;
+        Iterator<INode> iterator = new NodeTreeIterator(node);
+        while (iterator.hasNext()) {
+            INode inode = iterator.next();
+            if (pojo != null && pojo.contains(inode.getText())) {
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.PACKAGE_NAME);
+                return;
+            }
+        }
+    }
+
+    private void provideHighlightingForPojoEntity(String pojo, ICompositeNode node,
+            IHighlightedPositionAcceptor acceptor) {
+        if (pojo == null)
+            return;
+        Iterator<INode> iterator = new NodeTreeIterator(node);
+        while (iterator.hasNext()) {
+            INode inode = iterator.next();
+            if (pojo != null && pojo.contains(inode.getText())) {
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.ENTITY_NAME);
+                return;
+            }
+        }
+    }
+
+    private void provideHighlightingForPojoProperty(String pojo, ICompositeNode node,
+            IHighlightedPositionAcceptor acceptor) {
+        if (pojo == null)
+            return;
+        Iterator<INode> iterator = new NodeTreeIterator(node);
+        while (iterator.hasNext()) {
+            INode inode = iterator.next();
+            if (pojo != null && pojo.contains(inode.getText())) {
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.PROPERTY_NAME);
                 return;
             }
         }

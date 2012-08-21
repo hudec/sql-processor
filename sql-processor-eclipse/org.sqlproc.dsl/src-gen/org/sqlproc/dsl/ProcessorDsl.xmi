@@ -1313,7 +1313,7 @@
       </elements>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:TerminalRule" name="_NUMBER">
+  <rules xsi:type="xtext:TerminalRule" name="NUMBER">
     <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>

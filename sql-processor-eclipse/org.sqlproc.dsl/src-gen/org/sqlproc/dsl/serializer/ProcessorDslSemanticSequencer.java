@@ -313,7 +313,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((name=IDENT | name=IDENT_DOT | name=_NUMBER) (type=IDENT? (vals+=IDENT | vals+=_NUMBER)*)?)
+	 *     ((name=IDENT | name=IDENT_DOT | name=NUMBER) (type=IDENT? (vals+=IDENT | vals+=NUMBER)*)?)
 	 */
 	protected void sequence_Column(EObject context, Column semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -341,7 +341,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((case=PLUS | case=MINUS)? (name=IDENT | name=IDENT_DOT) (type=IDENT? (vals+=IDENT | vals+=_NUMBER)*)?)
+	 *     ((case=PLUS | case=MINUS)? (name=IDENT | name=IDENT_DOT) (type=IDENT? (vals+=IDENT | vals+=NUMBER)*)?)
 	 */
 	protected void sequence_Constant(EObject context, Constant semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -390,8 +390,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (
 	 *         (mode=EQUALS | mode=LESS_THAN | mode=MORE_THAN)? 
 	 *         (case=PLUS | case=MINUS)? 
-	 *         (name=IDENT | name=IDENT_DOT | name=_NUMBER) 
-	 *         (type=IDENT? (vals+=IDENT | vals+=_NUMBER)*)?
+	 *         (name=IDENT | name=IDENT_DOT | name=NUMBER) 
+	 *         (type=IDENT? (vals+=IDENT | vals+=NUMBER)*)?
 	 *     )
 	 */
 	protected void sequence_Identifier(EObject context, Identifier semanticObject) {
@@ -475,7 +475,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((name=IDENT | name=IDENT_DOT) (vals+=IDENT | vals+=_NUMBER)*)
+	 *     ((name=IDENT | name=IDENT_DOT) (vals+=IDENT | vals+=NUMBER)*)
 	 */
 	protected void sequence_MappingColumn(EObject context, MappingColumn semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -484,7 +484,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((col=IDENT | col=_NUMBER) (type=IDENT? attr=MappingColumn?)?)
+	 *     ((col=IDENT | col=NUMBER) (type=IDENT? attr=MappingColumn?)?)
 	 */
 	protected void sequence_MappingItem(EObject context, MappingItem semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

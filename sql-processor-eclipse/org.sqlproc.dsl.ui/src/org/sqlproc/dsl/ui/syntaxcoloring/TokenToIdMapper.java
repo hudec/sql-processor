@@ -7,25 +7,21 @@ public class TokenToIdMapper extends DefaultAntlrTokenToAttributeIdMapper {
 
     @Override
     protected String calculateId(String tokenName, int tokenType) {
-        if (tokenType == InternalProcessorDslLexer.RULE_BAND
-                || tokenType == InternalProcessorDslLexer.RULE_RBRACE
+        if (tokenType == InternalProcessorDslLexer.RULE_BAND || tokenType == InternalProcessorDslLexer.RULE_RBRACE
                 || tokenType == InternalProcessorDslLexer.RULE_CARET
                 || tokenType == InternalProcessorDslLexer.RULE_MORE_THAN
                 || tokenType == InternalProcessorDslLexer.RULE_SEMICOLON
-                || tokenType == InternalProcessorDslLexer.RULE_PLUS
-                || tokenType == InternalProcessorDslLexer.RULE_OR
+                || tokenType == InternalProcessorDslLexer.RULE_PLUS || tokenType == InternalProcessorDslLexer.RULE_OR
                 || tokenType == InternalProcessorDslLexer.RULE_HASH
-                || tokenType == InternalProcessorDslLexer.RULE_COMMA
-                || tokenType == InternalProcessorDslLexer.RULE_AND
+                || tokenType == InternalProcessorDslLexer.RULE_COMMA || tokenType == InternalProcessorDslLexer.RULE_AND
                 || tokenType == InternalProcessorDslLexer.RULE_QUESTI
-                || tokenType == InternalProcessorDslLexer.RULE_NOT
-                || tokenType == InternalProcessorDslLexer.RULE_MINUS
+                || tokenType == InternalProcessorDslLexer.RULE_NOT || tokenType == InternalProcessorDslLexer.RULE_MINUS
                 || tokenType == InternalProcessorDslLexer.RULE_COLON
                 || tokenType == InternalProcessorDslLexer.RULE_STRING
-                // || tokenType == InternalProcessorDslLexer.RULE_REST
-                // || tokenType == InternalProcessorDslLexer.RULE_ESC_CHAR
-                // || tokenType == InternalProcessorDslLexer.RULE_NUMBER
-                // || tokenType == InternalProcessorDslLexer.RULE_IDENT
+                || tokenType == InternalProcessorDslLexer.RULE_REST
+                || tokenType == InternalProcessorDslLexer.RULE_ESC_CHAR
+                || tokenType == InternalProcessorDslLexer.RULE_NUMBER
+                || tokenType == InternalProcessorDslLexer.RULE_IDENT
                 || tokenType == InternalProcessorDslLexer.RULE_LPAREN
                 || tokenType == InternalProcessorDslLexer.RULE_EQUALS
                 || tokenType == InternalProcessorDslLexer.RULE_LBRACE
@@ -47,7 +43,7 @@ public class TokenToIdMapper extends DefaultAntlrTokenToAttributeIdMapper {
                 || tokenName.equals("'pojo'") || tokenName.equals("'col'") || tokenName.equals("'ident'")
                 || tokenName.equals("'const'") || tokenName.equals("'out'") || tokenName.equals("'table'")
                 || tokenName.equals("'dbcol'") || tokenName.equals("'prefix'") || tokenName.startsWith("'database")
-                || tokenName.startsWith("'resolve"))
+                || tokenName.startsWith("'resolve") || tokenName.equals("'abstract'") || tokenName.equals("'package'"))
             return HighlightingConfiguration.TYPE;
 
         return HighlightingConfiguration.DEFAULT;
