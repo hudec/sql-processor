@@ -12552,6 +12552,7 @@ rule__PojoProperty__Group__1
     }
 :
 	rule__PojoProperty__Group__1__Impl
+	rule__PojoProperty__Group__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -12572,6 +12573,36 @@ rule__PojoProperty__Group__1__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+rule__PojoProperty__Group__2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__PojoProperty__Group__2__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PojoProperty__Group__2__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPojoPropertyAccess().getRequiredAssignment_2()); }
+(rule__PojoProperty__RequiredAssignment_2)?
+{ after(grammarAccess.getPojoPropertyAccess().getRequiredAssignment_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 
 
 
@@ -15258,6 +15289,29 @@ rule__PojoProperty__GtypeAssignment_1_1_1_1_1
 	ruleQualifiedName{ after(grammarAccess.getPojoPropertyAccess().getGtypeJvmTypeQualifiedNameParserRuleCall_1_1_1_1_1_0_1()); }
 )
 { after(grammarAccess.getPojoPropertyAccess().getGtypeJvmTypeCrossReference_1_1_1_1_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PojoProperty__RequiredAssignment_2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_2_0()); }
+(
+{ before(grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_2_0()); }
+
+	'required' 
+
+{ after(grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_2_0()); }
+)
+
+{ after(grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_2_0()); }
 )
 
 ;

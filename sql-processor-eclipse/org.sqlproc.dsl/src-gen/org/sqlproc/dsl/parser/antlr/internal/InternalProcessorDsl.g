@@ -6682,7 +6682,22 @@ rulePojoProperty returns [EObject current=null]
     { 
     newLeafNode(this_MORE_THAN_10, grammarAccess.getPojoPropertyAccess().getMORE_THANTerminalRuleCall_1_1_1_2()); 
     }
-)?)))
+)?))(
+(
+		lv_required_11_0=	'required' 
+    {
+        newLeafNode(lv_required_11_0, grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_2_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoPropertyRule());
+	        }
+       		setWithLastConsumed($current, "required", true, "required");
+	    }
+
+)
+)?)
 ;
 finally {
 	myHiddenTokenState.restore();

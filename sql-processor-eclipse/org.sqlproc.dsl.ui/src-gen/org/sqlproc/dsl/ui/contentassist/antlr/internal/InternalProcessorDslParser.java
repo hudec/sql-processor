@@ -23,8 +23,9 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalProcessorDslParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_REST", "RULE_IDENT_DOT", "RULE_IDENT", "RULE_NUMBER", "RULE_COLON", "RULE_STRING", "RULE_COMMA", "RULE_MINUS", "RULE_PLUS", "RULE_LPAREN", "RULE_RPAREN", "RULE_LBRACE", "RULE_RBRACE", "RULE_QUESTI", "RULE_NOT", "RULE_BAND", "RULE_BOR", "RULE_HASH", "RULE_AT", "RULE_CARET", "RULE_EQUALS", "RULE_LESS_THAN", "RULE_MORE_THAN", "RULE_PERCENT", "RULE_AND", "RULE_OR", "RULE_ESC_CHAR", "RULE_ON_OFF", "RULE_STATEMEN_TYPE", "RULE_MAPPING_TYPE", "RULE_OPTION_TYPE", "RULE_WS", "RULE_SEMICOLON", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'_byte'", "'_short'", "'_int'", "'_long'", "'_float'", "'_double'", "'_boolean'", "'pojo'", "'col'", "'ident'", "'const'", "'out'", "'table'", "'dbcol'", "'prefix'", "'package'", "'import'", "'extends'", "'.*'", "'resolve references'", "'database online'", "'database url'", "'database username'", "'database password'", "'database schema'", "'database driver'", "'abstract'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_REST", "RULE_IDENT_DOT", "RULE_IDENT", "RULE_NUMBER", "RULE_COLON", "RULE_STRING", "RULE_COMMA", "RULE_MINUS", "RULE_PLUS", "RULE_LPAREN", "RULE_RPAREN", "RULE_LBRACE", "RULE_RBRACE", "RULE_QUESTI", "RULE_NOT", "RULE_BAND", "RULE_BOR", "RULE_HASH", "RULE_AT", "RULE_CARET", "RULE_EQUALS", "RULE_LESS_THAN", "RULE_MORE_THAN", "RULE_PERCENT", "RULE_AND", "RULE_OR", "RULE_ESC_CHAR", "RULE_ON_OFF", "RULE_STATEMEN_TYPE", "RULE_MAPPING_TYPE", "RULE_OPTION_TYPE", "RULE_WS", "RULE_SEMICOLON", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'_byte'", "'_short'", "'_int'", "'_long'", "'_float'", "'_double'", "'_boolean'", "'pojo'", "'col'", "'ident'", "'const'", "'out'", "'table'", "'dbcol'", "'prefix'", "'package'", "'import'", "'extends'", "'.*'", "'resolve references'", "'database online'", "'database url'", "'database username'", "'database password'", "'database schema'", "'database driver'", "'abstract'", "'required'"
     };
+    public static final int T__66=66;
     public static final int T__64=64;
     public static final int T__65=65;
     public static final int T__62=62;
@@ -60,8 +61,8 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     public static final int T__40=40;
     public static final int T__41=41;
     public static final int T__46=46;
-    public static final int T__47=47;
     public static final int RULE_RBRACE=16;
+    public static final int T__47=47;
     public static final int T__44=44;
     public static final int T__45=45;
     public static final int RULE_CARET=23;
@@ -10364,6 +10365,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             case RULE_NOT:
                 {
                 switch ( input.LA(2) ) {
+                case RULE_COLON:
+                    {
+                    alt22=2;
+                    }
+                    break;
                 case RULE_LPAREN:
                     {
                     alt22=3;
@@ -10372,11 +10378,6 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                 case RULE_STRING:
                     {
                     alt22=1;
-                    }
-                    break;
-                case RULE_COLON:
-                    {
-                    alt22=2;
                     }
                     break;
                 default:
@@ -39447,17 +39448,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group__1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12549:1: rule__PojoProperty__Group__1 : rule__PojoProperty__Group__1__Impl ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12549:1: rule__PojoProperty__Group__1 : rule__PojoProperty__Group__1__Impl rule__PojoProperty__Group__2 ;
     public final void rule__PojoProperty__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12553:1: ( rule__PojoProperty__Group__1__Impl )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12554:2: rule__PojoProperty__Group__1__Impl
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12553:1: ( rule__PojoProperty__Group__1__Impl rule__PojoProperty__Group__2 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12554:2: rule__PojoProperty__Group__1__Impl rule__PojoProperty__Group__2
             {
             pushFollow(FOLLOW_rule__PojoProperty__Group__1__Impl_in_rule__PojoProperty__Group__126754);
             rule__PojoProperty__Group__1__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_rule__PojoProperty__Group__2_in_rule__PojoProperty__Group__126757);
+            rule__PojoProperty__Group__2();
 
             state._fsp--;
             if (state.failed) return ;
@@ -39480,25 +39486,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12560:1: rule__PojoProperty__Group__1__Impl : ( ( rule__PojoProperty__Alternatives_1 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12561:1: rule__PojoProperty__Group__1__Impl : ( ( rule__PojoProperty__Alternatives_1 ) ) ;
     public final void rule__PojoProperty__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12564:1: ( ( ( rule__PojoProperty__Alternatives_1 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12565:1: ( ( rule__PojoProperty__Alternatives_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12565:1: ( ( ( rule__PojoProperty__Alternatives_1 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12566:1: ( ( rule__PojoProperty__Alternatives_1 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12565:1: ( ( rule__PojoProperty__Alternatives_1 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12566:1: ( rule__PojoProperty__Alternatives_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12566:1: ( ( rule__PojoProperty__Alternatives_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12567:1: ( rule__PojoProperty__Alternatives_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getAlternatives_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12567:1: ( rule__PojoProperty__Alternatives_1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12567:2: rule__PojoProperty__Alternatives_1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12568:1: ( rule__PojoProperty__Alternatives_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12568:2: rule__PojoProperty__Alternatives_1
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Alternatives_1_in_rule__PojoProperty__Group__1__Impl26781);
+            pushFollow(FOLLOW_rule__PojoProperty__Alternatives_1_in_rule__PojoProperty__Group__1__Impl26784);
             rule__PojoProperty__Alternatives_1();
 
             state._fsp--;
@@ -39530,22 +39536,117 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     // $ANTLR end "rule__PojoProperty__Group__1__Impl"
 
 
+    // $ANTLR start "rule__PojoProperty__Group__2"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12578:1: rule__PojoProperty__Group__2 : rule__PojoProperty__Group__2__Impl ;
+    public final void rule__PojoProperty__Group__2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12582:1: ( rule__PojoProperty__Group__2__Impl )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12583:2: rule__PojoProperty__Group__2__Impl
+            {
+            pushFollow(FOLLOW_rule__PojoProperty__Group__2__Impl_in_rule__PojoProperty__Group__226814);
+            rule__PojoProperty__Group__2__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__PojoProperty__Group__2"
+
+
+    // $ANTLR start "rule__PojoProperty__Group__2__Impl"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12589:1: rule__PojoProperty__Group__2__Impl : ( ( rule__PojoProperty__RequiredAssignment_2 )? ) ;
+    public final void rule__PojoProperty__Group__2__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12593:1: ( ( ( rule__PojoProperty__RequiredAssignment_2 )? ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12594:1: ( ( rule__PojoProperty__RequiredAssignment_2 )? )
+            {
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12594:1: ( ( rule__PojoProperty__RequiredAssignment_2 )? )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12595:1: ( rule__PojoProperty__RequiredAssignment_2 )?
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getPojoPropertyAccess().getRequiredAssignment_2()); 
+            }
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12596:1: ( rule__PojoProperty__RequiredAssignment_2 )?
+            int alt115=2;
+            int LA115_0 = input.LA(1);
+
+            if ( (LA115_0==66) ) {
+                alt115=1;
+            }
+            switch (alt115) {
+                case 1 :
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12596:2: rule__PojoProperty__RequiredAssignment_2
+                    {
+                    pushFollow(FOLLOW_rule__PojoProperty__RequiredAssignment_2_in_rule__PojoProperty__Group__2__Impl26841);
+                    rule__PojoProperty__RequiredAssignment_2();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getPojoPropertyAccess().getRequiredAssignment_2()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__PojoProperty__Group__2__Impl"
+
+
     // $ANTLR start "rule__PojoProperty__Group_1_1__0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12581:1: rule__PojoProperty__Group_1_1__0 : rule__PojoProperty__Group_1_1__0__Impl rule__PojoProperty__Group_1_1__1 ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12612:1: rule__PojoProperty__Group_1_1__0 : rule__PojoProperty__Group_1_1__0__Impl rule__PojoProperty__Group_1_1__1 ;
     public final void rule__PojoProperty__Group_1_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12585:1: ( rule__PojoProperty__Group_1_1__0__Impl rule__PojoProperty__Group_1_1__1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12586:2: rule__PojoProperty__Group_1_1__0__Impl rule__PojoProperty__Group_1_1__1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12616:1: ( rule__PojoProperty__Group_1_1__0__Impl rule__PojoProperty__Group_1_1__1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12617:2: rule__PojoProperty__Group_1_1__0__Impl rule__PojoProperty__Group_1_1__1
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1__0__Impl_in_rule__PojoProperty__Group_1_1__026815);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1__0__Impl_in_rule__PojoProperty__Group_1_1__026878);
             rule__PojoProperty__Group_1_1__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1__1_in_rule__PojoProperty__Group_1_1__026818);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1__1_in_rule__PojoProperty__Group_1_1__026881);
             rule__PojoProperty__Group_1_1__1();
 
             state._fsp--;
@@ -39569,25 +39670,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1__0__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12593:1: rule__PojoProperty__Group_1_1__0__Impl : ( ( rule__PojoProperty__Group_1_1_0__0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12624:1: rule__PojoProperty__Group_1_1__0__Impl : ( ( rule__PojoProperty__Group_1_1_0__0 ) ) ;
     public final void rule__PojoProperty__Group_1_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12597:1: ( ( ( rule__PojoProperty__Group_1_1_0__0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12598:1: ( ( rule__PojoProperty__Group_1_1_0__0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12628:1: ( ( ( rule__PojoProperty__Group_1_1_0__0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12629:1: ( ( rule__PojoProperty__Group_1_1_0__0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12598:1: ( ( rule__PojoProperty__Group_1_1_0__0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12599:1: ( rule__PojoProperty__Group_1_1_0__0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12629:1: ( ( rule__PojoProperty__Group_1_1_0__0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12630:1: ( rule__PojoProperty__Group_1_1_0__0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getGroup_1_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12600:1: ( rule__PojoProperty__Group_1_1_0__0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12600:2: rule__PojoProperty__Group_1_1_0__0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12631:1: ( rule__PojoProperty__Group_1_1_0__0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12631:2: rule__PojoProperty__Group_1_1_0__0
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0__0_in_rule__PojoProperty__Group_1_1__0__Impl26845);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0__0_in_rule__PojoProperty__Group_1_1__0__Impl26908);
             rule__PojoProperty__Group_1_1_0__0();
 
             state._fsp--;
@@ -39620,16 +39721,16 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1__1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12610:1: rule__PojoProperty__Group_1_1__1 : rule__PojoProperty__Group_1_1__1__Impl ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12641:1: rule__PojoProperty__Group_1_1__1 : rule__PojoProperty__Group_1_1__1__Impl ;
     public final void rule__PojoProperty__Group_1_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12614:1: ( rule__PojoProperty__Group_1_1__1__Impl )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12615:2: rule__PojoProperty__Group_1_1__1__Impl
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12645:1: ( rule__PojoProperty__Group_1_1__1__Impl )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12646:2: rule__PojoProperty__Group_1_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1__1__Impl_in_rule__PojoProperty__Group_1_1__126875);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1__1__Impl_in_rule__PojoProperty__Group_1_1__126938);
             rule__PojoProperty__Group_1_1__1__Impl();
 
             state._fsp--;
@@ -39653,33 +39754,33 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12621:1: rule__PojoProperty__Group_1_1__1__Impl : ( ( rule__PojoProperty__Group_1_1_1__0 )? ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12652:1: rule__PojoProperty__Group_1_1__1__Impl : ( ( rule__PojoProperty__Group_1_1_1__0 )? ) ;
     public final void rule__PojoProperty__Group_1_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12625:1: ( ( ( rule__PojoProperty__Group_1_1_1__0 )? ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12626:1: ( ( rule__PojoProperty__Group_1_1_1__0 )? )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12656:1: ( ( ( rule__PojoProperty__Group_1_1_1__0 )? ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12657:1: ( ( rule__PojoProperty__Group_1_1_1__0 )? )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12626:1: ( ( rule__PojoProperty__Group_1_1_1__0 )? )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12627:1: ( rule__PojoProperty__Group_1_1_1__0 )?
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12657:1: ( ( rule__PojoProperty__Group_1_1_1__0 )? )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12658:1: ( rule__PojoProperty__Group_1_1_1__0 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getGroup_1_1_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12628:1: ( rule__PojoProperty__Group_1_1_1__0 )?
-            int alt115=2;
-            int LA115_0 = input.LA(1);
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12659:1: ( rule__PojoProperty__Group_1_1_1__0 )?
+            int alt116=2;
+            int LA116_0 = input.LA(1);
 
-            if ( (LA115_0==RULE_LESS_THAN) ) {
-                alt115=1;
+            if ( (LA116_0==RULE_LESS_THAN) ) {
+                alt116=1;
             }
-            switch (alt115) {
+            switch (alt116) {
                 case 1 :
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12628:2: rule__PojoProperty__Group_1_1_1__0
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12659:2: rule__PojoProperty__Group_1_1_1__0
                     {
-                    pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1__0_in_rule__PojoProperty__Group_1_1__1__Impl26902);
+                    pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1__0_in_rule__PojoProperty__Group_1_1__1__Impl26965);
                     rule__PojoProperty__Group_1_1_1__0();
 
                     state._fsp--;
@@ -39715,21 +39816,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_0__0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12642:1: rule__PojoProperty__Group_1_1_0__0 : rule__PojoProperty__Group_1_1_0__0__Impl rule__PojoProperty__Group_1_1_0__1 ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12673:1: rule__PojoProperty__Group_1_1_0__0 : rule__PojoProperty__Group_1_1_0__0__Impl rule__PojoProperty__Group_1_1_0__1 ;
     public final void rule__PojoProperty__Group_1_1_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12646:1: ( rule__PojoProperty__Group_1_1_0__0__Impl rule__PojoProperty__Group_1_1_0__1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12647:2: rule__PojoProperty__Group_1_1_0__0__Impl rule__PojoProperty__Group_1_1_0__1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12677:1: ( rule__PojoProperty__Group_1_1_0__0__Impl rule__PojoProperty__Group_1_1_0__1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12678:2: rule__PojoProperty__Group_1_1_0__0__Impl rule__PojoProperty__Group_1_1_0__1
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0__0__Impl_in_rule__PojoProperty__Group_1_1_0__026937);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0__0__Impl_in_rule__PojoProperty__Group_1_1_0__027000);
             rule__PojoProperty__Group_1_1_0__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0__1_in_rule__PojoProperty__Group_1_1_0__026940);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0__1_in_rule__PojoProperty__Group_1_1_0__027003);
             rule__PojoProperty__Group_1_1_0__1();
 
             state._fsp--;
@@ -39753,22 +39854,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_0__0__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12654:1: rule__PojoProperty__Group_1_1_0__0__Impl : ( RULE_COLON ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12685:1: rule__PojoProperty__Group_1_1_0__0__Impl : ( RULE_COLON ) ;
     public final void rule__PojoProperty__Group_1_1_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12658:1: ( ( RULE_COLON ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12659:1: ( RULE_COLON )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12689:1: ( ( RULE_COLON ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12690:1: ( RULE_COLON )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12659:1: ( RULE_COLON )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12660:1: RULE_COLON
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12690:1: ( RULE_COLON )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12691:1: RULE_COLON
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getCOLONTerminalRuleCall_1_1_0_0()); 
             }
-            match(input,RULE_COLON,FOLLOW_RULE_COLON_in_rule__PojoProperty__Group_1_1_0__0__Impl26967); if (state.failed) return ;
+            match(input,RULE_COLON,FOLLOW_RULE_COLON_in_rule__PojoProperty__Group_1_1_0__0__Impl27030); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoPropertyAccess().getCOLONTerminalRuleCall_1_1_0_0()); 
             }
@@ -39794,16 +39895,16 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_0__1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12671:1: rule__PojoProperty__Group_1_1_0__1 : rule__PojoProperty__Group_1_1_0__1__Impl ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12702:1: rule__PojoProperty__Group_1_1_0__1 : rule__PojoProperty__Group_1_1_0__1__Impl ;
     public final void rule__PojoProperty__Group_1_1_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12675:1: ( rule__PojoProperty__Group_1_1_0__1__Impl )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12676:2: rule__PojoProperty__Group_1_1_0__1__Impl
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12706:1: ( rule__PojoProperty__Group_1_1_0__1__Impl )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12707:2: rule__PojoProperty__Group_1_1_0__1__Impl
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0__1__Impl_in_rule__PojoProperty__Group_1_1_0__126996);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0__1__Impl_in_rule__PojoProperty__Group_1_1_0__127059);
             rule__PojoProperty__Group_1_1_0__1__Impl();
 
             state._fsp--;
@@ -39827,25 +39928,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_0__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12682:1: rule__PojoProperty__Group_1_1_0__1__Impl : ( ( rule__PojoProperty__Alternatives_1_1_0_1 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12713:1: rule__PojoProperty__Group_1_1_0__1__Impl : ( ( rule__PojoProperty__Alternatives_1_1_0_1 ) ) ;
     public final void rule__PojoProperty__Group_1_1_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12686:1: ( ( ( rule__PojoProperty__Alternatives_1_1_0_1 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12687:1: ( ( rule__PojoProperty__Alternatives_1_1_0_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12717:1: ( ( ( rule__PojoProperty__Alternatives_1_1_0_1 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12718:1: ( ( rule__PojoProperty__Alternatives_1_1_0_1 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12687:1: ( ( rule__PojoProperty__Alternatives_1_1_0_1 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12688:1: ( rule__PojoProperty__Alternatives_1_1_0_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12718:1: ( ( rule__PojoProperty__Alternatives_1_1_0_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12719:1: ( rule__PojoProperty__Alternatives_1_1_0_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getAlternatives_1_1_0_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12689:1: ( rule__PojoProperty__Alternatives_1_1_0_1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12689:2: rule__PojoProperty__Alternatives_1_1_0_1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12720:1: ( rule__PojoProperty__Alternatives_1_1_0_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12720:2: rule__PojoProperty__Alternatives_1_1_0_1
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Alternatives_1_1_0_1_in_rule__PojoProperty__Group_1_1_0__1__Impl27023);
+            pushFollow(FOLLOW_rule__PojoProperty__Alternatives_1_1_0_1_in_rule__PojoProperty__Group_1_1_0__1__Impl27086);
             rule__PojoProperty__Alternatives_1_1_0_1();
 
             state._fsp--;
@@ -39878,21 +39979,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_0_1_0__0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12703:1: rule__PojoProperty__Group_1_1_0_1_0__0 : rule__PojoProperty__Group_1_1_0_1_0__0__Impl rule__PojoProperty__Group_1_1_0_1_0__1 ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12734:1: rule__PojoProperty__Group_1_1_0_1_0__0 : rule__PojoProperty__Group_1_1_0_1_0__0__Impl rule__PojoProperty__Group_1_1_0_1_0__1 ;
     public final void rule__PojoProperty__Group_1_1_0_1_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12707:1: ( rule__PojoProperty__Group_1_1_0_1_0__0__Impl rule__PojoProperty__Group_1_1_0_1_0__1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12708:2: rule__PojoProperty__Group_1_1_0_1_0__0__Impl rule__PojoProperty__Group_1_1_0_1_0__1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12738:1: ( rule__PojoProperty__Group_1_1_0_1_0__0__Impl rule__PojoProperty__Group_1_1_0_1_0__1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12739:2: rule__PojoProperty__Group_1_1_0_1_0__0__Impl rule__PojoProperty__Group_1_1_0_1_0__1
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0_1_0__0__Impl_in_rule__PojoProperty__Group_1_1_0_1_0__027057);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0_1_0__0__Impl_in_rule__PojoProperty__Group_1_1_0_1_0__027120);
             rule__PojoProperty__Group_1_1_0_1_0__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0_1_0__1_in_rule__PojoProperty__Group_1_1_0_1_0__027060);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0_1_0__1_in_rule__PojoProperty__Group_1_1_0_1_0__027123);
             rule__PojoProperty__Group_1_1_0_1_0__1();
 
             state._fsp--;
@@ -39916,22 +40017,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_0_1_0__0__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12715:1: rule__PojoProperty__Group_1_1_0_1_0__0__Impl : ( RULE_COLON ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12746:1: rule__PojoProperty__Group_1_1_0_1_0__0__Impl : ( RULE_COLON ) ;
     public final void rule__PojoProperty__Group_1_1_0_1_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12719:1: ( ( RULE_COLON ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12720:1: ( RULE_COLON )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12750:1: ( ( RULE_COLON ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12751:1: ( RULE_COLON )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12720:1: ( RULE_COLON )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12721:1: RULE_COLON
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12751:1: ( RULE_COLON )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12752:1: RULE_COLON
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getCOLONTerminalRuleCall_1_1_0_1_0_0()); 
             }
-            match(input,RULE_COLON,FOLLOW_RULE_COLON_in_rule__PojoProperty__Group_1_1_0_1_0__0__Impl27087); if (state.failed) return ;
+            match(input,RULE_COLON,FOLLOW_RULE_COLON_in_rule__PojoProperty__Group_1_1_0_1_0__0__Impl27150); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoPropertyAccess().getCOLONTerminalRuleCall_1_1_0_1_0_0()); 
             }
@@ -39957,16 +40058,16 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_0_1_0__1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12732:1: rule__PojoProperty__Group_1_1_0_1_0__1 : rule__PojoProperty__Group_1_1_0_1_0__1__Impl ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12763:1: rule__PojoProperty__Group_1_1_0_1_0__1 : rule__PojoProperty__Group_1_1_0_1_0__1__Impl ;
     public final void rule__PojoProperty__Group_1_1_0_1_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12736:1: ( rule__PojoProperty__Group_1_1_0_1_0__1__Impl )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12737:2: rule__PojoProperty__Group_1_1_0_1_0__1__Impl
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12767:1: ( rule__PojoProperty__Group_1_1_0_1_0__1__Impl )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12768:2: rule__PojoProperty__Group_1_1_0_1_0__1__Impl
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0_1_0__1__Impl_in_rule__PojoProperty__Group_1_1_0_1_0__127116);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_0_1_0__1__Impl_in_rule__PojoProperty__Group_1_1_0_1_0__127179);
             rule__PojoProperty__Group_1_1_0_1_0__1__Impl();
 
             state._fsp--;
@@ -39990,25 +40091,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_0_1_0__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12743:1: rule__PojoProperty__Group_1_1_0_1_0__1__Impl : ( ( rule__PojoProperty__RefAssignment_1_1_0_1_0_1 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12774:1: rule__PojoProperty__Group_1_1_0_1_0__1__Impl : ( ( rule__PojoProperty__RefAssignment_1_1_0_1_0_1 ) ) ;
     public final void rule__PojoProperty__Group_1_1_0_1_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12747:1: ( ( ( rule__PojoProperty__RefAssignment_1_1_0_1_0_1 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12748:1: ( ( rule__PojoProperty__RefAssignment_1_1_0_1_0_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12778:1: ( ( ( rule__PojoProperty__RefAssignment_1_1_0_1_0_1 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12779:1: ( ( rule__PojoProperty__RefAssignment_1_1_0_1_0_1 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12748:1: ( ( rule__PojoProperty__RefAssignment_1_1_0_1_0_1 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12749:1: ( rule__PojoProperty__RefAssignment_1_1_0_1_0_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12779:1: ( ( rule__PojoProperty__RefAssignment_1_1_0_1_0_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12780:1: ( rule__PojoProperty__RefAssignment_1_1_0_1_0_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getRefAssignment_1_1_0_1_0_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12750:1: ( rule__PojoProperty__RefAssignment_1_1_0_1_0_1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12750:2: rule__PojoProperty__RefAssignment_1_1_0_1_0_1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12781:1: ( rule__PojoProperty__RefAssignment_1_1_0_1_0_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12781:2: rule__PojoProperty__RefAssignment_1_1_0_1_0_1
             {
-            pushFollow(FOLLOW_rule__PojoProperty__RefAssignment_1_1_0_1_0_1_in_rule__PojoProperty__Group_1_1_0_1_0__1__Impl27143);
+            pushFollow(FOLLOW_rule__PojoProperty__RefAssignment_1_1_0_1_0_1_in_rule__PojoProperty__Group_1_1_0_1_0__1__Impl27206);
             rule__PojoProperty__RefAssignment_1_1_0_1_0_1();
 
             state._fsp--;
@@ -40041,21 +40142,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_1__0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12764:1: rule__PojoProperty__Group_1_1_1__0 : rule__PojoProperty__Group_1_1_1__0__Impl rule__PojoProperty__Group_1_1_1__1 ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12795:1: rule__PojoProperty__Group_1_1_1__0 : rule__PojoProperty__Group_1_1_1__0__Impl rule__PojoProperty__Group_1_1_1__1 ;
     public final void rule__PojoProperty__Group_1_1_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12768:1: ( rule__PojoProperty__Group_1_1_1__0__Impl rule__PojoProperty__Group_1_1_1__1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12769:2: rule__PojoProperty__Group_1_1_1__0__Impl rule__PojoProperty__Group_1_1_1__1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12799:1: ( rule__PojoProperty__Group_1_1_1__0__Impl rule__PojoProperty__Group_1_1_1__1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12800:2: rule__PojoProperty__Group_1_1_1__0__Impl rule__PojoProperty__Group_1_1_1__1
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1__0__Impl_in_rule__PojoProperty__Group_1_1_1__027177);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1__0__Impl_in_rule__PojoProperty__Group_1_1_1__027240);
             rule__PojoProperty__Group_1_1_1__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1__1_in_rule__PojoProperty__Group_1_1_1__027180);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1__1_in_rule__PojoProperty__Group_1_1_1__027243);
             rule__PojoProperty__Group_1_1_1__1();
 
             state._fsp--;
@@ -40079,22 +40180,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_1__0__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12776:1: rule__PojoProperty__Group_1_1_1__0__Impl : ( RULE_LESS_THAN ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12807:1: rule__PojoProperty__Group_1_1_1__0__Impl : ( RULE_LESS_THAN ) ;
     public final void rule__PojoProperty__Group_1_1_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12780:1: ( ( RULE_LESS_THAN ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12781:1: ( RULE_LESS_THAN )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12811:1: ( ( RULE_LESS_THAN ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12812:1: ( RULE_LESS_THAN )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12781:1: ( RULE_LESS_THAN )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12782:1: RULE_LESS_THAN
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12812:1: ( RULE_LESS_THAN )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12813:1: RULE_LESS_THAN
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getLESS_THANTerminalRuleCall_1_1_1_0()); 
             }
-            match(input,RULE_LESS_THAN,FOLLOW_RULE_LESS_THAN_in_rule__PojoProperty__Group_1_1_1__0__Impl27207); if (state.failed) return ;
+            match(input,RULE_LESS_THAN,FOLLOW_RULE_LESS_THAN_in_rule__PojoProperty__Group_1_1_1__0__Impl27270); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoPropertyAccess().getLESS_THANTerminalRuleCall_1_1_1_0()); 
             }
@@ -40120,21 +40221,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_1__1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12793:1: rule__PojoProperty__Group_1_1_1__1 : rule__PojoProperty__Group_1_1_1__1__Impl rule__PojoProperty__Group_1_1_1__2 ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12824:1: rule__PojoProperty__Group_1_1_1__1 : rule__PojoProperty__Group_1_1_1__1__Impl rule__PojoProperty__Group_1_1_1__2 ;
     public final void rule__PojoProperty__Group_1_1_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12797:1: ( rule__PojoProperty__Group_1_1_1__1__Impl rule__PojoProperty__Group_1_1_1__2 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12798:2: rule__PojoProperty__Group_1_1_1__1__Impl rule__PojoProperty__Group_1_1_1__2
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12828:1: ( rule__PojoProperty__Group_1_1_1__1__Impl rule__PojoProperty__Group_1_1_1__2 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12829:2: rule__PojoProperty__Group_1_1_1__1__Impl rule__PojoProperty__Group_1_1_1__2
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1__1__Impl_in_rule__PojoProperty__Group_1_1_1__127236);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1__1__Impl_in_rule__PojoProperty__Group_1_1_1__127299);
             rule__PojoProperty__Group_1_1_1__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1__2_in_rule__PojoProperty__Group_1_1_1__127239);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1__2_in_rule__PojoProperty__Group_1_1_1__127302);
             rule__PojoProperty__Group_1_1_1__2();
 
             state._fsp--;
@@ -40158,25 +40259,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_1__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12805:1: rule__PojoProperty__Group_1_1_1__1__Impl : ( ( rule__PojoProperty__Alternatives_1_1_1_1 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12836:1: rule__PojoProperty__Group_1_1_1__1__Impl : ( ( rule__PojoProperty__Alternatives_1_1_1_1 ) ) ;
     public final void rule__PojoProperty__Group_1_1_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12809:1: ( ( ( rule__PojoProperty__Alternatives_1_1_1_1 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12810:1: ( ( rule__PojoProperty__Alternatives_1_1_1_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12840:1: ( ( ( rule__PojoProperty__Alternatives_1_1_1_1 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12841:1: ( ( rule__PojoProperty__Alternatives_1_1_1_1 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12810:1: ( ( rule__PojoProperty__Alternatives_1_1_1_1 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12811:1: ( rule__PojoProperty__Alternatives_1_1_1_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12841:1: ( ( rule__PojoProperty__Alternatives_1_1_1_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12842:1: ( rule__PojoProperty__Alternatives_1_1_1_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getAlternatives_1_1_1_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12812:1: ( rule__PojoProperty__Alternatives_1_1_1_1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12812:2: rule__PojoProperty__Alternatives_1_1_1_1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12843:1: ( rule__PojoProperty__Alternatives_1_1_1_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12843:2: rule__PojoProperty__Alternatives_1_1_1_1
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Alternatives_1_1_1_1_in_rule__PojoProperty__Group_1_1_1__1__Impl27266);
+            pushFollow(FOLLOW_rule__PojoProperty__Alternatives_1_1_1_1_in_rule__PojoProperty__Group_1_1_1__1__Impl27329);
             rule__PojoProperty__Alternatives_1_1_1_1();
 
             state._fsp--;
@@ -40209,16 +40310,16 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_1__2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12822:1: rule__PojoProperty__Group_1_1_1__2 : rule__PojoProperty__Group_1_1_1__2__Impl ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12853:1: rule__PojoProperty__Group_1_1_1__2 : rule__PojoProperty__Group_1_1_1__2__Impl ;
     public final void rule__PojoProperty__Group_1_1_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12826:1: ( rule__PojoProperty__Group_1_1_1__2__Impl )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12827:2: rule__PojoProperty__Group_1_1_1__2__Impl
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12857:1: ( rule__PojoProperty__Group_1_1_1__2__Impl )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12858:2: rule__PojoProperty__Group_1_1_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1__2__Impl_in_rule__PojoProperty__Group_1_1_1__227296);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1__2__Impl_in_rule__PojoProperty__Group_1_1_1__227359);
             rule__PojoProperty__Group_1_1_1__2__Impl();
 
             state._fsp--;
@@ -40242,22 +40343,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_1__2__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12833:1: rule__PojoProperty__Group_1_1_1__2__Impl : ( RULE_MORE_THAN ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12864:1: rule__PojoProperty__Group_1_1_1__2__Impl : ( RULE_MORE_THAN ) ;
     public final void rule__PojoProperty__Group_1_1_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12837:1: ( ( RULE_MORE_THAN ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12838:1: ( RULE_MORE_THAN )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12868:1: ( ( RULE_MORE_THAN ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12869:1: ( RULE_MORE_THAN )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12838:1: ( RULE_MORE_THAN )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12839:1: RULE_MORE_THAN
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12869:1: ( RULE_MORE_THAN )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12870:1: RULE_MORE_THAN
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getMORE_THANTerminalRuleCall_1_1_1_2()); 
             }
-            match(input,RULE_MORE_THAN,FOLLOW_RULE_MORE_THAN_in_rule__PojoProperty__Group_1_1_1__2__Impl27323); if (state.failed) return ;
+            match(input,RULE_MORE_THAN,FOLLOW_RULE_MORE_THAN_in_rule__PojoProperty__Group_1_1_1__2__Impl27386); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoPropertyAccess().getMORE_THANTerminalRuleCall_1_1_1_2()); 
             }
@@ -40283,21 +40384,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_1_1_0__0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12856:1: rule__PojoProperty__Group_1_1_1_1_0__0 : rule__PojoProperty__Group_1_1_1_1_0__0__Impl rule__PojoProperty__Group_1_1_1_1_0__1 ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12887:1: rule__PojoProperty__Group_1_1_1_1_0__0 : rule__PojoProperty__Group_1_1_1_1_0__0__Impl rule__PojoProperty__Group_1_1_1_1_0__1 ;
     public final void rule__PojoProperty__Group_1_1_1_1_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12860:1: ( rule__PojoProperty__Group_1_1_1_1_0__0__Impl rule__PojoProperty__Group_1_1_1_1_0__1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12861:2: rule__PojoProperty__Group_1_1_1_1_0__0__Impl rule__PojoProperty__Group_1_1_1_1_0__1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12891:1: ( rule__PojoProperty__Group_1_1_1_1_0__0__Impl rule__PojoProperty__Group_1_1_1_1_0__1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12892:2: rule__PojoProperty__Group_1_1_1_1_0__0__Impl rule__PojoProperty__Group_1_1_1_1_0__1
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1_1_0__0__Impl_in_rule__PojoProperty__Group_1_1_1_1_0__027358);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1_1_0__0__Impl_in_rule__PojoProperty__Group_1_1_1_1_0__027421);
             rule__PojoProperty__Group_1_1_1_1_0__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1_1_0__1_in_rule__PojoProperty__Group_1_1_1_1_0__027361);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1_1_0__1_in_rule__PojoProperty__Group_1_1_1_1_0__027424);
             rule__PojoProperty__Group_1_1_1_1_0__1();
 
             state._fsp--;
@@ -40321,22 +40422,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_1_1_0__0__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12868:1: rule__PojoProperty__Group_1_1_1_1_0__0__Impl : ( RULE_COLON ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12899:1: rule__PojoProperty__Group_1_1_1_1_0__0__Impl : ( RULE_COLON ) ;
     public final void rule__PojoProperty__Group_1_1_1_1_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12872:1: ( ( RULE_COLON ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12873:1: ( RULE_COLON )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12903:1: ( ( RULE_COLON ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12904:1: ( RULE_COLON )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12873:1: ( RULE_COLON )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12874:1: RULE_COLON
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12904:1: ( RULE_COLON )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12905:1: RULE_COLON
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getCOLONTerminalRuleCall_1_1_1_1_0_0()); 
             }
-            match(input,RULE_COLON,FOLLOW_RULE_COLON_in_rule__PojoProperty__Group_1_1_1_1_0__0__Impl27388); if (state.failed) return ;
+            match(input,RULE_COLON,FOLLOW_RULE_COLON_in_rule__PojoProperty__Group_1_1_1_1_0__0__Impl27451); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoPropertyAccess().getCOLONTerminalRuleCall_1_1_1_1_0_0()); 
             }
@@ -40362,16 +40463,16 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_1_1_0__1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12885:1: rule__PojoProperty__Group_1_1_1_1_0__1 : rule__PojoProperty__Group_1_1_1_1_0__1__Impl ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12916:1: rule__PojoProperty__Group_1_1_1_1_0__1 : rule__PojoProperty__Group_1_1_1_1_0__1__Impl ;
     public final void rule__PojoProperty__Group_1_1_1_1_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12889:1: ( rule__PojoProperty__Group_1_1_1_1_0__1__Impl )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12890:2: rule__PojoProperty__Group_1_1_1_1_0__1__Impl
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12920:1: ( rule__PojoProperty__Group_1_1_1_1_0__1__Impl )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12921:2: rule__PojoProperty__Group_1_1_1_1_0__1__Impl
             {
-            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1_1_0__1__Impl_in_rule__PojoProperty__Group_1_1_1_1_0__127417);
+            pushFollow(FOLLOW_rule__PojoProperty__Group_1_1_1_1_0__1__Impl_in_rule__PojoProperty__Group_1_1_1_1_0__127480);
             rule__PojoProperty__Group_1_1_1_1_0__1__Impl();
 
             state._fsp--;
@@ -40395,25 +40496,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__Group_1_1_1_1_0__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12896:1: rule__PojoProperty__Group_1_1_1_1_0__1__Impl : ( ( rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12927:1: rule__PojoProperty__Group_1_1_1_1_0__1__Impl : ( ( rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 ) ) ;
     public final void rule__PojoProperty__Group_1_1_1_1_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12900:1: ( ( ( rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12901:1: ( ( rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12931:1: ( ( ( rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12932:1: ( ( rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12901:1: ( ( rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12902:1: ( rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12932:1: ( ( rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12933:1: ( rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getGrefAssignment_1_1_1_1_0_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12903:1: ( rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12903:2: rule__PojoProperty__GrefAssignment_1_1_1_1_0_1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12934:1: ( rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12934:2: rule__PojoProperty__GrefAssignment_1_1_1_1_0_1
             {
-            pushFollow(FOLLOW_rule__PojoProperty__GrefAssignment_1_1_1_1_0_1_in_rule__PojoProperty__Group_1_1_1_1_0__1__Impl27444);
+            pushFollow(FOLLOW_rule__PojoProperty__GrefAssignment_1_1_1_1_0_1_in_rule__PojoProperty__Group_1_1_1_1_0__1__Impl27507);
             rule__PojoProperty__GrefAssignment_1_1_1_1_0_1();
 
             state._fsp--;
@@ -40446,21 +40547,21 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__QualifiedNameWithWildcard__Group__0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12917:1: rule__QualifiedNameWithWildcard__Group__0 : rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12948:1: rule__QualifiedNameWithWildcard__Group__0 : rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 ;
     public final void rule__QualifiedNameWithWildcard__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12921:1: ( rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12922:2: rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12952:1: ( rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12953:2: rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1
             {
-            pushFollow(FOLLOW_rule__QualifiedNameWithWildcard__Group__0__Impl_in_rule__QualifiedNameWithWildcard__Group__027478);
+            pushFollow(FOLLOW_rule__QualifiedNameWithWildcard__Group__0__Impl_in_rule__QualifiedNameWithWildcard__Group__027541);
             rule__QualifiedNameWithWildcard__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__QualifiedNameWithWildcard__Group__1_in_rule__QualifiedNameWithWildcard__Group__027481);
+            pushFollow(FOLLOW_rule__QualifiedNameWithWildcard__Group__1_in_rule__QualifiedNameWithWildcard__Group__027544);
             rule__QualifiedNameWithWildcard__Group__1();
 
             state._fsp--;
@@ -40484,22 +40585,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__QualifiedNameWithWildcard__Group__0__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12929:1: rule__QualifiedNameWithWildcard__Group__0__Impl : ( ruleQualifiedName ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12960:1: rule__QualifiedNameWithWildcard__Group__0__Impl : ( ruleQualifiedName ) ;
     public final void rule__QualifiedNameWithWildcard__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12933:1: ( ( ruleQualifiedName ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12934:1: ( ruleQualifiedName )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12964:1: ( ( ruleQualifiedName ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12965:1: ( ruleQualifiedName )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12934:1: ( ruleQualifiedName )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12935:1: ruleQualifiedName
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12965:1: ( ruleQualifiedName )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12966:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameWithWildcardAccess().getQualifiedNameParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__QualifiedNameWithWildcard__Group__0__Impl27508);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__QualifiedNameWithWildcard__Group__0__Impl27571);
             ruleQualifiedName();
 
             state._fsp--;
@@ -40529,16 +40630,16 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__QualifiedNameWithWildcard__Group__1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12946:1: rule__QualifiedNameWithWildcard__Group__1 : rule__QualifiedNameWithWildcard__Group__1__Impl ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12977:1: rule__QualifiedNameWithWildcard__Group__1 : rule__QualifiedNameWithWildcard__Group__1__Impl ;
     public final void rule__QualifiedNameWithWildcard__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12950:1: ( rule__QualifiedNameWithWildcard__Group__1__Impl )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12951:2: rule__QualifiedNameWithWildcard__Group__1__Impl
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12981:1: ( rule__QualifiedNameWithWildcard__Group__1__Impl )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12982:2: rule__QualifiedNameWithWildcard__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__QualifiedNameWithWildcard__Group__1__Impl_in_rule__QualifiedNameWithWildcard__Group__127537);
+            pushFollow(FOLLOW_rule__QualifiedNameWithWildcard__Group__1__Impl_in_rule__QualifiedNameWithWildcard__Group__127600);
             rule__QualifiedNameWithWildcard__Group__1__Impl();
 
             state._fsp--;
@@ -40562,33 +40663,33 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__QualifiedNameWithWildcard__Group__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12957:1: rule__QualifiedNameWithWildcard__Group__1__Impl : ( ( '.*' )? ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12988:1: rule__QualifiedNameWithWildcard__Group__1__Impl : ( ( '.*' )? ) ;
     public final void rule__QualifiedNameWithWildcard__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12961:1: ( ( ( '.*' )? ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12962:1: ( ( '.*' )? )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12992:1: ( ( ( '.*' )? ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12993:1: ( ( '.*' )? )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12962:1: ( ( '.*' )? )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12963:1: ( '.*' )?
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12993:1: ( ( '.*' )? )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12994:1: ( '.*' )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameWithWildcardAccess().getFullStopAsteriskKeyword_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12964:1: ( '.*' )?
-            int alt116=2;
-            int LA116_0 = input.LA(1);
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12995:1: ( '.*' )?
+            int alt117=2;
+            int LA117_0 = input.LA(1);
 
-            if ( (LA116_0==57) ) {
-                alt116=1;
+            if ( (LA117_0==57) ) {
+                alt117=1;
             }
-            switch (alt116) {
+            switch (alt117) {
                 case 1 :
-                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12965:2: '.*'
+                    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12996:2: '.*'
                     {
-                    match(input,57,FOLLOW_57_in_rule__QualifiedNameWithWildcard__Group__1__Impl27566); if (state.failed) return ;
+                    match(input,57,FOLLOW_57_in_rule__QualifiedNameWithWildcard__Group__1__Impl27629); if (state.failed) return ;
 
                     }
                     break;
@@ -40620,22 +40721,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Artifacts__FeaturesAssignment_1_0_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12981:1: rule__Artifacts__FeaturesAssignment_1_0_0 : ( ruleOptionalFeature ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13012:1: rule__Artifacts__FeaturesAssignment_1_0_0 : ( ruleOptionalFeature ) ;
     public final void rule__Artifacts__FeaturesAssignment_1_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12985:1: ( ( ruleOptionalFeature ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12986:1: ( ruleOptionalFeature )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13016:1: ( ( ruleOptionalFeature ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13017:1: ( ruleOptionalFeature )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12986:1: ( ruleOptionalFeature )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12987:1: ruleOptionalFeature
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13017:1: ( ruleOptionalFeature )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13018:1: ruleOptionalFeature
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getFeaturesOptionalFeatureParserRuleCall_1_0_0_0()); 
             }
-            pushFollow(FOLLOW_ruleOptionalFeature_in_rule__Artifacts__FeaturesAssignment_1_0_027608);
+            pushFollow(FOLLOW_ruleOptionalFeature_in_rule__Artifacts__FeaturesAssignment_1_0_027671);
             ruleOptionalFeature();
 
             state._fsp--;
@@ -40665,22 +40766,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Artifacts__StatementsAssignment_1_1_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:12996:1: rule__Artifacts__StatementsAssignment_1_1_0 : ( ruleMetaStatement ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13027:1: rule__Artifacts__StatementsAssignment_1_1_0 : ( ruleMetaStatement ) ;
     public final void rule__Artifacts__StatementsAssignment_1_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13000:1: ( ( ruleMetaStatement ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13001:1: ( ruleMetaStatement )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13031:1: ( ( ruleMetaStatement ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13032:1: ( ruleMetaStatement )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13001:1: ( ruleMetaStatement )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13002:1: ruleMetaStatement
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13032:1: ( ruleMetaStatement )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13033:1: ruleMetaStatement
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getStatementsMetaStatementParserRuleCall_1_1_0_0()); 
             }
-            pushFollow(FOLLOW_ruleMetaStatement_in_rule__Artifacts__StatementsAssignment_1_1_027639);
+            pushFollow(FOLLOW_ruleMetaStatement_in_rule__Artifacts__StatementsAssignment_1_1_027702);
             ruleMetaStatement();
 
             state._fsp--;
@@ -40710,22 +40811,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Artifacts__MappingsAssignment_1_2_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13011:1: rule__Artifacts__MappingsAssignment_1_2_0 : ( ruleMappingRule ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13042:1: rule__Artifacts__MappingsAssignment_1_2_0 : ( ruleMappingRule ) ;
     public final void rule__Artifacts__MappingsAssignment_1_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13015:1: ( ( ruleMappingRule ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13016:1: ( ruleMappingRule )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13046:1: ( ( ruleMappingRule ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13047:1: ( ruleMappingRule )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13016:1: ( ruleMappingRule )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13017:1: ruleMappingRule
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13047:1: ( ruleMappingRule )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13048:1: ruleMappingRule
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getMappingsMappingRuleParserRuleCall_1_2_0_0()); 
             }
-            pushFollow(FOLLOW_ruleMappingRule_in_rule__Artifacts__MappingsAssignment_1_2_027670);
+            pushFollow(FOLLOW_ruleMappingRule_in_rule__Artifacts__MappingsAssignment_1_2_027733);
             ruleMappingRule();
 
             state._fsp--;
@@ -40755,22 +40856,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Artifacts__PojosAssignment_1_3_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13026:1: rule__Artifacts__PojosAssignment_1_3_0 : ( rulePojoDefinition ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13057:1: rule__Artifacts__PojosAssignment_1_3_0 : ( rulePojoDefinition ) ;
     public final void rule__Artifacts__PojosAssignment_1_3_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13030:1: ( ( rulePojoDefinition ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13031:1: ( rulePojoDefinition )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13061:1: ( ( rulePojoDefinition ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13062:1: ( rulePojoDefinition )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13031:1: ( rulePojoDefinition )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13032:1: rulePojoDefinition
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13062:1: ( rulePojoDefinition )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13063:1: rulePojoDefinition
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getPojosPojoDefinitionParserRuleCall_1_3_0_0()); 
             }
-            pushFollow(FOLLOW_rulePojoDefinition_in_rule__Artifacts__PojosAssignment_1_3_027701);
+            pushFollow(FOLLOW_rulePojoDefinition_in_rule__Artifacts__PojosAssignment_1_3_027764);
             rulePojoDefinition();
 
             state._fsp--;
@@ -40800,22 +40901,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Artifacts__UsagesAssignment_1_4_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13041:1: rule__Artifacts__UsagesAssignment_1_4_0 : ( rulePojoUsage ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13072:1: rule__Artifacts__UsagesAssignment_1_4_0 : ( rulePojoUsage ) ;
     public final void rule__Artifacts__UsagesAssignment_1_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13045:1: ( ( rulePojoUsage ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13046:1: ( rulePojoUsage )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13076:1: ( ( rulePojoUsage ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13077:1: ( rulePojoUsage )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13046:1: ( rulePojoUsage )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13047:1: rulePojoUsage
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13077:1: ( rulePojoUsage )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13078:1: rulePojoUsage
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getUsagesPojoUsageParserRuleCall_1_4_0_0()); 
             }
-            pushFollow(FOLLOW_rulePojoUsage_in_rule__Artifacts__UsagesAssignment_1_4_027732);
+            pushFollow(FOLLOW_rulePojoUsage_in_rule__Artifacts__UsagesAssignment_1_4_027795);
             rulePojoUsage();
 
             state._fsp--;
@@ -40845,22 +40946,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Artifacts__PropertiesAssignment_1_5_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13056:1: rule__Artifacts__PropertiesAssignment_1_5_0 : ( ruleProperty ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13087:1: rule__Artifacts__PropertiesAssignment_1_5_0 : ( ruleProperty ) ;
     public final void rule__Artifacts__PropertiesAssignment_1_5_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13060:1: ( ( ruleProperty ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13061:1: ( ruleProperty )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13091:1: ( ( ruleProperty ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13092:1: ( ruleProperty )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13061:1: ( ruleProperty )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13062:1: ruleProperty
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13092:1: ( ruleProperty )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13093:1: ruleProperty
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getPropertiesPropertyParserRuleCall_1_5_0_0()); 
             }
-            pushFollow(FOLLOW_ruleProperty_in_rule__Artifacts__PropertiesAssignment_1_5_027763);
+            pushFollow(FOLLOW_ruleProperty_in_rule__Artifacts__PropertiesAssignment_1_5_027826);
             ruleProperty();
 
             state._fsp--;
@@ -40890,22 +40991,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Artifacts__TablesAssignment_1_6_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13071:1: rule__Artifacts__TablesAssignment_1_6_0 : ( ruleTableDefinition ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13102:1: rule__Artifacts__TablesAssignment_1_6_0 : ( ruleTableDefinition ) ;
     public final void rule__Artifacts__TablesAssignment_1_6_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13075:1: ( ( ruleTableDefinition ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13076:1: ( ruleTableDefinition )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13106:1: ( ( ruleTableDefinition ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13107:1: ( ruleTableDefinition )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13076:1: ( ruleTableDefinition )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13077:1: ruleTableDefinition
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13107:1: ( ruleTableDefinition )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13108:1: ruleTableDefinition
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getTablesTableDefinitionParserRuleCall_1_6_0_0()); 
             }
-            pushFollow(FOLLOW_ruleTableDefinition_in_rule__Artifacts__TablesAssignment_1_6_027794);
+            pushFollow(FOLLOW_ruleTableDefinition_in_rule__Artifacts__TablesAssignment_1_6_027857);
             ruleTableDefinition();
 
             state._fsp--;
@@ -40935,22 +41036,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Artifacts__TableUsagesAssignment_1_7_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13086:1: rule__Artifacts__TableUsagesAssignment_1_7_0 : ( ruleTableUsage ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13117:1: rule__Artifacts__TableUsagesAssignment_1_7_0 : ( ruleTableUsage ) ;
     public final void rule__Artifacts__TableUsagesAssignment_1_7_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13090:1: ( ( ruleTableUsage ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13091:1: ( ruleTableUsage )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13121:1: ( ( ruleTableUsage ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13122:1: ( ruleTableUsage )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13091:1: ( ruleTableUsage )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13092:1: ruleTableUsage
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13122:1: ( ruleTableUsage )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13123:1: ruleTableUsage
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getTableUsagesTableUsageParserRuleCall_1_7_0_0()); 
             }
-            pushFollow(FOLLOW_ruleTableUsage_in_rule__Artifacts__TableUsagesAssignment_1_7_027825);
+            pushFollow(FOLLOW_ruleTableUsage_in_rule__Artifacts__TableUsagesAssignment_1_7_027888);
             ruleTableUsage();
 
             state._fsp--;
@@ -40980,22 +41081,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Artifacts__PojoPackagesAssignment_1_8_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13101:1: rule__Artifacts__PojoPackagesAssignment_1_8_0 : ( rulePackageDeclaration ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13132:1: rule__Artifacts__PojoPackagesAssignment_1_8_0 : ( rulePackageDeclaration ) ;
     public final void rule__Artifacts__PojoPackagesAssignment_1_8_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13105:1: ( ( rulePackageDeclaration ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13106:1: ( rulePackageDeclaration )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13136:1: ( ( rulePackageDeclaration ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13137:1: ( rulePackageDeclaration )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13106:1: ( rulePackageDeclaration )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13107:1: rulePackageDeclaration
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13137:1: ( rulePackageDeclaration )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13138:1: rulePackageDeclaration
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getArtifactsAccess().getPojoPackagesPackageDeclarationParserRuleCall_1_8_0_0()); 
             }
-            pushFollow(FOLLOW_rulePackageDeclaration_in_rule__Artifacts__PojoPackagesAssignment_1_8_027856);
+            pushFollow(FOLLOW_rulePackageDeclaration_in_rule__Artifacts__PojoPackagesAssignment_1_8_027919);
             rulePackageDeclaration();
 
             state._fsp--;
@@ -41025,28 +41126,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__NameAssignment_0_0_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13116:1: rule__Property__NameAssignment_0_0_0 : ( ( 'resolve references' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13147:1: rule__Property__NameAssignment_0_0_0 : ( ( 'resolve references' ) ) ;
     public final void rule__Property__NameAssignment_0_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13120:1: ( ( ( 'resolve references' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13121:1: ( ( 'resolve references' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13151:1: ( ( ( 'resolve references' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13152:1: ( ( 'resolve references' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13121:1: ( ( 'resolve references' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13122:1: ( 'resolve references' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertyAccess().getNameResolveReferencesKeyword_0_0_0_0()); 
-            }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13123:1: ( 'resolve references' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13124:1: 'resolve references'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13152:1: ( ( 'resolve references' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13153:1: ( 'resolve references' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameResolveReferencesKeyword_0_0_0_0()); 
             }
-            match(input,58,FOLLOW_58_in_rule__Property__NameAssignment_0_0_027892); if (state.failed) return ;
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13154:1: ( 'resolve references' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13155:1: 'resolve references'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getPropertyAccess().getNameResolveReferencesKeyword_0_0_0_0()); 
+            }
+            match(input,58,FOLLOW_58_in_rule__Property__NameAssignment_0_0_027955); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameResolveReferencesKeyword_0_0_0_0()); 
             }
@@ -41078,22 +41179,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__DoResolvePojoAssignment_0_0_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13139:1: rule__Property__DoResolvePojoAssignment_0_0_2 : ( RULE_ON_OFF ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13170:1: rule__Property__DoResolvePojoAssignment_0_0_2 : ( RULE_ON_OFF ) ;
     public final void rule__Property__DoResolvePojoAssignment_0_0_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13143:1: ( ( RULE_ON_OFF ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13144:1: ( RULE_ON_OFF )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13174:1: ( ( RULE_ON_OFF ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13175:1: ( RULE_ON_OFF )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13144:1: ( RULE_ON_OFF )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13145:1: RULE_ON_OFF
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13175:1: ( RULE_ON_OFF )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13176:1: RULE_ON_OFF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDoResolvePojoON_OFFTerminalRuleCall_0_0_2_0()); 
             }
-            match(input,RULE_ON_OFF,FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolvePojoAssignment_0_0_227931); if (state.failed) return ;
+            match(input,RULE_ON_OFF,FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolvePojoAssignment_0_0_227994); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getDoResolvePojoON_OFFTerminalRuleCall_0_0_2_0()); 
             }
@@ -41119,28 +41220,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__NameAssignment_0_1_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13154:1: rule__Property__NameAssignment_0_1_0 : ( ( 'database online' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13185:1: rule__Property__NameAssignment_0_1_0 : ( ( 'database online' ) ) ;
     public final void rule__Property__NameAssignment_0_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13158:1: ( ( ( 'database online' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13159:1: ( ( 'database online' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13189:1: ( ( ( 'database online' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13190:1: ( ( 'database online' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13159:1: ( ( 'database online' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13160:1: ( 'database online' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertyAccess().getNameDatabaseOnlineKeyword_0_1_0_0()); 
-            }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13161:1: ( 'database online' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13162:1: 'database online'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13190:1: ( ( 'database online' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13191:1: ( 'database online' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameDatabaseOnlineKeyword_0_1_0_0()); 
             }
-            match(input,59,FOLLOW_59_in_rule__Property__NameAssignment_0_1_027967); if (state.failed) return ;
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13192:1: ( 'database online' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13193:1: 'database online'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getPropertyAccess().getNameDatabaseOnlineKeyword_0_1_0_0()); 
+            }
+            match(input,59,FOLLOW_59_in_rule__Property__NameAssignment_0_1_028030); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameDatabaseOnlineKeyword_0_1_0_0()); 
             }
@@ -41172,22 +41273,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__DoResolveDbAssignment_0_1_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13177:1: rule__Property__DoResolveDbAssignment_0_1_2 : ( RULE_ON_OFF ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13208:1: rule__Property__DoResolveDbAssignment_0_1_2 : ( RULE_ON_OFF ) ;
     public final void rule__Property__DoResolveDbAssignment_0_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13181:1: ( ( RULE_ON_OFF ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13182:1: ( RULE_ON_OFF )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13212:1: ( ( RULE_ON_OFF ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13213:1: ( RULE_ON_OFF )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13182:1: ( RULE_ON_OFF )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13183:1: RULE_ON_OFF
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13213:1: ( RULE_ON_OFF )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13214:1: RULE_ON_OFF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDoResolveDbON_OFFTerminalRuleCall_0_1_2_0()); 
             }
-            match(input,RULE_ON_OFF,FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolveDbAssignment_0_1_228006); if (state.failed) return ;
+            match(input,RULE_ON_OFF,FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolveDbAssignment_0_1_228069); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getDoResolveDbON_OFFTerminalRuleCall_0_1_2_0()); 
             }
@@ -41213,28 +41314,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__NameAssignment_0_2_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13192:1: rule__Property__NameAssignment_0_2_0 : ( ( 'database url' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13223:1: rule__Property__NameAssignment_0_2_0 : ( ( 'database url' ) ) ;
     public final void rule__Property__NameAssignment_0_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13196:1: ( ( ( 'database url' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13197:1: ( ( 'database url' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13227:1: ( ( ( 'database url' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13228:1: ( ( 'database url' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13197:1: ( ( 'database url' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13198:1: ( 'database url' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertyAccess().getNameDatabaseUrlKeyword_0_2_0_0()); 
-            }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13199:1: ( 'database url' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13200:1: 'database url'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13228:1: ( ( 'database url' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13229:1: ( 'database url' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameDatabaseUrlKeyword_0_2_0_0()); 
             }
-            match(input,60,FOLLOW_60_in_rule__Property__NameAssignment_0_2_028042); if (state.failed) return ;
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13230:1: ( 'database url' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13231:1: 'database url'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getPropertyAccess().getNameDatabaseUrlKeyword_0_2_0_0()); 
+            }
+            match(input,60,FOLLOW_60_in_rule__Property__NameAssignment_0_2_028105); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameDatabaseUrlKeyword_0_2_0_0()); 
             }
@@ -41266,22 +41367,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__DbUrlAssignment_0_2_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13215:1: rule__Property__DbUrlAssignment_0_2_2 : ( rulePropertyValue ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13246:1: rule__Property__DbUrlAssignment_0_2_2 : ( rulePropertyValue ) ;
     public final void rule__Property__DbUrlAssignment_0_2_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13219:1: ( ( rulePropertyValue ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13220:1: ( rulePropertyValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13250:1: ( ( rulePropertyValue ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13251:1: ( rulePropertyValue )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13220:1: ( rulePropertyValue )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13221:1: rulePropertyValue
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13251:1: ( rulePropertyValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13252:1: rulePropertyValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDbUrlPropertyValueParserRuleCall_0_2_2_0()); 
             }
-            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbUrlAssignment_0_2_228081);
+            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbUrlAssignment_0_2_228144);
             rulePropertyValue();
 
             state._fsp--;
@@ -41311,28 +41412,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__NameAssignment_0_3_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13230:1: rule__Property__NameAssignment_0_3_0 : ( ( 'database username' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13261:1: rule__Property__NameAssignment_0_3_0 : ( ( 'database username' ) ) ;
     public final void rule__Property__NameAssignment_0_3_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13234:1: ( ( ( 'database username' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13235:1: ( ( 'database username' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13265:1: ( ( ( 'database username' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13266:1: ( ( 'database username' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13235:1: ( ( 'database username' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13236:1: ( 'database username' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertyAccess().getNameDatabaseUsernameKeyword_0_3_0_0()); 
-            }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13237:1: ( 'database username' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13238:1: 'database username'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13266:1: ( ( 'database username' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13267:1: ( 'database username' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameDatabaseUsernameKeyword_0_3_0_0()); 
             }
-            match(input,61,FOLLOW_61_in_rule__Property__NameAssignment_0_3_028117); if (state.failed) return ;
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13268:1: ( 'database username' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13269:1: 'database username'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getPropertyAccess().getNameDatabaseUsernameKeyword_0_3_0_0()); 
+            }
+            match(input,61,FOLLOW_61_in_rule__Property__NameAssignment_0_3_028180); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameDatabaseUsernameKeyword_0_3_0_0()); 
             }
@@ -41364,22 +41465,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__DbUsernameAssignment_0_3_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13253:1: rule__Property__DbUsernameAssignment_0_3_2 : ( rulePropertyValue ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13284:1: rule__Property__DbUsernameAssignment_0_3_2 : ( rulePropertyValue ) ;
     public final void rule__Property__DbUsernameAssignment_0_3_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13257:1: ( ( rulePropertyValue ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13258:1: ( rulePropertyValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13288:1: ( ( rulePropertyValue ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13289:1: ( rulePropertyValue )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13258:1: ( rulePropertyValue )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13259:1: rulePropertyValue
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13289:1: ( rulePropertyValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13290:1: rulePropertyValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDbUsernamePropertyValueParserRuleCall_0_3_2_0()); 
             }
-            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbUsernameAssignment_0_3_228156);
+            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbUsernameAssignment_0_3_228219);
             rulePropertyValue();
 
             state._fsp--;
@@ -41409,28 +41510,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__NameAssignment_0_4_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13268:1: rule__Property__NameAssignment_0_4_0 : ( ( 'database password' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13299:1: rule__Property__NameAssignment_0_4_0 : ( ( 'database password' ) ) ;
     public final void rule__Property__NameAssignment_0_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13272:1: ( ( ( 'database password' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13273:1: ( ( 'database password' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13303:1: ( ( ( 'database password' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13304:1: ( ( 'database password' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13273:1: ( ( 'database password' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13274:1: ( 'database password' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertyAccess().getNameDatabasePasswordKeyword_0_4_0_0()); 
-            }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13275:1: ( 'database password' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13276:1: 'database password'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13304:1: ( ( 'database password' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13305:1: ( 'database password' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameDatabasePasswordKeyword_0_4_0_0()); 
             }
-            match(input,62,FOLLOW_62_in_rule__Property__NameAssignment_0_4_028192); if (state.failed) return ;
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13306:1: ( 'database password' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13307:1: 'database password'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getPropertyAccess().getNameDatabasePasswordKeyword_0_4_0_0()); 
+            }
+            match(input,62,FOLLOW_62_in_rule__Property__NameAssignment_0_4_028255); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameDatabasePasswordKeyword_0_4_0_0()); 
             }
@@ -41462,22 +41563,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__DbPasswordAssignment_0_4_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13291:1: rule__Property__DbPasswordAssignment_0_4_2 : ( rulePropertyValue ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13322:1: rule__Property__DbPasswordAssignment_0_4_2 : ( rulePropertyValue ) ;
     public final void rule__Property__DbPasswordAssignment_0_4_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13295:1: ( ( rulePropertyValue ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13296:1: ( rulePropertyValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13326:1: ( ( rulePropertyValue ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13327:1: ( rulePropertyValue )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13296:1: ( rulePropertyValue )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13297:1: rulePropertyValue
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13327:1: ( rulePropertyValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13328:1: rulePropertyValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDbPasswordPropertyValueParserRuleCall_0_4_2_0()); 
             }
-            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbPasswordAssignment_0_4_228231);
+            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbPasswordAssignment_0_4_228294);
             rulePropertyValue();
 
             state._fsp--;
@@ -41507,28 +41608,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__NameAssignment_0_5_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13306:1: rule__Property__NameAssignment_0_5_0 : ( ( 'database schema' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13337:1: rule__Property__NameAssignment_0_5_0 : ( ( 'database schema' ) ) ;
     public final void rule__Property__NameAssignment_0_5_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13310:1: ( ( ( 'database schema' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13311:1: ( ( 'database schema' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13341:1: ( ( ( 'database schema' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13342:1: ( ( 'database schema' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13311:1: ( ( 'database schema' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13312:1: ( 'database schema' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertyAccess().getNameDatabaseSchemaKeyword_0_5_0_0()); 
-            }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13313:1: ( 'database schema' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13314:1: 'database schema'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13342:1: ( ( 'database schema' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13343:1: ( 'database schema' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameDatabaseSchemaKeyword_0_5_0_0()); 
             }
-            match(input,63,FOLLOW_63_in_rule__Property__NameAssignment_0_5_028267); if (state.failed) return ;
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13344:1: ( 'database schema' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13345:1: 'database schema'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getPropertyAccess().getNameDatabaseSchemaKeyword_0_5_0_0()); 
+            }
+            match(input,63,FOLLOW_63_in_rule__Property__NameAssignment_0_5_028330); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameDatabaseSchemaKeyword_0_5_0_0()); 
             }
@@ -41560,22 +41661,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__DbSchemaAssignment_0_5_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13329:1: rule__Property__DbSchemaAssignment_0_5_2 : ( rulePropertyValue ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13360:1: rule__Property__DbSchemaAssignment_0_5_2 : ( rulePropertyValue ) ;
     public final void rule__Property__DbSchemaAssignment_0_5_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13333:1: ( ( rulePropertyValue ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13334:1: ( rulePropertyValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13364:1: ( ( rulePropertyValue ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13365:1: ( rulePropertyValue )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13334:1: ( rulePropertyValue )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13335:1: rulePropertyValue
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13365:1: ( rulePropertyValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13366:1: rulePropertyValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDbSchemaPropertyValueParserRuleCall_0_5_2_0()); 
             }
-            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbSchemaAssignment_0_5_228306);
+            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbSchemaAssignment_0_5_228369);
             rulePropertyValue();
 
             state._fsp--;
@@ -41605,28 +41706,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__NameAssignment_0_6_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13344:1: rule__Property__NameAssignment_0_6_0 : ( ( 'database driver' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13375:1: rule__Property__NameAssignment_0_6_0 : ( ( 'database driver' ) ) ;
     public final void rule__Property__NameAssignment_0_6_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13348:1: ( ( ( 'database driver' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13349:1: ( ( 'database driver' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13379:1: ( ( ( 'database driver' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13380:1: ( ( 'database driver' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13349:1: ( ( 'database driver' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13350:1: ( 'database driver' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getPropertyAccess().getNameDatabaseDriverKeyword_0_6_0_0()); 
-            }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13351:1: ( 'database driver' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13352:1: 'database driver'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13380:1: ( ( 'database driver' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13381:1: ( 'database driver' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getNameDatabaseDriverKeyword_0_6_0_0()); 
             }
-            match(input,64,FOLLOW_64_in_rule__Property__NameAssignment_0_6_028342); if (state.failed) return ;
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13382:1: ( 'database driver' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13383:1: 'database driver'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getPropertyAccess().getNameDatabaseDriverKeyword_0_6_0_0()); 
+            }
+            match(input,64,FOLLOW_64_in_rule__Property__NameAssignment_0_6_028405); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPropertyAccess().getNameDatabaseDriverKeyword_0_6_0_0()); 
             }
@@ -41658,22 +41759,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Property__DbDriverAssignment_0_6_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13367:1: rule__Property__DbDriverAssignment_0_6_2 : ( rulePropertyValue ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13398:1: rule__Property__DbDriverAssignment_0_6_2 : ( rulePropertyValue ) ;
     public final void rule__Property__DbDriverAssignment_0_6_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13371:1: ( ( rulePropertyValue ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13372:1: ( rulePropertyValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13402:1: ( ( rulePropertyValue ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13403:1: ( rulePropertyValue )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13372:1: ( rulePropertyValue )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13373:1: rulePropertyValue
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13403:1: ( rulePropertyValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13404:1: rulePropertyValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyAccess().getDbDriverPropertyValueParserRuleCall_0_6_2_0()); 
             }
-            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbDriverAssignment_0_6_228381);
+            pushFollow(FOLLOW_rulePropertyValue_in_rule__Property__DbDriverAssignment_0_6_228444);
             rulePropertyValue();
 
             state._fsp--;
@@ -41703,22 +41804,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoDefinition__NameAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13382:1: rule__PojoDefinition__NameAssignment_1 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13413:1: rule__PojoDefinition__NameAssignment_1 : ( RULE_IDENT ) ;
     public final void rule__PojoDefinition__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13386:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13387:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13417:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13418:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13387:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13388:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13418:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13419:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoDefinitionAccess().getNameIDENTTerminalRuleCall_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoDefinition__NameAssignment_128412); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoDefinition__NameAssignment_128475); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoDefinitionAccess().getNameIDENTTerminalRuleCall_1_0()); 
             }
@@ -41744,25 +41845,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoDefinition__ClassAssignment_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13397:1: rule__PojoDefinition__ClassAssignment_2 : ( ( rule__PojoDefinition__ClassAlternatives_2_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13428:1: rule__PojoDefinition__ClassAssignment_2 : ( ( rule__PojoDefinition__ClassAlternatives_2_0 ) ) ;
     public final void rule__PojoDefinition__ClassAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13401:1: ( ( ( rule__PojoDefinition__ClassAlternatives_2_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13402:1: ( ( rule__PojoDefinition__ClassAlternatives_2_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13432:1: ( ( ( rule__PojoDefinition__ClassAlternatives_2_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13433:1: ( ( rule__PojoDefinition__ClassAlternatives_2_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13402:1: ( ( rule__PojoDefinition__ClassAlternatives_2_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13403:1: ( rule__PojoDefinition__ClassAlternatives_2_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13433:1: ( ( rule__PojoDefinition__ClassAlternatives_2_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13434:1: ( rule__PojoDefinition__ClassAlternatives_2_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoDefinitionAccess().getClassAlternatives_2_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13404:1: ( rule__PojoDefinition__ClassAlternatives_2_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13404:2: rule__PojoDefinition__ClassAlternatives_2_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13435:1: ( rule__PojoDefinition__ClassAlternatives_2_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13435:2: rule__PojoDefinition__ClassAlternatives_2_0
             {
-            pushFollow(FOLLOW_rule__PojoDefinition__ClassAlternatives_2_0_in_rule__PojoDefinition__ClassAssignment_228443);
+            pushFollow(FOLLOW_rule__PojoDefinition__ClassAlternatives_2_0_in_rule__PojoDefinition__ClassAssignment_228506);
             rule__PojoDefinition__ClassAlternatives_2_0();
 
             state._fsp--;
@@ -41795,28 +41896,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__ColumnUsage__StatementAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13413:1: rule__ColumnUsage__StatementAssignment_1 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13444:1: rule__ColumnUsage__StatementAssignment_1 : ( ( RULE_IDENT ) ) ;
     public final void rule__ColumnUsage__StatementAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13417:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13418:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13448:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13449:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13418:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13419:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13449:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13450:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getColumnUsageAccess().getStatementMetaStatementCrossReference_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13420:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13421:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13451:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13452:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getColumnUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ColumnUsage__StatementAssignment_128480); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ColumnUsage__StatementAssignment_128543); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getColumnUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
@@ -41848,28 +41949,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__ColumnUsage__PojoAssignment_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13432:1: rule__ColumnUsage__PojoAssignment_2 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13463:1: rule__ColumnUsage__PojoAssignment_2 : ( ( RULE_IDENT ) ) ;
     public final void rule__ColumnUsage__PojoAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13436:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13437:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13467:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13468:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13437:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13438:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13468:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13469:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getColumnUsageAccess().getPojoPojoDefinitionCrossReference_2_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13439:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13440:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13470:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13471:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getColumnUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ColumnUsage__PojoAssignment_228519); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ColumnUsage__PojoAssignment_228582); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getColumnUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
@@ -41901,28 +42002,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IdentifierUsage__StatementAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13451:1: rule__IdentifierUsage__StatementAssignment_1 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13482:1: rule__IdentifierUsage__StatementAssignment_1 : ( ( RULE_IDENT ) ) ;
     public final void rule__IdentifierUsage__StatementAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13455:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13456:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13486:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13487:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13456:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13457:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13487:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13488:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierUsageAccess().getStatementMetaStatementCrossReference_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13458:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13459:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13489:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13490:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__StatementAssignment_128558); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__StatementAssignment_128621); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIdentifierUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
@@ -41954,28 +42055,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IdentifierUsage__PojoAssignment_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13470:1: rule__IdentifierUsage__PojoAssignment_2 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13501:1: rule__IdentifierUsage__PojoAssignment_2 : ( ( RULE_IDENT ) ) ;
     public final void rule__IdentifierUsage__PojoAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13474:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13475:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13505:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13506:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13475:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13476:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13506:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13507:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierUsageAccess().getPojoPojoDefinitionCrossReference_2_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13477:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13478:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13508:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13509:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__PojoAssignment_228597); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__PojoAssignment_228660); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIdentifierUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
@@ -42007,28 +42108,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__ConstantUsage__StatementAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13489:1: rule__ConstantUsage__StatementAssignment_1 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13520:1: rule__ConstantUsage__StatementAssignment_1 : ( ( RULE_IDENT ) ) ;
     public final void rule__ConstantUsage__StatementAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13493:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13494:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13524:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13525:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13494:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13495:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13525:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13526:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantUsageAccess().getStatementMetaStatementCrossReference_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13496:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13497:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13527:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13528:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ConstantUsage__StatementAssignment_128636); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ConstantUsage__StatementAssignment_128699); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getConstantUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
@@ -42060,28 +42161,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__ConstantUsage__PojoAssignment_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13508:1: rule__ConstantUsage__PojoAssignment_2 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13539:1: rule__ConstantUsage__PojoAssignment_2 : ( ( RULE_IDENT ) ) ;
     public final void rule__ConstantUsage__PojoAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13512:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13513:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13543:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13544:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13513:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13514:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13544:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13545:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantUsageAccess().getPojoPojoDefinitionCrossReference_2_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13515:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13516:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13546:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13547:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ConstantUsage__PojoAssignment_228675); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__ConstantUsage__PojoAssignment_228738); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getConstantUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
@@ -42113,28 +42214,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MappingUsage__StatementAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13527:1: rule__MappingUsage__StatementAssignment_1 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13558:1: rule__MappingUsage__StatementAssignment_1 : ( ( RULE_IDENT ) ) ;
     public final void rule__MappingUsage__StatementAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13531:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13532:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13562:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13563:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13532:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13533:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13563:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13564:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingUsageAccess().getStatementMappingRuleCrossReference_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13534:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13535:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13565:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13566:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingUsageAccess().getStatementMappingRuleIDENTTerminalRuleCall_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingUsage__StatementAssignment_128714); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingUsage__StatementAssignment_128777); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingUsageAccess().getStatementMappingRuleIDENTTerminalRuleCall_1_0_1()); 
             }
@@ -42166,28 +42267,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MappingUsage__PojoAssignment_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13546:1: rule__MappingUsage__PojoAssignment_2 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13577:1: rule__MappingUsage__PojoAssignment_2 : ( ( RULE_IDENT ) ) ;
     public final void rule__MappingUsage__PojoAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13550:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13551:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13581:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13582:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13551:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13552:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13582:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13583:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingUsageAccess().getPojoPojoDefinitionCrossReference_2_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13553:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13554:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13584:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13585:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingUsage__PojoAssignment_228753); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingUsage__PojoAssignment_228816); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingUsageAccess().getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
@@ -42219,22 +42320,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__TableDefinition__NameAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13565:1: rule__TableDefinition__NameAssignment_1 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13596:1: rule__TableDefinition__NameAssignment_1 : ( RULE_IDENT ) ;
     public final void rule__TableDefinition__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13569:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13570:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13600:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13601:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13570:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13571:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13601:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13602:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTableDefinitionAccess().getNameIDENTTerminalRuleCall_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableDefinition__NameAssignment_128788); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableDefinition__NameAssignment_128851); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getTableDefinitionAccess().getNameIDENTTerminalRuleCall_1_0()); 
             }
@@ -42260,22 +42361,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__TableDefinition__TableAssignment_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13580:1: rule__TableDefinition__TableAssignment_2 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13611:1: rule__TableDefinition__TableAssignment_2 : ( RULE_IDENT ) ;
     public final void rule__TableDefinition__TableAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13584:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13585:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13615:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13616:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13585:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13586:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13616:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13617:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTableDefinitionAccess().getTableIDENTTerminalRuleCall_2_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableDefinition__TableAssignment_228819); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableDefinition__TableAssignment_228882); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getTableDefinitionAccess().getTableIDENTTerminalRuleCall_2_0()); 
             }
@@ -42301,28 +42402,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__TableUsage__StatementAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13595:1: rule__TableUsage__StatementAssignment_1 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13626:1: rule__TableUsage__StatementAssignment_1 : ( ( RULE_IDENT ) ) ;
     public final void rule__TableUsage__StatementAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13599:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13600:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13630:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13631:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13600:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13601:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13631:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13632:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTableUsageAccess().getStatementMetaStatementCrossReference_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13602:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13603:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13633:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13634:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTableUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableUsage__StatementAssignment_128854); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableUsage__StatementAssignment_128917); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getTableUsageAccess().getStatementMetaStatementIDENTTerminalRuleCall_1_0_1()); 
             }
@@ -42354,28 +42455,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__TableUsage__TableAssignment_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13614:1: rule__TableUsage__TableAssignment_2 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13645:1: rule__TableUsage__TableAssignment_2 : ( ( RULE_IDENT ) ) ;
     public final void rule__TableUsage__TableAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13618:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13619:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13649:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13650:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13619:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13620:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13650:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13651:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTableUsageAccess().getTableTableDefinitionCrossReference_2_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13621:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13622:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13652:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13653:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTableUsageAccess().getTableTableDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableUsage__TableAssignment_228893); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableUsage__TableAssignment_228956); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getTableUsageAccess().getTableTableDefinitionIDENTTerminalRuleCall_2_0_1()); 
             }
@@ -42407,22 +42508,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__TableUsage__PrefixAssignment_3_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13633:1: rule__TableUsage__PrefixAssignment_3_1 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13664:1: rule__TableUsage__PrefixAssignment_3_1 : ( RULE_IDENT ) ;
     public final void rule__TableUsage__PrefixAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13637:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13638:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13668:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13669:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13638:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13639:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13669:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13670:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTableUsageAccess().getPrefixIDENTTerminalRuleCall_3_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableUsage__PrefixAssignment_3_128928); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__TableUsage__PrefixAssignment_3_128991); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getTableUsageAccess().getPrefixIDENTTerminalRuleCall_3_1_0()); 
             }
@@ -42448,22 +42549,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaStatement__NameAssignment_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13648:1: rule__MetaStatement__NameAssignment_0 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13679:1: rule__MetaStatement__NameAssignment_0 : ( RULE_IDENT ) ;
     public final void rule__MetaStatement__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13652:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13653:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13683:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13684:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13653:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13654:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13684:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13685:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaStatementAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MetaStatement__NameAssignment_028959); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MetaStatement__NameAssignment_029022); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaStatementAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
@@ -42489,22 +42590,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaStatement__TypeAssignment_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13663:1: rule__MetaStatement__TypeAssignment_2 : ( RULE_STATEMEN_TYPE ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13694:1: rule__MetaStatement__TypeAssignment_2 : ( RULE_STATEMEN_TYPE ) ;
     public final void rule__MetaStatement__TypeAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13667:1: ( ( RULE_STATEMEN_TYPE ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13668:1: ( RULE_STATEMEN_TYPE )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13698:1: ( ( RULE_STATEMEN_TYPE ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13699:1: ( RULE_STATEMEN_TYPE )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13668:1: ( RULE_STATEMEN_TYPE )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13669:1: RULE_STATEMEN_TYPE
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13699:1: ( RULE_STATEMEN_TYPE )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13700:1: RULE_STATEMEN_TYPE
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaStatementAccess().getTypeSTATEMEN_TYPETerminalRuleCall_2_0()); 
             }
-            match(input,RULE_STATEMEN_TYPE,FOLLOW_RULE_STATEMEN_TYPE_in_rule__MetaStatement__TypeAssignment_228990); if (state.failed) return ;
+            match(input,RULE_STATEMEN_TYPE,FOLLOW_RULE_STATEMEN_TYPE_in_rule__MetaStatement__TypeAssignment_229053); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaStatementAccess().getTypeSTATEMEN_TYPETerminalRuleCall_2_0()); 
             }
@@ -42530,22 +42631,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaStatement__FiltersAssignment_3_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13678:1: rule__MetaStatement__FiltersAssignment_3_1 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13709:1: rule__MetaStatement__FiltersAssignment_3_1 : ( RULE_IDENT ) ;
     public final void rule__MetaStatement__FiltersAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13682:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13683:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13713:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13714:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13683:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13684:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13714:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13715:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaStatementAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MetaStatement__FiltersAssignment_3_129021); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MetaStatement__FiltersAssignment_3_129084); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaStatementAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
             }
@@ -42571,22 +42672,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaStatement__StatementAssignment_6"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13693:1: rule__MetaStatement__StatementAssignment_6 : ( ruleSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13724:1: rule__MetaStatement__StatementAssignment_6 : ( ruleSql ) ;
     public final void rule__MetaStatement__StatementAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13697:1: ( ( ruleSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13698:1: ( ruleSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13728:1: ( ( ruleSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13729:1: ( ruleSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13698:1: ( ruleSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13699:1: ruleSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13729:1: ( ruleSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13730:1: ruleSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaStatementAccess().getStatementSqlParserRuleCall_6_0()); 
             }
-            pushFollow(FOLLOW_ruleSql_in_rule__MetaStatement__StatementAssignment_629052);
+            pushFollow(FOLLOW_ruleSql_in_rule__MetaStatement__StatementAssignment_629115);
             ruleSql();
 
             state._fsp--;
@@ -42616,22 +42717,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Sql__SqlsAssignment"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13708:1: rule__Sql__SqlsAssignment : ( ruleSqlFragment ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13739:1: rule__Sql__SqlsAssignment : ( ruleSqlFragment ) ;
     public final void rule__Sql__SqlsAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13712:1: ( ( ruleSqlFragment ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13713:1: ( ruleSqlFragment )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13743:1: ( ( ruleSqlFragment ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13744:1: ( ruleSqlFragment )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13713:1: ( ruleSqlFragment )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13714:1: ruleSqlFragment
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13744:1: ( ruleSqlFragment )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13745:1: ruleSqlFragment
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlAccess().getSqlsSqlFragmentParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruleSqlFragment_in_rule__Sql__SqlsAssignment29083);
+            pushFollow(FOLLOW_ruleSqlFragment_in_rule__Sql__SqlsAssignment29146);
             ruleSqlFragment();
 
             state._fsp--;
@@ -42661,22 +42762,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__SqlFragment__ValueAssignment_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13723:1: rule__SqlFragment__ValueAssignment_0 : ( ruleSqlValue ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13754:1: rule__SqlFragment__ValueAssignment_0 : ( ruleSqlValue ) ;
     public final void rule__SqlFragment__ValueAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13727:1: ( ( ruleSqlValue ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13728:1: ( ruleSqlValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13758:1: ( ( ruleSqlValue ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13759:1: ( ruleSqlValue )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13728:1: ( ruleSqlValue )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13729:1: ruleSqlValue
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13759:1: ( ruleSqlValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13760:1: ruleSqlValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getValueSqlValueParserRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleSqlValue_in_rule__SqlFragment__ValueAssignment_029114);
+            pushFollow(FOLLOW_ruleSqlValue_in_rule__SqlFragment__ValueAssignment_029177);
             ruleSqlValue();
 
             state._fsp--;
@@ -42706,22 +42807,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__SqlFragment__ColAssignment_1_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13738:1: rule__SqlFragment__ColAssignment_1_1 : ( ruleColumn ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13769:1: rule__SqlFragment__ColAssignment_1_1 : ( ruleColumn ) ;
     public final void rule__SqlFragment__ColAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13742:1: ( ( ruleColumn ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13743:1: ( ruleColumn )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13773:1: ( ( ruleColumn ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13774:1: ( ruleColumn )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13743:1: ( ruleColumn )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13744:1: ruleColumn
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13774:1: ( ruleColumn )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13775:1: ruleColumn
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getColColumnParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleColumn_in_rule__SqlFragment__ColAssignment_1_129145);
+            pushFollow(FOLLOW_ruleColumn_in_rule__SqlFragment__ColAssignment_1_129208);
             ruleColumn();
 
             state._fsp--;
@@ -42751,22 +42852,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__SqlFragment__CnstAssignment_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13753:1: rule__SqlFragment__CnstAssignment_2_1 : ( ruleConstant ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13784:1: rule__SqlFragment__CnstAssignment_2_1 : ( ruleConstant ) ;
     public final void rule__SqlFragment__CnstAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13757:1: ( ( ruleConstant ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13758:1: ( ruleConstant )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13788:1: ( ( ruleConstant ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13789:1: ( ruleConstant )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13758:1: ( ruleConstant )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13759:1: ruleConstant
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13789:1: ( ruleConstant )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13790:1: ruleConstant
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getCnstConstantParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleConstant_in_rule__SqlFragment__CnstAssignment_2_129176);
+            pushFollow(FOLLOW_ruleConstant_in_rule__SqlFragment__CnstAssignment_2_129239);
             ruleConstant();
 
             state._fsp--;
@@ -42796,22 +42897,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__SqlFragment__IdentAssignment_3_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13768:1: rule__SqlFragment__IdentAssignment_3_1 : ( ruleIdentifier ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13799:1: rule__SqlFragment__IdentAssignment_3_1 : ( ruleIdentifier ) ;
     public final void rule__SqlFragment__IdentAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13772:1: ( ( ruleIdentifier ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13773:1: ( ruleIdentifier )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13803:1: ( ( ruleIdentifier ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13804:1: ( ruleIdentifier )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13773:1: ( ruleIdentifier )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13774:1: ruleIdentifier
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13804:1: ( ruleIdentifier )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13805:1: ruleIdentifier
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getIdentIdentifierParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIdentifier_in_rule__SqlFragment__IdentAssignment_3_129207);
+            pushFollow(FOLLOW_ruleIdentifier_in_rule__SqlFragment__IdentAssignment_3_129270);
             ruleIdentifier();
 
             state._fsp--;
@@ -42841,22 +42942,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__SqlFragment__MetaAssignment_4_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13783:1: rule__SqlFragment__MetaAssignment_4_1 : ( ruleMetaSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13814:1: rule__SqlFragment__MetaAssignment_4_1 : ( ruleMetaSql ) ;
     public final void rule__SqlFragment__MetaAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13787:1: ( ( ruleMetaSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13788:1: ( ruleMetaSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13818:1: ( ( ruleMetaSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13819:1: ( ruleMetaSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13788:1: ( ruleMetaSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13789:1: ruleMetaSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13819:1: ( ruleMetaSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13820:1: ruleMetaSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getMetaMetaSqlParserRuleCall_4_1_0()); 
             }
-            pushFollow(FOLLOW_ruleMetaSql_in_rule__SqlFragment__MetaAssignment_4_129238);
+            pushFollow(FOLLOW_ruleMetaSql_in_rule__SqlFragment__MetaAssignment_4_129301);
             ruleMetaSql();
 
             state._fsp--;
@@ -42886,22 +42987,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__SqlFragment__DbtabAssignment_5_1_0_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13798:1: rule__SqlFragment__DbtabAssignment_5_1_0_1 : ( ruleDatabaseTable ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13829:1: rule__SqlFragment__DbtabAssignment_5_1_0_1 : ( ruleDatabaseTable ) ;
     public final void rule__SqlFragment__DbtabAssignment_5_1_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13802:1: ( ( ruleDatabaseTable ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13803:1: ( ruleDatabaseTable )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13833:1: ( ( ruleDatabaseTable ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13834:1: ( ruleDatabaseTable )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13803:1: ( ruleDatabaseTable )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13804:1: ruleDatabaseTable
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13834:1: ( ruleDatabaseTable )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13835:1: ruleDatabaseTable
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getDbtabDatabaseTableParserRuleCall_5_1_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleDatabaseTable_in_rule__SqlFragment__DbtabAssignment_5_1_0_129269);
+            pushFollow(FOLLOW_ruleDatabaseTable_in_rule__SqlFragment__DbtabAssignment_5_1_0_129332);
             ruleDatabaseTable();
 
             state._fsp--;
@@ -42931,22 +43032,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__SqlFragment__DbcolAssignment_5_1_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13813:1: rule__SqlFragment__DbcolAssignment_5_1_1 : ( ruleDatabaseColumn ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13844:1: rule__SqlFragment__DbcolAssignment_5_1_1 : ( ruleDatabaseColumn ) ;
     public final void rule__SqlFragment__DbcolAssignment_5_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13817:1: ( ( ruleDatabaseColumn ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13818:1: ( ruleDatabaseColumn )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13848:1: ( ( ruleDatabaseColumn ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13849:1: ( ruleDatabaseColumn )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13818:1: ( ruleDatabaseColumn )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13819:1: ruleDatabaseColumn
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13849:1: ( ruleDatabaseColumn )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13850:1: ruleDatabaseColumn
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSqlFragmentAccess().getDbcolDatabaseColumnParserRuleCall_5_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleDatabaseColumn_in_rule__SqlFragment__DbcolAssignment_5_1_129300);
+            pushFollow(FOLLOW_ruleDatabaseColumn_in_rule__SqlFragment__DbcolAssignment_5_1_129363);
             ruleDatabaseColumn();
 
             state._fsp--;
@@ -42976,22 +43077,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__IfsAssignment_0_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13828:1: rule__MetaSql__IfsAssignment_0_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13859:1: rule__MetaSql__IfsAssignment_0_1 : ( ruleIfSql ) ;
     public final void rule__MetaSql__IfsAssignment_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13832:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13833:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13863:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13864:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13833:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13834:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13864:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13865:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_129331);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_129394);
             ruleIfSql();
 
             state._fsp--;
@@ -43021,22 +43122,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__IfsAssignment_0_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13843:1: rule__MetaSql__IfsAssignment_0_2_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13874:1: rule__MetaSql__IfsAssignment_0_2_1 : ( ruleIfSql ) ;
     public final void rule__MetaSql__IfsAssignment_0_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13847:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13848:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13878:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13879:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13848:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13849:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13879:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13880:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_0_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_2_129362);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_2_129425);
             ruleIfSql();
 
             state._fsp--;
@@ -43066,22 +43167,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__TypeAssignment_1_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13858:1: rule__MetaSql__TypeAssignment_1_0 : ( RULE_QUESTI ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13889:1: rule__MetaSql__TypeAssignment_1_0 : ( RULE_QUESTI ) ;
     public final void rule__MetaSql__TypeAssignment_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13862:1: ( ( RULE_QUESTI ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13863:1: ( RULE_QUESTI )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13893:1: ( ( RULE_QUESTI ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13894:1: ( RULE_QUESTI )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13863:1: ( RULE_QUESTI )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13864:1: RULE_QUESTI
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13894:1: ( RULE_QUESTI )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13895:1: RULE_QUESTI
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getTypeQUESTITerminalRuleCall_1_0_0()); 
             }
-            match(input,RULE_QUESTI,FOLLOW_RULE_QUESTI_in_rule__MetaSql__TypeAssignment_1_029393); if (state.failed) return ;
+            match(input,RULE_QUESTI,FOLLOW_RULE_QUESTI_in_rule__MetaSql__TypeAssignment_1_029456); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaSqlAccess().getTypeQUESTITerminalRuleCall_1_0_0()); 
             }
@@ -43107,22 +43208,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__CondAssignment_1_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13873:1: rule__MetaSql__CondAssignment_1_1 : ( ruleIfSqlCond ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13904:1: rule__MetaSql__CondAssignment_1_1 : ( ruleIfSqlCond ) ;
     public final void rule__MetaSql__CondAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13877:1: ( ( ruleIfSqlCond ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13878:1: ( ruleIfSqlCond )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13908:1: ( ( ruleIfSqlCond ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13909:1: ( ruleIfSqlCond )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13878:1: ( ruleIfSqlCond )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13879:1: ruleIfSqlCond
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13909:1: ( ruleIfSqlCond )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13910:1: ruleIfSqlCond
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getCondIfSqlCondParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlCond_in_rule__MetaSql__CondAssignment_1_129424);
+            pushFollow(FOLLOW_ruleIfSqlCond_in_rule__MetaSql__CondAssignment_1_129487);
             ruleIfSqlCond();
 
             state._fsp--;
@@ -43152,22 +43253,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__IfsAssignment_1_3"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13888:1: rule__MetaSql__IfsAssignment_1_3 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13919:1: rule__MetaSql__IfsAssignment_1_3 : ( ruleIfSql ) ;
     public final void rule__MetaSql__IfsAssignment_1_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13892:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13893:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13923:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13924:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13893:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13894:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13924:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13925:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_1_3_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_329455);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_329518);
             ruleIfSql();
 
             state._fsp--;
@@ -43197,22 +43298,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__IfsAssignment_1_4_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13903:1: rule__MetaSql__IfsAssignment_1_4_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13934:1: rule__MetaSql__IfsAssignment_1_4_1 : ( ruleIfSql ) ;
     public final void rule__MetaSql__IfsAssignment_1_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13907:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13908:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13938:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13939:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13908:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13909:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13939:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13940:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_1_4_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_4_129486);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_4_129549);
             ruleIfSql();
 
             state._fsp--;
@@ -43242,22 +43343,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__TypeAssignment_2_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13918:1: rule__MetaSql__TypeAssignment_2_0 : ( RULE_BAND ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13949:1: rule__MetaSql__TypeAssignment_2_0 : ( RULE_BAND ) ;
     public final void rule__MetaSql__TypeAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13922:1: ( ( RULE_BAND ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13923:1: ( RULE_BAND )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13953:1: ( ( RULE_BAND ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13954:1: ( RULE_BAND )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13923:1: ( RULE_BAND )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13924:1: RULE_BAND
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13954:1: ( RULE_BAND )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13955:1: RULE_BAND
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getTypeBANDTerminalRuleCall_2_0_0()); 
             }
-            match(input,RULE_BAND,FOLLOW_RULE_BAND_in_rule__MetaSql__TypeAssignment_2_029517); if (state.failed) return ;
+            match(input,RULE_BAND,FOLLOW_RULE_BAND_in_rule__MetaSql__TypeAssignment_2_029580); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaSqlAccess().getTypeBANDTerminalRuleCall_2_0_0()); 
             }
@@ -43283,22 +43384,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__IfsAssignment_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13933:1: rule__MetaSql__IfsAssignment_2_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13964:1: rule__MetaSql__IfsAssignment_2_1 : ( ruleIfSql ) ;
     public final void rule__MetaSql__IfsAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13937:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13938:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13968:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13969:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13938:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13939:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13969:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13970:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_129548);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_129611);
             ruleIfSql();
 
             state._fsp--;
@@ -43328,22 +43429,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__IfsAssignment_2_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13948:1: rule__MetaSql__IfsAssignment_2_2_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13979:1: rule__MetaSql__IfsAssignment_2_2_1 : ( ruleIfSql ) ;
     public final void rule__MetaSql__IfsAssignment_2_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13952:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13953:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13983:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13984:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13953:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13954:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13984:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13985:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_2_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_2_129579);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_2_129642);
             ruleIfSql();
 
             state._fsp--;
@@ -43373,22 +43474,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__TypeAssignment_3_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13963:1: rule__MetaSql__TypeAssignment_3_0 : ( RULE_BOR ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13994:1: rule__MetaSql__TypeAssignment_3_0 : ( RULE_BOR ) ;
     public final void rule__MetaSql__TypeAssignment_3_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13967:1: ( ( RULE_BOR ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13968:1: ( RULE_BOR )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13998:1: ( ( RULE_BOR ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13999:1: ( RULE_BOR )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13968:1: ( RULE_BOR )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13969:1: RULE_BOR
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13999:1: ( RULE_BOR )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14000:1: RULE_BOR
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getTypeBORTerminalRuleCall_3_0_0()); 
             }
-            match(input,RULE_BOR,FOLLOW_RULE_BOR_in_rule__MetaSql__TypeAssignment_3_029610); if (state.failed) return ;
+            match(input,RULE_BOR,FOLLOW_RULE_BOR_in_rule__MetaSql__TypeAssignment_3_029673); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaSqlAccess().getTypeBORTerminalRuleCall_3_0_0()); 
             }
@@ -43414,22 +43515,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__IfsAssignment_3_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13978:1: rule__MetaSql__IfsAssignment_3_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14009:1: rule__MetaSql__IfsAssignment_3_1 : ( ruleIfSql ) ;
     public final void rule__MetaSql__IfsAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13982:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13983:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14013:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14014:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13983:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13984:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14014:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14015:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_129641);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_129704);
             ruleIfSql();
 
             state._fsp--;
@@ -43459,22 +43560,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__IfsAssignment_3_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13993:1: rule__MetaSql__IfsAssignment_3_2_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14024:1: rule__MetaSql__IfsAssignment_3_2_1 : ( ruleIfSql ) ;
     public final void rule__MetaSql__IfsAssignment_3_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13997:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13998:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14028:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14029:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13998:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:13999:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14029:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14030:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_3_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_2_129672);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_2_129735);
             ruleIfSql();
 
             state._fsp--;
@@ -43504,22 +43605,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__TypeAssignment_4_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14008:1: rule__MetaSql__TypeAssignment_4_0 : ( RULE_EQUALS ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14039:1: rule__MetaSql__TypeAssignment_4_0 : ( RULE_EQUALS ) ;
     public final void rule__MetaSql__TypeAssignment_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14012:1: ( ( RULE_EQUALS ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14013:1: ( RULE_EQUALS )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14043:1: ( ( RULE_EQUALS ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14044:1: ( RULE_EQUALS )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14013:1: ( RULE_EQUALS )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14014:1: RULE_EQUALS
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14044:1: ( RULE_EQUALS )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14045:1: RULE_EQUALS
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getTypeEQUALSTerminalRuleCall_4_0_0()); 
             }
-            match(input,RULE_EQUALS,FOLLOW_RULE_EQUALS_in_rule__MetaSql__TypeAssignment_4_029703); if (state.failed) return ;
+            match(input,RULE_EQUALS,FOLLOW_RULE_EQUALS_in_rule__MetaSql__TypeAssignment_4_029766); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaSqlAccess().getTypeEQUALSTerminalRuleCall_4_0_0()); 
             }
@@ -43545,22 +43646,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__FtypeAssignment_4_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14023:1: rule__MetaSql__FtypeAssignment_4_2 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14054:1: rule__MetaSql__FtypeAssignment_4_2 : ( RULE_IDENT ) ;
     public final void rule__MetaSql__FtypeAssignment_4_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14027:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14028:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14058:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14059:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14028:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14029:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14059:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14060:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getFtypeIDENTTerminalRuleCall_4_2_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MetaSql__FtypeAssignment_4_229734); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MetaSql__FtypeAssignment_4_229797); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaSqlAccess().getFtypeIDENTTerminalRuleCall_4_2_0()); 
             }
@@ -43586,22 +43687,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__IfsAssignment_4_3"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14038:1: rule__MetaSql__IfsAssignment_4_3 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14069:1: rule__MetaSql__IfsAssignment_4_3 : ( ruleIfSql ) ;
     public final void rule__MetaSql__IfsAssignment_4_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14042:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14043:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14073:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14074:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14043:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14044:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14074:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14075:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getIfsIfSqlParserRuleCall_4_3_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_4_329765);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_4_329828);
             ruleIfSql();
 
             state._fsp--;
@@ -43631,22 +43732,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__TypeAssignment_5_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14053:1: rule__MetaSql__TypeAssignment_5_0 : ( RULE_HASH ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14084:1: rule__MetaSql__TypeAssignment_5_0 : ( RULE_HASH ) ;
     public final void rule__MetaSql__TypeAssignment_5_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14057:1: ( ( RULE_HASH ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14058:1: ( RULE_HASH )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14088:1: ( ( RULE_HASH ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14089:1: ( RULE_HASH )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14058:1: ( RULE_HASH )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14059:1: RULE_HASH
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14089:1: ( RULE_HASH )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14090:1: RULE_HASH
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getTypeHASHTerminalRuleCall_5_0_0()); 
             }
-            match(input,RULE_HASH,FOLLOW_RULE_HASH_in_rule__MetaSql__TypeAssignment_5_029796); if (state.failed) return ;
+            match(input,RULE_HASH,FOLLOW_RULE_HASH_in_rule__MetaSql__TypeAssignment_5_029859); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetaSqlAccess().getTypeHASHTerminalRuleCall_5_0_0()); 
             }
@@ -43672,22 +43773,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MetaSql__OrdAssignment_5_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14068:1: rule__MetaSql__OrdAssignment_5_2 : ( ruleOrdSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14099:1: rule__MetaSql__OrdAssignment_5_2 : ( ruleOrdSql ) ;
     public final void rule__MetaSql__OrdAssignment_5_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14072:1: ( ( ruleOrdSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14073:1: ( ruleOrdSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14103:1: ( ( ruleOrdSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14104:1: ( ruleOrdSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14073:1: ( ruleOrdSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14074:1: ruleOrdSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14104:1: ( ruleOrdSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14105:1: ruleOrdSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetaSqlAccess().getOrdOrdSqlParserRuleCall_5_2_0()); 
             }
-            pushFollow(FOLLOW_ruleOrdSql_in_rule__MetaSql__OrdAssignment_5_229827);
+            pushFollow(FOLLOW_ruleOrdSql_in_rule__MetaSql__OrdAssignment_5_229890);
             ruleOrdSql();
 
             state._fsp--;
@@ -43717,22 +43818,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSql__SqlsAssignment"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14083:1: rule__IfSql__SqlsAssignment : ( ruleIfSqlFragment ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14114:1: rule__IfSql__SqlsAssignment : ( ruleIfSqlFragment ) ;
     public final void rule__IfSql__SqlsAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14087:1: ( ( ruleIfSqlFragment ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14088:1: ( ruleIfSqlFragment )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14118:1: ( ( ruleIfSqlFragment ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14119:1: ( ruleIfSqlFragment )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14088:1: ( ruleIfSqlFragment )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14089:1: ruleIfSqlFragment
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14119:1: ( ruleIfSqlFragment )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14120:1: ruleIfSqlFragment
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlAccess().getSqlsIfSqlFragmentParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlFragment_in_rule__IfSql__SqlsAssignment29858);
+            pushFollow(FOLLOW_ruleIfSqlFragment_in_rule__IfSql__SqlsAssignment29921);
             ruleIfSqlFragment();
 
             state._fsp--;
@@ -43762,22 +43863,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlFragment__ValueAssignment_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14098:1: rule__IfSqlFragment__ValueAssignment_0 : ( ruleIfSqlValue ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14129:1: rule__IfSqlFragment__ValueAssignment_0 : ( ruleIfSqlValue ) ;
     public final void rule__IfSqlFragment__ValueAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14102:1: ( ( ruleIfSqlValue ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14103:1: ( ruleIfSqlValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14133:1: ( ( ruleIfSqlValue ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14134:1: ( ruleIfSqlValue )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14103:1: ( ruleIfSqlValue )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14104:1: ruleIfSqlValue
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14134:1: ( ruleIfSqlValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14135:1: ruleIfSqlValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getValueIfSqlValueParserRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlValue_in_rule__IfSqlFragment__ValueAssignment_029889);
+            pushFollow(FOLLOW_ruleIfSqlValue_in_rule__IfSqlFragment__ValueAssignment_029952);
             ruleIfSqlValue();
 
             state._fsp--;
@@ -43807,22 +43908,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlFragment__ColAssignment_1_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14113:1: rule__IfSqlFragment__ColAssignment_1_1 : ( ruleColumn ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14144:1: rule__IfSqlFragment__ColAssignment_1_1 : ( ruleColumn ) ;
     public final void rule__IfSqlFragment__ColAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14117:1: ( ( ruleColumn ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14118:1: ( ruleColumn )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14148:1: ( ( ruleColumn ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14149:1: ( ruleColumn )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14118:1: ( ruleColumn )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14119:1: ruleColumn
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14149:1: ( ruleColumn )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14150:1: ruleColumn
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getColColumnParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleColumn_in_rule__IfSqlFragment__ColAssignment_1_129920);
+            pushFollow(FOLLOW_ruleColumn_in_rule__IfSqlFragment__ColAssignment_1_129983);
             ruleColumn();
 
             state._fsp--;
@@ -43852,22 +43953,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlFragment__CnstAssignment_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14128:1: rule__IfSqlFragment__CnstAssignment_2_1 : ( ruleConstant ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14159:1: rule__IfSqlFragment__CnstAssignment_2_1 : ( ruleConstant ) ;
     public final void rule__IfSqlFragment__CnstAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14132:1: ( ( ruleConstant ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14133:1: ( ruleConstant )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14163:1: ( ( ruleConstant ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14164:1: ( ruleConstant )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14133:1: ( ruleConstant )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14134:1: ruleConstant
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14164:1: ( ruleConstant )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14165:1: ruleConstant
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getCnstConstantParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleConstant_in_rule__IfSqlFragment__CnstAssignment_2_129951);
+            pushFollow(FOLLOW_ruleConstant_in_rule__IfSqlFragment__CnstAssignment_2_130014);
             ruleConstant();
 
             state._fsp--;
@@ -43897,22 +43998,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlFragment__IdentAssignment_3_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14143:1: rule__IfSqlFragment__IdentAssignment_3_1 : ( ruleIdentifier ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14174:1: rule__IfSqlFragment__IdentAssignment_3_1 : ( ruleIdentifier ) ;
     public final void rule__IfSqlFragment__IdentAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14147:1: ( ( ruleIdentifier ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14148:1: ( ruleIdentifier )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14178:1: ( ( ruleIdentifier ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14179:1: ( ruleIdentifier )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14148:1: ( ruleIdentifier )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14149:1: ruleIdentifier
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14179:1: ( ruleIdentifier )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14180:1: ruleIdentifier
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getIdentIdentifierParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIdentifier_in_rule__IfSqlFragment__IdentAssignment_3_129982);
+            pushFollow(FOLLOW_ruleIdentifier_in_rule__IfSqlFragment__IdentAssignment_3_130045);
             ruleIdentifier();
 
             state._fsp--;
@@ -43942,22 +44043,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlFragment__DbtabAssignment_4_1_0_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14158:1: rule__IfSqlFragment__DbtabAssignment_4_1_0_1 : ( ruleDatabaseTable ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14189:1: rule__IfSqlFragment__DbtabAssignment_4_1_0_1 : ( ruleDatabaseTable ) ;
     public final void rule__IfSqlFragment__DbtabAssignment_4_1_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14162:1: ( ( ruleDatabaseTable ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14163:1: ( ruleDatabaseTable )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14193:1: ( ( ruleDatabaseTable ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14194:1: ( ruleDatabaseTable )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14163:1: ( ruleDatabaseTable )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14164:1: ruleDatabaseTable
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14194:1: ( ruleDatabaseTable )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14195:1: ruleDatabaseTable
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getDbtabDatabaseTableParserRuleCall_4_1_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleDatabaseTable_in_rule__IfSqlFragment__DbtabAssignment_4_1_0_130013);
+            pushFollow(FOLLOW_ruleDatabaseTable_in_rule__IfSqlFragment__DbtabAssignment_4_1_0_130076);
             ruleDatabaseTable();
 
             state._fsp--;
@@ -43987,22 +44088,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlFragment__DbcolAssignment_4_1_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14173:1: rule__IfSqlFragment__DbcolAssignment_4_1_1 : ( ruleDatabaseColumn ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14204:1: rule__IfSqlFragment__DbcolAssignment_4_1_1 : ( ruleDatabaseColumn ) ;
     public final void rule__IfSqlFragment__DbcolAssignment_4_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14177:1: ( ( ruleDatabaseColumn ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14178:1: ( ruleDatabaseColumn )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14208:1: ( ( ruleDatabaseColumn ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14209:1: ( ruleDatabaseColumn )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14178:1: ( ruleDatabaseColumn )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14179:1: ruleDatabaseColumn
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14209:1: ( ruleDatabaseColumn )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14210:1: ruleDatabaseColumn
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getDbcolDatabaseColumnParserRuleCall_4_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleDatabaseColumn_in_rule__IfSqlFragment__DbcolAssignment_4_1_130044);
+            pushFollow(FOLLOW_ruleDatabaseColumn_in_rule__IfSqlFragment__DbcolAssignment_4_1_130107);
             ruleDatabaseColumn();
 
             state._fsp--;
@@ -44032,22 +44133,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlFragment__MetaAssignment_5_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14188:1: rule__IfSqlFragment__MetaAssignment_5_1 : ( ruleIfMetaSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14219:1: rule__IfSqlFragment__MetaAssignment_5_1 : ( ruleIfMetaSql ) ;
     public final void rule__IfSqlFragment__MetaAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14192:1: ( ( ruleIfMetaSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14193:1: ( ruleIfMetaSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14223:1: ( ( ruleIfMetaSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14224:1: ( ruleIfMetaSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14193:1: ( ruleIfMetaSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14194:1: ruleIfMetaSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14224:1: ( ruleIfMetaSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14225:1: ruleIfMetaSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlFragmentAccess().getMetaIfMetaSqlParserRuleCall_5_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfMetaSql_in_rule__IfSqlFragment__MetaAssignment_5_130075);
+            pushFollow(FOLLOW_ruleIfMetaSql_in_rule__IfSqlFragment__MetaAssignment_5_130138);
             ruleIfMetaSql();
 
             state._fsp--;
@@ -44077,22 +44178,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfMetaSql__IfsAssignment_0_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14203:1: rule__IfMetaSql__IfsAssignment_0_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14234:1: rule__IfMetaSql__IfsAssignment_0_1 : ( ruleIfSql ) ;
     public final void rule__IfMetaSql__IfsAssignment_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14207:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14208:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14238:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14239:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14208:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14209:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14239:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14240:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_130106);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_130169);
             ruleIfSql();
 
             state._fsp--;
@@ -44122,22 +44223,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfMetaSql__IfsAssignment_0_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14218:1: rule__IfMetaSql__IfsAssignment_0_2_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14249:1: rule__IfMetaSql__IfsAssignment_0_2_1 : ( ruleIfSql ) ;
     public final void rule__IfMetaSql__IfsAssignment_0_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14222:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14223:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14253:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14254:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14223:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14224:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14254:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14255:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_0_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_2_130137);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_2_130200);
             ruleIfSql();
 
             state._fsp--;
@@ -44167,22 +44268,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfMetaSql__TypeAssignment_1_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14233:1: rule__IfMetaSql__TypeAssignment_1_0 : ( RULE_QUESTI ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14264:1: rule__IfMetaSql__TypeAssignment_1_0 : ( RULE_QUESTI ) ;
     public final void rule__IfMetaSql__TypeAssignment_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14237:1: ( ( RULE_QUESTI ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14238:1: ( RULE_QUESTI )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14268:1: ( ( RULE_QUESTI ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14269:1: ( RULE_QUESTI )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14238:1: ( RULE_QUESTI )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14239:1: RULE_QUESTI
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14269:1: ( RULE_QUESTI )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14270:1: RULE_QUESTI
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getTypeQUESTITerminalRuleCall_1_0_0()); 
             }
-            match(input,RULE_QUESTI,FOLLOW_RULE_QUESTI_in_rule__IfMetaSql__TypeAssignment_1_030168); if (state.failed) return ;
+            match(input,RULE_QUESTI,FOLLOW_RULE_QUESTI_in_rule__IfMetaSql__TypeAssignment_1_030231); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIfMetaSqlAccess().getTypeQUESTITerminalRuleCall_1_0_0()); 
             }
@@ -44208,22 +44309,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfMetaSql__CondAssignment_1_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14248:1: rule__IfMetaSql__CondAssignment_1_1 : ( ruleIfSqlCond ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14279:1: rule__IfMetaSql__CondAssignment_1_1 : ( ruleIfSqlCond ) ;
     public final void rule__IfMetaSql__CondAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14252:1: ( ( ruleIfSqlCond ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14253:1: ( ruleIfSqlCond )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14283:1: ( ( ruleIfSqlCond ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14284:1: ( ruleIfSqlCond )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14253:1: ( ruleIfSqlCond )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14254:1: ruleIfSqlCond
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14284:1: ( ruleIfSqlCond )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14285:1: ruleIfSqlCond
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getCondIfSqlCondParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlCond_in_rule__IfMetaSql__CondAssignment_1_130199);
+            pushFollow(FOLLOW_ruleIfSqlCond_in_rule__IfMetaSql__CondAssignment_1_130262);
             ruleIfSqlCond();
 
             state._fsp--;
@@ -44253,22 +44354,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfMetaSql__IfsAssignment_1_3"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14263:1: rule__IfMetaSql__IfsAssignment_1_3 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14294:1: rule__IfMetaSql__IfsAssignment_1_3 : ( ruleIfSql ) ;
     public final void rule__IfMetaSql__IfsAssignment_1_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14267:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14268:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14298:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14299:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14268:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14269:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14299:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14300:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_1_3_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_330230);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_330293);
             ruleIfSql();
 
             state._fsp--;
@@ -44298,22 +44399,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfMetaSql__IfsAssignment_1_4_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14278:1: rule__IfMetaSql__IfsAssignment_1_4_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14309:1: rule__IfMetaSql__IfsAssignment_1_4_1 : ( ruleIfSql ) ;
     public final void rule__IfMetaSql__IfsAssignment_1_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14282:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14283:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14313:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14314:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14283:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14284:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14314:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14315:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_1_4_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_4_130261);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_4_130324);
             ruleIfSql();
 
             state._fsp--;
@@ -44343,22 +44444,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfMetaSql__TypeAssignment_2_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14293:1: rule__IfMetaSql__TypeAssignment_2_0 : ( RULE_BAND ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14324:1: rule__IfMetaSql__TypeAssignment_2_0 : ( RULE_BAND ) ;
     public final void rule__IfMetaSql__TypeAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14297:1: ( ( RULE_BAND ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14298:1: ( RULE_BAND )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14328:1: ( ( RULE_BAND ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14329:1: ( RULE_BAND )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14298:1: ( RULE_BAND )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14299:1: RULE_BAND
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14329:1: ( RULE_BAND )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14330:1: RULE_BAND
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getTypeBANDTerminalRuleCall_2_0_0()); 
             }
-            match(input,RULE_BAND,FOLLOW_RULE_BAND_in_rule__IfMetaSql__TypeAssignment_2_030292); if (state.failed) return ;
+            match(input,RULE_BAND,FOLLOW_RULE_BAND_in_rule__IfMetaSql__TypeAssignment_2_030355); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIfMetaSqlAccess().getTypeBANDTerminalRuleCall_2_0_0()); 
             }
@@ -44384,22 +44485,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfMetaSql__IfsAssignment_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14308:1: rule__IfMetaSql__IfsAssignment_2_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14339:1: rule__IfMetaSql__IfsAssignment_2_1 : ( ruleIfSql ) ;
     public final void rule__IfMetaSql__IfsAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14312:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14313:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14343:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14344:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14313:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14314:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14344:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14345:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_130323);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_130386);
             ruleIfSql();
 
             state._fsp--;
@@ -44429,22 +44530,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfMetaSql__IfsAssignment_2_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14323:1: rule__IfMetaSql__IfsAssignment_2_2_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14354:1: rule__IfMetaSql__IfsAssignment_2_2_1 : ( ruleIfSql ) ;
     public final void rule__IfMetaSql__IfsAssignment_2_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14327:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14328:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14358:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14359:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14328:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14329:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14359:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14360:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_2_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_2_130354);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_2_130417);
             ruleIfSql();
 
             state._fsp--;
@@ -44474,22 +44575,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfMetaSql__TypeAssignment_3_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14338:1: rule__IfMetaSql__TypeAssignment_3_0 : ( RULE_BOR ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14369:1: rule__IfMetaSql__TypeAssignment_3_0 : ( RULE_BOR ) ;
     public final void rule__IfMetaSql__TypeAssignment_3_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14342:1: ( ( RULE_BOR ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14343:1: ( RULE_BOR )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14373:1: ( ( RULE_BOR ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14374:1: ( RULE_BOR )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14343:1: ( RULE_BOR )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14344:1: RULE_BOR
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14374:1: ( RULE_BOR )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14375:1: RULE_BOR
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getTypeBORTerminalRuleCall_3_0_0()); 
             }
-            match(input,RULE_BOR,FOLLOW_RULE_BOR_in_rule__IfMetaSql__TypeAssignment_3_030385); if (state.failed) return ;
+            match(input,RULE_BOR,FOLLOW_RULE_BOR_in_rule__IfMetaSql__TypeAssignment_3_030448); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIfMetaSqlAccess().getTypeBORTerminalRuleCall_3_0_0()); 
             }
@@ -44515,22 +44616,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfMetaSql__IfsAssignment_3_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14353:1: rule__IfMetaSql__IfsAssignment_3_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14384:1: rule__IfMetaSql__IfsAssignment_3_1 : ( ruleIfSql ) ;
     public final void rule__IfMetaSql__IfsAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14357:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14358:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14388:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14389:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14358:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14359:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14389:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14390:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_130416);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_130479);
             ruleIfSql();
 
             state._fsp--;
@@ -44560,22 +44661,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfMetaSql__IfsAssignment_3_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14368:1: rule__IfMetaSql__IfsAssignment_3_2_1 : ( ruleIfSql ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14399:1: rule__IfMetaSql__IfsAssignment_3_2_1 : ( ruleIfSql ) ;
     public final void rule__IfMetaSql__IfsAssignment_3_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14372:1: ( ( ruleIfSql ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14373:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14403:1: ( ( ruleIfSql ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14404:1: ( ruleIfSql )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14373:1: ( ruleIfSql )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14374:1: ruleIfSql
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14404:1: ( ruleIfSql )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14405:1: ruleIfSql
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfMetaSqlAccess().getIfsIfSqlParserRuleCall_3_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_2_130447);
+            pushFollow(FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_2_130510);
             ruleIfSql();
 
             state._fsp--;
@@ -44605,22 +44706,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlCond__Bool1Assignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14383:1: rule__IfSqlCond__Bool1Assignment_1 : ( ruleIfSqlBool ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14414:1: rule__IfSqlCond__Bool1Assignment_1 : ( ruleIfSqlBool ) ;
     public final void rule__IfSqlCond__Bool1Assignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14387:1: ( ( ruleIfSqlBool ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14388:1: ( ruleIfSqlBool )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14418:1: ( ( ruleIfSqlBool ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14419:1: ( ruleIfSqlBool )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14388:1: ( ruleIfSqlBool )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14389:1: ruleIfSqlBool
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14419:1: ( ruleIfSqlBool )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14420:1: ruleIfSqlBool
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlCondAccess().getBool1IfSqlBoolParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool1Assignment_130478);
+            pushFollow(FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool1Assignment_130541);
             ruleIfSqlBool();
 
             state._fsp--;
@@ -44650,25 +44751,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlCond__OperAssignment_3_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14398:1: rule__IfSqlCond__OperAssignment_3_0 : ( ( rule__IfSqlCond__OperAlternatives_3_0_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14429:1: rule__IfSqlCond__OperAssignment_3_0 : ( ( rule__IfSqlCond__OperAlternatives_3_0_0 ) ) ;
     public final void rule__IfSqlCond__OperAssignment_3_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14402:1: ( ( ( rule__IfSqlCond__OperAlternatives_3_0_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14403:1: ( ( rule__IfSqlCond__OperAlternatives_3_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14433:1: ( ( ( rule__IfSqlCond__OperAlternatives_3_0_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14434:1: ( ( rule__IfSqlCond__OperAlternatives_3_0_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14403:1: ( ( rule__IfSqlCond__OperAlternatives_3_0_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14404:1: ( rule__IfSqlCond__OperAlternatives_3_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14434:1: ( ( rule__IfSqlCond__OperAlternatives_3_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14435:1: ( rule__IfSqlCond__OperAlternatives_3_0_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlCondAccess().getOperAlternatives_3_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14405:1: ( rule__IfSqlCond__OperAlternatives_3_0_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14405:2: rule__IfSqlCond__OperAlternatives_3_0_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14436:1: ( rule__IfSqlCond__OperAlternatives_3_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14436:2: rule__IfSqlCond__OperAlternatives_3_0_0
             {
-            pushFollow(FOLLOW_rule__IfSqlCond__OperAlternatives_3_0_0_in_rule__IfSqlCond__OperAssignment_3_030509);
+            pushFollow(FOLLOW_rule__IfSqlCond__OperAlternatives_3_0_0_in_rule__IfSqlCond__OperAssignment_3_030572);
             rule__IfSqlCond__OperAlternatives_3_0_0();
 
             state._fsp--;
@@ -44701,22 +44802,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlCond__Bool2Assignment_3_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14414:1: rule__IfSqlCond__Bool2Assignment_3_2 : ( ruleIfSqlBool ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14445:1: rule__IfSqlCond__Bool2Assignment_3_2 : ( ruleIfSqlBool ) ;
     public final void rule__IfSqlCond__Bool2Assignment_3_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14418:1: ( ( ruleIfSqlBool ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14419:1: ( ruleIfSqlBool )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14449:1: ( ( ruleIfSqlBool ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14450:1: ( ruleIfSqlBool )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14419:1: ( ruleIfSqlBool )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14420:1: ruleIfSqlBool
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14450:1: ( ruleIfSqlBool )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14451:1: ruleIfSqlBool
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlCondAccess().getBool2IfSqlBoolParserRuleCall_3_2_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool2Assignment_3_230542);
+            pushFollow(FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool2Assignment_3_230605);
             ruleIfSqlBool();
 
             state._fsp--;
@@ -44746,22 +44847,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlBool__NotAssignment_0_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14429:1: rule__IfSqlBool__NotAssignment_0_0 : ( RULE_NOT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14460:1: rule__IfSqlBool__NotAssignment_0_0 : ( RULE_NOT ) ;
     public final void rule__IfSqlBool__NotAssignment_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14433:1: ( ( RULE_NOT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14434:1: ( RULE_NOT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14464:1: ( ( RULE_NOT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14465:1: ( RULE_NOT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14434:1: ( RULE_NOT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14435:1: RULE_NOT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14465:1: ( RULE_NOT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14466:1: RULE_NOT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlBoolAccess().getNotNOTTerminalRuleCall_0_0_0()); 
             }
-            match(input,RULE_NOT,FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_0_030573); if (state.failed) return ;
+            match(input,RULE_NOT,FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_0_030636); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIfSqlBoolAccess().getNotNOTTerminalRuleCall_0_0_0()); 
             }
@@ -44787,22 +44888,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlBool__CnstAssignment_0_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14444:1: rule__IfSqlBool__CnstAssignment_0_2 : ( ruleConstant ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14475:1: rule__IfSqlBool__CnstAssignment_0_2 : ( ruleConstant ) ;
     public final void rule__IfSqlBool__CnstAssignment_0_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14448:1: ( ( ruleConstant ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14449:1: ( ruleConstant )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14479:1: ( ( ruleConstant ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14480:1: ( ruleConstant )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14449:1: ( ruleConstant )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14450:1: ruleConstant
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14480:1: ( ruleConstant )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14481:1: ruleConstant
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlBoolAccess().getCnstConstantParserRuleCall_0_2_0()); 
             }
-            pushFollow(FOLLOW_ruleConstant_in_rule__IfSqlBool__CnstAssignment_0_230604);
+            pushFollow(FOLLOW_ruleConstant_in_rule__IfSqlBool__CnstAssignment_0_230667);
             ruleConstant();
 
             state._fsp--;
@@ -44832,22 +44933,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlBool__NotAssignment_1_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14459:1: rule__IfSqlBool__NotAssignment_1_0 : ( RULE_NOT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14490:1: rule__IfSqlBool__NotAssignment_1_0 : ( RULE_NOT ) ;
     public final void rule__IfSqlBool__NotAssignment_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14463:1: ( ( RULE_NOT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14464:1: ( RULE_NOT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14494:1: ( ( RULE_NOT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14495:1: ( RULE_NOT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14464:1: ( RULE_NOT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14465:1: RULE_NOT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14495:1: ( RULE_NOT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14496:1: RULE_NOT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlBoolAccess().getNotNOTTerminalRuleCall_1_0_0()); 
             }
-            match(input,RULE_NOT,FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_1_030635); if (state.failed) return ;
+            match(input,RULE_NOT,FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_1_030698); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIfSqlBoolAccess().getNotNOTTerminalRuleCall_1_0_0()); 
             }
@@ -44873,22 +44974,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlBool__IdentAssignment_1_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14474:1: rule__IfSqlBool__IdentAssignment_1_2 : ( ruleIdentifier ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14505:1: rule__IfSqlBool__IdentAssignment_1_2 : ( ruleIdentifier ) ;
     public final void rule__IfSqlBool__IdentAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14478:1: ( ( ruleIdentifier ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14479:1: ( ruleIdentifier )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14509:1: ( ( ruleIdentifier ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14510:1: ( ruleIdentifier )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14479:1: ( ruleIdentifier )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14480:1: ruleIdentifier
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14510:1: ( ruleIdentifier )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14511:1: ruleIdentifier
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlBoolAccess().getIdentIdentifierParserRuleCall_1_2_0()); 
             }
-            pushFollow(FOLLOW_ruleIdentifier_in_rule__IfSqlBool__IdentAssignment_1_230666);
+            pushFollow(FOLLOW_ruleIdentifier_in_rule__IfSqlBool__IdentAssignment_1_230729);
             ruleIdentifier();
 
             state._fsp--;
@@ -44918,22 +45019,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlBool__NotAssignment_2_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14489:1: rule__IfSqlBool__NotAssignment_2_0 : ( RULE_NOT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14520:1: rule__IfSqlBool__NotAssignment_2_0 : ( RULE_NOT ) ;
     public final void rule__IfSqlBool__NotAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14493:1: ( ( RULE_NOT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14494:1: ( RULE_NOT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14524:1: ( ( RULE_NOT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14525:1: ( RULE_NOT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14494:1: ( RULE_NOT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14495:1: RULE_NOT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14525:1: ( RULE_NOT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14526:1: RULE_NOT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlBoolAccess().getNotNOTTerminalRuleCall_2_0_0()); 
             }
-            match(input,RULE_NOT,FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_2_030697); if (state.failed) return ;
+            match(input,RULE_NOT,FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_2_030760); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIfSqlBoolAccess().getNotNOTTerminalRuleCall_2_0_0()); 
             }
@@ -44959,22 +45060,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__IfSqlBool__CondAssignment_2_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14504:1: rule__IfSqlBool__CondAssignment_2_2 : ( ruleIfSqlCond ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14535:1: rule__IfSqlBool__CondAssignment_2_2 : ( ruleIfSqlCond ) ;
     public final void rule__IfSqlBool__CondAssignment_2_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14508:1: ( ( ruleIfSqlCond ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14509:1: ( ruleIfSqlCond )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14539:1: ( ( ruleIfSqlCond ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14540:1: ( ruleIfSqlCond )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14509:1: ( ruleIfSqlCond )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14510:1: ruleIfSqlCond
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14540:1: ( ruleIfSqlCond )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14541:1: ruleIfSqlCond
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIfSqlBoolAccess().getCondIfSqlCondParserRuleCall_2_2_0()); 
             }
-            pushFollow(FOLLOW_ruleIfSqlCond_in_rule__IfSqlBool__CondAssignment_2_230728);
+            pushFollow(FOLLOW_ruleIfSqlCond_in_rule__IfSqlBool__CondAssignment_2_230791);
             ruleIfSqlCond();
 
             state._fsp--;
@@ -45004,22 +45105,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__OrdSql__SqlsAssignment"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14519:1: rule__OrdSql__SqlsAssignment : ( ruleOrdSql2 ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14550:1: rule__OrdSql__SqlsAssignment : ( ruleOrdSql2 ) ;
     public final void rule__OrdSql__SqlsAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14523:1: ( ( ruleOrdSql2 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14524:1: ( ruleOrdSql2 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14554:1: ( ( ruleOrdSql2 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14555:1: ( ruleOrdSql2 )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14524:1: ( ruleOrdSql2 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14525:1: ruleOrdSql2
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14555:1: ( ruleOrdSql2 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14556:1: ruleOrdSql2
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOrdSqlAccess().getSqlsOrdSql2ParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruleOrdSql2_in_rule__OrdSql__SqlsAssignment30759);
+            pushFollow(FOLLOW_ruleOrdSql2_in_rule__OrdSql__SqlsAssignment30822);
             ruleOrdSql2();
 
             state._fsp--;
@@ -45049,22 +45150,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__OrdSql2__ValueAssignment_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14534:1: rule__OrdSql2__ValueAssignment_0 : ( ruleOrdSqlValue ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14565:1: rule__OrdSql2__ValueAssignment_0 : ( ruleOrdSqlValue ) ;
     public final void rule__OrdSql2__ValueAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14538:1: ( ( ruleOrdSqlValue ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14539:1: ( ruleOrdSqlValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14569:1: ( ( ruleOrdSqlValue ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14570:1: ( ruleOrdSqlValue )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14539:1: ( ruleOrdSqlValue )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14540:1: ruleOrdSqlValue
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14570:1: ( ruleOrdSqlValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14571:1: ruleOrdSqlValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOrdSql2Access().getValueOrdSqlValueParserRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleOrdSqlValue_in_rule__OrdSql2__ValueAssignment_030790);
+            pushFollow(FOLLOW_ruleOrdSqlValue_in_rule__OrdSql2__ValueAssignment_030853);
             ruleOrdSqlValue();
 
             state._fsp--;
@@ -45094,22 +45195,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__OrdSql2__CnstAssignment_1_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14549:1: rule__OrdSql2__CnstAssignment_1_1 : ( ruleConstant ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14580:1: rule__OrdSql2__CnstAssignment_1_1 : ( ruleConstant ) ;
     public final void rule__OrdSql2__CnstAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14553:1: ( ( ruleConstant ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14554:1: ( ruleConstant )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14584:1: ( ( ruleConstant ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14585:1: ( ruleConstant )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14554:1: ( ruleConstant )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14555:1: ruleConstant
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14585:1: ( ruleConstant )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14586:1: ruleConstant
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOrdSql2Access().getCnstConstantParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleConstant_in_rule__OrdSql2__CnstAssignment_1_130821);
+            pushFollow(FOLLOW_ruleConstant_in_rule__OrdSql2__CnstAssignment_1_130884);
             ruleConstant();
 
             state._fsp--;
@@ -45139,22 +45240,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__OrdSql2__IdentAssignment_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14564:1: rule__OrdSql2__IdentAssignment_2_1 : ( ruleIdentifier ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14595:1: rule__OrdSql2__IdentAssignment_2_1 : ( ruleIdentifier ) ;
     public final void rule__OrdSql2__IdentAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14568:1: ( ( ruleIdentifier ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14569:1: ( ruleIdentifier )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14599:1: ( ( ruleIdentifier ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14600:1: ( ruleIdentifier )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14569:1: ( ruleIdentifier )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14570:1: ruleIdentifier
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14600:1: ( ruleIdentifier )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14601:1: ruleIdentifier
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOrdSql2Access().getIdentIdentifierParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIdentifier_in_rule__OrdSql2__IdentAssignment_2_130852);
+            pushFollow(FOLLOW_ruleIdentifier_in_rule__OrdSql2__IdentAssignment_2_130915);
             ruleIdentifier();
 
             state._fsp--;
@@ -45184,22 +45285,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__OrdSql2__DbcolAssignment_3_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14579:1: rule__OrdSql2__DbcolAssignment_3_1 : ( ruleDatabaseColumn ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14610:1: rule__OrdSql2__DbcolAssignment_3_1 : ( ruleDatabaseColumn ) ;
     public final void rule__OrdSql2__DbcolAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14583:1: ( ( ruleDatabaseColumn ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14584:1: ( ruleDatabaseColumn )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14614:1: ( ( ruleDatabaseColumn ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14615:1: ( ruleDatabaseColumn )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14584:1: ( ruleDatabaseColumn )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14585:1: ruleDatabaseColumn
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14615:1: ( ruleDatabaseColumn )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14616:1: ruleDatabaseColumn
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOrdSql2Access().getDbcolDatabaseColumnParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleDatabaseColumn_in_rule__OrdSql2__DbcolAssignment_3_130883);
+            pushFollow(FOLLOW_ruleDatabaseColumn_in_rule__OrdSql2__DbcolAssignment_3_130946);
             ruleDatabaseColumn();
 
             state._fsp--;
@@ -45229,25 +45330,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Column__NameAssignment_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14594:1: rule__Column__NameAssignment_0 : ( ( rule__Column__NameAlternatives_0_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14625:1: rule__Column__NameAssignment_0 : ( ( rule__Column__NameAlternatives_0_0 ) ) ;
     public final void rule__Column__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14598:1: ( ( ( rule__Column__NameAlternatives_0_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14599:1: ( ( rule__Column__NameAlternatives_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14629:1: ( ( ( rule__Column__NameAlternatives_0_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14630:1: ( ( rule__Column__NameAlternatives_0_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14599:1: ( ( rule__Column__NameAlternatives_0_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14600:1: ( rule__Column__NameAlternatives_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14630:1: ( ( rule__Column__NameAlternatives_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14631:1: ( rule__Column__NameAlternatives_0_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getColumnAccess().getNameAlternatives_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14601:1: ( rule__Column__NameAlternatives_0_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14601:2: rule__Column__NameAlternatives_0_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14632:1: ( rule__Column__NameAlternatives_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14632:2: rule__Column__NameAlternatives_0_0
             {
-            pushFollow(FOLLOW_rule__Column__NameAlternatives_0_0_in_rule__Column__NameAssignment_030914);
+            pushFollow(FOLLOW_rule__Column__NameAlternatives_0_0_in_rule__Column__NameAssignment_030977);
             rule__Column__NameAlternatives_0_0();
 
             state._fsp--;
@@ -45280,22 +45381,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Column__TypeAssignment_1_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14610:1: rule__Column__TypeAssignment_1_1 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14641:1: rule__Column__TypeAssignment_1_1 : ( RULE_IDENT ) ;
     public final void rule__Column__TypeAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14614:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14615:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14645:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14646:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14615:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14616:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14646:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14647:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getColumnAccess().getTypeIDENTTerminalRuleCall_1_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__Column__TypeAssignment_1_130947); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__Column__TypeAssignment_1_131010); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getColumnAccess().getTypeIDENTTerminalRuleCall_1_1_0()); 
             }
@@ -45321,25 +45422,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Column__ValsAssignment_1_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14625:1: rule__Column__ValsAssignment_1_2_1 : ( ( rule__Column__ValsAlternatives_1_2_1_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14656:1: rule__Column__ValsAssignment_1_2_1 : ( ( rule__Column__ValsAlternatives_1_2_1_0 ) ) ;
     public final void rule__Column__ValsAssignment_1_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14629:1: ( ( ( rule__Column__ValsAlternatives_1_2_1_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14630:1: ( ( rule__Column__ValsAlternatives_1_2_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14660:1: ( ( ( rule__Column__ValsAlternatives_1_2_1_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14661:1: ( ( rule__Column__ValsAlternatives_1_2_1_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14630:1: ( ( rule__Column__ValsAlternatives_1_2_1_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14631:1: ( rule__Column__ValsAlternatives_1_2_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14661:1: ( ( rule__Column__ValsAlternatives_1_2_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14662:1: ( rule__Column__ValsAlternatives_1_2_1_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getColumnAccess().getValsAlternatives_1_2_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14632:1: ( rule__Column__ValsAlternatives_1_2_1_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14632:2: rule__Column__ValsAlternatives_1_2_1_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14663:1: ( rule__Column__ValsAlternatives_1_2_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14663:2: rule__Column__ValsAlternatives_1_2_1_0
             {
-            pushFollow(FOLLOW_rule__Column__ValsAlternatives_1_2_1_0_in_rule__Column__ValsAssignment_1_2_130978);
+            pushFollow(FOLLOW_rule__Column__ValsAlternatives_1_2_1_0_in_rule__Column__ValsAssignment_1_2_131041);
             rule__Column__ValsAlternatives_1_2_1_0();
 
             state._fsp--;
@@ -45372,25 +45473,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Constant__CaseAssignment_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14641:1: rule__Constant__CaseAssignment_0 : ( ( rule__Constant__CaseAlternatives_0_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14672:1: rule__Constant__CaseAssignment_0 : ( ( rule__Constant__CaseAlternatives_0_0 ) ) ;
     public final void rule__Constant__CaseAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14645:1: ( ( ( rule__Constant__CaseAlternatives_0_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14646:1: ( ( rule__Constant__CaseAlternatives_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14676:1: ( ( ( rule__Constant__CaseAlternatives_0_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14677:1: ( ( rule__Constant__CaseAlternatives_0_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14646:1: ( ( rule__Constant__CaseAlternatives_0_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14647:1: ( rule__Constant__CaseAlternatives_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14677:1: ( ( rule__Constant__CaseAlternatives_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14678:1: ( rule__Constant__CaseAlternatives_0_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantAccess().getCaseAlternatives_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14648:1: ( rule__Constant__CaseAlternatives_0_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14648:2: rule__Constant__CaseAlternatives_0_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14679:1: ( rule__Constant__CaseAlternatives_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14679:2: rule__Constant__CaseAlternatives_0_0
             {
-            pushFollow(FOLLOW_rule__Constant__CaseAlternatives_0_0_in_rule__Constant__CaseAssignment_031011);
+            pushFollow(FOLLOW_rule__Constant__CaseAlternatives_0_0_in_rule__Constant__CaseAssignment_031074);
             rule__Constant__CaseAlternatives_0_0();
 
             state._fsp--;
@@ -45423,25 +45524,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Constant__NameAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14657:1: rule__Constant__NameAssignment_1 : ( ( rule__Constant__NameAlternatives_1_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14688:1: rule__Constant__NameAssignment_1 : ( ( rule__Constant__NameAlternatives_1_0 ) ) ;
     public final void rule__Constant__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14661:1: ( ( ( rule__Constant__NameAlternatives_1_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14662:1: ( ( rule__Constant__NameAlternatives_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14692:1: ( ( ( rule__Constant__NameAlternatives_1_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14693:1: ( ( rule__Constant__NameAlternatives_1_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14662:1: ( ( rule__Constant__NameAlternatives_1_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14663:1: ( rule__Constant__NameAlternatives_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14693:1: ( ( rule__Constant__NameAlternatives_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14694:1: ( rule__Constant__NameAlternatives_1_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantAccess().getNameAlternatives_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14664:1: ( rule__Constant__NameAlternatives_1_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14664:2: rule__Constant__NameAlternatives_1_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14695:1: ( rule__Constant__NameAlternatives_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14695:2: rule__Constant__NameAlternatives_1_0
             {
-            pushFollow(FOLLOW_rule__Constant__NameAlternatives_1_0_in_rule__Constant__NameAssignment_131044);
+            pushFollow(FOLLOW_rule__Constant__NameAlternatives_1_0_in_rule__Constant__NameAssignment_131107);
             rule__Constant__NameAlternatives_1_0();
 
             state._fsp--;
@@ -45474,22 +45575,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Constant__TypeAssignment_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14673:1: rule__Constant__TypeAssignment_2_1 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14704:1: rule__Constant__TypeAssignment_2_1 : ( RULE_IDENT ) ;
     public final void rule__Constant__TypeAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14677:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14678:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14708:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14709:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14678:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14679:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14709:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14710:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantAccess().getTypeIDENTTerminalRuleCall_2_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__Constant__TypeAssignment_2_131077); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__Constant__TypeAssignment_2_131140); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getConstantAccess().getTypeIDENTTerminalRuleCall_2_1_0()); 
             }
@@ -45515,25 +45616,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Constant__ValsAssignment_2_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14688:1: rule__Constant__ValsAssignment_2_2_1 : ( ( rule__Constant__ValsAlternatives_2_2_1_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14719:1: rule__Constant__ValsAssignment_2_2_1 : ( ( rule__Constant__ValsAlternatives_2_2_1_0 ) ) ;
     public final void rule__Constant__ValsAssignment_2_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14692:1: ( ( ( rule__Constant__ValsAlternatives_2_2_1_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14693:1: ( ( rule__Constant__ValsAlternatives_2_2_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14723:1: ( ( ( rule__Constant__ValsAlternatives_2_2_1_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14724:1: ( ( rule__Constant__ValsAlternatives_2_2_1_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14693:1: ( ( rule__Constant__ValsAlternatives_2_2_1_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14694:1: ( rule__Constant__ValsAlternatives_2_2_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14724:1: ( ( rule__Constant__ValsAlternatives_2_2_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14725:1: ( rule__Constant__ValsAlternatives_2_2_1_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantAccess().getValsAlternatives_2_2_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14695:1: ( rule__Constant__ValsAlternatives_2_2_1_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14695:2: rule__Constant__ValsAlternatives_2_2_1_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14726:1: ( rule__Constant__ValsAlternatives_2_2_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14726:2: rule__Constant__ValsAlternatives_2_2_1_0
             {
-            pushFollow(FOLLOW_rule__Constant__ValsAlternatives_2_2_1_0_in_rule__Constant__ValsAssignment_2_2_131108);
+            pushFollow(FOLLOW_rule__Constant__ValsAlternatives_2_2_1_0_in_rule__Constant__ValsAssignment_2_2_131171);
             rule__Constant__ValsAlternatives_2_2_1_0();
 
             state._fsp--;
@@ -45566,25 +45667,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Identifier__ModeAssignment_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14704:1: rule__Identifier__ModeAssignment_0 : ( ( rule__Identifier__ModeAlternatives_0_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14735:1: rule__Identifier__ModeAssignment_0 : ( ( rule__Identifier__ModeAlternatives_0_0 ) ) ;
     public final void rule__Identifier__ModeAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14708:1: ( ( ( rule__Identifier__ModeAlternatives_0_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14709:1: ( ( rule__Identifier__ModeAlternatives_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14739:1: ( ( ( rule__Identifier__ModeAlternatives_0_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14740:1: ( ( rule__Identifier__ModeAlternatives_0_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14709:1: ( ( rule__Identifier__ModeAlternatives_0_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14710:1: ( rule__Identifier__ModeAlternatives_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14740:1: ( ( rule__Identifier__ModeAlternatives_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14741:1: ( rule__Identifier__ModeAlternatives_0_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierAccess().getModeAlternatives_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14711:1: ( rule__Identifier__ModeAlternatives_0_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14711:2: rule__Identifier__ModeAlternatives_0_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14742:1: ( rule__Identifier__ModeAlternatives_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14742:2: rule__Identifier__ModeAlternatives_0_0
             {
-            pushFollow(FOLLOW_rule__Identifier__ModeAlternatives_0_0_in_rule__Identifier__ModeAssignment_031141);
+            pushFollow(FOLLOW_rule__Identifier__ModeAlternatives_0_0_in_rule__Identifier__ModeAssignment_031204);
             rule__Identifier__ModeAlternatives_0_0();
 
             state._fsp--;
@@ -45617,25 +45718,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Identifier__CaseAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14720:1: rule__Identifier__CaseAssignment_1 : ( ( rule__Identifier__CaseAlternatives_1_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14751:1: rule__Identifier__CaseAssignment_1 : ( ( rule__Identifier__CaseAlternatives_1_0 ) ) ;
     public final void rule__Identifier__CaseAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14724:1: ( ( ( rule__Identifier__CaseAlternatives_1_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14725:1: ( ( rule__Identifier__CaseAlternatives_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14755:1: ( ( ( rule__Identifier__CaseAlternatives_1_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14756:1: ( ( rule__Identifier__CaseAlternatives_1_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14725:1: ( ( rule__Identifier__CaseAlternatives_1_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14726:1: ( rule__Identifier__CaseAlternatives_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14756:1: ( ( rule__Identifier__CaseAlternatives_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14757:1: ( rule__Identifier__CaseAlternatives_1_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierAccess().getCaseAlternatives_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14727:1: ( rule__Identifier__CaseAlternatives_1_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14727:2: rule__Identifier__CaseAlternatives_1_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14758:1: ( rule__Identifier__CaseAlternatives_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14758:2: rule__Identifier__CaseAlternatives_1_0
             {
-            pushFollow(FOLLOW_rule__Identifier__CaseAlternatives_1_0_in_rule__Identifier__CaseAssignment_131174);
+            pushFollow(FOLLOW_rule__Identifier__CaseAlternatives_1_0_in_rule__Identifier__CaseAssignment_131237);
             rule__Identifier__CaseAlternatives_1_0();
 
             state._fsp--;
@@ -45668,25 +45769,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Identifier__NameAssignment_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14736:1: rule__Identifier__NameAssignment_2 : ( ( rule__Identifier__NameAlternatives_2_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14767:1: rule__Identifier__NameAssignment_2 : ( ( rule__Identifier__NameAlternatives_2_0 ) ) ;
     public final void rule__Identifier__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14740:1: ( ( ( rule__Identifier__NameAlternatives_2_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14741:1: ( ( rule__Identifier__NameAlternatives_2_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14771:1: ( ( ( rule__Identifier__NameAlternatives_2_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14772:1: ( ( rule__Identifier__NameAlternatives_2_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14741:1: ( ( rule__Identifier__NameAlternatives_2_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14742:1: ( rule__Identifier__NameAlternatives_2_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14772:1: ( ( rule__Identifier__NameAlternatives_2_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14773:1: ( rule__Identifier__NameAlternatives_2_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierAccess().getNameAlternatives_2_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14743:1: ( rule__Identifier__NameAlternatives_2_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14743:2: rule__Identifier__NameAlternatives_2_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14774:1: ( rule__Identifier__NameAlternatives_2_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14774:2: rule__Identifier__NameAlternatives_2_0
             {
-            pushFollow(FOLLOW_rule__Identifier__NameAlternatives_2_0_in_rule__Identifier__NameAssignment_231207);
+            pushFollow(FOLLOW_rule__Identifier__NameAlternatives_2_0_in_rule__Identifier__NameAssignment_231270);
             rule__Identifier__NameAlternatives_2_0();
 
             state._fsp--;
@@ -45719,22 +45820,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Identifier__TypeAssignment_3_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14752:1: rule__Identifier__TypeAssignment_3_1 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14783:1: rule__Identifier__TypeAssignment_3_1 : ( RULE_IDENT ) ;
     public final void rule__Identifier__TypeAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14756:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14757:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14787:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14788:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14757:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14758:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14788:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14789:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierAccess().getTypeIDENTTerminalRuleCall_3_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__Identifier__TypeAssignment_3_131240); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__Identifier__TypeAssignment_3_131303); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getIdentifierAccess().getTypeIDENTTerminalRuleCall_3_1_0()); 
             }
@@ -45760,25 +45861,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Identifier__ValsAssignment_3_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14767:1: rule__Identifier__ValsAssignment_3_2_1 : ( ( rule__Identifier__ValsAlternatives_3_2_1_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14798:1: rule__Identifier__ValsAssignment_3_2_1 : ( ( rule__Identifier__ValsAlternatives_3_2_1_0 ) ) ;
     public final void rule__Identifier__ValsAssignment_3_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14771:1: ( ( ( rule__Identifier__ValsAlternatives_3_2_1_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14772:1: ( ( rule__Identifier__ValsAlternatives_3_2_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14802:1: ( ( ( rule__Identifier__ValsAlternatives_3_2_1_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14803:1: ( ( rule__Identifier__ValsAlternatives_3_2_1_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14772:1: ( ( rule__Identifier__ValsAlternatives_3_2_1_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14773:1: ( rule__Identifier__ValsAlternatives_3_2_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14803:1: ( ( rule__Identifier__ValsAlternatives_3_2_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14804:1: ( rule__Identifier__ValsAlternatives_3_2_1_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getIdentifierAccess().getValsAlternatives_3_2_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14774:1: ( rule__Identifier__ValsAlternatives_3_2_1_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14774:2: rule__Identifier__ValsAlternatives_3_2_1_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14805:1: ( rule__Identifier__ValsAlternatives_3_2_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14805:2: rule__Identifier__ValsAlternatives_3_2_1_0
             {
-            pushFollow(FOLLOW_rule__Identifier__ValsAlternatives_3_2_1_0_in_rule__Identifier__ValsAssignment_3_2_131271);
+            pushFollow(FOLLOW_rule__Identifier__ValsAlternatives_3_2_1_0_in_rule__Identifier__ValsAssignment_3_2_131334);
             rule__Identifier__ValsAlternatives_3_2_1_0();
 
             state._fsp--;
@@ -45811,25 +45912,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__DatabaseColumn__NameAssignment"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14783:1: rule__DatabaseColumn__NameAssignment : ( ( rule__DatabaseColumn__NameAlternatives_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14814:1: rule__DatabaseColumn__NameAssignment : ( ( rule__DatabaseColumn__NameAlternatives_0 ) ) ;
     public final void rule__DatabaseColumn__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14787:1: ( ( ( rule__DatabaseColumn__NameAlternatives_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14788:1: ( ( rule__DatabaseColumn__NameAlternatives_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14818:1: ( ( ( rule__DatabaseColumn__NameAlternatives_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14819:1: ( ( rule__DatabaseColumn__NameAlternatives_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14788:1: ( ( rule__DatabaseColumn__NameAlternatives_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14789:1: ( rule__DatabaseColumn__NameAlternatives_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14819:1: ( ( rule__DatabaseColumn__NameAlternatives_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14820:1: ( rule__DatabaseColumn__NameAlternatives_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDatabaseColumnAccess().getNameAlternatives_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14790:1: ( rule__DatabaseColumn__NameAlternatives_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14790:2: rule__DatabaseColumn__NameAlternatives_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14821:1: ( rule__DatabaseColumn__NameAlternatives_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14821:2: rule__DatabaseColumn__NameAlternatives_0
             {
-            pushFollow(FOLLOW_rule__DatabaseColumn__NameAlternatives_0_in_rule__DatabaseColumn__NameAssignment31304);
+            pushFollow(FOLLOW_rule__DatabaseColumn__NameAlternatives_0_in_rule__DatabaseColumn__NameAssignment31367);
             rule__DatabaseColumn__NameAlternatives_0();
 
             state._fsp--;
@@ -45862,25 +45963,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__DatabaseTable__NameAssignment"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14799:1: rule__DatabaseTable__NameAssignment : ( ( rule__DatabaseTable__NameAlternatives_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14830:1: rule__DatabaseTable__NameAssignment : ( ( rule__DatabaseTable__NameAlternatives_0 ) ) ;
     public final void rule__DatabaseTable__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14803:1: ( ( ( rule__DatabaseTable__NameAlternatives_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14804:1: ( ( rule__DatabaseTable__NameAlternatives_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14834:1: ( ( ( rule__DatabaseTable__NameAlternatives_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14835:1: ( ( rule__DatabaseTable__NameAlternatives_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14804:1: ( ( rule__DatabaseTable__NameAlternatives_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14805:1: ( rule__DatabaseTable__NameAlternatives_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14835:1: ( ( rule__DatabaseTable__NameAlternatives_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14836:1: ( rule__DatabaseTable__NameAlternatives_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDatabaseTableAccess().getNameAlternatives_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14806:1: ( rule__DatabaseTable__NameAlternatives_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14806:2: rule__DatabaseTable__NameAlternatives_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14837:1: ( rule__DatabaseTable__NameAlternatives_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14837:2: rule__DatabaseTable__NameAlternatives_0
             {
-            pushFollow(FOLLOW_rule__DatabaseTable__NameAlternatives_0_in_rule__DatabaseTable__NameAssignment31337);
+            pushFollow(FOLLOW_rule__DatabaseTable__NameAlternatives_0_in_rule__DatabaseTable__NameAssignment31400);
             rule__DatabaseTable__NameAlternatives_0();
 
             state._fsp--;
@@ -45913,22 +46014,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MappingRule__NameAssignment_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14815:1: rule__MappingRule__NameAssignment_0 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14846:1: rule__MappingRule__NameAssignment_0 : ( RULE_IDENT ) ;
     public final void rule__MappingRule__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14819:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14820:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14850:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14851:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14820:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14821:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14851:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14852:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingRule__NameAssignment_031370); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingRule__NameAssignment_031433); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingRuleAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
@@ -45954,22 +46055,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MappingRule__TypeAssignment_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14830:1: rule__MappingRule__TypeAssignment_2 : ( RULE_MAPPING_TYPE ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14861:1: rule__MappingRule__TypeAssignment_2 : ( RULE_MAPPING_TYPE ) ;
     public final void rule__MappingRule__TypeAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14834:1: ( ( RULE_MAPPING_TYPE ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14835:1: ( RULE_MAPPING_TYPE )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14865:1: ( ( RULE_MAPPING_TYPE ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14866:1: ( RULE_MAPPING_TYPE )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14835:1: ( RULE_MAPPING_TYPE )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14836:1: RULE_MAPPING_TYPE
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14866:1: ( RULE_MAPPING_TYPE )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14867:1: RULE_MAPPING_TYPE
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getTypeMAPPING_TYPETerminalRuleCall_2_0()); 
             }
-            match(input,RULE_MAPPING_TYPE,FOLLOW_RULE_MAPPING_TYPE_in_rule__MappingRule__TypeAssignment_231401); if (state.failed) return ;
+            match(input,RULE_MAPPING_TYPE,FOLLOW_RULE_MAPPING_TYPE_in_rule__MappingRule__TypeAssignment_231464); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingRuleAccess().getTypeMAPPING_TYPETerminalRuleCall_2_0()); 
             }
@@ -45995,22 +46096,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MappingRule__FiltersAssignment_3_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14845:1: rule__MappingRule__FiltersAssignment_3_1 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14876:1: rule__MappingRule__FiltersAssignment_3_1 : ( RULE_IDENT ) ;
     public final void rule__MappingRule__FiltersAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14849:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14850:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14880:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14881:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14850:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14851:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14881:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14882:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingRule__FiltersAssignment_3_131432); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingRule__FiltersAssignment_3_131495); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingRuleAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
             }
@@ -46036,22 +46137,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MappingRule__MappingAssignment_6"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14860:1: rule__MappingRule__MappingAssignment_6 : ( ruleMapping ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14891:1: rule__MappingRule__MappingAssignment_6 : ( ruleMapping ) ;
     public final void rule__MappingRule__MappingAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14864:1: ( ( ruleMapping ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14865:1: ( ruleMapping )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14895:1: ( ( ruleMapping ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14896:1: ( ruleMapping )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14865:1: ( ruleMapping )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14866:1: ruleMapping
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14896:1: ( ruleMapping )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14897:1: ruleMapping
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingRuleAccess().getMappingMappingParserRuleCall_6_0()); 
             }
-            pushFollow(FOLLOW_ruleMapping_in_rule__MappingRule__MappingAssignment_631463);
+            pushFollow(FOLLOW_ruleMapping_in_rule__MappingRule__MappingAssignment_631526);
             ruleMapping();
 
             state._fsp--;
@@ -46081,22 +46182,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Mapping__MappingItemsAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14875:1: rule__Mapping__MappingItemsAssignment_1 : ( ruleMappingItem ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14906:1: rule__Mapping__MappingItemsAssignment_1 : ( ruleMappingItem ) ;
     public final void rule__Mapping__MappingItemsAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14879:1: ( ( ruleMappingItem ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14880:1: ( ruleMappingItem )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14910:1: ( ( ruleMappingItem ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14911:1: ( ruleMappingItem )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14880:1: ( ruleMappingItem )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14881:1: ruleMappingItem
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14911:1: ( ruleMappingItem )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14912:1: ruleMappingItem
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingAccess().getMappingItemsMappingItemParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_131494);
+            pushFollow(FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_131557);
             ruleMappingItem();
 
             state._fsp--;
@@ -46126,22 +46227,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Mapping__MappingItemsAssignment_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14890:1: rule__Mapping__MappingItemsAssignment_2_1 : ( ruleMappingItem ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14921:1: rule__Mapping__MappingItemsAssignment_2_1 : ( ruleMappingItem ) ;
     public final void rule__Mapping__MappingItemsAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14894:1: ( ( ruleMappingItem ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14895:1: ( ruleMappingItem )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14925:1: ( ( ruleMappingItem ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14926:1: ( ruleMappingItem )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14895:1: ( ruleMappingItem )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14896:1: ruleMappingItem
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14926:1: ( ruleMappingItem )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14927:1: ruleMappingItem
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingAccess().getMappingItemsMappingItemParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_2_131525);
+            pushFollow(FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_2_131588);
             ruleMappingItem();
 
             state._fsp--;
@@ -46171,25 +46272,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MappingItem__ColAssignment_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14905:1: rule__MappingItem__ColAssignment_0 : ( ( rule__MappingItem__ColAlternatives_0_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14936:1: rule__MappingItem__ColAssignment_0 : ( ( rule__MappingItem__ColAlternatives_0_0 ) ) ;
     public final void rule__MappingItem__ColAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14909:1: ( ( ( rule__MappingItem__ColAlternatives_0_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14910:1: ( ( rule__MappingItem__ColAlternatives_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14940:1: ( ( ( rule__MappingItem__ColAlternatives_0_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14941:1: ( ( rule__MappingItem__ColAlternatives_0_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14910:1: ( ( rule__MappingItem__ColAlternatives_0_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14911:1: ( rule__MappingItem__ColAlternatives_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14941:1: ( ( rule__MappingItem__ColAlternatives_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14942:1: ( rule__MappingItem__ColAlternatives_0_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingItemAccess().getColAlternatives_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14912:1: ( rule__MappingItem__ColAlternatives_0_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14912:2: rule__MappingItem__ColAlternatives_0_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14943:1: ( rule__MappingItem__ColAlternatives_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14943:2: rule__MappingItem__ColAlternatives_0_0
             {
-            pushFollow(FOLLOW_rule__MappingItem__ColAlternatives_0_0_in_rule__MappingItem__ColAssignment_031556);
+            pushFollow(FOLLOW_rule__MappingItem__ColAlternatives_0_0_in_rule__MappingItem__ColAssignment_031619);
             rule__MappingItem__ColAlternatives_0_0();
 
             state._fsp--;
@@ -46222,22 +46323,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MappingItem__TypeAssignment_1_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14921:1: rule__MappingItem__TypeAssignment_1_1 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14952:1: rule__MappingItem__TypeAssignment_1_1 : ( RULE_IDENT ) ;
     public final void rule__MappingItem__TypeAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14925:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14926:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14956:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14957:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14926:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14927:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14957:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14958:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingItemAccess().getTypeIDENTTerminalRuleCall_1_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingItem__TypeAssignment_1_131589); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__MappingItem__TypeAssignment_1_131652); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMappingItemAccess().getTypeIDENTTerminalRuleCall_1_1_0()); 
             }
@@ -46263,22 +46364,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MappingItem__AttrAssignment_1_2_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14936:1: rule__MappingItem__AttrAssignment_1_2_1 : ( ruleMappingColumn ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14967:1: rule__MappingItem__AttrAssignment_1_2_1 : ( ruleMappingColumn ) ;
     public final void rule__MappingItem__AttrAssignment_1_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14940:1: ( ( ruleMappingColumn ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14941:1: ( ruleMappingColumn )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14971:1: ( ( ruleMappingColumn ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14972:1: ( ruleMappingColumn )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14941:1: ( ruleMappingColumn )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14942:1: ruleMappingColumn
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14972:1: ( ruleMappingColumn )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14973:1: ruleMappingColumn
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingItemAccess().getAttrMappingColumnParserRuleCall_1_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleMappingColumn_in_rule__MappingItem__AttrAssignment_1_2_131620);
+            pushFollow(FOLLOW_ruleMappingColumn_in_rule__MappingItem__AttrAssignment_1_2_131683);
             ruleMappingColumn();
 
             state._fsp--;
@@ -46308,25 +46409,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MappingColumn__NameAssignment_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14951:1: rule__MappingColumn__NameAssignment_0 : ( ( rule__MappingColumn__NameAlternatives_0_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14982:1: rule__MappingColumn__NameAssignment_0 : ( ( rule__MappingColumn__NameAlternatives_0_0 ) ) ;
     public final void rule__MappingColumn__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14955:1: ( ( ( rule__MappingColumn__NameAlternatives_0_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14956:1: ( ( rule__MappingColumn__NameAlternatives_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14986:1: ( ( ( rule__MappingColumn__NameAlternatives_0_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14987:1: ( ( rule__MappingColumn__NameAlternatives_0_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14956:1: ( ( rule__MappingColumn__NameAlternatives_0_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14957:1: ( rule__MappingColumn__NameAlternatives_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14987:1: ( ( rule__MappingColumn__NameAlternatives_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14988:1: ( rule__MappingColumn__NameAlternatives_0_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingColumnAccess().getNameAlternatives_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14958:1: ( rule__MappingColumn__NameAlternatives_0_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14958:2: rule__MappingColumn__NameAlternatives_0_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14989:1: ( rule__MappingColumn__NameAlternatives_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14989:2: rule__MappingColumn__NameAlternatives_0_0
             {
-            pushFollow(FOLLOW_rule__MappingColumn__NameAlternatives_0_0_in_rule__MappingColumn__NameAssignment_031651);
+            pushFollow(FOLLOW_rule__MappingColumn__NameAlternatives_0_0_in_rule__MappingColumn__NameAssignment_031714);
             rule__MappingColumn__NameAlternatives_0_0();
 
             state._fsp--;
@@ -46359,25 +46460,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__MappingColumn__ValsAssignment_1_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14967:1: rule__MappingColumn__ValsAssignment_1_1 : ( ( rule__MappingColumn__ValsAlternatives_1_1_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14998:1: rule__MappingColumn__ValsAssignment_1_1 : ( ( rule__MappingColumn__ValsAlternatives_1_1_0 ) ) ;
     public final void rule__MappingColumn__ValsAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14971:1: ( ( ( rule__MappingColumn__ValsAlternatives_1_1_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14972:1: ( ( rule__MappingColumn__ValsAlternatives_1_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15002:1: ( ( ( rule__MappingColumn__ValsAlternatives_1_1_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15003:1: ( ( rule__MappingColumn__ValsAlternatives_1_1_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14972:1: ( ( rule__MappingColumn__ValsAlternatives_1_1_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14973:1: ( rule__MappingColumn__ValsAlternatives_1_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15003:1: ( ( rule__MappingColumn__ValsAlternatives_1_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15004:1: ( rule__MappingColumn__ValsAlternatives_1_1_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMappingColumnAccess().getValsAlternatives_1_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14974:1: ( rule__MappingColumn__ValsAlternatives_1_1_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14974:2: rule__MappingColumn__ValsAlternatives_1_1_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15005:1: ( rule__MappingColumn__ValsAlternatives_1_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15005:2: rule__MappingColumn__ValsAlternatives_1_1_0
             {
-            pushFollow(FOLLOW_rule__MappingColumn__ValsAlternatives_1_1_0_in_rule__MappingColumn__ValsAssignment_1_131684);
+            pushFollow(FOLLOW_rule__MappingColumn__ValsAlternatives_1_1_0_in_rule__MappingColumn__ValsAssignment_1_131747);
             rule__MappingColumn__ValsAlternatives_1_1_0();
 
             state._fsp--;
@@ -46410,22 +46511,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__OptionalFeature__NameAssignment_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14983:1: rule__OptionalFeature__NameAssignment_0 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15014:1: rule__OptionalFeature__NameAssignment_0 : ( RULE_IDENT ) ;
     public final void rule__OptionalFeature__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14987:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14988:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15018:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15019:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14988:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14989:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15019:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15020:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__OptionalFeature__NameAssignment_031717); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__OptionalFeature__NameAssignment_031780); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getOptionalFeatureAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
@@ -46451,22 +46552,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__OptionalFeature__TypeAssignment_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:14998:1: rule__OptionalFeature__TypeAssignment_2 : ( RULE_OPTION_TYPE ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15029:1: rule__OptionalFeature__TypeAssignment_2 : ( RULE_OPTION_TYPE ) ;
     public final void rule__OptionalFeature__TypeAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15002:1: ( ( RULE_OPTION_TYPE ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15003:1: ( RULE_OPTION_TYPE )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15033:1: ( ( RULE_OPTION_TYPE ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15034:1: ( RULE_OPTION_TYPE )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15003:1: ( RULE_OPTION_TYPE )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15004:1: RULE_OPTION_TYPE
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15034:1: ( RULE_OPTION_TYPE )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15035:1: RULE_OPTION_TYPE
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getTypeOPTION_TYPETerminalRuleCall_2_0()); 
             }
-            match(input,RULE_OPTION_TYPE,FOLLOW_RULE_OPTION_TYPE_in_rule__OptionalFeature__TypeAssignment_231748); if (state.failed) return ;
+            match(input,RULE_OPTION_TYPE,FOLLOW_RULE_OPTION_TYPE_in_rule__OptionalFeature__TypeAssignment_231811); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getOptionalFeatureAccess().getTypeOPTION_TYPETerminalRuleCall_2_0()); 
             }
@@ -46492,22 +46593,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__OptionalFeature__FiltersAssignment_3_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15013:1: rule__OptionalFeature__FiltersAssignment_3_1 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15044:1: rule__OptionalFeature__FiltersAssignment_3_1 : ( RULE_IDENT ) ;
     public final void rule__OptionalFeature__FiltersAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15017:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15018:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15048:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15049:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15018:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15019:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15049:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15050:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__OptionalFeature__FiltersAssignment_3_131779); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__OptionalFeature__FiltersAssignment_3_131842); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getOptionalFeatureAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
             }
@@ -46533,22 +46634,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__OptionalFeature__OptionAssignment_6"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15028:1: rule__OptionalFeature__OptionAssignment_6 : ( ruleFeatureValue ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15059:1: rule__OptionalFeature__OptionAssignment_6 : ( ruleFeatureValue ) ;
     public final void rule__OptionalFeature__OptionAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15032:1: ( ( ruleFeatureValue ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15033:1: ( ruleFeatureValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15063:1: ( ( ruleFeatureValue ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15064:1: ( ruleFeatureValue )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15033:1: ( ruleFeatureValue )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15034:1: ruleFeatureValue
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15064:1: ( ruleFeatureValue )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15065:1: ruleFeatureValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getOptionalFeatureAccess().getOptionFeatureValueParserRuleCall_6_0()); 
             }
-            pushFollow(FOLLOW_ruleFeatureValue_in_rule__OptionalFeature__OptionAssignment_631810);
+            pushFollow(FOLLOW_ruleFeatureValue_in_rule__OptionalFeature__OptionAssignment_631873);
             ruleFeatureValue();
 
             state._fsp--;
@@ -46578,25 +46679,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PackageDeclaration__NameAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15043:1: rule__PackageDeclaration__NameAssignment_1 : ( ( rule__PackageDeclaration__NameAlternatives_1_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15074:1: rule__PackageDeclaration__NameAssignment_1 : ( ( rule__PackageDeclaration__NameAlternatives_1_0 ) ) ;
     public final void rule__PackageDeclaration__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15047:1: ( ( ( rule__PackageDeclaration__NameAlternatives_1_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15048:1: ( ( rule__PackageDeclaration__NameAlternatives_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15078:1: ( ( ( rule__PackageDeclaration__NameAlternatives_1_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15079:1: ( ( rule__PackageDeclaration__NameAlternatives_1_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15048:1: ( ( rule__PackageDeclaration__NameAlternatives_1_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15049:1: ( rule__PackageDeclaration__NameAlternatives_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15079:1: ( ( rule__PackageDeclaration__NameAlternatives_1_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15080:1: ( rule__PackageDeclaration__NameAlternatives_1_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPackageDeclarationAccess().getNameAlternatives_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15050:1: ( rule__PackageDeclaration__NameAlternatives_1_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15050:2: rule__PackageDeclaration__NameAlternatives_1_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15081:1: ( rule__PackageDeclaration__NameAlternatives_1_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15081:2: rule__PackageDeclaration__NameAlternatives_1_0
             {
-            pushFollow(FOLLOW_rule__PackageDeclaration__NameAlternatives_1_0_in_rule__PackageDeclaration__NameAssignment_131841);
+            pushFollow(FOLLOW_rule__PackageDeclaration__NameAlternatives_1_0_in_rule__PackageDeclaration__NameAssignment_131904);
             rule__PackageDeclaration__NameAlternatives_1_0();
 
             state._fsp--;
@@ -46629,22 +46730,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PackageDeclaration__ElementsAssignment_3"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15059:1: rule__PackageDeclaration__ElementsAssignment_3 : ( ruleAbstractPojoEntity ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15090:1: rule__PackageDeclaration__ElementsAssignment_3 : ( ruleAbstractPojoEntity ) ;
     public final void rule__PackageDeclaration__ElementsAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15063:1: ( ( ruleAbstractPojoEntity ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15064:1: ( ruleAbstractPojoEntity )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15094:1: ( ( ruleAbstractPojoEntity ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15095:1: ( ruleAbstractPojoEntity )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15064:1: ( ruleAbstractPojoEntity )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15065:1: ruleAbstractPojoEntity
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15095:1: ( ruleAbstractPojoEntity )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15096:1: ruleAbstractPojoEntity
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPackageDeclarationAccess().getElementsAbstractPojoEntityParserRuleCall_3_0()); 
             }
-            pushFollow(FOLLOW_ruleAbstractPojoEntity_in_rule__PackageDeclaration__ElementsAssignment_331874);
+            pushFollow(FOLLOW_ruleAbstractPojoEntity_in_rule__PackageDeclaration__ElementsAssignment_331937);
             ruleAbstractPojoEntity();
 
             state._fsp--;
@@ -46674,22 +46775,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__Import__ImportedNamespaceAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15074:1: rule__Import__ImportedNamespaceAssignment_1 : ( ruleQualifiedNameWithWildcard ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15105:1: rule__Import__ImportedNamespaceAssignment_1 : ( ruleQualifiedNameWithWildcard ) ;
     public final void rule__Import__ImportedNamespaceAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15078:1: ( ( ruleQualifiedNameWithWildcard ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15079:1: ( ruleQualifiedNameWithWildcard )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15109:1: ( ( ruleQualifiedNameWithWildcard ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15110:1: ( ruleQualifiedNameWithWildcard )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15079:1: ( ruleQualifiedNameWithWildcard )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15080:1: ruleQualifiedNameWithWildcard
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15110:1: ( ruleQualifiedNameWithWildcard )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15111:1: ruleQualifiedNameWithWildcard
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getImportAccess().getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedNameWithWildcard_in_rule__Import__ImportedNamespaceAssignment_131905);
+            pushFollow(FOLLOW_ruleQualifiedNameWithWildcard_in_rule__Import__ImportedNamespaceAssignment_131968);
             ruleQualifiedNameWithWildcard();
 
             state._fsp--;
@@ -46719,28 +46820,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoEntity__AbstractAssignment_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15089:1: rule__PojoEntity__AbstractAssignment_1 : ( ( 'abstract' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15120:1: rule__PojoEntity__AbstractAssignment_1 : ( ( 'abstract' ) ) ;
     public final void rule__PojoEntity__AbstractAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15093:1: ( ( ( 'abstract' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15094:1: ( ( 'abstract' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15124:1: ( ( ( 'abstract' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15125:1: ( ( 'abstract' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15094:1: ( ( 'abstract' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15095:1: ( 'abstract' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getPojoEntityAccess().getAbstractAbstractKeyword_1_0()); 
-            }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15096:1: ( 'abstract' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15097:1: 'abstract'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15125:1: ( ( 'abstract' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15126:1: ( 'abstract' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoEntityAccess().getAbstractAbstractKeyword_1_0()); 
             }
-            match(input,65,FOLLOW_65_in_rule__PojoEntity__AbstractAssignment_131941); if (state.failed) return ;
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15127:1: ( 'abstract' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15128:1: 'abstract'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getPojoEntityAccess().getAbstractAbstractKeyword_1_0()); 
+            }
+            match(input,65,FOLLOW_65_in_rule__PojoEntity__AbstractAssignment_132004); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoEntityAccess().getAbstractAbstractKeyword_1_0()); 
             }
@@ -46772,22 +46873,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoEntity__NameAssignment_2"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15112:1: rule__PojoEntity__NameAssignment_2 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15143:1: rule__PojoEntity__NameAssignment_2 : ( RULE_IDENT ) ;
     public final void rule__PojoEntity__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15116:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15117:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15147:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15148:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15117:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15118:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15148:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15149:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoEntityAccess().getNameIDENTTerminalRuleCall_2_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoEntity__NameAssignment_231980); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoEntity__NameAssignment_232043); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoEntityAccess().getNameIDENTTerminalRuleCall_2_0()); 
             }
@@ -46813,28 +46914,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoEntity__SuperTypeAssignment_3_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15127:1: rule__PojoEntity__SuperTypeAssignment_3_1 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15158:1: rule__PojoEntity__SuperTypeAssignment_3_1 : ( ( RULE_IDENT ) ) ;
     public final void rule__PojoEntity__SuperTypeAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15131:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15132:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15162:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15163:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15132:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15133:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15163:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15164:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoEntityAccess().getSuperTypePojoEntityCrossReference_3_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15134:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15135:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15165:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15166:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoEntityAccess().getSuperTypePojoEntityIDENTTerminalRuleCall_3_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoEntity__SuperTypeAssignment_3_132015); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoEntity__SuperTypeAssignment_3_132078); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoEntityAccess().getSuperTypePojoEntityIDENTTerminalRuleCall_3_1_0_1()); 
             }
@@ -46866,22 +46967,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoEntity__FeaturesAssignment_5"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15146:1: rule__PojoEntity__FeaturesAssignment_5 : ( rulePojoProperty ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15177:1: rule__PojoEntity__FeaturesAssignment_5 : ( rulePojoProperty ) ;
     public final void rule__PojoEntity__FeaturesAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15150:1: ( ( rulePojoProperty ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15151:1: ( rulePojoProperty )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15181:1: ( ( rulePojoProperty ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15182:1: ( rulePojoProperty )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15151:1: ( rulePojoProperty )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15152:1: rulePojoProperty
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15182:1: ( rulePojoProperty )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15183:1: rulePojoProperty
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoEntityAccess().getFeaturesPojoPropertyParserRuleCall_5_0()); 
             }
-            pushFollow(FOLLOW_rulePojoProperty_in_rule__PojoEntity__FeaturesAssignment_532050);
+            pushFollow(FOLLOW_rulePojoProperty_in_rule__PojoEntity__FeaturesAssignment_532113);
             rulePojoProperty();
 
             state._fsp--;
@@ -46911,22 +47012,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__NameAssignment_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15161:1: rule__PojoProperty__NameAssignment_0 : ( RULE_IDENT ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15192:1: rule__PojoProperty__NameAssignment_0 : ( RULE_IDENT ) ;
     public final void rule__PojoProperty__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15165:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15166:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15196:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15197:1: ( RULE_IDENT )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15166:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15167:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15197:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15198:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoProperty__NameAssignment_032081); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoProperty__NameAssignment_032144); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoPropertyAccess().getNameIDENTTerminalRuleCall_0_0()); 
             }
@@ -46952,25 +47053,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__NativeAssignment_1_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15176:1: rule__PojoProperty__NativeAssignment_1_0 : ( ( rule__PojoProperty__NativeAlternatives_1_0_0 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15207:1: rule__PojoProperty__NativeAssignment_1_0 : ( ( rule__PojoProperty__NativeAlternatives_1_0_0 ) ) ;
     public final void rule__PojoProperty__NativeAssignment_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15180:1: ( ( ( rule__PojoProperty__NativeAlternatives_1_0_0 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15181:1: ( ( rule__PojoProperty__NativeAlternatives_1_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15211:1: ( ( ( rule__PojoProperty__NativeAlternatives_1_0_0 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15212:1: ( ( rule__PojoProperty__NativeAlternatives_1_0_0 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15181:1: ( ( rule__PojoProperty__NativeAlternatives_1_0_0 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15182:1: ( rule__PojoProperty__NativeAlternatives_1_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15212:1: ( ( rule__PojoProperty__NativeAlternatives_1_0_0 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15213:1: ( rule__PojoProperty__NativeAlternatives_1_0_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getNativeAlternatives_1_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15183:1: ( rule__PojoProperty__NativeAlternatives_1_0_0 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15183:2: rule__PojoProperty__NativeAlternatives_1_0_0
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15214:1: ( rule__PojoProperty__NativeAlternatives_1_0_0 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15214:2: rule__PojoProperty__NativeAlternatives_1_0_0
             {
-            pushFollow(FOLLOW_rule__PojoProperty__NativeAlternatives_1_0_0_in_rule__PojoProperty__NativeAssignment_1_032112);
+            pushFollow(FOLLOW_rule__PojoProperty__NativeAlternatives_1_0_0_in_rule__PojoProperty__NativeAssignment_1_032175);
             rule__PojoProperty__NativeAlternatives_1_0_0();
 
             state._fsp--;
@@ -47003,28 +47104,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__RefAssignment_1_1_0_1_0_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15192:1: rule__PojoProperty__RefAssignment_1_1_0_1_0_1 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15223:1: rule__PojoProperty__RefAssignment_1_1_0_1_0_1 : ( ( RULE_IDENT ) ) ;
     public final void rule__PojoProperty__RefAssignment_1_1_0_1_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15196:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15197:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15227:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15228:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15197:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15198:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15228:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15229:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getRefPojoEntityCrossReference_1_1_0_1_0_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15199:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15200:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15230:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15231:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getRefPojoEntityIDENTTerminalRuleCall_1_1_0_1_0_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoProperty__RefAssignment_1_1_0_1_0_132149); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoProperty__RefAssignment_1_1_0_1_0_132212); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoPropertyAccess().getRefPojoEntityIDENTTerminalRuleCall_1_1_0_1_0_1_0_1()); 
             }
@@ -47056,28 +47157,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__TypeAssignment_1_1_0_1_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15211:1: rule__PojoProperty__TypeAssignment_1_1_0_1_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15242:1: rule__PojoProperty__TypeAssignment_1_1_0_1_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__PojoProperty__TypeAssignment_1_1_0_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15215:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15216:1: ( ( ruleQualifiedName ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15246:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15247:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15216:1: ( ( ruleQualifiedName ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15217:1: ( ruleQualifiedName )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15247:1: ( ( ruleQualifiedName ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15248:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getTypeJvmTypeCrossReference_1_1_0_1_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15218:1: ( ruleQualifiedName )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15219:1: ruleQualifiedName
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15249:1: ( ruleQualifiedName )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15250:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getTypeJvmTypeQualifiedNameParserRuleCall_1_1_0_1_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PojoProperty__TypeAssignment_1_1_0_1_132188);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PojoProperty__TypeAssignment_1_1_0_1_132251);
             ruleQualifiedName();
 
             state._fsp--;
@@ -47113,28 +47214,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__GrefAssignment_1_1_1_1_0_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15230:1: rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 : ( ( RULE_IDENT ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15261:1: rule__PojoProperty__GrefAssignment_1_1_1_1_0_1 : ( ( RULE_IDENT ) ) ;
     public final void rule__PojoProperty__GrefAssignment_1_1_1_1_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15234:1: ( ( ( RULE_IDENT ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15235:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15265:1: ( ( ( RULE_IDENT ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15266:1: ( ( RULE_IDENT ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15235:1: ( ( RULE_IDENT ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15236:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15266:1: ( ( RULE_IDENT ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15267:1: ( RULE_IDENT )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getGrefPojoEntityCrossReference_1_1_1_1_0_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15237:1: ( RULE_IDENT )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15238:1: RULE_IDENT
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15268:1: ( RULE_IDENT )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15269:1: RULE_IDENT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getGrefPojoEntityIDENTTerminalRuleCall_1_1_1_1_0_1_0_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoProperty__GrefAssignment_1_1_1_1_0_132227); if (state.failed) return ;
+            match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rule__PojoProperty__GrefAssignment_1_1_1_1_0_132290); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPojoPropertyAccess().getGrefPojoEntityIDENTTerminalRuleCall_1_1_1_1_0_1_0_1()); 
             }
@@ -47166,28 +47267,28 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojoProperty__GtypeAssignment_1_1_1_1_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15249:1: rule__PojoProperty__GtypeAssignment_1_1_1_1_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15280:1: rule__PojoProperty__GtypeAssignment_1_1_1_1_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__PojoProperty__GtypeAssignment_1_1_1_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15253:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15254:1: ( ( ruleQualifiedName ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15284:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15285:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15254:1: ( ( ruleQualifiedName ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15255:1: ( ruleQualifiedName )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15285:1: ( ( ruleQualifiedName ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15286:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getGtypeJvmTypeCrossReference_1_1_1_1_1_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15256:1: ( ruleQualifiedName )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15257:1: ruleQualifiedName
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15287:1: ( ruleQualifiedName )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15288:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPojoPropertyAccess().getGtypeJvmTypeQualifiedNameParserRuleCall_1_1_1_1_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PojoProperty__GtypeAssignment_1_1_1_1_132266);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PojoProperty__GtypeAssignment_1_1_1_1_132329);
             ruleQualifiedName();
 
             state._fsp--;
@@ -47220,6 +47321,59 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         return ;
     }
     // $ANTLR end "rule__PojoProperty__GtypeAssignment_1_1_1_1_1"
+
+
+    // $ANTLR start "rule__PojoProperty__RequiredAssignment_2"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15299:1: rule__PojoProperty__RequiredAssignment_2 : ( ( 'required' ) ) ;
+    public final void rule__PojoProperty__RequiredAssignment_2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15303:1: ( ( ( 'required' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15304:1: ( ( 'required' ) )
+            {
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15304:1: ( ( 'required' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15305:1: ( 'required' )
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_2_0()); 
+            }
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15306:1: ( 'required' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:15307:1: 'required'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_2_0()); 
+            }
+            match(input,66,FOLLOW_66_in_rule__PojoProperty__RequiredAssignment_232369); if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_2_0()); 
+            }
+
+            }
+
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_2_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__PojoProperty__RequiredAssignment_2"
 
     // $ANTLR start synpred350_InternalProcessorDsl
     public final void synpred350_InternalProcessorDsl_fragment() throws RecognitionException {   
@@ -47587,7 +47741,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     static final String DFA5_maxS =
         "\1\100\1\15\6\uffff\1\42\3\uffff";
     static final String DFA5_acceptS =
-        "\2\uffff\1\4\1\5\1\6\1\7\1\10\1\11\1\uffff\1\1\1\3\1\2";
+        "\2\uffff\1\4\1\5\1\6\1\7\1\10\1\11\1\uffff\1\2\1\1\1\3";
     static final String DFA5_specialS =
         "\14\uffff}>";
     static final String[] DFA5_transitionS = {
@@ -47599,7 +47753,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             "",
             "",
             "",
-            "\1\13\1\12\1\11",
+            "\1\11\1\13\1\12",
             "",
             "",
             ""
@@ -47649,9 +47803,9 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     static final String DFA69_acceptS =
         "\1\uffff\1\2\33\uffff\1\1";
     static final String DFA69_specialS =
-        "\2\uffff\1\15\1\24\1\10\1\14\1\26\1\7\1\23\1\20\1\2\1\21\1\6\1\22"+
-        "\1\4\1\16\1\3\1\5\1\25\1\17\1\1\1\32\1\12\1\30\1\13\1\0\1\31\1\11"+
-        "\1\27\1\uffff}>";
+        "\2\uffff\1\0\1\31\1\13\1\27\1\14\1\1\1\20\1\7\1\23\1\10\1\26\1\12"+
+        "\1\25\1\22\1\11\1\32\1\15\1\16\1\6\1\21\1\3\1\17\1\4\1\24\1\5\1"+
+        "\30\1\2\1\uffff}>";
     static final String[] DFA69_transitionS = {
             "\1\2\1\3\1\4\1\5\2\1\1\7\1\10\1\11\1\12\1\13\1\1\1\14\1\15\1"+
             "\16\1\17\1\20\1\21\1\1\1\22\1\23\1\24\1\25\1\1\1\26\1\27\1\30"+
@@ -47724,201 +47878,6 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA69_25 = input.LA(1);
-
-                         
-                        int index69_25 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_25);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA69_20 = input.LA(1);
-
-                         
-                        int index69_20 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_20);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA69_10 = input.LA(1);
-
-                         
-                        int index69_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA69_16 = input.LA(1);
-
-                         
-                        int index69_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA69_14 = input.LA(1);
-
-                         
-                        int index69_14 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_14);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA69_17 = input.LA(1);
-
-                         
-                        int index69_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA69_12 = input.LA(1);
-
-                         
-                        int index69_12 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_12);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA69_7 = input.LA(1);
-
-                         
-                        int index69_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA69_4 = input.LA(1);
-
-                         
-                        int index69_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA69_27 = input.LA(1);
-
-                         
-                        int index69_27 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_27);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA69_22 = input.LA(1);
-
-                         
-                        int index69_22 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_22);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA69_24 = input.LA(1);
-
-                         
-                        int index69_24 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_24);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA69_5 = input.LA(1);
-
-                         
-                        int index69_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
                         int LA69_2 = input.LA(1);
 
                          
@@ -47933,11 +47892,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index69_2);
                         if ( s>=0 ) return s;
                         break;
-                    case 14 : 
-                        int LA69_15 = input.LA(1);
+                    case 1 : 
+                        int LA69_7 = input.LA(1);
 
                          
-                        int index69_15 = input.index();
+                        int index69_7 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
@@ -47945,130 +47904,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index69_15);
+                        input.seek(index69_7);
                         if ( s>=0 ) return s;
                         break;
-                    case 15 : 
-                        int LA69_19 = input.LA(1);
-
-                         
-                        int index69_19 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_19);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA69_9 = input.LA(1);
-
-                         
-                        int index69_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_9);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA69_11 = input.LA(1);
-
-                         
-                        int index69_11 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_11);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 18 : 
-                        int LA69_13 = input.LA(1);
-
-                         
-                        int index69_13 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_13);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
-                        int LA69_8 = input.LA(1);
-
-                         
-                        int index69_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 20 : 
-                        int LA69_3 = input.LA(1);
-
-                         
-                        int index69_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 21 : 
-                        int LA69_18 = input.LA(1);
-
-                         
-                        int index69_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_18);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
-                        int LA69_6 = input.LA(1);
-
-                         
-                        int index69_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index69_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 23 : 
+                    case 2 : 
                         int LA69_28 = input.LA(1);
 
                          
@@ -48083,11 +47922,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index69_28);
                         if ( s>=0 ) return s;
                         break;
-                    case 24 : 
-                        int LA69_23 = input.LA(1);
+                    case 3 : 
+                        int LA69_22 = input.LA(1);
 
                          
-                        int index69_23 = input.index();
+                        int index69_22 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
@@ -48095,10 +47934,25 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index69_23);
+                        input.seek(index69_22);
                         if ( s>=0 ) return s;
                         break;
-                    case 25 : 
+                    case 4 : 
+                        int LA69_24 = input.LA(1);
+
+                         
+                        int index69_24 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_24);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
                         int LA69_26 = input.LA(1);
 
                          
@@ -48113,7 +47967,172 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index69_26);
                         if ( s>=0 ) return s;
                         break;
-                    case 26 : 
+                    case 6 : 
+                        int LA69_20 = input.LA(1);
+
+                         
+                        int index69_20 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_20);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA69_9 = input.LA(1);
+
+                         
+                        int index69_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA69_11 = input.LA(1);
+
+                         
+                        int index69_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_11);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA69_16 = input.LA(1);
+
+                         
+                        int index69_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_16);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA69_13 = input.LA(1);
+
+                         
+                        int index69_13 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_13);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA69_4 = input.LA(1);
+
+                         
+                        int index69_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_4);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA69_6 = input.LA(1);
+
+                         
+                        int index69_6 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_6);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA69_18 = input.LA(1);
+
+                         
+                        int index69_18 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_18);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA69_19 = input.LA(1);
+
+                         
+                        int index69_19 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_19);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA69_23 = input.LA(1);
+
+                         
+                        int index69_23 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_23);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA69_8 = input.LA(1);
+
+                         
+                        int index69_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
                         int LA69_21 = input.LA(1);
 
                          
@@ -48126,6 +48145,141 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
                          
                         input.seek(index69_21);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
+                        int LA69_15 = input.LA(1);
+
+                         
+                        int index69_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 19 : 
+                        int LA69_10 = input.LA(1);
+
+                         
+                        int index69_10 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_10);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 20 : 
+                        int LA69_25 = input.LA(1);
+
+                         
+                        int index69_25 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_25);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 21 : 
+                        int LA69_14 = input.LA(1);
+
+                         
+                        int index69_14 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_14);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA69_12 = input.LA(1);
+
+                         
+                        int index69_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA69_5 = input.LA(1);
+
+                         
+                        int index69_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA69_27 = input.LA(1);
+
+                         
+                        int index69_27 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_27);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
+                        int LA69_3 = input.LA(1);
+
+                         
+                        int index69_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 26 : 
+                        int LA69_17 = input.LA(1);
+
+                         
+                        int index69_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred350_InternalProcessorDsl()) ) {s = 29;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index69_17);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -48147,8 +48301,8 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     static final String DFA75_acceptS =
         "\1\uffff\1\2\32\uffff\1\1";
     static final String DFA75_specialS =
-        "\2\uffff\1\20\1\23\1\3\1\16\1\0\1\25\1\7\1\30\1\11\1\1\1\17\1\2"+
-        "\1\15\1\13\1\31\1\5\1\21\1\24\1\10\1\26\1\6\1\22\1\4\1\12\1\27\1"+
+        "\2\uffff\1\2\1\31\1\13\1\24\1\12\1\1\1\17\1\10\1\26\1\5\1\22\1\7"+
+        "\1\20\1\25\1\27\1\11\1\30\1\3\1\23\1\0\1\16\1\15\1\4\1\21\1\6\1"+
         "\14\1\uffff}>";
     static final String[] DFA75_transitionS = {
             "\1\2\1\3\1\4\1\5\2\1\1\10\1\11\1\12\1\13\1\14\2\1\1\15\1\16"+
@@ -48221,10 +48375,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA75_6 = input.LA(1);
+                        int LA75_21 = input.LA(1);
 
                          
-                        int index75_6 = input.index();
+                        int index75_21 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
@@ -48232,14 +48386,14 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index75_6);
+                        input.seek(index75_21);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA75_11 = input.LA(1);
+                        int LA75_7 = input.LA(1);
 
                          
-                        int index75_11 = input.index();
+                        int index75_7 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
@@ -48247,14 +48401,14 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index75_11);
+                        input.seek(index75_7);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA75_13 = input.LA(1);
+                        int LA75_2 = input.LA(1);
 
                          
-                        int index75_13 = input.index();
+                        int index75_2 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
@@ -48262,14 +48416,14 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index75_13);
+                        input.seek(index75_2);
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
-                        int LA75_4 = input.LA(1);
+                        int LA75_19 = input.LA(1);
 
                          
-                        int index75_4 = input.index();
+                        int index75_19 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
@@ -48277,7 +48431,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index75_4);
+                        input.seek(index75_19);
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
@@ -48296,6 +48450,66 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
+                        int LA75_11 = input.LA(1);
+
+                         
+                        int index75_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index75_11);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA75_26 = input.LA(1);
+
+                         
+                        int index75_26 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index75_26);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA75_13 = input.LA(1);
+
+                         
+                        int index75_13 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index75_13);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA75_9 = input.LA(1);
+
+                         
+                        int index75_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index75_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
                         int LA75_17 = input.LA(1);
 
                          
@@ -48310,71 +48524,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index75_17);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
-                        int LA75_22 = input.LA(1);
-
-                         
-                        int index75_22 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index75_22);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA75_8 = input.LA(1);
-
-                         
-                        int index75_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index75_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA75_20 = input.LA(1);
-
-                         
-                        int index75_20 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index75_20);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA75_10 = input.LA(1);
-
-                         
-                        int index75_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index75_10);
-                        if ( s>=0 ) return s;
-                        break;
                     case 10 : 
-                        int LA75_25 = input.LA(1);
+                        int LA75_6 = input.LA(1);
 
                          
-                        int index75_25 = input.index();
+                        int index75_6 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
@@ -48382,14 +48536,14 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index75_25);
+                        input.seek(index75_6);
                         if ( s>=0 ) return s;
                         break;
                     case 11 : 
-                        int LA75_15 = input.LA(1);
+                        int LA75_4 = input.LA(1);
 
                          
-                        int index75_15 = input.index();
+                        int index75_4 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
@@ -48397,7 +48551,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index75_15);
+                        input.seek(index75_4);
                         if ( s>=0 ) return s;
                         break;
                     case 12 : 
@@ -48416,81 +48570,6 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         if ( s>=0 ) return s;
                         break;
                     case 13 : 
-                        int LA75_14 = input.LA(1);
-
-                         
-                        int index75_14 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index75_14);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA75_5 = input.LA(1);
-
-                         
-                        int index75_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index75_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA75_12 = input.LA(1);
-
-                         
-                        int index75_12 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index75_12);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
-                        int LA75_2 = input.LA(1);
-
-                         
-                        int index75_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index75_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 17 : 
-                        int LA75_18 = input.LA(1);
-
-                         
-                        int index75_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index75_18);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 18 : 
                         int LA75_23 = input.LA(1);
 
                          
@@ -48505,11 +48584,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index75_23);
                         if ( s>=0 ) return s;
                         break;
-                    case 19 : 
-                        int LA75_3 = input.LA(1);
+                    case 14 : 
+                        int LA75_22 = input.LA(1);
 
                          
-                        int index75_3 = input.index();
+                        int index75_22 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
@@ -48517,14 +48596,89 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index75_3);
+                        input.seek(index75_22);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA75_8 = input.LA(1);
+
+                         
+                        int index75_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index75_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA75_14 = input.LA(1);
+
+                         
+                        int index75_14 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index75_14);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA75_25 = input.LA(1);
+
+                         
+                        int index75_25 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index75_25);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 18 : 
+                        int LA75_12 = input.LA(1);
+
+                         
+                        int index75_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index75_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 19 : 
+                        int LA75_20 = input.LA(1);
+
+                         
+                        int index75_20 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index75_20);
                         if ( s>=0 ) return s;
                         break;
                     case 20 : 
-                        int LA75_19 = input.LA(1);
+                        int LA75_5 = input.LA(1);
 
                          
-                        int index75_19 = input.index();
+                        int index75_5 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
@@ -48532,14 +48686,14 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index75_19);
+                        input.seek(index75_5);
                         if ( s>=0 ) return s;
                         break;
                     case 21 : 
-                        int LA75_7 = input.LA(1);
+                        int LA75_15 = input.LA(1);
 
                          
-                        int index75_7 = input.index();
+                        int index75_15 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
@@ -48547,14 +48701,14 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index75_7);
+                        input.seek(index75_15);
                         if ( s>=0 ) return s;
                         break;
                     case 22 : 
-                        int LA75_21 = input.LA(1);
+                        int LA75_10 = input.LA(1);
 
                          
-                        int index75_21 = input.index();
+                        int index75_10 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
@@ -48562,40 +48716,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index75_21);
+                        input.seek(index75_10);
                         if ( s>=0 ) return s;
                         break;
                     case 23 : 
-                        int LA75_26 = input.LA(1);
-
-                         
-                        int index75_26 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index75_26);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 24 : 
-                        int LA75_9 = input.LA(1);
-
-                         
-                        int index75_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index75_9);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 25 : 
                         int LA75_16 = input.LA(1);
 
                          
@@ -48608,6 +48732,36 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
                          
                         input.seek(index75_16);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA75_18 = input.LA(1);
+
+                         
+                        int index75_18 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index75_18);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
+                        int LA75_3 = input.LA(1);
+
+                         
+                        int index75_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred356_InternalProcessorDsl()) ) {s = 28;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index75_3);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -48629,9 +48783,9 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     static final String DFA88_acceptS =
         "\1\uffff\1\2\35\uffff\1\1";
     static final String DFA88_specialS =
-        "\2\uffff\1\33\1\32\1\15\1\25\1\11\1\17\1\3\1\20\1\22\1\27\1\7\1"+
-        "\26\1\10\1\21\1\4\1\31\1\14\1\2\1\24\1\0\1\16\1\12\1\1\1\23\1\5"+
-        "\1\13\1\30\1\6\1\34\1\uffff}>";
+        "\2\uffff\1\7\1\31\1\33\1\14\1\30\1\6\1\1\1\20\1\5\1\25\1\4\1\22"+
+        "\1\3\1\24\1\26\1\10\1\2\1\16\1\13\1\34\1\15\1\32\1\17\1\12\1\27"+
+        "\1\11\1\23\1\0\1\21\1\uffff}>";
     static final String[] DFA88_transitionS = {
             "\1\2\1\3\1\4\1\5\2\1\1\10\1\11\1\12\1\13\1\14\1\15\1\1\1\16"+
             "\1\17\1\20\1\21\1\22\1\23\1\24\1\25\1\26\1\27\1\1\1\30\1\31"+
@@ -48706,96 +48860,6 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA88_21 = input.LA(1);
-
-                         
-                        int index88_21 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_21);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA88_24 = input.LA(1);
-
-                         
-                        int index88_24 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_24);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA88_19 = input.LA(1);
-
-                         
-                        int index88_19 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_19);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA88_8 = input.LA(1);
-
-                         
-                        int index88_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA88_16 = input.LA(1);
-
-                         
-                        int index88_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA88_26 = input.LA(1);
-
-                         
-                        int index88_26 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_26);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
                         int LA88_29 = input.LA(1);
 
                          
@@ -48810,11 +48874,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index88_29);
                         if ( s>=0 ) return s;
                         break;
-                    case 7 : 
-                        int LA88_12 = input.LA(1);
+                    case 1 : 
+                        int LA88_8 = input.LA(1);
 
                          
-                        int index88_12 = input.index();
+                        int index88_8 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
@@ -48822,70 +48886,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index88_12);
+                        input.seek(index88_8);
                         if ( s>=0 ) return s;
                         break;
-                    case 8 : 
-                        int LA88_14 = input.LA(1);
-
-                         
-                        int index88_14 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_14);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA88_6 = input.LA(1);
-
-                         
-                        int index88_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA88_23 = input.LA(1);
-
-                         
-                        int index88_23 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_23);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 11 : 
-                        int LA88_27 = input.LA(1);
-
-                         
-                        int index88_27 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_27);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
+                    case 2 : 
                         int LA88_18 = input.LA(1);
 
                          
@@ -48900,11 +48904,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index88_18);
                         if ( s>=0 ) return s;
                         break;
-                    case 13 : 
-                        int LA88_4 = input.LA(1);
+                    case 3 : 
+                        int LA88_14 = input.LA(1);
 
                          
-                        int index88_4 = input.index();
+                        int index88_14 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
@@ -48912,10 +48916,145 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index88_4);
+                        input.seek(index88_14);
                         if ( s>=0 ) return s;
                         break;
-                    case 14 : 
+                    case 4 : 
+                        int LA88_12 = input.LA(1);
+
+                         
+                        int index88_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA88_10 = input.LA(1);
+
+                         
+                        int index88_10 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_10);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA88_7 = input.LA(1);
+
+                         
+                        int index88_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA88_2 = input.LA(1);
+
+                         
+                        int index88_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_2);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA88_17 = input.LA(1);
+
+                         
+                        int index88_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA88_27 = input.LA(1);
+
+                         
+                        int index88_27 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_27);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA88_25 = input.LA(1);
+
+                         
+                        int index88_25 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_25);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA88_20 = input.LA(1);
+
+                         
+                        int index88_20 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_20);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA88_5 = input.LA(1);
+
+                         
+                        int index88_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
                         int LA88_22 = input.LA(1);
 
                          
@@ -48930,11 +49069,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index88_22);
                         if ( s>=0 ) return s;
                         break;
-                    case 15 : 
-                        int LA88_7 = input.LA(1);
+                    case 14 : 
+                        int LA88_19 = input.LA(1);
 
                          
-                        int index88_7 = input.index();
+                        int index88_19 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
@@ -48942,7 +49081,22 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index88_7);
+                        input.seek(index88_19);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA88_24 = input.LA(1);
+
+                         
+                        int index88_24 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_24);
                         if ( s>=0 ) return s;
                         break;
                     case 16 : 
@@ -48961,10 +49115,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         if ( s>=0 ) return s;
                         break;
                     case 17 : 
-                        int LA88_15 = input.LA(1);
+                        int LA88_30 = input.LA(1);
 
                          
-                        int index88_15 = input.index();
+                        int index88_30 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
@@ -48972,70 +49126,10 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index88_15);
+                        input.seek(index88_30);
                         if ( s>=0 ) return s;
                         break;
                     case 18 : 
-                        int LA88_10 = input.LA(1);
-
-                         
-                        int index88_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 19 : 
-                        int LA88_25 = input.LA(1);
-
-                         
-                        int index88_25 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_25);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 20 : 
-                        int LA88_20 = input.LA(1);
-
-                         
-                        int index88_20 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_20);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 21 : 
-                        int LA88_5 = input.LA(1);
-
-                         
-                        int index88_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
                         int LA88_13 = input.LA(1);
 
                          
@@ -49050,22 +49144,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index88_13);
                         if ( s>=0 ) return s;
                         break;
-                    case 23 : 
-                        int LA88_11 = input.LA(1);
-
-                         
-                        int index88_11 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index88_11);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 24 : 
+                    case 19 : 
                         int LA88_28 = input.LA(1);
 
                          
@@ -49080,11 +49159,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index88_28);
                         if ( s>=0 ) return s;
                         break;
-                    case 25 : 
-                        int LA88_17 = input.LA(1);
+                    case 20 : 
+                        int LA88_15 = input.LA(1);
 
                          
-                        int index88_17 = input.index();
+                        int index88_15 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
@@ -49092,10 +49171,70 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index88_17);
+                        input.seek(index88_15);
                         if ( s>=0 ) return s;
                         break;
-                    case 26 : 
+                    case 21 : 
+                        int LA88_11 = input.LA(1);
+
+                         
+                        int index88_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_11);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 22 : 
+                        int LA88_16 = input.LA(1);
+
+                         
+                        int index88_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_16);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA88_26 = input.LA(1);
+
+                         
+                        int index88_26 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_26);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA88_6 = input.LA(1);
+
+                         
+                        int index88_6 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_6);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
                         int LA88_3 = input.LA(1);
 
                          
@@ -49110,11 +49249,11 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         input.seek(index88_3);
                         if ( s>=0 ) return s;
                         break;
-                    case 27 : 
-                        int LA88_2 = input.LA(1);
+                    case 26 : 
+                        int LA88_23 = input.LA(1);
 
                          
-                        int index88_2 = input.index();
+                        int index88_23 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
@@ -49122,14 +49261,29 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index88_2);
+                        input.seek(index88_23);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 27 : 
+                        int LA88_4 = input.LA(1);
+
+                         
+                        int index88_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index88_4);
                         if ( s>=0 ) return s;
                         break;
                     case 28 : 
-                        int LA88_30 = input.LA(1);
+                        int LA88_21 = input.LA(1);
 
                          
-                        int index88_30 = input.index();
+                        int index88_21 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred369_InternalProcessorDsl()) ) {s = 31;}
@@ -49137,7 +49291,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index88_30);
+                        input.seek(index88_21);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -50439,184 +50593,188 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     public static final BitSet FOLLOW_rule__PojoProperty__Group__0__Impl_in_rule__PojoProperty__Group__026694 = new BitSet(new long[]{0x00003F8000000100L});
     public static final BitSet FOLLOW_rule__PojoProperty__Group__1_in_rule__PojoProperty__Group__026697 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PojoProperty__NameAssignment_0_in_rule__PojoProperty__Group__0__Impl26724 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group__1__Impl_in_rule__PojoProperty__Group__126754 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Alternatives_1_in_rule__PojoProperty__Group__1__Impl26781 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1__0__Impl_in_rule__PojoProperty__Group_1_1__026815 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1__1_in_rule__PojoProperty__Group_1_1__026818 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0__0_in_rule__PojoProperty__Group_1_1__0__Impl26845 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1__1__Impl_in_rule__PojoProperty__Group_1_1__126875 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1__0_in_rule__PojoProperty__Group_1_1__1__Impl26902 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0__0__Impl_in_rule__PojoProperty__Group_1_1_0__026937 = new BitSet(new long[]{0x0000000000000160L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0__1_in_rule__PojoProperty__Group_1_1_0__026940 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_COLON_in_rule__PojoProperty__Group_1_1_0__0__Impl26967 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0__1__Impl_in_rule__PojoProperty__Group_1_1_0__126996 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Alternatives_1_1_0_1_in_rule__PojoProperty__Group_1_1_0__1__Impl27023 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0_1_0__0__Impl_in_rule__PojoProperty__Group_1_1_0_1_0__027057 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0_1_0__1_in_rule__PojoProperty__Group_1_1_0_1_0__027060 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_COLON_in_rule__PojoProperty__Group_1_1_0_1_0__0__Impl27087 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0_1_0__1__Impl_in_rule__PojoProperty__Group_1_1_0_1_0__127116 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__RefAssignment_1_1_0_1_0_1_in_rule__PojoProperty__Group_1_1_0_1_0__1__Impl27143 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1__0__Impl_in_rule__PojoProperty__Group_1_1_1__027177 = new BitSet(new long[]{0x0000000000000160L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1__1_in_rule__PojoProperty__Group_1_1_1__027180 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_LESS_THAN_in_rule__PojoProperty__Group_1_1_1__0__Impl27207 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1__1__Impl_in_rule__PojoProperty__Group_1_1_1__127236 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1__2_in_rule__PojoProperty__Group_1_1_1__127239 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Alternatives_1_1_1_1_in_rule__PojoProperty__Group_1_1_1__1__Impl27266 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1__2__Impl_in_rule__PojoProperty__Group_1_1_1__227296 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_MORE_THAN_in_rule__PojoProperty__Group_1_1_1__2__Impl27323 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1_1_0__0__Impl_in_rule__PojoProperty__Group_1_1_1_1_0__027358 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1_1_0__1_in_rule__PojoProperty__Group_1_1_1_1_0__027361 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_COLON_in_rule__PojoProperty__Group_1_1_1_1_0__0__Impl27388 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1_1_0__1__Impl_in_rule__PojoProperty__Group_1_1_1_1_0__127417 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__GrefAssignment_1_1_1_1_0_1_in_rule__PojoProperty__Group_1_1_1_1_0__1__Impl27444 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedNameWithWildcard__Group__0__Impl_in_rule__QualifiedNameWithWildcard__Group__027478 = new BitSet(new long[]{0x0200000000000000L});
-    public static final BitSet FOLLOW_rule__QualifiedNameWithWildcard__Group__1_in_rule__QualifiedNameWithWildcard__Group__027481 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__QualifiedNameWithWildcard__Group__0__Impl27508 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedNameWithWildcard__Group__1__Impl_in_rule__QualifiedNameWithWildcard__Group__127537 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_57_in_rule__QualifiedNameWithWildcard__Group__1__Impl27566 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOptionalFeature_in_rule__Artifacts__FeaturesAssignment_1_0_027608 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetaStatement_in_rule__Artifacts__StatementsAssignment_1_1_027639 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMappingRule_in_rule__Artifacts__MappingsAssignment_1_2_027670 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePojoDefinition_in_rule__Artifacts__PojosAssignment_1_3_027701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePojoUsage_in_rule__Artifacts__UsagesAssignment_1_4_027732 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleProperty_in_rule__Artifacts__PropertiesAssignment_1_5_027763 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTableDefinition_in_rule__Artifacts__TablesAssignment_1_6_027794 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTableUsage_in_rule__Artifacts__TableUsagesAssignment_1_7_027825 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePackageDeclaration_in_rule__Artifacts__PojoPackagesAssignment_1_8_027856 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_58_in_rule__Property__NameAssignment_0_0_027892 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolvePojoAssignment_0_0_227931 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_59_in_rule__Property__NameAssignment_0_1_027967 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolveDbAssignment_0_1_228006 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_60_in_rule__Property__NameAssignment_0_2_028042 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbUrlAssignment_0_2_228081 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_61_in_rule__Property__NameAssignment_0_3_028117 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbUsernameAssignment_0_3_228156 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_62_in_rule__Property__NameAssignment_0_4_028192 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbPasswordAssignment_0_4_228231 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_63_in_rule__Property__NameAssignment_0_5_028267 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbSchemaAssignment_0_5_228306 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_64_in_rule__Property__NameAssignment_0_6_028342 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbDriverAssignment_0_6_228381 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoDefinition__NameAssignment_128412 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoDefinition__ClassAlternatives_2_0_in_rule__PojoDefinition__ClassAssignment_228443 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ColumnUsage__StatementAssignment_128480 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ColumnUsage__PojoAssignment_228519 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__StatementAssignment_128558 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__PojoAssignment_228597 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ConstantUsage__StatementAssignment_128636 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ConstantUsage__PojoAssignment_228675 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingUsage__StatementAssignment_128714 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingUsage__PojoAssignment_228753 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableDefinition__NameAssignment_128788 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableDefinition__TableAssignment_228819 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableUsage__StatementAssignment_128854 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableUsage__TableAssignment_228893 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableUsage__PrefixAssignment_3_128928 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MetaStatement__NameAssignment_028959 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STATEMEN_TYPE_in_rule__MetaStatement__TypeAssignment_228990 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MetaStatement__FiltersAssignment_3_129021 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSql_in_rule__MetaStatement__StatementAssignment_629052 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSqlFragment_in_rule__Sql__SqlsAssignment29083 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSqlValue_in_rule__SqlFragment__ValueAssignment_029114 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleColumn_in_rule__SqlFragment__ColAssignment_1_129145 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConstant_in_rule__SqlFragment__CnstAssignment_2_129176 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIdentifier_in_rule__SqlFragment__IdentAssignment_3_129207 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetaSql_in_rule__SqlFragment__MetaAssignment_4_129238 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDatabaseTable_in_rule__SqlFragment__DbtabAssignment_5_1_0_129269 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDatabaseColumn_in_rule__SqlFragment__DbcolAssignment_5_1_129300 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_129331 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_2_129362 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_QUESTI_in_rule__MetaSql__TypeAssignment_1_029393 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlCond_in_rule__MetaSql__CondAssignment_1_129424 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_329455 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_4_129486 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_BAND_in_rule__MetaSql__TypeAssignment_2_029517 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_129548 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_2_129579 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_BOR_in_rule__MetaSql__TypeAssignment_3_029610 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_129641 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_2_129672 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_EQUALS_in_rule__MetaSql__TypeAssignment_4_029703 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MetaSql__FtypeAssignment_4_229734 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_4_329765 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_HASH_in_rule__MetaSql__TypeAssignment_5_029796 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOrdSql_in_rule__MetaSql__OrdAssignment_5_229827 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlFragment_in_rule__IfSql__SqlsAssignment29858 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlValue_in_rule__IfSqlFragment__ValueAssignment_029889 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleColumn_in_rule__IfSqlFragment__ColAssignment_1_129920 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConstant_in_rule__IfSqlFragment__CnstAssignment_2_129951 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIdentifier_in_rule__IfSqlFragment__IdentAssignment_3_129982 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDatabaseTable_in_rule__IfSqlFragment__DbtabAssignment_4_1_0_130013 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDatabaseColumn_in_rule__IfSqlFragment__DbcolAssignment_4_1_130044 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfMetaSql_in_rule__IfSqlFragment__MetaAssignment_5_130075 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_130106 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_2_130137 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_QUESTI_in_rule__IfMetaSql__TypeAssignment_1_030168 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlCond_in_rule__IfMetaSql__CondAssignment_1_130199 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_330230 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_4_130261 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_BAND_in_rule__IfMetaSql__TypeAssignment_2_030292 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_130323 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_2_130354 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_BOR_in_rule__IfMetaSql__TypeAssignment_3_030385 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_130416 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_2_130447 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool1Assignment_130478 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__IfSqlCond__OperAlternatives_3_0_0_in_rule__IfSqlCond__OperAssignment_3_030509 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool2Assignment_3_230542 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_0_030573 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConstant_in_rule__IfSqlBool__CnstAssignment_0_230604 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_1_030635 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIdentifier_in_rule__IfSqlBool__IdentAssignment_1_230666 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_2_030697 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIfSqlCond_in_rule__IfSqlBool__CondAssignment_2_230728 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOrdSql2_in_rule__OrdSql__SqlsAssignment30759 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOrdSqlValue_in_rule__OrdSql2__ValueAssignment_030790 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConstant_in_rule__OrdSql2__CnstAssignment_1_130821 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIdentifier_in_rule__OrdSql2__IdentAssignment_2_130852 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDatabaseColumn_in_rule__OrdSql2__DbcolAssignment_3_130883 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Column__NameAlternatives_0_0_in_rule__Column__NameAssignment_030914 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__Column__TypeAssignment_1_130947 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Column__ValsAlternatives_1_2_1_0_in_rule__Column__ValsAssignment_1_2_130978 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__CaseAlternatives_0_0_in_rule__Constant__CaseAssignment_031011 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__NameAlternatives_1_0_in_rule__Constant__NameAssignment_131044 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__Constant__TypeAssignment_2_131077 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Constant__ValsAlternatives_2_2_1_0_in_rule__Constant__ValsAssignment_2_2_131108 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__ModeAlternatives_0_0_in_rule__Identifier__ModeAssignment_031141 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__CaseAlternatives_1_0_in_rule__Identifier__CaseAssignment_131174 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__NameAlternatives_2_0_in_rule__Identifier__NameAssignment_231207 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__Identifier__TypeAssignment_3_131240 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Identifier__ValsAlternatives_3_2_1_0_in_rule__Identifier__ValsAssignment_3_2_131271 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DatabaseColumn__NameAlternatives_0_in_rule__DatabaseColumn__NameAssignment31304 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DatabaseTable__NameAlternatives_0_in_rule__DatabaseTable__NameAssignment31337 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingRule__NameAssignment_031370 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_MAPPING_TYPE_in_rule__MappingRule__TypeAssignment_231401 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingRule__FiltersAssignment_3_131432 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMapping_in_rule__MappingRule__MappingAssignment_631463 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_131494 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_2_131525 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingItem__ColAlternatives_0_0_in_rule__MappingItem__ColAssignment_031556 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingItem__TypeAssignment_1_131589 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMappingColumn_in_rule__MappingItem__AttrAssignment_1_2_131620 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingColumn__NameAlternatives_0_0_in_rule__MappingColumn__NameAssignment_031651 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__MappingColumn__ValsAlternatives_1_1_0_in_rule__MappingColumn__ValsAssignment_1_131684 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__OptionalFeature__NameAssignment_031717 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_OPTION_TYPE_in_rule__OptionalFeature__TypeAssignment_231748 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__OptionalFeature__FiltersAssignment_3_131779 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFeatureValue_in_rule__OptionalFeature__OptionAssignment_631810 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PackageDeclaration__NameAlternatives_1_0_in_rule__PackageDeclaration__NameAssignment_131841 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAbstractPojoEntity_in_rule__PackageDeclaration__ElementsAssignment_331874 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_rule__Import__ImportedNamespaceAssignment_131905 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_65_in_rule__PojoEntity__AbstractAssignment_131941 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoEntity__NameAssignment_231980 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoEntity__SuperTypeAssignment_3_132015 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePojoProperty_in_rule__PojoEntity__FeaturesAssignment_532050 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoProperty__NameAssignment_032081 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojoProperty__NativeAlternatives_1_0_0_in_rule__PojoProperty__NativeAssignment_1_032112 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoProperty__RefAssignment_1_1_0_1_0_132149 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PojoProperty__TypeAssignment_1_1_0_1_132188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoProperty__GrefAssignment_1_1_1_1_0_132227 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PojoProperty__GtypeAssignment_1_1_1_1_132266 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group__1__Impl_in_rule__PojoProperty__Group__126754 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group__2_in_rule__PojoProperty__Group__126757 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Alternatives_1_in_rule__PojoProperty__Group__1__Impl26784 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group__2__Impl_in_rule__PojoProperty__Group__226814 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__RequiredAssignment_2_in_rule__PojoProperty__Group__2__Impl26841 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1__0__Impl_in_rule__PojoProperty__Group_1_1__026878 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1__1_in_rule__PojoProperty__Group_1_1__026881 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0__0_in_rule__PojoProperty__Group_1_1__0__Impl26908 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1__1__Impl_in_rule__PojoProperty__Group_1_1__126938 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1__0_in_rule__PojoProperty__Group_1_1__1__Impl26965 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0__0__Impl_in_rule__PojoProperty__Group_1_1_0__027000 = new BitSet(new long[]{0x0000000000000160L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0__1_in_rule__PojoProperty__Group_1_1_0__027003 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_COLON_in_rule__PojoProperty__Group_1_1_0__0__Impl27030 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0__1__Impl_in_rule__PojoProperty__Group_1_1_0__127059 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Alternatives_1_1_0_1_in_rule__PojoProperty__Group_1_1_0__1__Impl27086 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0_1_0__0__Impl_in_rule__PojoProperty__Group_1_1_0_1_0__027120 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0_1_0__1_in_rule__PojoProperty__Group_1_1_0_1_0__027123 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_COLON_in_rule__PojoProperty__Group_1_1_0_1_0__0__Impl27150 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_0_1_0__1__Impl_in_rule__PojoProperty__Group_1_1_0_1_0__127179 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__RefAssignment_1_1_0_1_0_1_in_rule__PojoProperty__Group_1_1_0_1_0__1__Impl27206 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1__0__Impl_in_rule__PojoProperty__Group_1_1_1__027240 = new BitSet(new long[]{0x0000000000000160L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1__1_in_rule__PojoProperty__Group_1_1_1__027243 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_LESS_THAN_in_rule__PojoProperty__Group_1_1_1__0__Impl27270 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1__1__Impl_in_rule__PojoProperty__Group_1_1_1__127299 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1__2_in_rule__PojoProperty__Group_1_1_1__127302 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Alternatives_1_1_1_1_in_rule__PojoProperty__Group_1_1_1__1__Impl27329 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1__2__Impl_in_rule__PojoProperty__Group_1_1_1__227359 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_MORE_THAN_in_rule__PojoProperty__Group_1_1_1__2__Impl27386 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1_1_0__0__Impl_in_rule__PojoProperty__Group_1_1_1_1_0__027421 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1_1_0__1_in_rule__PojoProperty__Group_1_1_1_1_0__027424 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_COLON_in_rule__PojoProperty__Group_1_1_1_1_0__0__Impl27451 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__Group_1_1_1_1_0__1__Impl_in_rule__PojoProperty__Group_1_1_1_1_0__127480 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__GrefAssignment_1_1_1_1_0_1_in_rule__PojoProperty__Group_1_1_1_1_0__1__Impl27507 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedNameWithWildcard__Group__0__Impl_in_rule__QualifiedNameWithWildcard__Group__027541 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_rule__QualifiedNameWithWildcard__Group__1_in_rule__QualifiedNameWithWildcard__Group__027544 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__QualifiedNameWithWildcard__Group__0__Impl27571 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedNameWithWildcard__Group__1__Impl_in_rule__QualifiedNameWithWildcard__Group__127600 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_57_in_rule__QualifiedNameWithWildcard__Group__1__Impl27629 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOptionalFeature_in_rule__Artifacts__FeaturesAssignment_1_0_027671 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetaStatement_in_rule__Artifacts__StatementsAssignment_1_1_027702 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMappingRule_in_rule__Artifacts__MappingsAssignment_1_2_027733 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePojoDefinition_in_rule__Artifacts__PojosAssignment_1_3_027764 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePojoUsage_in_rule__Artifacts__UsagesAssignment_1_4_027795 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleProperty_in_rule__Artifacts__PropertiesAssignment_1_5_027826 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTableDefinition_in_rule__Artifacts__TablesAssignment_1_6_027857 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTableUsage_in_rule__Artifacts__TableUsagesAssignment_1_7_027888 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePackageDeclaration_in_rule__Artifacts__PojoPackagesAssignment_1_8_027919 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_58_in_rule__Property__NameAssignment_0_0_027955 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolvePojoAssignment_0_0_227994 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_59_in_rule__Property__NameAssignment_0_1_028030 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ON_OFF_in_rule__Property__DoResolveDbAssignment_0_1_228069 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_60_in_rule__Property__NameAssignment_0_2_028105 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbUrlAssignment_0_2_228144 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_61_in_rule__Property__NameAssignment_0_3_028180 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbUsernameAssignment_0_3_228219 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_62_in_rule__Property__NameAssignment_0_4_028255 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbPasswordAssignment_0_4_228294 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_63_in_rule__Property__NameAssignment_0_5_028330 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbSchemaAssignment_0_5_228369 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_64_in_rule__Property__NameAssignment_0_6_028405 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePropertyValue_in_rule__Property__DbDriverAssignment_0_6_228444 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoDefinition__NameAssignment_128475 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoDefinition__ClassAlternatives_2_0_in_rule__PojoDefinition__ClassAssignment_228506 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ColumnUsage__StatementAssignment_128543 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ColumnUsage__PojoAssignment_228582 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__StatementAssignment_128621 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__IdentifierUsage__PojoAssignment_228660 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ConstantUsage__StatementAssignment_128699 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__ConstantUsage__PojoAssignment_228738 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingUsage__StatementAssignment_128777 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingUsage__PojoAssignment_228816 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableDefinition__NameAssignment_128851 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableDefinition__TableAssignment_228882 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableUsage__StatementAssignment_128917 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableUsage__TableAssignment_228956 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__TableUsage__PrefixAssignment_3_128991 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MetaStatement__NameAssignment_029022 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STATEMEN_TYPE_in_rule__MetaStatement__TypeAssignment_229053 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MetaStatement__FiltersAssignment_3_129084 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSql_in_rule__MetaStatement__StatementAssignment_629115 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSqlFragment_in_rule__Sql__SqlsAssignment29146 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSqlValue_in_rule__SqlFragment__ValueAssignment_029177 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleColumn_in_rule__SqlFragment__ColAssignment_1_129208 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConstant_in_rule__SqlFragment__CnstAssignment_2_129239 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIdentifier_in_rule__SqlFragment__IdentAssignment_3_129270 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetaSql_in_rule__SqlFragment__MetaAssignment_4_129301 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDatabaseTable_in_rule__SqlFragment__DbtabAssignment_5_1_0_129332 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDatabaseColumn_in_rule__SqlFragment__DbcolAssignment_5_1_129363 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_129394 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_0_2_129425 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_QUESTI_in_rule__MetaSql__TypeAssignment_1_029456 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlCond_in_rule__MetaSql__CondAssignment_1_129487 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_329518 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_1_4_129549 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_BAND_in_rule__MetaSql__TypeAssignment_2_029580 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_129611 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_2_2_129642 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_BOR_in_rule__MetaSql__TypeAssignment_3_029673 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_129704 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_3_2_129735 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_EQUALS_in_rule__MetaSql__TypeAssignment_4_029766 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MetaSql__FtypeAssignment_4_229797 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__MetaSql__IfsAssignment_4_329828 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_HASH_in_rule__MetaSql__TypeAssignment_5_029859 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOrdSql_in_rule__MetaSql__OrdAssignment_5_229890 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlFragment_in_rule__IfSql__SqlsAssignment29921 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlValue_in_rule__IfSqlFragment__ValueAssignment_029952 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleColumn_in_rule__IfSqlFragment__ColAssignment_1_129983 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConstant_in_rule__IfSqlFragment__CnstAssignment_2_130014 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIdentifier_in_rule__IfSqlFragment__IdentAssignment_3_130045 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDatabaseTable_in_rule__IfSqlFragment__DbtabAssignment_4_1_0_130076 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDatabaseColumn_in_rule__IfSqlFragment__DbcolAssignment_4_1_130107 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfMetaSql_in_rule__IfSqlFragment__MetaAssignment_5_130138 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_130169 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_0_2_130200 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_QUESTI_in_rule__IfMetaSql__TypeAssignment_1_030231 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlCond_in_rule__IfMetaSql__CondAssignment_1_130262 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_330293 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_1_4_130324 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_BAND_in_rule__IfMetaSql__TypeAssignment_2_030355 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_130386 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_2_2_130417 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_BOR_in_rule__IfMetaSql__TypeAssignment_3_030448 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_130479 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSql_in_rule__IfMetaSql__IfsAssignment_3_2_130510 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool1Assignment_130541 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__IfSqlCond__OperAlternatives_3_0_0_in_rule__IfSqlCond__OperAssignment_3_030572 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlBool_in_rule__IfSqlCond__Bool2Assignment_3_230605 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_0_030636 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConstant_in_rule__IfSqlBool__CnstAssignment_0_230667 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_1_030698 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIdentifier_in_rule__IfSqlBool__IdentAssignment_1_230729 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_NOT_in_rule__IfSqlBool__NotAssignment_2_030760 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIfSqlCond_in_rule__IfSqlBool__CondAssignment_2_230791 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOrdSql2_in_rule__OrdSql__SqlsAssignment30822 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOrdSqlValue_in_rule__OrdSql2__ValueAssignment_030853 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleConstant_in_rule__OrdSql2__CnstAssignment_1_130884 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIdentifier_in_rule__OrdSql2__IdentAssignment_2_130915 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDatabaseColumn_in_rule__OrdSql2__DbcolAssignment_3_130946 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Column__NameAlternatives_0_0_in_rule__Column__NameAssignment_030977 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__Column__TypeAssignment_1_131010 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Column__ValsAlternatives_1_2_1_0_in_rule__Column__ValsAssignment_1_2_131041 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__CaseAlternatives_0_0_in_rule__Constant__CaseAssignment_031074 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__NameAlternatives_1_0_in_rule__Constant__NameAssignment_131107 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__Constant__TypeAssignment_2_131140 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Constant__ValsAlternatives_2_2_1_0_in_rule__Constant__ValsAssignment_2_2_131171 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__ModeAlternatives_0_0_in_rule__Identifier__ModeAssignment_031204 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__CaseAlternatives_1_0_in_rule__Identifier__CaseAssignment_131237 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__NameAlternatives_2_0_in_rule__Identifier__NameAssignment_231270 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__Identifier__TypeAssignment_3_131303 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Identifier__ValsAlternatives_3_2_1_0_in_rule__Identifier__ValsAssignment_3_2_131334 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DatabaseColumn__NameAlternatives_0_in_rule__DatabaseColumn__NameAssignment31367 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DatabaseTable__NameAlternatives_0_in_rule__DatabaseTable__NameAssignment31400 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingRule__NameAssignment_031433 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_MAPPING_TYPE_in_rule__MappingRule__TypeAssignment_231464 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingRule__FiltersAssignment_3_131495 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMapping_in_rule__MappingRule__MappingAssignment_631526 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_131557 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMappingItem_in_rule__Mapping__MappingItemsAssignment_2_131588 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingItem__ColAlternatives_0_0_in_rule__MappingItem__ColAssignment_031619 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__MappingItem__TypeAssignment_1_131652 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMappingColumn_in_rule__MappingItem__AttrAssignment_1_2_131683 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingColumn__NameAlternatives_0_0_in_rule__MappingColumn__NameAssignment_031714 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__MappingColumn__ValsAlternatives_1_1_0_in_rule__MappingColumn__ValsAssignment_1_131747 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__OptionalFeature__NameAssignment_031780 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_OPTION_TYPE_in_rule__OptionalFeature__TypeAssignment_231811 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__OptionalFeature__FiltersAssignment_3_131842 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFeatureValue_in_rule__OptionalFeature__OptionAssignment_631873 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PackageDeclaration__NameAlternatives_1_0_in_rule__PackageDeclaration__NameAssignment_131904 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAbstractPojoEntity_in_rule__PackageDeclaration__ElementsAssignment_331937 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_rule__Import__ImportedNamespaceAssignment_131968 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_65_in_rule__PojoEntity__AbstractAssignment_132004 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoEntity__NameAssignment_232043 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoEntity__SuperTypeAssignment_3_132078 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePojoProperty_in_rule__PojoEntity__FeaturesAssignment_532113 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoProperty__NameAssignment_032144 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojoProperty__NativeAlternatives_1_0_0_in_rule__PojoProperty__NativeAssignment_1_032175 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoProperty__RefAssignment_1_1_0_1_0_132212 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PojoProperty__TypeAssignment_1_1_0_1_132251 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojoProperty__GrefAssignment_1_1_1_1_0_132290 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PojoProperty__GtypeAssignment_1_1_1_1_132329 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_66_in_rule__PojoProperty__RequiredAssignment_232369 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__SqlValue__Group_1__0_in_synpred350_InternalProcessorDsl16138 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__IfSqlValue__Group_1__0_in_synpred356_InternalProcessorDsl18867 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__OrdSqlValue__Group_1__0_in_synpred369_InternalProcessorDsl21855 = new BitSet(new long[]{0x0000000000000002L});

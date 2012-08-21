@@ -1758,13 +1758,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_PROPERTY__GTYPE = 5;
 
   /**
+   * The feature id for the '<em><b>Required</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_PROPERTY__REQUIRED = 6;
+
+  /**
    * The number of structural features of the '<em>Pojo Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY_FEATURE_COUNT = 6;
+  int POJO_PROPERTY_FEATURE_COUNT = 7;
 
 
   /**
@@ -3338,6 +3347,17 @@ public interface ProcessorDslPackage extends EPackage
   EReference getPojoProperty_Gtype();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoProperty#isRequired <em>Required</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Required</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoProperty#isRequired()
+   * @see #getPojoProperty()
+   * @generated
+   */
+  EAttribute getPojoProperty_Required();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4599,6 +4619,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EReference POJO_PROPERTY__GTYPE = eINSTANCE.getPojoProperty_Gtype();
+
+    /**
+     * The meta object literal for the '<em><b>Required</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_PROPERTY__REQUIRED = eINSTANCE.getPojoProperty_Required();
 
   }
 

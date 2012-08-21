@@ -29,6 +29,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getGref <em>Gref</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getGtype <em>Gtype</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#isRequired <em>Required</em>}</li>
  * </ul>
  * </p>
  *
@@ -115,6 +116,26 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
    * @ordered
    */
   protected JvmType gtype;
+
+  /**
+   * The default value of the '{@link #isRequired() <em>Required</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isRequired()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean REQUIRED_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isRequired() <em>Required</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isRequired()
+   * @generated
+   * @ordered
+   */
+  protected boolean required = REQUIRED_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -360,6 +381,29 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isRequired()
+  {
+    return required;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRequired(boolean newRequired)
+  {
+    boolean oldRequired = required;
+    required = newRequired;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_PROPERTY__REQUIRED, oldRequired, required));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -381,6 +425,8 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
       case ProcessorDslPackage.POJO_PROPERTY__GTYPE:
         if (resolve) return getGtype();
         return basicGetGtype();
+      case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
+        return isRequired();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -412,6 +458,9 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
         return;
       case ProcessorDslPackage.POJO_PROPERTY__GTYPE:
         setGtype((JvmType)newValue);
+        return;
+      case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
+        setRequired((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -445,6 +494,9 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
       case ProcessorDslPackage.POJO_PROPERTY__GTYPE:
         setGtype((JvmType)null);
         return;
+      case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
+        setRequired(REQUIRED_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -471,6 +523,8 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
         return gref != null;
       case ProcessorDslPackage.POJO_PROPERTY__GTYPE:
         return gtype != null;
+      case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
+        return required != REQUIRED_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -490,6 +544,8 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
     result.append(name);
     result.append(", native: ");
     result.append(native_);
+    result.append(", required: ");
+    result.append(required);
     result.append(')');
     return result.toString();
   }

@@ -1717,6 +1717,9 @@
           </elements>
         </elements>
       </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="required" operator="?=">
+        <terminal xsi:type="xtext:Keyword" value="required"/>
+      </elements>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="QualifiedNameWithWildcard">

@@ -218,6 +218,7 @@ PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 	name=IDENT (native = ('_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') | 
 	(COLON (COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName]))
 	(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?)
+	(required?='required')? 
 ;
 
 QualifiedNameWithWildcard:
