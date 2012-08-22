@@ -14,16 +14,20 @@ import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.ColumnUsage;
+import org.sqlproc.dsl.processorDsl.ColumnUsageExt;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
+import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
+import org.sqlproc.dsl.processorDsl.IdentifierUsageExt;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
+import org.sqlproc.dsl.processorDsl.MappingUsageExt;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
@@ -137,6 +141,34 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 PojoDefinition pojo = usage.getPojo();
                 if (rule != null && pojo != null)
                     provideHighlightingForPojo(rule.getName(), pojo.getName(), node, acceptor);
+            } else if (current instanceof ColumnUsageExt) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                ColumnUsageExt usage = (ColumnUsageExt) current;
+                MetaStatement statement = usage.getStatement();
+                PojoEntity pojo = usage.getPojo();
+                if (statement != null && pojo != null)
+                    provideHighlightingForPojoExt(statement.getName(), pojo.getName(), node, acceptor);
+            } else if (current instanceof IdentifierUsageExt) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                IdentifierUsageExt usage = (IdentifierUsageExt) current;
+                MetaStatement statement = usage.getStatement();
+                PojoEntity pojo = usage.getPojo();
+                if (statement != null && pojo != null)
+                    provideHighlightingForPojoExt(statement.getName(), pojo.getName(), node, acceptor);
+            } else if (current instanceof ConstantUsageExt) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                ConstantUsageExt usage = (ConstantUsageExt) current;
+                MetaStatement statement = usage.getStatement();
+                PojoEntity pojo = usage.getPojo();
+                if (statement != null && pojo != null)
+                    provideHighlightingForPojoExt(statement.getName(), pojo.getName(), node, acceptor);
+            } else if (current instanceof MappingUsageExt) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                MappingUsageExt usage = (MappingUsageExt) current;
+                MappingRule rule = usage.getStatement();
+                PojoEntity pojo = usage.getPojo();
+                if (rule != null && pojo != null)
+                    provideHighlightingForPojoExt(rule.getName(), pojo.getName(), node, acceptor);
             } else if (current instanceof TableDefinition) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 TableDefinition table = (TableDefinition) current;
@@ -200,6 +232,25 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
             }
             if (pojo != null && pojo.contains(inode.getText())) {
                 acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.IDENTIFIER);
+                return;
+            }
+        }
+    }
+
+    private void provideHighlightingForPojoExt(String name, String pojo, ICompositeNode node,
+            IHighlightedPositionAcceptor acceptor) {
+        if (name == null && pojo == null)
+            return;
+        Iterator<INode> iterator = new NodeTreeIterator(node);
+        while (iterator.hasNext()) {
+            INode inode = iterator.next();
+            if (name != null && name.contains(inode.getText())) {
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.NAME);
+                if (pojo == null)
+                    return;
+            }
+            if (pojo != null && pojo.contains(inode.getText())) {
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.ENTITY_NAME);
                 return;
             }
         }

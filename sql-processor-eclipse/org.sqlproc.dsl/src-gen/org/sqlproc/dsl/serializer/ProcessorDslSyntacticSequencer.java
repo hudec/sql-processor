@@ -27,6 +27,7 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_Artifacts_WSTerminalRuleCall_1_6_1_a;
 	protected AbstractElementAlias match_Artifacts_WSTerminalRuleCall_1_7_1_a;
 	protected AbstractElementAlias match_Artifacts_WSTerminalRuleCall_1_8_1_a;
+	protected AbstractElementAlias match_Artifacts_WSTerminalRuleCall_1_9_1_a;
 	protected AbstractElementAlias match_Column_CARETTerminalRuleCall_1_0_q;
 	protected AbstractElementAlias match_Constant_CARETTerminalRuleCall_2_0_q;
 	protected AbstractElementAlias match_Identifier_CARETTerminalRuleCall_3_0_q;
@@ -60,6 +61,7 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_Artifacts_WSTerminalRuleCall_1_6_1_a = new TokenAlias(true, true, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_6_1());
 		match_Artifacts_WSTerminalRuleCall_1_7_1_a = new TokenAlias(true, true, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_7_1());
 		match_Artifacts_WSTerminalRuleCall_1_8_1_a = new TokenAlias(true, true, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_8_1());
+		match_Artifacts_WSTerminalRuleCall_1_9_1_a = new TokenAlias(true, true, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_9_1());
 		match_Column_CARETTerminalRuleCall_1_0_q = new TokenAlias(false, true, grammarAccess.getColumnAccess().getCARETTerminalRuleCall_1_0());
 		match_Constant_CARETTerminalRuleCall_2_0_q = new TokenAlias(false, true, grammarAccess.getConstantAccess().getCARETTerminalRuleCall_2_0());
 		match_Identifier_CARETTerminalRuleCall_3_0_q = new TokenAlias(false, true, grammarAccess.getIdentifierAccess().getCARETTerminalRuleCall_3_0());
@@ -310,6 +312,8 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_Artifacts_WSTerminalRuleCall_1_7_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Artifacts_WSTerminalRuleCall_1_8_1_a.equals(syntax))
 				emit_Artifacts_WSTerminalRuleCall_1_8_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Artifacts_WSTerminalRuleCall_1_9_1_a.equals(syntax))
+				emit_Artifacts_WSTerminalRuleCall_1_9_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Column_CARETTerminalRuleCall_1_0_q.equals(syntax))
 				emit_Column_CARETTerminalRuleCall_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Constant_CARETTerminalRuleCall_2_0_q.equals(syntax))
@@ -429,6 +433,14 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     WS*
 	 */
 	protected void emit_Artifacts_WSTerminalRuleCall_1_8_1_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     WS*
+	 */
+	protected void emit_Artifacts_WSTerminalRuleCall_1_9_1_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

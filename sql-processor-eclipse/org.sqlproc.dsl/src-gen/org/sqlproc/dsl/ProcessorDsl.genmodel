@@ -17,6 +17,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Artifacts/tables"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Artifacts/tableUsages"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Artifacts/pojoPackages"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Artifacts/usagesExt"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//Property">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Property/name"/>
@@ -46,6 +47,21 @@
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//MappingUsage">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//MappingUsage/statement"/>
+    </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//PojoUsageExt">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//PojoUsageExt/pojo"/>
+    </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//ColumnUsageExt">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//ColumnUsageExt/statement"/>
+    </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//IdentifierUsageExt">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//IdentifierUsageExt/statement"/>
+    </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//ConstantUsageExt">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//ConstantUsageExt/statement"/>
+    </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//MappingUsageExt">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//MappingUsageExt/statement"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//TableDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//TableDefinition/name"/>

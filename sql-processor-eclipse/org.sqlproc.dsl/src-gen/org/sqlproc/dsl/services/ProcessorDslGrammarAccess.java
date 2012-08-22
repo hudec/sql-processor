@@ -59,16 +59,20 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cPojoPackagesAssignment_1_8_0 = (Assignment)cGroup_1_8.eContents().get(0);
 		private final RuleCall cPojoPackagesPackageDeclarationParserRuleCall_1_8_0_0 = (RuleCall)cPojoPackagesAssignment_1_8_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_1_8_1 = (RuleCall)cGroup_1_8.eContents().get(1);
+		private final Group cGroup_1_9 = (Group)cAlternatives_1.eContents().get(9);
+		private final Assignment cUsagesExtAssignment_1_9_0 = (Assignment)cGroup_1_9.eContents().get(0);
+		private final RuleCall cUsagesExtPojoUsageExtParserRuleCall_1_9_0_0 = (RuleCall)cUsagesExtAssignment_1_9_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_1_9_1 = (RuleCall)cGroup_1_9.eContents().get(1);
 		
 		//Artifacts:
 		//	WS* (features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS* | pojos+=PojoDefinition
 		//	WS* | usages+=PojoUsage WS* | properties+=Property WS* | tables+=TableDefinition WS* | tableUsages+=TableUsage WS* |
-		//	pojoPackages+=PackageDeclaration WS*)+;
+		//	pojoPackages+=PackageDeclaration WS* | usagesExt+=PojoUsageExt WS*)+;
 		public ParserRule getRule() { return rule; }
 
 		//WS* (features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS* | pojos+=PojoDefinition
 		//WS* | usages+=PojoUsage WS* | properties+=Property WS* | tables+=TableDefinition WS* | tableUsages+=TableUsage WS* |
-		//pojoPackages+=PackageDeclaration WS*)+
+		//pojoPackages+=PackageDeclaration WS* | usagesExt+=PojoUsageExt WS*)+
 		public Group getGroup() { return cGroup; }
 
 		//WS*
@@ -76,7 +80,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//(features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS* | pojos+=PojoDefinition WS* |
 		//usages+=PojoUsage WS* | properties+=Property WS* | tables+=TableDefinition WS* | tableUsages+=TableUsage WS* |
-		//pojoPackages+=PackageDeclaration WS*)+
+		//pojoPackages+=PackageDeclaration WS* | usagesExt+=PojoUsageExt WS*)+
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//features+=OptionalFeature WS*
@@ -186,6 +190,18 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//WS*
 		public RuleCall getWSTerminalRuleCall_1_8_1() { return cWSTerminalRuleCall_1_8_1; }
+
+		//usagesExt+=PojoUsageExt WS*
+		public Group getGroup_1_9() { return cGroup_1_9; }
+
+		//usagesExt+=PojoUsageExt
+		public Assignment getUsagesExtAssignment_1_9_0() { return cUsagesExtAssignment_1_9_0; }
+
+		//PojoUsageExt
+		public RuleCall getUsagesExtPojoUsageExtParserRuleCall_1_9_0_0() { return cUsagesExtPojoUsageExtParserRuleCall_1_9_0_0; }
+
+		//WS*
+		public RuleCall getWSTerminalRuleCall_1_9_1() { return cWSTerminalRuleCall_1_9_1; }
 	}
 
 	public class PropertyElements extends AbstractParserRuleElementFinder {
@@ -918,6 +934,210 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//IDENT
 		public RuleCall getPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1() { return cPojoPojoDefinitionIDENTTerminalRuleCall_2_0_1; }
+
+		//SEMICOLON
+		public RuleCall getSEMICOLONTerminalRuleCall_3() { return cSEMICOLONTerminalRuleCall_3; }
+	}
+
+	public class PojoUsageExtElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PojoUsageExt");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cColumnUsageExtParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cIdentifierUsageExtParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cConstantUsageExtParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cMappingUsageExtParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		
+		//PojoUsageExt:
+		//	ColumnUsageExt | IdentifierUsageExt | ConstantUsageExt | MappingUsageExt;
+		public ParserRule getRule() { return rule; }
+
+		//ColumnUsageExt | IdentifierUsageExt | ConstantUsageExt | MappingUsageExt
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//ColumnUsageExt
+		public RuleCall getColumnUsageExtParserRuleCall_0() { return cColumnUsageExtParserRuleCall_0; }
+
+		//IdentifierUsageExt
+		public RuleCall getIdentifierUsageExtParserRuleCall_1() { return cIdentifierUsageExtParserRuleCall_1; }
+
+		//ConstantUsageExt
+		public RuleCall getConstantUsageExtParserRuleCall_2() { return cConstantUsageExtParserRuleCall_2; }
+
+		//MappingUsageExt
+		public RuleCall getMappingUsageExtParserRuleCall_3() { return cMappingUsageExtParserRuleCall_3; }
+	}
+
+	public class ColumnUsageExtElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ColumnUsageExt");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cColxKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cStatementAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cStatementMetaStatementCrossReference_1_0 = (CrossReference)cStatementAssignment_1.eContents().get(0);
+		private final RuleCall cStatementMetaStatementIDENTTerminalRuleCall_1_0_1 = (RuleCall)cStatementMetaStatementCrossReference_1_0.eContents().get(1);
+		private final Assignment cPojoAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cPojoPojoEntityCrossReference_2_0 = (CrossReference)cPojoAssignment_2.eContents().get(0);
+		private final RuleCall cPojoPojoEntityIDENTTerminalRuleCall_2_0_1 = (RuleCall)cPojoPojoEntityCrossReference_2_0.eContents().get(1);
+		private final RuleCall cSEMICOLONTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		
+		//ColumnUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
+		//	"colx" statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
+		public ParserRule getRule() { return rule; }
+
+		//"colx" statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON
+		public Group getGroup() { return cGroup; }
+
+		//"colx"
+		public Keyword getColxKeyword_0() { return cColxKeyword_0; }
+
+		//statement=[MetaStatement|IDENT]
+		public Assignment getStatementAssignment_1() { return cStatementAssignment_1; }
+
+		//[MetaStatement|IDENT]
+		public CrossReference getStatementMetaStatementCrossReference_1_0() { return cStatementMetaStatementCrossReference_1_0; }
+
+		//IDENT
+		public RuleCall getStatementMetaStatementIDENTTerminalRuleCall_1_0_1() { return cStatementMetaStatementIDENTTerminalRuleCall_1_0_1; }
+
+		//pojo=[PojoEntity|IDENT]
+		public Assignment getPojoAssignment_2() { return cPojoAssignment_2; }
+
+		//[PojoEntity|IDENT]
+		public CrossReference getPojoPojoEntityCrossReference_2_0() { return cPojoPojoEntityCrossReference_2_0; }
+
+		//IDENT
+		public RuleCall getPojoPojoEntityIDENTTerminalRuleCall_2_0_1() { return cPojoPojoEntityIDENTTerminalRuleCall_2_0_1; }
+
+		//SEMICOLON
+		public RuleCall getSEMICOLONTerminalRuleCall_3() { return cSEMICOLONTerminalRuleCall_3; }
+	}
+
+	public class IdentifierUsageExtElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "IdentifierUsageExt");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cIdentxKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cStatementAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cStatementMetaStatementCrossReference_1_0 = (CrossReference)cStatementAssignment_1.eContents().get(0);
+		private final RuleCall cStatementMetaStatementIDENTTerminalRuleCall_1_0_1 = (RuleCall)cStatementMetaStatementCrossReference_1_0.eContents().get(1);
+		private final Assignment cPojoAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cPojoPojoEntityCrossReference_2_0 = (CrossReference)cPojoAssignment_2.eContents().get(0);
+		private final RuleCall cPojoPojoEntityIDENTTerminalRuleCall_2_0_1 = (RuleCall)cPojoPojoEntityCrossReference_2_0.eContents().get(1);
+		private final RuleCall cSEMICOLONTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		
+		//IdentifierUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
+		//	"identx" statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
+		public ParserRule getRule() { return rule; }
+
+		//"identx" statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON
+		public Group getGroup() { return cGroup; }
+
+		//"identx"
+		public Keyword getIdentxKeyword_0() { return cIdentxKeyword_0; }
+
+		//statement=[MetaStatement|IDENT]
+		public Assignment getStatementAssignment_1() { return cStatementAssignment_1; }
+
+		//[MetaStatement|IDENT]
+		public CrossReference getStatementMetaStatementCrossReference_1_0() { return cStatementMetaStatementCrossReference_1_0; }
+
+		//IDENT
+		public RuleCall getStatementMetaStatementIDENTTerminalRuleCall_1_0_1() { return cStatementMetaStatementIDENTTerminalRuleCall_1_0_1; }
+
+		//pojo=[PojoEntity|IDENT]
+		public Assignment getPojoAssignment_2() { return cPojoAssignment_2; }
+
+		//[PojoEntity|IDENT]
+		public CrossReference getPojoPojoEntityCrossReference_2_0() { return cPojoPojoEntityCrossReference_2_0; }
+
+		//IDENT
+		public RuleCall getPojoPojoEntityIDENTTerminalRuleCall_2_0_1() { return cPojoPojoEntityIDENTTerminalRuleCall_2_0_1; }
+
+		//SEMICOLON
+		public RuleCall getSEMICOLONTerminalRuleCall_3() { return cSEMICOLONTerminalRuleCall_3; }
+	}
+
+	public class ConstantUsageExtElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConstantUsageExt");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cConstxKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cStatementAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cStatementMetaStatementCrossReference_1_0 = (CrossReference)cStatementAssignment_1.eContents().get(0);
+		private final RuleCall cStatementMetaStatementIDENTTerminalRuleCall_1_0_1 = (RuleCall)cStatementMetaStatementCrossReference_1_0.eContents().get(1);
+		private final Assignment cPojoAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cPojoPojoEntityCrossReference_2_0 = (CrossReference)cPojoAssignment_2.eContents().get(0);
+		private final RuleCall cPojoPojoEntityIDENTTerminalRuleCall_2_0_1 = (RuleCall)cPojoPojoEntityCrossReference_2_0.eContents().get(1);
+		private final RuleCall cSEMICOLONTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		
+		//ConstantUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
+		//	"constx" statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
+		public ParserRule getRule() { return rule; }
+
+		//"constx" statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON
+		public Group getGroup() { return cGroup; }
+
+		//"constx"
+		public Keyword getConstxKeyword_0() { return cConstxKeyword_0; }
+
+		//statement=[MetaStatement|IDENT]
+		public Assignment getStatementAssignment_1() { return cStatementAssignment_1; }
+
+		//[MetaStatement|IDENT]
+		public CrossReference getStatementMetaStatementCrossReference_1_0() { return cStatementMetaStatementCrossReference_1_0; }
+
+		//IDENT
+		public RuleCall getStatementMetaStatementIDENTTerminalRuleCall_1_0_1() { return cStatementMetaStatementIDENTTerminalRuleCall_1_0_1; }
+
+		//pojo=[PojoEntity|IDENT]
+		public Assignment getPojoAssignment_2() { return cPojoAssignment_2; }
+
+		//[PojoEntity|IDENT]
+		public CrossReference getPojoPojoEntityCrossReference_2_0() { return cPojoPojoEntityCrossReference_2_0; }
+
+		//IDENT
+		public RuleCall getPojoPojoEntityIDENTTerminalRuleCall_2_0_1() { return cPojoPojoEntityIDENTTerminalRuleCall_2_0_1; }
+
+		//SEMICOLON
+		public RuleCall getSEMICOLONTerminalRuleCall_3() { return cSEMICOLONTerminalRuleCall_3; }
+	}
+
+	public class MappingUsageExtElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MappingUsageExt");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cOutxKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cStatementAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cStatementMappingRuleCrossReference_1_0 = (CrossReference)cStatementAssignment_1.eContents().get(0);
+		private final RuleCall cStatementMappingRuleIDENTTerminalRuleCall_1_0_1 = (RuleCall)cStatementMappingRuleCrossReference_1_0.eContents().get(1);
+		private final Assignment cPojoAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cPojoPojoEntityCrossReference_2_0 = (CrossReference)cPojoAssignment_2.eContents().get(0);
+		private final RuleCall cPojoPojoEntityIDENTTerminalRuleCall_2_0_1 = (RuleCall)cPojoPojoEntityCrossReference_2_0.eContents().get(1);
+		private final RuleCall cSEMICOLONTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		
+		//MappingUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
+		//	"outx" statement=[MappingRule|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
+		public ParserRule getRule() { return rule; }
+
+		//"outx" statement=[MappingRule|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON
+		public Group getGroup() { return cGroup; }
+
+		//"outx"
+		public Keyword getOutxKeyword_0() { return cOutxKeyword_0; }
+
+		//statement=[MappingRule|IDENT]
+		public Assignment getStatementAssignment_1() { return cStatementAssignment_1; }
+
+		//[MappingRule|IDENT]
+		public CrossReference getStatementMappingRuleCrossReference_1_0() { return cStatementMappingRuleCrossReference_1_0; }
+
+		//IDENT
+		public RuleCall getStatementMappingRuleIDENTTerminalRuleCall_1_0_1() { return cStatementMappingRuleIDENTTerminalRuleCall_1_0_1; }
+
+		//pojo=[PojoEntity|IDENT]
+		public Assignment getPojoAssignment_2() { return cPojoAssignment_2; }
+
+		//[PojoEntity|IDENT]
+		public CrossReference getPojoPojoEntityCrossReference_2_0() { return cPojoPojoEntityCrossReference_2_0; }
+
+		//IDENT
+		public RuleCall getPojoPojoEntityIDENTTerminalRuleCall_2_0_1() { return cPojoPojoEntityIDENTTerminalRuleCall_2_0_1; }
 
 		//SEMICOLON
 		public RuleCall getSEMICOLONTerminalRuleCall_3() { return cSEMICOLONTerminalRuleCall_3; }
@@ -3906,6 +4126,11 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private IdentifierUsageElements pIdentifierUsage;
 	private ConstantUsageElements pConstantUsage;
 	private MappingUsageElements pMappingUsage;
+	private PojoUsageExtElements pPojoUsageExt;
+	private ColumnUsageExtElements pColumnUsageExt;
+	private IdentifierUsageExtElements pIdentifierUsageExt;
+	private ConstantUsageExtElements pConstantUsageExt;
+	private MappingUsageExtElements pMappingUsageExt;
 	private TableDefinitionElements pTableDefinition;
 	private TableUsageElements pTableUsage;
 	private MetaStatementElements pMetaStatement;
@@ -4009,7 +4234,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//Artifacts:
 	//	WS* (features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS* | pojos+=PojoDefinition
 	//	WS* | usages+=PojoUsage WS* | properties+=Property WS* | tables+=TableDefinition WS* | tableUsages+=TableUsage WS* |
-	//	pojoPackages+=PackageDeclaration WS*)+;
+	//	pojoPackages+=PackageDeclaration WS* | usagesExt+=PojoUsageExt WS*)+;
 	public ArtifactsElements getArtifactsAccess() {
 		return (pArtifacts != null) ? pArtifacts : (pArtifacts = new ArtifactsElements());
 	}
@@ -4103,6 +4328,56 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getMappingUsageRule() {
 		return getMappingUsageAccess().getRule();
+	}
+
+	//PojoUsageExt:
+	//	ColumnUsageExt | IdentifierUsageExt | ConstantUsageExt | MappingUsageExt;
+	public PojoUsageExtElements getPojoUsageExtAccess() {
+		return (pPojoUsageExt != null) ? pPojoUsageExt : (pPojoUsageExt = new PojoUsageExtElements());
+	}
+	
+	public ParserRule getPojoUsageExtRule() {
+		return getPojoUsageExtAccess().getRule();
+	}
+
+	//ColumnUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
+	//	"colx" statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
+	public ColumnUsageExtElements getColumnUsageExtAccess() {
+		return (pColumnUsageExt != null) ? pColumnUsageExt : (pColumnUsageExt = new ColumnUsageExtElements());
+	}
+	
+	public ParserRule getColumnUsageExtRule() {
+		return getColumnUsageExtAccess().getRule();
+	}
+
+	//IdentifierUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
+	//	"identx" statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
+	public IdentifierUsageExtElements getIdentifierUsageExtAccess() {
+		return (pIdentifierUsageExt != null) ? pIdentifierUsageExt : (pIdentifierUsageExt = new IdentifierUsageExtElements());
+	}
+	
+	public ParserRule getIdentifierUsageExtRule() {
+		return getIdentifierUsageExtAccess().getRule();
+	}
+
+	//ConstantUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
+	//	"constx" statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
+	public ConstantUsageExtElements getConstantUsageExtAccess() {
+		return (pConstantUsageExt != null) ? pConstantUsageExt : (pConstantUsageExt = new ConstantUsageExtElements());
+	}
+	
+	public ParserRule getConstantUsageExtRule() {
+		return getConstantUsageExtAccess().getRule();
+	}
+
+	//MappingUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
+	//	"outx" statement=[MappingRule|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
+	public MappingUsageExtElements getMappingUsageExtAccess() {
+		return (pMappingUsageExt != null) ? pMappingUsageExt : (pMappingUsageExt = new MappingUsageExtElements());
+	}
+	
+	public ParserRule getMappingUsageExtRule() {
+		return getMappingUsageExtAccess().getRule();
 	}
 
 	//TableDefinition hidden(ML_COMMENT, SL_COMMENT, WS):

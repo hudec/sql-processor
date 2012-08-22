@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getTables <em>Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getTableUsages <em>Table Usages</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getPojoPackages <em>Pojo Packages</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getUsagesExt <em>Usages Ext</em>}</li>
  * </ul>
  * </p>
  *
@@ -175,5 +176,21 @@ public interface Artifacts extends EObject
    * @generated
    */
   EList<PackageDeclaration> getPojoPackages();
+
+  /**
+   * Returns the value of the '<em><b>Usages Ext</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.PojoUsageExt}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Usages Ext</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Usages Ext</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getArtifacts_UsagesExt()
+   * @model containment="true"
+   * @generated
+   */
+  EList<PojoUsageExt> getUsagesExt();
 
 } // Artifacts

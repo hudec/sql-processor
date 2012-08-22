@@ -21,6 +21,8 @@
         eType="#//TableUsage" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pojoPackages" upperBound="-1"
         eType="#//PackageDeclaration" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="usagesExt" upperBound="-1"
+        eType="#//PojoUsageExt" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Property">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -49,6 +51,21 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MetaStatement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MappingUsage" eSuperTypes="#//PojoUsage">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MappingRule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PojoUsageExt">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pojo" eType="#//PojoEntity"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ColumnUsageExt" eSuperTypes="#//PojoUsageExt">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MetaStatement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IdentifierUsageExt" eSuperTypes="#//PojoUsageExt">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MetaStatement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstantUsageExt" eSuperTypes="#//PojoUsageExt">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MetaStatement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MappingUsageExt" eSuperTypes="#//PojoUsageExt">
     <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MappingRule"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TableDefinition">
