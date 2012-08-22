@@ -20,7 +20,7 @@ Require-Bundle: org.sqlproc.dsl;visibility:=reexport,
 Import-Package: org.apache.log4j,
  org.eclipse.jdt.core,
  org.eclipse.jdt.launching
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.sqlproc.dsl.ui.contentassist,
  org.sqlproc.dsl.ui.contentassist.antlr,
  org.sqlproc.dsl.ui.internal
