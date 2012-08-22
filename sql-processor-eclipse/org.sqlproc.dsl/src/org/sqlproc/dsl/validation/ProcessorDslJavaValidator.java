@@ -745,9 +745,33 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     protected ValidationResult checkEntityProperty(PojoEntity entity, String property) {
         if (property == null || isNumber(property))
             return ValidationResult.OK;
+        String checkProperty = property;
+        int pos1 = checkProperty.indexOf('=');
+        if (pos1 > 0) {
+            int pos2 = checkProperty.indexOf('.', pos1);
+            if (pos2 > pos1)
+                checkProperty = checkProperty.substring(0, pos1) + checkProperty.substring(pos2);
+        }
+        String innerProperty = null;
+        pos1 = checkProperty.indexOf('.');
+        if (pos1 > 0) {
+            innerProperty = checkProperty.substring(pos1 + 1);
+            checkProperty = checkProperty.substring(0, pos1);
+        }
+
         for (PojoProperty pojoProperty : entity.getFeatures()) {
-            if (pojoProperty.getName().equals(property))
-                return ValidationResult.OK;
+            if (pojoProperty.getName().equals(checkProperty)) {
+                if (innerProperty == null)
+                    return ValidationResult.OK;
+                if (pojoProperty.getRef() != null)
+                    return checkEntityProperty(pojoProperty.getRef(), innerProperty);
+                if (pojoProperty.getGref() != null)
+                    return checkEntityProperty(pojoProperty.getGref(), innerProperty);
+                return ValidationResult.ERROR;
+            }
+        }
+        if (entity.getSuperType() != null) {
+            return checkEntityProperty(entity.getSuperType(), property);
         }
         return ValidationResult.ERROR;
     }
