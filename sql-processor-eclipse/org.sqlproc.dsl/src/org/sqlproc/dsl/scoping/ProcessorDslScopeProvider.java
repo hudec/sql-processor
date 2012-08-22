@@ -20,9 +20,7 @@ public class ProcessorDslScopeProvider extends AbstractDeclarativeScopeProvider 
     public IScope getScope(EObject context, EReference reference) {
         IScope scope = super.getScope(context, reference);
         // if (scope != null) {
-        // System.out.println("XXXXXXXXX " + context);
-        // System.out.println("XXXXXXXXX " + reference);
-        // System.out.println("XXXXXXXXX " + scope);
+        // System.out.println("XXXXXXXXX " + context + reference + scope);
         // Iterable<IEObjectDescription> iterable = scope.getAllElements();
         // for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
         // IEObjectDescription desc = iter.next();

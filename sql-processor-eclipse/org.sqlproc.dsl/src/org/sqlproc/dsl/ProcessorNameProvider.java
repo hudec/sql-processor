@@ -12,6 +12,7 @@ import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.util.SimpleAttributeResolver;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
+import org.sqlproc.dsl.processorDsl.PojoUsageExt;
 import org.sqlproc.dsl.processorDsl.TableUsage;
 
 import com.google.inject.Inject;
@@ -22,7 +23,7 @@ public class ProcessorNameProvider extends IQualifiedNameProvider.AbstractImpl {
     private IQualifiedNameConverter qualifiedNameConverter;
 
     public QualifiedName getFullyQualifiedName(EObject obj) {
-        if (obj instanceof PojoUsage) {
+        if (obj instanceof PojoUsage || obj instanceof PojoUsageExt) {
             String name = null;
             ICompositeNode parserNode = NodeModelUtils.getNode(obj);
             Iterable<ILeafNode> iterables = parserNode.getLeafNodes();

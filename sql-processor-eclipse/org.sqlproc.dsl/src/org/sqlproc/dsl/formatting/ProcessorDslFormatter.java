@@ -31,6 +31,10 @@ public class ProcessorDslFormatter extends AbstractDeclarativeFormatter {
         c.setLinewrap(1, 1, 2).after(grammarAccess.getColumnUsageRule());
         c.setLinewrap(1, 1, 2).after(grammarAccess.getConstantUsageRule());
         c.setLinewrap(1, 1, 2).after(grammarAccess.getMappingUsageRule());
+        c.setLinewrap(1, 1, 2).after(grammarAccess.getIdentifierUsageExtRule());
+        c.setLinewrap(1, 1, 2).after(grammarAccess.getColumnUsageExtRule());
+        c.setLinewrap(1, 1, 2).after(grammarAccess.getConstantUsageExtRule());
+        c.setLinewrap(1, 1, 2).after(grammarAccess.getMappingUsageExtRule());
         c.setLinewrap(1, 1, 2).after(grammarAccess.getTableDefinitionRule());
         c.setLinewrap(1, 1, 2).after(grammarAccess.getTableUsageRule());
         c.setLinewrap(1, 1, 2).after(grammarAccess.getMetaStatementRule());
