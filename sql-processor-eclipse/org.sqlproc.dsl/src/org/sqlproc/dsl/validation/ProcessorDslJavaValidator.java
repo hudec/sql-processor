@@ -17,6 +17,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.validation.Check;
+import org.sqlproc.dsl.processorDsl.AbstractPojoEntity;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.ColumnUsage;
@@ -33,7 +34,10 @@ import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MetaSql;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
+import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
+import org.sqlproc.dsl.processorDsl.PojoEntity;
+import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
@@ -734,5 +738,42 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             }
         }
         return null;
+    }
+
+    @Check
+    public void checkUniquePojoEntity(PojoEntity pojoEntity) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(pojoEntity);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+        for (PackageDeclaration pkg : artifacts.getPojoPackages()) {
+            if (pkg == null)
+                continue;
+            for (AbstractPojoEntity entity : pkg.getElements()) {
+                if (entity == null || !(entity instanceof PojoEntity))
+                    continue;
+                PojoEntity pentity = (PojoEntity) entity;
+                if (pentity == pojoEntity)
+                    continue;
+                if (pojoEntity.getName().equals(pentity.getName())) {
+                    error("Duplicate name : " + pojoEntity.getName(), ProcessorDslPackage.Literals.POJO_ENTITY__NAME);
+                    return;
+                }
+            }
+        }
+    }
+
+    @Check
+    public void checkUniquePojoProperty(PojoProperty pojoProperty) {
+        PojoEntity entity = EcoreUtil2.getContainerOfType(pojoProperty, PojoEntity.class);
+        for (PojoProperty property : entity.getFeatures()) {
+            if (property == null || property == pojoProperty)
+                continue;
+            if (pojoProperty.getName().equals(property.getName())) {
+                error("Duplicate name : " + pojoProperty.getName(), ProcessorDslPackage.Literals.POJO_PROPERTY__NAME);
+                return;
+            }
+        }
     }
 }

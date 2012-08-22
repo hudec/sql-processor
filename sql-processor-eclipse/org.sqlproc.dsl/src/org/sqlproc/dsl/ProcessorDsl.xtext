@@ -8,7 +8,7 @@ generate processorDsl "http://www.sqlproc.org/dsl/ProcessorDsl"
 Artifacts:
     WS* (features+=OptionalFeature WS*|statements+=MetaStatement WS*|mappings+=MappingRule WS*
     	|pojos+=PojoDefinition WS*|usages+=PojoUsage WS*|properties+=Property WS*|tables+=TableDefinition WS*
-    	|tableUsages+=TableUsage WS*|pojoPackages+=PackageDeclaration WS*
+    	|tableUsages+=TableUsage WS*|pojoPackages+=PackageDeclaration WS*|usagesExt+=PojoUsageExt WS*
     )+;
 
 Property:
@@ -41,6 +41,20 @@ ConstantUsage hidden(ML_COMMENT, SL_COMMENT, WS):
 
 MappingUsage hidden(ML_COMMENT, SL_COMMENT, WS):
 	'out' statement=[MappingRule|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
+
+PojoUsageExt: ColumnUsageExt | IdentifierUsageExt | ConstantUsageExt | MappingUsageExt;
+
+ColumnUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
+	'colx' statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
+
+IdentifierUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
+	'identx' statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
+
+ConstantUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
+	'constx' statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
+
+MappingUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
+	'outx' statement=[MappingRule|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
 
 TableDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
 	'table' name=IDENT table=IDENT SEMICOLON;

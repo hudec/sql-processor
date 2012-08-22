@@ -72,6 +72,11 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.IDENTIFIER_USAGE: return createIdentifierUsage();
       case ProcessorDslPackage.CONSTANT_USAGE: return createConstantUsage();
       case ProcessorDslPackage.MAPPING_USAGE: return createMappingUsage();
+      case ProcessorDslPackage.POJO_USAGE_EXT: return createPojoUsageExt();
+      case ProcessorDslPackage.COLUMN_USAGE_EXT: return createColumnUsageExt();
+      case ProcessorDslPackage.IDENTIFIER_USAGE_EXT: return createIdentifierUsageExt();
+      case ProcessorDslPackage.CONSTANT_USAGE_EXT: return createConstantUsageExt();
+      case ProcessorDslPackage.MAPPING_USAGE_EXT: return createMappingUsageExt();
       case ProcessorDslPackage.TABLE_DEFINITION: return createTableDefinition();
       case ProcessorDslPackage.TABLE_USAGE: return createTableUsage();
       case ProcessorDslPackage.META_STATEMENT: return createMetaStatement();
@@ -191,6 +196,61 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     MappingUsageImpl mappingUsage = new MappingUsageImpl();
     return mappingUsage;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoUsageExt createPojoUsageExt()
+  {
+    PojoUsageExtImpl pojoUsageExt = new PojoUsageExtImpl();
+    return pojoUsageExt;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ColumnUsageExt createColumnUsageExt()
+  {
+    ColumnUsageExtImpl columnUsageExt = new ColumnUsageExtImpl();
+    return columnUsageExt;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IdentifierUsageExt createIdentifierUsageExt()
+  {
+    IdentifierUsageExtImpl identifierUsageExt = new IdentifierUsageExtImpl();
+    return identifierUsageExt;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ConstantUsageExt createConstantUsageExt()
+  {
+    ConstantUsageExtImpl constantUsageExt = new ConstantUsageExtImpl();
+    return constantUsageExt;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public MappingUsageExt createMappingUsageExt()
+  {
+    MappingUsageExtImpl mappingUsageExt = new MappingUsageExtImpl();
+    return mappingUsageExt;
   }
 
   /**

@@ -95,6 +95,51 @@ public interface ProcessorDslFactory extends EFactory
   MappingUsage createMappingUsage();
 
   /**
+   * Returns a new object of class '<em>Pojo Usage Ext</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojo Usage Ext</em>'.
+   * @generated
+   */
+  PojoUsageExt createPojoUsageExt();
+
+  /**
+   * Returns a new object of class '<em>Column Usage Ext</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Column Usage Ext</em>'.
+   * @generated
+   */
+  ColumnUsageExt createColumnUsageExt();
+
+  /**
+   * Returns a new object of class '<em>Identifier Usage Ext</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Identifier Usage Ext</em>'.
+   * @generated
+   */
+  IdentifierUsageExt createIdentifierUsageExt();
+
+  /**
+   * Returns a new object of class '<em>Constant Usage Ext</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Constant Usage Ext</em>'.
+   * @generated
+   */
+  ConstantUsageExt createConstantUsageExt();
+
+  /**
+   * Returns a new object of class '<em>Mapping Usage Ext</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Mapping Usage Ext</em>'.
+   * @generated
+   */
+  MappingUsageExt createMappingUsageExt();
+
+  /**
    * Returns a new object of class '<em>Table Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

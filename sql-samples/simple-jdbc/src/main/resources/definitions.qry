@@ -21,6 +21,7 @@ pojo phoneNumber org.sqlproc.sample.simple.model.PhoneNumber;
 pojo subscriber org.sqlproc.sample.simple.model.Subscriber;
 
 ident ALL_PEOPLE person;
+identx ALL_PEOPLE Person;
 ident LIKE_PEOPLE person;
 ident INSERT_PERSON person;
 ident INSERT_PERSON2 person;
@@ -47,6 +48,7 @@ ident SIMPLE_FUNCION_TO_IN_FORM formSimpleFunction;
 ident INSERT_PERSON_CALL person;
 
 col ALL_PEOPLE person;
+colx ALL_PEOPLE Person;
 col LIKE_PEOPLE person;
 col GET_PERSON person;
 col ALL_PEOPLE_AND_CONTACTS person;

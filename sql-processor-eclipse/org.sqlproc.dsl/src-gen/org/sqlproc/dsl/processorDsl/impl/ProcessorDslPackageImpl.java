@@ -15,12 +15,15 @@ import org.sqlproc.dsl.processorDsl.AbstractPojoEntity;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.ColumnUsage;
+import org.sqlproc.dsl.processorDsl.ColumnUsageExt;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
+import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
+import org.sqlproc.dsl.processorDsl.IdentifierUsageExt;
 import org.sqlproc.dsl.processorDsl.IfMetaSql;
 import org.sqlproc.dsl.processorDsl.IfSql;
 import org.sqlproc.dsl.processorDsl.IfSqlBool;
@@ -32,6 +35,7 @@ import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
+import org.sqlproc.dsl.processorDsl.MappingUsageExt;
 import org.sqlproc.dsl.processorDsl.MetaSql;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
@@ -42,6 +46,7 @@ import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
+import org.sqlproc.dsl.processorDsl.PojoUsageExt;
 import org.sqlproc.dsl.processorDsl.ProcessorDslFactory;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
@@ -113,6 +118,41 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * @generated
    */
   private EClass mappingUsageEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pojoUsageExtEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass columnUsageExtEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass identifierUsageExtEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass constantUsageExtEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass mappingUsageExtEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -481,6 +521,16 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getArtifacts_UsagesExt()
+  {
+    return (EReference)artifactsEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getProperty()
   {
     return propertyEClass;
@@ -694,6 +744,106 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
   public EReference getMappingUsage_Statement()
   {
     return (EReference)mappingUsageEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPojoUsageExt()
+  {
+    return pojoUsageExtEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPojoUsageExt_Pojo()
+  {
+    return (EReference)pojoUsageExtEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getColumnUsageExt()
+  {
+    return columnUsageExtEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getColumnUsageExt_Statement()
+  {
+    return (EReference)columnUsageExtEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIdentifierUsageExt()
+  {
+    return identifierUsageExtEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIdentifierUsageExt_Statement()
+  {
+    return (EReference)identifierUsageExtEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getConstantUsageExt()
+  {
+    return constantUsageExtEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getConstantUsageExt_Statement()
+  {
+    return (EReference)constantUsageExtEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getMappingUsageExt()
+  {
+    return mappingUsageExtEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMappingUsageExt_Statement()
+  {
+    return (EReference)mappingUsageExtEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1886,6 +2036,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEReference(artifactsEClass, ARTIFACTS__TABLES);
     createEReference(artifactsEClass, ARTIFACTS__TABLE_USAGES);
     createEReference(artifactsEClass, ARTIFACTS__POJO_PACKAGES);
+    createEReference(artifactsEClass, ARTIFACTS__USAGES_EXT);
 
     propertyEClass = createEClass(PROPERTY);
     createEAttribute(propertyEClass, PROPERTY__NAME);
@@ -1915,6 +2066,21 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     mappingUsageEClass = createEClass(MAPPING_USAGE);
     createEReference(mappingUsageEClass, MAPPING_USAGE__STATEMENT);
+
+    pojoUsageExtEClass = createEClass(POJO_USAGE_EXT);
+    createEReference(pojoUsageExtEClass, POJO_USAGE_EXT__POJO);
+
+    columnUsageExtEClass = createEClass(COLUMN_USAGE_EXT);
+    createEReference(columnUsageExtEClass, COLUMN_USAGE_EXT__STATEMENT);
+
+    identifierUsageExtEClass = createEClass(IDENTIFIER_USAGE_EXT);
+    createEReference(identifierUsageExtEClass, IDENTIFIER_USAGE_EXT__STATEMENT);
+
+    constantUsageExtEClass = createEClass(CONSTANT_USAGE_EXT);
+    createEReference(constantUsageExtEClass, CONSTANT_USAGE_EXT__STATEMENT);
+
+    mappingUsageExtEClass = createEClass(MAPPING_USAGE_EXT);
+    createEReference(mappingUsageExtEClass, MAPPING_USAGE_EXT__STATEMENT);
 
     tableDefinitionEClass = createEClass(TABLE_DEFINITION);
     createEAttribute(tableDefinitionEClass, TABLE_DEFINITION__NAME);
@@ -2096,6 +2262,10 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     identifierUsageEClass.getESuperTypes().add(this.getPojoUsage());
     constantUsageEClass.getESuperTypes().add(this.getPojoUsage());
     mappingUsageEClass.getESuperTypes().add(this.getPojoUsage());
+    columnUsageExtEClass.getESuperTypes().add(this.getPojoUsageExt());
+    identifierUsageExtEClass.getESuperTypes().add(this.getPojoUsageExt());
+    constantUsageExtEClass.getESuperTypes().add(this.getPojoUsageExt());
+    mappingUsageExtEClass.getESuperTypes().add(this.getPojoUsageExt());
     packageDeclarationEClass.getESuperTypes().add(this.getAbstractPojoEntity());
     importEClass.getESuperTypes().add(this.getAbstractPojoEntity());
     pojoEntityEClass.getESuperTypes().add(this.getAbstractPojoEntity());
@@ -2111,6 +2281,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEReference(getArtifacts_Tables(), this.getTableDefinition(), null, "tables", null, 0, -1, Artifacts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getArtifacts_TableUsages(), this.getTableUsage(), null, "tableUsages", null, 0, -1, Artifacts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getArtifacts_PojoPackages(), this.getPackageDeclaration(), null, "pojoPackages", null, 0, -1, Artifacts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getArtifacts_UsagesExt(), this.getPojoUsageExt(), null, "usagesExt", null, 0, -1, Artifacts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2140,6 +2311,21 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     initEClass(mappingUsageEClass, MappingUsage.class, "MappingUsage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getMappingUsage_Statement(), this.getMappingRule(), null, "statement", null, 0, 1, MappingUsage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(pojoUsageExtEClass, PojoUsageExt.class, "PojoUsageExt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPojoUsageExt_Pojo(), this.getPojoEntity(), null, "pojo", null, 0, 1, PojoUsageExt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(columnUsageExtEClass, ColumnUsageExt.class, "ColumnUsageExt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getColumnUsageExt_Statement(), this.getMetaStatement(), null, "statement", null, 0, 1, ColumnUsageExt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(identifierUsageExtEClass, IdentifierUsageExt.class, "IdentifierUsageExt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getIdentifierUsageExt_Statement(), this.getMetaStatement(), null, "statement", null, 0, 1, IdentifierUsageExt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(constantUsageExtEClass, ConstantUsageExt.class, "ConstantUsageExt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getConstantUsageExt_Statement(), this.getMetaStatement(), null, "statement", null, 0, 1, ConstantUsageExt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(mappingUsageExtEClass, MappingUsageExt.class, "MappingUsageExt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMappingUsageExt_Statement(), this.getMappingRule(), null, "statement", null, 0, 1, MappingUsageExt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(tableDefinitionEClass, TableDefinition.class, "TableDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTableDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, TableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
