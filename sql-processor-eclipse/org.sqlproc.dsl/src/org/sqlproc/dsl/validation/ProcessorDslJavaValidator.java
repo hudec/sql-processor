@@ -687,8 +687,9 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         if (className == null)
             return ValidationResult.ERROR;
         PropertyDescriptor[] descriptors = pojoResolverFactory.getPojoResolver().getPropertyDescriptors(className);
-        if (descriptors == null)
+        if (descriptors == null) {
             return ValidationResult.WARNING;
+        }
         String checkProperty = property;
         int pos1 = checkProperty.indexOf('=');
         if (pos1 > 0) {
@@ -771,9 +772,14 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             }
         }
         if (entity.getSuperType() != null) {
-            return checkEntityProperty(entity.getSuperType(), property);
+            ValidationResult result = checkEntityProperty(entity.getSuperType(), property);
+            if (result == ValidationResult.WARNING || result == ValidationResult.OK)
+                return result;
         }
-        return ValidationResult.ERROR;
+        if (entity.isAbstract())
+            return ValidationResult.WARNING;
+        else
+            return ValidationResult.ERROR;
     }
 
     @Check
