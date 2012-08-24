@@ -6,10 +6,59 @@ package org.sqlproc.dsl.generator
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess
+import org.sqlproc.dsl.processorDsl.PojoEntity
+import com.google.inject.Inject
+import org.eclipse.xtext.naming.IQualifiedNameProvider
+import org.sqlproc.dsl.processorDsl.PojoProperty
+import org.eclipse.xtext.xbase.compiler.ImportManager
 
 class ProcessorDslGenerator implements IGenerator {
 	
+@Inject extension IQualifiedNameProvider
+	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-		//TODO implement me
+		for(e: resource.allContents.toIterable.filter(typeof(PojoEntity))) {
+			fsa.generateFile(e.eContainer.fullyQualifiedName.toString("/") + "/"+
+				e.fullyQualifiedName + ".java",e.compile
+			)
+		}
 	}
+
+def compile(PojoEntity e) '''
+«val importManager = new ImportManager(true)»
+«val classBody = compile(e, importManager)»
+«IF e.eContainer != null»package «e.eContainer.fullyQualifiedName»;«ENDIF»
+  «IF !importManager.imports.empty»
+  «FOR i : importManager.imports»
+import «i»;
+  «ENDFOR»
+  «ENDIF»
+
+«classBody»
+'''
+
+def compile(PojoEntity e, ImportManager importManager) '''
+public «IF e.isAbstract»abstract «ENDIF»class «e.name» «IF e.superType != null»extends «e.superType.fullyQualifiedName» «ENDIF»{
+
+  «FOR f:e.features»
+    «f.compile(importManager)»
+  «ENDFOR»
+}
+'''
+
+def compile(PojoProperty f, ImportManager importManager) '''
+    private «f.compileType(importManager)» «f.name»;
+  
+    public «f.compileType(importManager)» get«f.name.toFirstUpper»() {
+      return «f.name»;
+    }
+  
+    public void set«f.name.toFirstUpper»(«f.compileType(importManager)» «f.name») {
+      this.«f.name» = «f.name»;
+    }
+'''
+
+def compileType(PojoProperty f, ImportManager importManager) '''
+  «IF f.getNative != null»«f.getNative»«ELSEIF f.getRef != null»«f.getRef.fullyQualifiedName»
+  «ELSEIF f.getType != null»«importManager.serialize(f.getType)»«ENDIF»'''
 }
