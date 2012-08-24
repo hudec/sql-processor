@@ -1,6 +1,14 @@
 package org.sqlproc.sample.simple.model;
 
 public class PersonLibrary {
+	
+  public PersonLibrary() {
+  }
+  
+  public PersonLibrary(Long personId, Long mediaId) {
+  setPersonId(personId);
+  setMediaId(mediaId);
+  }
   
   private Long id;
     

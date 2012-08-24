@@ -20,9 +20,9 @@ package org.sqlproc.sample.simple.model {
 	}
 	
 	pojo PhoneNumber {
-		area _int
-		exch _int
-		ext _int
+		area _int required
+		exch _int required
+		ext _int required
 	}
 	
 	pojo Contact {

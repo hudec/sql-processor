@@ -3,6 +3,7 @@ package org.sqlproc.dsl.generator;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -15,6 +16,8 @@ import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.xbase.compiler.ImportManager;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
@@ -111,11 +114,72 @@ public class ProcessorDslGenerator implements IGenerator {
     }
     _builder.append("{");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("public ");
+    String _name_1 = e.getName();
+    _builder.append(_name_1, "  ");
+    _builder.append("() {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("  ");
+    _builder.append("}");
+    _builder.newLine();
+    {
+      ArrayList<PojoProperty> _requiredFeatures = this.requiredFeatures(e);
+      boolean _isEmpty = _requiredFeatures.isEmpty();
+      boolean _not = (!_isEmpty);
+      if (_not) {
+        _builder.append("  ");
+        _builder.newLine();
+        _builder.append("  ");
+        _builder.append("public ");
+        String _name_2 = e.getName();
+        _builder.append(_name_2, "  ");
+        _builder.append("(");
+        {
+          ArrayList<PojoProperty> _requiredFeatures_1 = this.requiredFeatures(e);
+          boolean _hasElements = false;
+          for(final PojoProperty f : _requiredFeatures_1) {
+            if (!_hasElements) {
+              _hasElements = true;
+            } else {
+              _builder.appendImmediate(", ", "  ");
+            }
+            CharSequence _compileType = this.compileType(f, importManager);
+            _builder.append(_compileType, "  ");
+            _builder.append(" ");
+            String _name_3 = f.getName();
+            _builder.append(_name_3, "  ");
+          }
+        }
+        _builder.append(") {");
+        _builder.newLineIfNotEmpty();
+        {
+          ArrayList<PojoProperty> _requiredFeatures_2 = this.requiredFeatures(e);
+          for(final PojoProperty f_1 : _requiredFeatures_2) {
+            _builder.append("  ");
+            _builder.append("set");
+            String _name_4 = f_1.getName();
+            String _firstUpper = StringExtensions.toFirstUpper(_name_4);
+            _builder.append(_firstUpper, "  ");
+            _builder.append("(");
+            String _name_5 = f_1.getName();
+            _builder.append(_name_5, "  ");
+            _builder.append(");");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append("  ");
+        _builder.append("}");
+        _builder.newLine();
+      }
+    }
     {
       EList<PojoProperty> _features = e.getFeatures();
-      for(final PojoProperty f : _features) {
+      for(final PojoProperty f_2 : _features) {
         _builder.append("  ");
-        CharSequence _compile = this.compile(f, importManager);
+        CharSequence _compile = this.compile(f_2, importManager);
         _builder.append(_compile, "  ");
         _builder.newLineIfNotEmpty();
       }
@@ -211,5 +275,32 @@ public class ProcessorDslGenerator implements IGenerator {
       }
     }
     return _builder;
+  }
+  
+  public ArrayList<PojoProperty> requiredFeatures(final PojoEntity e) {
+    ArrayList<PojoProperty> _arrayList = new ArrayList<PojoProperty>();
+    final ArrayList<PojoProperty> list = _arrayList;
+    PojoEntity _superType = e.getSuperType();
+    boolean _notEquals = (!Objects.equal(_superType, null));
+    if (_notEquals) {
+      PojoEntity _superType_1 = e.getSuperType();
+      ArrayList<PojoProperty> _requiredFeatures = this.requiredFeatures(_superType_1);
+      list.addAll(_requiredFeatures);
+    }
+    List<PojoProperty> _requiredFeatures1 = this.requiredFeatures1(e);
+    list.addAll(_requiredFeatures1);
+    return list;
+  }
+  
+  public List<PojoProperty> requiredFeatures1(final PojoEntity e) {
+    EList<PojoProperty> _features = e.getFeatures();
+    final Function1<PojoProperty,Boolean> _function = new Function1<PojoProperty,Boolean>() {
+        public Boolean apply(final PojoProperty f) {
+          boolean _isRequired = f.isRequired();
+          return Boolean.valueOf(_isRequired);
+        }
+      };
+    Iterable<PojoProperty> _filter = IterableExtensions.<PojoProperty>filter(_features, _function);
+    return IterableExtensions.<PojoProperty>toList(_filter);
   }
 }

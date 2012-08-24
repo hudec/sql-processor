@@ -1,6 +1,15 @@
 package org.sqlproc.sample.simple.model;
 
 public class CreditCard extends BillingDetails {
+	
+  public CreditCard() {
+  }
+  
+  public CreditCard(String type, Subscriber subscriber, Long number) {
+  setType(type);
+  setSubscriber(subscriber);
+  setNumber(number);
+  }
   
   private Long number;
     

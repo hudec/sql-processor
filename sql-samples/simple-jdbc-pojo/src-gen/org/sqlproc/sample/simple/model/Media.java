@@ -1,6 +1,13 @@
 package org.sqlproc.sample.simple.model;
 
 public abstract class Media {
+	
+  public Media() {
+  }
+  
+  public Media(String title) {
+  setTitle(title);
+  }
   
   private Long id;
     

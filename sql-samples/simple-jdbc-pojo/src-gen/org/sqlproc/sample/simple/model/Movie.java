@@ -1,6 +1,15 @@
 package org.sqlproc.sample.simple.model;
 
 public class Movie extends Media {
+	
+  public Movie() {
+  }
+  
+  public Movie(String title, String urlIMDB, Integer playLength) {
+  setTitle(title);
+  setUrlIMDB(urlIMDB);
+  setPlayLength(playLength);
+  }
   
   private String urlIMDB;
     

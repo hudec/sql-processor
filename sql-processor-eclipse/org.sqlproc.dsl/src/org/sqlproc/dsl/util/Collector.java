@@ -1,5 +1,7 @@
 package org.sqlproc.dsl.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.sqlproc.dsl.processorDsl.Column;
@@ -15,6 +17,8 @@ import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OrdSql2;
+import org.sqlproc.dsl.processorDsl.PojoEntity;
+import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.SqlFragment;
 
 public class Collector {
@@ -118,5 +122,19 @@ public class Collector {
                 }
             }
         }
+    }
+
+    public static List<PojoProperty> requiredFeatures(PojoEntity e) {
+        List<PojoProperty> features = new ArrayList<PojoProperty>();
+        if (e == null || e.getFeatures() == null)
+            return features;
+        for (PojoProperty f : e.getFeatures()) {
+            if (f.isRequired())
+                features.add(f);
+        }
+        if (e.getSuperType() == null)
+            return features;
+        requiredFeatures(e.getSuperType()).addAll(features);
+        return features;
     }
 }

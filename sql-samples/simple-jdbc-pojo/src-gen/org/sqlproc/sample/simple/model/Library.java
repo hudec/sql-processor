@@ -1,6 +1,13 @@
 package org.sqlproc.sample.simple.model;
 
 public class Library {
+	
+  public Library() {
+  }
+  
+  public Library(String name) {
+  setName(name);
+  }
   
   private Long id;
     

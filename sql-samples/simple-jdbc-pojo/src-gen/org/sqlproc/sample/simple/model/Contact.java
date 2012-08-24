@@ -1,6 +1,13 @@
 package org.sqlproc.sample.simple.model;
 
 public class Contact {
+	
+  public Contact() {
+  }
+  
+  public Contact(String address) {
+  setAddress(address);
+  }
   
   private Long id;
     

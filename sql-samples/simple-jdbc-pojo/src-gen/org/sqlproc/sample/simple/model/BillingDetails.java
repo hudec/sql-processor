@@ -1,6 +1,14 @@
 package org.sqlproc.sample.simple.model;
 
 public abstract class BillingDetails {
+	
+  public BillingDetails() {
+  }
+  
+  public BillingDetails(String type, Subscriber subscriber) {
+  setType(type);
+  setSubscriber(subscriber);
+  }
   
   private Long id;
     

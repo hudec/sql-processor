@@ -12,6 +12,9 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.sqlproc.dsl.processorDsl.PojoProperty
 import org.eclipse.xtext.xbase.compiler.ImportManager
 
+import org.sqlproc.dsl.util.Collector
+import java.util.ArrayList
+
 class ProcessorDslGenerator implements IGenerator {
 	
 @Inject extension IQualifiedNameProvider
@@ -40,6 +43,17 @@ import «i»;
 
 def compile(PojoEntity e, ImportManager importManager) '''
 public «IF e.isAbstract»abstract «ENDIF»class «e.name» «IF e.superType != null»extends «e.superType.fullyQualifiedName» «ENDIF»{
+	
+  public «e.name»() {
+  }
+  «IF !e.requiredFeatures.empty»
+  
+  public «e.name»(«FOR f:e.requiredFeatures SEPARATOR ", "»«f.compileType(importManager)» «f.name»«ENDFOR») {
+  «FOR f:e.requiredFeatures»
+    set«f.name.toFirstUpper»(«f.name»);
+  «ENDFOR»
+  }
+  «ENDIF»
   «FOR f:e.features»
     «f.compile(importManager)»
   «ENDFOR»
@@ -61,4 +75,17 @@ def compile(PojoProperty f, ImportManager importManager) '''
 
 def compileType(PojoProperty f, ImportManager importManager) '''
   «IF f.getNative != null»«f.getNative.substring(1)»«ELSEIF f.getRef != null»«f.getRef.fullyQualifiedName»«ELSEIF f.getType != null»«importManager.serialize(f.getType)»«ENDIF»'''
+  
+def requiredFeatures(PojoEntity e) {
+	
+   	val list = new ArrayList<PojoProperty>()
+	if (e.superType != null)
+	  list.addAll(e.superType.requiredFeatures)
+	list.addAll(e.requiredFeatures1)
+    return list
+}
+
+def requiredFeatures1(PojoEntity e) {
+	return e.features.filter(f|f.required).toList
+}
 }

@@ -1,7 +1,11 @@
 package org.sqlproc.sample.simple.form;
+  
 import java.sql.Timestamp;
 
 public class FormSimpleFunction {
+	
+  public FormSimpleFunction() {
+  }
   
   private Timestamp time;
     

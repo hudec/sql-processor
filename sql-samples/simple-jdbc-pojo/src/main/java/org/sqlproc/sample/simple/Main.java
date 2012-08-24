@@ -315,10 +315,10 @@ public class Main {
         Subscriber arnost = main.insertSubscriber(new Subscriber("Arnost", lib));
         Subscriber maria = main.insertSubscriber(new Subscriber("Maria", lib));
 
-        main.insertBankAccount(new BankAccount("account 1", arnost));
-        main.insertBankAccount(new BankAccount("account 2", maria));
-        main.insertCreditCard(new CreditCard(123L, arnost));
-        main.insertCreditCard(new CreditCard(456L, maria));
+        main.insertBankAccount(new BankAccount("BA", arnost, "account 1"));
+        main.insertBankAccount(new BankAccount("BA", maria, "account 2"));
+        main.insertCreditCard(new CreditCard("CC", arnost, 123L));
+        main.insertCreditCard(new CreditCard("CC", maria, 456L));
 
         // queries
         list = main.listAll();
@@ -398,8 +398,9 @@ public class Main {
         Assert.assertEquals(4, list.size());
 
         // custom type
-        Person pepa = main.insertCustom(new Person("Pepa"), new Contact("Pepa address 1", new PhoneNumber(111, 222,
-                3333)));
+        Contact cc = new Contact("Pepa address 1");
+        cc.setHomePhone(new PhoneNumber(111, 222, 3333));
+        Person pepa = main.insertCustom(new Person("Pepa"), cc);
         Contact contact = new Contact();
         contact.setHomePhone(new PhoneNumber(111, 222, 3333));
         list = main.listCustom(contact);

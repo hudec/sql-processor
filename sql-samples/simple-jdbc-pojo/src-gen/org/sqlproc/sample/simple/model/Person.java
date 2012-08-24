@@ -1,7 +1,15 @@
 package org.sqlproc.sample.simple.model;
+  
 import java.util.List;
 
 public class Person {
+	
+  public Person() {
+  }
+  
+  public Person(String name) {
+  setName(name);
+  }
   
   private Long id;
     

@@ -1,6 +1,15 @@
 package org.sqlproc.sample.simple.model;
 
 public class PhoneNumber {
+	
+  public PhoneNumber() {
+  }
+  
+  public PhoneNumber(int area, int exch, int ext) {
+  setArea(area);
+  setExch(exch);
+  setExt(ext);
+  }
   
   private int area;
     

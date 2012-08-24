@@ -1,7 +1,16 @@
 package org.sqlproc.sample.simple.model;
+  
 import java.util.List;
 
 public class Subscriber {
+	
+  public Subscriber() {
+  }
+  
+  public Subscriber(String name, Library library) {
+  setName(name);
+  setLibrary(library);
+  }
   
   private Long id;
     
