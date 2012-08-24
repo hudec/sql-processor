@@ -66,6 +66,8 @@ public class ProcessorDslGenerator implements IGenerator {
       boolean _isEmpty = _imports.isEmpty();
       boolean _not = (!_isEmpty);
       if (_not) {
+        _builder.append("  ");
+        _builder.newLine();
         {
           List<String> _imports_1 = importManager.getImports();
           for(final String i : _imports_1) {
@@ -109,7 +111,6 @@ public class ProcessorDslGenerator implements IGenerator {
     }
     _builder.append("{");
     _builder.newLineIfNotEmpty();
-    _builder.newLine();
     {
       EList<PojoProperty> _features = e.getFeatures();
       for(final PojoProperty f : _features) {

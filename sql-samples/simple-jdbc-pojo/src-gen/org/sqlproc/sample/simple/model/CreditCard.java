@@ -1,7 +1,6 @@
 package org.sqlproc.sample.simple.model;
 
 public class CreditCard extends BillingDetails {
-
   
   private Long number;
     
