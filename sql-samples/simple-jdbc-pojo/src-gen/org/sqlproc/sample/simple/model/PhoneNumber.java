@@ -2,31 +2,34 @@ package org.sqlproc.sample.simple.model;
 
 public class PhoneNumber {
 
-  private _int area;
+  
+  private int area;
     
-  public _int getArea() {
+  public int getArea() {
     return area;
   }
     
-  public void setArea(_int area) {
+  public void setArea(int area) {
     this.area = area;
   }
-  private _int exch;
+  
+  private int exch;
     
-  public _int getExch() {
+  public int getExch() {
     return exch;
   }
     
-  public void setExch(_int exch) {
+  public void setExch(int exch) {
     this.exch = exch;
   }
-  private _int ext;
+  
+  private int ext;
     
-  public _int getExt() {
+  public int getExt() {
     return ext;
   }
     
-  public void setExt(_int ext) {
+  public void setExt(int ext) {
     this.ext = ext;
   }
 }

@@ -19,7 +19,7 @@ package org.sqlproc.sample.simple.model {
 		name : java.lang.String required
 	}
 	
-	pojo PhoneNumber { //x
+	pojo PhoneNumber {
 		area _int
 		exch _int
 		ext _int

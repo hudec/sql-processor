@@ -126,6 +126,7 @@ public class ProcessorDslGenerator implements IGenerator {
   
   public CharSequence compile(final PojoProperty f, final ImportManager importManager) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.newLine();
     _builder.append("private ");
     CharSequence _compileType = this.compileType(f, importManager);
     _builder.append(_compileType, "");
@@ -188,7 +189,8 @@ public class ProcessorDslGenerator implements IGenerator {
       boolean _notEquals = (!Objects.equal(_native, null));
       if (_notEquals) {
         String _native_1 = f.getNative();
-        _builder.append(_native_1, "");
+        String _substring = _native_1.substring(1);
+        _builder.append(_substring, "");
       } else {
         PojoEntity _ref = f.getRef();
         boolean _notEquals_1 = (!Objects.equal(_ref, null));
@@ -196,7 +198,6 @@ public class ProcessorDslGenerator implements IGenerator {
           PojoEntity _ref_1 = f.getRef();
           QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(_ref_1);
           _builder.append(_fullyQualifiedName, "");
-          _builder.newLineIfNotEmpty();
         } else {
           JvmType _type = f.getType();
           boolean _notEquals_2 = (!Objects.equal(_type, null));

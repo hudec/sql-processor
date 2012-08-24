@@ -3,6 +3,7 @@ import java.sql.Timestamp;
 
 public class FormSimpleFunction {
 
+  
   private Timestamp time;
     
   public Timestamp getTime() {
@@ -12,6 +13,7 @@ public class FormSimpleFunction {
   public void setTime(Timestamp time) {
     this.time = time;
   }
+  
   private Timestamp time2;
     
   public Timestamp getTime2() {

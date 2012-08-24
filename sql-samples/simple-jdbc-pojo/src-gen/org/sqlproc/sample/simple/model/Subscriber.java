@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Subscriber {
 
+  
   private Long id;
     
   public Long getId() {
@@ -12,6 +13,7 @@ public class Subscriber {
   public void setId(Long id) {
     this.id = id;
   }
+  
   private String name;
     
   public String getName() {
@@ -21,30 +23,27 @@ public class Subscriber {
   public void setName(String name) {
     this.name = name;
   }
-  private Contact
-   contact;
+  
+  private Contact contact;
     
-  public Contact
-   getContact() {
+  public Contact getContact() {
     return contact;
   }
     
-  public void setContact(Contact
-   contact) {
+  public void setContact(Contact contact) {
     this.contact = contact;
   }
-  private Library
-   library;
+  
+  private Library library;
     
-  public Library
-   getLibrary() {
+  public Library getLibrary() {
     return library;
   }
     
-  public void setLibrary(Library
-   library) {
+  public void setLibrary(Library library) {
     this.library = library;
   }
+  
   private List billingDetails;
     
   public List getBillingDetails() {

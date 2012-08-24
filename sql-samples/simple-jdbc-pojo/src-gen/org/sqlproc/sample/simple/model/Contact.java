@@ -2,6 +2,7 @@ package org.sqlproc.sample.simple.model;
 
 public class Contact {
 
+  
   private Long id;
     
   public Long getId() {
@@ -11,6 +12,7 @@ public class Contact {
   public void setId(Long id) {
     this.id = id;
   }
+  
   private Long personId;
     
   public Long getPersonId() {
@@ -20,6 +22,7 @@ public class Contact {
   public void setPersonId(Long personId) {
     this.personId = personId;
   }
+  
   private String address;
     
   public String getAddress() {
@@ -29,16 +32,14 @@ public class Contact {
   public void setAddress(String address) {
     this.address = address;
   }
-  private PhoneNumber
-   homePhone;
+  
+  private PhoneNumber homePhone;
     
-  public PhoneNumber
-   getHomePhone() {
+  public PhoneNumber getHomePhone() {
     return homePhone;
   }
     
-  public void setHomePhone(PhoneNumber
-   homePhone) {
+  public void setHomePhone(PhoneNumber homePhone) {
     this.homePhone = homePhone;
   }
 }

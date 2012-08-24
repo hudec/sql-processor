@@ -2,6 +2,7 @@ package org.sqlproc.sample.simple.model;
 
 public class PersonLibrary {
 
+  
   private Long id;
     
   public Long getId() {
@@ -11,6 +12,7 @@ public class PersonLibrary {
   public void setId(Long id) {
     this.id = id;
   }
+  
   private Long personId;
     
   public Long getPersonId() {
@@ -20,6 +22,7 @@ public class PersonLibrary {
   public void setPersonId(Long personId) {
     this.personId = personId;
   }
+  
   private Long mediaId;
     
   public Long getMediaId() {

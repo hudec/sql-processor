@@ -2,6 +2,7 @@ package org.sqlproc.sample.simple.model;
 
 public abstract class Media {
 
+  
   private Long id;
     
   public Long getId() {
@@ -11,6 +12,7 @@ public abstract class Media {
   public void setId(Long id) {
     this.id = id;
   }
+  
   private String title;
     
   public String getTitle() {

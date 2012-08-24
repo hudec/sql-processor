@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Person {
 
+  
   private Long id;
     
   public Long getId() {
@@ -12,6 +13,7 @@ public class Person {
   public void setId(Long id) {
     this.id = id;
   }
+  
   private String name;
     
   public String getName() {
@@ -21,6 +23,7 @@ public class Person {
   public void setName(String name) {
     this.name = name;
   }
+  
   private List contacts;
     
   public List getContacts() {
@@ -30,6 +33,7 @@ public class Person {
   public void setContacts(List contacts) {
     this.contacts = contacts;
   }
+  
   private List library;
     
   public List getLibrary() {

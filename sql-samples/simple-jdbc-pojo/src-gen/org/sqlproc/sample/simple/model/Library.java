@@ -2,6 +2,7 @@ package org.sqlproc.sample.simple.model;
 
 public class Library {
 
+  
   private Long id;
     
   public Long getId() {
@@ -11,6 +12,7 @@ public class Library {
   public void setId(Long id) {
     this.id = id;
   }
+  
   private String name;
     
   public String getName() {
