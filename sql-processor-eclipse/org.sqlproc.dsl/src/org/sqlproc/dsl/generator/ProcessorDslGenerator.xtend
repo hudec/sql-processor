@@ -29,6 +29,7 @@ def compile(PojoEntity e) '''
 «val classBody = compile(e, importManager)»
 «IF e.eContainer != null»package «e.eContainer.fullyQualifiedName»;«ENDIF»
   «IF !importManager.imports.empty»
+  
   «FOR i : importManager.imports»
 import «i»;
   «ENDFOR»
@@ -39,7 +40,6 @@ import «i»;
 
 def compile(PojoEntity e, ImportManager importManager) '''
 public «IF e.isAbstract»abstract «ENDIF»class «e.name» «IF e.superType != null»extends «e.superType.fullyQualifiedName» «ENDIF»{
-
   «FOR f:e.features»
     «f.compile(importManager)»
   «ENDFOR»

@@ -1,7 +1,6 @@
 package org.sqlproc.sample.simple.model;
 
 public abstract class BillingDetails {
-
   
   private Long id;
     

@@ -2,7 +2,6 @@ package org.sqlproc.sample.simple.model;
 import java.util.List;
 
 public class Subscriber {
-
   
   private Long id;
     

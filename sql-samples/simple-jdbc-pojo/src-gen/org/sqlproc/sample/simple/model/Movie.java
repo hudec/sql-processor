@@ -1,7 +1,6 @@
 package org.sqlproc.sample.simple.model;
 
 public class Movie extends Media {
-
   
   private String urlIMDB;
     

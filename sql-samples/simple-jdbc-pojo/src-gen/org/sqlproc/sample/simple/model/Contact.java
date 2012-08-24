@@ -1,7 +1,6 @@
 package org.sqlproc.sample.simple.model;
 
 public class Contact {
-
   
   private Long id;
     
