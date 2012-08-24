@@ -19,6 +19,7 @@ import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
+import org.sqlproc.dsl.resolver.DbColumn;
 import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolver;
 
@@ -49,6 +50,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         super.addResolver(new DbOptCondColumnResolver());
         super.addResolver(new PojoDefinitionsResolver());
         super.addResolver(new TableDefinitionsResolver());
+        super.addResolver(new PojoGeneratorResolver());
     }
 
     protected Artifacts getArtifacts(XtextTemplateContext xtextTemplateContext) {
@@ -534,6 +536,38 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
                 List<String> tables = dbResolver.getTables(artifacts);
                 return getTableDefinitions(tables);
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class PojoGeneratorResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "pojoGenerator";
+
+        public PojoGeneratorResolver() {
+            super(NAME, "PojoGenerator");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
+            if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
+                List<String> tables = dbResolver.getTables(artifacts);
+                if (tables != null) {
+                    TablePojoConverter converter = new TablePojoConverter();
+                    for (String table : tables) {
+                        List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
+                        converter.addTableTefinition(table, dbColumns);
+                    }
+                    converter.postProcessing();
+                    return converter.getPojoDefinitions();
+                }
             }
             return super.resolve(context);
         }
