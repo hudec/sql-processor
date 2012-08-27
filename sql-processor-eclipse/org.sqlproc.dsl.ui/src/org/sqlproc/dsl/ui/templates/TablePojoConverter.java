@@ -20,7 +20,7 @@ public class TablePojoConverter {
                 return "byte[]";
             if (this == CHAR_ARRAY)
                 return "char[]";
-            return getName().toLowerCase();
+            return name().toLowerCase();
         }
     }
 
@@ -42,15 +42,25 @@ public class TablePojoConverter {
     }
 
     public void postProcessing() {
-        // todo may be refences or dependencies between pojo
+        // refences or dependencies between pojos (1 : N)
         for (String pojo : pojos.keySet()) {
             List<PojoAttribute> attributes = pojos.get(pojo);
             if (attributes != null) {
                 for (PojoAttribute attribute : attributes) {
                     if (attribute.getClassName().startsWith("id") && attribute.getClassName().length() > 2) {
                         String className = attribute.getClassName().substring(2);
-                        if (pojos.get(className) != null)
+                        List<PojoAttribute> referPojoAttr = pojos.get(className);
+                        if (referPojoAttr != null) {
                             attribute.setDependencyClassName(className);
+                            // reverse dependency
+                            PojoAttribute attrib = new PojoAttribute();
+                            String name = pojo.substring(0, 1).toLowerCase();
+                            if (pojo.length() > 1)
+                                name += pojo.substring(1);
+                            attrib.setName(name + "s");
+                            attrib.setClassName("java.util.List <:" + pojo + ">");
+                            referPojoAttr.add(attrib);
+                        }
                     }
                 }
             }
