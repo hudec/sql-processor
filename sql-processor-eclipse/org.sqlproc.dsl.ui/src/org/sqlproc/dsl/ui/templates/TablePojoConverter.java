@@ -47,17 +47,23 @@ public class TablePojoConverter {
             List<PojoAttribute> attributes = pojos.get(pojo);
             if (attributes != null) {
                 for (PojoAttribute attribute : attributes) {
-                    if (attribute.getClassName().startsWith("id") && attribute.getClassName().length() > 2) {
-                        String className = attribute.getClassName().substring(2);
+                    if (attribute.getName().startsWith("id") && attribute.getName().length() > 2) {
+                        String className = attribute.getName().substring(2);
+                        if (pojo.equals(className))
+                            continue;
                         List<PojoAttribute> referPojoAttr = pojos.get(className);
                         if (referPojoAttr != null) {
+                            String name = className.substring(0, 1).toLowerCase();
+                            if (className.length() > 1)
+                                name += className.substring(1);
+                            attribute.setName(name);
                             attribute.setDependencyClassName(className);
                             // reverse dependency
+                            String referName = pojo.substring(0, 1).toLowerCase();
+                            if (className.length() > 1)
+                                referName += pojo.substring(1);
                             PojoAttribute attrib = new PojoAttribute();
-                            String name = pojo.substring(0, 1).toLowerCase();
-                            if (pojo.length() > 1)
-                                name += pojo.substring(1);
-                            attrib.setName(name + "s");
+                            attrib.setName(referName + "s");
                             attrib.setClassName("java.util.List <:" + pojo + ">");
                             referPojoAttr.add(attrib);
                         }
@@ -70,7 +76,7 @@ public class TablePojoConverter {
     public String getPojoDefinitions() {
         StringBuilder buffer = new StringBuilder();
         for (String pojo : pojos.keySet()) {
-            buffer.append("\n  ").append(pojo).append(" {");
+            buffer.append("\n  pojo ").append(pojo).append(" {");
             List<PojoAttribute> attributes = pojos.get(pojo);
             if (attributes != null) {
                 for (PojoAttribute attribute : attributes) {
@@ -255,7 +261,7 @@ public class TablePojoConverter {
         default:
             // todo what type?
             attribute.setPrimitive(false);
-            attribute.setClassName("Unknown SQL Type : " + dbColumn.getSqlType());
+            attribute.setClassName("java.lang.Object");
         }
         return attribute;
     }
