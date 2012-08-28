@@ -274,6 +274,12 @@ public class ProcessorDslGenerator implements IGenerator {
         }
       }
     }
+    {
+      boolean _isArray = f.isArray();
+      if (_isArray) {
+        _builder.append("[]");
+      }
+    }
     return _builder;
   }
   

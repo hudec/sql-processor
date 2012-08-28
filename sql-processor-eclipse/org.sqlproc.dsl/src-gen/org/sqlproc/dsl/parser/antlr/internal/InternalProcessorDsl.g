@@ -6859,9 +6859,9 @@ rulePojoProperty returns [EObject current=null]
 )((
 (
 (
-		lv_native_1_1=	'_byte' 
+		lv_native_1_1=	'_char' 
     {
-        newLeafNode(lv_native_1_1, grammarAccess.getPojoPropertyAccess().getNative_byteKeyword_1_0_0_0());
+        newLeafNode(lv_native_1_1, grammarAccess.getPojoPropertyAccess().getNative_charKeyword_1_0_0_0());
     }
  
 	    {
@@ -6871,9 +6871,9 @@ rulePojoProperty returns [EObject current=null]
        		setWithLastConsumed($current, "native", lv_native_1_1, null);
 	    }
 
-    |		lv_native_1_2=	'_short' 
+    |		lv_native_1_2=	'_byte' 
     {
-        newLeafNode(lv_native_1_2, grammarAccess.getPojoPropertyAccess().getNative_shortKeyword_1_0_0_1());
+        newLeafNode(lv_native_1_2, grammarAccess.getPojoPropertyAccess().getNative_byteKeyword_1_0_0_1());
     }
  
 	    {
@@ -6883,9 +6883,9 @@ rulePojoProperty returns [EObject current=null]
        		setWithLastConsumed($current, "native", lv_native_1_2, null);
 	    }
 
-    |		lv_native_1_3=	'_int' 
+    |		lv_native_1_3=	'_short' 
     {
-        newLeafNode(lv_native_1_3, grammarAccess.getPojoPropertyAccess().getNative_intKeyword_1_0_0_2());
+        newLeafNode(lv_native_1_3, grammarAccess.getPojoPropertyAccess().getNative_shortKeyword_1_0_0_2());
     }
  
 	    {
@@ -6895,9 +6895,9 @@ rulePojoProperty returns [EObject current=null]
        		setWithLastConsumed($current, "native", lv_native_1_3, null);
 	    }
 
-    |		lv_native_1_4=	'_long' 
+    |		lv_native_1_4=	'_int' 
     {
-        newLeafNode(lv_native_1_4, grammarAccess.getPojoPropertyAccess().getNative_longKeyword_1_0_0_3());
+        newLeafNode(lv_native_1_4, grammarAccess.getPojoPropertyAccess().getNative_intKeyword_1_0_0_3());
     }
  
 	    {
@@ -6907,9 +6907,9 @@ rulePojoProperty returns [EObject current=null]
        		setWithLastConsumed($current, "native", lv_native_1_4, null);
 	    }
 
-    |		lv_native_1_5=	'_float' 
+    |		lv_native_1_5=	'_long' 
     {
-        newLeafNode(lv_native_1_5, grammarAccess.getPojoPropertyAccess().getNative_floatKeyword_1_0_0_4());
+        newLeafNode(lv_native_1_5, grammarAccess.getPojoPropertyAccess().getNative_longKeyword_1_0_0_4());
     }
  
 	    {
@@ -6919,9 +6919,9 @@ rulePojoProperty returns [EObject current=null]
        		setWithLastConsumed($current, "native", lv_native_1_5, null);
 	    }
 
-    |		lv_native_1_6=	'_double' 
+    |		lv_native_1_6=	'_float' 
     {
-        newLeafNode(lv_native_1_6, grammarAccess.getPojoPropertyAccess().getNative_doubleKeyword_1_0_0_5());
+        newLeafNode(lv_native_1_6, grammarAccess.getPojoPropertyAccess().getNative_floatKeyword_1_0_0_5());
     }
  
 	    {
@@ -6931,9 +6931,9 @@ rulePojoProperty returns [EObject current=null]
        		setWithLastConsumed($current, "native", lv_native_1_6, null);
 	    }
 
-    |		lv_native_1_7=	'_boolean' 
+    |		lv_native_1_7=	'_double' 
     {
-        newLeafNode(lv_native_1_7, grammarAccess.getPojoPropertyAccess().getNative_booleanKeyword_1_0_0_6());
+        newLeafNode(lv_native_1_7, grammarAccess.getPojoPropertyAccess().getNative_doubleKeyword_1_0_0_6());
     }
  
 	    {
@@ -6941,6 +6941,18 @@ rulePojoProperty returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getPojoPropertyRule());
 	        }
        		setWithLastConsumed($current, "native", lv_native_1_7, null);
+	    }
+
+    |		lv_native_1_8=	'_boolean' 
+    {
+        newLeafNode(lv_native_1_8, grammarAccess.getPojoPropertyAccess().getNative_booleanKeyword_1_0_0_7());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoPropertyRule());
+	        }
+       		setWithLastConsumed($current, "native", lv_native_1_8, null);
 	    }
 
 )
@@ -7027,9 +7039,24 @@ rulePojoProperty returns [EObject current=null]
     }
 )?))(
 (
-		lv_required_11_0=	'required' 
+		lv_array_11_0=	'[]' 
     {
-        newLeafNode(lv_required_11_0, grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_2_0());
+        newLeafNode(lv_array_11_0, grammarAccess.getPojoPropertyAccess().getArrayLeftSquareBracketRightSquareBracketKeyword_2_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoPropertyRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[]");
+	    }
+
+)
+)?(
+(
+		lv_required_12_0=	'required' 
+    {
+        newLeafNode(lv_required_12_0, grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_3_0());
     }
  
 	    {

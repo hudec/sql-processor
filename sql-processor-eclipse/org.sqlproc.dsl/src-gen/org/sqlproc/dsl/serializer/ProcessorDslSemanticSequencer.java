@@ -721,6 +721,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (
 	 *         name=IDENT 
 	 *         (
+	 *             native='_char' | 
 	 *             native='_byte' | 
 	 *             native='_short' | 
 	 *             native='_int' | 
@@ -730,6 +731,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *             native='_boolean' | 
 	 *             ((ref=[PojoEntity|IDENT] | type=[JvmType|QualifiedName]) (gref=[PojoEntity|IDENT] | gtype=[JvmType|QualifiedName])?)
 	 *         ) 
+	 *         array?='[]'? 
 	 *         required?='required'?
 	 *     )
 	 */

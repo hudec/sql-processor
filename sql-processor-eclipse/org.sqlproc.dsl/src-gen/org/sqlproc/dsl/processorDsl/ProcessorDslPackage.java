@@ -1943,13 +1943,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_PROPERTY__GTYPE = 5;
 
   /**
+   * The feature id for the '<em><b>Array</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_PROPERTY__ARRAY = 6;
+
+  /**
    * The feature id for the '<em><b>Required</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY__REQUIRED = 6;
+  int POJO_PROPERTY__REQUIRED = 7;
 
   /**
    * The number of structural features of the '<em>Pojo Property</em>' class.
@@ -1958,7 +1967,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY_FEATURE_COUNT = 7;
+  int POJO_PROPERTY_FEATURE_COUNT = 8;
 
 
   /**
@@ -3648,6 +3657,17 @@ public interface ProcessorDslPackage extends EPackage
   EReference getPojoProperty_Gtype();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoProperty#isArray <em>Array</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Array</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoProperty#isArray()
+   * @see #getPojoProperty()
+   * @generated
+   */
+  EAttribute getPojoProperty_Array();
+
+  /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoProperty#isRequired <em>Required</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5018,6 +5038,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EReference POJO_PROPERTY__GTYPE = eINSTANCE.getPojoProperty_Gtype();
+
+    /**
+     * The meta object literal for the '<em><b>Array</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_PROPERTY__ARRAY = eINSTANCE.getPojoProperty_Array();
 
     /**
      * The meta object literal for the '<em><b>Required</b></em>' attribute feature.

@@ -3911,13 +3911,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
 		private final Assignment cNativeAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
 		private final Alternatives cNativeAlternatives_1_0_0 = (Alternatives)cNativeAssignment_1_0.eContents().get(0);
-		private final Keyword cNative_byteKeyword_1_0_0_0 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(0);
-		private final Keyword cNative_shortKeyword_1_0_0_1 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(1);
-		private final Keyword cNative_intKeyword_1_0_0_2 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(2);
-		private final Keyword cNative_longKeyword_1_0_0_3 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(3);
-		private final Keyword cNative_floatKeyword_1_0_0_4 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(4);
-		private final Keyword cNative_doubleKeyword_1_0_0_5 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(5);
-		private final Keyword cNative_booleanKeyword_1_0_0_6 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(6);
+		private final Keyword cNative_charKeyword_1_0_0_0 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(0);
+		private final Keyword cNative_byteKeyword_1_0_0_1 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(1);
+		private final Keyword cNative_shortKeyword_1_0_0_2 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(2);
+		private final Keyword cNative_intKeyword_1_0_0_3 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(3);
+		private final Keyword cNative_longKeyword_1_0_0_4 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(4);
+		private final Keyword cNative_floatKeyword_1_0_0_5 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(5);
+		private final Keyword cNative_doubleKeyword_1_0_0_6 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(6);
+		private final Keyword cNative_booleanKeyword_1_0_0_7 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(7);
 		private final Group cGroup_1_1 = (Group)cAlternatives_1.eContents().get(1);
 		private final Group cGroup_1_1_0 = (Group)cGroup_1_1.eContents().get(0);
 		private final RuleCall cCOLONTerminalRuleCall_1_1_0_0 = (RuleCall)cGroup_1_1_0.eContents().get(0);
@@ -3942,18 +3943,20 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cGtypeJvmTypeCrossReference_1_1_1_1_1_0 = (CrossReference)cGtypeAssignment_1_1_1_1_1.eContents().get(0);
 		private final RuleCall cGtypeJvmTypeQualifiedNameParserRuleCall_1_1_1_1_1_0_1 = (RuleCall)cGtypeJvmTypeCrossReference_1_1_1_1_1_0.eContents().get(1);
 		private final RuleCall cMORE_THANTerminalRuleCall_1_1_1_2 = (RuleCall)cGroup_1_1_1.eContents().get(2);
-		private final Assignment cRequiredAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final Keyword cRequiredRequiredKeyword_2_0 = (Keyword)cRequiredAssignment_2.eContents().get(0);
+		private final Assignment cArrayAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Keyword cArrayLeftSquareBracketRightSquareBracketKeyword_2_0 = (Keyword)cArrayAssignment_2.eContents().get(0);
+		private final Assignment cRequiredAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final Keyword cRequiredRequiredKeyword_3_0 = (Keyword)cRequiredAssignment_3.eContents().get(0);
 		
 		//PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
-		//	name=IDENT (native=("_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
-		//	ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
-		//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) required?="required"?;
+		//	name=IDENT (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON
+		//	(COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
+		//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? required?="required"?;
 		public ParserRule getRule() { return rule; }
 
-		//name=IDENT (native=("_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
+		//name=IDENT (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
 		//ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
-		//gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) required?="required"?
+		//gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? required?="required"?
 		public Group getGroup() { return cGroup; }
 
 		//name=IDENT
@@ -3962,37 +3965,40 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getNameIDENTTerminalRuleCall_0_0() { return cNameIDENTTerminalRuleCall_0_0; }
 
-		//native=("_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
+		//native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
 		//ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
 		//gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
-		//native=("_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean")
+		//native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean")
 		public Assignment getNativeAssignment_1_0() { return cNativeAssignment_1_0; }
 
-		//"_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean"
+		//"_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean"
 		public Alternatives getNativeAlternatives_1_0_0() { return cNativeAlternatives_1_0_0; }
 
+		//"_char"
+		public Keyword getNative_charKeyword_1_0_0_0() { return cNative_charKeyword_1_0_0_0; }
+
 		//"_byte"
-		public Keyword getNative_byteKeyword_1_0_0_0() { return cNative_byteKeyword_1_0_0_0; }
+		public Keyword getNative_byteKeyword_1_0_0_1() { return cNative_byteKeyword_1_0_0_1; }
 
 		//"_short"
-		public Keyword getNative_shortKeyword_1_0_0_1() { return cNative_shortKeyword_1_0_0_1; }
+		public Keyword getNative_shortKeyword_1_0_0_2() { return cNative_shortKeyword_1_0_0_2; }
 
 		//"_int"
-		public Keyword getNative_intKeyword_1_0_0_2() { return cNative_intKeyword_1_0_0_2; }
+		public Keyword getNative_intKeyword_1_0_0_3() { return cNative_intKeyword_1_0_0_3; }
 
 		//"_long"
-		public Keyword getNative_longKeyword_1_0_0_3() { return cNative_longKeyword_1_0_0_3; }
+		public Keyword getNative_longKeyword_1_0_0_4() { return cNative_longKeyword_1_0_0_4; }
 
 		//"_float"
-		public Keyword getNative_floatKeyword_1_0_0_4() { return cNative_floatKeyword_1_0_0_4; }
+		public Keyword getNative_floatKeyword_1_0_0_5() { return cNative_floatKeyword_1_0_0_5; }
 
 		//"_double"
-		public Keyword getNative_doubleKeyword_1_0_0_5() { return cNative_doubleKeyword_1_0_0_5; }
+		public Keyword getNative_doubleKeyword_1_0_0_6() { return cNative_doubleKeyword_1_0_0_6; }
 
 		//"_boolean"
-		public Keyword getNative_booleanKeyword_1_0_0_6() { return cNative_booleanKeyword_1_0_0_6; }
+		public Keyword getNative_booleanKeyword_1_0_0_7() { return cNative_booleanKeyword_1_0_0_7; }
 
 		//(COLON (COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON
 		//gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?
@@ -4067,11 +4073,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//MORE_THAN
 		public RuleCall getMORE_THANTerminalRuleCall_1_1_1_2() { return cMORE_THANTerminalRuleCall_1_1_1_2; }
 
+		//array?="[]"?
+		public Assignment getArrayAssignment_2() { return cArrayAssignment_2; }
+
+		//"[]"
+		public Keyword getArrayLeftSquareBracketRightSquareBracketKeyword_2_0() { return cArrayLeftSquareBracketRightSquareBracketKeyword_2_0; }
+
 		//required?="required"?
-		public Assignment getRequiredAssignment_2() { return cRequiredAssignment_2; }
+		public Assignment getRequiredAssignment_3() { return cRequiredAssignment_3; }
 
 		//"required"
-		public Keyword getRequiredRequiredKeyword_2_0() { return cRequiredRequiredKeyword_2_0; }
+		public Keyword getRequiredRequiredKeyword_3_0() { return cRequiredRequiredKeyword_3_0; }
 	}
 
 	public class QualifiedNameWithWildcardElements extends AbstractParserRuleElementFinder {
@@ -4925,9 +4937,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
-	//	name=IDENT (native=("_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
-	//	ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
-	//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) required?="required"?;
+	//	name=IDENT (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON
+	//	(COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
+	//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? required?="required"?;
 	public PojoPropertyElements getPojoPropertyAccess() {
 		return (pPojoProperty != null) ? pPojoProperty : (pPojoProperty = new PojoPropertyElements());
 	}

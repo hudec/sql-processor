@@ -74,7 +74,7 @@ def compile(PojoProperty f, ImportManager importManager) '''
 '''
 
 def compileType(PojoProperty f, ImportManager importManager) '''
-  «IF f.getNative != null»«f.getNative.substring(1)»«ELSEIF f.getRef != null»«f.getRef.fullyQualifiedName»«ELSEIF f.getType != null»«importManager.serialize(f.getType)»«ENDIF»'''
+  «IF f.getNative != null»«f.getNative.substring(1)»«ELSEIF f.getRef != null»«f.getRef.fullyQualifiedName»«ELSEIF f.getType != null»«importManager.serialize(f.getType)»«ENDIF»«IF f.array»[]«ENDIF»'''
   
 def requiredFeatures(PojoEntity e) {
 	

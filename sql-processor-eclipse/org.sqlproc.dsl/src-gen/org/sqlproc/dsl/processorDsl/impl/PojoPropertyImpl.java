@@ -29,6 +29,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getGref <em>Gref</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getGtype <em>Gtype</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#isArray <em>Array</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#isRequired <em>Required</em>}</li>
  * </ul>
  * </p>
@@ -116,6 +117,26 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
    * @ordered
    */
   protected JvmType gtype;
+
+  /**
+   * The default value of the '{@link #isArray() <em>Array</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isArray()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ARRAY_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isArray() <em>Array</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isArray()
+   * @generated
+   * @ordered
+   */
+  protected boolean array = ARRAY_EDEFAULT;
 
   /**
    * The default value of the '{@link #isRequired() <em>Required</em>}' attribute.
@@ -381,6 +402,29 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isArray()
+  {
+    return array;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setArray(boolean newArray)
+  {
+    boolean oldArray = array;
+    array = newArray;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_PROPERTY__ARRAY, oldArray, array));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public boolean isRequired()
   {
     return required;
@@ -425,6 +469,8 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
       case ProcessorDslPackage.POJO_PROPERTY__GTYPE:
         if (resolve) return getGtype();
         return basicGetGtype();
+      case ProcessorDslPackage.POJO_PROPERTY__ARRAY:
+        return isArray();
       case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
         return isRequired();
     }
@@ -458,6 +504,9 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
         return;
       case ProcessorDslPackage.POJO_PROPERTY__GTYPE:
         setGtype((JvmType)newValue);
+        return;
+      case ProcessorDslPackage.POJO_PROPERTY__ARRAY:
+        setArray((Boolean)newValue);
         return;
       case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
         setRequired((Boolean)newValue);
@@ -494,6 +543,9 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
       case ProcessorDslPackage.POJO_PROPERTY__GTYPE:
         setGtype((JvmType)null);
         return;
+      case ProcessorDslPackage.POJO_PROPERTY__ARRAY:
+        setArray(ARRAY_EDEFAULT);
+        return;
       case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
         setRequired(REQUIRED_EDEFAULT);
         return;
@@ -523,6 +575,8 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
         return gref != null;
       case ProcessorDslPackage.POJO_PROPERTY__GTYPE:
         return gtype != null;
+      case ProcessorDslPackage.POJO_PROPERTY__ARRAY:
+        return array != ARRAY_EDEFAULT;
       case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
         return required != REQUIRED_EDEFAULT;
     }
@@ -544,6 +598,8 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
     result.append(name);
     result.append(", native: ");
     result.append(native_);
+    result.append(", array: ");
+    result.append(array);
     result.append(", required: ");
     result.append(required);
     result.append(')');

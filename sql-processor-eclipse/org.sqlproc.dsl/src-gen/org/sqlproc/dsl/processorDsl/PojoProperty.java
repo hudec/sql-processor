@@ -20,6 +20,7 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getType <em>Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getGref <em>Gref</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getGtype <em>Gtype</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#isArray <em>Array</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#isRequired <em>Required</em>}</li>
  * </ul>
  * </p>
@@ -185,6 +186,32 @@ public interface PojoProperty extends EObject
    * @generated
    */
   void setGtype(JvmType value);
+
+  /**
+   * Returns the value of the '<em><b>Array</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Array</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Array</em>' attribute.
+   * @see #setArray(boolean)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoProperty_Array()
+   * @model
+   * @generated
+   */
+  boolean isArray();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoProperty#isArray <em>Array</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Array</em>' attribute.
+   * @see #isArray()
+   * @generated
+   */
+  void setArray(boolean value);
 
   /**
    * Returns the value of the '<em><b>Required</b></em>' attribute.
