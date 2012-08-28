@@ -17,7 +17,8 @@ public class BankAccount extends BillingDetails {
     return account;
   }
     
-  public void setAccount(String account) {
+  public BankAccount setAccount(String account) {
     this.account = account;
+    return this;
   }
 }

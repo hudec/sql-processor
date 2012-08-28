@@ -17,8 +17,9 @@ public class Movie extends Media {
     return urlIMDB;
   }
     
-  public void setUrlIMDB(String urlIMDB) {
+  public Movie setUrlIMDB(String urlIMDB) {
     this.urlIMDB = urlIMDB;
+    return this;
   }
   
   private Integer playLength;
@@ -27,7 +28,8 @@ public class Movie extends Media {
     return playLength;
   }
     
-  public void setPlayLength(Integer playLength) {
+  public Movie setPlayLength(Integer playLength) {
     this.playLength = playLength;
+    return this;
   }
 }

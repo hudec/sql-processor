@@ -16,8 +16,9 @@ public abstract class BillingDetails {
     return id;
   }
     
-  public void setId(Long id) {
+  public BillingDetails setId(Long id) {
     this.id = id;
+    return this;
   }
   
   private String type;
@@ -26,8 +27,9 @@ public abstract class BillingDetails {
     return type;
   }
     
-  public void setType(String type) {
+  public BillingDetails setType(String type) {
     this.type = type;
+    return this;
   }
   
   private Subscriber subscriber;
@@ -36,7 +38,8 @@ public abstract class BillingDetails {
     return subscriber;
   }
     
-  public void setSubscriber(Subscriber subscriber) {
+  public BillingDetails setSubscriber(Subscriber subscriber) {
     this.subscriber = subscriber;
+    return this;
   }
 }

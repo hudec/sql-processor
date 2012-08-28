@@ -16,8 +16,9 @@ public class PersonLibrary {
     return id;
   }
     
-  public void setId(Long id) {
+  public PersonLibrary setId(Long id) {
     this.id = id;
+    return this;
   }
   
   private Long personId;
@@ -26,8 +27,9 @@ public class PersonLibrary {
     return personId;
   }
     
-  public void setPersonId(Long personId) {
+  public PersonLibrary setPersonId(Long personId) {
     this.personId = personId;
+    return this;
   }
   
   private Long mediaId;
@@ -36,7 +38,8 @@ public class PersonLibrary {
     return mediaId;
   }
     
-  public void setMediaId(Long mediaId) {
+  public PersonLibrary setMediaId(Long mediaId) {
     this.mediaId = mediaId;
+    return this;
   }
 }

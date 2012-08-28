@@ -16,7 +16,8 @@ public class Book extends Media {
     return isbn;
   }
     
-  public void setIsbn(String isbn) {
+  public Book setIsbn(String isbn) {
     this.isbn = isbn;
+    return this;
   }
 }

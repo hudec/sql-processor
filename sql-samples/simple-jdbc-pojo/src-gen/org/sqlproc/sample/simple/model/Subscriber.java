@@ -18,8 +18,9 @@ public class Subscriber {
     return id;
   }
     
-  public void setId(Long id) {
+  public Subscriber setId(Long id) {
     this.id = id;
+    return this;
   }
   
   private String name;
@@ -28,8 +29,9 @@ public class Subscriber {
     return name;
   }
     
-  public void setName(String name) {
+  public Subscriber setName(String name) {
     this.name = name;
+    return this;
   }
   
   private Contact contact;
@@ -38,8 +40,9 @@ public class Subscriber {
     return contact;
   }
     
-  public void setContact(Contact contact) {
+  public Subscriber setContact(Contact contact) {
     this.contact = contact;
+    return this;
   }
   
   private Library library;
@@ -48,17 +51,19 @@ public class Subscriber {
     return library;
   }
     
-  public void setLibrary(Library library) {
+  public Subscriber setLibrary(Library library) {
     this.library = library;
+    return this;
   }
   
-  private List billingDetails;
+  private List<BillingDetails> billingDetails;
     
-  public List getBillingDetails() {
+  public List<BillingDetails> getBillingDetails() {
     return billingDetails;
   }
     
-  public void setBillingDetails(List billingDetails) {
+  public Subscriber setBillingDetails(List<BillingDetails> billingDetails) {
     this.billingDetails = billingDetails;
+    return this;
   }
 }

@@ -398,9 +398,8 @@ public class Main {
         Assert.assertEquals(4, list.size());
 
         // custom type
-        Contact cc = new Contact("Pepa address 1");
-        cc.setHomePhone(new PhoneNumber(111, 222, 3333));
-        Person pepa = main.insertCustom(new Person("Pepa"), cc);
+        Person pepa = main.insertCustom(new Person("Pepa"),
+                new Contact("Pepa address 1").setHomePhone(new PhoneNumber(111, 222, 3333)));
         Contact contact = new Contact();
         contact.setHomePhone(new PhoneNumber(111, 222, 3333));
         list = main.listCustom(contact);

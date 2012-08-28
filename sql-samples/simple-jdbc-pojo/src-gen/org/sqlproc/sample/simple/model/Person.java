@@ -17,8 +17,9 @@ public class Person {
     return id;
   }
     
-  public void setId(Long id) {
+  public Person setId(Long id) {
     this.id = id;
+    return this;
   }
   
   private String name;
@@ -27,27 +28,30 @@ public class Person {
     return name;
   }
     
-  public void setName(String name) {
+  public Person setName(String name) {
     this.name = name;
+    return this;
   }
   
-  private List contacts;
+  private List<Contact> contacts;
     
-  public List getContacts() {
+  public List<Contact> getContacts() {
     return contacts;
   }
     
-  public void setContacts(List contacts) {
+  public Person setContacts(List<Contact> contacts) {
     this.contacts = contacts;
+    return this;
   }
   
-  private List library;
+  private List<Media> library;
     
-  public List getLibrary() {
+  public List<Media> getLibrary() {
     return library;
   }
     
-  public void setLibrary(List library) {
+  public Person setLibrary(List<Media> library) {
     this.library = library;
+    return this;
   }
 }

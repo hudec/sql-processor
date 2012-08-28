@@ -17,8 +17,9 @@ public class PhoneNumber {
     return area;
   }
     
-  public void setArea(int area) {
+  public PhoneNumber setArea(int area) {
     this.area = area;
+    return this;
   }
   
   private int exch;
@@ -27,8 +28,9 @@ public class PhoneNumber {
     return exch;
   }
     
-  public void setExch(int exch) {
+  public PhoneNumber setExch(int exch) {
     this.exch = exch;
+    return this;
   }
   
   private int ext;
@@ -37,7 +39,8 @@ public class PhoneNumber {
     return ext;
   }
     
-  public void setExt(int ext) {
+  public PhoneNumber setExt(int ext) {
     this.ext = ext;
+    return this;
   }
 }

@@ -13,8 +13,9 @@ public class FormSimpleFunction {
     return time;
   }
     
-  public void setTime(Timestamp time) {
+  public FormSimpleFunction setTime(Timestamp time) {
     this.time = time;
+    return this;
   }
   
   private Timestamp time2;
@@ -23,7 +24,8 @@ public class FormSimpleFunction {
     return time2;
   }
     
-  public void setTime2(Timestamp time2) {
+  public FormSimpleFunction setTime2(Timestamp time2) {
     this.time2 = time2;
+    return this;
   }
 }

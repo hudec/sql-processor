@@ -55,12 +55,12 @@ public «IF e.isAbstract»abstract «ENDIF»class «e.name» «IF e.superType !=
   }
   «ENDIF»
   «FOR f:e.features»
-    «f.compile(importManager)»
+    «f.compile(importManager, e)»
   «ENDFOR»
 }
 '''
 
-def compile(PojoProperty f, ImportManager importManager) '''
+def compile(PojoProperty f, ImportManager importManager, PojoEntity e) '''
 
     private «f.compileType(importManager)» «f.name»;
   
@@ -68,13 +68,14 @@ def compile(PojoProperty f, ImportManager importManager) '''
       return «f.name»;
     }
   
-    public void set«f.name.toFirstUpper»(«f.compileType(importManager)» «f.name») {
+    public «e.name» set«f.name.toFirstUpper»(«f.compileType(importManager)» «f.name») {
       this.«f.name» = «f.name»;
+      return this;
     }
 '''
 
 def compileType(PojoProperty f, ImportManager importManager) '''
-  «IF f.getNative != null»«f.getNative.substring(1)»«ELSEIF f.getRef != null»«f.getRef.fullyQualifiedName»«ELSEIF f.getType != null»«importManager.serialize(f.getType)»«ENDIF»«IF f.array»[]«ENDIF»'''
+  «IF f.getNative != null»«f.getNative.substring(1)»«ELSEIF f.getRef != null»«f.getRef.fullyQualifiedName»«ELSEIF f.getType != null»«importManager.serialize(f.getType)»«ENDIF»«IF f.getGtype != null»<«importManager.serialize(f.getGtype)»>«ENDIF»«IF f.getGref != null»<«f.getGref.fullyQualifiedName»>«ENDIF»«IF f.array»[]«ENDIF»'''
   
 def requiredFeatures(PojoEntity e) {
 	
