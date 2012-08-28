@@ -17,9 +17,9 @@ public class TablePojoConverter {
 
         public String getName() {
             if (this == BYTE_ARRAY)
-                return "byte[]";
+                return "byte []";
             if (this == CHAR_ARRAY)
-                return "char[]";
+                return "char []";
             return name().toLowerCase();
         }
     }
@@ -213,9 +213,17 @@ public class TablePojoConverter {
             attribute.setClassName(BigDecimal.class.getName());
             break;
         case Types.DECIMAL:
-            // difference between NUMERIC and DECIMAL ?
             attribute.setPrimitive(false);
-            attribute.setClassName(BigInteger.class.getName());
+            if (dbColumn.getSize() < 3)
+                attribute.setClassName(Byte.class.getName());
+            else if (dbColumn.getSize() < 5)
+                attribute.setClassName(Short.class.getName());
+            else if (dbColumn.getSize() < 10)
+                attribute.setClassName(Integer.class.getName());
+            else if (dbColumn.getSize() < 20)
+                attribute.setClassName(Long.class.getName());
+            else
+                attribute.setClassName(BigInteger.class.getName());
             break;
         case Types.CHAR:
         case Types.NCHAR:
@@ -255,13 +263,16 @@ public class TablePojoConverter {
             attribute.setClassName(PrimitiveType.BYTE_ARRAY.getName());
             break;
         case Types.CLOB:
-            attribute.setPrimitive(true);
-            attribute.setClassName(PrimitiveType.CHAR_ARRAY.getName());
+            attribute.setPrimitive(false);
+            attribute.setClassName(String.class.getName());
             break;
         default:
             // todo what type?
             attribute.setPrimitive(false);
-            attribute.setClassName("java.lang.Object");
+            if (dbColumn.getType().indexOf("TIMESTAMP") == 0 || dbColumn.getType().indexOf("timestamp") == 0)
+                attribute.setClassName(java.sql.Timestamp.class.getName());
+            else
+                attribute.setClassName("java.lang.Object");
         }
         return attribute;
     }
