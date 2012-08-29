@@ -151,7 +151,7 @@ public class TablePojoConverter {
         if (dbColumn == null || definitions == null)
             return null;
         for (TypeDefinition definition : definitions) {
-            if (definition.getName().equalsIgnoreCase(dbColumn.getType())) {
+            if (definition.getName().equals(dbColumn.getType())) {
                 PojoAttribute attribute = new PojoAttribute();
                 attribute.setName(columnToCamelCase(dbColumn.getName()));
                 attribute.setRequired(!dbColumn.isNullable());
