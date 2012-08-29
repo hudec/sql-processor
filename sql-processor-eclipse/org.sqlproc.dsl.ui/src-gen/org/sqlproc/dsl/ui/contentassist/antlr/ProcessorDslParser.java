@@ -74,6 +74,9 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMappingColumnAccess().getNameAlternatives_0_0(), "rule__MappingColumn__NameAlternatives_0_0");
 					put(grammarAccess.getMappingColumnAccess().getValsAlternatives_1_1_0(), "rule__MappingColumn__ValsAlternatives_1_1_0");
 					put(grammarAccess.getFeatureValueAccess().getAlternatives(), "rule__FeatureValue__Alternatives");
+					put(grammarAccess.getTypeDefinitionAccess().getNameAlternatives_1_0(), "rule__TypeDefinition__NameAlternatives_1_0");
+					put(grammarAccess.getTypeDefinitionAccess().getAlternatives_2(), "rule__TypeDefinition__Alternatives_2");
+					put(grammarAccess.getTypeDefinitionAccess().getNativeAlternatives_2_0_0(), "rule__TypeDefinition__NativeAlternatives_2_0_0");
 					put(grammarAccess.getPackageDeclarationAccess().getNameAlternatives_1_0(), "rule__PackageDeclaration__NameAlternatives_1_0");
 					put(grammarAccess.getAbstractPojoEntityAccess().getAlternatives(), "rule__AbstractPojoEntity__Alternatives");
 					put(grammarAccess.getPojoPropertyAccess().getAlternatives_1(), "rule__PojoProperty__Alternatives_1");
@@ -92,6 +95,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getArtifactsAccess().getGroup_1_7(), "rule__Artifacts__Group_1_7__0");
 					put(grammarAccess.getArtifactsAccess().getGroup_1_8(), "rule__Artifacts__Group_1_8__0");
 					put(grammarAccess.getArtifactsAccess().getGroup_1_9(), "rule__Artifacts__Group_1_9__0");
+					put(grammarAccess.getArtifactsAccess().getGroup_1_10(), "rule__Artifacts__Group_1_10__0");
 					put(grammarAccess.getPropertyAccess().getGroup(), "rule__Property__Group__0");
 					put(grammarAccess.getPropertyAccess().getGroup_0_0(), "rule__Property__Group_0_0__0");
 					put(grammarAccess.getPropertyAccess().getGroup_0_1(), "rule__Property__Group_0_1__0");
@@ -180,6 +184,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMappingColumnAccess().getGroup_1(), "rule__MappingColumn__Group_1__0");
 					put(grammarAccess.getOptionalFeatureAccess().getGroup(), "rule__OptionalFeature__Group__0");
 					put(grammarAccess.getOptionalFeatureAccess().getGroup_3(), "rule__OptionalFeature__Group_3__0");
+					put(grammarAccess.getTypeDefinitionAccess().getGroup(), "rule__TypeDefinition__Group__0");
 					put(grammarAccess.getPackageDeclarationAccess().getGroup(), "rule__PackageDeclaration__Group__0");
 					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
 					put(grammarAccess.getPojoEntityAccess().getGroup(), "rule__PojoEntity__Group__0");
@@ -199,8 +204,9 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getArtifactsAccess().getPropertiesAssignment_1_5_0(), "rule__Artifacts__PropertiesAssignment_1_5_0");
 					put(grammarAccess.getArtifactsAccess().getTablesAssignment_1_6_0(), "rule__Artifacts__TablesAssignment_1_6_0");
 					put(grammarAccess.getArtifactsAccess().getTableUsagesAssignment_1_7_0(), "rule__Artifacts__TableUsagesAssignment_1_7_0");
-					put(grammarAccess.getArtifactsAccess().getPojoPackagesAssignment_1_8_0(), "rule__Artifacts__PojoPackagesAssignment_1_8_0");
-					put(grammarAccess.getArtifactsAccess().getUsagesExtAssignment_1_9_0(), "rule__Artifacts__UsagesExtAssignment_1_9_0");
+					put(grammarAccess.getArtifactsAccess().getTypeDefinitionsAssignment_1_8_0(), "rule__Artifacts__TypeDefinitionsAssignment_1_8_0");
+					put(grammarAccess.getArtifactsAccess().getPojoPackagesAssignment_1_9_0(), "rule__Artifacts__PojoPackagesAssignment_1_9_0");
+					put(grammarAccess.getArtifactsAccess().getUsagesExtAssignment_1_10_0(), "rule__Artifacts__UsagesExtAssignment_1_10_0");
 					put(grammarAccess.getPropertyAccess().getNameAssignment_0_0_0(), "rule__Property__NameAssignment_0_0_0");
 					put(grammarAccess.getPropertyAccess().getDoResolvePojoAssignment_0_0_2(), "rule__Property__DoResolvePojoAssignment_0_0_2");
 					put(grammarAccess.getPropertyAccess().getNameAssignment_0_1_0(), "rule__Property__NameAssignment_0_1_0");
@@ -330,6 +336,10 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOptionalFeatureAccess().getTypeAssignment_2(), "rule__OptionalFeature__TypeAssignment_2");
 					put(grammarAccess.getOptionalFeatureAccess().getFiltersAssignment_3_1(), "rule__OptionalFeature__FiltersAssignment_3_1");
 					put(grammarAccess.getOptionalFeatureAccess().getOptionAssignment_6(), "rule__OptionalFeature__OptionAssignment_6");
+					put(grammarAccess.getTypeDefinitionAccess().getNameAssignment_1(), "rule__TypeDefinition__NameAssignment_1");
+					put(grammarAccess.getTypeDefinitionAccess().getNativeAssignment_2_0(), "rule__TypeDefinition__NativeAssignment_2_0");
+					put(grammarAccess.getTypeDefinitionAccess().getTypeAssignment_2_1(), "rule__TypeDefinition__TypeAssignment_2_1");
+					put(grammarAccess.getTypeDefinitionAccess().getArrayAssignment_3(), "rule__TypeDefinition__ArrayAssignment_3");
 					put(grammarAccess.getPackageDeclarationAccess().getNameAssignment_1(), "rule__PackageDeclaration__NameAssignment_1");
 					put(grammarAccess.getPackageDeclarationAccess().getElementsAssignment_3(), "rule__PackageDeclaration__ElementsAssignment_3");
 					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");

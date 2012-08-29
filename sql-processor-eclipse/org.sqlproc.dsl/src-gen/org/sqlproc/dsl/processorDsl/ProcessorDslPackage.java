@@ -139,13 +139,22 @@ public interface ProcessorDslPackage extends EPackage
   int ARTIFACTS__TABLE_USAGES = 7;
 
   /**
+   * The feature id for the '<em><b>Type Definitions</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARTIFACTS__TYPE_DEFINITIONS = 8;
+
+  /**
    * The feature id for the '<em><b>Pojo Packages</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ARTIFACTS__POJO_PACKAGES = 8;
+  int ARTIFACTS__POJO_PACKAGES = 9;
 
   /**
    * The feature id for the '<em><b>Usages Ext</b></em>' containment reference list.
@@ -154,7 +163,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ARTIFACTS__USAGES_EXT = 9;
+  int ARTIFACTS__USAGES_EXT = 10;
 
   /**
    * The number of structural features of the '<em>Artifacts</em>' class.
@@ -163,7 +172,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ARTIFACTS_FEATURE_COUNT = 10;
+  int ARTIFACTS_FEATURE_COUNT = 11;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl <em>Property</em>}' class.
@@ -1740,6 +1749,61 @@ public interface ProcessorDslPackage extends EPackage
   int OPTIONAL_FEATURE_FEATURE_COUNT = 4;
 
   /**
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl <em>Type Definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getTypeDefinition()
+   * @generated
+   */
+  int TYPE_DEFINITION = 36;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_DEFINITION__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Native</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_DEFINITION__NATIVE = 1;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_DEFINITION__TYPE = 2;
+
+  /**
+   * The feature id for the '<em><b>Array</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_DEFINITION__ARRAY = 3;
+
+  /**
+   * The number of structural features of the '<em>Type Definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_DEFINITION_FEATURE_COUNT = 4;
+
+  /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.AbstractPojoEntityImpl <em>Abstract Pojo Entity</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1747,7 +1811,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getAbstractPojoEntity()
    * @generated
    */
-  int ABSTRACT_POJO_ENTITY = 37;
+  int ABSTRACT_POJO_ENTITY = 38;
 
   /**
    * The number of structural features of the '<em>Abstract Pojo Entity</em>' class.
@@ -1766,7 +1830,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPackageDeclaration()
    * @generated
    */
-  int PACKAGE_DECLARATION = 36;
+  int PACKAGE_DECLARATION = 37;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1803,7 +1867,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImport()
    * @generated
    */
-  int IMPORT = 38;
+  int IMPORT = 39;
 
   /**
    * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
@@ -1831,7 +1895,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntity()
    * @generated
    */
-  int POJO_ENTITY = 39;
+  int POJO_ENTITY = 40;
 
   /**
    * The feature id for the '<em><b>Abstract</b></em>' attribute.
@@ -1886,7 +1950,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoProperty()
    * @generated
    */
-  int POJO_PROPERTY = 40;
+  int POJO_PROPERTY = 41;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2067,6 +2131,17 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EReference getArtifacts_TableUsages();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getTypeDefinitions <em>Type Definitions</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Type Definitions</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Artifacts#getTypeDefinitions()
+   * @see #getArtifacts()
+   * @generated
+   */
+  EReference getArtifacts_TypeDefinitions();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getPojoPackages <em>Pojo Packages</em>}'.
@@ -3464,6 +3539,60 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getOptionalFeature_Option();
 
   /**
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.TypeDefinition <em>Type Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Definition</em>'.
+   * @see org.sqlproc.dsl.processorDsl.TypeDefinition
+   * @generated
+   */
+  EClass getTypeDefinition();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.sqlproc.dsl.processorDsl.TypeDefinition#getName()
+   * @see #getTypeDefinition()
+   * @generated
+   */
+  EAttribute getTypeDefinition_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getNative <em>Native</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Native</em>'.
+   * @see org.sqlproc.dsl.processorDsl.TypeDefinition#getNative()
+   * @see #getTypeDefinition()
+   * @generated
+   */
+  EAttribute getTypeDefinition_Native();
+
+  /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Type</em>'.
+   * @see org.sqlproc.dsl.processorDsl.TypeDefinition#getType()
+   * @see #getTypeDefinition()
+   * @generated
+   */
+  EReference getTypeDefinition_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#isArray <em>Array</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Array</em>'.
+   * @see org.sqlproc.dsl.processorDsl.TypeDefinition#isArray()
+   * @see #getTypeDefinition()
+   * @generated
+   */
+  EAttribute getTypeDefinition_Array();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PackageDeclaration <em>Package Declaration</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3774,6 +3903,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EReference ARTIFACTS__TABLE_USAGES = eINSTANCE.getArtifacts_TableUsages();
+
+    /**
+     * The meta object literal for the '<em><b>Type Definitions</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ARTIFACTS__TYPE_DEFINITIONS = eINSTANCE.getArtifacts_TypeDefinitions();
 
     /**
      * The meta object literal for the '<em><b>Pojo Packages</b></em>' containment reference list feature.
@@ -4884,6 +5021,48 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute OPTIONAL_FEATURE__OPTION = eINSTANCE.getOptionalFeature_Option();
+
+    /**
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl <em>Type Definition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getTypeDefinition()
+     * @generated
+     */
+    EClass TYPE_DEFINITION = eINSTANCE.getTypeDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TYPE_DEFINITION__NAME = eINSTANCE.getTypeDefinition_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Native</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TYPE_DEFINITION__NATIVE = eINSTANCE.getTypeDefinition_Native();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPE_DEFINITION__TYPE = eINSTANCE.getTypeDefinition_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Array</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TYPE_DEFINITION__ARRAY = eINSTANCE.getTypeDefinition_Array();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PackageDeclarationImpl <em>Package Declaration</em>}' class.

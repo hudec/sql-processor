@@ -52,6 +52,7 @@ import org.sqlproc.dsl.processorDsl.Sql;
 import org.sqlproc.dsl.processorDsl.SqlFragment;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
+import org.sqlproc.dsl.processorDsl.TypeDefinition;
 import org.sqlproc.dsl.services.ProcessorDslGrammarAccess;
 
 @SuppressWarnings("all")
@@ -301,6 +302,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.TYPE_DEFINITION:
+				if(context == grammarAccess.getTypeDefinitionRule()) {
+					sequence_TypeDefinition(context, (TypeDefinition) semanticObject); 
+					return; 
+				}
+				else break;
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
@@ -316,6 +323,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         properties+=Property | 
 	 *         tables+=TableDefinition | 
 	 *         tableUsages+=TableUsage | 
+	 *         typeDefinitions+=TypeDefinition | 
 	 *         pojoPackages+=PackageDeclaration | 
 	 *         usagesExt+=PojoUsageExt
 	 *     )+
@@ -807,6 +815,29 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] prefix=IDENT?)
 	 */
 	protected void sequence_TableUsage(EObject context, TableUsage semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=IDENT | name=IDENT_TYPE) 
+	 *         (
+	 *             native='_char' | 
+	 *             native='_byte' | 
+	 *             native='_short' | 
+	 *             native='_int' | 
+	 *             native='_long' | 
+	 *             native='_float' | 
+	 *             native='_double' | 
+	 *             native='_boolean' | 
+	 *             type=[JvmType|QualifiedName]
+	 *         ) 
+	 *         array?='[]'?
+	 *     )
+	 */
+	protected void sequence_TypeDefinition(EObject context, TypeDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

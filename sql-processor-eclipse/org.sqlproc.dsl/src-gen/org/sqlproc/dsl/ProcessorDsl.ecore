@@ -19,6 +19,8 @@
         eType="#//TableDefinition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tableUsages" upperBound="-1"
         eType="#//TableUsage" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeDefinitions" upperBound="-1"
+        eType="#//TypeDefinition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pojoPackages" upperBound="-1"
         eType="#//PackageDeclaration" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="usagesExt" upperBound="-1"
@@ -226,6 +228,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="filters" unique="false"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="option" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="native" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="array" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PackageDeclaration" eSuperTypes="#//AbstractPojoEntity">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

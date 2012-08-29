@@ -23,6 +23,7 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
     public final static String META_IDENT = "metaident";
     public final static String PACKAGE_NAME = "packageName";
     public final static String ENTITY_NAME = "entityName";
+    public final static String TYPE_NAME = "typeName";
     public final static String PROPERTY_NAME = "propertyName";
 
     public void configure(IHighlightingConfigurationAcceptor acceptor) {
@@ -42,6 +43,7 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
         acceptor.acceptDefaultHighlighting(META_IDENT, "Meta identifier", metaIdentStyle());
         acceptor.acceptDefaultHighlighting(PACKAGE_NAME, "Pojo package name", packageNameStyle());
         acceptor.acceptDefaultHighlighting(ENTITY_NAME, "Pojo entity name", entityNameStyle());
+        acceptor.acceptDefaultHighlighting(TYPE_NAME, "Type definition name", identifierStyle());
         acceptor.acceptDefaultHighlighting(PROPERTY_NAME, "Pojo property name", propertyNameStyle());
     }
 

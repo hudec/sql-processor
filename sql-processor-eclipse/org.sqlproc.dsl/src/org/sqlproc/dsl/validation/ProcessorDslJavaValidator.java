@@ -48,6 +48,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
+import org.sqlproc.dsl.processorDsl.TypeDefinition;
 import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
 
@@ -980,6 +981,24 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 continue;
             if (pojoProperty.getName().equals(property.getName())) {
                 error("Duplicate name : " + pojoProperty.getName(), ProcessorDslPackage.Literals.POJO_PROPERTY__NAME);
+                return;
+            }
+        }
+    }
+
+    @Check
+    public void checkUniqueColumnDefinition(TypeDefinition typeDefinition) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(typeDefinition);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+        for (TypeDefinition definitions : artifacts.getTypeDefinitions()) {
+            if (definitions == null || definitions == typeDefinition)
+                continue;
+            if (typeDefinition.getName().equals(definitions.getName())) {
+                error("Duplicate name : " + typeDefinition.getName(),
+                        ProcessorDslPackage.Literals.TYPE_DEFINITION__NAME);
                 return;
             }
         }

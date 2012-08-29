@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.sqlproc.dsl.processorDsl.TypeDefinition;
 import org.sqlproc.dsl.resolver.DbColumn;
 
 public class TablePojoConverter {
@@ -24,9 +25,14 @@ public class TablePojoConverter {
         }
     }
 
+    private List<TypeDefinition> definitions;
     private Map<String, List<PojoAttribute>> pojos = new HashMap<String, List<PojoAttribute>>();
 
     public TablePojoConverter() {
+    }
+
+    public TablePojoConverter(List<TypeDefinition> definitions) {
+        this.definitions = definitions;
     }
 
     public void addTableTefinition(String table, List<DbColumn> dbColumns) {
@@ -34,9 +40,14 @@ public class TablePojoConverter {
             return;
         List<PojoAttribute> attributes = new ArrayList<PojoAttribute>();
         for (DbColumn dbColumn : dbColumns) {
-            PojoAttribute attribute = convertDbColumn(dbColumn);
-            if (attribute != null)
+            PojoAttribute attribute = convertDbColumnDefinition(dbColumn);
+            if (attribute != null) {
                 attributes.add(attribute);
+            } else {
+                attribute = convertDbColumnDefault(dbColumn);
+                if (attribute != null)
+                    attributes.add(attribute);
+            }
         }
         pojos.put(tableToCamelCase(table), attributes);
     }
@@ -136,7 +147,28 @@ public class TablePojoConverter {
         return camelCaseString;
     }
 
-    private PojoAttribute convertDbColumn(DbColumn dbColumn) {
+    private PojoAttribute convertDbColumnDefinition(DbColumn dbColumn) {
+        if (dbColumn == null || definitions == null)
+            return null;
+        for (TypeDefinition definition : definitions) {
+            if (definition.getName().equalsIgnoreCase(dbColumn.getType())) {
+                PojoAttribute attribute = new PojoAttribute();
+                attribute.setName(columnToCamelCase(dbColumn.getName()));
+                attribute.setRequired(!dbColumn.isNullable());
+                if (definition.getNative() != null) {
+                    attribute.setPrimitive(true);
+                    attribute.setClassName(definition.getNative().substring(1) + (definition.isArray() ? " []" : ""));
+                } else {
+                    attribute.setPrimitive(false);
+                    attribute.setClassName(definition.getType().getIdentifier());
+                }
+                return attribute;
+            }
+        }
+        return null;
+    }
+
+    private PojoAttribute convertDbColumnDefault(DbColumn dbColumn) {
         if (dbColumn == null)
             return null;
         PojoAttribute attribute = new PojoAttribute();
