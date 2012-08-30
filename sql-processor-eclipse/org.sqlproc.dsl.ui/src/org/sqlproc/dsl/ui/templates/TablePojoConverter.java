@@ -68,6 +68,7 @@ public class TablePojoConverter {
                             if (className.length() > 1)
                                 name += className.substring(1);
                             attribute.setName(name);
+                            attribute.setPrimitive(false);
                             attribute.setDependencyClassName(className);
                             // reverse dependency
                             String referName = pojo.substring(0, 1).toLowerCase();
