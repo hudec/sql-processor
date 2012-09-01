@@ -59,6 +59,10 @@ public class DbResolverBean implements DbResolver {
             .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
     private final Map<String, Map<String, List<DbColumn>>> dbColumns = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<DbColumn>>>());
+    private final Map<String, Map<String, List<DbExport>>> dbExports = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<DbExport>>>());
+    private final Map<String, Map<String, List<DbImport>>> dbImports = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<DbImport>>>());
 
     private DatabaseValues checkReconnect(EObject model) {
         if (model == null)
@@ -173,6 +177,9 @@ public class DbResolverBean implements DbResolver {
             modelDatabaseValues.connection = null;
             tables.remove(modelDatabaseValues.dir);
             columns.remove(modelDatabaseValues.dir);
+            dbColumns.remove(modelDatabaseValues.dir);
+            dbExports.remove(modelDatabaseValues.dir);
+            dbImports.remove(modelDatabaseValues.dir);
         }
     }
 
@@ -321,5 +328,107 @@ public class DbResolverBean implements DbResolver {
         }
         Collections.sort(columnsForModel);
         return columnsForModel;
+    }
+
+    @Override
+    public List<DbExport> getDbExports(EObject model, String table) {
+        if (table == null)
+            return Collections.emptyList();
+        DatabaseValues modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        boolean doInit = false;
+        Map<String, List<DbExport>> allExportsForModel = dbExports.get(modelDatabaseValues.dir);
+        if (allExportsForModel == null) {
+            allExportsForModel = Collections.synchronizedMap(new HashMap<String, List<DbExport>>());
+            dbExports.put(modelDatabaseValues.dir, allExportsForModel);
+            doInit = true;
+        }
+        List<DbExport> exportsForModel = allExportsForModel.get(table);
+        if (exportsForModel == null) {
+            exportsForModel = Collections.synchronizedList(new ArrayList<DbExport>());
+            allExportsForModel.put(table, exportsForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return exportsForModel;
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getExportedKeys(null, modelDatabaseValues.dbSchema, table);
+                while (result.next()) {
+                    DbExport dbExport = new DbExport();
+                    dbExport.setPkTable(result.getString("PKTABLE_NAME"));
+                    dbExport.setPkColumn(result.getString("PKCOLUMN_NAME"));
+                    dbExport.setFkTable(result.getString("FKTABLE_NAME"));
+                    dbExport.setFkColumn(result.getString("FKCOLUMN_NAME"));
+                    dbExport.setFkName(result.getString("FK_NAME"));
+                    dbExport.setPkName(result.getString("PK_NAME"));
+                    exportsForModel.add(dbExport);
+                }
+            } catch (SQLException e) {
+                LOGGER.error("getDbColumns error " + e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    LOGGER.error("getDbColumns error " + e);
+                }
+            }
+        }
+        return exportsForModel;
+    }
+
+    @Override
+    public List<DbImport> getDbImports(EObject model, String table) {
+        if (table == null)
+            return Collections.emptyList();
+        DatabaseValues modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        boolean doInit = false;
+        Map<String, List<DbImport>> allImportsForModel = dbImports.get(modelDatabaseValues.dir);
+        if (allImportsForModel == null) {
+            allImportsForModel = Collections.synchronizedMap(new HashMap<String, List<DbImport>>());
+            dbImports.put(modelDatabaseValues.dir, allImportsForModel);
+            doInit = true;
+        }
+        List<DbImport> importsForModel = allImportsForModel.get(table);
+        if (importsForModel == null) {
+            importsForModel = Collections.synchronizedList(new ArrayList<DbImport>());
+            allImportsForModel.put(table, importsForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return importsForModel;
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getImportedKeys(null, modelDatabaseValues.dbSchema, table);
+                while (result.next()) {
+                    DbImport dbImport = new DbImport();
+                    dbImport.setPkTable(result.getString("PKTABLE_NAME"));
+                    dbImport.setPkColumn(result.getString("PKCOLUMN_NAME"));
+                    dbImport.setFkTable(result.getString("FKTABLE_NAME"));
+                    dbImport.setFkColumn(result.getString("FKCOLUMN_NAME"));
+                    dbImport.setFkName(result.getString("FK_NAME"));
+                    dbImport.setPkName(result.getString("PK_NAME"));
+                    importsForModel.add(dbImport);
+                }
+            } catch (SQLException e) {
+                LOGGER.error("getDbColumns error " + e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    LOGGER.error("getDbColumns error " + e);
+                }
+            }
+        }
+        return importsForModel;
     }
 }

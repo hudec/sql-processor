@@ -17,4 +17,8 @@ public interface DbResolver {
     public boolean checkColumn(EObject model, String table, String column);
 
     public List<DbColumn> getDbColumns(EObject model, String table);
+
+    public List<DbExport> getDbExports(EObject model, String table);
+
+    public List<DbImport> getDbImports(EObject model, String table);
 }

@@ -25,14 +25,19 @@ public class TablePojoConverter {
         }
     }
 
-    private List<TypeDefinition> definitions;
+    private Map<String, TypeDefinition> definitions;
     private Map<String, List<PojoAttribute>> pojos = new HashMap<String, List<PojoAttribute>>();
 
     public TablePojoConverter() {
     }
 
     public TablePojoConverter(List<TypeDefinition> definitions) {
-        this.definitions = definitions;
+        this.definitions = new HashMap<String, TypeDefinition>();
+        if (definitions != null) {
+            for (TypeDefinition definition : definitions) {
+                this.definitions.put(definition.getName(), definition);
+            }
+        }
     }
 
     public void addTableTefinition(String table, List<DbColumn> dbColumns) {
@@ -149,24 +154,22 @@ public class TablePojoConverter {
     }
 
     private PojoAttribute convertDbColumnDefinition(DbColumn dbColumn) {
-        if (dbColumn == null || definitions == null)
+        if (dbColumn == null)
             return null;
-        for (TypeDefinition definition : definitions) {
-            if (definition.getName().equals(dbColumn.getType())) {
-                PojoAttribute attribute = new PojoAttribute();
-                attribute.setName(columnToCamelCase(dbColumn.getName()));
-                attribute.setRequired(!dbColumn.isNullable());
-                if (definition.getNative() != null) {
-                    attribute.setPrimitive(true);
-                    attribute.setClassName(definition.getNative().substring(1) + (definition.isArray() ? " []" : ""));
-                } else {
-                    attribute.setPrimitive(false);
-                    attribute.setClassName(definition.getType().getIdentifier());
-                }
-                return attribute;
-            }
+        TypeDefinition definition = definitions.get(dbColumn.getType());
+        if (definition == null)
+            return null;
+        PojoAttribute attribute = new PojoAttribute();
+        attribute.setName(columnToCamelCase(dbColumn.getName()));
+        attribute.setRequired(!dbColumn.isNullable());
+        if (definition.getNative() != null) {
+            attribute.setPrimitive(true);
+            attribute.setClassName(definition.getNative().substring(1) + (definition.isArray() ? " []" : ""));
+        } else {
+            attribute.setPrimitive(false);
+            attribute.setClassName(definition.getType().getIdentifier());
         }
-        return null;
+        return attribute;
     }
 
     private PojoAttribute convertDbColumnDefault(DbColumn dbColumn) {
