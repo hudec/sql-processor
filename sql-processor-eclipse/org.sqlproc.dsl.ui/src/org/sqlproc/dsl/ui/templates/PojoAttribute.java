@@ -1,5 +1,8 @@
 package org.sqlproc.dsl.ui.templates;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PojoAttribute {
 
     private boolean primitive;
@@ -7,6 +10,9 @@ public class PojoAttribute {
     private String name;
     private String className;
     private String dependencyClassName;
+    private String dbName;
+    private String pkTable;
+    private List<String> fkTables = new ArrayList<String>();
 
     public PojoAttribute() {
     }
@@ -51,4 +57,27 @@ public class PojoAttribute {
         this.dependencyClassName = dependencyClassName;
     }
 
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getPkTable() {
+        return pkTable;
+    }
+
+    public void setPkTable(String pkTable) {
+        this.pkTable = pkTable;
+    }
+
+    public List<String> getFkTables() {
+        return fkTables;
+    }
+
+    public void setFkTables(List<String> fkTables) {
+        this.fkTables = fkTables;
+    }
 }

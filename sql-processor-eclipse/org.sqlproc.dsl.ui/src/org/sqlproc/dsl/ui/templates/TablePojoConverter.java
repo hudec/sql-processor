@@ -3,13 +3,15 @@ package org.sqlproc.dsl.ui.templates;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.sqlproc.dsl.processorDsl.TypeDefinition;
 import org.sqlproc.dsl.resolver.DbColumn;
+import org.sqlproc.dsl.resolver.DbExport;
+import org.sqlproc.dsl.resolver.DbImport;
 
 public class TablePojoConverter {
 
@@ -26,7 +28,7 @@ public class TablePojoConverter {
     }
 
     private Map<String, TypeDefinition> definitions;
-    private Map<String, List<PojoAttribute>> pojos = new HashMap<String, List<PojoAttribute>>();
+    private Map<String, Map<String, PojoAttribute>> pojos = new HashMap<String, Map<String, PojoAttribute>>();
 
     public TablePojoConverter() {
     }
@@ -40,50 +42,92 @@ public class TablePojoConverter {
         }
     }
 
-    public void addTableTefinition(String table, List<DbColumn> dbColumns) {
+    public void addTableTefinition(String table, List<DbColumn> dbColumns, List<DbExport> dbExports,
+            List<DbImport> dbImports) {
         if (table == null || dbColumns == null)
             return;
-        List<PojoAttribute> attributes = new ArrayList<PojoAttribute>();
+        Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
         for (DbColumn dbColumn : dbColumns) {
             PojoAttribute attribute = convertDbColumnDefinition(dbColumn);
             if (attribute != null) {
-                attributes.add(attribute);
+                attributes.put(dbColumn.getName(), attribute);
             } else {
                 attribute = convertDbColumnDefault(dbColumn);
                 if (attribute != null)
-                    attributes.add(attribute);
+                    attributes.put(dbColumn.getName(), attribute);
             }
         }
         pojos.put(tableToCamelCase(table), attributes);
+        for (DbImport dbImport : dbImports) {
+            PojoAttribute attribute = attributes.get(dbImport.getFkColumn());
+            attribute.setPkTable(tableToCamelCase(dbImport.getPkTable()));
+        }
+        for (DbExport dbExport : dbExports) {
+            PojoAttribute attribute = attributes.get(dbExport.getPkColumn());
+            attribute.getFkTables().add(tableToCamelCase(dbExport.getFkTable()));
+        }
     }
 
-    public void postProcessing() {
+    public void resolveReferencesOnKeys() {
         // refences or dependencies between pojos (1 : N)
         for (String pojo : pojos.keySet()) {
-            List<PojoAttribute> attributes = pojos.get(pojo);
-            if (attributes != null) {
-                for (PojoAttribute attribute : attributes) {
-                    if (attribute.getName().startsWith("id") && attribute.getName().length() > 2) {
-                        String className = attribute.getName().substring(2);
-                        if (pojo.equals(className))
-                            continue;
-                        List<PojoAttribute> referPojoAttr = pojos.get(className);
-                        if (referPojoAttr != null) {
-                            String name = className.substring(0, 1).toLowerCase();
-                            if (className.length() > 1)
-                                name += className.substring(1);
-                            attribute.setName(name);
-                            attribute.setPrimitive(false);
-                            attribute.setDependencyClassName(className);
-                            // reverse dependency
-                            String referName = pojo.substring(0, 1).toLowerCase();
-                            if (className.length() > 1)
-                                referName += pojo.substring(1);
-                            PojoAttribute attrib = new PojoAttribute();
-                            attrib.setName(referName + "s");
-                            attrib.setClassName("java.util.List <:" + pojo + ">");
-                            referPojoAttr.add(attrib);
+            Map<String, PojoAttribute> newAttributes = new HashMap<String, PojoAttribute>();
+            for (PojoAttribute attribute : pojos.get(pojo).values()) {
+                if (attribute.getPkTable() != null) {
+                    // System.out.println("XXXXXXXXXX " + attribute.getName() + " " + attribute.getPkTable());
+                    if (pojos.containsKey(attribute.getPkTable())) {
+                        attribute.setDependencyClassName(attribute.getPkTable());
+                    }
+                }
+                for (String fkTable : attribute.getFkTables()) {
+                    // System.out.println("YYYYYYYYYY " + attribute.getName() + " " + attribute.getFkTables());
+                    if (pojos.containsKey(fkTable)) {
+                        String referName = fkTable.substring(0, 1).toLowerCase();
+                        referName += fkTable.substring(1);
+                        if (!referName.endsWith("s")) {
+                            if (referName.endsWith("y")) {
+                                referName = referName.substring(0, referName.length() - 1);
+                                referName += "ies";
+                            } else {
+                                referName += "s";
+                            }
                         }
+                        PojoAttribute attrib = new PojoAttribute();
+                        attrib.setName(referName);
+                        attrib.setClassName("java.util.List <:" + fkTable + ">");
+                        newAttributes.put(attrib.getName(), attrib);
+                    }
+                }
+            }
+            if (!newAttributes.isEmpty())
+                pojos.get(pojo).putAll(newAttributes);
+        }
+    }
+
+    public void resolveReferencesOnConvention() {
+        // refences or dependencies between pojos (1 : N)
+        for (String pojo : pojos.keySet()) {
+            for (PojoAttribute attribute : pojos.get(pojo).values()) {
+                if (attribute.getName().startsWith("id") && attribute.getName().length() > 2) {
+                    String className = attribute.getName().substring(2);
+                    if (pojo.equals(className))
+                        continue;
+                    Map<String, PojoAttribute> referPojoAttr = pojos.get(className);
+                    if (referPojoAttr != null) {
+                        String name = className.substring(0, 1).toLowerCase();
+                        if (className.length() > 1)
+                            name += className.substring(1);
+                        attribute.setName(name);
+                        attribute.setPrimitive(false);
+                        attribute.setDependencyClassName(className);
+                        // reverse dependency
+                        String referName = pojo.substring(0, 1).toLowerCase();
+                        if (className.length() > 1)
+                            referName += pojo.substring(1);
+                        PojoAttribute attrib = new PojoAttribute();
+                        attrib.setName(referName + "s");
+                        attrib.setClassName("java.util.List <:" + pojo + ">");
+                        referPojoAttr.put(attrib.getName(), attrib);
                     }
                 }
             }
@@ -94,20 +138,17 @@ public class TablePojoConverter {
         StringBuilder buffer = new StringBuilder();
         for (String pojo : pojos.keySet()) {
             buffer.append("\n  pojo ").append(pojo).append(" {");
-            List<PojoAttribute> attributes = pojos.get(pojo);
-            if (attributes != null) {
-                for (PojoAttribute attribute : attributes) {
-                    buffer.append("\n    ").append(attribute.getName()).append(' ');
-                    if (attribute.isPrimitive()) {
-                        buffer.append('_').append(attribute.getClassName());
-                    } else if (attribute.getDependencyClassName() != null) {
-                        buffer.append(":: ").append(attribute.getDependencyClassName());
-                    } else {
-                        buffer.append(": ").append(attribute.getClassName());
-                    }
-                    if (attribute.isRequired()) {
-                        buffer.append(" required");
-                    }
+            for (PojoAttribute attribute : pojos.get(pojo).values()) {
+                buffer.append("\n    ").append(attribute.getName()).append(' ');
+                if (attribute.isPrimitive()) {
+                    buffer.append('_').append(attribute.getClassName());
+                } else if (attribute.getDependencyClassName() != null) {
+                    buffer.append(":: ").append(attribute.getDependencyClassName());
+                } else {
+                    buffer.append(": ").append(attribute.getClassName());
+                }
+                if (attribute.isRequired()) {
+                    buffer.append(" required");
                 }
             }
             buffer.append("\n  }\n");
@@ -169,6 +210,7 @@ public class TablePojoConverter {
             attribute.setPrimitive(false);
             attribute.setClassName(definition.getType().getIdentifier());
         }
+        attribute.setDbName(dbColumn.getName());
         return attribute;
     }
 
@@ -310,6 +352,7 @@ public class TablePojoConverter {
             else
                 attribute.setClassName("java.lang.Object");
         }
+        attribute.setDbName(dbColumn.getName());
         return attribute;
     }
 }

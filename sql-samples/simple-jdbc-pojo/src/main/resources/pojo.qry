@@ -1,3 +1,7 @@
+package org.sqlproc.sample.simple.model2 {
+
+}
+
 package org.sqlproc.sample.simple.model {
 
 	pojo abstract Media {
