@@ -6521,66 +6521,27 @@ ruleFeatureValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTo
 
 // Entry rule entryRuleTypeDefinition
 entryRuleTypeDefinition returns [EObject current=null] 
-	@init { 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
-	}
 	:
 	{ newCompositeNode(grammarAccess.getTypeDefinitionRule()); }
 	 iv_ruleTypeDefinition=ruleTypeDefinition 
 	 { $current=$iv_ruleTypeDefinition.current; } 
 	 EOF 
 ;
-finally {
-	myHiddenTokenState.restore();
-}
 
 // Rule TypeDefinition
 ruleTypeDefinition returns [EObject current=null] 
     @init { enterRule(); 
-		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
     }
     @after { leaveRule(); }:
 (	otherlv_0='database type' 
     {
     	newLeafNode(otherlv_0, grammarAccess.getTypeDefinitionAccess().getDatabaseTypeKeyword_0());
     }
-(
-(
-(
-		lv_name_1_1=RULE_IDENT
-		{
-			newLeafNode(lv_name_1_1, grammarAccess.getTypeDefinitionAccess().getNameIDENTTerminalRuleCall_1_0_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeDefinitionRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_1_1, 
-        		"IDENT");
-	    }
-
-    |		lv_name_1_2=RULE_IDENT_TYPE
-		{
-			newLeafNode(lv_name_1_2, grammarAccess.getTypeDefinitionAccess().getNameIDENT_TYPETerminalRuleCall_1_0_1()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeDefinitionRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_1_2, 
-        		"IDENT_TYPE");
-	    }
-
-)
-
-)
-)((
+(this_WS_1=RULE_WS
+    { 
+    newLeafNode(this_WS_1, grammarAccess.getTypeDefinitionAccess().getWSTerminalRuleCall_1()); 
+    }
+)+((
 (
 (
 		lv_native_2_1=	'_char' 
@@ -6713,15 +6674,34 @@ ruleTypeDefinition returns [EObject current=null]
 	    }
 
 )
-)?this_SEMICOLON_5=RULE_SEMICOLON
+)?(this_WS_5=RULE_WS
     { 
-    newLeafNode(this_SEMICOLON_5, grammarAccess.getTypeDefinitionAccess().getSEMICOLONTerminalRuleCall_4()); 
+    newLeafNode(this_WS_5, grammarAccess.getTypeDefinitionAccess().getWSTerminalRuleCall_4()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTypeDefinitionAccess().getNamePropertyValueParserRuleCall_5_0()); 
+	    }
+		lv_name_6_0=rulePropertyValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTypeDefinitionRule());
+	        }
+       		set(
+       			$current, 
+       			"name",
+        		lv_name_6_0, 
+        		"PropertyValue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)this_SEMICOLON_7=RULE_SEMICOLON
+    { 
+    newLeafNode(this_SEMICOLON_7, grammarAccess.getTypeDefinitionAccess().getSEMICOLONTerminalRuleCall_6()); 
     }
 )
 ;
-finally {
-	myHiddenTokenState.restore();
-}
 
 
 
@@ -7389,8 +7369,6 @@ RULE_STATEMEN_TYPE : ('QRY'|'CRUD'|'CALL');
 RULE_MAPPING_TYPE : 'OUT';
 
 RULE_OPTION_TYPE : ('OPT'|'LOPT'|'IOPT'|'SOPT'|'BOPT');
-
-RULE_IDENT_TYPE : RULE_IDENT RULE_LPAREN RULE_NUMBER (RULE_COMMA RULE_NUMBER)? RULE_RPAREN;
 
 RULE_IDENT_DOT : RULE_IDENT ('.' RULE_IDENT)+;
 

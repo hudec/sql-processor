@@ -822,7 +822,6 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name=IDENT | name=IDENT_TYPE) 
 	 *         (
 	 *             native='_char' | 
 	 *             native='_byte' | 
@@ -834,7 +833,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *             native='_boolean' | 
 	 *             type=[JvmType|QualifiedName]
 	 *         ) 
-	 *         array?='[]'?
+	 *         array?='[]'? 
+	 *         name=PropertyValue
 	 *     )
 	 */
 	protected void sequence_TypeDefinition(EObject context, TypeDefinition semanticObject) {

@@ -74,7 +74,6 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMappingColumnAccess().getNameAlternatives_0_0(), "rule__MappingColumn__NameAlternatives_0_0");
 					put(grammarAccess.getMappingColumnAccess().getValsAlternatives_1_1_0(), "rule__MappingColumn__ValsAlternatives_1_1_0");
 					put(grammarAccess.getFeatureValueAccess().getAlternatives(), "rule__FeatureValue__Alternatives");
-					put(grammarAccess.getTypeDefinitionAccess().getNameAlternatives_1_0(), "rule__TypeDefinition__NameAlternatives_1_0");
 					put(grammarAccess.getTypeDefinitionAccess().getAlternatives_2(), "rule__TypeDefinition__Alternatives_2");
 					put(grammarAccess.getTypeDefinitionAccess().getNativeAlternatives_2_0_0(), "rule__TypeDefinition__NativeAlternatives_2_0_0");
 					put(grammarAccess.getPackageDeclarationAccess().getNameAlternatives_1_0(), "rule__PackageDeclaration__NameAlternatives_1_0");
@@ -336,10 +335,10 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOptionalFeatureAccess().getTypeAssignment_2(), "rule__OptionalFeature__TypeAssignment_2");
 					put(grammarAccess.getOptionalFeatureAccess().getFiltersAssignment_3_1(), "rule__OptionalFeature__FiltersAssignment_3_1");
 					put(grammarAccess.getOptionalFeatureAccess().getOptionAssignment_6(), "rule__OptionalFeature__OptionAssignment_6");
-					put(grammarAccess.getTypeDefinitionAccess().getNameAssignment_1(), "rule__TypeDefinition__NameAssignment_1");
 					put(grammarAccess.getTypeDefinitionAccess().getNativeAssignment_2_0(), "rule__TypeDefinition__NativeAssignment_2_0");
 					put(grammarAccess.getTypeDefinitionAccess().getTypeAssignment_2_1(), "rule__TypeDefinition__TypeAssignment_2_1");
 					put(grammarAccess.getTypeDefinitionAccess().getArrayAssignment_3(), "rule__TypeDefinition__ArrayAssignment_3");
+					put(grammarAccess.getTypeDefinitionAccess().getNameAssignment_5(), "rule__TypeDefinition__NameAssignment_5");
 					put(grammarAccess.getPackageDeclarationAccess().getNameAssignment_1(), "rule__PackageDeclaration__NameAssignment_1");
 					put(grammarAccess.getPackageDeclarationAccess().getElementsAssignment_3(), "rule__PackageDeclaration__ElementsAssignment_3");
 					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");

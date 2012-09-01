@@ -1759,22 +1759,13 @@ public interface ProcessorDslPackage extends EPackage
   int TYPE_DEFINITION = 36;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TYPE_DEFINITION__NAME = 0;
-
-  /**
    * The feature id for the '<em><b>Native</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TYPE_DEFINITION__NATIVE = 1;
+  int TYPE_DEFINITION__NATIVE = 0;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1783,7 +1774,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TYPE_DEFINITION__TYPE = 2;
+  int TYPE_DEFINITION__TYPE = 1;
 
   /**
    * The feature id for the '<em><b>Array</b></em>' attribute.
@@ -1792,7 +1783,16 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TYPE_DEFINITION__ARRAY = 3;
+  int TYPE_DEFINITION__ARRAY = 2;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_DEFINITION__NAME = 3;
 
   /**
    * The number of structural features of the '<em>Type Definition</em>' class.
@@ -3549,17 +3549,6 @@ public interface ProcessorDslPackage extends EPackage
   EClass getTypeDefinition();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.sqlproc.dsl.processorDsl.TypeDefinition#getName()
-   * @see #getTypeDefinition()
-   * @generated
-   */
-  EAttribute getTypeDefinition_Name();
-
-  /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getNative <em>Native</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3591,6 +3580,17 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EAttribute getTypeDefinition_Array();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.sqlproc.dsl.processorDsl.TypeDefinition#getName()
+   * @see #getTypeDefinition()
+   * @generated
+   */
+  EAttribute getTypeDefinition_Name();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PackageDeclaration <em>Package Declaration</em>}'.
@@ -5033,14 +5033,6 @@ public interface ProcessorDslPackage extends EPackage
     EClass TYPE_DEFINITION = eINSTANCE.getTypeDefinition();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute TYPE_DEFINITION__NAME = eINSTANCE.getTypeDefinition_Name();
-
-    /**
      * The meta object literal for the '<em><b>Native</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5063,6 +5055,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute TYPE_DEFINITION__ARRAY = eINSTANCE.getTypeDefinition_Array();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TYPE_DEFINITION__NAME = eINSTANCE.getTypeDefinition_Name();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PackageDeclarationImpl <em>Package Declaration</em>}' class.

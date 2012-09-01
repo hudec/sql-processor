@@ -184,10 +184,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//OptionalFeature/option"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//TypeDefinition">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//TypeDefinition/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//TypeDefinition/native"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//TypeDefinition/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//TypeDefinition/array"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//TypeDefinition/name"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//PackageDeclaration">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PackageDeclaration/name"/>

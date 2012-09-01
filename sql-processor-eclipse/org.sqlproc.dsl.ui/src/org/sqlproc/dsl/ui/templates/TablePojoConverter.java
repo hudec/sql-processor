@@ -27,17 +27,18 @@ public class TablePojoConverter {
         }
     }
 
-    private Map<String, TypeDefinition> definitions;
+    private Map<String, PojoAttrType> definitions;
     private Map<String, Map<String, PojoAttribute>> pojos = new HashMap<String, Map<String, PojoAttribute>>();
 
     public TablePojoConverter() {
     }
 
     public TablePojoConverter(List<TypeDefinition> definitions) {
-        this.definitions = new HashMap<String, TypeDefinition>();
+        this.definitions = new HashMap<String, PojoAttrType>();
         if (definitions != null) {
             for (TypeDefinition definition : definitions) {
-                this.definitions.put(definition.getName(), definition);
+                PojoAttrType type = new PojoAttrType(definition);
+                this.definitions.put(type.getName(), type);
             }
         }
     }
@@ -197,15 +198,19 @@ public class TablePojoConverter {
     private PojoAttribute convertDbColumnDefinition(DbColumn dbColumn) {
         if (dbColumn == null)
             return null;
-        TypeDefinition definition = definitions.get(dbColumn.getType());
+        PojoAttrType definition = definitions.get(dbColumn.getType());
         if (definition == null)
             return null;
+        if (definition.getSize() != null) {
+            if (dbColumn.getSize() != definition.getSize())
+                return null;
+        }
         PojoAttribute attribute = new PojoAttribute();
         attribute.setName(columnToCamelCase(dbColumn.getName()));
         attribute.setRequired(!dbColumn.isNullable());
-        if (definition.getNative() != null) {
+        if (definition.getNativeType() != null) {
             attribute.setPrimitive(true);
-            attribute.setClassName(definition.getNative().substring(1) + (definition.isArray() ? " []" : ""));
+            attribute.setClassName(definition.getNativeType().substring(1) + (definition.isArray() ? " []" : ""));
         } else {
             attribute.setPrimitive(false);
             attribute.setClassName(definition.getType().getIdentifier());

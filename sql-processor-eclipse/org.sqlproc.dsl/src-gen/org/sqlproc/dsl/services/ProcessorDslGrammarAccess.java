@@ -3758,10 +3758,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cDatabaseTypeKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final Alternatives cNameAlternatives_1_0 = (Alternatives)cNameAssignment_1.eContents().get(0);
-		private final RuleCall cNameIDENTTerminalRuleCall_1_0_0 = (RuleCall)cNameAlternatives_1_0.eContents().get(0);
-		private final RuleCall cNameIDENT_TYPETerminalRuleCall_1_0_1 = (RuleCall)cNameAlternatives_1_0.eContents().get(1);
+		private final RuleCall cWSTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
 		private final Assignment cNativeAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
 		private final Alternatives cNativeAlternatives_2_0_0 = (Alternatives)cNativeAssignment_2_0.eContents().get(0);
@@ -3778,31 +3775,25 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeJvmTypeQualifiedNameParserRuleCall_2_1_0_1 = (RuleCall)cTypeJvmTypeCrossReference_2_1_0.eContents().get(1);
 		private final Assignment cArrayAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final Keyword cArrayLeftSquareBracketRightSquareBracketKeyword_3_0 = (Keyword)cArrayAssignment_3.eContents().get(0);
-		private final RuleCall cSEMICOLONTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final RuleCall cWSTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Assignment cNameAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cNamePropertyValueParserRuleCall_5_0 = (RuleCall)cNameAssignment_5.eContents().get(0);
+		private final RuleCall cSEMICOLONTerminalRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
 		
-		//TypeDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
-		//	"database type" name=(IDENT | IDENT_TYPE) (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" |
-		//	"_double" | "_boolean") | type=[jvmTypes::JvmType|QualifiedName]) array?="[]"? SEMICOLON;
+		//TypeDefinition:
+		//	"database type" WS+ (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") |
+		//	type=[jvmTypes::JvmType|QualifiedName]) array?="[]"? WS+ name=PropertyValue SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
-		//"database type" name=(IDENT | IDENT_TYPE) (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" |
-		//"_double" | "_boolean") | type=[jvmTypes::JvmType|QualifiedName]) array?="[]"? SEMICOLON
+		//"database type" WS+ (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") |
+		//type=[jvmTypes::JvmType|QualifiedName]) array?="[]"? WS+ name=PropertyValue SEMICOLON
 		public Group getGroup() { return cGroup; }
 
 		//"database type"
 		public Keyword getDatabaseTypeKeyword_0() { return cDatabaseTypeKeyword_0; }
 
-		//name=(IDENT | IDENT_TYPE)
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-
-		//IDENT | IDENT_TYPE
-		public Alternatives getNameAlternatives_1_0() { return cNameAlternatives_1_0; }
-
-		//IDENT
-		public RuleCall getNameIDENTTerminalRuleCall_1_0_0() { return cNameIDENTTerminalRuleCall_1_0_0; }
-
-		//IDENT_TYPE
-		public RuleCall getNameIDENT_TYPETerminalRuleCall_1_0_1() { return cNameIDENT_TYPETerminalRuleCall_1_0_1; }
+		//WS+
+		public RuleCall getWSTerminalRuleCall_1() { return cWSTerminalRuleCall_1; }
 
 		//native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") |
 		//type=[jvmTypes::JvmType|QualifiedName]
@@ -3853,8 +3844,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"[]"
 		public Keyword getArrayLeftSquareBracketRightSquareBracketKeyword_3_0() { return cArrayLeftSquareBracketRightSquareBracketKeyword_3_0; }
 
+		//WS+
+		public RuleCall getWSTerminalRuleCall_4() { return cWSTerminalRuleCall_4; }
+
+		//name=PropertyValue
+		public Assignment getNameAssignment_5() { return cNameAssignment_5; }
+
+		//PropertyValue
+		public RuleCall getNamePropertyValueParserRuleCall_5_0() { return cNamePropertyValueParserRuleCall_5_0; }
+
 		//SEMICOLON
-		public RuleCall getSEMICOLONTerminalRuleCall_4() { return cSEMICOLONTerminalRuleCall_4; }
+		public RuleCall getSEMICOLONTerminalRuleCall_6() { return cSEMICOLONTerminalRuleCall_6; }
 	}
 
 	public class PackageDeclarationElements extends AbstractParserRuleElementFinder {
@@ -4292,7 +4292,6 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tSTATEMEN_TYPE;
 	private TerminalRule tMAPPING_TYPE;
 	private TerminalRule tOPTION_TYPE;
-	private TerminalRule tIDENT_TYPE;
 	private TerminalRule tIDENT_DOT;
 	private TerminalRule tIDENT;
 	private TerminalRule tNUMBER;
@@ -4818,12 +4817,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return (tOPTION_TYPE != null) ? tOPTION_TYPE : (tOPTION_TYPE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "OPTION_TYPE"));
 	} 
 
-	//terminal IDENT_TYPE:
-	//	IDENT LPAREN NUMBER (COMMA NUMBER)? RPAREN;
-	public TerminalRule getIDENT_TYPERule() {
-		return (tIDENT_TYPE != null) ? tIDENT_TYPE : (tIDENT_TYPE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "IDENT_TYPE"));
-	} 
-
+	////terminal IDENT_TYPE: IDENT LPAREN NUMBER (COMMA NUMBER)? RPAREN;
 	//terminal IDENT_DOT:
 	//	IDENT ("." IDENT)+;
 	public TerminalRule getIDENT_DOTRule() {
@@ -5022,9 +5016,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getFeatureValueAccess().getRule();
 	}
 
-	//TypeDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
-	//	"database type" name=(IDENT | IDENT_TYPE) (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" |
-	//	"_double" | "_boolean") | type=[jvmTypes::JvmType|QualifiedName]) array?="[]"? SEMICOLON;
+	//TypeDefinition:
+	//	"database type" WS+ (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") |
+	//	type=[jvmTypes::JvmType|QualifiedName]) array?="[]"? WS+ name=PropertyValue SEMICOLON;
 	public TypeDefinitionElements getTypeDefinitionAccess() {
 		return (pTypeDefinition != null) ? pTypeDefinition : (pTypeDefinition = new TypeDefinitionElements());
 	}

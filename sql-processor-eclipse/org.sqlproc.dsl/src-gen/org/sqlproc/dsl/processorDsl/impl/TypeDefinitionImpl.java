@@ -22,10 +22,10 @@ import org.sqlproc.dsl.processorDsl.TypeDefinition;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl#getNative <em>Native</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl#isArray <em>Array</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,26 +33,6 @@ import org.sqlproc.dsl.processorDsl.TypeDefinition;
  */
 public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements TypeDefinition
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
   /**
    * The default value of the '{@link #getNative() <em>Native</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -104,6 +84,26 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
   protected boolean array = ARRAY_EDEFAULT;
 
   /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -122,29 +122,6 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
   protected EClass eStaticClass()
   {
     return ProcessorDslPackage.Literals.TYPE_DEFINITION;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.TYPE_DEFINITION__NAME, oldName, name));
   }
 
   /**
@@ -241,13 +218,34 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.TYPE_DEFINITION__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.TYPE_DEFINITION__NAME:
-        return getName();
       case ProcessorDslPackage.TYPE_DEFINITION__NATIVE:
         return getNative();
       case ProcessorDslPackage.TYPE_DEFINITION__TYPE:
@@ -255,6 +253,8 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
         return basicGetType();
       case ProcessorDslPackage.TYPE_DEFINITION__ARRAY:
         return isArray();
+      case ProcessorDslPackage.TYPE_DEFINITION__NAME:
+        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -269,9 +269,6 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.TYPE_DEFINITION__NAME:
-        setName((String)newValue);
-        return;
       case ProcessorDslPackage.TYPE_DEFINITION__NATIVE:
         setNative((String)newValue);
         return;
@@ -280,6 +277,9 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
         return;
       case ProcessorDslPackage.TYPE_DEFINITION__ARRAY:
         setArray((Boolean)newValue);
+        return;
+      case ProcessorDslPackage.TYPE_DEFINITION__NAME:
+        setName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -295,9 +295,6 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.TYPE_DEFINITION__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case ProcessorDslPackage.TYPE_DEFINITION__NATIVE:
         setNative(NATIVE_EDEFAULT);
         return;
@@ -306,6 +303,9 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
         return;
       case ProcessorDslPackage.TYPE_DEFINITION__ARRAY:
         setArray(ARRAY_EDEFAULT);
+        return;
+      case ProcessorDslPackage.TYPE_DEFINITION__NAME:
+        setName(NAME_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -321,14 +321,14 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.TYPE_DEFINITION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.TYPE_DEFINITION__NATIVE:
         return NATIVE_EDEFAULT == null ? native_ != null : !NATIVE_EDEFAULT.equals(native_);
       case ProcessorDslPackage.TYPE_DEFINITION__TYPE:
         return type != null;
       case ProcessorDslPackage.TYPE_DEFINITION__ARRAY:
         return array != ARRAY_EDEFAULT;
+      case ProcessorDslPackage.TYPE_DEFINITION__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
   }
@@ -344,12 +344,12 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", native: ");
+    result.append(" (native: ");
     result.append(native_);
     result.append(", array: ");
     result.append(array);
+    result.append(", name: ");
+    result.append(name);
     result.append(')');
     return result.toString();
   }

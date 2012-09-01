@@ -1839,7 +1839,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getTypeDefinition_Name()
+  public EAttribute getTypeDefinition_Native()
   {
     return (EAttribute)typeDefinitionEClass.getEStructuralFeatures().get(0);
   }
@@ -1849,19 +1849,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getTypeDefinition_Native()
-  {
-    return (EAttribute)typeDefinitionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getTypeDefinition_Type()
   {
-    return (EReference)typeDefinitionEClass.getEStructuralFeatures().get(2);
+    return (EReference)typeDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1870,6 +1860,16 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * @generated
    */
   public EAttribute getTypeDefinition_Array()
+  {
+    return (EAttribute)typeDefinitionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTypeDefinition_Name()
   {
     return (EAttribute)typeDefinitionEClass.getEStructuralFeatures().get(3);
   }
@@ -2281,10 +2281,10 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEAttribute(optionalFeatureEClass, OPTIONAL_FEATURE__OPTION);
 
     typeDefinitionEClass = createEClass(TYPE_DEFINITION);
-    createEAttribute(typeDefinitionEClass, TYPE_DEFINITION__NAME);
     createEAttribute(typeDefinitionEClass, TYPE_DEFINITION__NATIVE);
     createEReference(typeDefinitionEClass, TYPE_DEFINITION__TYPE);
     createEAttribute(typeDefinitionEClass, TYPE_DEFINITION__ARRAY);
+    createEAttribute(typeDefinitionEClass, TYPE_DEFINITION__NAME);
 
     packageDeclarationEClass = createEClass(PACKAGE_DECLARATION);
     createEAttribute(packageDeclarationEClass, PACKAGE_DECLARATION__NAME);
@@ -2534,10 +2534,10 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEAttribute(getOptionalFeature_Option(), ecorePackage.getEString(), "option", null, 0, 1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(typeDefinitionEClass, TypeDefinition.class, "TypeDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getTypeDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, TypeDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTypeDefinition_Native(), ecorePackage.getEString(), "native", null, 0, 1, TypeDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTypeDefinition_Type(), theTypesPackage.getJvmType(), null, "type", null, 0, 1, TypeDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTypeDefinition_Array(), ecorePackage.getEBoolean(), "array", null, 0, 1, TypeDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTypeDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, TypeDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(packageDeclarationEClass, PackageDeclaration.class, "PackageDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPackageDeclaration_Name(), ecorePackage.getEString(), "name", null, 0, 1, PackageDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

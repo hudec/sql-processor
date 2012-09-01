@@ -1,3 +1,5 @@
+database type java.lang.Long NUMBER(19);
+
 package org.sqlproc.sample.simple.model2 {
 
 }

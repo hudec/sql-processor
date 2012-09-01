@@ -173,7 +173,7 @@ terminal STATEMEN_TYPE: 'QRY'|'CRUD'|'CALL';
 terminal MAPPING_TYPE: 'OUT';
 terminal OPTION_TYPE: 'OPT'|'LOPT'|'IOPT'|'SOPT'|'BOPT';
 
-terminal IDENT_TYPE: IDENT LPAREN NUMBER (COMMA NUMBER)? RPAREN;
+//terminal IDENT_TYPE: IDENT LPAREN NUMBER (COMMA NUMBER)? RPAREN;
 terminal IDENT_DOT: IDENT ('.' IDENT)+;
 terminal IDENT: ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'=')*;
 terminal NUMBER: ('0'..'9')+;
@@ -213,10 +213,10 @@ terminal REST: !(SEMICOLON);
 FeatureValue:
   (REST|IDENT_DOT|IDENT|NUMBER|WS|COLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|PERCENT|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)+;
 
-TypeDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
-	'database type' name=(IDENT|IDENT_TYPE)
+TypeDefinition:
+	'database type' WS+
 	(native = ('_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') | 
-	(type=[jvmTypes::JvmType|QualifiedName])) (array ?= '[]')? SEMICOLON;
+	(type=[jvmTypes::JvmType|QualifiedName])) (array ?= '[]')? WS+ name=PropertyValue SEMICOLON;
 
 PackageDeclaration hidden(ML_COMMENT, SL_COMMENT, WS):
 	'package' name=(IDENT|IDENT_DOT) LBRACE
