@@ -231,7 +231,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DatabaseSqlType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="native" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="#//PojoEntity"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="gref" eType="#//PojoEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="gtype" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="array" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>

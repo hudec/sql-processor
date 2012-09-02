@@ -376,7 +376,16 @@ public class AbstractProcessorDslProposalProvider extends AbstractJavaBasedConte
 		// subclasses may override
 		// subclasses may override
 	}
+	public void completeDatabaseSqlType_Ref(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(((CrossReference)assignment.getTerminal()), context, acceptor);
+	}
 	public void completeDatabaseSqlType_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(((CrossReference)assignment.getTerminal()), context, acceptor);
+	}
+	public void completeDatabaseSqlType_Gref(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(((CrossReference)assignment.getTerminal()), context, acceptor);
+	}
+	public void completeDatabaseSqlType_Gtype(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(((CrossReference)assignment.getTerminal()), context, acceptor);
 	}
 	public void completeDatabaseSqlType_Array(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {

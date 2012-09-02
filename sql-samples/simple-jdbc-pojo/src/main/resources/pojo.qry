@@ -1,7 +1,16 @@
-database sql type java.lang.Integer NUMBER(19);
+database sql type :java.lang.Integer NUMBER(19);
+database sql type :java.lang.Short VARCHAR2(100);
+//database sql type ::PhoneNumber2 VARCHAR2(101);
+
 
 package org.sqlproc.sample.simple.model2 {
 
+
+	pojo PhoneNumber2 {
+		area _int required
+		exch _int required
+		ext _int required
+	}
 }
 
 package org.sqlproc.sample.simple.model {

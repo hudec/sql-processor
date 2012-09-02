@@ -6651,6 +6651,28 @@ ruleDatabaseSqlType returns [EObject current=null]
 
 )
 )
+    |((this_COLON_1=RULE_COLON
+    { 
+    newLeafNode(this_COLON_1, grammarAccess.getDatabaseSqlTypeAccess().getCOLONTerminalRuleCall_0_1_0_0()); 
+    }
+((this_COLON_2=RULE_COLON
+    { 
+    newLeafNode(this_COLON_2, grammarAccess.getDatabaseSqlTypeAccess().getCOLONTerminalRuleCall_0_1_0_1_0_0()); 
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
+	        }
+        }
+	otherlv_3=RULE_IDENT
+	{
+		newLeafNode(otherlv_3, grammarAccess.getDatabaseSqlTypeAccess().getRefPojoEntityCrossReference_0_1_0_1_0_1_0()); 
+	}
+
+)
+))
     |(
 (
 		{
@@ -6659,18 +6681,59 @@ ruleDatabaseSqlType returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getDatabaseSqlTypeAccess().getTypeJvmTypeCrossReference_0_1_0()); 
+	        newCompositeNode(grammarAccess.getDatabaseSqlTypeAccess().getTypeJvmTypeCrossReference_0_1_0_1_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))(
+)))(this_LESS_THAN_5=RULE_LESS_THAN
+    { 
+    newLeafNode(this_LESS_THAN_5, grammarAccess.getDatabaseSqlTypeAccess().getLESS_THANTerminalRuleCall_0_1_1_0()); 
+    }
+((this_COLON_6=RULE_COLON
+    { 
+    newLeafNode(this_COLON_6, grammarAccess.getDatabaseSqlTypeAccess().getCOLONTerminalRuleCall_0_1_1_1_0_0()); 
+    }
 (
-		lv_array_2_0=	'[]' 
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
+	        }
+        }
+	otherlv_7=RULE_IDENT
+	{
+		newLeafNode(otherlv_7, grammarAccess.getDatabaseSqlTypeAccess().getGrefPojoEntityCrossReference_0_1_1_1_0_1_0()); 
+	}
+
+)
+))
+    |(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getDatabaseSqlTypeAccess().getGtypeJvmTypeCrossReference_0_1_1_1_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))this_MORE_THAN_9=RULE_MORE_THAN
+    { 
+    newLeafNode(this_MORE_THAN_9, grammarAccess.getDatabaseSqlTypeAccess().getMORE_THANTerminalRuleCall_0_1_1_2()); 
+    }
+)?))(
+(
+		lv_array_10_0=	'[]' 
     {
-        newLeafNode(lv_array_2_0, grammarAccess.getDatabaseSqlTypeAccess().getArrayLeftSquareBracketRightSquareBracketKeyword_1_0());
+        newLeafNode(lv_array_10_0, grammarAccess.getDatabaseSqlTypeAccess().getArrayLeftSquareBracketRightSquareBracketKeyword_1_0());
     }
  
 	    {
@@ -6681,23 +6744,23 @@ ruleDatabaseSqlType returns [EObject current=null]
 	    }
 
 )
-)?(this_WS_3=RULE_WS
+)?(this_WS_11=RULE_WS
     { 
-    newLeafNode(this_WS_3, grammarAccess.getDatabaseSqlTypeAccess().getWSTerminalRuleCall_2()); 
+    newLeafNode(this_WS_11, grammarAccess.getDatabaseSqlTypeAccess().getWSTerminalRuleCall_2()); 
     }
 )+(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getDatabaseSqlTypeAccess().getTypeNamePropertyValueParserRuleCall_3_0()); 
 	    }
-		lv_typeName_4_0=rulePropertyValue		{
+		lv_typeName_12_0=rulePropertyValue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getDatabaseSqlTypeRule());
 	        }
        		set(
        			$current, 
        			"typeName",
-        		lv_typeName_4_0, 
+        		lv_typeName_12_0, 
         		"PropertyValue");
 	        afterParserOrEnumRuleCall();
 	    }

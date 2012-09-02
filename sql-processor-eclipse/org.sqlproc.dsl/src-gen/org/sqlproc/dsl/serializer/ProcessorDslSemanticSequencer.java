@@ -447,7 +447,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *             native='_float' | 
 	 *             native='_double' | 
 	 *             native='_boolean' | 
-	 *             type=[JvmType|QualifiedName]
+	 *             ((ref=[PojoEntity|IDENT] | type=[JvmType|QualifiedName]) (gref=[PojoEntity|IDENT] | gtype=[JvmType|QualifiedName])?)
 	 *         ) 
 	 *         array?='[]'? 
 	 *         typeName=PropertyValue

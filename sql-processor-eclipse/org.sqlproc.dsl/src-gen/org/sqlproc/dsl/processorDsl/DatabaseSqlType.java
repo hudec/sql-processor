@@ -15,7 +15,10 @@ import org.eclipse.xtext.common.types.JvmType;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getNative <em>Native</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getRef <em>Ref</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getType <em>Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGref <em>Gref</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGtype <em>Gtype</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#isArray <em>Array</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getTypeName <em>Type Name</em>}</li>
  * </ul>
@@ -54,6 +57,32 @@ public interface DatabaseSqlType extends EObject
   void setNative(String value);
 
   /**
+   * Returns the value of the '<em><b>Ref</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Ref</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Ref</em>' reference.
+   * @see #setRef(PojoEntity)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_Ref()
+   * @model
+   * @generated
+   */
+  PojoEntity getRef();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getRef <em>Ref</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Ref</em>' reference.
+   * @see #getRef()
+   * @generated
+   */
+  void setRef(PojoEntity value);
+
+  /**
    * Returns the value of the '<em><b>Type</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
@@ -78,6 +107,58 @@ public interface DatabaseSqlType extends EObject
    * @generated
    */
   void setType(JvmType value);
+
+  /**
+   * Returns the value of the '<em><b>Gref</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Gref</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Gref</em>' reference.
+   * @see #setGref(PojoEntity)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_Gref()
+   * @model
+   * @generated
+   */
+  PojoEntity getGref();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGref <em>Gref</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Gref</em>' reference.
+   * @see #getGref()
+   * @generated
+   */
+  void setGref(PojoEntity value);
+
+  /**
+   * Returns the value of the '<em><b>Gtype</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Gtype</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Gtype</em>' reference.
+   * @see #setGtype(JvmType)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_Gtype()
+   * @model
+   * @generated
+   */
+  JvmType getGtype();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGtype <em>Gtype</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Gtype</em>' reference.
+   * @see #getGtype()
+   * @generated
+   */
+  void setGtype(JvmType value);
 
   /**
    * Returns the value of the '<em><b>Array</b></em>' attribute.

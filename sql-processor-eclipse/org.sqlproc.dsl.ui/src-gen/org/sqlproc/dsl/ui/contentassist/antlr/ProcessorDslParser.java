@@ -76,6 +76,8 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureValueAccess().getAlternatives(), "rule__FeatureValue__Alternatives");
 					put(grammarAccess.getDatabaseSqlTypeAccess().getAlternatives_0(), "rule__DatabaseSqlType__Alternatives_0");
 					put(grammarAccess.getDatabaseSqlTypeAccess().getNativeAlternatives_0_0_0(), "rule__DatabaseSqlType__NativeAlternatives_0_0_0");
+					put(grammarAccess.getDatabaseSqlTypeAccess().getAlternatives_0_1_0_1(), "rule__DatabaseSqlType__Alternatives_0_1_0_1");
+					put(grammarAccess.getDatabaseSqlTypeAccess().getAlternatives_0_1_1_1(), "rule__DatabaseSqlType__Alternatives_0_1_1_1");
 					put(grammarAccess.getPackageDeclarationAccess().getNameAlternatives_1_0(), "rule__PackageDeclaration__NameAlternatives_1_0");
 					put(grammarAccess.getAbstractPojoEntityAccess().getAlternatives(), "rule__AbstractPojoEntity__Alternatives");
 					put(grammarAccess.getPojoPropertyAccess().getAlternatives_1(), "rule__PojoProperty__Alternatives_1");
@@ -184,6 +186,11 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOptionalFeatureAccess().getGroup(), "rule__OptionalFeature__Group__0");
 					put(grammarAccess.getOptionalFeatureAccess().getGroup_3(), "rule__OptionalFeature__Group_3__0");
 					put(grammarAccess.getDatabaseSqlTypeAccess().getGroup(), "rule__DatabaseSqlType__Group__0");
+					put(grammarAccess.getDatabaseSqlTypeAccess().getGroup_0_1(), "rule__DatabaseSqlType__Group_0_1__0");
+					put(grammarAccess.getDatabaseSqlTypeAccess().getGroup_0_1_0(), "rule__DatabaseSqlType__Group_0_1_0__0");
+					put(grammarAccess.getDatabaseSqlTypeAccess().getGroup_0_1_0_1_0(), "rule__DatabaseSqlType__Group_0_1_0_1_0__0");
+					put(grammarAccess.getDatabaseSqlTypeAccess().getGroup_0_1_1(), "rule__DatabaseSqlType__Group_0_1_1__0");
+					put(grammarAccess.getDatabaseSqlTypeAccess().getGroup_0_1_1_1_0(), "rule__DatabaseSqlType__Group_0_1_1_1_0__0");
 					put(grammarAccess.getPackageDeclarationAccess().getGroup(), "rule__PackageDeclaration__Group__0");
 					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
 					put(grammarAccess.getPojoEntityAccess().getGroup(), "rule__PojoEntity__Group__0");
@@ -337,7 +344,10 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOptionalFeatureAccess().getFiltersAssignment_3_1(), "rule__OptionalFeature__FiltersAssignment_3_1");
 					put(grammarAccess.getOptionalFeatureAccess().getOptionAssignment_6(), "rule__OptionalFeature__OptionAssignment_6");
 					put(grammarAccess.getDatabaseSqlTypeAccess().getNativeAssignment_0_0(), "rule__DatabaseSqlType__NativeAssignment_0_0");
-					put(grammarAccess.getDatabaseSqlTypeAccess().getTypeAssignment_0_1(), "rule__DatabaseSqlType__TypeAssignment_0_1");
+					put(grammarAccess.getDatabaseSqlTypeAccess().getRefAssignment_0_1_0_1_0_1(), "rule__DatabaseSqlType__RefAssignment_0_1_0_1_0_1");
+					put(grammarAccess.getDatabaseSqlTypeAccess().getTypeAssignment_0_1_0_1_1(), "rule__DatabaseSqlType__TypeAssignment_0_1_0_1_1");
+					put(grammarAccess.getDatabaseSqlTypeAccess().getGrefAssignment_0_1_1_1_0_1(), "rule__DatabaseSqlType__GrefAssignment_0_1_1_1_0_1");
+					put(grammarAccess.getDatabaseSqlTypeAccess().getGtypeAssignment_0_1_1_1_1(), "rule__DatabaseSqlType__GtypeAssignment_0_1_1_1_1");
 					put(grammarAccess.getDatabaseSqlTypeAccess().getArrayAssignment_1(), "rule__DatabaseSqlType__ArrayAssignment_1");
 					put(grammarAccess.getDatabaseSqlTypeAccess().getTypeNameAssignment_3(), "rule__DatabaseSqlType__TypeNameAssignment_3");
 					put(grammarAccess.getPackageDeclarationAccess().getNameAssignment_1(), "rule__PackageDeclaration__NameAssignment_1");

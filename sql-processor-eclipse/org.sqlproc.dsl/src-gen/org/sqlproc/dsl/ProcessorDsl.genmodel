@@ -185,7 +185,10 @@
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//DatabaseSqlType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseSqlType/native"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseSqlType/ref"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseSqlType/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseSqlType/gref"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseSqlType/gtype"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseSqlType/array"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseSqlType/typeName"/>
     </genClasses>

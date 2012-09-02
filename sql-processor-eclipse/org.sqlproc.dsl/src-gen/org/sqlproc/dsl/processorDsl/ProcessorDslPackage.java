@@ -1768,13 +1768,40 @@ public interface ProcessorDslPackage extends EPackage
   int DATABASE_SQL_TYPE__NATIVE = 0;
 
   /**
+   * The feature id for the '<em><b>Ref</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_SQL_TYPE__REF = 1;
+
+  /**
    * The feature id for the '<em><b>Type</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATABASE_SQL_TYPE__TYPE = 1;
+  int DATABASE_SQL_TYPE__TYPE = 2;
+
+  /**
+   * The feature id for the '<em><b>Gref</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_SQL_TYPE__GREF = 3;
+
+  /**
+   * The feature id for the '<em><b>Gtype</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_SQL_TYPE__GTYPE = 4;
 
   /**
    * The feature id for the '<em><b>Array</b></em>' attribute.
@@ -1783,7 +1810,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_SQL_TYPE__ARRAY = 2;
+  int DATABASE_SQL_TYPE__ARRAY = 5;
 
   /**
    * The feature id for the '<em><b>Type Name</b></em>' attribute.
@@ -1792,7 +1819,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_SQL_TYPE__TYPE_NAME = 3;
+  int DATABASE_SQL_TYPE__TYPE_NAME = 6;
 
   /**
    * The number of structural features of the '<em>Database Sql Type</em>' class.
@@ -1801,7 +1828,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_SQL_TYPE_FEATURE_COUNT = 4;
+  int DATABASE_SQL_TYPE_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.AbstractPojoEntityImpl <em>Abstract Pojo Entity</em>}' class.
@@ -3560,6 +3587,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getDatabaseSqlType_Native();
 
   /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getRef <em>Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Ref</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#getRef()
+   * @see #getDatabaseSqlType()
+   * @generated
+   */
+  EReference getDatabaseSqlType_Ref();
+
+  /**
    * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3569,6 +3607,28 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EReference getDatabaseSqlType_Type();
+
+  /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGref <em>Gref</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Gref</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGref()
+   * @see #getDatabaseSqlType()
+   * @generated
+   */
+  EReference getDatabaseSqlType_Gref();
+
+  /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGtype <em>Gtype</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Gtype</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGtype()
+   * @see #getDatabaseSqlType()
+   * @generated
+   */
+  EReference getDatabaseSqlType_Gtype();
 
   /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#isArray <em>Array</em>}'.
@@ -5041,12 +5101,36 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute DATABASE_SQL_TYPE__NATIVE = eINSTANCE.getDatabaseSqlType_Native();
 
     /**
+     * The meta object literal for the '<em><b>Ref</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DATABASE_SQL_TYPE__REF = eINSTANCE.getDatabaseSqlType_Ref();
+
+    /**
      * The meta object literal for the '<em><b>Type</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference DATABASE_SQL_TYPE__TYPE = eINSTANCE.getDatabaseSqlType_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Gref</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DATABASE_SQL_TYPE__GREF = eINSTANCE.getDatabaseSqlType_Gref();
+
+    /**
+     * The meta object literal for the '<em><b>Gtype</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DATABASE_SQL_TYPE__GTYPE = eINSTANCE.getDatabaseSqlType_Gtype();
 
     /**
      * The meta object literal for the '<em><b>Array</b></em>' attribute feature.

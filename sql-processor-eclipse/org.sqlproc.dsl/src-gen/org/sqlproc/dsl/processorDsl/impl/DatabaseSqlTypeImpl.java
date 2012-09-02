@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.xtext.common.types.JvmType;
 
 import org.sqlproc.dsl.processorDsl.DatabaseSqlType;
+import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -23,7 +24,10 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl#getNative <em>Native</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl#getRef <em>Ref</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl#getGref <em>Gref</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl#getGtype <em>Gtype</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl#isArray <em>Array</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl#getTypeName <em>Type Name</em>}</li>
  * </ul>
@@ -54,6 +58,16 @@ public class DatabaseSqlTypeImpl extends MinimalEObjectImpl.Container implements
   protected String native_ = NATIVE_EDEFAULT;
 
   /**
+   * The cached value of the '{@link #getRef() <em>Ref</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRef()
+   * @generated
+   * @ordered
+   */
+  protected PojoEntity ref;
+
+  /**
    * The cached value of the '{@link #getType() <em>Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -62,6 +76,26 @@ public class DatabaseSqlTypeImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected JvmType type;
+
+  /**
+   * The cached value of the '{@link #getGref() <em>Gref</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGref()
+   * @generated
+   * @ordered
+   */
+  protected PojoEntity gref;
+
+  /**
+   * The cached value of the '{@link #getGtype() <em>Gtype</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGtype()
+   * @generated
+   * @ordered
+   */
+  protected JvmType gtype;
 
   /**
    * The default value of the '{@link #isArray() <em>Array</em>}' attribute.
@@ -152,6 +186,49 @@ public class DatabaseSqlTypeImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public PojoEntity getRef()
+  {
+    if (ref != null && ref.eIsProxy())
+    {
+      InternalEObject oldRef = (InternalEObject)ref;
+      ref = (PojoEntity)eResolveProxy(oldRef);
+      if (ref != oldRef)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.DATABASE_SQL_TYPE__REF, oldRef, ref));
+      }
+    }
+    return ref;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoEntity basicGetRef()
+  {
+    return ref;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRef(PojoEntity newRef)
+  {
+    PojoEntity oldRef = ref;
+    ref = newRef;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_SQL_TYPE__REF, oldRef, ref));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public JvmType getType()
   {
     if (type != null && type.eIsProxy())
@@ -188,6 +265,92 @@ public class DatabaseSqlTypeImpl extends MinimalEObjectImpl.Container implements
     type = newType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE, oldType, type));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoEntity getGref()
+  {
+    if (gref != null && gref.eIsProxy())
+    {
+      InternalEObject oldGref = (InternalEObject)gref;
+      gref = (PojoEntity)eResolveProxy(oldGref);
+      if (gref != oldGref)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.DATABASE_SQL_TYPE__GREF, oldGref, gref));
+      }
+    }
+    return gref;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoEntity basicGetGref()
+  {
+    return gref;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setGref(PojoEntity newGref)
+  {
+    PojoEntity oldGref = gref;
+    gref = newGref;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_SQL_TYPE__GREF, oldGref, gref));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JvmType getGtype()
+  {
+    if (gtype != null && gtype.eIsProxy())
+    {
+      InternalEObject oldGtype = (InternalEObject)gtype;
+      gtype = (JvmType)eResolveProxy(oldGtype);
+      if (gtype != oldGtype)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.DATABASE_SQL_TYPE__GTYPE, oldGtype, gtype));
+      }
+    }
+    return gtype;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JvmType basicGetGtype()
+  {
+    return gtype;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setGtype(JvmType newGtype)
+  {
+    JvmType oldGtype = gtype;
+    gtype = newGtype;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_SQL_TYPE__GTYPE, oldGtype, gtype));
   }
 
   /**
@@ -248,9 +411,18 @@ public class DatabaseSqlTypeImpl extends MinimalEObjectImpl.Container implements
     {
       case ProcessorDslPackage.DATABASE_SQL_TYPE__NATIVE:
         return getNative();
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__REF:
+        if (resolve) return getRef();
+        return basicGetRef();
       case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE:
         if (resolve) return getType();
         return basicGetType();
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__GREF:
+        if (resolve) return getGref();
+        return basicGetGref();
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__GTYPE:
+        if (resolve) return getGtype();
+        return basicGetGtype();
       case ProcessorDslPackage.DATABASE_SQL_TYPE__ARRAY:
         return isArray();
       case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE_NAME:
@@ -272,8 +444,17 @@ public class DatabaseSqlTypeImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.DATABASE_SQL_TYPE__NATIVE:
         setNative((String)newValue);
         return;
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__REF:
+        setRef((PojoEntity)newValue);
+        return;
       case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE:
         setType((JvmType)newValue);
+        return;
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__GREF:
+        setGref((PojoEntity)newValue);
+        return;
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__GTYPE:
+        setGtype((JvmType)newValue);
         return;
       case ProcessorDslPackage.DATABASE_SQL_TYPE__ARRAY:
         setArray((Boolean)newValue);
@@ -298,8 +479,17 @@ public class DatabaseSqlTypeImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.DATABASE_SQL_TYPE__NATIVE:
         setNative(NATIVE_EDEFAULT);
         return;
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__REF:
+        setRef((PojoEntity)null);
+        return;
       case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE:
         setType((JvmType)null);
+        return;
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__GREF:
+        setGref((PojoEntity)null);
+        return;
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__GTYPE:
+        setGtype((JvmType)null);
         return;
       case ProcessorDslPackage.DATABASE_SQL_TYPE__ARRAY:
         setArray(ARRAY_EDEFAULT);
@@ -323,8 +513,14 @@ public class DatabaseSqlTypeImpl extends MinimalEObjectImpl.Container implements
     {
       case ProcessorDslPackage.DATABASE_SQL_TYPE__NATIVE:
         return NATIVE_EDEFAULT == null ? native_ != null : !NATIVE_EDEFAULT.equals(native_);
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__REF:
+        return ref != null;
       case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE:
         return type != null;
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__GREF:
+        return gref != null;
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__GTYPE:
+        return gtype != null;
       case ProcessorDslPackage.DATABASE_SQL_TYPE__ARRAY:
         return array != ARRAY_EDEFAULT;
       case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE_NAME:

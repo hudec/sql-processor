@@ -1849,7 +1849,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getDatabaseSqlType_Type()
+  public EReference getDatabaseSqlType_Ref()
   {
     return (EReference)databaseSqlTypeEClass.getEStructuralFeatures().get(1);
   }
@@ -1859,9 +1859,39 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getDatabaseSqlType_Type()
+  {
+    return (EReference)databaseSqlTypeEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDatabaseSqlType_Gref()
+  {
+    return (EReference)databaseSqlTypeEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDatabaseSqlType_Gtype()
+  {
+    return (EReference)databaseSqlTypeEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getDatabaseSqlType_Array()
   {
-    return (EAttribute)databaseSqlTypeEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)databaseSqlTypeEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -1871,7 +1901,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    */
   public EAttribute getDatabaseSqlType_TypeName()
   {
-    return (EAttribute)databaseSqlTypeEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)databaseSqlTypeEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -2282,7 +2312,10 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     databaseSqlTypeEClass = createEClass(DATABASE_SQL_TYPE);
     createEAttribute(databaseSqlTypeEClass, DATABASE_SQL_TYPE__NATIVE);
+    createEReference(databaseSqlTypeEClass, DATABASE_SQL_TYPE__REF);
     createEReference(databaseSqlTypeEClass, DATABASE_SQL_TYPE__TYPE);
+    createEReference(databaseSqlTypeEClass, DATABASE_SQL_TYPE__GREF);
+    createEReference(databaseSqlTypeEClass, DATABASE_SQL_TYPE__GTYPE);
     createEAttribute(databaseSqlTypeEClass, DATABASE_SQL_TYPE__ARRAY);
     createEAttribute(databaseSqlTypeEClass, DATABASE_SQL_TYPE__TYPE_NAME);
 
@@ -2535,7 +2568,10 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     initEClass(databaseSqlTypeEClass, DatabaseSqlType.class, "DatabaseSqlType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getDatabaseSqlType_Native(), ecorePackage.getEString(), "native", null, 0, 1, DatabaseSqlType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDatabaseSqlType_Ref(), this.getPojoEntity(), null, "ref", null, 0, 1, DatabaseSqlType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDatabaseSqlType_Type(), theTypesPackage.getJvmType(), null, "type", null, 0, 1, DatabaseSqlType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDatabaseSqlType_Gref(), this.getPojoEntity(), null, "gref", null, 0, 1, DatabaseSqlType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDatabaseSqlType_Gtype(), theTypesPackage.getJvmType(), null, "gtype", null, 0, 1, DatabaseSqlType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDatabaseSqlType_Array(), ecorePackage.getEBoolean(), "array", null, 0, 1, DatabaseSqlType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDatabaseSqlType_TypeName(), ecorePackage.getEString(), "typeName", null, 0, 1, DatabaseSqlType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

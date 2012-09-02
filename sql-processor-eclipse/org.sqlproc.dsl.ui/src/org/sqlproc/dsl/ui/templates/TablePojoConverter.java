@@ -70,21 +70,24 @@ public class TablePojoConverter {
     }
 
     public void resolveReferencesOnKeys() {
-        // refences or dependencies between pojos (1 : N)
         for (String pojo : pojos.keySet()) {
             Map<String, PojoAttribute> newAttributes = new HashMap<String, PojoAttribute>();
             for (PojoAttribute attribute : pojos.get(pojo).values()) {
                 if (attribute.getPkTable() != null) {
-                    // System.out.println("XXXXXXXXXX " + attribute.getName() + " " + attribute.getPkTable());
                     if (pojos.containsKey(attribute.getPkTable())) {
                         attribute.setDependencyClassName(attribute.getPkTable());
+                        if (attribute.getName().length() >= 3) {
+                            if (attribute.getName().startsWith("id")) {
+                                attribute.setName(lowerFirstChar(attribute.getName().substring(2)));
+                            } else if (attribute.getName().endsWith("Id")) {
+                                attribute.setName(attribute.getName().substring(0, attribute.getName().length() - 2));
+                            }
+                        }
                     }
                 }
                 for (String fkTable : attribute.getFkTables()) {
-                    // System.out.println("YYYYYYYYYY " + attribute.getName() + " " + attribute.getFkTables());
                     if (pojos.containsKey(fkTable)) {
-                        String referName = fkTable.substring(0, 1).toLowerCase();
-                        referName += fkTable.substring(1);
+                        String referName = lowerFirstChar(fkTable);
                         if (!referName.endsWith("s")) {
                             if (referName.endsWith("y")) {
                                 referName = referName.substring(0, referName.length() - 1);
@@ -105,8 +108,17 @@ public class TablePojoConverter {
         }
     }
 
+    private String lowerFirstChar(String s) {
+        if (s == null)
+            return null;
+        String ss = s.substring(0, 1).toLowerCase();
+        if (s.length() == 1)
+            return ss;
+        ss += s.substring(1);
+        return ss;
+    }
+
     public void resolveReferencesOnConvention() {
-        // refences or dependencies between pojos (1 : N)
         for (String pojo : pojos.keySet()) {
             for (PojoAttribute attribute : pojos.get(pojo).values()) {
                 if (attribute.getName().startsWith("id") && attribute.getName().length() > 2) {
@@ -199,6 +211,7 @@ public class TablePojoConverter {
         if (dbColumn == null)
             return null;
         PojoAttrType definition = definitions.get(dbColumn.getType());
+        System.out.println("XXX " + dbColumn.getType() + " " + dbColumn.getSize());
         if (definition == null)
             return null;
         if (definition.getSize() != null) {
@@ -211,6 +224,9 @@ public class TablePojoConverter {
         if (definition.getNativeType() != null) {
             attribute.setPrimitive(true);
             attribute.setClassName(definition.getNativeType().substring(1) + (definition.isArray() ? " []" : ""));
+        } else if (definition.getRef() != null) {
+            attribute.setPrimitive(false);
+            attribute.setDependencyClassName(definition.getRef().getName());
         } else {
             attribute.setPrimitive(false);
             attribute.setClassName(definition.getType().getIdentifier());
