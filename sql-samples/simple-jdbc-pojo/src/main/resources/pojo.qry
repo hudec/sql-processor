@@ -1,6 +1,6 @@
 database sql type :java.lang.Integer NUMBER(19);
-database sql type :java.lang.Short VARCHAR2(100);
-//database sql type ::PhoneNumber2 VARCHAR2(101);
+database sql type :java.lang.String VARCHAR2(100);
+database sql type ::PhoneNumber2 VARCHAR2(2);
 
 
 package org.sqlproc.sample.simple.model2 {

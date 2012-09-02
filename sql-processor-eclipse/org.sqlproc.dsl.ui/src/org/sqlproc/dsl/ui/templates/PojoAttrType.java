@@ -6,7 +6,7 @@ import org.sqlproc.dsl.processorDsl.PojoEntity;
 
 public class PojoAttrType {
     String name;
-    Integer size;
+    int size;
     String nativeType;
     JvmType type;
     boolean array;
@@ -39,11 +39,11 @@ public class PojoAttrType {
         this.name = name;
     }
 
-    public Integer getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(int size) {
         this.size = size;
     }
 

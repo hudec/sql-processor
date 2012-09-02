@@ -27,18 +27,18 @@ public class TablePojoConverter {
         }
     }
 
-    private Map<String, PojoAttrType> definitions;
+    private Map<String, PojoAttrType> sqlTypes;
     private Map<String, Map<String, PojoAttribute>> pojos = new HashMap<String, Map<String, PojoAttribute>>();
 
     public TablePojoConverter() {
     }
 
     public TablePojoConverter(List<DatabaseSqlType> sqlTypes) {
-        this.definitions = new HashMap<String, PojoAttrType>();
+        this.sqlTypes = new HashMap<String, PojoAttrType>();
         if (sqlTypes != null) {
             for (DatabaseSqlType sqlType : sqlTypes) {
                 PojoAttrType type = new PojoAttrType(sqlType);
-                this.definitions.put(type.getName(), type);
+                this.sqlTypes.put(type.getName() + type.getSize(), type);
             }
         }
     }
@@ -210,26 +210,23 @@ public class TablePojoConverter {
     private PojoAttribute convertDbColumnDefinition(DbColumn dbColumn) {
         if (dbColumn == null)
             return null;
-        PojoAttrType definition = definitions.get(dbColumn.getType());
-        System.out.println("XXX " + dbColumn.getType() + " " + dbColumn.getSize());
-        if (definition == null)
+        PojoAttrType sqlType = sqlTypes.get(dbColumn.getType() + dbColumn.getSize());
+        System.out.println("XXX " + dbColumn.getName() + " " + dbColumn.getType() + " " + dbColumn.getSize() + " "
+                + sqlType);
+        if (sqlType == null)
             return null;
-        if (definition.getSize() != null) {
-            if (dbColumn.getSize() != definition.getSize())
-                return null;
-        }
         PojoAttribute attribute = new PojoAttribute();
         attribute.setName(columnToCamelCase(dbColumn.getName()));
         attribute.setRequired(!dbColumn.isNullable());
-        if (definition.getNativeType() != null) {
+        if (sqlType.getNativeType() != null) {
             attribute.setPrimitive(true);
-            attribute.setClassName(definition.getNativeType().substring(1) + (definition.isArray() ? " []" : ""));
-        } else if (definition.getRef() != null) {
+            attribute.setClassName(sqlType.getNativeType().substring(1) + (sqlType.isArray() ? " []" : ""));
+        } else if (sqlType.getRef() != null) {
             attribute.setPrimitive(false);
-            attribute.setDependencyClassName(definition.getRef().getName());
+            attribute.setDependencyClassName(sqlType.getRef().getName());
         } else {
             attribute.setPrimitive(false);
-            attribute.setClassName(definition.getType().getIdentifier());
+            attribute.setClassName(sqlType.getType().getIdentifier());
         }
         attribute.setDbName(dbColumn.getName());
         return attribute;
