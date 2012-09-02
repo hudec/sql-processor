@@ -78,4 +78,9 @@ public class PojoAttrType {
     public void setRef(PojoEntity ref) {
         this.ref = ref;
     }
+
+    @Override
+    public String toString() {
+        return "PojoAttrType [name=" + name + ", size=" + size + "]";
+    }
 }

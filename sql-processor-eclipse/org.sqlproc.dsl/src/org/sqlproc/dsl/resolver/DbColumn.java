@@ -64,4 +64,10 @@ public class DbColumn implements Comparable<DbColumn> {
     public int compareTo(DbColumn dbColumn) {
         return position - dbColumn.getPosition();
     }
+
+    @Override
+    public String toString() {
+        return "DbColumn [name=" + name + ", type=" + type + ", size=" + size + ", sqlType=" + sqlType + ", nullable="
+                + nullable + ", position=" + position + "]";
+    }
 }

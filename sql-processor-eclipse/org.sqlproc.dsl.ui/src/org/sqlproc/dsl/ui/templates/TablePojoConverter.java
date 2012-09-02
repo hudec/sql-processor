@@ -47,22 +47,25 @@ public class TablePojoConverter {
         this.tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
         if (tableTypes != null) {
             for (Map.Entry<String, Map<String, PojoType>> tableType : tableTypes.entrySet()) {
-                if (!this.tableTypes.containsKey(tableType.getKey()))
-                    this.tableTypes.put(tableType.getKey(), new HashMap<String, PojoAttrType>());
+                String table = tableType.getKey(); // tableToCamelCase(tableType.getKey());
+                if (!this.tableTypes.containsKey(table))
+                    this.tableTypes.put(table, new HashMap<String, PojoAttrType>());
                 for (Map.Entry<String, PojoType> sqlType : tableType.getValue().entrySet()) {
                     PojoAttrType type = new PojoAttrType(sqlType.getKey(), sqlType.getValue());
-                    this.tableTypes.get(tableType.getKey()).put(type.getName() + type.getSize(), type);
+                    this.tableTypes.get(table).put(type.getName() + type.getSize(), type);
                 }
             }
         }
         this.columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
         if (columnTypes != null) {
             for (Map.Entry<String, Map<String, PojoType>> columnType : columnTypes.entrySet()) {
-                if (!this.columnTypes.containsKey(columnType.getKey()))
-                    this.columnTypes.put(columnType.getKey(), new HashMap<String, PojoAttrType>());
+                String table = columnType.getKey(); // tableToCamelCase(columnType.getKey());
+                if (!this.columnTypes.containsKey(table))
+                    this.columnTypes.put(table, new HashMap<String, PojoAttrType>());
                 for (Map.Entry<String, PojoType> sqlType : columnType.getValue().entrySet()) {
-                    PojoAttrType type = new PojoAttrType(sqlType.getKey(), sqlType.getValue());
-                    this.columnTypes.get(columnType.getKey()).put(type.getName() + type.getSize(), type);
+                    String column = sqlType.getKey(); // tableToCamelCase(sqlType.getKey());
+                    PojoAttrType type = new PojoAttrType(column, sqlType.getValue());
+                    this.columnTypes.get(table).put(type.getName(), type);
                 }
             }
         }
@@ -74,7 +77,7 @@ public class TablePojoConverter {
             return;
         Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
         for (DbColumn dbColumn : dbColumns) {
-            PojoAttribute attribute = convertDbColumnDefinition(dbColumn);
+            PojoAttribute attribute = convertDbColumnDefinition(table, dbColumn);
             if (attribute != null) {
                 attributes.put(dbColumn.getName(), attribute);
             } else {
@@ -232,12 +235,19 @@ public class TablePojoConverter {
         return camelCaseString;
     }
 
-    private PojoAttribute convertDbColumnDefinition(DbColumn dbColumn) {
+    private PojoAttribute convertDbColumnDefinition(String table, DbColumn dbColumn) {
+        // System.out.println("AAA " + table + " " + dbColumn);
         if (dbColumn == null)
             return null;
-        PojoAttrType sqlType = sqlTypes.get(dbColumn.getType() + dbColumn.getSize());
-        System.out.println("XXX " + dbColumn.getName() + " " + dbColumn.getType() + " " + dbColumn.getSize() + " "
-                + sqlType);
+        PojoAttrType sqlType = columnTypes.containsKey(table) ? columnTypes.get(table).get(dbColumn.getName()) : null;
+        // System.out.println("BBB1 " + sqlType);
+        if (sqlType == null)
+            sqlType = tableTypes.containsKey(table) ? tableTypes.get(table)
+                    .get(dbColumn.getType() + dbColumn.getSize()) : null;
+        // System.out.println("BBB2 " + sqlType);
+        if (sqlType == null)
+            sqlType = sqlTypes.get(dbColumn.getType() + dbColumn.getSize());
+        // System.out.println("BBB3 " + sqlType);
         if (sqlType == null)
             return null;
         PojoAttribute attribute = new PojoAttribute();
