@@ -28,7 +28,6 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
-import org.sqlproc.dsl.processorDsl.TypeDefinition;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,7 +44,6 @@ import org.sqlproc.dsl.processorDsl.TypeDefinition;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getTables <em>Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getTableUsages <em>Table Usages</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getTypeDefinitions <em>Type Definitions</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getPojoPackages <em>Pojo Packages</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getUsagesExt <em>Usages Ext</em>}</li>
  * </ul>
@@ -134,16 +132,6 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
    * @ordered
    */
   protected EList<TableUsage> tableUsages;
-
-  /**
-   * The cached value of the '{@link #getTypeDefinitions() <em>Type Definitions</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTypeDefinitions()
-   * @generated
-   * @ordered
-   */
-  protected EList<TypeDefinition> typeDefinitions;
 
   /**
    * The cached value of the '{@link #getPojoPackages() <em>Pojo Packages</em>}' containment reference list.
@@ -303,20 +291,6 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<TypeDefinition> getTypeDefinitions()
-  {
-    if (typeDefinitions == null)
-    {
-      typeDefinitions = new EObjectContainmentEList<TypeDefinition>(TypeDefinition.class, this, ProcessorDslPackage.ARTIFACTS__TYPE_DEFINITIONS);
-    }
-    return typeDefinitions;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<PackageDeclaration> getPojoPackages()
   {
     if (pojoPackages == null)
@@ -366,8 +340,6 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         return ((InternalEList<?>)getTables()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
         return ((InternalEList<?>)getTableUsages()).basicRemove(otherEnd, msgs);
-      case ProcessorDslPackage.ARTIFACTS__TYPE_DEFINITIONS:
-        return ((InternalEList<?>)getTypeDefinitions()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.ARTIFACTS__POJO_PACKAGES:
         return ((InternalEList<?>)getPojoPackages()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.ARTIFACTS__USAGES_EXT:
@@ -402,8 +374,6 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         return getTables();
       case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
         return getTableUsages();
-      case ProcessorDslPackage.ARTIFACTS__TYPE_DEFINITIONS:
-        return getTypeDefinitions();
       case ProcessorDslPackage.ARTIFACTS__POJO_PACKAGES:
         return getPojoPackages();
       case ProcessorDslPackage.ARTIFACTS__USAGES_EXT:
@@ -455,10 +425,6 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         getTableUsages().clear();
         getTableUsages().addAll((Collection<? extends TableUsage>)newValue);
         return;
-      case ProcessorDslPackage.ARTIFACTS__TYPE_DEFINITIONS:
-        getTypeDefinitions().clear();
-        getTypeDefinitions().addAll((Collection<? extends TypeDefinition>)newValue);
-        return;
       case ProcessorDslPackage.ARTIFACTS__POJO_PACKAGES:
         getPojoPackages().clear();
         getPojoPackages().addAll((Collection<? extends PackageDeclaration>)newValue);
@@ -505,9 +471,6 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
       case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
         getTableUsages().clear();
         return;
-      case ProcessorDslPackage.ARTIFACTS__TYPE_DEFINITIONS:
-        getTypeDefinitions().clear();
-        return;
       case ProcessorDslPackage.ARTIFACTS__POJO_PACKAGES:
         getPojoPackages().clear();
         return;
@@ -544,8 +507,6 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         return tables != null && !tables.isEmpty();
       case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
         return tableUsages != null && !tableUsages.isEmpty();
-      case ProcessorDslPackage.ARTIFACTS__TYPE_DEFINITIONS:
-        return typeDefinitions != null && !typeDefinitions.isEmpty();
       case ProcessorDslPackage.ARTIFACTS__POJO_PACKAGES:
         return pojoPackages != null && !pojoPackages.isEmpty();
       case ProcessorDslPackage.ARTIFACTS__USAGES_EXT:

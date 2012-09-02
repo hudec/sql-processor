@@ -1,6 +1,9 @@
 package org.sqlproc.dsl.property;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -12,6 +15,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.DatabaseSqlType;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.util.Utils;
 
@@ -29,6 +33,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_PASSWORD = "database password";
     public static final String DATABASE_SCHEMA = "database schema";
     public static final String DATABASE_DRIVER = "database driver";
+    public static final String DATABASE_SQL_TYPE = "database sql type";
 
     public static class ModelValues {
         public boolean doResolvePojo;
@@ -39,12 +44,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public String dbPassword;
         public String dbSchema;
         public String dir;
+        public List<DatabaseSqlType> sqlTypes;
 
         @Override
         public String toString() {
             return "ModelValues [doResolvePojo=" + doResolvePojo + ", doResolveDb=" + doResolveDb + ", dbDriver="
                     + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername + ", dbPassword=" + dbPassword
-                    + ", dbSchema=" + dbSchema + ", dir=" + dir + "]";
+                    + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + "]";
         }
     }
 
@@ -137,6 +143,10 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.dbSchema = property.getDbSchema();
         } else if (DATABASE_DRIVER.equals(property.getName())) {
             modelValues.dbDriver = property.getDbDriver();
+        } else if (DATABASE_SQL_TYPE.equals(property.getName())) {
+            if (modelValues.sqlTypes == null)
+                modelValues.sqlTypes = new ArrayList<DatabaseSqlType>();
+            modelValues.sqlTypes.add(property.getDbSqlType());
         }
     }
 
@@ -150,6 +160,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public boolean isDoResolveDb(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.doResolveDb : false;
+    }
+
+    @Override
+    public List<DatabaseSqlType> getSqlTypes(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.sqlTypes : Collections.EMPTY_LIST;
     }
 
     @Override

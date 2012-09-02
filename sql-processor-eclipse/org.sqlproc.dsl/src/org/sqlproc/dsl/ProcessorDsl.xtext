@@ -8,8 +8,7 @@ generate processorDsl "http://www.sqlproc.org/dsl/ProcessorDsl"
 Artifacts:
     WS* (features+=OptionalFeature WS*|statements+=MetaStatement WS*|mappings+=MappingRule WS*
     	|pojos+=PojoDefinition WS*|usages+=PojoUsage WS*|properties+=Property WS*|tables+=TableDefinition WS*
-    	|tableUsages+=TableUsage WS*|typeDefinitions+=TypeDefinition WS*|pojoPackages+=PackageDeclaration WS*
-    	|usagesExt+=PojoUsageExt WS*
+    	|tableUsages+=TableUsage WS*|pojoPackages+=PackageDeclaration WS*|usagesExt+=PojoUsageExt WS*
     )+;
 
 Property:
@@ -20,6 +19,7 @@ Property:
 	|name='database password' WS+ dbPassword=PropertyValue
 	|name='database schema' WS+ dbSchema=PropertyValue
 	|name='database driver' WS+ dbDriver=PropertyValue
+	|name='database sql type' WS+ dbSqlType=DatabaseSqlType
 	) SEMICOLON;
 
 PropertyValue:
@@ -213,10 +213,9 @@ terminal REST: !(SEMICOLON);
 FeatureValue:
   (REST|IDENT_DOT|IDENT|NUMBER|WS|COLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|PERCENT|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)+;
 
-TypeDefinition:
-	'database type' WS+
+DatabaseSqlType:
 	(native = ('_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') | 
-	(type=[jvmTypes::JvmType|QualifiedName])) (array ?= '[]')? WS+ name=PropertyValue SEMICOLON;
+	(type=[jvmTypes::JvmType|QualifiedName])) (array ?= '[]')? WS+ typeName=PropertyValue;
 
 PackageDeclaration hidden(ML_COMMENT, SL_COMMENT, WS):
 	'package' name=(IDENT|IDENT_DOT) LBRACE

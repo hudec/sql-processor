@@ -65,12 +65,6 @@
           <elements xsi:type="xtext:RuleCall" cardinality="*" rule="//@rules.50"/>
         </elements>
         <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Assignment" feature="typeDefinitions" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.76"/>
-          </elements>
-          <elements xsi:type="xtext:RuleCall" cardinality="*" rule="//@rules.50"/>
-        </elements>
-        <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Assignment" feature="pojoPackages" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.77"/>
           </elements>
@@ -152,6 +146,15 @@
           <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
           <elements xsi:type="xtext:Assignment" feature="dbDriver" operator="=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.2"/>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="database sql type"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
+          <elements xsi:type="xtext:Assignment" feature="dbSqlType" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.76"/>
           </elements>
         </elements>
       </elements>
@@ -1698,13 +1701,11 @@
       <elements xsi:type="xtext:RuleCall" rule="//@rules.43"/>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="TypeDefinition">
+  <rules xsi:type="xtext:ParserRule" name="DatabaseSqlType">
     <type metamodel="//@metamodelDeclarations.2">
-      <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//TypeDefinition"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//DatabaseSqlType"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Keyword" value="database type"/>
-      <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
       <elements xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:Assignment" feature="native" operator="=">
           <terminal xsi:type="xtext:Alternatives">
@@ -1731,10 +1732,9 @@
         <terminal xsi:type="xtext:Keyword" value="[]"/>
       </elements>
       <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
-      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+      <elements xsi:type="xtext:Assignment" feature="typeName" operator="=">
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.2"/>
       </elements>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.54"/>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="PackageDeclaration" definesHiddenTokens="true" hiddenTokens="//@rules.48 //@rules.49 //@rules.50">

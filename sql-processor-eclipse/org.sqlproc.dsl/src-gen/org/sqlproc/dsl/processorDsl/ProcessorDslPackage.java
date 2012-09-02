@@ -139,22 +139,13 @@ public interface ProcessorDslPackage extends EPackage
   int ARTIFACTS__TABLE_USAGES = 7;
 
   /**
-   * The feature id for the '<em><b>Type Definitions</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARTIFACTS__TYPE_DEFINITIONS = 8;
-
-  /**
    * The feature id for the '<em><b>Pojo Packages</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ARTIFACTS__POJO_PACKAGES = 9;
+  int ARTIFACTS__POJO_PACKAGES = 8;
 
   /**
    * The feature id for the '<em><b>Usages Ext</b></em>' containment reference list.
@@ -163,7 +154,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ARTIFACTS__USAGES_EXT = 10;
+  int ARTIFACTS__USAGES_EXT = 9;
 
   /**
    * The number of structural features of the '<em>Artifacts</em>' class.
@@ -172,7 +163,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ARTIFACTS_FEATURE_COUNT = 11;
+  int ARTIFACTS_FEATURE_COUNT = 10;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl <em>Property</em>}' class.
@@ -257,13 +248,22 @@ public interface ProcessorDslPackage extends EPackage
   int PROPERTY__DB_DRIVER = 7;
 
   /**
+   * The feature id for the '<em><b>Db Sql Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY__DB_SQL_TYPE = 8;
+
+  /**
    * The number of structural features of the '<em>Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROPERTY_FEATURE_COUNT = 8;
+  int PROPERTY_FEATURE_COUNT = 9;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.
@@ -1749,14 +1749,14 @@ public interface ProcessorDslPackage extends EPackage
   int OPTIONAL_FEATURE_FEATURE_COUNT = 4;
 
   /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl <em>Type Definition</em>}' class.
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl <em>Database Sql Type</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getTypeDefinition()
+   * @see org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseSqlType()
    * @generated
    */
-  int TYPE_DEFINITION = 36;
+  int DATABASE_SQL_TYPE = 36;
 
   /**
    * The feature id for the '<em><b>Native</b></em>' attribute.
@@ -1765,7 +1765,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TYPE_DEFINITION__NATIVE = 0;
+  int DATABASE_SQL_TYPE__NATIVE = 0;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1774,7 +1774,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TYPE_DEFINITION__TYPE = 1;
+  int DATABASE_SQL_TYPE__TYPE = 1;
 
   /**
    * The feature id for the '<em><b>Array</b></em>' attribute.
@@ -1783,25 +1783,25 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TYPE_DEFINITION__ARRAY = 2;
+  int DATABASE_SQL_TYPE__ARRAY = 2;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Type Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TYPE_DEFINITION__NAME = 3;
+  int DATABASE_SQL_TYPE__TYPE_NAME = 3;
 
   /**
-   * The number of structural features of the '<em>Type Definition</em>' class.
+   * The number of structural features of the '<em>Database Sql Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TYPE_DEFINITION_FEATURE_COUNT = 4;
+  int DATABASE_SQL_TYPE_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.AbstractPojoEntityImpl <em>Abstract Pojo Entity</em>}' class.
@@ -2133,17 +2133,6 @@ public interface ProcessorDslPackage extends EPackage
   EReference getArtifacts_TableUsages();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getTypeDefinitions <em>Type Definitions</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Type Definitions</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Artifacts#getTypeDefinitions()
-   * @see #getArtifacts()
-   * @generated
-   */
-  EReference getArtifacts_TypeDefinitions();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getPojoPackages <em>Pojo Packages</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2262,6 +2251,17 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EAttribute getProperty_DbDriver();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.Property#getDbSqlType <em>Db Sql Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Db Sql Type</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Property#getDbSqlType()
+   * @see #getProperty()
+   * @generated
+   */
+  EReference getProperty_DbSqlType();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoDefinition <em>Pojo Definition</em>}'.
@@ -3539,58 +3539,58 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getOptionalFeature_Option();
 
   /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.TypeDefinition <em>Type Definition</em>}'.
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType <em>Database Sql Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Type Definition</em>'.
-   * @see org.sqlproc.dsl.processorDsl.TypeDefinition
+   * @return the meta object for class '<em>Database Sql Type</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType
    * @generated
    */
-  EClass getTypeDefinition();
+  EClass getDatabaseSqlType();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getNative <em>Native</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getNative <em>Native</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Native</em>'.
-   * @see org.sqlproc.dsl.processorDsl.TypeDefinition#getNative()
-   * @see #getTypeDefinition()
+   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#getNative()
+   * @see #getDatabaseSqlType()
    * @generated
    */
-  EAttribute getTypeDefinition_Native();
+  EAttribute getDatabaseSqlType_Native();
 
   /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getType <em>Type</em>}'.
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Type</em>'.
-   * @see org.sqlproc.dsl.processorDsl.TypeDefinition#getType()
-   * @see #getTypeDefinition()
+   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#getType()
+   * @see #getDatabaseSqlType()
    * @generated
    */
-  EReference getTypeDefinition_Type();
+  EReference getDatabaseSqlType_Type();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#isArray <em>Array</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#isArray <em>Array</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Array</em>'.
-   * @see org.sqlproc.dsl.processorDsl.TypeDefinition#isArray()
-   * @see #getTypeDefinition()
+   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#isArray()
+   * @see #getDatabaseSqlType()
    * @generated
    */
-  EAttribute getTypeDefinition_Array();
+  EAttribute getDatabaseSqlType_Array();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getTypeName <em>Type Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.sqlproc.dsl.processorDsl.TypeDefinition#getName()
-   * @see #getTypeDefinition()
+   * @return the meta object for the attribute '<em>Type Name</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#getTypeName()
+   * @see #getDatabaseSqlType()
    * @generated
    */
-  EAttribute getTypeDefinition_Name();
+  EAttribute getDatabaseSqlType_TypeName();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PackageDeclaration <em>Package Declaration</em>}'.
@@ -3905,14 +3905,6 @@ public interface ProcessorDslPackage extends EPackage
     EReference ARTIFACTS__TABLE_USAGES = eINSTANCE.getArtifacts_TableUsages();
 
     /**
-     * The meta object literal for the '<em><b>Type Definitions</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ARTIFACTS__TYPE_DEFINITIONS = eINSTANCE.getArtifacts_TypeDefinitions();
-
-    /**
      * The meta object literal for the '<em><b>Pojo Packages</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4001,6 +3993,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute PROPERTY__DB_DRIVER = eINSTANCE.getProperty_DbDriver();
+
+    /**
+     * The meta object literal for the '<em><b>Db Sql Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROPERTY__DB_SQL_TYPE = eINSTANCE.getProperty_DbSqlType();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.
@@ -5023,14 +5023,14 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute OPTIONAL_FEATURE__OPTION = eINSTANCE.getOptionalFeature_Option();
 
     /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl <em>Type Definition</em>}' class.
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl <em>Database Sql Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getTypeDefinition()
+     * @see org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseSqlType()
      * @generated
      */
-    EClass TYPE_DEFINITION = eINSTANCE.getTypeDefinition();
+    EClass DATABASE_SQL_TYPE = eINSTANCE.getDatabaseSqlType();
 
     /**
      * The meta object literal for the '<em><b>Native</b></em>' attribute feature.
@@ -5038,7 +5038,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute TYPE_DEFINITION__NATIVE = eINSTANCE.getTypeDefinition_Native();
+    EAttribute DATABASE_SQL_TYPE__NATIVE = eINSTANCE.getDatabaseSqlType_Native();
 
     /**
      * The meta object literal for the '<em><b>Type</b></em>' reference feature.
@@ -5046,7 +5046,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TYPE_DEFINITION__TYPE = eINSTANCE.getTypeDefinition_Type();
+    EReference DATABASE_SQL_TYPE__TYPE = eINSTANCE.getDatabaseSqlType_Type();
 
     /**
      * The meta object literal for the '<em><b>Array</b></em>' attribute feature.
@@ -5054,15 +5054,15 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute TYPE_DEFINITION__ARRAY = eINSTANCE.getTypeDefinition_Array();
+    EAttribute DATABASE_SQL_TYPE__ARRAY = eINSTANCE.getDatabaseSqlType_Array();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Type Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute TYPE_DEFINITION__NAME = eINSTANCE.getTypeDefinition_Name();
+    EAttribute DATABASE_SQL_TYPE__TYPE_NAME = eINSTANCE.getDatabaseSqlType_TypeName();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PackageDeclarationImpl <em>Package Declaration</em>}' class.

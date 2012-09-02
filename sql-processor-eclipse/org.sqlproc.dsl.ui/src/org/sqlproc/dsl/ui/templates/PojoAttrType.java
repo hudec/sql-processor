@@ -1,7 +1,7 @@
 package org.sqlproc.dsl.ui.templates;
 
 import org.eclipse.xtext.common.types.JvmType;
-import org.sqlproc.dsl.processorDsl.TypeDefinition;
+import org.sqlproc.dsl.processorDsl.DatabaseSqlType;
 
 public class PojoAttrType {
     String name;
@@ -10,11 +10,11 @@ public class PojoAttrType {
     JvmType type;
     boolean array;
 
-    public PojoAttrType(TypeDefinition definition) {
-        setNativeType(definition.getNative());
-        setType(definition.getType());
-        setArray(definition.isArray());
-        String name = definition.getName();
+    public PojoAttrType(DatabaseSqlType sqlType) {
+        setNativeType(sqlType.getNative());
+        setType(sqlType.getType());
+        setArray(sqlType.isArray());
+        String name = sqlType.getTypeName();
         int ix = name.indexOf('(');
         int ix2 = (ix >= 0) ? name.indexOf(')', ix + 1) : -1;
         if (ix >= 0 && ix2 >= 0) {

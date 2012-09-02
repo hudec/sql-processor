@@ -12,26 +12,26 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.xtext.common.types.JvmType;
 
+import org.sqlproc.dsl.processorDsl.DatabaseSqlType;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
-import org.sqlproc.dsl.processorDsl.TypeDefinition;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Type Definition</b></em>'.
+ * An implementation of the model object '<em><b>Database Sql Type</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl#getNative <em>Native</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl#isArray <em>Array</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.TypeDefinitionImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl#getNative <em>Native</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl#isArray <em>Array</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl#getTypeName <em>Type Name</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements TypeDefinition
+public class DatabaseSqlTypeImpl extends MinimalEObjectImpl.Container implements DatabaseSqlType
 {
   /**
    * The default value of the '{@link #getNative() <em>Native</em>}' attribute.
@@ -84,31 +84,31 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
   protected boolean array = ARRAY_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The default value of the '{@link #getTypeName() <em>Type Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getTypeName()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
+  protected static final String TYPE_NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getTypeName() <em>Type Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getTypeName()
    * @generated
    * @ordered
    */
-  protected String name = NAME_EDEFAULT;
+  protected String typeName = TYPE_NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected TypeDefinitionImpl()
+  protected DatabaseSqlTypeImpl()
   {
     super();
   }
@@ -121,7 +121,7 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
   @Override
   protected EClass eStaticClass()
   {
-    return ProcessorDslPackage.Literals.TYPE_DEFINITION;
+    return ProcessorDslPackage.Literals.DATABASE_SQL_TYPE;
   }
 
   /**
@@ -144,7 +144,7 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
     String oldNative = native_;
     native_ = newNative;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.TYPE_DEFINITION__NATIVE, oldNative, native_));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_SQL_TYPE__NATIVE, oldNative, native_));
   }
 
   /**
@@ -161,7 +161,7 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
       if (type != oldType)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.TYPE_DEFINITION__TYPE, oldType, type));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE, oldType, type));
       }
     }
     return type;
@@ -187,7 +187,7 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
     JvmType oldType = type;
     type = newType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.TYPE_DEFINITION__TYPE, oldType, type));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE, oldType, type));
   }
 
   /**
@@ -210,7 +210,7 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
     boolean oldArray = array;
     array = newArray;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.TYPE_DEFINITION__ARRAY, oldArray, array));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_SQL_TYPE__ARRAY, oldArray, array));
   }
 
   /**
@@ -218,9 +218,9 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public String getTypeName()
   {
-    return name;
+    return typeName;
   }
 
   /**
@@ -228,12 +228,12 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  public void setTypeName(String newTypeName)
   {
-    String oldName = name;
-    name = newName;
+    String oldTypeName = typeName;
+    typeName = newTypeName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.TYPE_DEFINITION__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE_NAME, oldTypeName, typeName));
   }
 
   /**
@@ -246,15 +246,15 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.TYPE_DEFINITION__NATIVE:
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__NATIVE:
         return getNative();
-      case ProcessorDslPackage.TYPE_DEFINITION__TYPE:
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE:
         if (resolve) return getType();
         return basicGetType();
-      case ProcessorDslPackage.TYPE_DEFINITION__ARRAY:
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__ARRAY:
         return isArray();
-      case ProcessorDslPackage.TYPE_DEFINITION__NAME:
-        return getName();
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE_NAME:
+        return getTypeName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -269,17 +269,17 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.TYPE_DEFINITION__NATIVE:
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__NATIVE:
         setNative((String)newValue);
         return;
-      case ProcessorDslPackage.TYPE_DEFINITION__TYPE:
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE:
         setType((JvmType)newValue);
         return;
-      case ProcessorDslPackage.TYPE_DEFINITION__ARRAY:
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__ARRAY:
         setArray((Boolean)newValue);
         return;
-      case ProcessorDslPackage.TYPE_DEFINITION__NAME:
-        setName((String)newValue);
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE_NAME:
+        setTypeName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -295,17 +295,17 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.TYPE_DEFINITION__NATIVE:
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__NATIVE:
         setNative(NATIVE_EDEFAULT);
         return;
-      case ProcessorDslPackage.TYPE_DEFINITION__TYPE:
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE:
         setType((JvmType)null);
         return;
-      case ProcessorDslPackage.TYPE_DEFINITION__ARRAY:
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__ARRAY:
         setArray(ARRAY_EDEFAULT);
         return;
-      case ProcessorDslPackage.TYPE_DEFINITION__NAME:
-        setName(NAME_EDEFAULT);
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE_NAME:
+        setTypeName(TYPE_NAME_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -321,14 +321,14 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.TYPE_DEFINITION__NATIVE:
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__NATIVE:
         return NATIVE_EDEFAULT == null ? native_ != null : !NATIVE_EDEFAULT.equals(native_);
-      case ProcessorDslPackage.TYPE_DEFINITION__TYPE:
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE:
         return type != null;
-      case ProcessorDslPackage.TYPE_DEFINITION__ARRAY:
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__ARRAY:
         return array != ARRAY_EDEFAULT;
-      case ProcessorDslPackage.TYPE_DEFINITION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case ProcessorDslPackage.DATABASE_SQL_TYPE__TYPE_NAME:
+        return TYPE_NAME_EDEFAULT == null ? typeName != null : !TYPE_NAME_EDEFAULT.equals(typeName);
     }
     return super.eIsSet(featureID);
   }
@@ -348,10 +348,10 @@ public class TypeDefinitionImpl extends MinimalEObjectImpl.Container implements 
     result.append(native_);
     result.append(", array: ");
     result.append(array);
-    result.append(", name: ");
-    result.append(name);
+    result.append(", typeName: ");
+    result.append(typeName);
     result.append(')');
     return result.toString();
   }
 
-} //TypeDefinitionImpl
+} //DatabaseSqlTypeImpl

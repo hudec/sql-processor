@@ -36,7 +36,6 @@ import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
-import org.sqlproc.dsl.processorDsl.TypeDefinition;
 import org.sqlproc.dsl.resolver.PojoResolver;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
 
@@ -181,10 +180,10 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 TableDefinition table = usage.getTable();
                 if (statement != null && table != null)
                     provideHighlightingForTable(statement.getName(), table.getName(), node, acceptor);
-            } else if (current instanceof TypeDefinition) {
-                ICompositeNode node = NodeModelUtils.getNode(current);
-                TypeDefinition definition = (TypeDefinition) current;
-                provideHighlightingForTypeDefinition(definition.getName(), node, acceptor);
+                // } else if (current instanceof TypeDefinition) {
+                // ICompositeNode node = NodeModelUtils.getNode(current);
+                // TypeDefinition definition = (TypeDefinition) current;
+                // provideHighlightingForTypeDefinition(definition.getName(), node, acceptor);
             } else if (current instanceof PackageDeclaration) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 PackageDeclaration pkg = (PackageDeclaration) current;

@@ -268,17 +268,17 @@ ruleArtifacts returns [EObject current=null]
     |((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArtifactsAccess().getTypeDefinitionsTypeDefinitionParserRuleCall_1_8_0_0()); 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getPojoPackagesPackageDeclarationParserRuleCall_1_8_0_0()); 
 	    }
-		lv_typeDefinitions_17_0=ruleTypeDefinition		{
+		lv_pojoPackages_17_0=rulePackageDeclaration		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
 	        }
        		add(
        			$current, 
-       			"typeDefinitions",
-        		lv_typeDefinitions_17_0, 
-        		"TypeDefinition");
+       			"pojoPackages",
+        		lv_pojoPackages_17_0, 
+        		"PackageDeclaration");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -291,17 +291,17 @@ ruleArtifacts returns [EObject current=null]
     |((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArtifactsAccess().getPojoPackagesPackageDeclarationParserRuleCall_1_9_0_0()); 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getUsagesExtPojoUsageExtParserRuleCall_1_9_0_0()); 
 	    }
-		lv_pojoPackages_19_0=rulePackageDeclaration		{
+		lv_usagesExt_19_0=rulePojoUsageExt		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
 	        }
        		add(
        			$current, 
-       			"pojoPackages",
-        		lv_pojoPackages_19_0, 
-        		"PackageDeclaration");
+       			"usagesExt",
+        		lv_usagesExt_19_0, 
+        		"PojoUsageExt");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -309,29 +309,6 @@ ruleArtifacts returns [EObject current=null]
 )(this_WS_20=RULE_WS
     { 
     newLeafNode(this_WS_20, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_9_1()); 
-    }
-)*)
-    |((
-(
-		{ 
-	        newCompositeNode(grammarAccess.getArtifactsAccess().getUsagesExtPojoUsageExtParserRuleCall_1_10_0_0()); 
-	    }
-		lv_usagesExt_21_0=rulePojoUsageExt		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
-	        }
-       		add(
-       			$current, 
-       			"usagesExt",
-        		lv_usagesExt_21_0, 
-        		"PojoUsageExt");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(this_WS_22=RULE_WS
-    { 
-    newLeafNode(this_WS_22, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_10_1()); 
     }
 )*))+)
 ;
@@ -619,9 +596,47 @@ ruleProperty returns [EObject current=null]
 	    }
 
 )
-)))this_SEMICOLON_21=RULE_SEMICOLON
+))
+    |((
+(
+		lv_name_21_0=	'database sql type' 
+    {
+        newLeafNode(lv_name_21_0, grammarAccess.getPropertyAccess().getNameDatabaseSqlTypeKeyword_0_7_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_21_0, "database sql type");
+	    }
+
+)
+)(this_WS_22=RULE_WS
     { 
-    newLeafNode(this_SEMICOLON_21, grammarAccess.getPropertyAccess().getSEMICOLONTerminalRuleCall_1()); 
+    newLeafNode(this_WS_22, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_7_1()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPropertyAccess().getDbSqlTypeDatabaseSqlTypeParserRuleCall_0_7_2_0()); 
+	    }
+		lv_dbSqlType_23_0=ruleDatabaseSqlType		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPropertyRule());
+	        }
+       		set(
+       			$current, 
+       			"dbSqlType",
+        		lv_dbSqlType_23_0, 
+        		"DatabaseSqlType");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)))this_SEMICOLON_24=RULE_SEMICOLON
+    { 
+    newLeafNode(this_SEMICOLON_24, grammarAccess.getPropertyAccess().getSEMICOLONTerminalRuleCall_1()); 
     }
 )
 ;
@@ -6519,125 +6534,117 @@ ruleFeatureValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTo
 
 
 
-// Entry rule entryRuleTypeDefinition
-entryRuleTypeDefinition returns [EObject current=null] 
+// Entry rule entryRuleDatabaseSqlType
+entryRuleDatabaseSqlType returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getTypeDefinitionRule()); }
-	 iv_ruleTypeDefinition=ruleTypeDefinition 
-	 { $current=$iv_ruleTypeDefinition.current; } 
+	{ newCompositeNode(grammarAccess.getDatabaseSqlTypeRule()); }
+	 iv_ruleDatabaseSqlType=ruleDatabaseSqlType 
+	 { $current=$iv_ruleDatabaseSqlType.current; } 
 	 EOF 
 ;
 
-// Rule TypeDefinition
-ruleTypeDefinition returns [EObject current=null] 
+// Rule DatabaseSqlType
+ruleDatabaseSqlType returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='database type' 
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getTypeDefinitionAccess().getDatabaseTypeKeyword_0());
-    }
-(this_WS_1=RULE_WS
-    { 
-    newLeafNode(this_WS_1, grammarAccess.getTypeDefinitionAccess().getWSTerminalRuleCall_1()); 
-    }
-)+((
+(((
 (
 (
-		lv_native_2_1=	'_char' 
+		lv_native_0_1=	'_char' 
     {
-        newLeafNode(lv_native_2_1, grammarAccess.getTypeDefinitionAccess().getNative_charKeyword_2_0_0_0());
+        newLeafNode(lv_native_0_1, grammarAccess.getDatabaseSqlTypeAccess().getNative_charKeyword_0_0_0_0());
     }
  
 	    {
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeDefinitionRule());
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
 	        }
-       		setWithLastConsumed($current, "native", lv_native_2_1, null);
+       		setWithLastConsumed($current, "native", lv_native_0_1, null);
 	    }
 
-    |		lv_native_2_2=	'_byte' 
+    |		lv_native_0_2=	'_byte' 
     {
-        newLeafNode(lv_native_2_2, grammarAccess.getTypeDefinitionAccess().getNative_byteKeyword_2_0_0_1());
+        newLeafNode(lv_native_0_2, grammarAccess.getDatabaseSqlTypeAccess().getNative_byteKeyword_0_0_0_1());
     }
  
 	    {
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeDefinitionRule());
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
 	        }
-       		setWithLastConsumed($current, "native", lv_native_2_2, null);
+       		setWithLastConsumed($current, "native", lv_native_0_2, null);
 	    }
 
-    |		lv_native_2_3=	'_short' 
+    |		lv_native_0_3=	'_short' 
     {
-        newLeafNode(lv_native_2_3, grammarAccess.getTypeDefinitionAccess().getNative_shortKeyword_2_0_0_2());
+        newLeafNode(lv_native_0_3, grammarAccess.getDatabaseSqlTypeAccess().getNative_shortKeyword_0_0_0_2());
     }
  
 	    {
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeDefinitionRule());
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
 	        }
-       		setWithLastConsumed($current, "native", lv_native_2_3, null);
+       		setWithLastConsumed($current, "native", lv_native_0_3, null);
 	    }
 
-    |		lv_native_2_4=	'_int' 
+    |		lv_native_0_4=	'_int' 
     {
-        newLeafNode(lv_native_2_4, grammarAccess.getTypeDefinitionAccess().getNative_intKeyword_2_0_0_3());
+        newLeafNode(lv_native_0_4, grammarAccess.getDatabaseSqlTypeAccess().getNative_intKeyword_0_0_0_3());
     }
  
 	    {
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeDefinitionRule());
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
 	        }
-       		setWithLastConsumed($current, "native", lv_native_2_4, null);
+       		setWithLastConsumed($current, "native", lv_native_0_4, null);
 	    }
 
-    |		lv_native_2_5=	'_long' 
+    |		lv_native_0_5=	'_long' 
     {
-        newLeafNode(lv_native_2_5, grammarAccess.getTypeDefinitionAccess().getNative_longKeyword_2_0_0_4());
+        newLeafNode(lv_native_0_5, grammarAccess.getDatabaseSqlTypeAccess().getNative_longKeyword_0_0_0_4());
     }
  
 	    {
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeDefinitionRule());
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
 	        }
-       		setWithLastConsumed($current, "native", lv_native_2_5, null);
+       		setWithLastConsumed($current, "native", lv_native_0_5, null);
 	    }
 
-    |		lv_native_2_6=	'_float' 
+    |		lv_native_0_6=	'_float' 
     {
-        newLeafNode(lv_native_2_6, grammarAccess.getTypeDefinitionAccess().getNative_floatKeyword_2_0_0_5());
+        newLeafNode(lv_native_0_6, grammarAccess.getDatabaseSqlTypeAccess().getNative_floatKeyword_0_0_0_5());
     }
  
 	    {
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeDefinitionRule());
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
 	        }
-       		setWithLastConsumed($current, "native", lv_native_2_6, null);
+       		setWithLastConsumed($current, "native", lv_native_0_6, null);
 	    }
 
-    |		lv_native_2_7=	'_double' 
+    |		lv_native_0_7=	'_double' 
     {
-        newLeafNode(lv_native_2_7, grammarAccess.getTypeDefinitionAccess().getNative_doubleKeyword_2_0_0_6());
+        newLeafNode(lv_native_0_7, grammarAccess.getDatabaseSqlTypeAccess().getNative_doubleKeyword_0_0_0_6());
     }
  
 	    {
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeDefinitionRule());
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
 	        }
-       		setWithLastConsumed($current, "native", lv_native_2_7, null);
+       		setWithLastConsumed($current, "native", lv_native_0_7, null);
 	    }
 
-    |		lv_native_2_8=	'_boolean' 
+    |		lv_native_0_8=	'_boolean' 
     {
-        newLeafNode(lv_native_2_8, grammarAccess.getTypeDefinitionAccess().getNative_booleanKeyword_2_0_0_7());
+        newLeafNode(lv_native_0_8, grammarAccess.getDatabaseSqlTypeAccess().getNative_booleanKeyword_0_0_0_7());
     }
  
 	    {
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeDefinitionRule());
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
 	        }
-       		setWithLastConsumed($current, "native", lv_native_2_8, null);
+       		setWithLastConsumed($current, "native", lv_native_0_8, null);
 	    }
 
 )
@@ -6648,11 +6655,11 @@ ruleTypeDefinition returns [EObject current=null]
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeDefinitionRule());
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getTypeDefinitionAccess().getTypeJvmTypeCrossReference_2_1_0()); 
+	        newCompositeNode(grammarAccess.getDatabaseSqlTypeAccess().getTypeJvmTypeCrossReference_0_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -6661,46 +6668,42 @@ ruleTypeDefinition returns [EObject current=null]
 )
 ))(
 (
-		lv_array_4_0=	'[]' 
+		lv_array_2_0=	'[]' 
     {
-        newLeafNode(lv_array_4_0, grammarAccess.getTypeDefinitionAccess().getArrayLeftSquareBracketRightSquareBracketKeyword_3_0());
+        newLeafNode(lv_array_2_0, grammarAccess.getDatabaseSqlTypeAccess().getArrayLeftSquareBracketRightSquareBracketKeyword_1_0());
     }
  
 	    {
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getTypeDefinitionRule());
+	            $current = createModelElement(grammarAccess.getDatabaseSqlTypeRule());
 	        }
        		setWithLastConsumed($current, "array", true, "[]");
 	    }
 
 )
-)?(this_WS_5=RULE_WS
+)?(this_WS_3=RULE_WS
     { 
-    newLeafNode(this_WS_5, grammarAccess.getTypeDefinitionAccess().getWSTerminalRuleCall_4()); 
+    newLeafNode(this_WS_3, grammarAccess.getDatabaseSqlTypeAccess().getWSTerminalRuleCall_2()); 
     }
 )+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTypeDefinitionAccess().getNamePropertyValueParserRuleCall_5_0()); 
+	        newCompositeNode(grammarAccess.getDatabaseSqlTypeAccess().getTypeNamePropertyValueParserRuleCall_3_0()); 
 	    }
-		lv_name_6_0=rulePropertyValue		{
+		lv_typeName_4_0=rulePropertyValue		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getTypeDefinitionRule());
+	            $current = createModelElementForParent(grammarAccess.getDatabaseSqlTypeRule());
 	        }
        		set(
        			$current, 
-       			"name",
-        		lv_name_6_0, 
+       			"typeName",
+        		lv_typeName_4_0, 
         		"PropertyValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)this_SEMICOLON_7=RULE_SEMICOLON
-    { 
-    newLeafNode(this_SEMICOLON_7, grammarAccess.getTypeDefinitionAccess().getSEMICOLONTerminalRuleCall_6()); 
-    }
-)
+))
 ;
 
 

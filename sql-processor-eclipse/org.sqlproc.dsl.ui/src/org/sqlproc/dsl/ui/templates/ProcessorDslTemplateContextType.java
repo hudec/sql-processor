@@ -1,6 +1,5 @@
 package org.sqlproc.dsl.ui.templates;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -20,7 +19,7 @@ import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
-import org.sqlproc.dsl.processorDsl.TypeDefinition;
+import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.DbColumn;
 import org.sqlproc.dsl.resolver.DbExport;
 import org.sqlproc.dsl.resolver.DbImport;
@@ -39,6 +38,9 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
 
     @Inject
     IScopeProvider scopeProvider;
+
+    @Inject
+    ModelProperty modelProperty;
 
     @Override
     protected void addDefaultTemplateVariables() {
@@ -564,8 +566,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
                 List<String> tables = dbResolver.getTables(artifacts);
                 if (tables != null) {
-                    TablePojoConverter converter = new TablePojoConverter(new ArrayList<TypeDefinition>(
-                            artifacts.getTypeDefinitions()));
+                    TablePojoConverter converter = new TablePojoConverter(modelProperty.getSqlTypes(artifacts));
                     for (String table : tables) {
                         List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
                         List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);

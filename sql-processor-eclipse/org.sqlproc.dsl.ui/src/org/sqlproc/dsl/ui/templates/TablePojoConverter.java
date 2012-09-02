@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.sqlproc.dsl.processorDsl.TypeDefinition;
+import org.sqlproc.dsl.processorDsl.DatabaseSqlType;
 import org.sqlproc.dsl.resolver.DbColumn;
 import org.sqlproc.dsl.resolver.DbExport;
 import org.sqlproc.dsl.resolver.DbImport;
@@ -33,11 +33,11 @@ public class TablePojoConverter {
     public TablePojoConverter() {
     }
 
-    public TablePojoConverter(List<TypeDefinition> definitions) {
+    public TablePojoConverter(List<DatabaseSqlType> sqlTypes) {
         this.definitions = new HashMap<String, PojoAttrType>();
-        if (definitions != null) {
-            for (TypeDefinition definition : definitions) {
-                PojoAttrType type = new PojoAttrType(definition);
+        if (sqlTypes != null) {
+            for (DatabaseSqlType sqlType : sqlTypes) {
+                PojoAttrType type = new PojoAttrType(sqlType);
                 this.definitions.put(type.getName(), type);
             }
         }

@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getTables <em>Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getTableUsages <em>Table Usages</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getTypeDefinitions <em>Type Definitions</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getPojoPackages <em>Pojo Packages</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getUsagesExt <em>Usages Ext</em>}</li>
  * </ul>
@@ -161,22 +160,6 @@ public interface Artifacts extends EObject
    * @generated
    */
   EList<TableUsage> getTableUsages();
-
-  /**
-   * Returns the value of the '<em><b>Type Definitions</b></em>' containment reference list.
-   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.TypeDefinition}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Type Definitions</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Type Definitions</em>' containment reference list.
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getArtifacts_TypeDefinitions()
-   * @model containment="true"
-   * @generated
-   */
-  EList<TypeDefinition> getTypeDefinitions();
 
   /**
    * Returns the value of the '<em><b>Pojo Packages</b></em>' containment reference list.

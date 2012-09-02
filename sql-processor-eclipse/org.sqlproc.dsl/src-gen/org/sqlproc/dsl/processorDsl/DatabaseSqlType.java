@@ -8,24 +8,24 @@ import org.eclipse.xtext.common.types.JvmType;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Type Definition</b></em>'.
+ * A representation of the model object '<em><b>Database Sql Type</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getNative <em>Native</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getType <em>Type</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.TypeDefinition#isArray <em>Array</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getNative <em>Native</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getType <em>Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#isArray <em>Array</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getTypeName <em>Type Name</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getTypeDefinition()
+ * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType()
  * @model
  * @generated
  */
-public interface TypeDefinition extends EObject
+public interface DatabaseSqlType extends EObject
 {
   /**
    * Returns the value of the '<em><b>Native</b></em>' attribute.
@@ -37,14 +37,14 @@ public interface TypeDefinition extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Native</em>' attribute.
    * @see #setNative(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getTypeDefinition_Native()
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_Native()
    * @model
    * @generated
    */
   String getNative();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getNative <em>Native</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getNative <em>Native</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Native</em>' attribute.
@@ -63,14 +63,14 @@ public interface TypeDefinition extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Type</em>' reference.
    * @see #setType(JvmType)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getTypeDefinition_Type()
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_Type()
    * @model
    * @generated
    */
   JvmType getType();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getType <em>Type</em>}' reference.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getType <em>Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Type</em>' reference.
@@ -89,14 +89,14 @@ public interface TypeDefinition extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Array</em>' attribute.
    * @see #setArray(boolean)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getTypeDefinition_Array()
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_Array()
    * @model
    * @generated
    */
   boolean isArray();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#isArray <em>Array</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#isArray <em>Array</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Array</em>' attribute.
@@ -106,29 +106,29 @@ public interface TypeDefinition extends EObject
   void setArray(boolean value);
 
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Type Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Type Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getTypeDefinition_Name()
+   * @return the value of the '<em>Type Name</em>' attribute.
+   * @see #setTypeName(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_TypeName()
    * @model
    * @generated
    */
-  String getName();
+  String getTypeName();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.TypeDefinition#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getTypeName <em>Type Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
+   * @param value the new value of the '<em>Type Name</em>' attribute.
+   * @see #getTypeName()
    * @generated
    */
-  void setName(String value);
+  void setTypeName(String value);
 
-} // TypeDefinition
+} // DatabaseSqlType

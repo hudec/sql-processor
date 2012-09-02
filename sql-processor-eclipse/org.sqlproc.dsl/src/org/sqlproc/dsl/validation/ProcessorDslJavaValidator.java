@@ -48,7 +48,6 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
-import org.sqlproc.dsl.processorDsl.TypeDefinition;
 import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
 
@@ -789,6 +788,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         EObject object = EcoreUtil.getRootContainer(property);
         if (!(object instanceof Artifacts))
             return;
+        String typeName = (property.getDbSqlType() != null) ? property.getDbSqlType().getTypeName() : null;
         artifacts = (Artifacts) object;
         for (Property prop : artifacts.getProperties()) {
             if (prop == null || prop == property)
@@ -796,6 +796,13 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             if (prop.getName().equals(property.getName())) {
                 error("Duplicate name : " + property.getName(), ProcessorDslPackage.Literals.PROPERTY__NAME);
                 return;
+            }
+            if (typeName != null) {
+                String typeN = (prop.getDbSqlType() != null) ? prop.getDbSqlType().getTypeName() : null;
+                if (typeN != null && typeN.equals(typeName)) {
+                    error("Duplicate dbType : " + typeName, ProcessorDslPackage.Literals.PROPERTY__NAME);
+                    return;
+                }
             }
         }
     }
@@ -981,24 +988,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 continue;
             if (pojoProperty.getName().equals(property.getName())) {
                 error("Duplicate name : " + pojoProperty.getName(), ProcessorDslPackage.Literals.POJO_PROPERTY__NAME);
-                return;
-            }
-        }
-    }
-
-    @Check
-    public void checkUniqueColumnDefinition(TypeDefinition typeDefinition) {
-        Artifacts artifacts;
-        EObject object = EcoreUtil.getRootContainer(typeDefinition);
-        if (!(object instanceof Artifacts))
-            return;
-        artifacts = (Artifacts) object;
-        for (TypeDefinition definitions : artifacts.getTypeDefinitions()) {
-            if (definitions == null || definitions == typeDefinition)
-                continue;
-            if (typeDefinition.getName().equals(definitions.getName())) {
-                error("Duplicate name : " + typeDefinition.getName(),
-                        ProcessorDslPackage.Literals.TYPE_DEFINITION__NAME);
                 return;
             }
         }

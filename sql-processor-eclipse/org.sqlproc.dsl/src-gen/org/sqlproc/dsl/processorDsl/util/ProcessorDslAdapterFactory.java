@@ -255,9 +255,9 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createOptionalFeatureAdapter();
       }
       @Override
-      public Adapter caseTypeDefinition(TypeDefinition object)
+      public Adapter caseDatabaseSqlType(DatabaseSqlType object)
       {
-        return createTypeDefinitionAdapter();
+        return createDatabaseSqlTypeAdapter();
       }
       @Override
       public Adapter casePackageDeclaration(PackageDeclaration object)
@@ -847,16 +847,16 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.TypeDefinition <em>Type Definition</em>}'.
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType <em>Database Sql Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.sqlproc.dsl.processorDsl.TypeDefinition
+   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType
    * @generated
    */
-  public Adapter createTypeDefinitionAdapter()
+  public Adapter createDatabaseSqlTypeAdapter()
   {
     return null;
   }

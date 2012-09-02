@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbPassword <em>Db Password</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbSchema <em>Db Schema</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbDriver <em>Db Driver</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbSqlType <em>Db Sql Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -236,5 +237,31 @@ public interface Property extends EObject
    * @generated
    */
   void setDbDriver(String value);
+
+  /**
+   * Returns the value of the '<em><b>Db Sql Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Sql Type</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Sql Type</em>' containment reference.
+   * @see #setDbSqlType(DatabaseSqlType)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_DbSqlType()
+   * @model containment="true"
+   * @generated
+   */
+  DatabaseSqlType getDbSqlType();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getDbSqlType <em>Db Sql Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Sql Type</em>' containment reference.
+   * @see #getDbSqlType()
+   * @generated
+   */
+  void setDbSqlType(DatabaseSqlType value);
 
 } // Property

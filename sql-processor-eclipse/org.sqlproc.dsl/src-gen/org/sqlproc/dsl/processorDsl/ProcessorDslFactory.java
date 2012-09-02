@@ -347,13 +347,13 @@ public interface ProcessorDslFactory extends EFactory
   OptionalFeature createOptionalFeature();
 
   /**
-   * Returns a new object of class '<em>Type Definition</em>'.
+   * Returns a new object of class '<em>Database Sql Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Type Definition</em>'.
+   * @return a new object of class '<em>Database Sql Type</em>'.
    * @generated
    */
-  TypeDefinition createTypeDefinition();
+  DatabaseSqlType createDatabaseSqlType();
 
   /**
    * Returns a new object of class '<em>Package Declaration</em>'.

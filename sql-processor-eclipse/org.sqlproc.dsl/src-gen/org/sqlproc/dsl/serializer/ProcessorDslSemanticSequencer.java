@@ -21,6 +21,7 @@ import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
+import org.sqlproc.dsl.processorDsl.DatabaseSqlType;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
@@ -52,7 +53,6 @@ import org.sqlproc.dsl.processorDsl.Sql;
 import org.sqlproc.dsl.processorDsl.SqlFragment;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
-import org.sqlproc.dsl.processorDsl.TypeDefinition;
 import org.sqlproc.dsl.services.ProcessorDslGrammarAccess;
 
 @SuppressWarnings("all")
@@ -112,6 +112,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.DATABASE_COLUMN:
 				if(context == grammarAccess.getDatabaseColumnRule()) {
 					sequence_DatabaseColumn(context, (DatabaseColumn) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.DATABASE_SQL_TYPE:
+				if(context == grammarAccess.getDatabaseSqlTypeRule()) {
+					sequence_DatabaseSqlType(context, (DatabaseSqlType) semanticObject); 
 					return; 
 				}
 				else break;
@@ -302,12 +308,6 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
-			case ProcessorDslPackage.TYPE_DEFINITION:
-				if(context == grammarAccess.getTypeDefinitionRule()) {
-					sequence_TypeDefinition(context, (TypeDefinition) semanticObject); 
-					return; 
-				}
-				else break;
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
@@ -323,7 +323,6 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         properties+=Property | 
 	 *         tables+=TableDefinition | 
 	 *         tableUsages+=TableUsage | 
-	 *         typeDefinitions+=TypeDefinition | 
 	 *         pojoPackages+=PackageDeclaration | 
 	 *         usagesExt+=PojoUsageExt
 	 *     )+
@@ -432,6 +431,29 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (name=IDENT | name=IDENT_DOT)
 	 */
 	protected void sequence_DatabaseColumn(EObject context, DatabaseColumn semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             native='_char' | 
+	 *             native='_byte' | 
+	 *             native='_short' | 
+	 *             native='_int' | 
+	 *             native='_long' | 
+	 *             native='_float' | 
+	 *             native='_double' | 
+	 *             native='_boolean' | 
+	 *             type=[JvmType|QualifiedName]
+	 *         ) 
+	 *         array?='[]'? 
+	 *         typeName=PropertyValue
+	 *     )
+	 */
+	protected void sequence_DatabaseSqlType(EObject context, DatabaseSqlType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -757,7 +779,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='database username' dbUsername=PropertyValue) | 
 	 *         (name='database password' dbPassword=PropertyValue) | 
 	 *         (name='database schema' dbSchema=PropertyValue) | 
-	 *         (name='database driver' dbDriver=PropertyValue)
+	 *         (name='database driver' dbDriver=PropertyValue) | 
+	 *         (name='database sql type' dbSqlType=DatabaseSqlType)
 	 *     )
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {
@@ -815,29 +838,6 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] prefix=IDENT?)
 	 */
 	protected void sequence_TableUsage(EObject context, TableUsage semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             native='_char' | 
-	 *             native='_byte' | 
-	 *             native='_short' | 
-	 *             native='_int' | 
-	 *             native='_long' | 
-	 *             native='_float' | 
-	 *             native='_double' | 
-	 *             native='_boolean' | 
-	 *             type=[JvmType|QualifiedName]
-	 *         ) 
-	 *         array?='[]'? 
-	 *         name=PropertyValue
-	 *     )
-	 */
-	protected void sequence_TypeDefinition(EObject context, TypeDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

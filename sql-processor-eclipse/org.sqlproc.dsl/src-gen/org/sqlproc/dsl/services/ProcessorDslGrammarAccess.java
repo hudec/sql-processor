@@ -56,27 +56,23 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTableUsagesTableUsageParserRuleCall_1_7_0_0 = (RuleCall)cTableUsagesAssignment_1_7_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_1_7_1 = (RuleCall)cGroup_1_7.eContents().get(1);
 		private final Group cGroup_1_8 = (Group)cAlternatives_1.eContents().get(8);
-		private final Assignment cTypeDefinitionsAssignment_1_8_0 = (Assignment)cGroup_1_8.eContents().get(0);
-		private final RuleCall cTypeDefinitionsTypeDefinitionParserRuleCall_1_8_0_0 = (RuleCall)cTypeDefinitionsAssignment_1_8_0.eContents().get(0);
+		private final Assignment cPojoPackagesAssignment_1_8_0 = (Assignment)cGroup_1_8.eContents().get(0);
+		private final RuleCall cPojoPackagesPackageDeclarationParserRuleCall_1_8_0_0 = (RuleCall)cPojoPackagesAssignment_1_8_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_1_8_1 = (RuleCall)cGroup_1_8.eContents().get(1);
 		private final Group cGroup_1_9 = (Group)cAlternatives_1.eContents().get(9);
-		private final Assignment cPojoPackagesAssignment_1_9_0 = (Assignment)cGroup_1_9.eContents().get(0);
-		private final RuleCall cPojoPackagesPackageDeclarationParserRuleCall_1_9_0_0 = (RuleCall)cPojoPackagesAssignment_1_9_0.eContents().get(0);
+		private final Assignment cUsagesExtAssignment_1_9_0 = (Assignment)cGroup_1_9.eContents().get(0);
+		private final RuleCall cUsagesExtPojoUsageExtParserRuleCall_1_9_0_0 = (RuleCall)cUsagesExtAssignment_1_9_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_1_9_1 = (RuleCall)cGroup_1_9.eContents().get(1);
-		private final Group cGroup_1_10 = (Group)cAlternatives_1.eContents().get(10);
-		private final Assignment cUsagesExtAssignment_1_10_0 = (Assignment)cGroup_1_10.eContents().get(0);
-		private final RuleCall cUsagesExtPojoUsageExtParserRuleCall_1_10_0_0 = (RuleCall)cUsagesExtAssignment_1_10_0.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_1_10_1 = (RuleCall)cGroup_1_10.eContents().get(1);
 		
 		//Artifacts:
 		//	WS* (features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS* | pojos+=PojoDefinition
 		//	WS* | usages+=PojoUsage WS* | properties+=Property WS* | tables+=TableDefinition WS* | tableUsages+=TableUsage WS* |
-		//	typeDefinitions+=TypeDefinition WS* | pojoPackages+=PackageDeclaration WS* | usagesExt+=PojoUsageExt WS*)+;
+		//	pojoPackages+=PackageDeclaration WS* | usagesExt+=PojoUsageExt WS*)+;
 		public ParserRule getRule() { return rule; }
 
 		//WS* (features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS* | pojos+=PojoDefinition
 		//WS* | usages+=PojoUsage WS* | properties+=Property WS* | tables+=TableDefinition WS* | tableUsages+=TableUsage WS* |
-		//typeDefinitions+=TypeDefinition WS* | pojoPackages+=PackageDeclaration WS* | usagesExt+=PojoUsageExt WS*)+
+		//pojoPackages+=PackageDeclaration WS* | usagesExt+=PojoUsageExt WS*)+
 		public Group getGroup() { return cGroup; }
 
 		//WS*
@@ -84,7 +80,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//(features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS* | pojos+=PojoDefinition WS* |
 		//usages+=PojoUsage WS* | properties+=Property WS* | tables+=TableDefinition WS* | tableUsages+=TableUsage WS* |
-		//typeDefinitions+=TypeDefinition WS* | pojoPackages+=PackageDeclaration WS* | usagesExt+=PojoUsageExt WS*)+
+		//pojoPackages+=PackageDeclaration WS* | usagesExt+=PojoUsageExt WS*)+
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//features+=OptionalFeature WS*
@@ -183,41 +179,29 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//WS*
 		public RuleCall getWSTerminalRuleCall_1_7_1() { return cWSTerminalRuleCall_1_7_1; }
 
-		//typeDefinitions+=TypeDefinition WS*
+		//pojoPackages+=PackageDeclaration WS*
 		public Group getGroup_1_8() { return cGroup_1_8; }
 
-		//typeDefinitions+=TypeDefinition
-		public Assignment getTypeDefinitionsAssignment_1_8_0() { return cTypeDefinitionsAssignment_1_8_0; }
+		//pojoPackages+=PackageDeclaration
+		public Assignment getPojoPackagesAssignment_1_8_0() { return cPojoPackagesAssignment_1_8_0; }
 
-		//TypeDefinition
-		public RuleCall getTypeDefinitionsTypeDefinitionParserRuleCall_1_8_0_0() { return cTypeDefinitionsTypeDefinitionParserRuleCall_1_8_0_0; }
+		//PackageDeclaration
+		public RuleCall getPojoPackagesPackageDeclarationParserRuleCall_1_8_0_0() { return cPojoPackagesPackageDeclarationParserRuleCall_1_8_0_0; }
 
 		//WS*
 		public RuleCall getWSTerminalRuleCall_1_8_1() { return cWSTerminalRuleCall_1_8_1; }
 
-		//pojoPackages+=PackageDeclaration WS*
+		//usagesExt+=PojoUsageExt WS*
 		public Group getGroup_1_9() { return cGroup_1_9; }
 
-		//pojoPackages+=PackageDeclaration
-		public Assignment getPojoPackagesAssignment_1_9_0() { return cPojoPackagesAssignment_1_9_0; }
+		//usagesExt+=PojoUsageExt
+		public Assignment getUsagesExtAssignment_1_9_0() { return cUsagesExtAssignment_1_9_0; }
 
-		//PackageDeclaration
-		public RuleCall getPojoPackagesPackageDeclarationParserRuleCall_1_9_0_0() { return cPojoPackagesPackageDeclarationParserRuleCall_1_9_0_0; }
+		//PojoUsageExt
+		public RuleCall getUsagesExtPojoUsageExtParserRuleCall_1_9_0_0() { return cUsagesExtPojoUsageExtParserRuleCall_1_9_0_0; }
 
 		//WS*
 		public RuleCall getWSTerminalRuleCall_1_9_1() { return cWSTerminalRuleCall_1_9_1; }
-
-		//usagesExt+=PojoUsageExt WS*
-		public Group getGroup_1_10() { return cGroup_1_10; }
-
-		//usagesExt+=PojoUsageExt
-		public Assignment getUsagesExtAssignment_1_10_0() { return cUsagesExtAssignment_1_10_0; }
-
-		//PojoUsageExt
-		public RuleCall getUsagesExtPojoUsageExtParserRuleCall_1_10_0_0() { return cUsagesExtPojoUsageExtParserRuleCall_1_10_0_0; }
-
-		//WS*
-		public RuleCall getWSTerminalRuleCall_1_10_1() { return cWSTerminalRuleCall_1_10_1; }
 	}
 
 	public class PropertyElements extends AbstractParserRuleElementFinder {
@@ -266,25 +250,31 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWSTerminalRuleCall_0_6_1 = (RuleCall)cGroup_0_6.eContents().get(1);
 		private final Assignment cDbDriverAssignment_0_6_2 = (Assignment)cGroup_0_6.eContents().get(2);
 		private final RuleCall cDbDriverPropertyValueParserRuleCall_0_6_2_0 = (RuleCall)cDbDriverAssignment_0_6_2.eContents().get(0);
+		private final Group cGroup_0_7 = (Group)cAlternatives_0.eContents().get(7);
+		private final Assignment cNameAssignment_0_7_0 = (Assignment)cGroup_0_7.eContents().get(0);
+		private final Keyword cNameDatabaseSqlTypeKeyword_0_7_0_0 = (Keyword)cNameAssignment_0_7_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_7_1 = (RuleCall)cGroup_0_7.eContents().get(1);
+		private final Assignment cDbSqlTypeAssignment_0_7_2 = (Assignment)cGroup_0_7.eContents().get(2);
+		private final RuleCall cDbSqlTypeDatabaseSqlTypeParserRuleCall_0_7_2_0 = (RuleCall)cDbSqlTypeAssignment_0_7_2.eContents().get(0);
 		private final RuleCall cSEMICOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//Property:
 		//	(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF |
 		//	name="database url" WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue |
 		//	name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
-		//	name="database driver" WS+ dbDriver=PropertyValue) SEMICOLON;
+		//	name="database driver" WS+ dbDriver=PropertyValue | name="database sql type" WS+ dbSqlType=DatabaseSqlType) SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
 		//(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF |
 		//name="database url" WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue |
 		//name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
-		//name="database driver" WS+ dbDriver=PropertyValue) SEMICOLON
+		//name="database driver" WS+ dbDriver=PropertyValue | name="database sql type" WS+ dbSqlType=DatabaseSqlType) SEMICOLON
 		public Group getGroup() { return cGroup; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF | name="database url"
 		//WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue | name="database password" WS+
 		//dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue | name="database driver" WS+
-		//dbDriver=PropertyValue
+		//dbDriver=PropertyValue | name="database sql type" WS+ dbSqlType=DatabaseSqlType
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF
@@ -412,6 +402,24 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//PropertyValue
 		public RuleCall getDbDriverPropertyValueParserRuleCall_0_6_2_0() { return cDbDriverPropertyValueParserRuleCall_0_6_2_0; }
+
+		//name="database sql type" WS+ dbSqlType=DatabaseSqlType
+		public Group getGroup_0_7() { return cGroup_0_7; }
+
+		//name="database sql type"
+		public Assignment getNameAssignment_0_7_0() { return cNameAssignment_0_7_0; }
+
+		//"database sql type"
+		public Keyword getNameDatabaseSqlTypeKeyword_0_7_0_0() { return cNameDatabaseSqlTypeKeyword_0_7_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_7_1() { return cWSTerminalRuleCall_0_7_1; }
+
+		//dbSqlType=DatabaseSqlType
+		public Assignment getDbSqlTypeAssignment_0_7_2() { return cDbSqlTypeAssignment_0_7_2; }
+
+		//DatabaseSqlType
+		public RuleCall getDbSqlTypeDatabaseSqlTypeParserRuleCall_0_7_2_0() { return cDbSqlTypeDatabaseSqlTypeParserRuleCall_0_7_2_0; }
 
 		//SEMICOLON
 		public RuleCall getSEMICOLONTerminalRuleCall_1() { return cSEMICOLONTerminalRuleCall_1; }
@@ -3754,107 +3762,95 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getOPTION_TYPETerminalRuleCall_31() { return cOPTION_TYPETerminalRuleCall_31; }
 	}
 
-	public class TypeDefinitionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeDefinition");
+	public class DatabaseSqlTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DatabaseSqlType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cDatabaseTypeKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Assignment cNativeAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
-		private final Alternatives cNativeAlternatives_2_0_0 = (Alternatives)cNativeAssignment_2_0.eContents().get(0);
-		private final Keyword cNative_charKeyword_2_0_0_0 = (Keyword)cNativeAlternatives_2_0_0.eContents().get(0);
-		private final Keyword cNative_byteKeyword_2_0_0_1 = (Keyword)cNativeAlternatives_2_0_0.eContents().get(1);
-		private final Keyword cNative_shortKeyword_2_0_0_2 = (Keyword)cNativeAlternatives_2_0_0.eContents().get(2);
-		private final Keyword cNative_intKeyword_2_0_0_3 = (Keyword)cNativeAlternatives_2_0_0.eContents().get(3);
-		private final Keyword cNative_longKeyword_2_0_0_4 = (Keyword)cNativeAlternatives_2_0_0.eContents().get(4);
-		private final Keyword cNative_floatKeyword_2_0_0_5 = (Keyword)cNativeAlternatives_2_0_0.eContents().get(5);
-		private final Keyword cNative_doubleKeyword_2_0_0_6 = (Keyword)cNativeAlternatives_2_0_0.eContents().get(6);
-		private final Keyword cNative_booleanKeyword_2_0_0_7 = (Keyword)cNativeAlternatives_2_0_0.eContents().get(7);
-		private final Assignment cTypeAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
-		private final CrossReference cTypeJvmTypeCrossReference_2_1_0 = (CrossReference)cTypeAssignment_2_1.eContents().get(0);
-		private final RuleCall cTypeJvmTypeQualifiedNameParserRuleCall_2_1_0_1 = (RuleCall)cTypeJvmTypeCrossReference_2_1_0.eContents().get(1);
-		private final Assignment cArrayAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final Keyword cArrayLeftSquareBracketRightSquareBracketKeyword_3_0 = (Keyword)cArrayAssignment_3.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
-		private final Assignment cNameAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cNamePropertyValueParserRuleCall_5_0 = (RuleCall)cNameAssignment_5.eContents().get(0);
-		private final RuleCall cSEMICOLONTerminalRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Assignment cNativeAssignment_0_0 = (Assignment)cAlternatives_0.eContents().get(0);
+		private final Alternatives cNativeAlternatives_0_0_0 = (Alternatives)cNativeAssignment_0_0.eContents().get(0);
+		private final Keyword cNative_charKeyword_0_0_0_0 = (Keyword)cNativeAlternatives_0_0_0.eContents().get(0);
+		private final Keyword cNative_byteKeyword_0_0_0_1 = (Keyword)cNativeAlternatives_0_0_0.eContents().get(1);
+		private final Keyword cNative_shortKeyword_0_0_0_2 = (Keyword)cNativeAlternatives_0_0_0.eContents().get(2);
+		private final Keyword cNative_intKeyword_0_0_0_3 = (Keyword)cNativeAlternatives_0_0_0.eContents().get(3);
+		private final Keyword cNative_longKeyword_0_0_0_4 = (Keyword)cNativeAlternatives_0_0_0.eContents().get(4);
+		private final Keyword cNative_floatKeyword_0_0_0_5 = (Keyword)cNativeAlternatives_0_0_0.eContents().get(5);
+		private final Keyword cNative_doubleKeyword_0_0_0_6 = (Keyword)cNativeAlternatives_0_0_0.eContents().get(6);
+		private final Keyword cNative_booleanKeyword_0_0_0_7 = (Keyword)cNativeAlternatives_0_0_0.eContents().get(7);
+		private final Assignment cTypeAssignment_0_1 = (Assignment)cAlternatives_0.eContents().get(1);
+		private final CrossReference cTypeJvmTypeCrossReference_0_1_0 = (CrossReference)cTypeAssignment_0_1.eContents().get(0);
+		private final RuleCall cTypeJvmTypeQualifiedNameParserRuleCall_0_1_0_1 = (RuleCall)cTypeJvmTypeCrossReference_0_1_0.eContents().get(1);
+		private final Assignment cArrayAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Keyword cArrayLeftSquareBracketRightSquareBracketKeyword_1_0 = (Keyword)cArrayAssignment_1.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cTypeNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTypeNamePropertyValueParserRuleCall_3_0 = (RuleCall)cTypeNameAssignment_3.eContents().get(0);
 		
-		//TypeDefinition:
-		//	"database type" WS+ (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") |
-		//	type=[jvmTypes::JvmType|QualifiedName]) array?="[]"? WS+ name=PropertyValue SEMICOLON;
+		//DatabaseSqlType:
+		//	(native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") |
+		//	type=[jvmTypes::JvmType|QualifiedName]) array?="[]"? WS+ typeName=PropertyValue;
 		public ParserRule getRule() { return rule; }
 
-		//"database type" WS+ (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") |
-		//type=[jvmTypes::JvmType|QualifiedName]) array?="[]"? WS+ name=PropertyValue SEMICOLON
+		//(native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") |
+		//type=[jvmTypes::JvmType|QualifiedName]) array?="[]"? WS+ typeName=PropertyValue
 		public Group getGroup() { return cGroup; }
-
-		//"database type"
-		public Keyword getDatabaseTypeKeyword_0() { return cDatabaseTypeKeyword_0; }
-
-		//WS+
-		public RuleCall getWSTerminalRuleCall_1() { return cWSTerminalRuleCall_1; }
 
 		//native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") |
 		//type=[jvmTypes::JvmType|QualifiedName]
-		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean")
-		public Assignment getNativeAssignment_2_0() { return cNativeAssignment_2_0; }
+		public Assignment getNativeAssignment_0_0() { return cNativeAssignment_0_0; }
 
 		//"_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean"
-		public Alternatives getNativeAlternatives_2_0_0() { return cNativeAlternatives_2_0_0; }
+		public Alternatives getNativeAlternatives_0_0_0() { return cNativeAlternatives_0_0_0; }
 
 		//"_char"
-		public Keyword getNative_charKeyword_2_0_0_0() { return cNative_charKeyword_2_0_0_0; }
+		public Keyword getNative_charKeyword_0_0_0_0() { return cNative_charKeyword_0_0_0_0; }
 
 		//"_byte"
-		public Keyword getNative_byteKeyword_2_0_0_1() { return cNative_byteKeyword_2_0_0_1; }
+		public Keyword getNative_byteKeyword_0_0_0_1() { return cNative_byteKeyword_0_0_0_1; }
 
 		//"_short"
-		public Keyword getNative_shortKeyword_2_0_0_2() { return cNative_shortKeyword_2_0_0_2; }
+		public Keyword getNative_shortKeyword_0_0_0_2() { return cNative_shortKeyword_0_0_0_2; }
 
 		//"_int"
-		public Keyword getNative_intKeyword_2_0_0_3() { return cNative_intKeyword_2_0_0_3; }
+		public Keyword getNative_intKeyword_0_0_0_3() { return cNative_intKeyword_0_0_0_3; }
 
 		//"_long"
-		public Keyword getNative_longKeyword_2_0_0_4() { return cNative_longKeyword_2_0_0_4; }
+		public Keyword getNative_longKeyword_0_0_0_4() { return cNative_longKeyword_0_0_0_4; }
 
 		//"_float"
-		public Keyword getNative_floatKeyword_2_0_0_5() { return cNative_floatKeyword_2_0_0_5; }
+		public Keyword getNative_floatKeyword_0_0_0_5() { return cNative_floatKeyword_0_0_0_5; }
 
 		//"_double"
-		public Keyword getNative_doubleKeyword_2_0_0_6() { return cNative_doubleKeyword_2_0_0_6; }
+		public Keyword getNative_doubleKeyword_0_0_0_6() { return cNative_doubleKeyword_0_0_0_6; }
 
 		//"_boolean"
-		public Keyword getNative_booleanKeyword_2_0_0_7() { return cNative_booleanKeyword_2_0_0_7; }
+		public Keyword getNative_booleanKeyword_0_0_0_7() { return cNative_booleanKeyword_0_0_0_7; }
 
 		//type=[jvmTypes::JvmType|QualifiedName]
-		public Assignment getTypeAssignment_2_1() { return cTypeAssignment_2_1; }
+		public Assignment getTypeAssignment_0_1() { return cTypeAssignment_0_1; }
 
 		//[jvmTypes::JvmType|QualifiedName]
-		public CrossReference getTypeJvmTypeCrossReference_2_1_0() { return cTypeJvmTypeCrossReference_2_1_0; }
+		public CrossReference getTypeJvmTypeCrossReference_0_1_0() { return cTypeJvmTypeCrossReference_0_1_0; }
 
 		//QualifiedName
-		public RuleCall getTypeJvmTypeQualifiedNameParserRuleCall_2_1_0_1() { return cTypeJvmTypeQualifiedNameParserRuleCall_2_1_0_1; }
+		public RuleCall getTypeJvmTypeQualifiedNameParserRuleCall_0_1_0_1() { return cTypeJvmTypeQualifiedNameParserRuleCall_0_1_0_1; }
 
 		//array?="[]"?
-		public Assignment getArrayAssignment_3() { return cArrayAssignment_3; }
+		public Assignment getArrayAssignment_1() { return cArrayAssignment_1; }
 
 		//"[]"
-		public Keyword getArrayLeftSquareBracketRightSquareBracketKeyword_3_0() { return cArrayLeftSquareBracketRightSquareBracketKeyword_3_0; }
+		public Keyword getArrayLeftSquareBracketRightSquareBracketKeyword_1_0() { return cArrayLeftSquareBracketRightSquareBracketKeyword_1_0; }
 
 		//WS+
-		public RuleCall getWSTerminalRuleCall_4() { return cWSTerminalRuleCall_4; }
+		public RuleCall getWSTerminalRuleCall_2() { return cWSTerminalRuleCall_2; }
 
-		//name=PropertyValue
-		public Assignment getNameAssignment_5() { return cNameAssignment_5; }
+		//typeName=PropertyValue
+		public Assignment getTypeNameAssignment_3() { return cTypeNameAssignment_3; }
 
 		//PropertyValue
-		public RuleCall getNamePropertyValueParserRuleCall_5_0() { return cNamePropertyValueParserRuleCall_5_0; }
-
-		//SEMICOLON
-		public RuleCall getSEMICOLONTerminalRuleCall_6() { return cSEMICOLONTerminalRuleCall_6; }
+		public RuleCall getTypeNamePropertyValueParserRuleCall_3_0() { return cTypeNamePropertyValueParserRuleCall_3_0; }
 	}
 
 	public class PackageDeclarationElements extends AbstractParserRuleElementFinder {
@@ -4324,7 +4320,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tPERCENT;
 	private TerminalRule tREST;
 	private FeatureValueElements pFeatureValue;
-	private TypeDefinitionElements pTypeDefinition;
+	private DatabaseSqlTypeElements pDatabaseSqlType;
 	private PackageDeclarationElements pPackageDeclaration;
 	private AbstractPojoEntityElements pAbstractPojoEntity;
 	private ImportElements pImport;
@@ -4366,7 +4362,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//Artifacts:
 	//	WS* (features+=OptionalFeature WS* | statements+=MetaStatement WS* | mappings+=MappingRule WS* | pojos+=PojoDefinition
 	//	WS* | usages+=PojoUsage WS* | properties+=Property WS* | tables+=TableDefinition WS* | tableUsages+=TableUsage WS* |
-	//	typeDefinitions+=TypeDefinition WS* | pojoPackages+=PackageDeclaration WS* | usagesExt+=PojoUsageExt WS*)+;
+	//	pojoPackages+=PackageDeclaration WS* | usagesExt+=PojoUsageExt WS*)+;
 	public ArtifactsElements getArtifactsAccess() {
 		return (pArtifacts != null) ? pArtifacts : (pArtifacts = new ArtifactsElements());
 	}
@@ -4379,7 +4375,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF |
 	//	name="database url" WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue |
 	//	name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
-	//	name="database driver" WS+ dbDriver=PropertyValue) SEMICOLON;
+	//	name="database driver" WS+ dbDriver=PropertyValue | name="database sql type" WS+ dbSqlType=DatabaseSqlType) SEMICOLON;
 	public PropertyElements getPropertyAccess() {
 		return (pProperty != null) ? pProperty : (pProperty = new PropertyElements());
 	}
@@ -5016,15 +5012,15 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getFeatureValueAccess().getRule();
 	}
 
-	//TypeDefinition:
-	//	"database type" WS+ (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") |
-	//	type=[jvmTypes::JvmType|QualifiedName]) array?="[]"? WS+ name=PropertyValue SEMICOLON;
-	public TypeDefinitionElements getTypeDefinitionAccess() {
-		return (pTypeDefinition != null) ? pTypeDefinition : (pTypeDefinition = new TypeDefinitionElements());
+	//DatabaseSqlType:
+	//	(native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") |
+	//	type=[jvmTypes::JvmType|QualifiedName]) array?="[]"? WS+ typeName=PropertyValue;
+	public DatabaseSqlTypeElements getDatabaseSqlTypeAccess() {
+		return (pDatabaseSqlType != null) ? pDatabaseSqlType : (pDatabaseSqlType = new DatabaseSqlTypeElements());
 	}
 	
-	public ParserRule getTypeDefinitionRule() {
-		return getTypeDefinitionAccess().getRule();
+	public ParserRule getDatabaseSqlTypeRule() {
+		return getDatabaseSqlTypeAccess().getRule();
 	}
 
 	//PackageDeclaration hidden(ML_COMMENT, SL_COMMENT, WS):
