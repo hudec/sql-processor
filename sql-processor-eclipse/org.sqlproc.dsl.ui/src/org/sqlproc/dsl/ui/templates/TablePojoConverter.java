@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.sqlproc.dsl.processorDsl.DatabaseSqlType;
+import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.resolver.DbColumn;
 import org.sqlproc.dsl.resolver.DbExport;
 import org.sqlproc.dsl.resolver.DbImport;
@@ -28,17 +28,42 @@ public class TablePojoConverter {
     }
 
     private Map<String, PojoAttrType> sqlTypes;
+    private Map<String, Map<String, PojoAttrType>> tableTypes;
+    private Map<String, Map<String, PojoAttrType>> columnTypes;
     private Map<String, Map<String, PojoAttribute>> pojos = new HashMap<String, Map<String, PojoAttribute>>();
 
     public TablePojoConverter() {
     }
 
-    public TablePojoConverter(List<DatabaseSqlType> sqlTypes) {
+    public TablePojoConverter(Map<String, PojoType> sqlTypes, Map<String, Map<String, PojoType>> tableTypes,
+            Map<String, Map<String, PojoType>> columnTypes) {
         this.sqlTypes = new HashMap<String, PojoAttrType>();
         if (sqlTypes != null) {
-            for (DatabaseSqlType sqlType : sqlTypes) {
-                PojoAttrType type = new PojoAttrType(sqlType);
+            for (Map.Entry<String, PojoType> sqlType : sqlTypes.entrySet()) {
+                PojoAttrType type = new PojoAttrType(sqlType.getKey(), sqlType.getValue());
                 this.sqlTypes.put(type.getName() + type.getSize(), type);
+            }
+        }
+        this.tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
+        if (tableTypes != null) {
+            for (Map.Entry<String, Map<String, PojoType>> tableType : tableTypes.entrySet()) {
+                if (!this.tableTypes.containsKey(tableType.getKey()))
+                    this.tableTypes.put(tableType.getKey(), new HashMap<String, PojoAttrType>());
+                for (Map.Entry<String, PojoType> sqlType : tableType.getValue().entrySet()) {
+                    PojoAttrType type = new PojoAttrType(sqlType.getKey(), sqlType.getValue());
+                    this.tableTypes.get(tableType.getKey()).put(type.getName() + type.getSize(), type);
+                }
+            }
+        }
+        this.columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
+        if (columnTypes != null) {
+            for (Map.Entry<String, Map<String, PojoType>> columnType : columnTypes.entrySet()) {
+                if (!this.columnTypes.containsKey(columnType.getKey()))
+                    this.columnTypes.put(columnType.getKey(), new HashMap<String, PojoAttrType>());
+                for (Map.Entry<String, PojoType> sqlType : columnType.getValue().entrySet()) {
+                    PojoAttrType type = new PojoAttrType(sqlType.getKey(), sqlType.getValue());
+                    this.columnTypes.get(columnType.getKey()).put(type.getName() + type.getSize(), type);
+                }
             }
         }
     }

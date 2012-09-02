@@ -1,9 +1,7 @@
 package org.sqlproc.dsl.property;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -15,7 +13,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
-import org.sqlproc.dsl.processorDsl.DatabaseSqlType;
+import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.util.Utils;
 
@@ -34,6 +32,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_SCHEMA = "database schema";
     public static final String DATABASE_DRIVER = "database driver";
     public static final String DATABASE_SQL_TYPE = "database sql type";
+    public static final String DATABASE_TABLE_TYPE = "database table type";
+    public static final String DATABASE_COLUMN_TYPE = "database column type";
 
     public static class ModelValues {
         public boolean doResolvePojo;
@@ -44,7 +44,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public String dbPassword;
         public String dbSchema;
         public String dir;
-        public List<DatabaseSqlType> sqlTypes;
+        public Map<String, PojoType> sqlTypes;
+        public Map<String, Map<String, PojoType>> tableTypes;
+        public Map<String, Map<String, PojoType>> columnTypes;
 
         @Override
         public String toString() {
@@ -145,8 +147,20 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.dbDriver = property.getDbDriver();
         } else if (DATABASE_SQL_TYPE.equals(property.getName())) {
             if (modelValues.sqlTypes == null)
-                modelValues.sqlTypes = new ArrayList<DatabaseSqlType>();
-            modelValues.sqlTypes.add(property.getDbSqlType());
+                modelValues.sqlTypes = new HashMap<String, PojoType>();
+            modelValues.sqlTypes.put(property.getTypeName(), property.getType());
+        } else if (DATABASE_TABLE_TYPE.equals(property.getName())) {
+            if (modelValues.tableTypes == null)
+                modelValues.tableTypes = new HashMap<String, Map<String, PojoType>>();
+            if (!modelValues.tableTypes.containsKey(property.getDbTable()))
+                modelValues.tableTypes.put(property.getDbTable(), new HashMap<String, PojoType>());
+            modelValues.tableTypes.get(property.getDbTable()).put(property.getTypeName(), property.getType());
+        } else if (DATABASE_COLUMN_TYPE.equals(property.getName())) {
+            if (modelValues.columnTypes == null)
+                modelValues.columnTypes = new HashMap<String, Map<String, PojoType>>();
+            if (!modelValues.columnTypes.containsKey(property.getDbTable()))
+                modelValues.columnTypes.put(property.getDbTable(), new HashMap<String, PojoType>());
+            modelValues.columnTypes.get(property.getDbTable()).put(property.getDbColumn(), property.getType());
         }
     }
 
@@ -163,9 +177,21 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
-    public List<DatabaseSqlType> getSqlTypes(EObject model) {
+    public Map<String, PojoType> getSqlTypes(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.sqlTypes : Collections.EMPTY_LIST;
+        return (modelValues != null) ? modelValues.sqlTypes : Collections.<String, PojoType> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, PojoType>> getTableTypes(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.tableTypes : Collections.<String, Map<String, PojoType>> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, PojoType>> getColumnTypes(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.columnTypes : Collections.<String, Map<String, PojoType>> emptyMap();
     }
 
     @Override

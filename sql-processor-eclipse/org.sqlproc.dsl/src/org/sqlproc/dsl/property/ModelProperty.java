@@ -1,10 +1,10 @@
 package org.sqlproc.dsl.property;
 
-import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EObject;
-import org.sqlproc.dsl.processorDsl.DatabaseSqlType;
+import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.property.ModelPropertyBean.ModelValues;
 
 public interface ModelProperty extends Adapter {
@@ -13,7 +13,11 @@ public interface ModelProperty extends Adapter {
 
     public boolean isDoResolveDb(EObject model);
 
-    public List<DatabaseSqlType> getSqlTypes(EObject model);
+    public Map<String, PojoType> getSqlTypes(EObject model);
+
+    public Map<String, Map<String, PojoType>> getTableTypes(EObject model);
+
+    public Map<String, Map<String, PojoType>> getColumnTypes(EObject model);
 
     public ModelValues getModelValues(EObject model);
 }

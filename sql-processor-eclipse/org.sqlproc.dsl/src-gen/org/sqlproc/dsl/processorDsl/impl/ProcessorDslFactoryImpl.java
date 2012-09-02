@@ -100,7 +100,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.MAPPING_ITEM: return createMappingItem();
       case ProcessorDslPackage.MAPPING_COLUMN: return createMappingColumn();
       case ProcessorDslPackage.OPTIONAL_FEATURE: return createOptionalFeature();
-      case ProcessorDslPackage.DATABASE_SQL_TYPE: return createDatabaseSqlType();
+      case ProcessorDslPackage.POJO_TYPE: return createPojoType();
       case ProcessorDslPackage.PACKAGE_DECLARATION: return createPackageDeclaration();
       case ProcessorDslPackage.ABSTRACT_POJO_ENTITY: return createAbstractPojoEntity();
       case ProcessorDslPackage.IMPORT: return createImport();
@@ -512,10 +512,10 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public DatabaseSqlType createDatabaseSqlType()
+  public PojoType createPojoType()
   {
-    DatabaseSqlTypeImpl databaseSqlType = new DatabaseSqlTypeImpl();
-    return databaseSqlType;
+    PojoTypeImpl pojoType = new PojoTypeImpl();
+    return pojoType;
   }
 
   /**

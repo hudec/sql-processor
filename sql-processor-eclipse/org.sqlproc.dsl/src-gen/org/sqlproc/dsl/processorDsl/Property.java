@@ -20,7 +20,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbPassword <em>Db Password</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbSchema <em>Db Schema</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbDriver <em>Db Driver</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbSqlType <em>Db Sql Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getType <em>Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getTypeName <em>Type Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbTable <em>Db Table</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbColumn <em>Db Column</em>}</li>
  * </ul>
  * </p>
  *
@@ -239,29 +242,107 @@ public interface Property extends EObject
   void setDbDriver(String value);
 
   /**
-   * Returns the value of the '<em><b>Db Sql Type</b></em>' containment reference.
+   * Returns the value of the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Db Sql Type</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Db Sql Type</em>' containment reference.
-   * @see #setDbSqlType(DatabaseSqlType)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_DbSqlType()
+   * @return the value of the '<em>Type</em>' containment reference.
+   * @see #setType(PojoType)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_Type()
    * @model containment="true"
    * @generated
    */
-  DatabaseSqlType getDbSqlType();
+  PojoType getType();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getDbSqlType <em>Db Sql Type</em>}' containment reference.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getType <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Db Sql Type</em>' containment reference.
-   * @see #getDbSqlType()
+   * @param value the new value of the '<em>Type</em>' containment reference.
+   * @see #getType()
    * @generated
    */
-  void setDbSqlType(DatabaseSqlType value);
+  void setType(PojoType value);
+
+  /**
+   * Returns the value of the '<em><b>Type Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Type Name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Type Name</em>' attribute.
+   * @see #setTypeName(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_TypeName()
+   * @model
+   * @generated
+   */
+  String getTypeName();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getTypeName <em>Type Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Type Name</em>' attribute.
+   * @see #getTypeName()
+   * @generated
+   */
+  void setTypeName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Db Table</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Table</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Table</em>' attribute.
+   * @see #setDbTable(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_DbTable()
+   * @model
+   * @generated
+   */
+  String getDbTable();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getDbTable <em>Db Table</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Table</em>' attribute.
+   * @see #getDbTable()
+   * @generated
+   */
+  void setDbTable(String value);
+
+  /**
+   * Returns the value of the '<em><b>Db Column</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Column</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Column</em>' attribute.
+   * @see #setDbColumn(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_DbColumn()
+   * @model
+   * @generated
+   */
+  String getDbColumn();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getDbColumn <em>Db Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Column</em>' attribute.
+   * @see #getDbColumn()
+   * @generated
+   */
+  void setDbColumn(String value);
 
 } // Property

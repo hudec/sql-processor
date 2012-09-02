@@ -254,27 +254,60 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_0_7_0 = (Assignment)cGroup_0_7.eContents().get(0);
 		private final Keyword cNameDatabaseSqlTypeKeyword_0_7_0_0 = (Keyword)cNameAssignment_0_7_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_0_7_1 = (RuleCall)cGroup_0_7.eContents().get(1);
-		private final Assignment cDbSqlTypeAssignment_0_7_2 = (Assignment)cGroup_0_7.eContents().get(2);
-		private final RuleCall cDbSqlTypeDatabaseSqlTypeParserRuleCall_0_7_2_0 = (RuleCall)cDbSqlTypeAssignment_0_7_2.eContents().get(0);
+		private final Assignment cTypeAssignment_0_7_2 = (Assignment)cGroup_0_7.eContents().get(2);
+		private final RuleCall cTypePojoTypeParserRuleCall_0_7_2_0 = (RuleCall)cTypeAssignment_0_7_2.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_7_3 = (RuleCall)cGroup_0_7.eContents().get(3);
+		private final Assignment cTypeNameAssignment_0_7_4 = (Assignment)cGroup_0_7.eContents().get(4);
+		private final RuleCall cTypeNamePropertyValueParserRuleCall_0_7_4_0 = (RuleCall)cTypeNameAssignment_0_7_4.eContents().get(0);
+		private final Group cGroup_0_8 = (Group)cAlternatives_0.eContents().get(8);
+		private final Assignment cNameAssignment_0_8_0 = (Assignment)cGroup_0_8.eContents().get(0);
+		private final Keyword cNameDatabaseTableTypeKeyword_0_8_0_0 = (Keyword)cNameAssignment_0_8_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_8_1 = (RuleCall)cGroup_0_8.eContents().get(1);
+		private final Assignment cDbTableAssignment_0_8_2 = (Assignment)cGroup_0_8.eContents().get(2);
+		private final RuleCall cDbTableIDENTTerminalRuleCall_0_8_2_0 = (RuleCall)cDbTableAssignment_0_8_2.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_8_3 = (RuleCall)cGroup_0_8.eContents().get(3);
+		private final Assignment cTypeAssignment_0_8_4 = (Assignment)cGroup_0_8.eContents().get(4);
+		private final RuleCall cTypePojoTypeParserRuleCall_0_8_4_0 = (RuleCall)cTypeAssignment_0_8_4.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_8_5 = (RuleCall)cGroup_0_8.eContents().get(5);
+		private final Assignment cTypeNameAssignment_0_8_6 = (Assignment)cGroup_0_8.eContents().get(6);
+		private final RuleCall cTypeNamePropertyValueParserRuleCall_0_8_6_0 = (RuleCall)cTypeNameAssignment_0_8_6.eContents().get(0);
+		private final Group cGroup_0_9 = (Group)cAlternatives_0.eContents().get(9);
+		private final Assignment cNameAssignment_0_9_0 = (Assignment)cGroup_0_9.eContents().get(0);
+		private final Keyword cNameDatabaseColumnTypeKeyword_0_9_0_0 = (Keyword)cNameAssignment_0_9_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_9_1 = (RuleCall)cGroup_0_9.eContents().get(1);
+		private final Assignment cDbTableAssignment_0_9_2 = (Assignment)cGroup_0_9.eContents().get(2);
+		private final RuleCall cDbTableIDENTTerminalRuleCall_0_9_2_0 = (RuleCall)cDbTableAssignment_0_9_2.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_9_3 = (RuleCall)cGroup_0_9.eContents().get(3);
+		private final Assignment cDbColumnAssignment_0_9_4 = (Assignment)cGroup_0_9.eContents().get(4);
+		private final RuleCall cDbColumnIDENTTerminalRuleCall_0_9_4_0 = (RuleCall)cDbColumnAssignment_0_9_4.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_9_5 = (RuleCall)cGroup_0_9.eContents().get(5);
+		private final Assignment cTypeAssignment_0_9_6 = (Assignment)cGroup_0_9.eContents().get(6);
+		private final RuleCall cTypePojoTypeParserRuleCall_0_9_6_0 = (RuleCall)cTypeAssignment_0_9_6.eContents().get(0);
 		private final RuleCall cSEMICOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//Property:
 		//	(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF |
 		//	name="database url" WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue |
 		//	name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
-		//	name="database driver" WS+ dbDriver=PropertyValue | name="database sql type" WS+ dbSqlType=DatabaseSqlType) SEMICOLON;
+		//	name="database driver" WS+ dbDriver=PropertyValue | name="database sql type" WS+ type=PojoType WS+
+		//	typeName=PropertyValue | name="database table type" WS+ dbTable=IDENT WS+ type=PojoType WS+ typeName=PropertyValue |
+		//	name="database column type" WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType) SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
 		//(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF |
 		//name="database url" WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue |
 		//name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
-		//name="database driver" WS+ dbDriver=PropertyValue | name="database sql type" WS+ dbSqlType=DatabaseSqlType) SEMICOLON
+		//name="database driver" WS+ dbDriver=PropertyValue | name="database sql type" WS+ type=PojoType WS+
+		//typeName=PropertyValue | name="database table type" WS+ dbTable=IDENT WS+ type=PojoType WS+ typeName=PropertyValue |
+		//name="database column type" WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType) SEMICOLON
 		public Group getGroup() { return cGroup; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF | name="database url"
 		//WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue | name="database password" WS+
 		//dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue | name="database driver" WS+
-		//dbDriver=PropertyValue | name="database sql type" WS+ dbSqlType=DatabaseSqlType
+		//dbDriver=PropertyValue | name="database sql type" WS+ type=PojoType WS+ typeName=PropertyValue |
+		//name="database table type" WS+ dbTable=IDENT WS+ type=PojoType WS+ typeName=PropertyValue | name="database column type"
+		//WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF
@@ -403,7 +436,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//PropertyValue
 		public RuleCall getDbDriverPropertyValueParserRuleCall_0_6_2_0() { return cDbDriverPropertyValueParserRuleCall_0_6_2_0; }
 
-		//name="database sql type" WS+ dbSqlType=DatabaseSqlType
+		//name="database sql type" WS+ type=PojoType WS+ typeName=PropertyValue
 		public Group getGroup_0_7() { return cGroup_0_7; }
 
 		//name="database sql type"
@@ -415,11 +448,92 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//WS+
 		public RuleCall getWSTerminalRuleCall_0_7_1() { return cWSTerminalRuleCall_0_7_1; }
 
-		//dbSqlType=DatabaseSqlType
-		public Assignment getDbSqlTypeAssignment_0_7_2() { return cDbSqlTypeAssignment_0_7_2; }
+		//type=PojoType
+		public Assignment getTypeAssignment_0_7_2() { return cTypeAssignment_0_7_2; }
 
-		//DatabaseSqlType
-		public RuleCall getDbSqlTypeDatabaseSqlTypeParserRuleCall_0_7_2_0() { return cDbSqlTypeDatabaseSqlTypeParserRuleCall_0_7_2_0; }
+		//PojoType
+		public RuleCall getTypePojoTypeParserRuleCall_0_7_2_0() { return cTypePojoTypeParserRuleCall_0_7_2_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_7_3() { return cWSTerminalRuleCall_0_7_3; }
+
+		//typeName=PropertyValue
+		public Assignment getTypeNameAssignment_0_7_4() { return cTypeNameAssignment_0_7_4; }
+
+		//PropertyValue
+		public RuleCall getTypeNamePropertyValueParserRuleCall_0_7_4_0() { return cTypeNamePropertyValueParserRuleCall_0_7_4_0; }
+
+		//name="database table type" WS+ dbTable=IDENT WS+ type=PojoType WS+ typeName=PropertyValue
+		public Group getGroup_0_8() { return cGroup_0_8; }
+
+		//name="database table type"
+		public Assignment getNameAssignment_0_8_0() { return cNameAssignment_0_8_0; }
+
+		//"database table type"
+		public Keyword getNameDatabaseTableTypeKeyword_0_8_0_0() { return cNameDatabaseTableTypeKeyword_0_8_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_8_1() { return cWSTerminalRuleCall_0_8_1; }
+
+		//dbTable=IDENT
+		public Assignment getDbTableAssignment_0_8_2() { return cDbTableAssignment_0_8_2; }
+
+		//IDENT
+		public RuleCall getDbTableIDENTTerminalRuleCall_0_8_2_0() { return cDbTableIDENTTerminalRuleCall_0_8_2_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_8_3() { return cWSTerminalRuleCall_0_8_3; }
+
+		//type=PojoType
+		public Assignment getTypeAssignment_0_8_4() { return cTypeAssignment_0_8_4; }
+
+		//PojoType
+		public RuleCall getTypePojoTypeParserRuleCall_0_8_4_0() { return cTypePojoTypeParserRuleCall_0_8_4_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_8_5() { return cWSTerminalRuleCall_0_8_5; }
+
+		//typeName=PropertyValue
+		public Assignment getTypeNameAssignment_0_8_6() { return cTypeNameAssignment_0_8_6; }
+
+		//PropertyValue
+		public RuleCall getTypeNamePropertyValueParserRuleCall_0_8_6_0() { return cTypeNamePropertyValueParserRuleCall_0_8_6_0; }
+
+		//name="database column type" WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType
+		public Group getGroup_0_9() { return cGroup_0_9; }
+
+		//name="database column type"
+		public Assignment getNameAssignment_0_9_0() { return cNameAssignment_0_9_0; }
+
+		//"database column type"
+		public Keyword getNameDatabaseColumnTypeKeyword_0_9_0_0() { return cNameDatabaseColumnTypeKeyword_0_9_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_9_1() { return cWSTerminalRuleCall_0_9_1; }
+
+		//dbTable=IDENT
+		public Assignment getDbTableAssignment_0_9_2() { return cDbTableAssignment_0_9_2; }
+
+		//IDENT
+		public RuleCall getDbTableIDENTTerminalRuleCall_0_9_2_0() { return cDbTableIDENTTerminalRuleCall_0_9_2_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_9_3() { return cWSTerminalRuleCall_0_9_3; }
+
+		//dbColumn=IDENT
+		public Assignment getDbColumnAssignment_0_9_4() { return cDbColumnAssignment_0_9_4; }
+
+		//IDENT
+		public RuleCall getDbColumnIDENTTerminalRuleCall_0_9_4_0() { return cDbColumnIDENTTerminalRuleCall_0_9_4_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_9_5() { return cWSTerminalRuleCall_0_9_5; }
+
+		//type=PojoType
+		public Assignment getTypeAssignment_0_9_6() { return cTypeAssignment_0_9_6; }
+
+		//PojoType
+		public RuleCall getTypePojoTypeParserRuleCall_0_9_6_0() { return cTypePojoTypeParserRuleCall_0_9_6_0; }
 
 		//SEMICOLON
 		public RuleCall getSEMICOLONTerminalRuleCall_1() { return cSEMICOLONTerminalRuleCall_1; }
@@ -3762,8 +3876,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getOPTION_TYPETerminalRuleCall_31() { return cOPTION_TYPETerminalRuleCall_31; }
 	}
 
-	public class DatabaseSqlTypeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DatabaseSqlType");
+	public class PojoTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PojoType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
 		private final Assignment cNativeAssignment_0_0 = (Assignment)cAlternatives_0.eContents().get(0);
@@ -3802,19 +3916,16 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMORE_THANTerminalRuleCall_0_1_1_2 = (RuleCall)cGroup_0_1_1.eContents().get(2);
 		private final Assignment cArrayAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final Keyword cArrayLeftSquareBracketRightSquareBracketKeyword_1_0 = (Keyword)cArrayAssignment_1.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
-		private final Assignment cTypeNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cTypeNamePropertyValueParserRuleCall_3_0 = (RuleCall)cTypeNameAssignment_3.eContents().get(0);
 		
-		//DatabaseSqlType:
+		//PojoType:
 		//	(native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
 		//	ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
-		//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? WS+ typeName=PropertyValue;
+		//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"?;
 		public ParserRule getRule() { return rule; }
 
 		//(native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
 		//ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
-		//gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? WS+ typeName=PropertyValue
+		//gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"?
 		public Group getGroup() { return cGroup; }
 
 		//native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
@@ -3930,15 +4041,6 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"[]"
 		public Keyword getArrayLeftSquareBracketRightSquareBracketKeyword_1_0() { return cArrayLeftSquareBracketRightSquareBracketKeyword_1_0; }
-
-		//WS+
-		public RuleCall getWSTerminalRuleCall_2() { return cWSTerminalRuleCall_2; }
-
-		//typeName=PropertyValue
-		public Assignment getTypeNameAssignment_3() { return cTypeNameAssignment_3; }
-
-		//PropertyValue
-		public RuleCall getTypeNamePropertyValueParserRuleCall_3_0() { return cTypeNamePropertyValueParserRuleCall_3_0; }
 	}
 
 	public class PackageDeclarationElements extends AbstractParserRuleElementFinder {
@@ -4408,7 +4510,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tPERCENT;
 	private TerminalRule tREST;
 	private FeatureValueElements pFeatureValue;
-	private DatabaseSqlTypeElements pDatabaseSqlType;
+	private PojoTypeElements pPojoType;
 	private PackageDeclarationElements pPackageDeclaration;
 	private AbstractPojoEntityElements pAbstractPojoEntity;
 	private ImportElements pImport;
@@ -4463,7 +4565,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF |
 	//	name="database url" WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue |
 	//	name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
-	//	name="database driver" WS+ dbDriver=PropertyValue | name="database sql type" WS+ dbSqlType=DatabaseSqlType) SEMICOLON;
+	//	name="database driver" WS+ dbDriver=PropertyValue | name="database sql type" WS+ type=PojoType WS+
+	//	typeName=PropertyValue | name="database table type" WS+ dbTable=IDENT WS+ type=PojoType WS+ typeName=PropertyValue |
+	//	name="database column type" WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType) SEMICOLON;
 	public PropertyElements getPropertyAccess() {
 		return (pProperty != null) ? pProperty : (pProperty = new PropertyElements());
 	}
@@ -5100,16 +5204,16 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getFeatureValueAccess().getRule();
 	}
 
-	//DatabaseSqlType:
+	//PojoType:
 	//	(native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
 	//	ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
-	//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? WS+ typeName=PropertyValue;
-	public DatabaseSqlTypeElements getDatabaseSqlTypeAccess() {
-		return (pDatabaseSqlType != null) ? pDatabaseSqlType : (pDatabaseSqlType = new DatabaseSqlTypeElements());
+	//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"?;
+	public PojoTypeElements getPojoTypeAccess() {
+		return (pPojoType != null) ? pPojoType : (pPojoType = new PojoTypeElements());
 	}
 	
-	public ParserRule getDatabaseSqlTypeRule() {
-		return getDatabaseSqlTypeAccess().getRule();
+	public ParserRule getPojoTypeRule() {
+		return getPojoTypeAccess().getRule();
 	}
 
 	//PackageDeclaration hidden(ML_COMMENT, SL_COMMENT, WS):

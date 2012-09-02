@@ -566,7 +566,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
                 List<String> tables = dbResolver.getTables(artifacts);
                 if (tables != null) {
-                    TablePojoConverter converter = new TablePojoConverter(modelProperty.getSqlTypes(artifacts));
+                    TablePojoConverter converter = new TablePojoConverter(modelProperty.getSqlTypes(artifacts),
+                            modelProperty.getTableTypes(artifacts), modelProperty.getColumnTypes(artifacts));
                     for (String table : tables) {
                         List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
                         List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);

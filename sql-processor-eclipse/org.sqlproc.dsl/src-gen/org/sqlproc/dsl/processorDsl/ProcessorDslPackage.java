@@ -248,13 +248,40 @@ public interface ProcessorDslPackage extends EPackage
   int PROPERTY__DB_DRIVER = 7;
 
   /**
-   * The feature id for the '<em><b>Db Sql Type</b></em>' containment reference.
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROPERTY__DB_SQL_TYPE = 8;
+  int PROPERTY__TYPE = 8;
+
+  /**
+   * The feature id for the '<em><b>Type Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY__TYPE_NAME = 9;
+
+  /**
+   * The feature id for the '<em><b>Db Table</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY__DB_TABLE = 10;
+
+  /**
+   * The feature id for the '<em><b>Db Column</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY__DB_COLUMN = 11;
 
   /**
    * The number of structural features of the '<em>Property</em>' class.
@@ -263,7 +290,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPERTY_FEATURE_COUNT = 9;
+  int PROPERTY_FEATURE_COUNT = 12;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.
@@ -1749,14 +1776,14 @@ public interface ProcessorDslPackage extends EPackage
   int OPTIONAL_FEATURE_FEATURE_COUNT = 4;
 
   /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl <em>Database Sql Type</em>}' class.
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoTypeImpl <em>Pojo Type</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseSqlType()
+   * @see org.sqlproc.dsl.processorDsl.impl.PojoTypeImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoType()
    * @generated
    */
-  int DATABASE_SQL_TYPE = 36;
+  int POJO_TYPE = 36;
 
   /**
    * The feature id for the '<em><b>Native</b></em>' attribute.
@@ -1765,7 +1792,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_SQL_TYPE__NATIVE = 0;
+  int POJO_TYPE__NATIVE = 0;
 
   /**
    * The feature id for the '<em><b>Ref</b></em>' reference.
@@ -1774,7 +1801,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_SQL_TYPE__REF = 1;
+  int POJO_TYPE__REF = 1;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1783,7 +1810,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_SQL_TYPE__TYPE = 2;
+  int POJO_TYPE__TYPE = 2;
 
   /**
    * The feature id for the '<em><b>Gref</b></em>' reference.
@@ -1792,7 +1819,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_SQL_TYPE__GREF = 3;
+  int POJO_TYPE__GREF = 3;
 
   /**
    * The feature id for the '<em><b>Gtype</b></em>' reference.
@@ -1801,7 +1828,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_SQL_TYPE__GTYPE = 4;
+  int POJO_TYPE__GTYPE = 4;
 
   /**
    * The feature id for the '<em><b>Array</b></em>' attribute.
@@ -1810,25 +1837,16 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_SQL_TYPE__ARRAY = 5;
+  int POJO_TYPE__ARRAY = 5;
 
   /**
-   * The feature id for the '<em><b>Type Name</b></em>' attribute.
+   * The number of structural features of the '<em>Pojo Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATABASE_SQL_TYPE__TYPE_NAME = 6;
-
-  /**
-   * The number of structural features of the '<em>Database Sql Type</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DATABASE_SQL_TYPE_FEATURE_COUNT = 7;
+  int POJO_TYPE_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.AbstractPojoEntityImpl <em>Abstract Pojo Entity</em>}' class.
@@ -2280,15 +2298,48 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getProperty_DbDriver();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.Property#getDbSqlType <em>Db Sql Type</em>}'.
+   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.Property#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Db Sql Type</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Property#getDbSqlType()
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Property#getType()
    * @see #getProperty()
    * @generated
    */
-  EReference getProperty_DbSqlType();
+  EReference getProperty_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Property#getTypeName <em>Type Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Type Name</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Property#getTypeName()
+   * @see #getProperty()
+   * @generated
+   */
+  EAttribute getProperty_TypeName();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Property#getDbTable <em>Db Table</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Table</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Property#getDbTable()
+   * @see #getProperty()
+   * @generated
+   */
+  EAttribute getProperty_DbTable();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Property#getDbColumn <em>Db Column</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Column</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Property#getDbColumn()
+   * @see #getProperty()
+   * @generated
+   */
+  EAttribute getProperty_DbColumn();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoDefinition <em>Pojo Definition</em>}'.
@@ -3566,91 +3617,80 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getOptionalFeature_Option();
 
   /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType <em>Database Sql Type</em>}'.
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoType <em>Pojo Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Database Sql Type</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType
+   * @return the meta object for class '<em>Pojo Type</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoType
    * @generated
    */
-  EClass getDatabaseSqlType();
+  EClass getPojoType();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getNative <em>Native</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoType#getNative <em>Native</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Native</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#getNative()
-   * @see #getDatabaseSqlType()
+   * @see org.sqlproc.dsl.processorDsl.PojoType#getNative()
+   * @see #getPojoType()
    * @generated
    */
-  EAttribute getDatabaseSqlType_Native();
+  EAttribute getPojoType_Native();
 
   /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getRef <em>Ref</em>}'.
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoType#getRef <em>Ref</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Ref</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#getRef()
-   * @see #getDatabaseSqlType()
+   * @see org.sqlproc.dsl.processorDsl.PojoType#getRef()
+   * @see #getPojoType()
    * @generated
    */
-  EReference getDatabaseSqlType_Ref();
+  EReference getPojoType_Ref();
 
   /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getType <em>Type</em>}'.
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoType#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Type</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#getType()
-   * @see #getDatabaseSqlType()
+   * @see org.sqlproc.dsl.processorDsl.PojoType#getType()
+   * @see #getPojoType()
    * @generated
    */
-  EReference getDatabaseSqlType_Type();
+  EReference getPojoType_Type();
 
   /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGref <em>Gref</em>}'.
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoType#getGref <em>Gref</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Gref</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGref()
-   * @see #getDatabaseSqlType()
+   * @see org.sqlproc.dsl.processorDsl.PojoType#getGref()
+   * @see #getPojoType()
    * @generated
    */
-  EReference getDatabaseSqlType_Gref();
+  EReference getPojoType_Gref();
 
   /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGtype <em>Gtype</em>}'.
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoType#getGtype <em>Gtype</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Gtype</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGtype()
-   * @see #getDatabaseSqlType()
+   * @see org.sqlproc.dsl.processorDsl.PojoType#getGtype()
+   * @see #getPojoType()
    * @generated
    */
-  EReference getDatabaseSqlType_Gtype();
+  EReference getPojoType_Gtype();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#isArray <em>Array</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoType#isArray <em>Array</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Array</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#isArray()
-   * @see #getDatabaseSqlType()
+   * @see org.sqlproc.dsl.processorDsl.PojoType#isArray()
+   * @see #getPojoType()
    * @generated
    */
-  EAttribute getDatabaseSqlType_Array();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getTypeName <em>Type Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type Name</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DatabaseSqlType#getTypeName()
-   * @see #getDatabaseSqlType()
-   * @generated
-   */
-  EAttribute getDatabaseSqlType_TypeName();
+  EAttribute getPojoType_Array();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PackageDeclaration <em>Package Declaration</em>}'.
@@ -4055,12 +4095,36 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute PROPERTY__DB_DRIVER = eINSTANCE.getProperty_DbDriver();
 
     /**
-     * The meta object literal for the '<em><b>Db Sql Type</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PROPERTY__DB_SQL_TYPE = eINSTANCE.getProperty_DbSqlType();
+    EReference PROPERTY__TYPE = eINSTANCE.getProperty_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Type Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PROPERTY__TYPE_NAME = eINSTANCE.getProperty_TypeName();
+
+    /**
+     * The meta object literal for the '<em><b>Db Table</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PROPERTY__DB_TABLE = eINSTANCE.getProperty_DbTable();
+
+    /**
+     * The meta object literal for the '<em><b>Db Column</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PROPERTY__DB_COLUMN = eINSTANCE.getProperty_DbColumn();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.
@@ -5083,14 +5147,14 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute OPTIONAL_FEATURE__OPTION = eINSTANCE.getOptionalFeature_Option();
 
     /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl <em>Database Sql Type</em>}' class.
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoTypeImpl <em>Pojo Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.DatabaseSqlTypeImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseSqlType()
+     * @see org.sqlproc.dsl.processorDsl.impl.PojoTypeImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoType()
      * @generated
      */
-    EClass DATABASE_SQL_TYPE = eINSTANCE.getDatabaseSqlType();
+    EClass POJO_TYPE = eINSTANCE.getPojoType();
 
     /**
      * The meta object literal for the '<em><b>Native</b></em>' attribute feature.
@@ -5098,7 +5162,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute DATABASE_SQL_TYPE__NATIVE = eINSTANCE.getDatabaseSqlType_Native();
+    EAttribute POJO_TYPE__NATIVE = eINSTANCE.getPojoType_Native();
 
     /**
      * The meta object literal for the '<em><b>Ref</b></em>' reference feature.
@@ -5106,7 +5170,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DATABASE_SQL_TYPE__REF = eINSTANCE.getDatabaseSqlType_Ref();
+    EReference POJO_TYPE__REF = eINSTANCE.getPojoType_Ref();
 
     /**
      * The meta object literal for the '<em><b>Type</b></em>' reference feature.
@@ -5114,7 +5178,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DATABASE_SQL_TYPE__TYPE = eINSTANCE.getDatabaseSqlType_Type();
+    EReference POJO_TYPE__TYPE = eINSTANCE.getPojoType_Type();
 
     /**
      * The meta object literal for the '<em><b>Gref</b></em>' reference feature.
@@ -5122,7 +5186,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DATABASE_SQL_TYPE__GREF = eINSTANCE.getDatabaseSqlType_Gref();
+    EReference POJO_TYPE__GREF = eINSTANCE.getPojoType_Gref();
 
     /**
      * The meta object literal for the '<em><b>Gtype</b></em>' reference feature.
@@ -5130,7 +5194,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DATABASE_SQL_TYPE__GTYPE = eINSTANCE.getDatabaseSqlType_Gtype();
+    EReference POJO_TYPE__GTYPE = eINSTANCE.getPojoType_Gtype();
 
     /**
      * The meta object literal for the '<em><b>Array</b></em>' attribute feature.
@@ -5138,15 +5202,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute DATABASE_SQL_TYPE__ARRAY = eINSTANCE.getDatabaseSqlType_Array();
-
-    /**
-     * The meta object literal for the '<em><b>Type Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute DATABASE_SQL_TYPE__TYPE_NAME = eINSTANCE.getDatabaseSqlType_TypeName();
+    EAttribute POJO_TYPE__ARRAY = eINSTANCE.getPojoType_Array();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PackageDeclarationImpl <em>Package Declaration</em>}' class.

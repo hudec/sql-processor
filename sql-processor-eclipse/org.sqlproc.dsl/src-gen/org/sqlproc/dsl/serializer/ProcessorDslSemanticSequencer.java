@@ -21,7 +21,6 @@ import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
-import org.sqlproc.dsl.processorDsl.DatabaseSqlType;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
@@ -47,6 +46,7 @@ import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
+import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.Sql;
@@ -112,12 +112,6 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.DATABASE_COLUMN:
 				if(context == grammarAccess.getDatabaseColumnRule()) {
 					sequence_DatabaseColumn(context, (DatabaseColumn) semanticObject); 
-					return; 
-				}
-				else break;
-			case ProcessorDslPackage.DATABASE_SQL_TYPE:
-				if(context == grammarAccess.getDatabaseSqlTypeRule()) {
-					sequence_DatabaseSqlType(context, (DatabaseSqlType) semanticObject); 
 					return; 
 				}
 				else break;
@@ -278,6 +272,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.POJO_TYPE:
+				if(context == grammarAccess.getPojoTypeRule()) {
+					sequence_PojoType(context, (PojoType) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.PROPERTY:
 				if(context == grammarAccess.getPropertyRule()) {
 					sequence_Property(context, (Property) semanticObject); 
@@ -431,29 +431,6 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (name=IDENT | name=IDENT_DOT)
 	 */
 	protected void sequence_DatabaseColumn(EObject context, DatabaseColumn semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             native='_char' | 
-	 *             native='_byte' | 
-	 *             native='_short' | 
-	 *             native='_int' | 
-	 *             native='_long' | 
-	 *             native='_float' | 
-	 *             native='_double' | 
-	 *             native='_boolean' | 
-	 *             ((ref=[PojoEntity|IDENT] | type=[JvmType|QualifiedName]) (gref=[PojoEntity|IDENT] | gtype=[JvmType|QualifiedName])?)
-	 *         ) 
-	 *         array?='[]'? 
-	 *         typeName=PropertyValue
-	 *     )
-	 */
-	protected void sequence_DatabaseSqlType(EObject context, DatabaseSqlType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -773,6 +750,28 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	/**
 	 * Constraint:
 	 *     (
+	 *         (
+	 *             native='_char' | 
+	 *             native='_byte' | 
+	 *             native='_short' | 
+	 *             native='_int' | 
+	 *             native='_long' | 
+	 *             native='_float' | 
+	 *             native='_double' | 
+	 *             native='_boolean' | 
+	 *             ((ref=[PojoEntity|IDENT] | type=[JvmType|QualifiedName]) (gref=[PojoEntity|IDENT] | gtype=[JvmType|QualifiedName])?)
+	 *         ) 
+	 *         array?='[]'?
+	 *     )
+	 */
+	protected void sequence_PojoType(EObject context, PojoType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         (name='resolve references' doResolvePojo=ON_OFF) | 
 	 *         (name='database online' doResolveDb=ON_OFF) | 
 	 *         (name='database url' dbUrl=PropertyValue) | 
@@ -780,7 +779,9 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='database password' dbPassword=PropertyValue) | 
 	 *         (name='database schema' dbSchema=PropertyValue) | 
 	 *         (name='database driver' dbDriver=PropertyValue) | 
-	 *         (name='database sql type' dbSqlType=DatabaseSqlType)
+	 *         (name='database sql type' type=PojoType typeName=PropertyValue) | 
+	 *         (name='database table type' dbTable=IDENT type=PojoType typeName=PropertyValue) | 
+	 *         (name='database column type' dbTable=IDENT dbColumn=IDENT type=PojoType)
 	 *     )
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {

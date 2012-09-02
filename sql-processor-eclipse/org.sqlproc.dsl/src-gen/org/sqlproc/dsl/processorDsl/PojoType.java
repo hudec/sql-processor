@@ -8,27 +8,26 @@ import org.eclipse.xtext.common.types.JvmType;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Database Sql Type</b></em>'.
+ * A representation of the model object '<em><b>Pojo Type</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getNative <em>Native</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getRef <em>Ref</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getType <em>Type</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGref <em>Gref</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGtype <em>Gtype</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#isArray <em>Array</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getTypeName <em>Type Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoType#getNative <em>Native</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoType#getRef <em>Ref</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoType#getType <em>Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoType#getGref <em>Gref</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoType#getGtype <em>Gtype</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoType#isArray <em>Array</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType()
+ * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoType()
  * @model
  * @generated
  */
-public interface DatabaseSqlType extends EObject
+public interface PojoType extends EObject
 {
   /**
    * Returns the value of the '<em><b>Native</b></em>' attribute.
@@ -40,14 +39,14 @@ public interface DatabaseSqlType extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Native</em>' attribute.
    * @see #setNative(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_Native()
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoType_Native()
    * @model
    * @generated
    */
   String getNative();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getNative <em>Native</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoType#getNative <em>Native</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Native</em>' attribute.
@@ -66,14 +65,14 @@ public interface DatabaseSqlType extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Ref</em>' reference.
    * @see #setRef(PojoEntity)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_Ref()
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoType_Ref()
    * @model
    * @generated
    */
   PojoEntity getRef();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getRef <em>Ref</em>}' reference.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoType#getRef <em>Ref</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Ref</em>' reference.
@@ -92,14 +91,14 @@ public interface DatabaseSqlType extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Type</em>' reference.
    * @see #setType(JvmType)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_Type()
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoType_Type()
    * @model
    * @generated
    */
   JvmType getType();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getType <em>Type</em>}' reference.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoType#getType <em>Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Type</em>' reference.
@@ -118,14 +117,14 @@ public interface DatabaseSqlType extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Gref</em>' reference.
    * @see #setGref(PojoEntity)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_Gref()
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoType_Gref()
    * @model
    * @generated
    */
   PojoEntity getGref();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGref <em>Gref</em>}' reference.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoType#getGref <em>Gref</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Gref</em>' reference.
@@ -144,14 +143,14 @@ public interface DatabaseSqlType extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Gtype</em>' reference.
    * @see #setGtype(JvmType)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_Gtype()
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoType_Gtype()
    * @model
    * @generated
    */
   JvmType getGtype();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getGtype <em>Gtype</em>}' reference.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoType#getGtype <em>Gtype</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Gtype</em>' reference.
@@ -170,14 +169,14 @@ public interface DatabaseSqlType extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Array</em>' attribute.
    * @see #setArray(boolean)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_Array()
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoType_Array()
    * @model
    * @generated
    */
   boolean isArray();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#isArray <em>Array</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoType#isArray <em>Array</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Array</em>' attribute.
@@ -186,30 +185,4 @@ public interface DatabaseSqlType extends EObject
    */
   void setArray(boolean value);
 
-  /**
-   * Returns the value of the '<em><b>Type Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Type Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Type Name</em>' attribute.
-   * @see #setTypeName(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseSqlType_TypeName()
-   * @model
-   * @generated
-   */
-  String getTypeName();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseSqlType#getTypeName <em>Type Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type Name</em>' attribute.
-   * @see #getTypeName()
-   * @generated
-   */
-  void setTypeName(String value);
-
-} // DatabaseSqlType
+} // PojoType

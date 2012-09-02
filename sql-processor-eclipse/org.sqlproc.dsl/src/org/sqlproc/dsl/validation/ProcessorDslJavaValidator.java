@@ -788,21 +788,14 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         EObject object = EcoreUtil.getRootContainer(property);
         if (!(object instanceof Artifacts))
             return;
-        String typeName = (property.getDbSqlType() != null) ? property.getDbSqlType().getTypeName() : null;
         artifacts = (Artifacts) object;
         for (Property prop : artifacts.getProperties()) {
             if (prop == null || prop == property)
                 continue;
-            if (prop.getName().equals(property.getName()) && !prop.getName().equals("database sql type")) {
+            if (prop.getName().equals(property.getName()) && !prop.getName().equals("database sql type")
+                    && !prop.getName().equals("database table type") && !prop.getName().equals("database column type")) {
                 error("Duplicate name : " + property.getName(), ProcessorDslPackage.Literals.PROPERTY__NAME);
                 return;
-            }
-            if (typeName != null) {
-                String typeN = (prop.getDbSqlType() != null) ? prop.getDbSqlType().getTypeName() : null;
-                if (typeN != null && typeN.equals(typeName)) {
-                    error("Duplicate dbType : " + typeName, ProcessorDslPackage.Literals.PROPERTY__NAME);
-                    return;
-                }
             }
         }
     }

@@ -153,7 +153,45 @@
             <terminal xsi:type="xtext:Keyword" value="database sql type"/>
           </elements>
           <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
-          <elements xsi:type="xtext:Assignment" feature="dbSqlType" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.76"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
+          <elements xsi:type="xtext:Assignment" feature="typeName" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.2"/>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="database table type"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
+          <elements xsi:type="xtext:Assignment" feature="dbTable" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
+          <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.76"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
+          <elements xsi:type="xtext:Assignment" feature="typeName" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.2"/>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="database column type"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
+          <elements xsi:type="xtext:Assignment" feature="dbTable" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
+          <elements xsi:type="xtext:Assignment" feature="dbColumn" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
+          <elements xsi:type="xtext:Assignment" feature="type" operator="=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.76"/>
           </elements>
         </elements>
@@ -1701,9 +1739,9 @@
       <elements xsi:type="xtext:RuleCall" rule="//@rules.43"/>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="DatabaseSqlType">
+  <rules xsi:type="xtext:ParserRule" name="PojoType">
     <type metamodel="//@metamodelDeclarations.2">
-      <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//DatabaseSqlType"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//PojoType"/>
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Alternatives">
@@ -1773,10 +1811,6 @@
       </elements>
       <elements xsi:type="xtext:Assignment" cardinality="?" feature="array" operator="?=">
         <terminal xsi:type="xtext:Keyword" value="[]"/>
-      </elements>
-      <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
-      <elements xsi:type="xtext:Assignment" feature="typeName" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.2"/>
       </elements>
     </alternatives>
   </rules>

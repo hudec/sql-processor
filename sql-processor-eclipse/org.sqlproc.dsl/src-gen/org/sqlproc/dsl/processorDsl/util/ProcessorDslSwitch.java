@@ -332,10 +332,10 @@ public class ProcessorDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ProcessorDslPackage.DATABASE_SQL_TYPE:
+      case ProcessorDslPackage.POJO_TYPE:
       {
-        DatabaseSqlType databaseSqlType = (DatabaseSqlType)theEObject;
-        T result = caseDatabaseSqlType(databaseSqlType);
+        PojoType pojoType = (PojoType)theEObject;
+        T result = casePojoType(pojoType);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -958,17 +958,17 @@ public class ProcessorDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Database Sql Type</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Pojo Type</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Database Sql Type</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Pojo Type</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseDatabaseSqlType(DatabaseSqlType object)
+  public T casePojoType(PojoType object)
   {
     return null;
   }
