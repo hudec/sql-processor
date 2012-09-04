@@ -283,6 +283,18 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWSTerminalRuleCall_0_9_5 = (RuleCall)cGroup_0_9.eContents().get(5);
 		private final Assignment cTypeAssignment_0_9_6 = (Assignment)cGroup_0_9.eContents().get(6);
 		private final RuleCall cTypePojoTypeParserRuleCall_0_9_6_0 = (RuleCall)cTypeAssignment_0_9_6.eContents().get(0);
+		private final Group cGroup_0_10 = (Group)cAlternatives_0.eContents().get(10);
+		private final Assignment cNameAssignment_0_10_0 = (Assignment)cGroup_0_10.eContents().get(0);
+		private final Keyword cNameDatabasePojoColumnKeyword_0_10_0_0 = (Keyword)cNameAssignment_0_10_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_10_1 = (RuleCall)cGroup_0_10.eContents().get(1);
+		private final Assignment cDbTableAssignment_0_10_2 = (Assignment)cGroup_0_10.eContents().get(2);
+		private final RuleCall cDbTableIDENTTerminalRuleCall_0_10_2_0 = (RuleCall)cDbTableAssignment_0_10_2.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_10_3 = (RuleCall)cGroup_0_10.eContents().get(3);
+		private final Assignment cDbColumnAssignment_0_10_4 = (Assignment)cGroup_0_10.eContents().get(4);
+		private final RuleCall cDbColumnIDENTTerminalRuleCall_0_10_4_0 = (RuleCall)cDbColumnAssignment_0_10_4.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_10_5 = (RuleCall)cGroup_0_10.eContents().get(5);
+		private final Assignment cDbNameAssignment_0_10_6 = (Assignment)cGroup_0_10.eContents().get(6);
+		private final RuleCall cDbNameIDENTTerminalRuleCall_0_10_6_0 = (RuleCall)cDbNameAssignment_0_10_6.eContents().get(0);
 		private final RuleCall cSEMICOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//Property:
@@ -291,7 +303,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
 		//	name="database driver" WS+ dbDriver=PropertyValue | name="database sql type" WS+ type=PojoType WS+
 		//	typeName=PropertyValue | name="database table type" WS+ dbTable=IDENT WS+ type=PojoType WS+ typeName=PropertyValue |
-		//	name="database column type" WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType) SEMICOLON;
+		//	name="database column type" WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType | name="database pojo column" WS+
+		//	dbTable=IDENT WS+ dbColumn=IDENT WS+ dbName=IDENT) SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
 		//(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF |
@@ -299,7 +312,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
 		//name="database driver" WS+ dbDriver=PropertyValue | name="database sql type" WS+ type=PojoType WS+
 		//typeName=PropertyValue | name="database table type" WS+ dbTable=IDENT WS+ type=PojoType WS+ typeName=PropertyValue |
-		//name="database column type" WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType) SEMICOLON
+		//name="database column type" WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType | name="database pojo column" WS+
+		//dbTable=IDENT WS+ dbColumn=IDENT WS+ dbName=IDENT) SEMICOLON
 		public Group getGroup() { return cGroup; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF | name="database url"
@@ -307,7 +321,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue | name="database driver" WS+
 		//dbDriver=PropertyValue | name="database sql type" WS+ type=PojoType WS+ typeName=PropertyValue |
 		//name="database table type" WS+ dbTable=IDENT WS+ type=PojoType WS+ typeName=PropertyValue | name="database column type"
-		//WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType
+		//WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType | name="database pojo column" WS+ dbTable=IDENT WS+
+		//dbColumn=IDENT WS+ dbName=IDENT
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF
@@ -534,6 +549,42 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//PojoType
 		public RuleCall getTypePojoTypeParserRuleCall_0_9_6_0() { return cTypePojoTypeParserRuleCall_0_9_6_0; }
+
+		//name="database pojo column" WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ dbName=IDENT
+		public Group getGroup_0_10() { return cGroup_0_10; }
+
+		//name="database pojo column"
+		public Assignment getNameAssignment_0_10_0() { return cNameAssignment_0_10_0; }
+
+		//"database pojo column"
+		public Keyword getNameDatabasePojoColumnKeyword_0_10_0_0() { return cNameDatabasePojoColumnKeyword_0_10_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_10_1() { return cWSTerminalRuleCall_0_10_1; }
+
+		//dbTable=IDENT
+		public Assignment getDbTableAssignment_0_10_2() { return cDbTableAssignment_0_10_2; }
+
+		//IDENT
+		public RuleCall getDbTableIDENTTerminalRuleCall_0_10_2_0() { return cDbTableIDENTTerminalRuleCall_0_10_2_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_10_3() { return cWSTerminalRuleCall_0_10_3; }
+
+		//dbColumn=IDENT
+		public Assignment getDbColumnAssignment_0_10_4() { return cDbColumnAssignment_0_10_4; }
+
+		//IDENT
+		public RuleCall getDbColumnIDENTTerminalRuleCall_0_10_4_0() { return cDbColumnIDENTTerminalRuleCall_0_10_4_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_10_5() { return cWSTerminalRuleCall_0_10_5; }
+
+		//dbName=IDENT
+		public Assignment getDbNameAssignment_0_10_6() { return cDbNameAssignment_0_10_6; }
+
+		//IDENT
+		public RuleCall getDbNameIDENTTerminalRuleCall_0_10_6_0() { return cDbNameIDENTTerminalRuleCall_0_10_6_0; }
 
 		//SEMICOLON
 		public RuleCall getSEMICOLONTerminalRuleCall_1() { return cSEMICOLONTerminalRuleCall_1; }
@@ -4567,7 +4618,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	name="database password" WS+ dbPassword=PropertyValue | name="database schema" WS+ dbSchema=PropertyValue |
 	//	name="database driver" WS+ dbDriver=PropertyValue | name="database sql type" WS+ type=PojoType WS+
 	//	typeName=PropertyValue | name="database table type" WS+ dbTable=IDENT WS+ type=PojoType WS+ typeName=PropertyValue |
-	//	name="database column type" WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType) SEMICOLON;
+	//	name="database column type" WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType | name="database pojo column" WS+
+	//	dbTable=IDENT WS+ dbColumn=IDENT WS+ dbName=IDENT) SEMICOLON;
 	public PropertyElements getPropertyAccess() {
 		return (pProperty != null) ? pProperty : (pProperty = new PropertyElements());
 	}

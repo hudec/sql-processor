@@ -792,8 +792,9 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         for (Property prop : artifacts.getProperties()) {
             if (prop == null || prop == property)
                 continue;
-            if (prop.getName().equals(property.getName()) && !prop.getName().equals("database sql type")
-                    && !prop.getName().equals("database table type") && !prop.getName().equals("database column type")) {
+            if (prop.getName().equals(property.getName()) && !prop.getName().startsWith("database sql")
+                    && !prop.getName().startsWith("database table") && !prop.getName().startsWith("database column")
+                    && !prop.getName().startsWith("database pojo")) {
                 error("Duplicate name : " + property.getName(), ProcessorDslPackage.Literals.PROPERTY__NAME);
                 return;
             }

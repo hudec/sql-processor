@@ -8,7 +8,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.PojoType;
+import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.DbColumn;
 import org.sqlproc.dsl.resolver.DbExport;
 import org.sqlproc.dsl.resolver.DbImport;
@@ -31,12 +33,17 @@ public class TablePojoConverter {
     private Map<String, Map<String, PojoAttrType>> tableTypes;
     private Map<String, Map<String, PojoAttrType>> columnTypes;
     private Map<String, Map<String, PojoAttribute>> pojos = new HashMap<String, Map<String, PojoAttribute>>();
+    public Map<String, Map<String, String>> columnNames;
 
     public TablePojoConverter() {
     }
 
-    public TablePojoConverter(Map<String, PojoType> sqlTypes, Map<String, Map<String, PojoType>> tableTypes,
-            Map<String, Map<String, PojoType>> columnTypes) {
+    public TablePojoConverter(ModelProperty modelProperty, Artifacts artifacts) {
+        Map<String, PojoType> sqlTypes = modelProperty.getSqlTypes(artifacts);
+        Map<String, Map<String, PojoType>> tableTypes = modelProperty.getTableTypes(artifacts);
+        Map<String, Map<String, PojoType>> columnTypes = modelProperty.getColumnTypes(artifacts);
+        Map<String, Map<String, String>> columnNames = modelProperty.getColumnNames(artifacts);
+
         this.sqlTypes = new HashMap<String, PojoAttrType>();
         if (sqlTypes != null) {
             for (Map.Entry<String, PojoType> sqlType : sqlTypes.entrySet()) {
@@ -67,6 +74,15 @@ public class TablePojoConverter {
                     PojoAttrType type = new PojoAttrType(column, sqlType.getValue());
                     this.columnTypes.get(table).put(type.getName(), type);
                 }
+            }
+        }
+        this.columnNames = new HashMap<String, Map<String, String>>();
+        if (columnNames != null) {
+            for (Map.Entry<String, Map<String, String>> columnName : columnNames.entrySet()) {
+                String table = columnName.getKey(); // tableToCamelCase(columnName.getKey());
+                if (!this.columnNames.containsKey(table))
+                    this.columnNames.put(table, new HashMap<String, String>());
+                this.columnNames.get(table).putAll(columnName.getValue());
             }
         }
     }
@@ -180,7 +196,12 @@ public class TablePojoConverter {
         for (String pojo : pojos.keySet()) {
             buffer.append("\n  pojo ").append(pojo).append(" {");
             for (PojoAttribute attribute : pojos.get(pojo).values()) {
-                buffer.append("\n    ").append(attribute.getName()).append(' ');
+                String name = columnNames.containsKey(pojo) ? columnNames.get(pojo).get(attribute.getName()) : null;
+                if (name == null)
+                    name = attribute.getName();
+                // System.out
+                // .println("PPP " + pojo + " " + attribute.getDbName() + " " + attribute.getName() + " " + name);
+                buffer.append("\n    ").append(name).append(' ');
                 if (attribute.isPrimitive()) {
                     buffer.append('_').append(attribute.getClassName());
                 } else if (attribute.getDependencyClassName() != null) {

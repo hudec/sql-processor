@@ -820,9 +820,91 @@ ruleProperty returns [EObject current=null]
 	    }
 
 )
-)))this_SEMICOLON_40=RULE_SEMICOLON
+))
+    |((
+(
+		lv_name_40_0=	'database pojo column' 
+    {
+        newLeafNode(lv_name_40_0, grammarAccess.getPropertyAccess().getNameDatabasePojoColumnKeyword_0_10_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_40_0, "database pojo column");
+	    }
+
+)
+)(this_WS_41=RULE_WS
     { 
-    newLeafNode(this_SEMICOLON_40, grammarAccess.getPropertyAccess().getSEMICOLONTerminalRuleCall_1()); 
+    newLeafNode(this_WS_41, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_10_1()); 
+    }
+)+(
+(
+		lv_dbTable_42_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbTable_42_0, grammarAccess.getPropertyAccess().getDbTableIDENTTerminalRuleCall_0_10_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbTable",
+        		lv_dbTable_42_0, 
+        		"IDENT");
+	    }
+
+)
+)(this_WS_43=RULE_WS
+    { 
+    newLeafNode(this_WS_43, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_10_3()); 
+    }
+)+(
+(
+		lv_dbColumn_44_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbColumn_44_0, grammarAccess.getPropertyAccess().getDbColumnIDENTTerminalRuleCall_0_10_4_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbColumn",
+        		lv_dbColumn_44_0, 
+        		"IDENT");
+	    }
+
+)
+)(this_WS_45=RULE_WS
+    { 
+    newLeafNode(this_WS_45, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_10_5()); 
+    }
+)+(
+(
+		lv_dbName_46_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbName_46_0, grammarAccess.getPropertyAccess().getDbNameIDENTTerminalRuleCall_0_10_6_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbName",
+        		lv_dbName_46_0, 
+        		"IDENT");
+	    }
+
+)
+)))this_SEMICOLON_47=RULE_SEMICOLON
+    { 
+    newLeafNode(this_SEMICOLON_47, grammarAccess.getPropertyAccess().getSEMICOLONTerminalRuleCall_1()); 
     }
 )
 ;

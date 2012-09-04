@@ -34,6 +34,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_SQL_TYPE = "database sql type";
     public static final String DATABASE_TABLE_TYPE = "database table type";
     public static final String DATABASE_COLUMN_TYPE = "database column type";
+    public static final String DATABASE_POJO_COLUMN = "database pojo column";
 
     public static class ModelValues {
         public boolean doResolvePojo;
@@ -47,12 +48,14 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, PojoType> sqlTypes;
         public Map<String, Map<String, PojoType>> tableTypes;
         public Map<String, Map<String, PojoType>> columnTypes;
+        public Map<String, Map<String, String>> columnNames;
 
         @Override
         public String toString() {
             return "ModelValues [doResolvePojo=" + doResolvePojo + ", doResolveDb=" + doResolveDb + ", dbDriver="
                     + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername + ", dbPassword=" + dbPassword
-                    + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + "]";
+                    + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + ", tableTypes="
+                    + tableTypes + ", columnTypes=" + columnTypes + ", columnNames=" + columnNames + "]";
         }
     }
 
@@ -161,6 +164,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             if (!modelValues.columnTypes.containsKey(property.getDbTable()))
                 modelValues.columnTypes.put(property.getDbTable(), new HashMap<String, PojoType>());
             modelValues.columnTypes.get(property.getDbTable()).put(property.getDbColumn(), property.getType());
+        } else if (DATABASE_POJO_COLUMN.equals(property.getName())) {
+            if (modelValues.columnNames == null)
+                modelValues.columnNames = new HashMap<String, Map<String, String>>();
+            if (!modelValues.columnNames.containsKey(property.getDbTable()))
+                modelValues.columnNames.put(property.getDbTable(), new HashMap<String, String>());
+            modelValues.columnNames.get(property.getDbTable()).put(property.getDbColumn(), property.getDbName());
         }
     }
 
@@ -192,6 +201,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Map<String, Map<String, PojoType>> getColumnTypes(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.columnTypes : Collections.<String, Map<String, PojoType>> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, String>> getColumnNames(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.columnNames : Collections.<String, Map<String, String>> emptyMap();
     }
 
     @Override

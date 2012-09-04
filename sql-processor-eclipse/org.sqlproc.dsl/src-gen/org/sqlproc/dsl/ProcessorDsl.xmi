@@ -195,6 +195,23 @@
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.76"/>
           </elements>
         </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="database pojo column"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
+          <elements xsi:type="xtext:Assignment" feature="dbTable" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
+          <elements xsi:type="xtext:Assignment" feature="dbColumn" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.50"/>
+          <elements xsi:type="xtext:Assignment" feature="dbName" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+          </elements>
+        </elements>
       </elements>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.54"/>
     </alternatives>

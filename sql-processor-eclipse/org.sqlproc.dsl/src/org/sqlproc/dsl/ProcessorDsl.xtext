@@ -22,6 +22,7 @@ Property:
 	|name='database sql type' WS+ type=PojoType WS+ typeName=PropertyValue
 	|name='database table type' WS+ dbTable=IDENT WS+ type=PojoType WS+ typeName=PropertyValue
 	|name='database column type' WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType
+	|name='database pojo column' WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ dbName=IDENT
 	) SEMICOLON;
 
 PropertyValue:

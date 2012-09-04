@@ -284,13 +284,22 @@ public interface ProcessorDslPackage extends EPackage
   int PROPERTY__DB_COLUMN = 11;
 
   /**
+   * The feature id for the '<em><b>Db Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY__DB_NAME = 12;
+
+  /**
    * The number of structural features of the '<em>Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROPERTY_FEATURE_COUNT = 12;
+  int PROPERTY_FEATURE_COUNT = 13;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.
@@ -2342,6 +2351,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getProperty_DbColumn();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Property#getDbName <em>Db Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Name</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Property#getDbName()
+   * @see #getProperty()
+   * @generated
+   */
+  EAttribute getProperty_DbName();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoDefinition <em>Pojo Definition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4125,6 +4145,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute PROPERTY__DB_COLUMN = eINSTANCE.getProperty_DbColumn();
+
+    /**
+     * The meta object literal for the '<em><b>Db Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PROPERTY__DB_NAME = eINSTANCE.getProperty_DbName();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.

@@ -41,6 +41,9 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_Mapping_WSTerminalRuleCall_3_a;
 	protected AbstractElementAlias match_MetaSql_WSTerminalRuleCall_4_1_a;
 	protected AbstractElementAlias match_Property_WSTerminalRuleCall_0_0_1_p;
+	protected AbstractElementAlias match_Property_WSTerminalRuleCall_0_10_1_p;
+	protected AbstractElementAlias match_Property_WSTerminalRuleCall_0_10_3_p;
+	protected AbstractElementAlias match_Property_WSTerminalRuleCall_0_10_5_p;
 	protected AbstractElementAlias match_Property_WSTerminalRuleCall_0_1_1_p;
 	protected AbstractElementAlias match_Property_WSTerminalRuleCall_0_2_1_p;
 	protected AbstractElementAlias match_Property_WSTerminalRuleCall_0_3_1_p;
@@ -83,6 +86,9 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_Mapping_WSTerminalRuleCall_3_a = new TokenAlias(true, true, grammarAccess.getMappingAccess().getWSTerminalRuleCall_3());
 		match_MetaSql_WSTerminalRuleCall_4_1_a = new TokenAlias(true, true, grammarAccess.getMetaSqlAccess().getWSTerminalRuleCall_4_1());
 		match_Property_WSTerminalRuleCall_0_0_1_p = new TokenAlias(true, false, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_0_1());
+		match_Property_WSTerminalRuleCall_0_10_1_p = new TokenAlias(true, false, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_10_1());
+		match_Property_WSTerminalRuleCall_0_10_3_p = new TokenAlias(true, false, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_10_3());
+		match_Property_WSTerminalRuleCall_0_10_5_p = new TokenAlias(true, false, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_10_5());
 		match_Property_WSTerminalRuleCall_0_1_1_p = new TokenAlias(true, false, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_1_1());
 		match_Property_WSTerminalRuleCall_0_2_1_p = new TokenAlias(true, false, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_2_1());
 		match_Property_WSTerminalRuleCall_0_3_1_p = new TokenAlias(true, false, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_3_1());
@@ -356,6 +362,12 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_MetaSql_WSTerminalRuleCall_4_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Property_WSTerminalRuleCall_0_0_1_p.equals(syntax))
 				emit_Property_WSTerminalRuleCall_0_0_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Property_WSTerminalRuleCall_0_10_1_p.equals(syntax))
+				emit_Property_WSTerminalRuleCall_0_10_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Property_WSTerminalRuleCall_0_10_3_p.equals(syntax))
+				emit_Property_WSTerminalRuleCall_0_10_3_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Property_WSTerminalRuleCall_0_10_5_p.equals(syntax))
+				emit_Property_WSTerminalRuleCall_0_10_5_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Property_WSTerminalRuleCall_0_1_1_p.equals(syntax))
 				emit_Property_WSTerminalRuleCall_0_1_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Property_WSTerminalRuleCall_0_2_1_p.equals(syntax))
@@ -577,6 +589,30 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     WS+
 	 */
 	protected void emit_Property_WSTerminalRuleCall_0_0_1_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     WS+
+	 */
+	protected void emit_Property_WSTerminalRuleCall_0_10_1_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     WS+
+	 */
+	protected void emit_Property_WSTerminalRuleCall_0_10_3_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     WS+
+	 */
+	protected void emit_Property_WSTerminalRuleCall_0_10_5_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

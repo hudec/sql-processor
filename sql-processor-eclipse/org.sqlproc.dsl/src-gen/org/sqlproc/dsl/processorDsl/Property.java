@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getTypeName <em>Type Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbTable <em>Db Table</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbColumn <em>Db Column</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbName <em>Db Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -344,5 +345,31 @@ public interface Property extends EObject
    * @generated
    */
   void setDbColumn(String value);
+
+  /**
+   * Returns the value of the '<em><b>Db Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Name</em>' attribute.
+   * @see #setDbName(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_DbName()
+   * @model
+   * @generated
+   */
+  String getDbName();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getDbName <em>Db Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Name</em>' attribute.
+   * @see #getDbName()
+   * @generated
+   */
+  void setDbName(String value);
 
 } // Property

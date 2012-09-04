@@ -781,7 +781,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='database driver' dbDriver=PropertyValue) | 
 	 *         (name='database sql type' type=PojoType typeName=PropertyValue) | 
 	 *         (name='database table type' dbTable=IDENT type=PojoType typeName=PropertyValue) | 
-	 *         (name='database column type' dbTable=IDENT dbColumn=IDENT type=PojoType)
+	 *         (name='database column type' dbTable=IDENT dbColumn=IDENT type=PojoType) | 
+	 *         (name='database pojo column' dbTable=IDENT dbColumn=IDENT dbName=IDENT)
 	 *     )
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {

@@ -34,6 +34,7 @@ import org.sqlproc.dsl.processorDsl.Property;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getTypeName <em>Type Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbTable <em>Db Table</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbColumn <em>Db Column</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbName <em>Db Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -270,6 +271,26 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * @ordered
    */
   protected String dbColumn = DB_COLUMN_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDbName() <em>Db Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbName()
+   * @generated
+   * @ordered
+   */
+  protected static final String DB_NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDbName() <em>Db Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbName()
+   * @generated
+   * @ordered
+   */
+  protected String dbName = DB_NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -598,6 +619,29 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDbName()
+  {
+    return dbName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbName(String newDbName)
+  {
+    String oldDbName = dbName;
+    dbName = newDbName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__DB_NAME, oldDbName, dbName));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -643,6 +687,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return getDbTable();
       case ProcessorDslPackage.PROPERTY__DB_COLUMN:
         return getDbColumn();
+      case ProcessorDslPackage.PROPERTY__DB_NAME:
+        return getDbName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -692,6 +738,9 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return;
       case ProcessorDslPackage.PROPERTY__DB_COLUMN:
         setDbColumn((String)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__DB_NAME:
+        setDbName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -743,6 +792,9 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
       case ProcessorDslPackage.PROPERTY__DB_COLUMN:
         setDbColumn(DB_COLUMN_EDEFAULT);
         return;
+      case ProcessorDslPackage.PROPERTY__DB_NAME:
+        setDbName(DB_NAME_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -781,6 +833,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return DB_TABLE_EDEFAULT == null ? dbTable != null : !DB_TABLE_EDEFAULT.equals(dbTable);
       case ProcessorDslPackage.PROPERTY__DB_COLUMN:
         return DB_COLUMN_EDEFAULT == null ? dbColumn != null : !DB_COLUMN_EDEFAULT.equals(dbColumn);
+      case ProcessorDslPackage.PROPERTY__DB_NAME:
+        return DB_NAME_EDEFAULT == null ? dbName != null : !DB_NAME_EDEFAULT.equals(dbName);
     }
     return super.eIsSet(featureID);
   }
@@ -818,6 +872,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
     result.append(dbTable);
     result.append(", dbColumn: ");
     result.append(dbColumn);
+    result.append(", dbName: ");
+    result.append(dbName);
     result.append(')');
     return result.toString();
   }
