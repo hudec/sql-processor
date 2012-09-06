@@ -13,7 +13,6 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
-import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.util.Utils;
 
@@ -31,10 +30,18 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_PASSWORD = "database password";
     public static final String DATABASE_SCHEMA = "database schema";
     public static final String DATABASE_DRIVER = "database driver";
-    public static final String DATABASE_SQL_TYPE = "database sql type";
-    public static final String DATABASE_TABLE_TYPE = "database table type";
-    public static final String DATABASE_COLUMN_TYPE = "database column type";
-    public static final String DATABASE_POJO_COLUMN = "database pojo column";
+    public static final String POJOGEN_TYPE_SQLTYPES = "pojogen type sqltypes";
+    public static final String POJOGEN_TYPE_IN_TABLE = "pojogen type in table";
+    public static final String POJOGEN_TYPE_FOR_COLUMNS = "pojogen type for columns";
+    public static final String POJOGEN_IGNORE_TABLES = "pojogen ignore tables";
+    public static final String POJOGEN_IGNORE_COLUMNS = "pojogen ignore columns";
+    public static final String POJOGEN_RENAME_TABLES = "pojogen rename tables";
+    public static final String POJOGEN_RENAME_COLUMNS = "pojogen rename columns";
+    public static final String POJOGEN_IGNORE_IMPORTS = "pojogen ignore imports";
+    public static final String POJOGEN_IGNORE_EXPORTS = "pojogen ignore exports";
+    public static final String POJOGEN_CREATE_IMPORTS = "pojogen create imports";
+    public static final String POJOGEN_CREATE_EXPORTS = "pojogen create exports";
+    public static final String POJOGEN_MANY_TO_MANY_TABLES = "pojogen many-to-many tables";
 
     public static class ModelValues {
         public boolean doResolvePojo;
@@ -45,17 +52,17 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public String dbPassword;
         public String dbSchema;
         public String dir;
-        public Map<String, PojoType> sqlTypes;
-        public Map<String, Map<String, PojoType>> tableTypes;
-        public Map<String, Map<String, PojoType>> columnTypes;
-        public Map<String, Map<String, String>> columnNames;
+        public Map<String, PojoAttrType> sqlTypes;
+
+        // public Map<String, Map<String, PojoType>> tableTypes;
+        // public Map<String, Map<String, PojoType>> columnTypes;
+        // public Map<String, Map<String, String>> columnNames;
 
         @Override
         public String toString() {
             return "ModelValues [doResolvePojo=" + doResolvePojo + ", doResolveDb=" + doResolveDb + ", dbDriver="
                     + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername + ", dbPassword=" + dbPassword
-                    + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + ", tableTypes="
-                    + tableTypes + ", columnTypes=" + columnTypes + ", columnNames=" + columnNames + "]";
+                    + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + "]";
         }
     }
 
@@ -148,28 +155,32 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.dbSchema = property.getDbSchema();
         } else if (DATABASE_DRIVER.equals(property.getName())) {
             modelValues.dbDriver = property.getDbDriver();
-        } else if (DATABASE_SQL_TYPE.equals(property.getName())) {
+        } else if (POJOGEN_TYPE_SQLTYPES.equals(property.getName())) {
             if (modelValues.sqlTypes == null)
-                modelValues.sqlTypes = new HashMap<String, PojoType>();
-            modelValues.sqlTypes.put(property.getTypeName(), property.getType());
-        } else if (DATABASE_TABLE_TYPE.equals(property.getName())) {
-            if (modelValues.tableTypes == null)
-                modelValues.tableTypes = new HashMap<String, Map<String, PojoType>>();
-            if (!modelValues.tableTypes.containsKey(property.getDbTable()))
-                modelValues.tableTypes.put(property.getDbTable(), new HashMap<String, PojoType>());
-            modelValues.tableTypes.get(property.getDbTable()).put(property.getTypeName(), property.getType());
-        } else if (DATABASE_COLUMN_TYPE.equals(property.getName())) {
-            if (modelValues.columnTypes == null)
-                modelValues.columnTypes = new HashMap<String, Map<String, PojoType>>();
-            if (!modelValues.columnTypes.containsKey(property.getDbTable()))
-                modelValues.columnTypes.put(property.getDbTable(), new HashMap<String, PojoType>());
-            modelValues.columnTypes.get(property.getDbTable()).put(property.getDbColumn(), property.getType());
-        } else if (DATABASE_POJO_COLUMN.equals(property.getName())) {
-            if (modelValues.columnNames == null)
-                modelValues.columnNames = new HashMap<String, Map<String, String>>();
-            if (!modelValues.columnNames.containsKey(property.getDbTable()))
-                modelValues.columnNames.put(property.getDbTable(), new HashMap<String, String>());
-            modelValues.columnNames.get(property.getDbTable()).put(property.getDbColumn(), property.getDbName());
+                modelValues.sqlTypes = new HashMap<String, PojoAttrType>();
+            for (int i = 0, m = property.getSqlTypeAssignements().size(); i < m; i++) {
+                PojoAttrType type = new PojoAttrType(property.getSqlTypeAssignements().get(i).getTypeName(), property
+                        .getSqlTypeAssignements().get(i).getSize(), property.getSqlTypeAssignements().get(i).getType());
+                modelValues.sqlTypes.put(type.getName(), type);
+            }
+            // } else if (DATABASE_TABLE_TYPE.equals(property.getName())) {
+            // if (modelValues.tableTypes == null)
+            // modelValues.tableTypes = new HashMap<String, Map<String, PojoType>>();
+            // if (!modelValues.tableTypes.containsKey(property.getDbTable()))
+            // modelValues.tableTypes.put(property.getDbTable(), new HashMap<String, PojoType>());
+            // modelValues.tableTypes.get(property.getDbTable()).put(property.getTypeName(), property.getType());
+            // } else if (DATABASE_COLUMN_TYPE.equals(property.getName())) {
+            // if (modelValues.columnTypes == null)
+            // modelValues.columnTypes = new HashMap<String, Map<String, PojoType>>();
+            // if (!modelValues.columnTypes.containsKey(property.getDbTable()))
+            // modelValues.columnTypes.put(property.getDbTable(), new HashMap<String, PojoType>());
+            // modelValues.columnTypes.get(property.getDbTable()).put(property.getDbColumn(), property.getType());
+            // } else if (DATABASE_POJO_COLUMN.equals(property.getName())) {
+            // if (modelValues.columnNames == null)
+            // modelValues.columnNames = new HashMap<String, Map<String, String>>();
+            // if (!modelValues.columnNames.containsKey(property.getDbTable()))
+            // modelValues.columnNames.put(property.getDbTable(), new HashMap<String, String>());
+            // modelValues.columnNames.get(property.getDbTable()).put(property.getDbColumn(), property.getDbName());
         }
     }
 
@@ -186,28 +197,28 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
-    public Map<String, PojoType> getSqlTypes(EObject model) {
+    public Map<String, PojoAttrType> getSqlTypes(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.sqlTypes : Collections.<String, PojoType> emptyMap();
+        return (modelValues != null) ? modelValues.sqlTypes : Collections.<String, PojoAttrType> emptyMap();
     }
 
-    @Override
-    public Map<String, Map<String, PojoType>> getTableTypes(EObject model) {
-        ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.tableTypes : Collections.<String, Map<String, PojoType>> emptyMap();
-    }
-
-    @Override
-    public Map<String, Map<String, PojoType>> getColumnTypes(EObject model) {
-        ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.columnTypes : Collections.<String, Map<String, PojoType>> emptyMap();
-    }
-
-    @Override
-    public Map<String, Map<String, String>> getColumnNames(EObject model) {
-        ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.columnNames : Collections.<String, Map<String, String>> emptyMap();
-    }
+    // @Override
+    // public Map<String, Map<String, PojoType>> getTableTypes(EObject model) {
+    // ModelValues modelValues = getModelValues(model);
+    // return (modelValues != null) ? modelValues.tableTypes : Collections.<String, Map<String, PojoType>> emptyMap();
+    // }
+    //
+    // @Override
+    // public Map<String, Map<String, PojoType>> getColumnTypes(EObject model) {
+    // ModelValues modelValues = getModelValues(model);
+    // return (modelValues != null) ? modelValues.columnTypes : Collections.<String, Map<String, PojoType>> emptyMap();
+    // }
+    //
+    // @Override
+    // public Map<String, Map<String, String>> getColumnNames(EObject model) {
+    // ModelValues modelValues = getModelValues(model);
+    // return (modelValues != null) ? modelValues.columnNames : Collections.<String, Map<String, String>> emptyMap();
+    // }
 
     @Override
     public ModelValues getModelValues(EObject model) {

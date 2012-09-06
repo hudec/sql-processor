@@ -79,6 +79,20 @@ public class ProcessorDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.SQL_TYPE_ASSIGNEMENT:
+      {
+        SqlTypeAssignement sqlTypeAssignement = (SqlTypeAssignement)theEObject;
+        T result = caseSqlTypeAssignement(sqlTypeAssignement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.COLUMN_TYPE_ASSIGNEMENT:
+      {
+        ColumnTypeAssignement columnTypeAssignement = (ColumnTypeAssignement)theEObject;
+        T result = caseColumnTypeAssignement(columnTypeAssignement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.PROPERTY:
       {
         Property property = (Property)theEObject;
@@ -393,6 +407,38 @@ public class ProcessorDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseArtifacts(Artifacts object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Sql Type Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Sql Type Assignement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSqlTypeAssignement(SqlTypeAssignement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Column Type Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Column Type Assignement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseColumnTypeAssignement(ColumnTypeAssignement object)
   {
     return null;
   }

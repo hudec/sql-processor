@@ -2,6 +2,8 @@
  */
 package org.sqlproc.dsl.processorDsl;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -20,11 +22,16 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbPassword <em>Db Password</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbSchema <em>Db Schema</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbDriver <em>Db Driver</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getType <em>Type</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getTypeName <em>Type Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getSqlTypeAssignements <em>Sql Type Assignements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbTable <em>Db Table</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbColumn <em>Db Column</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbName <em>Db Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getColumnTypeAssignements <em>Column Type Assignements</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbTables <em>Db Tables</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbColumns <em>Db Columns</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getNewNames <em>New Names</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getPkTables <em>Pk Tables</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getPkColumns <em>Pk Columns</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getFkTables <em>Fk Tables</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getFkColumns <em>Fk Columns</em>}</li>
  * </ul>
  * </p>
  *
@@ -243,56 +250,20 @@ public interface Property extends EObject
   void setDbDriver(String value);
 
   /**
-   * Returns the value of the '<em><b>Type</b></em>' containment reference.
+   * Returns the value of the '<em><b>Sql Type Assignements</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.SqlTypeAssignement}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Type</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Sql Type Assignements</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Type</em>' containment reference.
-   * @see #setType(PojoType)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_Type()
+   * @return the value of the '<em>Sql Type Assignements</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_SqlTypeAssignements()
    * @model containment="true"
    * @generated
    */
-  PojoType getType();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getType <em>Type</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type</em>' containment reference.
-   * @see #getType()
-   * @generated
-   */
-  void setType(PojoType value);
-
-  /**
-   * Returns the value of the '<em><b>Type Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Type Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Type Name</em>' attribute.
-   * @see #setTypeName(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_TypeName()
-   * @model
-   * @generated
-   */
-  String getTypeName();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getTypeName <em>Type Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type Name</em>' attribute.
-   * @see #getTypeName()
-   * @generated
-   */
-  void setTypeName(String value);
+  EList<SqlTypeAssignement> getSqlTypeAssignements();
 
   /**
    * Returns the value of the '<em><b>Db Table</b></em>' attribute.
@@ -321,55 +292,131 @@ public interface Property extends EObject
   void setDbTable(String value);
 
   /**
-   * Returns the value of the '<em><b>Db Column</b></em>' attribute.
+   * Returns the value of the '<em><b>Column Type Assignements</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.ColumnTypeAssignement}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Db Column</em>' attribute isn't clear,
+   * If the meaning of the '<em>Column Type Assignements</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Db Column</em>' attribute.
-   * @see #setDbColumn(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_DbColumn()
-   * @model
+   * @return the value of the '<em>Column Type Assignements</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_ColumnTypeAssignements()
+   * @model containment="true"
    * @generated
    */
-  String getDbColumn();
+  EList<ColumnTypeAssignement> getColumnTypeAssignements();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getDbColumn <em>Db Column</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Db Column</em>' attribute.
-   * @see #getDbColumn()
-   * @generated
-   */
-  void setDbColumn(String value);
-
-  /**
-   * Returns the value of the '<em><b>Db Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Db Tables</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Db Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Db Tables</em>' attribute list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Db Name</em>' attribute.
-   * @see #setDbName(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_DbName()
-   * @model
+   * @return the value of the '<em>Db Tables</em>' attribute list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_DbTables()
+   * @model unique="false"
    * @generated
    */
-  String getDbName();
+  EList<String> getDbTables();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getDbName <em>Db Name</em>}' attribute.
+   * Returns the value of the '<em><b>Db Columns</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Columns</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Db Name</em>' attribute.
-   * @see #getDbName()
+   * @return the value of the '<em>Db Columns</em>' attribute list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_DbColumns()
+   * @model unique="false"
    * @generated
    */
-  void setDbName(String value);
+  EList<String> getDbColumns();
+
+  /**
+   * Returns the value of the '<em><b>New Names</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>New Names</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>New Names</em>' attribute list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_NewNames()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getNewNames();
+
+  /**
+   * Returns the value of the '<em><b>Pk Tables</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Pk Tables</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Pk Tables</em>' attribute list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_PkTables()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getPkTables();
+
+  /**
+   * Returns the value of the '<em><b>Pk Columns</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Pk Columns</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Pk Columns</em>' attribute list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_PkColumns()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getPkColumns();
+
+  /**
+   * Returns the value of the '<em><b>Fk Tables</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Fk Tables</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Fk Tables</em>' attribute list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_FkTables()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getFkTables();
+
+  /**
+   * Returns the value of the '<em><b>Fk Columns</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Fk Columns</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Fk Columns</em>' attribute list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_FkColumns()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getFkColumns();
 
 } // Property

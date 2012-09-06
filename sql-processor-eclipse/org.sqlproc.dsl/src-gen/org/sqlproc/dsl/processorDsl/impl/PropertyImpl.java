@@ -2,8 +2,12 @@
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -11,9 +15,14 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.sqlproc.dsl.processorDsl.PojoType;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
+import org.sqlproc.dsl.processorDsl.SqlTypeAssignement;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,11 +39,16 @@ import org.sqlproc.dsl.processorDsl.Property;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbPassword <em>Db Password</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbSchema <em>Db Schema</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbDriver <em>Db Driver</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getTypeName <em>Type Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getSqlTypeAssignements <em>Sql Type Assignements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbTable <em>Db Table</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbColumn <em>Db Column</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbName <em>Db Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getColumnTypeAssignements <em>Column Type Assignements</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbTables <em>Db Tables</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbColumns <em>Db Columns</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getNewNames <em>New Names</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getPkTables <em>Pk Tables</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getPkColumns <em>Pk Columns</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getFkTables <em>Fk Tables</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getFkColumns <em>Fk Columns</em>}</li>
  * </ul>
  * </p>
  *
@@ -203,34 +217,14 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
   protected String dbDriver = DB_DRIVER_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
+   * The cached value of the '{@link #getSqlTypeAssignements() <em>Sql Type Assignements</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getType()
+   * @see #getSqlTypeAssignements()
    * @generated
    * @ordered
    */
-  protected PojoType type;
-
-  /**
-   * The default value of the '{@link #getTypeName() <em>Type Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTypeName()
-   * @generated
-   * @ordered
-   */
-  protected static final String TYPE_NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getTypeName() <em>Type Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTypeName()
-   * @generated
-   * @ordered
-   */
-  protected String typeName = TYPE_NAME_EDEFAULT;
+  protected EList<SqlTypeAssignement> sqlTypeAssignements;
 
   /**
    * The default value of the '{@link #getDbTable() <em>Db Table</em>}' attribute.
@@ -253,44 +247,84 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
   protected String dbTable = DB_TABLE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getDbColumn() <em>Db Column</em>}' attribute.
+   * The cached value of the '{@link #getColumnTypeAssignements() <em>Column Type Assignements</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDbColumn()
+   * @see #getColumnTypeAssignements()
    * @generated
    * @ordered
    */
-  protected static final String DB_COLUMN_EDEFAULT = null;
+  protected EList<ColumnTypeAssignement> columnTypeAssignements;
 
   /**
-   * The cached value of the '{@link #getDbColumn() <em>Db Column</em>}' attribute.
+   * The cached value of the '{@link #getDbTables() <em>Db Tables</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDbColumn()
+   * @see #getDbTables()
    * @generated
    * @ordered
    */
-  protected String dbColumn = DB_COLUMN_EDEFAULT;
+  protected EList<String> dbTables;
 
   /**
-   * The default value of the '{@link #getDbName() <em>Db Name</em>}' attribute.
+   * The cached value of the '{@link #getDbColumns() <em>Db Columns</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDbName()
+   * @see #getDbColumns()
    * @generated
    * @ordered
    */
-  protected static final String DB_NAME_EDEFAULT = null;
+  protected EList<String> dbColumns;
 
   /**
-   * The cached value of the '{@link #getDbName() <em>Db Name</em>}' attribute.
+   * The cached value of the '{@link #getNewNames() <em>New Names</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDbName()
+   * @see #getNewNames()
    * @generated
    * @ordered
    */
-  protected String dbName = DB_NAME_EDEFAULT;
+  protected EList<String> newNames;
+
+  /**
+   * The cached value of the '{@link #getPkTables() <em>Pk Tables</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPkTables()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> pkTables;
+
+  /**
+   * The cached value of the '{@link #getPkColumns() <em>Pk Columns</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPkColumns()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> pkColumns;
+
+  /**
+   * The cached value of the '{@link #getFkTables() <em>Fk Tables</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFkTables()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> fkTables;
+
+  /**
+   * The cached value of the '{@link #getFkColumns() <em>Fk Columns</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFkColumns()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> fkColumns;
 
   /**
    * <!-- begin-user-doc -->
@@ -502,70 +536,13 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public PojoType getType()
+  public EList<SqlTypeAssignement> getSqlTypeAssignements()
   {
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetType(PojoType newType, NotificationChain msgs)
-  {
-    PojoType oldType = type;
-    type = newType;
-    if (eNotificationRequired())
+    if (sqlTypeAssignements == null)
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__TYPE, oldType, newType);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      sqlTypeAssignements = new EObjectContainmentEList<SqlTypeAssignement>(SqlTypeAssignement.class, this, ProcessorDslPackage.PROPERTY__SQL_TYPE_ASSIGNEMENTS);
     }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setType(PojoType newType)
-  {
-    if (newType != type)
-    {
-      NotificationChain msgs = null;
-      if (type != null)
-        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.PROPERTY__TYPE, null, msgs);
-      if (newType != null)
-        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.PROPERTY__TYPE, null, msgs);
-      msgs = basicSetType(newType, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__TYPE, newType, newType));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getTypeName()
-  {
-    return typeName;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTypeName(String newTypeName)
-  {
-    String oldTypeName = typeName;
-    typeName = newTypeName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__TYPE_NAME, oldTypeName, typeName));
+    return sqlTypeAssignements;
   }
 
   /**
@@ -596,9 +573,13 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDbColumn()
+  public EList<ColumnTypeAssignement> getColumnTypeAssignements()
   {
-    return dbColumn;
+    if (columnTypeAssignements == null)
+    {
+      columnTypeAssignements = new EObjectContainmentEList<ColumnTypeAssignement>(ColumnTypeAssignement.class, this, ProcessorDslPackage.PROPERTY__COLUMN_TYPE_ASSIGNEMENTS);
+    }
+    return columnTypeAssignements;
   }
 
   /**
@@ -606,12 +587,13 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDbColumn(String newDbColumn)
+  public EList<String> getDbTables()
   {
-    String oldDbColumn = dbColumn;
-    dbColumn = newDbColumn;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__DB_COLUMN, oldDbColumn, dbColumn));
+    if (dbTables == null)
+    {
+      dbTables = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.PROPERTY__DB_TABLES);
+    }
+    return dbTables;
   }
 
   /**
@@ -619,9 +601,13 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDbName()
+  public EList<String> getDbColumns()
   {
-    return dbName;
+    if (dbColumns == null)
+    {
+      dbColumns = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.PROPERTY__DB_COLUMNS);
+    }
+    return dbColumns;
   }
 
   /**
@@ -629,12 +615,69 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDbName(String newDbName)
+  public EList<String> getNewNames()
   {
-    String oldDbName = dbName;
-    dbName = newDbName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__DB_NAME, oldDbName, dbName));
+    if (newNames == null)
+    {
+      newNames = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.PROPERTY__NEW_NAMES);
+    }
+    return newNames;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<String> getPkTables()
+  {
+    if (pkTables == null)
+    {
+      pkTables = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.PROPERTY__PK_TABLES);
+    }
+    return pkTables;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<String> getPkColumns()
+  {
+    if (pkColumns == null)
+    {
+      pkColumns = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.PROPERTY__PK_COLUMNS);
+    }
+    return pkColumns;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<String> getFkTables()
+  {
+    if (fkTables == null)
+    {
+      fkTables = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.PROPERTY__FK_TABLES);
+    }
+    return fkTables;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<String> getFkColumns()
+  {
+    if (fkColumns == null)
+    {
+      fkColumns = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.PROPERTY__FK_COLUMNS);
+    }
+    return fkColumns;
   }
 
   /**
@@ -647,8 +690,10 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.PROPERTY__TYPE:
-        return basicSetType(null, msgs);
+      case ProcessorDslPackage.PROPERTY__SQL_TYPE_ASSIGNEMENTS:
+        return ((InternalEList<?>)getSqlTypeAssignements()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.PROPERTY__COLUMN_TYPE_ASSIGNEMENTS:
+        return ((InternalEList<?>)getColumnTypeAssignements()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -679,16 +724,26 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return getDbSchema();
       case ProcessorDslPackage.PROPERTY__DB_DRIVER:
         return getDbDriver();
-      case ProcessorDslPackage.PROPERTY__TYPE:
-        return getType();
-      case ProcessorDslPackage.PROPERTY__TYPE_NAME:
-        return getTypeName();
+      case ProcessorDslPackage.PROPERTY__SQL_TYPE_ASSIGNEMENTS:
+        return getSqlTypeAssignements();
       case ProcessorDslPackage.PROPERTY__DB_TABLE:
         return getDbTable();
-      case ProcessorDslPackage.PROPERTY__DB_COLUMN:
-        return getDbColumn();
-      case ProcessorDslPackage.PROPERTY__DB_NAME:
-        return getDbName();
+      case ProcessorDslPackage.PROPERTY__COLUMN_TYPE_ASSIGNEMENTS:
+        return getColumnTypeAssignements();
+      case ProcessorDslPackage.PROPERTY__DB_TABLES:
+        return getDbTables();
+      case ProcessorDslPackage.PROPERTY__DB_COLUMNS:
+        return getDbColumns();
+      case ProcessorDslPackage.PROPERTY__NEW_NAMES:
+        return getNewNames();
+      case ProcessorDslPackage.PROPERTY__PK_TABLES:
+        return getPkTables();
+      case ProcessorDslPackage.PROPERTY__PK_COLUMNS:
+        return getPkColumns();
+      case ProcessorDslPackage.PROPERTY__FK_TABLES:
+        return getFkTables();
+      case ProcessorDslPackage.PROPERTY__FK_COLUMNS:
+        return getFkColumns();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -698,6 +753,7 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -727,20 +783,44 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
       case ProcessorDslPackage.PROPERTY__DB_DRIVER:
         setDbDriver((String)newValue);
         return;
-      case ProcessorDslPackage.PROPERTY__TYPE:
-        setType((PojoType)newValue);
-        return;
-      case ProcessorDslPackage.PROPERTY__TYPE_NAME:
-        setTypeName((String)newValue);
+      case ProcessorDslPackage.PROPERTY__SQL_TYPE_ASSIGNEMENTS:
+        getSqlTypeAssignements().clear();
+        getSqlTypeAssignements().addAll((Collection<? extends SqlTypeAssignement>)newValue);
         return;
       case ProcessorDslPackage.PROPERTY__DB_TABLE:
         setDbTable((String)newValue);
         return;
-      case ProcessorDslPackage.PROPERTY__DB_COLUMN:
-        setDbColumn((String)newValue);
+      case ProcessorDslPackage.PROPERTY__COLUMN_TYPE_ASSIGNEMENTS:
+        getColumnTypeAssignements().clear();
+        getColumnTypeAssignements().addAll((Collection<? extends ColumnTypeAssignement>)newValue);
         return;
-      case ProcessorDslPackage.PROPERTY__DB_NAME:
-        setDbName((String)newValue);
+      case ProcessorDslPackage.PROPERTY__DB_TABLES:
+        getDbTables().clear();
+        getDbTables().addAll((Collection<? extends String>)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__DB_COLUMNS:
+        getDbColumns().clear();
+        getDbColumns().addAll((Collection<? extends String>)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__NEW_NAMES:
+        getNewNames().clear();
+        getNewNames().addAll((Collection<? extends String>)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__PK_TABLES:
+        getPkTables().clear();
+        getPkTables().addAll((Collection<? extends String>)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__PK_COLUMNS:
+        getPkColumns().clear();
+        getPkColumns().addAll((Collection<? extends String>)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__FK_TABLES:
+        getFkTables().clear();
+        getFkTables().addAll((Collection<? extends String>)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__FK_COLUMNS:
+        getFkColumns().clear();
+        getFkColumns().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -780,20 +860,35 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
       case ProcessorDslPackage.PROPERTY__DB_DRIVER:
         setDbDriver(DB_DRIVER_EDEFAULT);
         return;
-      case ProcessorDslPackage.PROPERTY__TYPE:
-        setType((PojoType)null);
-        return;
-      case ProcessorDslPackage.PROPERTY__TYPE_NAME:
-        setTypeName(TYPE_NAME_EDEFAULT);
+      case ProcessorDslPackage.PROPERTY__SQL_TYPE_ASSIGNEMENTS:
+        getSqlTypeAssignements().clear();
         return;
       case ProcessorDslPackage.PROPERTY__DB_TABLE:
         setDbTable(DB_TABLE_EDEFAULT);
         return;
-      case ProcessorDslPackage.PROPERTY__DB_COLUMN:
-        setDbColumn(DB_COLUMN_EDEFAULT);
+      case ProcessorDslPackage.PROPERTY__COLUMN_TYPE_ASSIGNEMENTS:
+        getColumnTypeAssignements().clear();
         return;
-      case ProcessorDslPackage.PROPERTY__DB_NAME:
-        setDbName(DB_NAME_EDEFAULT);
+      case ProcessorDslPackage.PROPERTY__DB_TABLES:
+        getDbTables().clear();
+        return;
+      case ProcessorDslPackage.PROPERTY__DB_COLUMNS:
+        getDbColumns().clear();
+        return;
+      case ProcessorDslPackage.PROPERTY__NEW_NAMES:
+        getNewNames().clear();
+        return;
+      case ProcessorDslPackage.PROPERTY__PK_TABLES:
+        getPkTables().clear();
+        return;
+      case ProcessorDslPackage.PROPERTY__PK_COLUMNS:
+        getPkColumns().clear();
+        return;
+      case ProcessorDslPackage.PROPERTY__FK_TABLES:
+        getFkTables().clear();
+        return;
+      case ProcessorDslPackage.PROPERTY__FK_COLUMNS:
+        getFkColumns().clear();
         return;
     }
     super.eUnset(featureID);
@@ -825,16 +920,26 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return DB_SCHEMA_EDEFAULT == null ? dbSchema != null : !DB_SCHEMA_EDEFAULT.equals(dbSchema);
       case ProcessorDslPackage.PROPERTY__DB_DRIVER:
         return DB_DRIVER_EDEFAULT == null ? dbDriver != null : !DB_DRIVER_EDEFAULT.equals(dbDriver);
-      case ProcessorDslPackage.PROPERTY__TYPE:
-        return type != null;
-      case ProcessorDslPackage.PROPERTY__TYPE_NAME:
-        return TYPE_NAME_EDEFAULT == null ? typeName != null : !TYPE_NAME_EDEFAULT.equals(typeName);
+      case ProcessorDslPackage.PROPERTY__SQL_TYPE_ASSIGNEMENTS:
+        return sqlTypeAssignements != null && !sqlTypeAssignements.isEmpty();
       case ProcessorDslPackage.PROPERTY__DB_TABLE:
         return DB_TABLE_EDEFAULT == null ? dbTable != null : !DB_TABLE_EDEFAULT.equals(dbTable);
-      case ProcessorDslPackage.PROPERTY__DB_COLUMN:
-        return DB_COLUMN_EDEFAULT == null ? dbColumn != null : !DB_COLUMN_EDEFAULT.equals(dbColumn);
-      case ProcessorDslPackage.PROPERTY__DB_NAME:
-        return DB_NAME_EDEFAULT == null ? dbName != null : !DB_NAME_EDEFAULT.equals(dbName);
+      case ProcessorDslPackage.PROPERTY__COLUMN_TYPE_ASSIGNEMENTS:
+        return columnTypeAssignements != null && !columnTypeAssignements.isEmpty();
+      case ProcessorDslPackage.PROPERTY__DB_TABLES:
+        return dbTables != null && !dbTables.isEmpty();
+      case ProcessorDslPackage.PROPERTY__DB_COLUMNS:
+        return dbColumns != null && !dbColumns.isEmpty();
+      case ProcessorDslPackage.PROPERTY__NEW_NAMES:
+        return newNames != null && !newNames.isEmpty();
+      case ProcessorDslPackage.PROPERTY__PK_TABLES:
+        return pkTables != null && !pkTables.isEmpty();
+      case ProcessorDslPackage.PROPERTY__PK_COLUMNS:
+        return pkColumns != null && !pkColumns.isEmpty();
+      case ProcessorDslPackage.PROPERTY__FK_TABLES:
+        return fkTables != null && !fkTables.isEmpty();
+      case ProcessorDslPackage.PROPERTY__FK_COLUMNS:
+        return fkColumns != null && !fkColumns.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -866,14 +971,22 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
     result.append(dbSchema);
     result.append(", dbDriver: ");
     result.append(dbDriver);
-    result.append(", typeName: ");
-    result.append(typeName);
     result.append(", dbTable: ");
     result.append(dbTable);
-    result.append(", dbColumn: ");
-    result.append(dbColumn);
-    result.append(", dbName: ");
-    result.append(dbName);
+    result.append(", dbTables: ");
+    result.append(dbTables);
+    result.append(", dbColumns: ");
+    result.append(dbColumns);
+    result.append(", newNames: ");
+    result.append(newNames);
+    result.append(", pkTables: ");
+    result.append(pkTables);
+    result.append(", pkColumns: ");
+    result.append(pkColumns);
+    result.append(", fkTables: ");
+    result.append(fkTables);
+    result.append(", fkColumns: ");
+    result.append(fkColumns);
     result.append(')');
     return result.toString();
   }

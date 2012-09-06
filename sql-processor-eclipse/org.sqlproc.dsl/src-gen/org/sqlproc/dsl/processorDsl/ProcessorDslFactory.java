@@ -32,6 +32,24 @@ public interface ProcessorDslFactory extends EFactory
   Artifacts createArtifacts();
 
   /**
+   * Returns a new object of class '<em>Sql Type Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Sql Type Assignement</em>'.
+   * @generated
+   */
+  SqlTypeAssignement createSqlTypeAssignement();
+
+  /**
+   * Returns a new object of class '<em>Column Type Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Column Type Assignement</em>'.
+   * @generated
+   */
+  ColumnTypeAssignement createColumnTypeAssignement();
+
+  /**
    * Returns a new object of class '<em>Property</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

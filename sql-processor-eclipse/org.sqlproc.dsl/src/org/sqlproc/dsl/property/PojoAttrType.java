@@ -1,4 +1,4 @@
-package org.sqlproc.dsl.ui.templates;
+package org.sqlproc.dsl.property;
 
 import org.eclipse.xtext.common.types.JvmType;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
@@ -12,11 +12,18 @@ public class PojoAttrType {
     boolean array;
     PojoEntity ref;
 
-    public PojoAttrType(String typeName, PojoType pojoType) {
-        setNativeType(pojoType.getNative());
-        setType(pojoType.getType());
-        setRef(pojoType.getRef());
-        setArray(pojoType.isArray());
+    public PojoAttrType(String typeName, String size, PojoType pojoType) {
+        this.nativeType = pojoType.getNative();
+        this.type = pojoType.getType();
+        this.ref = pojoType.getRef();
+        this.array = pojoType.isArray();
+        if (size != null) {
+            try {
+                this.size = Integer.parseInt(size);
+            } catch (NumberFormatException ignore) {
+            }
+        }
+
         String name = typeName;
         int ix = name.indexOf('(');
         int ix2 = (ix >= 0) ? name.indexOf(')', ix + 1) : -1;
@@ -24,11 +31,11 @@ public class PojoAttrType {
             String num = name.substring(ix + 1, ix2);
             name = name.substring(0, ix);
             try {
-                size = Integer.parseInt(num);
+                this.size = Integer.parseInt(num);
             } catch (NumberFormatException ignore) {
             }
         }
-        setName(name);
+        this.name = name;
     }
 
     public String getName() {

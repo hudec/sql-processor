@@ -1,8 +1,7 @@
-database sql type :java.lang.Integer NUMBER(19);
-database sql type :java.lang.String VARCHAR2(100);
-database table type CONTACT :java.lang.String VARCHAR2(100);
-database column type CONTACT PHONE_NUMBER ::PhoneNumber;
-database pojo column Contact phoneNumber homePhone;
+pojogen type sqltypes NUMBER(19)->:java.lang.Integer VARCHAR2(100)->:java.lang.String;
+pojogen type in table CONTACT VARCHAR2(100)->:java.lang.String;
+pojogen type for columns CONTACT PHONE_NUMBER->::PhoneNumber;
+//pojogen rename columns CONTACT PHONE_NUMBER HOME_PHONE;
 
 
 package org.sqlproc.sample.simple.model2 {

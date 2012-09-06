@@ -15,6 +15,7 @@ import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
+import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.ColumnUsage;
 import org.sqlproc.dsl.processorDsl.ColumnUsageExt;
 import org.sqlproc.dsl.processorDsl.Constant;
@@ -51,6 +52,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.Sql;
 import org.sqlproc.dsl.processorDsl.SqlFragment;
+import org.sqlproc.dsl.processorDsl.SqlTypeAssignement;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.services.ProcessorDslGrammarAccess;
@@ -72,6 +74,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.COLUMN:
 				if(context == grammarAccess.getColumnRule()) {
 					sequence_Column(context, (Column) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.COLUMN_TYPE_ASSIGNEMENT:
+				if(context == grammarAccess.getColumnTypeAssignementRule()) {
+					sequence_ColumnTypeAssignement(context, (ColumnTypeAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -296,6 +304,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.SQL_TYPE_ASSIGNEMENT:
+				if(context == grammarAccess.getSqlTypeAssignementRule()) {
+					sequence_SqlTypeAssignement(context, (SqlTypeAssignement) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.TABLE_DEFINITION:
 				if(context == grammarAccess.getTableDefinitionRule()) {
 					sequence_TableDefinition(context, (TableDefinition) semanticObject); 
@@ -329,6 +343,25 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 */
 	protected void sequence_Artifacts(EObject context, Artifacts semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (dbColumn=IDENT type=PojoType)
+	 */
+	protected void sequence_ColumnTypeAssignement(EObject context, ColumnTypeAssignement semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.COLUMN_TYPE_ASSIGNEMENT__DB_COLUMN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.COLUMN_TYPE_ASSIGNEMENT__DB_COLUMN));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.COLUMN_TYPE_ASSIGNEMENT__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.COLUMN_TYPE_ASSIGNEMENT__TYPE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getColumnTypeAssignementAccess().getDbColumnIDENTTerminalRuleCall_0_0(), semanticObject.getDbColumn());
+		feeder.accept(grammarAccess.getColumnTypeAssignementAccess().getTypePojoTypeParserRuleCall_2_0(), semanticObject.getType());
+		feeder.finish();
 	}
 	
 	
@@ -779,10 +812,18 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='database password' dbPassword=PropertyValue) | 
 	 *         (name='database schema' dbSchema=PropertyValue) | 
 	 *         (name='database driver' dbDriver=PropertyValue) | 
-	 *         (name='database sql type' type=PojoType typeName=PropertyValue) | 
-	 *         (name='database table type' dbTable=IDENT type=PojoType typeName=PropertyValue) | 
-	 *         (name='database column type' dbTable=IDENT dbColumn=IDENT type=PojoType) | 
-	 *         (name='database pojo column' dbTable=IDENT dbColumn=IDENT dbName=IDENT)
+	 *         (name='pojogen type sqltypes' sqlTypeAssignements+=SqlTypeAssignement+) | 
+	 *         (name='pojogen type in table' dbTable=IDENT sqlTypeAssignements+=SqlTypeAssignement+) | 
+	 *         (name='pojogen type for columns' dbTable=IDENT columnTypeAssignements+=ColumnTypeAssignement+) | 
+	 *         (name='pojogen ignore tables' dbTables+=IDENT+) | 
+	 *         (name='pojogen ignore columns' dbTable=IDENT dbColumns+=IDENT+) | 
+	 *         (name='pojogen rename tables' (dbTables+=IDENT newNames+=IDENT)+) | 
+	 *         (name='pojogen rename columns' dbTable=IDENT (dbColumns+=IDENT newNames+=IDENT)+) | 
+	 *         (name='pojogen ignore imports' dbTable=IDENT (dbColumns+=IDENT pkTables+=IDENT pkColumns+=IDENT)+) | 
+	 *         (name='pojogen ignore exports' dbTable=IDENT (dbColumns+=IDENT fkTables+=IDENT fkColumns+=IDENT)+) | 
+	 *         (name='pojogen create imports' dbTable=IDENT (dbColumns+=IDENT pkTables+=IDENT pkColumns+=IDENT)+) | 
+	 *         (name='pojogen create exports' dbTable=IDENT (dbColumns+=IDENT fkTables+=IDENT fkColumns+=IDENT)+) | 
+	 *         (name='pojogen many-to-many tables' dbTables+=IDENT+)
 	 *     )
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {
@@ -803,6 +844,15 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     )
 	 */
 	protected void sequence_SqlFragment(EObject context, SqlFragment semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (typeName=IDENT size=NUMBER? type=PojoType)
+	 */
+	protected void sequence_SqlTypeAssignement(EObject context, SqlTypeAssignement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

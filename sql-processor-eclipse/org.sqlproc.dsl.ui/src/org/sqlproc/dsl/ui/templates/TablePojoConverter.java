@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.sqlproc.dsl.processorDsl.Artifacts;
-import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.property.ModelProperty;
+import org.sqlproc.dsl.property.PojoAttrType;
+import org.sqlproc.dsl.property.PojoAttribute;
 import org.sqlproc.dsl.resolver.DbColumn;
 import org.sqlproc.dsl.resolver.DbExport;
 import org.sqlproc.dsl.resolver.DbImport;
@@ -29,62 +30,24 @@ public class TablePojoConverter {
         }
     }
 
-    private Map<String, PojoAttrType> sqlTypes;
-    private Map<String, Map<String, PojoAttrType>> tableTypes;
-    private Map<String, Map<String, PojoAttrType>> columnTypes;
+    private Map<String, PojoAttrType> sqlTypes = new HashMap<String, PojoAttrType>();
+    private Map<String, Map<String, PojoAttrType>> tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
+    private Map<String, Map<String, PojoAttrType>> columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
     private Map<String, Map<String, PojoAttribute>> pojos = new HashMap<String, Map<String, PojoAttribute>>();
-    public Map<String, Map<String, String>> columnNames;
+    public Map<String, Map<String, String>> columnNames = new HashMap<String, Map<String, String>>();
 
     public TablePojoConverter() {
     }
 
     public TablePojoConverter(ModelProperty modelProperty, Artifacts artifacts) {
-        Map<String, PojoType> sqlTypes = modelProperty.getSqlTypes(artifacts);
-        Map<String, Map<String, PojoType>> tableTypes = modelProperty.getTableTypes(artifacts);
-        Map<String, Map<String, PojoType>> columnTypes = modelProperty.getColumnTypes(artifacts);
-        Map<String, Map<String, String>> columnNames = modelProperty.getColumnNames(artifacts);
 
-        this.sqlTypes = new HashMap<String, PojoAttrType>();
+        Map<String, PojoAttrType> sqlTypes = modelProperty.getSqlTypes(artifacts);
         if (sqlTypes != null) {
-            for (Map.Entry<String, PojoType> sqlType : sqlTypes.entrySet()) {
-                PojoAttrType type = new PojoAttrType(sqlType.getKey(), sqlType.getValue());
-                this.sqlTypes.put(type.getName() + type.getSize(), type);
+            for (PojoAttrType sqlType : sqlTypes.values()) {
+                this.sqlTypes.put(sqlType.getName() + sqlType.getSize(), sqlType);
             }
         }
-        this.tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
-        if (tableTypes != null) {
-            for (Map.Entry<String, Map<String, PojoType>> tableType : tableTypes.entrySet()) {
-                String table = tableType.getKey(); // tableToCamelCase(tableType.getKey());
-                if (!this.tableTypes.containsKey(table))
-                    this.tableTypes.put(table, new HashMap<String, PojoAttrType>());
-                for (Map.Entry<String, PojoType> sqlType : tableType.getValue().entrySet()) {
-                    PojoAttrType type = new PojoAttrType(sqlType.getKey(), sqlType.getValue());
-                    this.tableTypes.get(table).put(type.getName() + type.getSize(), type);
-                }
-            }
-        }
-        this.columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
-        if (columnTypes != null) {
-            for (Map.Entry<String, Map<String, PojoType>> columnType : columnTypes.entrySet()) {
-                String table = columnType.getKey(); // tableToCamelCase(columnType.getKey());
-                if (!this.columnTypes.containsKey(table))
-                    this.columnTypes.put(table, new HashMap<String, PojoAttrType>());
-                for (Map.Entry<String, PojoType> sqlType : columnType.getValue().entrySet()) {
-                    String column = sqlType.getKey(); // tableToCamelCase(sqlType.getKey());
-                    PojoAttrType type = new PojoAttrType(column, sqlType.getValue());
-                    this.columnTypes.get(table).put(type.getName(), type);
-                }
-            }
-        }
-        this.columnNames = new HashMap<String, Map<String, String>>();
-        if (columnNames != null) {
-            for (Map.Entry<String, Map<String, String>> columnName : columnNames.entrySet()) {
-                String table = columnName.getKey(); // tableToCamelCase(columnName.getKey());
-                if (!this.columnNames.containsKey(table))
-                    this.columnNames.put(table, new HashMap<String, String>());
-                this.columnNames.get(table).putAll(columnName.getValue());
-            }
-        }
+
     }
 
     public void addTableTefinition(String table, List<DbColumn> dbColumns, List<DbExport> dbExports,

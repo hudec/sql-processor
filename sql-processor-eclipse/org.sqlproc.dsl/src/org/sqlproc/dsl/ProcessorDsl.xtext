@@ -11,6 +11,9 @@ Artifacts:
     	|tableUsages+=TableUsage WS*|pojoPackages+=PackageDeclaration WS*|usagesExt+=PojoUsageExt WS*
     )+;
 
+SqlTypeAssignement: typeName=IDENT (LPAREN size=NUMBER RPAREN)? '->' type=PojoType;
+ColumnTypeAssignement: dbColumn=IDENT '->' type=PojoType;
+
 Property:
 	(name='resolve references' WS+ doResolvePojo=ON_OFF
 	|name='database online' WS+ doResolveDb=ON_OFF
@@ -19,10 +22,18 @@ Property:
 	|name='database password' WS+ dbPassword=PropertyValue
 	|name='database schema' WS+ dbSchema=PropertyValue
 	|name='database driver' WS+ dbDriver=PropertyValue
-	|name='database sql type' WS+ type=PojoType WS+ typeName=PropertyValue
-	|name='database table type' WS+ dbTable=IDENT WS+ type=PojoType WS+ typeName=PropertyValue
-	|name='database column type' WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ type=PojoType
-	|name='database pojo column' WS+ dbTable=IDENT WS+ dbColumn=IDENT WS+ dbName=IDENT
+	|name='pojogen type sqltypes' (WS+ sqlTypeAssignements+=SqlTypeAssignement)+
+	|name='pojogen type in table' WS+ dbTable=IDENT (WS+ sqlTypeAssignements+=SqlTypeAssignement)+
+	|name='pojogen type for columns' WS+ dbTable=IDENT (WS+ columnTypeAssignements+=ColumnTypeAssignement)+
+	|name='pojogen ignore tables' (WS+ dbTables+=IDENT)+
+	|name='pojogen ignore columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
+	|name='pojogen rename tables' (WS+ dbTables+=IDENT EQUALS newNames+=IDENT)+
+	|name='pojogen rename columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT EQUALS newNames+=IDENT)+
+	|name='pojogen ignore imports' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT EQUALS pkTables+=IDENT EQUALS pkColumns+=IDENT)+
+	|name='pojogen ignore exports' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT EQUALS fkTables+=IDENT EQUALS fkColumns+=IDENT)+
+	|name='pojogen create imports' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT EQUALS pkTables+=IDENT EQUALS pkColumns+=IDENT)+
+	|name='pojogen create exports' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT EQUALS fkTables+=IDENT EQUALS fkColumns+=IDENT)+
+	|name='pojogen many-to-many tables' (WS+ dbTables+=IDENT)+
 	) SEMICOLON;
 
 PropertyValue:

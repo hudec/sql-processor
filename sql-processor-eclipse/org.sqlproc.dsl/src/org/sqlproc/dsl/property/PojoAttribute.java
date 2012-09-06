@@ -1,4 +1,4 @@
-package org.sqlproc.dsl.ui.templates;
+package org.sqlproc.dsl.property;
 
 import java.util.ArrayList;
 import java.util.List;
