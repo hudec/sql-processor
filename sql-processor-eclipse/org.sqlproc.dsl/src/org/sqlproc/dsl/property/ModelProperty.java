@@ -14,10 +14,10 @@ public interface ModelProperty extends Adapter {
 
     public Map<String, PojoAttrType> getSqlTypes(EObject model);
 
-    // public Map<String, Map<String, PojoType>> getTableTypes(EObject model);
-    //
-    // public Map<String, Map<String, PojoType>> getColumnTypes(EObject model);
-    //
+    public Map<String, Map<String, PojoAttrType>> getTableTypes(EObject model);
+
+    public Map<String, Map<String, PojoAttrType>> getColumnTypes(EObject model);
+
     // public Map<String, Map<String, String>> getColumnNames(EObject model);
 
     public ModelValues getModelValues(EObject model);

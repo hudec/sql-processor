@@ -33,6 +33,7 @@ public class TablePojoConverter {
     private Map<String, PojoAttrType> sqlTypes = new HashMap<String, PojoAttrType>();
     private Map<String, Map<String, PojoAttrType>> tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
     private Map<String, Map<String, PojoAttrType>> columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
+
     private Map<String, Map<String, PojoAttribute>> pojos = new HashMap<String, Map<String, PojoAttribute>>();
     public Map<String, Map<String, String>> columnNames = new HashMap<String, Map<String, String>>();
 
@@ -47,7 +48,31 @@ public class TablePojoConverter {
                 this.sqlTypes.put(sqlType.getName() + sqlType.getSize(), sqlType);
             }
         }
-
+        Map<String, Map<String, PojoAttrType>> tableTypes = modelProperty.getTableTypes(artifacts);
+        if (tableTypes != null) {
+            for (Map.Entry<String, Map<String, PojoAttrType>> tableType : tableTypes.entrySet()) {
+                String table = tableType.getKey(); // tableToCamelCase(tableType.getKey());
+                if (!this.tableTypes.containsKey(table))
+                    this.tableTypes.put(table, new HashMap<String, PojoAttrType>());
+                for (PojoAttrType sqlType : tableType.getValue().values()) {
+                    this.tableTypes.get(table).put(sqlType.getName() + sqlType.getSize(), sqlType);
+                }
+            }
+        }
+        Map<String, Map<String, PojoAttrType>> columnTypes = modelProperty.getColumnTypes(artifacts);
+        if (columnTypes != null) {
+            for (Map.Entry<String, Map<String, PojoAttrType>> columnType : columnTypes.entrySet()) {
+                String table = columnType.getKey(); // tableToCamelCase(columnType.getKey());
+                if (!this.columnTypes.containsKey(table))
+                    this.columnTypes.put(table, new HashMap<String, PojoAttrType>());
+                for (PojoAttrType sqlType : columnType.getValue().values()) {
+                    this.columnTypes.get(table).put(sqlType.getName(), sqlType);
+                }
+            }
+        }
+        System.out.println("000 " + this.sqlTypes);
+        System.out.println("111 " + this.tableTypes);
+        System.out.println("222 " + this.columnTypes);
     }
 
     public void addTableTefinition(String table, List<DbColumn> dbColumns, List<DbExport> dbExports,
@@ -220,7 +245,7 @@ public class TablePojoConverter {
     }
 
     private PojoAttribute convertDbColumnDefinition(String table, DbColumn dbColumn) {
-        // System.out.println("AAA " + table + " " + dbColumn);
+        System.out.println("AAA " + table + " " + dbColumn);
         if (dbColumn == null)
             return null;
         PojoAttrType sqlType = columnTypes.containsKey(table) ? columnTypes.get(table).get(dbColumn.getName()) : null;

@@ -1,5 +1,5 @@
-pojogen type sqltypes NUMBER(19)->:java.lang.Integer VARCHAR2(100)->:java.lang.String;
-pojogen type in table CONTACT VARCHAR2(100)->:java.lang.String;
+pojogen type sqltypes NUMBER(19)->:java.lang.Integer VARCHAR2(100)->:java.lang.Character;
+pojogen type in table CONTACT VARCHAR2(100)->:java.lang.Short;
 pojogen type for columns CONTACT PHONE_NUMBER->::PhoneNumber;
 pojogen rename columns CONTACT PHONE_NUMBER->HOME_PHONE;
 
