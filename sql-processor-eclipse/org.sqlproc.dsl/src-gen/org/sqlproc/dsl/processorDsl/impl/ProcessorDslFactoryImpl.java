@@ -67,6 +67,10 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.ARTIFACTS: return createArtifacts();
       case ProcessorDslPackage.SQL_TYPE_ASSIGNEMENT: return createSqlTypeAssignement();
       case ProcessorDslPackage.COLUMN_TYPE_ASSIGNEMENT: return createColumnTypeAssignement();
+      case ProcessorDslPackage.TABLE_ASSIGNEMENT: return createTableAssignement();
+      case ProcessorDslPackage.COLUMN_ASSIGNEMENT: return createColumnAssignement();
+      case ProcessorDslPackage.EXPORT_ASSIGNEMENT: return createExportAssignement();
+      case ProcessorDslPackage.IMPORT_ASSIGNEMENT: return createImportAssignement();
       case ProcessorDslPackage.PROPERTY: return createProperty();
       case ProcessorDslPackage.POJO_DEFINITION: return createPojoDefinition();
       case ProcessorDslPackage.POJO_USAGE: return createPojoUsage();
@@ -144,6 +148,50 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     ColumnTypeAssignementImpl columnTypeAssignement = new ColumnTypeAssignementImpl();
     return columnTypeAssignement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TableAssignement createTableAssignement()
+  {
+    TableAssignementImpl tableAssignement = new TableAssignementImpl();
+    return tableAssignement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ColumnAssignement createColumnAssignement()
+  {
+    ColumnAssignementImpl columnAssignement = new ColumnAssignementImpl();
+    return columnAssignement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ExportAssignement createExportAssignement()
+  {
+    ExportAssignementImpl exportAssignement = new ExportAssignementImpl();
+    return exportAssignement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ImportAssignement createImportAssignement()
+  {
+    ImportAssignementImpl importAssignement = new ImportAssignementImpl();
+    return importAssignement;
   }
 
   /**

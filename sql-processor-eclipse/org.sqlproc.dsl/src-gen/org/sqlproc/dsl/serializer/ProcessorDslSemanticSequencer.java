@@ -15,6 +15,7 @@ import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
+import org.sqlproc.dsl.processorDsl.ColumnAssignement;
 import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.ColumnUsage;
 import org.sqlproc.dsl.processorDsl.ColumnUsageExt;
@@ -23,6 +24,7 @@ import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
+import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.IdentifierUsageExt;
@@ -32,6 +34,7 @@ import org.sqlproc.dsl.processorDsl.IfSqlBool;
 import org.sqlproc.dsl.processorDsl.IfSqlCond;
 import org.sqlproc.dsl.processorDsl.IfSqlFragment;
 import org.sqlproc.dsl.processorDsl.Import;
+import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.Mapping;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingItem;
@@ -53,6 +56,7 @@ import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.Sql;
 import org.sqlproc.dsl.processorDsl.SqlFragment;
 import org.sqlproc.dsl.processorDsl.SqlTypeAssignement;
+import org.sqlproc.dsl.processorDsl.TableAssignement;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.services.ProcessorDslGrammarAccess;
@@ -74,6 +78,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.COLUMN:
 				if(context == grammarAccess.getColumnRule()) {
 					sequence_Column(context, (Column) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.COLUMN_ASSIGNEMENT:
+				if(context == grammarAccess.getColumnAssignementRule()) {
+					sequence_ColumnAssignement(context, (ColumnAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -126,6 +136,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.DATABASE_TABLE:
 				if(context == grammarAccess.getDatabaseTableRule()) {
 					sequence_DatabaseTable(context, (DatabaseTable) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.EXPORT_ASSIGNEMENT:
+				if(context == grammarAccess.getExportAssignementRule()) {
+					sequence_ExportAssignement(context, (ExportAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -183,6 +199,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 				if(context == grammarAccess.getAbstractPojoEntityRule() ||
 				   context == grammarAccess.getImportRule()) {
 					sequence_Import(context, (Import) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.IMPORT_ASSIGNEMENT:
+				if(context == grammarAccess.getImportAssignementRule()) {
+					sequence_ImportAssignement(context, (ImportAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -310,6 +332,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.TABLE_ASSIGNEMENT:
+				if(context == grammarAccess.getTableAssignementRule()) {
+					sequence_TableAssignement(context, (TableAssignement) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.TABLE_DEFINITION:
 				if(context == grammarAccess.getTableDefinitionRule()) {
 					sequence_TableDefinition(context, (TableDefinition) semanticObject); 
@@ -343,6 +371,25 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 */
 	protected void sequence_Artifacts(EObject context, Artifacts semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (dbColumn=IDENT newName=IDENT)
+	 */
+	protected void sequence_ColumnAssignement(EObject context, ColumnAssignement semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.COLUMN_ASSIGNEMENT__DB_COLUMN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.COLUMN_ASSIGNEMENT__DB_COLUMN));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.COLUMN_ASSIGNEMENT__NEW_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.COLUMN_ASSIGNEMENT__NEW_NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getColumnAssignementAccess().getDbColumnIDENTTerminalRuleCall_0_0(), semanticObject.getDbColumn());
+		feeder.accept(grammarAccess.getColumnAssignementAccess().getNewNameIDENTTerminalRuleCall_2_0(), semanticObject.getNewName());
+		feeder.finish();
 	}
 	
 	
@@ -479,6 +526,28 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
+	 *     (dbColumn=IDENT pkTable=IDENT pkColumn=IDENT)
+	 */
+	protected void sequence_ExportAssignement(EObject context, ExportAssignement semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__DB_COLUMN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__DB_COLUMN));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__PK_TABLE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__PK_TABLE));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__PK_COLUMN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__PK_COLUMN));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getExportAssignementAccess().getDbColumnIDENTTerminalRuleCall_0_0(), semanticObject.getDbColumn());
+		feeder.accept(grammarAccess.getExportAssignementAccess().getPkTableIDENTTerminalRuleCall_2_0(), semanticObject.getPkTable());
+		feeder.accept(grammarAccess.getExportAssignementAccess().getPkColumnIDENTTerminalRuleCall_4_0(), semanticObject.getPkColumn());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT])
 	 */
 	protected void sequence_IdentifierUsageExt(EObject context, IdentifierUsageExt semanticObject) {
@@ -584,6 +653,28 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 */
 	protected void sequence_IfSql(EObject context, IfSql semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (dbColumn=IDENT fkTable=IDENT fkColumn=IDENT)
+	 */
+	protected void sequence_ImportAssignement(EObject context, ImportAssignement semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__DB_COLUMN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__DB_COLUMN));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__FK_TABLE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__FK_TABLE));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__FK_COLUMN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__FK_COLUMN));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getImportAssignementAccess().getDbColumnIDENTTerminalRuleCall_0_0(), semanticObject.getDbColumn());
+		feeder.accept(grammarAccess.getImportAssignementAccess().getFkTableIDENTTerminalRuleCall_2_0(), semanticObject.getFkTable());
+		feeder.accept(grammarAccess.getImportAssignementAccess().getFkColumnIDENTTerminalRuleCall_4_0(), semanticObject.getFkColumn());
+		feeder.finish();
 	}
 	
 	
@@ -812,17 +903,17 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='database password' dbPassword=PropertyValue) | 
 	 *         (name='database schema' dbSchema=PropertyValue) | 
 	 *         (name='database driver' dbDriver=PropertyValue) | 
-	 *         (name='pojogen type sqltypes' sqlTypeAssignements+=SqlTypeAssignement+) | 
-	 *         (name='pojogen type in table' dbTable=IDENT sqlTypeAssignements+=SqlTypeAssignement+) | 
-	 *         (name='pojogen type for columns' dbTable=IDENT columnTypeAssignements+=ColumnTypeAssignement+) | 
+	 *         (name='pojogen type sqltypes' sqlTypes+=SqlTypeAssignement+) | 
+	 *         (name='pojogen type in table' dbTable=IDENT sqlTypes+=SqlTypeAssignement+) | 
+	 *         (name='pojogen type for columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
 	 *         (name='pojogen ignore tables' dbTables+=IDENT+) | 
 	 *         (name='pojogen ignore columns' dbTable=IDENT dbColumns+=IDENT+) | 
-	 *         (name='pojogen rename tables' (dbTables+=IDENT newNames+=IDENT)+) | 
-	 *         (name='pojogen rename columns' dbTable=IDENT (dbColumns+=IDENT newNames+=IDENT)+) | 
-	 *         (name='pojogen ignore imports' dbTable=IDENT (dbColumns+=IDENT pkTables+=IDENT pkColumns+=IDENT)+) | 
-	 *         (name='pojogen ignore exports' dbTable=IDENT (dbColumns+=IDENT fkTables+=IDENT fkColumns+=IDENT)+) | 
-	 *         (name='pojogen create imports' dbTable=IDENT (dbColumns+=IDENT pkTables+=IDENT pkColumns+=IDENT)+) | 
-	 *         (name='pojogen create exports' dbTable=IDENT (dbColumns+=IDENT fkTables+=IDENT fkColumns+=IDENT)+) | 
+	 *         (name='pojogen rename tables' tables+=TableAssignement+) | 
+	 *         (name='pojogen rename columns' dbTable=IDENT columns+=ColumnAssignement+) | 
+	 *         (name='pojogen ignore one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
+	 *         (name='pojogen ignore many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
+	 *         (name='pojogen create one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
+	 *         (name='pojogen create many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
 	 *         (name='pojogen many-to-many tables' dbTables+=IDENT+)
 	 *     )
 	 */
@@ -863,6 +954,25 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 */
 	protected void sequence_Sql(EObject context, Sql semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (dbTable=IDENT newName=IDENT)
+	 */
+	protected void sequence_TableAssignement(EObject context, TableAssignement semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.TABLE_ASSIGNEMENT__DB_TABLE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.TABLE_ASSIGNEMENT__DB_TABLE));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.TABLE_ASSIGNEMENT__NEW_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.TABLE_ASSIGNEMENT__NEW_NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getTableAssignementAccess().getDbTableIDENTTerminalRuleCall_0_0(), semanticObject.getDbTable());
+		feeder.accept(grammarAccess.getTableAssignementAccess().getNewNameIDENTTerminalRuleCall_2_0(), semanticObject.getNewName());
+		feeder.finish();
 	}
 	
 	

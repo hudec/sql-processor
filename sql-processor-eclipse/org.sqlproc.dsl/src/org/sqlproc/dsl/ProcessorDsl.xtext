@@ -13,6 +13,10 @@ Artifacts:
 
 SqlTypeAssignement: typeName=IDENT (LPAREN size=NUMBER RPAREN)? '->' type=PojoType;
 ColumnTypeAssignement: dbColumn=IDENT '->' type=PojoType;
+TableAssignement: dbTable=IDENT '->' newName=IDENT;
+ColumnAssignement: dbColumn=IDENT '->' newName=IDENT;
+ExportAssignement: dbColumn=IDENT '->' pkTable=IDENT '->' pkColumn=IDENT;
+ImportAssignement: dbColumn=IDENT '->' fkTable=IDENT '->' fkColumn=IDENT;
 
 Property:
 	(name='resolve references' WS+ doResolvePojo=ON_OFF
@@ -22,17 +26,17 @@ Property:
 	|name='database password' WS+ dbPassword=PropertyValue
 	|name='database schema' WS+ dbSchema=PropertyValue
 	|name='database driver' WS+ dbDriver=PropertyValue
-	|name='pojogen type sqltypes' (WS+ sqlTypeAssignements+=SqlTypeAssignement)+
-	|name='pojogen type in table' WS+ dbTable=IDENT (WS+ sqlTypeAssignements+=SqlTypeAssignement)+
-	|name='pojogen type for columns' WS+ dbTable=IDENT (WS+ columnTypeAssignements+=ColumnTypeAssignement)+
+	|name='pojogen type sqltypes' (WS+ sqlTypes+=SqlTypeAssignement)+
+	|name='pojogen type in table' WS+ dbTable=IDENT (WS+ sqlTypes+=SqlTypeAssignement)+
+	|name='pojogen type for columns' WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
 	|name='pojogen ignore tables' (WS+ dbTables+=IDENT)+
 	|name='pojogen ignore columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
-	|name='pojogen rename tables' (WS+ dbTables+=IDENT EQUALS newNames+=IDENT)+
-	|name='pojogen rename columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT EQUALS newNames+=IDENT)+
-	|name='pojogen ignore imports' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT EQUALS pkTables+=IDENT EQUALS pkColumns+=IDENT)+
-	|name='pojogen ignore exports' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT EQUALS fkTables+=IDENT EQUALS fkColumns+=IDENT)+
-	|name='pojogen create imports' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT EQUALS pkTables+=IDENT EQUALS pkColumns+=IDENT)+
-	|name='pojogen create exports' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT EQUALS fkTables+=IDENT EQUALS fkColumns+=IDENT)+
+	|name='pojogen rename tables' (WS+ tables+=TableAssignement)+
+	|name='pojogen rename columns' WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+
+	|name='pojogen ignore one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // imports
+	|name='pojogen ignore many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // exports
+	|name='pojogen create one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // imports
+	|name='pojogen create many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // exports
 	|name='pojogen many-to-many tables' (WS+ dbTables+=IDENT)+
 	) SEMICOLON;
 

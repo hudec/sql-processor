@@ -90,6 +90,26 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createColumnTypeAssignementAdapter();
       }
       @Override
+      public Adapter caseTableAssignement(TableAssignement object)
+      {
+        return createTableAssignementAdapter();
+      }
+      @Override
+      public Adapter caseColumnAssignement(ColumnAssignement object)
+      {
+        return createColumnAssignementAdapter();
+      }
+      @Override
+      public Adapter caseExportAssignement(ExportAssignement object)
+      {
+        return createExportAssignementAdapter();
+      }
+      @Override
+      public Adapter caseImportAssignement(ImportAssignement object)
+      {
+        return createImportAssignementAdapter();
+      }
+      @Override
       public Adapter caseProperty(Property object)
       {
         return createPropertyAdapter();
@@ -357,6 +377,66 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createColumnTypeAssignementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.TableAssignement <em>Table Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.TableAssignement
+   * @generated
+   */
+  public Adapter createTableAssignementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ColumnAssignement <em>Column Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ColumnAssignement
+   * @generated
+   */
+  public Adapter createColumnAssignementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ExportAssignement <em>Export Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ExportAssignement
+   * @generated
+   */
+  public Adapter createExportAssignementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ImportAssignement <em>Import Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ImportAssignement
+   * @generated
+   */
+  public Adapter createImportAssignementAdapter()
   {
     return null;
   }

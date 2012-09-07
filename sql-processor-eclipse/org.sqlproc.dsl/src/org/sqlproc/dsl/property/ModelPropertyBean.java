@@ -37,10 +37,10 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_IGNORE_COLUMNS = "pojogen ignore columns";
     public static final String POJOGEN_RENAME_TABLES = "pojogen rename tables";
     public static final String POJOGEN_RENAME_COLUMNS = "pojogen rename columns";
-    public static final String POJOGEN_IGNORE_IMPORTS = "pojogen ignore imports";
-    public static final String POJOGEN_IGNORE_EXPORTS = "pojogen ignore exports";
-    public static final String POJOGEN_CREATE_IMPORTS = "pojogen create imports";
-    public static final String POJOGEN_CREATE_EXPORTS = "pojogen create exports";
+    public static final String POJOGEN_IGNORE_IMPORTS = "pojogen ignore one-to-many";
+    public static final String POJOGEN_IGNORE_EXPORTS = "pojogen ignore many-to-one";
+    public static final String POJOGEN_CREATE_IMPORTS = "pojogen create one-to-many";
+    public static final String POJOGEN_CREATE_EXPORTS = "pojogen create many-to-one";
     public static final String POJOGEN_MANY_TO_MANY_TABLES = "pojogen many-to-many tables";
 
     public static class ModelValues {
@@ -158,9 +158,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         } else if (POJOGEN_TYPE_SQLTYPES.equals(property.getName())) {
             if (modelValues.sqlTypes == null)
                 modelValues.sqlTypes = new HashMap<String, PojoAttrType>();
-            for (int i = 0, m = property.getSqlTypeAssignements().size(); i < m; i++) {
-                PojoAttrType type = new PojoAttrType(property.getSqlTypeAssignements().get(i).getTypeName(), property
-                        .getSqlTypeAssignements().get(i).getSize(), property.getSqlTypeAssignements().get(i).getType());
+            for (int i = 0, m = property.getSqlTypes().size(); i < m; i++) {
+                PojoAttrType type = new PojoAttrType(property.getSqlTypes().get(i).getTypeName(), property
+                        .getSqlTypes().get(i).getSize(), property.getSqlTypes().get(i).getType());
                 modelValues.sqlTypes.put(type.getName(), type);
             }
             // } else if (DATABASE_TABLE_TYPE.equals(property.getName())) {
