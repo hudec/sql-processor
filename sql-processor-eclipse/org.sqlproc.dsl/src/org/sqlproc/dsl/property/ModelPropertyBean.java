@@ -16,6 +16,7 @@ import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
+import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.util.Utils;
 
@@ -63,6 +64,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Set<String> ignoreTables;
         public Map<String, Set<String>> ignoreColumns;
         public Map<String, Map<String, Map<String, String>>> ignoreExports;
+        public Map<String, Map<String, Map<String, String>>> ignoreImports;
 
         @Override
         public String toString() {
@@ -71,7 +73,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + ", tableTypes="
                     + tableTypes + ", columnTypes=" + columnTypes + ", tableNames=" + tableNames + ", columnNames="
                     + columnNames + ", ignoreTables=" + ignoreTables + ", ignoreColumns=" + ignoreColumns
-                    + ", ignoreExports=" + ignoreExports + "]";
+                    + ", ignoreExports=" + ignoreExports + ", ignoreImports=" + ignoreImports + "]";
         }
     }
 
@@ -234,6 +236,18 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     exports.put(export.getDbColumn(), new HashMap<String, String>());
                 exports.get(export.getDbColumn()).put(export.getFkTable(), export.getFkColumn());
             }
+        } else if (POJOGEN_IGNORE_IMPORTS.equals(property.getName())) {
+            if (modelValues.ignoreImports == null)
+                modelValues.ignoreImports = new HashMap<String, Map<String, Map<String, String>>>();
+            if (!modelValues.ignoreImports.containsKey(property.getDbTable()))
+                modelValues.ignoreImports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
+            Map<String, Map<String, String>> imports = modelValues.ignoreImports.get(property.getDbTable());
+            for (int i = 0, m = property.getImports().size(); i < m; i++) {
+                ImportAssignement _import = property.getImports().get(i);
+                if (!imports.containsKey(_import.getDbColumn()))
+                    imports.put(_import.getDbColumn(), new HashMap<String, String>());
+                imports.get(_import.getDbColumn()).put(_import.getPkTable(), _import.getPkColumn());
+            }
         }
     }
 
@@ -297,6 +311,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Map<String, Map<String, Map<String, String>>> getIgnoreExports(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.ignoreExports : Collections
+                .<String, Map<String, Map<String, String>>> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, Map<String, String>>> getIgnoreImports(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.ignoreImports : Collections
                 .<String, Map<String, Map<String, String>>> emptyMap();
     }
 

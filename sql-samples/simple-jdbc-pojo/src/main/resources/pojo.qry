@@ -6,10 +6,14 @@ pojogen rename columns CONTACT PHONE_NUMBER->HOME_PHONE;
 //pojogen ignore tables BOOK;
 //pojogen ignore columns CONTACT ADDRESS;
 pojogen ignore one-to-many PERSON ID->PERSON_LIBRARY->PERSON_ID;
+pojogen ignore one-to-many MEDIA ID->PERSON_LIBRARY->MEDIA_ID;
+pojogen ignore one-to-many LIBRARY ID->SUBSCRIBER->LIBRARY;
+pojogen ignore many-to-one CONTACT PERSON_ID->PERSON->ID;
+pojogen ignore many-to-one PERSON_LIBRARY MEDIA_ID->MEDIA->ID;
+pojogen ignore many-to-one PERSON_LIBRARY PERSON_ID->PERSON->ID;
 
 
 package org.sqlproc.sample.simple.model2 {
-
 
 }
 

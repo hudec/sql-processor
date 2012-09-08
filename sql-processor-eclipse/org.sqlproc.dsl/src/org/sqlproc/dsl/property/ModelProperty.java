@@ -30,4 +30,6 @@ public interface ModelProperty extends Adapter {
     Map<String, Set<String>> getIgnoreColumns(EObject model);
 
     Map<String, Map<String, Map<String, String>>> getIgnoreExports(EObject model);
+
+    Map<String, Map<String, Map<String, String>>> getIgnoreImports(EObject model);
 }
