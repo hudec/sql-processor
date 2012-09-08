@@ -100,14 +100,14 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createColumnAssignementAdapter();
       }
       @Override
-      public Adapter caseExportAssignement(ExportAssignement object)
-      {
-        return createExportAssignementAdapter();
-      }
-      @Override
       public Adapter caseImportAssignement(ImportAssignement object)
       {
         return createImportAssignementAdapter();
+      }
+      @Override
+      public Adapter caseExportAssignement(ExportAssignement object)
+      {
+        return createExportAssignementAdapter();
       }
       @Override
       public Adapter caseProperty(Property object)
@@ -412,21 +412,6 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ExportAssignement <em>Export Assignement</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.sqlproc.dsl.processorDsl.ExportAssignement
-   * @generated
-   */
-  public Adapter createExportAssignementAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ImportAssignement <em>Import Assignement</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -437,6 +422,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createImportAssignementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ExportAssignement <em>Export Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ExportAssignement
+   * @generated
+   */
+  public Adapter createExportAssignementAdapter()
   {
     return null;
   }

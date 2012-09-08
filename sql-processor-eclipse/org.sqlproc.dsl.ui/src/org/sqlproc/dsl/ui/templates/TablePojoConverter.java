@@ -39,6 +39,7 @@ public class TablePojoConverter {
     private Map<String, Map<String, String>> columnNames = new HashMap<String, Map<String, String>>();
     private Set<String> ignoreTables = new HashSet<String>();
     private Map<String, Set<String>> ignoreColumns = new HashMap<String, Set<String>>();
+    private Map<String, Map<String, Map<String, String>>> ignoreExports = new HashMap<String, Map<String, Map<String, String>>>();
 
     private Map<String, Map<String, PojoAttribute>> pojos = new HashMap<String, Map<String, PojoAttribute>>();
 
@@ -99,6 +100,15 @@ public class TablePojoConverter {
                 this.ignoreColumns.get(ignoreColumn.getKey()).addAll(ignoreColumn.getValue());
             }
         }
+        Map<String, Map<String, Map<String, String>>> ignoreExports = modelProperty.getIgnoreExports(artifacts);
+        if (ignoreExports != null) {
+            for (Map.Entry<String, Map<String, Map<String, String>>> ignoreExport : ignoreExports.entrySet()) {
+                String table = ignoreExport.getKey(); // tableToCamelCase(columnName.getKey());
+                if (!this.ignoreExports.containsKey(table))
+                    this.ignoreExports.put(table, new HashMap<String, Map<String, String>>());
+                this.ignoreExports.get(table).putAll(ignoreExport.getValue());
+            }
+        }
         System.out.println("sqlTypes " + this.sqlTypes);
         System.out.println("tableTypes " + this.tableTypes);
         System.out.println("columnTypes " + this.columnTypes);
@@ -106,6 +116,7 @@ public class TablePojoConverter {
         System.out.println("columnNames " + this.columnNames);
         System.out.println("ignoreTables " + this.ignoreTables);
         System.out.println("ignoreColumns " + this.ignoreColumns);
+        System.out.println("ignoreExports " + this.ignoreExports);
     }
 
     public void addTableTefinition(String table, List<DbColumn> dbColumns, List<DbExport> dbExports,
@@ -129,6 +140,9 @@ public class TablePojoConverter {
             attribute.setPkTable(dbImport.getPkTable());
         }
         for (DbExport dbExport : dbExports) {
+            if (ignoreExports.containsKey(table) && ignoreExports.get(table).containsKey(dbExport.getPkColumn())
+                    && ignoreExports.get(table).get(dbExport.getPkColumn()).containsKey(dbExport.getFkTable()))
+                continue;
             PojoAttribute attribute = attributes.get(dbExport.getPkColumn());
             attribute.getFkTables().add(dbExport.getFkTable());
         }

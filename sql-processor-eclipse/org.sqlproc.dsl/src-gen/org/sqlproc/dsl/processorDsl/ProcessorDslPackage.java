@@ -323,52 +323,6 @@ public interface ProcessorDslPackage extends EPackage
   int COLUMN_ASSIGNEMENT_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl <em>Export Assignement</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExportAssignement()
-   * @generated
-   */
-  int EXPORT_ASSIGNEMENT = 5;
-
-  /**
-   * The feature id for the '<em><b>Db Column</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPORT_ASSIGNEMENT__DB_COLUMN = 0;
-
-  /**
-   * The feature id for the '<em><b>Pk Table</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPORT_ASSIGNEMENT__PK_TABLE = 1;
-
-  /**
-   * The feature id for the '<em><b>Pk Column</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPORT_ASSIGNEMENT__PK_COLUMN = 2;
-
-  /**
-   * The number of structural features of the '<em>Export Assignement</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPORT_ASSIGNEMENT_FEATURE_COUNT = 3;
-
-  /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ImportAssignementImpl <em>Import Assignement</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -376,7 +330,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImportAssignement()
    * @generated
    */
-  int IMPORT_ASSIGNEMENT = 6;
+  int IMPORT_ASSIGNEMENT = 5;
 
   /**
    * The feature id for the '<em><b>Db Column</b></em>' attribute.
@@ -388,22 +342,22 @@ public interface ProcessorDslPackage extends EPackage
   int IMPORT_ASSIGNEMENT__DB_COLUMN = 0;
 
   /**
-   * The feature id for the '<em><b>Fk Table</b></em>' attribute.
+   * The feature id for the '<em><b>Pk Table</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int IMPORT_ASSIGNEMENT__FK_TABLE = 1;
+  int IMPORT_ASSIGNEMENT__PK_TABLE = 1;
 
   /**
-   * The feature id for the '<em><b>Fk Column</b></em>' attribute.
+   * The feature id for the '<em><b>Pk Column</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int IMPORT_ASSIGNEMENT__FK_COLUMN = 2;
+  int IMPORT_ASSIGNEMENT__PK_COLUMN = 2;
 
   /**
    * The number of structural features of the '<em>Import Assignement</em>' class.
@@ -413,6 +367,52 @@ public interface ProcessorDslPackage extends EPackage
    * @ordered
    */
   int IMPORT_ASSIGNEMENT_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl <em>Export Assignement</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExportAssignement()
+   * @generated
+   */
+  int EXPORT_ASSIGNEMENT = 6;
+
+  /**
+   * The feature id for the '<em><b>Db Column</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPORT_ASSIGNEMENT__DB_COLUMN = 0;
+
+  /**
+   * The feature id for the '<em><b>Fk Table</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPORT_ASSIGNEMENT__FK_TABLE = 1;
+
+  /**
+   * The feature id for the '<em><b>Fk Column</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPORT_ASSIGNEMENT__FK_COLUMN = 2;
+
+  /**
+   * The number of structural features of the '<em>Export Assignement</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPORT_ASSIGNEMENT_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl <em>Property</em>}' class.
@@ -2633,49 +2633,6 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getColumnAssignement_NewName();
 
   /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.ExportAssignement <em>Export Assignement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Export Assignement</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ExportAssignement
-   * @generated
-   */
-  EClass getExportAssignement();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.ExportAssignement#getDbColumn <em>Db Column</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Db Column</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ExportAssignement#getDbColumn()
-   * @see #getExportAssignement()
-   * @generated
-   */
-  EAttribute getExportAssignement_DbColumn();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.ExportAssignement#getPkTable <em>Pk Table</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Pk Table</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ExportAssignement#getPkTable()
-   * @see #getExportAssignement()
-   * @generated
-   */
-  EAttribute getExportAssignement_PkTable();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.ExportAssignement#getPkColumn <em>Pk Column</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Pk Column</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ExportAssignement#getPkColumn()
-   * @see #getExportAssignement()
-   * @generated
-   */
-  EAttribute getExportAssignement_PkColumn();
-
-  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.ImportAssignement <em>Import Assignement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2697,26 +2654,69 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getImportAssignement_DbColumn();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getFkTable <em>Fk Table</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getPkTable <em>Pk Table</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Pk Table</em>'.
+   * @see org.sqlproc.dsl.processorDsl.ImportAssignement#getPkTable()
+   * @see #getImportAssignement()
+   * @generated
+   */
+  EAttribute getImportAssignement_PkTable();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getPkColumn <em>Pk Column</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Pk Column</em>'.
+   * @see org.sqlproc.dsl.processorDsl.ImportAssignement#getPkColumn()
+   * @see #getImportAssignement()
+   * @generated
+   */
+  EAttribute getImportAssignement_PkColumn();
+
+  /**
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.ExportAssignement <em>Export Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Export Assignement</em>'.
+   * @see org.sqlproc.dsl.processorDsl.ExportAssignement
+   * @generated
+   */
+  EClass getExportAssignement();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.ExportAssignement#getDbColumn <em>Db Column</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Column</em>'.
+   * @see org.sqlproc.dsl.processorDsl.ExportAssignement#getDbColumn()
+   * @see #getExportAssignement()
+   * @generated
+   */
+  EAttribute getExportAssignement_DbColumn();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.ExportAssignement#getFkTable <em>Fk Table</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Fk Table</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ImportAssignement#getFkTable()
-   * @see #getImportAssignement()
+   * @see org.sqlproc.dsl.processorDsl.ExportAssignement#getFkTable()
+   * @see #getExportAssignement()
    * @generated
    */
-  EAttribute getImportAssignement_FkTable();
+  EAttribute getExportAssignement_FkTable();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getFkColumn <em>Fk Column</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.ExportAssignement#getFkColumn <em>Fk Column</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Fk Column</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ImportAssignement#getFkColumn()
-   * @see #getImportAssignement()
+   * @see org.sqlproc.dsl.processorDsl.ExportAssignement#getFkColumn()
+   * @see #getExportAssignement()
    * @generated
    */
-  EAttribute getImportAssignement_FkColumn();
+  EAttribute getExportAssignement_FkColumn();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.Property <em>Property</em>}'.
@@ -4707,40 +4707,6 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute COLUMN_ASSIGNEMENT__NEW_NAME = eINSTANCE.getColumnAssignement_NewName();
 
     /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl <em>Export Assignement</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExportAssignement()
-     * @generated
-     */
-    EClass EXPORT_ASSIGNEMENT = eINSTANCE.getExportAssignement();
-
-    /**
-     * The meta object literal for the '<em><b>Db Column</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXPORT_ASSIGNEMENT__DB_COLUMN = eINSTANCE.getExportAssignement_DbColumn();
-
-    /**
-     * The meta object literal for the '<em><b>Pk Table</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXPORT_ASSIGNEMENT__PK_TABLE = eINSTANCE.getExportAssignement_PkTable();
-
-    /**
-     * The meta object literal for the '<em><b>Pk Column</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXPORT_ASSIGNEMENT__PK_COLUMN = eINSTANCE.getExportAssignement_PkColumn();
-
-    /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ImportAssignementImpl <em>Import Assignement</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4759,12 +4725,46 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute IMPORT_ASSIGNEMENT__DB_COLUMN = eINSTANCE.getImportAssignement_DbColumn();
 
     /**
+     * The meta object literal for the '<em><b>Pk Table</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IMPORT_ASSIGNEMENT__PK_TABLE = eINSTANCE.getImportAssignement_PkTable();
+
+    /**
+     * The meta object literal for the '<em><b>Pk Column</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IMPORT_ASSIGNEMENT__PK_COLUMN = eINSTANCE.getImportAssignement_PkColumn();
+
+    /**
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl <em>Export Assignement</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExportAssignement()
+     * @generated
+     */
+    EClass EXPORT_ASSIGNEMENT = eINSTANCE.getExportAssignement();
+
+    /**
+     * The meta object literal for the '<em><b>Db Column</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EXPORT_ASSIGNEMENT__DB_COLUMN = eINSTANCE.getExportAssignement_DbColumn();
+
+    /**
      * The meta object literal for the '<em><b>Fk Table</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute IMPORT_ASSIGNEMENT__FK_TABLE = eINSTANCE.getImportAssignement_FkTable();
+    EAttribute EXPORT_ASSIGNEMENT__FK_TABLE = eINSTANCE.getExportAssignement_FkTable();
 
     /**
      * The meta object literal for the '<em><b>Fk Column</b></em>' attribute feature.
@@ -4772,7 +4772,7 @@ public interface ProcessorDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute IMPORT_ASSIGNEMENT__FK_COLUMN = eINSTANCE.getImportAssignement_FkColumn();
+    EAttribute EXPORT_ASSIGNEMENT__FK_COLUMN = eINSTANCE.getExportAssignement_FkColumn();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl <em>Property</em>}' class.

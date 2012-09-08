@@ -15,6 +15,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.util.Utils;
 
@@ -39,10 +40,10 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_IGNORE_COLUMNS = "pojogen ignore columns";
     public static final String POJOGEN_RENAME_TABLES = "pojogen rename tables";
     public static final String POJOGEN_RENAME_COLUMNS = "pojogen rename columns";
-    public static final String POJOGEN_IGNORE_IMPORTS = "pojogen ignore one-to-many";
-    public static final String POJOGEN_IGNORE_EXPORTS = "pojogen ignore many-to-one";
-    public static final String POJOGEN_CREATE_IMPORTS = "pojogen create one-to-many";
-    public static final String POJOGEN_CREATE_EXPORTS = "pojogen create many-to-one";
+    public static final String POJOGEN_IGNORE_EXPORTS = "pojogen ignore one-to-many";
+    public static final String POJOGEN_IGNORE_IMPORTS = "pojogen ignore many-to-one";
+    public static final String POJOGEN_CREATE_EXPORTS = "pojogen create one-to-many";
+    public static final String POJOGEN_CREATE_IMPORTS = "pojogen create many-to-one";
     public static final String POJOGEN_MANY_TO_MANY_TABLES = "pojogen many-to-many tables";
 
     public static class ModelValues {
@@ -61,6 +62,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Map<String, String>> columnNames;
         public Set<String> ignoreTables;
         public Map<String, Set<String>> ignoreColumns;
+        public Map<String, Map<String, Map<String, String>>> ignoreExports;
 
         @Override
         public String toString() {
@@ -68,7 +70,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername + ", dbPassword=" + dbPassword
                     + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + ", tableTypes="
                     + tableTypes + ", columnTypes=" + columnTypes + ", tableNames=" + tableNames + ", columnNames="
-                    + columnNames + ", ignoreTables=" + ignoreTables + ", ignoreColumns=" + ignoreColumns + "]";
+                    + columnNames + ", ignoreTables=" + ignoreTables + ", ignoreColumns=" + ignoreColumns
+                    + ", ignoreExports=" + ignoreExports + "]";
         }
     }
 
@@ -219,6 +222,18 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             for (int i = 0, m = property.getDbColumns().size(); i < m; i++) {
                 modelValues.ignoreColumns.get(property.getDbTable()).add(property.getDbColumns().get(i));
             }
+        } else if (POJOGEN_IGNORE_EXPORTS.equals(property.getName())) {
+            if (modelValues.ignoreExports == null)
+                modelValues.ignoreExports = new HashMap<String, Map<String, Map<String, String>>>();
+            if (!modelValues.ignoreExports.containsKey(property.getDbTable()))
+                modelValues.ignoreExports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
+            Map<String, Map<String, String>> exports = modelValues.ignoreExports.get(property.getDbTable());
+            for (int i = 0, m = property.getExports().size(); i < m; i++) {
+                ExportAssignement export = property.getExports().get(i);
+                if (!exports.containsKey(export.getDbColumn()))
+                    exports.put(export.getDbColumn(), new HashMap<String, String>());
+                exports.get(export.getDbColumn()).put(export.getFkTable(), export.getFkColumn());
+            }
         }
     }
 
@@ -276,6 +291,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Map<String, Set<String>> getIgnoreColumns(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.ignoreColumns : Collections.<String, Set<String>> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, Map<String, String>>> getIgnoreExports(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.ignoreExports : Collections
+                .<String, Map<String, Map<String, String>>> emptyMap();
     }
 
     @Override

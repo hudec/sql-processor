@@ -5,6 +5,7 @@ pojogen type for columns CONTACT PHONE_NUMBER->::PhoneNumber;
 pojogen rename columns CONTACT PHONE_NUMBER->HOME_PHONE;
 //pojogen ignore tables BOOK;
 //pojogen ignore columns CONTACT ADDRESS;
+pojogen ignore one-to-many PERSON ID->PERSON_LIBRARY->PERSON_ID;
 
 
 package org.sqlproc.sample.simple.model2 {

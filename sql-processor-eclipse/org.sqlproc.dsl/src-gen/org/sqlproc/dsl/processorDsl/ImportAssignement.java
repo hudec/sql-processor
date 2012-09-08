@@ -13,8 +13,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getDbColumn <em>Db Column</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getFkTable <em>Fk Table</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getFkColumn <em>Fk Column</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getPkTable <em>Pk Table</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getPkColumn <em>Pk Column</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,55 +51,55 @@ public interface ImportAssignement extends EObject
   void setDbColumn(String value);
 
   /**
-   * Returns the value of the '<em><b>Fk Table</b></em>' attribute.
+   * Returns the value of the '<em><b>Pk Table</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Fk Table</em>' attribute isn't clear,
+   * If the meaning of the '<em>Pk Table</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Fk Table</em>' attribute.
-   * @see #setFkTable(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getImportAssignement_FkTable()
+   * @return the value of the '<em>Pk Table</em>' attribute.
+   * @see #setPkTable(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getImportAssignement_PkTable()
    * @model
    * @generated
    */
-  String getFkTable();
+  String getPkTable();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getFkTable <em>Fk Table</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getPkTable <em>Pk Table</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Fk Table</em>' attribute.
-   * @see #getFkTable()
+   * @param value the new value of the '<em>Pk Table</em>' attribute.
+   * @see #getPkTable()
    * @generated
    */
-  void setFkTable(String value);
+  void setPkTable(String value);
 
   /**
-   * Returns the value of the '<em><b>Fk Column</b></em>' attribute.
+   * Returns the value of the '<em><b>Pk Column</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Fk Column</em>' attribute isn't clear,
+   * If the meaning of the '<em>Pk Column</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Fk Column</em>' attribute.
-   * @see #setFkColumn(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getImportAssignement_FkColumn()
+   * @return the value of the '<em>Pk Column</em>' attribute.
+   * @see #setPkColumn(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getImportAssignement_PkColumn()
    * @model
    * @generated
    */
-  String getFkColumn();
+  String getPkColumn();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getFkColumn <em>Fk Column</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.ImportAssignement#getPkColumn <em>Pk Column</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Fk Column</em>' attribute.
-   * @see #getFkColumn()
+   * @param value the new value of the '<em>Pk Column</em>' attribute.
+   * @see #getPkColumn()
    * @generated
    */
-  void setFkColumn(String value);
+  void setPkColumn(String value);
 
 } // ImportAssignement

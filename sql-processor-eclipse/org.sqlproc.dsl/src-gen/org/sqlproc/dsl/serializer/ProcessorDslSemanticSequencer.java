@@ -526,22 +526,22 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (dbColumn=IDENT pkTable=IDENT pkColumn=IDENT)
+	 *     (dbColumn=IDENT fkTable=IDENT fkColumn=IDENT)
 	 */
 	protected void sequence_ExportAssignement(EObject context, ExportAssignement semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__DB_COLUMN) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__DB_COLUMN));
-			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__PK_TABLE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__PK_TABLE));
-			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__PK_COLUMN) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__PK_COLUMN));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__FK_TABLE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__FK_TABLE));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__FK_COLUMN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.EXPORT_ASSIGNEMENT__FK_COLUMN));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getExportAssignementAccess().getDbColumnIDENTTerminalRuleCall_0_0(), semanticObject.getDbColumn());
-		feeder.accept(grammarAccess.getExportAssignementAccess().getPkTableIDENTTerminalRuleCall_2_0(), semanticObject.getPkTable());
-		feeder.accept(grammarAccess.getExportAssignementAccess().getPkColumnIDENTTerminalRuleCall_4_0(), semanticObject.getPkColumn());
+		feeder.accept(grammarAccess.getExportAssignementAccess().getFkTableIDENTTerminalRuleCall_2_0(), semanticObject.getFkTable());
+		feeder.accept(grammarAccess.getExportAssignementAccess().getFkColumnIDENTTerminalRuleCall_4_0(), semanticObject.getFkColumn());
 		feeder.finish();
 	}
 	
@@ -658,22 +658,22 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (dbColumn=IDENT fkTable=IDENT fkColumn=IDENT)
+	 *     (dbColumn=IDENT pkTable=IDENT pkColumn=IDENT)
 	 */
 	protected void sequence_ImportAssignement(EObject context, ImportAssignement semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__DB_COLUMN) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__DB_COLUMN));
-			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__FK_TABLE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__FK_TABLE));
-			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__FK_COLUMN) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__FK_COLUMN));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__PK_TABLE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__PK_TABLE));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__PK_COLUMN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.IMPORT_ASSIGNEMENT__PK_COLUMN));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getImportAssignementAccess().getDbColumnIDENTTerminalRuleCall_0_0(), semanticObject.getDbColumn());
-		feeder.accept(grammarAccess.getImportAssignementAccess().getFkTableIDENTTerminalRuleCall_2_0(), semanticObject.getFkTable());
-		feeder.accept(grammarAccess.getImportAssignementAccess().getFkColumnIDENTTerminalRuleCall_4_0(), semanticObject.getFkColumn());
+		feeder.accept(grammarAccess.getImportAssignementAccess().getPkTableIDENTTerminalRuleCall_2_0(), semanticObject.getPkTable());
+		feeder.accept(grammarAccess.getImportAssignementAccess().getPkColumnIDENTTerminalRuleCall_4_0(), semanticObject.getPkColumn());
 		feeder.finish();
 	}
 	

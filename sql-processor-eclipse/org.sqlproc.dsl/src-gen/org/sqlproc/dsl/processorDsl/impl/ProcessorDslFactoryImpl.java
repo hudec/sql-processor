@@ -69,8 +69,8 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.COLUMN_TYPE_ASSIGNEMENT: return createColumnTypeAssignement();
       case ProcessorDslPackage.TABLE_ASSIGNEMENT: return createTableAssignement();
       case ProcessorDslPackage.COLUMN_ASSIGNEMENT: return createColumnAssignement();
-      case ProcessorDslPackage.EXPORT_ASSIGNEMENT: return createExportAssignement();
       case ProcessorDslPackage.IMPORT_ASSIGNEMENT: return createImportAssignement();
+      case ProcessorDslPackage.EXPORT_ASSIGNEMENT: return createExportAssignement();
       case ProcessorDslPackage.PROPERTY: return createProperty();
       case ProcessorDslPackage.POJO_DEFINITION: return createPojoDefinition();
       case ProcessorDslPackage.POJO_USAGE: return createPojoUsage();
@@ -177,10 +177,10 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public ExportAssignement createExportAssignement()
+  public ImportAssignement createImportAssignement()
   {
-    ExportAssignementImpl exportAssignement = new ExportAssignementImpl();
-    return exportAssignement;
+    ImportAssignementImpl importAssignement = new ImportAssignementImpl();
+    return importAssignement;
   }
 
   /**
@@ -188,10 +188,10 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public ImportAssignement createImportAssignement()
+  public ExportAssignement createExportAssignement()
   {
-    ImportAssignementImpl importAssignement = new ImportAssignementImpl();
-    return importAssignement;
+    ExportAssignementImpl exportAssignement = new ExportAssignementImpl();
+    return exportAssignement;
   }
 
   /**

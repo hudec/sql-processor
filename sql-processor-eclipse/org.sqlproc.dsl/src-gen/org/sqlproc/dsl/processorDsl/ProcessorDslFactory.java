@@ -68,15 +68,6 @@ public interface ProcessorDslFactory extends EFactory
   ColumnAssignement createColumnAssignement();
 
   /**
-   * Returns a new object of class '<em>Export Assignement</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Export Assignement</em>'.
-   * @generated
-   */
-  ExportAssignement createExportAssignement();
-
-  /**
    * Returns a new object of class '<em>Import Assignement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -84,6 +75,15 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   ImportAssignement createImportAssignement();
+
+  /**
+   * Returns a new object of class '<em>Export Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Export Assignement</em>'.
+   * @generated
+   */
+  ExportAssignement createExportAssignement();
 
   /**
    * Returns a new object of class '<em>Property</em>'.

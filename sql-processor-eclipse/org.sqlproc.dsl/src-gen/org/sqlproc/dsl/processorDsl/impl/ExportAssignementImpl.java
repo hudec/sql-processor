@@ -20,8 +20,8 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl#getDbColumn <em>Db Column</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl#getPkTable <em>Pk Table</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl#getPkColumn <em>Pk Column</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl#getFkTable <em>Fk Table</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ExportAssignementImpl#getFkColumn <em>Fk Column</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,44 +50,44 @@ public class ExportAssignementImpl extends MinimalEObjectImpl.Container implemen
   protected String dbColumn = DB_COLUMN_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getPkTable() <em>Pk Table</em>}' attribute.
+   * The default value of the '{@link #getFkTable() <em>Fk Table</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPkTable()
+   * @see #getFkTable()
    * @generated
    * @ordered
    */
-  protected static final String PK_TABLE_EDEFAULT = null;
+  protected static final String FK_TABLE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getPkTable() <em>Pk Table</em>}' attribute.
+   * The cached value of the '{@link #getFkTable() <em>Fk Table</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPkTable()
+   * @see #getFkTable()
    * @generated
    * @ordered
    */
-  protected String pkTable = PK_TABLE_EDEFAULT;
+  protected String fkTable = FK_TABLE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getPkColumn() <em>Pk Column</em>}' attribute.
+   * The default value of the '{@link #getFkColumn() <em>Fk Column</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPkColumn()
+   * @see #getFkColumn()
    * @generated
    * @ordered
    */
-  protected static final String PK_COLUMN_EDEFAULT = null;
+  protected static final String FK_COLUMN_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getPkColumn() <em>Pk Column</em>}' attribute.
+   * The cached value of the '{@link #getFkColumn() <em>Fk Column</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPkColumn()
+   * @see #getFkColumn()
    * @generated
    * @ordered
    */
-  protected String pkColumn = PK_COLUMN_EDEFAULT;
+  protected String fkColumn = FK_COLUMN_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -138,9 +138,9 @@ public class ExportAssignementImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getPkTable()
+  public String getFkTable()
   {
-    return pkTable;
+    return fkTable;
   }
 
   /**
@@ -148,12 +148,12 @@ public class ExportAssignementImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPkTable(String newPkTable)
+  public void setFkTable(String newFkTable)
   {
-    String oldPkTable = pkTable;
-    pkTable = newPkTable;
+    String oldFkTable = fkTable;
+    fkTable = newFkTable;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.EXPORT_ASSIGNEMENT__PK_TABLE, oldPkTable, pkTable));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.EXPORT_ASSIGNEMENT__FK_TABLE, oldFkTable, fkTable));
   }
 
   /**
@@ -161,9 +161,9 @@ public class ExportAssignementImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getPkColumn()
+  public String getFkColumn()
   {
-    return pkColumn;
+    return fkColumn;
   }
 
   /**
@@ -171,12 +171,12 @@ public class ExportAssignementImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPkColumn(String newPkColumn)
+  public void setFkColumn(String newFkColumn)
   {
-    String oldPkColumn = pkColumn;
-    pkColumn = newPkColumn;
+    String oldFkColumn = fkColumn;
+    fkColumn = newFkColumn;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.EXPORT_ASSIGNEMENT__PK_COLUMN, oldPkColumn, pkColumn));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.EXPORT_ASSIGNEMENT__FK_COLUMN, oldFkColumn, fkColumn));
   }
 
   /**
@@ -191,10 +191,10 @@ public class ExportAssignementImpl extends MinimalEObjectImpl.Container implemen
     {
       case ProcessorDslPackage.EXPORT_ASSIGNEMENT__DB_COLUMN:
         return getDbColumn();
-      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__PK_TABLE:
-        return getPkTable();
-      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__PK_COLUMN:
-        return getPkColumn();
+      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__FK_TABLE:
+        return getFkTable();
+      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__FK_COLUMN:
+        return getFkColumn();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -212,11 +212,11 @@ public class ExportAssignementImpl extends MinimalEObjectImpl.Container implemen
       case ProcessorDslPackage.EXPORT_ASSIGNEMENT__DB_COLUMN:
         setDbColumn((String)newValue);
         return;
-      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__PK_TABLE:
-        setPkTable((String)newValue);
+      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__FK_TABLE:
+        setFkTable((String)newValue);
         return;
-      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__PK_COLUMN:
-        setPkColumn((String)newValue);
+      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__FK_COLUMN:
+        setFkColumn((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -235,11 +235,11 @@ public class ExportAssignementImpl extends MinimalEObjectImpl.Container implemen
       case ProcessorDslPackage.EXPORT_ASSIGNEMENT__DB_COLUMN:
         setDbColumn(DB_COLUMN_EDEFAULT);
         return;
-      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__PK_TABLE:
-        setPkTable(PK_TABLE_EDEFAULT);
+      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__FK_TABLE:
+        setFkTable(FK_TABLE_EDEFAULT);
         return;
-      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__PK_COLUMN:
-        setPkColumn(PK_COLUMN_EDEFAULT);
+      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__FK_COLUMN:
+        setFkColumn(FK_COLUMN_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -257,10 +257,10 @@ public class ExportAssignementImpl extends MinimalEObjectImpl.Container implemen
     {
       case ProcessorDslPackage.EXPORT_ASSIGNEMENT__DB_COLUMN:
         return DB_COLUMN_EDEFAULT == null ? dbColumn != null : !DB_COLUMN_EDEFAULT.equals(dbColumn);
-      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__PK_TABLE:
-        return PK_TABLE_EDEFAULT == null ? pkTable != null : !PK_TABLE_EDEFAULT.equals(pkTable);
-      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__PK_COLUMN:
-        return PK_COLUMN_EDEFAULT == null ? pkColumn != null : !PK_COLUMN_EDEFAULT.equals(pkColumn);
+      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__FK_TABLE:
+        return FK_TABLE_EDEFAULT == null ? fkTable != null : !FK_TABLE_EDEFAULT.equals(fkTable);
+      case ProcessorDslPackage.EXPORT_ASSIGNEMENT__FK_COLUMN:
+        return FK_COLUMN_EDEFAULT == null ? fkColumn != null : !FK_COLUMN_EDEFAULT.equals(fkColumn);
     }
     return super.eIsSet(featureID);
   }
@@ -278,10 +278,10 @@ public class ExportAssignementImpl extends MinimalEObjectImpl.Container implemen
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (dbColumn: ");
     result.append(dbColumn);
-    result.append(", pkTable: ");
-    result.append(pkTable);
-    result.append(", pkColumn: ");
-    result.append(pkColumn);
+    result.append(", fkTable: ");
+    result.append(fkTable);
+    result.append(", fkColumn: ");
+    result.append(fkColumn);
     result.append(')');
     return result.toString();
   }

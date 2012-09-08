@@ -587,89 +587,6 @@ ruleColumnAssignement returns [EObject current=null]
 
 
 
-// Entry rule entryRuleExportAssignement
-entryRuleExportAssignement returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getExportAssignementRule()); }
-	 iv_ruleExportAssignement=ruleExportAssignement 
-	 { $current=$iv_ruleExportAssignement.current; } 
-	 EOF 
-;
-
-// Rule ExportAssignement
-ruleExportAssignement returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-(
-		lv_dbColumn_0_0=RULE_IDENT
-		{
-			newLeafNode(lv_dbColumn_0_0, grammarAccess.getExportAssignementAccess().getDbColumnIDENTTerminalRuleCall_0_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getExportAssignementRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"dbColumn",
-        		lv_dbColumn_0_0, 
-        		"IDENT");
-	    }
-
-)
-)	otherlv_1='->' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getExportAssignementAccess().getHyphenMinusGreaterThanSignKeyword_1());
-    }
-(
-(
-		lv_pkTable_2_0=RULE_IDENT
-		{
-			newLeafNode(lv_pkTable_2_0, grammarAccess.getExportAssignementAccess().getPkTableIDENTTerminalRuleCall_2_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getExportAssignementRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"pkTable",
-        		lv_pkTable_2_0, 
-        		"IDENT");
-	    }
-
-)
-)	otherlv_3='->' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getExportAssignementAccess().getHyphenMinusGreaterThanSignKeyword_3());
-    }
-(
-(
-		lv_pkColumn_4_0=RULE_IDENT
-		{
-			newLeafNode(lv_pkColumn_4_0, grammarAccess.getExportAssignementAccess().getPkColumnIDENTTerminalRuleCall_4_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getExportAssignementRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"pkColumn",
-        		lv_pkColumn_4_0, 
-        		"IDENT");
-	    }
-
-)
-))
-;
-
-
-
-
-
 // Entry rule entryRuleImportAssignement
 entryRuleImportAssignement returns [EObject current=null] 
 	:
@@ -708,13 +625,96 @@ ruleImportAssignement returns [EObject current=null]
     }
 (
 (
-		lv_fkTable_2_0=RULE_IDENT
+		lv_pkTable_2_0=RULE_IDENT
 		{
-			newLeafNode(lv_fkTable_2_0, grammarAccess.getImportAssignementAccess().getFkTableIDENTTerminalRuleCall_2_0()); 
+			newLeafNode(lv_pkTable_2_0, grammarAccess.getImportAssignementAccess().getPkTableIDENTTerminalRuleCall_2_0()); 
 		}
 		{
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getImportAssignementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"pkTable",
+        		lv_pkTable_2_0, 
+        		"IDENT");
+	    }
+
+)
+)	otherlv_3='->' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getImportAssignementAccess().getHyphenMinusGreaterThanSignKeyword_3());
+    }
+(
+(
+		lv_pkColumn_4_0=RULE_IDENT
+		{
+			newLeafNode(lv_pkColumn_4_0, grammarAccess.getImportAssignementAccess().getPkColumnIDENTTerminalRuleCall_4_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getImportAssignementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"pkColumn",
+        		lv_pkColumn_4_0, 
+        		"IDENT");
+	    }
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleExportAssignement
+entryRuleExportAssignement returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getExportAssignementRule()); }
+	 iv_ruleExportAssignement=ruleExportAssignement 
+	 { $current=$iv_ruleExportAssignement.current; } 
+	 EOF 
+;
+
+// Rule ExportAssignement
+ruleExportAssignement returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_dbColumn_0_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbColumn_0_0, grammarAccess.getExportAssignementAccess().getDbColumnIDENTTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getExportAssignementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbColumn",
+        		lv_dbColumn_0_0, 
+        		"IDENT");
+	    }
+
+)
+)	otherlv_1='->' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getExportAssignementAccess().getHyphenMinusGreaterThanSignKeyword_1());
+    }
+(
+(
+		lv_fkTable_2_0=RULE_IDENT
+		{
+			newLeafNode(lv_fkTable_2_0, grammarAccess.getExportAssignementAccess().getFkTableIDENTTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getExportAssignementRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -726,17 +726,17 @@ ruleImportAssignement returns [EObject current=null]
 )
 )	otherlv_3='->' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getImportAssignementAccess().getHyphenMinusGreaterThanSignKeyword_3());
+    	newLeafNode(otherlv_3, grammarAccess.getExportAssignementAccess().getHyphenMinusGreaterThanSignKeyword_3());
     }
 (
 (
 		lv_fkColumn_4_0=RULE_IDENT
 		{
-			newLeafNode(lv_fkColumn_4_0, grammarAccess.getImportAssignementAccess().getFkColumnIDENTTerminalRuleCall_4_0()); 
+			newLeafNode(lv_fkColumn_4_0, grammarAccess.getExportAssignementAccess().getFkColumnIDENTTerminalRuleCall_4_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getImportAssignementRule());
+	            $current = createModelElement(grammarAccess.getExportAssignementRule());
 	        }
        		setWithLastConsumed(
        			$current, 
