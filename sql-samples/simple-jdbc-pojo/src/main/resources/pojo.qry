@@ -11,6 +11,7 @@ pojogen ignore one-to-many LIBRARY ID->SUBSCRIBER->LIBRARY;
 pojogen ignore many-to-one CONTACT PERSON_ID->PERSON->ID;
 pojogen ignore many-to-one PERSON_LIBRARY MEDIA_ID->MEDIA->ID;
 pojogen ignore many-to-one PERSON_LIBRARY PERSON_ID->PERSON->ID;
+pojogen create many-to-one SUBSCRIBER CONTACT->CONTACT->ID;
 
 
 package org.sqlproc.sample.simple.model2 {

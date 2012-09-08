@@ -32,4 +32,8 @@ public interface ModelProperty extends Adapter {
     Map<String, Map<String, Map<String, String>>> getIgnoreExports(EObject model);
 
     Map<String, Map<String, Map<String, String>>> getIgnoreImports(EObject model);
+
+    Map<String, Map<String, Map<String, String>>> getCreateExports(EObject model);
+
+    Map<String, Map<String, Map<String, String>>> getCreateImports(EObject model);
 }

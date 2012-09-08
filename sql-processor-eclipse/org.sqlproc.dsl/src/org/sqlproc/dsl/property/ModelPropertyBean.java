@@ -65,6 +65,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Set<String>> ignoreColumns;
         public Map<String, Map<String, Map<String, String>>> ignoreExports;
         public Map<String, Map<String, Map<String, String>>> ignoreImports;
+        public Map<String, Map<String, Map<String, String>>> createExports;
+        public Map<String, Map<String, Map<String, String>>> createImports;
 
         @Override
         public String toString() {
@@ -73,7 +75,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + ", tableTypes="
                     + tableTypes + ", columnTypes=" + columnTypes + ", tableNames=" + tableNames + ", columnNames="
                     + columnNames + ", ignoreTables=" + ignoreTables + ", ignoreColumns=" + ignoreColumns
-                    + ", ignoreExports=" + ignoreExports + ", ignoreImports=" + ignoreImports + "]";
+                    + ", ignoreExports=" + ignoreExports + ", ignoreImports=" + ignoreImports + ", createExports="
+                    + createExports + ", createImports=" + createImports + "]";
         }
     }
 
@@ -248,6 +251,30 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     imports.put(_import.getDbColumn(), new HashMap<String, String>());
                 imports.get(_import.getDbColumn()).put(_import.getPkTable(), _import.getPkColumn());
             }
+        } else if (POJOGEN_CREATE_EXPORTS.equals(property.getName())) {
+            if (modelValues.createExports == null)
+                modelValues.createExports = new HashMap<String, Map<String, Map<String, String>>>();
+            if (!modelValues.createExports.containsKey(property.getDbTable()))
+                modelValues.createExports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
+            Map<String, Map<String, String>> exports = modelValues.createExports.get(property.getDbTable());
+            for (int i = 0, m = property.getExports().size(); i < m; i++) {
+                ExportAssignement export = property.getExports().get(i);
+                if (!exports.containsKey(export.getDbColumn()))
+                    exports.put(export.getDbColumn(), new HashMap<String, String>());
+                exports.get(export.getDbColumn()).put(export.getFkTable(), export.getFkColumn());
+            }
+        } else if (POJOGEN_CREATE_IMPORTS.equals(property.getName())) {
+            if (modelValues.createImports == null)
+                modelValues.createImports = new HashMap<String, Map<String, Map<String, String>>>();
+            if (!modelValues.createImports.containsKey(property.getDbTable()))
+                modelValues.createImports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
+            Map<String, Map<String, String>> imports = modelValues.createImports.get(property.getDbTable());
+            for (int i = 0, m = property.getImports().size(); i < m; i++) {
+                ImportAssignement _import = property.getImports().get(i);
+                if (!imports.containsKey(_import.getDbColumn()))
+                    imports.put(_import.getDbColumn(), new HashMap<String, String>());
+                imports.get(_import.getDbColumn()).put(_import.getPkTable(), _import.getPkColumn());
+            }
         }
     }
 
@@ -318,6 +345,20 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Map<String, Map<String, Map<String, String>>> getIgnoreImports(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.ignoreImports : Collections
+                .<String, Map<String, Map<String, String>>> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, Map<String, String>>> getCreateExports(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.createExports : Collections
+                .<String, Map<String, Map<String, String>>> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, Map<String, String>>> getCreateImports(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.createImports : Collections
                 .<String, Map<String, Map<String, String>>> emptyMap();
     }
 
