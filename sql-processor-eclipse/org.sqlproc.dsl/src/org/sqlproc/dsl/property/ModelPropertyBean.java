@@ -2,7 +2,9 @@ package org.sqlproc.dsl.property;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
@@ -55,14 +57,18 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, PojoAttrType> sqlTypes;
         public Map<String, Map<String, PojoAttrType>> tableTypes;
         public Map<String, Map<String, PojoAttrType>> columnTypes;
+        public Map<String, String> tableNames;
         public Map<String, Map<String, String>> columnNames;
+        public Set<String> ignoreTables;
+        public Map<String, Set<String>> ignoreColumns;
 
         @Override
         public String toString() {
             return "ModelValues [doResolvePojo=" + doResolvePojo + ", doResolveDb=" + doResolveDb + ", dbDriver="
                     + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername + ", dbPassword=" + dbPassword
                     + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + ", tableTypes="
-                    + tableTypes + ", columnTypes=" + columnTypes + "]";
+                    + tableTypes + ", columnTypes=" + columnTypes + ", tableNames=" + tableNames + ", columnNames="
+                    + columnNames + ", ignoreTables=" + ignoreTables + ", ignoreColumns=" + ignoreColumns + "]";
         }
     }
 
@@ -183,6 +189,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                         .getColumnTypes().get(i).getType());
                 modelValues.columnTypes.get(property.getDbTable()).put(type.getName(), type);
             }
+        } else if (POJOGEN_RENAME_TABLES.equals(property.getName())) {
+            if (modelValues.tableNames == null)
+                modelValues.tableNames = new HashMap<String, String>();
+            for (int i = 0, m = property.getTables().size(); i < m; i++) {
+                modelValues.tableNames.put(property.getTables().get(i).getDbTable(), property.getTables().get(i)
+                        .getNewName());
+            }
         } else if (POJOGEN_RENAME_COLUMNS.equals(property.getName())) {
             if (modelValues.columnNames == null)
                 modelValues.columnNames = new HashMap<String, Map<String, String>>();
@@ -191,6 +204,20 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             for (int i = 0, m = property.getColumns().size(); i < m; i++) {
                 modelValues.columnNames.get(property.getDbTable()).put(property.getColumns().get(i).getDbColumn(),
                         property.getColumns().get(i).getNewName());
+            }
+        } else if (POJOGEN_IGNORE_TABLES.equals(property.getName())) {
+            if (modelValues.ignoreTables == null)
+                modelValues.ignoreTables = new HashSet<String>();
+            for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
+                modelValues.ignoreTables.add(property.getDbTables().get(i));
+            }
+        } else if (POJOGEN_IGNORE_COLUMNS.equals(property.getName())) {
+            if (modelValues.ignoreColumns == null)
+                modelValues.ignoreColumns = new HashMap<String, Set<String>>();
+            if (!modelValues.ignoreColumns.containsKey(property.getDbTable()))
+                modelValues.ignoreColumns.put(property.getDbTable(), new HashSet<String>());
+            for (int i = 0, m = property.getDbColumns().size(); i < m; i++) {
+                modelValues.ignoreColumns.get(property.getDbTable()).add(property.getDbColumns().get(i));
             }
         }
     }
@@ -228,9 +255,27 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
+    public Map<String, String> getTableNames(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.tableNames : Collections.<String, String> emptyMap();
+    }
+
+    @Override
     public Map<String, Map<String, String>> getColumnNames(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.columnNames : Collections.<String, Map<String, String>> emptyMap();
+    }
+
+    @Override
+    public Set<String> getIgnoreTables(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.ignoreTables : Collections.<String> emptySet();
+    }
+
+    @Override
+    public Map<String, Set<String>> getIgnoreColumns(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.ignoreColumns : Collections.<String, Set<String>> emptyMap();
     }
 
     @Override

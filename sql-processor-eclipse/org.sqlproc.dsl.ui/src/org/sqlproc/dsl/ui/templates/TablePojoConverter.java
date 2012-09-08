@@ -4,9 +4,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Types;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.property.ModelProperty;
@@ -33,7 +35,10 @@ public class TablePojoConverter {
     private Map<String, PojoAttrType> sqlTypes = new HashMap<String, PojoAttrType>();
     private Map<String, Map<String, PojoAttrType>> tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
     private Map<String, Map<String, PojoAttrType>> columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
+    private Map<String, String> tableNames = new HashMap<String, String>();
     private Map<String, Map<String, String>> columnNames = new HashMap<String, Map<String, String>>();
+    private Set<String> ignoreTables = new HashSet<String>();
+    private Map<String, Set<String>> ignoreColumns = new HashMap<String, Set<String>>();
 
     private Map<String, Map<String, PojoAttribute>> pojos = new HashMap<String, Map<String, PojoAttribute>>();
 
@@ -70,6 +75,10 @@ public class TablePojoConverter {
                 }
             }
         }
+        Map<String, String> tableNames = modelProperty.getTableNames(artifacts);
+        if (tableNames != null) {
+            this.tableNames.putAll(tableNames);
+        }
         Map<String, Map<String, String>> columnNames = modelProperty.getColumnNames(artifacts);
         if (columnNames != null) {
             for (Map.Entry<String, Map<String, String>> columnName : columnNames.entrySet()) {
@@ -79,10 +88,24 @@ public class TablePojoConverter {
                 this.columnNames.get(table).putAll(columnName.getValue());
             }
         }
-        // System.out.println("000 " + this.sqlTypes);
-        // System.out.println("111 " + this.tableTypes);
-        // System.out.println("222 " + this.columnTypes);
-        // System.out.println("333 " + this.columnNames);
+        Set<String> ignoreTables = modelProperty.getIgnoreTables(artifacts);
+        if (ignoreTables != null) {
+            this.ignoreTables.addAll(ignoreTables);
+        }
+        Map<String, Set<String>> ignoreColumns = modelProperty.getIgnoreColumns(artifacts);
+        if (ignoreColumns != null) {
+            for (Map.Entry<String, Set<String>> ignoreColumn : ignoreColumns.entrySet()) {
+                this.ignoreColumns.put(ignoreColumn.getKey(), new HashSet<String>());
+                this.ignoreColumns.get(ignoreColumn.getKey()).addAll(ignoreColumn.getValue());
+            }
+        }
+        System.out.println("sqlTypes " + this.sqlTypes);
+        System.out.println("tableTypes " + this.tableTypes);
+        System.out.println("columnTypes " + this.columnTypes);
+        System.out.println("tableNames " + this.tableNames);
+        System.out.println("columnNames " + this.columnNames);
+        System.out.println("ignoreTables " + this.ignoreTables);
+        System.out.println("ignoreColumns " + this.ignoreColumns);
     }
 
     public void addTableTefinition(String table, List<DbColumn> dbColumns, List<DbExport> dbExports,
