@@ -55,8 +55,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, PojoAttrType> sqlTypes;
         public Map<String, Map<String, PojoAttrType>> tableTypes;
         public Map<String, Map<String, PojoAttrType>> columnTypes;
-
-        // public Map<String, Map<String, String>> columnNames;
+        public Map<String, Map<String, String>> columnNames;
 
         @Override
         public String toString() {
@@ -184,12 +183,15 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                         .getColumnTypes().get(i).getType());
                 modelValues.columnTypes.get(property.getDbTable()).put(type.getName(), type);
             }
-            // } else if (DATABASE_POJO_COLUMN.equals(property.getName())) {
-            // if (modelValues.columnNames == null)
-            // modelValues.columnNames = new HashMap<String, Map<String, String>>();
-            // if (!modelValues.columnNames.containsKey(property.getDbTable()))
-            // modelValues.columnNames.put(property.getDbTable(), new HashMap<String, String>());
-            // modelValues.columnNames.get(property.getDbTable()).put(property.getDbColumn(), property.getDbName());
+        } else if (POJOGEN_RENAME_COLUMNS.equals(property.getName())) {
+            if (modelValues.columnNames == null)
+                modelValues.columnNames = new HashMap<String, Map<String, String>>();
+            if (!modelValues.columnNames.containsKey(property.getDbTable()))
+                modelValues.columnNames.put(property.getDbTable(), new HashMap<String, String>());
+            for (int i = 0, m = property.getColumns().size(); i < m; i++) {
+                modelValues.columnNames.get(property.getDbTable()).put(property.getColumns().get(i).getDbColumn(),
+                        property.getColumns().get(i).getNewName());
+            }
         }
     }
 
@@ -225,12 +227,11 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 .<String, Map<String, PojoAttrType>> emptyMap();
     }
 
-    //
-    // @Override
-    // public Map<String, Map<String, String>> getColumnNames(EObject model) {
-    // ModelValues modelValues = getModelValues(model);
-    // return (modelValues != null) ? modelValues.columnNames : Collections.<String, Map<String, String>> emptyMap();
-    // }
+    @Override
+    public Map<String, Map<String, String>> getColumnNames(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.columnNames : Collections.<String, Map<String, String>> emptyMap();
+    }
 
     @Override
     public ModelValues getModelValues(EObject model) {

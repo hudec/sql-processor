@@ -11,6 +11,7 @@ public class PojoAttribute {
     private String className;
     private String dependencyClassName;
     private String dbName;
+    private String dbTable;
     private String pkTable;
     private List<String> fkTables = new ArrayList<String>();
 
@@ -79,5 +80,13 @@ public class PojoAttribute {
 
     public void setFkTables(List<String> fkTables) {
         this.fkTables = fkTables;
+    }
+
+    public String getDbTable() {
+        return dbTable;
+    }
+
+    public void setDbTable(String dbTable) {
+        this.dbTable = dbTable;
     }
 }

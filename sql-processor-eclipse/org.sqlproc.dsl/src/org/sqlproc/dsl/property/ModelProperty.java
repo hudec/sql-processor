@@ -18,7 +18,7 @@ public interface ModelProperty extends Adapter {
 
     public Map<String, Map<String, PojoAttrType>> getColumnTypes(EObject model);
 
-    // public Map<String, Map<String, String>> getColumnNames(EObject model);
+    public Map<String, Map<String, String>> getColumnNames(EObject model);
 
     public ModelValues getModelValues(EObject model);
 }
