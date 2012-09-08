@@ -58,9 +58,9 @@ public class PojoAttribute {
         this.dependencyClassName = dependencyClassName;
     }
 
-    public String getDbName() {
-        return dbName;
-    }
+    // public String getDbName() {
+    // return dbName;
+    // }
 
     public void setDbName(String dbName) {
         this.dbName = dbName;
@@ -82,9 +82,9 @@ public class PojoAttribute {
         this.fkTables = fkTables;
     }
 
-    public String getDbTable() {
-        return dbTable;
-    }
+    // public String getDbTable() {
+    // return dbTable;
+    // }
 
     public void setDbTable(String dbTable) {
         this.dbTable = dbTable;

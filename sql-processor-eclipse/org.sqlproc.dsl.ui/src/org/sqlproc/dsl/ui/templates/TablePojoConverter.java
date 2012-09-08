@@ -216,10 +216,17 @@ public class TablePojoConverter {
         // System.out.println("PPP " + pojos);
         StringBuilder buffer = new StringBuilder();
         for (String pojo : pojos.keySet()) {
-            buffer.append("\n  pojo ").append(tableToCamelCase(pojo)).append(" {");
-            for (PojoAttribute attribute : pojos.get(pojo).values()) {
-                String name = (attribute.getDbTable() != null && columnNames.containsKey(attribute.getDbTable())) ? columnNames
-                        .get(attribute.getDbTable()).get(attribute.getDbName()) : null;
+            if (ignoreTables.contains(pojo))
+                continue;
+            String pojoName = tableNames.get(pojo);
+            if (pojoName == null)
+                pojoName = pojo;
+            buffer.append("\n  pojo ").append(tableToCamelCase(pojoName)).append(" {");
+            for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+                if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
+                    continue;
+                PojoAttribute attribute = pentry.getValue();
+                String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : null;
                 if (name == null)
                     name = attribute.getName();
                 else
