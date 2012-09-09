@@ -181,6 +181,12 @@ public class TablePojoConverter {
                     attributes.put(dbColumn.getName(), attribute);
             }
         }
+        if (createColumns.containsKey(table)) {
+            for (Map.Entry<String, PojoAttrType> createColumn : createColumns.get(table).entrySet()) {
+                PojoAttribute attribute = convertDbColumnDefinition(createColumn.getKey(), createColumn.getValue());
+                attributes.put(createColumn.getKey(), attribute);
+            }
+        }
         pojos.put(table, attributes);
         for (DbImport dbImport : dbImports) {
             if (ignoreImports.containsKey(table) && ignoreImports.get(table).containsKey(dbImport.getFkColumn())
@@ -369,6 +375,22 @@ public class TablePojoConverter {
                         + part.substring(1).toLowerCase();
         }
         return camelCaseString;
+    }
+
+    private PojoAttribute convertDbColumnDefinition(String dbName, PojoAttrType sqlType) {
+        PojoAttribute attribute = new PojoAttribute();
+        attribute.setName(columnToCamelCase(dbName));
+        if (sqlType.getNativeType() != null) {
+            attribute.setPrimitive(true);
+            attribute.setClassName(sqlType.getNativeType().substring(1) + (sqlType.isArray() ? " []" : ""));
+        } else if (sqlType.getRef() != null) {
+            attribute.setPrimitive(false);
+            attribute.setDependencyClassName(sqlType.getRef().getName());
+        } else {
+            attribute.setPrimitive(false);
+            attribute.setClassName(sqlType.getType().getIdentifier());
+        }
+        return attribute;
     }
 
     private PojoAttribute convertDbColumnDefinition(String table, DbColumn dbColumn) {
