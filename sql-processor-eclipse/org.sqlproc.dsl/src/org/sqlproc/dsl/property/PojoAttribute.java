@@ -1,7 +1,7 @@
 package org.sqlproc.dsl.property;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PojoAttribute {
 
@@ -10,10 +10,8 @@ public class PojoAttribute {
     private String name;
     private String className;
     private String dependencyClassName;
-    private String dbName;
-    private String dbTable;
     private String pkTable;
-    private List<String> fkTables = new ArrayList<String>();
+    private Map<String, String> fkTables = new HashMap<String, String>();
 
     public PojoAttribute() {
     }
@@ -58,14 +56,6 @@ public class PojoAttribute {
         this.dependencyClassName = dependencyClassName;
     }
 
-    // public String getDbName() {
-    // return dbName;
-    // }
-
-    public void setDbName(String dbName) {
-        this.dbName = dbName;
-    }
-
     public String getPkTable() {
         return pkTable;
     }
@@ -74,19 +64,11 @@ public class PojoAttribute {
         this.pkTable = pkTable;
     }
 
-    public List<String> getFkTables() {
+    public Map<String, String> getFkTables() {
         return fkTables;
     }
 
-    public void setFkTables(List<String> fkTables) {
+    public void setFkTables(Map<String, String> fkTables) {
         this.fkTables = fkTables;
-    }
-
-    // public String getDbTable() {
-    // return dbTable;
-    // }
-
-    public void setDbTable(String dbTable) {
-        this.dbTable = dbTable;
     }
 }

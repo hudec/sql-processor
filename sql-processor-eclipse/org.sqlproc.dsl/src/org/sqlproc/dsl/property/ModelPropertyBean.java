@@ -39,6 +39,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_TYPE_FOR_COLUMNS = "pojogen type for columns";
     public static final String POJOGEN_IGNORE_TABLES = "pojogen ignore tables";
     public static final String POJOGEN_IGNORE_COLUMNS = "pojogen ignore columns";
+    public static final String POJOGEN_CREATE_COLUMNS = "pojogen create columns";
     public static final String POJOGEN_RENAME_TABLES = "pojogen rename tables";
     public static final String POJOGEN_RENAME_COLUMNS = "pojogen rename columns";
     public static final String POJOGEN_IGNORE_EXPORTS = "pojogen ignore one-to-many";
@@ -63,6 +64,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Map<String, String>> columnNames;
         public Set<String> ignoreTables;
         public Map<String, Set<String>> ignoreColumns;
+        public Map<String, Map<String, PojoAttrType>> createColumns;
         public Map<String, Map<String, Map<String, String>>> ignoreExports;
         public Map<String, Map<String, Map<String, String>>> ignoreImports;
         public Map<String, Map<String, Map<String, String>>> createExports;
@@ -75,8 +77,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + ", tableTypes="
                     + tableTypes + ", columnTypes=" + columnTypes + ", tableNames=" + tableNames + ", columnNames="
                     + columnNames + ", ignoreTables=" + ignoreTables + ", ignoreColumns=" + ignoreColumns
-                    + ", ignoreExports=" + ignoreExports + ", ignoreImports=" + ignoreImports + ", createExports="
-                    + createExports + ", createImports=" + createImports + "]";
+                    + ", createColumns=" + createColumns + ", ignoreExports=" + ignoreExports + ", ignoreImports="
+                    + ignoreImports + ", createExports=" + createExports + ", createImports=" + createImports + "]";
         }
     }
 
@@ -227,6 +229,16 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             for (int i = 0, m = property.getDbColumns().size(); i < m; i++) {
                 modelValues.ignoreColumns.get(property.getDbTable()).add(property.getDbColumns().get(i));
             }
+        } else if (POJOGEN_CREATE_COLUMNS.equals(property.getName())) {
+            if (modelValues.createColumns == null)
+                modelValues.createColumns = new HashMap<String, Map<String, PojoAttrType>>();
+            if (!modelValues.createColumns.containsKey(property.getDbTable()))
+                modelValues.createColumns.put(property.getDbTable(), new HashMap<String, PojoAttrType>());
+            for (int i = 0, m = property.getColumnTypes().size(); i < m; i++) {
+                PojoAttrType type = new PojoAttrType(property.getColumnTypes().get(i).getDbColumn(), null, property
+                        .getColumnTypes().get(i).getType());
+                modelValues.createColumns.get(property.getDbTable()).put(type.getName(), type);
+            }
         } else if (POJOGEN_IGNORE_EXPORTS.equals(property.getName())) {
             if (modelValues.ignoreExports == null)
                 modelValues.ignoreExports = new HashMap<String, Map<String, Map<String, String>>>();
@@ -332,6 +344,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Map<String, Set<String>> getIgnoreColumns(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.ignoreColumns : Collections.<String, Set<String>> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, PojoAttrType>> getCreateColumns(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.createColumns : Collections
+                .<String, Map<String, PojoAttrType>> emptyMap();
     }
 
     @Override

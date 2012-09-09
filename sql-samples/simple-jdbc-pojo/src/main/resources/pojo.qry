@@ -5,13 +5,14 @@ pojogen type for columns CONTACT PHONE_NUMBER->::PhoneNumber;
 pojogen rename columns CONTACT PHONE_NUMBER->HOME_PHONE;
 //pojogen ignore tables BOOK;
 //pojogen ignore columns CONTACT ADDRESS;
-pojogen ignore one-to-many PERSON ID->PERSON_LIBRARY->PERSON_ID;
-pojogen ignore one-to-many MEDIA ID->PERSON_LIBRARY->MEDIA_ID;
-pojogen ignore one-to-many LIBRARY ID->SUBSCRIBER->LIBRARY;
-pojogen ignore many-to-one CONTACT PERSON_ID->PERSON->ID;
-pojogen ignore many-to-one PERSON_LIBRARY MEDIA_ID->MEDIA->ID;
-pojogen ignore many-to-one PERSON_LIBRARY PERSON_ID->PERSON->ID;
-pojogen create many-to-one SUBSCRIBER CONTACT->CONTACT->ID;
+pojogen ignore one-to-many PERSON ID->PERSON_LIBRARY;
+pojogen ignore one-to-many MEDIA ID->PERSON_LIBRARY;
+pojogen ignore one-to-many LIBRARY ID->SUBSCRIBER;
+pojogen create one-to-many PERSON ID->MEDIA->LIBRARY;
+pojogen ignore many-to-one CONTACT PERSON_ID->PERSON;
+pojogen ignore many-to-one PERSON_LIBRARY MEDIA_ID->MEDIA;
+pojogen ignore many-to-one PERSON_LIBRARY PERSON_ID->PERSON;
+pojogen create many-to-one SUBSCRIBER CONTACT->CONTACT;
 
 
 package org.sqlproc.sample.simple.model2 {

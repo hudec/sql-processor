@@ -5,10 +5,10 @@ import java.math.BigInteger;
 import java.sql.Types;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.property.ModelProperty;
@@ -39,12 +39,13 @@ public class TablePojoConverter {
     private Map<String, Map<String, String>> columnNames = new HashMap<String, Map<String, String>>();
     private Set<String> ignoreTables = new HashSet<String>();
     private Map<String, Set<String>> ignoreColumns = new HashMap<String, Set<String>>();
+    private Map<String, Map<String, PojoAttrType>> createColumns = new HashMap<String, Map<String, PojoAttrType>>();
     private Map<String, Map<String, Map<String, String>>> ignoreExports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> ignoreImports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> createExports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> createImports = new HashMap<String, Map<String, Map<String, String>>>();
 
-    private Map<String, Map<String, PojoAttribute>> pojos = new HashMap<String, Map<String, PojoAttribute>>();
+    private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
 
     public TablePojoConverter() {
     }
@@ -103,6 +104,17 @@ public class TablePojoConverter {
                 this.ignoreColumns.get(ignoreColumn.getKey()).addAll(ignoreColumn.getValue());
             }
         }
+        Map<String, Map<String, PojoAttrType>> createColumns = modelProperty.getCreateColumns(artifacts);
+        if (createColumns != null) {
+            for (Map.Entry<String, Map<String, PojoAttrType>> columnType : createColumns.entrySet()) {
+                String table = columnType.getKey(); // tableToCamelCase(columnType.getKey());
+                if (!this.createColumns.containsKey(table))
+                    this.createColumns.put(table, new HashMap<String, PojoAttrType>());
+                for (PojoAttrType sqlType : columnType.getValue().values()) {
+                    this.createColumns.get(table).put(sqlType.getName(), sqlType);
+                }
+            }
+        }
         Map<String, Map<String, Map<String, String>>> ignoreExports = modelProperty.getIgnoreExports(artifacts);
         if (ignoreExports != null) {
             for (Map.Entry<String, Map<String, Map<String, String>>> ignoreExport : ignoreExports.entrySet()) {
@@ -147,6 +159,7 @@ public class TablePojoConverter {
         System.out.println("columnNames " + this.columnNames);
         System.out.println("ignoreTables " + this.ignoreTables);
         System.out.println("ignoreColumns " + this.ignoreColumns);
+        System.out.println("createColumns " + this.createColumns);
         System.out.println("ignoreExports " + this.ignoreExports);
         System.out.println("ignoreImports " + this.ignoreImports);
         System.out.println("createExports " + this.createExports);
@@ -157,7 +170,7 @@ public class TablePojoConverter {
             List<DbImport> dbImports) {
         if (table == null || dbColumns == null)
             return;
-        Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
+        Map<String, PojoAttribute> attributes = new TreeMap<String, PojoAttribute>();
         for (DbColumn dbColumn : dbColumns) {
             PojoAttribute attribute = convertDbColumnDefinition(table, dbColumn);
             if (attribute != null) {
@@ -188,7 +201,14 @@ public class TablePojoConverter {
                     && ignoreExports.get(table).get(dbExport.getPkColumn()).containsKey(dbExport.getFkTable()))
                 continue;
             PojoAttribute attribute = attributes.get(dbExport.getPkColumn());
-            attribute.getFkTables().add(dbExport.getFkTable());
+            attribute.getFkTables().put(dbExport.getFkTable(), null);
+        }
+        if (createExports.containsKey(table)) {
+            for (Map.Entry<String, Map<String, String>> pentry : createExports.get(table).entrySet()) {
+                PojoAttribute attribute = attributes.get(pentry.getKey());
+                for (Map.Entry<String, String> fk : pentry.getValue().entrySet())
+                    attribute.getFkTables().put(fk.getKey(), fk.getValue());
+            }
         }
     }
 
@@ -208,20 +228,25 @@ public class TablePojoConverter {
                         }
                     }
                 }
-                for (String fkTable : attribute.getFkTables()) {
-                    if (pojos.containsKey(fkTable)) {
-                        String referName = lowerFirstChar(tableToCamelCase(fkTable));
-                        if (!referName.endsWith("s")) {
-                            if (referName.endsWith("y")) {
-                                referName = referName.substring(0, referName.length() - 1);
-                                referName += "ies";
-                            } else {
-                                referName += "s";
+                for (Map.Entry<String, String> fk : attribute.getFkTables().entrySet()) {
+                    if (pojos.containsKey(fk.getKey())) {
+                        String referName = null;
+                        if (fk.getValue() != null)
+                            referName = columnToCamelCase(fk.getValue());
+                        else {
+                            referName = lowerFirstChar(tableToCamelCase(fk.getKey()));
+                            if (!referName.endsWith("s")) {
+                                if (referName.endsWith("y")) {
+                                    referName = referName.substring(0, referName.length() - 1);
+                                    referName += "ies";
+                                } else {
+                                    referName += "s";
+                                }
                             }
                         }
                         PojoAttribute attrib = new PojoAttribute();
                         attrib.setName(referName);
-                        attrib.setClassName("java.util.List <:" + tableToCamelCase(fkTable) + ">");
+                        attrib.setClassName("java.util.List <:" + tableToCamelCase(fk.getKey()) + ">");
                         newAttributes.put(attrib.getName(), attrib);
                     }
                 }
@@ -358,8 +383,6 @@ public class TablePojoConverter {
         if (sqlType == null)
             return null;
         PojoAttribute attribute = new PojoAttribute();
-        attribute.setDbTable(table);
-        attribute.setDbName(dbColumn.getName());
         attribute.setName(columnToCamelCase(dbColumn.getName()));
         attribute.setRequired(!dbColumn.isNullable());
         if (sqlType.getNativeType() != null) {
@@ -379,8 +402,6 @@ public class TablePojoConverter {
         if (dbColumn == null)
             return null;
         PojoAttribute attribute = new PojoAttribute();
-        attribute.setDbTable(table);
-        attribute.setDbName(dbColumn.getName());
         attribute.setName(columnToCamelCase(dbColumn.getName()));
         attribute.setRequired(!dbColumn.isNullable());
         switch (dbColumn.getSqlType()) {

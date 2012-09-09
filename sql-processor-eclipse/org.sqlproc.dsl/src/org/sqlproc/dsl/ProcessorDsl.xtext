@@ -15,8 +15,8 @@ SqlTypeAssignement: typeName=IDENT (LPAREN size=NUMBER RPAREN)? '->' type=PojoTy
 ColumnTypeAssignement: dbColumn=IDENT '->' type=PojoType;
 TableAssignement: dbTable=IDENT '->' newName=IDENT;
 ColumnAssignement: dbColumn=IDENT '->' newName=IDENT;
-ImportAssignement: dbColumn=IDENT '->' pkTable=IDENT '->' pkColumn=IDENT;
-ExportAssignement: dbColumn=IDENT '->' fkTable=IDENT '->' fkColumn=IDENT;
+ImportAssignement: dbColumn=IDENT '->' pkTable=IDENT ('->' pkColumn=IDENT)?;
+ExportAssignement: dbColumn=IDENT '->' fkTable=IDENT ('->' fkColumn=IDENT)?;
 
 Property:
 	(name='resolve references' WS+ doResolvePojo=ON_OFF
@@ -31,6 +31,7 @@ Property:
 	|name='pojogen type for columns' WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
 	|name='pojogen ignore tables' (WS+ dbTables+=IDENT)+
 	|name='pojogen ignore columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
+	|name='pojogen create columns' WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
 	|name='pojogen rename tables' (WS+ tables+=TableAssignement)+
 	|name='pojogen rename columns' WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+
 	|name='pojogen ignore one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
