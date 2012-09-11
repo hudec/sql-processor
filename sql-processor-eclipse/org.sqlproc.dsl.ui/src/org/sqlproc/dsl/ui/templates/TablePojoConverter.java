@@ -45,6 +45,7 @@ public class TablePojoConverter {
     private Map<String, Map<String, Map<String, String>>> createExports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> createImports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> inheritImports = new HashMap<String, Map<String, Map<String, String>>>();
+    private Map<String, Map<String, Map<String, String>>> manyToManyExports = new HashMap<String, Map<String, Map<String, String>>>();
 
     private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     private Map<String, String> pojoExtends = new HashMap<String, String>();
@@ -162,6 +163,15 @@ public class TablePojoConverter {
                 this.inheritImports.get(table).putAll(inheritImport.getValue());
             }
         }
+        Map<String, Map<String, Map<String, String>>> manyToManyExports = modelProperty.getManyToManyExports(artifacts);
+        if (manyToManyExports != null) {
+            for (Map.Entry<String, Map<String, Map<String, String>>> manyToManyExport : manyToManyExports.entrySet()) {
+                String table = manyToManyExport.getKey(); // tableToCamelCase(columnName.getKey());
+                if (!this.manyToManyExports.containsKey(table))
+                    this.manyToManyExports.put(table, new HashMap<String, Map<String, String>>());
+                this.manyToManyExports.get(table).putAll(manyToManyExport.getValue());
+            }
+        }
 
         for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : this.inheritImports.entrySet()) {
             for (Map.Entry<String, Map<String, String>> inherit : inheritImport.getValue().entrySet()) {
@@ -178,6 +188,12 @@ public class TablePojoConverter {
             }
         }
 
+        for (Map.Entry<String, Map<String, Map<String, String>>> manyToManyExport : this.manyToManyExports.entrySet()) {
+            String table = manyToManyExport.getKey(); // tableToCamelCase(columnName.getKey());
+            if (!this.ignoreImports.containsKey(table))
+                this.ignoreImports.put(table, null);
+        }
+
         System.out.println("sqlTypes " + this.sqlTypes);
         System.out.println("tableTypes " + this.tableTypes);
         System.out.println("columnTypes " + this.columnTypes);
@@ -191,6 +207,7 @@ public class TablePojoConverter {
         System.out.println("createExports " + this.createExports);
         System.out.println("createImports " + this.createImports);
         System.out.println("inheritImports " + this.inheritImports);
+        System.out.println("manyToManyExports " + this.manyToManyExports);
     }
 
     public void addTableTefinition(String table, List<DbColumn> dbColumns, List<DbExport> dbExports,
@@ -216,8 +233,10 @@ public class TablePojoConverter {
         }
         pojos.put(table, attributes);
         for (DbImport dbImport : dbImports) {
-            if (ignoreImports.containsKey(table) && ignoreImports.get(table).containsKey(dbImport.getFkColumn())
-                    && ignoreImports.get(table).get(dbImport.getFkColumn()).containsKey(dbImport.getPkTable()))
+            if (ignoreImports.containsKey(table)
+                    && (ignoreImports.get(table) == null || ignoreImports.get(table)
+                            .containsKey(dbImport.getFkColumn())
+                            && ignoreImports.get(table).get(dbImport.getFkColumn()).containsKey(dbImport.getPkTable())))
                 continue;
             if (inheritImports.containsKey(table) && inheritImports.get(table).containsKey(dbImport.getFkColumn())
                     && inheritImports.get(table).get(dbImport.getFkColumn()).containsKey(dbImport.getPkTable())) {
@@ -236,11 +255,32 @@ public class TablePojoConverter {
             }
         }
         for (DbExport dbExport : dbExports) {
+            // AAA1 PERSON_LIBRARY MEDIA_ID MEDIA_ID MEDIA
+            // AAA1 PERSON_LIBRARY PERSON_ID PERSON_ID PERSON
+            // AAA3 PERSON PERSON ID PERSON_LIBRARY PERSON_ID
+            // AAA3 MEDIA MEDIA ID PERSON_LIBRARY MEDIA_ID
+            // pojogen table many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
+            // System.out.println("AAA3 " + table + " " + dbExport.getPkTable() + " " + dbExport.getPkColumn() + " " +
+            // dbExport.getFkTable() + " " + dbExport.getFkColumn());
             if (ignoreExports.containsKey(table) && ignoreExports.get(table).containsKey(dbExport.getPkColumn())
                     && ignoreExports.get(table).get(dbExport.getPkColumn()).containsKey(dbExport.getFkTable()))
                 continue;
-            PojoAttribute attribute = attributes.get(dbExport.getPkColumn());
-            attribute.getFkTables().put(dbExport.getFkTable(), null);
+            if (manyToManyExports.containsKey(dbExport.getFkTable())) {
+                if (manyToManyExports.get(dbExport.getFkTable()).containsKey(dbExport.getPkColumn())) {
+                    for (Map.Entry<String, String> manyToMany : manyToManyExports.get(dbExport.getFkTable())
+                            .get(dbExport.getPkColumn()).entrySet()) {
+                        String fkTable = manyToMany.getKey();
+                        String fkColumn = manyToMany.getValue();
+                        if (!dbExport.getPkTable().equals(fkTable)) {
+                            PojoAttribute attribute = attributes.get(dbExport.getPkColumn());
+                            attribute.getFkTables().put(fkTable, fkColumn);
+                        }
+                    }
+                }
+            } else {
+                PojoAttribute attribute = attributes.get(dbExport.getPkColumn());
+                attribute.getFkTables().put(dbExport.getFkTable(), null);
+            }
         }
         if (createExports.containsKey(table)) {
             for (Map.Entry<String, Map<String, String>> pentry : createExports.get(table).entrySet()) {

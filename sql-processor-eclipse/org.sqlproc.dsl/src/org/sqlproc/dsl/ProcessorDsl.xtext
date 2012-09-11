@@ -39,7 +39,7 @@ Property:
 	|name='pojogen inherit many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	|name='pojogen create one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 	|name='pojogen create many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-	|name='pojogen many-to-many tables' (WS+ dbTables+=IDENT)+
+	|name='pojogen table many-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
 	) SEMICOLON;
 
 PropertyValue:

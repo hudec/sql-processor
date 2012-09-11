@@ -9474,6 +9474,7 @@ rule__Property__Group_0_20__1
     }
 :
 	rule__Property__Group_0_20__1__Impl
+	rule__Property__Group_0_20__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -9486,54 +9487,14 @@ rule__Property__Group_0_20__1__Impl
 :
 (
 (
-{ before(grammarAccess.getPropertyAccess().getGroup_0_20_1()); }
-(rule__Property__Group_0_20_1__0)
-{ after(grammarAccess.getPropertyAccess().getGroup_0_20_1()); }
-)
-(
-{ before(grammarAccess.getPropertyAccess().getGroup_0_20_1()); }
-(rule__Property__Group_0_20_1__0)*
-{ after(grammarAccess.getPropertyAccess().getGroup_0_20_1()); }
-)
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
-
-
-
-rule__Property__Group_0_20_1__0
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__Property__Group_0_20_1__0__Impl
-	rule__Property__Group_0_20_1__1
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Property__Group_0_20_1__0__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-(
-{ before(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_1_0()); }
+{ before(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_1()); }
 (	RULE_WS)
-{ after(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_1_0()); }
+{ after(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_1()); }
 )
 (
-{ before(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_1_0()); }
+{ before(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_1()); }
 (	RULE_WS)*
-{ after(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_1_0()); }
+{ after(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_1()); }
 )
 )
 
@@ -9543,26 +9504,134 @@ finally {
 }
 
 
-rule__Property__Group_0_20_1__1
+rule__Property__Group_0_20__2
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__Property__Group_0_20_1__1__Impl
+	rule__Property__Group_0_20__2__Impl
+	rule__Property__Group_0_20__3
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Property__Group_0_20_1__1__Impl
+rule__Property__Group_0_20__2__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getPropertyAccess().getDbTablesAssignment_0_20_1_1()); }
-(rule__Property__DbTablesAssignment_0_20_1_1)
-{ after(grammarAccess.getPropertyAccess().getDbTablesAssignment_0_20_1_1()); }
+{ before(grammarAccess.getPropertyAccess().getDbTableAssignment_0_20_2()); }
+(rule__Property__DbTableAssignment_0_20_2)
+{ after(grammarAccess.getPropertyAccess().getDbTableAssignment_0_20_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__Property__Group_0_20__3
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Property__Group_0_20__3__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Property__Group_0_20__3__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+(
+{ before(grammarAccess.getPropertyAccess().getGroup_0_20_3()); }
+(rule__Property__Group_0_20_3__0)
+{ after(grammarAccess.getPropertyAccess().getGroup_0_20_3()); }
+)
+(
+{ before(grammarAccess.getPropertyAccess().getGroup_0_20_3()); }
+(rule__Property__Group_0_20_3__0)*
+{ after(grammarAccess.getPropertyAccess().getGroup_0_20_3()); }
+)
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+
+
+
+
+rule__Property__Group_0_20_3__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Property__Group_0_20_3__0__Impl
+	rule__Property__Group_0_20_3__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Property__Group_0_20_3__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+(
+{ before(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_3_0()); }
+(	RULE_WS)
+{ after(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_3_0()); }
+)
+(
+{ before(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_3_0()); }
+(	RULE_WS)*
+{ after(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_3_0()); }
+)
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__Property__Group_0_20_3__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Property__Group_0_20_3__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Property__Group_0_20_3__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPropertyAccess().getExportsAssignment_0_20_3_1()); }
+(rule__Property__ExportsAssignment_0_20_3_1)
+{ after(grammarAccess.getPropertyAccess().getExportsAssignment_0_20_3_1()); }
 )
 
 ;
@@ -19398,16 +19467,16 @@ rule__Property__NameAssignment_0_20_0
     }
 :
 (
-{ before(grammarAccess.getPropertyAccess().getNamePojogenManyToManyTablesKeyword_0_20_0_0()); }
+{ before(grammarAccess.getPropertyAccess().getNamePojogenTableManyToManyKeyword_0_20_0_0()); }
 (
-{ before(grammarAccess.getPropertyAccess().getNamePojogenManyToManyTablesKeyword_0_20_0_0()); }
+{ before(grammarAccess.getPropertyAccess().getNamePojogenTableManyToManyKeyword_0_20_0_0()); }
 
-	'pojogen many-to-many tables' 
+	'pojogen table many-to-many' 
 
-{ after(grammarAccess.getPropertyAccess().getNamePojogenManyToManyTablesKeyword_0_20_0_0()); }
+{ after(grammarAccess.getPropertyAccess().getNamePojogenTableManyToManyKeyword_0_20_0_0()); }
 )
 
-{ after(grammarAccess.getPropertyAccess().getNamePojogenManyToManyTablesKeyword_0_20_0_0()); }
+{ after(grammarAccess.getPropertyAccess().getNamePojogenTableManyToManyKeyword_0_20_0_0()); }
 )
 
 ;
@@ -19415,14 +19484,29 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Property__DbTablesAssignment_0_20_1_1
+rule__Property__DbTableAssignment_0_20_2
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getPropertyAccess().getDbTablesIDENTTerminalRuleCall_0_20_1_1_0()); }
-	RULE_IDENT{ after(grammarAccess.getPropertyAccess().getDbTablesIDENTTerminalRuleCall_0_20_1_1_0()); }
+{ before(grammarAccess.getPropertyAccess().getDbTableIDENTTerminalRuleCall_0_20_2_0()); }
+	RULE_IDENT{ after(grammarAccess.getPropertyAccess().getDbTableIDENTTerminalRuleCall_0_20_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Property__ExportsAssignment_0_20_3_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPropertyAccess().getExportsExportAssignementParserRuleCall_0_20_3_1_0()); }
+	ruleExportAssignement{ after(grammarAccess.getPropertyAccess().getExportsExportAssignementParserRuleCall_0_20_3_1_0()); }
 )
 
 ;

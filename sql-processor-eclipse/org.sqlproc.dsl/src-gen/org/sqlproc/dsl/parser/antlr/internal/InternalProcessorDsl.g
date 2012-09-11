@@ -1749,44 +1749,66 @@ ruleProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_80_0=	'pojogen many-to-many tables' 
+		lv_name_80_0=	'pojogen table many-to-many' 
     {
-        newLeafNode(lv_name_80_0, grammarAccess.getPropertyAccess().getNamePojogenManyToManyTablesKeyword_0_20_0_0());
+        newLeafNode(lv_name_80_0, grammarAccess.getPropertyAccess().getNamePojogenTableManyToManyKeyword_0_20_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_80_0, "pojogen many-to-many tables");
+       		setWithLastConsumed($current, "name", lv_name_80_0, "pojogen table many-to-many");
 	    }
 
 )
-)((this_WS_81=RULE_WS
+)(this_WS_81=RULE_WS
     { 
-    newLeafNode(this_WS_81, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_1_0()); 
+    newLeafNode(this_WS_81, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_1()); 
     }
 )+(
 (
-		lv_dbTables_82_0=RULE_IDENT
+		lv_dbTable_82_0=RULE_IDENT
 		{
-			newLeafNode(lv_dbTables_82_0, grammarAccess.getPropertyAccess().getDbTablesIDENTTerminalRuleCall_0_20_1_1_0()); 
+			newLeafNode(lv_dbTable_82_0, grammarAccess.getPropertyAccess().getDbTableIDENTTerminalRuleCall_0_20_2_0()); 
 		}
 		{
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPropertyRule());
 	        }
-       		addWithLastConsumed(
+       		setWithLastConsumed(
        			$current, 
-       			"dbTables",
-        		lv_dbTables_82_0, 
+       			"dbTable",
+        		lv_dbTable_82_0, 
         		"IDENT");
 	    }
 
 )
-))+))this_SEMICOLON_83=RULE_SEMICOLON
+)((this_WS_83=RULE_WS
     { 
-    newLeafNode(this_SEMICOLON_83, grammarAccess.getPropertyAccess().getSEMICOLONTerminalRuleCall_1()); 
+    newLeafNode(this_WS_83, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_20_3_0()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPropertyAccess().getExportsExportAssignementParserRuleCall_0_20_3_1_0()); 
+	    }
+		lv_exports_84_0=ruleExportAssignement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPropertyRule());
+	        }
+       		add(
+       			$current, 
+       			"exports",
+        		lv_exports_84_0, 
+        		"ExportAssignement");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))+))this_SEMICOLON_85=RULE_SEMICOLON
+    { 
+    newLeafNode(this_SEMICOLON_85, grammarAccess.getPropertyAccess().getSEMICOLONTerminalRuleCall_1()); 
     }
 )
 ;

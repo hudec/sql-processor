@@ -436,12 +436,16 @@
         </elements>
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-            <terminal xsi:type="xtext:Keyword" value="pojogen many-to-many tables"/>
+            <terminal xsi:type="xtext:Keyword" value="pojogen table many-to-many"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.56"/>
+          <elements xsi:type="xtext:Assignment" feature="dbTable" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.51"/>
           </elements>
           <elements xsi:type="xtext:Group" cardinality="+">
             <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.56"/>
-            <elements xsi:type="xtext:Assignment" feature="dbTables" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.51"/>
+            <elements xsi:type="xtext:Assignment" feature="exports" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.6"/>
             </elements>
           </elements>
         </elements>
