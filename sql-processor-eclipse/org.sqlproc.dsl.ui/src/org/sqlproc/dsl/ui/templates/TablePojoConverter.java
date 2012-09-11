@@ -44,8 +44,10 @@ public class TablePojoConverter {
     private Map<String, Map<String, Map<String, String>>> ignoreImports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> createExports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> createImports = new HashMap<String, Map<String, Map<String, String>>>();
+    private Map<String, Map<String, Map<String, String>>> inheritImports = new HashMap<String, Map<String, Map<String, String>>>();
 
     private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
+    private Map<String, String> pojoExtends = new HashMap<String, String>();
 
     public TablePojoConverter() {
     }
@@ -151,6 +153,30 @@ public class TablePojoConverter {
                 this.createImports.get(table).putAll(createImport.getValue());
             }
         }
+        Map<String, Map<String, Map<String, String>>> inheritImports = modelProperty.getInheritImports(artifacts);
+        if (inheritImports != null) {
+            for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : inheritImports.entrySet()) {
+                String table = inheritImport.getKey(); // tableToCamelCase(columnName.getKey());
+                if (!this.inheritImports.containsKey(table))
+                    this.inheritImports.put(table, new HashMap<String, Map<String, String>>());
+                this.inheritImports.get(table).putAll(inheritImport.getValue());
+            }
+        }
+
+        for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : this.inheritImports.entrySet()) {
+            for (Map.Entry<String, Map<String, String>> inherit : inheritImport.getValue().entrySet()) {
+                for (Map.Entry<String, String> tabcol : inherit.getValue().entrySet()) {
+                    if (!this.ignoreExports.containsKey(tabcol.getKey()))
+                        this.ignoreExports.put(tabcol.getKey(), new HashMap<String, Map<String, String>>());
+                    if (!this.ignoreExports.get(tabcol.getKey()).containsKey(tabcol.getValue()))
+                        this.ignoreExports.get(tabcol.getKey()).put(tabcol.getValue(), new HashMap<String, String>());
+                    this.ignoreExports.get(tabcol.getKey()).get(tabcol.getValue()).put(inheritImport.getKey(), null);
+                    if (!this.ignoreColumns.containsKey(inheritImport.getKey()))
+                        this.ignoreColumns.put(inheritImport.getKey(), new HashSet<String>());
+                    this.ignoreColumns.get(inheritImport.getKey()).add(inherit.getKey());
+                }
+            }
+        }
 
         System.out.println("sqlTypes " + this.sqlTypes);
         System.out.println("tableTypes " + this.tableTypes);
@@ -164,6 +190,7 @@ public class TablePojoConverter {
         System.out.println("ignoreImports " + this.ignoreImports);
         System.out.println("createExports " + this.createExports);
         System.out.println("createImports " + this.createImports);
+        System.out.println("inheritImports " + this.inheritImports);
     }
 
     public void addTableTefinition(String table, List<DbColumn> dbColumns, List<DbExport> dbExports,
@@ -192,8 +219,14 @@ public class TablePojoConverter {
             if (ignoreImports.containsKey(table) && ignoreImports.get(table).containsKey(dbImport.getFkColumn())
                     && ignoreImports.get(table).get(dbImport.getFkColumn()).containsKey(dbImport.getPkTable()))
                 continue;
-            PojoAttribute attribute = attributes.get(dbImport.getFkColumn());
-            attribute.setPkTable(dbImport.getPkTable());
+            if (inheritImports.containsKey(table) && inheritImports.get(table).containsKey(dbImport.getFkColumn())
+                    && inheritImports.get(table).get(dbImport.getFkColumn()).containsKey(dbImport.getPkTable())) {
+                PojoAttribute attribute = attributes.get(dbImport.getFkColumn());
+                attribute.setParentTable(dbImport.getPkTable());
+            } else {
+                PojoAttribute attribute = attributes.get(dbImport.getFkColumn());
+                attribute.setPkTable(dbImport.getPkTable());
+            }
         }
         if (createImports.containsKey(table)) {
             for (Map.Entry<String, Map<String, String>> pentry : createImports.get(table).entrySet()) {
@@ -232,6 +265,11 @@ public class TablePojoConverter {
                                 attribute.setName(attribute.getName().substring(0, attribute.getName().length() - 2));
                             }
                         }
+                    }
+                }
+                if (attribute.getParentTable() != null) {
+                    if (pojos.containsKey(attribute.getParentTable())) {
+                        pojoExtends.put(pojo, tableToCamelCase(attribute.getParentTable()));
                     }
                 }
                 for (Map.Entry<String, String> fk : attribute.getFkTables().entrySet()) {
@@ -310,7 +348,10 @@ public class TablePojoConverter {
             String pojoName = tableNames.get(pojo);
             if (pojoName == null)
                 pojoName = pojo;
-            buffer.append("\n  pojo ").append(tableToCamelCase(pojoName)).append(" {");
+            buffer.append("\n  pojo ").append(tableToCamelCase(pojoName));
+            if (pojoExtends.containsKey(pojo))
+                buffer.append(" extends ").append(pojoExtends.get(pojo));
+            buffer.append(" {");
             for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
                 if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
                     continue;

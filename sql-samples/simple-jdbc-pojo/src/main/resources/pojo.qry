@@ -14,6 +14,8 @@ pojogen ignore many-to-one CONTACT PERSON_ID->PERSON;
 pojogen ignore many-to-one PERSON_LIBRARY MEDIA_ID->MEDIA;
 pojogen ignore many-to-one PERSON_LIBRARY PERSON_ID->PERSON;
 pojogen create many-to-one SUBSCRIBER CONTACT->CONTACT;
+pojogen inherit many-to-one BOOK MEDIA_ID->MEDIA->ID;
+pojogen inherit many-to-one MOVIE MEDIA_ID->MEDIA->ID;
 
 
 package org.sqlproc.sample.simple.model2 {

@@ -36,6 +36,7 @@ Property:
 	|name='pojogen rename columns' WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+
 	|name='pojogen ignore one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 	|name='pojogen ignore many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+	|name='pojogen inherit many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	|name='pojogen create one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 	|name='pojogen create many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	|name='pojogen many-to-many tables' (WS+ dbTables+=IDENT)+

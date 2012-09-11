@@ -887,6 +887,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='pojogen rename columns' dbTable=IDENT columns+=ColumnAssignement+) | 
 	 *         (name='pojogen ignore one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
 	 *         (name='pojogen ignore many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
+	 *         (name='pojogen inherit many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
 	 *         (name='pojogen create one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
 	 *         (name='pojogen create many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
 	 *         (name='pojogen many-to-many tables' dbTables+=IDENT+)

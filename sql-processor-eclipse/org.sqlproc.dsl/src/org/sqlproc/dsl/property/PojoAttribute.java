@@ -11,6 +11,7 @@ public class PojoAttribute {
     private String className;
     private String dependencyClassName;
     private String pkTable;
+    private String parentTable;
     private Map<String, String> fkTables = new HashMap<String, String>();
 
     public PojoAttribute() {
@@ -62,6 +63,14 @@ public class PojoAttribute {
 
     public void setPkTable(String pkTable) {
         this.pkTable = pkTable;
+    }
+
+    public String getParentTable() {
+        return parentTable;
+    }
+
+    public void setParentTable(String parentTable) {
+        this.parentTable = parentTable;
     }
 
     public Map<String, String> getFkTables() {

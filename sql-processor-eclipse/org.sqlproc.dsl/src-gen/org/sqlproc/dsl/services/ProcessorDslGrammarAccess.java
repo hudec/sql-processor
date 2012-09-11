@@ -587,31 +587,41 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cImportsImportAssignementParserRuleCall_0_16_3_1_0 = (RuleCall)cImportsAssignment_0_16_3_1.eContents().get(0);
 		private final Group cGroup_0_17 = (Group)cAlternatives_0.eContents().get(17);
 		private final Assignment cNameAssignment_0_17_0 = (Assignment)cGroup_0_17.eContents().get(0);
-		private final Keyword cNamePojogenCreateOneToManyKeyword_0_17_0_0 = (Keyword)cNameAssignment_0_17_0.eContents().get(0);
+		private final Keyword cNamePojogenInheritManyToOneKeyword_0_17_0_0 = (Keyword)cNameAssignment_0_17_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_0_17_1 = (RuleCall)cGroup_0_17.eContents().get(1);
 		private final Assignment cDbTableAssignment_0_17_2 = (Assignment)cGroup_0_17.eContents().get(2);
 		private final RuleCall cDbTableIDENTTerminalRuleCall_0_17_2_0 = (RuleCall)cDbTableAssignment_0_17_2.eContents().get(0);
 		private final Group cGroup_0_17_3 = (Group)cGroup_0_17.eContents().get(3);
 		private final RuleCall cWSTerminalRuleCall_0_17_3_0 = (RuleCall)cGroup_0_17_3.eContents().get(0);
-		private final Assignment cExportsAssignment_0_17_3_1 = (Assignment)cGroup_0_17_3.eContents().get(1);
-		private final RuleCall cExportsExportAssignementParserRuleCall_0_17_3_1_0 = (RuleCall)cExportsAssignment_0_17_3_1.eContents().get(0);
+		private final Assignment cImportsAssignment_0_17_3_1 = (Assignment)cGroup_0_17_3.eContents().get(1);
+		private final RuleCall cImportsImportAssignementParserRuleCall_0_17_3_1_0 = (RuleCall)cImportsAssignment_0_17_3_1.eContents().get(0);
 		private final Group cGroup_0_18 = (Group)cAlternatives_0.eContents().get(18);
 		private final Assignment cNameAssignment_0_18_0 = (Assignment)cGroup_0_18.eContents().get(0);
-		private final Keyword cNamePojogenCreateManyToOneKeyword_0_18_0_0 = (Keyword)cNameAssignment_0_18_0.eContents().get(0);
+		private final Keyword cNamePojogenCreateOneToManyKeyword_0_18_0_0 = (Keyword)cNameAssignment_0_18_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_0_18_1 = (RuleCall)cGroup_0_18.eContents().get(1);
 		private final Assignment cDbTableAssignment_0_18_2 = (Assignment)cGroup_0_18.eContents().get(2);
 		private final RuleCall cDbTableIDENTTerminalRuleCall_0_18_2_0 = (RuleCall)cDbTableAssignment_0_18_2.eContents().get(0);
 		private final Group cGroup_0_18_3 = (Group)cGroup_0_18.eContents().get(3);
 		private final RuleCall cWSTerminalRuleCall_0_18_3_0 = (RuleCall)cGroup_0_18_3.eContents().get(0);
-		private final Assignment cImportsAssignment_0_18_3_1 = (Assignment)cGroup_0_18_3.eContents().get(1);
-		private final RuleCall cImportsImportAssignementParserRuleCall_0_18_3_1_0 = (RuleCall)cImportsAssignment_0_18_3_1.eContents().get(0);
+		private final Assignment cExportsAssignment_0_18_3_1 = (Assignment)cGroup_0_18_3.eContents().get(1);
+		private final RuleCall cExportsExportAssignementParserRuleCall_0_18_3_1_0 = (RuleCall)cExportsAssignment_0_18_3_1.eContents().get(0);
 		private final Group cGroup_0_19 = (Group)cAlternatives_0.eContents().get(19);
 		private final Assignment cNameAssignment_0_19_0 = (Assignment)cGroup_0_19.eContents().get(0);
-		private final Keyword cNamePojogenManyToManyTablesKeyword_0_19_0_0 = (Keyword)cNameAssignment_0_19_0.eContents().get(0);
-		private final Group cGroup_0_19_1 = (Group)cGroup_0_19.eContents().get(1);
-		private final RuleCall cWSTerminalRuleCall_0_19_1_0 = (RuleCall)cGroup_0_19_1.eContents().get(0);
-		private final Assignment cDbTablesAssignment_0_19_1_1 = (Assignment)cGroup_0_19_1.eContents().get(1);
-		private final RuleCall cDbTablesIDENTTerminalRuleCall_0_19_1_1_0 = (RuleCall)cDbTablesAssignment_0_19_1_1.eContents().get(0);
+		private final Keyword cNamePojogenCreateManyToOneKeyword_0_19_0_0 = (Keyword)cNameAssignment_0_19_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_19_1 = (RuleCall)cGroup_0_19.eContents().get(1);
+		private final Assignment cDbTableAssignment_0_19_2 = (Assignment)cGroup_0_19.eContents().get(2);
+		private final RuleCall cDbTableIDENTTerminalRuleCall_0_19_2_0 = (RuleCall)cDbTableAssignment_0_19_2.eContents().get(0);
+		private final Group cGroup_0_19_3 = (Group)cGroup_0_19.eContents().get(3);
+		private final RuleCall cWSTerminalRuleCall_0_19_3_0 = (RuleCall)cGroup_0_19_3.eContents().get(0);
+		private final Assignment cImportsAssignment_0_19_3_1 = (Assignment)cGroup_0_19_3.eContents().get(1);
+		private final RuleCall cImportsImportAssignementParserRuleCall_0_19_3_1_0 = (RuleCall)cImportsAssignment_0_19_3_1.eContents().get(0);
+		private final Group cGroup_0_20 = (Group)cAlternatives_0.eContents().get(20);
+		private final Assignment cNameAssignment_0_20_0 = (Assignment)cGroup_0_20.eContents().get(0);
+		private final Keyword cNamePojogenManyToManyTablesKeyword_0_20_0_0 = (Keyword)cNameAssignment_0_20_0.eContents().get(0);
+		private final Group cGroup_0_20_1 = (Group)cGroup_0_20.eContents().get(1);
+		private final RuleCall cWSTerminalRuleCall_0_20_1_0 = (RuleCall)cGroup_0_20_1.eContents().get(0);
+		private final Assignment cDbTablesAssignment_0_20_1_1 = (Assignment)cGroup_0_20_1.eContents().get(1);
+		private final RuleCall cDbTablesIDENTTerminalRuleCall_0_20_1_1_0 = (RuleCall)cDbTablesAssignment_0_20_1_1.eContents().get(0);
 		private final RuleCall cSEMICOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//Property:
@@ -626,6 +636,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	| name="pojogen rename columns" WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+ |
 		//	name="pojogen ignore one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		//	| name="pojogen ignore many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//	| name="pojogen inherit many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//	| name="pojogen create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		//	| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//	| name="pojogen many-to-many tables" (WS+ dbTables+=IDENT)+) SEMICOLON;
@@ -642,6 +653,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="pojogen rename columns" WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+ | name="pojogen ignore one-to-many"
 		//WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		//| name="pojogen ignore many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//| name="pojogen inherit many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="pojogen create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		//| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="pojogen many-to-many tables" (WS+ dbTables+=IDENT)+) SEMICOLON
@@ -658,6 +670,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="pojogen rename columns" WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+ | name="pojogen ignore one-to-many"
 		//WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		//| name="pojogen ignore many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//| name="pojogen inherit many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="pojogen create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		//| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="pojogen many-to-many tables" (WS+ dbTables+=IDENT)+
@@ -1062,14 +1075,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ImportAssignement
 		public RuleCall getImportsImportAssignementParserRuleCall_0_16_3_1_0() { return cImportsImportAssignementParserRuleCall_0_16_3_1_0; }
 
-		//name="pojogen create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
+		//name="pojogen inherit many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		public Group getGroup_0_17() { return cGroup_0_17; }
 
-		//name="pojogen create one-to-many"
+		//name="pojogen inherit many-to-one"
 		public Assignment getNameAssignment_0_17_0() { return cNameAssignment_0_17_0; }
 
-		//"pojogen create one-to-many"
-		public Keyword getNamePojogenCreateOneToManyKeyword_0_17_0_0() { return cNamePojogenCreateOneToManyKeyword_0_17_0_0; }
+		//"pojogen inherit many-to-one"
+		public Keyword getNamePojogenInheritManyToOneKeyword_0_17_0_0() { return cNamePojogenInheritManyToOneKeyword_0_17_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_0_17_1() { return cWSTerminalRuleCall_0_17_1; }
@@ -1080,26 +1093,26 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getDbTableIDENTTerminalRuleCall_0_17_2_0() { return cDbTableIDENTTerminalRuleCall_0_17_2_0; }
 
-		//(WS+ exports+=ExportAssignement)+
+		//(WS+ imports+=ImportAssignement)+
 		public Group getGroup_0_17_3() { return cGroup_0_17_3; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_0_17_3_0() { return cWSTerminalRuleCall_0_17_3_0; }
 
-		//exports+=ExportAssignement
-		public Assignment getExportsAssignment_0_17_3_1() { return cExportsAssignment_0_17_3_1; }
+		//imports+=ImportAssignement
+		public Assignment getImportsAssignment_0_17_3_1() { return cImportsAssignment_0_17_3_1; }
 
-		//ExportAssignement
-		public RuleCall getExportsExportAssignementParserRuleCall_0_17_3_1_0() { return cExportsExportAssignementParserRuleCall_0_17_3_1_0; }
+		//ImportAssignement
+		public RuleCall getImportsImportAssignementParserRuleCall_0_17_3_1_0() { return cImportsImportAssignementParserRuleCall_0_17_3_1_0; }
 
-		//name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//name="pojogen create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		public Group getGroup_0_18() { return cGroup_0_18; }
 
-		//name="pojogen create many-to-one"
+		//name="pojogen create one-to-many"
 		public Assignment getNameAssignment_0_18_0() { return cNameAssignment_0_18_0; }
 
-		//"pojogen create many-to-one"
-		public Keyword getNamePojogenCreateManyToOneKeyword_0_18_0_0() { return cNamePojogenCreateManyToOneKeyword_0_18_0_0; }
+		//"pojogen create one-to-many"
+		public Keyword getNamePojogenCreateOneToManyKeyword_0_18_0_0() { return cNamePojogenCreateOneToManyKeyword_0_18_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_0_18_1() { return cWSTerminalRuleCall_0_18_1; }
@@ -1110,38 +1123,68 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getDbTableIDENTTerminalRuleCall_0_18_2_0() { return cDbTableIDENTTerminalRuleCall_0_18_2_0; }
 
-		//(WS+ imports+=ImportAssignement)+
+		//(WS+ exports+=ExportAssignement)+
 		public Group getGroup_0_18_3() { return cGroup_0_18_3; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_0_18_3_0() { return cWSTerminalRuleCall_0_18_3_0; }
 
-		//imports+=ImportAssignement
-		public Assignment getImportsAssignment_0_18_3_1() { return cImportsAssignment_0_18_3_1; }
+		//exports+=ExportAssignement
+		public Assignment getExportsAssignment_0_18_3_1() { return cExportsAssignment_0_18_3_1; }
 
-		//ImportAssignement
-		public RuleCall getImportsImportAssignementParserRuleCall_0_18_3_1_0() { return cImportsImportAssignementParserRuleCall_0_18_3_1_0; }
+		//ExportAssignement
+		public RuleCall getExportsExportAssignementParserRuleCall_0_18_3_1_0() { return cExportsExportAssignementParserRuleCall_0_18_3_1_0; }
 
-		//name="pojogen many-to-many tables" (WS+ dbTables+=IDENT)+
+		//name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		public Group getGroup_0_19() { return cGroup_0_19; }
 
-		//name="pojogen many-to-many tables"
+		//name="pojogen create many-to-one"
 		public Assignment getNameAssignment_0_19_0() { return cNameAssignment_0_19_0; }
 
-		//"pojogen many-to-many tables"
-		public Keyword getNamePojogenManyToManyTablesKeyword_0_19_0_0() { return cNamePojogenManyToManyTablesKeyword_0_19_0_0; }
-
-		//(WS+ dbTables+=IDENT)+
-		public Group getGroup_0_19_1() { return cGroup_0_19_1; }
+		//"pojogen create many-to-one"
+		public Keyword getNamePojogenCreateManyToOneKeyword_0_19_0_0() { return cNamePojogenCreateManyToOneKeyword_0_19_0_0; }
 
 		//WS+
-		public RuleCall getWSTerminalRuleCall_0_19_1_0() { return cWSTerminalRuleCall_0_19_1_0; }
+		public RuleCall getWSTerminalRuleCall_0_19_1() { return cWSTerminalRuleCall_0_19_1; }
 
-		//dbTables+=IDENT
-		public Assignment getDbTablesAssignment_0_19_1_1() { return cDbTablesAssignment_0_19_1_1; }
+		//dbTable=IDENT
+		public Assignment getDbTableAssignment_0_19_2() { return cDbTableAssignment_0_19_2; }
 
 		//IDENT
-		public RuleCall getDbTablesIDENTTerminalRuleCall_0_19_1_1_0() { return cDbTablesIDENTTerminalRuleCall_0_19_1_1_0; }
+		public RuleCall getDbTableIDENTTerminalRuleCall_0_19_2_0() { return cDbTableIDENTTerminalRuleCall_0_19_2_0; }
+
+		//(WS+ imports+=ImportAssignement)+
+		public Group getGroup_0_19_3() { return cGroup_0_19_3; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_19_3_0() { return cWSTerminalRuleCall_0_19_3_0; }
+
+		//imports+=ImportAssignement
+		public Assignment getImportsAssignment_0_19_3_1() { return cImportsAssignment_0_19_3_1; }
+
+		//ImportAssignement
+		public RuleCall getImportsImportAssignementParserRuleCall_0_19_3_1_0() { return cImportsImportAssignementParserRuleCall_0_19_3_1_0; }
+
+		//name="pojogen many-to-many tables" (WS+ dbTables+=IDENT)+
+		public Group getGroup_0_20() { return cGroup_0_20; }
+
+		//name="pojogen many-to-many tables"
+		public Assignment getNameAssignment_0_20_0() { return cNameAssignment_0_20_0; }
+
+		//"pojogen many-to-many tables"
+		public Keyword getNamePojogenManyToManyTablesKeyword_0_20_0_0() { return cNamePojogenManyToManyTablesKeyword_0_20_0_0; }
+
+		//(WS+ dbTables+=IDENT)+
+		public Group getGroup_0_20_1() { return cGroup_0_20_1; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_20_1_0() { return cWSTerminalRuleCall_0_20_1_0; }
+
+		//dbTables+=IDENT
+		public Assignment getDbTablesAssignment_0_20_1_1() { return cDbTablesAssignment_0_20_1_1; }
+
+		//IDENT
+		public RuleCall getDbTablesIDENTTerminalRuleCall_0_20_1_1_0() { return cDbTablesIDENTTerminalRuleCall_0_20_1_1_0; }
 
 		//SEMICOLON
 		public RuleCall getSEMICOLONTerminalRuleCall_1() { return cSEMICOLONTerminalRuleCall_1; }
@@ -5247,6 +5290,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	| name="pojogen rename columns" WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+ |
 	//	name="pojogen ignore one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 	//	| name="pojogen ignore many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+	//	| name="pojogen inherit many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	//	| name="pojogen create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 	//	| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	//	| name="pojogen many-to-many tables" (WS+ dbTables+=IDENT)+) SEMICOLON;

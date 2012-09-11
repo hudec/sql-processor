@@ -391,6 +391,21 @@
         </elements>
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="pojogen inherit many-to-one"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.56"/>
+          <elements xsi:type="xtext:Assignment" feature="dbTable" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.51"/>
+          </elements>
+          <elements xsi:type="xtext:Group" cardinality="+">
+            <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.56"/>
+            <elements xsi:type="xtext:Assignment" feature="imports" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.5"/>
+            </elements>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
             <terminal xsi:type="xtext:Keyword" value="pojogen create one-to-many"/>
           </elements>
           <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.56"/>

@@ -38,4 +38,6 @@ public interface ModelProperty extends Adapter {
     Map<String, Map<String, Map<String, String>>> getCreateImports(EObject model);
 
     Map<String, Map<String, PojoAttrType>> getCreateColumns(EObject model);
+
+    Map<String, Map<String, Map<String, String>>> getInheritImports(EObject model);
 }

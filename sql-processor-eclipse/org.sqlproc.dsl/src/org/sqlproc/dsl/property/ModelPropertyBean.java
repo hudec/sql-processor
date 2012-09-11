@@ -46,6 +46,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_IGNORE_IMPORTS = "pojogen ignore many-to-one";
     public static final String POJOGEN_CREATE_EXPORTS = "pojogen create one-to-many";
     public static final String POJOGEN_CREATE_IMPORTS = "pojogen create many-to-one";
+    public static final String POJOGEN_INHERIT_IMPORTS = "pojogen inherit many-to-one";
     public static final String POJOGEN_MANY_TO_MANY_TABLES = "pojogen many-to-many tables";
 
     public static class ModelValues {
@@ -69,6 +70,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Map<String, Map<String, String>>> ignoreImports;
         public Map<String, Map<String, Map<String, String>>> createExports;
         public Map<String, Map<String, Map<String, String>>> createImports;
+        public Map<String, Map<String, Map<String, String>>> inheritImports;
 
         @Override
         public String toString() {
@@ -78,7 +80,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + tableTypes + ", columnTypes=" + columnTypes + ", tableNames=" + tableNames + ", columnNames="
                     + columnNames + ", ignoreTables=" + ignoreTables + ", ignoreColumns=" + ignoreColumns
                     + ", createColumns=" + createColumns + ", ignoreExports=" + ignoreExports + ", ignoreImports="
-                    + ignoreImports + ", createExports=" + createExports + ", createImports=" + createImports + "]";
+                    + ignoreImports + ", createExports=" + createExports + ", createImports=" + createImports
+                    + ", inheritImports=" + inheritImports + "]";
         }
     }
 
@@ -287,6 +290,18 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     imports.put(_import.getDbColumn(), new HashMap<String, String>());
                 imports.get(_import.getDbColumn()).put(_import.getPkTable(), _import.getPkColumn());
             }
+        } else if (POJOGEN_INHERIT_IMPORTS.equals(property.getName())) {
+            if (modelValues.inheritImports == null)
+                modelValues.inheritImports = new HashMap<String, Map<String, Map<String, String>>>();
+            if (!modelValues.inheritImports.containsKey(property.getDbTable()))
+                modelValues.inheritImports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
+            Map<String, Map<String, String>> imports = modelValues.inheritImports.get(property.getDbTable());
+            for (int i = 0, m = property.getImports().size(); i < m; i++) {
+                ImportAssignement _import = property.getImports().get(i);
+                if (!imports.containsKey(_import.getDbColumn()))
+                    imports.put(_import.getDbColumn(), new HashMap<String, String>());
+                imports.get(_import.getDbColumn()).put(_import.getPkTable(), _import.getPkColumn());
+            }
         }
     }
 
@@ -378,6 +393,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Map<String, Map<String, Map<String, String>>> getCreateImports(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.createImports : Collections
+                .<String, Map<String, Map<String, String>>> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, Map<String, String>>> getInheritImports(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.inheritImports : Collections
                 .<String, Map<String, Map<String, String>>> emptyMap();
     }
 
