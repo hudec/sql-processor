@@ -5,20 +5,20 @@ public class Movie extends Media {
   public Movie() {
   }
   
-  public Movie(String title, String urlIMDB, Long playLength) {
+  public Movie(String title, String urlImdb, Long playLength) {
   setTitle(title);
-  setUrlIMDB(urlIMDB);
+  setUrlImdb(urlImdb);
   setPlayLength(playLength);
   }
   
-  private String urlIMDB;
+  private String urlImdb;
     
-  public String getUrlIMDB() {
-    return urlIMDB;
+  public String getUrlImdb() {
+    return urlImdb;
   }
     
-  public Movie setUrlIMDB(String urlIMDB) {
-    this.urlIMDB = urlIMDB;
+  public Movie setUrlImdb(String urlImdb) {
+    this.urlImdb = urlImdb;
     return this;
   }
   

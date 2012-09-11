@@ -59,6 +59,8 @@ public class DbResolverBean implements DbResolver {
             .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
     private final Map<String, Map<String, List<DbColumn>>> dbColumns = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<DbColumn>>>());
+    private final Map<String, Map<String, List<String>>> dbPrimaryKeys = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
     private final Map<String, Map<String, List<DbExport>>> dbExports = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<DbExport>>>());
     private final Map<String, Map<String, List<DbImport>>> dbImports = Collections
@@ -328,6 +330,50 @@ public class DbResolverBean implements DbResolver {
         }
         Collections.sort(columnsForModel);
         return columnsForModel;
+    }
+
+    @Override
+    public List<String> getDbPrimaryKeys(EObject model, String table) {
+        if (table == null)
+            return Collections.emptyList();
+        DatabaseValues modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        boolean doInit = false;
+        Map<String, List<String>> allPrimaryKeysForModel = dbPrimaryKeys.get(modelDatabaseValues.dir);
+        if (allPrimaryKeysForModel == null) {
+            allPrimaryKeysForModel = Collections.synchronizedMap(new HashMap<String, List<String>>());
+            dbPrimaryKeys.put(modelDatabaseValues.dir, allPrimaryKeysForModel);
+            doInit = true;
+        }
+        List<String> primaryKeysForModel = allPrimaryKeysForModel.get(table);
+        if (primaryKeysForModel == null) {
+            primaryKeysForModel = Collections.synchronizedList(new ArrayList<String>());
+            allPrimaryKeysForModel.put(table, primaryKeysForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return primaryKeysForModel;
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getPrimaryKeys(null, modelDatabaseValues.dbSchema, table);
+                while (result.next()) {
+                    primaryKeysForModel.add(result.getString("COLUMN_NAME"));
+                }
+            } catch (SQLException e) {
+                LOGGER.error("getDbColumns error " + e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    LOGGER.error("getDbColumns error " + e);
+                }
+            }
+        }
+        return primaryKeysForModel;
     }
 
     @Override

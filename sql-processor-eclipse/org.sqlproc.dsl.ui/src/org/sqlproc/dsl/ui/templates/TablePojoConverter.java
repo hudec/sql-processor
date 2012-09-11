@@ -207,25 +207,25 @@ public class TablePojoConverter {
                 this.ignoreImports.put(table, null);
         }
 
-        System.out.println("sqlTypes " + this.sqlTypes);
-        System.out.println("tableTypes " + this.tableTypes);
-        System.out.println("columnTypes " + this.columnTypes);
-        System.out.println("tableNames " + this.tableNames);
-        System.out.println("columnNames " + this.columnNames);
-        System.out.println("ignoreTables " + this.ignoreTables);
-        System.out.println("ignoreColumns " + this.ignoreColumns);
-        System.out.println("createColumns " + this.createColumns);
-        System.out.println("ignoreExports " + this.ignoreExports);
-        System.out.println("ignoreImports " + this.ignoreImports);
-        System.out.println("createExports " + this.createExports);
-        System.out.println("createImports " + this.createImports);
-        System.out.println("inheritImports " + this.inheritImports);
-        System.out.println("manyToManyExports " + this.manyToManyExports);
-        System.out.println("inheritance " + this.inheritance);
+        // System.out.println("sqlTypes " + this.sqlTypes);
+        // System.out.println("tableTypes " + this.tableTypes);
+        // System.out.println("columnTypes " + this.columnTypes);
+        // System.out.println("tableNames " + this.tableNames);
+        // System.out.println("columnNames " + this.columnNames);
+        // System.out.println("ignoreTables " + this.ignoreTables);
+        // System.out.println("ignoreColumns " + this.ignoreColumns);
+        // System.out.println("createColumns " + this.createColumns);
+        // System.out.println("ignoreExports " + this.ignoreExports);
+        // System.out.println("ignoreImports " + this.ignoreImports);
+        // System.out.println("createExports " + this.createExports);
+        // System.out.println("createImports " + this.createImports);
+        // System.out.println("inheritImports " + this.inheritImports);
+        // System.out.println("manyToManyExports " + this.manyToManyExports);
+        // System.out.println("inheritance " + this.inheritance);
     }
 
-    public void addTableDefinition(String table, List<DbColumn> dbColumns, List<DbExport> dbExports,
-            List<DbImport> dbImports) {
+    public void addTableDefinition(String table, List<DbColumn> dbColumns, List<String> dbPrimaryKeys,
+            List<DbExport> dbExports, List<DbImport> dbImports) {
         if (table == null || dbColumns == null)
             return;
         Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
@@ -238,6 +238,10 @@ public class TablePojoConverter {
                 if (attribute != null)
                     attributes.put(dbColumn.getName(), attribute);
             }
+            if (dbPrimaryKeys.contains(dbColumn.getName())) {
+                attribute.setPrimaryKey(true);
+            }
+
         }
         if (createColumns.containsKey(table)) {
             for (Map.Entry<String, PojoAttrType> createColumn : createColumns.get(table).entrySet()) {
@@ -456,7 +460,7 @@ public class TablePojoConverter {
                 } else {
                     buffer.append(": ").append(attribute.getClassName());
                 }
-                if (attribute.isRequired()) {
+                if (attribute.isRequired() && !attribute.isPrimaryKey()) {
                     buffer.append(" required");
                 }
             }

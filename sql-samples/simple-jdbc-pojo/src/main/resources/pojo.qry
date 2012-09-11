@@ -6,7 +6,7 @@
 //pojogen create columns PERSON MOBILE_PHONE->::PhoneNumber;
 pojogen type for columns CONTACT PHONE_NUMBER->::PhoneNumber;
 pojogen rename columns CONTACT PHONE_NUMBER->HOME_PHONE;
-pojogen rename columns MOVIE urlimdb->urlIMDB playlength->playLength;
+pojogen rename columns MOVIE URLIMDB->URL_IMDB PLAYLENGTH->PLAY_LENGTH;
 pojogen ignore one-to-many LIBRARY ID->SUBSCRIBER;
 pojogen ignore many-to-one CONTACT PERSON_ID->PERSON;
 pojogen create many-to-one SUBSCRIBER CONTACT->CONTACT;
@@ -22,8 +22,17 @@ pojogen inherit discriminator BILLING_DETAILS BA->BANK_ACCOUNT->BA_ACCOUNT CC->C
 pojogen rename columns BANK_ACCOUNT BA_ACCOUNT->ACCOUNT;
 pojogen rename columns CREDIT_CARD CC_NUMBER->NUMBER;
 
+// Contact personId is not required, address is required
+// CreditCard number is required
+
+
+package org.sqlproc.sample.simple.model2 {
+
+
+}
 
 package org.sqlproc.sample.simple.model {
+
 
 
   pojo BankAccount extends BillingDetails {
@@ -62,7 +71,7 @@ package org.sqlproc.sample.simple.model {
   }
 
   pojo Movie extends Media {
-    urlIMDB : java.lang.String required
+    urlImdb : java.lang.String required
     playLength : java.lang.Long required
   }
 

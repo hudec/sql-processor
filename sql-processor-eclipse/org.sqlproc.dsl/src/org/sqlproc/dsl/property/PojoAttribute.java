@@ -7,6 +7,7 @@ public class PojoAttribute {
 
     private boolean primitive;
     private boolean required;
+    private boolean primaryKey;
     private String name;
     private String className;
     private String dependencyClassName;
@@ -31,6 +32,14 @@ public class PojoAttribute {
 
     public void setRequired(boolean required) {
         this.required = required;
+    }
+
+    public boolean isPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(boolean primaryKey) {
+        this.primaryKey = primaryKey;
     }
 
     public String getName() {

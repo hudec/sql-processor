@@ -6,19 +6,21 @@ import org.eclipse.emf.ecore.EObject;
 
 public interface DbResolver {
 
-    public boolean isResolveDb(EObject model);
+    boolean isResolveDb(EObject model);
 
-    public List<String> getTables(EObject model);
+    List<String> getTables(EObject model);
 
-    public boolean checkTable(EObject model, String table);
+    boolean checkTable(EObject model, String table);
 
-    public List<String> getColumns(EObject model, String table);
+    List<String> getColumns(EObject model, String table);
 
-    public boolean checkColumn(EObject model, String table, String column);
+    boolean checkColumn(EObject model, String table, String column);
 
-    public List<DbColumn> getDbColumns(EObject model, String table);
+    List<DbColumn> getDbColumns(EObject model, String table);
 
-    public List<DbExport> getDbExports(EObject model, String table);
+    List<DbExport> getDbExports(EObject model, String table);
 
-    public List<DbImport> getDbImports(EObject model, String table);
+    List<DbImport> getDbImports(EObject model, String table);
+
+    List<String> getDbPrimaryKeys(EObject model, String table);
 }

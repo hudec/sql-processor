@@ -569,9 +569,10 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                     TablePojoConverter converter = new TablePojoConverter(modelProperty, artifacts);
                     for (String table : tables) {
                         List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
+                        List<String> dbPrimaryKeys = dbResolver.getDbPrimaryKeys(artifacts, table);
                         List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);
                         List<DbImport> dbImports = dbResolver.getDbImports(artifacts, table);
-                        converter.addTableDefinition(table, dbColumns, dbExports, dbImports);
+                        converter.addTableDefinition(table, dbColumns, dbPrimaryKeys, dbExports, dbImports);
                     }
                     // converter.resolveReferencesOnConvention();
                     converter.resolveReferencesOnKeys();
