@@ -21,6 +21,10 @@ pojogen inherit many-to-one MOVIE MEDIA_ID->MEDIA->ID;
 
 pojogen table many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
 
+// pojogen inherit discriminator BILLING_DETAILS BA->BANK_ACCOUNT->ACCOUNT CC->CREDIT_CARD->NUMBER
+	
+
+
 package org.sqlproc.sample.simple.model2 {
 
 }
@@ -66,7 +70,7 @@ package org.sqlproc.sample.simple.model {
 		library :: Library required
 		billingDetails : java.util.List <:BillingDetails>
 	}
-	
+
 	pojo abstract BillingDetails {
 		id : java.lang.Long
 		type : java.lang.String required

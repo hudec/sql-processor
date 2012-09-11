@@ -86,6 +86,15 @@ public interface ProcessorDslFactory extends EFactory
   ExportAssignement createExportAssignement();
 
   /**
+   * Returns a new object of class '<em>Inheritance Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Inheritance Assignement</em>'.
+   * @generated
+   */
+  InheritanceAssignement createInheritanceAssignement();
+
+  /**
    * Returns a new object of class '<em>Property</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

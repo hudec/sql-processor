@@ -35,6 +35,7 @@ import org.sqlproc.dsl.processorDsl.IfSqlCond;
 import org.sqlproc.dsl.processorDsl.IfSqlFragment;
 import org.sqlproc.dsl.processorDsl.Import;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
+import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
 import org.sqlproc.dsl.processorDsl.Mapping;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingItem;
@@ -205,6 +206,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.IMPORT_ASSIGNEMENT:
 				if(context == grammarAccess.getImportAssignementRule()) {
 					sequence_ImportAssignement(context, (ImportAssignement) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.INHERITANCE_ASSIGNEMENT:
+				if(context == grammarAccess.getInheritanceAssignementRule()) {
+					sequence_InheritanceAssignement(context, (InheritanceAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -670,6 +677,15 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
+	 *     (discriminator=IDENT dbTable=IDENT dbColumns+=IDENT+)
+	 */
+	protected void sequence_InheritanceAssignement(EObject context, InheritanceAssignement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     ((name=IDENT | name=IDENT_DOT) (vals+=IDENT | vals+=NUMBER)*)
 	 */
 	protected void sequence_MappingColumn(EObject context, MappingColumn semanticObject) {
@@ -890,7 +906,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='pojogen inherit many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
 	 *         (name='pojogen create one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
 	 *         (name='pojogen create many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
-	 *         (name='pojogen table many-to-many' dbTable=IDENT exports+=ExportAssignement+)
+	 *         (name='pojogen table many-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
+	 *         (name='pojogen inherit discriminator' dbTable=IDENT inheritance+=InheritanceAssignement+)
 	 *     )
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {

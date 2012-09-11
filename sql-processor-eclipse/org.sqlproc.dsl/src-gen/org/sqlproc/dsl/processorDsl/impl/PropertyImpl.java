@@ -23,6 +23,7 @@ import org.sqlproc.dsl.processorDsl.ColumnAssignement;
 import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
+import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.SqlTypeAssignement;
@@ -52,6 +53,7 @@ import org.sqlproc.dsl.processorDsl.TableAssignement;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getColumns <em>Columns</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getExports <em>Exports</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getImports <em>Imports</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getInheritance <em>Inheritance</em>}</li>
  * </ul>
  * </p>
  *
@@ -318,6 +320,16 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * @ordered
    */
   protected EList<ImportAssignement> imports;
+
+  /**
+   * The cached value of the '{@link #getInheritance() <em>Inheritance</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInheritance()
+   * @generated
+   * @ordered
+   */
+  protected EList<InheritanceAssignement> inheritance;
 
   /**
    * <!-- begin-user-doc -->
@@ -664,6 +676,20 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<InheritanceAssignement> getInheritance()
+  {
+    if (inheritance == null)
+    {
+      inheritance = new EObjectContainmentEList<InheritanceAssignement>(InheritanceAssignement.class, this, ProcessorDslPackage.PROPERTY__INHERITANCE);
+    }
+    return inheritance;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -681,6 +707,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return ((InternalEList<?>)getExports()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.PROPERTY__IMPORTS:
         return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.PROPERTY__INHERITANCE:
+        return ((InternalEList<?>)getInheritance()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -729,6 +757,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return getExports();
       case ProcessorDslPackage.PROPERTY__IMPORTS:
         return getImports();
+      case ProcessorDslPackage.PROPERTY__INHERITANCE:
+        return getInheritance();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -803,6 +833,10 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         getImports().clear();
         getImports().addAll((Collection<? extends ImportAssignement>)newValue);
         return;
+      case ProcessorDslPackage.PROPERTY__INHERITANCE:
+        getInheritance().clear();
+        getInheritance().addAll((Collection<? extends InheritanceAssignement>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -868,6 +902,9 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
       case ProcessorDslPackage.PROPERTY__IMPORTS:
         getImports().clear();
         return;
+      case ProcessorDslPackage.PROPERTY__INHERITANCE:
+        getInheritance().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -916,6 +953,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return exports != null && !exports.isEmpty();
       case ProcessorDslPackage.PROPERTY__IMPORTS:
         return imports != null && !imports.isEmpty();
+      case ProcessorDslPackage.PROPERTY__INHERITANCE:
+        return inheritance != null && !inheritance.isEmpty();
     }
     return super.eIsSet(featureID);
   }

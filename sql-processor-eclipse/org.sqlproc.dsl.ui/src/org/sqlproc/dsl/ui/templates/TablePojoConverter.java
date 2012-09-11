@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.sql.Types;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -49,6 +50,7 @@ public class TablePojoConverter {
 
     private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     private Map<String, String> pojoExtends = new HashMap<String, String>();
+    private Set<String> pojoAbstracts = new HashSet<String>();
 
     public TablePojoConverter() {
     }
@@ -214,7 +216,7 @@ public class TablePojoConverter {
             List<DbImport> dbImports) {
         if (table == null || dbColumns == null)
             return;
-        Map<String, PojoAttribute> attributes = new TreeMap<String, PojoAttribute>();
+        Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
         for (DbColumn dbColumn : dbColumns) {
             PojoAttribute attribute = convertDbColumnDefinition(table, dbColumn);
             if (attribute != null) {
@@ -310,6 +312,7 @@ public class TablePojoConverter {
                 if (attribute.getParentTable() != null) {
                     if (pojos.containsKey(attribute.getParentTable())) {
                         pojoExtends.put(pojo, tableToCamelCase(attribute.getParentTable()));
+                        pojoAbstracts.add(attribute.getParentTable());
                     }
                 }
                 for (Map.Entry<String, String> fk : attribute.getFkTables().entrySet()) {
@@ -388,7 +391,10 @@ public class TablePojoConverter {
             String pojoName = tableNames.get(pojo);
             if (pojoName == null)
                 pojoName = pojo;
-            buffer.append("\n  pojo ").append(tableToCamelCase(pojoName));
+            buffer.append("\n  pojo ");
+            if (pojoAbstracts.contains(pojo))
+                buffer.append("abstract ");
+            buffer.append(tableToCamelCase(pojoName));
             if (pojoExtends.containsKey(pojo))
                 buffer.append(" extends ").append(pojoExtends.get(pojo));
             buffer.append(" {");

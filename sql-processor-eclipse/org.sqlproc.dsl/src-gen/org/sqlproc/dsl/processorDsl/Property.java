@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getColumns <em>Columns</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getExports <em>Exports</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getImports <em>Imports</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getInheritance <em>Inheritance</em>}</li>
  * </ul>
  * </p>
  *
@@ -401,5 +402,21 @@ public interface Property extends EObject
    * @generated
    */
   EList<ImportAssignement> getImports();
+
+  /**
+   * Returns the value of the '<em><b>Inheritance</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.InheritanceAssignement}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Inheritance</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Inheritance</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_Inheritance()
+   * @model containment="true"
+   * @generated
+   */
+  EList<InheritanceAssignement> getInheritance();
 
 } // Property

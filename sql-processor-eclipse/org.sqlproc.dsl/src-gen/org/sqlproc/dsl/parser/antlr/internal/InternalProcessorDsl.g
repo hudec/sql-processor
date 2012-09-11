@@ -753,6 +753,89 @@ ruleExportAssignement returns [EObject current=null]
 
 
 
+// Entry rule entryRuleInheritanceAssignement
+entryRuleInheritanceAssignement returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getInheritanceAssignementRule()); }
+	 iv_ruleInheritanceAssignement=ruleInheritanceAssignement 
+	 { $current=$iv_ruleInheritanceAssignement.current; } 
+	 EOF 
+;
+
+// Rule InheritanceAssignement
+ruleInheritanceAssignement returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_discriminator_0_0=RULE_IDENT
+		{
+			newLeafNode(lv_discriminator_0_0, grammarAccess.getInheritanceAssignementAccess().getDiscriminatorIDENTTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getInheritanceAssignementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"discriminator",
+        		lv_discriminator_0_0, 
+        		"IDENT");
+	    }
+
+)
+)	otherlv_1='->' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getInheritanceAssignementAccess().getHyphenMinusGreaterThanSignKeyword_1());
+    }
+(
+(
+		lv_dbTable_2_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbTable_2_0, grammarAccess.getInheritanceAssignementAccess().getDbTableIDENTTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getInheritanceAssignementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbTable",
+        		lv_dbTable_2_0, 
+        		"IDENT");
+	    }
+
+)
+)(	otherlv_3='->' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getInheritanceAssignementAccess().getHyphenMinusGreaterThanSignKeyword_3_0());
+    }
+(
+(
+		lv_dbColumns_4_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbColumns_4_0, grammarAccess.getInheritanceAssignementAccess().getDbColumnsIDENTTerminalRuleCall_3_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getInheritanceAssignementRule());
+	        }
+       		addWithLastConsumed(
+       			$current, 
+       			"dbColumns",
+        		lv_dbColumns_4_0, 
+        		"IDENT");
+	    }
+
+)
+))+)
+;
+
+
+
+
+
 // Entry rule entryRuleProperty
 entryRuleProperty returns [EObject current=null] 
 	:
@@ -1806,9 +1889,69 @@ ruleProperty returns [EObject current=null]
 	    }
 
 )
-))+))this_SEMICOLON_85=RULE_SEMICOLON
+))+)
+    |((
+(
+		lv_name_85_0=	'pojogen inherit discriminator' 
+    {
+        newLeafNode(lv_name_85_0, grammarAccess.getPropertyAccess().getNamePojogenInheritDiscriminatorKeyword_0_21_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_85_0, "pojogen inherit discriminator");
+	    }
+
+)
+)(this_WS_86=RULE_WS
     { 
-    newLeafNode(this_SEMICOLON_85, grammarAccess.getPropertyAccess().getSEMICOLONTerminalRuleCall_1()); 
+    newLeafNode(this_WS_86, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_21_1()); 
+    }
+)+(
+(
+		lv_dbTable_87_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbTable_87_0, grammarAccess.getPropertyAccess().getDbTableIDENTTerminalRuleCall_0_21_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbTable",
+        		lv_dbTable_87_0, 
+        		"IDENT");
+	    }
+
+)
+)((this_WS_88=RULE_WS
+    { 
+    newLeafNode(this_WS_88, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_21_3_0()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPropertyAccess().getInheritanceInheritanceAssignementParserRuleCall_0_21_3_1_0()); 
+	    }
+		lv_inheritance_89_0=ruleInheritanceAssignement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPropertyRule());
+	        }
+       		add(
+       			$current, 
+       			"inheritance",
+        		lv_inheritance_89_0, 
+        		"InheritanceAssignement");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))+))this_SEMICOLON_90=RULE_SEMICOLON
+    { 
+    newLeafNode(this_SEMICOLON_90, grammarAccess.getPropertyAccess().getSEMICOLONTerminalRuleCall_1()); 
     }
 )
 ;
