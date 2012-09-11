@@ -5,9 +5,9 @@ public class CreditCard extends BillingDetails {
   public CreditCard() {
   }
   
-  public CreditCard(String type, Subscriber subscriber, Long number) {
-  setType(type);
+  public CreditCard(Subscriber subscriber, String type, Long number) {
   setSubscriber(subscriber);
+  setType(type);
   setNumber(number);
   }
   

@@ -5,9 +5,9 @@ public abstract class BillingDetails {
   public BillingDetails() {
   }
   
-  public BillingDetails(String type, Subscriber subscriber) {
-  setType(type);
+  public BillingDetails(Subscriber subscriber, String type) {
   setSubscriber(subscriber);
+  setType(type);
   }
   
   private Long id;
@@ -21,17 +21,6 @@ public abstract class BillingDetails {
     return this;
   }
   
-  private String type;
-    
-  public String getType() {
-    return type;
-  }
-    
-  public BillingDetails setType(String type) {
-    this.type = type;
-    return this;
-  }
-  
   private Subscriber subscriber;
     
   public Subscriber getSubscriber() {
@@ -40,6 +29,17 @@ public abstract class BillingDetails {
     
   public BillingDetails setSubscriber(Subscriber subscriber) {
     this.subscriber = subscriber;
+    return this;
+  }
+  
+  private String type;
+    
+  public String getType() {
+    return type;
+  }
+    
+  public BillingDetails setType(String type) {
+    this.type = type;
     return this;
   }
 }

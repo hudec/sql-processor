@@ -1,5 +1,6 @@
 package org.sqlproc.dsl.property;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -42,4 +43,6 @@ public interface ModelProperty extends Adapter {
     Map<String, Map<String, Map<String, String>>> getInheritImports(EObject model);
 
     Map<String, Map<String, Map<String, String>>> getManyToManyExports(EObject model);
+
+    Map<String, Map<String, Map<String, List<String>>>> getInheritance(EObject model);
 }

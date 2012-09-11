@@ -47,10 +47,12 @@ public class TablePojoConverter {
     private Map<String, Map<String, Map<String, String>>> createImports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> inheritImports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> manyToManyExports = new HashMap<String, Map<String, Map<String, String>>>();
+    private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
 
     private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     private Map<String, String> pojoExtends = new HashMap<String, String>();
     private Set<String> pojoAbstracts = new HashSet<String>();
+    private Map<String, String> pojoDiscriminators = new HashMap<String, String>();
 
     public TablePojoConverter() {
     }
@@ -174,6 +176,15 @@ public class TablePojoConverter {
                 this.manyToManyExports.get(table).putAll(manyToManyExport.getValue());
             }
         }
+        Map<String, Map<String, Map<String, List<String>>>> inheritance = modelProperty.getInheritance(artifacts);
+        if (inheritance != null) {
+            for (Map.Entry<String, Map<String, Map<String, List<String>>>> inheritance1 : inheritance.entrySet()) {
+                String table = inheritance1.getKey(); // tableToCamelCase(columnName.getKey());
+                if (!this.inheritance.containsKey(table))
+                    this.inheritance.put(table, new HashMap<String, Map<String, List<String>>>());
+                this.inheritance.get(table).putAll(inheritance1.getValue());
+            }
+        }
 
         for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : this.inheritImports.entrySet()) {
             for (Map.Entry<String, Map<String, String>> inherit : inheritImport.getValue().entrySet()) {
@@ -210,9 +221,10 @@ public class TablePojoConverter {
         System.out.println("createImports " + this.createImports);
         System.out.println("inheritImports " + this.inheritImports);
         System.out.println("manyToManyExports " + this.manyToManyExports);
+        System.out.println("inheritance " + this.inheritance);
     }
 
-    public void addTableTefinition(String table, List<DbColumn> dbColumns, List<DbExport> dbExports,
+    public void addTableDefinition(String table, List<DbColumn> dbColumns, List<DbExport> dbExports,
             List<DbImport> dbImports) {
         if (table == null || dbColumns == null)
             return;
@@ -290,6 +302,33 @@ public class TablePojoConverter {
                 for (Map.Entry<String, String> fk : pentry.getValue().entrySet())
                     attribute.getFkTables().put(fk.getKey(), fk.getValue());
             }
+        }
+        if (inheritance.containsKey(table)) {
+            // pojogen inherit discriminator BILLING_DETAILS BA->BANK_ACCOUNT->BA_ACCOUNT CC->CREDIT_CARD->CC_NUMBER;
+            // pojogen rename columns BANK_ACCOUNT BA_ACCOUNT->ACCOUNT;
+            // pojogen rename columns CREDIT_CARD CC_NUMBER->NUMBER;
+            Map<String, PojoAttribute> allInheritedAttributes = new LinkedHashMap<String, PojoAttribute>();
+            for (Map.Entry<String, Map<String, List<String>>> inheritance1 : inheritance.get(table).entrySet()) {
+                String discriminator = inheritance1.getKey();
+                Map<String, PojoAttribute> inheritedAttributes = new LinkedHashMap<String, PojoAttribute>();
+                for (Map.Entry<String, List<String>> tabcols : inheritance1.getValue().entrySet()) {
+                    String inheritedTable = tabcols.getKey();
+                    for (String dbColumn : tabcols.getValue()) {
+                        if (attributes.containsKey(dbColumn)) {
+                            inheritedAttributes.put(dbColumn, attributes.get(dbColumn));
+                        }
+                    }
+                    allInheritedAttributes.putAll(inheritedAttributes);
+                    pojos.put(inheritedTable, inheritedAttributes);
+                    pojoDiscriminators.put(inheritedTable, discriminator);
+                    pojoExtends.put(inheritedTable, tableToCamelCase(table));
+                    break;
+                }
+            }
+            for (String dbColumn : allInheritedAttributes.keySet()) {
+                attributes.remove(dbColumn);
+            }
+            pojoAbstracts.add(table);
         }
     }
 

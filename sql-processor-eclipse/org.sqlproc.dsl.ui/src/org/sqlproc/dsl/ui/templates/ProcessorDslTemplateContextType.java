@@ -571,7 +571,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                         List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
                         List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);
                         List<DbImport> dbImports = dbResolver.getDbImports(artifacts, table);
-                        converter.addTableTefinition(table, dbColumns, dbExports, dbImports);
+                        converter.addTableDefinition(table, dbColumns, dbExports, dbImports);
                     }
                     // converter.resolveReferencesOnConvention();
                     converter.resolveReferencesOnKeys();

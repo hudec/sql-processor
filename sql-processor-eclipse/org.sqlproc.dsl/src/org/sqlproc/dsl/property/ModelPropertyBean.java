@@ -3,6 +3,7 @@ package org.sqlproc.dsl.property;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
+import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.util.Utils;
 
@@ -48,6 +50,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_CREATE_IMPORTS = "pojogen create many-to-one";
     public static final String POJOGEN_INHERIT_IMPORTS = "pojogen inherit many-to-one";
     public static final String POJOGEN_MANY_TO_MANY_EXPORTS = "pojogen table many-to-many";
+    public static final String POJOGEN_INHERITANCE = "pojogen inherit discriminator";
 
     public static class ModelValues {
         public boolean doResolvePojo;
@@ -72,6 +75,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Map<String, Map<String, String>>> createImports;
         public Map<String, Map<String, Map<String, String>>> inheritImports;
         public Map<String, Map<String, Map<String, String>>> manyToManyExports;
+        private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
 
         @Override
         public String toString() {
@@ -82,7 +86,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + columnNames + ", ignoreTables=" + ignoreTables + ", ignoreColumns=" + ignoreColumns
                     + ", createColumns=" + createColumns + ", ignoreExports=" + ignoreExports + ", ignoreImports="
                     + ignoreImports + ", createExports=" + createExports + ", createImports=" + createImports
-                    + ", inheritImports=" + inheritImports + ", manyToManyExports=" + manyToManyExports + "]";
+                    + ", inheritImports=" + inheritImports + ", manyToManyExports=" + manyToManyExports
+                    + ", inheritance=" + inheritance + "]";
         }
     }
 
@@ -315,6 +320,18 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     exports.put(export.getDbColumn(), new HashMap<String, String>());
                 exports.get(export.getDbColumn()).put(export.getFkTable(), export.getFkColumn());
             }
+        } else if (POJOGEN_INHERITANCE.equals(property.getName())) {
+            if (modelValues.inheritance == null)
+                modelValues.inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
+            if (!modelValues.inheritance.containsKey(property.getDbTable()))
+                modelValues.inheritance.put(property.getDbTable(), new HashMap<String, Map<String, List<String>>>());
+            Map<String, Map<String, List<String>>> inherits = modelValues.inheritance.get(property.getDbTable());
+            for (int i = 0, m = property.getInheritance().size(); i < m; i++) {
+                InheritanceAssignement _inherit = property.getInheritance().get(i);
+                if (!inherits.containsKey(_inherit.getDiscriminator()))
+                    inherits.put(_inherit.getDiscriminator(), new HashMap<String, List<String>>());
+                inherits.get(_inherit.getDiscriminator()).put(_inherit.getDbTable(), _inherit.getDbColumns());
+            }
         }
     }
 
@@ -421,6 +438,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.manyToManyExports : Collections
                 .<String, Map<String, Map<String, String>>> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, Map<String, List<String>>>> getInheritance(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.inheritance : Collections
+                .<String, Map<String, Map<String, List<String>>>> emptyMap();
     }
 
     @Override

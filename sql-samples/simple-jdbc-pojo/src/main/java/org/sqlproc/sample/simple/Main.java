@@ -304,21 +304,21 @@ public class Main {
 
         Book book1 = main.insertBook(new Book("The Adventures of Robin Hood", "978-0140367003"));
         Book book2 = main.insertBook(new Book("The Three Musketeers", "978-1897093634"));
-        Movie movie1 = main.insertMovie(new Movie("Pippi Långstrump i Söderhavet", "abc", 82));
-        Movie movie2 = main.insertMovie(new Movie("Die Another Day", "def", 95));
+        Movie movie1 = main.insertMovie(new Movie("Pippi Långstrump i Söderhavet", "abc", 82L));
+        Movie movie2 = main.insertMovie(new Movie("Die Another Day", "def", 95L));
 
         main.createPersonLibrary(jan, book1, movie1);
         main.createPersonLibrary(honza, book2, movie2);
         main.createPersonLibrary(andrej, book1, book2, movie2);
 
         Library lib = main.insertLibrary(new Library("Alexandria Library"));
-        Subscriber arnost = main.insertSubscriber(new Subscriber("Arnost", lib));
-        Subscriber maria = main.insertSubscriber(new Subscriber("Maria", lib));
+        Subscriber arnost = main.insertSubscriber(new Subscriber(lib, "Arnost"));
+        Subscriber maria = main.insertSubscriber(new Subscriber(lib, "Maria"));
 
-        main.insertBankAccount(new BankAccount("BA", arnost, "account 1"));
-        main.insertBankAccount(new BankAccount("BA", maria, "account 2"));
-        main.insertCreditCard(new CreditCard("CC", arnost, 123L));
-        main.insertCreditCard(new CreditCard("CC", maria, 456L));
+        main.insertBankAccount(new BankAccount(arnost, "BA", "account 1"));
+        main.insertBankAccount(new BankAccount(maria, "BA", "account 2"));
+        main.insertCreditCard(new CreditCard(arnost, "CC", 123L));
+        main.insertCreditCard(new CreditCard(maria, "CC", 456L));
 
         // queries
         list = main.listAll();

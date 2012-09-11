@@ -5,9 +5,9 @@ public class BankAccount extends BillingDetails {
   public BankAccount() {
   }
   
-  public BankAccount(String type, Subscriber subscriber, String account) {
-  setType(type);
+  public BankAccount(Subscriber subscriber, String type, String account) {
   setSubscriber(subscriber);
+  setType(type);
   setAccount(account);
   }
   

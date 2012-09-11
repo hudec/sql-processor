@@ -33,17 +33,6 @@ public class Person {
     return this;
   }
   
-  private List<Contact> contacts;
-    
-  public List<Contact> getContacts() {
-    return contacts;
-  }
-    
-  public Person setContacts(List<Contact> contacts) {
-    this.contacts = contacts;
-    return this;
-  }
-  
   private List<Media> library;
     
   public List<Media> getLibrary() {
@@ -52,6 +41,17 @@ public class Person {
     
   public Person setLibrary(List<Media> library) {
     this.library = library;
+    return this;
+  }
+  
+  private List<Contact> contacts;
+    
+  public List<Contact> getContacts() {
+    return contacts;
+  }
+    
+  public Person setContacts(List<Contact> contacts) {
+    this.contacts = contacts;
     return this;
   }
 }

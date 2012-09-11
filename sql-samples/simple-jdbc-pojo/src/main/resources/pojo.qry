@@ -4,99 +4,95 @@
 //pojogen ignore tables BOOK;
 //pojogen ignore columns CONTACT ADDRESS;
 //pojogen create columns PERSON MOBILE_PHONE->::PhoneNumber;
-
 pojogen type for columns CONTACT PHONE_NUMBER->::PhoneNumber;
 pojogen rename columns CONTACT PHONE_NUMBER->HOME_PHONE;
+pojogen rename columns MOVIE urlimdb->urlIMDB playlength->playLength;
 pojogen ignore one-to-many LIBRARY ID->SUBSCRIBER;
 pojogen ignore many-to-one CONTACT PERSON_ID->PERSON;
 pojogen create many-to-one SUBSCRIBER CONTACT->CONTACT;
 pojogen inherit many-to-one BOOK MEDIA_ID->MEDIA->ID;
 pojogen inherit many-to-one MOVIE MEDIA_ID->MEDIA->ID;
-
 //pojogen ignore many-to-one PERSON_LIBRARY MEDIA_ID->MEDIA;
 //pojogen ignore many-to-one PERSON_LIBRARY PERSON_ID->PERSON;
 //pojogen ignore one-to-many PERSON ID->PERSON_LIBRARY;
 //pojogen ignore one-to-many MEDIA ID->PERSON_LIBRARY;
 //pojogen create one-to-many PERSON ID->MEDIA->LIBRARY;
-
 pojogen table many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
+pojogen inherit discriminator BILLING_DETAILS BA->BANK_ACCOUNT->BA_ACCOUNT CC->CREDIT_CARD->CC_NUMBER;
+pojogen rename columns BANK_ACCOUNT BA_ACCOUNT->ACCOUNT;
+pojogen rename columns CREDIT_CARD CC_NUMBER->NUMBER;
 
-// pojogen inherit discriminator BILLING_DETAILS BA->BANK_ACCOUNT->ACCOUNT CC->CREDIT_CARD->NUMBER
-	
-
-
-package org.sqlproc.sample.simple.model2 {
-
-}
 
 package org.sqlproc.sample.simple.model {
 
-	pojo abstract Media {
-		id : java.lang.Long
-		title : java.lang.String required
-	}
-	
-	pojo Book extends Media {
-		isbn : java.lang.String required
-	}
-	
-	pojo Movie extends Media {
-		urlIMDB : java.lang.String required
-		playLength : java.lang.Integer required
-	}
-	
-	pojo Library {
-		id : java.lang.Long
-		name : java.lang.String required
-	}
-	
-	pojo PhoneNumber {
-		area _int required
-		exch _int required
-		ext _int required
-	}
-	
-	pojo Contact {
-		id : java.lang.Long
-		personId : java.lang.Long
-		address : java.lang.String required
-		homePhone :: PhoneNumber
-	}
-	
-	pojo Subscriber {
-		id : java.lang.Long
-		name : java.lang.String required
-		contact :: Contact
-		library :: Library required
-		billingDetails : java.util.List <:BillingDetails>
-	}
 
-	pojo abstract BillingDetails {
-		id : java.lang.Long
-		type : java.lang.String required
-		subscriber :: Subscriber required
-	}
+  pojo BankAccount extends BillingDetails {
+    account : java.lang.String required
+  }
+
+  pojo abstract BillingDetails {
+    id : java.lang.Long
+    subscriber :: Subscriber required
+    type : java.lang.String required
+  }
+
+  pojo Book extends Media {
+    isbn : java.lang.String required
+  }
+
+  pojo Contact {
+    id : java.lang.Long
+    personId : java.lang.Long
+    address : java.lang.String required
+    homePhone :: PhoneNumber
+  }
+
+  pojo CreditCard extends BillingDetails {
+    number : java.lang.Long required
+  }
+
+  pojo Library {
+    id : java.lang.Long
+    name : java.lang.String required
+  }
+
+  pojo abstract Media {
+    id : java.lang.Long
+    title : java.lang.String required
+  }
+
+  pojo Movie extends Media {
+    urlIMDB : java.lang.String required
+    playLength : java.lang.Long required
+  }
+
+  pojo Person {
+    id : java.lang.Long
+    name : java.lang.String required
+    library : java.util.List <:Media>
+    contacts : java.util.List <:Contact>
+  }
+
+  pojo PersonLibrary {
+    id : java.lang.Long
+    personId : java.lang.Long required
+    mediaId : java.lang.Long required
+  }
+
+  pojo Subscriber {
+    id : java.lang.Long
+    library :: Library required
+    contact :: Contact
+    name : java.lang.String required
+    billingDetails : java.util.List <:BillingDetails>
+  }
+
+  pojo PhoneNumber {
+    area _int required
+    exch _int required
+    ext _int required
+  }
 	
-	pojo BankAccount extends BillingDetails {
-		account : java.lang.String required
-	}
-	
-	pojo CreditCard extends BillingDetails {
-		number : java.lang.Long required
-	}
-	
-	pojo PersonLibrary {
-		id : java.lang.Long
-		personId : java.lang.Long required
-		mediaId : java.lang.Long required
-	}
-	
-	pojo Person {
-		id : java.lang.Long
-		name : java.lang.String required
-		contacts : java.util.List <:Contact>
-		library : java.util.List <:Media>
-	}
 }
 
 package org.sqlproc.sample.simple.form {

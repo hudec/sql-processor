@@ -7,9 +7,9 @@ public class Subscriber {
   public Subscriber() {
   }
   
-  public Subscriber(String name, Library library) {
-  setName(name);
+  public Subscriber(Library library, String name) {
   setLibrary(library);
+  setName(name);
   }
   
   private Long id;
@@ -23,14 +23,14 @@ public class Subscriber {
     return this;
   }
   
-  private String name;
+  private Library library;
     
-  public String getName() {
-    return name;
+  public Library getLibrary() {
+    return library;
   }
     
-  public Subscriber setName(String name) {
-    this.name = name;
+  public Subscriber setLibrary(Library library) {
+    this.library = library;
     return this;
   }
   
@@ -45,14 +45,14 @@ public class Subscriber {
     return this;
   }
   
-  private Library library;
+  private String name;
     
-  public Library getLibrary() {
-    return library;
+  public String getName() {
+    return name;
   }
     
-  public Subscriber setLibrary(Library library) {
-    this.library = library;
+  public Subscriber setName(String name) {
+    this.name = name;
     return this;
   }
   
