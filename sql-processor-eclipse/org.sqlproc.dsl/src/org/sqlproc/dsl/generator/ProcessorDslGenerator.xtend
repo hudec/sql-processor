@@ -68,9 +68,8 @@ def compile(PojoProperty f, ImportManager importManager, PojoEntity e) '''
       return «f.name»;
     }
   
-    public «e.name» set«f.name.toFirstUpper»(«f.compileType(importManager)» «f.name») {
+    public void set«f.name.toFirstUpper»(«f.compileType(importManager)» «f.name») {
       this.«f.name» = «f.name»;
-      return this;
     }
 '''
 

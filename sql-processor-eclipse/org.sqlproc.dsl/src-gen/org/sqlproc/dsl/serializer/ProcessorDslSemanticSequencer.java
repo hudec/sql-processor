@@ -898,6 +898,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='pojogen type for columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
 	 *         (name='pojogen ignore tables' dbTables+=IDENT+) | 
 	 *         (name='pojogen ignore columns' dbTable=IDENT dbColumns+=IDENT+) | 
+	 *         (name='pojogen required columns' dbTable=IDENT dbColumns+=IDENT+) | 
+	 *         (name='pojogen not required columns' dbTable=IDENT dbColumns+=IDENT+) | 
 	 *         (name='pojogen create columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
 	 *         (name='pojogen rename tables' tables+=TableAssignement+) | 
 	 *         (name='pojogen rename columns' dbTable=IDENT columns+=ColumnAssignement+) | 

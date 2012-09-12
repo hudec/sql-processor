@@ -45,4 +45,8 @@ public interface ModelProperty extends Adapter {
     Map<String, Map<String, Map<String, String>>> getManyToManyExports(EObject model);
 
     Map<String, Map<String, Map<String, List<String>>>> getInheritance(EObject model);
+
+    Map<String, Set<String>> getRequiredColumns(EObject model);
+
+    Map<String, Set<String>> getNotRequiredColumns(EObject model);
 }

@@ -41,6 +41,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_TYPE_FOR_COLUMNS = "pojogen type for columns";
     public static final String POJOGEN_IGNORE_TABLES = "pojogen ignore tables";
     public static final String POJOGEN_IGNORE_COLUMNS = "pojogen ignore columns";
+    public static final String POJOGEN_REQUIRED_COLUMNS = "pojogen required columns";
+    public static final String POJOGEN_NOT_REQUIRED_COLUMNS = "pojogen not required columns";
     public static final String POJOGEN_CREATE_COLUMNS = "pojogen create columns";
     public static final String POJOGEN_RENAME_TABLES = "pojogen rename tables";
     public static final String POJOGEN_RENAME_COLUMNS = "pojogen rename columns";
@@ -68,6 +70,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Map<String, String>> columnNames;
         public Set<String> ignoreTables;
         public Map<String, Set<String>> ignoreColumns;
+        public Map<String, Set<String>> requiredColumns;
+        public Map<String, Set<String>> notRequiredColumns;
         public Map<String, Map<String, PojoAttrType>> createColumns;
         public Map<String, Map<String, Map<String, String>>> ignoreExports;
         public Map<String, Map<String, Map<String, String>>> ignoreImports;
@@ -84,6 +88,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + ", tableTypes="
                     + tableTypes + ", columnTypes=" + columnTypes + ", tableNames=" + tableNames + ", columnNames="
                     + columnNames + ", ignoreTables=" + ignoreTables + ", ignoreColumns=" + ignoreColumns
+                    + ", requiredColumns=" + requiredColumns + ", notRequiredColumns=" + notRequiredColumns
                     + ", createColumns=" + createColumns + ", ignoreExports=" + ignoreExports + ", ignoreImports="
                     + ignoreImports + ", createExports=" + createExports + ", createImports=" + createImports
                     + ", inheritImports=" + inheritImports + ", manyToManyExports=" + manyToManyExports
@@ -238,6 +243,22 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             for (int i = 0, m = property.getDbColumns().size(); i < m; i++) {
                 modelValues.ignoreColumns.get(property.getDbTable()).add(property.getDbColumns().get(i));
             }
+        } else if (POJOGEN_REQUIRED_COLUMNS.equals(property.getName())) {
+            if (modelValues.requiredColumns == null)
+                modelValues.requiredColumns = new HashMap<String, Set<String>>();
+            if (!modelValues.requiredColumns.containsKey(property.getDbTable()))
+                modelValues.requiredColumns.put(property.getDbTable(), new HashSet<String>());
+            for (int i = 0, m = property.getDbColumns().size(); i < m; i++) {
+                modelValues.requiredColumns.get(property.getDbTable()).add(property.getDbColumns().get(i));
+            }
+        } else if (POJOGEN_NOT_REQUIRED_COLUMNS.equals(property.getName())) {
+            if (modelValues.notRequiredColumns == null)
+                modelValues.notRequiredColumns = new HashMap<String, Set<String>>();
+            if (!modelValues.notRequiredColumns.containsKey(property.getDbTable()))
+                modelValues.notRequiredColumns.put(property.getDbTable(), new HashSet<String>());
+            for (int i = 0, m = property.getDbColumns().size(); i < m; i++) {
+                modelValues.notRequiredColumns.get(property.getDbTable()).add(property.getDbColumns().get(i));
+            }
         } else if (POJOGEN_CREATE_COLUMNS.equals(property.getName())) {
             if (modelValues.createColumns == null)
                 modelValues.createColumns = new HashMap<String, Map<String, PojoAttrType>>();
@@ -389,6 +410,18 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Map<String, Set<String>> getIgnoreColumns(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.ignoreColumns : Collections.<String, Set<String>> emptyMap();
+    }
+
+    @Override
+    public Map<String, Set<String>> getRequiredColumns(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.requiredColumns : Collections.<String, Set<String>> emptyMap();
+    }
+
+    @Override
+    public Map<String, Set<String>> getNotRequiredColumns(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.notRequiredColumns : Collections.<String, Set<String>> emptyMap();
     }
 
     @Override

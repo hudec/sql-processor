@@ -40,6 +40,8 @@ public class TablePojoConverter {
     private Map<String, Map<String, String>> columnNames = new HashMap<String, Map<String, String>>();
     private Set<String> ignoreTables = new HashSet<String>();
     private Map<String, Set<String>> ignoreColumns = new HashMap<String, Set<String>>();
+    private Map<String, Set<String>> requiredColumns = new HashMap<String, Set<String>>();
+    private Map<String, Set<String>> notRequiredColumns = new HashMap<String, Set<String>>();
     private Map<String, Map<String, PojoAttrType>> createColumns = new HashMap<String, Map<String, PojoAttrType>>();
     private Map<String, Map<String, Map<String, String>>> ignoreExports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> ignoreImports = new HashMap<String, Map<String, Map<String, String>>>();
@@ -109,6 +111,20 @@ public class TablePojoConverter {
             for (Map.Entry<String, Set<String>> ignoreColumn : ignoreColumns.entrySet()) {
                 this.ignoreColumns.put(ignoreColumn.getKey(), new HashSet<String>());
                 this.ignoreColumns.get(ignoreColumn.getKey()).addAll(ignoreColumn.getValue());
+            }
+        }
+        Map<String, Set<String>> requiredColumns = modelProperty.getRequiredColumns(artifacts);
+        if (requiredColumns != null) {
+            for (Map.Entry<String, Set<String>> requiredColumn : requiredColumns.entrySet()) {
+                this.requiredColumns.put(requiredColumn.getKey(), new HashSet<String>());
+                this.requiredColumns.get(requiredColumn.getKey()).addAll(requiredColumn.getValue());
+            }
+        }
+        Map<String, Set<String>> notRequiredColumns = modelProperty.getNotRequiredColumns(artifacts);
+        if (notRequiredColumns != null) {
+            for (Map.Entry<String, Set<String>> notRequiredColumn : notRequiredColumns.entrySet()) {
+                this.notRequiredColumns.put(notRequiredColumn.getKey(), new HashSet<String>());
+                this.notRequiredColumns.get(notRequiredColumn.getKey()).addAll(notRequiredColumn.getValue());
             }
         }
         Map<String, Map<String, PojoAttrType>> createColumns = modelProperty.getCreateColumns(artifacts);
@@ -460,8 +476,11 @@ public class TablePojoConverter {
                 } else {
                     buffer.append(": ").append(attribute.getClassName());
                 }
-                if (attribute.isRequired() && !attribute.isPrimaryKey()) {
-                    buffer.append(" required");
+                if ((requiredColumns.containsKey(pojo) && requiredColumns.get(pojo).contains(pentry.getKey()))
+                        || (attribute.isRequired() && !attribute.isPrimaryKey())) {
+                    if (!notRequiredColumns.containsKey(pojo)
+                            || !notRequiredColumns.get(pojo).contains(pentry.getKey()))
+                        buffer.append(" required");
                 }
             }
             buffer.append("\n  }\n");

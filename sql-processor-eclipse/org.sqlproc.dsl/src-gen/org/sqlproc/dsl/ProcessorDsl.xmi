@@ -340,6 +340,36 @@
         </elements>
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="pojogen required columns"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.57"/>
+          <elements xsi:type="xtext:Assignment" feature="dbTable" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
+          </elements>
+          <elements xsi:type="xtext:Group" cardinality="+">
+            <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.57"/>
+            <elements xsi:type="xtext:Assignment" feature="dbColumns" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
+            </elements>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="pojogen not required columns"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.57"/>
+          <elements xsi:type="xtext:Assignment" feature="dbTable" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
+          </elements>
+          <elements xsi:type="xtext:Group" cardinality="+">
+            <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.57"/>
+            <elements xsi:type="xtext:Assignment" feature="dbColumns" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
+            </elements>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
             <terminal xsi:type="xtext:Keyword" value="pojogen create columns"/>
           </elements>
           <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.57"/>
