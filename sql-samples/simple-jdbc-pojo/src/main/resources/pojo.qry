@@ -4,7 +4,7 @@
 //pojogen ignore tables BOOK;
 //pojogen ignore columns CONTACT ADDRESS;
 //pojogen create columns PERSON MOBILE_PHONE->::PhoneNumber;
-pojogen type for columns CONTACT PHONE_NUMBER->::PhoneNumber;
+pojogen type for columns CONTACT PHONE_NUMBER->:org.sqlproc.sample.simple.model.PhoneNumber;
 pojogen rename columns CONTACT PHONE_NUMBER->HOME_PHONE;
 pojogen rename columns MOVIE URLIMDB->URL_IMDB PLAYLENGTH->PLAY_LENGTH;
 pojogen ignore one-to-many LIBRARY ID->SUBSCRIBER;
@@ -34,7 +34,6 @@ package org.sqlproc.sample.simple.model2 {
 
 package org.sqlproc.sample.simple.model {
 
-
   pojo BankAccount extends BillingDetails {
     account : java.lang.String required
   }
@@ -53,7 +52,7 @@ package org.sqlproc.sample.simple.model {
     id : java.lang.Long
     personId : java.lang.Long
     address : java.lang.String required
-    homePhone :: PhoneNumber
+    homePhone : org.sqlproc.sample.simple.model.PhoneNumber
   }
 
   pojo CreditCard extends BillingDetails {
@@ -96,13 +95,12 @@ package org.sqlproc.sample.simple.model {
     billingDetails : java.util.List <:BillingDetails>
   }
 
-
-  pojo PhoneNumber {
-    area _int required
-    exch _int required
-    ext _int required
-  }
-	
+//  pojo PhoneNumber {
+//    area _int required
+//    exch _int required
+//    ext _int required
+//  }
+//	
 }
 
 package org.sqlproc.sample.simple.form {

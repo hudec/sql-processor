@@ -1,4 +1,6 @@
 package org.sqlproc.sample.simple.model;
+  
+import org.sqlproc.sample.simple.model.PhoneNumber;
 
 public class Contact {
 	

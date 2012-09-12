@@ -405,7 +405,7 @@ public class Main {
         contact.setHomePhone(new PhoneNumber(111, 222, 3333));
         list = main.listCustom(contact);
         Assert.assertEquals(1, list.size());
-        // Assert.assertEquals("111-222-3333", list.get(0).getContacts().get(0).getHomePhone().toString());
+        Assert.assertEquals("111-222-3333", list.get(0).getContacts().get(0).getHomePhone().toString());
 
         List<Subscriber> subscribers = main.listAllSubsribersWithBillingDetails();
         Assert.assertEquals(2, subscribers.size());
