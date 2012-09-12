@@ -30,7 +30,7 @@ pojogen type for columns MOVIE PLAYLENGTH->:java.lang.Integer;
 package org.sqlproc.sample.simple.model2 suffix 2 {
 
 
-  pojo BankAccount2 extends BillingDetails2 {
+  final pojo BankAccount2 extends BillingDetails2 discriminator BA {
     account : java.lang.String required
   }
 
@@ -51,7 +51,7 @@ package org.sqlproc.sample.simple.model2 suffix 2 {
     homePhone : org.sqlproc.sample.simple.model.PhoneNumber
   }
 
-  pojo CreditCard2 extends BillingDetails2 {
+  final pojo CreditCard2 extends BillingDetails2 discriminator CC {
     number : java.lang.Long required
   }
 
