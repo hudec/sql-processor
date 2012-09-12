@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#isAbstract <em>Abstract</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator <em>Discriminator</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getSuperType <em>Super Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getFeatures <em>Features</em>}</li>
  * </ul>
@@ -76,6 +77,32 @@ public interface PojoEntity extends AbstractPojoEntity
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Discriminator</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Discriminator</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Discriminator</em>' attribute.
+   * @see #setDiscriminator(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoEntity_Discriminator()
+   * @model
+   * @generated
+   */
+  String getDiscriminator();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator <em>Discriminator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Discriminator</em>' attribute.
+   * @see #getDiscriminator()
+   * @generated
+   */
+  void setDiscriminator(String value);
 
   /**
    * Returns the value of the '<em><b>Super Type</b></em>' reference.

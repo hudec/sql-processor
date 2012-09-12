@@ -234,6 +234,7 @@
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//PackageDeclaration">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PackageDeclaration/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PackageDeclaration/suffix"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//PackageDeclaration/elements"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//AbstractPojoEntity"/>
@@ -243,6 +244,7 @@
     <genClasses ecoreClass="ProcessorDsl.ecore#//PojoEntity">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojoEntity/abstract"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojoEntity/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojoEntity/discriminator"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//PojoEntity/superType"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//PojoEntity/features"/>
     </genClasses>

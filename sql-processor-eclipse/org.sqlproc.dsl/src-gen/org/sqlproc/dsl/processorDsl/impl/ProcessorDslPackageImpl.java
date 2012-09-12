@@ -2315,9 +2315,19 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getPackageDeclaration_Suffix()
+  {
+    return (EAttribute)packageDeclarationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getPackageDeclaration_Elements()
   {
-    return (EReference)packageDeclarationEClass.getEStructuralFeatures().get(1);
+    return (EReference)packageDeclarationEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2385,9 +2395,19 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getPojoEntity_Discriminator()
+  {
+    return (EAttribute)pojoEntityEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getPojoEntity_SuperType()
   {
-    return (EReference)pojoEntityEClass.getEStructuralFeatures().get(2);
+    return (EReference)pojoEntityEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -2397,7 +2417,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    */
   public EReference getPojoEntity_Features()
   {
-    return (EReference)pojoEntityEClass.getEStructuralFeatures().get(3);
+    return (EReference)pojoEntityEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -2747,6 +2767,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     packageDeclarationEClass = createEClass(PACKAGE_DECLARATION);
     createEAttribute(packageDeclarationEClass, PACKAGE_DECLARATION__NAME);
+    createEAttribute(packageDeclarationEClass, PACKAGE_DECLARATION__SUFFIX);
     createEReference(packageDeclarationEClass, PACKAGE_DECLARATION__ELEMENTS);
 
     abstractPojoEntityEClass = createEClass(ABSTRACT_POJO_ENTITY);
@@ -2757,6 +2778,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     pojoEntityEClass = createEClass(POJO_ENTITY);
     createEAttribute(pojoEntityEClass, POJO_ENTITY__ABSTRACT);
     createEAttribute(pojoEntityEClass, POJO_ENTITY__NAME);
+    createEAttribute(pojoEntityEClass, POJO_ENTITY__DISCRIMINATOR);
     createEReference(pojoEntityEClass, POJO_ENTITY__SUPER_TYPE);
     createEReference(pojoEntityEClass, POJO_ENTITY__FEATURES);
 
@@ -3043,6 +3065,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     initEClass(packageDeclarationEClass, PackageDeclaration.class, "PackageDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPackageDeclaration_Name(), ecorePackage.getEString(), "name", null, 0, 1, PackageDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPackageDeclaration_Suffix(), ecorePackage.getEString(), "suffix", null, 0, 1, PackageDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPackageDeclaration_Elements(), this.getAbstractPojoEntity(), null, "elements", null, 0, -1, PackageDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(abstractPojoEntityEClass, AbstractPojoEntity.class, "AbstractPojoEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3053,6 +3076,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEClass(pojoEntityEClass, PojoEntity.class, "PojoEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPojoEntity_Abstract(), ecorePackage.getEBoolean(), "abstract", null, 0, 1, PojoEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPojoEntity_Name(), ecorePackage.getEString(), "name", null, 0, 1, PojoEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPojoEntity_Discriminator(), ecorePackage.getEString(), "discriminator", null, 0, 1, PojoEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPojoEntity_SuperType(), this.getPojoEntity(), null, "superType", null, 0, 1, PojoEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPojoEntity_Features(), this.getPojoProperty(), null, "features", null, 0, -1, PojoEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

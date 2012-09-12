@@ -29,6 +29,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PackageDeclarationImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PackageDeclarationImpl#getSuffix <em>Suffix</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PackageDeclarationImpl#getElements <em>Elements</em>}</li>
  * </ul>
  * </p>
@@ -56,6 +57,26 @@ public class PackageDeclarationImpl extends AbstractPojoEntityImpl implements Pa
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getSuffix() <em>Suffix</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSuffix()
+   * @generated
+   * @ordered
+   */
+  protected static final String SUFFIX_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getSuffix() <em>Suffix</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSuffix()
+   * @generated
+   * @ordered
+   */
+  protected String suffix = SUFFIX_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
@@ -116,6 +137,29 @@ public class PackageDeclarationImpl extends AbstractPojoEntityImpl implements Pa
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getSuffix()
+  {
+    return suffix;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSuffix(String newSuffix)
+  {
+    String oldSuffix = suffix;
+    suffix = newSuffix;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PACKAGE_DECLARATION__SUFFIX, oldSuffix, suffix));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<AbstractPojoEntity> getElements()
   {
     if (elements == null)
@@ -153,6 +197,8 @@ public class PackageDeclarationImpl extends AbstractPojoEntityImpl implements Pa
     {
       case ProcessorDslPackage.PACKAGE_DECLARATION__NAME:
         return getName();
+      case ProcessorDslPackage.PACKAGE_DECLARATION__SUFFIX:
+        return getSuffix();
       case ProcessorDslPackage.PACKAGE_DECLARATION__ELEMENTS:
         return getElements();
     }
@@ -172,6 +218,9 @@ public class PackageDeclarationImpl extends AbstractPojoEntityImpl implements Pa
     {
       case ProcessorDslPackage.PACKAGE_DECLARATION__NAME:
         setName((String)newValue);
+        return;
+      case ProcessorDslPackage.PACKAGE_DECLARATION__SUFFIX:
+        setSuffix((String)newValue);
         return;
       case ProcessorDslPackage.PACKAGE_DECLARATION__ELEMENTS:
         getElements().clear();
@@ -194,6 +243,9 @@ public class PackageDeclarationImpl extends AbstractPojoEntityImpl implements Pa
       case ProcessorDslPackage.PACKAGE_DECLARATION__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case ProcessorDslPackage.PACKAGE_DECLARATION__SUFFIX:
+        setSuffix(SUFFIX_EDEFAULT);
+        return;
       case ProcessorDslPackage.PACKAGE_DECLARATION__ELEMENTS:
         getElements().clear();
         return;
@@ -213,6 +265,8 @@ public class PackageDeclarationImpl extends AbstractPojoEntityImpl implements Pa
     {
       case ProcessorDslPackage.PACKAGE_DECLARATION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case ProcessorDslPackage.PACKAGE_DECLARATION__SUFFIX:
+        return SUFFIX_EDEFAULT == null ? suffix != null : !SUFFIX_EDEFAULT.equals(suffix);
       case ProcessorDslPackage.PACKAGE_DECLARATION__ELEMENTS:
         return elements != null && !elements.isEmpty();
     }
@@ -232,6 +286,8 @@ public class PackageDeclarationImpl extends AbstractPojoEntityImpl implements Pa
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", suffix: ");
+    result.append(suffix);
     result.append(')');
     return result.toString();
   }

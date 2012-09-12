@@ -243,7 +243,7 @@ PojoType:
 	(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) (array ?= '[]')?;
 
 PackageDeclaration hidden(ML_COMMENT, SL_COMMENT, WS):
-	'package' name=(IDENT|IDENT_DOT) LBRACE
+	'package' name=(IDENT|IDENT_DOT) ('suffix' suffix=(IDENT|NUMBER))? LBRACE
 		elements+=AbstractPojoEntity*
 	RBRACE;
 
@@ -254,7 +254,7 @@ Import hidden(ML_COMMENT, SL_COMMENT, WS):
 	'import' importedNamespace = QualifiedNameWithWildcard;
 
 PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-	'pojo' (abstract?='abstract')? name=IDENT
+	'pojo' (abstract?='abstract')? name=IDENT ('discriminator' discriminator=(IDENT|NUMBER))?
 	('extends' superType=[PojoEntity|IDENT])? LBRACE
 		features+=PojoProperty*
 	RBRACE;

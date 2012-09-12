@@ -16,6 +16,7 @@ import org.eclipse.xtext.ui.editor.templates.XtextTemplateContext;
 import org.eclipse.xtext.ui.editor.templates.XtextTemplateContextType;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
+import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
@@ -552,6 +553,14 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         }
     }
 
+    protected PackageDeclaration getPackage(XtextTemplateContext xtextTemplateContext) {
+        if (xtextTemplateContext == null)
+            return null;
+        EObject object = xtextTemplateContext.getContentAssistContext().getCurrentModel();
+        PackageDeclaration packagex = EcoreUtil2.getContainerOfType(object, PackageDeclaration.class);
+        return packagex;
+    }
+
     public class PojoGeneratorResolver extends SimpleTemplateVariableResolver {
 
         public static final String NAME = "pojoGenerator";
@@ -563,10 +572,12 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         @Override
         protected String resolve(TemplateContext context) {
             Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
+            PackageDeclaration packagex = getPackage((XtextTemplateContext) context);
             if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
                 List<String> tables = dbResolver.getTables(artifacts);
                 if (tables != null) {
-                    TablePojoConverter converter = new TablePojoConverter(modelProperty, artifacts);
+                    TablePojoConverter converter = new TablePojoConverter(modelProperty, artifacts,
+                            packagex.getSuffix());
                     for (String table : tables) {
                         List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
                         List<String> dbPrimaryKeys = dbResolver.getDbPrimaryKeys(artifacts, table);

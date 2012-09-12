@@ -33,6 +33,7 @@ public class TablePojoConverter {
         }
     }
 
+    private String suffix;
     private Map<String, PojoAttrType> sqlTypes = new HashMap<String, PojoAttrType>();
     private Map<String, Map<String, PojoAttrType>> tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
     private Map<String, Map<String, PojoAttrType>> columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
@@ -59,7 +60,9 @@ public class TablePojoConverter {
     public TablePojoConverter() {
     }
 
-    public TablePojoConverter(ModelProperty modelProperty, Artifacts artifacts) {
+    public TablePojoConverter(ModelProperty modelProperty, Artifacts artifacts, String suffix) {
+
+        this.suffix = (suffix != null) ? suffix : "";
 
         Map<String, PojoAttrType> sqlTypes = modelProperty.getSqlTypes(artifacts);
         if (sqlTypes != null) {
@@ -506,7 +509,7 @@ public class TablePojoConverter {
                 camelCaseString = camelCaseString + part.substring(0, 1).toUpperCase()
                         + part.substring(1).toLowerCase();
         }
-        return camelCaseString;
+        return camelCaseString + suffix;
     }
 
     private String columnToCamelCase(String value) {

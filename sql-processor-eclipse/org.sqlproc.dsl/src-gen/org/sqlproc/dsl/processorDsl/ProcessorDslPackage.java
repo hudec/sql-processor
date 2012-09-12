@@ -2236,13 +2236,22 @@ public interface ProcessorDslPackage extends EPackage
   int PACKAGE_DECLARATION__NAME = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Suffix</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PACKAGE_DECLARATION__SUFFIX = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PACKAGE_DECLARATION__ELEMENTS = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 1;
+  int PACKAGE_DECLARATION__ELEMENTS = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Package Declaration</em>' class.
@@ -2251,7 +2260,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PACKAGE_DECLARATION_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 2;
+  int PACKAGE_DECLARATION_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ImportImpl <em>Import</em>}' class.
@@ -2310,13 +2319,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_ENTITY__NAME = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Discriminator</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_ENTITY__DISCRIMINATOR = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 2;
+
+  /**
    * The feature id for the '<em><b>Super Type</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_ENTITY__SUPER_TYPE = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 2;
+  int POJO_ENTITY__SUPER_TYPE = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Features</b></em>' containment reference list.
@@ -2325,7 +2343,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_ENTITY__FEATURES = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 3;
+  int POJO_ENTITY__FEATURES = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Pojo Entity</em>' class.
@@ -2334,7 +2352,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_ENTITY_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 4;
+  int POJO_ENTITY_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl <em>Pojo Property</em>}' class.
@@ -4397,6 +4415,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getPackageDeclaration_Name();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PackageDeclaration#getSuffix <em>Suffix</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Suffix</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PackageDeclaration#getSuffix()
+   * @see #getPackageDeclaration()
+   * @generated
+   */
+  EAttribute getPackageDeclaration_Suffix();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.PackageDeclaration#getElements <em>Elements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4469,6 +4498,17 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EAttribute getPojoEntity_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator <em>Discriminator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Discriminator</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator()
+   * @see #getPojoEntity()
+   * @generated
+   */
+  EAttribute getPojoEntity_Discriminator();
 
   /**
    * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getSuperType <em>Super Type</em>}'.
@@ -6168,6 +6208,14 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute PACKAGE_DECLARATION__NAME = eINSTANCE.getPackageDeclaration_Name();
 
     /**
+     * The meta object literal for the '<em><b>Suffix</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PACKAGE_DECLARATION__SUFFIX = eINSTANCE.getPackageDeclaration_Suffix();
+
+    /**
      * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6228,6 +6276,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute POJO_ENTITY__NAME = eINSTANCE.getPojoEntity_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Discriminator</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_ENTITY__DISCRIMINATOR = eINSTANCE.getPojoEntity_Discriminator();
 
     /**
      * The meta object literal for the '<em><b>Super Type</b></em>' reference feature.
