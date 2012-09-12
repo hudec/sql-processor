@@ -15,9 +15,8 @@ public class Library {
     return id;
   }
     
-  public Library setId(Long id) {
+  public void setId(Long id) {
     this.id = id;
-    return this;
   }
   
   private String name;
@@ -26,8 +25,7 @@ public class Library {
     return name;
   }
     
-  public Library setName(String name) {
+  public void setName(String name) {
     this.name = name;
-    return this;
   }
 }

@@ -21,9 +21,10 @@ pojogen table many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
 pojogen inherit discriminator BILLING_DETAILS BA->BANK_ACCOUNT->BA_ACCOUNT CC->CREDIT_CARD->CC_NUMBER;
 pojogen rename columns BANK_ACCOUNT BA_ACCOUNT->ACCOUNT;
 pojogen rename columns CREDIT_CARD CC_NUMBER->NUMBER;
-
-// Contact personId is not required, address is required
-// CreditCard number is required
+pojogen not required columns CONTACT PERSON_ID;
+pojogen required columns CONTACT ADDRESS;
+pojogen required columns CREDIT_CARD CC_NUMBER;
+pojogen type for columns MOVIE PLAYLENGTH->:java.lang.Integer;
 
 
 package org.sqlproc.sample.simple.model2 {
@@ -32,7 +33,6 @@ package org.sqlproc.sample.simple.model2 {
 }
 
 package org.sqlproc.sample.simple.model {
-
 
 
   pojo BankAccount extends BillingDetails {
@@ -72,7 +72,7 @@ package org.sqlproc.sample.simple.model {
 
   pojo Movie extends Media {
     urlImdb : java.lang.String required
-    playLength : java.lang.Long required
+    playLength : java.lang.Integer required
   }
 
   pojo Person {
@@ -95,6 +95,7 @@ package org.sqlproc.sample.simple.model {
     name : java.lang.String required
     billingDetails : java.util.List <:BillingDetails>
   }
+
 
   pojo PhoneNumber {
     area _int required

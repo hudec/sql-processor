@@ -87,7 +87,7 @@ INSERT_MEDIA(CRUD)=
 
 INSERT_MOVIE(CRUD)=
   insert into %%MOVIE (%MEDIA_ID, %URLIMDB, %PLAYLENGTH)
-  {= values (:id, :urlIMDB, :playLength) }
+  {= values (:id, :urlImdb, :playLength) }
 ;
 
 INSERT_BOOK(CRUD)=
@@ -102,7 +102,7 @@ CREATE_LIBRARY(CRUD)=
 
 ALL_PEOPLE_LIBRARY(QRY)=
   select %p.ID @id^long^id, %p.NAME @name, %mo.MEDIA_ID @library==movie.id^long^id, %bk.MEDIA_ID @library==book.id^long^id,
-  %m.TITLE @library.title, %mo.URLIMDB @library.urlIMDB, %mo.PLAYLENGTH @library.playLength, %bk.ISBN @library.isbn
+  %m.TITLE @library.title, %mo.URLIMDB @library.urlImdb, %mo.PLAYLENGTH @library.playLength, %bk.ISBN @library.isbn
   from %%PERSON p left join %%PERSON_LIBRARY l on %p.ID = %l.PERSON_ID
   left join %%MEDIA m on %m.ID = %l.MEDIA_ID
   left join %%MOVIE mo on %mo.MEDIA_ID = %m.ID

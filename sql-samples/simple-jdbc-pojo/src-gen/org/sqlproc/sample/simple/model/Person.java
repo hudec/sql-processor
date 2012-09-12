@@ -17,9 +17,8 @@ public class Person {
     return id;
   }
     
-  public Person setId(Long id) {
+  public void setId(Long id) {
     this.id = id;
-    return this;
   }
   
   private String name;
@@ -28,9 +27,8 @@ public class Person {
     return name;
   }
     
-  public Person setName(String name) {
+  public void setName(String name) {
     this.name = name;
-    return this;
   }
   
   private List<Media> library;
@@ -39,9 +37,8 @@ public class Person {
     return library;
   }
     
-  public Person setLibrary(List<Media> library) {
+  public void setLibrary(List<Media> library) {
     this.library = library;
-    return this;
   }
   
   private List<Contact> contacts;
@@ -50,8 +47,7 @@ public class Person {
     return contacts;
   }
     
-  public Person setContacts(List<Contact> contacts) {
+  public void setContacts(List<Contact> contacts) {
     this.contacts = contacts;
-    return this;
   }
 }

@@ -5,7 +5,7 @@ public class Movie extends Media {
   public Movie() {
   }
   
-  public Movie(String title, String urlImdb, Long playLength) {
+  public Movie(String title, String urlImdb, Integer playLength) {
   setTitle(title);
   setUrlImdb(urlImdb);
   setPlayLength(playLength);
@@ -17,19 +17,17 @@ public class Movie extends Media {
     return urlImdb;
   }
     
-  public Movie setUrlImdb(String urlImdb) {
+  public void setUrlImdb(String urlImdb) {
     this.urlImdb = urlImdb;
-    return this;
   }
   
-  private Long playLength;
+  private Integer playLength;
     
-  public Long getPlayLength() {
+  public Integer getPlayLength() {
     return playLength;
   }
     
-  public Movie setPlayLength(Long playLength) {
+  public void setPlayLength(Integer playLength) {
     this.playLength = playLength;
-    return this;
   }
 }

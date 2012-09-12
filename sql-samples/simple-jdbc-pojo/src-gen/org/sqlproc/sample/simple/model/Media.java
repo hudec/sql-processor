@@ -15,9 +15,8 @@ public abstract class Media {
     return id;
   }
     
-  public Media setId(Long id) {
+  public void setId(Long id) {
     this.id = id;
-    return this;
   }
   
   private String title;
@@ -26,8 +25,7 @@ public abstract class Media {
     return title;
   }
     
-  public Media setTitle(String title) {
+  public void setTitle(String title) {
     this.title = title;
-    return this;
   }
 }

@@ -15,9 +15,8 @@ public class Contact {
     return id;
   }
     
-  public Contact setId(Long id) {
+  public void setId(Long id) {
     this.id = id;
-    return this;
   }
   
   private Long personId;
@@ -26,9 +25,8 @@ public class Contact {
     return personId;
   }
     
-  public Contact setPersonId(Long personId) {
+  public void setPersonId(Long personId) {
     this.personId = personId;
-    return this;
   }
   
   private String address;
@@ -37,9 +35,8 @@ public class Contact {
     return address;
   }
     
-  public Contact setAddress(String address) {
+  public void setAddress(String address) {
     this.address = address;
-    return this;
   }
   
   private PhoneNumber homePhone;
@@ -48,8 +45,7 @@ public class Contact {
     return homePhone;
   }
     
-  public Contact setHomePhone(PhoneNumber homePhone) {
+  public void setHomePhone(PhoneNumber homePhone) {
     this.homePhone = homePhone;
-    return this;
   }
 }

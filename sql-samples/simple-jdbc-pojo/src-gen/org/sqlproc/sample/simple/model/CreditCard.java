@@ -17,8 +17,7 @@ public class CreditCard extends BillingDetails {
     return number;
   }
     
-  public CreditCard setNumber(Long number) {
+  public void setNumber(Long number) {
     this.number = number;
-    return this;
   }
 }
