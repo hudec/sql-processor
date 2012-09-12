@@ -28,10 +28,11 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#isFinal <em>Final</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#isAbstract <em>Abstract</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getDiscriminator <em>Discriminator</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getSuperType <em>Super Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getDiscriminator <em>Discriminator</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getFeatures <em>Features</em>}</li>
  * </ul>
  * </p>
@@ -40,6 +41,26 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  */
 public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
 {
+  /**
+   * The default value of the '{@link #isFinal() <em>Final</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isFinal()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean FINAL_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isFinal() <em>Final</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isFinal()
+   * @generated
+   * @ordered
+   */
+  protected boolean final_ = FINAL_EDEFAULT;
+
   /**
    * The default value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -81,6 +102,16 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   protected String name = NAME_EDEFAULT;
 
   /**
+   * The cached value of the '{@link #getSuperType() <em>Super Type</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSuperType()
+   * @generated
+   * @ordered
+   */
+  protected PojoEntity superType;
+
+  /**
    * The default value of the '{@link #getDiscriminator() <em>Discriminator</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -99,16 +130,6 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
    * @ordered
    */
   protected String discriminator = DISCRIMINATOR_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getSuperType() <em>Super Type</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSuperType()
-   * @generated
-   * @ordered
-   */
-  protected PojoEntity superType;
 
   /**
    * The cached value of the '{@link #getFeatures() <em>Features</em>}' containment reference list.
@@ -139,6 +160,29 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   protected EClass eStaticClass()
   {
     return ProcessorDslPackage.Literals.POJO_ENTITY;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isFinal()
+  {
+    return final_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFinal(boolean newFinal)
+  {
+    boolean oldFinal = final_;
+    final_ = newFinal;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_ENTITY__FINAL, oldFinal, final_));
   }
 
   /**
@@ -192,29 +236,6 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDiscriminator()
-  {
-    return discriminator;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDiscriminator(String newDiscriminator)
-  {
-    String oldDiscriminator = discriminator;
-    discriminator = newDiscriminator;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR, oldDiscriminator, discriminator));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public PojoEntity getSuperType()
   {
     if (superType != null && superType.eIsProxy())
@@ -258,6 +279,29 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDiscriminator()
+  {
+    return discriminator;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDiscriminator(String newDiscriminator)
+  {
+    String oldDiscriminator = discriminator;
+    discriminator = newDiscriminator;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR, oldDiscriminator, discriminator));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<PojoProperty> getFeatures()
   {
     if (features == null)
@@ -293,15 +337,17 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_ENTITY__FINAL:
+        return isFinal();
       case ProcessorDslPackage.POJO_ENTITY__ABSTRACT:
         return isAbstract();
       case ProcessorDslPackage.POJO_ENTITY__NAME:
         return getName();
-      case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
-        return getDiscriminator();
       case ProcessorDslPackage.POJO_ENTITY__SUPER_TYPE:
         if (resolve) return getSuperType();
         return basicGetSuperType();
+      case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
+        return getDiscriminator();
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         return getFeatures();
     }
@@ -319,17 +365,20 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_ENTITY__FINAL:
+        setFinal((Boolean)newValue);
+        return;
       case ProcessorDslPackage.POJO_ENTITY__ABSTRACT:
         setAbstract((Boolean)newValue);
         return;
       case ProcessorDslPackage.POJO_ENTITY__NAME:
         setName((String)newValue);
         return;
-      case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
-        setDiscriminator((String)newValue);
-        return;
       case ProcessorDslPackage.POJO_ENTITY__SUPER_TYPE:
         setSuperType((PojoEntity)newValue);
+        return;
+      case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
+        setDiscriminator((String)newValue);
         return;
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         getFeatures().clear();
@@ -349,17 +398,20 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_ENTITY__FINAL:
+        setFinal(FINAL_EDEFAULT);
+        return;
       case ProcessorDslPackage.POJO_ENTITY__ABSTRACT:
         setAbstract(ABSTRACT_EDEFAULT);
         return;
       case ProcessorDslPackage.POJO_ENTITY__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
-        setDiscriminator(DISCRIMINATOR_EDEFAULT);
-        return;
       case ProcessorDslPackage.POJO_ENTITY__SUPER_TYPE:
         setSuperType((PojoEntity)null);
+        return;
+      case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
+        setDiscriminator(DISCRIMINATOR_EDEFAULT);
         return;
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         getFeatures().clear();
@@ -378,14 +430,16 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_ENTITY__FINAL:
+        return final_ != FINAL_EDEFAULT;
       case ProcessorDslPackage.POJO_ENTITY__ABSTRACT:
         return abstract_ != ABSTRACT_EDEFAULT;
       case ProcessorDslPackage.POJO_ENTITY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
-        return DISCRIMINATOR_EDEFAULT == null ? discriminator != null : !DISCRIMINATOR_EDEFAULT.equals(discriminator);
       case ProcessorDslPackage.POJO_ENTITY__SUPER_TYPE:
         return superType != null;
+      case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
+        return DISCRIMINATOR_EDEFAULT == null ? discriminator != null : !DISCRIMINATOR_EDEFAULT.equals(discriminator);
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         return features != null && !features.isEmpty();
     }
@@ -403,7 +457,9 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (abstract: ");
+    result.append(" (final: ");
+    result.append(final_);
+    result.append(", abstract: ");
     result.append(abstract_);
     result.append(", name: ");
     result.append(name);

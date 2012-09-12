@@ -45,7 +45,8 @@ public class TokenToIdMapper extends DefaultAntlrTokenToAttributeIdMapper {
                 || tokenName.equals("'dbcol'") || tokenName.equals("'prefix'") || tokenName.startsWith("'database")
                 || tokenName.startsWith("'resolve") || tokenName.equals("'abstract'") || tokenName.equals("'package'")
                 || tokenName.startsWith("'equals") || tokenName.equals("'colx'") || tokenName.equals("'identx'")
-                || tokenName.equals("'constx'") || tokenName.equals("'outx'"))
+                || tokenName.equals("'constx'") || tokenName.equals("'outx'") || tokenName.equals("'final'")
+                || tokenName.equals("'discriminator'") || tokenName.equals("'required'"))
             return HighlightingConfiguration.TYPE;
 
         return HighlightingConfiguration.DEFAULT;

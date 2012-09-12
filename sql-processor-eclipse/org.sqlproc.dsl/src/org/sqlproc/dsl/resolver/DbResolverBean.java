@@ -152,7 +152,9 @@ public class DbResolverBean implements DbResolver {
                     Properties props = new Properties();
                     props.setProperty("user", modelDatabaseValues.dbUsername);
                     props.setProperty("password", modelDatabaseValues.dbPassword);
-                    modelDatabaseValues.connection = driver.connect(modelDatabaseValues.dbUrl, props);
+                    String dbUrl = modelDatabaseValues.dbUrl.replaceAll("\\\\/", "/");
+                    modelDatabaseValues.connection = driver.connect(dbUrl, props);
+                    LOGGER.info("DB URL " + dbUrl);
                     LOGGER.info("DATA CONNECTION " + modelDatabaseValues.connection);
                 } catch (InstantiationException e) {
                     LOGGER.error("getConnection error " + e);
@@ -316,6 +318,7 @@ public class DbResolverBean implements DbResolver {
                     dbColumn.setNullable(result.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls);
                     dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
                     columnsForModel.add(dbColumn);
+                    // System.out.println("AAA " + dbColumn.toString());
                 }
             } catch (SQLException e) {
                 LOGGER.error("getDbColumns error " + e);
@@ -411,6 +414,7 @@ public class DbResolverBean implements DbResolver {
                     dbExport.setFkColumn(result.getString("FKCOLUMN_NAME"));
                     dbExport.setFkName(result.getString("FK_NAME"));
                     dbExport.setPkName(result.getString("PK_NAME"));
+                    // System.out.println("BBB " + dbExport.toString());
                     exportsForModel.add(dbExport);
                 }
             } catch (SQLException e) {
@@ -462,6 +466,7 @@ public class DbResolverBean implements DbResolver {
                     dbImport.setFkColumn(result.getString("FKCOLUMN_NAME"));
                     dbImport.setFkName(result.getString("FK_NAME"));
                     dbImport.setPkName(result.getString("PK_NAME"));
+                    // System.out.println("CCC " + dbImport.toString());
                     importsForModel.add(dbImport);
                 }
             } catch (SQLException e) {

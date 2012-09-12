@@ -57,4 +57,10 @@ public class DbImport {
         this.pkName = pkName;
     }
 
+    @Override
+    public String toString() {
+        return "DbImport [pkTable=" + pkTable + ", pkColumn=" + pkColumn + ", fkTable=" + fkTable + ", fkColumn="
+                + fkColumn + ", fkName=" + fkName + ", pkName=" + pkName + "]";
+    }
+
 }

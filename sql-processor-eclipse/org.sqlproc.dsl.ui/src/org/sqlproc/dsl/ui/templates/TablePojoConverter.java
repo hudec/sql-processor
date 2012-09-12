@@ -34,6 +34,7 @@ public class TablePojoConverter {
     }
 
     private String suffix;
+    private Set<String> finalEntities;
     private Map<String, PojoAttrType> sqlTypes = new HashMap<String, PojoAttrType>();
     private Map<String, Map<String, PojoAttrType>> tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
     private Map<String, Map<String, PojoAttrType>> columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
@@ -60,9 +61,10 @@ public class TablePojoConverter {
     public TablePojoConverter() {
     }
 
-    public TablePojoConverter(ModelProperty modelProperty, Artifacts artifacts, String suffix) {
+    public TablePojoConverter(ModelProperty modelProperty, Artifacts artifacts, String suffix, Set<String> finalEntities) {
 
         this.suffix = (suffix != null) ? suffix : "";
+        this.finalEntities = finalEntities;
 
         Map<String, PojoAttrType> sqlTypes = modelProperty.getSqlTypes(artifacts);
         if (sqlTypes != null) {
@@ -450,6 +452,8 @@ public class TablePojoConverter {
         for (String pojo : pojos.keySet()) {
             if (ignoreTables.contains(pojo))
                 continue;
+            if (finalEntities.contains(tableToCamelCase(pojo)))
+                continue;
             String pojoName = tableNames.get(pojo);
             if (pojoName == null)
                 pojoName = pojo;
@@ -472,10 +476,10 @@ public class TablePojoConverter {
                 // System.out
                 // .println("PPP " + pojo + " " + attribute.getDbName() + " " + attribute.getName() + " " + name);
                 buffer.append("\n    ").append(name).append(' ');
-                if (attribute.isPrimitive()) {
-                    buffer.append('_').append(attribute.getClassName());
-                } else if (attribute.getDependencyClassName() != null) {
+                if (attribute.getDependencyClassName() != null) {
                     buffer.append(":: ").append(attribute.getDependencyClassName());
+                } else if (attribute.isPrimitive()) {
+                    buffer.append('_').append(attribute.getClassName());
                 } else {
                     buffer.append(": ").append(attribute.getClassName());
                 }
@@ -559,15 +563,18 @@ public class TablePojoConverter {
         PojoAttribute attribute = new PojoAttribute();
         attribute.setName(columnToCamelCase(dbColumn.getName()));
         attribute.setRequired(!dbColumn.isNullable());
-        if (sqlType.getNativeType() != null) {
-            attribute.setPrimitive(true);
-            attribute.setClassName(sqlType.getNativeType().substring(1) + (sqlType.isArray() ? " []" : ""));
-        } else if (sqlType.getRef() != null) {
+        if (sqlType.getRef() != null) {
             attribute.setPrimitive(false);
             attribute.setDependencyClassName(sqlType.getRef().getName());
+            // System.out.println("222 " + table + " " + dbColumn.getName() + " " + attribute.getDependencyClassName());
+        } else if (sqlType.getNativeType() != null) {
+            attribute.setPrimitive(true);
+            attribute.setClassName(sqlType.getNativeType().substring(1) + (sqlType.isArray() ? " []" : ""));
+            // System.out.println("333 " + table + " " + dbColumn.getName() + " " + attribute.getClassName());
         } else {
             attribute.setPrimitive(false);
             attribute.setClassName(sqlType.getType().getIdentifier());
+            // System.out.println("444 " + table + " " + dbColumn.getName() + " " + attribute.getClassName());
         }
         return attribute;
     }
@@ -710,6 +717,7 @@ public class TablePojoConverter {
             else
                 attribute.setClassName("java.lang.Object");
         }
+        // System.out.println("555 " + table + " " + dbColumn.getName() + " " + attribute.getClassName());
         return attribute;
     }
 }

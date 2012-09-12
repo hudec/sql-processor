@@ -254,8 +254,8 @@ Import hidden(ML_COMMENT, SL_COMMENT, WS):
 	'import' importedNamespace = QualifiedNameWithWildcard;
 
 PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-	'pojo' (abstract?='abstract')? name=IDENT ('discriminator' discriminator=(IDENT|NUMBER))?
-	('extends' superType=[PojoEntity|IDENT])? LBRACE
+	(final?='final')? 'pojo' (abstract?='abstract')? name=IDENT
+	('extends' superType=[PojoEntity|IDENT])? ('discriminator' discriminator=(IDENT|NUMBER))? LBRACE
 		features+=PojoProperty*
 	RBRACE;
 

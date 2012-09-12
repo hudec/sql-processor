@@ -5003,68 +5003,58 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	public class PojoEntityElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PojoEntity");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cPojoKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cAbstractAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final Keyword cAbstractAbstractKeyword_1_0 = (Keyword)cAbstractAssignment_1.eContents().get(0);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDENTTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cDiscriminatorKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cDiscriminatorAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final Alternatives cDiscriminatorAlternatives_3_1_0 = (Alternatives)cDiscriminatorAssignment_3_1.eContents().get(0);
-		private final RuleCall cDiscriminatorIDENTTerminalRuleCall_3_1_0_0 = (RuleCall)cDiscriminatorAlternatives_3_1_0.eContents().get(0);
-		private final RuleCall cDiscriminatorNUMBERTerminalRuleCall_3_1_0_1 = (RuleCall)cDiscriminatorAlternatives_3_1_0.eContents().get(1);
+		private final Assignment cFinalAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cFinalFinalKeyword_0_0 = (Keyword)cFinalAssignment_0.eContents().get(0);
+		private final Keyword cPojoKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cAbstractAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Keyword cAbstractAbstractKeyword_2_0 = (Keyword)cAbstractAssignment_2.eContents().get(0);
+		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cNameIDENTTerminalRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cExtendsKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Assignment cSuperTypeAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final CrossReference cSuperTypePojoEntityCrossReference_4_1_0 = (CrossReference)cSuperTypeAssignment_4_1.eContents().get(0);
 		private final RuleCall cSuperTypePojoEntityIDENTTerminalRuleCall_4_1_0_1 = (RuleCall)cSuperTypePojoEntityCrossReference_4_1_0.eContents().get(1);
-		private final RuleCall cLBRACETerminalRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
-		private final Assignment cFeaturesAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cFeaturesPojoPropertyParserRuleCall_6_0 = (RuleCall)cFeaturesAssignment_6.eContents().get(0);
-		private final RuleCall cRBRACETerminalRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cDiscriminatorKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cDiscriminatorAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final Alternatives cDiscriminatorAlternatives_5_1_0 = (Alternatives)cDiscriminatorAssignment_5_1.eContents().get(0);
+		private final RuleCall cDiscriminatorIDENTTerminalRuleCall_5_1_0_0 = (RuleCall)cDiscriminatorAlternatives_5_1_0.eContents().get(0);
+		private final RuleCall cDiscriminatorNUMBERTerminalRuleCall_5_1_0_1 = (RuleCall)cDiscriminatorAlternatives_5_1_0.eContents().get(1);
+		private final RuleCall cLBRACETerminalRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Assignment cFeaturesAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cFeaturesPojoPropertyParserRuleCall_7_0 = (RuleCall)cFeaturesAssignment_7.eContents().get(0);
+		private final RuleCall cRBRACETerminalRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
 		
 		//PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-		//	"pojo" abstract?="abstract"? name=IDENT ("discriminator" discriminator=(IDENT | NUMBER))? ("extends"
-		//	superType=[PojoEntity|IDENT])? LBRACE features+=PojoProperty* RBRACE;
+		//	final?="final"? "pojo" abstract?="abstract"? name=IDENT ("extends" superType=[PojoEntity|IDENT])? ("discriminator"
+		//	discriminator=(IDENT | NUMBER))? LBRACE features+=PojoProperty* RBRACE;
 		public ParserRule getRule() { return rule; }
 
-		//"pojo" abstract?="abstract"? name=IDENT ("discriminator" discriminator=(IDENT | NUMBER))? ("extends"
-		//superType=[PojoEntity|IDENT])? LBRACE features+=PojoProperty* RBRACE
+		//final?="final"? "pojo" abstract?="abstract"? name=IDENT ("extends" superType=[PojoEntity|IDENT])? ("discriminator"
+		//discriminator=(IDENT | NUMBER))? LBRACE features+=PojoProperty* RBRACE
 		public Group getGroup() { return cGroup; }
 
+		//final?="final"?
+		public Assignment getFinalAssignment_0() { return cFinalAssignment_0; }
+
+		//"final"
+		public Keyword getFinalFinalKeyword_0_0() { return cFinalFinalKeyword_0_0; }
+
 		//"pojo"
-		public Keyword getPojoKeyword_0() { return cPojoKeyword_0; }
+		public Keyword getPojoKeyword_1() { return cPojoKeyword_1; }
 
 		//abstract?="abstract"?
-		public Assignment getAbstractAssignment_1() { return cAbstractAssignment_1; }
+		public Assignment getAbstractAssignment_2() { return cAbstractAssignment_2; }
 
 		//"abstract"
-		public Keyword getAbstractAbstractKeyword_1_0() { return cAbstractAbstractKeyword_1_0; }
+		public Keyword getAbstractAbstractKeyword_2_0() { return cAbstractAbstractKeyword_2_0; }
 
 		//name=IDENT
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
 
 		//IDENT
-		public RuleCall getNameIDENTTerminalRuleCall_2_0() { return cNameIDENTTerminalRuleCall_2_0; }
-
-		//("discriminator" discriminator=(IDENT | NUMBER))?
-		public Group getGroup_3() { return cGroup_3; }
-
-		//"discriminator"
-		public Keyword getDiscriminatorKeyword_3_0() { return cDiscriminatorKeyword_3_0; }
-
-		//discriminator=(IDENT | NUMBER)
-		public Assignment getDiscriminatorAssignment_3_1() { return cDiscriminatorAssignment_3_1; }
-
-		//IDENT | NUMBER
-		public Alternatives getDiscriminatorAlternatives_3_1_0() { return cDiscriminatorAlternatives_3_1_0; }
-
-		//IDENT
-		public RuleCall getDiscriminatorIDENTTerminalRuleCall_3_1_0_0() { return cDiscriminatorIDENTTerminalRuleCall_3_1_0_0; }
-
-		//NUMBER
-		public RuleCall getDiscriminatorNUMBERTerminalRuleCall_3_1_0_1() { return cDiscriminatorNUMBERTerminalRuleCall_3_1_0_1; }
+		public RuleCall getNameIDENTTerminalRuleCall_3_0() { return cNameIDENTTerminalRuleCall_3_0; }
 
 		//("extends" superType=[PojoEntity|IDENT])?
 		public Group getGroup_4() { return cGroup_4; }
@@ -5081,17 +5071,35 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getSuperTypePojoEntityIDENTTerminalRuleCall_4_1_0_1() { return cSuperTypePojoEntityIDENTTerminalRuleCall_4_1_0_1; }
 
+		//("discriminator" discriminator=(IDENT | NUMBER))?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//"discriminator"
+		public Keyword getDiscriminatorKeyword_5_0() { return cDiscriminatorKeyword_5_0; }
+
+		//discriminator=(IDENT | NUMBER)
+		public Assignment getDiscriminatorAssignment_5_1() { return cDiscriminatorAssignment_5_1; }
+
+		//IDENT | NUMBER
+		public Alternatives getDiscriminatorAlternatives_5_1_0() { return cDiscriminatorAlternatives_5_1_0; }
+
+		//IDENT
+		public RuleCall getDiscriminatorIDENTTerminalRuleCall_5_1_0_0() { return cDiscriminatorIDENTTerminalRuleCall_5_1_0_0; }
+
+		//NUMBER
+		public RuleCall getDiscriminatorNUMBERTerminalRuleCall_5_1_0_1() { return cDiscriminatorNUMBERTerminalRuleCall_5_1_0_1; }
+
 		//LBRACE
-		public RuleCall getLBRACETerminalRuleCall_5() { return cLBRACETerminalRuleCall_5; }
+		public RuleCall getLBRACETerminalRuleCall_6() { return cLBRACETerminalRuleCall_6; }
 
 		//features+=PojoProperty*
-		public Assignment getFeaturesAssignment_6() { return cFeaturesAssignment_6; }
+		public Assignment getFeaturesAssignment_7() { return cFeaturesAssignment_7; }
 
 		//PojoProperty
-		public RuleCall getFeaturesPojoPropertyParserRuleCall_6_0() { return cFeaturesPojoPropertyParserRuleCall_6_0; }
+		public RuleCall getFeaturesPojoPropertyParserRuleCall_7_0() { return cFeaturesPojoPropertyParserRuleCall_7_0; }
 
 		//RBRACE
-		public RuleCall getRBRACETerminalRuleCall_7() { return cRBRACETerminalRuleCall_7; }
+		public RuleCall getRBRACETerminalRuleCall_8() { return cRBRACETerminalRuleCall_8; }
 	}
 
 	public class PojoPropertyElements extends AbstractParserRuleElementFinder {
@@ -6221,8 +6229,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-	//	"pojo" abstract?="abstract"? name=IDENT ("discriminator" discriminator=(IDENT | NUMBER))? ("extends"
-	//	superType=[PojoEntity|IDENT])? LBRACE features+=PojoProperty* RBRACE;
+	//	final?="final"? "pojo" abstract?="abstract"? name=IDENT ("extends" superType=[PojoEntity|IDENT])? ("discriminator"
+	//	discriminator=(IDENT | NUMBER))? LBRACE features+=PojoProperty* RBRACE;
 	public PojoEntityElements getPojoEntityAccess() {
 		return (pPojoEntity != null) ? pPojoEntity : (pPojoEntity = new PojoEntityElements());
 	}

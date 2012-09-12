@@ -1,8 +1,11 @@
 package org.sqlproc.dsl.ui.templates;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.eclipse.emf.ecore.EObject;
@@ -14,9 +17,11 @@ import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.ui.editor.templates.XtextTemplateContext;
 import org.eclipse.xtext.ui.editor.templates.XtextTemplateContextType;
+import org.sqlproc.dsl.processorDsl.AbstractPojoEntity;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
+import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
@@ -574,10 +579,34 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
             PackageDeclaration packagex = getPackage((XtextTemplateContext) context);
             if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
+
+                List<PojoEntity> entitiesToRemove = new ArrayList<PojoEntity>();
+                Set<String> finalEntities = new HashSet<String>();
+                String suffix = packagex.getSuffix();
+
+                for (AbstractPojoEntity ape : packagex.getElements()) {
+                    if (ape instanceof PojoEntity) {
+                        PojoEntity pojo = (PojoEntity) ape;
+                        if (pojo.isFinal()) {
+                            if (suffix != null && pojo.getName().endsWith(suffix))
+                                finalEntities.add(pojo.getName()
+                                        .substring(0, pojo.getName().length() - suffix.length()));
+                            else
+                                finalEntities.add(pojo.getName());
+                        } else {
+                            entitiesToRemove.add(pojo);
+                        }
+                    }
+                }
+                // for (PojoEntity pojo : entitiesToRemove) {
+                // packagex.getElements().remove(pojo);
+                // }
+                System.out.println("111  " + finalEntities);
+
                 List<String> tables = dbResolver.getTables(artifacts);
                 if (tables != null) {
-                    TablePojoConverter converter = new TablePojoConverter(modelProperty, artifacts,
-                            packagex.getSuffix());
+                    TablePojoConverter converter = new TablePojoConverter(modelProperty, artifacts, suffix,
+                            finalEntities);
                     for (String table : tables) {
                         List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
                         List<String> dbPrimaryKeys = dbResolver.getDbPrimaryKeys(artifacts, table);

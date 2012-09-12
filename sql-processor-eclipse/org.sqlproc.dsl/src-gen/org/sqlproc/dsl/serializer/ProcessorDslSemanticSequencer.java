@@ -830,7 +830,14 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (abstract?='abstract'? name=IDENT (discriminator=IDENT | discriminator=NUMBER)? superType=[PojoEntity|IDENT]? features+=PojoProperty*)
+	 *     (
+	 *         final?='final'? 
+	 *         abstract?='abstract'? 
+	 *         name=IDENT 
+	 *         superType=[PojoEntity|IDENT]? 
+	 *         (discriminator=IDENT | discriminator=NUMBER)? 
+	 *         features+=PojoProperty*
+	 *     )
 	 */
 	protected void sequence_PojoEntity(EObject context, PojoEntity semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

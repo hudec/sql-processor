@@ -57,4 +57,10 @@ public class DbExport {
         this.pkName = pkName;
     }
 
+    @Override
+    public String toString() {
+        return "DbExport [pkTable=" + pkTable + ", pkColumn=" + pkColumn + ", fkTable=" + fkTable + ", fkColumn="
+                + fkColumn + ", fkName=" + fkName + ", pkName=" + pkName + "]";
+    }
+
 }

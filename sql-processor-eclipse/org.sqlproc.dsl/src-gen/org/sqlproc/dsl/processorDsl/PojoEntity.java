@@ -12,10 +12,11 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#isFinal <em>Final</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#isAbstract <em>Abstract</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator <em>Discriminator</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getSuperType <em>Super Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator <em>Discriminator</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getFeatures <em>Features</em>}</li>
  * </ul>
  * </p>
@@ -26,6 +27,32 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface PojoEntity extends AbstractPojoEntity
 {
+  /**
+   * Returns the value of the '<em><b>Final</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Final</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Final</em>' attribute.
+   * @see #setFinal(boolean)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoEntity_Final()
+   * @model
+   * @generated
+   */
+  boolean isFinal();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoEntity#isFinal <em>Final</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Final</em>' attribute.
+   * @see #isFinal()
+   * @generated
+   */
+  void setFinal(boolean value);
+
   /**
    * Returns the value of the '<em><b>Abstract</b></em>' attribute.
    * <!-- begin-user-doc -->
@@ -79,32 +106,6 @@ public interface PojoEntity extends AbstractPojoEntity
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Discriminator</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Discriminator</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Discriminator</em>' attribute.
-   * @see #setDiscriminator(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoEntity_Discriminator()
-   * @model
-   * @generated
-   */
-  String getDiscriminator();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator <em>Discriminator</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Discriminator</em>' attribute.
-   * @see #getDiscriminator()
-   * @generated
-   */
-  void setDiscriminator(String value);
-
-  /**
    * Returns the value of the '<em><b>Super Type</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
@@ -129,6 +130,32 @@ public interface PojoEntity extends AbstractPojoEntity
    * @generated
    */
   void setSuperType(PojoEntity value);
+
+  /**
+   * Returns the value of the '<em><b>Discriminator</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Discriminator</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Discriminator</em>' attribute.
+   * @see #setDiscriminator(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoEntity_Discriminator()
+   * @model
+   * @generated
+   */
+  String getDiscriminator();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator <em>Discriminator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Discriminator</em>' attribute.
+   * @see #getDiscriminator()
+   * @generated
+   */
+  void setDiscriminator(String value);
 
   /**
    * Returns the value of the '<em><b>Features</b></em>' containment reference list.

@@ -2301,13 +2301,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_ENTITY = 47;
 
   /**
+   * The feature id for the '<em><b>Final</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_ENTITY__FINAL = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Abstract</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_ENTITY__ABSTRACT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 0;
+  int POJO_ENTITY__ABSTRACT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2316,16 +2325,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_ENTITY__NAME = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Discriminator</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int POJO_ENTITY__DISCRIMINATOR = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 2;
+  int POJO_ENTITY__NAME = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Super Type</b></em>' reference.
@@ -2337,13 +2337,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_ENTITY__SUPER_TYPE = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Discriminator</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_ENTITY__DISCRIMINATOR = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 4;
+
+  /**
    * The feature id for the '<em><b>Features</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_ENTITY__FEATURES = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 4;
+  int POJO_ENTITY__FEATURES = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Pojo Entity</em>' class.
@@ -2352,7 +2361,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_ENTITY_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 5;
+  int POJO_ENTITY_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl <em>Pojo Property</em>}' class.
@@ -4478,6 +4487,17 @@ public interface ProcessorDslPackage extends EPackage
   EClass getPojoEntity();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoEntity#isFinal <em>Final</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Final</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoEntity#isFinal()
+   * @see #getPojoEntity()
+   * @generated
+   */
+  EAttribute getPojoEntity_Final();
+
+  /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoEntity#isAbstract <em>Abstract</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4500,17 +4520,6 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getPojoEntity_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator <em>Discriminator</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Discriminator</em>'.
-   * @see org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator()
-   * @see #getPojoEntity()
-   * @generated
-   */
-  EAttribute getPojoEntity_Discriminator();
-
-  /**
    * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getSuperType <em>Super Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4520,6 +4529,17 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EReference getPojoEntity_SuperType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator <em>Discriminator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Discriminator</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator()
+   * @see #getPojoEntity()
+   * @generated
+   */
+  EAttribute getPojoEntity_Discriminator();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getFeatures <em>Features</em>}'.
@@ -6262,6 +6282,14 @@ public interface ProcessorDslPackage extends EPackage
     EClass POJO_ENTITY = eINSTANCE.getPojoEntity();
 
     /**
+     * The meta object literal for the '<em><b>Final</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_ENTITY__FINAL = eINSTANCE.getPojoEntity_Final();
+
+    /**
      * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6278,20 +6306,20 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute POJO_ENTITY__NAME = eINSTANCE.getPojoEntity_Name();
 
     /**
-     * The meta object literal for the '<em><b>Discriminator</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute POJO_ENTITY__DISCRIMINATOR = eINSTANCE.getPojoEntity_Discriminator();
-
-    /**
      * The meta object literal for the '<em><b>Super Type</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference POJO_ENTITY__SUPER_TYPE = eINSTANCE.getPojoEntity_SuperType();
+
+    /**
+     * The meta object literal for the '<em><b>Discriminator</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_ENTITY__DISCRIMINATOR = eINSTANCE.getPojoEntity_Discriminator();
 
     /**
      * The meta object literal for the '<em><b>Features</b></em>' containment reference list feature.
