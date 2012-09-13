@@ -447,7 +447,6 @@ public class TablePojoConverter {
     }
 
     public String getPojoDefinitions() {
-        // System.out.println("PPP " + pojos);
         StringBuilder buffer = new StringBuilder();
         for (String pojo : pojos.keySet()) {
             if (ignoreTables.contains(pojo))
@@ -473,8 +472,6 @@ public class TablePojoConverter {
                     name = attribute.getName();
                 else
                     name = columnToCamelCase(name);
-                // System.out
-                // .println("PPP " + pojo + " " + attribute.getDbName() + " " + attribute.getName() + " " + name);
                 buffer.append("\n    ").append(name).append(' ');
                 if (attribute.getDependencyClassName() != null) {
                     buffer.append(":: ").append(attribute.getDependencyClassName());

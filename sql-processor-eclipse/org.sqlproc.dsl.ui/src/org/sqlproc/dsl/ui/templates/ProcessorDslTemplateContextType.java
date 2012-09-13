@@ -588,11 +588,11 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                     if (ape instanceof PojoEntity) {
                         PojoEntity pojo = (PojoEntity) ape;
                         if (pojo.isFinal()) {
-                            if (suffix != null && pojo.getName().endsWith(suffix))
-                                finalEntities.add(pojo.getName()
-                                        .substring(0, pojo.getName().length() - suffix.length()));
-                            else
-                                finalEntities.add(pojo.getName());
+                            // if (suffix != null && pojo.getName().endsWith(suffix))
+                            // finalEntities.add(pojo.getName()
+                            // .substring(0, pojo.getName().length() - suffix.length()));
+                            // else
+                            finalEntities.add(pojo.getName());
                         } else {
                             entitiesToRemove.add(pojo);
                         }
@@ -601,7 +601,6 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // for (PojoEntity pojo : entitiesToRemove) {
                 // packagex.getElements().remove(pojo);
                 // }
-                System.out.println("111  " + finalEntities);
 
                 List<String> tables = dbResolver.getTables(artifacts);
                 if (tables != null) {
