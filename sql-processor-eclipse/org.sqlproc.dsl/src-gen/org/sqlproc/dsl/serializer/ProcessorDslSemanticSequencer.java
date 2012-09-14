@@ -50,6 +50,7 @@ import org.sqlproc.dsl.processorDsl.OrdSql2;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
+import org.sqlproc.dsl.processorDsl.PojoFunction;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
@@ -300,6 +301,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 				if(context == grammarAccess.getAbstractPojoEntityRule() ||
 				   context == grammarAccess.getPojoEntityRule()) {
 					sequence_PojoEntity(context, (PojoEntity) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.POJO_FUNCTION:
+				if(context == grammarAccess.getPojoFunctionRule()) {
+					sequence_PojoFunction(context, (PojoFunction) semanticObject); 
 					return; 
 				}
 				else break;
@@ -846,6 +853,15 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
+	 *     (toString?='toString' | equals?='equals' | hashCode?='hashCode')
+	 */
+	protected void sequence_PojoFunction(EObject context, PojoFunction semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         name=IDENT 
 	 *         (
@@ -918,7 +934,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='pojogen create one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
 	 *         (name='pojogen create many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
 	 *         (name='pojogen table many-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
-	 *         (name='pojogen inherit discriminator' dbTable=IDENT inheritance+=InheritanceAssignement+)
+	 *         (name='pojogen inherit discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
+	 *         (name='pojogen generate functions' function+=PojoFunction+)
 	 *     )
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {

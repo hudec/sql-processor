@@ -24,6 +24,7 @@ import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
+import org.sqlproc.dsl.processorDsl.PojoFunction;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.SqlTypeAssignement;
@@ -53,7 +54,9 @@ import org.sqlproc.dsl.processorDsl.TableAssignement;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getColumns <em>Columns</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getExports <em>Exports</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getImports <em>Imports</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbColumn <em>Db Column</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getInheritance <em>Inheritance</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getFunction <em>Function</em>}</li>
  * </ul>
  * </p>
  *
@@ -322,6 +325,26 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
   protected EList<ImportAssignement> imports;
 
   /**
+   * The default value of the '{@link #getDbColumn() <em>Db Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbColumn()
+   * @generated
+   * @ordered
+   */
+  protected static final String DB_COLUMN_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDbColumn() <em>Db Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbColumn()
+   * @generated
+   * @ordered
+   */
+  protected String dbColumn = DB_COLUMN_EDEFAULT;
+
+  /**
    * The cached value of the '{@link #getInheritance() <em>Inheritance</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -330,6 +353,16 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * @ordered
    */
   protected EList<InheritanceAssignement> inheritance;
+
+  /**
+   * The cached value of the '{@link #getFunction() <em>Function</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFunction()
+   * @generated
+   * @ordered
+   */
+  protected EList<PojoFunction> function;
 
   /**
    * <!-- begin-user-doc -->
@@ -676,6 +709,29 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDbColumn()
+  {
+    return dbColumn;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbColumn(String newDbColumn)
+  {
+    String oldDbColumn = dbColumn;
+    dbColumn = newDbColumn;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__DB_COLUMN, oldDbColumn, dbColumn));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<InheritanceAssignement> getInheritance()
   {
     if (inheritance == null)
@@ -683,6 +739,20 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
       inheritance = new EObjectContainmentEList<InheritanceAssignement>(InheritanceAssignement.class, this, ProcessorDslPackage.PROPERTY__INHERITANCE);
     }
     return inheritance;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<PojoFunction> getFunction()
+  {
+    if (function == null)
+    {
+      function = new EObjectContainmentEList<PojoFunction>(PojoFunction.class, this, ProcessorDslPackage.PROPERTY__FUNCTION);
+    }
+    return function;
   }
 
   /**
@@ -709,6 +779,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.PROPERTY__INHERITANCE:
         return ((InternalEList<?>)getInheritance()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.PROPERTY__FUNCTION:
+        return ((InternalEList<?>)getFunction()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -757,8 +829,12 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return getExports();
       case ProcessorDslPackage.PROPERTY__IMPORTS:
         return getImports();
+      case ProcessorDslPackage.PROPERTY__DB_COLUMN:
+        return getDbColumn();
       case ProcessorDslPackage.PROPERTY__INHERITANCE:
         return getInheritance();
+      case ProcessorDslPackage.PROPERTY__FUNCTION:
+        return getFunction();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -833,9 +909,16 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         getImports().clear();
         getImports().addAll((Collection<? extends ImportAssignement>)newValue);
         return;
+      case ProcessorDslPackage.PROPERTY__DB_COLUMN:
+        setDbColumn((String)newValue);
+        return;
       case ProcessorDslPackage.PROPERTY__INHERITANCE:
         getInheritance().clear();
         getInheritance().addAll((Collection<? extends InheritanceAssignement>)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__FUNCTION:
+        getFunction().clear();
+        getFunction().addAll((Collection<? extends PojoFunction>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -902,8 +985,14 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
       case ProcessorDslPackage.PROPERTY__IMPORTS:
         getImports().clear();
         return;
+      case ProcessorDslPackage.PROPERTY__DB_COLUMN:
+        setDbColumn(DB_COLUMN_EDEFAULT);
+        return;
       case ProcessorDslPackage.PROPERTY__INHERITANCE:
         getInheritance().clear();
+        return;
+      case ProcessorDslPackage.PROPERTY__FUNCTION:
+        getFunction().clear();
         return;
     }
     super.eUnset(featureID);
@@ -953,8 +1042,12 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return exports != null && !exports.isEmpty();
       case ProcessorDslPackage.PROPERTY__IMPORTS:
         return imports != null && !imports.isEmpty();
+      case ProcessorDslPackage.PROPERTY__DB_COLUMN:
+        return DB_COLUMN_EDEFAULT == null ? dbColumn != null : !DB_COLUMN_EDEFAULT.equals(dbColumn);
       case ProcessorDslPackage.PROPERTY__INHERITANCE:
         return inheritance != null && !inheritance.isEmpty();
+      case ProcessorDslPackage.PROPERTY__FUNCTION:
+        return function != null && !function.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -992,6 +1085,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
     result.append(dbTables);
     result.append(", dbColumns: ");
     result.append(dbColumns);
+    result.append(", dbColumn: ");
+    result.append(dbColumn);
     result.append(')');
     return result.toString();
   }

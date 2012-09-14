@@ -100,7 +100,7 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
         if (templateContext.getContextType().getId().equals(idPkg)) {
 
             // create a template on the fly
-            Template template = new Template("gen", "Pojo generator", "uniqueTemplateID", "${pojoGenerator}", false);// auto-insertable?
+            Template template = new Template("pojogen", "Pojo generator", "uniqueTemplateID", "${pojoGenerator}", false);// auto-insertable?
             TemplateProposal tp = createProposal(template, templateContext, context, getImage(template),
                     getRelevance(template));
             acceptor.accept(tp);

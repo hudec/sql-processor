@@ -49,4 +49,6 @@ public interface ModelProperty extends Adapter {
     Map<String, Set<String>> getRequiredColumns(EObject model);
 
     Map<String, Set<String>> getNotRequiredColumns(EObject model);
+
+    Map<String, String> getInheritanceColumns(EObject model);
 }

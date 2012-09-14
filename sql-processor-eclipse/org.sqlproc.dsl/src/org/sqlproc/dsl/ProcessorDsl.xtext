@@ -18,6 +18,7 @@ ColumnAssignement: dbColumn=IDENT '->' newName=IDENT;
 ImportAssignement: dbColumn=IDENT '->' pkTable=IDENT ('->' pkColumn=IDENT)?;
 ExportAssignement: dbColumn=IDENT '->' fkTable=IDENT ('->' fkColumn=IDENT)?;
 InheritanceAssignement: discriminator=IDENT '->' dbTable=IDENT ('->' dbColumns+=IDENT)+;
+PojoFunction: ((toString?='toString')|(equals?='equals')|(hashCode?='hashCode'));
 
 Property:
 	(name='resolve references' WS+ doResolvePojo=ON_OFF
@@ -43,7 +44,8 @@ Property:
 	|name='pojogen create one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 	|name='pojogen create many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	|name='pojogen table many-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
-	|name='pojogen inherit discriminator' WS+ dbTable=IDENT (WS+ inheritance+=InheritanceAssignement)+
+	|name='pojogen inherit discriminator' WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
+	|name='pojogen generate functions' (WS+ function+=PojoFunction)+
 	) SEMICOLON;
 
 PropertyValue:

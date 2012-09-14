@@ -52,6 +52,7 @@ public class TablePojoConverter {
     private Map<String, Map<String, Map<String, String>>> inheritImports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> manyToManyExports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
+    private Map<String, String> inheritanceColumns = new HashMap<String, String>();
 
     private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     private Map<String, String> pojoExtends = new HashMap<String, String>();
@@ -206,6 +207,10 @@ public class TablePojoConverter {
                 this.inheritance.get(table).putAll(inheritance1.getValue());
             }
         }
+        Map<String, String> inheritanceColumns = modelProperty.getInheritanceColumns(artifacts);
+        if (inheritanceColumns != null) {
+            this.inheritanceColumns.putAll(inheritanceColumns);
+        }
 
         for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : this.inheritImports.entrySet()) {
             for (Map.Entry<String, Map<String, String>> inherit : inheritImport.getValue().entrySet()) {
@@ -243,6 +248,7 @@ public class TablePojoConverter {
         // System.out.println("inheritImports " + this.inheritImports);
         // System.out.println("manyToManyExports " + this.manyToManyExports);
         // System.out.println("inheritance " + this.inheritance);
+        // System.out.println("inheritanceColumns " + this.inheritanceColumns);
     }
 
     public void addTableDefinition(String table, List<DbColumn> dbColumns, List<String> dbPrimaryKeys,
@@ -487,6 +493,9 @@ public class TablePojoConverter {
                     if (!notRequiredColumns.containsKey(pojo)
                             || !notRequiredColumns.get(pojo).contains(pentry.getKey()))
                         buffer.append(" required");
+                }
+                if (inheritanceColumns.containsKey(pojo) && pentry.getKey().equals(inheritanceColumns.get(pojo))) {
+                    buffer.append(" discriminator");
                 }
                 if (attribute.isPrimaryKey()) {
                     buffer.append(" primaryKey");

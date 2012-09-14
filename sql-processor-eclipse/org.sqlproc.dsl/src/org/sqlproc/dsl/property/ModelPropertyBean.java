@@ -80,6 +80,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Map<String, Map<String, String>>> inheritImports;
         public Map<String, Map<String, Map<String, String>>> manyToManyExports;
         private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
+        public Map<String, String> inheritanceColumns;
 
         @Override
         public String toString() {
@@ -92,7 +93,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + ", createColumns=" + createColumns + ", ignoreExports=" + ignoreExports + ", ignoreImports="
                     + ignoreImports + ", createExports=" + createExports + ", createImports=" + createImports
                     + ", inheritImports=" + inheritImports + ", manyToManyExports=" + manyToManyExports
-                    + ", inheritance=" + inheritance + "]";
+                    + ", inheritance=" + inheritance + ", inheritanceColumns=" + inheritanceColumns + "]";
         }
     }
 
@@ -346,6 +347,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 modelValues.inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
             if (!modelValues.inheritance.containsKey(property.getDbTable()))
                 modelValues.inheritance.put(property.getDbTable(), new HashMap<String, Map<String, List<String>>>());
+            if (modelValues.inheritanceColumns == null)
+                modelValues.inheritanceColumns = new HashMap<String, String>();
+            modelValues.inheritanceColumns.put(property.getDbTable(), property.getDbColumn());
             Map<String, Map<String, List<String>>> inherits = modelValues.inheritance.get(property.getDbTable());
             for (int i = 0, m = property.getInheritance().size(); i < m; i++) {
                 InheritanceAssignement _inherit = property.getInheritance().get(i);
@@ -478,6 +482,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.inheritance : Collections
                 .<String, Map<String, Map<String, List<String>>>> emptyMap();
+    }
+
+    @Override
+    public Map<String, String> getInheritanceColumns(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.inheritanceColumns : Collections.<String, String> emptyMap();
     }
 
     @Override
