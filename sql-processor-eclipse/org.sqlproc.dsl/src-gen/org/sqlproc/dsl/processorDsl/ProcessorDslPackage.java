@@ -2446,13 +2446,31 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_PROPERTY__REQUIRED = 7;
 
   /**
+   * The feature id for the '<em><b>Discriminator</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_PROPERTY__DISCRIMINATOR = 8;
+
+  /**
+   * The feature id for the '<em><b>Primary Key</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_PROPERTY__PRIMARY_KEY = 9;
+
+  /**
    * The number of structural features of the '<em>Pojo Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY_FEATURE_COUNT = 8;
+  int POJO_PROPERTY_FEATURE_COUNT = 10;
 
 
   /**
@@ -4651,6 +4669,28 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getPojoProperty_Required();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoProperty#isDiscriminator <em>Discriminator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Discriminator</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoProperty#isDiscriminator()
+   * @see #getPojoProperty()
+   * @generated
+   */
+  EAttribute getPojoProperty_Discriminator();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoProperty#isPrimaryKey <em>Primary Key</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Primary Key</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoProperty#isPrimaryKey()
+   * @see #getPojoProperty()
+   * @generated
+   */
+  EAttribute getPojoProperty_PrimaryKey();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6402,6 +6442,22 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute POJO_PROPERTY__REQUIRED = eINSTANCE.getPojoProperty_Required();
+
+    /**
+     * The meta object literal for the '<em><b>Discriminator</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_PROPERTY__DISCRIMINATOR = eINSTANCE.getPojoProperty_Discriminator();
+
+    /**
+     * The meta object literal for the '<em><b>Primary Key</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_PROPERTY__PRIMARY_KEY = eINSTANCE.getPojoProperty_PrimaryKey();
 
   }
 

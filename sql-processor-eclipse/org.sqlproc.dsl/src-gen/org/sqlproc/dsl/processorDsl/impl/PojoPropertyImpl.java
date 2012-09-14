@@ -31,6 +31,8 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getGtype <em>Gtype</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#isArray <em>Array</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#isRequired <em>Required</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#isDiscriminator <em>Discriminator</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#isPrimaryKey <em>Primary Key</em>}</li>
  * </ul>
  * </p>
  *
@@ -157,6 +159,46 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
    * @ordered
    */
   protected boolean required = REQUIRED_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isDiscriminator() <em>Discriminator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isDiscriminator()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean DISCRIMINATOR_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isDiscriminator() <em>Discriminator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isDiscriminator()
+   * @generated
+   * @ordered
+   */
+  protected boolean discriminator = DISCRIMINATOR_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isPrimaryKey() <em>Primary Key</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isPrimaryKey()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean PRIMARY_KEY_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isPrimaryKey() <em>Primary Key</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isPrimaryKey()
+   * @generated
+   * @ordered
+   */
+  protected boolean primaryKey = PRIMARY_KEY_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -448,6 +490,52 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isDiscriminator()
+  {
+    return discriminator;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDiscriminator(boolean newDiscriminator)
+  {
+    boolean oldDiscriminator = discriminator;
+    discriminator = newDiscriminator;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_PROPERTY__DISCRIMINATOR, oldDiscriminator, discriminator));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isPrimaryKey()
+  {
+    return primaryKey;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPrimaryKey(boolean newPrimaryKey)
+  {
+    boolean oldPrimaryKey = primaryKey;
+    primaryKey = newPrimaryKey;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_PROPERTY__PRIMARY_KEY, oldPrimaryKey, primaryKey));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -473,6 +561,10 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
         return isArray();
       case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
         return isRequired();
+      case ProcessorDslPackage.POJO_PROPERTY__DISCRIMINATOR:
+        return isDiscriminator();
+      case ProcessorDslPackage.POJO_PROPERTY__PRIMARY_KEY:
+        return isPrimaryKey();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -510,6 +602,12 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
         return;
       case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
         setRequired((Boolean)newValue);
+        return;
+      case ProcessorDslPackage.POJO_PROPERTY__DISCRIMINATOR:
+        setDiscriminator((Boolean)newValue);
+        return;
+      case ProcessorDslPackage.POJO_PROPERTY__PRIMARY_KEY:
+        setPrimaryKey((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -549,6 +647,12 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
       case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
         setRequired(REQUIRED_EDEFAULT);
         return;
+      case ProcessorDslPackage.POJO_PROPERTY__DISCRIMINATOR:
+        setDiscriminator(DISCRIMINATOR_EDEFAULT);
+        return;
+      case ProcessorDslPackage.POJO_PROPERTY__PRIMARY_KEY:
+        setPrimaryKey(PRIMARY_KEY_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -579,6 +683,10 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
         return array != ARRAY_EDEFAULT;
       case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
         return required != REQUIRED_EDEFAULT;
+      case ProcessorDslPackage.POJO_PROPERTY__DISCRIMINATOR:
+        return discriminator != DISCRIMINATOR_EDEFAULT;
+      case ProcessorDslPackage.POJO_PROPERTY__PRIMARY_KEY:
+        return primaryKey != PRIMARY_KEY_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -602,6 +710,10 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
     result.append(array);
     result.append(", required: ");
     result.append(required);
+    result.append(", discriminator: ");
+    result.append(discriminator);
+    result.append(", primaryKey: ");
+    result.append(primaryKey);
     result.append(')');
     return result.toString();
   }

@@ -488,6 +488,9 @@ public class TablePojoConverter {
                             || !notRequiredColumns.get(pojo).contains(pentry.getKey()))
                         buffer.append(" required");
                 }
+                if (attribute.isPrimaryKey()) {
+                    buffer.append(" primaryKey");
+                }
             }
             buffer.append("\n  }\n");
         }

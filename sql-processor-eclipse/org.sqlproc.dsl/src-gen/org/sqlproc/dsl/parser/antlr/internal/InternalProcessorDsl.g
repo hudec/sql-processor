@@ -8852,6 +8852,36 @@ rulePojoProperty returns [EObject current=null]
 	    }
 
 )
+)?(
+(
+		lv_discriminator_13_0=	'discriminator' 
+    {
+        newLeafNode(lv_discriminator_13_0, grammarAccess.getPojoPropertyAccess().getDiscriminatorDiscriminatorKeyword_4_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoPropertyRule());
+	        }
+       		setWithLastConsumed($current, "discriminator", true, "discriminator");
+	    }
+
+)
+)?(
+(
+		lv_primaryKey_14_0=	'primaryKey' 
+    {
+        newLeafNode(lv_primaryKey_14_0, grammarAccess.getPojoPropertyAccess().getPrimaryKeyPrimaryKeyKeyword_5_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoPropertyRule());
+	        }
+       		setWithLastConsumed($current, "primaryKey", true, "primaryKey");
+	    }
+
+)
 )?)
 ;
 finally {

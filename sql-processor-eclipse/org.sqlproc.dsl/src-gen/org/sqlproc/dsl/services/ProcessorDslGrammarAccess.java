@@ -5146,16 +5146,22 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cArrayLeftSquareBracketRightSquareBracketKeyword_2_0 = (Keyword)cArrayAssignment_2.eContents().get(0);
 		private final Assignment cRequiredAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final Keyword cRequiredRequiredKeyword_3_0 = (Keyword)cRequiredAssignment_3.eContents().get(0);
+		private final Assignment cDiscriminatorAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final Keyword cDiscriminatorDiscriminatorKeyword_4_0 = (Keyword)cDiscriminatorAssignment_4.eContents().get(0);
+		private final Assignment cPrimaryKeyAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final Keyword cPrimaryKeyPrimaryKeyKeyword_5_0 = (Keyword)cPrimaryKeyAssignment_5.eContents().get(0);
 		
 		//PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 		//	name=IDENT (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON
 		//	(COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
-		//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? required?="required"?;
+		//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? required?="required"?
+		//	discriminator?="discriminator"? primaryKey?="primaryKey"?;
 		public ParserRule getRule() { return rule; }
 
 		//name=IDENT (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
 		//ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
 		//gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? required?="required"?
+		//discriminator?="discriminator"? primaryKey?="primaryKey"?
 		public Group getGroup() { return cGroup; }
 
 		//name=IDENT
@@ -5283,6 +5289,18 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"required"
 		public Keyword getRequiredRequiredKeyword_3_0() { return cRequiredRequiredKeyword_3_0; }
+
+		//discriminator?="discriminator"?
+		public Assignment getDiscriminatorAssignment_4() { return cDiscriminatorAssignment_4; }
+
+		//"discriminator"
+		public Keyword getDiscriminatorDiscriminatorKeyword_4_0() { return cDiscriminatorDiscriminatorKeyword_4_0; }
+
+		//primaryKey?="primaryKey"?
+		public Assignment getPrimaryKeyAssignment_5() { return cPrimaryKeyAssignment_5; }
+
+		//"primaryKey"
+		public Keyword getPrimaryKeyPrimaryKeyKeyword_5_0() { return cPrimaryKeyPrimaryKeyKeyword_5_0; }
 	}
 
 	public class QualifiedNameWithWildcardElements extends AbstractParserRuleElementFinder {
@@ -6242,7 +6260,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 	//	name=IDENT (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON
 	//	(COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
-	//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? required?="required"?;
+	//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? required?="required"?
+	//	discriminator?="discriminator"? primaryKey?="primaryKey"?;
 	public PojoPropertyElements getPojoPropertyAccess() {
 		return (pPojoProperty != null) ? pPojoProperty : (pPojoProperty = new PojoPropertyElements());
 	}

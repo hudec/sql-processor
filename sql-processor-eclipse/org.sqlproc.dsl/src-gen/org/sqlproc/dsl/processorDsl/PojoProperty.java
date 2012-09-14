@@ -22,6 +22,8 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getGtype <em>Gtype</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#isArray <em>Array</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#isRequired <em>Required</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#isDiscriminator <em>Discriminator</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#isPrimaryKey <em>Primary Key</em>}</li>
  * </ul>
  * </p>
  *
@@ -238,5 +240,57 @@ public interface PojoProperty extends EObject
    * @generated
    */
   void setRequired(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Discriminator</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Discriminator</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Discriminator</em>' attribute.
+   * @see #setDiscriminator(boolean)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoProperty_Discriminator()
+   * @model
+   * @generated
+   */
+  boolean isDiscriminator();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoProperty#isDiscriminator <em>Discriminator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Discriminator</em>' attribute.
+   * @see #isDiscriminator()
+   * @generated
+   */
+  void setDiscriminator(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Primary Key</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Primary Key</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Primary Key</em>' attribute.
+   * @see #setPrimaryKey(boolean)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoProperty_PrimaryKey()
+   * @model
+   * @generated
+   */
+  boolean isPrimaryKey();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoProperty#isPrimaryKey <em>Primary Key</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Primary Key</em>' attribute.
+   * @see #isPrimaryKey()
+   * @generated
+   */
+  void setPrimaryKey(boolean value);
 
 } // PojoProperty

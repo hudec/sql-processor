@@ -479,6 +479,8 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPojoPropertyAccess().getGtypeAssignment_1_1_1_1_1(), "rule__PojoProperty__GtypeAssignment_1_1_1_1_1");
 					put(grammarAccess.getPojoPropertyAccess().getArrayAssignment_2(), "rule__PojoProperty__ArrayAssignment_2");
 					put(grammarAccess.getPojoPropertyAccess().getRequiredAssignment_3(), "rule__PojoProperty__RequiredAssignment_3");
+					put(grammarAccess.getPojoPropertyAccess().getDiscriminatorAssignment_4(), "rule__PojoProperty__DiscriminatorAssignment_4");
+					put(grammarAccess.getPojoPropertyAccess().getPrimaryKeyAssignment_5(), "rule__PojoProperty__PrimaryKeyAssignment_5");
 				}
 			};
 		}

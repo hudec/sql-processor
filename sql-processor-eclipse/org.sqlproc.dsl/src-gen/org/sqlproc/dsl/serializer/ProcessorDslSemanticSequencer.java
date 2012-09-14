@@ -860,7 +860,9 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *             ((ref=[PojoEntity|IDENT] | type=[JvmType|QualifiedName]) (gref=[PojoEntity|IDENT] | gtype=[JvmType|QualifiedName])?)
 	 *         ) 
 	 *         array?='[]'? 
-	 *         required?='required'?
+	 *         required?='required'? 
+	 *         discriminator?='discriminator'? 
+	 *         primaryKey?='primaryKey'?
 	 *     )
 	 */
 	protected void sequence_PojoProperty(EObject context, PojoProperty semanticObject) {

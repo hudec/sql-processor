@@ -18865,6 +18865,7 @@ rule__PojoProperty__Group__3
     }
 :
 	rule__PojoProperty__Group__3__Impl
+	rule__PojoProperty__Group__4
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -18885,6 +18886,67 @@ rule__PojoProperty__Group__3__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+rule__PojoProperty__Group__4
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__PojoProperty__Group__4__Impl
+	rule__PojoProperty__Group__5
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PojoProperty__Group__4__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPojoPropertyAccess().getDiscriminatorAssignment_4()); }
+(rule__PojoProperty__DiscriminatorAssignment_4)?
+{ after(grammarAccess.getPojoPropertyAccess().getDiscriminatorAssignment_4()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__PojoProperty__Group__5
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__PojoProperty__Group__5__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PojoProperty__Group__5__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPojoPropertyAccess().getPrimaryKeyAssignment_5()); }
+(rule__PojoProperty__PrimaryKeyAssignment_5)?
+{ after(grammarAccess.getPojoPropertyAccess().getPrimaryKeyAssignment_5()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
 
 
 
@@ -23084,6 +23146,52 @@ rule__PojoProperty__RequiredAssignment_3
 )
 
 { after(grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_3_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PojoProperty__DiscriminatorAssignment_4
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPojoPropertyAccess().getDiscriminatorDiscriminatorKeyword_4_0()); }
+(
+{ before(grammarAccess.getPojoPropertyAccess().getDiscriminatorDiscriminatorKeyword_4_0()); }
+
+	'discriminator' 
+
+{ after(grammarAccess.getPojoPropertyAccess().getDiscriminatorDiscriminatorKeyword_4_0()); }
+)
+
+{ after(grammarAccess.getPojoPropertyAccess().getDiscriminatorDiscriminatorKeyword_4_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PojoProperty__PrimaryKeyAssignment_5
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPojoPropertyAccess().getPrimaryKeyPrimaryKeyKeyword_5_0()); }
+(
+{ before(grammarAccess.getPojoPropertyAccess().getPrimaryKeyPrimaryKeyKeyword_5_0()); }
+
+	'primaryKey' 
+
+{ after(grammarAccess.getPojoPropertyAccess().getPrimaryKeyPrimaryKeyKeyword_5_0()); }
+)
+
+{ after(grammarAccess.getPojoPropertyAccess().getPrimaryKeyPrimaryKeyKeyword_5_0()); }
 )
 
 ;

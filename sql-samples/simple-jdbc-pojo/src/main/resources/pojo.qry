@@ -35,13 +35,12 @@ package org.sqlproc.sample.simple.model2 suffix 2 {
 package org.sqlproc.sample.simple.model {
 
 
-
   pojo BankAccount extends BillingDetails discriminator BA {
     account : java.lang.String required
   }
 
   pojo abstract BillingDetails {
-    id : java.lang.Long
+    id : java.lang.Long primaryKey
     subscriber :: Subscriber required
     type : java.lang.String required
   }
@@ -51,7 +50,7 @@ package org.sqlproc.sample.simple.model {
   }
 
   pojo Contact {
-    id : java.lang.Long
+    id : java.lang.Long primaryKey
     personId : java.lang.Long
     address : java.lang.String required
     homePhone : org.sqlproc.sample.simple.model.PhoneNumber
@@ -62,12 +61,12 @@ package org.sqlproc.sample.simple.model {
   }
 
   pojo Library {
-    id : java.lang.Long
+    id : java.lang.Long primaryKey
     name : java.lang.String required
   }
 
   pojo abstract Media {
-    id : java.lang.Long
+    id : java.lang.Long primaryKey
     title : java.lang.String required
   }
 
@@ -77,25 +76,26 @@ package org.sqlproc.sample.simple.model {
   }
 
   pojo Person {
-    id : java.lang.Long
+    id : java.lang.Long primaryKey
     name : java.lang.String required
     library : java.util.List <:Media>
     contacts : java.util.List <:Contact>
   }
 
   pojo PersonLibrary {
-    id : java.lang.Long
+    id : java.lang.Long primaryKey
     personId : java.lang.Long required
     mediaId : java.lang.Long required
   }
 
   pojo Subscriber {
-    id : java.lang.Long
+    id : java.lang.Long primaryKey
     library :: Library required
     contact :: Contact
     name : java.lang.String required
     billingDetails : java.util.List <:BillingDetails>
   }
+
 
 //  pojo PhoneNumber {
 //    area _int required

@@ -2525,6 +2525,26 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getPojoProperty_Discriminator()
+  {
+    return (EAttribute)pojoPropertyEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPojoProperty_PrimaryKey()
+  {
+    return (EAttribute)pojoPropertyEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ProcessorDslFactory getProcessorDslFactory()
   {
     return (ProcessorDslFactory)getEFactoryInstance();
@@ -2802,6 +2822,8 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEReference(pojoPropertyEClass, POJO_PROPERTY__GTYPE);
     createEAttribute(pojoPropertyEClass, POJO_PROPERTY__ARRAY);
     createEAttribute(pojoPropertyEClass, POJO_PROPERTY__REQUIRED);
+    createEAttribute(pojoPropertyEClass, POJO_PROPERTY__DISCRIMINATOR);
+    createEAttribute(pojoPropertyEClass, POJO_PROPERTY__PRIMARY_KEY);
   }
 
   /**
@@ -3101,6 +3123,8 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEReference(getPojoProperty_Gtype(), theTypesPackage.getJvmType(), null, "gtype", null, 0, 1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPojoProperty_Array(), ecorePackage.getEBoolean(), "array", null, 0, 1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPojoProperty_Required(), ecorePackage.getEBoolean(), "required", null, 0, 1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPojoProperty_Discriminator(), ecorePackage.getEBoolean(), "discriminator", null, 0, 1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPojoProperty_PrimaryKey(), ecorePackage.getEBoolean(), "primaryKey", null, 0, 1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);
