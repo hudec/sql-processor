@@ -462,6 +462,8 @@ public class TablePojoConverter {
             buffer.append(tableToCamelCase(pojoName));
             if (pojoExtends.containsKey(pojo))
                 buffer.append(" extends ").append(pojoExtends.get(pojo));
+            if (pojoDiscriminators.containsKey(pojo))
+                buffer.append(" discriminator ").append(pojoDiscriminators.get(pojo));
             buffer.append(" {");
             for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
                 if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))

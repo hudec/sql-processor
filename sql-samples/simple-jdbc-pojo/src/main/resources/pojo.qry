@@ -30,73 +30,13 @@ pojogen type for columns MOVIE PLAYLENGTH->:java.lang.Integer;
 package org.sqlproc.sample.simple.model2 suffix 2 {
 
 
-  final pojo BankAccount2 extends BillingDetails2 discriminator BA {
-    account : java.lang.String required
-  }
-
-  pojo abstract BillingDetails2 {
-    id : java.lang.Long
-    subscriber :: Subscriber2 required
-    type : java.lang.String required
-  }
-
-  pojo Book2 extends Media2 {
-    isbn : java.lang.String required
-  }
-
-  pojo Contact2 {
-    id : java.lang.Long
-    personId : java.lang.Long
-    address : java.lang.String required
-    homePhone : org.sqlproc.sample.simple.model.PhoneNumber
-  }
-
-  final pojo CreditCard2 extends BillingDetails2 discriminator CC {
-    number : java.lang.Long required
-  }
-
-  pojo Library2 {
-    id : java.lang.Long
-    name : java.lang.String required
-  }
-
-  pojo abstract Media2 {
-    id : java.lang.Long
-    title : java.lang.String required
-  }
-
-  pojo Movie2 extends Media2 {
-    urlImdb : java.lang.String required
-    playLength : java.lang.Integer required
-  }
-
-  pojo Person2 {
-    id : java.lang.Long
-    name : java.lang.String required
-    library : java.util.List <:Media2>
-    contact2s : java.util.List <:Contact2>
-  }
-
-  pojo PersonLibrary2 {
-    id : java.lang.Long
-    personId : java.lang.Long required
-    mediaId : java.lang.Long required
-  }
-
-  pojo Subscriber2 {
-    id : java.lang.Long
-    library :: Library2 required
-    contact :: Contact2
-    name : java.lang.String required
-    billingDetails2s : java.util.List <:BillingDetails2>
-  }
-
 }
 
 package org.sqlproc.sample.simple.model {
 
 
-  pojo BankAccount extends BillingDetails {
+
+  pojo BankAccount extends BillingDetails discriminator BA {
     account : java.lang.String required
   }
 
@@ -117,7 +57,7 @@ package org.sqlproc.sample.simple.model {
     homePhone : org.sqlproc.sample.simple.model.PhoneNumber
   }
 
-  pojo CreditCard extends BillingDetails {
+  pojo CreditCard extends BillingDetails discriminator CC {
     number : java.lang.Long required
   }
 
