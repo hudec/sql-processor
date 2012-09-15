@@ -16,6 +16,11 @@ public class FormSimpleFunction {
   public void setTime(Timestamp time) {
     this.time = time;
   }
+    
+  public FormSimpleFunction ssetTime(Timestamp time) {
+    this.time = time;
+    return this;
+  }
   
   private Timestamp time2;
     
@@ -25,5 +30,10 @@ public class FormSimpleFunction {
     
   public void setTime2(Timestamp time2) {
     this.time2 = time2;
+  }
+    
+  public FormSimpleFunction ssetTime2(Timestamp time2) {
+    this.time2 = time2;
+    return this;
   }
 }

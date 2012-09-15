@@ -6,8 +6,8 @@ public class Book extends Media {
   }
   
   public Book(String title, String isbn) {
-  setTitle(title);
-  setIsbn(isbn);
+    super(title);
+    this.isbn = isbn;
   }
   
   private String isbn;
@@ -18,5 +18,10 @@ public class Book extends Media {
     
   public void setIsbn(String isbn) {
     this.isbn = isbn;
+  }
+    
+  public Book ssetIsbn(String isbn) {
+    this.isbn = isbn;
+    return this;
   }
 }

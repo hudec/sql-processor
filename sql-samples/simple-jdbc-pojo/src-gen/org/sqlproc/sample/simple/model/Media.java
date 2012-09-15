@@ -6,7 +6,7 @@ public abstract class Media {
   }
   
   public Media(String title) {
-  setTitle(title);
+    this.title = title;
   }
   
   private Long id;
@@ -18,6 +18,11 @@ public abstract class Media {
   public void setId(Long id) {
     this.id = id;
   }
+    
+  public Media ssetId(Long id) {
+    this.id = id;
+    return this;
+  }
   
   private String title;
     
@@ -27,5 +32,10 @@ public abstract class Media {
     
   public void setTitle(String title) {
     this.title = title;
+  }
+    
+  public Media ssetTitle(String title) {
+    this.title = title;
+    return this;
   }
 }

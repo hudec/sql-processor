@@ -72,7 +72,6 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.IMPORT_ASSIGNEMENT: return createImportAssignement();
       case ProcessorDslPackage.EXPORT_ASSIGNEMENT: return createExportAssignement();
       case ProcessorDslPackage.INHERITANCE_ASSIGNEMENT: return createInheritanceAssignement();
-      case ProcessorDslPackage.POJO_FUNCTION: return createPojoFunction();
       case ProcessorDslPackage.PROPERTY: return createProperty();
       case ProcessorDslPackage.POJO_DEFINITION: return createPojoDefinition();
       case ProcessorDslPackage.POJO_USAGE: return createPojoUsage();
@@ -205,17 +204,6 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     InheritanceAssignementImpl inheritanceAssignement = new InheritanceAssignementImpl();
     return inheritanceAssignement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PojoFunction createPojoFunction()
-  {
-    PojoFunctionImpl pojoFunction = new PojoFunctionImpl();
-    return pojoFunction;
   }
 
   /**

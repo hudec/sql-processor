@@ -496,42 +496,6 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getDbColumnsIDENTTerminalRuleCall_3_1_0() { return cDbColumnsIDENTTerminalRuleCall_3_1_0; }
 	}
 
-	public class PojoFunctionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PojoFunction");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Assignment cToStringAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
-		private final Keyword cToStringToStringKeyword_0_0 = (Keyword)cToStringAssignment_0.eContents().get(0);
-		private final Assignment cEqualsAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final Keyword cEqualsEqualsKeyword_1_0 = (Keyword)cEqualsAssignment_1.eContents().get(0);
-		private final Assignment cHashCodeAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
-		private final Keyword cHashCodeHashCodeKeyword_2_0 = (Keyword)cHashCodeAssignment_2.eContents().get(0);
-		
-		//PojoFunction:
-		//	toString?="toString" | equals?="equals" | hashCode?="hashCode";
-		public ParserRule getRule() { return rule; }
-
-		//toString?="toString" | equals?="equals" | hashCode?="hashCode"
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//toString?="toString"
-		public Assignment getToStringAssignment_0() { return cToStringAssignment_0; }
-
-		//"toString"
-		public Keyword getToStringToStringKeyword_0_0() { return cToStringToStringKeyword_0_0; }
-
-		//equals?="equals"
-		public Assignment getEqualsAssignment_1() { return cEqualsAssignment_1; }
-
-		//"equals"
-		public Keyword getEqualsEqualsKeyword_1_0() { return cEqualsEqualsKeyword_1_0; }
-
-		//hashCode?="hashCode"
-		public Assignment getHashCodeAssignment_2() { return cHashCodeAssignment_2; }
-
-		//"hashCode"
-		public Keyword getHashCodeHashCodeKeyword_2_0() { return cHashCodeHashCodeKeyword_2_0; }
-	}
-
 	public class PropertyElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Property");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -748,7 +712,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_0_24_1 = (Group)cGroup_0_24.eContents().get(1);
 		private final RuleCall cWSTerminalRuleCall_0_24_1_0 = (RuleCall)cGroup_0_24_1.eContents().get(0);
 		private final Assignment cFunctionAssignment_0_24_1_1 = (Assignment)cGroup_0_24_1.eContents().get(1);
-		private final RuleCall cFunctionPojoFunctionParserRuleCall_0_24_1_1_0 = (RuleCall)cFunctionAssignment_0_24_1_1.eContents().get(0);
+		private final RuleCall cFunctionIDENTTerminalRuleCall_0_24_1_1_0 = (RuleCall)cFunctionAssignment_0_24_1_1.eContents().get(0);
 		private final RuleCall cSEMICOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//Property:
@@ -769,7 +733,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//	| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 		//	name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-		//	name="pojogen generate methods" (WS+ function+=PojoFunction)+) SEMICOLON;
+		//	name="pojogen generate methods" (WS+ function+=IDENT)+) SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
 		//(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF |
@@ -789,7 +753,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 		//name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-		//name="pojogen generate methods" (WS+ function+=PojoFunction)+) SEMICOLON
+		//name="pojogen generate methods" (WS+ function+=IDENT)+) SEMICOLON
 		public Group getGroup() { return cGroup; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF | name="database url"
@@ -809,7 +773,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 		//name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-		//name="pojogen generate methods" (WS+ function+=PojoFunction)+
+		//name="pojogen generate methods" (WS+ function+=IDENT)+
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF
@@ -1430,7 +1394,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//InheritanceAssignement
 		public RuleCall getInheritanceInheritanceAssignementParserRuleCall_0_23_5_1_0() { return cInheritanceInheritanceAssignementParserRuleCall_0_23_5_1_0; }
 
-		//name="pojogen generate methods" (WS+ function+=PojoFunction)+
+		//name="pojogen generate methods" (WS+ function+=IDENT)+
 		public Group getGroup_0_24() { return cGroup_0_24; }
 
 		//name="pojogen generate methods"
@@ -1439,17 +1403,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"pojogen generate methods"
 		public Keyword getNamePojogenGenerateMethodsKeyword_0_24_0_0() { return cNamePojogenGenerateMethodsKeyword_0_24_0_0; }
 
-		//(WS+ function+=PojoFunction)+
+		//(WS+ function+=IDENT)+
 		public Group getGroup_0_24_1() { return cGroup_0_24_1; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_0_24_1_0() { return cWSTerminalRuleCall_0_24_1_0; }
 
-		//function+=PojoFunction
+		//function+=IDENT
 		public Assignment getFunctionAssignment_0_24_1_1() { return cFunctionAssignment_0_24_1_1; }
 
-		//PojoFunction
-		public RuleCall getFunctionPojoFunctionParserRuleCall_0_24_1_1_0() { return cFunctionPojoFunctionParserRuleCall_0_24_1_1_0; }
+		//IDENT
+		public RuleCall getFunctionIDENTTerminalRuleCall_0_24_1_1_0() { return cFunctionIDENTTerminalRuleCall_0_24_1_1_0; }
 
 		//SEMICOLON
 		public RuleCall getSEMICOLONTerminalRuleCall_1() { return cSEMICOLONTerminalRuleCall_1; }
@@ -5457,7 +5421,6 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private ImportAssignementElements pImportAssignement;
 	private ExportAssignementElements pExportAssignement;
 	private InheritanceAssignementElements pInheritanceAssignement;
-	private PojoFunctionElements pPojoFunction;
 	private PropertyElements pProperty;
 	private PropertyValueElements pPropertyValue;
 	private PojoDefinitionElements pPojoDefinition;
@@ -5654,16 +5617,6 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getInheritanceAssignementAccess().getRule();
 	}
 
-	//PojoFunction:
-	//	toString?="toString" | equals?="equals" | hashCode?="hashCode";
-	public PojoFunctionElements getPojoFunctionAccess() {
-		return (pPojoFunction != null) ? pPojoFunction : (pPojoFunction = new PojoFunctionElements());
-	}
-	
-	public ParserRule getPojoFunctionRule() {
-		return getPojoFunctionAccess().getRule();
-	}
-
 	//Property:
 	//	(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF |
 	//	name="database url" WS+ dbUrl=PropertyValue | name="database username" WS+ dbUsername=PropertyValue |
@@ -5682,7 +5635,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	//	| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 	//	name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-	//	name="pojogen generate methods" (WS+ function+=PojoFunction)+) SEMICOLON;
+	//	name="pojogen generate methods" (WS+ function+=IDENT)+) SEMICOLON;
 	public PropertyElements getPropertyAccess() {
 		return (pProperty != null) ? pProperty : (pProperty = new PropertyElements());
 	}

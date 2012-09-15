@@ -26,7 +26,7 @@ pojogen required columns CONTACT ADDRESS;
 pojogen required columns CREDIT_CARD CC_NUMBER;
 pojogen type for columns MOVIE PLAYLENGTH->:java.lang.Integer;
 
-
+//x
 package org.sqlproc.sample.simple.model2 suffix 2 {
 
 
@@ -37,6 +37,7 @@ package org.sqlproc.sample.simple.model {
 
   pojo BankAccount extends BillingDetails discriminator BA {
     account : java.lang.String required
+    toString ::: account
   }
 
   pojo abstract BillingDetails {

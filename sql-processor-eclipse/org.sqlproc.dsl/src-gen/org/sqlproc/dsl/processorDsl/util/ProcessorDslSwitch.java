@@ -128,13 +128,6 @@ public class ProcessorDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ProcessorDslPackage.POJO_FUNCTION:
-      {
-        PojoFunction pojoFunction = (PojoFunction)theEObject;
-        T result = casePojoFunction(pojoFunction);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ProcessorDslPackage.PROPERTY:
       {
         Property property = (Property)theEObject;
@@ -561,22 +554,6 @@ public class ProcessorDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseInheritanceAssignement(InheritanceAssignement object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Pojo Function</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Pojo Function</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casePojoFunction(PojoFunction object)
   {
     return null;
   }

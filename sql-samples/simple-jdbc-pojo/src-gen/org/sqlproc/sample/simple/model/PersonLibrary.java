@@ -6,8 +6,8 @@ public class PersonLibrary {
   }
   
   public PersonLibrary(Long personId, Long mediaId) {
-  setPersonId(personId);
-  setMediaId(mediaId);
+    this.personId = personId;
+    this.mediaId = mediaId;
   }
   
   private Long id;
@@ -19,6 +19,11 @@ public class PersonLibrary {
   public void setId(Long id) {
     this.id = id;
   }
+    
+  public PersonLibrary ssetId(Long id) {
+    this.id = id;
+    return this;
+  }
   
   private Long personId;
     
@@ -29,6 +34,11 @@ public class PersonLibrary {
   public void setPersonId(Long personId) {
     this.personId = personId;
   }
+    
+  public PersonLibrary ssetPersonId(Long personId) {
+    this.personId = personId;
+    return this;
+  }
   
   private Long mediaId;
     
@@ -38,5 +48,10 @@ public class PersonLibrary {
     
   public void setMediaId(Long mediaId) {
     this.mediaId = mediaId;
+  }
+    
+  public PersonLibrary ssetMediaId(Long mediaId) {
+    this.mediaId = mediaId;
+    return this;
   }
 }

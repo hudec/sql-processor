@@ -38,7 +38,6 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getArtifactsAccess().getAlternatives_1(), "rule__Artifacts__Alternatives_1");
-					put(grammarAccess.getPojoFunctionAccess().getAlternatives(), "rule__PojoFunction__Alternatives");
 					put(grammarAccess.getPropertyAccess().getAlternatives_0(), "rule__Property__Alternatives_0");
 					put(grammarAccess.getPropertyValueAccess().getAlternatives_0(), "rule__PropertyValue__Alternatives_0");
 					put(grammarAccess.getPropertyValueAccess().getAlternatives_1_0(), "rule__PropertyValue__Alternatives_1_0");
@@ -283,9 +282,6 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInheritanceAssignementAccess().getDiscriminatorAssignment_0(), "rule__InheritanceAssignement__DiscriminatorAssignment_0");
 					put(grammarAccess.getInheritanceAssignementAccess().getDbTableAssignment_2(), "rule__InheritanceAssignement__DbTableAssignment_2");
 					put(grammarAccess.getInheritanceAssignementAccess().getDbColumnsAssignment_3_1(), "rule__InheritanceAssignement__DbColumnsAssignment_3_1");
-					put(grammarAccess.getPojoFunctionAccess().getToStringAssignment_0(), "rule__PojoFunction__ToStringAssignment_0");
-					put(grammarAccess.getPojoFunctionAccess().getEqualsAssignment_1(), "rule__PojoFunction__EqualsAssignment_1");
-					put(grammarAccess.getPojoFunctionAccess().getHashCodeAssignment_2(), "rule__PojoFunction__HashCodeAssignment_2");
 					put(grammarAccess.getPropertyAccess().getNameAssignment_0_0_0(), "rule__Property__NameAssignment_0_0_0");
 					put(grammarAccess.getPropertyAccess().getDoResolvePojoAssignment_0_0_2(), "rule__Property__DoResolvePojoAssignment_0_0_2");
 					put(grammarAccess.getPropertyAccess().getNameAssignment_0_1_0(), "rule__Property__NameAssignment_0_1_0");

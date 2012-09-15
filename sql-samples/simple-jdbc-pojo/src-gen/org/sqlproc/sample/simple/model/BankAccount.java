@@ -6,9 +6,8 @@ public class BankAccount extends BillingDetails {
   }
   
   public BankAccount(Subscriber subscriber, String type, String account) {
-  setSubscriber(subscriber);
-  setType(type);
-  setAccount(account);
+    super(subscriber, type);
+    this.account = account;
   }
   
   private String account;
@@ -19,5 +18,10 @@ public class BankAccount extends BillingDetails {
     
   public void setAccount(String account) {
     this.account = account;
+  }
+    
+  public BankAccount ssetAccount(String account) {
+    this.account = account;
+    return this;
   }
 }

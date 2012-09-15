@@ -6,9 +6,8 @@ public class CreditCard extends BillingDetails {
   }
   
   public CreditCard(Subscriber subscriber, String type, Long number) {
-  setSubscriber(subscriber);
-  setType(type);
-  setNumber(number);
+    super(subscriber, type);
+    this.number = number;
   }
   
   private Long number;
@@ -19,5 +18,10 @@ public class CreditCard extends BillingDetails {
     
   public void setNumber(Long number) {
     this.number = number;
+  }
+    
+  public CreditCard ssetNumber(Long number) {
+    this.number = number;
+    return this;
   }
 }

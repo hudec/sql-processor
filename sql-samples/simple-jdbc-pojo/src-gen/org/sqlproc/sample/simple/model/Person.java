@@ -8,7 +8,7 @@ public class Person {
   }
   
   public Person(String name) {
-  setName(name);
+    this.name = name;
   }
   
   private Long id;
@@ -20,6 +20,11 @@ public class Person {
   public void setId(Long id) {
     this.id = id;
   }
+    
+  public Person ssetId(Long id) {
+    this.id = id;
+    return this;
+  }
   
   private String name;
     
@@ -29,6 +34,11 @@ public class Person {
     
   public void setName(String name) {
     this.name = name;
+  }
+    
+  public Person ssetName(String name) {
+    this.name = name;
+    return this;
   }
   
   private List<Media> library;
@@ -40,6 +50,11 @@ public class Person {
   public void setLibrary(List<Media> library) {
     this.library = library;
   }
+    
+  public Person ssetLibrary(List<Media> library) {
+    this.library = library;
+    return this;
+  }
   
   private List<Contact> contacts;
     
@@ -49,5 +64,10 @@ public class Person {
     
   public void setContacts(List<Contact> contacts) {
     this.contacts = contacts;
+  }
+    
+  public Person ssetContacts(List<Contact> contacts) {
+    this.contacts = contacts;
+    return this;
   }
 }

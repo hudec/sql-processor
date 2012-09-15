@@ -281,34 +281,6 @@ finally {
 
 
 
-// Entry rule entryRulePojoFunction
-entryRulePojoFunction 
-:
-{ before(grammarAccess.getPojoFunctionRule()); }
-	 rulePojoFunction
-{ after(grammarAccess.getPojoFunctionRule()); } 
-	 EOF 
-;
-
-// Rule PojoFunction
-rulePojoFunction
-    @init {
-		int stackSize = keepStackSize();
-    }
-	:
-(
-{ before(grammarAccess.getPojoFunctionAccess().getAlternatives()); }
-(rule__PojoFunction__Alternatives)
-{ after(grammarAccess.getPojoFunctionAccess().getAlternatives()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
 // Entry rule entryRuleProperty
 entryRuleProperty 
 :
@@ -1873,34 +1845,6 @@ rule__Artifacts__Alternatives_1
 { before(grammarAccess.getArtifactsAccess().getGroup_1_9()); }
 (rule__Artifacts__Group_1_9__0)
 { after(grammarAccess.getArtifactsAccess().getGroup_1_9()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__PojoFunction__Alternatives
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getPojoFunctionAccess().getToStringAssignment_0()); }
-(rule__PojoFunction__ToStringAssignment_0)
-{ after(grammarAccess.getPojoFunctionAccess().getToStringAssignment_0()); }
-)
-
-    |(
-{ before(grammarAccess.getPojoFunctionAccess().getEqualsAssignment_1()); }
-(rule__PojoFunction__EqualsAssignment_1)
-{ after(grammarAccess.getPojoFunctionAccess().getEqualsAssignment_1()); }
-)
-
-    |(
-{ before(grammarAccess.getPojoFunctionAccess().getHashCodeAssignment_2()); }
-(rule__PojoFunction__HashCodeAssignment_2)
-{ after(grammarAccess.getPojoFunctionAccess().getHashCodeAssignment_2()); }
 )
 
 ;
@@ -20127,75 +20071,6 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__PojoFunction__ToStringAssignment_0
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getPojoFunctionAccess().getToStringToStringKeyword_0_0()); }
-(
-{ before(grammarAccess.getPojoFunctionAccess().getToStringToStringKeyword_0_0()); }
-
-	'toString' 
-
-{ after(grammarAccess.getPojoFunctionAccess().getToStringToStringKeyword_0_0()); }
-)
-
-{ after(grammarAccess.getPojoFunctionAccess().getToStringToStringKeyword_0_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__PojoFunction__EqualsAssignment_1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getPojoFunctionAccess().getEqualsEqualsKeyword_1_0()); }
-(
-{ before(grammarAccess.getPojoFunctionAccess().getEqualsEqualsKeyword_1_0()); }
-
-	'equals' 
-
-{ after(grammarAccess.getPojoFunctionAccess().getEqualsEqualsKeyword_1_0()); }
-)
-
-{ after(grammarAccess.getPojoFunctionAccess().getEqualsEqualsKeyword_1_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__PojoFunction__HashCodeAssignment_2
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getPojoFunctionAccess().getHashCodeHashCodeKeyword_2_0()); }
-(
-{ before(grammarAccess.getPojoFunctionAccess().getHashCodeHashCodeKeyword_2_0()); }
-
-	'hashCode' 
-
-{ after(grammarAccess.getPojoFunctionAccess().getHashCodeHashCodeKeyword_2_0()); }
-)
-
-{ after(grammarAccess.getPojoFunctionAccess().getHashCodeHashCodeKeyword_2_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
 rule__Property__NameAssignment_0_0_0
     @init {
 		int stackSize = keepStackSize();
@@ -21362,8 +21237,8 @@ rule__Property__FunctionAssignment_0_24_1_1
     }
 :
 (
-{ before(grammarAccess.getPropertyAccess().getFunctionPojoFunctionParserRuleCall_0_24_1_1_0()); }
-	rulePojoFunction{ after(grammarAccess.getPropertyAccess().getFunctionPojoFunctionParserRuleCall_0_24_1_1_0()); }
+{ before(grammarAccess.getPropertyAccess().getFunctionIDENTTerminalRuleCall_0_24_1_1_0()); }
+	RULE_IDENT{ after(grammarAccess.getPropertyAccess().getFunctionIDENTTerminalRuleCall_0_24_1_1_0()); }
 )
 
 ;

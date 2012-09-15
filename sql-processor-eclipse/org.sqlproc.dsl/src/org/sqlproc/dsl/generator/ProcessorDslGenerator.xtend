@@ -19,13 +19,13 @@ class ProcessorDslGenerator implements IGenerator {
 	
 @Inject extension IQualifiedNameProvider
 	
-	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-		for(e: resource.allContents.toIterable.filter(typeof(PojoEntity))) {
-			fsa.generateFile(e.eContainer.fullyQualifiedName.toString("/") + "/"+
-				e.fullyQualifiedName + ".java",e.compile
-			)
-		}
+override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+	for(e: resource.allContents.toIterable.filter(typeof(PojoEntity))) {
+		fsa.generateFile(e.eContainer.fullyQualifiedName.toString("/") + "/"+
+			e.fullyQualifiedName + ".java",e.compile
+		)
 	}
+}
 
 def compile(PojoEntity e) '''
 «val importManager = new ImportManager(true)»
@@ -49,12 +49,12 @@ public «IF e.isAbstract»abstract «ENDIF»class «e.name» «IF e.superType !=
   «IF !e.requiredFeatures.empty»
   
   public «e.name»(«FOR f:e.requiredFeatures SEPARATOR ", "»«f.compileType(importManager)» «f.name»«ENDFOR») {
-  «FOR f:e.requiredFeatures»
-    set«f.name.toFirstUpper»(«f.name»);
-  «ENDFOR»
+  «FOR f:e.requiredSuperFeatures BEFORE "  super(" SEPARATOR ", " AFTER ");"»«f.name»«ENDFOR»
+  «FOR f:e.requiredFeatures1 SEPARATOR "
+"»  this.«f.name» = «f.name»;«ENDFOR»
   }
   «ENDIF»
-  «FOR f:e.features»
+  «FOR f:e.features.filter(x| isAttribute(x))»
     «f.compile(importManager, e)»
   «ENDFOR»
 }
@@ -71,6 +71,11 @@ def compile(PojoProperty f, ImportManager importManager, PojoEntity e) '''
     public void set«f.name.toFirstUpper»(«f.compileType(importManager)» «f.name») {
       this.«f.name» = «f.name»;
     }
+  
+    public «e.name» sset«f.name.toFirstUpper»(«f.compileType(importManager)» «f.name») {
+      this.«f.name» = «f.name»;
+      return this;
+    }
 '''
 
 def compileType(PojoProperty f, ImportManager importManager) '''
@@ -85,7 +90,20 @@ def requiredFeatures(PojoEntity e) {
     return list
 }
 
+def requiredSuperFeatures(PojoEntity e) {
+	
+   	val list = new ArrayList<PojoProperty>()
+	if (e.superType != null)
+	  list.addAll(e.superType.requiredFeatures)
+    return list
+}
+
 def requiredFeatures1(PojoEntity e) {
 	return e.features.filter(f|f.required).toList
+}
+
+def isAttribute(PojoProperty f) {
+	
+    return f.getNative != null || f.getRef != null || f.getType != null
 }
 }

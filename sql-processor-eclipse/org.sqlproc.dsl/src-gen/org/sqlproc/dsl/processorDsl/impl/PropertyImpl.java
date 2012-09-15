@@ -24,7 +24,6 @@ import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
-import org.sqlproc.dsl.processorDsl.PojoFunction;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.SqlTypeAssignement;
@@ -355,14 +354,14 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
   protected EList<InheritanceAssignement> inheritance;
 
   /**
-   * The cached value of the '{@link #getFunction() <em>Function</em>}' containment reference list.
+   * The cached value of the '{@link #getFunction() <em>Function</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getFunction()
    * @generated
    * @ordered
    */
-  protected EList<PojoFunction> function;
+  protected EList<String> function;
 
   /**
    * <!-- begin-user-doc -->
@@ -746,11 +745,11 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<PojoFunction> getFunction()
+  public EList<String> getFunction()
   {
     if (function == null)
     {
-      function = new EObjectContainmentEList<PojoFunction>(PojoFunction.class, this, ProcessorDslPackage.PROPERTY__FUNCTION);
+      function = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.PROPERTY__FUNCTION);
     }
     return function;
   }
@@ -779,8 +778,6 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.PROPERTY__INHERITANCE:
         return ((InternalEList<?>)getInheritance()).basicRemove(otherEnd, msgs);
-      case ProcessorDslPackage.PROPERTY__FUNCTION:
-        return ((InternalEList<?>)getFunction()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -918,7 +915,7 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return;
       case ProcessorDslPackage.PROPERTY__FUNCTION:
         getFunction().clear();
-        getFunction().addAll((Collection<? extends PojoFunction>)newValue);
+        getFunction().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -1087,6 +1084,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
     result.append(dbColumns);
     result.append(", dbColumn: ");
     result.append(dbColumn);
+    result.append(", function: ");
+    result.append(function);
     result.append(')');
     return result.toString();
   }

@@ -95,15 +95,6 @@ public interface ProcessorDslFactory extends EFactory
   InheritanceAssignement createInheritanceAssignement();
 
   /**
-   * Returns a new object of class '<em>Pojo Function</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Pojo Function</em>'.
-   * @generated
-   */
-  PojoFunction createPojoFunction();
-
-  /**
    * Returns a new object of class '<em>Property</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
