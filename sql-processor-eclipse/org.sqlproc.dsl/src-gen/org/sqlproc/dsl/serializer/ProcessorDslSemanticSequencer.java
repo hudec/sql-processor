@@ -873,7 +873,10 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *             native='_float' | 
 	 *             native='_double' | 
 	 *             native='_boolean' | 
-	 *             ((ref=[PojoEntity|IDENT] | type=[JvmType|QualifiedName]) (gref=[PojoEntity|IDENT] | gtype=[JvmType|QualifiedName])?)
+	 *             (
+	 *                 (attrs+=[PojoProperty|IDENT]* | ref=[PojoEntity|IDENT] | type=[JvmType|QualifiedName]) 
+	 *                 (gref=[PojoEntity|IDENT] | gtype=[JvmType|QualifiedName])?
+	 *             )
 	 *         ) 
 	 *         array?='[]'? 
 	 *         required?='required'? 
@@ -935,7 +938,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='pojogen create many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
 	 *         (name='pojogen table many-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
 	 *         (name='pojogen inherit discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
-	 *         (name='pojogen generate functions' function+=PojoFunction+)
+	 *         (name='pojogen generate methods' function+=PojoFunction+)
 	 *     )
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {

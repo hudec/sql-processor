@@ -2456,13 +2456,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_PROPERTY__NATIVE = 1;
 
   /**
+   * The feature id for the '<em><b>Attrs</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_PROPERTY__ATTRS = 2;
+
+  /**
    * The feature id for the '<em><b>Ref</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY__REF = 2;
+  int POJO_PROPERTY__REF = 3;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -2471,7 +2480,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY__TYPE = 3;
+  int POJO_PROPERTY__TYPE = 4;
 
   /**
    * The feature id for the '<em><b>Gref</b></em>' reference.
@@ -2480,7 +2489,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY__GREF = 4;
+  int POJO_PROPERTY__GREF = 5;
 
   /**
    * The feature id for the '<em><b>Gtype</b></em>' reference.
@@ -2489,7 +2498,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY__GTYPE = 5;
+  int POJO_PROPERTY__GTYPE = 6;
 
   /**
    * The feature id for the '<em><b>Array</b></em>' attribute.
@@ -2498,7 +2507,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY__ARRAY = 6;
+  int POJO_PROPERTY__ARRAY = 7;
 
   /**
    * The feature id for the '<em><b>Required</b></em>' attribute.
@@ -2507,7 +2516,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY__REQUIRED = 7;
+  int POJO_PROPERTY__REQUIRED = 8;
 
   /**
    * The feature id for the '<em><b>Discriminator</b></em>' attribute.
@@ -2516,7 +2525,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY__DISCRIMINATOR = 8;
+  int POJO_PROPERTY__DISCRIMINATOR = 9;
 
   /**
    * The feature id for the '<em><b>Primary Key</b></em>' attribute.
@@ -2525,7 +2534,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY__PRIMARY_KEY = 9;
+  int POJO_PROPERTY__PRIMARY_KEY = 10;
 
   /**
    * The number of structural features of the '<em>Pojo Property</em>' class.
@@ -2534,7 +2543,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY_FEATURE_COUNT = 10;
+  int POJO_PROPERTY_FEATURE_COUNT = 11;
 
 
   /**
@@ -4732,6 +4741,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getPojoProperty_Native();
 
   /**
+   * Returns the meta object for the reference list '{@link org.sqlproc.dsl.processorDsl.PojoProperty#getAttrs <em>Attrs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Attrs</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoProperty#getAttrs()
+   * @see #getPojoProperty()
+   * @generated
+   */
+  EReference getPojoProperty_Attrs();
+
+  /**
    * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoProperty#getRef <em>Ref</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6573,6 +6593,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute POJO_PROPERTY__NATIVE = eINSTANCE.getPojoProperty_Native();
+
+    /**
+     * The meta object literal for the '<em><b>Attrs</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference POJO_PROPERTY__ATTRS = eINSTANCE.getPojoProperty_Attrs();
 
     /**
      * The meta object literal for the '<em><b>Ref</b></em>' reference feature.

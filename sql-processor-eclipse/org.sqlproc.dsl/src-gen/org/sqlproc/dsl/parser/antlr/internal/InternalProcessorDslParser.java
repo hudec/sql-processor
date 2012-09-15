@@ -22,7 +22,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_WS", "RULE_IDENT", "RULE_LPAREN", "RULE_NUMBER", "RULE_RPAREN", "RULE_ON_OFF", "RULE_SEMICOLON", "RULE_REST", "RULE_IDENT_DOT", "RULE_COLON", "RULE_STRING", "RULE_COMMA", "RULE_MINUS", "RULE_PLUS", "RULE_LBRACE", "RULE_RBRACE", "RULE_QUESTI", "RULE_NOT", "RULE_BAND", "RULE_BOR", "RULE_HASH", "RULE_AT", "RULE_CARET", "RULE_EQUALS", "RULE_LESS_THAN", "RULE_MORE_THAN", "RULE_PERCENT", "RULE_AND", "RULE_OR", "RULE_ESC_CHAR", "RULE_STATEMEN_TYPE", "RULE_MAPPING_TYPE", "RULE_OPTION_TYPE", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'->'", "'toString'", "'equals'", "'hashCode'", "'resolve references'", "'database online'", "'database url'", "'database username'", "'database password'", "'database schema'", "'database driver'", "'pojogen type sqltypes'", "'pojogen type in table'", "'pojogen type for columns'", "'pojogen ignore tables'", "'pojogen ignore columns'", "'pojogen required columns'", "'pojogen not required columns'", "'pojogen create columns'", "'pojogen rename tables'", "'pojogen rename columns'", "'pojogen ignore one-to-many'", "'pojogen ignore many-to-one'", "'pojogen inherit many-to-one'", "'pojogen create one-to-many'", "'pojogen create many-to-one'", "'pojogen table many-to-many'", "'pojogen inherit discriminator'", "'pojogen generate functions'", "'pojo'", "'col'", "'ident'", "'const'", "'out'", "'colx'", "'identx'", "'constx'", "'outx'", "'table'", "'dbcol'", "'prefix'", "'_char'", "'_byte'", "'_short'", "'_int'", "'_long'", "'_float'", "'_double'", "'_boolean'", "'[]'", "'package'", "'suffix'", "'import'", "'final'", "'abstract'", "'extends'", "'discriminator'", "'required'", "'primaryKey'", "'.*'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_WS", "RULE_IDENT", "RULE_LPAREN", "RULE_NUMBER", "RULE_RPAREN", "RULE_ON_OFF", "RULE_SEMICOLON", "RULE_REST", "RULE_IDENT_DOT", "RULE_COLON", "RULE_STRING", "RULE_COMMA", "RULE_MINUS", "RULE_PLUS", "RULE_LBRACE", "RULE_RBRACE", "RULE_QUESTI", "RULE_NOT", "RULE_BAND", "RULE_BOR", "RULE_HASH", "RULE_AT", "RULE_CARET", "RULE_EQUALS", "RULE_LESS_THAN", "RULE_MORE_THAN", "RULE_PERCENT", "RULE_AND", "RULE_OR", "RULE_ESC_CHAR", "RULE_STATEMEN_TYPE", "RULE_MAPPING_TYPE", "RULE_OPTION_TYPE", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'->'", "'toString'", "'equals'", "'hashCode'", "'resolve references'", "'database online'", "'database url'", "'database username'", "'database password'", "'database schema'", "'database driver'", "'pojogen type sqltypes'", "'pojogen type in table'", "'pojogen type for columns'", "'pojogen ignore tables'", "'pojogen ignore columns'", "'pojogen required columns'", "'pojogen not required columns'", "'pojogen create columns'", "'pojogen rename tables'", "'pojogen rename columns'", "'pojogen ignore one-to-many'", "'pojogen ignore many-to-one'", "'pojogen inherit many-to-one'", "'pojogen create one-to-many'", "'pojogen create many-to-one'", "'pojogen table many-to-many'", "'pojogen inherit discriminator'", "'pojogen generate methods'", "'pojo'", "'col'", "'ident'", "'const'", "'out'", "'colx'", "'identx'", "'constx'", "'outx'", "'table'", "'dbcol'", "'prefix'", "'_char'", "'_byte'", "'_short'", "'_int'", "'_long'", "'_float'", "'_double'", "'_boolean'", "'[]'", "'package'", "'suffix'", "'import'", "'final'", "'abstract'", "'extends'", "'discriminator'", "'required'", "'primaryKey'", "'.*'"
     };
     public static final int RULE_OR=32;
     public static final int RULE_PERCENT=30;
@@ -2600,7 +2600,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleProperty"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:917:1: ruleProperty returns [EObject current=null] : ( ( ( ( (lv_name_0_0= 'resolve references' ) ) (this_WS_1= RULE_WS )+ ( (lv_doResolvePojo_2_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_3_0= 'database online' ) ) (this_WS_4= RULE_WS )+ ( (lv_doResolveDb_5_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_6_0= 'database url' ) ) (this_WS_7= RULE_WS )+ ( (lv_dbUrl_8_0= rulePropertyValue ) ) ) | ( ( (lv_name_9_0= 'database username' ) ) (this_WS_10= RULE_WS )+ ( (lv_dbUsername_11_0= rulePropertyValue ) ) ) | ( ( (lv_name_12_0= 'database password' ) ) (this_WS_13= RULE_WS )+ ( (lv_dbPassword_14_0= rulePropertyValue ) ) ) | ( ( (lv_name_15_0= 'database schema' ) ) (this_WS_16= RULE_WS )+ ( (lv_dbSchema_17_0= rulePropertyValue ) ) ) | ( ( (lv_name_18_0= 'database driver' ) ) (this_WS_19= RULE_WS )+ ( (lv_dbDriver_20_0= rulePropertyValue ) ) ) | ( ( (lv_name_21_0= 'pojogen type sqltypes' ) ) ( (this_WS_22= RULE_WS )+ ( (lv_sqlTypes_23_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_24_0= 'pojogen type in table' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_sqlTypes_28_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_29_0= 'pojogen type for columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_columnTypes_33_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_34_0= 'pojogen ignore tables' ) ) ( (this_WS_35= RULE_WS )+ ( (lv_dbTables_36_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_37_0= 'pojogen ignore columns' ) ) (this_WS_38= RULE_WS )+ ( (lv_dbTable_39_0= RULE_IDENT ) ) ( (this_WS_40= RULE_WS )+ ( (lv_dbColumns_41_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_42_0= 'pojogen required columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_dbColumns_46_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_47_0= 'pojogen not required columns' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_dbColumns_51_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_52_0= 'pojogen create columns' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_columnTypes_56_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'pojogen rename tables' ) ) ( (this_WS_58= RULE_WS )+ ( (lv_tables_59_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_60_0= 'pojogen rename columns' ) ) (this_WS_61= RULE_WS )+ ( (lv_dbTable_62_0= RULE_IDENT ) ) ( (this_WS_63= RULE_WS )+ ( (lv_columns_64_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_65_0= 'pojogen ignore one-to-many' ) ) (this_WS_66= RULE_WS )+ ( (lv_dbTable_67_0= RULE_IDENT ) ) ( (this_WS_68= RULE_WS )+ ( (lv_exports_69_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_70_0= 'pojogen ignore many-to-one' ) ) (this_WS_71= RULE_WS )+ ( (lv_dbTable_72_0= RULE_IDENT ) ) ( (this_WS_73= RULE_WS )+ ( (lv_imports_74_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_75_0= 'pojogen inherit many-to-one' ) ) (this_WS_76= RULE_WS )+ ( (lv_dbTable_77_0= RULE_IDENT ) ) ( (this_WS_78= RULE_WS )+ ( (lv_imports_79_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_80_0= 'pojogen create one-to-many' ) ) (this_WS_81= RULE_WS )+ ( (lv_dbTable_82_0= RULE_IDENT ) ) ( (this_WS_83= RULE_WS )+ ( (lv_exports_84_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_85_0= 'pojogen create many-to-one' ) ) (this_WS_86= RULE_WS )+ ( (lv_dbTable_87_0= RULE_IDENT ) ) ( (this_WS_88= RULE_WS )+ ( (lv_imports_89_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_90_0= 'pojogen table many-to-many' ) ) (this_WS_91= RULE_WS )+ ( (lv_dbTable_92_0= RULE_IDENT ) ) ( (this_WS_93= RULE_WS )+ ( (lv_exports_94_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_95_0= 'pojogen inherit discriminator' ) ) (this_WS_96= RULE_WS )+ ( (lv_dbTable_97_0= RULE_IDENT ) ) (this_WS_98= RULE_WS )+ ( (lv_dbColumn_99_0= RULE_IDENT ) ) ( (this_WS_100= RULE_WS )+ ( (lv_inheritance_101_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_102_0= 'pojogen generate functions' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ ) ) this_SEMICOLON_105= RULE_SEMICOLON ) ;
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:917:1: ruleProperty returns [EObject current=null] : ( ( ( ( (lv_name_0_0= 'resolve references' ) ) (this_WS_1= RULE_WS )+ ( (lv_doResolvePojo_2_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_3_0= 'database online' ) ) (this_WS_4= RULE_WS )+ ( (lv_doResolveDb_5_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_6_0= 'database url' ) ) (this_WS_7= RULE_WS )+ ( (lv_dbUrl_8_0= rulePropertyValue ) ) ) | ( ( (lv_name_9_0= 'database username' ) ) (this_WS_10= RULE_WS )+ ( (lv_dbUsername_11_0= rulePropertyValue ) ) ) | ( ( (lv_name_12_0= 'database password' ) ) (this_WS_13= RULE_WS )+ ( (lv_dbPassword_14_0= rulePropertyValue ) ) ) | ( ( (lv_name_15_0= 'database schema' ) ) (this_WS_16= RULE_WS )+ ( (lv_dbSchema_17_0= rulePropertyValue ) ) ) | ( ( (lv_name_18_0= 'database driver' ) ) (this_WS_19= RULE_WS )+ ( (lv_dbDriver_20_0= rulePropertyValue ) ) ) | ( ( (lv_name_21_0= 'pojogen type sqltypes' ) ) ( (this_WS_22= RULE_WS )+ ( (lv_sqlTypes_23_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_24_0= 'pojogen type in table' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_sqlTypes_28_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_29_0= 'pojogen type for columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_columnTypes_33_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_34_0= 'pojogen ignore tables' ) ) ( (this_WS_35= RULE_WS )+ ( (lv_dbTables_36_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_37_0= 'pojogen ignore columns' ) ) (this_WS_38= RULE_WS )+ ( (lv_dbTable_39_0= RULE_IDENT ) ) ( (this_WS_40= RULE_WS )+ ( (lv_dbColumns_41_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_42_0= 'pojogen required columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_dbColumns_46_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_47_0= 'pojogen not required columns' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_dbColumns_51_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_52_0= 'pojogen create columns' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_columnTypes_56_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'pojogen rename tables' ) ) ( (this_WS_58= RULE_WS )+ ( (lv_tables_59_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_60_0= 'pojogen rename columns' ) ) (this_WS_61= RULE_WS )+ ( (lv_dbTable_62_0= RULE_IDENT ) ) ( (this_WS_63= RULE_WS )+ ( (lv_columns_64_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_65_0= 'pojogen ignore one-to-many' ) ) (this_WS_66= RULE_WS )+ ( (lv_dbTable_67_0= RULE_IDENT ) ) ( (this_WS_68= RULE_WS )+ ( (lv_exports_69_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_70_0= 'pojogen ignore many-to-one' ) ) (this_WS_71= RULE_WS )+ ( (lv_dbTable_72_0= RULE_IDENT ) ) ( (this_WS_73= RULE_WS )+ ( (lv_imports_74_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_75_0= 'pojogen inherit many-to-one' ) ) (this_WS_76= RULE_WS )+ ( (lv_dbTable_77_0= RULE_IDENT ) ) ( (this_WS_78= RULE_WS )+ ( (lv_imports_79_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_80_0= 'pojogen create one-to-many' ) ) (this_WS_81= RULE_WS )+ ( (lv_dbTable_82_0= RULE_IDENT ) ) ( (this_WS_83= RULE_WS )+ ( (lv_exports_84_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_85_0= 'pojogen create many-to-one' ) ) (this_WS_86= RULE_WS )+ ( (lv_dbTable_87_0= RULE_IDENT ) ) ( (this_WS_88= RULE_WS )+ ( (lv_imports_89_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_90_0= 'pojogen table many-to-many' ) ) (this_WS_91= RULE_WS )+ ( (lv_dbTable_92_0= RULE_IDENT ) ) ( (this_WS_93= RULE_WS )+ ( (lv_exports_94_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_95_0= 'pojogen inherit discriminator' ) ) (this_WS_96= RULE_WS )+ ( (lv_dbTable_97_0= RULE_IDENT ) ) (this_WS_98= RULE_WS )+ ( (lv_dbColumn_99_0= RULE_IDENT ) ) ( (this_WS_100= RULE_WS )+ ( (lv_inheritance_101_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_102_0= 'pojogen generate methods' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ ) ) this_SEMICOLON_105= RULE_SEMICOLON ) ;
     public final EObject ruleProperty() throws RecognitionException {
         EObject current = null;
 
@@ -2733,13 +2733,13 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:920:28: ( ( ( ( ( (lv_name_0_0= 'resolve references' ) ) (this_WS_1= RULE_WS )+ ( (lv_doResolvePojo_2_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_3_0= 'database online' ) ) (this_WS_4= RULE_WS )+ ( (lv_doResolveDb_5_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_6_0= 'database url' ) ) (this_WS_7= RULE_WS )+ ( (lv_dbUrl_8_0= rulePropertyValue ) ) ) | ( ( (lv_name_9_0= 'database username' ) ) (this_WS_10= RULE_WS )+ ( (lv_dbUsername_11_0= rulePropertyValue ) ) ) | ( ( (lv_name_12_0= 'database password' ) ) (this_WS_13= RULE_WS )+ ( (lv_dbPassword_14_0= rulePropertyValue ) ) ) | ( ( (lv_name_15_0= 'database schema' ) ) (this_WS_16= RULE_WS )+ ( (lv_dbSchema_17_0= rulePropertyValue ) ) ) | ( ( (lv_name_18_0= 'database driver' ) ) (this_WS_19= RULE_WS )+ ( (lv_dbDriver_20_0= rulePropertyValue ) ) ) | ( ( (lv_name_21_0= 'pojogen type sqltypes' ) ) ( (this_WS_22= RULE_WS )+ ( (lv_sqlTypes_23_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_24_0= 'pojogen type in table' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_sqlTypes_28_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_29_0= 'pojogen type for columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_columnTypes_33_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_34_0= 'pojogen ignore tables' ) ) ( (this_WS_35= RULE_WS )+ ( (lv_dbTables_36_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_37_0= 'pojogen ignore columns' ) ) (this_WS_38= RULE_WS )+ ( (lv_dbTable_39_0= RULE_IDENT ) ) ( (this_WS_40= RULE_WS )+ ( (lv_dbColumns_41_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_42_0= 'pojogen required columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_dbColumns_46_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_47_0= 'pojogen not required columns' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_dbColumns_51_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_52_0= 'pojogen create columns' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_columnTypes_56_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'pojogen rename tables' ) ) ( (this_WS_58= RULE_WS )+ ( (lv_tables_59_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_60_0= 'pojogen rename columns' ) ) (this_WS_61= RULE_WS )+ ( (lv_dbTable_62_0= RULE_IDENT ) ) ( (this_WS_63= RULE_WS )+ ( (lv_columns_64_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_65_0= 'pojogen ignore one-to-many' ) ) (this_WS_66= RULE_WS )+ ( (lv_dbTable_67_0= RULE_IDENT ) ) ( (this_WS_68= RULE_WS )+ ( (lv_exports_69_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_70_0= 'pojogen ignore many-to-one' ) ) (this_WS_71= RULE_WS )+ ( (lv_dbTable_72_0= RULE_IDENT ) ) ( (this_WS_73= RULE_WS )+ ( (lv_imports_74_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_75_0= 'pojogen inherit many-to-one' ) ) (this_WS_76= RULE_WS )+ ( (lv_dbTable_77_0= RULE_IDENT ) ) ( (this_WS_78= RULE_WS )+ ( (lv_imports_79_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_80_0= 'pojogen create one-to-many' ) ) (this_WS_81= RULE_WS )+ ( (lv_dbTable_82_0= RULE_IDENT ) ) ( (this_WS_83= RULE_WS )+ ( (lv_exports_84_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_85_0= 'pojogen create many-to-one' ) ) (this_WS_86= RULE_WS )+ ( (lv_dbTable_87_0= RULE_IDENT ) ) ( (this_WS_88= RULE_WS )+ ( (lv_imports_89_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_90_0= 'pojogen table many-to-many' ) ) (this_WS_91= RULE_WS )+ ( (lv_dbTable_92_0= RULE_IDENT ) ) ( (this_WS_93= RULE_WS )+ ( (lv_exports_94_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_95_0= 'pojogen inherit discriminator' ) ) (this_WS_96= RULE_WS )+ ( (lv_dbTable_97_0= RULE_IDENT ) ) (this_WS_98= RULE_WS )+ ( (lv_dbColumn_99_0= RULE_IDENT ) ) ( (this_WS_100= RULE_WS )+ ( (lv_inheritance_101_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_102_0= 'pojogen generate functions' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ ) ) this_SEMICOLON_105= RULE_SEMICOLON ) )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:921:1: ( ( ( ( (lv_name_0_0= 'resolve references' ) ) (this_WS_1= RULE_WS )+ ( (lv_doResolvePojo_2_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_3_0= 'database online' ) ) (this_WS_4= RULE_WS )+ ( (lv_doResolveDb_5_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_6_0= 'database url' ) ) (this_WS_7= RULE_WS )+ ( (lv_dbUrl_8_0= rulePropertyValue ) ) ) | ( ( (lv_name_9_0= 'database username' ) ) (this_WS_10= RULE_WS )+ ( (lv_dbUsername_11_0= rulePropertyValue ) ) ) | ( ( (lv_name_12_0= 'database password' ) ) (this_WS_13= RULE_WS )+ ( (lv_dbPassword_14_0= rulePropertyValue ) ) ) | ( ( (lv_name_15_0= 'database schema' ) ) (this_WS_16= RULE_WS )+ ( (lv_dbSchema_17_0= rulePropertyValue ) ) ) | ( ( (lv_name_18_0= 'database driver' ) ) (this_WS_19= RULE_WS )+ ( (lv_dbDriver_20_0= rulePropertyValue ) ) ) | ( ( (lv_name_21_0= 'pojogen type sqltypes' ) ) ( (this_WS_22= RULE_WS )+ ( (lv_sqlTypes_23_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_24_0= 'pojogen type in table' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_sqlTypes_28_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_29_0= 'pojogen type for columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_columnTypes_33_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_34_0= 'pojogen ignore tables' ) ) ( (this_WS_35= RULE_WS )+ ( (lv_dbTables_36_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_37_0= 'pojogen ignore columns' ) ) (this_WS_38= RULE_WS )+ ( (lv_dbTable_39_0= RULE_IDENT ) ) ( (this_WS_40= RULE_WS )+ ( (lv_dbColumns_41_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_42_0= 'pojogen required columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_dbColumns_46_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_47_0= 'pojogen not required columns' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_dbColumns_51_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_52_0= 'pojogen create columns' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_columnTypes_56_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'pojogen rename tables' ) ) ( (this_WS_58= RULE_WS )+ ( (lv_tables_59_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_60_0= 'pojogen rename columns' ) ) (this_WS_61= RULE_WS )+ ( (lv_dbTable_62_0= RULE_IDENT ) ) ( (this_WS_63= RULE_WS )+ ( (lv_columns_64_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_65_0= 'pojogen ignore one-to-many' ) ) (this_WS_66= RULE_WS )+ ( (lv_dbTable_67_0= RULE_IDENT ) ) ( (this_WS_68= RULE_WS )+ ( (lv_exports_69_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_70_0= 'pojogen ignore many-to-one' ) ) (this_WS_71= RULE_WS )+ ( (lv_dbTable_72_0= RULE_IDENT ) ) ( (this_WS_73= RULE_WS )+ ( (lv_imports_74_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_75_0= 'pojogen inherit many-to-one' ) ) (this_WS_76= RULE_WS )+ ( (lv_dbTable_77_0= RULE_IDENT ) ) ( (this_WS_78= RULE_WS )+ ( (lv_imports_79_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_80_0= 'pojogen create one-to-many' ) ) (this_WS_81= RULE_WS )+ ( (lv_dbTable_82_0= RULE_IDENT ) ) ( (this_WS_83= RULE_WS )+ ( (lv_exports_84_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_85_0= 'pojogen create many-to-one' ) ) (this_WS_86= RULE_WS )+ ( (lv_dbTable_87_0= RULE_IDENT ) ) ( (this_WS_88= RULE_WS )+ ( (lv_imports_89_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_90_0= 'pojogen table many-to-many' ) ) (this_WS_91= RULE_WS )+ ( (lv_dbTable_92_0= RULE_IDENT ) ) ( (this_WS_93= RULE_WS )+ ( (lv_exports_94_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_95_0= 'pojogen inherit discriminator' ) ) (this_WS_96= RULE_WS )+ ( (lv_dbTable_97_0= RULE_IDENT ) ) (this_WS_98= RULE_WS )+ ( (lv_dbColumn_99_0= RULE_IDENT ) ) ( (this_WS_100= RULE_WS )+ ( (lv_inheritance_101_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_102_0= 'pojogen generate functions' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ ) ) this_SEMICOLON_105= RULE_SEMICOLON )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:920:28: ( ( ( ( ( (lv_name_0_0= 'resolve references' ) ) (this_WS_1= RULE_WS )+ ( (lv_doResolvePojo_2_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_3_0= 'database online' ) ) (this_WS_4= RULE_WS )+ ( (lv_doResolveDb_5_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_6_0= 'database url' ) ) (this_WS_7= RULE_WS )+ ( (lv_dbUrl_8_0= rulePropertyValue ) ) ) | ( ( (lv_name_9_0= 'database username' ) ) (this_WS_10= RULE_WS )+ ( (lv_dbUsername_11_0= rulePropertyValue ) ) ) | ( ( (lv_name_12_0= 'database password' ) ) (this_WS_13= RULE_WS )+ ( (lv_dbPassword_14_0= rulePropertyValue ) ) ) | ( ( (lv_name_15_0= 'database schema' ) ) (this_WS_16= RULE_WS )+ ( (lv_dbSchema_17_0= rulePropertyValue ) ) ) | ( ( (lv_name_18_0= 'database driver' ) ) (this_WS_19= RULE_WS )+ ( (lv_dbDriver_20_0= rulePropertyValue ) ) ) | ( ( (lv_name_21_0= 'pojogen type sqltypes' ) ) ( (this_WS_22= RULE_WS )+ ( (lv_sqlTypes_23_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_24_0= 'pojogen type in table' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_sqlTypes_28_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_29_0= 'pojogen type for columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_columnTypes_33_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_34_0= 'pojogen ignore tables' ) ) ( (this_WS_35= RULE_WS )+ ( (lv_dbTables_36_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_37_0= 'pojogen ignore columns' ) ) (this_WS_38= RULE_WS )+ ( (lv_dbTable_39_0= RULE_IDENT ) ) ( (this_WS_40= RULE_WS )+ ( (lv_dbColumns_41_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_42_0= 'pojogen required columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_dbColumns_46_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_47_0= 'pojogen not required columns' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_dbColumns_51_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_52_0= 'pojogen create columns' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_columnTypes_56_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'pojogen rename tables' ) ) ( (this_WS_58= RULE_WS )+ ( (lv_tables_59_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_60_0= 'pojogen rename columns' ) ) (this_WS_61= RULE_WS )+ ( (lv_dbTable_62_0= RULE_IDENT ) ) ( (this_WS_63= RULE_WS )+ ( (lv_columns_64_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_65_0= 'pojogen ignore one-to-many' ) ) (this_WS_66= RULE_WS )+ ( (lv_dbTable_67_0= RULE_IDENT ) ) ( (this_WS_68= RULE_WS )+ ( (lv_exports_69_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_70_0= 'pojogen ignore many-to-one' ) ) (this_WS_71= RULE_WS )+ ( (lv_dbTable_72_0= RULE_IDENT ) ) ( (this_WS_73= RULE_WS )+ ( (lv_imports_74_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_75_0= 'pojogen inherit many-to-one' ) ) (this_WS_76= RULE_WS )+ ( (lv_dbTable_77_0= RULE_IDENT ) ) ( (this_WS_78= RULE_WS )+ ( (lv_imports_79_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_80_0= 'pojogen create one-to-many' ) ) (this_WS_81= RULE_WS )+ ( (lv_dbTable_82_0= RULE_IDENT ) ) ( (this_WS_83= RULE_WS )+ ( (lv_exports_84_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_85_0= 'pojogen create many-to-one' ) ) (this_WS_86= RULE_WS )+ ( (lv_dbTable_87_0= RULE_IDENT ) ) ( (this_WS_88= RULE_WS )+ ( (lv_imports_89_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_90_0= 'pojogen table many-to-many' ) ) (this_WS_91= RULE_WS )+ ( (lv_dbTable_92_0= RULE_IDENT ) ) ( (this_WS_93= RULE_WS )+ ( (lv_exports_94_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_95_0= 'pojogen inherit discriminator' ) ) (this_WS_96= RULE_WS )+ ( (lv_dbTable_97_0= RULE_IDENT ) ) (this_WS_98= RULE_WS )+ ( (lv_dbColumn_99_0= RULE_IDENT ) ) ( (this_WS_100= RULE_WS )+ ( (lv_inheritance_101_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_102_0= 'pojogen generate methods' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ ) ) this_SEMICOLON_105= RULE_SEMICOLON ) )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:921:1: ( ( ( ( (lv_name_0_0= 'resolve references' ) ) (this_WS_1= RULE_WS )+ ( (lv_doResolvePojo_2_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_3_0= 'database online' ) ) (this_WS_4= RULE_WS )+ ( (lv_doResolveDb_5_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_6_0= 'database url' ) ) (this_WS_7= RULE_WS )+ ( (lv_dbUrl_8_0= rulePropertyValue ) ) ) | ( ( (lv_name_9_0= 'database username' ) ) (this_WS_10= RULE_WS )+ ( (lv_dbUsername_11_0= rulePropertyValue ) ) ) | ( ( (lv_name_12_0= 'database password' ) ) (this_WS_13= RULE_WS )+ ( (lv_dbPassword_14_0= rulePropertyValue ) ) ) | ( ( (lv_name_15_0= 'database schema' ) ) (this_WS_16= RULE_WS )+ ( (lv_dbSchema_17_0= rulePropertyValue ) ) ) | ( ( (lv_name_18_0= 'database driver' ) ) (this_WS_19= RULE_WS )+ ( (lv_dbDriver_20_0= rulePropertyValue ) ) ) | ( ( (lv_name_21_0= 'pojogen type sqltypes' ) ) ( (this_WS_22= RULE_WS )+ ( (lv_sqlTypes_23_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_24_0= 'pojogen type in table' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_sqlTypes_28_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_29_0= 'pojogen type for columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_columnTypes_33_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_34_0= 'pojogen ignore tables' ) ) ( (this_WS_35= RULE_WS )+ ( (lv_dbTables_36_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_37_0= 'pojogen ignore columns' ) ) (this_WS_38= RULE_WS )+ ( (lv_dbTable_39_0= RULE_IDENT ) ) ( (this_WS_40= RULE_WS )+ ( (lv_dbColumns_41_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_42_0= 'pojogen required columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_dbColumns_46_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_47_0= 'pojogen not required columns' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_dbColumns_51_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_52_0= 'pojogen create columns' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_columnTypes_56_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'pojogen rename tables' ) ) ( (this_WS_58= RULE_WS )+ ( (lv_tables_59_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_60_0= 'pojogen rename columns' ) ) (this_WS_61= RULE_WS )+ ( (lv_dbTable_62_0= RULE_IDENT ) ) ( (this_WS_63= RULE_WS )+ ( (lv_columns_64_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_65_0= 'pojogen ignore one-to-many' ) ) (this_WS_66= RULE_WS )+ ( (lv_dbTable_67_0= RULE_IDENT ) ) ( (this_WS_68= RULE_WS )+ ( (lv_exports_69_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_70_0= 'pojogen ignore many-to-one' ) ) (this_WS_71= RULE_WS )+ ( (lv_dbTable_72_0= RULE_IDENT ) ) ( (this_WS_73= RULE_WS )+ ( (lv_imports_74_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_75_0= 'pojogen inherit many-to-one' ) ) (this_WS_76= RULE_WS )+ ( (lv_dbTable_77_0= RULE_IDENT ) ) ( (this_WS_78= RULE_WS )+ ( (lv_imports_79_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_80_0= 'pojogen create one-to-many' ) ) (this_WS_81= RULE_WS )+ ( (lv_dbTable_82_0= RULE_IDENT ) ) ( (this_WS_83= RULE_WS )+ ( (lv_exports_84_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_85_0= 'pojogen create many-to-one' ) ) (this_WS_86= RULE_WS )+ ( (lv_dbTable_87_0= RULE_IDENT ) ) ( (this_WS_88= RULE_WS )+ ( (lv_imports_89_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_90_0= 'pojogen table many-to-many' ) ) (this_WS_91= RULE_WS )+ ( (lv_dbTable_92_0= RULE_IDENT ) ) ( (this_WS_93= RULE_WS )+ ( (lv_exports_94_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_95_0= 'pojogen inherit discriminator' ) ) (this_WS_96= RULE_WS )+ ( (lv_dbTable_97_0= RULE_IDENT ) ) (this_WS_98= RULE_WS )+ ( (lv_dbColumn_99_0= RULE_IDENT ) ) ( (this_WS_100= RULE_WS )+ ( (lv_inheritance_101_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_102_0= 'pojogen generate methods' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ ) ) this_SEMICOLON_105= RULE_SEMICOLON )
             {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:921:1: ( ( ( ( (lv_name_0_0= 'resolve references' ) ) (this_WS_1= RULE_WS )+ ( (lv_doResolvePojo_2_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_3_0= 'database online' ) ) (this_WS_4= RULE_WS )+ ( (lv_doResolveDb_5_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_6_0= 'database url' ) ) (this_WS_7= RULE_WS )+ ( (lv_dbUrl_8_0= rulePropertyValue ) ) ) | ( ( (lv_name_9_0= 'database username' ) ) (this_WS_10= RULE_WS )+ ( (lv_dbUsername_11_0= rulePropertyValue ) ) ) | ( ( (lv_name_12_0= 'database password' ) ) (this_WS_13= RULE_WS )+ ( (lv_dbPassword_14_0= rulePropertyValue ) ) ) | ( ( (lv_name_15_0= 'database schema' ) ) (this_WS_16= RULE_WS )+ ( (lv_dbSchema_17_0= rulePropertyValue ) ) ) | ( ( (lv_name_18_0= 'database driver' ) ) (this_WS_19= RULE_WS )+ ( (lv_dbDriver_20_0= rulePropertyValue ) ) ) | ( ( (lv_name_21_0= 'pojogen type sqltypes' ) ) ( (this_WS_22= RULE_WS )+ ( (lv_sqlTypes_23_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_24_0= 'pojogen type in table' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_sqlTypes_28_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_29_0= 'pojogen type for columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_columnTypes_33_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_34_0= 'pojogen ignore tables' ) ) ( (this_WS_35= RULE_WS )+ ( (lv_dbTables_36_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_37_0= 'pojogen ignore columns' ) ) (this_WS_38= RULE_WS )+ ( (lv_dbTable_39_0= RULE_IDENT ) ) ( (this_WS_40= RULE_WS )+ ( (lv_dbColumns_41_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_42_0= 'pojogen required columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_dbColumns_46_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_47_0= 'pojogen not required columns' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_dbColumns_51_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_52_0= 'pojogen create columns' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_columnTypes_56_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'pojogen rename tables' ) ) ( (this_WS_58= RULE_WS )+ ( (lv_tables_59_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_60_0= 'pojogen rename columns' ) ) (this_WS_61= RULE_WS )+ ( (lv_dbTable_62_0= RULE_IDENT ) ) ( (this_WS_63= RULE_WS )+ ( (lv_columns_64_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_65_0= 'pojogen ignore one-to-many' ) ) (this_WS_66= RULE_WS )+ ( (lv_dbTable_67_0= RULE_IDENT ) ) ( (this_WS_68= RULE_WS )+ ( (lv_exports_69_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_70_0= 'pojogen ignore many-to-one' ) ) (this_WS_71= RULE_WS )+ ( (lv_dbTable_72_0= RULE_IDENT ) ) ( (this_WS_73= RULE_WS )+ ( (lv_imports_74_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_75_0= 'pojogen inherit many-to-one' ) ) (this_WS_76= RULE_WS )+ ( (lv_dbTable_77_0= RULE_IDENT ) ) ( (this_WS_78= RULE_WS )+ ( (lv_imports_79_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_80_0= 'pojogen create one-to-many' ) ) (this_WS_81= RULE_WS )+ ( (lv_dbTable_82_0= RULE_IDENT ) ) ( (this_WS_83= RULE_WS )+ ( (lv_exports_84_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_85_0= 'pojogen create many-to-one' ) ) (this_WS_86= RULE_WS )+ ( (lv_dbTable_87_0= RULE_IDENT ) ) ( (this_WS_88= RULE_WS )+ ( (lv_imports_89_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_90_0= 'pojogen table many-to-many' ) ) (this_WS_91= RULE_WS )+ ( (lv_dbTable_92_0= RULE_IDENT ) ) ( (this_WS_93= RULE_WS )+ ( (lv_exports_94_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_95_0= 'pojogen inherit discriminator' ) ) (this_WS_96= RULE_WS )+ ( (lv_dbTable_97_0= RULE_IDENT ) ) (this_WS_98= RULE_WS )+ ( (lv_dbColumn_99_0= RULE_IDENT ) ) ( (this_WS_100= RULE_WS )+ ( (lv_inheritance_101_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_102_0= 'pojogen generate functions' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ ) ) this_SEMICOLON_105= RULE_SEMICOLON )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:921:2: ( ( ( (lv_name_0_0= 'resolve references' ) ) (this_WS_1= RULE_WS )+ ( (lv_doResolvePojo_2_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_3_0= 'database online' ) ) (this_WS_4= RULE_WS )+ ( (lv_doResolveDb_5_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_6_0= 'database url' ) ) (this_WS_7= RULE_WS )+ ( (lv_dbUrl_8_0= rulePropertyValue ) ) ) | ( ( (lv_name_9_0= 'database username' ) ) (this_WS_10= RULE_WS )+ ( (lv_dbUsername_11_0= rulePropertyValue ) ) ) | ( ( (lv_name_12_0= 'database password' ) ) (this_WS_13= RULE_WS )+ ( (lv_dbPassword_14_0= rulePropertyValue ) ) ) | ( ( (lv_name_15_0= 'database schema' ) ) (this_WS_16= RULE_WS )+ ( (lv_dbSchema_17_0= rulePropertyValue ) ) ) | ( ( (lv_name_18_0= 'database driver' ) ) (this_WS_19= RULE_WS )+ ( (lv_dbDriver_20_0= rulePropertyValue ) ) ) | ( ( (lv_name_21_0= 'pojogen type sqltypes' ) ) ( (this_WS_22= RULE_WS )+ ( (lv_sqlTypes_23_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_24_0= 'pojogen type in table' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_sqlTypes_28_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_29_0= 'pojogen type for columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_columnTypes_33_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_34_0= 'pojogen ignore tables' ) ) ( (this_WS_35= RULE_WS )+ ( (lv_dbTables_36_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_37_0= 'pojogen ignore columns' ) ) (this_WS_38= RULE_WS )+ ( (lv_dbTable_39_0= RULE_IDENT ) ) ( (this_WS_40= RULE_WS )+ ( (lv_dbColumns_41_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_42_0= 'pojogen required columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_dbColumns_46_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_47_0= 'pojogen not required columns' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_dbColumns_51_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_52_0= 'pojogen create columns' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_columnTypes_56_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'pojogen rename tables' ) ) ( (this_WS_58= RULE_WS )+ ( (lv_tables_59_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_60_0= 'pojogen rename columns' ) ) (this_WS_61= RULE_WS )+ ( (lv_dbTable_62_0= RULE_IDENT ) ) ( (this_WS_63= RULE_WS )+ ( (lv_columns_64_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_65_0= 'pojogen ignore one-to-many' ) ) (this_WS_66= RULE_WS )+ ( (lv_dbTable_67_0= RULE_IDENT ) ) ( (this_WS_68= RULE_WS )+ ( (lv_exports_69_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_70_0= 'pojogen ignore many-to-one' ) ) (this_WS_71= RULE_WS )+ ( (lv_dbTable_72_0= RULE_IDENT ) ) ( (this_WS_73= RULE_WS )+ ( (lv_imports_74_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_75_0= 'pojogen inherit many-to-one' ) ) (this_WS_76= RULE_WS )+ ( (lv_dbTable_77_0= RULE_IDENT ) ) ( (this_WS_78= RULE_WS )+ ( (lv_imports_79_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_80_0= 'pojogen create one-to-many' ) ) (this_WS_81= RULE_WS )+ ( (lv_dbTable_82_0= RULE_IDENT ) ) ( (this_WS_83= RULE_WS )+ ( (lv_exports_84_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_85_0= 'pojogen create many-to-one' ) ) (this_WS_86= RULE_WS )+ ( (lv_dbTable_87_0= RULE_IDENT ) ) ( (this_WS_88= RULE_WS )+ ( (lv_imports_89_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_90_0= 'pojogen table many-to-many' ) ) (this_WS_91= RULE_WS )+ ( (lv_dbTable_92_0= RULE_IDENT ) ) ( (this_WS_93= RULE_WS )+ ( (lv_exports_94_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_95_0= 'pojogen inherit discriminator' ) ) (this_WS_96= RULE_WS )+ ( (lv_dbTable_97_0= RULE_IDENT ) ) (this_WS_98= RULE_WS )+ ( (lv_dbColumn_99_0= RULE_IDENT ) ) ( (this_WS_100= RULE_WS )+ ( (lv_inheritance_101_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_102_0= 'pojogen generate functions' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ ) ) this_SEMICOLON_105= RULE_SEMICOLON
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:921:1: ( ( ( ( (lv_name_0_0= 'resolve references' ) ) (this_WS_1= RULE_WS )+ ( (lv_doResolvePojo_2_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_3_0= 'database online' ) ) (this_WS_4= RULE_WS )+ ( (lv_doResolveDb_5_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_6_0= 'database url' ) ) (this_WS_7= RULE_WS )+ ( (lv_dbUrl_8_0= rulePropertyValue ) ) ) | ( ( (lv_name_9_0= 'database username' ) ) (this_WS_10= RULE_WS )+ ( (lv_dbUsername_11_0= rulePropertyValue ) ) ) | ( ( (lv_name_12_0= 'database password' ) ) (this_WS_13= RULE_WS )+ ( (lv_dbPassword_14_0= rulePropertyValue ) ) ) | ( ( (lv_name_15_0= 'database schema' ) ) (this_WS_16= RULE_WS )+ ( (lv_dbSchema_17_0= rulePropertyValue ) ) ) | ( ( (lv_name_18_0= 'database driver' ) ) (this_WS_19= RULE_WS )+ ( (lv_dbDriver_20_0= rulePropertyValue ) ) ) | ( ( (lv_name_21_0= 'pojogen type sqltypes' ) ) ( (this_WS_22= RULE_WS )+ ( (lv_sqlTypes_23_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_24_0= 'pojogen type in table' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_sqlTypes_28_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_29_0= 'pojogen type for columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_columnTypes_33_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_34_0= 'pojogen ignore tables' ) ) ( (this_WS_35= RULE_WS )+ ( (lv_dbTables_36_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_37_0= 'pojogen ignore columns' ) ) (this_WS_38= RULE_WS )+ ( (lv_dbTable_39_0= RULE_IDENT ) ) ( (this_WS_40= RULE_WS )+ ( (lv_dbColumns_41_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_42_0= 'pojogen required columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_dbColumns_46_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_47_0= 'pojogen not required columns' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_dbColumns_51_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_52_0= 'pojogen create columns' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_columnTypes_56_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'pojogen rename tables' ) ) ( (this_WS_58= RULE_WS )+ ( (lv_tables_59_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_60_0= 'pojogen rename columns' ) ) (this_WS_61= RULE_WS )+ ( (lv_dbTable_62_0= RULE_IDENT ) ) ( (this_WS_63= RULE_WS )+ ( (lv_columns_64_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_65_0= 'pojogen ignore one-to-many' ) ) (this_WS_66= RULE_WS )+ ( (lv_dbTable_67_0= RULE_IDENT ) ) ( (this_WS_68= RULE_WS )+ ( (lv_exports_69_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_70_0= 'pojogen ignore many-to-one' ) ) (this_WS_71= RULE_WS )+ ( (lv_dbTable_72_0= RULE_IDENT ) ) ( (this_WS_73= RULE_WS )+ ( (lv_imports_74_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_75_0= 'pojogen inherit many-to-one' ) ) (this_WS_76= RULE_WS )+ ( (lv_dbTable_77_0= RULE_IDENT ) ) ( (this_WS_78= RULE_WS )+ ( (lv_imports_79_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_80_0= 'pojogen create one-to-many' ) ) (this_WS_81= RULE_WS )+ ( (lv_dbTable_82_0= RULE_IDENT ) ) ( (this_WS_83= RULE_WS )+ ( (lv_exports_84_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_85_0= 'pojogen create many-to-one' ) ) (this_WS_86= RULE_WS )+ ( (lv_dbTable_87_0= RULE_IDENT ) ) ( (this_WS_88= RULE_WS )+ ( (lv_imports_89_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_90_0= 'pojogen table many-to-many' ) ) (this_WS_91= RULE_WS )+ ( (lv_dbTable_92_0= RULE_IDENT ) ) ( (this_WS_93= RULE_WS )+ ( (lv_exports_94_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_95_0= 'pojogen inherit discriminator' ) ) (this_WS_96= RULE_WS )+ ( (lv_dbTable_97_0= RULE_IDENT ) ) (this_WS_98= RULE_WS )+ ( (lv_dbColumn_99_0= RULE_IDENT ) ) ( (this_WS_100= RULE_WS )+ ( (lv_inheritance_101_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_102_0= 'pojogen generate methods' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ ) ) this_SEMICOLON_105= RULE_SEMICOLON )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:921:2: ( ( ( (lv_name_0_0= 'resolve references' ) ) (this_WS_1= RULE_WS )+ ( (lv_doResolvePojo_2_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_3_0= 'database online' ) ) (this_WS_4= RULE_WS )+ ( (lv_doResolveDb_5_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_6_0= 'database url' ) ) (this_WS_7= RULE_WS )+ ( (lv_dbUrl_8_0= rulePropertyValue ) ) ) | ( ( (lv_name_9_0= 'database username' ) ) (this_WS_10= RULE_WS )+ ( (lv_dbUsername_11_0= rulePropertyValue ) ) ) | ( ( (lv_name_12_0= 'database password' ) ) (this_WS_13= RULE_WS )+ ( (lv_dbPassword_14_0= rulePropertyValue ) ) ) | ( ( (lv_name_15_0= 'database schema' ) ) (this_WS_16= RULE_WS )+ ( (lv_dbSchema_17_0= rulePropertyValue ) ) ) | ( ( (lv_name_18_0= 'database driver' ) ) (this_WS_19= RULE_WS )+ ( (lv_dbDriver_20_0= rulePropertyValue ) ) ) | ( ( (lv_name_21_0= 'pojogen type sqltypes' ) ) ( (this_WS_22= RULE_WS )+ ( (lv_sqlTypes_23_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_24_0= 'pojogen type in table' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_sqlTypes_28_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_29_0= 'pojogen type for columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_columnTypes_33_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_34_0= 'pojogen ignore tables' ) ) ( (this_WS_35= RULE_WS )+ ( (lv_dbTables_36_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_37_0= 'pojogen ignore columns' ) ) (this_WS_38= RULE_WS )+ ( (lv_dbTable_39_0= RULE_IDENT ) ) ( (this_WS_40= RULE_WS )+ ( (lv_dbColumns_41_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_42_0= 'pojogen required columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_dbColumns_46_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_47_0= 'pojogen not required columns' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_dbColumns_51_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_52_0= 'pojogen create columns' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_columnTypes_56_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'pojogen rename tables' ) ) ( (this_WS_58= RULE_WS )+ ( (lv_tables_59_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_60_0= 'pojogen rename columns' ) ) (this_WS_61= RULE_WS )+ ( (lv_dbTable_62_0= RULE_IDENT ) ) ( (this_WS_63= RULE_WS )+ ( (lv_columns_64_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_65_0= 'pojogen ignore one-to-many' ) ) (this_WS_66= RULE_WS )+ ( (lv_dbTable_67_0= RULE_IDENT ) ) ( (this_WS_68= RULE_WS )+ ( (lv_exports_69_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_70_0= 'pojogen ignore many-to-one' ) ) (this_WS_71= RULE_WS )+ ( (lv_dbTable_72_0= RULE_IDENT ) ) ( (this_WS_73= RULE_WS )+ ( (lv_imports_74_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_75_0= 'pojogen inherit many-to-one' ) ) (this_WS_76= RULE_WS )+ ( (lv_dbTable_77_0= RULE_IDENT ) ) ( (this_WS_78= RULE_WS )+ ( (lv_imports_79_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_80_0= 'pojogen create one-to-many' ) ) (this_WS_81= RULE_WS )+ ( (lv_dbTable_82_0= RULE_IDENT ) ) ( (this_WS_83= RULE_WS )+ ( (lv_exports_84_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_85_0= 'pojogen create many-to-one' ) ) (this_WS_86= RULE_WS )+ ( (lv_dbTable_87_0= RULE_IDENT ) ) ( (this_WS_88= RULE_WS )+ ( (lv_imports_89_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_90_0= 'pojogen table many-to-many' ) ) (this_WS_91= RULE_WS )+ ( (lv_dbTable_92_0= RULE_IDENT ) ) ( (this_WS_93= RULE_WS )+ ( (lv_exports_94_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_95_0= 'pojogen inherit discriminator' ) ) (this_WS_96= RULE_WS )+ ( (lv_dbTable_97_0= RULE_IDENT ) ) (this_WS_98= RULE_WS )+ ( (lv_dbColumn_99_0= RULE_IDENT ) ) ( (this_WS_100= RULE_WS )+ ( (lv_inheritance_101_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_102_0= 'pojogen generate methods' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ ) ) this_SEMICOLON_105= RULE_SEMICOLON
             {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:921:2: ( ( ( (lv_name_0_0= 'resolve references' ) ) (this_WS_1= RULE_WS )+ ( (lv_doResolvePojo_2_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_3_0= 'database online' ) ) (this_WS_4= RULE_WS )+ ( (lv_doResolveDb_5_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_6_0= 'database url' ) ) (this_WS_7= RULE_WS )+ ( (lv_dbUrl_8_0= rulePropertyValue ) ) ) | ( ( (lv_name_9_0= 'database username' ) ) (this_WS_10= RULE_WS )+ ( (lv_dbUsername_11_0= rulePropertyValue ) ) ) | ( ( (lv_name_12_0= 'database password' ) ) (this_WS_13= RULE_WS )+ ( (lv_dbPassword_14_0= rulePropertyValue ) ) ) | ( ( (lv_name_15_0= 'database schema' ) ) (this_WS_16= RULE_WS )+ ( (lv_dbSchema_17_0= rulePropertyValue ) ) ) | ( ( (lv_name_18_0= 'database driver' ) ) (this_WS_19= RULE_WS )+ ( (lv_dbDriver_20_0= rulePropertyValue ) ) ) | ( ( (lv_name_21_0= 'pojogen type sqltypes' ) ) ( (this_WS_22= RULE_WS )+ ( (lv_sqlTypes_23_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_24_0= 'pojogen type in table' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_sqlTypes_28_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_29_0= 'pojogen type for columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_columnTypes_33_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_34_0= 'pojogen ignore tables' ) ) ( (this_WS_35= RULE_WS )+ ( (lv_dbTables_36_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_37_0= 'pojogen ignore columns' ) ) (this_WS_38= RULE_WS )+ ( (lv_dbTable_39_0= RULE_IDENT ) ) ( (this_WS_40= RULE_WS )+ ( (lv_dbColumns_41_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_42_0= 'pojogen required columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_dbColumns_46_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_47_0= 'pojogen not required columns' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_dbColumns_51_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_52_0= 'pojogen create columns' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_columnTypes_56_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'pojogen rename tables' ) ) ( (this_WS_58= RULE_WS )+ ( (lv_tables_59_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_60_0= 'pojogen rename columns' ) ) (this_WS_61= RULE_WS )+ ( (lv_dbTable_62_0= RULE_IDENT ) ) ( (this_WS_63= RULE_WS )+ ( (lv_columns_64_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_65_0= 'pojogen ignore one-to-many' ) ) (this_WS_66= RULE_WS )+ ( (lv_dbTable_67_0= RULE_IDENT ) ) ( (this_WS_68= RULE_WS )+ ( (lv_exports_69_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_70_0= 'pojogen ignore many-to-one' ) ) (this_WS_71= RULE_WS )+ ( (lv_dbTable_72_0= RULE_IDENT ) ) ( (this_WS_73= RULE_WS )+ ( (lv_imports_74_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_75_0= 'pojogen inherit many-to-one' ) ) (this_WS_76= RULE_WS )+ ( (lv_dbTable_77_0= RULE_IDENT ) ) ( (this_WS_78= RULE_WS )+ ( (lv_imports_79_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_80_0= 'pojogen create one-to-many' ) ) (this_WS_81= RULE_WS )+ ( (lv_dbTable_82_0= RULE_IDENT ) ) ( (this_WS_83= RULE_WS )+ ( (lv_exports_84_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_85_0= 'pojogen create many-to-one' ) ) (this_WS_86= RULE_WS )+ ( (lv_dbTable_87_0= RULE_IDENT ) ) ( (this_WS_88= RULE_WS )+ ( (lv_imports_89_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_90_0= 'pojogen table many-to-many' ) ) (this_WS_91= RULE_WS )+ ( (lv_dbTable_92_0= RULE_IDENT ) ) ( (this_WS_93= RULE_WS )+ ( (lv_exports_94_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_95_0= 'pojogen inherit discriminator' ) ) (this_WS_96= RULE_WS )+ ( (lv_dbTable_97_0= RULE_IDENT ) ) (this_WS_98= RULE_WS )+ ( (lv_dbColumn_99_0= RULE_IDENT ) ) ( (this_WS_100= RULE_WS )+ ( (lv_inheritance_101_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_102_0= 'pojogen generate functions' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ ) )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:921:2: ( ( ( (lv_name_0_0= 'resolve references' ) ) (this_WS_1= RULE_WS )+ ( (lv_doResolvePojo_2_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_3_0= 'database online' ) ) (this_WS_4= RULE_WS )+ ( (lv_doResolveDb_5_0= RULE_ON_OFF ) ) ) | ( ( (lv_name_6_0= 'database url' ) ) (this_WS_7= RULE_WS )+ ( (lv_dbUrl_8_0= rulePropertyValue ) ) ) | ( ( (lv_name_9_0= 'database username' ) ) (this_WS_10= RULE_WS )+ ( (lv_dbUsername_11_0= rulePropertyValue ) ) ) | ( ( (lv_name_12_0= 'database password' ) ) (this_WS_13= RULE_WS )+ ( (lv_dbPassword_14_0= rulePropertyValue ) ) ) | ( ( (lv_name_15_0= 'database schema' ) ) (this_WS_16= RULE_WS )+ ( (lv_dbSchema_17_0= rulePropertyValue ) ) ) | ( ( (lv_name_18_0= 'database driver' ) ) (this_WS_19= RULE_WS )+ ( (lv_dbDriver_20_0= rulePropertyValue ) ) ) | ( ( (lv_name_21_0= 'pojogen type sqltypes' ) ) ( (this_WS_22= RULE_WS )+ ( (lv_sqlTypes_23_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_24_0= 'pojogen type in table' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_sqlTypes_28_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_29_0= 'pojogen type for columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_columnTypes_33_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_34_0= 'pojogen ignore tables' ) ) ( (this_WS_35= RULE_WS )+ ( (lv_dbTables_36_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_37_0= 'pojogen ignore columns' ) ) (this_WS_38= RULE_WS )+ ( (lv_dbTable_39_0= RULE_IDENT ) ) ( (this_WS_40= RULE_WS )+ ( (lv_dbColumns_41_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_42_0= 'pojogen required columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_dbColumns_46_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_47_0= 'pojogen not required columns' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_dbColumns_51_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_52_0= 'pojogen create columns' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_columnTypes_56_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'pojogen rename tables' ) ) ( (this_WS_58= RULE_WS )+ ( (lv_tables_59_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_60_0= 'pojogen rename columns' ) ) (this_WS_61= RULE_WS )+ ( (lv_dbTable_62_0= RULE_IDENT ) ) ( (this_WS_63= RULE_WS )+ ( (lv_columns_64_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_65_0= 'pojogen ignore one-to-many' ) ) (this_WS_66= RULE_WS )+ ( (lv_dbTable_67_0= RULE_IDENT ) ) ( (this_WS_68= RULE_WS )+ ( (lv_exports_69_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_70_0= 'pojogen ignore many-to-one' ) ) (this_WS_71= RULE_WS )+ ( (lv_dbTable_72_0= RULE_IDENT ) ) ( (this_WS_73= RULE_WS )+ ( (lv_imports_74_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_75_0= 'pojogen inherit many-to-one' ) ) (this_WS_76= RULE_WS )+ ( (lv_dbTable_77_0= RULE_IDENT ) ) ( (this_WS_78= RULE_WS )+ ( (lv_imports_79_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_80_0= 'pojogen create one-to-many' ) ) (this_WS_81= RULE_WS )+ ( (lv_dbTable_82_0= RULE_IDENT ) ) ( (this_WS_83= RULE_WS )+ ( (lv_exports_84_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_85_0= 'pojogen create many-to-one' ) ) (this_WS_86= RULE_WS )+ ( (lv_dbTable_87_0= RULE_IDENT ) ) ( (this_WS_88= RULE_WS )+ ( (lv_imports_89_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_90_0= 'pojogen table many-to-many' ) ) (this_WS_91= RULE_WS )+ ( (lv_dbTable_92_0= RULE_IDENT ) ) ( (this_WS_93= RULE_WS )+ ( (lv_exports_94_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_95_0= 'pojogen inherit discriminator' ) ) (this_WS_96= RULE_WS )+ ( (lv_dbTable_97_0= RULE_IDENT ) ) (this_WS_98= RULE_WS )+ ( (lv_dbColumn_99_0= RULE_IDENT ) ) ( (this_WS_100= RULE_WS )+ ( (lv_inheritance_101_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_102_0= 'pojogen generate methods' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ ) )
             int alt76=25;
             switch ( input.LA(1) ) {
             case 43:
@@ -6963,21 +6963,21 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 25 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2163:6: ( ( (lv_name_102_0= 'pojogen generate functions' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2163:6: ( ( (lv_name_102_0= 'pojogen generate methods' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2163:6: ( ( (lv_name_102_0= 'pojogen generate functions' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2163:7: ( (lv_name_102_0= 'pojogen generate functions' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2163:6: ( ( (lv_name_102_0= 'pojogen generate methods' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2163:7: ( (lv_name_102_0= 'pojogen generate methods' ) ) ( (this_WS_103= RULE_WS )+ ( (lv_function_104_0= rulePojoFunction ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2163:7: ( (lv_name_102_0= 'pojogen generate functions' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2164:1: (lv_name_102_0= 'pojogen generate functions' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2163:7: ( (lv_name_102_0= 'pojogen generate methods' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2164:1: (lv_name_102_0= 'pojogen generate methods' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2164:1: (lv_name_102_0= 'pojogen generate functions' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2165:3: lv_name_102_0= 'pojogen generate functions'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2164:1: (lv_name_102_0= 'pojogen generate methods' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2165:3: lv_name_102_0= 'pojogen generate methods'
                     {
                     lv_name_102_0=(Token)match(input,67,FOLLOW_67_in_ruleProperty4184); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              newLeafNode(lv_name_102_0, grammarAccess.getPropertyAccess().getNamePojogenGenerateFunctionsKeyword_0_24_0_0());
+                              newLeafNode(lv_name_102_0, grammarAccess.getPropertyAccess().getNamePojogenGenerateMethodsKeyword_0_24_0_0());
                           
                     }
                     if ( state.backtracking==0 ) {
@@ -6985,7 +6985,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_102_0, "pojogen generate functions");
+                             		setWithLastConsumed(current, "name", lv_name_102_0, "pojogen generate methods");
                       	    
                     }
 
@@ -25481,7 +25481,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePojoProperty"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8749:1: rulePojoProperty returns [EObject current=null] : ( ( (lv_name_0_0= RULE_IDENT ) ) ( ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) ) | ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_6= RULE_LESS_THAN ( (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_10= RULE_MORE_THAN )? ) ) ( (lv_array_11_0= '[]' ) )? ( (lv_required_12_0= 'required' ) )? ( (lv_discriminator_13_0= 'discriminator' ) )? ( (lv_primaryKey_14_0= 'primaryKey' ) )? ) ;
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8749:1: rulePojoProperty returns [EObject current=null] : ( ( (lv_name_0_0= RULE_IDENT ) ) ( ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) ) | ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_8= RULE_LESS_THAN ( (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_12= RULE_MORE_THAN )? ) ) ( (lv_array_13_0= '[]' ) )? ( (lv_required_14_0= 'required' ) )? ( (lv_discriminator_15_0= 'discriminator' ) )? ( (lv_primaryKey_16_0= 'primaryKey' ) )? ) ;
     public final EObject rulePojoProperty() throws RecognitionException {
         EObject current = null;
 
@@ -25496,25 +25496,27 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
         Token lv_native_1_8=null;
         Token this_COLON_2=null;
         Token this_COLON_3=null;
-        Token otherlv_4=null;
-        Token this_LESS_THAN_6=null;
-        Token this_COLON_7=null;
-        Token otherlv_8=null;
-        Token this_MORE_THAN_10=null;
-        Token lv_array_11_0=null;
-        Token lv_required_12_0=null;
-        Token lv_discriminator_13_0=null;
-        Token lv_primaryKey_14_0=null;
+        Token this_COLON_4=null;
+        Token otherlv_5=null;
+        Token otherlv_6=null;
+        Token this_LESS_THAN_8=null;
+        Token this_COLON_9=null;
+        Token otherlv_10=null;
+        Token this_MORE_THAN_12=null;
+        Token lv_array_13_0=null;
+        Token lv_required_14_0=null;
+        Token lv_discriminator_15_0=null;
+        Token lv_primaryKey_16_0=null;
 
          enterRule(); 
         		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
             
         try {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8753:28: ( ( ( (lv_name_0_0= RULE_IDENT ) ) ( ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) ) | ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_6= RULE_LESS_THAN ( (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_10= RULE_MORE_THAN )? ) ) ( (lv_array_11_0= '[]' ) )? ( (lv_required_12_0= 'required' ) )? ( (lv_discriminator_13_0= 'discriminator' ) )? ( (lv_primaryKey_14_0= 'primaryKey' ) )? ) )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8754:1: ( ( (lv_name_0_0= RULE_IDENT ) ) ( ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) ) | ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_6= RULE_LESS_THAN ( (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_10= RULE_MORE_THAN )? ) ) ( (lv_array_11_0= '[]' ) )? ( (lv_required_12_0= 'required' ) )? ( (lv_discriminator_13_0= 'discriminator' ) )? ( (lv_primaryKey_14_0= 'primaryKey' ) )? )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8753:28: ( ( ( (lv_name_0_0= RULE_IDENT ) ) ( ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) ) | ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_8= RULE_LESS_THAN ( (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_12= RULE_MORE_THAN )? ) ) ( (lv_array_13_0= '[]' ) )? ( (lv_required_14_0= 'required' ) )? ( (lv_discriminator_15_0= 'discriminator' ) )? ( (lv_primaryKey_16_0= 'primaryKey' ) )? ) )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8754:1: ( ( (lv_name_0_0= RULE_IDENT ) ) ( ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) ) | ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_8= RULE_LESS_THAN ( (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_12= RULE_MORE_THAN )? ) ) ( (lv_array_13_0= '[]' ) )? ( (lv_required_14_0= 'required' ) )? ( (lv_discriminator_15_0= 'discriminator' ) )? ( (lv_primaryKey_16_0= 'primaryKey' ) )? )
             {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8754:1: ( ( (lv_name_0_0= RULE_IDENT ) ) ( ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) ) | ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_6= RULE_LESS_THAN ( (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_10= RULE_MORE_THAN )? ) ) ( (lv_array_11_0= '[]' ) )? ( (lv_required_12_0= 'required' ) )? ( (lv_discriminator_13_0= 'discriminator' ) )? ( (lv_primaryKey_14_0= 'primaryKey' ) )? )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8754:2: ( (lv_name_0_0= RULE_IDENT ) ) ( ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) ) | ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_6= RULE_LESS_THAN ( (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_10= RULE_MORE_THAN )? ) ) ( (lv_array_11_0= '[]' ) )? ( (lv_required_12_0= 'required' ) )? ( (lv_discriminator_13_0= 'discriminator' ) )? ( (lv_primaryKey_14_0= 'primaryKey' ) )?
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8754:1: ( ( (lv_name_0_0= RULE_IDENT ) ) ( ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) ) | ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_8= RULE_LESS_THAN ( (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_12= RULE_MORE_THAN )? ) ) ( (lv_array_13_0= '[]' ) )? ( (lv_required_14_0= 'required' ) )? ( (lv_discriminator_15_0= 'discriminator' ) )? ( (lv_primaryKey_16_0= 'primaryKey' ) )? )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8754:2: ( (lv_name_0_0= RULE_IDENT ) ) ( ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) ) | ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_8= RULE_LESS_THAN ( (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_12= RULE_MORE_THAN )? ) ) ( (lv_array_13_0= '[]' ) )? ( (lv_required_14_0= 'required' ) )? ( (lv_discriminator_15_0= 'discriminator' ) )? ( (lv_primaryKey_16_0= 'primaryKey' ) )?
             {
             // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8754:2: ( (lv_name_0_0= RULE_IDENT ) )
             // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8755:1: (lv_name_0_0= RULE_IDENT )
@@ -25546,24 +25548,24 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8772:2: ( ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) ) | ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_6= RULE_LESS_THAN ( (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_10= RULE_MORE_THAN )? ) )
-            int alt181=2;
-            int LA181_0 = input.LA(1);
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8772:2: ( ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) ) | ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_8= RULE_LESS_THAN ( (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_12= RULE_MORE_THAN )? ) )
+            int alt183=2;
+            int LA183_0 = input.LA(1);
 
-            if ( ((LA181_0>=80 && LA181_0<=87)) ) {
-                alt181=1;
+            if ( ((LA183_0>=80 && LA183_0<=87)) ) {
+                alt183=1;
             }
-            else if ( (LA181_0==RULE_COLON) ) {
-                alt181=2;
+            else if ( (LA183_0==RULE_COLON) ) {
+                alt183=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 181, 0, input);
+                    new NoViableAltException("", 183, 0, input);
 
                 throw nvae;
             }
-            switch (alt181) {
+            switch (alt183) {
                 case 1 :
                     // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8772:3: ( ( (lv_native_1_1= '_char' | lv_native_1_2= '_byte' | lv_native_1_3= '_short' | lv_native_1_4= '_int' | lv_native_1_5= '_long' | lv_native_1_6= '_float' | lv_native_1_7= '_double' | lv_native_1_8= '_boolean' ) ) )
                     {
@@ -25798,13 +25800,13 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8875:6: ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_6= RULE_LESS_THAN ( (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_10= RULE_MORE_THAN )? )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8875:6: ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_8= RULE_LESS_THAN ( (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_12= RULE_MORE_THAN )? )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8875:6: ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_6= RULE_LESS_THAN ( (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_10= RULE_MORE_THAN )? )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8875:7: (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_6= RULE_LESS_THAN ( (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_10= RULE_MORE_THAN )?
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8875:6: ( (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_8= RULE_LESS_THAN ( (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_12= RULE_MORE_THAN )? )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8875:7: (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) ) | ( ( ruleQualifiedName ) ) ) ) (this_LESS_THAN_8= RULE_LESS_THAN ( (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_12= RULE_MORE_THAN )?
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8875:7: (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8875:8: this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8875:7: (this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) ) | ( ( ruleQualifiedName ) ) ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8875:8: this_COLON_2= RULE_COLON ( (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) ) | ( ( ruleQualifiedName ) ) )
                     {
                     this_COLON_2=(Token)match(input,RULE_COLON,FOLLOW_RULE_COLON_in_rulePojoProperty20940); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -25812,29 +25814,29 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                           newLeafNode(this_COLON_2, grammarAccess.getPojoPropertyAccess().getCOLONTerminalRuleCall_1_1_0_0()); 
                           
                     }
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8879:1: ( (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) )
-                    int alt178=2;
-                    int LA178_0 = input.LA(1);
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8879:1: ( (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) ) | ( ( ruleQualifiedName ) ) )
+                    int alt180=2;
+                    int LA180_0 = input.LA(1);
 
-                    if ( (LA178_0==RULE_COLON) ) {
-                        alt178=1;
+                    if ( (LA180_0==RULE_COLON) ) {
+                        alt180=1;
                     }
-                    else if ( (LA178_0==RULE_IDENT||LA178_0==RULE_IDENT_DOT) ) {
-                        alt178=2;
+                    else if ( (LA180_0==RULE_IDENT||LA180_0==RULE_IDENT_DOT) ) {
+                        alt180=2;
                     }
                     else {
                         if (state.backtracking>0) {state.failed=true; return current;}
                         NoViableAltException nvae =
-                            new NoViableAltException("", 178, 0, input);
+                            new NoViableAltException("", 180, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt178) {
+                    switch (alt180) {
                         case 1 :
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8879:2: (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) )
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8879:2: (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) )
                             {
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8879:2: (this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) ) )
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8879:3: this_COLON_3= RULE_COLON ( (otherlv_4= RULE_IDENT ) )
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8879:2: (this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) ) )
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8879:3: this_COLON_3= RULE_COLON ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) )
                             {
                             this_COLON_3=(Token)match(input,RULE_COLON,FOLLOW_RULE_COLON_in_rulePojoProperty20952); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
@@ -25842,28 +25844,122 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                                   newLeafNode(this_COLON_3, grammarAccess.getPojoPropertyAccess().getCOLONTerminalRuleCall_1_1_0_1_0_0()); 
                                   
                             }
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8883:1: ( (otherlv_4= RULE_IDENT ) )
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8884:1: (otherlv_4= RULE_IDENT )
-                            {
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8884:1: (otherlv_4= RULE_IDENT )
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8885:3: otherlv_4= RULE_IDENT
-                            {
-                            if ( state.backtracking==0 ) {
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8883:1: ( (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* ) | ( (otherlv_6= RULE_IDENT ) ) )
+                            int alt179=2;
+                            int LA179_0 = input.LA(1);
 
-                              			if (current==null) {
-                              	            current = createModelElement(grammarAccess.getPojoPropertyRule());
-                              	        }
-                                      
+                            if ( (LA179_0==RULE_COLON) ) {
+                                alt179=1;
                             }
-                            otherlv_4=(Token)match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rulePojoProperty20971); if (state.failed) return current;
-                            if ( state.backtracking==0 ) {
-
-                              		newLeafNode(otherlv_4, grammarAccess.getPojoPropertyAccess().getRefPojoEntityCrossReference_1_1_0_1_0_1_0()); 
-                              	
+                            else if ( (LA179_0==RULE_IDENT) ) {
+                                alt179=2;
                             }
+                            else {
+                                if (state.backtracking>0) {state.failed=true; return current;}
+                                NoViableAltException nvae =
+                                    new NoViableAltException("", 179, 0, input);
 
+                                throw nvae;
                             }
+                            switch (alt179) {
+                                case 1 :
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8883:2: (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* )
+                                    {
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8883:2: (this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )* )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8883:3: this_COLON_4= RULE_COLON ( (otherlv_5= RULE_IDENT ) )*
+                                    {
+                                    this_COLON_4=(Token)match(input,RULE_COLON,FOLLOW_RULE_COLON_in_rulePojoProperty20964); if (state.failed) return current;
+                                    if ( state.backtracking==0 ) {
+                                       
+                                          newLeafNode(this_COLON_4, grammarAccess.getPojoPropertyAccess().getCOLONTerminalRuleCall_1_1_0_1_0_1_0_0()); 
+                                          
+                                    }
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8887:1: ( (otherlv_5= RULE_IDENT ) )*
+                                    loop178:
+                                    do {
+                                        int alt178=2;
+                                        int LA178_0 = input.LA(1);
 
+                                        if ( (LA178_0==RULE_IDENT) ) {
+                                            int LA178_2 = input.LA(2);
+
+                                            if ( (LA178_2==EOF||LA178_2==RULE_IDENT||LA178_2==RULE_RBRACE||LA178_2==RULE_LESS_THAN||LA178_2==88||(LA178_2>=95 && LA178_2<=97)) ) {
+                                                alt178=1;
+                                            }
+
+
+                                        }
+
+
+                                        switch (alt178) {
+                                    	case 1 :
+                                    	    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8888:1: (otherlv_5= RULE_IDENT )
+                                    	    {
+                                    	    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8888:1: (otherlv_5= RULE_IDENT )
+                                    	    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8889:3: otherlv_5= RULE_IDENT
+                                    	    {
+                                    	    if ( state.backtracking==0 ) {
+
+                                    	      			if (current==null) {
+                                    	      	            current = createModelElement(grammarAccess.getPojoPropertyRule());
+                                    	      	        }
+                                    	              
+                                    	    }
+                                    	    otherlv_5=(Token)match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rulePojoProperty20983); if (state.failed) return current;
+                                    	    if ( state.backtracking==0 ) {
+
+                                    	      		newLeafNode(otherlv_5, grammarAccess.getPojoPropertyAccess().getAttrsPojoPropertyCrossReference_1_1_0_1_0_1_0_1_0()); 
+                                    	      	
+                                    	    }
+
+                                    	    }
+
+
+                                    	    }
+                                    	    break;
+
+                                    	default :
+                                    	    break loop178;
+                                        }
+                                    } while (true);
+
+
+                                    }
+
+
+                                    }
+                                    break;
+                                case 2 :
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8901:6: ( (otherlv_6= RULE_IDENT ) )
+                                    {
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8901:6: ( (otherlv_6= RULE_IDENT ) )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8902:1: (otherlv_6= RULE_IDENT )
+                                    {
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8902:1: (otherlv_6= RULE_IDENT )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8903:3: otherlv_6= RULE_IDENT
+                                    {
+                                    if ( state.backtracking==0 ) {
+
+                                      			if (current==null) {
+                                      	            current = createModelElement(grammarAccess.getPojoPropertyRule());
+                                      	        }
+                                              
+                                    }
+                                    otherlv_6=(Token)match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rulePojoProperty21011); if (state.failed) return current;
+                                    if ( state.backtracking==0 ) {
+
+                                      		newLeafNode(otherlv_6, grammarAccess.getPojoPropertyAccess().getRefPojoEntityCrossReference_1_1_0_1_0_1_1_0()); 
+                                      	
+                                    }
+
+                                    }
+
+
+                                    }
+
+
+                                    }
+                                    break;
 
                             }
 
@@ -25874,13 +25970,13 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8897:6: ( ( ruleQualifiedName ) )
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8915:6: ( ( ruleQualifiedName ) )
                             {
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8897:6: ( ( ruleQualifiedName ) )
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8898:1: ( ruleQualifiedName )
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8915:6: ( ( ruleQualifiedName ) )
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8916:1: ( ruleQualifiedName )
                             {
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8898:1: ( ruleQualifiedName )
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8899:3: ruleQualifiedName
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8916:1: ( ruleQualifiedName )
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8917:3: ruleQualifiedName
                             {
                             if ( state.backtracking==0 ) {
 
@@ -25894,7 +25990,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                               	        newCompositeNode(grammarAccess.getPojoPropertyAccess().getTypeJvmTypeCrossReference_1_1_0_1_1_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleQualifiedName_in_rulePojoProperty21001);
+                            pushFollow(FOLLOW_ruleQualifiedName_in_rulePojoProperty21042);
                             ruleQualifiedName();
 
                             state._fsp--;
@@ -25919,58 +26015,58 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8912:4: (this_LESS_THAN_6= RULE_LESS_THAN ( (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_10= RULE_MORE_THAN )?
-                    int alt180=2;
-                    int LA180_0 = input.LA(1);
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8930:4: (this_LESS_THAN_8= RULE_LESS_THAN ( (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_12= RULE_MORE_THAN )?
+                    int alt182=2;
+                    int LA182_0 = input.LA(1);
 
-                    if ( (LA180_0==RULE_LESS_THAN) ) {
-                        alt180=1;
+                    if ( (LA182_0==RULE_LESS_THAN) ) {
+                        alt182=1;
                     }
-                    switch (alt180) {
+                    switch (alt182) {
                         case 1 :
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8912:5: this_LESS_THAN_6= RULE_LESS_THAN ( (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_10= RULE_MORE_THAN
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8930:5: this_LESS_THAN_8= RULE_LESS_THAN ( (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) ) this_MORE_THAN_12= RULE_MORE_THAN
                             {
-                            this_LESS_THAN_6=(Token)match(input,RULE_LESS_THAN,FOLLOW_RULE_LESS_THAN_in_rulePojoProperty21015); if (state.failed) return current;
+                            this_LESS_THAN_8=(Token)match(input,RULE_LESS_THAN,FOLLOW_RULE_LESS_THAN_in_rulePojoProperty21056); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
                                
-                                  newLeafNode(this_LESS_THAN_6, grammarAccess.getPojoPropertyAccess().getLESS_THANTerminalRuleCall_1_1_1_0()); 
+                                  newLeafNode(this_LESS_THAN_8, grammarAccess.getPojoPropertyAccess().getLESS_THANTerminalRuleCall_1_1_1_0()); 
                                   
                             }
-                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8916:1: ( (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) )
-                            int alt179=2;
-                            int LA179_0 = input.LA(1);
+                            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8934:1: ( (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) ) | ( ( ruleQualifiedName ) ) )
+                            int alt181=2;
+                            int LA181_0 = input.LA(1);
 
-                            if ( (LA179_0==RULE_COLON) ) {
-                                alt179=1;
+                            if ( (LA181_0==RULE_COLON) ) {
+                                alt181=1;
                             }
-                            else if ( (LA179_0==RULE_IDENT||LA179_0==RULE_IDENT_DOT) ) {
-                                alt179=2;
+                            else if ( (LA181_0==RULE_IDENT||LA181_0==RULE_IDENT_DOT) ) {
+                                alt181=2;
                             }
                             else {
                                 if (state.backtracking>0) {state.failed=true; return current;}
                                 NoViableAltException nvae =
-                                    new NoViableAltException("", 179, 0, input);
+                                    new NoViableAltException("", 181, 0, input);
 
                                 throw nvae;
                             }
-                            switch (alt179) {
+                            switch (alt181) {
                                 case 1 :
-                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8916:2: (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8934:2: (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) )
                                     {
-                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8916:2: (this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) ) )
-                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8916:3: this_COLON_7= RULE_COLON ( (otherlv_8= RULE_IDENT ) )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8934:2: (this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) ) )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8934:3: this_COLON_9= RULE_COLON ( (otherlv_10= RULE_IDENT ) )
                                     {
-                                    this_COLON_7=(Token)match(input,RULE_COLON,FOLLOW_RULE_COLON_in_rulePojoProperty21027); if (state.failed) return current;
+                                    this_COLON_9=(Token)match(input,RULE_COLON,FOLLOW_RULE_COLON_in_rulePojoProperty21068); if (state.failed) return current;
                                     if ( state.backtracking==0 ) {
                                        
-                                          newLeafNode(this_COLON_7, grammarAccess.getPojoPropertyAccess().getCOLONTerminalRuleCall_1_1_1_1_0_0()); 
+                                          newLeafNode(this_COLON_9, grammarAccess.getPojoPropertyAccess().getCOLONTerminalRuleCall_1_1_1_1_0_0()); 
                                           
                                     }
-                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8920:1: ( (otherlv_8= RULE_IDENT ) )
-                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8921:1: (otherlv_8= RULE_IDENT )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8938:1: ( (otherlv_10= RULE_IDENT ) )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8939:1: (otherlv_10= RULE_IDENT )
                                     {
-                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8921:1: (otherlv_8= RULE_IDENT )
-                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8922:3: otherlv_8= RULE_IDENT
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8939:1: (otherlv_10= RULE_IDENT )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8940:3: otherlv_10= RULE_IDENT
                                     {
                                     if ( state.backtracking==0 ) {
 
@@ -25979,10 +26075,10 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                                       	        }
                                               
                                     }
-                                    otherlv_8=(Token)match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rulePojoProperty21046); if (state.failed) return current;
+                                    otherlv_10=(Token)match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_rulePojoProperty21087); if (state.failed) return current;
                                     if ( state.backtracking==0 ) {
 
-                                      		newLeafNode(otherlv_8, grammarAccess.getPojoPropertyAccess().getGrefPojoEntityCrossReference_1_1_1_1_0_1_0()); 
+                                      		newLeafNode(otherlv_10, grammarAccess.getPojoPropertyAccess().getGrefPojoEntityCrossReference_1_1_1_1_0_1_0()); 
                                       	
                                     }
 
@@ -25998,13 +26094,13 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                                     }
                                     break;
                                 case 2 :
-                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8934:6: ( ( ruleQualifiedName ) )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8952:6: ( ( ruleQualifiedName ) )
                                     {
-                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8934:6: ( ( ruleQualifiedName ) )
-                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8935:1: ( ruleQualifiedName )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8952:6: ( ( ruleQualifiedName ) )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8953:1: ( ruleQualifiedName )
                                     {
-                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8935:1: ( ruleQualifiedName )
-                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8936:3: ruleQualifiedName
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8953:1: ( ruleQualifiedName )
+                                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8954:3: ruleQualifiedName
                                     {
                                     if ( state.backtracking==0 ) {
 
@@ -26018,7 +26114,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                                       	        newCompositeNode(grammarAccess.getPojoPropertyAccess().getGtypeJvmTypeCrossReference_1_1_1_1_1_0()); 
                                       	    
                                     }
-                                    pushFollow(FOLLOW_ruleQualifiedName_in_rulePojoProperty21076);
+                                    pushFollow(FOLLOW_ruleQualifiedName_in_rulePojoProperty21117);
                                     ruleQualifiedName();
 
                                     state._fsp--;
@@ -26040,10 +26136,10 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            this_MORE_THAN_10=(Token)match(input,RULE_MORE_THAN,FOLLOW_RULE_MORE_THAN_in_rulePojoProperty21088); if (state.failed) return current;
+                            this_MORE_THAN_12=(Token)match(input,RULE_MORE_THAN,FOLLOW_RULE_MORE_THAN_in_rulePojoProperty21129); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
                                
-                                  newLeafNode(this_MORE_THAN_10, grammarAccess.getPojoPropertyAccess().getMORE_THANTerminalRuleCall_1_1_1_2()); 
+                                  newLeafNode(this_MORE_THAN_12, grammarAccess.getPojoPropertyAccess().getMORE_THANTerminalRuleCall_1_1_1_2()); 
                                   
                             }
 
@@ -26061,24 +26157,24 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8953:5: ( (lv_array_11_0= '[]' ) )?
-            int alt182=2;
-            int LA182_0 = input.LA(1);
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8971:5: ( (lv_array_13_0= '[]' ) )?
+            int alt184=2;
+            int LA184_0 = input.LA(1);
 
-            if ( (LA182_0==88) ) {
-                alt182=1;
+            if ( (LA184_0==88) ) {
+                alt184=1;
             }
-            switch (alt182) {
+            switch (alt184) {
                 case 1 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8954:1: (lv_array_11_0= '[]' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8972:1: (lv_array_13_0= '[]' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8954:1: (lv_array_11_0= '[]' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8955:3: lv_array_11_0= '[]'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8972:1: (lv_array_13_0= '[]' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8973:3: lv_array_13_0= '[]'
                     {
-                    lv_array_11_0=(Token)match(input,88,FOLLOW_88_in_rulePojoProperty21109); if (state.failed) return current;
+                    lv_array_13_0=(Token)match(input,88,FOLLOW_88_in_rulePojoProperty21150); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              newLeafNode(lv_array_11_0, grammarAccess.getPojoPropertyAccess().getArrayLeftSquareBracketRightSquareBracketKeyword_2_0());
+                              newLeafNode(lv_array_13_0, grammarAccess.getPojoPropertyAccess().getArrayLeftSquareBracketRightSquareBracketKeyword_2_0());
                           
                     }
                     if ( state.backtracking==0 ) {
@@ -26098,24 +26194,24 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8968:3: ( (lv_required_12_0= 'required' ) )?
-            int alt183=2;
-            int LA183_0 = input.LA(1);
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8986:3: ( (lv_required_14_0= 'required' ) )?
+            int alt185=2;
+            int LA185_0 = input.LA(1);
 
-            if ( (LA183_0==96) ) {
-                alt183=1;
+            if ( (LA185_0==96) ) {
+                alt185=1;
             }
-            switch (alt183) {
+            switch (alt185) {
                 case 1 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8969:1: (lv_required_12_0= 'required' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8987:1: (lv_required_14_0= 'required' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8969:1: (lv_required_12_0= 'required' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8970:3: lv_required_12_0= 'required'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8987:1: (lv_required_14_0= 'required' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8988:3: lv_required_14_0= 'required'
                     {
-                    lv_required_12_0=(Token)match(input,96,FOLLOW_96_in_rulePojoProperty21141); if (state.failed) return current;
+                    lv_required_14_0=(Token)match(input,96,FOLLOW_96_in_rulePojoProperty21182); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              newLeafNode(lv_required_12_0, grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_3_0());
+                              newLeafNode(lv_required_14_0, grammarAccess.getPojoPropertyAccess().getRequiredRequiredKeyword_3_0());
                           
                     }
                     if ( state.backtracking==0 ) {
@@ -26135,24 +26231,24 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8983:3: ( (lv_discriminator_13_0= 'discriminator' ) )?
-            int alt184=2;
-            int LA184_0 = input.LA(1);
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9001:3: ( (lv_discriminator_15_0= 'discriminator' ) )?
+            int alt186=2;
+            int LA186_0 = input.LA(1);
 
-            if ( (LA184_0==95) ) {
-                alt184=1;
+            if ( (LA186_0==95) ) {
+                alt186=1;
             }
-            switch (alt184) {
+            switch (alt186) {
                 case 1 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8984:1: (lv_discriminator_13_0= 'discriminator' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9002:1: (lv_discriminator_15_0= 'discriminator' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8984:1: (lv_discriminator_13_0= 'discriminator' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8985:3: lv_discriminator_13_0= 'discriminator'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9002:1: (lv_discriminator_15_0= 'discriminator' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9003:3: lv_discriminator_15_0= 'discriminator'
                     {
-                    lv_discriminator_13_0=(Token)match(input,95,FOLLOW_95_in_rulePojoProperty21173); if (state.failed) return current;
+                    lv_discriminator_15_0=(Token)match(input,95,FOLLOW_95_in_rulePojoProperty21214); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              newLeafNode(lv_discriminator_13_0, grammarAccess.getPojoPropertyAccess().getDiscriminatorDiscriminatorKeyword_4_0());
+                              newLeafNode(lv_discriminator_15_0, grammarAccess.getPojoPropertyAccess().getDiscriminatorDiscriminatorKeyword_4_0());
                           
                     }
                     if ( state.backtracking==0 ) {
@@ -26172,24 +26268,24 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8998:3: ( (lv_primaryKey_14_0= 'primaryKey' ) )?
-            int alt185=2;
-            int LA185_0 = input.LA(1);
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9016:3: ( (lv_primaryKey_16_0= 'primaryKey' ) )?
+            int alt187=2;
+            int LA187_0 = input.LA(1);
 
-            if ( (LA185_0==97) ) {
-                alt185=1;
+            if ( (LA187_0==97) ) {
+                alt187=1;
             }
-            switch (alt185) {
+            switch (alt187) {
                 case 1 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8999:1: (lv_primaryKey_14_0= 'primaryKey' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9017:1: (lv_primaryKey_16_0= 'primaryKey' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:8999:1: (lv_primaryKey_14_0= 'primaryKey' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9000:3: lv_primaryKey_14_0= 'primaryKey'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9017:1: (lv_primaryKey_16_0= 'primaryKey' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9018:3: lv_primaryKey_16_0= 'primaryKey'
                     {
-                    lv_primaryKey_14_0=(Token)match(input,97,FOLLOW_97_in_rulePojoProperty21205); if (state.failed) return current;
+                    lv_primaryKey_16_0=(Token)match(input,97,FOLLOW_97_in_rulePojoProperty21246); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              newLeafNode(lv_primaryKey_14_0, grammarAccess.getPojoPropertyAccess().getPrimaryKeyPrimaryKeyKeyword_5_0());
+                              newLeafNode(lv_primaryKey_16_0, grammarAccess.getPojoPropertyAccess().getPrimaryKeyPrimaryKeyKeyword_5_0());
                           
                     }
                     if ( state.backtracking==0 ) {
@@ -26235,7 +26331,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedNameWithWildcard"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9024:1: entryRuleQualifiedNameWithWildcard returns [String current=null] : iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF ;
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9042:1: entryRuleQualifiedNameWithWildcard returns [String current=null] : iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF ;
     public final String entryRuleQualifiedNameWithWildcard() throws RecognitionException {
         String current = null;
 
@@ -26243,13 +26339,13 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9025:2: (iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9026:2: iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9043:2: (iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9044:2: iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getQualifiedNameWithWildcardRule()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedNameWithWildcard_in_entryRuleQualifiedNameWithWildcard21260);
+            pushFollow(FOLLOW_ruleQualifiedNameWithWildcard_in_entryRuleQualifiedNameWithWildcard21301);
             iv_ruleQualifiedNameWithWildcard=ruleQualifiedNameWithWildcard();
 
             state._fsp--;
@@ -26257,7 +26353,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleQualifiedNameWithWildcard.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedNameWithWildcard21271); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedNameWithWildcard21312); if (state.failed) return current;
 
             }
 
@@ -26275,7 +26371,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedNameWithWildcard"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9033:1: ruleQualifiedNameWithWildcard returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) ;
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9051:1: ruleQualifiedNameWithWildcard returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedNameWithWildcard() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -26286,18 +26382,18 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9036:28: ( (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9037:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9054:28: ( (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9055:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
             {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9037:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9038:5: this_QualifiedName_0= ruleQualifiedName (kw= '.*' )?
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9055:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9056:5: this_QualifiedName_0= ruleQualifiedName (kw= '.*' )?
             {
             if ( state.backtracking==0 ) {
                
                       newCompositeNode(grammarAccess.getQualifiedNameWithWildcardAccess().getQualifiedNameParserRuleCall_0()); 
                   
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleQualifiedNameWithWildcard21318);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleQualifiedNameWithWildcard21359);
             this_QualifiedName_0=ruleQualifiedName();
 
             state._fsp--;
@@ -26312,18 +26408,18 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       afterParserOrEnumRuleCall();
                   
             }
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9048:1: (kw= '.*' )?
-            int alt186=2;
-            int LA186_0 = input.LA(1);
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9066:1: (kw= '.*' )?
+            int alt188=2;
+            int LA188_0 = input.LA(1);
 
-            if ( (LA186_0==98) ) {
-                alt186=1;
+            if ( (LA188_0==98) ) {
+                alt188=1;
             }
-            switch (alt186) {
+            switch (alt188) {
                 case 1 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9049:2: kw= '.*'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9067:2: kw= '.*'
                     {
-                    kw=(Token)match(input,98,FOLLOW_98_in_ruleQualifiedNameWithWildcard21337); if (state.failed) return current;
+                    kw=(Token)match(input,98,FOLLOW_98_in_ruleQualifiedNameWithWildcard21378); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -26359,7 +26455,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedName"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9062:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9080:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
     public final String entryRuleQualifiedName() throws RecognitionException {
         String current = null;
 
@@ -26367,13 +26463,13 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9063:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9064:2: iv_ruleQualifiedName= ruleQualifiedName EOF
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9081:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9082:2: iv_ruleQualifiedName= ruleQualifiedName EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getQualifiedNameRule()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName21380);
+            pushFollow(FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName21421);
             iv_ruleQualifiedName=ruleQualifiedName();
 
             state._fsp--;
@@ -26381,7 +26477,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleQualifiedName.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedName21391); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedName21432); if (state.failed) return current;
 
             }
 
@@ -26399,7 +26495,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedName"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9071:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_IDENT_0= RULE_IDENT | this_IDENT_DOT_1= RULE_IDENT_DOT ) ;
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9089:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_IDENT_0= RULE_IDENT | this_IDENT_DOT_1= RULE_IDENT_DOT ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedName() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -26409,31 +26505,31 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9074:28: ( (this_IDENT_0= RULE_IDENT | this_IDENT_DOT_1= RULE_IDENT_DOT ) )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9075:1: (this_IDENT_0= RULE_IDENT | this_IDENT_DOT_1= RULE_IDENT_DOT )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9092:28: ( (this_IDENT_0= RULE_IDENT | this_IDENT_DOT_1= RULE_IDENT_DOT ) )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9093:1: (this_IDENT_0= RULE_IDENT | this_IDENT_DOT_1= RULE_IDENT_DOT )
             {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9075:1: (this_IDENT_0= RULE_IDENT | this_IDENT_DOT_1= RULE_IDENT_DOT )
-            int alt187=2;
-            int LA187_0 = input.LA(1);
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9093:1: (this_IDENT_0= RULE_IDENT | this_IDENT_DOT_1= RULE_IDENT_DOT )
+            int alt189=2;
+            int LA189_0 = input.LA(1);
 
-            if ( (LA187_0==RULE_IDENT) ) {
-                alt187=1;
+            if ( (LA189_0==RULE_IDENT) ) {
+                alt189=1;
             }
-            else if ( (LA187_0==RULE_IDENT_DOT) ) {
-                alt187=2;
+            else if ( (LA189_0==RULE_IDENT_DOT) ) {
+                alt189=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 187, 0, input);
+                    new NoViableAltException("", 189, 0, input);
 
                 throw nvae;
             }
-            switch (alt187) {
+            switch (alt189) {
                 case 1 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9075:6: this_IDENT_0= RULE_IDENT
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9093:6: this_IDENT_0= RULE_IDENT
                     {
-                    this_IDENT_0=(Token)match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_ruleQualifiedName21431); if (state.failed) return current;
+                    this_IDENT_0=(Token)match(input,RULE_IDENT,FOLLOW_RULE_IDENT_in_ruleQualifiedName21472); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       		current.merge(this_IDENT_0);
@@ -26448,9 +26544,9 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9083:10: this_IDENT_DOT_1= RULE_IDENT_DOT
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:9101:10: this_IDENT_DOT_1= RULE_IDENT_DOT
                     {
-                    this_IDENT_DOT_1=(Token)match(input,RULE_IDENT_DOT,FOLLOW_RULE_IDENT_DOT_in_ruleQualifiedName21457); if (state.failed) return current;
+                    this_IDENT_DOT_1=(Token)match(input,RULE_IDENT_DOT,FOLLOW_RULE_IDENT_DOT_in_ruleQualifiedName21498); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       		current.merge(this_IDENT_DOT_1);
@@ -29487,26 +29583,28 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_86_in_rulePojoProperty20876 = new BitSet(new long[]{0x0000000000000002L,0x0000000381000000L});
     public static final BitSet FOLLOW_87_in_rulePojoProperty20905 = new BitSet(new long[]{0x0000000000000002L,0x0000000381000000L});
     public static final BitSet FOLLOW_RULE_COLON_in_rulePojoProperty20940 = new BitSet(new long[]{0x0000000000003020L});
-    public static final BitSet FOLLOW_RULE_COLON_in_rulePojoProperty20952 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rulePojoProperty20971 = new BitSet(new long[]{0x0000000010000002L,0x0000000381000000L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rulePojoProperty21001 = new BitSet(new long[]{0x0000000010000002L,0x0000000381000000L});
-    public static final BitSet FOLLOW_RULE_LESS_THAN_in_rulePojoProperty21015 = new BitSet(new long[]{0x0000000000003020L});
-    public static final BitSet FOLLOW_RULE_COLON_in_rulePojoProperty21027 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_rulePojoProperty21046 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rulePojoProperty21076 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_RULE_MORE_THAN_in_rulePojoProperty21088 = new BitSet(new long[]{0x0000000000000002L,0x0000000381000000L});
-    public static final BitSet FOLLOW_88_in_rulePojoProperty21109 = new BitSet(new long[]{0x0000000000000002L,0x0000000380000000L});
-    public static final BitSet FOLLOW_96_in_rulePojoProperty21141 = new BitSet(new long[]{0x0000000000000002L,0x0000000280000000L});
-    public static final BitSet FOLLOW_95_in_rulePojoProperty21173 = new BitSet(new long[]{0x0000000000000002L,0x0000000200000000L});
-    public static final BitSet FOLLOW_97_in_rulePojoProperty21205 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_entryRuleQualifiedNameWithWildcard21260 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedNameWithWildcard21271 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleQualifiedNameWithWildcard21318 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
-    public static final BitSet FOLLOW_98_in_ruleQualifiedNameWithWildcard21337 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName21380 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName21391 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_in_ruleQualifiedName21431 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_IDENT_DOT_in_ruleQualifiedName21457 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_COLON_in_rulePojoProperty20952 = new BitSet(new long[]{0x0000000000002020L});
+    public static final BitSet FOLLOW_RULE_COLON_in_rulePojoProperty20964 = new BitSet(new long[]{0x0000000010000022L,0x0000000381000000L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rulePojoProperty20983 = new BitSet(new long[]{0x0000000010000022L,0x0000000381000000L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rulePojoProperty21011 = new BitSet(new long[]{0x0000000010000002L,0x0000000381000000L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rulePojoProperty21042 = new BitSet(new long[]{0x0000000010000002L,0x0000000381000000L});
+    public static final BitSet FOLLOW_RULE_LESS_THAN_in_rulePojoProperty21056 = new BitSet(new long[]{0x0000000000003020L});
+    public static final BitSet FOLLOW_RULE_COLON_in_rulePojoProperty21068 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_rulePojoProperty21087 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rulePojoProperty21117 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_RULE_MORE_THAN_in_rulePojoProperty21129 = new BitSet(new long[]{0x0000000000000002L,0x0000000381000000L});
+    public static final BitSet FOLLOW_88_in_rulePojoProperty21150 = new BitSet(new long[]{0x0000000000000002L,0x0000000380000000L});
+    public static final BitSet FOLLOW_96_in_rulePojoProperty21182 = new BitSet(new long[]{0x0000000000000002L,0x0000000280000000L});
+    public static final BitSet FOLLOW_95_in_rulePojoProperty21214 = new BitSet(new long[]{0x0000000000000002L,0x0000000200000000L});
+    public static final BitSet FOLLOW_97_in_rulePojoProperty21246 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_entryRuleQualifiedNameWithWildcard21301 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedNameWithWildcard21312 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleQualifiedNameWithWildcard21359 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+    public static final BitSet FOLLOW_98_in_ruleQualifiedNameWithWildcard21378 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName21421 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName21432 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_in_ruleQualifiedName21472 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_IDENT_DOT_in_ruleQualifiedName21498 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_synpred1_InternalProcessorDsl5132 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_synpred2_InternalProcessorDsl9666 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_synpred3_InternalProcessorDsl12331 = new BitSet(new long[]{0x0000000000000002L});

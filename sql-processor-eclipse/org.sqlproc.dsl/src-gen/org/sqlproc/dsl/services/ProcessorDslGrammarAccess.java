@@ -744,7 +744,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cInheritanceInheritanceAssignementParserRuleCall_0_23_5_1_0 = (RuleCall)cInheritanceAssignment_0_23_5_1.eContents().get(0);
 		private final Group cGroup_0_24 = (Group)cAlternatives_0.eContents().get(24);
 		private final Assignment cNameAssignment_0_24_0 = (Assignment)cGroup_0_24.eContents().get(0);
-		private final Keyword cNamePojogenGenerateFunctionsKeyword_0_24_0_0 = (Keyword)cNameAssignment_0_24_0.eContents().get(0);
+		private final Keyword cNamePojogenGenerateMethodsKeyword_0_24_0_0 = (Keyword)cNameAssignment_0_24_0.eContents().get(0);
 		private final Group cGroup_0_24_1 = (Group)cGroup_0_24.eContents().get(1);
 		private final RuleCall cWSTerminalRuleCall_0_24_1_0 = (RuleCall)cGroup_0_24_1.eContents().get(0);
 		private final Assignment cFunctionAssignment_0_24_1_1 = (Assignment)cGroup_0_24_1.eContents().get(1);
@@ -769,7 +769,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//	| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 		//	name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-		//	name="pojogen generate functions" (WS+ function+=PojoFunction)+) SEMICOLON;
+		//	name="pojogen generate methods" (WS+ function+=PojoFunction)+) SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
 		//(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF |
@@ -789,7 +789,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 		//name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-		//name="pojogen generate functions" (WS+ function+=PojoFunction)+) SEMICOLON
+		//name="pojogen generate methods" (WS+ function+=PojoFunction)+) SEMICOLON
 		public Group getGroup() { return cGroup; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF | name="database url"
@@ -809,7 +809,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 		//name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-		//name="pojogen generate functions" (WS+ function+=PojoFunction)+
+		//name="pojogen generate methods" (WS+ function+=PojoFunction)+
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF
@@ -1430,14 +1430,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//InheritanceAssignement
 		public RuleCall getInheritanceInheritanceAssignementParserRuleCall_0_23_5_1_0() { return cInheritanceInheritanceAssignementParserRuleCall_0_23_5_1_0; }
 
-		//name="pojogen generate functions" (WS+ function+=PojoFunction)+
+		//name="pojogen generate methods" (WS+ function+=PojoFunction)+
 		public Group getGroup_0_24() { return cGroup_0_24; }
 
-		//name="pojogen generate functions"
+		//name="pojogen generate methods"
 		public Assignment getNameAssignment_0_24_0() { return cNameAssignment_0_24_0; }
 
-		//"pojogen generate functions"
-		public Keyword getNamePojogenGenerateFunctionsKeyword_0_24_0_0() { return cNamePojogenGenerateFunctionsKeyword_0_24_0_0; }
+		//"pojogen generate methods"
+		public Keyword getNamePojogenGenerateMethodsKeyword_0_24_0_0() { return cNamePojogenGenerateMethodsKeyword_0_24_0_0; }
 
 		//(WS+ function+=PojoFunction)+
 		public Group getGroup_0_24_1() { return cGroup_0_24_1; }
@@ -5203,9 +5203,15 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_1_1_0_1 = (Alternatives)cGroup_1_1_0.eContents().get(1);
 		private final Group cGroup_1_1_0_1_0 = (Group)cAlternatives_1_1_0_1.eContents().get(0);
 		private final RuleCall cCOLONTerminalRuleCall_1_1_0_1_0_0 = (RuleCall)cGroup_1_1_0_1_0.eContents().get(0);
-		private final Assignment cRefAssignment_1_1_0_1_0_1 = (Assignment)cGroup_1_1_0_1_0.eContents().get(1);
-		private final CrossReference cRefPojoEntityCrossReference_1_1_0_1_0_1_0 = (CrossReference)cRefAssignment_1_1_0_1_0_1.eContents().get(0);
-		private final RuleCall cRefPojoEntityIDENTTerminalRuleCall_1_1_0_1_0_1_0_1 = (RuleCall)cRefPojoEntityCrossReference_1_1_0_1_0_1_0.eContents().get(1);
+		private final Alternatives cAlternatives_1_1_0_1_0_1 = (Alternatives)cGroup_1_1_0_1_0.eContents().get(1);
+		private final Group cGroup_1_1_0_1_0_1_0 = (Group)cAlternatives_1_1_0_1_0_1.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_1_1_0_1_0_1_0_0 = (RuleCall)cGroup_1_1_0_1_0_1_0.eContents().get(0);
+		private final Assignment cAttrsAssignment_1_1_0_1_0_1_0_1 = (Assignment)cGroup_1_1_0_1_0_1_0.eContents().get(1);
+		private final CrossReference cAttrsPojoPropertyCrossReference_1_1_0_1_0_1_0_1_0 = (CrossReference)cAttrsAssignment_1_1_0_1_0_1_0_1.eContents().get(0);
+		private final RuleCall cAttrsPojoPropertyIDENTTerminalRuleCall_1_1_0_1_0_1_0_1_0_1 = (RuleCall)cAttrsPojoPropertyCrossReference_1_1_0_1_0_1_0_1_0.eContents().get(1);
+		private final Assignment cRefAssignment_1_1_0_1_0_1_1 = (Assignment)cAlternatives_1_1_0_1_0_1.eContents().get(1);
+		private final CrossReference cRefPojoEntityCrossReference_1_1_0_1_0_1_1_0 = (CrossReference)cRefAssignment_1_1_0_1_0_1_1.eContents().get(0);
+		private final RuleCall cRefPojoEntityIDENTTerminalRuleCall_1_1_0_1_0_1_1_0_1 = (RuleCall)cRefPojoEntityCrossReference_1_1_0_1_0_1_1_0.eContents().get(1);
 		private final Assignment cTypeAssignment_1_1_0_1_1 = (Assignment)cAlternatives_1_1_0_1.eContents().get(1);
 		private final CrossReference cTypeJvmTypeCrossReference_1_1_0_1_1_0 = (CrossReference)cTypeAssignment_1_1_0_1_1.eContents().get(0);
 		private final RuleCall cTypeJvmTypeQualifiedNameParserRuleCall_1_1_0_1_1_0_1 = (RuleCall)cTypeJvmTypeCrossReference_1_1_0_1_1_0.eContents().get(1);
@@ -5232,15 +5238,15 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 		//	name=IDENT (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON
-		//	(COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
-		//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? required?="required"?
-		//	discriminator?="discriminator"? primaryKey?="primaryKey"?;
+		//	(COLON (COLON attrs+=[PojoProperty|IDENT]* | ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]))
+		//	(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"?
+		//	required?="required"? discriminator?="discriminator"? primaryKey?="primaryKey"?;
 		public ParserRule getRule() { return rule; }
 
 		//name=IDENT (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
-		//ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
-		//gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? required?="required"?
-		//discriminator?="discriminator"? primaryKey?="primaryKey"?
+		//(COLON attrs+=[PojoProperty|IDENT]* | ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN
+		//(COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"?
+		//required?="required"? discriminator?="discriminator"? primaryKey?="primaryKey"?
 		public Group getGroup() { return cGroup; }
 
 		//name=IDENT
@@ -5249,9 +5255,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getNameIDENTTerminalRuleCall_0_0() { return cNameIDENTTerminalRuleCall_0_0; }
 
-		//native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
-		//ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
-		//gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?
+		//native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON (COLON
+		//attrs+=[PojoProperty|IDENT]* | ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON
+		//gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean")
@@ -5284,33 +5290,51 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"_boolean"
 		public Keyword getNative_booleanKeyword_1_0_0_7() { return cNative_booleanKeyword_1_0_0_7; }
 
-		//(COLON (COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON
-		//gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?
+		//(COLON (COLON (COLON attrs+=[PojoProperty|IDENT]* | ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]))
+		//(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?
 		public Group getGroup_1_1() { return cGroup_1_1; }
 
-		//COLON (COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])
+		//COLON (COLON (COLON attrs+=[PojoProperty|IDENT]* | ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName])
 		public Group getGroup_1_1_0() { return cGroup_1_1_0; }
 
 		//COLON
 		public RuleCall getCOLONTerminalRuleCall_1_1_0_0() { return cCOLONTerminalRuleCall_1_1_0_0; }
 
-		//COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName]
+		//COLON (COLON attrs+=[PojoProperty|IDENT]* | ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]
 		public Alternatives getAlternatives_1_1_0_1() { return cAlternatives_1_1_0_1; }
 
-		//COLON ref=[PojoEntity|IDENT]
+		//COLON (COLON attrs+=[PojoProperty|IDENT]* | ref=[PojoEntity|IDENT])
 		public Group getGroup_1_1_0_1_0() { return cGroup_1_1_0_1_0; }
 
 		//COLON
 		public RuleCall getCOLONTerminalRuleCall_1_1_0_1_0_0() { return cCOLONTerminalRuleCall_1_1_0_1_0_0; }
 
-		//ref=[PojoEntity|IDENT]
-		public Assignment getRefAssignment_1_1_0_1_0_1() { return cRefAssignment_1_1_0_1_0_1; }
+		//COLON attrs+=[PojoProperty|IDENT]* | ref=[PojoEntity|IDENT]
+		public Alternatives getAlternatives_1_1_0_1_0_1() { return cAlternatives_1_1_0_1_0_1; }
 
-		//[PojoEntity|IDENT]
-		public CrossReference getRefPojoEntityCrossReference_1_1_0_1_0_1_0() { return cRefPojoEntityCrossReference_1_1_0_1_0_1_0; }
+		//COLON attrs+=[PojoProperty|IDENT]*
+		public Group getGroup_1_1_0_1_0_1_0() { return cGroup_1_1_0_1_0_1_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1_1_0_1_0_1_0_0() { return cCOLONTerminalRuleCall_1_1_0_1_0_1_0_0; }
+
+		//attrs+=[PojoProperty|IDENT]*
+		public Assignment getAttrsAssignment_1_1_0_1_0_1_0_1() { return cAttrsAssignment_1_1_0_1_0_1_0_1; }
+
+		//[PojoProperty|IDENT]
+		public CrossReference getAttrsPojoPropertyCrossReference_1_1_0_1_0_1_0_1_0() { return cAttrsPojoPropertyCrossReference_1_1_0_1_0_1_0_1_0; }
 
 		//IDENT
-		public RuleCall getRefPojoEntityIDENTTerminalRuleCall_1_1_0_1_0_1_0_1() { return cRefPojoEntityIDENTTerminalRuleCall_1_1_0_1_0_1_0_1; }
+		public RuleCall getAttrsPojoPropertyIDENTTerminalRuleCall_1_1_0_1_0_1_0_1_0_1() { return cAttrsPojoPropertyIDENTTerminalRuleCall_1_1_0_1_0_1_0_1_0_1; }
+
+		//ref=[PojoEntity|IDENT]
+		public Assignment getRefAssignment_1_1_0_1_0_1_1() { return cRefAssignment_1_1_0_1_0_1_1; }
+
+		//[PojoEntity|IDENT]
+		public CrossReference getRefPojoEntityCrossReference_1_1_0_1_0_1_1_0() { return cRefPojoEntityCrossReference_1_1_0_1_0_1_1_0; }
+
+		//IDENT
+		public RuleCall getRefPojoEntityIDENTTerminalRuleCall_1_1_0_1_0_1_1_0_1() { return cRefPojoEntityIDENTTerminalRuleCall_1_1_0_1_0_1_1_0_1; }
 
 		//type=[jvmTypes::JvmType|QualifiedName]
 		public Assignment getTypeAssignment_1_1_0_1_1() { return cTypeAssignment_1_1_0_1_1; }
@@ -5658,7 +5682,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	//	| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 	//	name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-	//	name="pojogen generate functions" (WS+ function+=PojoFunction)+) SEMICOLON;
+	//	name="pojogen generate methods" (WS+ function+=PojoFunction)+) SEMICOLON;
 	public PropertyElements getPropertyAccess() {
 		return (pProperty != null) ? pProperty : (pProperty = new PropertyElements());
 	}
@@ -6350,9 +6374,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 	//	name=IDENT (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON
-	//	(COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName])) (LESS_THAN (COLON gref=[PojoEntity|IDENT] |
-	//	gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"? required?="required"?
-	//	discriminator?="discriminator"? primaryKey?="primaryKey"?;
+	//	(COLON (COLON attrs+=[PojoProperty|IDENT]* | ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]))
+	//	(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) array?="[]"?
+	//	required?="required"? discriminator?="discriminator"? primaryKey?="primaryKey"?;
 	public PojoPropertyElements getPojoPropertyAccess() {
 		return (pPojoProperty != null) ? pPojoProperty : (pPojoProperty = new PojoPropertyElements());
 	}

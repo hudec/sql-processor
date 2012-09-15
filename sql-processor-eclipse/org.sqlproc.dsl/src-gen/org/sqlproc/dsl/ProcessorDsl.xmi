@@ -536,7 +536,7 @@
         </elements>
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-            <terminal xsi:type="xtext:Keyword" value="pojogen generate functions"/>
+            <terminal xsi:type="xtext:Keyword" value="pojogen generate methods"/>
           </elements>
           <elements xsi:type="xtext:Group" cardinality="+">
             <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.58"/>
@@ -2282,13 +2282,26 @@
             <elements xsi:type="xtext:Alternatives">
               <elements xsi:type="xtext:Group">
                 <elements xsi:type="xtext:RuleCall" rule="//@rules.61"/>
-                <elements xsi:type="xtext:Assignment" feature="ref" operator="=">
-                  <terminal xsi:type="xtext:CrossReference">
-                    <type metamodel="//@metamodelDeclarations.2">
-                      <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//PojoEntity"/>
-                    </type>
-                    <terminal xsi:type="xtext:RuleCall" rule="//@rules.53"/>
-                  </terminal>
+                <elements xsi:type="xtext:Alternatives">
+                  <elements xsi:type="xtext:Group">
+                    <elements xsi:type="xtext:RuleCall" rule="//@rules.61"/>
+                    <elements xsi:type="xtext:Assignment" cardinality="*" feature="attrs" operator="+=">
+                      <terminal xsi:type="xtext:CrossReference">
+                        <type metamodel="//@metamodelDeclarations.2">
+                          <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//PojoProperty"/>
+                        </type>
+                        <terminal xsi:type="xtext:RuleCall" rule="//@rules.53"/>
+                      </terminal>
+                    </elements>
+                  </elements>
+                  <elements xsi:type="xtext:Assignment" feature="ref" operator="=">
+                    <terminal xsi:type="xtext:CrossReference">
+                      <type metamodel="//@metamodelDeclarations.2">
+                        <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//PojoEntity"/>
+                      </type>
+                      <terminal xsi:type="xtext:RuleCall" rule="//@rules.53"/>
+                    </terminal>
+                  </elements>
                 </elements>
               </elements>
               <elements xsi:type="xtext:Assignment" feature="type" operator="=">

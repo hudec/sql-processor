@@ -2533,7 +2533,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPojoProperty_Ref()
+  public EReference getPojoProperty_Attrs()
   {
     return (EReference)pojoPropertyEClass.getEStructuralFeatures().get(2);
   }
@@ -2543,7 +2543,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPojoProperty_Type()
+  public EReference getPojoProperty_Ref()
   {
     return (EReference)pojoPropertyEClass.getEStructuralFeatures().get(3);
   }
@@ -2553,7 +2553,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPojoProperty_Gref()
+  public EReference getPojoProperty_Type()
   {
     return (EReference)pojoPropertyEClass.getEStructuralFeatures().get(4);
   }
@@ -2563,7 +2563,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPojoProperty_Gtype()
+  public EReference getPojoProperty_Gref()
   {
     return (EReference)pojoPropertyEClass.getEStructuralFeatures().get(5);
   }
@@ -2573,9 +2573,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getPojoProperty_Array()
+  public EReference getPojoProperty_Gtype()
   {
-    return (EAttribute)pojoPropertyEClass.getEStructuralFeatures().get(6);
+    return (EReference)pojoPropertyEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -2583,7 +2583,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getPojoProperty_Required()
+  public EAttribute getPojoProperty_Array()
   {
     return (EAttribute)pojoPropertyEClass.getEStructuralFeatures().get(7);
   }
@@ -2593,7 +2593,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getPojoProperty_Discriminator()
+  public EAttribute getPojoProperty_Required()
   {
     return (EAttribute)pojoPropertyEClass.getEStructuralFeatures().get(8);
   }
@@ -2603,9 +2603,19 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getPojoProperty_PrimaryKey()
+  public EAttribute getPojoProperty_Discriminator()
   {
     return (EAttribute)pojoPropertyEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPojoProperty_PrimaryKey()
+  {
+    return (EAttribute)pojoPropertyEClass.getEStructuralFeatures().get(10);
   }
 
   /**
@@ -2891,6 +2901,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     pojoPropertyEClass = createEClass(POJO_PROPERTY);
     createEAttribute(pojoPropertyEClass, POJO_PROPERTY__NAME);
     createEAttribute(pojoPropertyEClass, POJO_PROPERTY__NATIVE);
+    createEReference(pojoPropertyEClass, POJO_PROPERTY__ATTRS);
     createEReference(pojoPropertyEClass, POJO_PROPERTY__REF);
     createEReference(pojoPropertyEClass, POJO_PROPERTY__TYPE);
     createEReference(pojoPropertyEClass, POJO_PROPERTY__GREF);
@@ -3199,6 +3210,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEClass(pojoPropertyEClass, PojoProperty.class, "PojoProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPojoProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPojoProperty_Native(), ecorePackage.getEString(), "native", null, 0, 1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPojoProperty_Attrs(), this.getPojoProperty(), null, "attrs", null, 0, -1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPojoProperty_Ref(), this.getPojoEntity(), null, "ref", null, 0, 1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPojoProperty_Type(), theTypesPackage.getJvmType(), null, "type", null, 0, 1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPojoProperty_Gref(), this.getPojoEntity(), null, "gref", null, 0, 1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

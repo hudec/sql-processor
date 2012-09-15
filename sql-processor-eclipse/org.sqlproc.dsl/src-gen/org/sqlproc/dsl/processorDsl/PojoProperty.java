@@ -2,6 +2,8 @@
  */
 package org.sqlproc.dsl.processorDsl;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.xtext.common.types.JvmType;
@@ -16,6 +18,7 @@ import org.eclipse.xtext.common.types.JvmType;
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getNative <em>Native</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getAttrs <em>Attrs</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getRef <em>Ref</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getType <em>Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoProperty#getGref <em>Gref</em>}</li>
@@ -84,6 +87,22 @@ public interface PojoProperty extends EObject
    * @generated
    */
   void setNative(String value);
+
+  /**
+   * Returns the value of the '<em><b>Attrs</b></em>' reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.PojoProperty}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Attrs</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Attrs</em>' reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoProperty_Attrs()
+   * @model
+   * @generated
+   */
+  EList<PojoProperty> getAttrs();
 
   /**
    * Returns the value of the '<em><b>Ref</b></em>' reference.

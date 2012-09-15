@@ -45,7 +45,7 @@ Property:
 	|name='pojogen create many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	|name='pojogen table many-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
 	|name='pojogen inherit discriminator' WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
-	|name='pojogen generate functions' (WS+ function+=PojoFunction)+
+	|name='pojogen generate methods' (WS+ function+=PojoFunction)+
 	) SEMICOLON;
 
 PropertyValue:
@@ -263,7 +263,7 @@ PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
 
 PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 	name=IDENT (native = ('_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') | 
-	(COLON (COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName]))
+	(COLON (COLON (COLON (attrs+=[PojoProperty|IDENT])* | ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]))
 	(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) (array ?= '[]')?
 	(required?='required')? (discriminator?='discriminator')? (primaryKey?='primaryKey')?
 ;
