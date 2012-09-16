@@ -25,15 +25,15 @@ pojogen not required columns CONTACT PERSON_ID;
 pojogen required columns CONTACT ADDRESS;
 pojogen required columns CREDIT_CARD CC_NUMBER;
 pojogen type for columns MOVIE PLAYLENGTH->:java.lang.Integer;
+pojogen generate methods toString equals hashCode;
 
-//x
+
 package org.sqlproc.sample.simple.model2 suffix 2 {
 
 
 }
 
 package org.sqlproc.sample.simple.model {
-
 
   pojo BankAccount extends BillingDetails discriminator BA {
     account : java.lang.String required
@@ -44,10 +44,14 @@ package org.sqlproc.sample.simple.model {
     id : java.lang.Long primaryKey
     subscriber :: Subscriber required
     type : java.lang.String required discriminator
+    equals ::: id
+    hashCode ::: id
+    toString ::: id type subscriber
   }
 
   pojo Book extends Media {
     isbn : java.lang.String required
+    toString ::: isbn
   }
 
   pojo Contact {
@@ -55,25 +59,36 @@ package org.sqlproc.sample.simple.model {
     personId : java.lang.Long
     address : java.lang.String required
     homePhone : org.sqlproc.sample.simple.model.PhoneNumber
+    equals ::: id
+    hashCode ::: id
+    toString ::: id address personId homePhone
   }
 
   pojo CreditCard extends BillingDetails discriminator CC {
     number : java.lang.Long required
+    toString ::: number
   }
 
   pojo Library {
     id : java.lang.Long primaryKey
     name : java.lang.String required
+    equals ::: id
+    hashCode ::: id
+    toString ::: id name
   }
 
   pojo abstract Media {
     id : java.lang.Long primaryKey
     title : java.lang.String required
+    equals ::: id
+    hashCode ::: id
+    toString ::: id title
   }
 
   pojo Movie extends Media {
     urlImdb : java.lang.String required
     playLength : java.lang.Integer required
+    toString ::: urlImdb playLength
   }
 
   pojo Person {
@@ -81,12 +96,18 @@ package org.sqlproc.sample.simple.model {
     name : java.lang.String required
     library : java.util.List <:Media>
     contacts : java.util.List <:Contact>
+    equals ::: id
+    hashCode ::: id
+    toString ::: id name
   }
 
   pojo PersonLibrary {
     id : java.lang.Long primaryKey
     personId : java.lang.Long required
     mediaId : java.lang.Long required
+    equals ::: id
+    hashCode ::: id
+    toString ::: mediaId id personId
   }
 
   pojo Subscriber {
@@ -95,7 +116,11 @@ package org.sqlproc.sample.simple.model {
     contact :: Contact
     name : java.lang.String required
     billingDetails : java.util.List <:BillingDetails>
+    equals ::: id
+    hashCode ::: id
+    toString ::: id name library contact
   }
+
 
 //  pojo PhoneNumber {
 //    area _int required

@@ -53,6 +53,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_INHERIT_IMPORTS = "pojogen inherit many-to-one";
     public static final String POJOGEN_MANY_TO_MANY_EXPORTS = "pojogen table many-to-many";
     public static final String POJOGEN_INHERITANCE = "pojogen inherit discriminator";
+    public static final String POJOGEN_GENERATE_METHODS = "pojogen generate methods";
 
     public static class ModelValues {
         public boolean doResolvePojo;
@@ -81,6 +82,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Map<String, Map<String, String>>> manyToManyExports;
         private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
         public Map<String, String> inheritanceColumns;
+        public Set<String> generateMethods;
 
         @Override
         public String toString() {
@@ -93,7 +95,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + ", createColumns=" + createColumns + ", ignoreExports=" + ignoreExports + ", ignoreImports="
                     + ignoreImports + ", createExports=" + createExports + ", createImports=" + createImports
                     + ", inheritImports=" + inheritImports + ", manyToManyExports=" + manyToManyExports
-                    + ", inheritance=" + inheritance + ", inheritanceColumns=" + inheritanceColumns + "]";
+                    + ", inheritance=" + inheritance + ", inheritanceColumns=" + inheritanceColumns
+                    + ", generateMethods=" + generateMethods + "]";
         }
     }
 
@@ -357,6 +360,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     inherits.put(_inherit.getDiscriminator(), new HashMap<String, List<String>>());
                 inherits.get(_inherit.getDiscriminator()).put(_inherit.getDbTable(), _inherit.getDbColumns());
             }
+        } else if (POJOGEN_GENERATE_METHODS.equals(property.getName())) {
+            if (modelValues.generateMethods == null)
+                modelValues.generateMethods = new HashSet<String>();
+            for (int i = 0, m = property.getFunction().size(); i < m; i++) {
+                modelValues.generateMethods.add(property.getFunction().get(i));
+            }
         }
     }
 
@@ -488,6 +497,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Map<String, String> getInheritanceColumns(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.inheritanceColumns : Collections.<String, String> emptyMap();
+    }
+
+    @Override
+    public Set<String> getGenerateMethods(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.generateMethods : Collections.<String> emptySet();
     }
 
     @Override

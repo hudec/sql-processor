@@ -21,7 +21,7 @@ import org.sqlproc.dsl.resolver.DbImport;
 
 public class TablePojoConverter {
 
-    public enum PrimitiveType {
+    private enum PrimitiveType {
         BOOLEAN, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, CHAR, BYTE_ARRAY, CHAR_ARRAY;
 
         public String getName() {
@@ -32,6 +32,11 @@ public class TablePojoConverter {
             return name().toLowerCase();
         }
     }
+
+    private static final String METHOD_TO_STRING = "toString";
+    private static final String METHOD_HASH_CODE = "hashCode";
+    private static final String METHOD_EQUALS = "equals";
+    private static final String COLLECTION_LIST = "java.util.List";
 
     private String suffix;
     private Set<String> finalEntities;
@@ -53,6 +58,7 @@ public class TablePojoConverter {
     private Map<String, Map<String, Map<String, String>>> manyToManyExports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
     private Map<String, String> inheritanceColumns = new HashMap<String, String>();
+    private Set<String> generateMethods = new HashSet<String>();
 
     private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     private Map<String, String> pojoExtends = new HashMap<String, String>();
@@ -211,6 +217,10 @@ public class TablePojoConverter {
         if (inheritanceColumns != null) {
             this.inheritanceColumns.putAll(inheritanceColumns);
         }
+        Set<String> generateMethods = modelProperty.getGenerateMethods(artifacts);
+        if (generateMethods != null) {
+            this.generateMethods.addAll(generateMethods);
+        }
 
         for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : this.inheritImports.entrySet()) {
             for (Map.Entry<String, Map<String, String>> inherit : inheritImport.getValue().entrySet()) {
@@ -249,6 +259,7 @@ public class TablePojoConverter {
         // System.out.println("manyToManyExports " + this.manyToManyExports);
         // System.out.println("inheritance " + this.inheritance);
         // System.out.println("inheritanceColumns " + this.inheritanceColumns);
+        // System.out.println("generateMethods " + this.generateMethods);
     }
 
     public void addTableDefinition(String table, List<DbColumn> dbColumns, List<String> dbPrimaryKeys,
@@ -403,7 +414,7 @@ public class TablePojoConverter {
                         }
                         PojoAttribute attrib = new PojoAttribute();
                         attrib.setName(referName);
-                        attrib.setClassName("java.util.List <:" + tableToCamelCase(fk.getKey()) + ">");
+                        attrib.setClassName(COLLECTION_LIST + " <:" + tableToCamelCase(fk.getKey()) + ">");
                         newAttributes.put(attrib.getName(), attrib);
                     }
                 }
@@ -444,7 +455,7 @@ public class TablePojoConverter {
                             referName += pojo.substring(1);
                         PojoAttribute attrib = new PojoAttribute();
                         attrib.setName(referName + "s");
-                        attrib.setClassName("java.util.List <:" + pojo + ">");
+                        attrib.setClassName(COLLECTION_LIST + " <:" + pojo + ">");
                         referPojoAttr.put(attrib.getName(), attrib);
                     }
                 }
@@ -471,6 +482,8 @@ public class TablePojoConverter {
             if (pojoDiscriminators.containsKey(pojo))
                 buffer.append(" discriminator ").append(pojoDiscriminators.get(pojo));
             buffer.append(" {");
+            Set<String> pkeys = new HashSet<String>();
+            Set<String> strs = new HashSet<String>();
             for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
                 if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
                     continue;
@@ -483,10 +496,14 @@ public class TablePojoConverter {
                 buffer.append("\n    ").append(name).append(' ');
                 if (attribute.getDependencyClassName() != null) {
                     buffer.append(":: ").append(attribute.getDependencyClassName());
+                    strs.add(name);
                 } else if (attribute.isPrimitive()) {
                     buffer.append('_').append(attribute.getClassName());
+                    strs.add(name);
                 } else {
                     buffer.append(": ").append(attribute.getClassName());
+                    if (!attribute.getClassName().startsWith(COLLECTION_LIST))
+                        strs.add(name);
                 }
                 if ((requiredColumns.containsKey(pojo) && requiredColumns.get(pojo).contains(pentry.getKey()))
                         || (attribute.isRequired() && !attribute.isPrimaryKey())) {
@@ -499,6 +516,25 @@ public class TablePojoConverter {
                 }
                 if (attribute.isPrimaryKey()) {
                     buffer.append(" primaryKey");
+                    pkeys.add(name);
+                }
+            }
+            if (generateMethods.contains(METHOD_EQUALS) && !pkeys.isEmpty()) {
+                buffer.append("\n    ").append(METHOD_EQUALS).append(" :::");
+                for (String name : pkeys) {
+                    buffer.append(" ").append(name);
+                }
+            }
+            if (generateMethods.contains(METHOD_HASH_CODE) && !pkeys.isEmpty()) {
+                buffer.append("\n    ").append(METHOD_HASH_CODE).append(" :::");
+                for (String name : pkeys) {
+                    buffer.append(" ").append(name);
+                }
+            }
+            if (generateMethods.contains(METHOD_TO_STRING) && !strs.isEmpty()) {
+                buffer.append("\n    ").append(METHOD_TO_STRING).append(" :::");
+                for (String name : strs) {
+                    buffer.append(" ").append(name);
                 }
             }
             buffer.append("\n  }\n");
