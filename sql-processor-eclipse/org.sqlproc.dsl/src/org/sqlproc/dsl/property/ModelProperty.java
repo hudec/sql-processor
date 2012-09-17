@@ -55,7 +55,7 @@ public interface ModelProperty extends Adapter {
 
     Set<String> getGenerateMethods(EObject model);
 
-    List<JvmType> getToImports(EObject model);
+    List<JvmType> getToImplements(EObject model);
 
     JvmType getToExtends(EObject model);
 }

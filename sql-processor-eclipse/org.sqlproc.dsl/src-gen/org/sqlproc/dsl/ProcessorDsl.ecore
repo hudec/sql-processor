@@ -90,9 +90,9 @@
         eType="#//InheritanceAssignement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="methods" unique="false"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="toImports" unique="false"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="toImplements" unique="false"
         upperBound="-1" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="toExtend" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="toExtends" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PojoDefinition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -304,6 +304,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="AbstractPojoEntity"/>
   <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//AbstractPojoEntity">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Implements" eSuperTypes="#//AbstractPojoEntity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="implements" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Extends" eSuperTypes="#//AbstractPojoEntity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PojoEntity" eSuperTypes="#//AbstractPojoEntity">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="final" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>

@@ -56,7 +56,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_MANY_TO_MANY_EXPORTS = "pojogen table many-to-many";
     public static final String POJOGEN_INHERITANCE = "pojogen inherit discriminator";
     public static final String POJOGEN_GENERATE_METHODS = "pojogen generate methods";
-    public static final String POJOGEN_IMPORTS = "pojogen imports";
+    public static final String POJOGEN_IMPLEMENTS = "pojogen implements";
     public static final String POJOGEN_EXTENDS = "pojogen extends";
 
     public static class ModelValues {
@@ -87,7 +87,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
         public Map<String, String> inheritanceColumns;
         public Set<String> generateMethods;
-        public List<JvmType> toImports;
+        public List<JvmType> toImplements;
         public JvmType toExtends;
 
         @Override
@@ -102,8 +102,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + ignoreImports + ", createExports=" + createExports + ", createImports=" + createImports
                     + ", inheritImports=" + inheritImports + ", manyToManyExports=" + manyToManyExports
                     + ", inheritance=" + inheritance + ", inheritanceColumns=" + inheritanceColumns
-                    + ", generateMethods=" + generateMethods + ", toImports=" + toImports + ", toExtends=" + toExtends
-                    + "]";
+                    + ", generateMethods=" + generateMethods + ", toImplements=" + toImplements + ", toExtends="
+                    + toExtends + "]";
         }
     }
 
@@ -373,14 +373,14 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             for (int i = 0, m = property.getMethods().size(); i < m; i++) {
                 modelValues.generateMethods.add(property.getMethods().get(i));
             }
-        } else if (POJOGEN_IMPORTS.equals(property.getName())) {
-            if (modelValues.toImports == null)
-                modelValues.toImports = new ArrayList<JvmType>();
-            for (int i = 0, m = property.getToImports().size(); i < m; i++) {
-                modelValues.toImports.add(property.getToImports().get(i));
+        } else if (POJOGEN_IMPLEMENTS.equals(property.getName())) {
+            if (modelValues.toImplements == null)
+                modelValues.toImplements = new ArrayList<JvmType>();
+            for (int i = 0, m = property.getToImplements().size(); i < m; i++) {
+                modelValues.toImplements.add(property.getToImplements().get(i));
             }
         } else if (POJOGEN_EXTENDS.equals(property.getName())) {
-            modelValues.toExtends = property.getToExtend();
+            modelValues.toExtends = property.getToExtends();
         }
     }
 
@@ -521,9 +521,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
-    public List<JvmType> getToImports(EObject model) {
+    public List<JvmType> getToImplements(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.toImports : Collections.<JvmType> emptyList();
+        return (modelValues != null) ? modelValues.toImplements : Collections.<JvmType> emptyList();
     }
 
     @Override

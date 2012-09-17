@@ -59,8 +59,8 @@ import org.sqlproc.dsl.processorDsl.TableAssignement;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbColumn <em>Db Column</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getInheritance <em>Inheritance</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getMethods <em>Methods</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getToImports <em>To Imports</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getToExtend <em>To Extend</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getToImplements <em>To Implements</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getToExtends <em>To Extends</em>}</li>
  * </ul>
  * </p>
  *
@@ -369,24 +369,24 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
   protected EList<String> methods;
 
   /**
-   * The cached value of the '{@link #getToImports() <em>To Imports</em>}' reference list.
+   * The cached value of the '{@link #getToImplements() <em>To Implements</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getToImports()
+   * @see #getToImplements()
    * @generated
    * @ordered
    */
-  protected EList<JvmType> toImports;
+  protected EList<JvmType> toImplements;
 
   /**
-   * The cached value of the '{@link #getToExtend() <em>To Extend</em>}' reference.
+   * The cached value of the '{@link #getToExtends() <em>To Extends</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getToExtend()
+   * @see #getToExtends()
    * @generated
    * @ordered
    */
-  protected JvmType toExtend;
+  protected JvmType toExtends;
 
   /**
    * <!-- begin-user-doc -->
@@ -784,13 +784,13 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<JvmType> getToImports()
+  public EList<JvmType> getToImplements()
   {
-    if (toImports == null)
+    if (toImplements == null)
     {
-      toImports = new EObjectResolvingEList<JvmType>(JvmType.class, this, ProcessorDslPackage.PROPERTY__TO_IMPORTS);
+      toImplements = new EObjectResolvingEList<JvmType>(JvmType.class, this, ProcessorDslPackage.PROPERTY__TO_IMPLEMENTS);
     }
-    return toImports;
+    return toImplements;
   }
 
   /**
@@ -798,19 +798,19 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public JvmType getToExtend()
+  public JvmType getToExtends()
   {
-    if (toExtend != null && toExtend.eIsProxy())
+    if (toExtends != null && toExtends.eIsProxy())
     {
-      InternalEObject oldToExtend = (InternalEObject)toExtend;
-      toExtend = (JvmType)eResolveProxy(oldToExtend);
-      if (toExtend != oldToExtend)
+      InternalEObject oldToExtends = (InternalEObject)toExtends;
+      toExtends = (JvmType)eResolveProxy(oldToExtends);
+      if (toExtends != oldToExtends)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.PROPERTY__TO_EXTEND, oldToExtend, toExtend));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.PROPERTY__TO_EXTENDS, oldToExtends, toExtends));
       }
     }
-    return toExtend;
+    return toExtends;
   }
 
   /**
@@ -818,9 +818,9 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public JvmType basicGetToExtend()
+  public JvmType basicGetToExtends()
   {
-    return toExtend;
+    return toExtends;
   }
 
   /**
@@ -828,12 +828,12 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setToExtend(JvmType newToExtend)
+  public void setToExtends(JvmType newToExtends)
   {
-    JvmType oldToExtend = toExtend;
-    toExtend = newToExtend;
+    JvmType oldToExtends = toExtends;
+    toExtends = newToExtends;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__TO_EXTEND, oldToExtend, toExtend));
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__TO_EXTENDS, oldToExtends, toExtends));
   }
 
   /**
@@ -914,11 +914,11 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return getInheritance();
       case ProcessorDslPackage.PROPERTY__METHODS:
         return getMethods();
-      case ProcessorDslPackage.PROPERTY__TO_IMPORTS:
-        return getToImports();
-      case ProcessorDslPackage.PROPERTY__TO_EXTEND:
-        if (resolve) return getToExtend();
-        return basicGetToExtend();
+      case ProcessorDslPackage.PROPERTY__TO_IMPLEMENTS:
+        return getToImplements();
+      case ProcessorDslPackage.PROPERTY__TO_EXTENDS:
+        if (resolve) return getToExtends();
+        return basicGetToExtends();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -1004,12 +1004,12 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         getMethods().clear();
         getMethods().addAll((Collection<? extends String>)newValue);
         return;
-      case ProcessorDslPackage.PROPERTY__TO_IMPORTS:
-        getToImports().clear();
-        getToImports().addAll((Collection<? extends JvmType>)newValue);
+      case ProcessorDslPackage.PROPERTY__TO_IMPLEMENTS:
+        getToImplements().clear();
+        getToImplements().addAll((Collection<? extends JvmType>)newValue);
         return;
-      case ProcessorDslPackage.PROPERTY__TO_EXTEND:
-        setToExtend((JvmType)newValue);
+      case ProcessorDslPackage.PROPERTY__TO_EXTENDS:
+        setToExtends((JvmType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -1085,11 +1085,11 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
       case ProcessorDslPackage.PROPERTY__METHODS:
         getMethods().clear();
         return;
-      case ProcessorDslPackage.PROPERTY__TO_IMPORTS:
-        getToImports().clear();
+      case ProcessorDslPackage.PROPERTY__TO_IMPLEMENTS:
+        getToImplements().clear();
         return;
-      case ProcessorDslPackage.PROPERTY__TO_EXTEND:
-        setToExtend((JvmType)null);
+      case ProcessorDslPackage.PROPERTY__TO_EXTENDS:
+        setToExtends((JvmType)null);
         return;
     }
     super.eUnset(featureID);
@@ -1145,10 +1145,10 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return inheritance != null && !inheritance.isEmpty();
       case ProcessorDslPackage.PROPERTY__METHODS:
         return methods != null && !methods.isEmpty();
-      case ProcessorDslPackage.PROPERTY__TO_IMPORTS:
-        return toImports != null && !toImports.isEmpty();
-      case ProcessorDslPackage.PROPERTY__TO_EXTEND:
-        return toExtend != null;
+      case ProcessorDslPackage.PROPERTY__TO_IMPLEMENTS:
+        return toImplements != null && !toImplements.isEmpty();
+      case ProcessorDslPackage.PROPERTY__TO_EXTENDS:
+        return toExtends != null;
     }
     return super.eIsSet(featureID);
   }

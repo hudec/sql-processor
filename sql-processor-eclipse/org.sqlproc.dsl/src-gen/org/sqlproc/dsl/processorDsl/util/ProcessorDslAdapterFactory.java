@@ -310,6 +310,16 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createImportAdapter();
       }
       @Override
+      public Adapter caseImplements(Implements object)
+      {
+        return createImplementsAdapter();
+      }
+      @Override
+      public Adapter caseExtends(Extends object)
+      {
+        return createExtendsAdapter();
+      }
+      @Override
       public Adapter casePojoEntity(PojoEntity object)
       {
         return createPojoEntityAdapter();
@@ -1042,6 +1052,36 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createImportAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.Implements <em>Implements</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.Implements
+   * @generated
+   */
+  public Adapter createImplementsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.Extends <em>Extends</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.Extends
+   * @generated
+   */
+  public Adapter createExtendsAdapter()
   {
     return null;
   }

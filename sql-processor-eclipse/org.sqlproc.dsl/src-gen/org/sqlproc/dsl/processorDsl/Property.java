@@ -36,8 +36,8 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbColumn <em>Db Column</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getInheritance <em>Inheritance</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getMethods <em>Methods</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getToImports <em>To Imports</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getToExtend <em>To Extend</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getToImplements <em>To Implements</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getToExtends <em>To Extends</em>}</li>
  * </ul>
  * </p>
  *
@@ -468,45 +468,45 @@ public interface Property extends EObject
   EList<String> getMethods();
 
   /**
-   * Returns the value of the '<em><b>To Imports</b></em>' reference list.
+   * Returns the value of the '<em><b>To Implements</b></em>' reference list.
    * The list contents are of type {@link org.eclipse.xtext.common.types.JvmType}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>To Imports</em>' reference list isn't clear,
+   * If the meaning of the '<em>To Implements</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>To Imports</em>' reference list.
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_ToImports()
+   * @return the value of the '<em>To Implements</em>' reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_ToImplements()
    * @model
    * @generated
    */
-  EList<JvmType> getToImports();
+  EList<JvmType> getToImplements();
 
   /**
-   * Returns the value of the '<em><b>To Extend</b></em>' reference.
+   * Returns the value of the '<em><b>To Extends</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>To Extend</em>' reference isn't clear,
+   * If the meaning of the '<em>To Extends</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>To Extend</em>' reference.
-   * @see #setToExtend(JvmType)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_ToExtend()
+   * @return the value of the '<em>To Extends</em>' reference.
+   * @see #setToExtends(JvmType)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_ToExtends()
    * @model
    * @generated
    */
-  JvmType getToExtend();
+  JvmType getToExtends();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getToExtend <em>To Extend</em>}' reference.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getToExtends <em>To Extends</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>To Extend</em>' reference.
-   * @see #getToExtend()
+   * @param value the new value of the '<em>To Extends</em>' reference.
+   * @see #getToExtends()
    * @generated
    */
-  void setToExtend(JvmType value);
+  void setToExtends(JvmType value);
 
 } // Property

@@ -715,18 +715,19 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMethodsIDENTTerminalRuleCall_0_24_1_1_0 = (RuleCall)cMethodsAssignment_0_24_1_1.eContents().get(0);
 		private final Group cGroup_0_25 = (Group)cAlternatives_0.eContents().get(25);
 		private final Assignment cNameAssignment_0_25_0 = (Assignment)cGroup_0_25.eContents().get(0);
-		private final Keyword cNamePojogenImportsKeyword_0_25_0_0 = (Keyword)cNameAssignment_0_25_0.eContents().get(0);
+		private final Keyword cNamePojogenImplementsKeyword_0_25_0_0 = (Keyword)cNameAssignment_0_25_0.eContents().get(0);
 		private final Group cGroup_0_25_1 = (Group)cGroup_0_25.eContents().get(1);
 		private final RuleCall cWSTerminalRuleCall_0_25_1_0 = (RuleCall)cGroup_0_25_1.eContents().get(0);
-		private final Assignment cToImportsAssignment_0_25_1_1 = (Assignment)cGroup_0_25_1.eContents().get(1);
-		private final CrossReference cToImportsJvmTypeCrossReference_0_25_1_1_0 = (CrossReference)cToImportsAssignment_0_25_1_1.eContents().get(0);
-		private final RuleCall cToImportsJvmTypeQualifiedNameParserRuleCall_0_25_1_1_0_1 = (RuleCall)cToImportsJvmTypeCrossReference_0_25_1_1_0.eContents().get(1);
+		private final Assignment cToImplementsAssignment_0_25_1_1 = (Assignment)cGroup_0_25_1.eContents().get(1);
+		private final CrossReference cToImplementsJvmTypeCrossReference_0_25_1_1_0 = (CrossReference)cToImplementsAssignment_0_25_1_1.eContents().get(0);
+		private final RuleCall cToImplementsJvmTypeQualifiedNameParserRuleCall_0_25_1_1_0_1 = (RuleCall)cToImplementsJvmTypeCrossReference_0_25_1_1_0.eContents().get(1);
 		private final Group cGroup_0_26 = (Group)cAlternatives_0.eContents().get(26);
 		private final Assignment cNameAssignment_0_26_0 = (Assignment)cGroup_0_26.eContents().get(0);
 		private final Keyword cNamePojogenExtendsKeyword_0_26_0_0 = (Keyword)cNameAssignment_0_26_0.eContents().get(0);
-		private final Assignment cToExtendAssignment_0_26_1 = (Assignment)cGroup_0_26.eContents().get(1);
-		private final CrossReference cToExtendJvmTypeCrossReference_0_26_1_0 = (CrossReference)cToExtendAssignment_0_26_1.eContents().get(0);
-		private final RuleCall cToExtendJvmTypeQualifiedNameParserRuleCall_0_26_1_0_1 = (RuleCall)cToExtendJvmTypeCrossReference_0_26_1_0.eContents().get(1);
+		private final RuleCall cWSTerminalRuleCall_0_26_1 = (RuleCall)cGroup_0_26.eContents().get(1);
+		private final Assignment cToExtendsAssignment_0_26_2 = (Assignment)cGroup_0_26.eContents().get(2);
+		private final CrossReference cToExtendsJvmTypeCrossReference_0_26_2_0 = (CrossReference)cToExtendsAssignment_0_26_2.eContents().get(0);
+		private final RuleCall cToExtendsJvmTypeQualifiedNameParserRuleCall_0_26_2_0_1 = (RuleCall)cToExtendsJvmTypeCrossReference_0_26_2_0.eContents().get(1);
 		private final RuleCall cSEMICOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//Property:
@@ -747,9 +748,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//	| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 		//	name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-		//	name="pojogen generate methods" (WS+ methods+=IDENT)+ | name="pojogen imports" (WS+
-		//	toImports+=[jvmTypes::JvmType|QualifiedName])+ | name="pojogen extends" toExtend=[jvmTypes::JvmType|QualifiedName])
-		//	SEMICOLON;
+		//	name="pojogen generate methods" (WS+ methods+=IDENT)+ | name="pojogen implements" (WS+
+		//	toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="pojogen extends" WS+
+		//	toExtends=[jvmTypes::JvmType|QualifiedName]) SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
 		//(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF |
@@ -769,9 +770,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 		//name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-		//name="pojogen generate methods" (WS+ methods+=IDENT)+ | name="pojogen imports" (WS+
-		//toImports+=[jvmTypes::JvmType|QualifiedName])+ | name="pojogen extends" toExtend=[jvmTypes::JvmType|QualifiedName])
-		//SEMICOLON
+		//name="pojogen generate methods" (WS+ methods+=IDENT)+ | name="pojogen implements" (WS+
+		//toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="pojogen extends" WS+
+		//toExtends=[jvmTypes::JvmType|QualifiedName]) SEMICOLON
 		public Group getGroup() { return cGroup; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF | name="database url"
@@ -791,8 +792,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 		//name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-		//name="pojogen generate methods" (WS+ methods+=IDENT)+ | name="pojogen imports" (WS+
-		//toImports+=[jvmTypes::JvmType|QualifiedName])+ | name="pojogen extends" toExtend=[jvmTypes::JvmType|QualifiedName]
+		//name="pojogen generate methods" (WS+ methods+=IDENT)+ | name="pojogen implements" (WS+
+		//toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="pojogen extends" WS+
+		//toExtends=[jvmTypes::JvmType|QualifiedName]
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF
@@ -1434,31 +1436,31 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getMethodsIDENTTerminalRuleCall_0_24_1_1_0() { return cMethodsIDENTTerminalRuleCall_0_24_1_1_0; }
 
-		//name="pojogen imports" (WS+ toImports+=[jvmTypes::JvmType|QualifiedName])+
+		//name="pojogen implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
 		public Group getGroup_0_25() { return cGroup_0_25; }
 
-		//name="pojogen imports"
+		//name="pojogen implements"
 		public Assignment getNameAssignment_0_25_0() { return cNameAssignment_0_25_0; }
 
-		//"pojogen imports"
-		public Keyword getNamePojogenImportsKeyword_0_25_0_0() { return cNamePojogenImportsKeyword_0_25_0_0; }
+		//"pojogen implements"
+		public Keyword getNamePojogenImplementsKeyword_0_25_0_0() { return cNamePojogenImplementsKeyword_0_25_0_0; }
 
-		//(WS+ toImports+=[jvmTypes::JvmType|QualifiedName])+
+		//(WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
 		public Group getGroup_0_25_1() { return cGroup_0_25_1; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_0_25_1_0() { return cWSTerminalRuleCall_0_25_1_0; }
 
-		//toImports+=[jvmTypes::JvmType|QualifiedName]
-		public Assignment getToImportsAssignment_0_25_1_1() { return cToImportsAssignment_0_25_1_1; }
+		//toImplements+=[jvmTypes::JvmType|QualifiedName]
+		public Assignment getToImplementsAssignment_0_25_1_1() { return cToImplementsAssignment_0_25_1_1; }
 
 		//[jvmTypes::JvmType|QualifiedName]
-		public CrossReference getToImportsJvmTypeCrossReference_0_25_1_1_0() { return cToImportsJvmTypeCrossReference_0_25_1_1_0; }
+		public CrossReference getToImplementsJvmTypeCrossReference_0_25_1_1_0() { return cToImplementsJvmTypeCrossReference_0_25_1_1_0; }
 
 		//QualifiedName
-		public RuleCall getToImportsJvmTypeQualifiedNameParserRuleCall_0_25_1_1_0_1() { return cToImportsJvmTypeQualifiedNameParserRuleCall_0_25_1_1_0_1; }
+		public RuleCall getToImplementsJvmTypeQualifiedNameParserRuleCall_0_25_1_1_0_1() { return cToImplementsJvmTypeQualifiedNameParserRuleCall_0_25_1_1_0_1; }
 
-		//name="pojogen extends" toExtend=[jvmTypes::JvmType|QualifiedName]
+		//name="pojogen extends" WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
 		public Group getGroup_0_26() { return cGroup_0_26; }
 
 		//name="pojogen extends"
@@ -1467,14 +1469,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"pojogen extends"
 		public Keyword getNamePojogenExtendsKeyword_0_26_0_0() { return cNamePojogenExtendsKeyword_0_26_0_0; }
 
-		//toExtend=[jvmTypes::JvmType|QualifiedName]
-		public Assignment getToExtendAssignment_0_26_1() { return cToExtendAssignment_0_26_1; }
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_26_1() { return cWSTerminalRuleCall_0_26_1; }
+
+		//toExtends=[jvmTypes::JvmType|QualifiedName]
+		public Assignment getToExtendsAssignment_0_26_2() { return cToExtendsAssignment_0_26_2; }
 
 		//[jvmTypes::JvmType|QualifiedName]
-		public CrossReference getToExtendJvmTypeCrossReference_0_26_1_0() { return cToExtendJvmTypeCrossReference_0_26_1_0; }
+		public CrossReference getToExtendsJvmTypeCrossReference_0_26_2_0() { return cToExtendsJvmTypeCrossReference_0_26_2_0; }
 
 		//QualifiedName
-		public RuleCall getToExtendJvmTypeQualifiedNameParserRuleCall_0_26_1_0_1() { return cToExtendJvmTypeQualifiedNameParserRuleCall_0_26_1_0_1; }
+		public RuleCall getToExtendsJvmTypeQualifiedNameParserRuleCall_0_26_2_0_1() { return cToExtendsJvmTypeQualifiedNameParserRuleCall_0_26_2_0_1; }
 
 		//SEMICOLON
 		public RuleCall getSEMICOLONTerminalRuleCall_1() { return cSEMICOLONTerminalRuleCall_1; }
@@ -5062,12 +5067,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPackageDeclarationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cPojoEntityParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cImportParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cImplementsParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cExtendsParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
 		//AbstractPojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-		//	PackageDeclaration | PojoEntity | Import;
+		//	PackageDeclaration | PojoEntity | Import | Implements | Extends;
 		public ParserRule getRule() { return rule; }
 
-		//PackageDeclaration | PojoEntity | Import
+		//PackageDeclaration | PojoEntity | Import | Implements | Extends
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//PackageDeclaration
@@ -5078,6 +5085,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Import
 		public RuleCall getImportParserRuleCall_2() { return cImportParserRuleCall_2; }
+
+		//Implements
+		public RuleCall getImplementsParserRuleCall_3() { return cImplementsParserRuleCall_3; }
+
+		//Extends
+		public RuleCall getExtendsParserRuleCall_4() { return cExtendsParserRuleCall_4; }
 	}
 
 	public class ImportElements extends AbstractParserRuleElementFinder {
@@ -5102,6 +5115,62 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//QualifiedNameWithWildcard
 		public RuleCall getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0() { return cImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0; }
+	}
+
+	public class ImplementsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Implements");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cImplementsKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cImplementsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cImplementsJvmTypeCrossReference_1_0 = (CrossReference)cImplementsAssignment_1.eContents().get(0);
+		private final RuleCall cImplementsJvmTypeQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cImplementsJvmTypeCrossReference_1_0.eContents().get(1);
+		
+		//Implements hidden(ML_COMMENT, SL_COMMENT, WS):
+		//	"implements" implements=[jvmTypes::JvmType|QualifiedName];
+		public ParserRule getRule() { return rule; }
+
+		//"implements" implements=[jvmTypes::JvmType|QualifiedName]
+		public Group getGroup() { return cGroup; }
+
+		//"implements"
+		public Keyword getImplementsKeyword_0() { return cImplementsKeyword_0; }
+
+		//implements=[jvmTypes::JvmType|QualifiedName]
+		public Assignment getImplementsAssignment_1() { return cImplementsAssignment_1; }
+
+		//[jvmTypes::JvmType|QualifiedName]
+		public CrossReference getImplementsJvmTypeCrossReference_1_0() { return cImplementsJvmTypeCrossReference_1_0; }
+
+		//QualifiedName
+		public RuleCall getImplementsJvmTypeQualifiedNameParserRuleCall_1_0_1() { return cImplementsJvmTypeQualifiedNameParserRuleCall_1_0_1; }
+	}
+
+	public class ExtendsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Extends");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cExtendsKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cExtendsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cExtendsJvmTypeCrossReference_1_0 = (CrossReference)cExtendsAssignment_1.eContents().get(0);
+		private final RuleCall cExtendsJvmTypeQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cExtendsJvmTypeCrossReference_1_0.eContents().get(1);
+		
+		//Extends hidden(ML_COMMENT, SL_COMMENT, WS):
+		//	"extends" extends=[jvmTypes::JvmType|QualifiedName];
+		public ParserRule getRule() { return rule; }
+
+		//"extends" extends=[jvmTypes::JvmType|QualifiedName]
+		public Group getGroup() { return cGroup; }
+
+		//"extends"
+		public Keyword getExtendsKeyword_0() { return cExtendsKeyword_0; }
+
+		//extends=[jvmTypes::JvmType|QualifiedName]
+		public Assignment getExtendsAssignment_1() { return cExtendsAssignment_1; }
+
+		//[jvmTypes::JvmType|QualifiedName]
+		public CrossReference getExtendsJvmTypeCrossReference_1_0() { return cExtendsJvmTypeCrossReference_1_0; }
+
+		//QualifiedName
+		public RuleCall getExtendsJvmTypeQualifiedNameParserRuleCall_1_0_1() { return cExtendsJvmTypeQualifiedNameParserRuleCall_1_0_1; }
 	}
 
 	public class PojoEntityElements extends AbstractParserRuleElementFinder {
@@ -5561,6 +5630,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private PackageDeclarationElements pPackageDeclaration;
 	private AbstractPojoEntityElements pAbstractPojoEntity;
 	private ImportElements pImport;
+	private ImplementsElements pImplements;
+	private ExtendsElements pExtends;
 	private PojoEntityElements pPojoEntity;
 	private PojoPropertyElements pPojoProperty;
 	private QualifiedNameWithWildcardElements pQualifiedNameWithWildcard;
@@ -5696,9 +5767,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	//	| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 	//	name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-	//	name="pojogen generate methods" (WS+ methods+=IDENT)+ | name="pojogen imports" (WS+
-	//	toImports+=[jvmTypes::JvmType|QualifiedName])+ | name="pojogen extends" toExtend=[jvmTypes::JvmType|QualifiedName])
-	//	SEMICOLON;
+	//	name="pojogen generate methods" (WS+ methods+=IDENT)+ | name="pojogen implements" (WS+
+	//	toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="pojogen extends" WS+
+	//	toExtends=[jvmTypes::JvmType|QualifiedName]) SEMICOLON;
 	public PropertyElements getPropertyAccess() {
 		return (pProperty != null) ? pProperty : (pProperty = new PropertyElements());
 	}
@@ -6358,7 +6429,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AbstractPojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-	//	PackageDeclaration | PojoEntity | Import;
+	//	PackageDeclaration | PojoEntity | Import | Implements | Extends;
 	public AbstractPojoEntityElements getAbstractPojoEntityAccess() {
 		return (pAbstractPojoEntity != null) ? pAbstractPojoEntity : (pAbstractPojoEntity = new AbstractPojoEntityElements());
 	}
@@ -6375,6 +6446,26 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getImportRule() {
 		return getImportAccess().getRule();
+	}
+
+	//Implements hidden(ML_COMMENT, SL_COMMENT, WS):
+	//	"implements" implements=[jvmTypes::JvmType|QualifiedName];
+	public ImplementsElements getImplementsAccess() {
+		return (pImplements != null) ? pImplements : (pImplements = new ImplementsElements());
+	}
+	
+	public ParserRule getImplementsRule() {
+		return getImplementsAccess().getRule();
+	}
+
+	//Extends hidden(ML_COMMENT, SL_COMMENT, WS):
+	//	"extends" extends=[jvmTypes::JvmType|QualifiedName];
+	public ExtendsElements getExtendsAccess() {
+		return (pExtends != null) ? pExtends : (pExtends = new ExtendsElements());
+	}
+	
+	public ParserRule getExtendsRule() {
+		return getExtendsAccess().getRule();
 	}
 
 	//PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):

@@ -61,7 +61,7 @@ public class TablePojoConverter {
     private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
     private Map<String, String> inheritanceColumns = new HashMap<String, String>();
     private Set<String> generateMethods = new HashSet<String>();
-    private List<JvmType> toImports = new ArrayList<JvmType>();
+    private List<JvmType> toImplements = new ArrayList<JvmType>();
     private JvmType toExtends = null;
 
     private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
@@ -225,9 +225,9 @@ public class TablePojoConverter {
         if (generateMethods != null) {
             this.generateMethods.addAll(generateMethods);
         }
-        List<JvmType> toImports = modelProperty.getToImports(artifacts);
-        if (toImports != null) {
-            this.toImports.addAll(toImports);
+        List<JvmType> toImplements = modelProperty.getToImplements(artifacts);
+        if (toImplements != null) {
+            this.toImplements.addAll(toImplements);
         }
         this.toExtends = modelProperty.getToExtends(artifacts);
 

@@ -45,8 +45,8 @@ Property:
 	|name='pojogen table many-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
 	|name='pojogen inherit discriminator' WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
 	|name='pojogen generate methods' (WS+ methods+=IDENT)+
-	|name='pojogen imports' (WS+ toImports+=[jvmTypes::JvmType|QualifiedName])+
-	|name='pojogen extends' toExtend=[jvmTypes::JvmType|QualifiedName]
+	|name='pojogen implements' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
+	|name='pojogen extends' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
 	) SEMICOLON;
 
 PropertyValue:
@@ -251,10 +251,16 @@ PackageDeclaration hidden(ML_COMMENT, SL_COMMENT, WS):
 	RBRACE;
 
 AbstractPojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-	PackageDeclaration | PojoEntity | Import;
+	PackageDeclaration | PojoEntity | Import | Implements | Extends;
 
 Import hidden(ML_COMMENT, SL_COMMENT, WS):
 	'import' importedNamespace = QualifiedNameWithWildcard;
+
+Implements hidden(ML_COMMENT, SL_COMMENT, WS):
+	'implements' implements = [jvmTypes::JvmType|QualifiedName];
+
+Extends hidden(ML_COMMENT, SL_COMMENT, WS):
+	'extends' extends = [jvmTypes::JvmType|QualifiedName];
 
 PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
 	(final?='final')? 'pojo' (abstract?='abstract')? name=IDENT

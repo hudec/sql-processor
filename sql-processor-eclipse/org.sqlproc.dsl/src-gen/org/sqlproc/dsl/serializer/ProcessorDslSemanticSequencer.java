@@ -25,6 +25,7 @@ import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
+import org.sqlproc.dsl.processorDsl.Extends;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.IdentifierUsageExt;
@@ -33,6 +34,7 @@ import org.sqlproc.dsl.processorDsl.IfSql;
 import org.sqlproc.dsl.processorDsl.IfSqlBool;
 import org.sqlproc.dsl.processorDsl.IfSqlCond;
 import org.sqlproc.dsl.processorDsl.IfSqlFragment;
+import org.sqlproc.dsl.processorDsl.Implements;
 import org.sqlproc.dsl.processorDsl.Import;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
@@ -146,6 +148,13 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.EXTENDS:
+				if(context == grammarAccess.getAbstractPojoEntityRule() ||
+				   context == grammarAccess.getExtendsRule()) {
+					sequence_Extends(context, (Extends) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.IDENTIFIER:
 				if(context == grammarAccess.getIdentifierRule()) {
 					sequence_Identifier(context, (Identifier) semanticObject); 
@@ -193,6 +202,13 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.IF_SQL_FRAGMENT:
 				if(context == grammarAccess.getIfSqlFragmentRule()) {
 					sequence_IfSqlFragment(context, (IfSqlFragment) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.IMPLEMENTS:
+				if(context == grammarAccess.getAbstractPojoEntityRule() ||
+				   context == grammarAccess.getImplementsRule()) {
+					sequence_Implements(context, (Implements) semanticObject); 
 					return; 
 				}
 				else break;
@@ -542,6 +558,22 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
+	 *     extends=[JvmType|QualifiedName]
+	 */
+	protected void sequence_Extends(EObject context, Extends semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.EXTENDS__EXTENDS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.EXTENDS__EXTENDS));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getExtendsAccess().getExtendsJvmTypeQualifiedNameParserRuleCall_1_0_1(), semanticObject.getExtends());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT])
 	 */
 	protected void sequence_IdentifierUsageExt(EObject context, IdentifierUsageExt semanticObject) {
@@ -647,6 +679,22 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 */
 	protected void sequence_IfSql(EObject context, IfSql semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     implements=[JvmType|QualifiedName]
+	 */
+	protected void sequence_Implements(EObject context, Implements semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.IMPLEMENTS__IMPLEMENTS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.IMPLEMENTS__IMPLEMENTS));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getImplementsAccess().getImplementsJvmTypeQualifiedNameParserRuleCall_1_0_1(), semanticObject.getImplements());
+		feeder.finish();
 	}
 	
 	
@@ -923,8 +971,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='pojogen table many-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
 	 *         (name='pojogen inherit discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
 	 *         (name='pojogen generate methods' methods+=IDENT+) | 
-	 *         (name='pojogen imports' toImports+=[JvmType|QualifiedName]+) | 
-	 *         (name='pojogen extends' toExtend=[JvmType|QualifiedName])
+	 *         (name='pojogen implements' toImplements+=[JvmType|QualifiedName]+) | 
+	 *         (name='pojogen extends' toExtends=[JvmType|QualifiedName])
 	 *     )
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {

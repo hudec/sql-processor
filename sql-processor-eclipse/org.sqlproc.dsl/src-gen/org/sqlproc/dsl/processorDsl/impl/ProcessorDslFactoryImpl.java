@@ -111,6 +111,8 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.PACKAGE_DECLARATION: return createPackageDeclaration();
       case ProcessorDslPackage.ABSTRACT_POJO_ENTITY: return createAbstractPojoEntity();
       case ProcessorDslPackage.IMPORT: return createImport();
+      case ProcessorDslPackage.IMPLEMENTS: return createImplements();
+      case ProcessorDslPackage.EXTENDS: return createExtends();
       case ProcessorDslPackage.POJO_ENTITY: return createPojoEntity();
       case ProcessorDslPackage.POJO_PROPERTY: return createPojoProperty();
       default:
@@ -633,6 +635,28 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     ImportImpl import_ = new ImportImpl();
     return import_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Implements createImplements()
+  {
+    ImplementsImpl implements_ = new ImplementsImpl();
+    return implements_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Extends createExtends()
+  {
+    ExtendsImpl extends_ = new ExtendsImpl();
+    return extends_;
   }
 
   /**

@@ -651,22 +651,22 @@ public interface ProcessorDslPackage extends EPackage
   int PROPERTY__METHODS = 19;
 
   /**
-   * The feature id for the '<em><b>To Imports</b></em>' reference list.
+   * The feature id for the '<em><b>To Implements</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROPERTY__TO_IMPORTS = 20;
+  int PROPERTY__TO_IMPLEMENTS = 20;
 
   /**
-   * The feature id for the '<em><b>To Extend</b></em>' reference.
+   * The feature id for the '<em><b>To Extends</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROPERTY__TO_EXTEND = 21;
+  int PROPERTY__TO_EXTENDS = 21;
 
   /**
    * The number of structural features of the '<em>Property</em>' class.
@@ -2327,6 +2327,62 @@ public interface ProcessorDslPackage extends EPackage
   int IMPORT_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ImplementsImpl <em>Implements</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.sqlproc.dsl.processorDsl.impl.ImplementsImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImplements()
+   * @generated
+   */
+  int IMPLEMENTS = 47;
+
+  /**
+   * The feature id for the '<em><b>Implements</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTS__IMPLEMENTS = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Implements</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLEMENTS_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ExtendsImpl <em>Extends</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.sqlproc.dsl.processorDsl.impl.ExtendsImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExtends()
+   * @generated
+   */
+  int EXTENDS = 48;
+
+  /**
+   * The feature id for the '<em><b>Extends</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXTENDS__EXTENDS = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Extends</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXTENDS_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl <em>Pojo Entity</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2334,7 +2390,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntity()
    * @generated
    */
-  int POJO_ENTITY = 47;
+  int POJO_ENTITY = 49;
 
   /**
    * The feature id for the '<em><b>Final</b></em>' attribute.
@@ -2407,7 +2463,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoProperty()
    * @generated
    */
-  int POJO_PROPERTY = 48;
+  int POJO_PROPERTY = 50;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3137,26 +3193,26 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getProperty_Methods();
 
   /**
-   * Returns the meta object for the reference list '{@link org.sqlproc.dsl.processorDsl.Property#getToImports <em>To Imports</em>}'.
+   * Returns the meta object for the reference list '{@link org.sqlproc.dsl.processorDsl.Property#getToImplements <em>To Implements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>To Imports</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Property#getToImports()
+   * @return the meta object for the reference list '<em>To Implements</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Property#getToImplements()
    * @see #getProperty()
    * @generated
    */
-  EReference getProperty_ToImports();
+  EReference getProperty_ToImplements();
 
   /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.Property#getToExtend <em>To Extend</em>}'.
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.Property#getToExtends <em>To Extends</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>To Extend</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Property#getToExtend()
+   * @return the meta object for the reference '<em>To Extends</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Property#getToExtends()
    * @see #getProperty()
    * @generated
    */
-  EReference getProperty_ToExtend();
+  EReference getProperty_ToExtends();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoDefinition <em>Pojo Definition</em>}'.
@@ -4584,6 +4640,48 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getImport_ImportedNamespace();
 
   /**
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.Implements <em>Implements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Implements</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Implements
+   * @generated
+   */
+  EClass getImplements();
+
+  /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.Implements#getImplements <em>Implements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Implements</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Implements#getImplements()
+   * @see #getImplements()
+   * @generated
+   */
+  EReference getImplements_Implements();
+
+  /**
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.Extends <em>Extends</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Extends</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Extends
+   * @generated
+   */
+  EClass getExtends();
+
+  /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.Extends#getExtends <em>Extends</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Extends</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Extends#getExtends()
+   * @see #getExtends()
+   * @generated
+   */
+  EReference getExtends_Extends();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoEntity <em>Pojo Entity</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5288,20 +5386,20 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute PROPERTY__METHODS = eINSTANCE.getProperty_Methods();
 
     /**
-     * The meta object literal for the '<em><b>To Imports</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>To Implements</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PROPERTY__TO_IMPORTS = eINSTANCE.getProperty_ToImports();
+    EReference PROPERTY__TO_IMPLEMENTS = eINSTANCE.getProperty_ToImplements();
 
     /**
-     * The meta object literal for the '<em><b>To Extend</b></em>' reference feature.
+     * The meta object literal for the '<em><b>To Extends</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PROPERTY__TO_EXTEND = eINSTANCE.getProperty_ToExtend();
+    EReference PROPERTY__TO_EXTENDS = eINSTANCE.getProperty_ToExtends();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.
@@ -6442,6 +6540,42 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute IMPORT__IMPORTED_NAMESPACE = eINSTANCE.getImport_ImportedNamespace();
+
+    /**
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ImplementsImpl <em>Implements</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.sqlproc.dsl.processorDsl.impl.ImplementsImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImplements()
+     * @generated
+     */
+    EClass IMPLEMENTS = eINSTANCE.getImplements();
+
+    /**
+     * The meta object literal for the '<em><b>Implements</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference IMPLEMENTS__IMPLEMENTS = eINSTANCE.getImplements_Implements();
+
+    /**
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ExtendsImpl <em>Extends</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.sqlproc.dsl.processorDsl.impl.ExtendsImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExtends()
+     * @generated
+     */
+    EClass EXTENDS = eINSTANCE.getExtends();
+
+    /**
+     * The meta object literal for the '<em><b>Extends</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EXTENDS__EXTENDS = eINSTANCE.getExtends_Extends();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl <em>Pojo Entity</em>}' class.
