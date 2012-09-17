@@ -3,6 +3,7 @@ package org.sqlproc.dsl.ui.templates;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.eclipse.xtext.common.types.JvmType;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.property.PojoAttrType;
@@ -59,6 +61,8 @@ public class TablePojoConverter {
     private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
     private Map<String, String> inheritanceColumns = new HashMap<String, String>();
     private Set<String> generateMethods = new HashSet<String>();
+    private List<JvmType> toImports = new ArrayList<JvmType>();
+    private JvmType toExtends = null;
 
     private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     private Map<String, String> pojoExtends = new HashMap<String, String>();
@@ -221,6 +225,11 @@ public class TablePojoConverter {
         if (generateMethods != null) {
             this.generateMethods.addAll(generateMethods);
         }
+        List<JvmType> toImports = modelProperty.getToImports(artifacts);
+        if (toImports != null) {
+            this.toImports.addAll(toImports);
+        }
+        this.toExtends = modelProperty.getToExtends(artifacts);
 
         for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : this.inheritImports.entrySet()) {
             for (Map.Entry<String, Map<String, String>> inherit : inheritImport.getValue().entrySet()) {
@@ -260,6 +269,8 @@ public class TablePojoConverter {
         // System.out.println("inheritance " + this.inheritance);
         // System.out.println("inheritanceColumns " + this.inheritanceColumns);
         // System.out.println("generateMethods " + this.generateMethods);
+        // System.out.println("toImports " + this.toImports);
+        // System.out.println("toExtends " + this.toExtends);
     }
 
     public void addTableDefinition(String table, List<DbColumn> dbColumns, List<String> dbPrimaryKeys,

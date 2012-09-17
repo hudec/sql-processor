@@ -17,7 +17,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.eclipse.xtext.common.types.JvmType;
 
 import org.sqlproc.dsl.processorDsl.ColumnAssignement;
 import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
@@ -55,7 +58,9 @@ import org.sqlproc.dsl.processorDsl.TableAssignement;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDbColumn <em>Db Column</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getInheritance <em>Inheritance</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getFunction <em>Function</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getMethods <em>Methods</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getToImports <em>To Imports</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getToExtend <em>To Extend</em>}</li>
  * </ul>
  * </p>
  *
@@ -354,14 +359,34 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
   protected EList<InheritanceAssignement> inheritance;
 
   /**
-   * The cached value of the '{@link #getFunction() <em>Function</em>}' attribute list.
+   * The cached value of the '{@link #getMethods() <em>Methods</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFunction()
+   * @see #getMethods()
    * @generated
    * @ordered
    */
-  protected EList<String> function;
+  protected EList<String> methods;
+
+  /**
+   * The cached value of the '{@link #getToImports() <em>To Imports</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getToImports()
+   * @generated
+   * @ordered
+   */
+  protected EList<JvmType> toImports;
+
+  /**
+   * The cached value of the '{@link #getToExtend() <em>To Extend</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getToExtend()
+   * @generated
+   * @ordered
+   */
+  protected JvmType toExtend;
 
   /**
    * <!-- begin-user-doc -->
@@ -745,13 +770,70 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getFunction()
+  public EList<String> getMethods()
   {
-    if (function == null)
+    if (methods == null)
     {
-      function = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.PROPERTY__FUNCTION);
+      methods = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.PROPERTY__METHODS);
     }
-    return function;
+    return methods;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<JvmType> getToImports()
+  {
+    if (toImports == null)
+    {
+      toImports = new EObjectResolvingEList<JvmType>(JvmType.class, this, ProcessorDslPackage.PROPERTY__TO_IMPORTS);
+    }
+    return toImports;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JvmType getToExtend()
+  {
+    if (toExtend != null && toExtend.eIsProxy())
+    {
+      InternalEObject oldToExtend = (InternalEObject)toExtend;
+      toExtend = (JvmType)eResolveProxy(oldToExtend);
+      if (toExtend != oldToExtend)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.PROPERTY__TO_EXTEND, oldToExtend, toExtend));
+      }
+    }
+    return toExtend;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JvmType basicGetToExtend()
+  {
+    return toExtend;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setToExtend(JvmType newToExtend)
+  {
+    JvmType oldToExtend = toExtend;
+    toExtend = newToExtend;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__TO_EXTEND, oldToExtend, toExtend));
   }
 
   /**
@@ -830,8 +912,13 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return getDbColumn();
       case ProcessorDslPackage.PROPERTY__INHERITANCE:
         return getInheritance();
-      case ProcessorDslPackage.PROPERTY__FUNCTION:
-        return getFunction();
+      case ProcessorDslPackage.PROPERTY__METHODS:
+        return getMethods();
+      case ProcessorDslPackage.PROPERTY__TO_IMPORTS:
+        return getToImports();
+      case ProcessorDslPackage.PROPERTY__TO_EXTEND:
+        if (resolve) return getToExtend();
+        return basicGetToExtend();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -913,9 +1000,16 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         getInheritance().clear();
         getInheritance().addAll((Collection<? extends InheritanceAssignement>)newValue);
         return;
-      case ProcessorDslPackage.PROPERTY__FUNCTION:
-        getFunction().clear();
-        getFunction().addAll((Collection<? extends String>)newValue);
+      case ProcessorDslPackage.PROPERTY__METHODS:
+        getMethods().clear();
+        getMethods().addAll((Collection<? extends String>)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__TO_IMPORTS:
+        getToImports().clear();
+        getToImports().addAll((Collection<? extends JvmType>)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__TO_EXTEND:
+        setToExtend((JvmType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -988,8 +1082,14 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
       case ProcessorDslPackage.PROPERTY__INHERITANCE:
         getInheritance().clear();
         return;
-      case ProcessorDslPackage.PROPERTY__FUNCTION:
-        getFunction().clear();
+      case ProcessorDslPackage.PROPERTY__METHODS:
+        getMethods().clear();
+        return;
+      case ProcessorDslPackage.PROPERTY__TO_IMPORTS:
+        getToImports().clear();
+        return;
+      case ProcessorDslPackage.PROPERTY__TO_EXTEND:
+        setToExtend((JvmType)null);
         return;
     }
     super.eUnset(featureID);
@@ -1043,8 +1143,12 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return DB_COLUMN_EDEFAULT == null ? dbColumn != null : !DB_COLUMN_EDEFAULT.equals(dbColumn);
       case ProcessorDslPackage.PROPERTY__INHERITANCE:
         return inheritance != null && !inheritance.isEmpty();
-      case ProcessorDslPackage.PROPERTY__FUNCTION:
-        return function != null && !function.isEmpty();
+      case ProcessorDslPackage.PROPERTY__METHODS:
+        return methods != null && !methods.isEmpty();
+      case ProcessorDslPackage.PROPERTY__TO_IMPORTS:
+        return toImports != null && !toImports.isEmpty();
+      case ProcessorDslPackage.PROPERTY__TO_EXTEND:
+        return toExtend != null;
     }
     return super.eIsSet(featureID);
   }
@@ -1084,8 +1188,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
     result.append(dbColumns);
     result.append(", dbColumn: ");
     result.append(dbColumn);
-    result.append(", function: ");
-    result.append(function);
+    result.append(", methods: ");
+    result.append(methods);
     result.append(')');
     return result.toString();
   }

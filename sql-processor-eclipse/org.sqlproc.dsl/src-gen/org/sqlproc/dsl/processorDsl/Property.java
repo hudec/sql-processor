@@ -6,6 +6,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.xtext.common.types.JvmType;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Property</b></em>'.
@@ -33,7 +35,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getImports <em>Imports</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDbColumn <em>Db Column</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getInheritance <em>Inheritance</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getFunction <em>Function</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getMethods <em>Methods</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getToImports <em>To Imports</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getToExtend <em>To Extend</em>}</li>
  * </ul>
  * </p>
  *
@@ -448,19 +452,61 @@ public interface Property extends EObject
   EList<InheritanceAssignement> getInheritance();
 
   /**
-   * Returns the value of the '<em><b>Function</b></em>' attribute list.
+   * Returns the value of the '<em><b>Methods</b></em>' attribute list.
    * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Function</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Methods</em>' attribute list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Function</em>' attribute list.
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_Function()
+   * @return the value of the '<em>Methods</em>' attribute list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_Methods()
    * @model unique="false"
    * @generated
    */
-  EList<String> getFunction();
+  EList<String> getMethods();
+
+  /**
+   * Returns the value of the '<em><b>To Imports</b></em>' reference list.
+   * The list contents are of type {@link org.eclipse.xtext.common.types.JvmType}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>To Imports</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>To Imports</em>' reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_ToImports()
+   * @model
+   * @generated
+   */
+  EList<JvmType> getToImports();
+
+  /**
+   * Returns the value of the '<em><b>To Extend</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>To Extend</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>To Extend</em>' reference.
+   * @see #setToExtend(JvmType)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_ToExtend()
+   * @model
+   * @generated
+   */
+  JvmType getToExtend();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getToExtend <em>To Extend</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>To Extend</em>' reference.
+   * @see #getToExtend()
+   * @generated
+   */
+  void setToExtend(JvmType value);
 
 } // Property

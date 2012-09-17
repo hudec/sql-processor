@@ -44,7 +44,9 @@ Property:
 	|name='pojogen create many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	|name='pojogen table many-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
 	|name='pojogen inherit discriminator' WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
-	|name='pojogen generate methods' (WS+ function+=IDENT)+
+	|name='pojogen generate methods' (WS+ methods+=IDENT)+
+	|name='pojogen imports' (WS+ toImports+=[jvmTypes::JvmType|QualifiedName])+
+	|name='pojogen extends' toExtend=[jvmTypes::JvmType|QualifiedName]
 	) SEMICOLON;
 
 PropertyValue:

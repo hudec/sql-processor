@@ -524,9 +524,38 @@
           </elements>
           <elements xsi:type="xtext:Group" cardinality="+">
             <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.57"/>
-            <elements xsi:type="xtext:Assignment" feature="function" operator="+=">
+            <elements xsi:type="xtext:Assignment" feature="methods" operator="+=">
               <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
             </elements>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="pojogen imports"/>
+          </elements>
+          <elements xsi:type="xtext:Group" cardinality="+">
+            <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.57"/>
+            <elements xsi:type="xtext:Assignment" feature="toImports" operator="+=">
+              <terminal xsi:type="xtext:CrossReference">
+                <type metamodel="//@metamodelDeclarations.1">
+                  <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
+                </type>
+                <terminal xsi:type="xtext:RuleCall" rule="//@rules.90"/>
+              </terminal>
+            </elements>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="pojogen extends"/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="toExtend" operator="=">
+            <terminal xsi:type="xtext:CrossReference">
+              <type metamodel="//@metamodelDeclarations.1">
+                <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
+              </type>
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.90"/>
+            </terminal>
           </elements>
         </elements>
       </elements>

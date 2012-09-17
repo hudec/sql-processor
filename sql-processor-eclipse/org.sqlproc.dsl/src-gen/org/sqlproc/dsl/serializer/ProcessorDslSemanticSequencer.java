@@ -922,7 +922,9 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='pojogen create many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
 	 *         (name='pojogen table many-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
 	 *         (name='pojogen inherit discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
-	 *         (name='pojogen generate methods' function+=IDENT+)
+	 *         (name='pojogen generate methods' methods+=IDENT+) | 
+	 *         (name='pojogen imports' toImports+=[JvmType|QualifiedName]+) | 
+	 *         (name='pojogen extends' toExtend=[JvmType|QualifiedName])
 	 *     )
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {

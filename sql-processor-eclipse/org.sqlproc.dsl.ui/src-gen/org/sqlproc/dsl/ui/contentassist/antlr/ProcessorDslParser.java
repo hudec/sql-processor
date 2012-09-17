@@ -154,6 +154,9 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPropertyAccess().getGroup_0_23_5(), "rule__Property__Group_0_23_5__0");
 					put(grammarAccess.getPropertyAccess().getGroup_0_24(), "rule__Property__Group_0_24__0");
 					put(grammarAccess.getPropertyAccess().getGroup_0_24_1(), "rule__Property__Group_0_24_1__0");
+					put(grammarAccess.getPropertyAccess().getGroup_0_25(), "rule__Property__Group_0_25__0");
+					put(grammarAccess.getPropertyAccess().getGroup_0_25_1(), "rule__Property__Group_0_25_1__0");
+					put(grammarAccess.getPropertyAccess().getGroup_0_26(), "rule__Property__Group_0_26__0");
 					put(grammarAccess.getPropertyValueAccess().getGroup(), "rule__PropertyValue__Group__0");
 					put(grammarAccess.getPropertyValueAccess().getGroup_1(), "rule__PropertyValue__Group_1__0");
 					put(grammarAccess.getPojoDefinitionAccess().getGroup(), "rule__PojoDefinition__Group__0");
@@ -346,7 +349,11 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPropertyAccess().getDbColumnAssignment_0_23_4(), "rule__Property__DbColumnAssignment_0_23_4");
 					put(grammarAccess.getPropertyAccess().getInheritanceAssignment_0_23_5_1(), "rule__Property__InheritanceAssignment_0_23_5_1");
 					put(grammarAccess.getPropertyAccess().getNameAssignment_0_24_0(), "rule__Property__NameAssignment_0_24_0");
-					put(grammarAccess.getPropertyAccess().getFunctionAssignment_0_24_1_1(), "rule__Property__FunctionAssignment_0_24_1_1");
+					put(grammarAccess.getPropertyAccess().getMethodsAssignment_0_24_1_1(), "rule__Property__MethodsAssignment_0_24_1_1");
+					put(grammarAccess.getPropertyAccess().getNameAssignment_0_25_0(), "rule__Property__NameAssignment_0_25_0");
+					put(grammarAccess.getPropertyAccess().getToImportsAssignment_0_25_1_1(), "rule__Property__ToImportsAssignment_0_25_1_1");
+					put(grammarAccess.getPropertyAccess().getNameAssignment_0_26_0(), "rule__Property__NameAssignment_0_26_0");
+					put(grammarAccess.getPropertyAccess().getToExtendAssignment_0_26_1(), "rule__Property__ToExtendAssignment_0_26_1");
 					put(grammarAccess.getPojoDefinitionAccess().getNameAssignment_1(), "rule__PojoDefinition__NameAssignment_1");
 					put(grammarAccess.getPojoDefinitionAccess().getClassAssignment_2(), "rule__PojoDefinition__ClassAssignment_2");
 					put(grammarAccess.getColumnUsageAccess().getStatementAssignment_1(), "rule__ColumnUsage__StatementAssignment_1");

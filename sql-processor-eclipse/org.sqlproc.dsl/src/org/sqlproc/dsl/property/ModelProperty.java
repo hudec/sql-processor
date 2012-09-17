@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.common.types.JvmType;
 import org.sqlproc.dsl.property.ModelPropertyBean.ModelValues;
 
 public interface ModelProperty extends Adapter {
@@ -53,4 +54,8 @@ public interface ModelProperty extends Adapter {
     Map<String, String> getInheritanceColumns(EObject model);
 
     Set<String> getGenerateMethods(EObject model);
+
+    List<JvmType> getToImports(EObject model);
+
+    JvmType getToExtends(EObject model);
 }

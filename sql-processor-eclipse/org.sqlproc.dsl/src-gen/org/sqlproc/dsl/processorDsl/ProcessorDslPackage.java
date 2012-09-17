@@ -642,13 +642,31 @@ public interface ProcessorDslPackage extends EPackage
   int PROPERTY__INHERITANCE = 18;
 
   /**
-   * The feature id for the '<em><b>Function</b></em>' attribute list.
+   * The feature id for the '<em><b>Methods</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROPERTY__FUNCTION = 19;
+  int PROPERTY__METHODS = 19;
+
+  /**
+   * The feature id for the '<em><b>To Imports</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY__TO_IMPORTS = 20;
+
+  /**
+   * The feature id for the '<em><b>To Extend</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY__TO_EXTEND = 21;
 
   /**
    * The number of structural features of the '<em>Property</em>' class.
@@ -657,7 +675,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPERTY_FEATURE_COUNT = 20;
+  int PROPERTY_FEATURE_COUNT = 22;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.
@@ -3108,15 +3126,37 @@ public interface ProcessorDslPackage extends EPackage
   EReference getProperty_Inheritance();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.Property#getFunction <em>Function</em>}'.
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.Property#getMethods <em>Methods</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Function</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Property#getFunction()
+   * @return the meta object for the attribute list '<em>Methods</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Property#getMethods()
    * @see #getProperty()
    * @generated
    */
-  EAttribute getProperty_Function();
+  EAttribute getProperty_Methods();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.sqlproc.dsl.processorDsl.Property#getToImports <em>To Imports</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>To Imports</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Property#getToImports()
+   * @see #getProperty()
+   * @generated
+   */
+  EReference getProperty_ToImports();
+
+  /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.Property#getToExtend <em>To Extend</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>To Extend</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Property#getToExtend()
+   * @see #getProperty()
+   * @generated
+   */
+  EReference getProperty_ToExtend();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoDefinition <em>Pojo Definition</em>}'.
@@ -5240,12 +5280,28 @@ public interface ProcessorDslPackage extends EPackage
     EReference PROPERTY__INHERITANCE = eINSTANCE.getProperty_Inheritance();
 
     /**
-     * The meta object literal for the '<em><b>Function</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Methods</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute PROPERTY__FUNCTION = eINSTANCE.getProperty_Function();
+    EAttribute PROPERTY__METHODS = eINSTANCE.getProperty_Methods();
+
+    /**
+     * The meta object literal for the '<em><b>To Imports</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROPERTY__TO_IMPORTS = eINSTANCE.getProperty_ToImports();
+
+    /**
+     * The meta object literal for the '<em><b>To Extend</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROPERTY__TO_EXTEND = eINSTANCE.getProperty_ToExtend();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.

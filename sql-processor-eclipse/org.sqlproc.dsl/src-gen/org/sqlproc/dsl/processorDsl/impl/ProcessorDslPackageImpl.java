@@ -1045,9 +1045,29 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getProperty_Function()
+  public EAttribute getProperty_Methods()
   {
     return (EAttribute)propertyEClass.getEStructuralFeatures().get(19);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getProperty_ToImports()
+  {
+    return (EReference)propertyEClass.getEStructuralFeatures().get(20);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getProperty_ToExtend()
+  {
+    return (EReference)propertyEClass.getEStructuralFeatures().get(21);
   }
 
   /**
@@ -2664,7 +2684,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEReference(propertyEClass, PROPERTY__IMPORTS);
     createEAttribute(propertyEClass, PROPERTY__DB_COLUMN);
     createEReference(propertyEClass, PROPERTY__INHERITANCE);
-    createEAttribute(propertyEClass, PROPERTY__FUNCTION);
+    createEAttribute(propertyEClass, PROPERTY__METHODS);
+    createEReference(propertyEClass, PROPERTY__TO_IMPORTS);
+    createEReference(propertyEClass, PROPERTY__TO_EXTEND);
 
     pojoDefinitionEClass = createEClass(POJO_DEFINITION);
     createEAttribute(pojoDefinitionEClass, POJO_DEFINITION__NAME);
@@ -2968,7 +2990,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEReference(getProperty_Imports(), this.getImportAssignement(), null, "imports", null, 0, -1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getProperty_DbColumn(), ecorePackage.getEString(), "dbColumn", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getProperty_Inheritance(), this.getInheritanceAssignement(), null, "inheritance", null, 0, -1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getProperty_Function(), ecorePackage.getEString(), "function", null, 0, -1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getProperty_Methods(), ecorePackage.getEString(), "methods", null, 0, -1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getProperty_ToImports(), theTypesPackage.getJvmType(), null, "toImports", null, 0, -1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getProperty_ToExtend(), theTypesPackage.getJvmType(), null, "toExtend", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pojoDefinitionEClass, PojoDefinition.class, "PojoDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPojoDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, PojoDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

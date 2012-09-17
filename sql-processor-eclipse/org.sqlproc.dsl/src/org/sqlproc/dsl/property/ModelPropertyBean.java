@@ -1,5 +1,6 @@
 package org.sqlproc.dsl.property;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,6 +14,7 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
@@ -54,6 +56,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_MANY_TO_MANY_EXPORTS = "pojogen table many-to-many";
     public static final String POJOGEN_INHERITANCE = "pojogen inherit discriminator";
     public static final String POJOGEN_GENERATE_METHODS = "pojogen generate methods";
+    public static final String POJOGEN_IMPORTS = "pojogen imports";
+    public static final String POJOGEN_EXTENDS = "pojogen extends";
 
     public static class ModelValues {
         public boolean doResolvePojo;
@@ -83,6 +87,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
         public Map<String, String> inheritanceColumns;
         public Set<String> generateMethods;
+        public List<JvmType> toImports;
+        public JvmType toExtends;
 
         @Override
         public String toString() {
@@ -96,7 +102,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + ignoreImports + ", createExports=" + createExports + ", createImports=" + createImports
                     + ", inheritImports=" + inheritImports + ", manyToManyExports=" + manyToManyExports
                     + ", inheritance=" + inheritance + ", inheritanceColumns=" + inheritanceColumns
-                    + ", generateMethods=" + generateMethods + "]";
+                    + ", generateMethods=" + generateMethods + ", toImports=" + toImports + ", toExtends=" + toExtends
+                    + "]";
         }
     }
 
@@ -363,9 +370,17 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         } else if (POJOGEN_GENERATE_METHODS.equals(property.getName())) {
             if (modelValues.generateMethods == null)
                 modelValues.generateMethods = new HashSet<String>();
-            for (int i = 0, m = property.getFunction().size(); i < m; i++) {
-                modelValues.generateMethods.add(property.getFunction().get(i));
+            for (int i = 0, m = property.getMethods().size(); i < m; i++) {
+                modelValues.generateMethods.add(property.getMethods().get(i));
             }
+        } else if (POJOGEN_IMPORTS.equals(property.getName())) {
+            if (modelValues.toImports == null)
+                modelValues.toImports = new ArrayList<JvmType>();
+            for (int i = 0, m = property.getToImports().size(); i < m; i++) {
+                modelValues.toImports.add(property.getToImports().get(i));
+            }
+        } else if (POJOGEN_EXTENDS.equals(property.getName())) {
+            modelValues.toExtends = property.getToExtend();
         }
     }
 
@@ -503,6 +518,18 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Set<String> getGenerateMethods(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.generateMethods : Collections.<String> emptySet();
+    }
+
+    @Override
+    public List<JvmType> getToImports(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.toImports : Collections.<JvmType> emptyList();
+    }
+
+    @Override
+    public JvmType getToExtends(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.toExtends : null;
     }
 
     @Override

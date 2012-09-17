@@ -88,8 +88,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inheritance" upperBound="-1"
         eType="#//InheritanceAssignement" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="function" unique="false"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="methods" unique="false"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="toImports" unique="false"
+        upperBound="-1" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="toExtend" eType="ecore:EClass ../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PojoDefinition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

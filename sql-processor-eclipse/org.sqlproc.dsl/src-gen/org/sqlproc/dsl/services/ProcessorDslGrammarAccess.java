@@ -711,8 +711,22 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cNamePojogenGenerateMethodsKeyword_0_24_0_0 = (Keyword)cNameAssignment_0_24_0.eContents().get(0);
 		private final Group cGroup_0_24_1 = (Group)cGroup_0_24.eContents().get(1);
 		private final RuleCall cWSTerminalRuleCall_0_24_1_0 = (RuleCall)cGroup_0_24_1.eContents().get(0);
-		private final Assignment cFunctionAssignment_0_24_1_1 = (Assignment)cGroup_0_24_1.eContents().get(1);
-		private final RuleCall cFunctionIDENTTerminalRuleCall_0_24_1_1_0 = (RuleCall)cFunctionAssignment_0_24_1_1.eContents().get(0);
+		private final Assignment cMethodsAssignment_0_24_1_1 = (Assignment)cGroup_0_24_1.eContents().get(1);
+		private final RuleCall cMethodsIDENTTerminalRuleCall_0_24_1_1_0 = (RuleCall)cMethodsAssignment_0_24_1_1.eContents().get(0);
+		private final Group cGroup_0_25 = (Group)cAlternatives_0.eContents().get(25);
+		private final Assignment cNameAssignment_0_25_0 = (Assignment)cGroup_0_25.eContents().get(0);
+		private final Keyword cNamePojogenImportsKeyword_0_25_0_0 = (Keyword)cNameAssignment_0_25_0.eContents().get(0);
+		private final Group cGroup_0_25_1 = (Group)cGroup_0_25.eContents().get(1);
+		private final RuleCall cWSTerminalRuleCall_0_25_1_0 = (RuleCall)cGroup_0_25_1.eContents().get(0);
+		private final Assignment cToImportsAssignment_0_25_1_1 = (Assignment)cGroup_0_25_1.eContents().get(1);
+		private final CrossReference cToImportsJvmTypeCrossReference_0_25_1_1_0 = (CrossReference)cToImportsAssignment_0_25_1_1.eContents().get(0);
+		private final RuleCall cToImportsJvmTypeQualifiedNameParserRuleCall_0_25_1_1_0_1 = (RuleCall)cToImportsJvmTypeCrossReference_0_25_1_1_0.eContents().get(1);
+		private final Group cGroup_0_26 = (Group)cAlternatives_0.eContents().get(26);
+		private final Assignment cNameAssignment_0_26_0 = (Assignment)cGroup_0_26.eContents().get(0);
+		private final Keyword cNamePojogenExtendsKeyword_0_26_0_0 = (Keyword)cNameAssignment_0_26_0.eContents().get(0);
+		private final Assignment cToExtendAssignment_0_26_1 = (Assignment)cGroup_0_26.eContents().get(1);
+		private final CrossReference cToExtendJvmTypeCrossReference_0_26_1_0 = (CrossReference)cToExtendAssignment_0_26_1.eContents().get(0);
+		private final RuleCall cToExtendJvmTypeQualifiedNameParserRuleCall_0_26_1_0_1 = (RuleCall)cToExtendJvmTypeCrossReference_0_26_1_0.eContents().get(1);
 		private final RuleCall cSEMICOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//Property:
@@ -733,7 +747,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//	| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 		//	name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-		//	name="pojogen generate methods" (WS+ function+=IDENT)+) SEMICOLON;
+		//	name="pojogen generate methods" (WS+ methods+=IDENT)+ | name="pojogen imports" (WS+
+		//	toImports+=[jvmTypes::JvmType|QualifiedName])+ | name="pojogen extends" toExtend=[jvmTypes::JvmType|QualifiedName])
+		//	SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
 		//(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF |
@@ -753,7 +769,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 		//name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-		//name="pojogen generate methods" (WS+ function+=IDENT)+) SEMICOLON
+		//name="pojogen generate methods" (WS+ methods+=IDENT)+ | name="pojogen imports" (WS+
+		//toImports+=[jvmTypes::JvmType|QualifiedName])+ | name="pojogen extends" toExtend=[jvmTypes::JvmType|QualifiedName])
+		//SEMICOLON
 		public Group getGroup() { return cGroup; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF | name="database online" WS+ doResolveDb=ON_OFF | name="database url"
@@ -773,7 +791,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 		//name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-		//name="pojogen generate methods" (WS+ function+=IDENT)+
+		//name="pojogen generate methods" (WS+ methods+=IDENT)+ | name="pojogen imports" (WS+
+		//toImports+=[jvmTypes::JvmType|QualifiedName])+ | name="pojogen extends" toExtend=[jvmTypes::JvmType|QualifiedName]
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//name="resolve references" WS+ doResolvePojo=ON_OFF
@@ -1394,7 +1413,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//InheritanceAssignement
 		public RuleCall getInheritanceInheritanceAssignementParserRuleCall_0_23_5_1_0() { return cInheritanceInheritanceAssignementParserRuleCall_0_23_5_1_0; }
 
-		//name="pojogen generate methods" (WS+ function+=IDENT)+
+		//name="pojogen generate methods" (WS+ methods+=IDENT)+
 		public Group getGroup_0_24() { return cGroup_0_24; }
 
 		//name="pojogen generate methods"
@@ -1403,17 +1422,59 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"pojogen generate methods"
 		public Keyword getNamePojogenGenerateMethodsKeyword_0_24_0_0() { return cNamePojogenGenerateMethodsKeyword_0_24_0_0; }
 
-		//(WS+ function+=IDENT)+
+		//(WS+ methods+=IDENT)+
 		public Group getGroup_0_24_1() { return cGroup_0_24_1; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_0_24_1_0() { return cWSTerminalRuleCall_0_24_1_0; }
 
-		//function+=IDENT
-		public Assignment getFunctionAssignment_0_24_1_1() { return cFunctionAssignment_0_24_1_1; }
+		//methods+=IDENT
+		public Assignment getMethodsAssignment_0_24_1_1() { return cMethodsAssignment_0_24_1_1; }
 
 		//IDENT
-		public RuleCall getFunctionIDENTTerminalRuleCall_0_24_1_1_0() { return cFunctionIDENTTerminalRuleCall_0_24_1_1_0; }
+		public RuleCall getMethodsIDENTTerminalRuleCall_0_24_1_1_0() { return cMethodsIDENTTerminalRuleCall_0_24_1_1_0; }
+
+		//name="pojogen imports" (WS+ toImports+=[jvmTypes::JvmType|QualifiedName])+
+		public Group getGroup_0_25() { return cGroup_0_25; }
+
+		//name="pojogen imports"
+		public Assignment getNameAssignment_0_25_0() { return cNameAssignment_0_25_0; }
+
+		//"pojogen imports"
+		public Keyword getNamePojogenImportsKeyword_0_25_0_0() { return cNamePojogenImportsKeyword_0_25_0_0; }
+
+		//(WS+ toImports+=[jvmTypes::JvmType|QualifiedName])+
+		public Group getGroup_0_25_1() { return cGroup_0_25_1; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_25_1_0() { return cWSTerminalRuleCall_0_25_1_0; }
+
+		//toImports+=[jvmTypes::JvmType|QualifiedName]
+		public Assignment getToImportsAssignment_0_25_1_1() { return cToImportsAssignment_0_25_1_1; }
+
+		//[jvmTypes::JvmType|QualifiedName]
+		public CrossReference getToImportsJvmTypeCrossReference_0_25_1_1_0() { return cToImportsJvmTypeCrossReference_0_25_1_1_0; }
+
+		//QualifiedName
+		public RuleCall getToImportsJvmTypeQualifiedNameParserRuleCall_0_25_1_1_0_1() { return cToImportsJvmTypeQualifiedNameParserRuleCall_0_25_1_1_0_1; }
+
+		//name="pojogen extends" toExtend=[jvmTypes::JvmType|QualifiedName]
+		public Group getGroup_0_26() { return cGroup_0_26; }
+
+		//name="pojogen extends"
+		public Assignment getNameAssignment_0_26_0() { return cNameAssignment_0_26_0; }
+
+		//"pojogen extends"
+		public Keyword getNamePojogenExtendsKeyword_0_26_0_0() { return cNamePojogenExtendsKeyword_0_26_0_0; }
+
+		//toExtend=[jvmTypes::JvmType|QualifiedName]
+		public Assignment getToExtendAssignment_0_26_1() { return cToExtendAssignment_0_26_1; }
+
+		//[jvmTypes::JvmType|QualifiedName]
+		public CrossReference getToExtendJvmTypeCrossReference_0_26_1_0() { return cToExtendJvmTypeCrossReference_0_26_1_0; }
+
+		//QualifiedName
+		public RuleCall getToExtendJvmTypeQualifiedNameParserRuleCall_0_26_1_0_1() { return cToExtendJvmTypeQualifiedNameParserRuleCall_0_26_1_0_1; }
 
 		//SEMICOLON
 		public RuleCall getSEMICOLONTerminalRuleCall_1() { return cSEMICOLONTerminalRuleCall_1; }
@@ -5635,7 +5696,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	| name="pojogen create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	//	| name="pojogen table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ |
 	//	name="pojogen inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ |
-	//	name="pojogen generate methods" (WS+ function+=IDENT)+) SEMICOLON;
+	//	name="pojogen generate methods" (WS+ methods+=IDENT)+ | name="pojogen imports" (WS+
+	//	toImports+=[jvmTypes::JvmType|QualifiedName])+ | name="pojogen extends" toExtend=[jvmTypes::JvmType|QualifiedName])
+	//	SEMICOLON;
 	public PropertyElements getPropertyAccess() {
 		return (pProperty != null) ? pProperty : (pProperty = new PropertyElements());
 	}

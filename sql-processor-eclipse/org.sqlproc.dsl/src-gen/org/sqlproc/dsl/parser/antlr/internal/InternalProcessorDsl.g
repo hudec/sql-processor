@@ -2113,9 +2113,9 @@ ruleProperty returns [EObject current=null]
     }
 )+(
 (
-		lv_function_104_0=RULE_IDENT
+		lv_methods_104_0=RULE_IDENT
 		{
-			newLeafNode(lv_function_104_0, grammarAccess.getPropertyAccess().getFunctionIDENTTerminalRuleCall_0_24_1_1_0()); 
+			newLeafNode(lv_methods_104_0, grammarAccess.getPropertyAccess().getMethodsIDENTTerminalRuleCall_0_24_1_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -2123,15 +2123,81 @@ ruleProperty returns [EObject current=null]
 	        }
        		addWithLastConsumed(
        			$current, 
-       			"function",
-        		lv_function_104_0, 
+       			"methods",
+        		lv_methods_104_0, 
         		"IDENT");
 	    }
 
 )
-))+))this_SEMICOLON_105=RULE_SEMICOLON
+))+)
+    |((
+(
+		lv_name_105_0=	'pojogen imports' 
+    {
+        newLeafNode(lv_name_105_0, grammarAccess.getPropertyAccess().getNamePojogenImportsKeyword_0_25_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_105_0, "pojogen imports");
+	    }
+
+)
+)((this_WS_106=RULE_WS
     { 
-    newLeafNode(this_SEMICOLON_105, grammarAccess.getPropertyAccess().getSEMICOLONTerminalRuleCall_1()); 
+    newLeafNode(this_WS_106, grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_25_1_0()); 
+    }
+)+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getPropertyAccess().getToImportsJvmTypeCrossReference_0_25_1_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))+)
+    |((
+(
+		lv_name_108_0=	'pojogen extends' 
+    {
+        newLeafNode(lv_name_108_0, grammarAccess.getPropertyAccess().getNamePojogenExtendsKeyword_0_26_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_108_0, "pojogen extends");
+	    }
+
+)
+)(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getPropertyAccess().getToExtendJvmTypeCrossReference_0_26_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)))this_SEMICOLON_110=RULE_SEMICOLON
+    { 
+    newLeafNode(this_SEMICOLON_110, grammarAccess.getPropertyAccess().getSEMICOLONTerminalRuleCall_1()); 
     }
 )
 ;
