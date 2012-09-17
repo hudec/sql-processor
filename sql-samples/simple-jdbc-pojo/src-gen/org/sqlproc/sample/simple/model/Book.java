@@ -1,6 +1,8 @@
 package org.sqlproc.sample.simple.model;
+  
+import java.io.Serializable;
 
-public class Book extends Media {
+public class Book extends Media implements Serializable {
 	
   public Book() {
   }

@@ -1,6 +1,8 @@
 package org.sqlproc.sample.simple.model;
+  
+import java.io.Serializable;
 
-public abstract class Media {
+public abstract class Media implements Serializable {
 	
   public Media() {
   }

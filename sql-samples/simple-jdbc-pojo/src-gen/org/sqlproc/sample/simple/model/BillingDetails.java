@@ -1,6 +1,8 @@
 package org.sqlproc.sample.simple.model;
+  
+import java.io.Serializable;
 
-public abstract class BillingDetails {
+public abstract class BillingDetails implements Serializable {
 	
   public BillingDetails() {
   }

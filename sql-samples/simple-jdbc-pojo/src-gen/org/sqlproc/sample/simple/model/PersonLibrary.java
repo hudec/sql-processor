@@ -1,6 +1,8 @@
 package org.sqlproc.sample.simple.model;
+  
+import java.io.Serializable;
 
-public class PersonLibrary {
+public class PersonLibrary implements Serializable {
 	
   public PersonLibrary() {
   }

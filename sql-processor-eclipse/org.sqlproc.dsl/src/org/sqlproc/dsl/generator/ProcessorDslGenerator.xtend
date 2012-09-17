@@ -14,6 +14,9 @@ import org.eclipse.xtext.xbase.compiler.ImportManager
 
 import org.sqlproc.dsl.util.Collector
 import java.util.ArrayList
+import org.sqlproc.dsl.processorDsl.Implements
+import org.sqlproc.dsl.processorDsl.Extends
+import org.sqlproc.dsl.processorDsl.PackageDeclaration
 
 class ProcessorDslGenerator implements IGenerator {
 	
@@ -29,6 +32,8 @@ override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 
 def compile(PojoEntity e) '''
 «val importManager = new ImportManager(true)»
+«addImplements(e, importManager)»
+«addExtends(e, importManager)»
 «val classBody = compile(e, importManager)»
 «IF e.eContainer != null»package «e.eContainer.fullyQualifiedName»;«ENDIF»
   «IF !importManager.imports.empty»
@@ -42,7 +47,7 @@ import «i»;
 '''
 
 def compile(PojoEntity e, ImportManager importManager) '''
-public «IF e.isAbstract»abstract «ENDIF»class «e.name» «IF e.superType != null»extends «e.superType.fullyQualifiedName» «ENDIF»{
+public «IF e.isAbstract»abstract «ENDIF»class «e.name» «compileExtends(e)»«compileImplements(e)»{
 	
   public «e.name»() {
   }
@@ -144,7 +149,42 @@ def requiredFeatures1(PojoEntity e) {
 }
 
 def isAttribute(PojoProperty f) {
-	
     return f.getNative != null || f.getRef != null || f.getType != null
+}
+
+def compileExtends(PojoEntity e) '''
+	«IF e.superType != null»extends «e.superType.fullyQualifiedName» «ELSEIF getExtends(e) != ""»extends «getExtends(e)» «ENDIF»'''
+
+def compileImplements(PojoEntity e) '''
+	«IF isImplements(e)»implements «FOR f:e.eContainer.eContents.filter(typeof(Implements)) SEPARATOR ", " »«f.getImplements().simpleName»«ENDFOR» «ENDIF»'''
+
+def compile(Extends e, ImportManager importManager) {
+	importManager.addImportFor(e.getExtends())
+}
+
+def addImplements(PojoEntity e, ImportManager importManager) {
+	for(impl: e.eContainer.eContents.filter(typeof(Implements))) {
+		importManager.addImportFor(impl.getImplements())
+	}
+}
+
+def addExtends(PojoEntity e, ImportManager importManager) {
+	for(ext: e.eContainer.eContents.filter(typeof(Extends))) {
+		importManager.addImportFor(ext.getExtends())
+	}
+}
+
+def getExtends(PojoEntity e) {
+	for(ext: e.eContainer.eContents.filter(typeof(Extends))) {
+		return ext.getExtends().simpleName
+	}
+	return ""
+}
+
+def isImplements(PojoEntity e) {
+	for(ext: e.eContainer.eContents.filter(typeof(Implements))) {
+		return true
+	}
+	return false
 }
 }

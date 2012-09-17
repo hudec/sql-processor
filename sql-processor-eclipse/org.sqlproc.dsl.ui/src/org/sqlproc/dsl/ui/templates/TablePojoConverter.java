@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.eclipse.xtext.common.types.JvmType;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.property.PojoAttrType;
@@ -59,8 +60,8 @@ public class TablePojoConverter {
     private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
     private Map<String, String> inheritanceColumns = new HashMap<String, String>();
     private Set<String> generateMethods = new HashSet<String>();
-    private Set<String> toImplements = new HashSet<String>();
-    private String toExtends = null;
+    private Map<String, JvmType> toImplements = new HashMap<String, JvmType>();
+    private JvmType toExtends = null;
 
     private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     private Map<String, String> pojoExtends = new HashMap<String, String>();
@@ -223,9 +224,9 @@ public class TablePojoConverter {
         if (generateMethods != null) {
             this.generateMethods.addAll(generateMethods);
         }
-        Set<String> toImplements = modelProperty.getToImplements(artifacts);
+        Map<String, JvmType> toImplements = modelProperty.getToImplements(artifacts);
         if (toImplements != null) {
-            this.toImplements.addAll(toImplements);
+            this.toImplements.putAll(toImplements);
         }
         this.toExtends = modelProperty.getToExtends(artifacts);
 
@@ -475,12 +476,12 @@ public class TablePojoConverter {
     public String getPojoDefinitions() {
         StringBuilder buffer = new StringBuilder();
         if (!toImplements.isEmpty()) {
-            for (String type : toImplements) {
-                buffer.append("\n  implements ").append(type);
+            for (JvmType type : toImplements.values()) {
+                buffer.append("\n  implements ").append(type.getIdentifier());
             }
         }
         if (toExtends != null) {
-            buffer.append("\n  extends ").append(toExtends);
+            buffer.append("\n  extends ").append(toExtends.getIdentifier());
         }
         if (!toImplements.isEmpty() || toExtends != null) {
             buffer.append("\n\n");

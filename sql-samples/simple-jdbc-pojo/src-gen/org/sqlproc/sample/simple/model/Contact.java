@@ -1,8 +1,9 @@
 package org.sqlproc.sample.simple.model;
   
+import java.io.Serializable;
 import org.sqlproc.sample.simple.model.PhoneNumber;
 
-public class Contact {
+public class Contact implements Serializable {
 	
   public Contact() {
   }

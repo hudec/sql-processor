@@ -13,6 +13,7 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
@@ -85,8 +86,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
         public Map<String, String> inheritanceColumns;
         public Set<String> generateMethods;
-        public Set<String> toImplements;
-        public String toExtends;
+        public Map<String, JvmType> toImplements;
+        public JvmType toExtends;
 
         @Override
         public String toString() {
@@ -373,12 +374,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             }
         } else if (POJOGEN_IMPLEMENTS.equals(property.getName())) {
             if (modelValues.toImplements == null)
-                modelValues.toImplements = new HashSet<String>();
+                modelValues.toImplements = new HashMap<String, JvmType>();
             for (int i = 0, m = property.getToImplements().size(); i < m; i++) {
-                modelValues.toImplements.add(property.getToImplements().get(i).getIdentifier());
+                modelValues.toImplements.put(property.getToImplements().get(i).getIdentifier(), property
+                        .getToImplements().get(i));
             }
         } else if (POJOGEN_EXTENDS.equals(property.getName())) {
-            modelValues.toExtends = property.getToExtends().getIdentifier();
+            modelValues.toExtends = property.getToExtends();
         }
     }
 
@@ -519,13 +521,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
-    public Set<String> getToImplements(EObject model) {
+    public Map<String, JvmType> getToImplements(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.toImplements : Collections.<String> emptySet();
+        return (modelValues != null) ? modelValues.toImplements : Collections.<String, JvmType> emptyMap();
     }
 
     @Override
-    public String getToExtends(EObject model) {
+    public JvmType getToExtends(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.toExtends : null;
     }

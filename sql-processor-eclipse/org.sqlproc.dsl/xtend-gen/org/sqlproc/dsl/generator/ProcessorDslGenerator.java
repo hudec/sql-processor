@@ -20,6 +20,8 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
+import org.sqlproc.dsl.processorDsl.Extends;
+import org.sqlproc.dsl.processorDsl.Implements;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 
@@ -49,6 +51,10 @@ public class ProcessorDslGenerator implements IGenerator {
     StringConcatenation _builder = new StringConcatenation();
     ImportManager _importManager = new ImportManager(true);
     final ImportManager importManager = _importManager;
+    _builder.newLineIfNotEmpty();
+    this.addImplements(e, importManager);
+    _builder.newLineIfNotEmpty();
+    this.addExtends(e, importManager);
     _builder.newLineIfNotEmpty();
     final CharSequence classBody = this.compile(e, importManager);
     _builder.newLineIfNotEmpty();
@@ -101,17 +107,10 @@ public class ProcessorDslGenerator implements IGenerator {
     String _name = e.getName();
     _builder.append(_name, "");
     _builder.append(" ");
-    {
-      PojoEntity _superType = e.getSuperType();
-      boolean _notEquals = (!Objects.equal(_superType, null));
-      if (_notEquals) {
-        _builder.append("extends ");
-        PojoEntity _superType_1 = e.getSuperType();
-        QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(_superType_1);
-        _builder.append(_fullyQualifiedName, "");
-        _builder.append(" ");
-      }
-    }
+    CharSequence _compileExtends = this.compileExtends(e);
+    _builder.append(_compileExtends, "");
+    CharSequence _compileImplements = this.compileImplements(e);
+    _builder.append(_compileImplements, "");
     _builder.append("{");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -600,5 +599,105 @@ public class ProcessorDslGenerator implements IGenerator {
       _or = (_or_1 || _notEquals_2);
     }
     return _or;
+  }
+  
+  public CharSequence compileExtends(final PojoEntity e) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      PojoEntity _superType = e.getSuperType();
+      boolean _notEquals = (!Objects.equal(_superType, null));
+      if (_notEquals) {
+        _builder.append("extends ");
+        PojoEntity _superType_1 = e.getSuperType();
+        QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(_superType_1);
+        _builder.append(_fullyQualifiedName, "");
+        _builder.append(" ");
+      } else {
+        String _extends = this.getExtends(e);
+        boolean _notEquals_1 = (!Objects.equal(_extends, ""));
+        if (_notEquals_1) {
+          _builder.append("extends ");
+          String _extends_1 = this.getExtends(e);
+          _builder.append(_extends_1, "");
+          _builder.append(" ");
+        }
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence compileImplements(final PojoEntity e) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      boolean _isImplements = this.isImplements(e);
+      if (_isImplements) {
+        _builder.append("implements ");
+        {
+          EObject _eContainer = e.eContainer();
+          EList<EObject> _eContents = _eContainer.eContents();
+          Iterable<Implements> _filter = Iterables.<Implements>filter(_eContents, Implements.class);
+          boolean _hasElements = false;
+          for(final Implements f : _filter) {
+            if (!_hasElements) {
+              _hasElements = true;
+            } else {
+              _builder.appendImmediate(", ", "");
+            }
+            JvmType _implements = f.getImplements();
+            String _simpleName = _implements.getSimpleName();
+            _builder.append(_simpleName, "");
+          }
+        }
+        _builder.append(" ");
+      }
+    }
+    return _builder;
+  }
+  
+  public boolean compile(final Extends e, final ImportManager importManager) {
+    JvmType _extends = e.getExtends();
+    boolean _addImportFor = importManager.addImportFor(_extends);
+    return _addImportFor;
+  }
+  
+  public void addImplements(final PojoEntity e, final ImportManager importManager) {
+    EObject _eContainer = e.eContainer();
+    EList<EObject> _eContents = _eContainer.eContents();
+    Iterable<Implements> _filter = Iterables.<Implements>filter(_eContents, Implements.class);
+    for (final Implements impl : _filter) {
+      JvmType _implements = impl.getImplements();
+      importManager.addImportFor(_implements);
+    }
+  }
+  
+  public void addExtends(final PojoEntity e, final ImportManager importManager) {
+    EObject _eContainer = e.eContainer();
+    EList<EObject> _eContents = _eContainer.eContents();
+    Iterable<Extends> _filter = Iterables.<Extends>filter(_eContents, Extends.class);
+    for (final Extends ext : _filter) {
+      JvmType _extends = ext.getExtends();
+      importManager.addImportFor(_extends);
+    }
+  }
+  
+  public String getExtends(final PojoEntity e) {
+    EObject _eContainer = e.eContainer();
+    EList<EObject> _eContents = _eContainer.eContents();
+    Iterable<Extends> _filter = Iterables.<Extends>filter(_eContents, Extends.class);
+    for (final Extends ext : _filter) {
+      JvmType _extends = ext.getExtends();
+      return _extends.getSimpleName();
+    }
+    return "";
+  }
+  
+  public boolean isImplements(final PojoEntity e) {
+    EObject _eContainer = e.eContainer();
+    EList<EObject> _eContents = _eContainer.eContents();
+    Iterable<Implements> _filter = Iterables.<Implements>filter(_eContents, Implements.class);
+    for (final Implements ext : _filter) {
+      return true;
+    }
+    return false;
   }
 }

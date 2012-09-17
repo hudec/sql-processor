@@ -27,18 +27,15 @@ pojogen required columns CREDIT_CARD CC_NUMBER;
 pojogen type for columns MOVIE PLAYLENGTH->:java.lang.Integer;
 pojogen generate methods toString equals hashCode;
 pojogen implements java.io.Serializable;
-pojogen extends java.lang.Object;
+//pojogen extends java.lang.Object;
 
 
 package org.sqlproc.sample.simple.model2 suffix 2 {
-
-
 }
 
 package org.sqlproc.sample.simple.model {
 
   implements java.io.Serializable
-  extends java.lang.Object
 
 
   pojo BankAccount extends BillingDetails discriminator BA {
