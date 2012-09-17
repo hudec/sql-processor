@@ -1,6 +1,5 @@
 package org.sqlproc.dsl.property;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,7 +13,6 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.EcoreUtil2;
-import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
@@ -87,8 +85,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
         public Map<String, String> inheritanceColumns;
         public Set<String> generateMethods;
-        public List<JvmType> toImplements;
-        public JvmType toExtends;
+        public Set<String> toImplements;
+        public String toExtends;
 
         @Override
         public String toString() {
@@ -375,12 +373,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             }
         } else if (POJOGEN_IMPLEMENTS.equals(property.getName())) {
             if (modelValues.toImplements == null)
-                modelValues.toImplements = new ArrayList<JvmType>();
+                modelValues.toImplements = new HashSet<String>();
             for (int i = 0, m = property.getToImplements().size(); i < m; i++) {
-                modelValues.toImplements.add(property.getToImplements().get(i));
+                modelValues.toImplements.add(property.getToImplements().get(i).getIdentifier());
             }
         } else if (POJOGEN_EXTENDS.equals(property.getName())) {
-            modelValues.toExtends = property.getToExtends();
+            modelValues.toExtends = property.getToExtends().getIdentifier();
         }
     }
 
@@ -521,13 +519,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
-    public List<JvmType> getToImplements(EObject model) {
+    public Set<String> getToImplements(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.toImplements : Collections.<JvmType> emptyList();
+        return (modelValues != null) ? modelValues.toImplements : Collections.<String> emptySet();
     }
 
     @Override
-    public JvmType getToExtends(EObject model) {
+    public String getToExtends(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.toExtends : null;
     }

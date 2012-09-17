@@ -40,6 +40,7 @@ package org.sqlproc.sample.simple.model {
   implements java.io.Serializable
   extends java.lang.Object
 
+
   pojo BankAccount extends BillingDetails discriminator BA {
     account : java.lang.String required
     toString ::: account
