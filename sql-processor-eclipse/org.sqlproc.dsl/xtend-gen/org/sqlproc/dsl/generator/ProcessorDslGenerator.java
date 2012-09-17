@@ -215,6 +215,23 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.newLineIfNotEmpty();
       }
     }
+    _builder.append("  ");
+    {
+      EList<PojoProperty> _features_1 = e.getFeatures();
+      final Function1<PojoProperty,Boolean> _function_1 = new Function1<PojoProperty,Boolean>() {
+          public Boolean apply(final PojoProperty x) {
+            String _name = x.getName();
+            boolean _equalsIgnoreCase = _name.equalsIgnoreCase("toString");
+            return Boolean.valueOf(_equalsIgnoreCase);
+          }
+        };
+      boolean _exists = IterableExtensions.<PojoProperty>exists(_features_1, _function_1);
+      if (_exists) {
+        CharSequence _compileToString = this.compileToString(importManager, e);
+        _builder.append(_compileToString, "  ");
+      }
+    }
+    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -280,7 +297,7 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("public ");
     String _name_7 = e.getName();
     _builder.append(_name_7, "");
-    _builder.append(" sset");
+    _builder.append(" _set");
     String _name_8 = f.getName();
     String _firstUpper_2 = StringExtensions.toFirstUpper(_name_8);
     _builder.append(_firstUpper_2, "");
@@ -304,6 +321,55 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("  ");
     _builder.append("return this;");
     _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileToString(final ImportManager importManager, final PojoEntity e) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.newLine();
+    _builder.append("@Override");
+    _builder.newLine();
+    _builder.append("public String toString() {");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("return \"");
+    String _name = e.getName();
+    _builder.append(_name, "    ");
+    _builder.append(" [");
+    {
+      EList<PojoProperty> _features = e.getFeatures();
+      final Function1<PojoProperty,Boolean> _function = new Function1<PojoProperty,Boolean>() {
+          public Boolean apply(final PojoProperty x) {
+            boolean _isAttribute = ProcessorDslGenerator.this.isAttribute(x);
+            return Boolean.valueOf(_isAttribute);
+          }
+        };
+      Iterable<PojoProperty> _filter = IterableExtensions.<PojoProperty>filter(_features, _function);
+      boolean _hasElements = false;
+      for(final PojoProperty f2 : _filter) {
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          _builder.appendImmediate(" + \", ", "    ");
+        }
+        String _name_1 = f2.getName();
+        _builder.append(_name_1, "    ");
+        _builder.append("=\" + ");
+        String _name_2 = f2.getName();
+        _builder.append(_name_2, "    ");
+      }
+    }
+    {
+      PojoEntity _superType = e.getSuperType();
+      boolean _notEquals = (!Objects.equal(_superType, null));
+      if (_notEquals) {
+        _builder.append(" + super.toString()");
+      }
+    }
+    _builder.append(" + \"]\";");
+    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;

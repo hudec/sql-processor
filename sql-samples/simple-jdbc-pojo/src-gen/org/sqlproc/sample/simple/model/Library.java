@@ -19,7 +19,7 @@ public class Library {
     this.id = id;
   }
     
-  public Library ssetId(Long id) {
+  public Library _setId(Long id) {
     this.id = id;
     return this;
   }
@@ -34,8 +34,13 @@ public class Library {
     this.name = name;
   }
     
-  public Library ssetName(String name) {
+  public Library _setName(String name) {
     this.name = name;
     return this;
+  }
+  
+  @Override
+  public String toString() {
+      return "Library [id=" + id + ", name=" + name + "]";
   }
 }

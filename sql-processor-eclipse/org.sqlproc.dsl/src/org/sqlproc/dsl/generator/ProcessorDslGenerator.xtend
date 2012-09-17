@@ -57,6 +57,7 @@ public «IF e.isAbstract»abstract «ENDIF»class «e.name» «IF e.superType !=
   «FOR f:e.features.filter(x| isAttribute(x))»
     «f.compile(importManager, e)»
   «ENDFOR»
+  «IF e.features.exists(x| x.name.equalsIgnoreCase("toString"))»«compileToString(importManager, e)»«ENDIF»
 }
 '''
 
@@ -72,9 +73,17 @@ def compile(PojoProperty f, ImportManager importManager, PojoEntity e) '''
       this.«f.name» = «f.name»;
     }
   
-    public «e.name» sset«f.name.toFirstUpper»(«f.compileType(importManager)» «f.name») {
+    public «e.name» _set«f.name.toFirstUpper»(«f.compileType(importManager)» «f.name») {
       this.«f.name» = «f.name»;
       return this;
+    }
+'''
+
+def compileToString(ImportManager importManager, PojoEntity e) '''
+
+    @Override
+    public String toString() {
+        return "«e.name» [«FOR f2:e.features.filter(x| isAttribute(x)) SEPARATOR " + \", "»«f2.name»=" + «f2.name»«ENDFOR»«IF e.superType != null» + super.toString()«ENDIF» + "]";
     }
 '''
 

@@ -20,8 +20,13 @@ public class Book extends Media {
     this.isbn = isbn;
   }
     
-  public Book ssetIsbn(String isbn) {
+  public Book _setIsbn(String isbn) {
     this.isbn = isbn;
     return this;
+  }
+  
+  @Override
+  public String toString() {
+      return "Book [isbn=" + isbn+ super.toString() + "]";
   }
 }

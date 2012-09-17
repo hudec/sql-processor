@@ -21,7 +21,7 @@ public class Contact {
     this.id = id;
   }
     
-  public Contact ssetId(Long id) {
+  public Contact _setId(Long id) {
     this.id = id;
     return this;
   }
@@ -36,7 +36,7 @@ public class Contact {
     this.personId = personId;
   }
     
-  public Contact ssetPersonId(Long personId) {
+  public Contact _setPersonId(Long personId) {
     this.personId = personId;
     return this;
   }
@@ -51,7 +51,7 @@ public class Contact {
     this.address = address;
   }
     
-  public Contact ssetAddress(String address) {
+  public Contact _setAddress(String address) {
     this.address = address;
     return this;
   }
@@ -66,8 +66,13 @@ public class Contact {
     this.homePhone = homePhone;
   }
     
-  public Contact ssetHomePhone(PhoneNumber homePhone) {
+  public Contact _setHomePhone(PhoneNumber homePhone) {
     this.homePhone = homePhone;
     return this;
+  }
+  
+  @Override
+  public String toString() {
+      return "Contact [id=" + id + ", personId=" + personId + ", address=" + address + ", homePhone=" + homePhone + "]";
   }
 }

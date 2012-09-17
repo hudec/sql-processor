@@ -20,8 +20,13 @@ public class CreditCard extends BillingDetails {
     this.number = number;
   }
     
-  public CreditCard ssetNumber(Long number) {
+  public CreditCard _setNumber(Long number) {
     this.number = number;
     return this;
+  }
+  
+  @Override
+  public String toString() {
+      return "CreditCard [number=" + number+ super.toString() + "]";
   }
 }

@@ -22,7 +22,7 @@ public class Subscriber {
     this.id = id;
   }
     
-  public Subscriber ssetId(Long id) {
+  public Subscriber _setId(Long id) {
     this.id = id;
     return this;
   }
@@ -37,7 +37,7 @@ public class Subscriber {
     this.library = library;
   }
     
-  public Subscriber ssetLibrary(Library library) {
+  public Subscriber _setLibrary(Library library) {
     this.library = library;
     return this;
   }
@@ -52,7 +52,7 @@ public class Subscriber {
     this.contact = contact;
   }
     
-  public Subscriber ssetContact(Contact contact) {
+  public Subscriber _setContact(Contact contact) {
     this.contact = contact;
     return this;
   }
@@ -67,7 +67,7 @@ public class Subscriber {
     this.name = name;
   }
     
-  public Subscriber ssetName(String name) {
+  public Subscriber _setName(String name) {
     this.name = name;
     return this;
   }
@@ -82,8 +82,13 @@ public class Subscriber {
     this.billingDetails = billingDetails;
   }
     
-  public Subscriber ssetBillingDetails(List<BillingDetails> billingDetails) {
+  public Subscriber _setBillingDetails(List<BillingDetails> billingDetails) {
     this.billingDetails = billingDetails;
     return this;
+  }
+  
+  @Override
+  public String toString() {
+      return "Subscriber [id=" + id + ", library=" + library + ", contact=" + contact + ", name=" + name + ", billingDetails=" + billingDetails + "]";
   }
 }

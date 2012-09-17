@@ -19,7 +19,7 @@ public abstract class Media {
     this.id = id;
   }
     
-  public Media ssetId(Long id) {
+  public Media _setId(Long id) {
     this.id = id;
     return this;
   }
@@ -34,8 +34,13 @@ public abstract class Media {
     this.title = title;
   }
     
-  public Media ssetTitle(String title) {
+  public Media _setTitle(String title) {
     this.title = title;
     return this;
+  }
+  
+  @Override
+  public String toString() {
+      return "Media [id=" + id + ", title=" + title + "]";
   }
 }

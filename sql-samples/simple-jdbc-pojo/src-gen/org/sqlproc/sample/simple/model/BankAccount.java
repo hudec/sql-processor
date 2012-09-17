@@ -20,8 +20,13 @@ public class BankAccount extends BillingDetails {
     this.account = account;
   }
     
-  public BankAccount ssetAccount(String account) {
+  public BankAccount _setAccount(String account) {
     this.account = account;
     return this;
+  }
+  
+  @Override
+  public String toString() {
+      return "BankAccount [account=" + account+ super.toString() + "]";
   }
 }

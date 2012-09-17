@@ -20,7 +20,7 @@ public abstract class BillingDetails {
     this.id = id;
   }
     
-  public BillingDetails ssetId(Long id) {
+  public BillingDetails _setId(Long id) {
     this.id = id;
     return this;
   }
@@ -35,7 +35,7 @@ public abstract class BillingDetails {
     this.subscriber = subscriber;
   }
     
-  public BillingDetails ssetSubscriber(Subscriber subscriber) {
+  public BillingDetails _setSubscriber(Subscriber subscriber) {
     this.subscriber = subscriber;
     return this;
   }
@@ -50,8 +50,13 @@ public abstract class BillingDetails {
     this.type = type;
   }
     
-  public BillingDetails ssetType(String type) {
+  public BillingDetails _setType(String type) {
     this.type = type;
     return this;
+  }
+  
+  @Override
+  public String toString() {
+      return "BillingDetails [id=" + id + ", subscriber=" + subscriber + ", type=" + type + "]";
   }
 }

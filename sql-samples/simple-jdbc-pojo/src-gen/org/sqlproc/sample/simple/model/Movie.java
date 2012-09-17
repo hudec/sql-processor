@@ -21,7 +21,7 @@ public class Movie extends Media {
     this.urlImdb = urlImdb;
   }
     
-  public Movie ssetUrlImdb(String urlImdb) {
+  public Movie _setUrlImdb(String urlImdb) {
     this.urlImdb = urlImdb;
     return this;
   }
@@ -36,8 +36,13 @@ public class Movie extends Media {
     this.playLength = playLength;
   }
     
-  public Movie ssetPlayLength(Integer playLength) {
+  public Movie _setPlayLength(Integer playLength) {
     this.playLength = playLength;
     return this;
+  }
+  
+  @Override
+  public String toString() {
+      return "Movie [urlImdb=" + urlImdb + ", playLength=" + playLength+ super.toString() + "]";
   }
 }

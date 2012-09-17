@@ -21,7 +21,7 @@ public class Person {
     this.id = id;
   }
     
-  public Person ssetId(Long id) {
+  public Person _setId(Long id) {
     this.id = id;
     return this;
   }
@@ -36,7 +36,7 @@ public class Person {
     this.name = name;
   }
     
-  public Person ssetName(String name) {
+  public Person _setName(String name) {
     this.name = name;
     return this;
   }
@@ -51,7 +51,7 @@ public class Person {
     this.library = library;
   }
     
-  public Person ssetLibrary(List<Media> library) {
+  public Person _setLibrary(List<Media> library) {
     this.library = library;
     return this;
   }
@@ -66,8 +66,13 @@ public class Person {
     this.contacts = contacts;
   }
     
-  public Person ssetContacts(List<Contact> contacts) {
+  public Person _setContacts(List<Contact> contacts) {
     this.contacts = contacts;
     return this;
+  }
+  
+  @Override
+  public String toString() {
+      return "Person [id=" + id + ", name=" + name + ", library=" + library + ", contacts=" + contacts + "]";
   }
 }

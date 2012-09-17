@@ -27,7 +27,7 @@ pojogen required columns CREDIT_CARD CC_NUMBER;
 pojogen type for columns MOVIE PLAYLENGTH->:java.lang.Integer;
 pojogen generate methods toString equals hashCode;
 
-
+//
 package org.sqlproc.sample.simple.model2 suffix 2 {
 
 

@@ -20,7 +20,7 @@ public class PersonLibrary {
     this.id = id;
   }
     
-  public PersonLibrary ssetId(Long id) {
+  public PersonLibrary _setId(Long id) {
     this.id = id;
     return this;
   }
@@ -35,7 +35,7 @@ public class PersonLibrary {
     this.personId = personId;
   }
     
-  public PersonLibrary ssetPersonId(Long personId) {
+  public PersonLibrary _setPersonId(Long personId) {
     this.personId = personId;
     return this;
   }
@@ -50,8 +50,13 @@ public class PersonLibrary {
     this.mediaId = mediaId;
   }
     
-  public PersonLibrary ssetMediaId(Long mediaId) {
+  public PersonLibrary _setMediaId(Long mediaId) {
     this.mediaId = mediaId;
     return this;
+  }
+  
+  @Override
+  public String toString() {
+      return "PersonLibrary [id=" + id + ", personId=" + personId + ", mediaId=" + mediaId + "]";
   }
 }
