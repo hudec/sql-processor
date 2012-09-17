@@ -27,13 +27,14 @@ pojogen required columns CREDIT_CARD CC_NUMBER;
 pojogen type for columns MOVIE PLAYLENGTH->:java.lang.Integer;
 pojogen generate methods toString equals hashCode;
 
-//
+//x
 package org.sqlproc.sample.simple.model2 suffix 2 {
 
 
 }
 
 package org.sqlproc.sample.simple.model {
+
 
   pojo BankAccount extends BillingDetails discriminator BA {
     account : java.lang.String required
@@ -120,7 +121,6 @@ package org.sqlproc.sample.simple.model {
     hashCode ::: id
     toString ::: id name library contact
   }
-
 
 //  pojo PhoneNumber {
 //    area _int required

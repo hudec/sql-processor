@@ -57,7 +57,7 @@ public «IF e.isAbstract»abstract «ENDIF»class «e.name» «IF e.superType !=
   «FOR f:e.features.filter(x| isAttribute(x))»
     «f.compile(importManager, e)»
   «ENDFOR»
-  «IF e.features.exists(x| x.name.equalsIgnoreCase("toString"))»«compileToString(importManager, e)»«ENDIF»
+  «FOR f:e.features.filter(x| !isAttribute(x))»«IF f.name.equalsIgnoreCase("hashCode")»«f.compileHashCode(importManager, e)»«ELSEIF f.name.equalsIgnoreCase("equals")»«f.compileEquals(importManager, e)»«ELSEIF f.name.equalsIgnoreCase("toString")»«f.compileToString(importManager, e)»«ENDIF»«ENDFOR»
 }
 '''
 
@@ -79,11 +79,43 @@ def compile(PojoProperty f, ImportManager importManager, PojoEntity e) '''
     }
 '''
 
-def compileToString(ImportManager importManager, PojoEntity e) '''
+def compileHashCode(PojoProperty f, ImportManager importManager, PojoEntity e) '''
+
+    @Override
+    public int hashCode() {
+      final int prime = 31;
+      int result = 1;
+      «FOR f2:f.attrs»
+      result = prime * result + (int) («f2.name» ^ («f2.name» >>> 32));
+      «ENDFOR»
+      return result;
+    }  
+'''
+
+def compileEquals(PojoProperty f, ImportManager importManager, PojoEntity e) '''
+
+    @Override
+    public boolean equals(Object obj) {
+      if (this == obj)
+        return true;
+      if (obj == null)
+        return false;
+      if (getClass() != obj.getClass())
+        return false;
+      «e.name» other = («e.name») obj;
+      «FOR f2:f.attrs»
+      if («f2.name» != other.«f2.name»)
+        return false;
+      «ENDFOR»
+      return true;
+    }  
+'''
+
+def compileToString(PojoProperty f, ImportManager importManager, PojoEntity e) '''
 
     @Override
     public String toString() {
-        return "«e.name» [«FOR f2:e.features.filter(x| isAttribute(x)) SEPARATOR " + \", "»«f2.name»=" + «f2.name»«ENDFOR»«IF e.superType != null» + super.toString()«ENDIF» + "]";
+      return "«e.name» [«FOR f2:f.attrs SEPARATOR " + \", "»«f2.name»=" + «f2.name»«ENDFOR»«IF e.superType != null» + super.toString()«ENDIF» + "]";
     }
 '''
 

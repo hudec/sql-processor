@@ -43,6 +43,6 @@ public class Movie extends Media {
   
   @Override
   public String toString() {
-      return "Movie [urlImdb=" + urlImdb + ", playLength=" + playLength+ super.toString() + "]";
+    return "Movie [urlImdb=" + urlImdb + ", playLength=" + playLength + super.toString() + "]";
   }
 }

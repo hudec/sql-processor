@@ -27,6 +27,6 @@ public class BankAccount extends BillingDetails {
   
   @Override
   public String toString() {
-      return "BankAccount [account=" + account+ super.toString() + "]";
+    return "BankAccount [account=" + account + super.toString() + "]";
   }
 }

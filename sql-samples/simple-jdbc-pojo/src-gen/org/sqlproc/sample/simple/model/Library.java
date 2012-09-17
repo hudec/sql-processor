@@ -40,7 +40,29 @@ public class Library {
   }
   
   @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Library other = (Library) obj;
+    if (id != other.id)
+      return false;
+    return true;
+  }  
+  
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + (int) (id ^ (id >>> 32));
+    return result;
+  }  
+  
+  @Override
   public String toString() {
-      return "Library [id=" + id + ", name=" + name + "]";
+    return "Library [id=" + id + ", name=" + name + "]";
   }
 }

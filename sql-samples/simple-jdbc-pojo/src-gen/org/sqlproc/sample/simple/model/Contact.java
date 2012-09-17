@@ -72,7 +72,29 @@ public class Contact {
   }
   
   @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Contact other = (Contact) obj;
+    if (id != other.id)
+      return false;
+    return true;
+  }  
+  
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + (int) (id ^ (id >>> 32));
+    return result;
+  }  
+  
+  @Override
   public String toString() {
-      return "Contact [id=" + id + ", personId=" + personId + ", address=" + address + ", homePhone=" + homePhone + "]";
+    return "Contact [id=" + id + ", address=" + address + ", personId=" + personId + ", homePhone=" + homePhone + "]";
   }
 }
