@@ -2438,13 +2438,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_ENTITY__DISCRIMINATOR = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 4;
 
   /**
+   * The feature id for the '<em><b>Sernum</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_ENTITY__SERNUM = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 5;
+
+  /**
    * The feature id for the '<em><b>Features</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_ENTITY__FEATURES = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 5;
+  int POJO_ENTITY__FEATURES = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 6;
 
   /**
    * The number of structural features of the '<em>Pojo Entity</em>' class.
@@ -2453,7 +2462,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_ENTITY_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 6;
+  int POJO_ENTITY_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 7;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl <em>Pojo Property</em>}' class.
@@ -4747,6 +4756,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getPojoEntity_Discriminator();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getSernum <em>Sernum</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Sernum</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoEntity#getSernum()
+   * @see #getPojoEntity()
+   * @generated
+   */
+  EAttribute getPojoEntity_Sernum();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getFeatures <em>Features</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6626,6 +6646,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute POJO_ENTITY__DISCRIMINATOR = eINSTANCE.getPojoEntity_Discriminator();
+
+    /**
+     * The meta object literal for the '<em><b>Sernum</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_ENTITY__SERNUM = eINSTANCE.getPojoEntity_Sernum();
 
     /**
      * The meta object literal for the '<em><b>Features</b></em>' containment reference list feature.

@@ -884,6 +884,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         name=IDENT 
 	 *         superType=[PojoEntity|IDENT]? 
 	 *         (discriminator=IDENT | discriminator=NUMBER)? 
+	 *         (sernum=NUMBER | sernum=NEGATIVE_NUMBER)? 
 	 *         features+=PojoProperty*
 	 *     )
 	 */

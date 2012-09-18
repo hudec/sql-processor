@@ -5194,18 +5194,35 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cDiscriminatorAlternatives_5_1_0 = (Alternatives)cDiscriminatorAssignment_5_1.eContents().get(0);
 		private final RuleCall cDiscriminatorIDENTTerminalRuleCall_5_1_0_0 = (RuleCall)cDiscriminatorAlternatives_5_1_0.eContents().get(0);
 		private final RuleCall cDiscriminatorNUMBERTerminalRuleCall_5_1_0_1 = (RuleCall)cDiscriminatorAlternatives_5_1_0.eContents().get(1);
-		private final RuleCall cLBRACETerminalRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
-		private final Assignment cFeaturesAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cFeaturesPojoPropertyParserRuleCall_7_0 = (RuleCall)cFeaturesAssignment_7.eContents().get(0);
-		private final RuleCall cRBRACETerminalRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cSerializableKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cSernumAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final Alternatives cSernumAlternatives_6_1_0 = (Alternatives)cSernumAssignment_6_1.eContents().get(0);
+		private final RuleCall cSernumNUMBERTerminalRuleCall_6_1_0_0 = (RuleCall)cSernumAlternatives_6_1_0.eContents().get(0);
+		private final RuleCall cSernumNEGATIVE_NUMBERTerminalRuleCall_6_1_0_1 = (RuleCall)cSernumAlternatives_6_1_0.eContents().get(1);
+		private final RuleCall cLBRACETerminalRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
+		private final Assignment cFeaturesAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cFeaturesPojoPropertyParserRuleCall_8_0 = (RuleCall)cFeaturesAssignment_8.eContents().get(0);
+		private final RuleCall cRBRACETerminalRuleCall_9 = (RuleCall)cGroup.eContents().get(9);
 		
+		////PojoEntityModifier1: ((final?='final') | (abstract?='abstract'));
+		////
+		////PojoEntityModifier2: (('extends' superType=[PojoEntity|IDENT]) | ('discriminator' discriminator=(IDENT|NUMBER)) | ('serializable' sernum=NUMBER));
+		////
+		////PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
+		////	(modifiers1+=PojoEntityModifier1)* 'pojo' name=IDENT (modifiers2+=PojoEntityModifier2)* 
+		////	LBRACE
+		////		features+=PojoProperty*
+		////	RBRACE;
 		//PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
 		//	final?="final"? "pojo" abstract?="abstract"? name=IDENT ("extends" superType=[PojoEntity|IDENT])? ("discriminator"
-		//	discriminator=(IDENT | NUMBER))? LBRACE features+=PojoProperty* RBRACE;
+		//	discriminator=(IDENT | NUMBER))? ("serializable" sernum=(NUMBER | NEGATIVE_NUMBER))? LBRACE features+=PojoProperty*
+		//	RBRACE;
 		public ParserRule getRule() { return rule; }
 
 		//final?="final"? "pojo" abstract?="abstract"? name=IDENT ("extends" superType=[PojoEntity|IDENT])? ("discriminator"
-		//discriminator=(IDENT | NUMBER))? LBRACE features+=PojoProperty* RBRACE
+		//discriminator=(IDENT | NUMBER))? ("serializable" sernum=(NUMBER | NEGATIVE_NUMBER))? LBRACE features+=PojoProperty*
+		//RBRACE
 		public Group getGroup() { return cGroup; }
 
 		//final?="final"?
@@ -5262,17 +5279,35 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//NUMBER
 		public RuleCall getDiscriminatorNUMBERTerminalRuleCall_5_1_0_1() { return cDiscriminatorNUMBERTerminalRuleCall_5_1_0_1; }
 
+		//("serializable" sernum=(NUMBER | NEGATIVE_NUMBER))?
+		public Group getGroup_6() { return cGroup_6; }
+
+		//"serializable"
+		public Keyword getSerializableKeyword_6_0() { return cSerializableKeyword_6_0; }
+
+		//sernum=(NUMBER | NEGATIVE_NUMBER)
+		public Assignment getSernumAssignment_6_1() { return cSernumAssignment_6_1; }
+
+		//NUMBER | NEGATIVE_NUMBER
+		public Alternatives getSernumAlternatives_6_1_0() { return cSernumAlternatives_6_1_0; }
+
+		//NUMBER
+		public RuleCall getSernumNUMBERTerminalRuleCall_6_1_0_0() { return cSernumNUMBERTerminalRuleCall_6_1_0_0; }
+
+		//NEGATIVE_NUMBER
+		public RuleCall getSernumNEGATIVE_NUMBERTerminalRuleCall_6_1_0_1() { return cSernumNEGATIVE_NUMBERTerminalRuleCall_6_1_0_1; }
+
 		//LBRACE
-		public RuleCall getLBRACETerminalRuleCall_6() { return cLBRACETerminalRuleCall_6; }
+		public RuleCall getLBRACETerminalRuleCall_7() { return cLBRACETerminalRuleCall_7; }
 
 		//features+=PojoProperty*
-		public Assignment getFeaturesAssignment_7() { return cFeaturesAssignment_7; }
+		public Assignment getFeaturesAssignment_8() { return cFeaturesAssignment_8; }
 
 		//PojoProperty
-		public RuleCall getFeaturesPojoPropertyParserRuleCall_7_0() { return cFeaturesPojoPropertyParserRuleCall_7_0; }
+		public RuleCall getFeaturesPojoPropertyParserRuleCall_8_0() { return cFeaturesPojoPropertyParserRuleCall_8_0; }
 
 		//RBRACE
-		public RuleCall getRBRACETerminalRuleCall_8() { return cRBRACETerminalRuleCall_8; }
+		public RuleCall getRBRACETerminalRuleCall_9() { return cRBRACETerminalRuleCall_9; }
 	}
 
 	public class PojoPropertyElements extends AbstractParserRuleElementFinder {
@@ -5597,6 +5632,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tIDENT_DOT;
 	private TerminalRule tIDENT;
 	private TerminalRule tNUMBER;
+	private TerminalRule tNEGATIVE_NUMBER;
 	private TerminalRule tESC_CHAR;
 	private TerminalRule tML_COMMENT;
 	private TerminalRule tSL_COMMENT;
@@ -6226,6 +6262,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return (tNUMBER != null) ? tNUMBER : (tNUMBER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NUMBER"));
 	} 
 
+	//terminal NEGATIVE_NUMBER:
+	//	"-" "0".."9"+;
+	public TerminalRule getNEGATIVE_NUMBERRule() {
+		return (tNEGATIVE_NUMBER != null) ? tNEGATIVE_NUMBER : (tNEGATIVE_NUMBER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NEGATIVE_NUMBER"));
+	} 
+
 	//terminal ESC_CHAR:
 	//	"\\" (COLON | SEMICOLON | STRING | LBRACE | RBRACE | BOR | HASH | AT | PERCENT | "/");
 	public TerminalRule getESC_CHARRule() {
@@ -6468,9 +6510,19 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getExtendsAccess().getRule();
 	}
 
+	////PojoEntityModifier1: ((final?='final') | (abstract?='abstract'));
+	////
+	////PojoEntityModifier2: (('extends' superType=[PojoEntity|IDENT]) | ('discriminator' discriminator=(IDENT|NUMBER)) | ('serializable' sernum=NUMBER));
+	////
+	////PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
+	////	(modifiers1+=PojoEntityModifier1)* 'pojo' name=IDENT (modifiers2+=PojoEntityModifier2)* 
+	////	LBRACE
+	////		features+=PojoProperty*
+	////	RBRACE;
 	//PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
 	//	final?="final"? "pojo" abstract?="abstract"? name=IDENT ("extends" superType=[PojoEntity|IDENT])? ("discriminator"
-	//	discriminator=(IDENT | NUMBER))? LBRACE features+=PojoProperty* RBRACE;
+	//	discriminator=(IDENT | NUMBER))? ("serializable" sernum=(NUMBER | NEGATIVE_NUMBER))? LBRACE features+=PojoProperty*
+	//	RBRACE;
 	public PojoEntityElements getPojoEntityAccess() {
 		return (pPojoEntity != null) ? pPojoEntity : (pPojoEntity = new PojoEntityElements());
 	}

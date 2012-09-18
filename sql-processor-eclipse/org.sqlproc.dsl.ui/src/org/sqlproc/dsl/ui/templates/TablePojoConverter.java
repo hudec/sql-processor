@@ -475,8 +475,13 @@ public class TablePojoConverter {
 
     public String getPojoDefinitions() {
         StringBuilder buffer = new StringBuilder();
+        boolean isSerializable = false;
         if (!toImplements.isEmpty()) {
             for (JvmType type : toImplements.values()) {
+                if (type.getIdentifier().endsWith("Serializable")) {
+                    isSerializable = true;
+                    continue;
+                }
                 buffer.append("\n  implements ").append(type.getIdentifier());
             }
         }
@@ -484,7 +489,7 @@ public class TablePojoConverter {
             buffer.append("\n  extends ").append(toExtends.getIdentifier());
         }
         if (!toImplements.isEmpty() || toExtends != null) {
-            buffer.append("\n\n");
+            buffer.append("\n");
         }
         for (String pojo : pojos.keySet()) {
             if (ignoreTables.contains(pojo))
@@ -502,6 +507,8 @@ public class TablePojoConverter {
                 buffer.append(" extends ").append(pojoExtends.get(pojo));
             if (pojoDiscriminators.containsKey(pojo))
                 buffer.append(" discriminator ").append(pojoDiscriminators.get(pojo));
+            if (isSerializable)
+                buffer.append(" serializable 1 ");
             buffer.append(" {");
             Set<String> pkeys = new HashSet<String>();
             Set<String> strs = new HashSet<String>();

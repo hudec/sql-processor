@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getSuperType <em>Super Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getDiscriminator <em>Discriminator</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getSernum <em>Sernum</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoEntity#getFeatures <em>Features</em>}</li>
  * </ul>
  * </p>
@@ -156,6 +157,32 @@ public interface PojoEntity extends AbstractPojoEntity
    * @generated
    */
   void setDiscriminator(String value);
+
+  /**
+   * Returns the value of the '<em><b>Sernum</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Sernum</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Sernum</em>' attribute.
+   * @see #setSernum(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoEntity_Sernum()
+   * @model
+   * @generated
+   */
+  String getSernum();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoEntity#getSernum <em>Sernum</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Sernum</em>' attribute.
+   * @see #getSernum()
+   * @generated
+   */
+  void setSernum(String value);
 
   /**
    * Returns the value of the '<em><b>Features</b></em>' containment reference list.

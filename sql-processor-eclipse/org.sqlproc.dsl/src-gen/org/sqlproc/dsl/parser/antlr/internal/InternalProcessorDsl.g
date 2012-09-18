@@ -8816,31 +8816,71 @@ rulePojoEntity returns [EObject current=null]
 )
 
 )
-))?this_LBRACE_8=RULE_LBRACE
+))?(	otherlv_8='serializable' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getPojoEntityAccess().getSerializableKeyword_6_0());
+    }
+(
+(
+(
+		lv_sernum_9_1=RULE_NUMBER
+		{
+			newLeafNode(lv_sernum_9_1, grammarAccess.getPojoEntityAccess().getSernumNUMBERTerminalRuleCall_6_1_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoEntityRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"sernum",
+        		lv_sernum_9_1, 
+        		"NUMBER");
+	    }
+
+    |		lv_sernum_9_2=RULE_NEGATIVE_NUMBER
+		{
+			newLeafNode(lv_sernum_9_2, grammarAccess.getPojoEntityAccess().getSernumNEGATIVE_NUMBERTerminalRuleCall_6_1_0_1()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoEntityRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"sernum",
+        		lv_sernum_9_2, 
+        		"NEGATIVE_NUMBER");
+	    }
+
+)
+
+)
+))?this_LBRACE_10=RULE_LBRACE
     { 
-    newLeafNode(this_LBRACE_8, grammarAccess.getPojoEntityAccess().getLBRACETerminalRuleCall_6()); 
+    newLeafNode(this_LBRACE_10, grammarAccess.getPojoEntityAccess().getLBRACETerminalRuleCall_7()); 
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPojoEntityAccess().getFeaturesPojoPropertyParserRuleCall_7_0()); 
+	        newCompositeNode(grammarAccess.getPojoEntityAccess().getFeaturesPojoPropertyParserRuleCall_8_0()); 
 	    }
-		lv_features_9_0=rulePojoProperty		{
+		lv_features_11_0=rulePojoProperty		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPojoEntityRule());
 	        }
        		add(
        			$current, 
        			"features",
-        		lv_features_9_0, 
+        		lv_features_11_0, 
         		"PojoProperty");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*this_RBRACE_10=RULE_RBRACE
+)*this_RBRACE_12=RULE_RBRACE
     { 
-    newLeafNode(this_RBRACE_10, grammarAccess.getPojoEntityAccess().getRBRACETerminalRuleCall_8()); 
+    newLeafNode(this_RBRACE_12, grammarAccess.getPojoEntityAccess().getRBRACETerminalRuleCall_9()); 
     }
 )
 ;
@@ -9247,6 +9287,8 @@ RULE_IDENT_DOT : RULE_IDENT ('.' RULE_IDENT)+;
 RULE_IDENT : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'=')*;
 
 RULE_NUMBER : ('0'..'9')+;
+
+RULE_NEGATIVE_NUMBER : '-' ('0'..'9')+;
 
 RULE_ESC_CHAR : '\\' (RULE_COLON|RULE_SEMICOLON|RULE_STRING|RULE_LBRACE|RULE_RBRACE|RULE_BOR|RULE_HASH|RULE_AT|RULE_PERCENT|'/');
 

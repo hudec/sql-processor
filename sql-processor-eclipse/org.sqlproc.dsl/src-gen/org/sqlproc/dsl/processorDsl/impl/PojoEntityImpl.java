@@ -33,6 +33,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getSuperType <em>Super Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getDiscriminator <em>Discriminator</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getSernum <em>Sernum</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getFeatures <em>Features</em>}</li>
  * </ul>
  * </p>
@@ -130,6 +131,26 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
    * @ordered
    */
   protected String discriminator = DISCRIMINATOR_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getSernum() <em>Sernum</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSernum()
+   * @generated
+   * @ordered
+   */
+  protected static final String SERNUM_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getSernum() <em>Sernum</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSernum()
+   * @generated
+   * @ordered
+   */
+  protected String sernum = SERNUM_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getFeatures() <em>Features</em>}' containment reference list.
@@ -302,6 +323,29 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getSernum()
+  {
+    return sernum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSernum(String newSernum)
+  {
+    String oldSernum = sernum;
+    sernum = newSernum;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_ENTITY__SERNUM, oldSernum, sernum));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<PojoProperty> getFeatures()
   {
     if (features == null)
@@ -348,6 +392,8 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
         return basicGetSuperType();
       case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
         return getDiscriminator();
+      case ProcessorDslPackage.POJO_ENTITY__SERNUM:
+        return getSernum();
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         return getFeatures();
     }
@@ -379,6 +425,9 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
         return;
       case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
         setDiscriminator((String)newValue);
+        return;
+      case ProcessorDslPackage.POJO_ENTITY__SERNUM:
+        setSernum((String)newValue);
         return;
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         getFeatures().clear();
@@ -413,6 +462,9 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
       case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
         setDiscriminator(DISCRIMINATOR_EDEFAULT);
         return;
+      case ProcessorDslPackage.POJO_ENTITY__SERNUM:
+        setSernum(SERNUM_EDEFAULT);
+        return;
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         getFeatures().clear();
         return;
@@ -440,6 +492,8 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
         return superType != null;
       case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
         return DISCRIMINATOR_EDEFAULT == null ? discriminator != null : !DISCRIMINATOR_EDEFAULT.equals(discriminator);
+      case ProcessorDslPackage.POJO_ENTITY__SERNUM:
+        return SERNUM_EDEFAULT == null ? sernum != null : !SERNUM_EDEFAULT.equals(sernum);
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         return features != null && !features.isEmpty();
     }
@@ -465,6 +519,8 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
     result.append(name);
     result.append(", discriminator: ");
     result.append(discriminator);
+    result.append(", sernum: ");
+    result.append(sernum);
     result.append(')');
     return result.toString();
   }

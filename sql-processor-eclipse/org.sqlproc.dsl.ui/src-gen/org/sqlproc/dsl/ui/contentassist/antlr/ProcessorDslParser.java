@@ -82,6 +82,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPackageDeclarationAccess().getSuffixAlternatives_2_1_0(), "rule__PackageDeclaration__SuffixAlternatives_2_1_0");
 					put(grammarAccess.getAbstractPojoEntityAccess().getAlternatives(), "rule__AbstractPojoEntity__Alternatives");
 					put(grammarAccess.getPojoEntityAccess().getDiscriminatorAlternatives_5_1_0(), "rule__PojoEntity__DiscriminatorAlternatives_5_1_0");
+					put(grammarAccess.getPojoEntityAccess().getSernumAlternatives_6_1_0(), "rule__PojoEntity__SernumAlternatives_6_1_0");
 					put(grammarAccess.getPojoPropertyAccess().getAlternatives_1(), "rule__PojoProperty__Alternatives_1");
 					put(grammarAccess.getPojoPropertyAccess().getNativeAlternatives_1_0_0(), "rule__PojoProperty__NativeAlternatives_1_0_0");
 					put(grammarAccess.getPojoPropertyAccess().getAlternatives_1_1_0_1(), "rule__PojoProperty__Alternatives_1_1_0_1");
@@ -251,6 +252,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPojoEntityAccess().getGroup(), "rule__PojoEntity__Group__0");
 					put(grammarAccess.getPojoEntityAccess().getGroup_4(), "rule__PojoEntity__Group_4__0");
 					put(grammarAccess.getPojoEntityAccess().getGroup_5(), "rule__PojoEntity__Group_5__0");
+					put(grammarAccess.getPojoEntityAccess().getGroup_6(), "rule__PojoEntity__Group_6__0");
 					put(grammarAccess.getPojoPropertyAccess().getGroup(), "rule__PojoProperty__Group__0");
 					put(grammarAccess.getPojoPropertyAccess().getGroup_1_1(), "rule__PojoProperty__Group_1_1__0");
 					put(grammarAccess.getPojoPropertyAccess().getGroup_1_1_0(), "rule__PojoProperty__Group_1_1_0__0");
@@ -488,7 +490,8 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPojoEntityAccess().getNameAssignment_3(), "rule__PojoEntity__NameAssignment_3");
 					put(grammarAccess.getPojoEntityAccess().getSuperTypeAssignment_4_1(), "rule__PojoEntity__SuperTypeAssignment_4_1");
 					put(grammarAccess.getPojoEntityAccess().getDiscriminatorAssignment_5_1(), "rule__PojoEntity__DiscriminatorAssignment_5_1");
-					put(grammarAccess.getPojoEntityAccess().getFeaturesAssignment_7(), "rule__PojoEntity__FeaturesAssignment_7");
+					put(grammarAccess.getPojoEntityAccess().getSernumAssignment_6_1(), "rule__PojoEntity__SernumAssignment_6_1");
+					put(grammarAccess.getPojoEntityAccess().getFeaturesAssignment_8(), "rule__PojoEntity__FeaturesAssignment_8");
 					put(grammarAccess.getPojoPropertyAccess().getNameAssignment_0(), "rule__PojoProperty__NameAssignment_0");
 					put(grammarAccess.getPojoPropertyAccess().getNativeAssignment_1_0(), "rule__PojoProperty__NativeAssignment_1_0");
 					put(grammarAccess.getPojoPropertyAccess().getAttrsAssignment_1_1_0_1_0_1_0_1(), "rule__PojoProperty__AttrsAssignment_1_1_0_1_0_1_0_1");
