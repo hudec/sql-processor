@@ -42,12 +42,20 @@ def compile(PojoEntity e) '''
 import «i»;
   «ENDFOR»
   «ENDIF»
+  «IF e.sernum != null»
+
+import java.io.Serializable;
+  «ENDIF»
 
 «classBody»
 '''
 
 def compile(PojoEntity e, ImportManager importManager) '''
 public «IF e.isAbstract»abstract «ENDIF»class «e.name» «compileExtends(e)»«compileImplements(e)»{
+  «IF e.sernum != null»
+  
+  private static final long serialVersionUID = «e.sernum»L;
+  «ENDIF»
 	
   public «e.name»() {
   }
@@ -156,7 +164,7 @@ def compileExtends(PojoEntity e) '''
 	«IF e.superType != null»extends «e.superType.fullyQualifiedName» «ELSEIF getExtends(e) != ""»extends «getExtends(e)» «ENDIF»'''
 
 def compileImplements(PojoEntity e) '''
-	«IF isImplements(e)»implements «FOR f:e.eContainer.eContents.filter(typeof(Implements)) SEPARATOR ", " »«f.getImplements().simpleName»«ENDFOR» «ENDIF»'''
+	«IF isImplements(e) || e.sernum != null»implements «FOR f:e.eContainer.eContents.filter(typeof(Implements)) SEPARATOR ", " »«f.getImplements().simpleName»«ENDFOR»«IF e.sernum != null»«IF isImplements(e)», «ENDIF»Serializable«ENDIF» «ENDIF»'''
 
 def compile(Extends e, ImportManager importManager) {
 	importManager.addImportFor(e.getExtends())

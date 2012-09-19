@@ -1,6 +1,10 @@
 package org.sqlproc.sample.simple.model;
 
-public abstract class Media {
+import java.io.Serializable;
+
+public abstract class Media implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 	
   public Media() {
   }

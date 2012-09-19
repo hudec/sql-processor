@@ -1,6 +1,10 @@
 package org.sqlproc.sample.simple.model;
 
-public class CreditCard extends BillingDetails {
+import java.io.Serializable;
+
+public class CreditCard extends BillingDetails implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 	
   public CreditCard() {
   }

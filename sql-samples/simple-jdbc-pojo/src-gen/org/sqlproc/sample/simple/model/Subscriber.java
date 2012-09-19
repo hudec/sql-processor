@@ -2,7 +2,11 @@ package org.sqlproc.sample.simple.model;
   
 import java.util.List;
 
-public class Subscriber {
+import java.io.Serializable;
+
+public class Subscriber implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 	
   public Subscriber() {
   }

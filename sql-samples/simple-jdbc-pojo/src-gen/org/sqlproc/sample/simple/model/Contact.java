@@ -2,7 +2,11 @@ package org.sqlproc.sample.simple.model;
   
 import org.sqlproc.sample.simple.model.PhoneNumber;
 
-public class Contact {
+import java.io.Serializable;
+
+public class Contact implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 	
   public Contact() {
   }

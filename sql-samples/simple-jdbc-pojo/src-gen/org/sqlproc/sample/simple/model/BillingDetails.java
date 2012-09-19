@@ -1,6 +1,10 @@
 package org.sqlproc.sample.simple.model;
 
-public abstract class BillingDetails {
+import java.io.Serializable;
+
+public abstract class BillingDetails implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 	
   public BillingDetails() {
   }

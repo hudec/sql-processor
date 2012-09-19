@@ -1,6 +1,10 @@
 package org.sqlproc.sample.simple.model;
 
-public class PersonLibrary {
+import java.io.Serializable;
+
+public class PersonLibrary implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 	
   public PersonLibrary() {
   }

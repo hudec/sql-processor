@@ -88,6 +88,15 @@ public class ProcessorDslGenerator implements IGenerator {
         }
       }
     }
+    {
+      String _sernum = e.getSernum();
+      boolean _notEquals_1 = (!Objects.equal(_sernum, null));
+      if (_notEquals_1) {
+        _builder.newLine();
+        _builder.append("import java.io.Serializable;");
+        _builder.newLine();
+      }
+    }
     _builder.newLine();
     _builder.append(classBody, "");
     _builder.newLineIfNotEmpty();
@@ -113,6 +122,20 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append(_compileImplements, "");
     _builder.append("{");
     _builder.newLineIfNotEmpty();
+    {
+      String _sernum = e.getSernum();
+      boolean _notEquals = (!Objects.equal(_sernum, null));
+      if (_notEquals) {
+        _builder.append("  ");
+        _builder.newLine();
+        _builder.append("  ");
+        _builder.append("private static final long serialVersionUID = ");
+        String _sernum_1 = e.getSernum();
+        _builder.append(_sernum_1, "  ");
+        _builder.append("L;");
+        _builder.newLineIfNotEmpty();
+      }
+    }
     _builder.append("\t");
     _builder.newLine();
     _builder.append("  ");
@@ -629,8 +652,16 @@ public class ProcessorDslGenerator implements IGenerator {
   public CharSequence compileImplements(final PojoEntity e) {
     StringConcatenation _builder = new StringConcatenation();
     {
+      boolean _or = false;
       boolean _isImplements = this.isImplements(e);
       if (_isImplements) {
+        _or = true;
+      } else {
+        String _sernum = e.getSernum();
+        boolean _notEquals = (!Objects.equal(_sernum, null));
+        _or = (_isImplements || _notEquals);
+      }
+      if (_or) {
         _builder.append("implements ");
         {
           EObject _eContainer = e.eContainer();
@@ -646,6 +677,19 @@ public class ProcessorDslGenerator implements IGenerator {
             JvmType _implements = f.getImplements();
             String _simpleName = _implements.getSimpleName();
             _builder.append(_simpleName, "");
+          }
+        }
+        {
+          String _sernum_1 = e.getSernum();
+          boolean _notEquals_1 = (!Objects.equal(_sernum_1, null));
+          if (_notEquals_1) {
+            {
+              boolean _isImplements_1 = this.isImplements(e);
+              if (_isImplements_1) {
+                _builder.append(", ");
+              }
+            }
+            _builder.append("Serializable");
           }
         }
         _builder.append(" ");

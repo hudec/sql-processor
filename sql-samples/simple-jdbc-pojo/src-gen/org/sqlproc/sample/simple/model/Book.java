@@ -1,6 +1,10 @@
 package org.sqlproc.sample.simple.model;
 
-public class Book extends Media {
+import java.io.Serializable;
+
+public class Book extends Media implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 	
   public Book() {
   }
