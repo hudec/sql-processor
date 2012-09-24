@@ -78,9 +78,7 @@ public class TablePojoConverter {
 
         Map<String, PojoAttrType> sqlTypes = modelProperty.getSqlTypes(artifacts);
         if (sqlTypes != null) {
-            for (PojoAttrType sqlType : sqlTypes.values()) {
-                this.sqlTypes.put(sqlType.getName() + sqlType.getSize(), sqlType);
-            }
+            this.sqlTypes.putAll(sqlTypes);
         }
         Map<String, Map<String, PojoAttrType>> tableTypes = modelProperty.getTableTypes(artifacts);
         if (tableTypes != null) {
@@ -88,9 +86,7 @@ public class TablePojoConverter {
                 String table = tableType.getKey(); // tableToCamelCase(tableType.getKey());
                 if (!this.tableTypes.containsKey(table))
                     this.tableTypes.put(table, new HashMap<String, PojoAttrType>());
-                for (PojoAttrType sqlType : tableType.getValue().values()) {
-                    this.tableTypes.get(table).put(sqlType.getName() + sqlType.getSize(), sqlType);
-                }
+                this.tableTypes.get(table).putAll(tableType.getValue());
             }
         }
         Map<String, Map<String, PojoAttrType>> columnTypes = modelProperty.getColumnTypes(artifacts);
@@ -425,7 +421,7 @@ public class TablePojoConverter {
                         PojoAttribute attrib = new PojoAttribute();
                         attrib.setName(referName);
                         attrib.setClassName(COLLECTION_LIST + " <:" + tableToCamelCase(fk.getKey()) + ">");
-                        newAttributes.put(attrib.getName(), attrib);
+                        newAttributes.put(attrib.getName().toUpperCase(), attrib);
                     }
                 }
             }
@@ -516,6 +512,7 @@ public class TablePojoConverter {
                 if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
                     continue;
                 PojoAttribute attribute = pentry.getValue();
+                // System.out.println("AAA " + pojo + " " + pentry.getKey() + " " + columnNames);
                 String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : null;
                 if (name == null)
                     name = attribute.getName();

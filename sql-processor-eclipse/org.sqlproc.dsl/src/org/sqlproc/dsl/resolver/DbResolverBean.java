@@ -313,12 +313,26 @@ public class DbResolverBean implements DbResolver {
                     DbColumn dbColumn = new DbColumn();
                     dbColumn.setName(result.getString("COLUMN_NAME"));
                     dbColumn.setType(result.getString("TYPE_NAME"));
-                    dbColumn.setSize(result.getInt("COLUMN_SIZE"));
+                    int ix = dbColumn.getType().indexOf('(');
+                    if (ix > 0) {
+                        String size = dbColumn.getType().substring(ix + 1);
+                        dbColumn.setType(dbColumn.getType().substring(0, ix));
+                        ix = size.indexOf(')');
+                        if (ix > 0) {
+                            size = size.substring(0, ix);
+                        }
+                        try {
+                            dbColumn.setSize(Integer.parseInt(size));
+                        } catch (Exception ignore) {
+                        }
+                    } else {
+                        dbColumn.setSize(result.getInt("COLUMN_SIZE"));
+                    }
                     dbColumn.setSqlType(result.getInt("DATA_TYPE"));
                     dbColumn.setNullable(result.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls);
                     dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
                     columnsForModel.add(dbColumn);
-                    // System.out.println("AAA " + dbColumn.toString());
+                    // System.out.println(table + ": " + dbColumn.toString());
                 }
             } catch (SQLException e) {
                 LOGGER.error("getDbColumns error " + e);

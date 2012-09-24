@@ -607,6 +607,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                     TablePojoConverter converter = new TablePojoConverter(modelProperty, artifacts, suffix,
                             finalEntities);
                     for (String table : tables) {
+                        if (table.toUpperCase().startsWith("BIN$"))
+                            continue;
                         List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
                         List<String> dbPrimaryKeys = dbResolver.getDbPrimaryKeys(artifacts, table);
                         List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);
