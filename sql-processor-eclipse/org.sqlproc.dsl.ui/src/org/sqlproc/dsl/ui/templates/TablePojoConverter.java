@@ -421,7 +421,7 @@ public class TablePojoConverter {
                         PojoAttribute attrib = new PojoAttribute();
                         attrib.setName(referName);
                         attrib.setClassName(COLLECTION_LIST + " <:" + tableToCamelCase(fk.getKey()) + ">");
-                        newAttributes.put(attrib.getName().toUpperCase(), attrib);
+                        newAttributes.put(columnToDbConv(attrib.getName()), attrib);
                     }
                 }
             }
@@ -604,6 +604,22 @@ public class TablePojoConverter {
                         + part.substring(1).toLowerCase();
         }
         return camelCaseString;
+    }
+
+    private String columnToDbConv(String value) {
+        if (value == null)
+            return null;
+        String result = "";
+        int last = 0;
+        for (int i = 0, l = value.length(); i < l; i++) {
+            if (Character.isUpperCase(value.charAt(i))) {
+                result = result + value.substring(last, i).toUpperCase() + "_";
+                last = i;
+            }
+        }
+        if (last < value.length())
+            result = result + value.substring(last).toUpperCase();
+        return result;
     }
 
     private PojoAttribute convertDbColumnDefinition(String dbName, PojoAttrType sqlType) {
