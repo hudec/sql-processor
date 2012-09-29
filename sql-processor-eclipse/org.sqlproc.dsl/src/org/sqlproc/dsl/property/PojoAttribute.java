@@ -89,4 +89,11 @@ public class PojoAttribute {
     public void setFkTables(Map<String, String> fkTables) {
         this.fkTables = fkTables;
     }
+
+    @Override
+    public String toString() {
+        return "PojoAttribute [primitive=" + primitive + ", required=" + required + ", primaryKey=" + primaryKey
+                + ", name=" + name + ", className=" + className + ", dependencyClassName=" + dependencyClassName
+                + ", pkTable=" + pkTable + ", parentTable=" + parentTable + ", fkTables=" + fkTables + "]";
+    }
 }

@@ -527,6 +527,7 @@ public class TablePojoConverter {
                     strs.add(name);
                 } else {
                     buffer.append(": ").append(attribute.getClassName());
+                    // System.out.println("XXXXXXXXXXXXXXXXXXXX " + attribute.toString() + " " + pentry.getKey());
                     if (!attribute.getClassName().startsWith(COLLECTION_LIST))
                         strs.add(name);
                 }
@@ -614,6 +615,9 @@ public class TablePojoConverter {
         } else if (sqlType.getRef() != null) {
             attribute.setPrimitive(false);
             attribute.setDependencyClassName(sqlType.getRef().getName());
+            if (attribute.getDependencyClassName() == null) {
+                attribute.setDependencyClassName(sqlType.getText());
+            }
         } else {
             attribute.setPrimitive(false);
             attribute.setClassName(sqlType.getType().getIdentifier());
