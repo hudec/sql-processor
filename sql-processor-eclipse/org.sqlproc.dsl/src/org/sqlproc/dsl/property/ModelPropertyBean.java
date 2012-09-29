@@ -37,6 +37,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_PASSWORD = "database password";
     public static final String DATABASE_SCHEMA = "database schema";
     public static final String DATABASE_DRIVER = "database driver";
+    public static final String POJOGEN = "pojogen";
     public static final String POJOGEN_TYPE_SQLTYPES = "pojogen type sqltypes";
     public static final String POJOGEN_TYPE_IN_TABLE = "pojogen type in table";
     public static final String POJOGEN_TYPE_FOR_COLUMNS = "pojogen type for columns";
@@ -83,7 +84,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Map<String, Map<String, String>>> createImports;
         public Map<String, Map<String, Map<String, String>>> inheritImports;
         public Map<String, Map<String, Map<String, String>>> manyToManyExports;
-        private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
+        public Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
         public Map<String, String> inheritanceColumns;
         public Set<String> generateMethods;
         public Map<String, JvmType> toImplements;
@@ -151,6 +152,16 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 if (artifacts.getProperties().isEmpty())
                     return;
 
+                boolean reloadPojogen = false;
+                for (Property property : artifacts.getProperties()) {
+                    if (property.getName().startsWith(POJOGEN)) {
+                        reloadPojogen = true;
+                        break;
+                    }
+                }
+                if (reloadPojogen) {
+                    initPojogenModel(modelValues);
+                }
                 for (Property property : artifacts.getProperties()) {
                     setValue(modelValues, property);
                 }
@@ -180,6 +191,30 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         }
     }
 
+    private void initPojogenModel(ModelValues modelValues) {
+        modelValues.sqlTypes = new HashMap<String, PojoAttrType>();
+        modelValues.tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
+        modelValues.columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
+        modelValues.tableNames = new HashMap<String, String>();
+        modelValues.columnNames = new HashMap<String, Map<String, String>>();
+        modelValues.ignoreTables = new HashSet<String>();
+        modelValues.ignoreColumns = new HashMap<String, Set<String>>();
+        modelValues.requiredColumns = new HashMap<String, Set<String>>();
+        modelValues.notRequiredColumns = new HashMap<String, Set<String>>();
+        modelValues.createColumns = new HashMap<String, Map<String, PojoAttrType>>();
+        modelValues.ignoreExports = new HashMap<String, Map<String, Map<String, String>>>();
+        modelValues.ignoreImports = new HashMap<String, Map<String, Map<String, String>>>();
+        modelValues.createExports = new HashMap<String, Map<String, Map<String, String>>>();
+        modelValues.createImports = new HashMap<String, Map<String, Map<String, String>>>();
+        modelValues.inheritImports = new HashMap<String, Map<String, Map<String, String>>>();
+        modelValues.manyToManyExports = new HashMap<String, Map<String, Map<String, String>>>();
+        modelValues.inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
+        modelValues.inheritanceColumns = new HashMap<String, String>();
+        modelValues.generateMethods = new HashSet<String>();
+        modelValues.toImplements = new HashMap<String, JvmType>();
+        modelValues.toExtends = null;
+    }
+
     public void setValue(ModelValues modelValues, Property property) {
         if (RESOLVE_REFERENCES.equals(property.getName())) {
             modelValues.doResolvePojo = "ON".equals(property.getDoResolvePojo());
@@ -196,16 +231,16 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         } else if (DATABASE_DRIVER.equals(property.getName())) {
             modelValues.dbDriver = property.getDbDriver();
         } else if (POJOGEN_TYPE_SQLTYPES.equals(property.getName())) {
-            if (modelValues.sqlTypes == null)
-                modelValues.sqlTypes = new HashMap<String, PojoAttrType>();
+            // if (modelValues.sqlTypes == null)
+            // modelValues.sqlTypes = new HashMap<String, PojoAttrType>();
             for (int i = 0, m = property.getSqlTypes().size(); i < m; i++) {
                 PojoAttrType type = new PojoAttrType(property.getSqlTypes().get(i).getTypeName(), property
                         .getSqlTypes().get(i).getSize(), property.getSqlTypes().get(i).getType());
                 modelValues.sqlTypes.put(type.getName() + type.getSize(), type);
             }
         } else if (POJOGEN_TYPE_IN_TABLE.equals(property.getName())) {
-            if (modelValues.tableTypes == null)
-                modelValues.tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
+            // if (modelValues.tableTypes == null)
+            // modelValues.tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
             if (!modelValues.tableTypes.containsKey(property.getDbTable()))
                 modelValues.tableTypes.put(property.getDbTable(), new HashMap<String, PojoAttrType>());
             for (int i = 0, m = property.getSqlTypes().size(); i < m; i++) {
@@ -214,8 +249,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 modelValues.tableTypes.get(property.getDbTable()).put(type.getName() + type.getSize(), type);
             }
         } else if (POJOGEN_TYPE_FOR_COLUMNS.equals(property.getName())) {
-            if (modelValues.columnTypes == null)
-                modelValues.columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
+            // if (modelValues.columnTypes == null)
+            // modelValues.columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
             if (!modelValues.columnTypes.containsKey(property.getDbTable()))
                 modelValues.columnTypes.put(property.getDbTable(), new HashMap<String, PojoAttrType>());
             for (int i = 0, m = property.getColumnTypes().size(); i < m; i++) {
@@ -224,15 +259,15 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 modelValues.columnTypes.get(property.getDbTable()).put(type.getName(), type);
             }
         } else if (POJOGEN_RENAME_TABLES.equals(property.getName())) {
-            if (modelValues.tableNames == null)
-                modelValues.tableNames = new HashMap<String, String>();
+            // if (modelValues.tableNames == null)
+            // modelValues.tableNames = new HashMap<String, String>();
             for (int i = 0, m = property.getTables().size(); i < m; i++) {
                 modelValues.tableNames.put(property.getTables().get(i).getDbTable(), property.getTables().get(i)
                         .getNewName());
             }
         } else if (POJOGEN_RENAME_COLUMNS.equals(property.getName())) {
-            if (modelValues.columnNames == null)
-                modelValues.columnNames = new HashMap<String, Map<String, String>>();
+            // if (modelValues.columnNames == null)
+            // modelValues.columnNames = new HashMap<String, Map<String, String>>();
             if (!modelValues.columnNames.containsKey(property.getDbTable()))
                 modelValues.columnNames.put(property.getDbTable(), new HashMap<String, String>());
             for (int i = 0, m = property.getColumns().size(); i < m; i++) {
@@ -240,38 +275,38 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                         property.getColumns().get(i).getNewName());
             }
         } else if (POJOGEN_IGNORE_TABLES.equals(property.getName())) {
-            if (modelValues.ignoreTables == null)
-                modelValues.ignoreTables = new HashSet<String>();
+            // if (modelValues.ignoreTables == null)
+            // modelValues.ignoreTables = new HashSet<String>();
             for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
                 modelValues.ignoreTables.add(property.getDbTables().get(i));
             }
         } else if (POJOGEN_IGNORE_COLUMNS.equals(property.getName())) {
-            if (modelValues.ignoreColumns == null)
-                modelValues.ignoreColumns = new HashMap<String, Set<String>>();
+            // if (modelValues.ignoreColumns == null)
+            // modelValues.ignoreColumns = new HashMap<String, Set<String>>();
             if (!modelValues.ignoreColumns.containsKey(property.getDbTable()))
                 modelValues.ignoreColumns.put(property.getDbTable(), new HashSet<String>());
             for (int i = 0, m = property.getDbColumns().size(); i < m; i++) {
                 modelValues.ignoreColumns.get(property.getDbTable()).add(property.getDbColumns().get(i));
             }
         } else if (POJOGEN_REQUIRED_COLUMNS.equals(property.getName())) {
-            if (modelValues.requiredColumns == null)
-                modelValues.requiredColumns = new HashMap<String, Set<String>>();
+            // if (modelValues.requiredColumns == null)
+            // modelValues.requiredColumns = new HashMap<String, Set<String>>();
             if (!modelValues.requiredColumns.containsKey(property.getDbTable()))
                 modelValues.requiredColumns.put(property.getDbTable(), new HashSet<String>());
             for (int i = 0, m = property.getDbColumns().size(); i < m; i++) {
                 modelValues.requiredColumns.get(property.getDbTable()).add(property.getDbColumns().get(i));
             }
         } else if (POJOGEN_NOT_REQUIRED_COLUMNS.equals(property.getName())) {
-            if (modelValues.notRequiredColumns == null)
-                modelValues.notRequiredColumns = new HashMap<String, Set<String>>();
+            // if (modelValues.notRequiredColumns == null)
+            // modelValues.notRequiredColumns = new HashMap<String, Set<String>>();
             if (!modelValues.notRequiredColumns.containsKey(property.getDbTable()))
                 modelValues.notRequiredColumns.put(property.getDbTable(), new HashSet<String>());
             for (int i = 0, m = property.getDbColumns().size(); i < m; i++) {
                 modelValues.notRequiredColumns.get(property.getDbTable()).add(property.getDbColumns().get(i));
             }
         } else if (POJOGEN_CREATE_COLUMNS.equals(property.getName())) {
-            if (modelValues.createColumns == null)
-                modelValues.createColumns = new HashMap<String, Map<String, PojoAttrType>>();
+            // if (modelValues.createColumns == null)
+            // modelValues.createColumns = new HashMap<String, Map<String, PojoAttrType>>();
             if (!modelValues.createColumns.containsKey(property.getDbTable()))
                 modelValues.createColumns.put(property.getDbTable(), new HashMap<String, PojoAttrType>());
             for (int i = 0, m = property.getColumnTypes().size(); i < m; i++) {
@@ -280,8 +315,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 modelValues.createColumns.get(property.getDbTable()).put(type.getName(), type);
             }
         } else if (POJOGEN_IGNORE_EXPORTS.equals(property.getName())) {
-            if (modelValues.ignoreExports == null)
-                modelValues.ignoreExports = new HashMap<String, Map<String, Map<String, String>>>();
+            // if (modelValues.ignoreExports == null)
+            // modelValues.ignoreExports = new HashMap<String, Map<String, Map<String, String>>>();
             if (!modelValues.ignoreExports.containsKey(property.getDbTable()))
                 modelValues.ignoreExports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
             Map<String, Map<String, String>> exports = modelValues.ignoreExports.get(property.getDbTable());
@@ -292,8 +327,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 exports.get(export.getDbColumn()).put(export.getFkTable(), export.getFkColumn());
             }
         } else if (POJOGEN_IGNORE_IMPORTS.equals(property.getName())) {
-            if (modelValues.ignoreImports == null)
-                modelValues.ignoreImports = new HashMap<String, Map<String, Map<String, String>>>();
+            // if (modelValues.ignoreImports == null)
+            // modelValues.ignoreImports = new HashMap<String, Map<String, Map<String, String>>>();
             if (!modelValues.ignoreImports.containsKey(property.getDbTable()))
                 modelValues.ignoreImports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
             Map<String, Map<String, String>> imports = modelValues.ignoreImports.get(property.getDbTable());
@@ -304,8 +339,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 imports.get(_import.getDbColumn()).put(_import.getPkTable(), _import.getPkColumn());
             }
         } else if (POJOGEN_CREATE_EXPORTS.equals(property.getName())) {
-            if (modelValues.createExports == null)
-                modelValues.createExports = new HashMap<String, Map<String, Map<String, String>>>();
+            // if (modelValues.createExports == null)
+            // modelValues.createExports = new HashMap<String, Map<String, Map<String, String>>>();
             if (!modelValues.createExports.containsKey(property.getDbTable()))
                 modelValues.createExports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
             Map<String, Map<String, String>> exports = modelValues.createExports.get(property.getDbTable());
@@ -316,8 +351,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 exports.get(export.getDbColumn()).put(export.getFkTable(), export.getFkColumn());
             }
         } else if (POJOGEN_CREATE_IMPORTS.equals(property.getName())) {
-            if (modelValues.createImports == null)
-                modelValues.createImports = new HashMap<String, Map<String, Map<String, String>>>();
+            // if (modelValues.createImports == null)
+            // modelValues.createImports = new HashMap<String, Map<String, Map<String, String>>>();
             if (!modelValues.createImports.containsKey(property.getDbTable()))
                 modelValues.createImports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
             Map<String, Map<String, String>> imports = modelValues.createImports.get(property.getDbTable());
@@ -328,8 +363,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 imports.get(_import.getDbColumn()).put(_import.getPkTable(), _import.getPkColumn());
             }
         } else if (POJOGEN_INHERIT_IMPORTS.equals(property.getName())) {
-            if (modelValues.inheritImports == null)
-                modelValues.inheritImports = new HashMap<String, Map<String, Map<String, String>>>();
+            // if (modelValues.inheritImports == null)
+            // modelValues.inheritImports = new HashMap<String, Map<String, Map<String, String>>>();
             if (!modelValues.inheritImports.containsKey(property.getDbTable()))
                 modelValues.inheritImports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
             Map<String, Map<String, String>> imports = modelValues.inheritImports.get(property.getDbTable());
@@ -340,8 +375,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 imports.get(_import.getDbColumn()).put(_import.getPkTable(), _import.getPkColumn());
             }
         } else if (POJOGEN_MANY_TO_MANY_EXPORTS.equals(property.getName())) {
-            if (modelValues.manyToManyExports == null)
-                modelValues.manyToManyExports = new HashMap<String, Map<String, Map<String, String>>>();
+            // if (modelValues.manyToManyExports == null)
+            // modelValues.manyToManyExports = new HashMap<String, Map<String, Map<String, String>>>();
             if (!modelValues.manyToManyExports.containsKey(property.getDbTable()))
                 modelValues.manyToManyExports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
             Map<String, Map<String, String>> exports = modelValues.manyToManyExports.get(property.getDbTable());
@@ -352,12 +387,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 exports.get(export.getDbColumn()).put(export.getFkTable(), export.getFkColumn());
             }
         } else if (POJOGEN_INHERITANCE.equals(property.getName())) {
-            if (modelValues.inheritance == null)
-                modelValues.inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
+            // if (modelValues.inheritance == null)
+            // modelValues.inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
             if (!modelValues.inheritance.containsKey(property.getDbTable()))
                 modelValues.inheritance.put(property.getDbTable(), new HashMap<String, Map<String, List<String>>>());
-            if (modelValues.inheritanceColumns == null)
-                modelValues.inheritanceColumns = new HashMap<String, String>();
+            // if (modelValues.inheritanceColumns == null)
+            // modelValues.inheritanceColumns = new HashMap<String, String>();
             modelValues.inheritanceColumns.put(property.getDbTable(), property.getDbColumn());
             Map<String, Map<String, List<String>>> inherits = modelValues.inheritance.get(property.getDbTable());
             for (int i = 0, m = property.getInheritance().size(); i < m; i++) {
@@ -367,14 +402,14 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 inherits.get(_inherit.getDiscriminator()).put(_inherit.getDbTable(), _inherit.getDbColumns());
             }
         } else if (POJOGEN_GENERATE_METHODS.equals(property.getName())) {
-            if (modelValues.generateMethods == null)
-                modelValues.generateMethods = new HashSet<String>();
+            // if (modelValues.generateMethods == null)
+            // modelValues.generateMethods = new HashSet<String>();
             for (int i = 0, m = property.getMethods().size(); i < m; i++) {
                 modelValues.generateMethods.add(property.getMethods().get(i));
             }
         } else if (POJOGEN_IMPLEMENTS.equals(property.getName())) {
-            if (modelValues.toImplements == null)
-                modelValues.toImplements = new HashMap<String, JvmType>();
+            // if (modelValues.toImplements == null)
+            // modelValues.toImplements = new HashMap<String, JvmType>();
             for (int i = 0, m = property.getToImplements().size(); i < m; i++) {
                 modelValues.toImplements.put(property.getToImplements().get(i).getIdentifier(), property
                         .getToImplements().get(i));
