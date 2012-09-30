@@ -135,6 +135,20 @@ public class ProcessorDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.DATABASE_PROPERTY:
+      {
+        DatabaseProperty databaseProperty = (DatabaseProperty)theEObject;
+        T result = caseDatabaseProperty(databaseProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.POJOGEN_PROPERTY:
+      {
+        PojogenProperty pojogenProperty = (PojogenProperty)theEObject;
+        T result = casePojogenProperty(pojogenProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.POJO_DEFINITION:
       {
         PojoDefinition pojoDefinition = (PojoDefinition)theEObject;
@@ -586,6 +600,38 @@ public class ProcessorDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseProperty(Property object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Database Property</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Database Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDatabaseProperty(DatabaseProperty object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Pojogen Property</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Pojogen Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePojogenProperty(PojogenProperty object)
   {
     return null;
   }

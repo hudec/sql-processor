@@ -23,6 +23,7 @@ import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
+import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.Extends;
@@ -54,6 +55,7 @@ import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoType;
+import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.Sql;
@@ -133,6 +135,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.DATABASE_COLUMN:
 				if(context == grammarAccess.getDatabaseColumnRule()) {
 					sequence_DatabaseColumn(context, (DatabaseColumn) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.DATABASE_PROPERTY:
+				if(context == grammarAccess.getDatabasePropertyRule()) {
+					sequence_DatabaseProperty(context, (DatabaseProperty) semanticObject); 
 					return; 
 				}
 				else break;
@@ -328,6 +336,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.POJO_TYPE:
 				if(context == grammarAccess.getPojoTypeRule()) {
 					sequence_PojoType(context, (PojoType) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.POJOGEN_PROPERTY:
+				if(context == grammarAccess.getPojogenPropertyRule()) {
+					sequence_PojogenProperty(context, (PojogenProperty) semanticObject); 
 					return; 
 				}
 				else break;
@@ -534,6 +548,22 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (name=IDENT | name=IDENT_DOT)
 	 */
 	protected void sequence_DatabaseColumn(EObject context, DatabaseColumn semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name='online' doResolveDb=ON_OFF) | 
+	 *         (name='url' dbUrl=PropertyValue) | 
+	 *         (name='username' dbUsername=PropertyValue) | 
+	 *         (name='password' dbPassword=PropertyValue) | 
+	 *         (name='schema' dbSchema=PropertyValue) | 
+	 *         (name='driver' dbDriver=PropertyValue)
+	 *     )
+	 */
+	protected void sequence_DatabaseProperty(EObject context, DatabaseProperty semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -947,34 +977,37 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name='resolve references' doResolvePojo=ON_OFF) | 
-	 *         (name='database online' doResolveDb=ON_OFF) | 
-	 *         (name='database url' dbUrl=PropertyValue) | 
-	 *         (name='database username' dbUsername=PropertyValue) | 
-	 *         (name='database password' dbPassword=PropertyValue) | 
-	 *         (name='database schema' dbSchema=PropertyValue) | 
-	 *         (name='database driver' dbDriver=PropertyValue) | 
-	 *         (name='pojogen type sqltypes' sqlTypes+=SqlTypeAssignement+) | 
-	 *         (name='pojogen type in table' dbTable=IDENT sqlTypes+=SqlTypeAssignement+) | 
-	 *         (name='pojogen type for columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
-	 *         (name='pojogen ignore tables' dbTables+=IDENT+) | 
-	 *         (name='pojogen ignore columns' dbTable=IDENT dbColumns+=IDENT+) | 
-	 *         (name='pojogen required columns' dbTable=IDENT dbColumns+=IDENT+) | 
-	 *         (name='pojogen not required columns' dbTable=IDENT dbColumns+=IDENT+) | 
-	 *         (name='pojogen create columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
-	 *         (name='pojogen rename tables' tables+=TableAssignement+) | 
-	 *         (name='pojogen rename columns' dbTable=IDENT columns+=ColumnAssignement+) | 
-	 *         (name='pojogen ignore one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
-	 *         (name='pojogen ignore many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
-	 *         (name='pojogen inherit many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
-	 *         (name='pojogen create one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
-	 *         (name='pojogen create many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
-	 *         (name='pojogen table many-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
-	 *         (name='pojogen inherit discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
-	 *         (name='pojogen generate methods' methods+=IDENT+) | 
-	 *         (name='pojogen implements' toImplements+=[JvmType|QualifiedName]+) | 
-	 *         (name='pojogen extends' toExtends=[JvmType|QualifiedName])
+	 *         (name='type sqltypes' sqlTypes+=SqlTypeAssignement+) | 
+	 *         (name='type in table' dbTable=IDENT sqlTypes+=SqlTypeAssignement+) | 
+	 *         (name='type for columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
+	 *         (name='ignore tables' dbTables+=IDENT+) | 
+	 *         (name='only tables' dbTables+=IDENT+) | 
+	 *         (name='ignore columns' dbTable=IDENT dbColumns+=IDENT+) | 
+	 *         (name='required columns' dbTable=IDENT dbColumns+=IDENT+) | 
+	 *         (name='not required columns' dbTable=IDENT dbColumns+=IDENT+) | 
+	 *         (name='create columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
+	 *         (name='rename tables' tables+=TableAssignement+) | 
+	 *         (name='rename columns' dbTable=IDENT columns+=ColumnAssignement+) | 
+	 *         (name='ignore one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
+	 *         (name='ignore many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
+	 *         (name='inherit many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
+	 *         (name='create one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
+	 *         (name='create many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
+	 *         (name='table many-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
+	 *         (name='inherit discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
+	 *         (name='generate methods' methods+=IDENT+) | 
+	 *         (name='implements' toImplements+=[JvmType|QualifiedName]+) | 
+	 *         (name='extends' toExtends=[JvmType|QualifiedName])
 	 *     )
+	 */
+	protected void sequence_PojogenProperty(EObject context, PojogenProperty semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((name='resolve references' doResolvePojo=ON_OFF) | (name='database' database=DatabaseProperty) | (name='pojogen' pojogen=PojogenProperty))
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -73,6 +73,8 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.EXPORT_ASSIGNEMENT: return createExportAssignement();
       case ProcessorDslPackage.INHERITANCE_ASSIGNEMENT: return createInheritanceAssignement();
       case ProcessorDslPackage.PROPERTY: return createProperty();
+      case ProcessorDslPackage.DATABASE_PROPERTY: return createDatabaseProperty();
+      case ProcessorDslPackage.POJOGEN_PROPERTY: return createPojogenProperty();
       case ProcessorDslPackage.POJO_DEFINITION: return createPojoDefinition();
       case ProcessorDslPackage.POJO_USAGE: return createPojoUsage();
       case ProcessorDslPackage.COLUMN_USAGE: return createColumnUsage();
@@ -217,6 +219,28 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     PropertyImpl property = new PropertyImpl();
     return property;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DatabaseProperty createDatabaseProperty()
+  {
+    DatabasePropertyImpl databaseProperty = new DatabasePropertyImpl();
+    return databaseProperty;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojogenProperty createPojogenProperty()
+  {
+    PojogenPropertyImpl pojogenProperty = new PojogenPropertyImpl();
+    return pojogenProperty;
   }
 
   /**

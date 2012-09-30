@@ -21,33 +21,42 @@ InheritanceAssignement: discriminator=IDENT '->' dbTable=IDENT ('->' dbColumns+=
 
 Property:
 	(name='resolve references' WS+ doResolvePojo=ON_OFF
-	|name='database online' WS+ doResolveDb=ON_OFF
-	|name='database url' WS+ dbUrl=PropertyValue
-	|name='database username' WS+ dbUsername=PropertyValue
-	|name='database password' WS+ dbPassword=PropertyValue
-	|name='database schema' WS+ dbSchema=PropertyValue
-	|name='database driver' WS+ dbDriver=PropertyValue
-	|name='pojogen type sqltypes' (WS+ sqlTypes+=SqlTypeAssignement)+
-	|name='pojogen type in table' WS+ dbTable=IDENT (WS+ sqlTypes+=SqlTypeAssignement)+
-	|name='pojogen type for columns' WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
-	|name='pojogen ignore tables' (WS+ dbTables+=IDENT)+
-	|name='pojogen ignore columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
-	|name='pojogen required columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
-	|name='pojogen not required columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
-	|name='pojogen create columns' WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
-	|name='pojogen rename tables' (WS+ tables+=TableAssignement)+
-	|name='pojogen rename columns' WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+
-	|name='pojogen ignore one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
-	|name='pojogen ignore many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-	|name='pojogen inherit many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-	|name='pojogen create one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
-	|name='pojogen create many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-	|name='pojogen table many-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
-	|name='pojogen inherit discriminator' WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
-	|name='pojogen generate methods' (WS+ methods+=IDENT)+
-	|name='pojogen implements' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
-	|name='pojogen extends' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
+	|name='database' WS+ database=DatabaseProperty
+	|name='pojogen' WS+ pojogen=PojogenProperty
 	) SEMICOLON;
+
+DatabaseProperty:
+	(name='online' WS+ doResolveDb=ON_OFF
+	|name='url' WS+ dbUrl=PropertyValue
+	|name='username' WS+ dbUsername=PropertyValue
+	|name='password' WS+ dbPassword=PropertyValue
+	|name='schema' WS+ dbSchema=PropertyValue
+	|name='driver' WS+ dbDriver=PropertyValue
+	);
+
+PojogenProperty:
+	(name='type sqltypes' (WS+ sqlTypes+=SqlTypeAssignement)+
+	|name='type in table' WS+ dbTable=IDENT (WS+ sqlTypes+=SqlTypeAssignement)+
+	|name='type for columns' WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
+	|name='ignore tables' (WS+ dbTables+=IDENT)+
+	|name='only tables' (WS+ dbTables+=IDENT)+
+	|name='ignore columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
+	|name='required columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
+	|name='not required columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
+	|name='create columns' WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
+	|name='rename tables' (WS+ tables+=TableAssignement)+
+	|name='rename columns' WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+
+	|name='ignore one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
+	|name='ignore many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+	|name='inherit many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+	|name='create one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
+	|name='create many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+	|name='table many-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
+	|name='inherit discriminator' WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
+	|name='generate methods' (WS+ methods+=IDENT)+
+	|name='implements' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
+	|name='extends' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
+	);
 
 PropertyValue:
   (REST|IDENT_DOT|IDENT|NUMBER|COLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|PERCENT|AND|OR|ESC_CHAR|ON_OFF|STATEMEN_TYPE|MAPPING_TYPE|OPTION_TYPE)

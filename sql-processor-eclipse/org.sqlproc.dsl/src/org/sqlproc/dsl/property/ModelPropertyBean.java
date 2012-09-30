@@ -17,9 +17,11 @@ import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
+import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.util.Utils;
 
@@ -31,33 +33,34 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     protected Logger LOGGER = Logger.getLogger(ModelPropertyBean.class);
 
     public static final String RESOLVE_REFERENCES = "resolve references";
-    public static final String DATABASE_ONLINE = "database online";
-    public static final String DATABASE_URL = "database url";
-    public static final String DATABASE_USERNAME = "database username";
-    public static final String DATABASE_PASSWORD = "database password";
-    public static final String DATABASE_SCHEMA = "database schema";
-    public static final String DATABASE_DRIVER = "database driver";
+    public static final String DATABASE = "database";
+    public static final String DATABASE_ONLINE = "online";
+    public static final String DATABASE_URL = "url";
+    public static final String DATABASE_USERNAME = "username";
+    public static final String DATABASE_PASSWORD = "password";
+    public static final String DATABASE_SCHEMA = "schema";
+    public static final String DATABASE_DRIVER = "driver";
     public static final String POJOGEN = "pojogen";
-    public static final String POJOGEN_TYPE_SQLTYPES = "pojogen type sqltypes";
-    public static final String POJOGEN_TYPE_IN_TABLE = "pojogen type in table";
-    public static final String POJOGEN_TYPE_FOR_COLUMNS = "pojogen type for columns";
-    public static final String POJOGEN_IGNORE_TABLES = "pojogen ignore tables";
-    public static final String POJOGEN_IGNORE_COLUMNS = "pojogen ignore columns";
-    public static final String POJOGEN_REQUIRED_COLUMNS = "pojogen required columns";
-    public static final String POJOGEN_NOT_REQUIRED_COLUMNS = "pojogen not required columns";
-    public static final String POJOGEN_CREATE_COLUMNS = "pojogen create columns";
-    public static final String POJOGEN_RENAME_TABLES = "pojogen rename tables";
-    public static final String POJOGEN_RENAME_COLUMNS = "pojogen rename columns";
-    public static final String POJOGEN_IGNORE_EXPORTS = "pojogen ignore one-to-many";
-    public static final String POJOGEN_IGNORE_IMPORTS = "pojogen ignore many-to-one";
-    public static final String POJOGEN_CREATE_EXPORTS = "pojogen create one-to-many";
-    public static final String POJOGEN_CREATE_IMPORTS = "pojogen create many-to-one";
-    public static final String POJOGEN_INHERIT_IMPORTS = "pojogen inherit many-to-one";
-    public static final String POJOGEN_MANY_TO_MANY_EXPORTS = "pojogen table many-to-many";
-    public static final String POJOGEN_INHERITANCE = "pojogen inherit discriminator";
-    public static final String POJOGEN_GENERATE_METHODS = "pojogen generate methods";
-    public static final String POJOGEN_IMPLEMENTS = "pojogen implements";
-    public static final String POJOGEN_EXTENDS = "pojogen extends";
+    public static final String POJOGEN_TYPE_SQLTYPES = "type sqltypes";
+    public static final String POJOGEN_TYPE_IN_TABLE = "type in table";
+    public static final String POJOGEN_TYPE_FOR_COLUMNS = "type for columns";
+    public static final String POJOGEN_IGNORE_TABLES = "ignore tables";
+    public static final String POJOGEN_IGNORE_COLUMNS = "ignore columns";
+    public static final String POJOGEN_REQUIRED_COLUMNS = "required columns";
+    public static final String POJOGEN_NOT_REQUIRED_COLUMNS = "not required columns";
+    public static final String POJOGEN_CREATE_COLUMNS = "create columns";
+    public static final String POJOGEN_RENAME_TABLES = "rename tables";
+    public static final String POJOGEN_RENAME_COLUMNS = "rename columns";
+    public static final String POJOGEN_IGNORE_EXPORTS = "ignore one-to-many";
+    public static final String POJOGEN_IGNORE_IMPORTS = "ignore many-to-one";
+    public static final String POJOGEN_CREATE_EXPORTS = "create one-to-many";
+    public static final String POJOGEN_CREATE_IMPORTS = "create many-to-one";
+    public static final String POJOGEN_INHERIT_IMPORTS = "inherit many-to-one";
+    public static final String POJOGEN_MANY_TO_MANY_EXPORTS = "table many-to-many";
+    public static final String POJOGEN_INHERITANCE = "inherit discriminator";
+    public static final String POJOGEN_GENERATE_METHODS = "generate methods";
+    public static final String POJOGEN_IMPLEMENTS = "implements";
+    public static final String POJOGEN_EXTENDS = "extends";
 
     public static class ModelValues {
         public boolean doResolvePojo;
@@ -163,7 +166,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     initPojogenModel(modelValues);
                 }
                 for (Property property : artifacts.getProperties()) {
-                    setValue(modelValues, property);
+                    if (property.getName().startsWith(DATABASE)) {
+                        setValue(modelValues, property.getDatabase());
+                    } else if (property.getName().startsWith(POJOGEN)) {
+                        setValue(modelValues, property.getPojogen());
+                    } else {
+                        setValue(modelValues, property);
+                    }
                 }
                 LOGGER.debug("MODEL " + modelValues.toString());
             }
@@ -218,7 +227,11 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public void setValue(ModelValues modelValues, Property property) {
         if (RESOLVE_REFERENCES.equals(property.getName())) {
             modelValues.doResolvePojo = "ON".equals(property.getDoResolvePojo());
-        } else if (DATABASE_ONLINE.equals(property.getName())) {
+        }
+    }
+
+    public void setValue(ModelValues modelValues, DatabaseProperty property) {
+        if (DATABASE_ONLINE.equals(property.getName())) {
             modelValues.doResolveDb = "ON".equals(property.getDoResolveDb());
         } else if (DATABASE_URL.equals(property.getName())) {
             modelValues.dbUrl = property.getDbUrl();
@@ -230,7 +243,11 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.dbSchema = property.getDbSchema();
         } else if (DATABASE_DRIVER.equals(property.getName())) {
             modelValues.dbDriver = property.getDbDriver();
-        } else if (POJOGEN_TYPE_SQLTYPES.equals(property.getName())) {
+        }
+    }
+
+    public void setValue(ModelValues modelValues, PojogenProperty property) {
+        if (POJOGEN_TYPE_SQLTYPES.equals(property.getName())) {
             // if (modelValues.sqlTypes == null)
             // modelValues.sqlTypes = new HashMap<String, PojoAttrType>();
             for (int i = 0, m = property.getSqlTypes().size(); i < m; i++) {

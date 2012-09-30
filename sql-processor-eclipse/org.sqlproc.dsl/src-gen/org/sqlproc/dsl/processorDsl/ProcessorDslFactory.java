@@ -104,6 +104,24 @@ public interface ProcessorDslFactory extends EFactory
   Property createProperty();
 
   /**
+   * Returns a new object of class '<em>Database Property</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Database Property</em>'.
+   * @generated
+   */
+  DatabaseProperty createDatabaseProperty();
+
+  /**
+   * Returns a new object of class '<em>Pojogen Property</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojogen Property</em>'.
+   * @generated
+   */
+  PojogenProperty createPojogenProperty();
+
+  /**
    * Returns a new object of class '<em>Pojo Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

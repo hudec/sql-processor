@@ -85,8 +85,8 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     }
 
     @Override
-    public void completeProperty_DoResolveDb(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
+    public void completeDatabaseProperty_DoResolveDb(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         addProposalList(ON_OFF, "ON_OFF", context, acceptor);
     }
 

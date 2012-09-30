@@ -120,6 +120,16 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createPropertyAdapter();
       }
       @Override
+      public Adapter caseDatabaseProperty(DatabaseProperty object)
+      {
+        return createDatabasePropertyAdapter();
+      }
+      @Override
+      public Adapter casePojogenProperty(PojogenProperty object)
+      {
+        return createPojogenPropertyAdapter();
+      }
+      @Override
       public Adapter casePojoDefinition(PojoDefinition object)
       {
         return createPojoDefinitionAdapter();
@@ -482,6 +492,36 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPropertyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty <em>Database Property</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseProperty
+   * @generated
+   */
+  public Adapter createDatabasePropertyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.PojogenProperty <em>Pojogen Property</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.PojogenProperty
+   * @generated
+   */
+  public Adapter createPojogenPropertyAdapter()
   {
     return null;
   }
