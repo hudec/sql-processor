@@ -43,6 +43,7 @@ import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolver;
+import org.sqlproc.dsl.util.Utils;
 
 import com.google.inject.Inject;
 
@@ -323,8 +324,9 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             properties.add(pojoProperty);
         }
 
-        if (pojoEntity.getSuperType() != null)
-            return getProperties(pojoEntity.getSuperType(), properties);
+        PojoEntity superType = Utils.getSuperType(pojoEntity);
+        if (superType != null)
+            return getProperties(superType, properties);
         return properties;
     }
 

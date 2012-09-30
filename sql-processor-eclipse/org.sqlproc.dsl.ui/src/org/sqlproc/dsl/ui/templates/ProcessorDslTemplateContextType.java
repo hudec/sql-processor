@@ -31,6 +31,7 @@ import org.sqlproc.dsl.resolver.DbExport;
 import org.sqlproc.dsl.resolver.DbImport;
 import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolver;
+import org.sqlproc.dsl.util.Utils;
 
 import com.google.inject.Inject;
 
@@ -587,7 +588,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 for (AbstractPojoEntity ape : packagex.getElements()) {
                     if (ape instanceof PojoEntity) {
                         PojoEntity pojo = (PojoEntity) ape;
-                        if (pojo.isFinal()) {
+                        if (Utils.isFinal(pojo)) {
                             // if (suffix != null && pojo.getName().endsWith(suffix))
                             // finalEntities.add(pojo.getName()
                             // .substring(0, pojo.getName().length() - suffix.length()));

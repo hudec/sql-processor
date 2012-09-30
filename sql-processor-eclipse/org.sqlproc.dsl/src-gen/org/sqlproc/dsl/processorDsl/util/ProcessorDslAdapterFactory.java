@@ -330,9 +330,24 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createExtendsAdapter();
       }
       @Override
+      public Adapter casePojoEntityModifier1(PojoEntityModifier1 object)
+      {
+        return createPojoEntityModifier1Adapter();
+      }
+      @Override
+      public Adapter casePojoEntityModifier2(PojoEntityModifier2 object)
+      {
+        return createPojoEntityModifier2Adapter();
+      }
+      @Override
       public Adapter casePojoEntity(PojoEntity object)
       {
         return createPojoEntityAdapter();
+      }
+      @Override
+      public Adapter casePojoPropertyModifier(PojoPropertyModifier object)
+      {
+        return createPojoPropertyModifierAdapter();
       }
       @Override
       public Adapter casePojoProperty(PojoProperty object)
@@ -1127,6 +1142,36 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.PojoEntityModifier1 <em>Pojo Entity Modifier1</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.PojoEntityModifier1
+   * @generated
+   */
+  public Adapter createPojoEntityModifier1Adapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.PojoEntityModifier2 <em>Pojo Entity Modifier2</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.PojoEntityModifier2
+   * @generated
+   */
+  public Adapter createPojoEntityModifier2Adapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.PojoEntity <em>Pojo Entity</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1137,6 +1182,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPojoEntityAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier <em>Pojo Property Modifier</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.PojoPropertyModifier
+   * @generated
+   */
+  public Adapter createPojoPropertyModifierAdapter()
   {
     return null;
   }

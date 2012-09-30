@@ -53,7 +53,10 @@ import org.sqlproc.dsl.processorDsl.OrdSql2;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
+import org.sqlproc.dsl.processorDsl.PojoEntityModifier1;
+import org.sqlproc.dsl.processorDsl.PojoEntityModifier2;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
+import org.sqlproc.dsl.processorDsl.PojoPropertyModifier;
 import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
@@ -327,9 +330,27 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.POJO_ENTITY_MODIFIER1:
+				if(context == grammarAccess.getPojoEntityModifier1Rule()) {
+					sequence_PojoEntityModifier1(context, (PojoEntityModifier1) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.POJO_ENTITY_MODIFIER2:
+				if(context == grammarAccess.getPojoEntityModifier2Rule()) {
+					sequence_PojoEntityModifier2(context, (PojoEntityModifier2) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.POJO_PROPERTY:
 				if(context == grammarAccess.getPojoPropertyRule()) {
 					sequence_PojoProperty(context, (PojoProperty) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.POJO_PROPERTY_MODIFIER:
+				if(context == grammarAccess.getPojoPropertyModifierRule()) {
+					sequence_PojoPropertyModifier(context, (PojoPropertyModifier) semanticObject); 
 					return; 
 				}
 				else break;
@@ -908,17 +929,36 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         final?='final'? 
-	 *         abstract?='abstract'? 
-	 *         name=IDENT 
-	 *         superType=[PojoEntity|IDENT]? 
-	 *         (discriminator=IDENT | discriminator=NUMBER)? 
-	 *         (sernum=NUMBER | sernum=NEGATIVE_NUMBER)? 
-	 *         features+=PojoProperty*
-	 *     )
+	 *     (final?='final' | abstract?='abstract')
+	 */
+	protected void sequence_PojoEntityModifier1(EObject context, PojoEntityModifier1 semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (superType=[PojoEntity|IDENT] | discriminator=IDENT | discriminator=NUMBER | sernum=NUMBER)
+	 */
+	protected void sequence_PojoEntityModifier2(EObject context, PojoEntityModifier2 semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (modifiers1+=PojoEntityModifier1* name=IDENT modifiers2+=PojoEntityModifier2* features+=PojoProperty*)
 	 */
 	protected void sequence_PojoEntity(EObject context, PojoEntity semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (required?='required' | discriminator?='discriminator' | primaryKey?='primaryKey')
+	 */
+	protected void sequence_PojoPropertyModifier(EObject context, PojoPropertyModifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -942,9 +982,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *             )
 	 *         ) 
 	 *         array?='[]'? 
-	 *         required?='required'? 
-	 *         discriminator?='discriminator'? 
-	 *         primaryKey?='primaryKey'?
+	 *         modifiers+=PojoPropertyModifier*
 	 *     )
 	 */
 	protected void sequence_PojoProperty(EObject context, PojoProperty semanticObject) {

@@ -45,6 +45,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_TYPE_IN_TABLE = "types in table";
     public static final String POJOGEN_TYPE_FOR_COLUMNS = "types for columns";
     public static final String POJOGEN_IGNORE_TABLES = "ignore tables";
+    public static final String POJOGEN_ONLY_TABLES = "only tables";
     public static final String POJOGEN_IGNORE_COLUMNS = "ignore columns";
     public static final String POJOGEN_REQUIRED_COLUMNS = "required columns";
     public static final String POJOGEN_NOT_REQUIRED_COLUMNS = "not required columns";
@@ -77,6 +78,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, String> tableNames;
         public Map<String, Map<String, String>> columnNames;
         public Set<String> ignoreTables;
+        public Set<String> onlyTables;
         public Map<String, Set<String>> ignoreColumns;
         public Map<String, Set<String>> requiredColumns;
         public Map<String, Set<String>> notRequiredColumns;
@@ -99,14 +101,14 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername + ", dbPassword=" + dbPassword
                     + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + ", tableTypes="
                     + tableTypes + ", columnTypes=" + columnTypes + ", tableNames=" + tableNames + ", columnNames="
-                    + columnNames + ", ignoreTables=" + ignoreTables + ", ignoreColumns=" + ignoreColumns
-                    + ", requiredColumns=" + requiredColumns + ", notRequiredColumns=" + notRequiredColumns
-                    + ", createColumns=" + createColumns + ", ignoreExports=" + ignoreExports + ", ignoreImports="
-                    + ignoreImports + ", createExports=" + createExports + ", createImports=" + createImports
-                    + ", inheritImports=" + inheritImports + ", manyToManyExports=" + manyToManyExports
-                    + ", inheritance=" + inheritance + ", inheritanceColumns=" + inheritanceColumns
-                    + ", generateMethods=" + generateMethods + ", toImplements=" + toImplements + ", toExtends="
-                    + toExtends + "]";
+                    + columnNames + ", ignoreTables=" + ignoreTables + ", onlyTables=" + onlyTables
+                    + ", ignoreColumns=" + ignoreColumns + ", requiredColumns=" + requiredColumns
+                    + ", notRequiredColumns=" + notRequiredColumns + ", createColumns=" + createColumns
+                    + ", ignoreExports=" + ignoreExports + ", ignoreImports=" + ignoreImports + ", createExports="
+                    + createExports + ", createImports=" + createImports + ", inheritImports=" + inheritImports
+                    + ", manyToManyExports=" + manyToManyExports + ", inheritance=" + inheritance
+                    + ", inheritanceColumns=" + inheritanceColumns + ", generateMethods=" + generateMethods
+                    + ", toImplements=" + toImplements + ", toExtends=" + toExtends + "]";
         }
     }
 
@@ -207,6 +209,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.tableNames = new HashMap<String, String>();
         modelValues.columnNames = new HashMap<String, Map<String, String>>();
         modelValues.ignoreTables = new HashSet<String>();
+        modelValues.onlyTables = new HashSet<String>();
         modelValues.ignoreColumns = new HashMap<String, Set<String>>();
         modelValues.requiredColumns = new HashMap<String, Set<String>>();
         modelValues.notRequiredColumns = new HashMap<String, Set<String>>();
@@ -300,6 +303,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             // modelValues.ignoreTables = new HashSet<String>();
             for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
                 modelValues.ignoreTables.add(property.getDbTables().get(i));
+            }
+        } else if (POJOGEN_ONLY_TABLES.equals(property.getName())) {
+            // if (modelValues.onlyTables == null)
+            // modelValues.onlyTables = new HashSet<String>();
+            for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
+                modelValues.onlyTables.add(property.getDbTables().get(i));
             }
         } else if (POJOGEN_IGNORE_COLUMNS.equals(property.getName())) {
             // if (modelValues.ignoreColumns == null)
@@ -488,6 +497,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Set<String> getIgnoreTables(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.ignoreTables : Collections.<String> emptySet();
+    }
+
+    @Override
+    public Set<String> getOnlyTables(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.onlyTables : Collections.<String> emptySet();
     }
 
     @Override

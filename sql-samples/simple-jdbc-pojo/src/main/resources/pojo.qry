@@ -36,26 +36,26 @@ package org.sqlproc.sample.simple.model2 suffix 2 {
 package org.sqlproc.sample.simple.model {
 
 
-  pojo BankAccount extends BillingDetails discriminator BA serializable 1  {
+pojo BankAccount extends BillingDetails discriminator BA serializable 1  {
     account : java.lang.String required
     toString ::: account
   }
 
-  pojo abstract BillingDetails serializable 1  {
+abstract pojo BillingDetails serializable 1  {
     id : java.lang.Long primaryKey
     subscriber :: Subscriber required
-    type : java.lang.String required
+    type : java.lang.String discriminator required
     equals ::: id
     hashCode ::: id
     toString ::: id type subscriber
   }
 
-  pojo Book extends Media serializable 1  {
+pojo Book extends Media serializable 1  {
     isbn : java.lang.String required
     toString ::: isbn
   }
 
-  pojo Contact serializable 1  {
+pojo Contact serializable 1  {
     id : java.lang.Long primaryKey
     personId : java.lang.Long
     address : java.lang.String required
@@ -65,12 +65,12 @@ package org.sqlproc.sample.simple.model {
     toString ::: id address personId homePhone
   }
 
-  pojo CreditCard extends BillingDetails discriminator CC serializable 1  {
+pojo CreditCard extends BillingDetails discriminator CC serializable 1  {
     number : java.lang.Long required
     toString ::: number
   }
 
-  pojo Library serializable 1  {
+pojo Library serializable 1  {
     id : java.lang.Long primaryKey
     name : java.lang.String required
     equals ::: id
@@ -78,7 +78,7 @@ package org.sqlproc.sample.simple.model {
     toString ::: id name
   }
 
-  pojo abstract Media serializable 1  {
+abstract pojo Media serializable 1  {
     id : java.lang.Long primaryKey
     title : java.lang.String required
     equals ::: id
@@ -86,13 +86,13 @@ package org.sqlproc.sample.simple.model {
     toString ::: id title
   }
 
-  pojo Movie extends Media serializable 1  {
+pojo Movie extends Media serializable 1  {
     urlImdb : java.lang.String required
     playLength : java.lang.Integer required
     toString ::: urlImdb playLength
   }
 
-  pojo Person serializable 1  {
+pojo Person serializable 1  {
     id : java.lang.Long primaryKey
     name : java.lang.String required
     library : java.util.List <:Media>
@@ -102,7 +102,7 @@ package org.sqlproc.sample.simple.model {
     toString ::: id name
   }
 
-  pojo PersonLibrary serializable 1  {
+pojo PersonLibrary serializable 1  {
     id : java.lang.Long primaryKey
     personId : java.lang.Long required
     mediaId : java.lang.Long required
@@ -111,7 +111,7 @@ package org.sqlproc.sample.simple.model {
     toString ::: mediaId id personId
   }
 
-  pojo Subscriber serializable 1  {
+pojo Subscriber serializable 1  {
     id : java.lang.Long primaryKey
     library :: Library required
     contact :: Contact

@@ -482,6 +482,24 @@ public interface ProcessorDslFactory extends EFactory
   Extends createExtends();
 
   /**
+   * Returns a new object of class '<em>Pojo Entity Modifier1</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojo Entity Modifier1</em>'.
+   * @generated
+   */
+  PojoEntityModifier1 createPojoEntityModifier1();
+
+  /**
+   * Returns a new object of class '<em>Pojo Entity Modifier2</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojo Entity Modifier2</em>'.
+   * @generated
+   */
+  PojoEntityModifier2 createPojoEntityModifier2();
+
+  /**
    * Returns a new object of class '<em>Pojo Entity</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -489,6 +507,15 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   PojoEntity createPojoEntity();
+
+  /**
+   * Returns a new object of class '<em>Pojo Property Modifier</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojo Property Modifier</em>'.
+   * @generated
+   */
+  PojoPropertyModifier createPojoPropertyModifier();
 
   /**
    * Returns a new object of class '<em>Pojo Property</em>'.

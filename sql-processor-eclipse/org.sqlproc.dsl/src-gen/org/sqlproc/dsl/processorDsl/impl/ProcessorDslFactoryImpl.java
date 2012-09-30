@@ -115,7 +115,10 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.IMPORT: return createImport();
       case ProcessorDslPackage.IMPLEMENTS: return createImplements();
       case ProcessorDslPackage.EXTENDS: return createExtends();
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER1: return createPojoEntityModifier1();
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER2: return createPojoEntityModifier2();
       case ProcessorDslPackage.POJO_ENTITY: return createPojoEntity();
+      case ProcessorDslPackage.POJO_PROPERTY_MODIFIER: return createPojoPropertyModifier();
       case ProcessorDslPackage.POJO_PROPERTY: return createPojoProperty();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -688,10 +691,43 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public PojoEntityModifier1 createPojoEntityModifier1()
+  {
+    PojoEntityModifier1Impl pojoEntityModifier1 = new PojoEntityModifier1Impl();
+    return pojoEntityModifier1;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoEntityModifier2 createPojoEntityModifier2()
+  {
+    PojoEntityModifier2Impl pojoEntityModifier2 = new PojoEntityModifier2Impl();
+    return pojoEntityModifier2;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public PojoEntity createPojoEntity()
   {
     PojoEntityImpl pojoEntity = new PojoEntityImpl();
     return pojoEntity;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoPropertyModifier createPojoPropertyModifier()
+  {
+    PojoPropertyModifierImpl pojoPropertyModifier = new PojoPropertyModifierImpl();
+    return pojoPropertyModifier;
   }
 
   /**

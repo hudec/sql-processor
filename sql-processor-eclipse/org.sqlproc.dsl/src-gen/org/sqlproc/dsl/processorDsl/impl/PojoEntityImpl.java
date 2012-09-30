@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.sqlproc.dsl.processorDsl.PojoEntity;
+import org.sqlproc.dsl.processorDsl.PojoEntityModifier1;
+import org.sqlproc.dsl.processorDsl.PojoEntityModifier2;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
@@ -28,12 +30,9 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#isFinal <em>Final</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#isAbstract <em>Abstract</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getModifiers1 <em>Modifiers1</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getSuperType <em>Super Type</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getDiscriminator <em>Discriminator</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getSernum <em>Sernum</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getModifiers2 <em>Modifiers2</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityImpl#getFeatures <em>Features</em>}</li>
  * </ul>
  * </p>
@@ -43,44 +42,14 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
 {
   /**
-   * The default value of the '{@link #isFinal() <em>Final</em>}' attribute.
+   * The cached value of the '{@link #getModifiers1() <em>Modifiers1</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isFinal()
+   * @see #getModifiers1()
    * @generated
    * @ordered
    */
-  protected static final boolean FINAL_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isFinal() <em>Final</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isFinal()
-   * @generated
-   * @ordered
-   */
-  protected boolean final_ = FINAL_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isAbstract()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean ABSTRACT_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isAbstract()
-   * @generated
-   * @ordered
-   */
-  protected boolean abstract_ = ABSTRACT_EDEFAULT;
+  protected EList<PojoEntityModifier1> modifiers1;
 
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -103,54 +72,14 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getSuperType() <em>Super Type</em>}' reference.
+   * The cached value of the '{@link #getModifiers2() <em>Modifiers2</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSuperType()
+   * @see #getModifiers2()
    * @generated
    * @ordered
    */
-  protected PojoEntity superType;
-
-  /**
-   * The default value of the '{@link #getDiscriminator() <em>Discriminator</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDiscriminator()
-   * @generated
-   * @ordered
-   */
-  protected static final String DISCRIMINATOR_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getDiscriminator() <em>Discriminator</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDiscriminator()
-   * @generated
-   * @ordered
-   */
-  protected String discriminator = DISCRIMINATOR_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getSernum() <em>Sernum</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSernum()
-   * @generated
-   * @ordered
-   */
-  protected static final String SERNUM_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getSernum() <em>Sernum</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSernum()
-   * @generated
-   * @ordered
-   */
-  protected String sernum = SERNUM_EDEFAULT;
+  protected EList<PojoEntityModifier2> modifiers2;
 
   /**
    * The cached value of the '{@link #getFeatures() <em>Features</em>}' containment reference list.
@@ -188,45 +117,13 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isFinal()
+  public EList<PojoEntityModifier1> getModifiers1()
   {
-    return final_;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setFinal(boolean newFinal)
-  {
-    boolean oldFinal = final_;
-    final_ = newFinal;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_ENTITY__FINAL, oldFinal, final_));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isAbstract()
-  {
-    return abstract_;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setAbstract(boolean newAbstract)
-  {
-    boolean oldAbstract = abstract_;
-    abstract_ = newAbstract;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_ENTITY__ABSTRACT, oldAbstract, abstract_));
+    if (modifiers1 == null)
+    {
+      modifiers1 = new EObjectContainmentEList<PojoEntityModifier1>(PojoEntityModifier1.class, this, ProcessorDslPackage.POJO_ENTITY__MODIFIERS1);
+    }
+    return modifiers1;
   }
 
   /**
@@ -257,88 +154,13 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
    * <!-- end-user-doc -->
    * @generated
    */
-  public PojoEntity getSuperType()
+  public EList<PojoEntityModifier2> getModifiers2()
   {
-    if (superType != null && superType.eIsProxy())
+    if (modifiers2 == null)
     {
-      InternalEObject oldSuperType = (InternalEObject)superType;
-      superType = (PojoEntity)eResolveProxy(oldSuperType);
-      if (superType != oldSuperType)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.POJO_ENTITY__SUPER_TYPE, oldSuperType, superType));
-      }
+      modifiers2 = new EObjectContainmentEList<PojoEntityModifier2>(PojoEntityModifier2.class, this, ProcessorDslPackage.POJO_ENTITY__MODIFIERS2);
     }
-    return superType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PojoEntity basicGetSuperType()
-  {
-    return superType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setSuperType(PojoEntity newSuperType)
-  {
-    PojoEntity oldSuperType = superType;
-    superType = newSuperType;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_ENTITY__SUPER_TYPE, oldSuperType, superType));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getDiscriminator()
-  {
-    return discriminator;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDiscriminator(String newDiscriminator)
-  {
-    String oldDiscriminator = discriminator;
-    discriminator = newDiscriminator;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR, oldDiscriminator, discriminator));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getSernum()
-  {
-    return sernum;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setSernum(String newSernum)
-  {
-    String oldSernum = sernum;
-    sernum = newSernum;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_ENTITY__SERNUM, oldSernum, sernum));
+    return modifiers2;
   }
 
   /**
@@ -365,6 +187,10 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_ENTITY__MODIFIERS1:
+        return ((InternalEList<?>)getModifiers1()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.POJO_ENTITY__MODIFIERS2:
+        return ((InternalEList<?>)getModifiers2()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         return ((InternalEList<?>)getFeatures()).basicRemove(otherEnd, msgs);
     }
@@ -381,19 +207,12 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.POJO_ENTITY__FINAL:
-        return isFinal();
-      case ProcessorDslPackage.POJO_ENTITY__ABSTRACT:
-        return isAbstract();
+      case ProcessorDslPackage.POJO_ENTITY__MODIFIERS1:
+        return getModifiers1();
       case ProcessorDslPackage.POJO_ENTITY__NAME:
         return getName();
-      case ProcessorDslPackage.POJO_ENTITY__SUPER_TYPE:
-        if (resolve) return getSuperType();
-        return basicGetSuperType();
-      case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
-        return getDiscriminator();
-      case ProcessorDslPackage.POJO_ENTITY__SERNUM:
-        return getSernum();
+      case ProcessorDslPackage.POJO_ENTITY__MODIFIERS2:
+        return getModifiers2();
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         return getFeatures();
     }
@@ -411,23 +230,16 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.POJO_ENTITY__FINAL:
-        setFinal((Boolean)newValue);
-        return;
-      case ProcessorDslPackage.POJO_ENTITY__ABSTRACT:
-        setAbstract((Boolean)newValue);
+      case ProcessorDslPackage.POJO_ENTITY__MODIFIERS1:
+        getModifiers1().clear();
+        getModifiers1().addAll((Collection<? extends PojoEntityModifier1>)newValue);
         return;
       case ProcessorDslPackage.POJO_ENTITY__NAME:
         setName((String)newValue);
         return;
-      case ProcessorDslPackage.POJO_ENTITY__SUPER_TYPE:
-        setSuperType((PojoEntity)newValue);
-        return;
-      case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
-        setDiscriminator((String)newValue);
-        return;
-      case ProcessorDslPackage.POJO_ENTITY__SERNUM:
-        setSernum((String)newValue);
+      case ProcessorDslPackage.POJO_ENTITY__MODIFIERS2:
+        getModifiers2().clear();
+        getModifiers2().addAll((Collection<? extends PojoEntityModifier2>)newValue);
         return;
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         getFeatures().clear();
@@ -447,23 +259,14 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.POJO_ENTITY__FINAL:
-        setFinal(FINAL_EDEFAULT);
-        return;
-      case ProcessorDslPackage.POJO_ENTITY__ABSTRACT:
-        setAbstract(ABSTRACT_EDEFAULT);
+      case ProcessorDslPackage.POJO_ENTITY__MODIFIERS1:
+        getModifiers1().clear();
         return;
       case ProcessorDslPackage.POJO_ENTITY__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case ProcessorDslPackage.POJO_ENTITY__SUPER_TYPE:
-        setSuperType((PojoEntity)null);
-        return;
-      case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
-        setDiscriminator(DISCRIMINATOR_EDEFAULT);
-        return;
-      case ProcessorDslPackage.POJO_ENTITY__SERNUM:
-        setSernum(SERNUM_EDEFAULT);
+      case ProcessorDslPackage.POJO_ENTITY__MODIFIERS2:
+        getModifiers2().clear();
         return;
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         getFeatures().clear();
@@ -482,18 +285,12 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.POJO_ENTITY__FINAL:
-        return final_ != FINAL_EDEFAULT;
-      case ProcessorDslPackage.POJO_ENTITY__ABSTRACT:
-        return abstract_ != ABSTRACT_EDEFAULT;
+      case ProcessorDslPackage.POJO_ENTITY__MODIFIERS1:
+        return modifiers1 != null && !modifiers1.isEmpty();
       case ProcessorDslPackage.POJO_ENTITY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ProcessorDslPackage.POJO_ENTITY__SUPER_TYPE:
-        return superType != null;
-      case ProcessorDslPackage.POJO_ENTITY__DISCRIMINATOR:
-        return DISCRIMINATOR_EDEFAULT == null ? discriminator != null : !DISCRIMINATOR_EDEFAULT.equals(discriminator);
-      case ProcessorDslPackage.POJO_ENTITY__SERNUM:
-        return SERNUM_EDEFAULT == null ? sernum != null : !SERNUM_EDEFAULT.equals(sernum);
+      case ProcessorDslPackage.POJO_ENTITY__MODIFIERS2:
+        return modifiers2 != null && !modifiers2.isEmpty();
       case ProcessorDslPackage.POJO_ENTITY__FEATURES:
         return features != null && !features.isEmpty();
     }
@@ -511,16 +308,8 @@ public class PojoEntityImpl extends AbstractPojoEntityImpl implements PojoEntity
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (final: ");
-    result.append(final_);
-    result.append(", abstract: ");
-    result.append(abstract_);
-    result.append(", name: ");
+    result.append(" (name: ");
     result.append(name);
-    result.append(", discriminator: ");
-    result.append(discriminator);
-    result.append(", sernum: ");
-    result.append(sernum);
     result.append(')');
     return result.toString();
   }

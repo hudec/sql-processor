@@ -272,28 +272,23 @@ Implements hidden(ML_COMMENT, SL_COMMENT, WS):
 Extends hidden(ML_COMMENT, SL_COMMENT, WS):
 	'extends' extends = [jvmTypes::JvmType|QualifiedName];
 
-//PojoEntityModifier1: ((final?='final') | (abstract?='abstract'));
-//
-//PojoEntityModifier2: (('extends' superType=[PojoEntity|IDENT]) | ('discriminator' discriminator=(IDENT|NUMBER)) | ('serializable' sernum=NUMBER));
-//
-//PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-//	(modifiers1+=PojoEntityModifier1)* 'pojo' name=IDENT (modifiers2+=PojoEntityModifier2)* 
-//	LBRACE
-//		features+=PojoProperty*
-//	RBRACE;
+PojoEntityModifier1: ((final?='final') | (abstract?='abstract'));
+
+PojoEntityModifier2: (('extends' superType=[PojoEntity|IDENT]) | ('discriminator' discriminator=(IDENT|NUMBER)) | ('serializable' sernum=NUMBER));
 
 PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-	(final?='final')? 'pojo' (abstract?='abstract')? name=IDENT
-	('extends' superType=[PojoEntity|IDENT])? ('discriminator' discriminator=(IDENT|NUMBER))? ('serializable' sernum=(NUMBER|NEGATIVE_NUMBER))? 
+	(modifiers1+=PojoEntityModifier1)* 'pojo' name=IDENT (modifiers2+=PojoEntityModifier2)* 
 	LBRACE
 		features+=PojoProperty*
 	RBRACE;
+
+PojoPropertyModifier: ((required?='required') | (discriminator?='discriminator') | (primaryKey?='primaryKey'));
 
 PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 	name=IDENT (native = ('_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') | 
 	(COLON (COLON (COLON (attrs+=[PojoProperty|IDENT])* | ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]))
 	(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) (array ?= '[]')?
-	(required?='required')? (discriminator?='discriminator')? (primaryKey?='primaryKey')?
+	(modifiers+=PojoPropertyModifier)*
 ;
 
 QualifiedNameWithWildcard:

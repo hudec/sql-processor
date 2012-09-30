@@ -47,6 +47,7 @@ public class TablePojoConverter {
     private Map<String, String> tableNames = new HashMap<String, String>();
     private Map<String, Map<String, String>> columnNames = new HashMap<String, Map<String, String>>();
     private Set<String> ignoreTables = new HashSet<String>();
+    private Set<String> onlyTables = new HashSet<String>();
     private Map<String, Set<String>> ignoreColumns = new HashMap<String, Set<String>>();
     private Map<String, Set<String>> requiredColumns = new HashMap<String, Set<String>>();
     private Map<String, Set<String>> notRequiredColumns = new HashMap<String, Set<String>>();
@@ -116,6 +117,10 @@ public class TablePojoConverter {
         Set<String> ignoreTables = modelProperty.getIgnoreTables(artifacts);
         if (ignoreTables != null) {
             this.ignoreTables.addAll(ignoreTables);
+        }
+        Set<String> onlyTables = modelProperty.getOnlyTables(artifacts);
+        if (onlyTables != null) {
+            this.onlyTables.addAll(onlyTables);
         }
         Map<String, Set<String>> ignoreColumns = modelProperty.getIgnoreColumns(artifacts);
         if (ignoreColumns != null) {
@@ -253,6 +258,7 @@ public class TablePojoConverter {
         // System.out.println("tableNames " + this.tableNames);
         // System.out.println("columnNames " + this.columnNames);
         // System.out.println("ignoreTables " + this.ignoreTables);
+        // System.out.println("onlyTables " + this.onlyTables);
         // System.out.println("ignoreColumns " + this.ignoreColumns);
         // System.out.println("createColumns " + this.createColumns);
         // System.out.println("ignoreExports " + this.ignoreExports);
@@ -495,9 +501,10 @@ public class TablePojoConverter {
             String pojoName = tableNames.get(pojo);
             if (pojoName == null)
                 pojoName = pojo;
-            buffer.append("\n  pojo ");
+            buffer.append("\n");
             if (pojoAbstracts.contains(pojo))
                 buffer.append("abstract ");
+            buffer.append("pojo ");
             buffer.append(tableToCamelCase(pojoName));
             if (pojoExtends.containsKey(pojo))
                 buffer.append(" extends ").append(pojoExtends.get(pojo));
@@ -531,14 +538,14 @@ public class TablePojoConverter {
                     if (!attribute.getClassName().startsWith(COLLECTION_LIST))
                         strs.add(name);
                 }
+                if (inheritanceColumns.containsKey(pojo) && pentry.getKey().equals(inheritanceColumns.get(pojo))) {
+                    buffer.append(" discriminator");
+                }
                 if ((requiredColumns.containsKey(pojo) && requiredColumns.get(pojo).contains(pentry.getKey()))
                         || (attribute.isRequired() && !attribute.isPrimaryKey())) {
                     if (!notRequiredColumns.containsKey(pojo)
                             || !notRequiredColumns.get(pojo).contains(pentry.getKey()))
                         buffer.append(" required");
-                }
-                if (inheritanceColumns.containsKey(pojo) && pentry.getKey().equals(inheritanceColumns.get(pojo))) {
-                    buffer.append(" discriminator");
                 }
                 if (attribute.isPrimaryKey()) {
                     buffer.append(" primaryKey");

@@ -5,6 +5,7 @@ package org.sqlproc.dsl.processorDsl.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -14,12 +15,15 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.xtext.common.types.JvmType;
 
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
+import org.sqlproc.dsl.processorDsl.PojoPropertyModifier;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -37,9 +41,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getGref <em>Gref</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getGtype <em>Gtype</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#isArray <em>Array</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#isRequired <em>Required</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#isDiscriminator <em>Discriminator</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#isPrimaryKey <em>Primary Key</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl#getModifiers <em>Modifiers</em>}</li>
  * </ul>
  * </p>
  *
@@ -158,64 +160,14 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
   protected boolean array = ARRAY_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isRequired() <em>Required</em>}' attribute.
+   * The cached value of the '{@link #getModifiers() <em>Modifiers</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isRequired()
+   * @see #getModifiers()
    * @generated
    * @ordered
    */
-  protected static final boolean REQUIRED_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isRequired() <em>Required</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isRequired()
-   * @generated
-   * @ordered
-   */
-  protected boolean required = REQUIRED_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #isDiscriminator() <em>Discriminator</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isDiscriminator()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean DISCRIMINATOR_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isDiscriminator() <em>Discriminator</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isDiscriminator()
-   * @generated
-   * @ordered
-   */
-  protected boolean discriminator = DISCRIMINATOR_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #isPrimaryKey() <em>Primary Key</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isPrimaryKey()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean PRIMARY_KEY_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isPrimaryKey() <em>Primary Key</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isPrimaryKey()
-   * @generated
-   * @ordered
-   */
-  protected boolean primaryKey = PRIMARY_KEY_EDEFAULT;
+  protected EList<PojoPropertyModifier> modifiers;
 
   /**
    * <!-- begin-user-doc -->
@@ -498,9 +450,13 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isRequired()
+  public EList<PojoPropertyModifier> getModifiers()
   {
-    return required;
+    if (modifiers == null)
+    {
+      modifiers = new EObjectContainmentEList<PojoPropertyModifier>(PojoPropertyModifier.class, this, ProcessorDslPackage.POJO_PROPERTY__MODIFIERS);
+    }
+    return modifiers;
   }
 
   /**
@@ -508,58 +464,15 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRequired(boolean newRequired)
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    boolean oldRequired = required;
-    required = newRequired;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_PROPERTY__REQUIRED, oldRequired, required));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isDiscriminator()
-  {
-    return discriminator;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDiscriminator(boolean newDiscriminator)
-  {
-    boolean oldDiscriminator = discriminator;
-    discriminator = newDiscriminator;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_PROPERTY__DISCRIMINATOR, oldDiscriminator, discriminator));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isPrimaryKey()
-  {
-    return primaryKey;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setPrimaryKey(boolean newPrimaryKey)
-  {
-    boolean oldPrimaryKey = primaryKey;
-    primaryKey = newPrimaryKey;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_PROPERTY__PRIMARY_KEY, oldPrimaryKey, primaryKey));
+    switch (featureID)
+    {
+      case ProcessorDslPackage.POJO_PROPERTY__MODIFIERS:
+        return ((InternalEList<?>)getModifiers()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -592,12 +505,8 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
         return basicGetGtype();
       case ProcessorDslPackage.POJO_PROPERTY__ARRAY:
         return isArray();
-      case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
-        return isRequired();
-      case ProcessorDslPackage.POJO_PROPERTY__DISCRIMINATOR:
-        return isDiscriminator();
-      case ProcessorDslPackage.POJO_PROPERTY__PRIMARY_KEY:
-        return isPrimaryKey();
+      case ProcessorDslPackage.POJO_PROPERTY__MODIFIERS:
+        return getModifiers();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -638,14 +547,9 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
       case ProcessorDslPackage.POJO_PROPERTY__ARRAY:
         setArray((Boolean)newValue);
         return;
-      case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
-        setRequired((Boolean)newValue);
-        return;
-      case ProcessorDslPackage.POJO_PROPERTY__DISCRIMINATOR:
-        setDiscriminator((Boolean)newValue);
-        return;
-      case ProcessorDslPackage.POJO_PROPERTY__PRIMARY_KEY:
-        setPrimaryKey((Boolean)newValue);
+      case ProcessorDslPackage.POJO_PROPERTY__MODIFIERS:
+        getModifiers().clear();
+        getModifiers().addAll((Collection<? extends PojoPropertyModifier>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -685,14 +589,8 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
       case ProcessorDslPackage.POJO_PROPERTY__ARRAY:
         setArray(ARRAY_EDEFAULT);
         return;
-      case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
-        setRequired(REQUIRED_EDEFAULT);
-        return;
-      case ProcessorDslPackage.POJO_PROPERTY__DISCRIMINATOR:
-        setDiscriminator(DISCRIMINATOR_EDEFAULT);
-        return;
-      case ProcessorDslPackage.POJO_PROPERTY__PRIMARY_KEY:
-        setPrimaryKey(PRIMARY_KEY_EDEFAULT);
+      case ProcessorDslPackage.POJO_PROPERTY__MODIFIERS:
+        getModifiers().clear();
         return;
     }
     super.eUnset(featureID);
@@ -724,12 +622,8 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
         return gtype != null;
       case ProcessorDslPackage.POJO_PROPERTY__ARRAY:
         return array != ARRAY_EDEFAULT;
-      case ProcessorDslPackage.POJO_PROPERTY__REQUIRED:
-        return required != REQUIRED_EDEFAULT;
-      case ProcessorDslPackage.POJO_PROPERTY__DISCRIMINATOR:
-        return discriminator != DISCRIMINATOR_EDEFAULT;
-      case ProcessorDslPackage.POJO_PROPERTY__PRIMARY_KEY:
-        return primaryKey != PRIMARY_KEY_EDEFAULT;
+      case ProcessorDslPackage.POJO_PROPERTY__MODIFIERS:
+        return modifiers != null && !modifiers.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -751,12 +645,6 @@ public class PojoPropertyImpl extends MinimalEObjectImpl.Container implements Po
     result.append(native_);
     result.append(", array: ");
     result.append(array);
-    result.append(", required: ");
-    result.append(required);
-    result.append(", discriminator: ");
-    result.append(discriminator);
-    result.append(", primaryKey: ");
-    result.append(primaryKey);
     result.append(')');
     return result.toString();
   }

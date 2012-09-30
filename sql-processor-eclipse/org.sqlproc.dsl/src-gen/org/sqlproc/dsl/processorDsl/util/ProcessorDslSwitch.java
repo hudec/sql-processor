@@ -441,11 +441,32 @@ public class ProcessorDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER1:
+      {
+        PojoEntityModifier1 pojoEntityModifier1 = (PojoEntityModifier1)theEObject;
+        T result = casePojoEntityModifier1(pojoEntityModifier1);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER2:
+      {
+        PojoEntityModifier2 pojoEntityModifier2 = (PojoEntityModifier2)theEObject;
+        T result = casePojoEntityModifier2(pojoEntityModifier2);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.POJO_ENTITY:
       {
         PojoEntity pojoEntity = (PojoEntity)theEObject;
         T result = casePojoEntity(pojoEntity);
         if (result == null) result = caseAbstractPojoEntity(pojoEntity);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.POJO_PROPERTY_MODIFIER:
+      {
+        PojoPropertyModifier pojoPropertyModifier = (PojoPropertyModifier)theEObject;
+        T result = casePojoPropertyModifier(pojoPropertyModifier);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1277,6 +1298,38 @@ public class ProcessorDslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Pojo Entity Modifier1</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Pojo Entity Modifier1</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePojoEntityModifier1(PojoEntityModifier1 object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Pojo Entity Modifier2</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Pojo Entity Modifier2</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePojoEntityModifier2(PojoEntityModifier2 object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Pojo Entity</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1288,6 +1341,22 @@ public class ProcessorDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T casePojoEntity(PojoEntity object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Pojo Property Modifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Pojo Property Modifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePojoPropertyModifier(PojoPropertyModifier object)
   {
     return null;
   }

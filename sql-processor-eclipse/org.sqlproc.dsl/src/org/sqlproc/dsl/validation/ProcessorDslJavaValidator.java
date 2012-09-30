@@ -50,6 +50,7 @@ import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
+import org.sqlproc.dsl.util.Utils;
 
 import com.google.inject.Inject;
 
@@ -771,12 +772,13 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 return ValidationResult.ERROR;
             }
         }
-        if (entity.getSuperType() != null) {
-            ValidationResult result = checkEntityProperty(entity.getSuperType(), property);
+        PojoEntity superType = Utils.getSuperType(entity);
+        if (superType != null) {
+            ValidationResult result = checkEntityProperty(superType, property);
             if (result == ValidationResult.WARNING || result == ValidationResult.OK)
                 return result;
         }
-        if (entity.isAbstract())
+        if (Utils.isAbstract(entity))
             return ValidationResult.WARNING;
         else
             return ValidationResult.ERROR;

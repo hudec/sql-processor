@@ -12,11 +12,10 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.sqlproc.dsl.processorDsl.PojoProperty
 import org.eclipse.xtext.xbase.compiler.ImportManager
 
-import org.sqlproc.dsl.util.Collector
+import static org.sqlproc.dsl.util.Utils.*;
 import java.util.ArrayList
 import org.sqlproc.dsl.processorDsl.Implements
 import org.sqlproc.dsl.processorDsl.Extends
-import org.sqlproc.dsl.processorDsl.PackageDeclaration
 
 class ProcessorDslGenerator implements IGenerator {
 	
@@ -42,7 +41,7 @@ def compile(PojoEntity e) '''
 import «i»;
   «ENDFOR»
   «ENDIF»
-  «IF e.sernum != null»
+  «IF getSernum(e) != null»
 
 import java.io.Serializable;
   «ENDIF»
@@ -51,10 +50,10 @@ import java.io.Serializable;
 '''
 
 def compile(PojoEntity e, ImportManager importManager) '''
-public «IF e.isAbstract»abstract «ENDIF»class «e.name» «compileExtends(e)»«compileImplements(e)»{
-  «IF e.sernum != null»
+public «IF isAbstract(e)»abstract «ENDIF»class «e.name» «compileExtends(e)»«compileImplements(e)»{
+  «IF getSernum(e) != null»
   
-  private static final long serialVersionUID = «e.sernum»L;
+  private static final long serialVersionUID = «getSernum(e)»L;
   «ENDIF»
 	
   public «e.name»() {
@@ -128,7 +127,7 @@ def compileToString(PojoProperty f, ImportManager importManager, PojoEntity e) '
 
     @Override
     public String toString() {
-      return "«e.name» [«FOR f2:f.attrs SEPARATOR " + \", "»«f2.name»=" + «f2.name»«ENDFOR»«IF e.superType != null» + super.toString()«ENDIF» + "]";
+      return "«e.name» [«FOR f2:f.attrs SEPARATOR " + \", "»«f2.name»=" + «f2.name»«ENDFOR»«IF getSuperType(e) != null» + super.toString()«ENDIF» + "]";
     }
 '''
 
@@ -138,8 +137,8 @@ def compileType(PojoProperty f, ImportManager importManager) '''
 def requiredFeatures(PojoEntity e) {
 	
    	val list = new ArrayList<PojoProperty>()
-	if (e.superType != null)
-	  list.addAll(e.superType.requiredFeatures)
+	if (getSuperType(e) != null)
+	  list.addAll(getSuperType(e).requiredFeatures)
 	list.addAll(e.requiredFeatures1)
     return list
 }
@@ -147,13 +146,13 @@ def requiredFeatures(PojoEntity e) {
 def requiredSuperFeatures(PojoEntity e) {
 	
    	val list = new ArrayList<PojoProperty>()
-	if (e.superType != null)
-	  list.addAll(e.superType.requiredFeatures)
+	if (getSuperType(e) != null)
+	  list.addAll(getSuperType(e).requiredFeatures)
     return list
 }
 
 def requiredFeatures1(PojoEntity e) {
-	return e.features.filter(f|f.required).toList
+	return e.features.filter(f|isRequired(f)).toList
 }
 
 def isAttribute(PojoProperty f) {
@@ -161,10 +160,10 @@ def isAttribute(PojoProperty f) {
 }
 
 def compileExtends(PojoEntity e) '''
-	«IF e.superType != null»extends «e.superType.fullyQualifiedName» «ELSEIF getExtends(e) != ""»extends «getExtends(e)» «ENDIF»'''
+	«IF getSuperType(e) != null»extends «getSuperType(e).fullyQualifiedName» «ELSEIF getExtends(e) != ""»extends «getExtends(e)» «ENDIF»'''
 
 def compileImplements(PojoEntity e) '''
-	«IF isImplements(e) || e.sernum != null»implements «FOR f:e.eContainer.eContents.filter(typeof(Implements)) SEPARATOR ", " »«f.getImplements().simpleName»«ENDFOR»«IF e.sernum != null»«IF isImplements(e)», «ENDIF»Serializable«ENDIF» «ENDIF»'''
+	«IF isImplements(e) || getSernum(e) != null»implements «FOR f:e.eContainer.eContents.filter(typeof(Implements)) SEPARATOR ", " »«f.getImplements().simpleName»«ENDFOR»«IF getSernum(e) != null»«IF isImplements(e)», «ENDIF»Serializable«ENDIF» «ENDIF»'''
 
 def compile(Extends e, ImportManager importManager) {
 	importManager.addImportFor(e.getExtends())

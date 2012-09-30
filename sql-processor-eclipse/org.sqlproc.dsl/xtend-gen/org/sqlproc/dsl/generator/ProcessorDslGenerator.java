@@ -24,6 +24,7 @@ import org.sqlproc.dsl.processorDsl.Extends;
 import org.sqlproc.dsl.processorDsl.Implements;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
+import org.sqlproc.dsl.util.Utils;
 
 @SuppressWarnings("all")
 public class ProcessorDslGenerator implements IGenerator {
@@ -89,7 +90,7 @@ public class ProcessorDslGenerator implements IGenerator {
       }
     }
     {
-      String _sernum = e.getSernum();
+      String _sernum = Utils.getSernum(e);
       boolean _notEquals_1 = (!Objects.equal(_sernum, null));
       if (_notEquals_1) {
         _builder.newLine();
@@ -107,7 +108,7 @@ public class ProcessorDslGenerator implements IGenerator {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("public ");
     {
-      boolean _isAbstract = e.isAbstract();
+      boolean _isAbstract = Utils.isAbstract(e);
       if (_isAbstract) {
         _builder.append("abstract ");
       }
@@ -123,14 +124,14 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("{");
     _builder.newLineIfNotEmpty();
     {
-      String _sernum = e.getSernum();
+      String _sernum = Utils.getSernum(e);
       boolean _notEquals = (!Objects.equal(_sernum, null));
       if (_notEquals) {
         _builder.append("  ");
         _builder.newLine();
         _builder.append("  ");
         _builder.append("private static final long serialVersionUID = ");
-        String _sernum_1 = e.getSernum();
+        String _sernum_1 = Utils.getSernum(e);
         _builder.append(_sernum_1, "  ");
         _builder.append("L;");
         _builder.newLineIfNotEmpty();
@@ -491,7 +492,7 @@ public class ProcessorDslGenerator implements IGenerator {
       }
     }
     {
-      PojoEntity _superType = e.getSuperType();
+      PojoEntity _superType = Utils.getSuperType(e);
       boolean _notEquals = (!Objects.equal(_superType, null));
       if (_notEquals) {
         _builder.append(" + super.toString()");
@@ -565,10 +566,10 @@ public class ProcessorDslGenerator implements IGenerator {
   public ArrayList<PojoProperty> requiredFeatures(final PojoEntity e) {
     ArrayList<PojoProperty> _arrayList = new ArrayList<PojoProperty>();
     final ArrayList<PojoProperty> list = _arrayList;
-    PojoEntity _superType = e.getSuperType();
+    PojoEntity _superType = Utils.getSuperType(e);
     boolean _notEquals = (!Objects.equal(_superType, null));
     if (_notEquals) {
-      PojoEntity _superType_1 = e.getSuperType();
+      PojoEntity _superType_1 = Utils.getSuperType(e);
       ArrayList<PojoProperty> _requiredFeatures = this.requiredFeatures(_superType_1);
       list.addAll(_requiredFeatures);
     }
@@ -580,10 +581,10 @@ public class ProcessorDslGenerator implements IGenerator {
   public ArrayList<PojoProperty> requiredSuperFeatures(final PojoEntity e) {
     ArrayList<PojoProperty> _arrayList = new ArrayList<PojoProperty>();
     final ArrayList<PojoProperty> list = _arrayList;
-    PojoEntity _superType = e.getSuperType();
+    PojoEntity _superType = Utils.getSuperType(e);
     boolean _notEquals = (!Objects.equal(_superType, null));
     if (_notEquals) {
-      PojoEntity _superType_1 = e.getSuperType();
+      PojoEntity _superType_1 = Utils.getSuperType(e);
       ArrayList<PojoProperty> _requiredFeatures = this.requiredFeatures(_superType_1);
       list.addAll(_requiredFeatures);
     }
@@ -594,7 +595,7 @@ public class ProcessorDslGenerator implements IGenerator {
     EList<PojoProperty> _features = e.getFeatures();
     final Function1<PojoProperty,Boolean> _function = new Function1<PojoProperty,Boolean>() {
         public Boolean apply(final PojoProperty f) {
-          boolean _isRequired = f.isRequired();
+          boolean _isRequired = Utils.isRequired(f);
           return Boolean.valueOf(_isRequired);
         }
       };
@@ -627,11 +628,11 @@ public class ProcessorDslGenerator implements IGenerator {
   public CharSequence compileExtends(final PojoEntity e) {
     StringConcatenation _builder = new StringConcatenation();
     {
-      PojoEntity _superType = e.getSuperType();
+      PojoEntity _superType = Utils.getSuperType(e);
       boolean _notEquals = (!Objects.equal(_superType, null));
       if (_notEquals) {
         _builder.append("extends ");
-        PojoEntity _superType_1 = e.getSuperType();
+        PojoEntity _superType_1 = Utils.getSuperType(e);
         QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(_superType_1);
         _builder.append(_fullyQualifiedName, "");
         _builder.append(" ");
@@ -657,7 +658,7 @@ public class ProcessorDslGenerator implements IGenerator {
       if (_isImplements) {
         _or = true;
       } else {
-        String _sernum = e.getSernum();
+        String _sernum = Utils.getSernum(e);
         boolean _notEquals = (!Objects.equal(_sernum, null));
         _or = (_isImplements || _notEquals);
       }
@@ -680,7 +681,7 @@ public class ProcessorDslGenerator implements IGenerator {
           }
         }
         {
-          String _sernum_1 = e.getSernum();
+          String _sernum_1 = Utils.getSernum(e);
           boolean _notEquals_1 = (!Objects.equal(_sernum_1, null));
           if (_notEquals_1) {
             {
