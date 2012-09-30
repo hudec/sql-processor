@@ -41,9 +41,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_SCHEMA = "schema";
     public static final String DATABASE_DRIVER = "driver";
     public static final String POJOGEN = "pojogen";
-    public static final String POJOGEN_TYPE_SQLTYPES = "type sqltypes";
-    public static final String POJOGEN_TYPE_IN_TABLE = "type in table";
-    public static final String POJOGEN_TYPE_FOR_COLUMNS = "type for columns";
+    public static final String POJOGEN_TYPE_SQLTYPES = "types sqltypes";
+    public static final String POJOGEN_TYPE_IN_TABLE = "types in table";
+    public static final String POJOGEN_TYPE_FOR_COLUMNS = "types for columns";
     public static final String POJOGEN_IGNORE_TABLES = "ignore tables";
     public static final String POJOGEN_IGNORE_COLUMNS = "ignore columns";
     public static final String POJOGEN_REQUIRED_COLUMNS = "required columns";
@@ -56,7 +56,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_CREATE_EXPORTS = "create one-to-many";
     public static final String POJOGEN_CREATE_IMPORTS = "create many-to-one";
     public static final String POJOGEN_INHERIT_IMPORTS = "inherit many-to-one";
-    public static final String POJOGEN_MANY_TO_MANY_EXPORTS = "table many-to-many";
+    public static final String POJOGEN_MANY_TO_MANY_EXPORTS = "tables many-to-many";
     public static final String POJOGEN_INHERITANCE = "inherit discriminator";
     public static final String POJOGEN_GENERATE_METHODS = "generate methods";
     public static final String POJOGEN_IMPLEMENTS = "implements";
@@ -231,6 +231,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     public void setValue(ModelValues modelValues, DatabaseProperty property) {
+        if (property == null)
+            return;
         if (DATABASE_ONLINE.equals(property.getName())) {
             modelValues.doResolveDb = "ON".equals(property.getDoResolveDb());
         } else if (DATABASE_URL.equals(property.getName())) {
@@ -247,6 +249,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     public void setValue(ModelValues modelValues, PojogenProperty property) {
+        if (property == null)
+            return;
         if (POJOGEN_TYPE_SQLTYPES.equals(property.getName())) {
             // if (modelValues.sqlTypes == null)
             // modelValues.sqlTypes = new HashMap<String, PojoAttrType>();

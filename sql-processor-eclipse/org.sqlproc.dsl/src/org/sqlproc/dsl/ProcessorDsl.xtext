@@ -35,9 +35,9 @@ DatabaseProperty:
 	);
 
 PojogenProperty:
-	(name='type sqltypes' (WS+ sqlTypes+=SqlTypeAssignement)+
-	|name='type in table' WS+ dbTable=IDENT (WS+ sqlTypes+=SqlTypeAssignement)+
-	|name='type for columns' WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
+	(name='types sqltypes' (WS+ sqlTypes+=SqlTypeAssignement)+
+	|name='types in table' WS+ dbTable=IDENT (WS+ sqlTypes+=SqlTypeAssignement)+
+	|name='types for columns' WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
 	|name='ignore tables' (WS+ dbTables+=IDENT)+
 	|name='only tables' (WS+ dbTables+=IDENT)+
 	|name='ignore columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
@@ -51,7 +51,7 @@ PojogenProperty:
 	|name='inherit many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	|name='create one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 	|name='create many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-	|name='table many-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
+	|name='tables many-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
 	|name='inherit discriminator' WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
 	|name='generate methods' (WS+ methods+=IDENT)+
 	|name='implements' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+

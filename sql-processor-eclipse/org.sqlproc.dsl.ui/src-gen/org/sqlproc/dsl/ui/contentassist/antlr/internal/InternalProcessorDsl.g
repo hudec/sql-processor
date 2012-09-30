@@ -21420,16 +21420,16 @@ rule__PojogenProperty__NameAssignment_0_0
     }
 :
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getNameTypeSqltypesKeyword_0_0_0()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getNameTypesSqltypesKeyword_0_0_0()); }
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getNameTypeSqltypesKeyword_0_0_0()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getNameTypesSqltypesKeyword_0_0_0()); }
 
-	'type sqltypes' 
+	'types sqltypes' 
 
-{ after(grammarAccess.getPojogenPropertyAccess().getNameTypeSqltypesKeyword_0_0_0()); }
+{ after(grammarAccess.getPojogenPropertyAccess().getNameTypesSqltypesKeyword_0_0_0()); }
 )
 
-{ after(grammarAccess.getPojogenPropertyAccess().getNameTypeSqltypesKeyword_0_0_0()); }
+{ after(grammarAccess.getPojogenPropertyAccess().getNameTypesSqltypesKeyword_0_0_0()); }
 )
 
 ;
@@ -21458,16 +21458,16 @@ rule__PojogenProperty__NameAssignment_1_0
     }
 :
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getNameTypeInTableKeyword_1_0_0()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getNameTypesInTableKeyword_1_0_0()); }
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getNameTypeInTableKeyword_1_0_0()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getNameTypesInTableKeyword_1_0_0()); }
 
-	'type in table' 
+	'types in table' 
 
-{ after(grammarAccess.getPojogenPropertyAccess().getNameTypeInTableKeyword_1_0_0()); }
+{ after(grammarAccess.getPojogenPropertyAccess().getNameTypesInTableKeyword_1_0_0()); }
 )
 
-{ after(grammarAccess.getPojogenPropertyAccess().getNameTypeInTableKeyword_1_0_0()); }
+{ after(grammarAccess.getPojogenPropertyAccess().getNameTypesInTableKeyword_1_0_0()); }
 )
 
 ;
@@ -21511,16 +21511,16 @@ rule__PojogenProperty__NameAssignment_2_0
     }
 :
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getNameTypeForColumnsKeyword_2_0_0()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getNameTypesForColumnsKeyword_2_0_0()); }
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getNameTypeForColumnsKeyword_2_0_0()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getNameTypesForColumnsKeyword_2_0_0()); }
 
-	'type for columns' 
+	'types for columns' 
 
-{ after(grammarAccess.getPojogenPropertyAccess().getNameTypeForColumnsKeyword_2_0_0()); }
+{ after(grammarAccess.getPojogenPropertyAccess().getNameTypesForColumnsKeyword_2_0_0()); }
 )
 
-{ after(grammarAccess.getPojogenPropertyAccess().getNameTypeForColumnsKeyword_2_0_0()); }
+{ after(grammarAccess.getPojogenPropertyAccess().getNameTypesForColumnsKeyword_2_0_0()); }
 )
 
 ;
@@ -22208,16 +22208,16 @@ rule__PojogenProperty__NameAssignment_16_0
     }
 :
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0()); }
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0()); }
 
-	'table many-to-many' 
+	'tables many-to-many' 
 
-{ after(grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0()); }
+{ after(grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0()); }
 )
 
-{ after(grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0()); }
+{ after(grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0()); }
 )
 
 ;

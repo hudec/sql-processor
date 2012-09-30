@@ -1,10 +1,10 @@
-//pojogen type sqltypes NUMBER(19)->:java.lang.Integer VARCHAR2(100)->:java.lang.Character;
-//pojogen type in table CONTACT VARCHAR2(100)->:java.lang.Short;
+//pojogen types sqltypes NUMBER(19)->:java.lang.Integer VARCHAR2(100)->:java.lang.Character;
+//pojogen types in table CONTACT VARCHAR2(100)->:java.lang.Short;
 //pojogen rename tables CONTACT->PERSON_CONTACT;
 //pojogen ignore tables BOOK;
 //pojogen ignore columns CONTACT ADDRESS;
 //pojogen create columns PERSON MOBILE_PHONE->::PhoneNumber;
-pojogen type for columns CONTACT PHONE_NUMBER->:org.sqlproc.sample.simple.model.PhoneNumber;
+pojogen types for columns CONTACT PHONE_NUMBER->:org.sqlproc.sample.simple.model.PhoneNumber;
 pojogen rename columns CONTACT PHONE_NUMBER->HOME_PHONE;
 pojogen rename columns MOVIE URLIMDB->URL_IMDB PLAYLENGTH->PLAY_LENGTH;
 pojogen ignore one-to-many LIBRARY ID->SUBSCRIBER;
@@ -17,14 +17,14 @@ pojogen inherit many-to-one MOVIE MEDIA_ID->MEDIA->ID;
 //pojogen ignore one-to-many PERSON ID->PERSON_LIBRARY;
 //pojogen ignore one-to-many MEDIA ID->PERSON_LIBRARY;
 //pojogen create one-to-many PERSON ID->MEDIA->LIBRARY;
-pojogen table many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
+pojogen tables many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
 pojogen inherit discriminator BILLING_DETAILS TYPE BA->BANK_ACCOUNT->BA_ACCOUNT CC->CREDIT_CARD->CC_NUMBER;
 pojogen rename columns BANK_ACCOUNT BA_ACCOUNT->ACCOUNT;
 pojogen rename columns CREDIT_CARD CC_NUMBER->NUMBER;
 pojogen not required columns CONTACT PERSON_ID;
 pojogen required columns CONTACT ADDRESS;
 pojogen required columns CREDIT_CARD CC_NUMBER;
-pojogen type for columns MOVIE PLAYLENGTH->:java.lang.Integer;
+pojogen types for columns MOVIE PLAYLENGTH->:java.lang.Integer;
 pojogen generate methods toString equals hashCode;
 pojogen implements java.io.Serializable;
 //pojogen extends java.lang.Object;
@@ -44,7 +44,7 @@ package org.sqlproc.sample.simple.model {
   pojo abstract BillingDetails serializable 1  {
     id : java.lang.Long primaryKey
     subscriber :: Subscriber required
-    type : java.lang.String required discriminator
+    type : java.lang.String required
     equals ::: id
     hashCode ::: id
     toString ::: id type subscriber

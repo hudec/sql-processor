@@ -756,14 +756,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
 		private final Assignment cNameAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final Keyword cNameTypeSqltypesKeyword_0_0_0 = (Keyword)cNameAssignment_0_0.eContents().get(0);
+		private final Keyword cNameTypesSqltypesKeyword_0_0_0 = (Keyword)cNameAssignment_0_0.eContents().get(0);
 		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
 		private final RuleCall cWSTerminalRuleCall_0_1_0 = (RuleCall)cGroup_0_1.eContents().get(0);
 		private final Assignment cSqlTypesAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
 		private final RuleCall cSqlTypesSqlTypeAssignementParserRuleCall_0_1_1_0 = (RuleCall)cSqlTypesAssignment_0_1_1.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Assignment cNameAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
-		private final Keyword cNameTypeInTableKeyword_1_0_0 = (Keyword)cNameAssignment_1_0.eContents().get(0);
+		private final Keyword cNameTypesInTableKeyword_1_0_0 = (Keyword)cNameAssignment_1_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		private final Assignment cDbTableAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cDbTableIDENTTerminalRuleCall_1_2_0 = (RuleCall)cDbTableAssignment_1_2.eContents().get(0);
@@ -773,7 +773,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSqlTypesSqlTypeAssignementParserRuleCall_1_3_1_0 = (RuleCall)cSqlTypesAssignment_1_3_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
 		private final Assignment cNameAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final Keyword cNameTypeForColumnsKeyword_2_0_0 = (Keyword)cNameAssignment_2_0.eContents().get(0);
+		private final Keyword cNameTypesForColumnsKeyword_2_0_0 = (Keyword)cNameAssignment_2_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		private final Assignment cDbTableAssignment_2_2 = (Assignment)cGroup_2.eContents().get(2);
 		private final RuleCall cDbTableIDENTTerminalRuleCall_2_2_0 = (RuleCall)cDbTableAssignment_2_2.eContents().get(0);
@@ -904,7 +904,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cImportsImportAssignementParserRuleCall_15_3_1_0 = (RuleCall)cImportsAssignment_15_3_1.eContents().get(0);
 		private final Group cGroup_16 = (Group)cAlternatives.eContents().get(16);
 		private final Assignment cNameAssignment_16_0 = (Assignment)cGroup_16.eContents().get(0);
-		private final Keyword cNameTableManyToManyKeyword_16_0_0 = (Keyword)cNameAssignment_16_0.eContents().get(0);
+		private final Keyword cNameTablesManyToManyKeyword_16_0_0 = (Keyword)cNameAssignment_16_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_16_1 = (RuleCall)cGroup_16.eContents().get(1);
 		private final Assignment cDbTableAssignment_16_2 = (Assignment)cGroup_16.eContents().get(2);
 		private final RuleCall cDbTableIDENTTerminalRuleCall_16_2_0 = (RuleCall)cDbTableAssignment_16_2.eContents().get(0);
@@ -949,9 +949,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cToExtendsJvmTypeQualifiedNameParserRuleCall_20_2_0_1 = (RuleCall)cToExtendsJvmTypeCrossReference_20_2_0.eContents().get(1);
 		
 		//PojogenProperty:
-		//	name="type sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="type in table" WS+ dbTable=IDENT (WS+
-		//	sqlTypes+=SqlTypeAssignement)+ | name="type for columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+ |
-		//	name="ignore tables" (WS+ dbTables+=IDENT)+ | name="only tables" (WS+ dbTables+=IDENT)+ | name="ignore columns" WS+
+		//	name="types sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types in table" WS+ dbTable=IDENT (WS+
+		//	sqlTypes+=SqlTypeAssignement)+ | name="types for columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
+		//	| name="ignore tables" (WS+ dbTables+=IDENT)+ | name="only tables" (WS+ dbTables+=IDENT)+ | name="ignore columns" WS+
 		//	dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ |
 		//	name="not required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="create columns" WS+ dbTable=IDENT (WS+
 		//	columnTypes+=ColumnTypeAssignement)+ | name="rename tables" (WS+ tables+=TableAssignement)+ | name="rename columns"
@@ -961,14 +961,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	| name="inherit many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//	| name="create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		//	| name="create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-		//	| name="table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit discriminator" WS+
+		//	| name="tables many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit discriminator" WS+
 		//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate methods" (WS+
 		//	methods+=IDENT)+ | name="implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends" WS+
 		//	toExtends=[jvmTypes::JvmType|QualifiedName];
 		public ParserRule getRule() { return rule; }
 
-		//name="type sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="type in table" WS+ dbTable=IDENT (WS+
-		//sqlTypes+=SqlTypeAssignement)+ | name="type for columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+ |
+		//name="types sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types in table" WS+ dbTable=IDENT (WS+
+		//sqlTypes+=SqlTypeAssignement)+ | name="types for columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+ |
 		//name="ignore tables" (WS+ dbTables+=IDENT)+ | name="only tables" (WS+ dbTables+=IDENT)+ | name="ignore columns" WS+
 		//dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ |
 		//name="not required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="create columns" WS+ dbTable=IDENT (WS+
@@ -979,20 +979,20 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="inherit many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		//| name="create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-		//| name="table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit discriminator" WS+
+		//| name="tables many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit discriminator" WS+
 		//dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate methods" (WS+
 		//methods+=IDENT)+ | name="implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends" WS+
 		//toExtends=[jvmTypes::JvmType|QualifiedName]
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//name="type sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+
+		//name="types sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+
 		public Group getGroup_0() { return cGroup_0; }
 
-		//name="type sqltypes"
+		//name="types sqltypes"
 		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
 
-		//"type sqltypes"
-		public Keyword getNameTypeSqltypesKeyword_0_0_0() { return cNameTypeSqltypesKeyword_0_0_0; }
+		//"types sqltypes"
+		public Keyword getNameTypesSqltypesKeyword_0_0_0() { return cNameTypesSqltypesKeyword_0_0_0; }
 
 		//(WS+ sqlTypes+=SqlTypeAssignement)+
 		public Group getGroup_0_1() { return cGroup_0_1; }
@@ -1006,14 +1006,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//SqlTypeAssignement
 		public RuleCall getSqlTypesSqlTypeAssignementParserRuleCall_0_1_1_0() { return cSqlTypesSqlTypeAssignementParserRuleCall_0_1_1_0; }
 
-		//name="type in table" WS+ dbTable=IDENT (WS+ sqlTypes+=SqlTypeAssignement)+
+		//name="types in table" WS+ dbTable=IDENT (WS+ sqlTypes+=SqlTypeAssignement)+
 		public Group getGroup_1() { return cGroup_1; }
 
-		//name="type in table"
+		//name="types in table"
 		public Assignment getNameAssignment_1_0() { return cNameAssignment_1_0; }
 
-		//"type in table"
-		public Keyword getNameTypeInTableKeyword_1_0_0() { return cNameTypeInTableKeyword_1_0_0; }
+		//"types in table"
+		public Keyword getNameTypesInTableKeyword_1_0_0() { return cNameTypesInTableKeyword_1_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_1_1() { return cWSTerminalRuleCall_1_1; }
@@ -1036,14 +1036,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//SqlTypeAssignement
 		public RuleCall getSqlTypesSqlTypeAssignementParserRuleCall_1_3_1_0() { return cSqlTypesSqlTypeAssignementParserRuleCall_1_3_1_0; }
 
-		//name="type for columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
+		//name="types for columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
 		public Group getGroup_2() { return cGroup_2; }
 
-		//name="type for columns"
+		//name="types for columns"
 		public Assignment getNameAssignment_2_0() { return cNameAssignment_2_0; }
 
-		//"type for columns"
-		public Keyword getNameTypeForColumnsKeyword_2_0_0() { return cNameTypeForColumnsKeyword_2_0_0; }
+		//"types for columns"
+		public Keyword getNameTypesForColumnsKeyword_2_0_0() { return cNameTypesForColumnsKeyword_2_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_2_1() { return cWSTerminalRuleCall_2_1; }
@@ -1429,14 +1429,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ImportAssignement
 		public RuleCall getImportsImportAssignementParserRuleCall_15_3_1_0() { return cImportsImportAssignementParserRuleCall_15_3_1_0; }
 
-		//name="table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
+		//name="tables many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
 		public Group getGroup_16() { return cGroup_16; }
 
-		//name="table many-to-many"
+		//name="tables many-to-many"
 		public Assignment getNameAssignment_16_0() { return cNameAssignment_16_0; }
 
-		//"table many-to-many"
-		public Keyword getNameTableManyToManyKeyword_16_0_0() { return cNameTableManyToManyKeyword_16_0_0; }
+		//"tables many-to-many"
+		public Keyword getNameTablesManyToManyKeyword_16_0_0() { return cNameTablesManyToManyKeyword_16_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_16_1() { return cWSTerminalRuleCall_16_1; }
@@ -5891,9 +5891,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PojogenProperty:
-	//	name="type sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="type in table" WS+ dbTable=IDENT (WS+
-	//	sqlTypes+=SqlTypeAssignement)+ | name="type for columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+ |
-	//	name="ignore tables" (WS+ dbTables+=IDENT)+ | name="only tables" (WS+ dbTables+=IDENT)+ | name="ignore columns" WS+
+	//	name="types sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types in table" WS+ dbTable=IDENT (WS+
+	//	sqlTypes+=SqlTypeAssignement)+ | name="types for columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
+	//	| name="ignore tables" (WS+ dbTables+=IDENT)+ | name="only tables" (WS+ dbTables+=IDENT)+ | name="ignore columns" WS+
 	//	dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ |
 	//	name="not required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="create columns" WS+ dbTable=IDENT (WS+
 	//	columnTypes+=ColumnTypeAssignement)+ | name="rename tables" (WS+ tables+=TableAssignement)+ | name="rename columns"
@@ -5903,7 +5903,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	| name="inherit many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	//	| name="create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 	//	| name="create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-	//	| name="table many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit discriminator" WS+
+	//	| name="tables many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit discriminator" WS+
 	//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate methods" (WS+
 	//	methods+=IDENT)+ | name="implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends" WS+
 	//	toExtends=[jvmTypes::JvmType|QualifiedName];

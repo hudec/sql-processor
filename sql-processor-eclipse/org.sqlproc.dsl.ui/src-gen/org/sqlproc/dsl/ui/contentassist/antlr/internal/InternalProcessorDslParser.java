@@ -23,7 +23,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalProcessorDslParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_REST", "RULE_IDENT_DOT", "RULE_IDENT", "RULE_NUMBER", "RULE_COLON", "RULE_STRING", "RULE_COMMA", "RULE_MINUS", "RULE_PLUS", "RULE_LPAREN", "RULE_RPAREN", "RULE_LBRACE", "RULE_RBRACE", "RULE_QUESTI", "RULE_NOT", "RULE_BAND", "RULE_BOR", "RULE_HASH", "RULE_AT", "RULE_CARET", "RULE_EQUALS", "RULE_LESS_THAN", "RULE_MORE_THAN", "RULE_PERCENT", "RULE_AND", "RULE_OR", "RULE_ESC_CHAR", "RULE_ON_OFF", "RULE_STATEMEN_TYPE", "RULE_MAPPING_TYPE", "RULE_OPTION_TYPE", "RULE_WS", "RULE_SEMICOLON", "RULE_NEGATIVE_NUMBER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'_char'", "'_byte'", "'_short'", "'_int'", "'_long'", "'_float'", "'_double'", "'_boolean'", "'->'", "'pojo'", "'col'", "'ident'", "'const'", "'out'", "'colx'", "'identx'", "'constx'", "'outx'", "'table'", "'dbcol'", "'prefix'", "'package'", "'suffix'", "'import'", "'implements'", "'extends'", "'discriminator'", "'serializable'", "'.*'", "'resolve references'", "'database'", "'pojogen'", "'online'", "'url'", "'username'", "'password'", "'schema'", "'driver'", "'type sqltypes'", "'type in table'", "'type for columns'", "'ignore tables'", "'only tables'", "'ignore columns'", "'required columns'", "'not required columns'", "'create columns'", "'rename tables'", "'rename columns'", "'ignore one-to-many'", "'ignore many-to-one'", "'inherit many-to-one'", "'create one-to-many'", "'create many-to-one'", "'table many-to-many'", "'inherit discriminator'", "'generate methods'", "'[]'", "'final'", "'abstract'", "'required'", "'primaryKey'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_REST", "RULE_IDENT_DOT", "RULE_IDENT", "RULE_NUMBER", "RULE_COLON", "RULE_STRING", "RULE_COMMA", "RULE_MINUS", "RULE_PLUS", "RULE_LPAREN", "RULE_RPAREN", "RULE_LBRACE", "RULE_RBRACE", "RULE_QUESTI", "RULE_NOT", "RULE_BAND", "RULE_BOR", "RULE_HASH", "RULE_AT", "RULE_CARET", "RULE_EQUALS", "RULE_LESS_THAN", "RULE_MORE_THAN", "RULE_PERCENT", "RULE_AND", "RULE_OR", "RULE_ESC_CHAR", "RULE_ON_OFF", "RULE_STATEMEN_TYPE", "RULE_MAPPING_TYPE", "RULE_OPTION_TYPE", "RULE_WS", "RULE_SEMICOLON", "RULE_NEGATIVE_NUMBER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'_char'", "'_byte'", "'_short'", "'_int'", "'_long'", "'_float'", "'_double'", "'_boolean'", "'->'", "'pojo'", "'col'", "'ident'", "'const'", "'out'", "'colx'", "'identx'", "'constx'", "'outx'", "'table'", "'dbcol'", "'prefix'", "'package'", "'suffix'", "'import'", "'implements'", "'extends'", "'discriminator'", "'serializable'", "'.*'", "'resolve references'", "'database'", "'pojogen'", "'online'", "'url'", "'username'", "'password'", "'schema'", "'driver'", "'types sqltypes'", "'types in table'", "'types for columns'", "'ignore tables'", "'only tables'", "'ignore columns'", "'required columns'", "'not required columns'", "'create columns'", "'rename tables'", "'rename columns'", "'ignore one-to-many'", "'ignore many-to-one'", "'inherit many-to-one'", "'create one-to-many'", "'create many-to-one'", "'tables many-to-many'", "'inherit discriminator'", "'generate methods'", "'[]'", "'final'", "'abstract'", "'required'", "'primaryKey'"
     };
     public static final int RULE_PERCENT=27;
     public static final int RULE_OR=29;
@@ -66340,36 +66340,36 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojogenProperty__NameAssignment_0_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21417:1: rule__PojogenProperty__NameAssignment_0_0 : ( ( 'type sqltypes' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21417:1: rule__PojogenProperty__NameAssignment_0_0 : ( ( 'types sqltypes' ) ) ;
     public final void rule__PojogenProperty__NameAssignment_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21421:1: ( ( ( 'type sqltypes' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21422:1: ( ( 'type sqltypes' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21421:1: ( ( ( 'types sqltypes' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21422:1: ( ( 'types sqltypes' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21422:1: ( ( 'type sqltypes' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21423:1: ( 'type sqltypes' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21422:1: ( ( 'types sqltypes' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21423:1: ( 'types sqltypes' )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPojogenPropertyAccess().getNameTypeSqltypesKeyword_0_0_0()); 
+               before(grammarAccess.getPojogenPropertyAccess().getNameTypesSqltypesKeyword_0_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21424:1: ( 'type sqltypes' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21425:1: 'type sqltypes'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21424:1: ( 'types sqltypes' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21425:1: 'types sqltypes'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPojogenPropertyAccess().getNameTypeSqltypesKeyword_0_0_0()); 
+               before(grammarAccess.getPojogenPropertyAccess().getNameTypesSqltypesKeyword_0_0_0()); 
             }
             match(input,78,FOLLOW_78_in_rule__PojogenProperty__NameAssignment_0_044911); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPojogenPropertyAccess().getNameTypeSqltypesKeyword_0_0_0()); 
+               after(grammarAccess.getPojogenPropertyAccess().getNameTypesSqltypesKeyword_0_0_0()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPojogenPropertyAccess().getNameTypeSqltypesKeyword_0_0_0()); 
+               after(grammarAccess.getPojogenPropertyAccess().getNameTypesSqltypesKeyword_0_0_0()); 
             }
 
             }
@@ -66438,36 +66438,36 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojogenProperty__NameAssignment_1_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21455:1: rule__PojogenProperty__NameAssignment_1_0 : ( ( 'type in table' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21455:1: rule__PojogenProperty__NameAssignment_1_0 : ( ( 'types in table' ) ) ;
     public final void rule__PojogenProperty__NameAssignment_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21459:1: ( ( ( 'type in table' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21460:1: ( ( 'type in table' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21459:1: ( ( ( 'types in table' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21460:1: ( ( 'types in table' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21460:1: ( ( 'type in table' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21461:1: ( 'type in table' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21460:1: ( ( 'types in table' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21461:1: ( 'types in table' )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPojogenPropertyAccess().getNameTypeInTableKeyword_1_0_0()); 
+               before(grammarAccess.getPojogenPropertyAccess().getNameTypesInTableKeyword_1_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21462:1: ( 'type in table' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21463:1: 'type in table'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21462:1: ( 'types in table' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21463:1: 'types in table'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPojogenPropertyAccess().getNameTypeInTableKeyword_1_0_0()); 
+               before(grammarAccess.getPojogenPropertyAccess().getNameTypesInTableKeyword_1_0_0()); 
             }
             match(input,79,FOLLOW_79_in_rule__PojogenProperty__NameAssignment_1_044986); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPojogenPropertyAccess().getNameTypeInTableKeyword_1_0_0()); 
+               after(grammarAccess.getPojogenPropertyAccess().getNameTypesInTableKeyword_1_0_0()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPojogenPropertyAccess().getNameTypeInTableKeyword_1_0_0()); 
+               after(grammarAccess.getPojogenPropertyAccess().getNameTypesInTableKeyword_1_0_0()); 
             }
 
             }
@@ -66577,36 +66577,36 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojogenProperty__NameAssignment_2_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21508:1: rule__PojogenProperty__NameAssignment_2_0 : ( ( 'type for columns' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21508:1: rule__PojogenProperty__NameAssignment_2_0 : ( ( 'types for columns' ) ) ;
     public final void rule__PojogenProperty__NameAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21512:1: ( ( ( 'type for columns' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21513:1: ( ( 'type for columns' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21512:1: ( ( ( 'types for columns' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21513:1: ( ( 'types for columns' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21513:1: ( ( 'type for columns' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21514:1: ( 'type for columns' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21513:1: ( ( 'types for columns' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21514:1: ( 'types for columns' )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPojogenPropertyAccess().getNameTypeForColumnsKeyword_2_0_0()); 
+               before(grammarAccess.getPojogenPropertyAccess().getNameTypesForColumnsKeyword_2_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21515:1: ( 'type for columns' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21516:1: 'type for columns'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21515:1: ( 'types for columns' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:21516:1: 'types for columns'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPojogenPropertyAccess().getNameTypeForColumnsKeyword_2_0_0()); 
+               before(grammarAccess.getPojogenPropertyAccess().getNameTypesForColumnsKeyword_2_0_0()); 
             }
             match(input,80,FOLLOW_80_in_rule__PojogenProperty__NameAssignment_2_045092); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPojogenPropertyAccess().getNameTypeForColumnsKeyword_2_0_0()); 
+               after(grammarAccess.getPojogenPropertyAccess().getNameTypesForColumnsKeyword_2_0_0()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPojogenPropertyAccess().getNameTypeForColumnsKeyword_2_0_0()); 
+               after(grammarAccess.getPojogenPropertyAccess().getNameTypesForColumnsKeyword_2_0_0()); 
             }
 
             }
@@ -68380,36 +68380,36 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojogenProperty__NameAssignment_16_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22205:1: rule__PojogenProperty__NameAssignment_16_0 : ( ( 'table many-to-many' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22205:1: rule__PojogenProperty__NameAssignment_16_0 : ( ( 'tables many-to-many' ) ) ;
     public final void rule__PojogenProperty__NameAssignment_16_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22209:1: ( ( ( 'table many-to-many' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22210:1: ( ( 'table many-to-many' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22209:1: ( ( ( 'tables many-to-many' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22210:1: ( ( 'tables many-to-many' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22210:1: ( ( 'table many-to-many' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22211:1: ( 'table many-to-many' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22210:1: ( ( 'tables many-to-many' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22211:1: ( 'tables many-to-many' )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0()); 
+               before(grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22212:1: ( 'table many-to-many' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22213:1: 'table many-to-many'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22212:1: ( 'tables many-to-many' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22213:1: 'tables many-to-many'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0()); 
+               before(grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0()); 
             }
             match(input,94,FOLLOW_94_in_rule__PojogenProperty__NameAssignment_16_046483); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0()); 
+               after(grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0()); 
+               after(grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0()); 
             }
 
             }

@@ -977,9 +977,9 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name='type sqltypes' sqlTypes+=SqlTypeAssignement+) | 
-	 *         (name='type in table' dbTable=IDENT sqlTypes+=SqlTypeAssignement+) | 
-	 *         (name='type for columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
+	 *         (name='types sqltypes' sqlTypes+=SqlTypeAssignement+) | 
+	 *         (name='types in table' dbTable=IDENT sqlTypes+=SqlTypeAssignement+) | 
+	 *         (name='types for columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
 	 *         (name='ignore tables' dbTables+=IDENT+) | 
 	 *         (name='only tables' dbTables+=IDENT+) | 
 	 *         (name='ignore columns' dbTable=IDENT dbColumns+=IDENT+) | 
@@ -993,7 +993,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='inherit many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
 	 *         (name='create one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
 	 *         (name='create many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
-	 *         (name='table many-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
+	 *         (name='tables many-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
 	 *         (name='inherit discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
 	 *         (name='generate methods' methods+=IDENT+) | 
 	 *         (name='implements' toImplements+=[JvmType|QualifiedName]+) | 
