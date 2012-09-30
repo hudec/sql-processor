@@ -83,23 +83,11 @@ public class TablePojoConverter {
         }
         Map<String, Map<String, PojoAttrType>> tableTypes = modelProperty.getTableTypes(artifacts);
         if (tableTypes != null) {
-            for (Map.Entry<String, Map<String, PojoAttrType>> tableType : tableTypes.entrySet()) {
-                String table = tableType.getKey(); // tableToCamelCase(tableType.getKey());
-                if (!this.tableTypes.containsKey(table))
-                    this.tableTypes.put(table, new HashMap<String, PojoAttrType>());
-                this.tableTypes.get(table).putAll(tableType.getValue());
-            }
+            this.tableTypes.putAll(tableTypes);
         }
         Map<String, Map<String, PojoAttrType>> columnTypes = modelProperty.getColumnTypes(artifacts);
         if (columnTypes != null) {
-            for (Map.Entry<String, Map<String, PojoAttrType>> columnType : columnTypes.entrySet()) {
-                String table = columnType.getKey(); // tableToCamelCase(columnType.getKey());
-                if (!this.columnTypes.containsKey(table))
-                    this.columnTypes.put(table, new HashMap<String, PojoAttrType>());
-                for (PojoAttrType sqlType : columnType.getValue().values()) {
-                    this.columnTypes.get(table).put(sqlType.getName(), sqlType);
-                }
-            }
+            this.columnTypes.putAll(columnTypes);
         }
         Map<String, String> tableNames = modelProperty.getTableNames(artifacts);
         if (tableNames != null) {
@@ -107,12 +95,7 @@ public class TablePojoConverter {
         }
         Map<String, Map<String, String>> columnNames = modelProperty.getColumnNames(artifacts);
         if (columnNames != null) {
-            for (Map.Entry<String, Map<String, String>> columnName : columnNames.entrySet()) {
-                String table = columnName.getKey(); // tableToCamelCase(columnName.getKey());
-                if (!this.columnNames.containsKey(table))
-                    this.columnNames.put(table, new HashMap<String, String>());
-                this.columnNames.get(table).putAll(columnName.getValue());
-            }
+            this.columnNames.putAll(columnNames);
         }
         Set<String> ignoreTables = modelProperty.getIgnoreTables(artifacts);
         if (ignoreTables != null) {
@@ -124,98 +107,47 @@ public class TablePojoConverter {
         }
         Map<String, Set<String>> ignoreColumns = modelProperty.getIgnoreColumns(artifacts);
         if (ignoreColumns != null) {
-            for (Map.Entry<String, Set<String>> ignoreColumn : ignoreColumns.entrySet()) {
-                this.ignoreColumns.put(ignoreColumn.getKey(), new HashSet<String>());
-                this.ignoreColumns.get(ignoreColumn.getKey()).addAll(ignoreColumn.getValue());
-            }
+            this.ignoreColumns.putAll(ignoreColumns);
         }
         Map<String, Set<String>> requiredColumns = modelProperty.getRequiredColumns(artifacts);
         if (requiredColumns != null) {
-            for (Map.Entry<String, Set<String>> requiredColumn : requiredColumns.entrySet()) {
-                this.requiredColumns.put(requiredColumn.getKey(), new HashSet<String>());
-                this.requiredColumns.get(requiredColumn.getKey()).addAll(requiredColumn.getValue());
-            }
+            this.requiredColumns.putAll(requiredColumns);
         }
         Map<String, Set<String>> notRequiredColumns = modelProperty.getNotRequiredColumns(artifacts);
         if (notRequiredColumns != null) {
-            for (Map.Entry<String, Set<String>> notRequiredColumn : notRequiredColumns.entrySet()) {
-                this.notRequiredColumns.put(notRequiredColumn.getKey(), new HashSet<String>());
-                this.notRequiredColumns.get(notRequiredColumn.getKey()).addAll(notRequiredColumn.getValue());
-            }
+            this.notRequiredColumns.putAll(notRequiredColumns);
         }
         Map<String, Map<String, PojoAttrType>> createColumns = modelProperty.getCreateColumns(artifacts);
         if (createColumns != null) {
-            for (Map.Entry<String, Map<String, PojoAttrType>> columnType : createColumns.entrySet()) {
-                String table = columnType.getKey(); // tableToCamelCase(columnType.getKey());
-                if (!this.createColumns.containsKey(table))
-                    this.createColumns.put(table, new HashMap<String, PojoAttrType>());
-                for (PojoAttrType sqlType : columnType.getValue().values()) {
-                    this.createColumns.get(table).put(sqlType.getName(), sqlType);
-                }
-            }
+            this.createColumns.putAll(createColumns);
         }
         Map<String, Map<String, Map<String, String>>> ignoreExports = modelProperty.getIgnoreExports(artifacts);
         if (ignoreExports != null) {
-            for (Map.Entry<String, Map<String, Map<String, String>>> ignoreExport : ignoreExports.entrySet()) {
-                String table = ignoreExport.getKey(); // tableToCamelCase(columnName.getKey());
-                if (!this.ignoreExports.containsKey(table))
-                    this.ignoreExports.put(table, new HashMap<String, Map<String, String>>());
-                this.ignoreExports.get(table).putAll(ignoreExport.getValue());
-            }
+            this.ignoreExports.putAll(ignoreExports);
         }
         Map<String, Map<String, Map<String, String>>> ignoreImports = modelProperty.getIgnoreImports(artifacts);
         if (ignoreImports != null) {
-            for (Map.Entry<String, Map<String, Map<String, String>>> ignoreImport : ignoreImports.entrySet()) {
-                String table = ignoreImport.getKey(); // tableToCamelCase(columnName.getKey());
-                if (!this.ignoreImports.containsKey(table))
-                    this.ignoreImports.put(table, new HashMap<String, Map<String, String>>());
-                this.ignoreImports.get(table).putAll(ignoreImport.getValue());
-            }
+            this.ignoreImports.putAll(ignoreImports);
         }
         Map<String, Map<String, Map<String, String>>> createExports = modelProperty.getCreateExports(artifacts);
         if (createExports != null) {
-            for (Map.Entry<String, Map<String, Map<String, String>>> createExport : createExports.entrySet()) {
-                String table = createExport.getKey(); // tableToCamelCase(columnName.getKey());
-                if (!this.createExports.containsKey(table))
-                    this.createExports.put(table, new HashMap<String, Map<String, String>>());
-                this.createExports.get(table).putAll(createExport.getValue());
-            }
+            this.createExports.putAll(createExports);
         }
         Map<String, Map<String, Map<String, String>>> createImports = modelProperty.getCreateImports(artifacts);
         if (createImports != null) {
-            for (Map.Entry<String, Map<String, Map<String, String>>> createImport : createImports.entrySet()) {
-                String table = createImport.getKey(); // tableToCamelCase(columnName.getKey());
-                if (!this.createImports.containsKey(table))
-                    this.createImports.put(table, new HashMap<String, Map<String, String>>());
-                this.createImports.get(table).putAll(createImport.getValue());
-            }
+            this.createImports.putAll(createImports);
         }
         Map<String, Map<String, Map<String, String>>> inheritImports = modelProperty.getInheritImports(artifacts);
         if (inheritImports != null) {
-            for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : inheritImports.entrySet()) {
-                String table = inheritImport.getKey(); // tableToCamelCase(columnName.getKey());
-                if (!this.inheritImports.containsKey(table))
-                    this.inheritImports.put(table, new HashMap<String, Map<String, String>>());
-                this.inheritImports.get(table).putAll(inheritImport.getValue());
-            }
+            this.inheritImports.putAll(inheritImports);
         }
         Map<String, Map<String, Map<String, String>>> manyToManyExports = modelProperty.getManyToManyExports(artifacts);
         if (manyToManyExports != null) {
-            for (Map.Entry<String, Map<String, Map<String, String>>> manyToManyExport : manyToManyExports.entrySet()) {
-                String table = manyToManyExport.getKey(); // tableToCamelCase(columnName.getKey());
-                if (!this.manyToManyExports.containsKey(table))
-                    this.manyToManyExports.put(table, new HashMap<String, Map<String, String>>());
-                this.manyToManyExports.get(table).putAll(manyToManyExport.getValue());
-            }
+            this.manyToManyExports.putAll(manyToManyExports);
         }
         Map<String, Map<String, Map<String, List<String>>>> inheritance = modelProperty.getInheritance(artifacts);
         if (inheritance != null) {
-            for (Map.Entry<String, Map<String, Map<String, List<String>>>> inheritance1 : inheritance.entrySet()) {
-                String table = inheritance1.getKey(); // tableToCamelCase(columnName.getKey());
-                if (!this.inheritance.containsKey(table))
-                    this.inheritance.put(table, new HashMap<String, Map<String, List<String>>>());
-                this.inheritance.get(table).putAll(inheritance1.getValue());
-            }
+            this.inheritance.putAll(inheritance);
         }
         Map<String, String> inheritanceColumns = modelProperty.getInheritanceColumns(artifacts);
         if (inheritanceColumns != null) {
@@ -494,6 +426,8 @@ public class TablePojoConverter {
             buffer.append("\n");
         }
         for (String pojo : pojos.keySet()) {
+            if (!onlyTables.isEmpty() && !onlyTables.contains(pojo))
+                continue;
             if (ignoreTables.contains(pojo))
                 continue;
             if (finalEntities.contains(tableToCamelCase(pojo)))

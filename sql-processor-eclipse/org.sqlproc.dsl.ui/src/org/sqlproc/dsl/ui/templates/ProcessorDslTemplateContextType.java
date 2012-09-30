@@ -283,6 +283,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             return null;
         TreeMap<String, String> map = new TreeMap<String, String>();
         for (String table : tables) {
+            if (table.toUpperCase().startsWith("BIN$"))
+                continue;
             map.put(toCamelCase(table), table);
         }
 
