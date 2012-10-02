@@ -927,10 +927,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__77;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:49:7: ( 'types sqltypes' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:49:9: 'types sqltypes'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:49:7: ( 'types-sqltypes' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:49:9: 'types-sqltypes'
             {
-            match("types sqltypes"); 
+            match("types-sqltypes"); 
 
 
             }
@@ -948,10 +948,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__78;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:50:7: ( 'types in table' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:50:9: 'types in table'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:50:7: ( 'types-in-table' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:50:9: 'types-in-table'
             {
-            match("types in table"); 
+            match("types-in-table"); 
 
 
             }
@@ -969,10 +969,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__79;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:51:7: ( 'types for columns' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:51:9: 'types for columns'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:51:7: ( 'types-for-columns' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:51:9: 'types-for-columns'
             {
-            match("types for columns"); 
+            match("types-for-columns"); 
 
 
             }
@@ -990,10 +990,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__80;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:52:7: ( 'ignore tables' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:52:9: 'ignore tables'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:52:7: ( 'ignore-tables' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:52:9: 'ignore-tables'
             {
-            match("ignore tables"); 
+            match("ignore-tables"); 
 
 
             }
@@ -1011,10 +1011,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__81;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:53:7: ( 'only tables' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:53:9: 'only tables'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:53:7: ( 'only-tables' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:53:9: 'only-tables'
             {
-            match("only tables"); 
+            match("only-tables"); 
 
 
             }
@@ -1032,10 +1032,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__82;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:54:7: ( 'ignore columns' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:54:9: 'ignore columns'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:54:7: ( 'ignore-columns' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:54:9: 'ignore-columns'
             {
-            match("ignore columns"); 
+            match("ignore-columns"); 
 
 
             }
@@ -1053,10 +1053,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__83;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:55:7: ( 'required columns' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:55:9: 'required columns'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:55:7: ( 'required-columns' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:55:9: 'required-columns'
             {
-            match("required columns"); 
+            match("required-columns"); 
 
 
             }
@@ -1074,10 +1074,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__84;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:56:7: ( 'not required columns' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:56:9: 'not required columns'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:56:7: ( 'not-required-columns' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:56:9: 'not-required-columns'
             {
-            match("not required columns"); 
+            match("not-required-columns"); 
 
 
             }
@@ -1095,10 +1095,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__85;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:57:7: ( 'create columns' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:57:9: 'create columns'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:57:7: ( 'create-columns' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:57:9: 'create-columns'
             {
-            match("create columns"); 
+            match("create-columns"); 
 
 
             }
@@ -1116,10 +1116,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__86;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:58:7: ( 'rename tables' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:58:9: 'rename tables'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:58:7: ( 'rename-tables' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:58:9: 'rename-tables'
             {
-            match("rename tables"); 
+            match("rename-tables"); 
 
 
             }
@@ -1137,10 +1137,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__87;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:59:7: ( 'rename columns' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:59:9: 'rename columns'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:59:7: ( 'rename-columns' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:59:9: 'rename-columns'
             {
-            match("rename columns"); 
+            match("rename-columns"); 
 
 
             }
@@ -1158,10 +1158,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__88;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:60:7: ( 'ignore one-to-many' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:60:9: 'ignore one-to-many'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:60:7: ( 'ignore-one-to-many' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:60:9: 'ignore-one-to-many'
             {
-            match("ignore one-to-many"); 
+            match("ignore-one-to-many"); 
 
 
             }
@@ -1179,10 +1179,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__89;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:61:7: ( 'ignore many-to-one' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:61:9: 'ignore many-to-one'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:61:7: ( 'ignore-many-to-one' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:61:9: 'ignore-many-to-one'
             {
-            match("ignore many-to-one"); 
+            match("ignore-many-to-one"); 
 
 
             }
@@ -1200,10 +1200,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__90;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:62:7: ( 'inherit many-to-one' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:62:9: 'inherit many-to-one'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:62:7: ( 'inherit-many-to-one' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:62:9: 'inherit-many-to-one'
             {
-            match("inherit many-to-one"); 
+            match("inherit-many-to-one"); 
 
 
             }
@@ -1221,10 +1221,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__91;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:63:7: ( 'create one-to-many' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:63:9: 'create one-to-many'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:63:7: ( 'create-one-to-many' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:63:9: 'create-one-to-many'
             {
-            match("create one-to-many"); 
+            match("create-one-to-many"); 
 
 
             }
@@ -1242,10 +1242,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__92;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:64:7: ( 'create many-to-one' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:64:9: 'create many-to-one'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:64:7: ( 'create-many-to-one' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:64:9: 'create-many-to-one'
             {
-            match("create many-to-one"); 
+            match("create-many-to-one"); 
 
 
             }
@@ -1263,10 +1263,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__93;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:65:7: ( 'tables many-to-many' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:65:9: 'tables many-to-many'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:65:7: ( 'table-many-to-many' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:65:9: 'table-many-to-many'
             {
-            match("tables many-to-many"); 
+            match("table-many-to-many"); 
 
 
             }
@@ -1284,10 +1284,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__94;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:66:7: ( 'inherit discriminator' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:66:9: 'inherit discriminator'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:66:7: ( 'inherit-discriminator' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:66:9: 'inherit-discriminator'
             {
-            match("inherit discriminator"); 
+            match("inherit-discriminator"); 
 
 
             }
@@ -1305,10 +1305,10 @@ public class InternalProcessorDslLexer extends Lexer {
         try {
             int _type = T__95;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:67:7: ( 'generate methods' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:67:9: 'generate methods'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:67:7: ( 'generate-methods' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:67:9: 'generate-methods'
             {
-            match("generate methods"); 
+            match("generate-methods"); 
 
 
             }
@@ -3273,36 +3273,36 @@ public class InternalProcessorDslLexer extends Lexer {
         "\1\uffff\1\101\1\uffff\3\101\3\uffff\2\u00d8\4\u00d7\1\101\1\uffff"+
         "\4\101\1\uffff\1\u0107\1\101\1\u010a\4\101\1\uffff\1\101\1\uffff"+
         "\1\u0111\1\101\1\u0113\14\101\1\u0120\2\101\1\u0123\3\101\1\u0127"+
-        "\1\uffff\1\101\1\u0129\1\uffff\1\u012a\3\101\1\u012e\1\101\3\uffff"+
-        "\2\101\1\u0135\1\u0136\1\101\1\u0138\6\101\1\uffff\1\101\1\u0140"+
-        "\1\uffff\1\101\1\u0142\1\101\4\uffff\1\101\1\uffff\1\101\5\uffff"+
-        "\2\101\2\uffff\1\101\1\uffff\1\u0150\2\101\1\uffff\3\101\1\uffff"+
-        "\1\101\1\uffff\1\u0159\3\uffff\1\101\5\uffff\1\101\1\u015e\1\101"+
-        "\2\uffff\1\u0161\2\uffff\1\u0162\1\101\1\u0164\1\101\1\uffff\1\101"+
-        "\2\uffff\1\101\1\uffff\1\101\5\uffff\1\u0169\1\u016a\2\101\2\uffff"+
-        "\3\101\1\u0170\1\u0171\2\uffff";
+        "\1\uffff\1\101\1\u0129\1\uffff\1\u012a\3\101\1\u012e\4\uffff\2\101"+
+        "\1\u0134\1\u0135\1\101\1\u0137\6\101\1\uffff\1\101\1\u013f\1\uffff"+
+        "\1\101\1\u0141\1\101\4\uffff\1\101\1\uffff\1\101\4\uffff\2\101\2"+
+        "\uffff\1\101\1\uffff\1\u014f\2\101\1\uffff\3\101\1\uffff\1\101\1"+
+        "\uffff\1\u0158\3\uffff\1\101\5\uffff\1\101\1\u015d\1\101\2\uffff"+
+        "\1\u0160\2\uffff\1\u0161\1\101\1\u0163\1\101\1\uffff\1\101\2\uffff"+
+        "\1\101\1\uffff\1\101\5\uffff\1\u0168\1\u0169\2\101\2\uffff\3\101"+
+        "\1\u016f\1\u0170\2\uffff";
     static final String DFA12_eofS =
-        "\u0172\uffff";
+        "\u0171\uffff";
     static final String DFA12_minS =
         "\1\0\1\142\1\76\10\56\1\52\4\56\1\135\12\56\1\uffff\1\43\1\52\1"+
         "\uffff\1\46\1\174\24\uffff\1\157\7\uffff\4\56\2\uffff\22\56\1\uffff"+
-        "\5\56\1\uffff\15\56\34\uffff\35\56\1\40\3\56\1\uffff\20\56\1\uffff"+
-        "\10\56\1\uffff\1\56\1\40\15\56\1\uffff\1\56\1\uffff\3\56\3\uffff"+
-        "\7\56\1\uffff\4\56\1\uffff\7\56\1\uffff\1\56\1\uffff\1\56\1\40\25"+
-        "\56\1\uffff\1\40\1\56\1\uffff\2\56\1\40\2\56\1\40\1\uffff\1\146"+
-        "\1\uffff\11\56\1\40\2\56\1\uffff\2\56\1\uffff\3\56\1\uffff\1\143"+
-        "\2\uffff\1\56\1\143\1\40\5\uffff\2\56\2\uffff\1\56\1\uffff\1\56"+
-        "\1\40\1\56\1\143\3\56\1\uffff\1\56\1\uffff\1\56\3\uffff\1\56\4\uffff"+
-        "\1\144\3\56\2\uffff\1\40\2\uffff\1\56\1\40\2\56\1\uffff\1\56\2\uffff"+
-        "\1\56\1\uffff\1\56\5\uffff\4\56\2\uffff\5\56\2\uffff";
+        "\5\56\1\uffff\15\56\34\uffff\35\56\1\55\3\56\1\uffff\20\56\1\uffff"+
+        "\10\56\1\uffff\1\56\1\55\15\56\1\uffff\1\56\1\uffff\3\56\3\uffff"+
+        "\7\56\1\uffff\4\56\1\uffff\7\56\1\uffff\1\56\1\uffff\2\55\25\56"+
+        "\1\uffff\1\55\1\56\1\uffff\2\56\1\55\2\56\2\uffff\1\146\1\uffff"+
+        "\11\56\1\55\2\56\1\uffff\2\56\1\uffff\3\56\1\uffff\1\143\2\uffff"+
+        "\1\56\1\143\1\55\4\uffff\2\56\2\uffff\1\56\1\uffff\1\56\1\40\1\56"+
+        "\1\143\3\56\1\uffff\1\56\1\uffff\1\56\3\uffff\1\56\4\uffff\1\144"+
+        "\3\56\2\uffff\1\55\2\uffff\1\56\1\55\2\56\1\uffff\1\56\2\uffff\1"+
+        "\56\1\uffff\1\56\5\uffff\4\56\2\uffff\5\56\2\uffff";
     static final String DFA12_maxS =
         "\1\uffff\1\163\1\76\10\172\1\52\4\172\1\135\12\172\1\uffff\1\175"+
         "\1\57\1\uffff\1\46\1\174\24\uffff\1\171\7\uffff\4\172\2\uffff\22"+
         "\172\1\uffff\5\172\1\uffff\15\172\34\uffff\41\172\1\uffff\20\172"+
         "\1\uffff\10\172\1\uffff\17\172\1\uffff\1\172\1\uffff\3\172\3\uffff"+
         "\7\172\1\uffff\4\172\1\uffff\7\172\1\uffff\1\172\1\uffff\27\172"+
-        "\1\uffff\2\172\1\uffff\6\172\1\uffff\1\163\1\uffff\14\172\1\uffff"+
-        "\2\172\1\uffff\3\172\1\uffff\1\157\2\uffff\1\172\1\164\1\172\5\uffff"+
+        "\1\uffff\2\172\1\uffff\5\172\2\uffff\1\163\1\uffff\14\172\1\uffff"+
+        "\2\172\1\uffff\3\172\1\uffff\1\157\2\uffff\1\172\1\164\1\172\4\uffff"+
         "\2\172\2\uffff\1\172\1\uffff\3\172\1\164\3\172\1\uffff\1\172\1\uffff"+
         "\1\172\3\uffff\1\172\4\uffff\1\155\3\172\2\uffff\1\172\2\uffff\4"+
         "\172\1\uffff\1\172\2\uffff\1\172\1\uffff\1\172\5\uffff\4\172\2\uffff"+
@@ -3317,14 +3317,14 @@ public class InternalProcessorDslLexer extends Lexer {
         "\1\136\1\137\1\140\1\2\1\10\41\uffff\1\77\20\uffff\1\13\10\uffff"+
         "\1\16\17\uffff\1\42\1\uffff\1\56\3\uffff\1\101\1\102\1\100\7\uffff"+
         "\1\12\4\uffff\1\17\7\uffff\1\22\1\uffff\1\53\27\uffff\1\15\2\uffff"+
-        "\1\14\6\uffff\1\23\1\uffff\1\24\14\uffff\1\73\2\uffff\1\25\3\uffff"+
-        "\1\21\1\uffff\1\20\1\30\3\uffff\1\41\1\67\1\47\1\50\1\51\2\uffff"+
+        "\1\14\5\uffff\1\67\1\23\1\uffff\1\24\14\uffff\1\73\2\uffff\1\25"+
+        "\3\uffff\1\21\1\uffff\1\20\1\30\3\uffff\1\41\1\47\1\50\1\51\2\uffff"+
         "\1\46\1\27\1\uffff\1\45\7\uffff\1\40\1\uffff\1\26\1\uffff\1\57\1"+
         "\65\1\66\1\uffff\1\52\1\54\1\62\1\63\4\uffff\1\32\1\36\1\uffff\1"+
         "\60\1\61\4\uffff\1\44\1\uffff\1\64\1\70\1\uffff\1\37\1\uffff\1\55"+
         "\1\75\1\43\1\71\1\74\4\uffff\1\76\1\31\5\uffff\1\34\1\33";
     static final String DFA12_specialS =
-        "\1\0\u0171\uffff}>";
+        "\1\0\u0170\uffff}>";
     static final String[] DFA12_transitionS = {
             "\11\63\2\36\2\63\1\36\22\63\1\36\1\53\1\63\1\54\1\43\1\62\1"+
             "\37\1\63\1\46\1\47\1\63\1\45\1\44\1\2\1\13\1\35\12\33\1\41\1"+
@@ -3589,8 +3589,8 @@ public class InternalProcessorDslLexer extends Lexer {
             "\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\21\100\1\u00d1\10\100",
-            "\1\u00d2\15\uffff\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff"+
-            "\32\100\4\uffff\1\100\1\uffff\32\100",
+            "\1\u00d2\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100"+
+            "\4\uffff\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\4\100\1\u00d3\25\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
@@ -3650,8 +3650,8 @@ public class InternalProcessorDslLexer extends Lexer {
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\15\100\1\u00ee\14\100",
-            "\1\u00ef\15\uffff\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff"+
-            "\32\100\4\uffff\1\100\1\uffff\32\100",
+            "\1\u00ef\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100"+
+            "\4\uffff\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\4\100\1\u00f0\25\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
@@ -3733,10 +3733,10 @@ public class InternalProcessorDslLexer extends Lexer {
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\4\100\1\u010f\25\100",
             "",
-            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\22\100\1\u0110\7\100",
-            "\1\u0112\15\uffff\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff"+
-            "\32\100\4\uffff\1\100\1\uffff\32\100",
+            "\1\u0110\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100"+
+            "\4\uffff\1\100\1\uffff\32\100",
+            "\1\u0112\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100"+
+            "\4\uffff\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
@@ -3780,8 +3780,8 @@ public class InternalProcessorDslLexer extends Lexer {
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
             "",
-            "\1\u0128\15\uffff\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff"+
-            "\32\100\4\uffff\1\100\1\uffff\32\100",
+            "\1\u0128\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100"+
+            "\4\uffff\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
             "",
@@ -3789,92 +3789,90 @@ public class InternalProcessorDslLexer extends Lexer {
             "\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\4\100\1\u012b\25\100",
-            "\1\u012c\15\uffff\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff"+
-            "\32\100\4\uffff\1\100\1\uffff\32\100",
+            "\1\u012c\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100"+
+            "\4\uffff\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\23\100\1\u012d\6\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
-            "\1\u012f\15\uffff\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff"+
-            "\32\100\4\uffff\1\100\1\uffff\32\100",
             "",
-            "\1\u0132\2\uffff\1\u0131\11\uffff\1\u0130",
+            "",
+            "\1\u0131\2\uffff\1\u0130\11\uffff\1\u012f",
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\14\100\1\u0133\15\100",
+            "\1\100\1\uffff\14\100\1\u0132\15\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\22\100\1\u0134\7\100",
-            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\32\100",
+            "\1\100\1\uffff\22\100\1\u0133\7\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\10\100\1\u0137\21\100",
+            "\1\100\1\uffff\32\100",
+            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
+            "\1\100\1\uffff\10\100\1\u0136\21\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\22\100\1\u0139\7\100",
+            "\1\100\1\uffff\22\100\1\u0138\7\100",
+            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
+            "\1\100\1\uffff\4\100\1\u0139\25\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\4\100\1\u013a\25\100",
+            "\1\u013b\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100"+
+            "\4\uffff\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\4\100\1\u013b\25\100",
-            "\1\u013c\15\uffff\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff"+
-            "\32\100\4\uffff\1\100\1\uffff\32\100",
+            "\1\100\1\uffff\14\100\1\u013c\15\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\14\100\1\u013d\15\100",
-            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\23\100\1\u013e\6\100",
+            "\1\100\1\uffff\23\100\1\u013d\6\100",
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\2\100\1\u013f\27\100",
+            "\1\100\1\uffff\2\100\1\u013e\27\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
             "",
-            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\12\100\1\u0141"+
+            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\12\100\1\u0140"+
             "\17\100\4\uffff\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\3\100\1\u0143\26\100",
+            "\1\100\1\uffff\3\100\1\u0142\26\100",
             "",
-            "\1\u0144\11\uffff\1\u0146\1\uffff\1\u0145",
-            "",
-            "",
-            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\15\100\1\u0147\14\100",
-            "\1\u0149\11\uffff\1\u014b\1\uffff\1\u014a\4\uffff\1\u0148",
-            "\1\u014c\15\uffff\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff"+
-            "\32\100\4\uffff\1\100\1\uffff\32\100",
-            "",
-            "",
-            "",
+            "\1\u0143\11\uffff\1\u0145\1\uffff\1\u0144",
             "",
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\10\100\1\u014d\21\100",
-            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\4\100\1\u014e\25\100",
+            "\1\100\1\uffff\15\100\1\u0146\14\100",
+            "\1\u0148\11\uffff\1\u014a\1\uffff\1\u0149\4\uffff\1\u0147",
+            "\1\u014b\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100"+
+            "\4\uffff\1\100\1\uffff\32\100",
+            "",
+            "",
             "",
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\31\100\1\u014f",
+            "\1\100\1\uffff\10\100\1\u014c\21\100",
+            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
+            "\1\100\1\uffff\4\100\1\u014d\25\100",
+            "",
+            "",
+            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
+            "\1\100\1\uffff\31\100\1\u014e",
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
-            "\1\u0151\15\uffff\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff"+
+            "\1\u0150\15\uffff\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff"+
             "\32\100\4\uffff\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\3\100\1\u0152\26\100",
-            "\1\u0154\20\uffff\1\u0153",
+            "\1\100\1\uffff\3\100\1\u0151\26\100",
+            "\1\u0153\20\uffff\1\u0152",
+            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
+            "\1\100\1\uffff\4\100\1\u0154\25\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\4\100\1\u0155\25\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\4\100\1\u0156\25\100",
-            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\23\100\1\u0157\6\100",
+            "\1\100\1\uffff\23\100\1\u0156\6\100",
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\4\100\1\u0158\25\100",
+            "\1\100\1\uffff\4\100\1\u0157\25\100",
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
@@ -3882,42 +3880,42 @@ public class InternalProcessorDslLexer extends Lexer {
             "",
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\23\100\1\u015a\6\100",
+            "\1\100\1\uffff\23\100\1\u0159\6\100",
             "",
             "",
             "",
             "",
-            "\1\u015c\10\uffff\1\u015b",
+            "\1\u015b\10\uffff\1\u015a",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\15\100\1\u015d\14\100",
-            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\32\100",
-            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\1\u015f\31\100",
-            "",
-            "",
-            "\1\u0160\15\uffff\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff"+
-            "\32\100\4\uffff\1\100\1\uffff\32\100",
-            "",
-            "",
-            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\32\100",
-            "\1\u0163\15\uffff\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff"+
-            "\32\100\4\uffff\1\100\1\uffff\32\100",
+            "\1\100\1\uffff\15\100\1\u015c\14\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\30\100\1\u0165\1\100",
+            "\1\100\1\uffff\1\u015e\31\100",
+            "",
+            "",
+            "\1\u015f\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100"+
+            "\4\uffff\1\100\1\uffff\32\100",
+            "",
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\22\100\1\u0166\7\100",
+            "\1\100\1\uffff\32\100",
+            "\1\u0162\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100"+
+            "\4\uffff\1\100\1\uffff\32\100",
+            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
+            "\1\100\1\uffff\32\100",
+            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
+            "\1\100\1\uffff\30\100\1\u0164\1\100",
+            "",
+            "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
+            "\1\100\1\uffff\22\100\1\u0165\7\100",
             "",
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\1\u0167\31\100",
+            "\1\100\1\uffff\1\u0166\31\100",
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\1\100\1\u0168\30\100",
+            "\1\100\1\uffff\1\100\1\u0167\30\100",
             "",
             "",
             "",
@@ -3928,17 +3926,17 @@ public class InternalProcessorDslLexer extends Lexer {
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\23\100\1\u016b\6\100",
+            "\1\100\1\uffff\23\100\1\u016a\6\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\13\100\1\u016c\16\100",
+            "\1\100\1\uffff\13\100\1\u016b\16\100",
             "",
             "",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\16\100\1\u016d\13\100",
+            "\1\100\1\uffff\16\100\1\u016c\13\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\4\100\1\u016e\25\100",
+            "\1\100\1\uffff\4\100\1\u016d\25\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
-            "\1\100\1\uffff\21\100\1\u016f\10\100",
+            "\1\100\1\uffff\21\100\1\u016e\10\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+
             "\1\100\1\uffff\32\100",
             "\1\102\1\uffff\12\100\3\uffff\1\100\3\uffff\32\100\4\uffff"+

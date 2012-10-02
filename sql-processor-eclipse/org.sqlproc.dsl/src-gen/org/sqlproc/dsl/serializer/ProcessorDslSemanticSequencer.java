@@ -1015,25 +1015,25 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name='types sqltypes' sqlTypes+=SqlTypeAssignement+) | 
-	 *         (name='types in table' dbTable=IDENT sqlTypes+=SqlTypeAssignement+) | 
-	 *         (name='types for columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
-	 *         (name='ignore tables' dbTables+=IDENT+) | 
-	 *         (name='only tables' dbTables+=IDENT+) | 
-	 *         (name='ignore columns' dbTable=IDENT dbColumns+=IDENT+) | 
-	 *         (name='required columns' dbTable=IDENT dbColumns+=IDENT+) | 
-	 *         (name='not required columns' dbTable=IDENT dbColumns+=IDENT+) | 
-	 *         (name='create columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
-	 *         (name='rename tables' tables+=TableAssignement+) | 
-	 *         (name='rename columns' dbTable=IDENT columns+=ColumnAssignement+) | 
-	 *         (name='ignore one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
-	 *         (name='ignore many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
-	 *         (name='inherit many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
-	 *         (name='create one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
-	 *         (name='create many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
-	 *         (name='tables many-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
-	 *         (name='inherit discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
-	 *         (name='generate methods' methods+=IDENT+) | 
+	 *         (name='types-sqltypes' sqlTypes+=SqlTypeAssignement+) | 
+	 *         (name='types-in-table' dbTable=IDENT sqlTypes+=SqlTypeAssignement+) | 
+	 *         (name='types-for-columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
+	 *         (name='ignore-tables' dbTables+=IDENT+) | 
+	 *         (name='only-tables' dbTables+=IDENT+) | 
+	 *         (name='ignore-columns' dbTable=IDENT dbColumns+=IDENT+) | 
+	 *         (name='required-columns' dbTable=IDENT dbColumns+=IDENT+) | 
+	 *         (name='not-required-columns' dbTable=IDENT dbColumns+=IDENT+) | 
+	 *         (name='create-columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
+	 *         (name='rename-tables' tables+=TableAssignement+) | 
+	 *         (name='rename-columns' dbTable=IDENT columns+=ColumnAssignement+) | 
+	 *         (name='ignore-one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
+	 *         (name='ignore-many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
+	 *         (name='inherit-many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
+	 *         (name='create-one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
+	 *         (name='create-many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
+	 *         (name='table-many-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
+	 *         (name='inherit-discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
+	 *         (name='generate-methods' methods+=IDENT+) | 
 	 *         (name='implements' toImplements+=[JvmType|QualifiedName]+) | 
 	 *         (name='extends' toExtends=[JvmType|QualifiedName])
 	 *     )

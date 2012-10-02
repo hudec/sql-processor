@@ -21409,7 +21409,7 @@ rule__PojogenProperty__NameAssignment_0_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameTypesSqltypesKeyword_0_0_0()); }
 
-	'types sqltypes' 
+	'types-sqltypes' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameTypesSqltypesKeyword_0_0_0()); }
 )
@@ -21447,7 +21447,7 @@ rule__PojogenProperty__NameAssignment_1_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameTypesInTableKeyword_1_0_0()); }
 
-	'types in table' 
+	'types-in-table' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameTypesInTableKeyword_1_0_0()); }
 )
@@ -21500,7 +21500,7 @@ rule__PojogenProperty__NameAssignment_2_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameTypesForColumnsKeyword_2_0_0()); }
 
-	'types for columns' 
+	'types-for-columns' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameTypesForColumnsKeyword_2_0_0()); }
 )
@@ -21553,7 +21553,7 @@ rule__PojogenProperty__NameAssignment_3_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameIgnoreTablesKeyword_3_0_0()); }
 
-	'ignore tables' 
+	'ignore-tables' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameIgnoreTablesKeyword_3_0_0()); }
 )
@@ -21591,7 +21591,7 @@ rule__PojogenProperty__NameAssignment_4_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameOnlyTablesKeyword_4_0_0()); }
 
-	'only tables' 
+	'only-tables' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameOnlyTablesKeyword_4_0_0()); }
 )
@@ -21629,7 +21629,7 @@ rule__PojogenProperty__NameAssignment_5_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameIgnoreColumnsKeyword_5_0_0()); }
 
-	'ignore columns' 
+	'ignore-columns' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameIgnoreColumnsKeyword_5_0_0()); }
 )
@@ -21682,7 +21682,7 @@ rule__PojogenProperty__NameAssignment_6_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameRequiredColumnsKeyword_6_0_0()); }
 
-	'required columns' 
+	'required-columns' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameRequiredColumnsKeyword_6_0_0()); }
 )
@@ -21735,7 +21735,7 @@ rule__PojogenProperty__NameAssignment_7_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameNotRequiredColumnsKeyword_7_0_0()); }
 
-	'not required columns' 
+	'not-required-columns' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameNotRequiredColumnsKeyword_7_0_0()); }
 )
@@ -21788,7 +21788,7 @@ rule__PojogenProperty__NameAssignment_8_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameCreateColumnsKeyword_8_0_0()); }
 
-	'create columns' 
+	'create-columns' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameCreateColumnsKeyword_8_0_0()); }
 )
@@ -21841,7 +21841,7 @@ rule__PojogenProperty__NameAssignment_9_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameRenameTablesKeyword_9_0_0()); }
 
-	'rename tables' 
+	'rename-tables' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameRenameTablesKeyword_9_0_0()); }
 )
@@ -21879,7 +21879,7 @@ rule__PojogenProperty__NameAssignment_10_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameRenameColumnsKeyword_10_0_0()); }
 
-	'rename columns' 
+	'rename-columns' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameRenameColumnsKeyword_10_0_0()); }
 )
@@ -21932,7 +21932,7 @@ rule__PojogenProperty__NameAssignment_11_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameIgnoreOneToManyKeyword_11_0_0()); }
 
-	'ignore one-to-many' 
+	'ignore-one-to-many' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameIgnoreOneToManyKeyword_11_0_0()); }
 )
@@ -21985,7 +21985,7 @@ rule__PojogenProperty__NameAssignment_12_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameIgnoreManyToOneKeyword_12_0_0()); }
 
-	'ignore many-to-one' 
+	'ignore-many-to-one' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameIgnoreManyToOneKeyword_12_0_0()); }
 )
@@ -22038,7 +22038,7 @@ rule__PojogenProperty__NameAssignment_13_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameInheritManyToOneKeyword_13_0_0()); }
 
-	'inherit many-to-one' 
+	'inherit-many-to-one' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameInheritManyToOneKeyword_13_0_0()); }
 )
@@ -22091,7 +22091,7 @@ rule__PojogenProperty__NameAssignment_14_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameCreateOneToManyKeyword_14_0_0()); }
 
-	'create one-to-many' 
+	'create-one-to-many' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameCreateOneToManyKeyword_14_0_0()); }
 )
@@ -22144,7 +22144,7 @@ rule__PojogenProperty__NameAssignment_15_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameCreateManyToOneKeyword_15_0_0()); }
 
-	'create many-to-one' 
+	'create-many-to-one' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameCreateManyToOneKeyword_15_0_0()); }
 )
@@ -22193,16 +22193,16 @@ rule__PojogenProperty__NameAssignment_16_0
     }
 :
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0()); }
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0()); }
 
-	'tables many-to-many' 
+	'table-many-to-many' 
 
-{ after(grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0()); }
+{ after(grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0()); }
 )
 
-{ after(grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0()); }
+{ after(grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0()); }
 )
 
 ;
@@ -22250,7 +22250,7 @@ rule__PojogenProperty__NameAssignment_17_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameInheritDiscriminatorKeyword_17_0_0()); }
 
-	'inherit discriminator' 
+	'inherit-discriminator' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameInheritDiscriminatorKeyword_17_0_0()); }
 )
@@ -22318,7 +22318,7 @@ rule__PojogenProperty__NameAssignment_18_0
 (
 { before(grammarAccess.getPojogenPropertyAccess().getNameGenerateMethodsKeyword_18_0_0()); }
 
-	'generate methods' 
+	'generate-methods' 
 
 { after(grammarAccess.getPojogenPropertyAccess().getNameGenerateMethodsKeyword_18_0_0()); }
 )

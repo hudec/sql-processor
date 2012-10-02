@@ -22,7 +22,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_WS", "RULE_IDENT", "RULE_LPAREN", "RULE_NUMBER", "RULE_RPAREN", "RULE_ON_OFF", "RULE_SEMICOLON", "RULE_REST", "RULE_IDENT_DOT", "RULE_COLON", "RULE_STRING", "RULE_COMMA", "RULE_MINUS", "RULE_PLUS", "RULE_LBRACE", "RULE_RBRACE", "RULE_QUESTI", "RULE_NOT", "RULE_BAND", "RULE_BOR", "RULE_HASH", "RULE_AT", "RULE_CARET", "RULE_EQUALS", "RULE_LESS_THAN", "RULE_MORE_THAN", "RULE_PERCENT", "RULE_AND", "RULE_OR", "RULE_ESC_CHAR", "RULE_STATEMEN_TYPE", "RULE_MAPPING_TYPE", "RULE_OPTION_TYPE", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'->'", "'resolve references'", "'database'", "'pojogen'", "'online'", "'url'", "'username'", "'password'", "'schema'", "'driver'", "'types sqltypes'", "'types in table'", "'types for columns'", "'ignore tables'", "'only tables'", "'ignore columns'", "'required columns'", "'not required columns'", "'create columns'", "'rename tables'", "'rename columns'", "'ignore one-to-many'", "'ignore many-to-one'", "'inherit many-to-one'", "'create one-to-many'", "'create many-to-one'", "'tables many-to-many'", "'inherit discriminator'", "'generate methods'", "'implements'", "'extends'", "'pojo'", "'col'", "'ident'", "'const'", "'out'", "'colx'", "'identx'", "'constx'", "'outx'", "'table'", "'dbcol'", "'prefix'", "'_char'", "'_byte'", "'_short'", "'_int'", "'_long'", "'_float'", "'_double'", "'_boolean'", "'[]'", "'package'", "'suffix'", "'import'", "'final'", "'abstract'", "'discriminator'", "'serializable'", "'required'", "'primaryKey'", "'.*'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_WS", "RULE_IDENT", "RULE_LPAREN", "RULE_NUMBER", "RULE_RPAREN", "RULE_ON_OFF", "RULE_SEMICOLON", "RULE_REST", "RULE_IDENT_DOT", "RULE_COLON", "RULE_STRING", "RULE_COMMA", "RULE_MINUS", "RULE_PLUS", "RULE_LBRACE", "RULE_RBRACE", "RULE_QUESTI", "RULE_NOT", "RULE_BAND", "RULE_BOR", "RULE_HASH", "RULE_AT", "RULE_CARET", "RULE_EQUALS", "RULE_LESS_THAN", "RULE_MORE_THAN", "RULE_PERCENT", "RULE_AND", "RULE_OR", "RULE_ESC_CHAR", "RULE_STATEMEN_TYPE", "RULE_MAPPING_TYPE", "RULE_OPTION_TYPE", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'->'", "'resolve references'", "'database'", "'pojogen'", "'online'", "'url'", "'username'", "'password'", "'schema'", "'driver'", "'types-sqltypes'", "'types-in-table'", "'types-for-columns'", "'ignore-tables'", "'only-tables'", "'ignore-columns'", "'required-columns'", "'not-required-columns'", "'create-columns'", "'rename-tables'", "'rename-columns'", "'ignore-one-to-many'", "'ignore-many-to-one'", "'inherit-many-to-one'", "'create-one-to-many'", "'create-many-to-one'", "'table-many-to-many'", "'inherit-discriminator'", "'generate-methods'", "'implements'", "'extends'", "'pojo'", "'col'", "'ident'", "'const'", "'out'", "'colx'", "'identx'", "'constx'", "'outx'", "'table'", "'dbcol'", "'prefix'", "'_char'", "'_byte'", "'_short'", "'_int'", "'_long'", "'_float'", "'_double'", "'_boolean'", "'[]'", "'package'", "'suffix'", "'import'", "'final'", "'abstract'", "'discriminator'", "'serializable'", "'required'", "'primaryKey'", "'.*'"
     };
     public static final int RULE_OR=32;
     public static final int RULE_PERCENT=30;
@@ -3637,7 +3637,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePojogenProperty"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1235:1: rulePojogenProperty returns [EObject current=null] : ( ( ( (lv_name_0_0= 'types sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_3_0= 'types in table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_8_0= 'types for columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_13_0= 'ignore tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_16_0= 'only tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_19_0= 'ignore columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_24_0= 'required columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_29_0= 'not required columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_34_0= 'create columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_39_0= 'rename tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_42_0= 'rename columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_47_0= 'ignore one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_52_0= 'ignore many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'inherit many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_62_0= 'create one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_67_0= 'create many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_72_0= 'tables many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_77_0= 'inherit discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_84_0= 'generate methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_87_0= 'implements' ) ) ( (this_WS_88= RULE_WS )+ ( ( ruleQualifiedName ) ) )+ ) | ( ( (lv_name_90_0= 'extends' ) ) (this_WS_91= RULE_WS )+ ( ( ruleQualifiedName ) ) ) ) ;
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1235:1: rulePojogenProperty returns [EObject current=null] : ( ( ( (lv_name_0_0= 'types-sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_3_0= 'types-in-table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_8_0= 'types-for-columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_13_0= 'ignore-tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_16_0= 'only-tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_19_0= 'ignore-columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_24_0= 'required-columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_29_0= 'not-required-columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_34_0= 'create-columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_39_0= 'rename-tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_42_0= 'rename-columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_47_0= 'ignore-one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_52_0= 'ignore-many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'inherit-many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_62_0= 'create-one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_67_0= 'create-many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_72_0= 'table-many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_77_0= 'inherit-discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_84_0= 'generate-methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_87_0= 'implements' ) ) ( (this_WS_88= RULE_WS )+ ( ( ruleQualifiedName ) ) )+ ) | ( ( (lv_name_90_0= 'extends' ) ) (this_WS_91= RULE_WS )+ ( ( ruleQualifiedName ) ) ) ) ;
     public final EObject rulePojogenProperty() throws RecognitionException {
         EObject current = null;
 
@@ -3749,10 +3749,10 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1238:28: ( ( ( ( (lv_name_0_0= 'types sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_3_0= 'types in table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_8_0= 'types for columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_13_0= 'ignore tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_16_0= 'only tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_19_0= 'ignore columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_24_0= 'required columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_29_0= 'not required columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_34_0= 'create columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_39_0= 'rename tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_42_0= 'rename columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_47_0= 'ignore one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_52_0= 'ignore many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'inherit many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_62_0= 'create one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_67_0= 'create many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_72_0= 'tables many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_77_0= 'inherit discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_84_0= 'generate methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_87_0= 'implements' ) ) ( (this_WS_88= RULE_WS )+ ( ( ruleQualifiedName ) ) )+ ) | ( ( (lv_name_90_0= 'extends' ) ) (this_WS_91= RULE_WS )+ ( ( ruleQualifiedName ) ) ) ) )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1239:1: ( ( ( (lv_name_0_0= 'types sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_3_0= 'types in table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_8_0= 'types for columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_13_0= 'ignore tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_16_0= 'only tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_19_0= 'ignore columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_24_0= 'required columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_29_0= 'not required columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_34_0= 'create columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_39_0= 'rename tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_42_0= 'rename columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_47_0= 'ignore one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_52_0= 'ignore many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'inherit many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_62_0= 'create one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_67_0= 'create many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_72_0= 'tables many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_77_0= 'inherit discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_84_0= 'generate methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_87_0= 'implements' ) ) ( (this_WS_88= RULE_WS )+ ( ( ruleQualifiedName ) ) )+ ) | ( ( (lv_name_90_0= 'extends' ) ) (this_WS_91= RULE_WS )+ ( ( ruleQualifiedName ) ) ) )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1238:28: ( ( ( ( (lv_name_0_0= 'types-sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_3_0= 'types-in-table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_8_0= 'types-for-columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_13_0= 'ignore-tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_16_0= 'only-tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_19_0= 'ignore-columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_24_0= 'required-columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_29_0= 'not-required-columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_34_0= 'create-columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_39_0= 'rename-tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_42_0= 'rename-columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_47_0= 'ignore-one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_52_0= 'ignore-many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'inherit-many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_62_0= 'create-one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_67_0= 'create-many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_72_0= 'table-many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_77_0= 'inherit-discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_84_0= 'generate-methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_87_0= 'implements' ) ) ( (this_WS_88= RULE_WS )+ ( ( ruleQualifiedName ) ) )+ ) | ( ( (lv_name_90_0= 'extends' ) ) (this_WS_91= RULE_WS )+ ( ( ruleQualifiedName ) ) ) ) )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1239:1: ( ( ( (lv_name_0_0= 'types-sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_3_0= 'types-in-table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_8_0= 'types-for-columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_13_0= 'ignore-tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_16_0= 'only-tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_19_0= 'ignore-columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_24_0= 'required-columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_29_0= 'not-required-columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_34_0= 'create-columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_39_0= 'rename-tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_42_0= 'rename-columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_47_0= 'ignore-one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_52_0= 'ignore-many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'inherit-many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_62_0= 'create-one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_67_0= 'create-many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_72_0= 'table-many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_77_0= 'inherit-discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_84_0= 'generate-methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_87_0= 'implements' ) ) ( (this_WS_88= RULE_WS )+ ( ( ruleQualifiedName ) ) )+ ) | ( ( (lv_name_90_0= 'extends' ) ) (this_WS_91= RULE_WS )+ ( ( ruleQualifiedName ) ) ) )
             {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1239:1: ( ( ( (lv_name_0_0= 'types sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_3_0= 'types in table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_8_0= 'types for columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_13_0= 'ignore tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_16_0= 'only tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_19_0= 'ignore columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_24_0= 'required columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_29_0= 'not required columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_34_0= 'create columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_39_0= 'rename tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_42_0= 'rename columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_47_0= 'ignore one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_52_0= 'ignore many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'inherit many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_62_0= 'create one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_67_0= 'create many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_72_0= 'tables many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_77_0= 'inherit discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_84_0= 'generate methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_87_0= 'implements' ) ) ( (this_WS_88= RULE_WS )+ ( ( ruleQualifiedName ) ) )+ ) | ( ( (lv_name_90_0= 'extends' ) ) (this_WS_91= RULE_WS )+ ( ( ruleQualifiedName ) ) ) )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1239:1: ( ( ( (lv_name_0_0= 'types-sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_3_0= 'types-in-table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+ ) | ( ( (lv_name_8_0= 'types-for-columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_13_0= 'ignore-tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_16_0= 'only-tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_19_0= 'ignore-columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_24_0= 'required-columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_29_0= 'not-required-columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_34_0= 'create-columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+ ) | ( ( (lv_name_39_0= 'rename-tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+ ) | ( ( (lv_name_42_0= 'rename-columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+ ) | ( ( (lv_name_47_0= 'ignore-one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_52_0= 'ignore-many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_57_0= 'inherit-many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_62_0= 'create-one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_67_0= 'create-many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+ ) | ( ( (lv_name_72_0= 'table-many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+ ) | ( ( (lv_name_77_0= 'inherit-discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+ ) | ( ( (lv_name_84_0= 'generate-methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+ ) | ( ( (lv_name_87_0= 'implements' ) ) ( (this_WS_88= RULE_WS )+ ( ( ruleQualifiedName ) ) )+ ) | ( ( (lv_name_90_0= 'extends' ) ) (this_WS_91= RULE_WS )+ ( ( ruleQualifiedName ) ) ) )
             int alt84=21;
             switch ( input.LA(1) ) {
             case 49:
@@ -3870,16 +3870,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
             switch (alt84) {
                 case 1 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1239:2: ( ( (lv_name_0_0= 'types sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1239:2: ( ( (lv_name_0_0= 'types-sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1239:2: ( ( (lv_name_0_0= 'types sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1239:3: ( (lv_name_0_0= 'types sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1239:2: ( ( (lv_name_0_0= 'types-sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1239:3: ( (lv_name_0_0= 'types-sqltypes' ) ) ( (this_WS_1= RULE_WS )+ ( (lv_sqlTypes_2_0= ruleSqlTypeAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1239:3: ( (lv_name_0_0= 'types sqltypes' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1240:1: (lv_name_0_0= 'types sqltypes' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1239:3: ( (lv_name_0_0= 'types-sqltypes' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1240:1: (lv_name_0_0= 'types-sqltypes' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1240:1: (lv_name_0_0= 'types sqltypes' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1241:3: lv_name_0_0= 'types sqltypes'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1240:1: (lv_name_0_0= 'types-sqltypes' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1241:3: lv_name_0_0= 'types-sqltypes'
                     {
                     lv_name_0_0=(Token)match(input,49,FOLLOW_49_in_rulePojogenProperty2474); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -3892,7 +3892,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_0_0, "types sqltypes");
+                             		setWithLastConsumed(current, "name", lv_name_0_0, "types-sqltypes");
                       	    
                     }
 
@@ -4009,16 +4009,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1277:6: ( ( (lv_name_3_0= 'types in table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1277:6: ( ( (lv_name_3_0= 'types-in-table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1277:6: ( ( (lv_name_3_0= 'types in table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1277:7: ( (lv_name_3_0= 'types in table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1277:6: ( ( (lv_name_3_0= 'types-in-table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1277:7: ( (lv_name_3_0= 'types-in-table' ) ) (this_WS_4= RULE_WS )+ ( (lv_dbTable_5_0= RULE_IDENT ) ) ( (this_WS_6= RULE_WS )+ ( (lv_sqlTypes_7_0= ruleSqlTypeAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1277:7: ( (lv_name_3_0= 'types in table' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1278:1: (lv_name_3_0= 'types in table' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1277:7: ( (lv_name_3_0= 'types-in-table' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1278:1: (lv_name_3_0= 'types-in-table' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1278:1: (lv_name_3_0= 'types in table' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1279:3: lv_name_3_0= 'types in table'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1278:1: (lv_name_3_0= 'types-in-table' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1279:3: lv_name_3_0= 'types-in-table'
                     {
                     lv_name_3_0=(Token)match(input,50,FOLLOW_50_in_rulePojogenProperty2550); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -4031,7 +4031,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_3_0, "types in table");
+                             		setWithLastConsumed(current, "name", lv_name_3_0, "types-in-table");
                       	    
                     }
 
@@ -4214,16 +4214,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1337:6: ( ( (lv_name_8_0= 'types for columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1337:6: ( ( (lv_name_8_0= 'types-for-columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1337:6: ( ( (lv_name_8_0= 'types for columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1337:7: ( (lv_name_8_0= 'types for columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1337:6: ( ( (lv_name_8_0= 'types-for-columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1337:7: ( (lv_name_8_0= 'types-for-columns' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbTable_10_0= RULE_IDENT ) ) ( (this_WS_11= RULE_WS )+ ( (lv_columnTypes_12_0= ruleColumnTypeAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1337:7: ( (lv_name_8_0= 'types for columns' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1338:1: (lv_name_8_0= 'types for columns' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1337:7: ( (lv_name_8_0= 'types-for-columns' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1338:1: (lv_name_8_0= 'types-for-columns' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1338:1: (lv_name_8_0= 'types for columns' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1339:3: lv_name_8_0= 'types for columns'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1338:1: (lv_name_8_0= 'types-for-columns' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1339:3: lv_name_8_0= 'types-for-columns'
                     {
                     lv_name_8_0=(Token)match(input,51,FOLLOW_51_in_rulePojogenProperty2661); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -4236,7 +4236,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_8_0, "types for columns");
+                             		setWithLastConsumed(current, "name", lv_name_8_0, "types-for-columns");
                       	    
                     }
 
@@ -4419,16 +4419,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1397:6: ( ( (lv_name_13_0= 'ignore tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1397:6: ( ( (lv_name_13_0= 'ignore-tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1397:6: ( ( (lv_name_13_0= 'ignore tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1397:7: ( (lv_name_13_0= 'ignore tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1397:6: ( ( (lv_name_13_0= 'ignore-tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1397:7: ( (lv_name_13_0= 'ignore-tables' ) ) ( (this_WS_14= RULE_WS )+ ( (lv_dbTables_15_0= RULE_IDENT ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1397:7: ( (lv_name_13_0= 'ignore tables' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1398:1: (lv_name_13_0= 'ignore tables' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1397:7: ( (lv_name_13_0= 'ignore-tables' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1398:1: (lv_name_13_0= 'ignore-tables' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1398:1: (lv_name_13_0= 'ignore tables' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1399:3: lv_name_13_0= 'ignore tables'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1398:1: (lv_name_13_0= 'ignore-tables' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1399:3: lv_name_13_0= 'ignore-tables'
                     {
                     lv_name_13_0=(Token)match(input,52,FOLLOW_52_in_rulePojogenProperty2772); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -4441,7 +4441,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_13_0, "ignore tables");
+                             		setWithLastConsumed(current, "name", lv_name_13_0, "ignore-tables");
                       	    
                     }
 
@@ -4553,16 +4553,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1435:6: ( ( (lv_name_16_0= 'only tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1435:6: ( ( (lv_name_16_0= 'only-tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1435:6: ( ( (lv_name_16_0= 'only tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1435:7: ( (lv_name_16_0= 'only tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1435:6: ( ( (lv_name_16_0= 'only-tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1435:7: ( (lv_name_16_0= 'only-tables' ) ) ( (this_WS_17= RULE_WS )+ ( (lv_dbTables_18_0= RULE_IDENT ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1435:7: ( (lv_name_16_0= 'only tables' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1436:1: (lv_name_16_0= 'only tables' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1435:7: ( (lv_name_16_0= 'only-tables' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1436:1: (lv_name_16_0= 'only-tables' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1436:1: (lv_name_16_0= 'only tables' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1437:3: lv_name_16_0= 'only tables'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1436:1: (lv_name_16_0= 'only-tables' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1437:3: lv_name_16_0= 'only-tables'
                     {
                     lv_name_16_0=(Token)match(input,53,FOLLOW_53_in_rulePojogenProperty2849); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -4575,7 +4575,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_16_0, "only tables");
+                             		setWithLastConsumed(current, "name", lv_name_16_0, "only-tables");
                       	    
                     }
 
@@ -4687,16 +4687,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1473:6: ( ( (lv_name_19_0= 'ignore columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1473:6: ( ( (lv_name_19_0= 'ignore-columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1473:6: ( ( (lv_name_19_0= 'ignore columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1473:7: ( (lv_name_19_0= 'ignore columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1473:6: ( ( (lv_name_19_0= 'ignore-columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1473:7: ( (lv_name_19_0= 'ignore-columns' ) ) (this_WS_20= RULE_WS )+ ( (lv_dbTable_21_0= RULE_IDENT ) ) ( (this_WS_22= RULE_WS )+ ( (lv_dbColumns_23_0= RULE_IDENT ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1473:7: ( (lv_name_19_0= 'ignore columns' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1474:1: (lv_name_19_0= 'ignore columns' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1473:7: ( (lv_name_19_0= 'ignore-columns' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1474:1: (lv_name_19_0= 'ignore-columns' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1474:1: (lv_name_19_0= 'ignore columns' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1475:3: lv_name_19_0= 'ignore columns'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1474:1: (lv_name_19_0= 'ignore-columns' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1475:3: lv_name_19_0= 'ignore-columns'
                     {
                     lv_name_19_0=(Token)match(input,54,FOLLOW_54_in_rulePojogenProperty2926); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -4709,7 +4709,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_19_0, "ignore columns");
+                             		setWithLastConsumed(current, "name", lv_name_19_0, "ignore-columns");
                       	    
                     }
 
@@ -4887,16 +4887,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1533:6: ( ( (lv_name_24_0= 'required columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1533:6: ( ( (lv_name_24_0= 'required-columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1533:6: ( ( (lv_name_24_0= 'required columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1533:7: ( (lv_name_24_0= 'required columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1533:6: ( ( (lv_name_24_0= 'required-columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1533:7: ( (lv_name_24_0= 'required-columns' ) ) (this_WS_25= RULE_WS )+ ( (lv_dbTable_26_0= RULE_IDENT ) ) ( (this_WS_27= RULE_WS )+ ( (lv_dbColumns_28_0= RULE_IDENT ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1533:7: ( (lv_name_24_0= 'required columns' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1534:1: (lv_name_24_0= 'required columns' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1533:7: ( (lv_name_24_0= 'required-columns' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1534:1: (lv_name_24_0= 'required-columns' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1534:1: (lv_name_24_0= 'required columns' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1535:3: lv_name_24_0= 'required columns'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1534:1: (lv_name_24_0= 'required-columns' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1535:3: lv_name_24_0= 'required-columns'
                     {
                     lv_name_24_0=(Token)match(input,55,FOLLOW_55_in_rulePojogenProperty3038); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -4909,7 +4909,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_24_0, "required columns");
+                             		setWithLastConsumed(current, "name", lv_name_24_0, "required-columns");
                       	    
                     }
 
@@ -5087,16 +5087,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1593:6: ( ( (lv_name_29_0= 'not required columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1593:6: ( ( (lv_name_29_0= 'not-required-columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1593:6: ( ( (lv_name_29_0= 'not required columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1593:7: ( (lv_name_29_0= 'not required columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1593:6: ( ( (lv_name_29_0= 'not-required-columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1593:7: ( (lv_name_29_0= 'not-required-columns' ) ) (this_WS_30= RULE_WS )+ ( (lv_dbTable_31_0= RULE_IDENT ) ) ( (this_WS_32= RULE_WS )+ ( (lv_dbColumns_33_0= RULE_IDENT ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1593:7: ( (lv_name_29_0= 'not required columns' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1594:1: (lv_name_29_0= 'not required columns' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1593:7: ( (lv_name_29_0= 'not-required-columns' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1594:1: (lv_name_29_0= 'not-required-columns' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1594:1: (lv_name_29_0= 'not required columns' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1595:3: lv_name_29_0= 'not required columns'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1594:1: (lv_name_29_0= 'not-required-columns' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1595:3: lv_name_29_0= 'not-required-columns'
                     {
                     lv_name_29_0=(Token)match(input,56,FOLLOW_56_in_rulePojogenProperty3150); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -5109,7 +5109,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_29_0, "not required columns");
+                             		setWithLastConsumed(current, "name", lv_name_29_0, "not-required-columns");
                       	    
                     }
 
@@ -5287,16 +5287,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 9 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1653:6: ( ( (lv_name_34_0= 'create columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1653:6: ( ( (lv_name_34_0= 'create-columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1653:6: ( ( (lv_name_34_0= 'create columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1653:7: ( (lv_name_34_0= 'create columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1653:6: ( ( (lv_name_34_0= 'create-columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1653:7: ( (lv_name_34_0= 'create-columns' ) ) (this_WS_35= RULE_WS )+ ( (lv_dbTable_36_0= RULE_IDENT ) ) ( (this_WS_37= RULE_WS )+ ( (lv_columnTypes_38_0= ruleColumnTypeAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1653:7: ( (lv_name_34_0= 'create columns' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1654:1: (lv_name_34_0= 'create columns' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1653:7: ( (lv_name_34_0= 'create-columns' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1654:1: (lv_name_34_0= 'create-columns' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1654:1: (lv_name_34_0= 'create columns' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1655:3: lv_name_34_0= 'create columns'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1654:1: (lv_name_34_0= 'create-columns' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1655:3: lv_name_34_0= 'create-columns'
                     {
                     lv_name_34_0=(Token)match(input,57,FOLLOW_57_in_rulePojogenProperty3262); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -5309,7 +5309,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_34_0, "create columns");
+                             		setWithLastConsumed(current, "name", lv_name_34_0, "create-columns");
                       	    
                     }
 
@@ -5492,16 +5492,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 10 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1713:6: ( ( (lv_name_39_0= 'rename tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1713:6: ( ( (lv_name_39_0= 'rename-tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1713:6: ( ( (lv_name_39_0= 'rename tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1713:7: ( (lv_name_39_0= 'rename tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1713:6: ( ( (lv_name_39_0= 'rename-tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1713:7: ( (lv_name_39_0= 'rename-tables' ) ) ( (this_WS_40= RULE_WS )+ ( (lv_tables_41_0= ruleTableAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1713:7: ( (lv_name_39_0= 'rename tables' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1714:1: (lv_name_39_0= 'rename tables' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1713:7: ( (lv_name_39_0= 'rename-tables' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1714:1: (lv_name_39_0= 'rename-tables' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1714:1: (lv_name_39_0= 'rename tables' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1715:3: lv_name_39_0= 'rename tables'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1714:1: (lv_name_39_0= 'rename-tables' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1715:3: lv_name_39_0= 'rename-tables'
                     {
                     lv_name_39_0=(Token)match(input,58,FOLLOW_58_in_rulePojogenProperty3373); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -5514,7 +5514,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_39_0, "rename tables");
+                             		setWithLastConsumed(current, "name", lv_name_39_0, "rename-tables");
                       	    
                     }
 
@@ -5631,16 +5631,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 11 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1751:6: ( ( (lv_name_42_0= 'rename columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1751:6: ( ( (lv_name_42_0= 'rename-columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1751:6: ( ( (lv_name_42_0= 'rename columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1751:7: ( (lv_name_42_0= 'rename columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1751:6: ( ( (lv_name_42_0= 'rename-columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1751:7: ( (lv_name_42_0= 'rename-columns' ) ) (this_WS_43= RULE_WS )+ ( (lv_dbTable_44_0= RULE_IDENT ) ) ( (this_WS_45= RULE_WS )+ ( (lv_columns_46_0= ruleColumnAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1751:7: ( (lv_name_42_0= 'rename columns' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1752:1: (lv_name_42_0= 'rename columns' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1751:7: ( (lv_name_42_0= 'rename-columns' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1752:1: (lv_name_42_0= 'rename-columns' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1752:1: (lv_name_42_0= 'rename columns' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1753:3: lv_name_42_0= 'rename columns'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1752:1: (lv_name_42_0= 'rename-columns' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1753:3: lv_name_42_0= 'rename-columns'
                     {
                     lv_name_42_0=(Token)match(input,59,FOLLOW_59_in_rulePojogenProperty3449); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -5653,7 +5653,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_42_0, "rename columns");
+                             		setWithLastConsumed(current, "name", lv_name_42_0, "rename-columns");
                       	    
                     }
 
@@ -5836,16 +5836,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 12 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1811:6: ( ( (lv_name_47_0= 'ignore one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1811:6: ( ( (lv_name_47_0= 'ignore-one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1811:6: ( ( (lv_name_47_0= 'ignore one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1811:7: ( (lv_name_47_0= 'ignore one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1811:6: ( ( (lv_name_47_0= 'ignore-one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1811:7: ( (lv_name_47_0= 'ignore-one-to-many' ) ) (this_WS_48= RULE_WS )+ ( (lv_dbTable_49_0= RULE_IDENT ) ) ( (this_WS_50= RULE_WS )+ ( (lv_exports_51_0= ruleExportAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1811:7: ( (lv_name_47_0= 'ignore one-to-many' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1812:1: (lv_name_47_0= 'ignore one-to-many' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1811:7: ( (lv_name_47_0= 'ignore-one-to-many' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1812:1: (lv_name_47_0= 'ignore-one-to-many' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1812:1: (lv_name_47_0= 'ignore one-to-many' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1813:3: lv_name_47_0= 'ignore one-to-many'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1812:1: (lv_name_47_0= 'ignore-one-to-many' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1813:3: lv_name_47_0= 'ignore-one-to-many'
                     {
                     lv_name_47_0=(Token)match(input,60,FOLLOW_60_in_rulePojogenProperty3560); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -5858,7 +5858,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_47_0, "ignore one-to-many");
+                             		setWithLastConsumed(current, "name", lv_name_47_0, "ignore-one-to-many");
                       	    
                     }
 
@@ -6041,16 +6041,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 13 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1871:6: ( ( (lv_name_52_0= 'ignore many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1871:6: ( ( (lv_name_52_0= 'ignore-many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1871:6: ( ( (lv_name_52_0= 'ignore many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1871:7: ( (lv_name_52_0= 'ignore many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1871:6: ( ( (lv_name_52_0= 'ignore-many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1871:7: ( (lv_name_52_0= 'ignore-many-to-one' ) ) (this_WS_53= RULE_WS )+ ( (lv_dbTable_54_0= RULE_IDENT ) ) ( (this_WS_55= RULE_WS )+ ( (lv_imports_56_0= ruleImportAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1871:7: ( (lv_name_52_0= 'ignore many-to-one' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1872:1: (lv_name_52_0= 'ignore many-to-one' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1871:7: ( (lv_name_52_0= 'ignore-many-to-one' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1872:1: (lv_name_52_0= 'ignore-many-to-one' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1872:1: (lv_name_52_0= 'ignore many-to-one' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1873:3: lv_name_52_0= 'ignore many-to-one'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1872:1: (lv_name_52_0= 'ignore-many-to-one' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1873:3: lv_name_52_0= 'ignore-many-to-one'
                     {
                     lv_name_52_0=(Token)match(input,61,FOLLOW_61_in_rulePojogenProperty3671); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -6063,7 +6063,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_52_0, "ignore many-to-one");
+                             		setWithLastConsumed(current, "name", lv_name_52_0, "ignore-many-to-one");
                       	    
                     }
 
@@ -6246,16 +6246,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 14 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1931:6: ( ( (lv_name_57_0= 'inherit many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1931:6: ( ( (lv_name_57_0= 'inherit-many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1931:6: ( ( (lv_name_57_0= 'inherit many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1931:7: ( (lv_name_57_0= 'inherit many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1931:6: ( ( (lv_name_57_0= 'inherit-many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1931:7: ( (lv_name_57_0= 'inherit-many-to-one' ) ) (this_WS_58= RULE_WS )+ ( (lv_dbTable_59_0= RULE_IDENT ) ) ( (this_WS_60= RULE_WS )+ ( (lv_imports_61_0= ruleImportAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1931:7: ( (lv_name_57_0= 'inherit many-to-one' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1932:1: (lv_name_57_0= 'inherit many-to-one' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1931:7: ( (lv_name_57_0= 'inherit-many-to-one' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1932:1: (lv_name_57_0= 'inherit-many-to-one' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1932:1: (lv_name_57_0= 'inherit many-to-one' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1933:3: lv_name_57_0= 'inherit many-to-one'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1932:1: (lv_name_57_0= 'inherit-many-to-one' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1933:3: lv_name_57_0= 'inherit-many-to-one'
                     {
                     lv_name_57_0=(Token)match(input,62,FOLLOW_62_in_rulePojogenProperty3782); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -6268,7 +6268,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_57_0, "inherit many-to-one");
+                             		setWithLastConsumed(current, "name", lv_name_57_0, "inherit-many-to-one");
                       	    
                     }
 
@@ -6451,16 +6451,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 15 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1991:6: ( ( (lv_name_62_0= 'create one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1991:6: ( ( (lv_name_62_0= 'create-one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1991:6: ( ( (lv_name_62_0= 'create one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1991:7: ( (lv_name_62_0= 'create one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1991:6: ( ( (lv_name_62_0= 'create-one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1991:7: ( (lv_name_62_0= 'create-one-to-many' ) ) (this_WS_63= RULE_WS )+ ( (lv_dbTable_64_0= RULE_IDENT ) ) ( (this_WS_65= RULE_WS )+ ( (lv_exports_66_0= ruleExportAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1991:7: ( (lv_name_62_0= 'create one-to-many' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1992:1: (lv_name_62_0= 'create one-to-many' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1991:7: ( (lv_name_62_0= 'create-one-to-many' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1992:1: (lv_name_62_0= 'create-one-to-many' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1992:1: (lv_name_62_0= 'create one-to-many' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1993:3: lv_name_62_0= 'create one-to-many'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1992:1: (lv_name_62_0= 'create-one-to-many' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1993:3: lv_name_62_0= 'create-one-to-many'
                     {
                     lv_name_62_0=(Token)match(input,63,FOLLOW_63_in_rulePojogenProperty3893); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -6473,7 +6473,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_62_0, "create one-to-many");
+                             		setWithLastConsumed(current, "name", lv_name_62_0, "create-one-to-many");
                       	    
                     }
 
@@ -6656,16 +6656,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 16 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2051:6: ( ( (lv_name_67_0= 'create many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2051:6: ( ( (lv_name_67_0= 'create-many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2051:6: ( ( (lv_name_67_0= 'create many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2051:7: ( (lv_name_67_0= 'create many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2051:6: ( ( (lv_name_67_0= 'create-many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2051:7: ( (lv_name_67_0= 'create-many-to-one' ) ) (this_WS_68= RULE_WS )+ ( (lv_dbTable_69_0= RULE_IDENT ) ) ( (this_WS_70= RULE_WS )+ ( (lv_imports_71_0= ruleImportAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2051:7: ( (lv_name_67_0= 'create many-to-one' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2052:1: (lv_name_67_0= 'create many-to-one' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2051:7: ( (lv_name_67_0= 'create-many-to-one' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2052:1: (lv_name_67_0= 'create-many-to-one' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2052:1: (lv_name_67_0= 'create many-to-one' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2053:3: lv_name_67_0= 'create many-to-one'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2052:1: (lv_name_67_0= 'create-many-to-one' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2053:3: lv_name_67_0= 'create-many-to-one'
                     {
                     lv_name_67_0=(Token)match(input,64,FOLLOW_64_in_rulePojogenProperty4004); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -6678,7 +6678,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_67_0, "create many-to-one");
+                             		setWithLastConsumed(current, "name", lv_name_67_0, "create-many-to-one");
                       	    
                     }
 
@@ -6861,21 +6861,21 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 17 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2111:6: ( ( (lv_name_72_0= 'tables many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2111:6: ( ( (lv_name_72_0= 'table-many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2111:6: ( ( (lv_name_72_0= 'tables many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2111:7: ( (lv_name_72_0= 'tables many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2111:6: ( ( (lv_name_72_0= 'table-many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2111:7: ( (lv_name_72_0= 'table-many-to-many' ) ) (this_WS_73= RULE_WS )+ ( (lv_dbTable_74_0= RULE_IDENT ) ) ( (this_WS_75= RULE_WS )+ ( (lv_exports_76_0= ruleExportAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2111:7: ( (lv_name_72_0= 'tables many-to-many' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2112:1: (lv_name_72_0= 'tables many-to-many' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2111:7: ( (lv_name_72_0= 'table-many-to-many' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2112:1: (lv_name_72_0= 'table-many-to-many' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2112:1: (lv_name_72_0= 'tables many-to-many' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2113:3: lv_name_72_0= 'tables many-to-many'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2112:1: (lv_name_72_0= 'table-many-to-many' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2113:3: lv_name_72_0= 'table-many-to-many'
                     {
                     lv_name_72_0=(Token)match(input,65,FOLLOW_65_in_rulePojogenProperty4115); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              newLeafNode(lv_name_72_0, grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0());
+                              newLeafNode(lv_name_72_0, grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0());
                           
                     }
                     if ( state.backtracking==0 ) {
@@ -6883,7 +6883,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_72_0, "tables many-to-many");
+                             		setWithLastConsumed(current, "name", lv_name_72_0, "table-many-to-many");
                       	    
                     }
 
@@ -7066,16 +7066,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 18 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2171:6: ( ( (lv_name_77_0= 'inherit discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2171:6: ( ( (lv_name_77_0= 'inherit-discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2171:6: ( ( (lv_name_77_0= 'inherit discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2171:7: ( (lv_name_77_0= 'inherit discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2171:6: ( ( (lv_name_77_0= 'inherit-discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2171:7: ( (lv_name_77_0= 'inherit-discriminator' ) ) (this_WS_78= RULE_WS )+ ( (lv_dbTable_79_0= RULE_IDENT ) ) (this_WS_80= RULE_WS )+ ( (lv_dbColumn_81_0= RULE_IDENT ) ) ( (this_WS_82= RULE_WS )+ ( (lv_inheritance_83_0= ruleInheritanceAssignement ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2171:7: ( (lv_name_77_0= 'inherit discriminator' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2172:1: (lv_name_77_0= 'inherit discriminator' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2171:7: ( (lv_name_77_0= 'inherit-discriminator' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2172:1: (lv_name_77_0= 'inherit-discriminator' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2172:1: (lv_name_77_0= 'inherit discriminator' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2173:3: lv_name_77_0= 'inherit discriminator'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2172:1: (lv_name_77_0= 'inherit-discriminator' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2173:3: lv_name_77_0= 'inherit-discriminator'
                     {
                     lv_name_77_0=(Token)match(input,66,FOLLOW_66_in_rulePojogenProperty4226); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7088,7 +7088,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_77_0, "inherit discriminator");
+                             		setWithLastConsumed(current, "name", lv_name_77_0, "inherit-discriminator");
                       	    
                     }
 
@@ -7337,16 +7337,16 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 19 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2253:6: ( ( (lv_name_84_0= 'generate methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2253:6: ( ( (lv_name_84_0= 'generate-methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+ )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2253:6: ( ( (lv_name_84_0= 'generate methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+ )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2253:7: ( (lv_name_84_0= 'generate methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2253:6: ( ( (lv_name_84_0= 'generate-methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+ )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2253:7: ( (lv_name_84_0= 'generate-methods' ) ) ( (this_WS_85= RULE_WS )+ ( (lv_methods_86_0= RULE_IDENT ) ) )+
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2253:7: ( (lv_name_84_0= 'generate methods' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2254:1: (lv_name_84_0= 'generate methods' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2253:7: ( (lv_name_84_0= 'generate-methods' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2254:1: (lv_name_84_0= 'generate-methods' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2254:1: (lv_name_84_0= 'generate methods' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2255:3: lv_name_84_0= 'generate methods'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2254:1: (lv_name_84_0= 'generate-methods' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:2255:3: lv_name_84_0= 'generate-methods'
                     {
                     lv_name_84_0=(Token)match(input,67,FOLLOW_67_in_rulePojogenProperty4372); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7359,7 +7359,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getPojogenPropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_84_0, "generate methods");
+                             		setWithLastConsumed(current, "name", lv_name_84_0, "generate-methods");
                       	    
                     }
 

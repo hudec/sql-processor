@@ -1238,7 +1238,7 @@ rulePojogenProperty returns [EObject current=null]
     @after { leaveRule(); }:
 (((
 (
-		lv_name_0_0=	'types sqltypes' 
+		lv_name_0_0=	'types-sqltypes' 
     {
         newLeafNode(lv_name_0_0, grammarAccess.getPojogenPropertyAccess().getNameTypesSqltypesKeyword_0_0_0());
     }
@@ -1247,7 +1247,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_0_0, "types sqltypes");
+       		setWithLastConsumed($current, "name", lv_name_0_0, "types-sqltypes");
 	    }
 
 )
@@ -1276,7 +1276,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_3_0=	'types in table' 
+		lv_name_3_0=	'types-in-table' 
     {
         newLeafNode(lv_name_3_0, grammarAccess.getPojogenPropertyAccess().getNameTypesInTableKeyword_1_0_0());
     }
@@ -1285,7 +1285,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_3_0, "types in table");
+       		setWithLastConsumed($current, "name", lv_name_3_0, "types-in-table");
 	    }
 
 )
@@ -1336,7 +1336,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_8_0=	'types for columns' 
+		lv_name_8_0=	'types-for-columns' 
     {
         newLeafNode(lv_name_8_0, grammarAccess.getPojogenPropertyAccess().getNameTypesForColumnsKeyword_2_0_0());
     }
@@ -1345,7 +1345,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_8_0, "types for columns");
+       		setWithLastConsumed($current, "name", lv_name_8_0, "types-for-columns");
 	    }
 
 )
@@ -1396,7 +1396,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_13_0=	'ignore tables' 
+		lv_name_13_0=	'ignore-tables' 
     {
         newLeafNode(lv_name_13_0, grammarAccess.getPojogenPropertyAccess().getNameIgnoreTablesKeyword_3_0_0());
     }
@@ -1405,7 +1405,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_13_0, "ignore tables");
+       		setWithLastConsumed($current, "name", lv_name_13_0, "ignore-tables");
 	    }
 
 )
@@ -1434,7 +1434,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_16_0=	'only tables' 
+		lv_name_16_0=	'only-tables' 
     {
         newLeafNode(lv_name_16_0, grammarAccess.getPojogenPropertyAccess().getNameOnlyTablesKeyword_4_0_0());
     }
@@ -1443,7 +1443,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_16_0, "only tables");
+       		setWithLastConsumed($current, "name", lv_name_16_0, "only-tables");
 	    }
 
 )
@@ -1472,7 +1472,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_19_0=	'ignore columns' 
+		lv_name_19_0=	'ignore-columns' 
     {
         newLeafNode(lv_name_19_0, grammarAccess.getPojogenPropertyAccess().getNameIgnoreColumnsKeyword_5_0_0());
     }
@@ -1481,7 +1481,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_19_0, "ignore columns");
+       		setWithLastConsumed($current, "name", lv_name_19_0, "ignore-columns");
 	    }
 
 )
@@ -1532,7 +1532,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_24_0=	'required columns' 
+		lv_name_24_0=	'required-columns' 
     {
         newLeafNode(lv_name_24_0, grammarAccess.getPojogenPropertyAccess().getNameRequiredColumnsKeyword_6_0_0());
     }
@@ -1541,7 +1541,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_24_0, "required columns");
+       		setWithLastConsumed($current, "name", lv_name_24_0, "required-columns");
 	    }
 
 )
@@ -1592,7 +1592,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_29_0=	'not required columns' 
+		lv_name_29_0=	'not-required-columns' 
     {
         newLeafNode(lv_name_29_0, grammarAccess.getPojogenPropertyAccess().getNameNotRequiredColumnsKeyword_7_0_0());
     }
@@ -1601,7 +1601,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_29_0, "not required columns");
+       		setWithLastConsumed($current, "name", lv_name_29_0, "not-required-columns");
 	    }
 
 )
@@ -1652,7 +1652,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_34_0=	'create columns' 
+		lv_name_34_0=	'create-columns' 
     {
         newLeafNode(lv_name_34_0, grammarAccess.getPojogenPropertyAccess().getNameCreateColumnsKeyword_8_0_0());
     }
@@ -1661,7 +1661,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_34_0, "create columns");
+       		setWithLastConsumed($current, "name", lv_name_34_0, "create-columns");
 	    }
 
 )
@@ -1712,7 +1712,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_39_0=	'rename tables' 
+		lv_name_39_0=	'rename-tables' 
     {
         newLeafNode(lv_name_39_0, grammarAccess.getPojogenPropertyAccess().getNameRenameTablesKeyword_9_0_0());
     }
@@ -1721,7 +1721,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_39_0, "rename tables");
+       		setWithLastConsumed($current, "name", lv_name_39_0, "rename-tables");
 	    }
 
 )
@@ -1750,7 +1750,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_42_0=	'rename columns' 
+		lv_name_42_0=	'rename-columns' 
     {
         newLeafNode(lv_name_42_0, grammarAccess.getPojogenPropertyAccess().getNameRenameColumnsKeyword_10_0_0());
     }
@@ -1759,7 +1759,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_42_0, "rename columns");
+       		setWithLastConsumed($current, "name", lv_name_42_0, "rename-columns");
 	    }
 
 )
@@ -1810,7 +1810,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_47_0=	'ignore one-to-many' 
+		lv_name_47_0=	'ignore-one-to-many' 
     {
         newLeafNode(lv_name_47_0, grammarAccess.getPojogenPropertyAccess().getNameIgnoreOneToManyKeyword_11_0_0());
     }
@@ -1819,7 +1819,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_47_0, "ignore one-to-many");
+       		setWithLastConsumed($current, "name", lv_name_47_0, "ignore-one-to-many");
 	    }
 
 )
@@ -1870,7 +1870,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_52_0=	'ignore many-to-one' 
+		lv_name_52_0=	'ignore-many-to-one' 
     {
         newLeafNode(lv_name_52_0, grammarAccess.getPojogenPropertyAccess().getNameIgnoreManyToOneKeyword_12_0_0());
     }
@@ -1879,7 +1879,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_52_0, "ignore many-to-one");
+       		setWithLastConsumed($current, "name", lv_name_52_0, "ignore-many-to-one");
 	    }
 
 )
@@ -1930,7 +1930,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_57_0=	'inherit many-to-one' 
+		lv_name_57_0=	'inherit-many-to-one' 
     {
         newLeafNode(lv_name_57_0, grammarAccess.getPojogenPropertyAccess().getNameInheritManyToOneKeyword_13_0_0());
     }
@@ -1939,7 +1939,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_57_0, "inherit many-to-one");
+       		setWithLastConsumed($current, "name", lv_name_57_0, "inherit-many-to-one");
 	    }
 
 )
@@ -1990,7 +1990,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_62_0=	'create one-to-many' 
+		lv_name_62_0=	'create-one-to-many' 
     {
         newLeafNode(lv_name_62_0, grammarAccess.getPojogenPropertyAccess().getNameCreateOneToManyKeyword_14_0_0());
     }
@@ -1999,7 +1999,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_62_0, "create one-to-many");
+       		setWithLastConsumed($current, "name", lv_name_62_0, "create-one-to-many");
 	    }
 
 )
@@ -2050,7 +2050,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_67_0=	'create many-to-one' 
+		lv_name_67_0=	'create-many-to-one' 
     {
         newLeafNode(lv_name_67_0, grammarAccess.getPojogenPropertyAccess().getNameCreateManyToOneKeyword_15_0_0());
     }
@@ -2059,7 +2059,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_67_0, "create many-to-one");
+       		setWithLastConsumed($current, "name", lv_name_67_0, "create-many-to-one");
 	    }
 
 )
@@ -2110,16 +2110,16 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_72_0=	'tables many-to-many' 
+		lv_name_72_0=	'table-many-to-many' 
     {
-        newLeafNode(lv_name_72_0, grammarAccess.getPojogenPropertyAccess().getNameTablesManyToManyKeyword_16_0_0());
+        newLeafNode(lv_name_72_0, grammarAccess.getPojogenPropertyAccess().getNameTableManyToManyKeyword_16_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_72_0, "tables many-to-many");
+       		setWithLastConsumed($current, "name", lv_name_72_0, "table-many-to-many");
 	    }
 
 )
@@ -2170,7 +2170,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_77_0=	'inherit discriminator' 
+		lv_name_77_0=	'inherit-discriminator' 
     {
         newLeafNode(lv_name_77_0, grammarAccess.getPojogenPropertyAccess().getNameInheritDiscriminatorKeyword_17_0_0());
     }
@@ -2179,7 +2179,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_77_0, "inherit discriminator");
+       		setWithLastConsumed($current, "name", lv_name_77_0, "inherit-discriminator");
 	    }
 
 )
@@ -2252,7 +2252,7 @@ rulePojogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_84_0=	'generate methods' 
+		lv_name_84_0=	'generate-methods' 
     {
         newLeafNode(lv_name_84_0, grammarAccess.getPojogenPropertyAccess().getNameGenerateMethodsKeyword_18_0_0());
     }
@@ -2261,7 +2261,7 @@ rulePojogenProperty returns [EObject current=null]
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_84_0, "generate methods");
+       		setWithLastConsumed($current, "name", lv_name_84_0, "generate-methods");
 	    }
 
 )

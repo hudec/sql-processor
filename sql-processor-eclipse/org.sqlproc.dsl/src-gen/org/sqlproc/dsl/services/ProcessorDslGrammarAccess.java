@@ -904,7 +904,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cImportsImportAssignementParserRuleCall_15_3_1_0 = (RuleCall)cImportsAssignment_15_3_1.eContents().get(0);
 		private final Group cGroup_16 = (Group)cAlternatives.eContents().get(16);
 		private final Assignment cNameAssignment_16_0 = (Assignment)cGroup_16.eContents().get(0);
-		private final Keyword cNameTablesManyToManyKeyword_16_0_0 = (Keyword)cNameAssignment_16_0.eContents().get(0);
+		private final Keyword cNameTableManyToManyKeyword_16_0_0 = (Keyword)cNameAssignment_16_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_16_1 = (RuleCall)cGroup_16.eContents().get(1);
 		private final Assignment cDbTableAssignment_16_2 = (Assignment)cGroup_16.eContents().get(2);
 		private final RuleCall cDbTableIDENTTerminalRuleCall_16_2_0 = (RuleCall)cDbTableAssignment_16_2.eContents().get(0);
@@ -949,49 +949,49 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cToExtendsJvmTypeQualifiedNameParserRuleCall_20_2_0_1 = (RuleCall)cToExtendsJvmTypeCrossReference_20_2_0.eContents().get(1);
 		
 		//PojogenProperty:
-		//	name="types sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types in table" WS+ dbTable=IDENT (WS+
-		//	sqlTypes+=SqlTypeAssignement)+ | name="types for columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
-		//	| name="ignore tables" (WS+ dbTables+=IDENT)+ | name="only tables" (WS+ dbTables+=IDENT)+ | name="ignore columns" WS+
-		//	dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ |
-		//	name="not required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="create columns" WS+ dbTable=IDENT (WS+
-		//	columnTypes+=ColumnTypeAssignement)+ | name="rename tables" (WS+ tables+=TableAssignement)+ | name="rename columns"
-		//	WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+ | name="ignore one-to-many" WS+ dbTable=IDENT (WS+
+		//	name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types-in-table" WS+ dbTable=IDENT (WS+
+		//	sqlTypes+=SqlTypeAssignement)+ | name="types-for-columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
+		//	| name="ignore-tables" (WS+ dbTables+=IDENT)+ | name="only-tables" (WS+ dbTables+=IDENT)+ | name="ignore-columns" WS+
+		//	dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="required-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ |
+		//	name="not-required-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="create-columns" WS+ dbTable=IDENT (WS+
+		//	columnTypes+=ColumnTypeAssignement)+ | name="rename-tables" (WS+ tables+=TableAssignement)+ | name="rename-columns"
+		//	WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+ | name="ignore-one-to-many" WS+ dbTable=IDENT (WS+
 		//	exports+=ExportAssignement)+ // exports
-		//	| name="ignore many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-		//	| name="inherit many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-		//	| name="create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
-		//	| name="create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-		//	| name="tables many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit discriminator" WS+
-		//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate methods" (WS+
+		//	| name="ignore-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//	| name="inherit-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//	| name="create-one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
+		//	| name="create-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//	| name="table-many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit-discriminator" WS+
+		//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 		//	methods+=IDENT)+ | name="implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends" WS+
 		//	toExtends=[jvmTypes::JvmType|QualifiedName];
 		public ParserRule getRule() { return rule; }
 
-		//name="types sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types in table" WS+ dbTable=IDENT (WS+
-		//sqlTypes+=SqlTypeAssignement)+ | name="types for columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+ |
-		//name="ignore tables" (WS+ dbTables+=IDENT)+ | name="only tables" (WS+ dbTables+=IDENT)+ | name="ignore columns" WS+
-		//dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ |
-		//name="not required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="create columns" WS+ dbTable=IDENT (WS+
-		//columnTypes+=ColumnTypeAssignement)+ | name="rename tables" (WS+ tables+=TableAssignement)+ | name="rename columns" WS+
-		//dbTable=IDENT (WS+ columns+=ColumnAssignement)+ | name="ignore one-to-many" WS+ dbTable=IDENT (WS+
+		//name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types-in-table" WS+ dbTable=IDENT (WS+
+		//sqlTypes+=SqlTypeAssignement)+ | name="types-for-columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+ |
+		//name="ignore-tables" (WS+ dbTables+=IDENT)+ | name="only-tables" (WS+ dbTables+=IDENT)+ | name="ignore-columns" WS+
+		//dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="required-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ |
+		//name="not-required-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="create-columns" WS+ dbTable=IDENT (WS+
+		//columnTypes+=ColumnTypeAssignement)+ | name="rename-tables" (WS+ tables+=TableAssignement)+ | name="rename-columns" WS+
+		//dbTable=IDENT (WS+ columns+=ColumnAssignement)+ | name="ignore-one-to-many" WS+ dbTable=IDENT (WS+
 		//exports+=ExportAssignement)+ // exports
-		//| name="ignore many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-		//| name="inherit many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-		//| name="create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
-		//| name="create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-		//| name="tables many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit discriminator" WS+
-		//dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate methods" (WS+
+		//| name="ignore-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//| name="inherit-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//| name="create-one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
+		//| name="create-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//| name="table-many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit-discriminator" WS+
+		//dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 		//methods+=IDENT)+ | name="implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends" WS+
 		//toExtends=[jvmTypes::JvmType|QualifiedName]
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//name="types sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+
+		//name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+
 		public Group getGroup_0() { return cGroup_0; }
 
-		//name="types sqltypes"
+		//name="types-sqltypes"
 		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
 
-		//"types sqltypes"
+		//"types-sqltypes"
 		public Keyword getNameTypesSqltypesKeyword_0_0_0() { return cNameTypesSqltypesKeyword_0_0_0; }
 
 		//(WS+ sqlTypes+=SqlTypeAssignement)+
@@ -1006,13 +1006,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//SqlTypeAssignement
 		public RuleCall getSqlTypesSqlTypeAssignementParserRuleCall_0_1_1_0() { return cSqlTypesSqlTypeAssignementParserRuleCall_0_1_1_0; }
 
-		//name="types in table" WS+ dbTable=IDENT (WS+ sqlTypes+=SqlTypeAssignement)+
+		//name="types-in-table" WS+ dbTable=IDENT (WS+ sqlTypes+=SqlTypeAssignement)+
 		public Group getGroup_1() { return cGroup_1; }
 
-		//name="types in table"
+		//name="types-in-table"
 		public Assignment getNameAssignment_1_0() { return cNameAssignment_1_0; }
 
-		//"types in table"
+		//"types-in-table"
 		public Keyword getNameTypesInTableKeyword_1_0_0() { return cNameTypesInTableKeyword_1_0_0; }
 
 		//WS+
@@ -1036,13 +1036,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//SqlTypeAssignement
 		public RuleCall getSqlTypesSqlTypeAssignementParserRuleCall_1_3_1_0() { return cSqlTypesSqlTypeAssignementParserRuleCall_1_3_1_0; }
 
-		//name="types for columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
+		//name="types-for-columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
 		public Group getGroup_2() { return cGroup_2; }
 
-		//name="types for columns"
+		//name="types-for-columns"
 		public Assignment getNameAssignment_2_0() { return cNameAssignment_2_0; }
 
-		//"types for columns"
+		//"types-for-columns"
 		public Keyword getNameTypesForColumnsKeyword_2_0_0() { return cNameTypesForColumnsKeyword_2_0_0; }
 
 		//WS+
@@ -1066,13 +1066,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ColumnTypeAssignement
 		public RuleCall getColumnTypesColumnTypeAssignementParserRuleCall_2_3_1_0() { return cColumnTypesColumnTypeAssignementParserRuleCall_2_3_1_0; }
 
-		//name="ignore tables" (WS+ dbTables+=IDENT)+
+		//name="ignore-tables" (WS+ dbTables+=IDENT)+
 		public Group getGroup_3() { return cGroup_3; }
 
-		//name="ignore tables"
+		//name="ignore-tables"
 		public Assignment getNameAssignment_3_0() { return cNameAssignment_3_0; }
 
-		//"ignore tables"
+		//"ignore-tables"
 		public Keyword getNameIgnoreTablesKeyword_3_0_0() { return cNameIgnoreTablesKeyword_3_0_0; }
 
 		//(WS+ dbTables+=IDENT)+
@@ -1087,13 +1087,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getDbTablesIDENTTerminalRuleCall_3_1_1_0() { return cDbTablesIDENTTerminalRuleCall_3_1_1_0; }
 
-		//name="only tables" (WS+ dbTables+=IDENT)+
+		//name="only-tables" (WS+ dbTables+=IDENT)+
 		public Group getGroup_4() { return cGroup_4; }
 
-		//name="only tables"
+		//name="only-tables"
 		public Assignment getNameAssignment_4_0() { return cNameAssignment_4_0; }
 
-		//"only tables"
+		//"only-tables"
 		public Keyword getNameOnlyTablesKeyword_4_0_0() { return cNameOnlyTablesKeyword_4_0_0; }
 
 		//(WS+ dbTables+=IDENT)+
@@ -1108,13 +1108,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getDbTablesIDENTTerminalRuleCall_4_1_1_0() { return cDbTablesIDENTTerminalRuleCall_4_1_1_0; }
 
-		//name="ignore columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
+		//name="ignore-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
 		public Group getGroup_5() { return cGroup_5; }
 
-		//name="ignore columns"
+		//name="ignore-columns"
 		public Assignment getNameAssignment_5_0() { return cNameAssignment_5_0; }
 
-		//"ignore columns"
+		//"ignore-columns"
 		public Keyword getNameIgnoreColumnsKeyword_5_0_0() { return cNameIgnoreColumnsKeyword_5_0_0; }
 
 		//WS+
@@ -1138,13 +1138,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getDbColumnsIDENTTerminalRuleCall_5_3_1_0() { return cDbColumnsIDENTTerminalRuleCall_5_3_1_0; }
 
-		//name="required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
+		//name="required-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
 		public Group getGroup_6() { return cGroup_6; }
 
-		//name="required columns"
+		//name="required-columns"
 		public Assignment getNameAssignment_6_0() { return cNameAssignment_6_0; }
 
-		//"required columns"
+		//"required-columns"
 		public Keyword getNameRequiredColumnsKeyword_6_0_0() { return cNameRequiredColumnsKeyword_6_0_0; }
 
 		//WS+
@@ -1168,13 +1168,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getDbColumnsIDENTTerminalRuleCall_6_3_1_0() { return cDbColumnsIDENTTerminalRuleCall_6_3_1_0; }
 
-		//name="not required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
+		//name="not-required-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
 		public Group getGroup_7() { return cGroup_7; }
 
-		//name="not required columns"
+		//name="not-required-columns"
 		public Assignment getNameAssignment_7_0() { return cNameAssignment_7_0; }
 
-		//"not required columns"
+		//"not-required-columns"
 		public Keyword getNameNotRequiredColumnsKeyword_7_0_0() { return cNameNotRequiredColumnsKeyword_7_0_0; }
 
 		//WS+
@@ -1198,13 +1198,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getDbColumnsIDENTTerminalRuleCall_7_3_1_0() { return cDbColumnsIDENTTerminalRuleCall_7_3_1_0; }
 
-		//name="create columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
+		//name="create-columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
 		public Group getGroup_8() { return cGroup_8; }
 
-		//name="create columns"
+		//name="create-columns"
 		public Assignment getNameAssignment_8_0() { return cNameAssignment_8_0; }
 
-		//"create columns"
+		//"create-columns"
 		public Keyword getNameCreateColumnsKeyword_8_0_0() { return cNameCreateColumnsKeyword_8_0_0; }
 
 		//WS+
@@ -1228,13 +1228,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ColumnTypeAssignement
 		public RuleCall getColumnTypesColumnTypeAssignementParserRuleCall_8_3_1_0() { return cColumnTypesColumnTypeAssignementParserRuleCall_8_3_1_0; }
 
-		//name="rename tables" (WS+ tables+=TableAssignement)+
+		//name="rename-tables" (WS+ tables+=TableAssignement)+
 		public Group getGroup_9() { return cGroup_9; }
 
-		//name="rename tables"
+		//name="rename-tables"
 		public Assignment getNameAssignment_9_0() { return cNameAssignment_9_0; }
 
-		//"rename tables"
+		//"rename-tables"
 		public Keyword getNameRenameTablesKeyword_9_0_0() { return cNameRenameTablesKeyword_9_0_0; }
 
 		//(WS+ tables+=TableAssignement)+
@@ -1249,13 +1249,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//TableAssignement
 		public RuleCall getTablesTableAssignementParserRuleCall_9_1_1_0() { return cTablesTableAssignementParserRuleCall_9_1_1_0; }
 
-		//name="rename columns" WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+
+		//name="rename-columns" WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+
 		public Group getGroup_10() { return cGroup_10; }
 
-		//name="rename columns"
+		//name="rename-columns"
 		public Assignment getNameAssignment_10_0() { return cNameAssignment_10_0; }
 
-		//"rename columns"
+		//"rename-columns"
 		public Keyword getNameRenameColumnsKeyword_10_0_0() { return cNameRenameColumnsKeyword_10_0_0; }
 
 		//WS+
@@ -1279,13 +1279,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ColumnAssignement
 		public RuleCall getColumnsColumnAssignementParserRuleCall_10_3_1_0() { return cColumnsColumnAssignementParserRuleCall_10_3_1_0; }
 
-		//name="ignore one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
+		//name="ignore-one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		public Group getGroup_11() { return cGroup_11; }
 
-		//name="ignore one-to-many"
+		//name="ignore-one-to-many"
 		public Assignment getNameAssignment_11_0() { return cNameAssignment_11_0; }
 
-		//"ignore one-to-many"
+		//"ignore-one-to-many"
 		public Keyword getNameIgnoreOneToManyKeyword_11_0_0() { return cNameIgnoreOneToManyKeyword_11_0_0; }
 
 		//WS+
@@ -1309,13 +1309,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ExportAssignement
 		public RuleCall getExportsExportAssignementParserRuleCall_11_3_1_0() { return cExportsExportAssignementParserRuleCall_11_3_1_0; }
 
-		//name="ignore many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//name="ignore-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		public Group getGroup_12() { return cGroup_12; }
 
-		//name="ignore many-to-one"
+		//name="ignore-many-to-one"
 		public Assignment getNameAssignment_12_0() { return cNameAssignment_12_0; }
 
-		//"ignore many-to-one"
+		//"ignore-many-to-one"
 		public Keyword getNameIgnoreManyToOneKeyword_12_0_0() { return cNameIgnoreManyToOneKeyword_12_0_0; }
 
 		//WS+
@@ -1339,13 +1339,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ImportAssignement
 		public RuleCall getImportsImportAssignementParserRuleCall_12_3_1_0() { return cImportsImportAssignementParserRuleCall_12_3_1_0; }
 
-		//name="inherit many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//name="inherit-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		public Group getGroup_13() { return cGroup_13; }
 
-		//name="inherit many-to-one"
+		//name="inherit-many-to-one"
 		public Assignment getNameAssignment_13_0() { return cNameAssignment_13_0; }
 
-		//"inherit many-to-one"
+		//"inherit-many-to-one"
 		public Keyword getNameInheritManyToOneKeyword_13_0_0() { return cNameInheritManyToOneKeyword_13_0_0; }
 
 		//WS+
@@ -1369,13 +1369,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ImportAssignement
 		public RuleCall getImportsImportAssignementParserRuleCall_13_3_1_0() { return cImportsImportAssignementParserRuleCall_13_3_1_0; }
 
-		//name="create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
+		//name="create-one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		public Group getGroup_14() { return cGroup_14; }
 
-		//name="create one-to-many"
+		//name="create-one-to-many"
 		public Assignment getNameAssignment_14_0() { return cNameAssignment_14_0; }
 
-		//"create one-to-many"
+		//"create-one-to-many"
 		public Keyword getNameCreateOneToManyKeyword_14_0_0() { return cNameCreateOneToManyKeyword_14_0_0; }
 
 		//WS+
@@ -1399,13 +1399,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ExportAssignement
 		public RuleCall getExportsExportAssignementParserRuleCall_14_3_1_0() { return cExportsExportAssignementParserRuleCall_14_3_1_0; }
 
-		//name="create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+		//name="create-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		public Group getGroup_15() { return cGroup_15; }
 
-		//name="create many-to-one"
+		//name="create-many-to-one"
 		public Assignment getNameAssignment_15_0() { return cNameAssignment_15_0; }
 
-		//"create many-to-one"
+		//"create-many-to-one"
 		public Keyword getNameCreateManyToOneKeyword_15_0_0() { return cNameCreateManyToOneKeyword_15_0_0; }
 
 		//WS+
@@ -1429,14 +1429,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ImportAssignement
 		public RuleCall getImportsImportAssignementParserRuleCall_15_3_1_0() { return cImportsImportAssignementParserRuleCall_15_3_1_0; }
 
-		//name="tables many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
+		//name="table-many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
 		public Group getGroup_16() { return cGroup_16; }
 
-		//name="tables many-to-many"
+		//name="table-many-to-many"
 		public Assignment getNameAssignment_16_0() { return cNameAssignment_16_0; }
 
-		//"tables many-to-many"
-		public Keyword getNameTablesManyToManyKeyword_16_0_0() { return cNameTablesManyToManyKeyword_16_0_0; }
+		//"table-many-to-many"
+		public Keyword getNameTableManyToManyKeyword_16_0_0() { return cNameTableManyToManyKeyword_16_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_16_1() { return cWSTerminalRuleCall_16_1; }
@@ -1459,13 +1459,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ExportAssignement
 		public RuleCall getExportsExportAssignementParserRuleCall_16_3_1_0() { return cExportsExportAssignementParserRuleCall_16_3_1_0; }
 
-		//name="inherit discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
+		//name="inherit-discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
 		public Group getGroup_17() { return cGroup_17; }
 
-		//name="inherit discriminator"
+		//name="inherit-discriminator"
 		public Assignment getNameAssignment_17_0() { return cNameAssignment_17_0; }
 
-		//"inherit discriminator"
+		//"inherit-discriminator"
 		public Keyword getNameInheritDiscriminatorKeyword_17_0_0() { return cNameInheritDiscriminatorKeyword_17_0_0; }
 
 		//WS+
@@ -1498,13 +1498,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//InheritanceAssignement
 		public RuleCall getInheritanceInheritanceAssignementParserRuleCall_17_5_1_0() { return cInheritanceInheritanceAssignementParserRuleCall_17_5_1_0; }
 
-		//name="generate methods" (WS+ methods+=IDENT)+
+		//name="generate-methods" (WS+ methods+=IDENT)+
 		public Group getGroup_18() { return cGroup_18; }
 
-		//name="generate methods"
+		//name="generate-methods"
 		public Assignment getNameAssignment_18_0() { return cNameAssignment_18_0; }
 
-		//"generate methods"
+		//"generate-methods"
 		public Keyword getNameGenerateMethodsKeyword_18_0_0() { return cNameGenerateMethodsKeyword_18_0_0; }
 
 		//(WS+ methods+=IDENT)+
@@ -5935,20 +5935,20 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PojogenProperty:
-	//	name="types sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types in table" WS+ dbTable=IDENT (WS+
-	//	sqlTypes+=SqlTypeAssignement)+ | name="types for columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
-	//	| name="ignore tables" (WS+ dbTables+=IDENT)+ | name="only tables" (WS+ dbTables+=IDENT)+ | name="ignore columns" WS+
-	//	dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ |
-	//	name="not required columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="create columns" WS+ dbTable=IDENT (WS+
-	//	columnTypes+=ColumnTypeAssignement)+ | name="rename tables" (WS+ tables+=TableAssignement)+ | name="rename columns"
-	//	WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+ | name="ignore one-to-many" WS+ dbTable=IDENT (WS+
+	//	name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types-in-table" WS+ dbTable=IDENT (WS+
+	//	sqlTypes+=SqlTypeAssignement)+ | name="types-for-columns" WS+ dbTable=IDENT (WS+ columnTypes+=ColumnTypeAssignement)+
+	//	| name="ignore-tables" (WS+ dbTables+=IDENT)+ | name="only-tables" (WS+ dbTables+=IDENT)+ | name="ignore-columns" WS+
+	//	dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="required-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ |
+	//	name="not-required-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="create-columns" WS+ dbTable=IDENT (WS+
+	//	columnTypes+=ColumnTypeAssignement)+ | name="rename-tables" (WS+ tables+=TableAssignement)+ | name="rename-columns"
+	//	WS+ dbTable=IDENT (WS+ columns+=ColumnAssignement)+ | name="ignore-one-to-many" WS+ dbTable=IDENT (WS+
 	//	exports+=ExportAssignement)+ // exports
-	//	| name="ignore many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-	//	| name="inherit many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-	//	| name="create one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
-	//	| name="create many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-	//	| name="tables many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit discriminator" WS+
-	//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate methods" (WS+
+	//	| name="ignore-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+	//	| name="inherit-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+	//	| name="create-one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
+	//	| name="create-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
+	//	| name="table-many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit-discriminator" WS+
+	//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 	//	methods+=IDENT)+ | name="implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends" WS+
 	//	toExtends=[jvmTypes::JvmType|QualifiedName];
 	public PojogenPropertyElements getPojogenPropertyAccess() {
