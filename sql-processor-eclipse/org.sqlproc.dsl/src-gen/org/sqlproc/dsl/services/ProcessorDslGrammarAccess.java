@@ -5756,7 +5756,6 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tIDENT_DOT;
 	private TerminalRule tIDENT;
 	private TerminalRule tNUMBER;
-	private TerminalRule tNEGATIVE_NUMBER;
 	private TerminalRule tESC_CHAR;
 	private TerminalRule tML_COMMENT;
 	private TerminalRule tSL_COMMENT;
@@ -6408,12 +6407,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return (tNUMBER != null) ? tNUMBER : (tNUMBER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NUMBER"));
 	} 
 
-	//terminal NEGATIVE_NUMBER:
-	//	"-" "0".."9"+;
-	public TerminalRule getNEGATIVE_NUMBERRule() {
-		return (tNEGATIVE_NUMBER != null) ? tNEGATIVE_NUMBER : (tNEGATIVE_NUMBER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NEGATIVE_NUMBER"));
-	} 
-
+	////terminal NEGATIVE_NUMBER: '-'('0'..'9')+;
 	//terminal ESC_CHAR:
 	//	"\\" (COLON | SEMICOLON | STRING | LBRACE | RBRACE | BOR | HASH | AT | PERCENT | "/");
 	public TerminalRule getESC_CHARRule() {
@@ -6439,13 +6433,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal AND:
-	//	"&" "&" "&";
+	//	"&" "&";
 	public TerminalRule getANDRule() {
 		return (tAND != null) ? tAND : (tAND = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "AND"));
 	} 
 
 	//terminal OR:
-	//	"|" "|" "|";
+	//	"|" "|";
 	public TerminalRule getORRule() {
 		return (tOR != null) ? tOR : (tOR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "OR"));
 	} 
