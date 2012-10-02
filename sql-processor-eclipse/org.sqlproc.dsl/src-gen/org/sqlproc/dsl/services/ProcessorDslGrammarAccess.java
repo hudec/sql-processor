@@ -6409,7 +6409,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	////terminal NEGATIVE_NUMBER: '-'('0'..'9')+;
 	//terminal ESC_CHAR:
-	//	"\\" (COLON | SEMICOLON | STRING | LBRACE | RBRACE | BOR | HASH | AT | PERCENT | "/");
+	//	"\\" (COLON | SEMICOLON | STRING | LBRACE | RBRACE | BOR | HASH | AT | PERCENT | "." | "/");
 	public TerminalRule getESC_CHARRule() {
 		return (tESC_CHAR != null) ? tESC_CHAR : (tESC_CHAR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ESC_CHAR"));
 	} 

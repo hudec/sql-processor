@@ -1909,6 +1909,7 @@
         <elements xsi:type="xtext:RuleCall" rule="//@rules.76"/>
         <elements xsi:type="xtext:RuleCall" rule="//@rules.77"/>
         <elements xsi:type="xtext:RuleCall" rule="//@rules.82"/>
+        <elements xsi:type="xtext:Keyword" value="."/>
         <elements xsi:type="xtext:Keyword" value="/"/>
       </elements>
     </alternatives>
