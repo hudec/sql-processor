@@ -29,6 +29,7 @@ import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.IdentifierUsageExt;
+import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MappingUsageExt;
@@ -38,6 +39,7 @@ import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.PojoUsageExt;
+import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
@@ -573,6 +575,189 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
                     ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
                     acceptor.accept(completionProposal);
                 }
+            }
+        }
+    }
+
+    @Override
+    public void completePojogenProperty_DbTable(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completePojogenProperty_DbTable(model, assignment, context, acceptor);
+            return;
+        }
+        for (String table : dbResolver.getTables(model)) {
+            if (table.indexOf('$') >= 0)
+                continue;
+            String proposal = getValueConverter().toString(table, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+    }
+
+    @Override
+    public void completeTableAssignement_DbTable(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeTableAssignement_DbTable(model, assignment, context, acceptor);
+            return;
+        }
+        for (String table : dbResolver.getTables(model)) {
+            if (table.indexOf('$') >= 0)
+                continue;
+            String proposal = getValueConverter().toString(table, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+    }
+
+    @Override
+    public void completeInheritanceAssignement_DbTable(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeInheritanceAssignement_DbTable(model, assignment, context, acceptor);
+            return;
+        }
+        for (String table : dbResolver.getTables(model)) {
+            if (table.indexOf('$') >= 0)
+                continue;
+            String proposal = getValueConverter().toString(table, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+    }
+
+    @Override
+    public void completePojogenProperty_DbTables(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completePojogenProperty_DbTables(model, assignment, context, acceptor);
+            return;
+        }
+        for (String table : dbResolver.getTables(model)) {
+            if (table.indexOf('$') >= 0)
+                continue;
+            String proposal = getValueConverter().toString(table, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+    }
+
+    @Override
+    public void completePojogenProperty_DbColumn(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof PojogenProperty)) {
+            super.completePojogenProperty_DbColumn(model, assignment, context, acceptor);
+            return;
+        }
+        PojogenProperty prop = (PojogenProperty) model;
+        if (prop.getDbTable() != null) {
+            for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
+                String proposal = getValueConverter().toString(column, "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
+            }
+        }
+    }
+
+    @Override
+    public void completePojogenProperty_DbColumns(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof PojogenProperty)) {
+            super.completePojogenProperty_DbColumns(model, assignment, context, acceptor);
+            return;
+        }
+        PojogenProperty prop = (PojogenProperty) model;
+        if (prop.getDbTable() != null) {
+            for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
+                String proposal = getValueConverter().toString(column, "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
+            }
+        }
+    }
+
+    @Override
+    public void completeColumnTypeAssignement_DbColumn(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof PojogenProperty)) {
+            super.completeColumnTypeAssignement_DbColumn(model, assignment, context, acceptor);
+            return;
+        }
+        PojogenProperty prop = (PojogenProperty) model;
+        if (prop.getDbTable() != null) {
+            for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
+                String proposal = getValueConverter().toString(column, "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
+            }
+        }
+    }
+
+    @Override
+    public void completeColumnAssignement_DbColumn(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof PojogenProperty)) {
+            super.completeColumnAssignement_DbColumn(model, assignment, context, acceptor);
+            return;
+        }
+        PojogenProperty prop = (PojogenProperty) model;
+        if (prop.getDbTable() != null) {
+            for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
+                String proposal = getValueConverter().toString(column, "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
+            }
+        }
+    }
+
+    @Override
+    public void completeImportAssignement_DbColumn(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof PojogenProperty)) {
+            super.completeImportAssignement_DbColumn(model, assignment, context, acceptor);
+            return;
+        }
+        PojogenProperty prop = (PojogenProperty) model;
+        if (prop.getDbTable() != null) {
+            for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
+                String proposal = getValueConverter().toString(column, "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
+            }
+        }
+    }
+
+    @Override
+    public void completeExportAssignement_DbColumn(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof PojogenProperty)) {
+            super.completeExportAssignement_DbColumn(model, assignment, context, acceptor);
+            return;
+        }
+        PojogenProperty prop = (PojogenProperty) model;
+        if (prop.getDbTable() != null) {
+            for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
+                String proposal = getValueConverter().toString(column, "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
+            }
+        }
+    }
+
+    @Override
+    public void completeInheritanceAssignement_DbColumns(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof InheritanceAssignement)) {
+            super.completeInheritanceAssignement_DbColumns(model, assignment, context, acceptor);
+            return;
+        }
+        InheritanceAssignement prop = (InheritanceAssignement) model; // TODO
+        if (prop.getDbTable() != null) {
+            for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
+                String proposal = getValueConverter().toString(column, "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
             }
         }
     }
