@@ -752,13 +752,31 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             super.completeInheritanceAssignement_DbColumns(model, assignment, context, acceptor);
             return;
         }
-        InheritanceAssignement prop = (InheritanceAssignement) model; // TODO
-        if (prop.getDbTable() != null) {
-            for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
+        InheritanceAssignement prop = (InheritanceAssignement) model;
+        PojogenProperty pojogenProperty = EcoreUtil2.getContainerOfType(model, PojogenProperty.class);
+        if (pojogenProperty.getDbTable() != null) {
+            for (String column : dbResolver.getColumns(model, pojogenProperty.getDbTable())) {
                 String proposal = getValueConverter().toString(column, "IDENT");
                 ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
                 acceptor.accept(completionProposal);
             }
+        }
+    }
+
+    private static final String[] methods = { "toString", "hashCode", "equals" };
+
+    @Override
+    public void completePojogenProperty_Methods(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!(model instanceof PojogenProperty)) {
+            super.completePojogenProperty_Methods(model, assignment, context, acceptor);
+            return;
+        }
+        PojogenProperty prop = (PojogenProperty) model;
+        for (String method : methods) {
+            String proposal = getValueConverter().toString(method, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
         }
     }
 }
