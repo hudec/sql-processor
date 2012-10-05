@@ -27,8 +27,10 @@ import org.sqlproc.dsl.processorDsl.ColumnUsage;
 import org.sqlproc.dsl.processorDsl.ColumnUsageExt;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
+import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.IdentifierUsageExt;
+import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
@@ -712,6 +714,35 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     }
 
     @Override
+    public void completeImportAssignement_PkTable(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof ImportAssignement)) {
+            super.completeImportAssignement_PkTable(model, assignment, context, acceptor);
+            return;
+        }
+        ImportAssignement imp = (ImportAssignement) model;
+        PojogenProperty prop = EcoreUtil2.getContainerOfType(imp, PojogenProperty.class);
+        if (prop.getDbTable() != null && imp.getDbColumn() != null) {
+            System.out.println("PKTABLE for " + prop.getDbTable() + " and " + imp.getDbColumn());
+        }
+    }
+
+    @Override
+    public void completeImportAssignement_PkColumn(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof ImportAssignement)) {
+            super.completeImportAssignement_PkColumn(model, assignment, context, acceptor);
+            return;
+        }
+        ImportAssignement imp = (ImportAssignement) model;
+        PojogenProperty prop = EcoreUtil2.getContainerOfType(imp, PojogenProperty.class);
+        if (prop.getDbTable() != null && imp.getDbColumn() != null & imp.getPkTable() != null) {
+            System.out.println("PKCOLUMN for " + prop.getDbTable() + " and " + imp.getDbColumn() + " and "
+                    + imp.getPkTable());
+        }
+    }
+
+    @Override
     public void completeImportAssignement_DbColumn(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
         if (!isResolveDb(model) && !(model instanceof PojogenProperty)) {
@@ -725,6 +756,35 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
                 ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
                 acceptor.accept(completionProposal);
             }
+        }
+    }
+
+    @Override
+    public void completeExportAssignement_FkTable(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof ExportAssignement)) {
+            super.completeExportAssignement_FkTable(model, assignment, context, acceptor);
+            return;
+        }
+        ExportAssignement exp = (ExportAssignement) model;
+        PojogenProperty prop = EcoreUtil2.getContainerOfType(exp, PojogenProperty.class);
+        if (prop.getDbTable() != null && exp.getDbColumn() != null) {
+            System.out.println("FKTABLE for " + prop.getDbTable() + " and " + exp.getDbColumn());
+        }
+    }
+
+    @Override
+    public void completeExportAssignement_FkColumn(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof ExportAssignement)) {
+            super.completeExportAssignement_FkColumn(model, assignment, context, acceptor);
+            return;
+        }
+        ExportAssignement exp = (ExportAssignement) model;
+        PojogenProperty prop = EcoreUtil2.getContainerOfType(exp, PojogenProperty.class);
+        if (prop.getDbTable() != null && exp.getDbColumn() != null & exp.getFkTable() != null) {
+            System.out.println("FKCOLUMN for " + prop.getDbTable() + " and " + exp.getDbColumn() + " and "
+                    + exp.getFkTable());
         }
     }
 
