@@ -2152,17 +2152,17 @@ rulePojogenProperty returns [EObject current=null]
 )+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPojogenPropertyAccess().getExportsExportAssignementParserRuleCall_16_3_1_0()); 
+	        newCompositeNode(grammarAccess.getPojogenPropertyAccess().getImportsImportAssignementParserRuleCall_16_3_1_0()); 
 	    }
-		lv_exports_76_0=ruleExportAssignement		{
+		lv_imports_76_0=ruleImportAssignement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPojogenPropertyRule());
 	        }
        		add(
        			$current, 
-       			"exports",
-        		lv_exports_76_0, 
-        		"ExportAssignement");
+       			"imports",
+        		lv_imports_76_0, 
+        		"ImportAssignement");
 	        afterParserOrEnumRuleCall();
 	    }
 

@@ -37055,26 +37055,26 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__PojogenProperty__Group_16_3__1__Impl"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11035:1: rule__PojogenProperty__Group_16_3__1__Impl : ( ( rule__PojogenProperty__ExportsAssignment_16_3_1 ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11035:1: rule__PojogenProperty__Group_16_3__1__Impl : ( ( rule__PojogenProperty__ImportsAssignment_16_3_1 ) ) ;
     public final void rule__PojogenProperty__Group_16_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11039:1: ( ( ( rule__PojogenProperty__ExportsAssignment_16_3_1 ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11040:1: ( ( rule__PojogenProperty__ExportsAssignment_16_3_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11039:1: ( ( ( rule__PojogenProperty__ImportsAssignment_16_3_1 ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11040:1: ( ( rule__PojogenProperty__ImportsAssignment_16_3_1 ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11040:1: ( ( rule__PojogenProperty__ExportsAssignment_16_3_1 ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11041:1: ( rule__PojogenProperty__ExportsAssignment_16_3_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11040:1: ( ( rule__PojogenProperty__ImportsAssignment_16_3_1 ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11041:1: ( rule__PojogenProperty__ImportsAssignment_16_3_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPojogenPropertyAccess().getExportsAssignment_16_3_1()); 
+               before(grammarAccess.getPojogenPropertyAccess().getImportsAssignment_16_3_1()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11042:1: ( rule__PojogenProperty__ExportsAssignment_16_3_1 )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11042:2: rule__PojogenProperty__ExportsAssignment_16_3_1
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11042:1: ( rule__PojogenProperty__ImportsAssignment_16_3_1 )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:11042:2: rule__PojogenProperty__ImportsAssignment_16_3_1
             {
-            pushFollow(FOLLOW_rule__PojogenProperty__ExportsAssignment_16_3_1_in_rule__PojogenProperty__Group_16_3__1__Impl24281);
-            rule__PojogenProperty__ExportsAssignment_16_3_1();
+            pushFollow(FOLLOW_rule__PojogenProperty__ImportsAssignment_16_3_1_in_rule__PojogenProperty__Group_16_3__1__Impl24281);
+            rule__PojogenProperty__ImportsAssignment_16_3_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -37082,7 +37082,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPojogenPropertyAccess().getExportsAssignment_16_3_1()); 
+               after(grammarAccess.getPojogenPropertyAccess().getImportsAssignment_16_3_1()); 
             }
 
             }
@@ -68545,29 +68545,29 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     // $ANTLR end "rule__PojogenProperty__DbTableAssignment_16_2"
 
 
-    // $ANTLR start "rule__PojogenProperty__ExportsAssignment_16_3_1"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22228:1: rule__PojogenProperty__ExportsAssignment_16_3_1 : ( ruleExportAssignement ) ;
-    public final void rule__PojogenProperty__ExportsAssignment_16_3_1() throws RecognitionException {
+    // $ANTLR start "rule__PojogenProperty__ImportsAssignment_16_3_1"
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22228:1: rule__PojogenProperty__ImportsAssignment_16_3_1 : ( ruleImportAssignement ) ;
+    public final void rule__PojogenProperty__ImportsAssignment_16_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22232:1: ( ( ruleExportAssignement ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22233:1: ( ruleExportAssignement )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22232:1: ( ( ruleImportAssignement ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22233:1: ( ruleImportAssignement )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22233:1: ( ruleExportAssignement )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22234:1: ruleExportAssignement
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22233:1: ( ruleImportAssignement )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22234:1: ruleImportAssignement
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPojogenPropertyAccess().getExportsExportAssignementParserRuleCall_16_3_1_0()); 
+               before(grammarAccess.getPojogenPropertyAccess().getImportsImportAssignementParserRuleCall_16_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleExportAssignement_in_rule__PojogenProperty__ExportsAssignment_16_3_146558);
-            ruleExportAssignement();
+            pushFollow(FOLLOW_ruleImportAssignement_in_rule__PojogenProperty__ImportsAssignment_16_3_146558);
+            ruleImportAssignement();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPojogenPropertyAccess().getExportsExportAssignementParserRuleCall_16_3_1_0()); 
+               after(grammarAccess.getPojogenPropertyAccess().getImportsImportAssignementParserRuleCall_16_3_1_0()); 
             }
 
             }
@@ -68587,7 +68587,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
         }
         return ;
     }
-    // $ANTLR end "rule__PojogenProperty__ExportsAssignment_16_3_1"
+    // $ANTLR end "rule__PojogenProperty__ImportsAssignment_16_3_1"
 
 
     // $ANTLR start "rule__PojogenProperty__NameAssignment_17_0"
@@ -79191,7 +79191,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     public static final BitSet FOLLOW_RULE_WS_in_rule__PojogenProperty__Group_16_3__0__Impl24208 = new BitSet(new long[]{0x0000000800000002L});
     public static final BitSet FOLLOW_RULE_WS_in_rule__PojogenProperty__Group_16_3__0__Impl24221 = new BitSet(new long[]{0x0000000800000002L});
     public static final BitSet FOLLOW_rule__PojogenProperty__Group_16_3__1__Impl_in_rule__PojogenProperty__Group_16_3__124254 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PojogenProperty__ExportsAssignment_16_3_1_in_rule__PojogenProperty__Group_16_3__1__Impl24281 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PojogenProperty__ImportsAssignment_16_3_1_in_rule__PojogenProperty__Group_16_3__1__Impl24281 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PojogenProperty__Group_17__0__Impl_in_rule__PojogenProperty__Group_17__024315 = new BitSet(new long[]{0x0000000800000000L});
     public static final BitSet FOLLOW_rule__PojogenProperty__Group_17__1_in_rule__PojogenProperty__Group_17__024318 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PojogenProperty__NameAssignment_17_0_in_rule__PojogenProperty__Group_17__0__Impl24345 = new BitSet(new long[]{0x0000000000000002L});
@@ -80111,7 +80111,7 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
     public static final BitSet FOLLOW_ruleImportAssignement_in_rule__PojogenProperty__ImportsAssignment_15_3_146452 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_93_in_rule__PojogenProperty__NameAssignment_16_046488 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojogenProperty__DbTableAssignment_16_246527 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExportAssignement_in_rule__PojogenProperty__ExportsAssignment_16_3_146558 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleImportAssignement_in_rule__PojogenProperty__ImportsAssignment_16_3_146558 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_94_in_rule__PojogenProperty__NameAssignment_17_046594 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojogenProperty__DbTableAssignment_17_246633 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_IDENT_in_rule__PojogenProperty__DbColumnAssignment_17_446664 = new BitSet(new long[]{0x0000000000000002L});

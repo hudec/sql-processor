@@ -11038,9 +11038,9 @@ rule__PojogenProperty__Group_16_3__1__Impl
     }
 :
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getExportsAssignment_16_3_1()); }
-(rule__PojogenProperty__ExportsAssignment_16_3_1)
-{ after(grammarAccess.getPojogenPropertyAccess().getExportsAssignment_16_3_1()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getImportsAssignment_16_3_1()); }
+(rule__PojogenProperty__ImportsAssignment_16_3_1)
+{ after(grammarAccess.getPojogenPropertyAccess().getImportsAssignment_16_3_1()); }
 )
 
 ;
@@ -22225,14 +22225,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__PojogenProperty__ExportsAssignment_16_3_1
+rule__PojogenProperty__ImportsAssignment_16_3_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getExportsExportAssignementParserRuleCall_16_3_1_0()); }
-	ruleExportAssignement{ after(grammarAccess.getPojogenPropertyAccess().getExportsExportAssignementParserRuleCall_16_3_1_0()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getImportsImportAssignementParserRuleCall_16_3_1_0()); }
+	ruleImportAssignement{ after(grammarAccess.getPojogenPropertyAccess().getImportsImportAssignementParserRuleCall_16_3_1_0()); }
 )
 
 ;

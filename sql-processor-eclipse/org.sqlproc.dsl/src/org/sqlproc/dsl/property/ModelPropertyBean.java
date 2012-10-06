@@ -57,7 +57,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_CREATE_EXPORTS = "create-one-to-many";
     public static final String POJOGEN_CREATE_IMPORTS = "create-many-to-one";
     public static final String POJOGEN_INHERIT_IMPORTS = "inherit-many-to-one";
-    public static final String POJOGEN_MANY_TO_MANY_EXPORTS = "table-many-to-many";
+    public static final String POJOGEN_MANY_TO_MANY_IMPORTS = "table-many-to-many";
     public static final String POJOGEN_INHERITANCE = "inherit-discriminator";
     public static final String POJOGEN_GENERATE_METHODS = "generate-methods";
     public static final String POJOGEN_IMPLEMENTS = "implements";
@@ -404,7 +404,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     imports.put(_import.getDbColumn(), new HashMap<String, String>());
                 imports.get(_import.getDbColumn()).put(_import.getPkTable(), _import.getPkColumn());
             }
-        } else if (POJOGEN_MANY_TO_MANY_EXPORTS.equals(property.getName())) {
+        } else if (POJOGEN_MANY_TO_MANY_IMPORTS.equals(property.getName())) {
             // if (modelValues.manyToManyExports == null)
             // modelValues.manyToManyExports = new HashMap<String, Map<String, Map<String, String>>>();
             if (!modelValues.manyToManyExports.containsKey(property.getDbTable()))

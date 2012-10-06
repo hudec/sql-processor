@@ -910,8 +910,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDbTableIDENTTerminalRuleCall_16_2_0 = (RuleCall)cDbTableAssignment_16_2.eContents().get(0);
 		private final Group cGroup_16_3 = (Group)cGroup_16.eContents().get(3);
 		private final RuleCall cWSTerminalRuleCall_16_3_0 = (RuleCall)cGroup_16_3.eContents().get(0);
-		private final Assignment cExportsAssignment_16_3_1 = (Assignment)cGroup_16_3.eContents().get(1);
-		private final RuleCall cExportsExportAssignementParserRuleCall_16_3_1_0 = (RuleCall)cExportsAssignment_16_3_1.eContents().get(0);
+		private final Assignment cImportsAssignment_16_3_1 = (Assignment)cGroup_16_3.eContents().get(1);
+		private final RuleCall cImportsImportAssignementParserRuleCall_16_3_1_0 = (RuleCall)cImportsAssignment_16_3_1.eContents().get(0);
 		private final Group cGroup_17 = (Group)cAlternatives.eContents().get(17);
 		private final Assignment cNameAssignment_17_0 = (Assignment)cGroup_17.eContents().get(0);
 		private final Keyword cNameInheritDiscriminatorKeyword_17_0_0 = (Keyword)cNameAssignment_17_0.eContents().get(0);
@@ -961,7 +961,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	| name="inherit-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//	| name="create-one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		//	| name="create-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-		//	| name="table-many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit-discriminator" WS+
+		//	| name="table-many-to-many" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ | name="inherit-discriminator" WS+
 		//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 		//	methods+=IDENT)+ | name="implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends" WS+
 		//	toExtends=[jvmTypes::JvmType|QualifiedName];
@@ -979,7 +979,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="inherit-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="create-one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		//| name="create-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-		//| name="table-many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit-discriminator" WS+
+		//| name="table-many-to-many" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ | name="inherit-discriminator" WS+
 		//dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 		//methods+=IDENT)+ | name="implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends" WS+
 		//toExtends=[jvmTypes::JvmType|QualifiedName]
@@ -1429,7 +1429,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ImportAssignement
 		public RuleCall getImportsImportAssignementParserRuleCall_15_3_1_0() { return cImportsImportAssignementParserRuleCall_15_3_1_0; }
 
-		//name="table-many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
+		//name="table-many-to-many" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+
 		public Group getGroup_16() { return cGroup_16; }
 
 		//name="table-many-to-many"
@@ -1447,17 +1447,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getDbTableIDENTTerminalRuleCall_16_2_0() { return cDbTableIDENTTerminalRuleCall_16_2_0; }
 
-		//(WS+ exports+=ExportAssignement)+
+		//(WS+ imports+=ImportAssignement)+
 		public Group getGroup_16_3() { return cGroup_16_3; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_16_3_0() { return cWSTerminalRuleCall_16_3_0; }
 
-		//exports+=ExportAssignement
-		public Assignment getExportsAssignment_16_3_1() { return cExportsAssignment_16_3_1; }
+		//imports+=ImportAssignement
+		public Assignment getImportsAssignment_16_3_1() { return cImportsAssignment_16_3_1; }
 
-		//ExportAssignement
-		public RuleCall getExportsExportAssignementParserRuleCall_16_3_1_0() { return cExportsExportAssignementParserRuleCall_16_3_1_0; }
+		//ImportAssignement
+		public RuleCall getImportsImportAssignementParserRuleCall_16_3_1_0() { return cImportsImportAssignementParserRuleCall_16_3_1_0; }
 
 		//name="inherit-discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
 		public Group getGroup_17() { return cGroup_17; }
@@ -5947,7 +5947,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	| name="inherit-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	//	| name="create-one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 	//	| name="create-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-	//	| name="table-many-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ | name="inherit-discriminator" WS+
+	//	| name="table-many-to-many" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ | name="inherit-discriminator" WS+
 	//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 	//	methods+=IDENT)+ | name="implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends" WS+
 	//	toExtends=[jvmTypes::JvmType|QualifiedName];

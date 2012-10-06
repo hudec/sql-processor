@@ -45,6 +45,8 @@ import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
+import org.sqlproc.dsl.resolver.DbExport;
+import org.sqlproc.dsl.resolver.DbImport;
 import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolver;
 import org.sqlproc.dsl.util.Utils;
@@ -723,7 +725,14 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         ImportAssignement imp = (ImportAssignement) model;
         PojogenProperty prop = EcoreUtil2.getContainerOfType(imp, PojogenProperty.class);
         if (prop.getDbTable() != null && imp.getDbColumn() != null) {
-            System.out.println("PKTABLE for " + prop.getDbTable() + " and " + imp.getDbColumn());
+            // System.out.println("PKTABLE for " + prop.getDbTable() + " and " + imp.getDbColumn());
+            for (DbImport dbImport : dbResolver.getDbImports(model, prop.getDbTable())) {
+                if (dbImport.getFkColumn() != null && dbImport.getFkColumn().equals(imp.getDbColumn())) {
+                    String proposal = getValueConverter().toString(dbImport.getPkTable(), "IDENT");
+                    ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                    acceptor.accept(completionProposal);
+                }
+            }
         }
     }
 
@@ -737,8 +746,17 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         ImportAssignement imp = (ImportAssignement) model;
         PojogenProperty prop = EcoreUtil2.getContainerOfType(imp, PojogenProperty.class);
         if (prop.getDbTable() != null && imp.getDbColumn() != null & imp.getPkTable() != null) {
-            System.out.println("PKCOLUMN for " + prop.getDbTable() + " and " + imp.getDbColumn() + " and "
-                    + imp.getPkTable());
+            // System.out.println("PKCOLUMN for " + prop.getDbTable() + " and " + imp.getDbColumn() + " and "
+            // + imp.getPkTable());
+            for (DbImport dbImport : dbResolver.getDbImports(model, prop.getDbTable())) {
+                if (dbImport.getFkColumn() != null && dbImport.getFkColumn().equals(imp.getDbColumn())) {
+                    if (dbImport.getPkTable() != null && dbImport.getPkTable().equals(imp.getPkTable())) {
+                        String proposal = getValueConverter().toString(dbImport.getPkColumn(), "IDENT");
+                        ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                        acceptor.accept(completionProposal);
+                    }
+                }
+            }
         }
     }
 
@@ -769,7 +787,14 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         ExportAssignement exp = (ExportAssignement) model;
         PojogenProperty prop = EcoreUtil2.getContainerOfType(exp, PojogenProperty.class);
         if (prop.getDbTable() != null && exp.getDbColumn() != null) {
-            System.out.println("FKTABLE for " + prop.getDbTable() + " and " + exp.getDbColumn());
+            // System.out.println("FKTABLE for " + prop.getDbTable() + " and " + exp.getDbColumn());
+            for (DbExport dbExport : dbResolver.getDbExports(model, prop.getDbTable())) {
+                if (dbExport.getPkColumn() != null && dbExport.getPkColumn().equals(exp.getDbColumn())) {
+                    String proposal = getValueConverter().toString(dbExport.getFkTable(), "IDENT");
+                    ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                    acceptor.accept(completionProposal);
+                }
+            }
         }
     }
 
@@ -783,8 +808,17 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         ExportAssignement exp = (ExportAssignement) model;
         PojogenProperty prop = EcoreUtil2.getContainerOfType(exp, PojogenProperty.class);
         if (prop.getDbTable() != null && exp.getDbColumn() != null & exp.getFkTable() != null) {
-            System.out.println("FKCOLUMN for " + prop.getDbTable() + " and " + exp.getDbColumn() + " and "
-                    + exp.getFkTable());
+            // System.out.println("FKCOLUMN for " + prop.getDbTable() + " and " + exp.getDbColumn() + " and "
+            // + exp.getFkTable());
+            for (DbExport dbExport : dbResolver.getDbExports(model, prop.getDbTable())) {
+                if (dbExport.getPkColumn() != null && dbExport.getPkColumn().equals(exp.getDbColumn())) {
+                    if (dbExport.getFkTable() != null && dbExport.getFkTable().equals(exp.getFkTable())) {
+                        String proposal = getValueConverter().toString(dbExport.getFkColumn(), "IDENT");
+                        ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                        acceptor.accept(completionProposal);
+                    }
+                }
+            }
         }
     }
 

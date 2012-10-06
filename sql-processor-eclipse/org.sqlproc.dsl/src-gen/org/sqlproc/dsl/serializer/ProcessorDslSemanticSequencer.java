@@ -1031,7 +1031,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='inherit-many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
 	 *         (name='create-one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
 	 *         (name='create-many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
-	 *         (name='table-many-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
+	 *         (name='table-many-to-many' dbTable=IDENT imports+=ImportAssignement+) | 
 	 *         (name='inherit-discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
 	 *         (name='generate-methods' methods+=IDENT+) | 
 	 *         (name='implements' toImplements+=[JvmType|QualifiedName]+) | 

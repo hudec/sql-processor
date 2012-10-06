@@ -428,7 +428,7 @@ public class DbResolverBean implements DbResolver {
                     dbExport.setFkColumn(result.getString("FKCOLUMN_NAME"));
                     dbExport.setFkName(result.getString("FK_NAME"));
                     dbExport.setPkName(result.getString("PK_NAME"));
-                    // System.out.println("BBB " + dbExport.toString());
+                    System.out.println("BBB " + table + " " + dbExport.toString());
                     exportsForModel.add(dbExport);
                 }
             } catch (SQLException e) {
@@ -480,7 +480,7 @@ public class DbResolverBean implements DbResolver {
                     dbImport.setFkColumn(result.getString("FKCOLUMN_NAME"));
                     dbImport.setFkName(result.getString("FK_NAME"));
                     dbImport.setPkName(result.getString("PK_NAME"));
-                    // System.out.println("CCC " + dbImport.toString());
+                    System.out.println("CCC " + table + " " + dbImport.toString());
                     importsForModel.add(dbImport);
                 }
             } catch (SQLException e) {

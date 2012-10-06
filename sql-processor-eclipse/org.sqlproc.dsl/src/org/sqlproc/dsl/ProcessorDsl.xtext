@@ -51,7 +51,7 @@ PojogenProperty:
 	|name='inherit-many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	|name='create-one-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 	|name='create-many-to-one' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-	|name='table-many-to-many' WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+
+	|name='table-many-to-many' WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+
 	|name='inherit-discriminator' WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
 	|name='generate-methods' (WS+ methods+=IDENT)+
 	|name='implements' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
