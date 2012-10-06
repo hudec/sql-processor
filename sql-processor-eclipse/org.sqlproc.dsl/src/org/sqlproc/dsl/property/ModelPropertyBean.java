@@ -33,14 +33,16 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
 
     protected Logger LOGGER = Logger.getLogger(ModelPropertyBean.class);
 
-    public static final String RESOLVE_REFERENCES = "resolve references";
+    public static final String RESOLVE_POJO_ON = "resolve-pojo-on";
+    public static final String RESOLVE_POJO_OFF = "resolve-pojo-off";
     public static final String DATABASE = "database";
-    public static final String DATABASE_ONLINE = "online";
-    public static final String DATABASE_URL = "url";
-    public static final String DATABASE_USERNAME = "username";
-    public static final String DATABASE_PASSWORD = "password";
-    public static final String DATABASE_SCHEMA = "schema";
-    public static final String DATABASE_DRIVER = "driver";
+    public static final String DATABASE_IS_ONLINE = "is-online";
+    public static final String DATABASE_IS_OFFLINE = "is-offline";
+    public static final String DATABASE_HAS_URL = "has-url";
+    public static final String DATABASE_LOGIN_USERNAME = "login-username";
+    public static final String DATABASE_LOGIN_NPASSWORD = "login-password";
+    public static final String DATABASE_ACTIVE_SCHEMA = "active-schema";
+    public static final String DATABASE_JDBC_DRIVER = "jdbc-driver";
     public static final String POJOGEN = "pojogen";
     public static final String POJOGEN_TYPE_SQLTYPES = "types-sqltypes";
     public static final String POJOGEN_TYPE_IN_TABLE = "types-in-table";
@@ -61,8 +63,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_MANY_TO_MANY_IMPORTS = "table-many-to-many";
     public static final String POJOGEN_INHERITANCE = "inherit-discriminator";
     public static final String POJOGEN_GENERATE_METHODS = "generate-methods";
-    public static final String POJOGEN_IMPLEMENTS = "implements";
-    public static final String POJOGEN_EXTENDS = "extends";
+    public static final String POJOGEN_IMPLEMENTS_INTERFACES = "implements-interfaces";
+    public static final String POJOGEN_EXTENDS_CLASS = "extends-class";
 
     public static class ModelValues {
         public boolean doResolvePojo;
@@ -229,25 +231,31 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     public void setValue(ModelValues modelValues, Property property) {
-        if (RESOLVE_REFERENCES.equals(property.getName())) {
-            modelValues.doResolvePojo = "ON".equals(property.getDoResolvePojo());
+        if (property == null)
+            return;
+        if (RESOLVE_POJO_ON.equals(property.getName())) {
+            modelValues.doResolvePojo = true;
+        } else if (RESOLVE_POJO_OFF.equals(property.getName())) {
+            modelValues.doResolvePojo = false;
         }
     }
 
     public void setValue(ModelValues modelValues, DatabaseProperty property) {
         if (property == null)
             return;
-        if (DATABASE_ONLINE.equals(property.getName())) {
-            modelValues.doResolveDb = "ON".equals(property.getDoResolveDb());
-        } else if (DATABASE_URL.equals(property.getName())) {
+        if (DATABASE_IS_ONLINE.equals(property.getName())) {
+            modelValues.doResolveDb = true;
+        } else if (DATABASE_IS_OFFLINE.equals(property.getName())) {
+            modelValues.doResolveDb = false;
+        } else if (DATABASE_HAS_URL.equals(property.getName())) {
             modelValues.dbUrl = property.getDbUrl();
-        } else if (DATABASE_USERNAME.equals(property.getName())) {
+        } else if (DATABASE_LOGIN_USERNAME.equals(property.getName())) {
             modelValues.dbUsername = property.getDbUsername();
-        } else if (DATABASE_PASSWORD.equals(property.getName())) {
+        } else if (DATABASE_LOGIN_NPASSWORD.equals(property.getName())) {
             modelValues.dbPassword = property.getDbPassword();
-        } else if (DATABASE_SCHEMA.equals(property.getName())) {
+        } else if (DATABASE_ACTIVE_SCHEMA.equals(property.getName())) {
             modelValues.dbSchema = property.getDbSchema();
-        } else if (DATABASE_DRIVER.equals(property.getName())) {
+        } else if (DATABASE_JDBC_DRIVER.equals(property.getName())) {
             modelValues.dbDriver = property.getDbDriver();
         }
     }
@@ -438,14 +446,14 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             for (int i = 0, m = property.getMethods().size(); i < m; i++) {
                 modelValues.generateMethods.add(property.getMethods().get(i));
             }
-        } else if (POJOGEN_IMPLEMENTS.equals(property.getName())) {
+        } else if (POJOGEN_IMPLEMENTS_INTERFACES.equals(property.getName())) {
             // if (modelValues.toImplements == null)
             // modelValues.toImplements = new HashMap<String, JvmType>();
             for (int i = 0, m = property.getToImplements().size(); i < m; i++) {
                 modelValues.toImplements.put(property.getToImplements().get(i).getIdentifier(), property
                         .getToImplements().get(i));
             }
-        } else if (POJOGEN_EXTENDS.equals(property.getName())) {
+        } else if (POJOGEN_EXTENDS_CLASS.equals(property.getName())) {
             modelValues.toExtends = property.getToExtends();
         }
     }

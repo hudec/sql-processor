@@ -20,7 +20,6 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDoResolveDb <em>Do Resolve Db</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbUrl <em>Db Url</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbUsername <em>Db Username</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbPassword <em>Db Password</em>}</li>
@@ -52,26 +51,6 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getDoResolveDb() <em>Do Resolve Db</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDoResolveDb()
-   * @generated
-   * @ordered
-   */
-  protected static final String DO_RESOLVE_DB_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getDoResolveDb() <em>Do Resolve Db</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDoResolveDb()
-   * @generated
-   * @ordered
-   */
-  protected String doResolveDb = DO_RESOLVE_DB_EDEFAULT;
 
   /**
    * The default value of the '{@link #getDbUrl() <em>Db Url</em>}' attribute.
@@ -222,29 +201,6 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDoResolveDb()
-  {
-    return doResolveDb;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDoResolveDb(String newDoResolveDb)
-  {
-    String oldDoResolveDb = doResolveDb;
-    doResolveDb = newDoResolveDb;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DO_RESOLVE_DB, oldDoResolveDb, doResolveDb));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public String getDbUrl()
   {
     return dbUrl;
@@ -367,8 +323,6 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
     {
       case ProcessorDslPackage.DATABASE_PROPERTY__NAME:
         return getName();
-      case ProcessorDslPackage.DATABASE_PROPERTY__DO_RESOLVE_DB:
-        return getDoResolveDb();
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_URL:
         return getDbUrl();
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_USERNAME:
@@ -395,9 +349,6 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
     {
       case ProcessorDslPackage.DATABASE_PROPERTY__NAME:
         setName((String)newValue);
-        return;
-      case ProcessorDslPackage.DATABASE_PROPERTY__DO_RESOLVE_DB:
-        setDoResolveDb((String)newValue);
         return;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_URL:
         setDbUrl((String)newValue);
@@ -431,9 +382,6 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
       case ProcessorDslPackage.DATABASE_PROPERTY__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case ProcessorDslPackage.DATABASE_PROPERTY__DO_RESOLVE_DB:
-        setDoResolveDb(DO_RESOLVE_DB_EDEFAULT);
-        return;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_URL:
         setDbUrl(DB_URL_EDEFAULT);
         return;
@@ -465,8 +413,6 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
     {
       case ProcessorDslPackage.DATABASE_PROPERTY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ProcessorDslPackage.DATABASE_PROPERTY__DO_RESOLVE_DB:
-        return DO_RESOLVE_DB_EDEFAULT == null ? doResolveDb != null : !DO_RESOLVE_DB_EDEFAULT.equals(doResolveDb);
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_URL:
         return DB_URL_EDEFAULT == null ? dbUrl != null : !DB_URL_EDEFAULT.equals(dbUrl);
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_USERNAME:
@@ -494,8 +440,6 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", doResolveDb: ");
-    result.append(doResolveDb);
     result.append(", dbUrl: ");
     result.append(dbUrl);
     result.append(", dbUsername: ");

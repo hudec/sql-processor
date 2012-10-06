@@ -228,29 +228,24 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-            <terminal xsi:type="xtext:Keyword" value="resolve references"/>
-          </elements>
-          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.60"/>
-          <elements xsi:type="xtext:Assignment" feature="doResolvePojo" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.50"/>
-          </elements>
+        <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+          <terminal xsi:type="xtext:Keyword" value="resolve-pojo-on"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+          <terminal xsi:type="xtext:Keyword" value="resolve-pojo-off"/>
         </elements>
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-            <terminal xsi:type="xtext:Keyword" value="database"/>
+            <terminal xsi:type="xtext:Keyword" value="database-"/>
           </elements>
-          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.60"/>
           <elements xsi:type="xtext:Assignment" feature="database" operator="=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.10"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-            <terminal xsi:type="xtext:Keyword" value="pojogen"/>
+            <terminal xsi:type="xtext:Keyword" value="pojogen-"/>
           </elements>
-          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.60"/>
           <elements xsi:type="xtext:Assignment" feature="pojogen" operator="=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.11"/>
           </elements>
@@ -264,18 +259,15 @@
       <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//DatabaseProperty"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:Keyword" value="online"/>
-        </elements>
-        <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.60"/>
-        <elements xsi:type="xtext:Assignment" feature="doResolveDb" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.50"/>
-        </elements>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:Keyword" value="is-online"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:Keyword" value="is-offline"/>
       </elements>
       <elements xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:Keyword" value="url"/>
+          <terminal xsi:type="xtext:Keyword" value="has-url"/>
         </elements>
         <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.60"/>
         <elements xsi:type="xtext:Assignment" feature="dbUrl" operator="=">
@@ -284,7 +276,7 @@
       </elements>
       <elements xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:Keyword" value="username"/>
+          <terminal xsi:type="xtext:Keyword" value="login-username"/>
         </elements>
         <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.60"/>
         <elements xsi:type="xtext:Assignment" feature="dbUsername" operator="=">
@@ -293,7 +285,7 @@
       </elements>
       <elements xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:Keyword" value="password"/>
+          <terminal xsi:type="xtext:Keyword" value="login-password"/>
         </elements>
         <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.60"/>
         <elements xsi:type="xtext:Assignment" feature="dbPassword" operator="=">
@@ -302,7 +294,7 @@
       </elements>
       <elements xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:Keyword" value="schema"/>
+          <terminal xsi:type="xtext:Keyword" value="active-schema"/>
         </elements>
         <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.60"/>
         <elements xsi:type="xtext:Assignment" feature="dbSchema" operator="=">
@@ -311,7 +303,7 @@
       </elements>
       <elements xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:Keyword" value="driver"/>
+          <terminal xsi:type="xtext:Keyword" value="jdbc-driver"/>
         </elements>
         <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.60"/>
         <elements xsi:type="xtext:Assignment" feature="dbDriver" operator="=">
@@ -596,7 +588,7 @@
       </elements>
       <elements xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:Keyword" value="implements"/>
+          <terminal xsi:type="xtext:Keyword" value="implements-interfaces"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="+">
           <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.60"/>
@@ -612,7 +604,7 @@
       </elements>
       <elements xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:Keyword" value="extends"/>
+          <terminal xsi:type="xtext:Keyword" value="extends-class"/>
         </elements>
         <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.60"/>
         <elements xsi:type="xtext:Assignment" feature="toExtends" operator="=">

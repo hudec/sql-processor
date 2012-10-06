@@ -58,13 +58,11 @@
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//Property">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Property/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Property/doResolvePojo"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Property/database"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Property/pojogen"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//DatabaseProperty">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/doResolveDb"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/dbUrl"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/dbUsername"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/dbPassword"/>

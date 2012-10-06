@@ -29,7 +29,7 @@ public class TokenToIdMapper extends DefaultAntlrTokenToAttributeIdMapper {
                 || tokenType == InternalProcessorDslLexer.RULE_BOR
                 || tokenType == InternalProcessorDslLexer.RULE_LESS_THAN
                 || tokenType == InternalProcessorDslLexer.RULE_PERCENT
-                // || tokenType == InternalProcessorDslLexer.RULE_IDENT_DOT
+                || tokenType == InternalProcessorDslLexer.RULE_IDENT_DOT
                 || tokenType == InternalProcessorDslLexer.RULE_AT)
             return HighlightingConfiguration.PUNCTATION;
 

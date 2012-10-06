@@ -21,18 +21,20 @@ InheritanceAssignement: discriminator=IDENT '->' dbTable=IDENT ('->' dbColumns+=
 ManyToManyAssignement: pkColumn=IDENT '->' pkTable=IDENT ('->' fkColumn=IDENT)?;
 
 Property:
-	(name='resolve references' WS+ doResolvePojo=ON_OFF
-	|name='database' WS+ database=DatabaseProperty
-	|name='pojogen' WS+ pojogen=PojogenProperty
+	(name='resolve-pojo-on'
+	|name='resolve-pojo-off'
+	|name='database-' database=DatabaseProperty
+	|name='pojogen-' pojogen=PojogenProperty
 	) SEMICOLON;
 
 DatabaseProperty:
-	(name='online' WS+ doResolveDb=ON_OFF
-	|name='url' WS+ dbUrl=PropertyValue
-	|name='username' WS+ dbUsername=PropertyValue
-	|name='password' WS+ dbPassword=PropertyValue
-	|name='schema' WS+ dbSchema=PropertyValue
-	|name='driver' WS+ dbDriver=PropertyValue
+	(name='is-online'
+	|name='is-offline'
+	|name='has-url' WS+ dbUrl=PropertyValue
+	|name='login-username' WS+ dbUsername=PropertyValue
+	|name='login-password' WS+ dbPassword=PropertyValue
+	|name='active-schema' WS+ dbSchema=PropertyValue
+	|name='jdbc-driver' WS+ dbDriver=PropertyValue
 	);
 
 PojogenProperty:
@@ -55,8 +57,8 @@ PojogenProperty:
 	|name='table-many-to-many' WS+ dbTable=IDENT (WS+ many2s+=ManyToManyAssignement)+
 	|name='inherit-discriminator' WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
 	|name='generate-methods' (WS+ methods+=IDENT)+
-	|name='implements' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
-	|name='extends' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
+	|name='implements-interfaces' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
+	|name='extends-class' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
 	);
 
 PropertyValue:

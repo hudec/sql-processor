@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDoResolvePojo <em>Do Resolve Pojo</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDatabase <em>Database</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getPojogen <em>Pojogen</em>}</li>
  * </ul>
@@ -50,32 +49,6 @@ public interface Property extends EObject
    * @generated
    */
   void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Do Resolve Pojo</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Do Resolve Pojo</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Do Resolve Pojo</em>' attribute.
-   * @see #setDoResolvePojo(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_DoResolvePojo()
-   * @model
-   * @generated
-   */
-  String getDoResolvePojo();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getDoResolvePojo <em>Do Resolve Pojo</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Do Resolve Pojo</em>' attribute.
-   * @see #getDoResolvePojo()
-   * @generated
-   */
-  void setDoResolvePojo(String value);
 
   /**
    * Returns the value of the '<em><b>Database</b></em>' containment reference.

@@ -1,33 +1,33 @@
-//pojogen types sqltypes NUMBER(19)->:java.lang.Integer VARCHAR2(100)->:java.lang.Character;
-//pojogen types in table CONTACT VARCHAR2(100)->:java.lang.Short;
-//pojogen rename tables CONTACT->PERSON_CONTACT;
-//pojogen ignore tables BOOK;
-//pojogen ignore columns CONTACT ADDRESS;
-//pojogen create columns PERSON MOBILE_PHONE->::PhoneNumber;
-pojogen types-for-columns CONTACT PHONE_NUMBER->:org.sqlproc.sample.simple.model.PhoneNumber;
-pojogen rename-columns CONTACT PHONE_NUMBER->HOME_PHONE;
-pojogen rename-columns MOVIE URLIMDB->URL_IMDB PLAYLENGTH->PLAY_LENGTH;
-pojogen ignore-one-to-many LIBRARY ID->SUBSCRIBER;
-pojogen ignore-many-to-one CONTACT PERSON_ID->PERSON;
-pojogen create-many-to-one SUBSCRIBER CONTACT->CONTACT;
-pojogen inherit-many-to-one BOOK MEDIA_ID->MEDIA->ID;
-pojogen inherit-many-to-one MOVIE MEDIA_ID->MEDIA->ID;
-//pojogen ignore many-to-one PERSON_LIBRARY MEDIA_ID->MEDIA;
-//pojogen ignore many-to-one PERSON_LIBRARY PERSON_ID->PERSON;
-//pojogen ignore one-to-many PERSON ID->PERSON_LIBRARY;
-//pojogen ignore one-to-many MEDIA ID->PERSON_LIBRARY;
-//pojogen create one-to-many PERSON ID->MEDIA->LIBRARY;
-pojogen table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
-pojogen inherit-discriminator BILLING_DETAILS TYPE BA->BANK_ACCOUNT->BA_ACCOUNT CC->CREDIT_CARD->CC_NUMBER;
-pojogen rename-columns BANK_ACCOUNT BA_ACCOUNT->ACCOUNT;
-pojogen rename-columns CREDIT_CARD CC_NUMBER->NUMBER;
-pojogen not-required-columns CONTACT PERSON_ID;
-pojogen required-columns CONTACT ADDRESS;
-pojogen required-columns CREDIT_CARD CC_NUMBER;
-pojogen types-for-columns MOVIE PLAYLENGTH->:java.lang.Integer;
-pojogen generate-methods toString equals hashCode;
-pojogen implements java.io.Serializable;
-//pojogen extends java.lang.Object;
+//pojogen-types-sqltypes NUMBER(19)->:java.lang.Integer VARCHAR2(100)->:java.lang.Character;
+//pojogen-types-in-table CONTACT VARCHAR2(100)->:java.lang.Short;
+//pojogen-rename-tables CONTACT->PERSON_CONTACT;
+//pojogen-ignore-tables BOOK;
+//pojogen-ignore-columns CONTACT ADDRESS;
+//pojogen-create-columns PERSON MOBILE_PHONE->::PhoneNumber;
+pojogen-types-for-columns CONTACT PHONE_NUMBER->:org.sqlproc.sample.simple.model.PhoneNumber;
+pojogen-rename-columns CONTACT PHONE_NUMBER->HOME_PHONE;
+pojogen-rename-columns MOVIE URLIMDB->URL_IMDB PLAYLENGTH->PLAY_LENGTH;
+pojogen-ignore-one-to-many LIBRARY ID->SUBSCRIBER;
+pojogen-ignore-many-to-one CONTACT PERSON_ID->PERSON;
+pojogen-create-many-to-one SUBSCRIBER CONTACT->CONTACT;
+pojogen-inherit-many-to-one BOOK MEDIA_ID->MEDIA->ID;
+pojogen-inherit-many-to-one MOVIE MEDIA_ID->MEDIA->ID;
+//pojogen-ignore-many-to-one PERSON_LIBRARY MEDIA_ID->MEDIA;
+//pojogen-ignore-many-to-one PERSON_LIBRARY PERSON_ID->PERSON;
+//pojogen-ignore-one-to-many PERSON ID->PERSON_LIBRARY;
+//pojogen-ignore-one-to-many MEDIA ID->PERSON_LIBRARY;
+//pojogen-create-one-to-many PERSON ID->MEDIA->LIBRARY;
+pojogen-table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
+pojogen-inherit-discriminator BILLING_DETAILS TYPE BA->BANK_ACCOUNT->BA_ACCOUNT CC->CREDIT_CARD->CC_NUMBER;
+pojogen-rename-columns BANK_ACCOUNT BA_ACCOUNT->ACCOUNT;
+pojogen-rename-columns CREDIT_CARD CC_NUMBER->NUMBER;
+pojogen-not-required-columns CONTACT PERSON_ID;
+pojogen-required-columns CONTACT ADDRESS;
+pojogen-required-columns CREDIT_CARD CC_NUMBER;
+pojogen-types-for-columns MOVIE PLAYLENGTH->:java.lang.Integer;
+pojogen-generate-methods toString equals hashCode;
+pojogen-implements-interfaces java.io.Serializable;
+//pojogen-extends-class java.lang.Object;
 
 
 package org.sqlproc.sample.simple.model2 suffix 2 {
@@ -121,7 +121,7 @@ pojo Subscriber serializable 1  {
     hashCode ::: id
     toString ::: id name library contact
   }
-  
+
 //  pojo PhoneNumber {
 //    area _int required
 //    exch _int required

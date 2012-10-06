@@ -583,12 +583,13 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	/**
 	 * Constraint:
 	 *     (
-	 *         (name='online' doResolveDb=ON_OFF) | 
-	 *         (name='url' dbUrl=PropertyValue) | 
-	 *         (name='username' dbUsername=PropertyValue) | 
-	 *         (name='password' dbPassword=PropertyValue) | 
-	 *         (name='schema' dbSchema=PropertyValue) | 
-	 *         (name='driver' dbDriver=PropertyValue)
+	 *         name='is-online' | 
+	 *         name='is-offline' | 
+	 *         (name='has-url' dbUrl=PropertyValue) | 
+	 *         (name='login-username' dbUsername=PropertyValue) | 
+	 *         (name='login-password' dbPassword=PropertyValue) | 
+	 *         (name='active-schema' dbSchema=PropertyValue) | 
+	 *         (name='jdbc-driver' dbDriver=PropertyValue)
 	 *     )
 	 */
 	protected void sequence_DatabaseProperty(EObject context, DatabaseProperty semanticObject) {
@@ -1050,8 +1051,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='table-many-to-many' dbTable=IDENT many2s+=ManyToManyAssignement+) | 
 	 *         (name='inherit-discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
 	 *         (name='generate-methods' methods+=IDENT+) | 
-	 *         (name='implements' toImplements+=[JvmType|QualifiedName]+) | 
-	 *         (name='extends' toExtends=[JvmType|QualifiedName])
+	 *         (name='implements-interfaces' toImplements+=[JvmType|QualifiedName]+) | 
+	 *         (name='extends-class' toExtends=[JvmType|QualifiedName])
 	 *     )
 	 */
 	protected void sequence_PojogenProperty(EObject context, PojogenProperty semanticObject) {
@@ -1061,7 +1062,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((name='resolve references' doResolvePojo=ON_OFF) | (name='database' database=DatabaseProperty) | (name='pojogen' pojogen=PojogenProperty))
+	 *     (name='resolve-pojo-on' | name='resolve-pojo-off' | (name='database-' database=DatabaseProperty) | (name='pojogen-' pojogen=PojogenProperty))
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -526,22 +526,13 @@ public interface ProcessorDslPackage extends EPackage
   int PROPERTY__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Do Resolve Pojo</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY__DO_RESOLVE_POJO = 1;
-
-  /**
    * The feature id for the '<em><b>Database</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROPERTY__DATABASE = 2;
+  int PROPERTY__DATABASE = 1;
 
   /**
    * The feature id for the '<em><b>Pojogen</b></em>' containment reference.
@@ -550,7 +541,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPERTY__POJOGEN = 3;
+  int PROPERTY__POJOGEN = 2;
 
   /**
    * The number of structural features of the '<em>Property</em>' class.
@@ -559,7 +550,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPERTY_FEATURE_COUNT = 4;
+  int PROPERTY_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl <em>Database Property</em>}' class.
@@ -581,22 +572,13 @@ public interface ProcessorDslPackage extends EPackage
   int DATABASE_PROPERTY__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Do Resolve Db</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DATABASE_PROPERTY__DO_RESOLVE_DB = 1;
-
-  /**
    * The feature id for the '<em><b>Db Url</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATABASE_PROPERTY__DB_URL = 2;
+  int DATABASE_PROPERTY__DB_URL = 1;
 
   /**
    * The feature id for the '<em><b>Db Username</b></em>' attribute.
@@ -605,7 +587,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_PROPERTY__DB_USERNAME = 3;
+  int DATABASE_PROPERTY__DB_USERNAME = 2;
 
   /**
    * The feature id for the '<em><b>Db Password</b></em>' attribute.
@@ -614,7 +596,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_PROPERTY__DB_PASSWORD = 4;
+  int DATABASE_PROPERTY__DB_PASSWORD = 3;
 
   /**
    * The feature id for the '<em><b>Db Schema</b></em>' attribute.
@@ -623,7 +605,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_PROPERTY__DB_SCHEMA = 5;
+  int DATABASE_PROPERTY__DB_SCHEMA = 4;
 
   /**
    * The feature id for the '<em><b>Db Driver</b></em>' attribute.
@@ -632,7 +614,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_PROPERTY__DB_DRIVER = 6;
+  int DATABASE_PROPERTY__DB_DRIVER = 5;
 
   /**
    * The number of structural features of the '<em>Database Property</em>' class.
@@ -641,7 +623,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATABASE_PROPERTY_FEATURE_COUNT = 7;
+  int DATABASE_PROPERTY_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl <em>Pojogen Property</em>}' class.
@@ -3249,17 +3231,6 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getProperty_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Property#getDoResolvePojo <em>Do Resolve Pojo</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Do Resolve Pojo</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Property#getDoResolvePojo()
-   * @see #getProperty()
-   * @generated
-   */
-  EAttribute getProperty_DoResolvePojo();
-
-  /**
    * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.Property#getDatabase <em>Database</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3301,17 +3272,6 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EAttribute getDatabaseProperty_Name();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDoResolveDb <em>Do Resolve Db</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Do Resolve Db</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DatabaseProperty#getDoResolveDb()
-   * @see #getDatabaseProperty()
-   * @generated
-   */
-  EAttribute getDatabaseProperty_DoResolveDb();
 
   /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbUrl <em>Db Url</em>}'.
@@ -5682,14 +5642,6 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute PROPERTY__NAME = eINSTANCE.getProperty_Name();
 
     /**
-     * The meta object literal for the '<em><b>Do Resolve Pojo</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PROPERTY__DO_RESOLVE_POJO = eINSTANCE.getProperty_DoResolvePojo();
-
-    /**
      * The meta object literal for the '<em><b>Database</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5722,14 +5674,6 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute DATABASE_PROPERTY__NAME = eINSTANCE.getDatabaseProperty_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Do Resolve Db</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute DATABASE_PROPERTY__DO_RESOLVE_DB = eINSTANCE.getDatabaseProperty_DoResolveDb();
 
     /**
      * The meta object literal for the '<em><b>Db Url</b></em>' attribute feature.

@@ -32,6 +32,7 @@ import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.IdentifierUsageExt;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
+import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MappingUsageExt;
@@ -84,18 +85,6 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     private static final List<String> IDENT_VALS = Collections.unmodifiableList(Arrays.asList(new String[] { "any",
             "null", "notnull", "seq", "seq=", "idsel", "idsel=" }));
     private static final List<String> COL_VALS = Collections.unmodifiableList(Arrays.asList(new String[] { "id" }));
-
-    @Override
-    public void completeProperty_DoResolvePojo(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        addProposalList(ON_OFF, "ON_OFF", context, acceptor);
-    }
-
-    @Override
-    public void completeDatabaseProperty_DoResolveDb(EObject model, Assignment assignment,
-            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-        addProposalList(ON_OFF, "ON_OFF", context, acceptor);
-    }
 
     @Override
     public void completeMetaStatement_Type(EObject model, Assignment assignment, ContentAssistContext context,
@@ -835,6 +824,43 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
                 String proposal = getValueConverter().toString(column, "IDENT");
                 ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
                 acceptor.accept(completionProposal);
+            }
+        }
+    }
+
+    @Override
+    public void completeManyToManyAssignement_PkColumn(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof PojogenProperty)) {
+            super.completeManyToManyAssignement_PkColumn(model, assignment, context, acceptor);
+            return;
+        }
+        PojogenProperty prop = (PojogenProperty) model;
+        if (prop.getDbTable() != null) {
+            for (DbImport dbImport : dbResolver.getDbImports(model, prop.getDbTable())) {
+                String proposal = getValueConverter().toString(dbImport.getPkColumn(), "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
+            }
+        }
+    }
+
+    @Override
+    public void completeManyToManyAssignement_PkTable(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof ManyToManyAssignement)) {
+            super.completeManyToManyAssignement_PkTable(model, assignment, context, acceptor);
+            return;
+        }
+        ManyToManyAssignement many2 = (ManyToManyAssignement) model;
+        PojogenProperty prop = EcoreUtil2.getContainerOfType(many2, PojogenProperty.class);
+        if (prop.getDbTable() != null && many2.getPkColumn() != null) {
+            for (DbImport dbImport : dbResolver.getDbImports(model, prop.getDbTable())) {
+                if (dbImport.getPkColumn() != null && dbImport.getPkColumn().equals(many2.getPkColumn())) {
+                    String proposal = getValueConverter().toString(dbImport.getPkTable(), "IDENT");
+                    ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                    acceptor.accept(completionProposal);
+                }
             }
         }
     }

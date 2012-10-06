@@ -1,10 +1,10 @@
-resolve references ON;
-database online ON;
-database driver oracle.jdbc.OracleDriver;
-database url jdbc:oracle:thin:@127.0.0.1:1521:xe;
-database username sqlsample;
-database password sqlsample;
-database schema SQLSAMPLE;
+resolve-pojo-on;
+database-is-online;
+database-jdbc-driver oracle.jdbc.OracleDriver;
+database-has-url jdbc:oracle:thin:@127.0.0.1:1521:xe;
+database-login-username sqlsample;
+database-login-password sqlsample;
+database-active-schema SQLSAMPLE;
 
 identx ALL_PEOPLE Person;
 identx LIKE_PEOPLE Person;

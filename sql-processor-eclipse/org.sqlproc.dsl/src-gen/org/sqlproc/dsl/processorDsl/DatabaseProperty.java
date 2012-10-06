@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDoResolveDb <em>Do Resolve Db</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbUrl <em>Db Url</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbUsername <em>Db Username</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbPassword <em>Db Password</em>}</li>
@@ -53,32 +52,6 @@ public interface DatabaseProperty extends EObject
    * @generated
    */
   void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Do Resolve Db</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Do Resolve Db</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Do Resolve Db</em>' attribute.
-   * @see #setDoResolveDb(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DoResolveDb()
-   * @model
-   * @generated
-   */
-  String getDoResolveDb();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDoResolveDb <em>Do Resolve Db</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Do Resolve Db</em>' attribute.
-   * @see #getDoResolveDb()
-   * @generated
-   */
-  void setDoResolveDb(String value);
 
   /**
    * Returns the value of the '<em><b>Db Url</b></em>' attribute.

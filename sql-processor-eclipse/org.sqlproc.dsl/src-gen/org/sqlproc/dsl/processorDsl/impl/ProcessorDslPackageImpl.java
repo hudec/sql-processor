@@ -969,19 +969,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getProperty_DoResolvePojo()
-  {
-    return (EAttribute)propertyEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getProperty_Database()
   {
-    return (EReference)propertyEClass.getEStructuralFeatures().get(2);
+    return (EReference)propertyEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -991,7 +981,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    */
   public EReference getProperty_Pojogen()
   {
-    return (EReference)propertyEClass.getEStructuralFeatures().get(3);
+    return (EReference)propertyEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1019,7 +1009,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getDatabaseProperty_DoResolveDb()
+  public EAttribute getDatabaseProperty_DbUrl()
   {
     return (EAttribute)databasePropertyEClass.getEStructuralFeatures().get(1);
   }
@@ -1029,7 +1019,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getDatabaseProperty_DbUrl()
+  public EAttribute getDatabaseProperty_DbUsername()
   {
     return (EAttribute)databasePropertyEClass.getEStructuralFeatures().get(2);
   }
@@ -1039,7 +1029,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getDatabaseProperty_DbUsername()
+  public EAttribute getDatabaseProperty_DbPassword()
   {
     return (EAttribute)databasePropertyEClass.getEStructuralFeatures().get(3);
   }
@@ -1049,7 +1039,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getDatabaseProperty_DbPassword()
+  public EAttribute getDatabaseProperty_DbSchema()
   {
     return (EAttribute)databasePropertyEClass.getEStructuralFeatures().get(4);
   }
@@ -1059,19 +1049,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getDatabaseProperty_DbSchema()
-  {
-    return (EAttribute)databasePropertyEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getDatabaseProperty_DbDriver()
   {
-    return (EAttribute)databasePropertyEClass.getEStructuralFeatures().get(6);
+    return (EAttribute)databasePropertyEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -2955,13 +2935,11 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     propertyEClass = createEClass(PROPERTY);
     createEAttribute(propertyEClass, PROPERTY__NAME);
-    createEAttribute(propertyEClass, PROPERTY__DO_RESOLVE_POJO);
     createEReference(propertyEClass, PROPERTY__DATABASE);
     createEReference(propertyEClass, PROPERTY__POJOGEN);
 
     databasePropertyEClass = createEClass(DATABASE_PROPERTY);
     createEAttribute(databasePropertyEClass, DATABASE_PROPERTY__NAME);
-    createEAttribute(databasePropertyEClass, DATABASE_PROPERTY__DO_RESOLVE_DB);
     createEAttribute(databasePropertyEClass, DATABASE_PROPERTY__DB_URL);
     createEAttribute(databasePropertyEClass, DATABASE_PROPERTY__DB_USERNAME);
     createEAttribute(databasePropertyEClass, DATABASE_PROPERTY__DB_PASSWORD);
@@ -3293,13 +3271,11 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getProperty_DoResolvePojo(), ecorePackage.getEString(), "doResolvePojo", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getProperty_Database(), this.getDatabaseProperty(), null, "database", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getProperty_Pojogen(), this.getPojogenProperty(), null, "pojogen", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(databasePropertyEClass, DatabaseProperty.class, "DatabaseProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getDatabaseProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getDatabaseProperty_DoResolveDb(), ecorePackage.getEString(), "doResolveDb", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDatabaseProperty_DbUrl(), ecorePackage.getEString(), "dbUrl", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDatabaseProperty_DbUsername(), ecorePackage.getEString(), "dbUsername", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDatabaseProperty_DbPassword(), ecorePackage.getEString(), "dbPassword", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
