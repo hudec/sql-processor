@@ -85,4 +85,8 @@ public class PersonLibrary implements Serializable {
   public String toString() {
     return "PersonLibrary [mediaId=" + mediaId + ", id=" + id + ", personId=" + personId + "]";
   }
+  
+  public String toStringFull() {
+    return "PersonLibrary [mediaId=" + mediaId + ", id=" + id + ", personId=" + personId + "]";
+  }
 }

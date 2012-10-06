@@ -49,4 +49,8 @@ public class Movie extends Media implements Serializable {
   public String toString() {
     return "Movie [urlImdb=" + urlImdb + ", playLength=" + playLength + super.toString() + "]";
   }
+  
+  public String toStringFull() {
+    return "Movie [urlImdb=" + urlImdb + ", playLength=" + playLength + super.toString() + "]";
+  }
 }

@@ -83,6 +83,10 @@ public abstract class BillingDetails implements Serializable {
   
   @Override
   public String toString() {
+    return "BillingDetails [id=" + id + ", type=" + type + "]";
+  }
+  
+  public String toStringFull() {
     return "BillingDetails [id=" + id + ", type=" + type + ", subscriber=" + subscriber + "]";
   }
 }

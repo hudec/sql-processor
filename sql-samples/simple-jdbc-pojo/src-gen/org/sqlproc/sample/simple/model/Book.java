@@ -33,4 +33,8 @@ public class Book extends Media implements Serializable {
   public String toString() {
     return "Book [isbn=" + isbn + super.toString() + "]";
   }
+  
+  public String toStringFull() {
+    return "Book [isbn=" + isbn + super.toString() + "]";
+  }
 }

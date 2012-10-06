@@ -24,6 +24,14 @@ public class Utils {
         return dir;
     }
 
+    public static boolean isList(PojoProperty f) {
+        if (f.getType() == null)
+            return false;
+        if (f.getType().getSimpleName().equals("List"))
+            return true;
+        return false;
+    }
+
     public static boolean isRequired(PojoProperty f) {
         if (f.getModifiers() == null || f.getModifiers().isEmpty())
             return false;

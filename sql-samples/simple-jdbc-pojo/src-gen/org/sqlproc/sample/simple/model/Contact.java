@@ -101,4 +101,8 @@ public class Contact implements Serializable {
   public String toString() {
     return "Contact [id=" + id + ", address=" + address + ", personId=" + personId + ", homePhone=" + homePhone + "]";
   }
+  
+  public String toStringFull() {
+    return "Contact [id=" + id + ", address=" + address + ", personId=" + personId + ", homePhone=" + homePhone + "]";
+  }
 }

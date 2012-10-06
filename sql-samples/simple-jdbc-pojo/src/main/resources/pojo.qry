@@ -121,7 +121,6 @@ pojo Subscriber serializable 1  {
     hashCode ::: id
     toString ::: id name library contact
   }
-
 //  pojo PhoneNumber {
 //    area _int required
 //    exch _int required

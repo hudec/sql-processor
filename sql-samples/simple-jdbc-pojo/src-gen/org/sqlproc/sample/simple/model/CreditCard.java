@@ -33,4 +33,8 @@ public class CreditCard extends BillingDetails implements Serializable {
   public String toString() {
     return "CreditCard [number=" + number + super.toString() + "]";
   }
+  
+  public String toStringFull() {
+    return "CreditCard [number=" + number + super.toString() + "]";
+  }
 }

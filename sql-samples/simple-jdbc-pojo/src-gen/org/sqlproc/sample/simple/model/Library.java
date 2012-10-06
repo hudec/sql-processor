@@ -69,4 +69,8 @@ public class Library implements Serializable {
   public String toString() {
     return "Library [id=" + id + ", name=" + name + "]";
   }
+  
+  public String toStringFull() {
+    return "Library [id=" + id + ", name=" + name + "]";
+  }
 }

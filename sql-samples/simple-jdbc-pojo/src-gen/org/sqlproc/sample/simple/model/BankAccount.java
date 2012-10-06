@@ -33,4 +33,8 @@ public class BankAccount extends BillingDetails implements Serializable {
   public String toString() {
     return "BankAccount [account=" + account + super.toString() + "]";
   }
+  
+  public String toStringFull() {
+    return "BankAccount [account=" + account + super.toString() + "]";
+  }
 }

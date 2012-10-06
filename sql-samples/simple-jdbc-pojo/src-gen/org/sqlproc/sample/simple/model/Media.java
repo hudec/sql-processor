@@ -69,4 +69,8 @@ public abstract class Media implements Serializable {
   public String toString() {
     return "Media [id=" + id + ", title=" + title + "]";
   }
+  
+  public String toStringFull() {
+    return "Media [id=" + id + ", title=" + title + "]";
+  }
 }

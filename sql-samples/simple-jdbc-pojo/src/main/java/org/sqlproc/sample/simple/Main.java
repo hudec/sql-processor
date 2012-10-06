@@ -348,7 +348,7 @@ public class Main {
         Assert.assertEquals(1, list.size());
         Assert.assertEquals("Honza", list.get(0).getName());
         Assert.assertEquals(2, list.get(0).getContacts().size());
-        Assert.assertTrue(list.get(0).getContacts() instanceof LinkedList);
+        Assert.assertTrue(list.get(0).getContacts() instanceof List);
         Assert.assertEquals("Honza address 1", list.get(0).getContacts().get(0).getAddress());
         Assert.assertEquals("Honza address 2", list.get(0).getContacts().get(1).getAddress());
 

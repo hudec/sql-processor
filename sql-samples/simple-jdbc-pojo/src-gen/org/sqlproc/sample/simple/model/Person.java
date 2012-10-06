@@ -3,12 +3,15 @@ package org.sqlproc.sample.simple.model;
 import java.util.List;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Person implements Serializable {
   
   private static final long serialVersionUID = 1L;
 	
   public Person() {
+    library = new ArrayList<Media>();
+    contacts = new ArrayList<Contact>();
   }
   
   public Person(String name) {
@@ -99,6 +102,10 @@ public class Person implements Serializable {
   
   @Override
   public String toString() {
+    return "Person [id=" + id + ", name=" + name + "]";
+  }
+  
+  public String toStringFull() {
     return "Person [id=" + id + ", name=" + name + "]";
   }
 }

@@ -3,12 +3,14 @@ package org.sqlproc.sample.simple.model;
 import java.util.List;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Subscriber implements Serializable {
   
   private static final long serialVersionUID = 1L;
 	
   public Subscriber() {
+    billingDetails = new ArrayList<BillingDetails>();
   }
   
   public Subscriber(Library library, String name) {
@@ -115,6 +117,10 @@ public class Subscriber implements Serializable {
   
   @Override
   public String toString() {
+    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + "]";
+  }
+  
+  public String toStringFull() {
     return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + ", contact=" + contact + "]";
   }
 }

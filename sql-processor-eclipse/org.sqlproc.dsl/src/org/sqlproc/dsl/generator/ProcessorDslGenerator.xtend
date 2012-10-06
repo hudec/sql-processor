@@ -45,6 +45,9 @@ import «i»;
 
 import java.io.Serializable;
   «ENDIF»
+  «IF !e.listFeatures.empty»
+import java.util.ArrayList;
+  «ENDIF»
 
 «classBody»
 '''
@@ -57,6 +60,10 @@ public «IF isAbstract(e)»abstract «ENDIF»class «e.name» «compileExtends(e
   «ENDIF»
 	
   public «e.name»() {
+  «IF !e.listFeatures.empty»
+  «FOR f:e.listFeatures SEPARATOR "
+"»  «f.name» = new Array«f.compileType(importManager)»();«ENDFOR»
+  «ENDIF»
   }
   «IF !e.requiredFeatures.empty»
   
@@ -127,12 +134,29 @@ def compileToString(PojoProperty f, ImportManager importManager, PojoEntity e) '
 
     @Override
     public String toString() {
+      return "«e.name» [«FOR f2:f.simplAttrs SEPARATOR " + \", "»«f2.name»=" + «f2.name»«ENDFOR»«IF getSuperType(e) != null» + super.toString()«ENDIF» + "]";
+    }
+
+    public String toStringFull() {
       return "«e.name» [«FOR f2:f.attrs SEPARATOR " + \", "»«f2.name»=" + «f2.name»«ENDFOR»«IF getSuperType(e) != null» + super.toString()«ENDIF» + "]";
     }
 '''
 
 def compileType(PojoProperty f, ImportManager importManager) '''
   «IF f.getNative != null»«f.getNative.substring(1)»«ELSEIF f.getRef != null»«f.getRef.fullyQualifiedName»«ELSEIF f.getType != null»«importManager.serialize(f.getType)»«ENDIF»«IF f.getGtype != null»<«importManager.serialize(f.getGtype)»>«ENDIF»«IF f.getGref != null»<«f.getGref.fullyQualifiedName»>«ENDIF»«IF f.array»[]«ENDIF»'''
+  
+def listFeatures(PojoEntity e) {
+	
+   	val list = new ArrayList<PojoProperty>()
+	if (getSuperType(e) != null)
+	  list.addAll(getSuperType(e).listFeatures)
+	list.addAll(e.listFeatures1)
+    return list
+}
+
+def listFeatures1(PojoEntity e) {
+	return e.features.filter(f|isList(f)).toList
+}
   
 def requiredFeatures(PojoEntity e) {
 	
@@ -157,6 +181,10 @@ def requiredFeatures1(PojoEntity e) {
 
 def isAttribute(PojoProperty f) {
     return f.getNative != null || f.getRef != null || f.getType != null
+}
+
+def simplAttrs(PojoProperty f) {
+	return f.attrs.filter(f2|f2.getNative != null || f2.getType != null).toList
 }
 
 def compileExtends(PojoEntity e) '''
