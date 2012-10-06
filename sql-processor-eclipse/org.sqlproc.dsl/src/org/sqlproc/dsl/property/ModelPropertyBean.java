@@ -21,6 +21,7 @@ import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
+import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.util.Utils;
@@ -88,7 +89,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Map<String, Map<String, String>>> createExports;
         public Map<String, Map<String, Map<String, String>>> createImports;
         public Map<String, Map<String, Map<String, String>>> inheritImports;
-        public Map<String, Map<String, Map<String, String>>> manyToManyExports;
+        public Map<String, Map<String, Map<String, String>>> manyToManyImports;
         public Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
         public Map<String, String> inheritanceColumns;
         public Set<String> generateMethods;
@@ -106,7 +107,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + ", notRequiredColumns=" + notRequiredColumns + ", createColumns=" + createColumns
                     + ", ignoreExports=" + ignoreExports + ", ignoreImports=" + ignoreImports + ", createExports="
                     + createExports + ", createImports=" + createImports + ", inheritImports=" + inheritImports
-                    + ", manyToManyExports=" + manyToManyExports + ", inheritance=" + inheritance
+                    + ", manyToManyImports=" + manyToManyImports + ", inheritance=" + inheritance
                     + ", inheritanceColumns=" + inheritanceColumns + ", generateMethods=" + generateMethods
                     + ", toImplements=" + toImplements + ", toExtends=" + toExtends + "]";
         }
@@ -219,7 +220,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.createExports = new HashMap<String, Map<String, Map<String, String>>>();
         modelValues.createImports = new HashMap<String, Map<String, Map<String, String>>>();
         modelValues.inheritImports = new HashMap<String, Map<String, Map<String, String>>>();
-        modelValues.manyToManyExports = new HashMap<String, Map<String, Map<String, String>>>();
+        modelValues.manyToManyImports = new HashMap<String, Map<String, Map<String, String>>>();
         modelValues.inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
         modelValues.inheritanceColumns = new HashMap<String, String>();
         modelValues.generateMethods = new HashSet<String>();
@@ -405,16 +406,16 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 imports.get(_import.getDbColumn()).put(_import.getPkTable(), _import.getPkColumn());
             }
         } else if (POJOGEN_MANY_TO_MANY_IMPORTS.equals(property.getName())) {
-            // if (modelValues.manyToManyExports == null)
-            // modelValues.manyToManyExports = new HashMap<String, Map<String, Map<String, String>>>();
-            if (!modelValues.manyToManyExports.containsKey(property.getDbTable()))
-                modelValues.manyToManyExports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
-            Map<String, Map<String, String>> exports = modelValues.manyToManyExports.get(property.getDbTable());
-            for (int i = 0, m = property.getExports().size(); i < m; i++) {
-                ExportAssignement export = property.getExports().get(i);
-                if (!exports.containsKey(export.getDbColumn()))
-                    exports.put(export.getDbColumn(), new HashMap<String, String>());
-                exports.get(export.getDbColumn()).put(export.getFkTable(), export.getFkColumn());
+            // if (modelValues.manyToManyImports == null)
+            // modelValues.manyToManyImports = new HashMap<String, Map<String, Map<String, String>>>();
+            if (!modelValues.manyToManyImports.containsKey(property.getDbTable()))
+                modelValues.manyToManyImports.put(property.getDbTable(), new HashMap<String, Map<String, String>>());
+            Map<String, Map<String, String>> many2s = modelValues.manyToManyImports.get(property.getDbTable());
+            for (int i = 0, m = property.getMany2s().size(); i < m; i++) {
+                ManyToManyAssignement many2 = property.getMany2s().get(i);
+                if (!many2s.containsKey(many2.getPkColumn()))
+                    many2s.put(many2.getPkColumn(), new HashMap<String, String>());
+                many2s.get(many2.getPkColumn()).put(many2.getPkTable(), many2.getFkColumn());
             }
         } else if (POJOGEN_INHERITANCE.equals(property.getName())) {
             // if (modelValues.inheritance == null)
@@ -566,9 +567,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
-    public Map<String, Map<String, Map<String, String>>> getManyToManyExports(EObject model) {
+    public Map<String, Map<String, Map<String, String>>> getManyToManyImports(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.manyToManyExports : Collections
+        return (modelValues != null) ? modelValues.manyToManyImports : Collections
                 .<String, Map<String, Map<String, String>>> emptyMap();
     }
 

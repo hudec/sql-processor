@@ -27,6 +27,7 @@ import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
+import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.SqlTypeAssignement;
@@ -49,6 +50,7 @@ import org.sqlproc.dsl.processorDsl.TableAssignement;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getColumns <em>Columns</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getExports <em>Exports</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getImports <em>Imports</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getMany2s <em>Many2s</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getDbColumn <em>Db Column</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getInheritance <em>Inheritance</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getMethods <em>Methods</em>}</li>
@@ -180,6 +182,16 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected EList<ImportAssignement> imports;
+
+  /**
+   * The cached value of the '{@link #getMany2s() <em>Many2s</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMany2s()
+   * @generated
+   * @ordered
+   */
+  protected EList<ManyToManyAssignement> many2s;
 
   /**
    * The default value of the '{@link #getDbColumn() <em>Db Column</em>}' attribute.
@@ -425,6 +437,20 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ManyToManyAssignement> getMany2s()
+  {
+    if (many2s == null)
+    {
+      many2s = new EObjectContainmentEList<ManyToManyAssignement>(ManyToManyAssignement.class, this, ProcessorDslPackage.POJOGEN_PROPERTY__MANY2S);
+    }
+    return many2s;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getDbColumn()
   {
     return dbColumn;
@@ -550,6 +576,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return ((InternalEList<?>)getExports()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.POJOGEN_PROPERTY__IMPORTS:
         return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.POJOGEN_PROPERTY__MANY2S:
+        return ((InternalEList<?>)getMany2s()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.POJOGEN_PROPERTY__INHERITANCE:
         return ((InternalEList<?>)getInheritance()).basicRemove(otherEnd, msgs);
     }
@@ -586,6 +614,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return getExports();
       case ProcessorDslPackage.POJOGEN_PROPERTY__IMPORTS:
         return getImports();
+      case ProcessorDslPackage.POJOGEN_PROPERTY__MANY2S:
+        return getMany2s();
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_COLUMN:
         return getDbColumn();
       case ProcessorDslPackage.POJOGEN_PROPERTY__INHERITANCE:
@@ -650,6 +680,10 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         getImports().clear();
         getImports().addAll((Collection<? extends ImportAssignement>)newValue);
         return;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__MANY2S:
+        getMany2s().clear();
+        getMany2s().addAll((Collection<? extends ManyToManyAssignement>)newValue);
+        return;
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_COLUMN:
         setDbColumn((String)newValue);
         return;
@@ -712,6 +746,9 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__IMPORTS:
         getImports().clear();
         return;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__MANY2S:
+        getMany2s().clear();
+        return;
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_COLUMN:
         setDbColumn(DB_COLUMN_EDEFAULT);
         return;
@@ -761,6 +798,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return exports != null && !exports.isEmpty();
       case ProcessorDslPackage.POJOGEN_PROPERTY__IMPORTS:
         return imports != null && !imports.isEmpty();
+      case ProcessorDslPackage.POJOGEN_PROPERTY__MANY2S:
+        return many2s != null && !many2s.isEmpty();
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_COLUMN:
         return DB_COLUMN_EDEFAULT == null ? dbColumn != null : !DB_COLUMN_EDEFAULT.equals(dbColumn);
       case ProcessorDslPackage.POJOGEN_PROPERTY__INHERITANCE:

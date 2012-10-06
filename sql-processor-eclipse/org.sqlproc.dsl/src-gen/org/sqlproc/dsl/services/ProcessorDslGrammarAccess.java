@@ -496,6 +496,54 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getDbColumnsIDENTTerminalRuleCall_3_1_0() { return cDbColumnsIDENTTerminalRuleCall_3_1_0; }
 	}
 
+	public class ManyToManyAssignementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ManyToManyAssignement");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cPkColumnAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cPkColumnIDENTTerminalRuleCall_0_0 = (RuleCall)cPkColumnAssignment_0.eContents().get(0);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cPkTableAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cPkTableIDENTTerminalRuleCall_2_0 = (RuleCall)cPkTableAssignment_2.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cFkColumnAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cFkColumnIDENTTerminalRuleCall_3_1_0 = (RuleCall)cFkColumnAssignment_3_1.eContents().get(0);
+		
+		//ManyToManyAssignement:
+		//	pkColumn=IDENT "->" pkTable=IDENT ("->" fkColumn=IDENT)?;
+		public ParserRule getRule() { return rule; }
+
+		//pkColumn=IDENT "->" pkTable=IDENT ("->" fkColumn=IDENT)?
+		public Group getGroup() { return cGroup; }
+
+		//pkColumn=IDENT
+		public Assignment getPkColumnAssignment_0() { return cPkColumnAssignment_0; }
+
+		//IDENT
+		public RuleCall getPkColumnIDENTTerminalRuleCall_0_0() { return cPkColumnIDENTTerminalRuleCall_0_0; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_1() { return cHyphenMinusGreaterThanSignKeyword_1; }
+
+		//pkTable=IDENT
+		public Assignment getPkTableAssignment_2() { return cPkTableAssignment_2; }
+
+		//IDENT
+		public RuleCall getPkTableIDENTTerminalRuleCall_2_0() { return cPkTableIDENTTerminalRuleCall_2_0; }
+
+		//("->" fkColumn=IDENT)?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_3_0() { return cHyphenMinusGreaterThanSignKeyword_3_0; }
+
+		//fkColumn=IDENT
+		public Assignment getFkColumnAssignment_3_1() { return cFkColumnAssignment_3_1; }
+
+		//IDENT
+		public RuleCall getFkColumnIDENTTerminalRuleCall_3_1_0() { return cFkColumnIDENTTerminalRuleCall_3_1_0; }
+	}
+
 	public class PropertyElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Property");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -910,8 +958,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDbTableIDENTTerminalRuleCall_16_2_0 = (RuleCall)cDbTableAssignment_16_2.eContents().get(0);
 		private final Group cGroup_16_3 = (Group)cGroup_16.eContents().get(3);
 		private final RuleCall cWSTerminalRuleCall_16_3_0 = (RuleCall)cGroup_16_3.eContents().get(0);
-		private final Assignment cImportsAssignment_16_3_1 = (Assignment)cGroup_16_3.eContents().get(1);
-		private final RuleCall cImportsImportAssignementParserRuleCall_16_3_1_0 = (RuleCall)cImportsAssignment_16_3_1.eContents().get(0);
+		private final Assignment cMany2sAssignment_16_3_1 = (Assignment)cGroup_16_3.eContents().get(1);
+		private final RuleCall cMany2sManyToManyAssignementParserRuleCall_16_3_1_0 = (RuleCall)cMany2sAssignment_16_3_1.eContents().get(0);
 		private final Group cGroup_17 = (Group)cAlternatives.eContents().get(17);
 		private final Assignment cNameAssignment_17_0 = (Assignment)cGroup_17.eContents().get(0);
 		private final Keyword cNameInheritDiscriminatorKeyword_17_0_0 = (Keyword)cNameAssignment_17_0.eContents().get(0);
@@ -961,7 +1009,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	| name="inherit-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//	| name="create-one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		//	| name="create-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-		//	| name="table-many-to-many" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ | name="inherit-discriminator" WS+
+		//	| name="table-many-to-many" WS+ dbTable=IDENT (WS+ many2s+=ManyToManyAssignement)+ | name="inherit-discriminator" WS+
 		//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 		//	methods+=IDENT)+ | name="implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends" WS+
 		//	toExtends=[jvmTypes::JvmType|QualifiedName];
@@ -979,7 +1027,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="inherit-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 		//| name="create-one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 		//| name="create-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-		//| name="table-many-to-many" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ | name="inherit-discriminator" WS+
+		//| name="table-many-to-many" WS+ dbTable=IDENT (WS+ many2s+=ManyToManyAssignement)+ | name="inherit-discriminator" WS+
 		//dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 		//methods+=IDENT)+ | name="implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends" WS+
 		//toExtends=[jvmTypes::JvmType|QualifiedName]
@@ -1429,7 +1477,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ImportAssignement
 		public RuleCall getImportsImportAssignementParserRuleCall_15_3_1_0() { return cImportsImportAssignementParserRuleCall_15_3_1_0; }
 
-		//name="table-many-to-many" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+
+		//name="table-many-to-many" WS+ dbTable=IDENT (WS+ many2s+=ManyToManyAssignement)+
 		public Group getGroup_16() { return cGroup_16; }
 
 		//name="table-many-to-many"
@@ -1447,17 +1495,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getDbTableIDENTTerminalRuleCall_16_2_0() { return cDbTableIDENTTerminalRuleCall_16_2_0; }
 
-		//(WS+ imports+=ImportAssignement)+
+		//(WS+ many2s+=ManyToManyAssignement)+
 		public Group getGroup_16_3() { return cGroup_16_3; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_16_3_0() { return cWSTerminalRuleCall_16_3_0; }
 
-		//imports+=ImportAssignement
-		public Assignment getImportsAssignment_16_3_1() { return cImportsAssignment_16_3_1; }
+		//many2s+=ManyToManyAssignement
+		public Assignment getMany2sAssignment_16_3_1() { return cMany2sAssignment_16_3_1; }
 
-		//ImportAssignement
-		public RuleCall getImportsImportAssignementParserRuleCall_16_3_1_0() { return cImportsImportAssignementParserRuleCall_16_3_1_0; }
+		//ManyToManyAssignement
+		public RuleCall getMany2sManyToManyAssignementParserRuleCall_16_3_1_0() { return cMany2sManyToManyAssignementParserRuleCall_16_3_1_0; }
 
 		//name="inherit-discriminator" WS+ dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+
 		public Group getGroup_17() { return cGroup_17; }
@@ -5708,6 +5756,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private ImportAssignementElements pImportAssignement;
 	private ExportAssignementElements pExportAssignement;
 	private InheritanceAssignementElements pInheritanceAssignement;
+	private ManyToManyAssignementElements pManyToManyAssignement;
 	private PropertyElements pProperty;
 	private DatabasePropertyElements pDatabaseProperty;
 	private PojogenPropertyElements pPojogenProperty;
@@ -5911,6 +5960,16 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getInheritanceAssignementAccess().getRule();
 	}
 
+	//ManyToManyAssignement:
+	//	pkColumn=IDENT "->" pkTable=IDENT ("->" fkColumn=IDENT)?;
+	public ManyToManyAssignementElements getManyToManyAssignementAccess() {
+		return (pManyToManyAssignement != null) ? pManyToManyAssignement : (pManyToManyAssignement = new ManyToManyAssignementElements());
+	}
+	
+	public ParserRule getManyToManyAssignementRule() {
+		return getManyToManyAssignementAccess().getRule();
+	}
+
 	//Property:
 	//	(name="resolve references" WS+ doResolvePojo=ON_OFF | name="database" WS+ database=DatabaseProperty | name="pojogen"
 	//	WS+ pojogen=PojogenProperty) SEMICOLON;
@@ -5947,7 +6006,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	| name="inherit-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
 	//	| name="create-one-to-many" WS+ dbTable=IDENT (WS+ exports+=ExportAssignement)+ // exports
 	//	| name="create-many-to-one" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ // imports
-	//	| name="table-many-to-many" WS+ dbTable=IDENT (WS+ imports+=ImportAssignement)+ | name="inherit-discriminator" WS+
+	//	| name="table-many-to-many" WS+ dbTable=IDENT (WS+ many2s+=ManyToManyAssignement)+ | name="inherit-discriminator" WS+
 	//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 	//	methods+=IDENT)+ | name="implements" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends" WS+
 	//	toExtends=[jvmTypes::JvmType|QualifiedName];

@@ -95,6 +95,15 @@ public interface ProcessorDslFactory extends EFactory
   InheritanceAssignement createInheritanceAssignement();
 
   /**
+   * Returns a new object of class '<em>Many To Many Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Many To Many Assignement</em>'.
+   * @generated
+   */
+  ManyToManyAssignement createManyToManyAssignement();
+
+  /**
    * Returns a new object of class '<em>Property</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

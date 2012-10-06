@@ -115,6 +115,8 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getExportAssignementAccess().getGroup_3(), "rule__ExportAssignement__Group_3__0");
 					put(grammarAccess.getInheritanceAssignementAccess().getGroup(), "rule__InheritanceAssignement__Group__0");
 					put(grammarAccess.getInheritanceAssignementAccess().getGroup_3(), "rule__InheritanceAssignement__Group_3__0");
+					put(grammarAccess.getManyToManyAssignementAccess().getGroup(), "rule__ManyToManyAssignement__Group__0");
+					put(grammarAccess.getManyToManyAssignementAccess().getGroup_3(), "rule__ManyToManyAssignement__Group_3__0");
 					put(grammarAccess.getPropertyAccess().getGroup(), "rule__Property__Group__0");
 					put(grammarAccess.getPropertyAccess().getGroup_0_0(), "rule__Property__Group_0_0__0");
 					put(grammarAccess.getPropertyAccess().getGroup_0_1(), "rule__Property__Group_0_1__0");
@@ -297,6 +299,9 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInheritanceAssignementAccess().getDiscriminatorAssignment_0(), "rule__InheritanceAssignement__DiscriminatorAssignment_0");
 					put(grammarAccess.getInheritanceAssignementAccess().getDbTableAssignment_2(), "rule__InheritanceAssignement__DbTableAssignment_2");
 					put(grammarAccess.getInheritanceAssignementAccess().getDbColumnsAssignment_3_1(), "rule__InheritanceAssignement__DbColumnsAssignment_3_1");
+					put(grammarAccess.getManyToManyAssignementAccess().getPkColumnAssignment_0(), "rule__ManyToManyAssignement__PkColumnAssignment_0");
+					put(grammarAccess.getManyToManyAssignementAccess().getPkTableAssignment_2(), "rule__ManyToManyAssignement__PkTableAssignment_2");
+					put(grammarAccess.getManyToManyAssignementAccess().getFkColumnAssignment_3_1(), "rule__ManyToManyAssignement__FkColumnAssignment_3_1");
 					put(grammarAccess.getPropertyAccess().getNameAssignment_0_0_0(), "rule__Property__NameAssignment_0_0_0");
 					put(grammarAccess.getPropertyAccess().getDoResolvePojoAssignment_0_0_2(), "rule__Property__DoResolvePojoAssignment_0_0_2");
 					put(grammarAccess.getPropertyAccess().getNameAssignment_0_1_0(), "rule__Property__NameAssignment_0_1_0");
@@ -361,7 +366,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPojogenPropertyAccess().getImportsAssignment_15_3_1(), "rule__PojogenProperty__ImportsAssignment_15_3_1");
 					put(grammarAccess.getPojogenPropertyAccess().getNameAssignment_16_0(), "rule__PojogenProperty__NameAssignment_16_0");
 					put(grammarAccess.getPojogenPropertyAccess().getDbTableAssignment_16_2(), "rule__PojogenProperty__DbTableAssignment_16_2");
-					put(grammarAccess.getPojogenPropertyAccess().getImportsAssignment_16_3_1(), "rule__PojogenProperty__ImportsAssignment_16_3_1");
+					put(grammarAccess.getPojogenPropertyAccess().getMany2sAssignment_16_3_1(), "rule__PojogenProperty__Many2sAssignment_16_3_1");
 					put(grammarAccess.getPojogenPropertyAccess().getNameAssignment_17_0(), "rule__PojogenProperty__NameAssignment_17_0");
 					put(grammarAccess.getPojogenPropertyAccess().getDbTableAssignment_17_2(), "rule__PojogenProperty__DbTableAssignment_17_2");
 					put(grammarAccess.getPojogenPropertyAccess().getDbColumnAssignment_17_4(), "rule__PojogenProperty__DbColumnAssignment_17_4");

@@ -26,6 +26,7 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getColumns <em>Columns</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getExports <em>Exports</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getImports <em>Imports</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getMany2s <em>Many2s</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getDbColumn <em>Db Column</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getInheritance <em>Inheritance</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getMethods <em>Methods</em>}</li>
@@ -219,6 +220,22 @@ public interface PojogenProperty extends EObject
    * @generated
    */
   EList<ImportAssignement> getImports();
+
+  /**
+   * Returns the value of the '<em><b>Many2s</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.ManyToManyAssignement}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Many2s</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Many2s</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojogenProperty_Many2s()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ManyToManyAssignement> getMany2s();
 
   /**
    * Returns the value of the '<em><b>Db Column</b></em>' attribute.

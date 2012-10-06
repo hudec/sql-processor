@@ -836,6 +836,89 @@ ruleInheritanceAssignement returns [EObject current=null]
 
 
 
+// Entry rule entryRuleManyToManyAssignement
+entryRuleManyToManyAssignement returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getManyToManyAssignementRule()); }
+	 iv_ruleManyToManyAssignement=ruleManyToManyAssignement 
+	 { $current=$iv_ruleManyToManyAssignement.current; } 
+	 EOF 
+;
+
+// Rule ManyToManyAssignement
+ruleManyToManyAssignement returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_pkColumn_0_0=RULE_IDENT
+		{
+			newLeafNode(lv_pkColumn_0_0, grammarAccess.getManyToManyAssignementAccess().getPkColumnIDENTTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getManyToManyAssignementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"pkColumn",
+        		lv_pkColumn_0_0, 
+        		"IDENT");
+	    }
+
+)
+)	otherlv_1='->' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getManyToManyAssignementAccess().getHyphenMinusGreaterThanSignKeyword_1());
+    }
+(
+(
+		lv_pkTable_2_0=RULE_IDENT
+		{
+			newLeafNode(lv_pkTable_2_0, grammarAccess.getManyToManyAssignementAccess().getPkTableIDENTTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getManyToManyAssignementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"pkTable",
+        		lv_pkTable_2_0, 
+        		"IDENT");
+	    }
+
+)
+)(	otherlv_3='->' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getManyToManyAssignementAccess().getHyphenMinusGreaterThanSignKeyword_3_0());
+    }
+(
+(
+		lv_fkColumn_4_0=RULE_IDENT
+		{
+			newLeafNode(lv_fkColumn_4_0, grammarAccess.getManyToManyAssignementAccess().getFkColumnIDENTTerminalRuleCall_3_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getManyToManyAssignementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"fkColumn",
+        		lv_fkColumn_4_0, 
+        		"IDENT");
+	    }
+
+)
+))?)
+;
+
+
+
+
+
 // Entry rule entryRuleProperty
 entryRuleProperty returns [EObject current=null] 
 	:
@@ -2152,17 +2235,17 @@ rulePojogenProperty returns [EObject current=null]
 )+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPojogenPropertyAccess().getImportsImportAssignementParserRuleCall_16_3_1_0()); 
+	        newCompositeNode(grammarAccess.getPojogenPropertyAccess().getMany2sManyToManyAssignementParserRuleCall_16_3_1_0()); 
 	    }
-		lv_imports_76_0=ruleImportAssignement		{
+		lv_many2s_76_0=ruleManyToManyAssignement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPojogenPropertyRule());
 	        }
        		add(
        			$current, 
-       			"imports",
-        		lv_imports_76_0, 
-        		"ImportAssignement");
+       			"many2s",
+        		lv_many2s_76_0, 
+        		"ManyToManyAssignement");
 	        afterParserOrEnumRuleCall();
 	    }
 

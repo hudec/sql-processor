@@ -43,7 +43,7 @@ public interface ModelProperty extends Adapter {
 
     Map<String, Map<String, Map<String, String>>> getInheritImports(EObject model);
 
-    Map<String, Map<String, Map<String, String>>> getManyToManyExports(EObject model);
+    Map<String, Map<String, Map<String, String>>> getManyToManyImports(EObject model);
 
     Map<String, Map<String, Map<String, List<String>>>> getInheritance(EObject model);
 

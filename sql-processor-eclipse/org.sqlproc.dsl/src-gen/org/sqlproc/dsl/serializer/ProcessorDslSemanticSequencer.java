@@ -39,6 +39,7 @@ import org.sqlproc.dsl.processorDsl.Implements;
 import org.sqlproc.dsl.processorDsl.Import;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
+import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.Mapping;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingItem;
@@ -239,6 +240,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.INHERITANCE_ASSIGNEMENT:
 				if(context == grammarAccess.getInheritanceAssignementRule()) {
 					sequence_InheritanceAssignement(context, (InheritanceAssignement) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.MANY_TO_MANY_ASSIGNEMENT:
+				if(context == grammarAccess.getManyToManyAssignementRule()) {
+					sequence_ManyToManyAssignement(context, (ManyToManyAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -785,6 +792,15 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
+	 *     (pkColumn=IDENT pkTable=IDENT fkColumn=IDENT?)
+	 */
+	protected void sequence_ManyToManyAssignement(EObject context, ManyToManyAssignement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     ((name=IDENT | name=IDENT_DOT) (vals+=IDENT | vals+=NUMBER)*)
 	 */
 	protected void sequence_MappingColumn(EObject context, MappingColumn semanticObject) {
@@ -1031,7 +1047,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='inherit-many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
 	 *         (name='create-one-to-many' dbTable=IDENT exports+=ExportAssignement+) | 
 	 *         (name='create-many-to-one' dbTable=IDENT imports+=ImportAssignement+) | 
-	 *         (name='table-many-to-many' dbTable=IDENT imports+=ImportAssignement+) | 
+	 *         (name='table-many-to-many' dbTable=IDENT many2s+=ManyToManyAssignement+) | 
 	 *         (name='inherit-discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
 	 *         (name='generate-methods' methods+=IDENT+) | 
 	 *         (name='implements' toImplements+=[JvmType|QualifiedName]+) | 

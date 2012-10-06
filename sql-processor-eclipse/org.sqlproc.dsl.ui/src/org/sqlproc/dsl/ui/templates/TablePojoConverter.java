@@ -57,7 +57,7 @@ public class TablePojoConverter {
     private Map<String, Map<String, Map<String, String>>> createExports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> createImports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, String>>> inheritImports = new HashMap<String, Map<String, Map<String, String>>>();
-    private Map<String, Map<String, Map<String, String>>> manyToManyExports = new HashMap<String, Map<String, Map<String, String>>>();
+    private Map<String, Map<String, Map<String, String>>> manyToManyImports = new HashMap<String, Map<String, Map<String, String>>>();
     private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
     private Map<String, String> inheritanceColumns = new HashMap<String, String>();
     private Set<String> generateMethods = new HashSet<String>();
@@ -141,9 +141,9 @@ public class TablePojoConverter {
         if (inheritImports != null) {
             this.inheritImports.putAll(inheritImports);
         }
-        Map<String, Map<String, Map<String, String>>> manyToManyExports = modelProperty.getManyToManyExports(artifacts);
-        if (manyToManyExports != null) {
-            this.manyToManyExports.putAll(manyToManyExports);
+        Map<String, Map<String, Map<String, String>>> manyToManyImports = modelProperty.getManyToManyImports(artifacts);
+        if (manyToManyImports != null) {
+            this.manyToManyImports.putAll(manyToManyImports);
         }
         Map<String, Map<String, Map<String, List<String>>>> inheritance = modelProperty.getInheritance(artifacts);
         if (inheritance != null) {
@@ -178,7 +178,7 @@ public class TablePojoConverter {
             }
         }
 
-        for (Map.Entry<String, Map<String, Map<String, String>>> manyToManyExport : this.manyToManyExports.entrySet()) {
+        for (Map.Entry<String, Map<String, Map<String, String>>> manyToManyExport : this.manyToManyImports.entrySet()) {
             String table = manyToManyExport.getKey(); // tableToCamelCase(columnName.getKey());
             if (!this.ignoreImports.containsKey(table))
                 this.ignoreImports.put(table, null);
@@ -198,7 +198,7 @@ public class TablePojoConverter {
         // System.out.println("createExports " + this.createExports);
         // System.out.println("createImports " + this.createImports);
         // System.out.println("inheritImports " + this.inheritImports);
-        // System.out.println("manyToManyExports " + this.manyToManyExports);
+        // System.out.println("manyToManyImports " + this.manyToManyImports);
         // System.out.println("inheritance " + this.inheritance);
         // System.out.println("inheritanceColumns " + this.inheritanceColumns);
         // System.out.println("generateMethods " + this.generateMethods);
@@ -265,9 +265,9 @@ public class TablePojoConverter {
             if (ignoreExports.containsKey(table) && ignoreExports.get(table).containsKey(dbExport.getPkColumn())
                     && ignoreExports.get(table).get(dbExport.getPkColumn()).containsKey(dbExport.getFkTable()))
                 continue;
-            if (manyToManyExports.containsKey(dbExport.getFkTable())) {
-                if (manyToManyExports.get(dbExport.getFkTable()).containsKey(dbExport.getPkColumn())) {
-                    for (Map.Entry<String, String> manyToMany : manyToManyExports.get(dbExport.getFkTable())
+            if (manyToManyImports.containsKey(dbExport.getFkTable())) {
+                if (manyToManyImports.get(dbExport.getFkTable()).containsKey(dbExport.getPkColumn())) {
+                    for (Map.Entry<String, String> manyToMany : manyToManyImports.get(dbExport.getFkTable())
                             .get(dbExport.getPkColumn()).entrySet()) {
                         String fkTable = manyToMany.getKey();
                         String fkColumn = manyToMany.getValue();
