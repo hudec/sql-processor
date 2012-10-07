@@ -10,8 +10,6 @@ public class Person implements Serializable {
   private static final long serialVersionUID = 1L;
 	
   public Person() {
-    library = new ArrayList<Media>();
-    contacts = new ArrayList<Contact>();
   }
   
   public Person(String name) {
@@ -48,7 +46,7 @@ public class Person implements Serializable {
     return this;
   }
   
-  private List<Media> library;
+  private List<Media> library = new ArrayList<Media>();
     
   public List<Media> getLibrary() {
     return library;
@@ -63,7 +61,7 @@ public class Person implements Serializable {
     return this;
   }
   
-  private List<Contact> contacts;
+  private List<Contact> contacts = new ArrayList<Contact>();
     
   public List<Contact> getContacts() {
     return contacts;

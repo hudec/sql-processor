@@ -10,7 +10,6 @@ public class Subscriber implements Serializable {
   private static final long serialVersionUID = 1L;
 	
   public Subscriber() {
-    billingDetails = new ArrayList<BillingDetails>();
   }
   
   public Subscriber(Library library, String name) {
@@ -78,7 +77,7 @@ public class Subscriber implements Serializable {
     return this;
   }
   
-  private List<BillingDetails> billingDetails;
+  private List<BillingDetails> billingDetails = new ArrayList<BillingDetails>();
     
   public List<BillingDetails> getBillingDetails() {
     return billingDetails;
