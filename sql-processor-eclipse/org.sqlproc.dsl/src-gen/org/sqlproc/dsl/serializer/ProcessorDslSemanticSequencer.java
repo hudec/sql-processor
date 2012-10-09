@@ -62,6 +62,7 @@ import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
+import org.sqlproc.dsl.processorDsl.ShowColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.Sql;
 import org.sqlproc.dsl.processorDsl.SqlFragment;
 import org.sqlproc.dsl.processorDsl.SqlTypeAssignement;
@@ -376,6 +377,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.PROPERTY:
 				if(context == grammarAccess.getPropertyRule()) {
 					sequence_Property(context, (Property) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.SHOW_COLUMN_TYPE_ASSIGNEMENT:
+				if(context == grammarAccess.getShowColumnTypeAssignementRule()) {
+					sequence_ShowColumnTypeAssignement(context, (ShowColumnTypeAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1035,6 +1042,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='types-sqltypes' sqlTypes+=SqlTypeAssignement+) | 
 	 *         (name='types-in-table' dbTable=IDENT sqlTypes+=SqlTypeAssignement+) | 
 	 *         (name='types-for-columns' dbTable=IDENT columnTypes+=ColumnTypeAssignement+) | 
+	 *         (name='show-type-for-column' dbTable=IDENT columnType=ShowColumnTypeAssignement) | 
 	 *         (name='ignore-tables' dbTables+=IDENT+) | 
 	 *         (name='only-tables' dbTables+=IDENT+) | 
 	 *         (name='ignore-columns' dbTable=IDENT dbColumns+=IDENT+) | 
@@ -1066,6 +1074,25 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (dbColumn=IDENT type=IDENT)
+	 */
+	protected void sequence_ShowColumnTypeAssignement(EObject context, ShowColumnTypeAssignement semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.SHOW_COLUMN_TYPE_ASSIGNEMENT__DB_COLUMN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.SHOW_COLUMN_TYPE_ASSIGNEMENT__DB_COLUMN));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.SHOW_COLUMN_TYPE_ASSIGNEMENT__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.SHOW_COLUMN_TYPE_ASSIGNEMENT__TYPE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getShowColumnTypeAssignementAccess().getDbColumnIDENTTerminalRuleCall_0_0(), semanticObject.getDbColumn());
+		feeder.accept(grammarAccess.getShowColumnTypeAssignementAccess().getTypeIDENTTerminalRuleCall_2_0(), semanticObject.getType());
+		feeder.finish();
 	}
 	
 	

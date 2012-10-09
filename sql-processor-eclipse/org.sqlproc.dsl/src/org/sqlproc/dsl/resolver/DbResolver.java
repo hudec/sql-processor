@@ -23,4 +23,6 @@ public interface DbResolver {
     List<DbImport> getDbImports(EObject model, String table);
 
     List<String> getDbPrimaryKeys(EObject model, String table);
+
+    String getType(EObject model, String table, String column);
 }

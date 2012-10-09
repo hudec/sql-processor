@@ -30,6 +30,7 @@ import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
 import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
+import org.sqlproc.dsl.processorDsl.ShowColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.SqlTypeAssignement;
 import org.sqlproc.dsl.processorDsl.TableAssignement;
 
@@ -44,6 +45,7 @@ import org.sqlproc.dsl.processorDsl.TableAssignement;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getSqlTypes <em>Sql Types</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getDbTable <em>Db Table</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getColumnTypes <em>Column Types</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getColumnType <em>Column Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getDbTables <em>Db Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getDbColumns <em>Db Columns</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getTables <em>Tables</em>}</li>
@@ -122,6 +124,16 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected EList<ColumnTypeAssignement> columnTypes;
+
+  /**
+   * The cached value of the '{@link #getColumnType() <em>Column Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getColumnType()
+   * @generated
+   * @ordered
+   */
+  protected ShowColumnTypeAssignement columnType;
 
   /**
    * The cached value of the '{@link #getDbTables() <em>Db Tables</em>}' attribute list.
@@ -353,6 +365,54 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public ShowColumnTypeAssignement getColumnType()
+  {
+    return columnType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetColumnType(ShowColumnTypeAssignement newColumnType, NotificationChain msgs)
+  {
+    ShowColumnTypeAssignement oldColumnType = columnType;
+    columnType = newColumnType;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPE, oldColumnType, newColumnType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setColumnType(ShowColumnTypeAssignement newColumnType)
+  {
+    if (newColumnType != columnType)
+    {
+      NotificationChain msgs = null;
+      if (columnType != null)
+        msgs = ((InternalEObject)columnType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPE, null, msgs);
+      if (newColumnType != null)
+        msgs = ((InternalEObject)newColumnType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPE, null, msgs);
+      msgs = basicSetColumnType(newColumnType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPE, newColumnType, newColumnType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<String> getDbTables()
   {
     if (dbTables == null)
@@ -568,6 +628,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return ((InternalEList<?>)getSqlTypes()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPES:
         return ((InternalEList<?>)getColumnTypes()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPE:
+        return basicSetColumnType(null, msgs);
       case ProcessorDslPackage.POJOGEN_PROPERTY__TABLES:
         return ((InternalEList<?>)getTables()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMNS:
@@ -602,6 +664,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return getDbTable();
       case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPES:
         return getColumnTypes();
+      case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPE:
+        return getColumnType();
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_TABLES:
         return getDbTables();
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_COLUMNS:
@@ -655,6 +719,9 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPES:
         getColumnTypes().clear();
         getColumnTypes().addAll((Collection<? extends ColumnTypeAssignement>)newValue);
+        return;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPE:
+        setColumnType((ShowColumnTypeAssignement)newValue);
         return;
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_TABLES:
         getDbTables().clear();
@@ -728,6 +795,9 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPES:
         getColumnTypes().clear();
         return;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPE:
+        setColumnType((ShowColumnTypeAssignement)null);
+        return;
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_TABLES:
         getDbTables().clear();
         return;
@@ -786,6 +856,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return DB_TABLE_EDEFAULT == null ? dbTable != null : !DB_TABLE_EDEFAULT.equals(dbTable);
       case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPES:
         return columnTypes != null && !columnTypes.isEmpty();
+      case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPE:
+        return columnType != null;
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_TABLES:
         return dbTables != null && !dbTables.isEmpty();
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_COLUMNS:

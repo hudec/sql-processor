@@ -64,6 +64,7 @@ import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.ProcessorDslFactory;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
+import org.sqlproc.dsl.processorDsl.ShowColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.Sql;
 import org.sqlproc.dsl.processorDsl.SqlFragment;
 import org.sqlproc.dsl.processorDsl.SqlTypeAssignement;
@@ -99,6 +100,13 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * @generated
    */
   private EClass columnTypeAssignementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass showColumnTypeAssignementEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -729,6 +737,36 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getShowColumnTypeAssignement()
+  {
+    return showColumnTypeAssignementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getShowColumnTypeAssignement_DbColumn()
+  {
+    return (EAttribute)showColumnTypeAssignementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getShowColumnTypeAssignement_Type()
+  {
+    return (EAttribute)showColumnTypeAssignementEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getTableAssignement()
   {
     return tableAssignementEClass;
@@ -1109,9 +1147,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getPojogenProperty_DbTables()
+  public EReference getPojogenProperty_ColumnType()
   {
-    return (EAttribute)pojogenPropertyEClass.getEStructuralFeatures().get(4);
+    return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -1119,7 +1157,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getPojogenProperty_DbColumns()
+  public EAttribute getPojogenProperty_DbTables()
   {
     return (EAttribute)pojogenPropertyEClass.getEStructuralFeatures().get(5);
   }
@@ -1129,9 +1167,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPojogenProperty_Tables()
+  public EAttribute getPojogenProperty_DbColumns()
   {
-    return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(6);
+    return (EAttribute)pojogenPropertyEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -1139,7 +1177,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPojogenProperty_Columns()
+  public EReference getPojogenProperty_Tables()
   {
     return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(7);
   }
@@ -1149,7 +1187,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPojogenProperty_Exports()
+  public EReference getPojogenProperty_Columns()
   {
     return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(8);
   }
@@ -1159,7 +1197,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPojogenProperty_Imports()
+  public EReference getPojogenProperty_Exports()
   {
     return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(9);
   }
@@ -1169,7 +1207,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPojogenProperty_Many2s()
+  public EReference getPojogenProperty_Imports()
   {
     return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(10);
   }
@@ -1179,9 +1217,19 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getPojogenProperty_Many2s()
+  {
+    return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(11);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getPojogenProperty_DbColumn()
   {
-    return (EAttribute)pojogenPropertyEClass.getEStructuralFeatures().get(11);
+    return (EAttribute)pojogenPropertyEClass.getEStructuralFeatures().get(12);
   }
 
   /**
@@ -1191,7 +1239,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    */
   public EReference getPojogenProperty_Inheritance()
   {
-    return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(12);
+    return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(13);
   }
 
   /**
@@ -1201,7 +1249,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    */
   public EAttribute getPojogenProperty_Methods()
   {
-    return (EAttribute)pojogenPropertyEClass.getEStructuralFeatures().get(13);
+    return (EAttribute)pojogenPropertyEClass.getEStructuralFeatures().get(14);
   }
 
   /**
@@ -1211,7 +1259,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    */
   public EReference getPojogenProperty_ToImplements()
   {
-    return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(14);
+    return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(15);
   }
 
   /**
@@ -1221,7 +1269,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    */
   public EReference getPojogenProperty_ToExtends()
   {
-    return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(15);
+    return (EReference)pojogenPropertyEClass.getEStructuralFeatures().get(16);
   }
 
   /**
@@ -2905,6 +2953,10 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEAttribute(columnTypeAssignementEClass, COLUMN_TYPE_ASSIGNEMENT__DB_COLUMN);
     createEReference(columnTypeAssignementEClass, COLUMN_TYPE_ASSIGNEMENT__TYPE);
 
+    showColumnTypeAssignementEClass = createEClass(SHOW_COLUMN_TYPE_ASSIGNEMENT);
+    createEAttribute(showColumnTypeAssignementEClass, SHOW_COLUMN_TYPE_ASSIGNEMENT__DB_COLUMN);
+    createEAttribute(showColumnTypeAssignementEClass, SHOW_COLUMN_TYPE_ASSIGNEMENT__TYPE);
+
     tableAssignementEClass = createEClass(TABLE_ASSIGNEMENT);
     createEAttribute(tableAssignementEClass, TABLE_ASSIGNEMENT__DB_TABLE);
     createEAttribute(tableAssignementEClass, TABLE_ASSIGNEMENT__NEW_NAME);
@@ -2951,6 +3003,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEReference(pojogenPropertyEClass, POJOGEN_PROPERTY__SQL_TYPES);
     createEAttribute(pojogenPropertyEClass, POJOGEN_PROPERTY__DB_TABLE);
     createEReference(pojogenPropertyEClass, POJOGEN_PROPERTY__COLUMN_TYPES);
+    createEReference(pojogenPropertyEClass, POJOGEN_PROPERTY__COLUMN_TYPE);
     createEAttribute(pojogenPropertyEClass, POJOGEN_PROPERTY__DB_TABLES);
     createEAttribute(pojogenPropertyEClass, POJOGEN_PROPERTY__DB_COLUMNS);
     createEReference(pojogenPropertyEClass, POJOGEN_PROPERTY__TABLES);
@@ -3241,6 +3294,10 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEAttribute(getColumnTypeAssignement_DbColumn(), ecorePackage.getEString(), "dbColumn", null, 0, 1, ColumnTypeAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getColumnTypeAssignement_Type(), this.getPojoType(), null, "type", null, 0, 1, ColumnTypeAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(showColumnTypeAssignementEClass, ShowColumnTypeAssignement.class, "ShowColumnTypeAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getShowColumnTypeAssignement_DbColumn(), ecorePackage.getEString(), "dbColumn", null, 0, 1, ShowColumnTypeAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getShowColumnTypeAssignement_Type(), ecorePackage.getEString(), "type", null, 0, 1, ShowColumnTypeAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(tableAssignementEClass, TableAssignement.class, "TableAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTableAssignement_DbTable(), ecorePackage.getEString(), "dbTable", null, 0, 1, TableAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTableAssignement_NewName(), ecorePackage.getEString(), "newName", null, 0, 1, TableAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3287,6 +3344,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEReference(getPojogenProperty_SqlTypes(), this.getSqlTypeAssignement(), null, "sqlTypes", null, 0, -1, PojogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPojogenProperty_DbTable(), ecorePackage.getEString(), "dbTable", null, 0, 1, PojogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPojogenProperty_ColumnTypes(), this.getColumnTypeAssignement(), null, "columnTypes", null, 0, -1, PojogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPojogenProperty_ColumnType(), this.getShowColumnTypeAssignement(), null, "columnType", null, 0, 1, PojogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPojogenProperty_DbTables(), ecorePackage.getEString(), "dbTables", null, 0, -1, PojogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPojogenProperty_DbColumns(), ecorePackage.getEString(), "dbColumns", null, 0, -1, PojogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPojogenProperty_Tables(), this.getTableAssignement(), null, "tables", null, 0, -1, PojogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

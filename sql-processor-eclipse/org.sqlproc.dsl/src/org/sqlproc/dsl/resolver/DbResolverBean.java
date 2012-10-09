@@ -496,4 +496,51 @@ public class DbResolverBean implements DbResolver {
         }
         return importsForModel;
     }
+
+    @Override
+    public String getType(EObject model, String table, String column) {
+        if (table == null || column == null)
+            return "";
+        DatabaseValues modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return "";
+        ResultSet result = null;
+        String type = null;
+        int typeSize = 0;
+        try {
+            DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+            result = meta.getColumns(null, modelDatabaseValues.dbSchema, table, null);
+            while (result.next()) {
+                if (result.getString("COLUMN_NAME").equals(column)) {
+                    type = result.getString("TYPE_NAME");
+                    int ix = type.indexOf('(');
+                    if (ix > 0) {
+                        String size = type.substring(ix + 1);
+                        type = type.substring(0, ix);
+                        ix = size.indexOf(')');
+                        if (ix > 0) {
+                            size = size.substring(0, ix);
+                        }
+                        try {
+                            typeSize = Integer.parseInt(size);
+                        } catch (Exception ignore) {
+                        }
+                    } else {
+                        typeSize = result.getInt("COLUMN_SIZE");
+                    }
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error("getType error " + e);
+        } finally {
+            try {
+                if (result != null)
+                    result.close();
+            } catch (SQLException e) {
+                LOGGER.error("getDbColumns error " + e);
+            }
+        }
+        return type + "_" + typeSize;
+    }
 }

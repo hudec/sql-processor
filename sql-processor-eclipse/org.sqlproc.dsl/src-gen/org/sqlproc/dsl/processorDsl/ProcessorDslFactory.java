@@ -50,6 +50,15 @@ public interface ProcessorDslFactory extends EFactory
   ColumnTypeAssignement createColumnTypeAssignement();
 
   /**
+   * Returns a new object of class '<em>Show Column Type Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Show Column Type Assignement</em>'.
+   * @generated
+   */
+  ShowColumnTypeAssignement createShowColumnTypeAssignement();
+
+  /**
    * Returns a new object of class '<em>Table Assignement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

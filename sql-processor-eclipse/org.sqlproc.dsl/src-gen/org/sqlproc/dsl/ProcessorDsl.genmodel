@@ -28,6 +28,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ColumnTypeAssignement/dbColumn"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//ColumnTypeAssignement/type"/>
     </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//ShowColumnTypeAssignement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ShowColumnTypeAssignement/dbColumn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ShowColumnTypeAssignement/type"/>
+    </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//TableAssignement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//TableAssignement/dbTable"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//TableAssignement/newName"/>
@@ -74,6 +78,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//PojogenProperty/sqlTypes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojogenProperty/dbTable"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//PojogenProperty/columnTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//PojogenProperty/columnType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojogenProperty/dbTables"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojogenProperty/dbColumns"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//PojogenProperty/tables"/>

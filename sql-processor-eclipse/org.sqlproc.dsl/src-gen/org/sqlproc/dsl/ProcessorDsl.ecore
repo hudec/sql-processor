@@ -35,6 +35,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//PojoType"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ShowColumnTypeAssignement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TableAssignement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbTable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="newName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -86,6 +90,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbTable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="columnTypes" upperBound="-1"
         eType="#//ColumnTypeAssignement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columnType" eType="#//ShowColumnTypeAssignement"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbTables" unique="false"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbColumns" unique="false"

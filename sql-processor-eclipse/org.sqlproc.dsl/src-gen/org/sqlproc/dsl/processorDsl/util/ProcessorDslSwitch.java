@@ -93,6 +93,13 @@ public class ProcessorDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.SHOW_COLUMN_TYPE_ASSIGNEMENT:
+      {
+        ShowColumnTypeAssignement showColumnTypeAssignement = (ShowColumnTypeAssignement)theEObject;
+        T result = caseShowColumnTypeAssignement(showColumnTypeAssignement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.TABLE_ASSIGNEMENT:
       {
         TableAssignement tableAssignement = (TableAssignement)theEObject;
@@ -532,6 +539,22 @@ public class ProcessorDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseColumnTypeAssignement(ColumnTypeAssignement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Show Column Type Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Show Column Type Assignement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseShowColumnTypeAssignement(ShowColumnTypeAssignement object)
   {
     return null;
   }

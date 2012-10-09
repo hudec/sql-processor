@@ -20,6 +20,7 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getSqlTypes <em>Sql Types</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getDbTable <em>Db Table</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getColumnTypes <em>Column Types</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getColumnType <em>Column Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getDbTables <em>Db Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getDbColumns <em>Db Columns</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getTables <em>Tables</em>}</li>
@@ -124,6 +125,32 @@ public interface PojogenProperty extends EObject
    * @generated
    */
   EList<ColumnTypeAssignement> getColumnTypes();
+
+  /**
+   * Returns the value of the '<em><b>Column Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Column Type</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Column Type</em>' containment reference.
+   * @see #setColumnType(ShowColumnTypeAssignement)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojogenProperty_ColumnType()
+   * @model containment="true"
+   * @generated
+   */
+  ShowColumnTypeAssignement getColumnType();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getColumnType <em>Column Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Column Type</em>' containment reference.
+   * @see #getColumnType()
+   * @generated
+   */
+  void setColumnType(ShowColumnTypeAssignement value);
 
   /**
    * Returns the value of the '<em><b>Db Tables</b></em>' attribute list.

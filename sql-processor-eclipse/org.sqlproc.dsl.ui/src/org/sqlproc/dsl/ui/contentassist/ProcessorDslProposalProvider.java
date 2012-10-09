@@ -44,6 +44,7 @@ import org.sqlproc.dsl.processorDsl.PojoUsage;
 import org.sqlproc.dsl.processorDsl.PojoUsageExt;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
+import org.sqlproc.dsl.processorDsl.ShowColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.resolver.DbExport;
@@ -898,5 +899,39 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
             acceptor.accept(completionProposal);
         }
+    }
+
+    @Override
+    public void completeShowColumnTypeAssignement_DbColumn(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof PojogenProperty)) {
+            super.completeShowColumnTypeAssignement_DbColumn(model, assignment, context, acceptor);
+            return;
+        }
+        PojogenProperty prop = (PojogenProperty) model;
+        if (prop.getDbTable() != null) {
+            for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
+                String proposal = getValueConverter().toString(column, "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
+            }
+        }
+    }
+
+    @Override
+    public void completeShowColumnTypeAssignement_Type(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof ShowColumnTypeAssignement)) {
+            super.completeShowColumnTypeAssignement_Type(model, assignment, context, acceptor);
+            return;
+        }
+        ShowColumnTypeAssignement prop = (ShowColumnTypeAssignement) model;
+        PojogenProperty pojogenProperty = EcoreUtil2.getContainerOfType(model, PojogenProperty.class);
+        String table = pojogenProperty.getDbTable();
+        String column = prop.getDbColumn();
+        String type = dbResolver.getType(model, table, column);
+        String proposal = getValueConverter().toString(type, "IDENT");
+        ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+        acceptor.accept(completionProposal);
     }
 }

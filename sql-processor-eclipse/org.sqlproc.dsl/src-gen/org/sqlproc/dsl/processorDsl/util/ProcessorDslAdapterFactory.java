@@ -90,6 +90,11 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createColumnTypeAssignementAdapter();
       }
       @Override
+      public Adapter caseShowColumnTypeAssignement(ShowColumnTypeAssignement object)
+      {
+        return createShowColumnTypeAssignementAdapter();
+      }
+      @Override
       public Adapter caseTableAssignement(TableAssignement object)
       {
         return createTableAssignementAdapter();
@@ -422,6 +427,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createColumnTypeAssignementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ShowColumnTypeAssignement <em>Show Column Type Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ShowColumnTypeAssignement
+   * @generated
+   */
+  public Adapter createShowColumnTypeAssignementAdapter()
   {
     return null;
   }
