@@ -60,4 +60,6 @@ public interface ModelProperty extends Adapter {
     JvmType getToExtends(EObject model);
 
     Set<String> getOnlyTables(EObject model);
+
+    Map<String, List<String>> getJoinTables(EObject model);
 }

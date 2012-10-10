@@ -541,6 +541,6 @@ public class DbResolverBean implements DbResolver {
                 LOGGER.error("getDbColumns error " + e);
             }
         }
-        return type + "_" + typeSize;
+        return type + "(" + typeSize + ")";
     }
 }

@@ -107,6 +107,13 @@ public class ProcessorDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.JOIN_TABLE_ASSIGNEMENT:
+      {
+        JoinTableAssignement joinTableAssignement = (JoinTableAssignement)theEObject;
+        T result = caseJoinTableAssignement(joinTableAssignement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.COLUMN_ASSIGNEMENT:
       {
         ColumnAssignement columnAssignement = (ColumnAssignement)theEObject;
@@ -571,6 +578,22 @@ public class ProcessorDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseTableAssignement(TableAssignement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Join Table Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Join Table Assignement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseJoinTableAssignement(JoinTableAssignement object)
   {
     return null;
   }

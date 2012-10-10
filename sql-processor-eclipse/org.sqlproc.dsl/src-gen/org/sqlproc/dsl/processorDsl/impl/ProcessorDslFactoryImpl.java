@@ -69,6 +69,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.COLUMN_TYPE_ASSIGNEMENT: return createColumnTypeAssignement();
       case ProcessorDslPackage.SHOW_COLUMN_TYPE_ASSIGNEMENT: return createShowColumnTypeAssignement();
       case ProcessorDslPackage.TABLE_ASSIGNEMENT: return createTableAssignement();
+      case ProcessorDslPackage.JOIN_TABLE_ASSIGNEMENT: return createJoinTableAssignement();
       case ProcessorDslPackage.COLUMN_ASSIGNEMENT: return createColumnAssignement();
       case ProcessorDslPackage.IMPORT_ASSIGNEMENT: return createImportAssignement();
       case ProcessorDslPackage.EXPORT_ASSIGNEMENT: return createExportAssignement();
@@ -180,6 +181,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     TableAssignementImpl tableAssignement = new TableAssignementImpl();
     return tableAssignement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JoinTableAssignement createJoinTableAssignement()
+  {
+    JoinTableAssignementImpl joinTableAssignement = new JoinTableAssignementImpl();
+    return joinTableAssignement;
   }
 
   /**

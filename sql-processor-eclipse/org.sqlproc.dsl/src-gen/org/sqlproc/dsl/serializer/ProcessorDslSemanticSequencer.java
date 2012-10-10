@@ -39,6 +39,7 @@ import org.sqlproc.dsl.processorDsl.Implements;
 import org.sqlproc.dsl.processorDsl.Import;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
+import org.sqlproc.dsl.processorDsl.JoinTableAssignement;
 import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.Mapping;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
@@ -241,6 +242,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.INHERITANCE_ASSIGNEMENT:
 				if(context == grammarAccess.getInheritanceAssignementRule()) {
 					sequence_InheritanceAssignement(context, (InheritanceAssignement) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.JOIN_TABLE_ASSIGNEMENT:
+				if(context == grammarAccess.getJoinTableAssignementRule()) {
+					sequence_JoinTableAssignement(context, (JoinTableAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -800,6 +807,15 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
+	 *     (dbTable=IDENT dbTables+=IDENT+)
+	 */
+	protected void sequence_JoinTableAssignement(EObject context, JoinTableAssignement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (pkColumn=IDENT pkTable=IDENT fkColumn=IDENT?)
 	 */
 	protected void sequence_ManyToManyAssignement(EObject context, ManyToManyAssignement semanticObject) {
@@ -1045,6 +1061,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='show-type-for-column' dbTable=IDENT columnType=ShowColumnTypeAssignement) | 
 	 *         (name='ignore-tables' dbTables+=IDENT+) | 
 	 *         (name='only-tables' dbTables+=IDENT+) | 
+	 *         (name='join-tables' joinTables+=JoinTableAssignement+) | 
 	 *         (name='ignore-columns' dbTable=IDENT dbColumns+=IDENT+) | 
 	 *         (name='required-columns' dbTable=IDENT dbColumns+=IDENT+) | 
 	 *         (name='not-required-columns' dbTable=IDENT dbColumns+=IDENT+) | 
@@ -1079,7 +1096,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (dbColumn=IDENT type=IDENT)
+	 *     (dbColumn=IDENT type=PropertyValue)
 	 */
 	protected void sequence_ShowColumnTypeAssignement(EObject context, ShowColumnTypeAssignement semanticObject) {
 		if(errorAcceptor != null) {
@@ -1091,7 +1108,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getShowColumnTypeAssignementAccess().getDbColumnIDENTTerminalRuleCall_0_0(), semanticObject.getDbColumn());
-		feeder.accept(grammarAccess.getShowColumnTypeAssignementAccess().getTypeIDENTTerminalRuleCall_2_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getShowColumnTypeAssignementAccess().getTypePropertyValueParserRuleCall_2_0(), semanticObject.getType());
 		feeder.finish();
 	}
 	

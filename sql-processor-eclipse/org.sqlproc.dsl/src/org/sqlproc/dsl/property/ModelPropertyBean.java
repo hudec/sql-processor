@@ -1,5 +1,6 @@
 package org.sqlproc.dsl.property;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,6 +22,7 @@ import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
+import org.sqlproc.dsl.processorDsl.JoinTableAssignement;
 import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.Property;
@@ -65,6 +67,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_GENERATE_METHODS = "generate-methods";
     public static final String POJOGEN_IMPLEMENTS_INTERFACES = "implements-interfaces";
     public static final String POJOGEN_EXTENDS_CLASS = "extends-class";
+    public static final String POJOGEN_JOIN_TABLES = "join-tables";
 
     public static class ModelValues {
         public boolean doResolvePojo;
@@ -97,6 +100,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Set<String> generateMethods;
         public Map<String, JvmType> toImplements;
         public JvmType toExtends;
+        public Map<String, List<String>> joinTables;
 
         @Override
         public String toString() {
@@ -111,7 +115,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + createExports + ", createImports=" + createImports + ", inheritImports=" + inheritImports
                     + ", manyToManyImports=" + manyToManyImports + ", inheritance=" + inheritance
                     + ", inheritanceColumns=" + inheritanceColumns + ", generateMethods=" + generateMethods
-                    + ", toImplements=" + toImplements + ", toExtends=" + toExtends + "]";
+                    + ", toImplements=" + toImplements + ", toExtends=" + toExtends + ", joinTables=" + joinTables
+                    + "]";
         }
     }
 
@@ -228,6 +233,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.generateMethods = new HashSet<String>();
         modelValues.toImplements = new HashMap<String, JvmType>();
         modelValues.toExtends = null;
+        modelValues.joinTables = new HashMap<String, List<String>>();
     }
 
     public void setValue(ModelValues modelValues, Property property) {
@@ -455,6 +461,17 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             }
         } else if (POJOGEN_EXTENDS_CLASS.equals(property.getName())) {
             modelValues.toExtends = property.getToExtends();
+        } else if (POJOGEN_JOIN_TABLES.equals(property.getName())) {
+            // if (modelValues.joinTables == null)
+            // modelValues.joinTables = new HashMap<String, List<String>>();
+            for (int i = 0, m = property.getJoinTables().size(); i < m; i++) {
+                JoinTableAssignement joinTableAssignement = property.getJoinTables().get(i);
+                if (!modelValues.joinTables.containsKey(joinTableAssignement.getDbTable()))
+                    modelValues.joinTables.put(joinTableAssignement.getDbTable(), new ArrayList<String>());
+                for (String dbTable : joinTableAssignement.getDbTables()) {
+                    modelValues.joinTables.get(joinTableAssignement.getDbTable()).add(dbTable);
+                }
+            }
         }
     }
 
@@ -610,6 +627,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public JvmType getToExtends(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.toExtends : null;
+    }
+
+    @Override
+    public Map<String, List<String>> getJoinTables(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.joinTables : Collections.<String, List<String>> emptyMap();
     }
 
     @Override

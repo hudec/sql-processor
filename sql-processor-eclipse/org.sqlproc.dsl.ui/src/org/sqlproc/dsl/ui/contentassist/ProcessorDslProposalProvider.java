@@ -930,8 +930,40 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         String table = pojogenProperty.getDbTable();
         String column = prop.getDbColumn();
         String type = dbResolver.getType(model, table, column);
-        String proposal = getValueConverter().toString(type, "IDENT");
+        String proposal = getValueConverter().toString(type, "PropertyValue");
         ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
         acceptor.accept(completionProposal);
+    }
+
+    @Override
+    public void completeJoinTableAssignement_DbTable(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeJoinTableAssignement_DbTable(model, assignment, context, acceptor);
+            return;
+        }
+        for (String table : dbResolver.getTables(model)) {
+            if (table.indexOf('$') >= 0)
+                continue;
+            String proposal = getValueConverter().toString(table, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+    }
+
+    @Override
+    public void completeJoinTableAssignement_DbTables(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeJoinTableAssignement_DbTables(model, assignment, context, acceptor);
+            return;
+        }
+        for (String table : dbResolver.getTables(model)) {
+            if (table.indexOf('$') >= 0)
+                continue;
+            String proposal = getValueConverter().toString(table, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
     }
 }

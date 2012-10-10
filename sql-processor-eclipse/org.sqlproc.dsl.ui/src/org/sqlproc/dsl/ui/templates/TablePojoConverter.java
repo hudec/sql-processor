@@ -63,6 +63,7 @@ public class TablePojoConverter {
     private Set<String> generateMethods = new HashSet<String>();
     private Map<String, JvmType> toImplements = new HashMap<String, JvmType>();
     private JvmType toExtends = null;
+    private Map<String, List<String>> joinTables = new HashMap<String, List<String>>();
 
     private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     private Map<String, String> pojoExtends = new HashMap<String, String>();
@@ -162,6 +163,10 @@ public class TablePojoConverter {
             this.toImplements.putAll(toImplements);
         }
         this.toExtends = modelProperty.getToExtends(artifacts);
+        Map<String, List<String>> joinTables = modelProperty.getJoinTables(artifacts);
+        if (joinTables != null) {
+            this.joinTables.putAll(joinTables);
+        }
 
         for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : this.inheritImports.entrySet()) {
             for (Map.Entry<String, Map<String, String>> inherit : inheritImport.getValue().entrySet()) {
@@ -204,6 +209,7 @@ public class TablePojoConverter {
         // System.out.println("generateMethods " + this.generateMethods);
         // System.out.println("toImplements " + this.toImplements);
         // System.out.println("toExtends " + this.toExtends);
+        // System.out.println("joinTables " + this.joinTables);
     }
 
     public void addTableDefinition(String table, List<DbColumn> dbColumns, List<String> dbPrimaryKeys,
@@ -315,6 +321,24 @@ public class TablePojoConverter {
                 attributes.remove(dbColumn);
             }
             pojoAbstracts.add(table);
+        }
+    }
+
+    public void joinTables() {
+        for (String table : joinTables.keySet()) {
+            if (!pojos.containsKey(table))
+                continue;
+            boolean skipTable = false;
+            List<String> tables = joinTables.get(table);
+            for (String table1 : tables) {
+                if (!pojos.containsKey(table1)) {
+                    skipTable = true;
+                    break;
+                }
+            }
+            if (skipTable == true)
+                continue;
+            // TODO
         }
     }
 

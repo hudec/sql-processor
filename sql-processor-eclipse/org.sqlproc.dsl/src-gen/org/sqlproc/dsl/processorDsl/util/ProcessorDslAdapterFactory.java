@@ -100,6 +100,11 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createTableAssignementAdapter();
       }
       @Override
+      public Adapter caseJoinTableAssignement(JoinTableAssignement object)
+      {
+        return createJoinTableAssignementAdapter();
+      }
+      @Override
       public Adapter caseColumnAssignement(ColumnAssignement object)
       {
         return createColumnAssignementAdapter();
@@ -457,6 +462,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createTableAssignementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.JoinTableAssignement <em>Join Table Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.JoinTableAssignement
+   * @generated
+   */
+  public Adapter createJoinTableAssignementAdapter()
   {
     return null;
   }

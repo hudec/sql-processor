@@ -27,6 +27,7 @@ import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
+import org.sqlproc.dsl.processorDsl.JoinTableAssignement;
 import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
@@ -47,6 +48,7 @@ import org.sqlproc.dsl.processorDsl.TableAssignement;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getColumnTypes <em>Column Types</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getColumnType <em>Column Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getDbTables <em>Db Tables</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getJoinTables <em>Join Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getDbColumns <em>Db Columns</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getTables <em>Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getColumns <em>Columns</em>}</li>
@@ -144,6 +146,16 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected EList<String> dbTables;
+
+  /**
+   * The cached value of the '{@link #getJoinTables() <em>Join Tables</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getJoinTables()
+   * @generated
+   * @ordered
+   */
+  protected EList<JoinTableAssignement> joinTables;
 
   /**
    * The cached value of the '{@link #getDbColumns() <em>Db Columns</em>}' attribute list.
@@ -427,6 +439,20 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<JoinTableAssignement> getJoinTables()
+  {
+    if (joinTables == null)
+    {
+      joinTables = new EObjectContainmentEList<JoinTableAssignement>(JoinTableAssignement.class, this, ProcessorDslPackage.POJOGEN_PROPERTY__JOIN_TABLES);
+    }
+    return joinTables;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<String> getDbColumns()
   {
     if (dbColumns == null)
@@ -630,6 +656,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return ((InternalEList<?>)getColumnTypes()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMN_TYPE:
         return basicSetColumnType(null, msgs);
+      case ProcessorDslPackage.POJOGEN_PROPERTY__JOIN_TABLES:
+        return ((InternalEList<?>)getJoinTables()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.POJOGEN_PROPERTY__TABLES:
         return ((InternalEList<?>)getTables()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.POJOGEN_PROPERTY__COLUMNS:
@@ -668,6 +696,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return getColumnType();
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_TABLES:
         return getDbTables();
+      case ProcessorDslPackage.POJOGEN_PROPERTY__JOIN_TABLES:
+        return getJoinTables();
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_COLUMNS:
         return getDbColumns();
       case ProcessorDslPackage.POJOGEN_PROPERTY__TABLES:
@@ -726,6 +756,10 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_TABLES:
         getDbTables().clear();
         getDbTables().addAll((Collection<? extends String>)newValue);
+        return;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__JOIN_TABLES:
+        getJoinTables().clear();
+        getJoinTables().addAll((Collection<? extends JoinTableAssignement>)newValue);
         return;
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_COLUMNS:
         getDbColumns().clear();
@@ -801,6 +835,9 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_TABLES:
         getDbTables().clear();
         return;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__JOIN_TABLES:
+        getJoinTables().clear();
+        return;
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_COLUMNS:
         getDbColumns().clear();
         return;
@@ -860,6 +897,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return columnType != null;
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_TABLES:
         return dbTables != null && !dbTables.isEmpty();
+      case ProcessorDslPackage.POJOGEN_PROPERTY__JOIN_TABLES:
+        return joinTables != null && !joinTables.isEmpty();
       case ProcessorDslPackage.POJOGEN_PROPERTY__DB_COLUMNS:
         return dbColumns != null && !dbColumns.isEmpty();
       case ProcessorDslPackage.POJOGEN_PROPERTY__TABLES:

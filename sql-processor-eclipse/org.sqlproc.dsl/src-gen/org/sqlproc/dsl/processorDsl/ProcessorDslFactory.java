@@ -68,6 +68,15 @@ public interface ProcessorDslFactory extends EFactory
   TableAssignement createTableAssignement();
 
   /**
+   * Returns a new object of class '<em>Join Table Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Join Table Assignement</em>'.
+   * @generated
+   */
+  JoinTableAssignement createJoinTableAssignement();
+
+  /**
    * Returns a new object of class '<em>Column Assignement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

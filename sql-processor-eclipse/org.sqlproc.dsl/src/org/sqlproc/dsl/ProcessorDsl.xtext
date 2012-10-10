@@ -13,8 +13,9 @@ Artifacts:
 
 SqlTypeAssignement: typeName=IDENT (LPAREN size=NUMBER RPAREN)? '->' type=PojoType;
 ColumnTypeAssignement: dbColumn=IDENT '->' type=PojoType;
-ShowColumnTypeAssignement: dbColumn=IDENT '->' type=IDENT;
+ShowColumnTypeAssignement: dbColumn=IDENT '->' type=PropertyValue;
 TableAssignement: dbTable=IDENT '->' newName=IDENT;
+JoinTableAssignement: dbTable=IDENT ('->' dbTables+=IDENT)+;
 ColumnAssignement: dbColumn=IDENT '->' newName=IDENT;
 ImportAssignement: dbColumn=IDENT '->' pkTable=IDENT ('->' pkColumn=IDENT)?;
 ExportAssignement: dbColumn=IDENT '->' fkTable=IDENT ('->' fkColumn=IDENT)?;
@@ -45,6 +46,7 @@ PojogenProperty:
 	|name='show-type-for-column' WS+ dbTable=IDENT WS+ columnType=ShowColumnTypeAssignement
 	|name='ignore-tables' (WS+ dbTables+=IDENT)+
 	|name='only-tables' (WS+ dbTables+=IDENT)+
+	|name='join-tables' (WS+ joinTables+=JoinTableAssignement)+
 	|name='ignore-columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
 	|name='required-columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
 	|name='not-required-columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+

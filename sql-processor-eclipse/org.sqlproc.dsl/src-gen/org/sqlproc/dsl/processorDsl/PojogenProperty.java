@@ -22,6 +22,7 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getColumnTypes <em>Column Types</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getColumnType <em>Column Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getDbTables <em>Db Tables</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getJoinTables <em>Join Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getDbColumns <em>Db Columns</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getTables <em>Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getColumns <em>Columns</em>}</li>
@@ -167,6 +168,22 @@ public interface PojogenProperty extends EObject
    * @generated
    */
   EList<String> getDbTables();
+
+  /**
+   * Returns the value of the '<em><b>Join Tables</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.JoinTableAssignement}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Join Tables</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Join Tables</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojogenProperty_JoinTables()
+   * @model containment="true"
+   * @generated
+   */
+  EList<JoinTableAssignement> getJoinTables();
 
   /**
    * Returns the value of the '<em><b>Db Columns</b></em>' attribute list.
