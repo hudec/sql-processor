@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TreeMap;
@@ -340,12 +341,21 @@ public class TablePojoConverter {
                 continue;
 
             String table0 = stack.pop();
+            Set<String> allAttributes = new HashSet<String>();
+            allAttributes.addAll(pojos.get(table0).keySet());
             if (tableNames.containsKey(table0))
                 table0 = tableNames.get(table0);
             while (stack.size() > 0) {
                 String table1 = stack.pop();
                 String newTable = (tableNames.containsKey(table1) ? tableNames.get(table1) : table1) + "_" + table0;
-                pojos.put(newTable, pojos.get(table1));
+                Map<String, PojoAttribute> newAttributes = new LinkedHashMap<String, PojoAttribute>();
+                for (Entry<String, PojoAttribute> attr : pojos.get(table1).entrySet()) {
+                    if (!allAttributes.contains(attr.getKey())) {
+                        newAttributes.put(attr.getKey(), attr.getValue());
+                        allAttributes.add(attr.getKey());
+                    }
+                }
+                pojos.put(newTable, newAttributes);
                 pojoExtends.put(newTable, tableToCamelCase(table0));
                 if (!onlyTables.isEmpty())
                     onlyTables.add(newTable);
