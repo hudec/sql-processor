@@ -619,8 +619,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                         converter.addTableDefinition(table, dbColumns, dbPrimaryKeys, dbExports, dbImports);
                     }
                     // converter.resolveReferencesOnConvention();
-                    converter.joinTables();
                     converter.resolveReferencesOnKeys();
+                    converter.joinTables();
                     return converter.getPojoDefinitions();
                 }
             }

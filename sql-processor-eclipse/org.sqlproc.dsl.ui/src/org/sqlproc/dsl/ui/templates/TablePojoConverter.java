@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 import java.util.TreeMap;
 
 import org.eclipse.xtext.common.types.JvmType;
@@ -328,17 +329,28 @@ public class TablePojoConverter {
         for (String table : joinTables.keySet()) {
             if (!pojos.containsKey(table))
                 continue;
-            boolean skipTable = false;
-            List<String> tables = joinTables.get(table);
-            for (String table1 : tables) {
-                if (!pojos.containsKey(table1)) {
-                    skipTable = true;
+            Stack<String> stack = new Stack<String>();
+            stack.push(table);
+            for (String table1 : joinTables.get(table)) {
+                if (!pojos.containsKey(table1))
                     break;
-                }
+                stack.push(table1);
             }
-            if (skipTable == true)
+            if (stack.size() != joinTables.get(table).size() + 1)
                 continue;
-            // TODO
+
+            String table0 = stack.pop();
+            if (tableNames.containsKey(table0))
+                table0 = tableNames.get(table0);
+            while (stack.size() > 0) {
+                String table1 = stack.pop();
+                String newTable = (tableNames.containsKey(table1) ? tableNames.get(table1) : table1) + "_" + table0;
+                pojos.put(newTable, pojos.get(table1));
+                pojoExtends.put(newTable, tableToCamelCase(table0));
+                if (!onlyTables.isEmpty())
+                    onlyTables.add(newTable);
+                table0 = newTable;
+            }
         }
     }
 

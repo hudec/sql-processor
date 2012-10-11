@@ -29,7 +29,7 @@ pojogen-generate-methods toString equals hashCode;
 pojogen-implements-interfaces java.io.Serializable;
 //pojogen-extends-class java.lang.Object;
 pojogen-show-type-for-column BILLING_DETAILS BA_ACCOUNT->VARCHAR2(100);
-pojogen-join-tables PERSON->CONTACT->SUBSCRIBER;
+//pojogen-join-tables PERSON->CONTACT->SUBSCRIBER;
 
 
 package org.sqlproc.sample.simple.model2 suffix 2 {
