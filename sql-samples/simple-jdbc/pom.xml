@@ -16,8 +16,8 @@
     <properties>
         <version.sql-processor>1.8.0-SNAPSHOT</version.sql-processor>
         <version.antlr>3.4</version.antlr>
-        <version.log4j>1.2.16</version.log4j>
-        <version.slf4j>1.6.4</version.slf4j>
+        <version.log4j>1.2.17</version.log4j>
+        <version.slf4j>1.7.2</version.slf4j>
         <version.junit>4.10</version.junit>
         <version.hsqldb>2.2.8</version.hsqldb>
         <version.oracle>10.2.0.4</version.oracle>
