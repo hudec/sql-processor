@@ -29,7 +29,6 @@
         <version.servlet-api>2.5</version.servlet-api>
         <version.commons-dbcp>1.4</version.commons-dbcp>
         <version.hibernate>4.1.7.Final</version.hibernate>
-        <version.hibernate-annotations>3.5.6-Final</version.hibernate-annotations>
         <version.javassist>3.12.1.GA</version.javassist>
         <version.wicket>1.4.19</version.wicket>
     </properties>
@@ -40,7 +39,7 @@
     </modules>
 
     <build>
-        <finalName>${artifactId}-${version}</finalName>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
@@ -246,11 +245,6 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-parent</artifactId>
                 <version>${version.hibernate}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-annotations</artifactId>
-                <version>${version.hibernate-annotations}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>

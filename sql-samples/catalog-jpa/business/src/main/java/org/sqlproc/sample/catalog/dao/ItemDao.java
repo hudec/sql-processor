@@ -3,7 +3,7 @@ package org.sqlproc.sample.catalog.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.hibernate.SessionFactory;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlQueryEngine;
@@ -13,23 +13,24 @@ import org.sqlproc.sample.catalog.form.ItemForm;
 import org.sqlproc.sample.catalog.model.Item;
 import org.sqlproc.sample.catalog.to.ItemTO;
 
-public class ItemDao extends HibernateDaoSupport {
+public class ItemDao { // extends HibernateDaoSupport {
 
+    protected SessionFactory sessionFactory;
     protected SqlEngineFactory sqlFactory;
 
     private SqlSession getSqlSession() {
-        SqlSession session = new HibernateSimpleSession(getSession());
+        SqlSession session = new HibernateSimpleSession(sessionFactory.getCurrentSession());
         return session;
     }
 
     public Item findById(Serializable id) {
-        Item entity = (Item) getHibernateTemplate().get(Item.class, id);
+        Item entity = (Item) sessionFactory.getCurrentSession().get(Item.class, id);
         return entity;
     }
 
     public Item store(Item entity) {
-        entity = getHibernateTemplate().merge(entity);
-        getHibernateTemplate().flush();
+        entity = (Item) sessionFactory.getCurrentSession().merge(entity);
+        sessionFactory.getCurrentSession().flush();
         return entity;
     }
 
@@ -41,8 +42,8 @@ public class ItemDao extends HibernateDaoSupport {
     }
 
     protected void remove(Item entity) {
-        getHibernateTemplate().delete(entity);
-        getHibernateTemplate().flush();
+        sessionFactory.getCurrentSession().delete(entity);
+        sessionFactory.getCurrentSession().flush();
     }
 
     public List<ItemTO> find(ItemForm criteria) {
@@ -65,5 +66,9 @@ public class ItemDao extends HibernateDaoSupport {
 
     public void setSqlFactory(SqlEngineFactory sqlFactory) {
         this.sqlFactory = sqlFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }

@@ -2,11 +2,14 @@ package org.sqlproc.sample.catalog.db;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Statement;
 import java.util.Map;
+import java.util.Properties;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.internal.SessionImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -14,13 +17,14 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.sqlproc.sample.catalog.model.Item;
 
 public final class TestDataInitializer implements InitializingBean, ApplicationContextAware {
 
     private SessionFactory sessionFactory;
     private boolean initData;
+    private Properties catalog;
 
     private ApplicationContext context;
 
@@ -31,11 +35,32 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
 
         if (initData) {
             // setup database
-            LocalSessionFactoryBean sessionFactoryBean = findSessionFactoryBean(context);
-            sessionFactoryBean.createDatabaseSchema();
+            // LocalSessionFactoryBean sessionFactoryBean = findSessionFactoryBean(context);
+            // sessionFactoryBean.createDatabaseSchema();
 
             Session session = null;
             Transaction tx = null;
+
+            Statement stmt = null;
+            try {
+                session = sessionFactory.openSession();
+                tx = session.beginTransaction();
+                stmt = ((SessionImpl) session).connection().createStatement();
+                for (int i = 1; i <= 50; i++) {
+                    String ddl = catalog.getProperty("s" + i);
+                    if (ddl == null)
+                        continue;
+                    System.out.println(ddl);
+                    stmt.addBatch(ddl);
+                }
+                stmt.executeBatch();
+
+            } catch (Exception e) {
+                tx.rollback();
+                throw new RuntimeException(e);
+            } finally {
+                session.close();
+            }
             try {
 
                 session = sessionFactory.openSession();
@@ -303,6 +328,10 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
 
     public void setInitData(boolean initData) {
         this.initData = initData;
+    }
+
+    public void setCatalog(Properties catalog) {
+        this.catalog = catalog;
     }
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

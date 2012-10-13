@@ -1,5 +1,7 @@
 package org.sqlproc.sample.simple;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.Properties;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.internal.SessionImpl;
+import org.hibernate.jdbc.Work;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,20 +60,30 @@ public class Main {
     public void setupDb() throws Exception {
 
         Session session = null;
-        Statement stmt = null;
 
         try {
             session = sessionFactory.openSession();
-            stmt = ((SessionImpl) session).connection().createStatement();
-            for (int i = 1; i <= 50; i++) {
-                String ddl = catalog.getProperty("s" + i);
-                if (ddl == null)
-                    continue;
-                System.out.println(ddl);
-                stmt.addBatch(ddl);
-            }
-            stmt.executeBatch();
-
+            session.doWork(new Work() {
+                @Override
+                public void execute(Connection connection) throws SQLException {
+                    Statement stmt = null;
+                    try {
+                        stmt = connection.createStatement();
+                        for (int i = 1; i <= 50; i++) {
+                            String ddl = catalog.getProperty("s" + i);
+                            if (ddl == null)
+                                continue;
+                            System.out.println(ddl);
+                            stmt.addBatch(ddl);
+                        }
+                        stmt.executeBatch();
+                    } catch (SQLException ex) {
+                        if (stmt != null)
+                            stmt.close();
+                        throw ex;
+                    }
+                }
+            });
         } finally {
             if (session != null)
                 session.close();

@@ -19,7 +19,7 @@
         <property name="defaultAutoCommit" value="false" />
     </bean>
 
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
@@ -36,14 +36,21 @@
         </property>
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" />
 
+    <bean id="catalog" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location">
+            <value>classpath:hsqldb_catalog.properties</value>
+        </property>
+    </bean>
+
     <bean id="TestDataInitializer" class="org.sqlproc.sample.catalog.db.TestDataInitializer">
         <property name="sessionFactory" ref="sessionFactory" />
         <property name="initData" value="${init.data}" />
+        <property name="catalog" ref="catalog" />
     </bean>
 
     <bean id="dao" autowire="byType" abstract="true">

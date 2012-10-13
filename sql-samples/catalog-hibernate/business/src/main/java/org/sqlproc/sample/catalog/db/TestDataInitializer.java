@@ -17,7 +17,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.orm.hibernate3.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.sqlproc.sample.catalog.model.Item;
 import org.sqlproc.sample.catalog.service.ItemService;
 
