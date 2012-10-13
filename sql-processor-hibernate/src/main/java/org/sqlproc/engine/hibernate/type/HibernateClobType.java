@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.ClobType;
 import org.sqlproc.engine.type.SqlClobType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateClobType extends SqlClobType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.CLOB;
+        return ClobType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateClobType extends SqlClobType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.CLOB;
+        return ClobType.INSTANCE;
     }
 }

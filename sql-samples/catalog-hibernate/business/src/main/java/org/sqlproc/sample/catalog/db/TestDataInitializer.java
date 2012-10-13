@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.internal.SessionImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -46,7 +47,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
             try {
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
-                stmt = session.connection().createStatement();
+                stmt = ((SessionImpl) session).connection().createStatement();
                 for (int i = 1; i <= 50; i++) {
                     String ddl = catalog.getProperty("s" + i);
                     if (ddl == null)

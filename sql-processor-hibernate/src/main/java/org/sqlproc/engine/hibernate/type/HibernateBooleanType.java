@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.BooleanType;
 import org.sqlproc.engine.type.SqlBooleanType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateBooleanType extends SqlBooleanType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.BOOLEAN;
+        return BooleanType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateBooleanType extends SqlBooleanType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.BOOLEAN;
+        return BooleanType.INSTANCE;
     }
 }

@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.BinaryType;
 import org.sqlproc.engine.type.SqlByteArrayType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateByteArrayType extends SqlByteArrayType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.BINARY;
+        return BinaryType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateByteArrayType extends SqlByteArrayType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.BINARY;
+        return BinaryType.INSTANCE;
     }
 }

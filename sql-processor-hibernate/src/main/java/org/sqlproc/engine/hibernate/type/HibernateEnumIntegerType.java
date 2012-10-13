@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.IntegerType;
 import org.sqlproc.engine.type.SqlEnumIntegerType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateEnumIntegerType extends SqlEnumIntegerType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.INTEGER;
+        return IntegerType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateEnumIntegerType extends SqlEnumIntegerType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.INTEGER;
+        return IntegerType.INSTANCE;
     }
 }

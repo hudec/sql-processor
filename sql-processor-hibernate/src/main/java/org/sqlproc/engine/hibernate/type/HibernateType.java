@@ -7,8 +7,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hibernate.Hibernate;
 import org.hibernate.type.PrimitiveType;
+import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class HibernateType extends SqlMetaType {
      */
     static Map<String, Field> hibernateTypes = new HashMap<String, Field>();
     static {
-        Field[] fields = Hibernate.class.getFields();
+        Field[] fields = StandardBasicTypes.class.getFields();
         for (Field f : fields) {
             if (!Modifier.isStatic(f.getModifiers()))
                 continue;

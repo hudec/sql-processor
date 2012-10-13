@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.DoubleType;
 import org.sqlproc.engine.type.SqlDoubleType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateDoubleType extends SqlDoubleType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.DOUBLE;
+        return DoubleType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateDoubleType extends SqlDoubleType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.DOUBLE;
+        return DoubleType.INSTANCE;
     }
 }

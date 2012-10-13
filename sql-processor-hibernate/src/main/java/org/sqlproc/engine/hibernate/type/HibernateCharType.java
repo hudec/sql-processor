@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.CharacterType;
 import org.sqlproc.engine.type.SqlCharType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateCharType extends SqlCharType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.CHARACTER;
+        return CharacterType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateCharType extends SqlCharType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.CHARACTER;
+        return CharacterType.INSTANCE;
     }
 }

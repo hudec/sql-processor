@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.BigIntegerType;
 import org.sqlproc.engine.type.SqlBigIntegerType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateBigIntegerType extends SqlBigIntegerType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.BIG_INTEGER;
+        return BigIntegerType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateBigIntegerType extends SqlBigIntegerType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.BIG_INTEGER;
+        return BigIntegerType.INSTANCE;
     }
 }

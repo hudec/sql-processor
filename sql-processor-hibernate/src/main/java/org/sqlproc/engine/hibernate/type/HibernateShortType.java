@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.ShortType;
 import org.sqlproc.engine.type.SqlShortType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateShortType extends SqlShortType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.SHORT;
+        return ShortType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateShortType extends SqlShortType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.SHORT;
+        return ShortType.INSTANCE;
     }
 }

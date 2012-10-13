@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.BigDecimalType;
 import org.sqlproc.engine.type.SqlBigDecimalType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateBigDecimalType extends SqlBigDecimalType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.BIG_DECIMAL;
+        return BigDecimalType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateBigDecimalType extends SqlBigDecimalType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.BIG_DECIMAL;
+        return BigDecimalType.INSTANCE;
     }
 }

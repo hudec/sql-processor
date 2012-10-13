@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.LongType;
 import org.sqlproc.engine.type.SqlLongType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateLongType extends SqlLongType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.LONG;
+        return LongType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateLongType extends SqlLongType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.LONG;
+        return LongType.INSTANCE;
     }
 }

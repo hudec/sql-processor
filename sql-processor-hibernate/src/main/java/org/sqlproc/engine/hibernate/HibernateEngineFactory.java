@@ -16,7 +16,7 @@ import org.sqlproc.engine.hibernate.type.HibernateTypeFactory;
  * <pre>
  * &lt;beans ...&gt;
  *   ...
- *   &lt;bean id="sqlFactory" class="rg.sqlproc.engine.hibernate.HibernateEngineFactory" init-method="init"&gt;
+ *   &lt;bean id="sqlFactory" class="org.sqlproc.engine.hibernate.HibernateEngineFactory" init-method="init"&gt;
  *     &lt;property name="metaFilesNames">
  *       &lt;list>
  *         &lt;value>statements.qry&lt;/value>

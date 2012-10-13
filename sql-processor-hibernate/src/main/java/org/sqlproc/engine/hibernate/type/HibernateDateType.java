@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.DateType;
 import org.sqlproc.engine.type.SqlDateType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateDateType extends SqlDateType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.DATE;
+        return DateType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateDateType extends SqlDateType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.DATE;
+        return DateType.INSTANCE;
     }
 }

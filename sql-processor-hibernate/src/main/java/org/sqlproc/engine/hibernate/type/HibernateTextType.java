@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.TextType;
 import org.sqlproc.engine.type.SqlTextType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateTextType extends SqlTextType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.TEXT;
+        return TextType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateTextType extends SqlTextType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.TEXT;
+        return TextType.INSTANCE;
     }
 }

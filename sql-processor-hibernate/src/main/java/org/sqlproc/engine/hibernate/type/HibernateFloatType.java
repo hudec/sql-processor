@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.FloatType;
 import org.sqlproc.engine.type.SqlFloatType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateFloatType extends SqlFloatType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.FLOAT;
+        return FloatType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateFloatType extends SqlFloatType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.FLOAT;
+        return FloatType.INSTANCE;
     }
 }

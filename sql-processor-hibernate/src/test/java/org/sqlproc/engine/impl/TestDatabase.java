@@ -23,6 +23,9 @@ import org.dbunit.operation.CompositeOperation;
 import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.internal.SessionImpl;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +59,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected static final String DATATYPE_FACTORY = "DATATYPE_FACTORY";
 
     protected static Configuration configuration;
+    protected static ServiceRegistry serviceRegistry;
 
     protected static Properties testProperties;
     protected static StringBuilder metaStatements;
@@ -88,12 +92,14 @@ public abstract class TestDatabase extends DatabaseTestCase {
         metaStatements = SqlFilesLoader.getStatements(DatabaseTestCase.class, metaFilesNames);
 
         configuration = new Configuration().configure(testProperties.getProperty(CONFIGURATION_NAME));
-        sessionFactory = configuration.buildSessionFactory();
+        serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
+                .buildServiceRegistry();
+        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
     }
 
     @Override
     protected IDatabaseConnection getConnection() throws Exception {
-        IDatabaseConnection connection = new DatabaseConnection(session.getSession().connection());
+        IDatabaseConnection connection = new DatabaseConnection(((SessionImpl) session.getSession()).connection());
         DatabaseConfig config = connection.getConfig();
         if (containsProperty(testProperties, DATATYPE_FACTORY)) {
             Class clazz = Class.forName(testProperties.getProperty(DATATYPE_FACTORY));
@@ -321,12 +327,12 @@ public abstract class TestDatabase extends DatabaseTestCase {
             return null;
         Boolean oldAutocommit = null;
         try {
-            oldAutocommit = session.getSession().connection().getAutoCommit();
+            oldAutocommit = ((SessionImpl) session.getSession()).connection().getAutoCommit();
         } catch (SQLException e) {
         }
         if (autocommit != null) {
             try {
-                session.getSession().connection().setAutoCommit(autocommit);
+                ((SessionImpl) session.getSession()).connection().setAutoCommit(autocommit);
             } catch (SQLException e) {
             }
         }

@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.ByteType;
 import org.sqlproc.engine.type.SqlByteType;
 
 /**
@@ -15,7 +15,7 @@ public class HibernateByteType extends SqlByteType {
      */
     @Override
     public Object getProviderSqlType() {
-        return Hibernate.BYTE;
+        return ByteType.INSTANCE;
     }
 
     /**
@@ -23,6 +23,6 @@ public class HibernateByteType extends SqlByteType {
      */
     @Override
     public Object getProviderSqlNullType() {
-        return Hibernate.BYTE;
+        return ByteType.INSTANCE;
     }
 }

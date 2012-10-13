@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.StringType;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.impl.BeanUtils;
@@ -32,7 +32,7 @@ public class PhoneNumberType extends SqlInternalType {
      * {@inheritDoc}
      */
     public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
-        query.addScalar(dbName, Hibernate.STRING);
+        query.addScalar(dbName, StringType.INSTANCE);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class PhoneNumberType extends SqlInternalType {
             boolean ingoreError) throws SqlRuntimeException {
 
         if (inputValue == null) {
-            query.setParameter(paramName, inputValue, Hibernate.STRING);
+            query.setParameter(paramName, inputValue, StringType.INSTANCE);
         } else {
             if (inputValue instanceof Collection) {
                 List<String> phoneNumbers = new ArrayList<String>();
@@ -106,7 +106,7 @@ public class PhoneNumberType extends SqlInternalType {
                         String sPhoneNumber = ((PhoneNumber) o).toString();
                     }
                 }
-                query.setParameterList(paramName, phoneNumbers.toArray(), Hibernate.STRING);
+                query.setParameterList(paramName, phoneNumbers.toArray(), StringType.INSTANCE);
             } else {
                 if (!(inputValue instanceof PhoneNumber)) {
                     if (ingoreError) {
@@ -120,7 +120,7 @@ public class PhoneNumberType extends SqlInternalType {
                 PhoneNumber phoneNumber = (PhoneNumber) inputValue;
                 String sPhoneNumber = String.format("%03d-%03d-%04d", phoneNumber.getArea(), phoneNumber.getExch(),
                         phoneNumber.getExt());
-                query.setParameter(paramName, sPhoneNumber, Hibernate.STRING);
+                query.setParameter(paramName, sPhoneNumber, StringType.INSTANCE);
             }
         }
     }
