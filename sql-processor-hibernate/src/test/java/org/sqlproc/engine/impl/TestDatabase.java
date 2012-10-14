@@ -4,6 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -14,6 +21,7 @@ import org.dbunit.DatabaseTestCase;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.DefaultMetadataHandler;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ReplacementDataSet;
@@ -97,10 +105,59 @@ public abstract class TestDatabase extends DatabaseTestCase {
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
     }
 
+    public static class MyResultSet implements InvocationHandler {
+
+        private static final Class[] PROXY_INTERFACES = new Class[] { ResultSet.class };
+
+        private final ResultSet resultSet;
+
+        private MyResultSet(ResultSet resultSet) {
+            this.resultSet = resultSet;
+        }
+
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            if ("getString".equals(method.getName()) && args != null && args.length == 1 && args[0] instanceof Integer
+                    && ((Integer) args[0]) == 23) {
+                throw new SQLException();
+            }
+
+            try {
+                return method.invoke(resultSet, args);
+            } catch (InvocationTargetException e) {
+                throw e.getTargetException();
+            }
+        }
+
+        public static ResultSet generateProxy(ResultSet resultSet) {
+            MyResultSet handler = new MyResultSet(resultSet);
+            return (ResultSet) Proxy.newProxyInstance(getProxyClassLoader(), PROXY_INTERFACES, handler);
+        }
+
+        public static ClassLoader getProxyClassLoader() {
+            return ResultSet.class.getClassLoader();
+        }
+    }
+
+    public class MyMetadataHandler extends DefaultMetadataHandler {
+
+        @Override
+        public ResultSet getColumns(DatabaseMetaData databaseMetaData, String schemaName, String tableName)
+                throws SQLException {
+            ResultSet resultSet = super.getColumns(databaseMetaData, schemaName, tableName);
+            ResultSet myResultSet = MyResultSet.generateProxy(resultSet);
+            return myResultSet;
+        }
+
+    }
+
     @Override
     protected IDatabaseConnection getConnection() throws Exception {
-        IDatabaseConnection connection = new DatabaseConnection(((SessionImpl) session.getSession()).connection());
+        final Connection conn = ((SessionImpl) session.getSession()).connection();
+        IDatabaseConnection connection = new DatabaseConnection(conn,
+                dbType.equalsIgnoreCase("oracle") ? testProperties.getProperty("db.username") : null);
         DatabaseConfig config = connection.getConfig();
+        if (dbType.equalsIgnoreCase("oracle"))
+            config.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MyMetadataHandler());
         if (containsProperty(testProperties, DATATYPE_FACTORY)) {
             Class clazz = Class.forName(testProperties.getProperty(DATATYPE_FACTORY));
             config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, BeanUtils.getInstance(clazz));

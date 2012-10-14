@@ -116,7 +116,9 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
     @Override
     protected IDatabaseConnection getConnection() throws Exception {
-        IDatabaseConnection connection = new DbConnection(jdbcTemplate.getDataSource().getConnection());
+        Connection conn = jdbcTemplate.getDataSource().getConnection();
+        IDatabaseConnection connection = new DatabaseConnection(conn,
+                dbType.equalsIgnoreCase("oracle") ? testProperties.getProperty("db.username") : null);
         DatabaseConfig config = connection.getConfig();
         if (containsProperty(testProperties, DATATYPE_FACTORY)) {
             Class clazz = Class.forName(testProperties.getProperty(DATATYPE_FACTORY));
