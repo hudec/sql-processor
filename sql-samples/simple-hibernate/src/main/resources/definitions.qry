@@ -1,5 +1,5 @@
-resolve references ON;
-database online OFF;
+resolve-pojo-on;
+database-is-offline;
 
 pojo bankAccount org.sqlproc.sample.simple.model.BankAccount;
 pojo billingDetails org.sqlproc.sample.simple.model.BillingDetails;
