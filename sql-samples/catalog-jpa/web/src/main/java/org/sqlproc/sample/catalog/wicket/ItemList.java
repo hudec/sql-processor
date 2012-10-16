@@ -2,8 +2,6 @@ package org.sqlproc.sample.catalog.wicket;
 
 import java.util.Iterator;
 
-import org.apache.wicket.PageParameters;
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -19,6 +17,8 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.sqlproc.sample.catalog.form.ItemForm;
 import org.sqlproc.sample.catalog.service.ItemService;
@@ -89,7 +89,8 @@ public class ItemList extends BasePage {
                         }
                     }));
                 } else {
-                    repItem.add(new Image("imagethumb", new ResourceReference(this.getClass(), "images/cat-s.png")));
+                    repItem.add(new Image("imagethumb", new PackageResourceReference(this.getClass(),
+                            "images/cat-s.png")));
                 }
 
                 repItem.add(new Label("price"));

@@ -2,7 +2,7 @@ package org.sqlproc.sample.catalog.wicket;
 
 import java.awt.image.BufferedImage;
 
-import org.apache.wicket.markup.html.image.resource.DynamicImageResource;
+import org.apache.wicket.request.resource.DynamicImageResource;
 
 public class ImageResource extends DynamicImageResource {
 
@@ -19,22 +19,11 @@ public class ImageResource extends DynamicImageResource {
     }
 
     @Override
-    protected byte[] getImageData() {
+    protected byte[] getImageData(Attributes attributes) {
         if (image != null) {
             return image;
         } else {
             return new byte[0];
         }
-
     }
-
-    /**
-     * 1 day!
-     */
-    @Override
-    protected int getCacheDuration() {
-
-        return 3600 * 24;
-    }
-
 }

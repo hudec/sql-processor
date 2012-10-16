@@ -29,7 +29,7 @@
         <version.servlet-api>2.5</version.servlet-api>
         <version.commons-dbcp>1.4</version.commons-dbcp>
         <version.javassist>3.12.1.GA</version.javassist>
-        <version.wicket>1.4.19</version.wicket>
+        <version.wicket>1.5.7</version.wicket>
         <version.ehcache>2.5.0</version.ehcache>
         <version.javasimon>3.1.0</version.javasimon>
     </properties>
@@ -164,7 +164,12 @@
             <!-- Wicket -->
             <dependency>
                 <groupId>org.apache.wicket</groupId>
-                <artifactId>wicket</artifactId>
+                <artifactId>wicket-core</artifactId>
+                <version>${version.wicket}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-request</artifactId>
                 <version>${version.wicket}</version>
             </dependency>
             <dependency>

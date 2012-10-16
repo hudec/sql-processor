@@ -30,7 +30,7 @@
         <version.commons-dbcp>1.4</version.commons-dbcp>
         <version.hibernate>4.1.7.Final</version.hibernate>
         <version.javassist>3.12.1.GA</version.javassist>
-        <version.wicket>1.4.19</version.wicket>
+        <version.wicket>1.5.7</version.wicket>
     </properties>
 
     <modules>
@@ -163,7 +163,12 @@
             <!-- Wicket -->
             <dependency>
                 <groupId>org.apache.wicket</groupId>
-                <artifactId>wicket</artifactId>
+                <artifactId>wicket-core</artifactId>
+                <version>${version.wicket}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-request</artifactId>
                 <version>${version.wicket}</version>
             </dependency>
             <dependency>
@@ -182,6 +187,7 @@
                 <artifactId>wicket-spring</artifactId>
                 <version>${version.wicket}</version>
             </dependency>
+
             <!-- Spring -->
             <dependency>
                 <groupId>org.springframework</groupId>

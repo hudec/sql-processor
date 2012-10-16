@@ -1,6 +1,7 @@
 package org.sqlproc.sample.catalog.wicket;
 
-import org.apache.wicket.PageParameters;
+import java.util.List;
+
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -14,6 +15,7 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,42 +50,48 @@ public class ItemEdit extends BasePage {
         form.add(new TextField("name").setRequired(true));
         form.add(new TextArea("description").setRequired(true));
 
-        form.add(new FileUploadField("image", new IModel<FileUpload>() {
+        form.add(new FileUploadField("image", new IModel<List<FileUpload>>() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void detach() {
             }
 
             @Override
-            public FileUpload getObject() {
-                return null;
-            }
-
-            @Override
-            public void setObject(FileUpload imageUpload) {
-                if (imageUpload != null) {
+            public void setObject(List<FileUpload> imageUploads) {
+                if (imageUploads != null && !imageUploads.isEmpty()) {
+                    FileUpload imageUpload = imageUploads.get(0);
                     item.setImageurl(imageUpload.getClientFileName());
                     item.setImage(imageUpload.getBytes());
                 }
             }
+
+            @Override
+            public List<FileUpload> getObject() {
+                return null;
+            }
         }));
         form.add(new Label("imageurl", item.getImageurl()));
 
-        form.add(new FileUploadField("imagethumb", new IModel<FileUpload>() {
+        form.add(new FileUploadField("imagethumb", new IModel<List<FileUpload>>() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void detach() {
             }
 
             @Override
-            public FileUpload getObject() {
-                return null;
-            }
-
-            @Override
-            public void setObject(FileUpload imagethumbUpload) {
-                if (imagethumbUpload != null) {
+            public void setObject(List<FileUpload> imageUploads) {
+                if (imageUploads != null && !imageUploads.isEmpty()) {
+                    FileUpload imagethumbUpload = imageUploads.get(0);
                     item.setImagethumburl(imagethumbUpload.getClientFileName());
                     item.setImagethumb(imagethumbUpload.getBytes());
                 }
+            }
+
+            @Override
+            public List<FileUpload> getObject() {
+                return null;
             }
         }));
         form.add(new Label("imagethumburl", item.getImagethumburl()));
@@ -99,7 +107,7 @@ public class ItemEdit extends BasePage {
                 logger.info("ItemEdit.doSave " + item.toDebugString());
                 Long itemid = (item.getItemid() != null) ? itemService.update(item) : itemService.create(item);
                 PageParameters pp = new PageParameters();
-                pp.put("itemid", itemid);
+                pp.set("itemid", itemid);
                 setResponsePage(ItemDetails.class, pp);
             }
         });
@@ -114,7 +122,7 @@ public class ItemEdit extends BasePage {
                 item.setImageurl(null);
                 itemService.update(item);
                 PageParameters pp = new PageParameters();
-                pp.put("itemid", item.getItemid());
+                pp.set("itemid", item.getItemid());
                 setResponsePage(ItemDetails.class, pp);
             }
         }.setVisibilityAllowed(item.getItemid() != null));
@@ -129,7 +137,7 @@ public class ItemEdit extends BasePage {
                 item.setImagethumburl(null);
                 itemService.update(item);
                 PageParameters pp = new PageParameters();
-                pp.put("itemid", item.getItemid());
+                pp.set("itemid", item.getItemid());
                 setResponsePage(ItemDetails.class, pp);
             }
         }.setVisibilityAllowed(item.getItemid() != null));
@@ -147,7 +155,7 @@ public class ItemEdit extends BasePage {
                         setResponsePage(ItemList.class);
                 } else {
                     PageParameters pp = new PageParameters();
-                    pp.put("itemid", item.getItemid());
+                    pp.set("itemid", item.getItemid());
                     setResponsePage(ItemDetails.class, pp);
                 }
             }

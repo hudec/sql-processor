@@ -1,7 +1,5 @@
 package org.sqlproc.sample.catalog.wicket;
 
-import org.apache.wicket.PageParameters;
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -10,6 +8,8 @@ import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.image.NonCachingImage;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.sqlproc.sample.catalog.model.Item;
 import org.sqlproc.sample.catalog.service.ItemService;
@@ -24,7 +24,7 @@ public class ItemDetails extends BasePage {
     }
 
     public ItemDetails(PageParameters params) {
-        Item item = itemService.findById(params.getLong("itemid"));
+        Item item = itemService.findById(params.get("itemid").toLong());
         createPage(item);
     }
 
@@ -41,7 +41,7 @@ public class ItemDetails extends BasePage {
                 }
             }));
         } else {
-            add(new Image("image", new ResourceReference(this.getClass(), "images/cat.png")));
+            add(new Image("image", new PackageResourceReference(this.getClass(), "images/cat.png")));
         }
 
         final Form<Item> form = new Form<Item>("detailsForm", new CompoundPropertyModel<Item>(item));
