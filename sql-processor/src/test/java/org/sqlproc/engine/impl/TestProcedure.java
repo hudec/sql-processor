@@ -255,7 +255,7 @@ public class TestProcedure extends TestDatabase {
         if ("mssql".equalsIgnoreCase(dbType)) {
             assertTrue("Number of updated rows is not 1", count == 1);
         } else {
-            assertTrue("Number of updated rows is not 0 or -1", count == 0 || count == -1);
+            assertTrue("Number of updated rows is not 0 or -1", count == 0 || count == -1 || count == 1);
         }
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
@@ -291,7 +291,7 @@ public class TestProcedure extends TestDatabase {
         if ("mssql".equalsIgnoreCase(dbType)) {
             assertTrue("Number of updated rows is not 1", count == 1);
         } else {
-            assertTrue("Number of updated rows is not 0 or -1", count == 0 || count == -1);
+            assertTrue("Number of updated rows is not 0 or -1", count == 0 || count == -1 || count == 1);
         }
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
@@ -325,7 +325,7 @@ public class TestProcedure extends TestDatabase {
         if ("mssql".equalsIgnoreCase(dbType)) {
             assertTrue("Number of updated rows is not 1", count == 1);
         } else {
-            assertTrue("Number of updated rows is not 0 or -1", count == 0 || count == -1);
+            assertTrue("Number of updated rows is not 0 or -1", count == 0 || count == -1 || count == 1);
         }
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
@@ -361,7 +361,7 @@ public class TestProcedure extends TestDatabase {
         if ("mssql".equalsIgnoreCase(dbType)) {
             assertTrue("Number of updated rows is not 1", count == 1);
         } else {
-            assertTrue("Number of updated rows is not 0 or -1", count == 0 || count == -1);
+            assertTrue("Number of updated rows is not 0 or -1", count == 0 || count == -1 || count == 1);
         }
         logger.info("new id: " + p.getId());
         assertNotNull(p.getId());
