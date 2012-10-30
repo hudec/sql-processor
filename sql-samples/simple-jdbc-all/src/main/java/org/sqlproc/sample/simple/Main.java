@@ -1,9 +1,5 @@
 package org.sqlproc.sample.simple;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -19,6 +15,7 @@ import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
+import org.sqlproc.engine.SqlDDLLoader;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlProcedureEngine;
@@ -63,67 +60,10 @@ public class Main {
         factory.addCustomType(new PhoneNumberType());
         sqlFactory = factory;
 
-        ddls = readDdl("hsqldb_catalog.ddl");
+        ddls = SqlDDLLoader.getDDLs(this.getClass(), "hsqldb_catalog.ddl");
 
         connection = DriverManager.getConnection("jdbc:hsqldb:mem:sqlproc", "sa", "");
         session = new JdbcSimpleSession(connection);
-    }
-
-    List<String> readDdl(String ddlFilename) {
-        List<String> ddls = new ArrayList<String>();
-        InputStream is = null;
-        BufferedReader bfr = null;
-        try {
-            is = this.getClass().getResourceAsStream("/" + ddlFilename);
-            if (is == null) {
-                is = this.getClass().getResourceAsStream(ddlFilename);
-            }
-            if (is == null) {
-                is = new FileInputStream("/" + ddlFilename);
-            }
-            bfr = new BufferedReader(new InputStreamReader(is));
-            String completeLine = "";
-            String line;
-            boolean inFuncOrProc = false;
-            while ((line = bfr.readLine()) != null) {
-                if (line.trim().length() > 0)
-                    completeLine = completeLine + " " + line;
-                if (!inFuncOrProc
-                        && (line.toUpperCase().startsWith("CREATE FUNCTION") || line.toUpperCase().startsWith(
-                                "CREATE PROCEDURE")))
-                    inFuncOrProc = true;
-                boolean finishedDdl = false;
-                if (!inFuncOrProc && line.trim().endsWith(";")) {
-                    finishedDdl = true;
-                } else if (line.trim().length() == 0) {
-                    finishedDdl = true;
-                }
-                if (finishedDdl) {
-                    if (completeLine.length() > 0)
-                        ddls.add(completeLine);
-                    completeLine = "";
-                    inFuncOrProc = false;
-                }
-            }
-            if (completeLine.length() > 0)
-                ddls.add(completeLine);
-        } catch (Exception ex) {
-            System.out.println("I cant read " + ddlFilename + ": " + ex);
-        } finally {
-            if (bfr != null) {
-                try {
-                    bfr.close();
-                } catch (Exception ignore) {
-                }
-            }
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (Exception ignore) {
-                }
-            }
-        }
-        return ddls;
     }
 
     public void setupDb() throws SQLException {
