@@ -1,7 +1,6 @@
 package org.sqlproc.engine.hibernate;
 
 import org.sqlproc.engine.SqlEngineFactory;
-import org.sqlproc.engine.SqlEngineLoader;
 import org.sqlproc.engine.SqlProcessorLoader;
 import org.sqlproc.engine.SqlSimpleFactory;
 import org.sqlproc.engine.hibernate.type.HibernateTypeFactory;

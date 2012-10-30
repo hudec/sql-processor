@@ -15,15 +15,13 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The helper class for the property file loading. The property file can be located on the classpath, in the root
- * directory or in the user's home directory. It's used for the purpose of the {@link SqlEngineLoader} instance
- * creation.
+ * directory or in the user's home directory.
  * 
  * <p>
  * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-@Deprecated
 public class SqlPropertiesLoader {
 
     /**
@@ -171,24 +169,5 @@ public class SqlPropertiesLoader {
      */
     public Properties getProperties() {
         return properties;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     * 
-     * @return a string representation of the object
-     */
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Queries: ");
-        boolean first = true;
-        for (String name : properties.stringPropertyNames()) {
-            if (!first)
-                sb.append("\n");
-            else
-                first = false;
-            sb.append(name).append("=").append(properties.getProperty(name));
-        }
-        return sb.toString();
     }
 }

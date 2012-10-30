@@ -1,9 +1,5 @@
 package org.sqlproc.engine.impl;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,6 +29,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.sqlproc.engine.SqlCrudEngine;
+import org.sqlproc.engine.SqlDDLLoader;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.SqlProcedureEngine;
@@ -83,10 +80,10 @@ public abstract class TestDatabase extends DatabaseTestCase {
         dbType = testProperties.getProperty(DB_TYPE);
 
         if (containsProperty(testProperties, DDL_CREATE_DB)) {
-            ddlCreateDb = loadDDL(testProperties.getProperty(DDL_CREATE_DB));
+            ddlCreateDb = SqlDDLLoader.getDDLs(DatabaseTestCase.class, testProperties.getProperty(DDL_CREATE_DB));
         }
         if (containsProperty(testProperties, DDL_DROP_DB)) {
-            ddlDropDb = loadDDL(testProperties.getProperty(DDL_DROP_DB));
+            ddlDropDb = SqlDDLLoader.getDDLs(DatabaseTestCase.class, testProperties.getProperty(DDL_DROP_DB));
         }
 
         String[] metaFilesNames = testProperties.getProperty(STATEMENTS_FILES).split("\\s+");
@@ -175,36 +172,6 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
     protected void tearDown() throws Exception {
         super.tearDown();
-    }
-
-    private static List<String> loadDDL(String filename) {
-        List<String> sqls = new ArrayList<String>();
-
-        try {
-            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
-            BufferedReader r = new BufferedReader(new InputStreamReader(in));
-            String line = null;
-            String EOL = System.getProperty("line.separator");
-            StringBuilder sql = new StringBuilder();
-
-            while ((line = r.readLine()) != null) {
-                if (!TestUtils.isBlank(line) && !line.startsWith("--")) {
-                    sql.append(line + EOL);
-                } else {
-                    if (sql.length() > 0) {
-                        sqls.add(sql.toString());
-                        sql = new StringBuilder();
-                    }
-                }
-            }
-            if (sql.length() > 0) {
-                sqls.add(sql.toString());
-            }
-            in.close();
-        } catch (IOException e) {
-            return null;
-        }
-        return sqls;
     }
 
     private static class BatchOperation extends DatabaseOperation {

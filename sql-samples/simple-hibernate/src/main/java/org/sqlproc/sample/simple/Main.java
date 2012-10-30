@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,9 +15,9 @@ import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
+import org.sqlproc.engine.SqlDDLLoader;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlOrder;
-import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.hibernate.HibernateEngineFactory;
@@ -42,7 +41,7 @@ public class Main {
 
     private SessionFactory sessionFactory;
     private SqlEngineFactory sqlFactory;
-    private Properties catalog;
+    private List<String> ddls;
 
     public Main() {
         HibernateEngineFactory factory = new HibernateEngineFactory();
@@ -50,8 +49,7 @@ public class Main {
         factory.addCustomType(new PhoneNumberType());
         sqlFactory = factory;
 
-        SqlPropertiesLoader catalogLoader = new SqlPropertiesLoader("hsqldb_catalog.properties", this.getClass());
-        catalog = catalogLoader.getProperties();
+        ddls = SqlDDLLoader.getDDLs(this.getClass(), "hsqldb_catalog.ddl");
 
         Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
         sessionFactory = configuration.buildSessionFactory();
@@ -69,8 +67,8 @@ public class Main {
                     Statement stmt = null;
                     try {
                         stmt = connection.createStatement();
-                        for (int i = 1; i <= 50; i++) {
-                            String ddl = catalog.getProperty("s" + i);
+                        for (int i = 0, n = ddls.size(); i < n; i++) {
+                            String ddl = ddls.get(i);
                             if (ddl == null)
                                 continue;
                             System.out.println(ddl);

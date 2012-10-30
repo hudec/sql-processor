@@ -37,17 +37,11 @@
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" />
 
-    <bean id="catalog" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location">
-            <value>classpath:hsqldb_catalog.properties</value>
-        </property>
-    </bean>
-
     <bean id="TestDataInitializer" class="org.sqlproc.sample.catalog.db.TestDataInitializer">
         <property name="jdbcTemplate" ref="jdbcTemplate" />
         <property name="itemService" ref="itemService" />
         <property name="initData" value="${init.data}" />
-        <property name="catalog" ref="catalog" />
+        <property name="catalog" value="hsqldb_catalog.ddl" />
     </bean>
 
     <bean id="dao" autowire="byType" abstract="true">

@@ -28,6 +28,7 @@ import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
+import org.sqlproc.engine.SqlDDLLoader;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.SqlProcedureEngine;
@@ -76,10 +77,10 @@ public abstract class TestDatabase extends DatabaseTestCase {
         dbType = testProperties.getProperty(DB_TYPE);
 
         if (containsProperty(testProperties, DDL_CREATE_DB)) {
-            ddlCreateDb = loadDDL(testProperties.getProperty(DDL_CREATE_DB));
+            ddlCreateDb = SqlDDLLoader.getDDLs(DatabaseTestCase.class, testProperties.getProperty(DDL_CREATE_DB));
         }
         if (containsProperty(testProperties, DDL_DROP_DB)) {
-            ddlDropDb = loadDDL(testProperties.getProperty(DDL_DROP_DB));
+            ddlDropDb = SqlDDLLoader.getDDLs(DatabaseTestCase.class, testProperties.getProperty(DDL_DROP_DB));
         }
 
         String[] metaFilesNames = testProperties.getProperty(STATEMENTS_FILES).split("\\s+");

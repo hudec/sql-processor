@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Statement;
-import java.util.Properties;
+import java.util.List;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -14,6 +14,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.sqlproc.engine.SqlDDLLoader;
 import org.sqlproc.sample.catalog.model.Item;
 import org.sqlproc.sample.catalog.service.ItemService;
 
@@ -22,7 +23,8 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
     private JdbcTemplate jdbcTemplate;
     private ItemService itemService;
     private boolean initData;
-    private Properties catalog;
+    private String catalog;
+    private List<String> ddls;
 
     private ApplicationContext context;
 
@@ -33,14 +35,16 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
 
         if (initData) {
 
+            ddls = SqlDDLLoader.getDDLs(this.getClass(), catalog);
+
             Connection connection = null;
             Statement stmt = null;
 
             try {
                 connection = jdbcTemplate.getDataSource().getConnection();
                 stmt = connection.createStatement();
-                for (int i = 1; i <= 50; i++) {
-                    String ddl = catalog.getProperty("s" + i);
+                for (int i = 0, n = ddls.size(); i < n; i++) {
+                    String ddl = ddls.get(i);
                     if (ddl == null)
                         continue;
                     System.out.println(ddl);
@@ -313,7 +317,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
         this.initData = initData;
     }
 
-    public void setCatalog(Properties catalog) {
+    public void setCatalog(String catalog) {
         this.catalog = catalog;
     }
 

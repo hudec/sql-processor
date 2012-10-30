@@ -139,6 +139,8 @@ public class SqlDDLLoader {
             String line;
             boolean inFuncOrProc = false;
             while ((line = bfr.readLine()) != null) {
+                if (line.startsWith("--"))
+                    continue;
                 if (line.trim().length() > 0)
                     completeLine.append(" ").append(line);
                 if (!inFuncOrProc && line.trim().toUpperCase().startsWith("CREATE")
