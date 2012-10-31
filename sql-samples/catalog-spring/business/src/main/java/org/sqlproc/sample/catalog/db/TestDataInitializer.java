@@ -14,7 +14,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.sqlproc.engine.SqlDDLLoader;
+import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.catalog.model.Item;
 import org.sqlproc.sample.catalog.service.ItemService;
 
@@ -35,7 +35,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
 
         if (initData) {
 
-            ddls = SqlDDLLoader.getDDLs(this.getClass(), catalog);
+            ddls = DDLLoader.getDDLs(this.getClass(), catalog);
 
             Connection connection = null;
             Statement stmt = null;

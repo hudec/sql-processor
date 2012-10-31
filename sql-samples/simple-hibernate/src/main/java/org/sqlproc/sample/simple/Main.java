@@ -15,13 +15,13 @@ import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
-import org.sqlproc.engine.SqlDDLLoader;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.hibernate.HibernateEngineFactory;
 import org.sqlproc.engine.hibernate.HibernateSession;
+import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Book;
 import org.sqlproc.sample.simple.model.Contact;
@@ -49,7 +49,7 @@ public class Main {
         factory.addCustomType(new PhoneNumberType());
         sqlFactory = factory;
 
-        ddls = SqlDDLLoader.getDDLs(this.getClass(), "hsqldb_catalog.ddl");
+        ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb_catalog.ddl");
 
         Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
         sessionFactory = configuration.buildSessionFactory();

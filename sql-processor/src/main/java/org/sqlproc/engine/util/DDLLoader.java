@@ -1,4 +1,4 @@
-package org.sqlproc.engine;
+package org.sqlproc.engine.util;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlDDLLoader {
+public class DDLLoader {
 
     /**
      * The internal slf4j logger.
@@ -34,19 +34,19 @@ public class SqlDDLLoader {
     private List<String> ddls;
 
     /**
-     * Reads the DDL file and creates a new SqlDDLLoader instance.
+     * Reads the DDL file and creates a new DDLLoader instance.
      * 
      * @param fileName
      *            The name of the file to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
      */
-    public SqlDDLLoader(String fileName, Class<?> loaderClass) {
+    public DDLLoader(String fileName, Class<?> loaderClass) {
         ddls = load(fileName, loaderClass);
     }
 
     /**
-     * Reads the DDL file and creates a new SqlDDLLoader instance.
+     * Reads the DDL file and creates a new DDLLoader instance.
      * 
      * @param fileName
      *            The name of the file to be read.
@@ -55,19 +55,19 @@ public class SqlDDLLoader {
      * @return all DDL statements as a list
      */
     public static List<String> getDDLs(Class<?> loaderClass, String fileName) {
-        SqlDDLLoader loader = new SqlDDLLoader(fileName, loaderClass);
+        DDLLoader loader = new DDLLoader(fileName, loaderClass);
         return loader.getDdls();
     }
 
     /**
-     * Reads the DDL files and creates a new SqlDDLLoader instance.
+     * Reads the DDL files and creates a new DDLLoader instance.
      * 
      * @param fileNames
      *            The names of the files to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
      */
-    public SqlDDLLoader(List<String> fileNames, Class<?> loaderClass) {
+    public DDLLoader(List<String> fileNames, Class<?> loaderClass) {
         ddls = new ArrayList<String>();
         if (fileNames == null || fileNames.isEmpty())
             return;
@@ -89,7 +89,7 @@ public class SqlDDLLoader {
     public static List<String> getDDLs(Class<?> loaderClass, String... fileNames) {
         ArrayList<String> propsNames = new ArrayList<String>();
         Collections.addAll(propsNames, fileNames);
-        SqlDDLLoader loader = new SqlDDLLoader(propsNames, loaderClass);
+        DDLLoader loader = new DDLLoader(propsNames, loaderClass);
         return loader.getDdls();
     }
 

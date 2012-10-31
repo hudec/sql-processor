@@ -18,7 +18,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
-import org.sqlproc.engine.SqlDDLLoader;
+import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.catalog.model.Item;
 
 public final class TestDataInitializer implements InitializingBean, ApplicationContextAware {
@@ -37,7 +37,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
 
         if (initData) {
 
-            ddls = SqlDDLLoader.getDDLs(this.getClass(), catalog);
+            ddls = DDLLoader.getDDLs(this.getClass(), catalog);
 
             // setup database
             // LocalSessionFactoryBean sessionFactoryBean = findSessionFactoryBean(context);

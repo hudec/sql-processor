@@ -1,4 +1,4 @@
-package org.sqlproc.engine;
+package org.sqlproc.engine.util;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlPropertiesLoader {
+public class PropertiesLoader {
 
     /**
      * The internal slf4j logger.
@@ -35,19 +35,19 @@ public class SqlPropertiesLoader {
     private Properties properties;
 
     /**
-     * Reads the property file and creates a new SqlPropertiesLoader instance.
+     * Reads the property file and creates a new PropertiesLoader instance.
      * 
      * @param fileName
      *            The name of the file to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
      */
-    public SqlPropertiesLoader(String fileName, Class<?> loaderClass) {
+    public PropertiesLoader(String fileName, Class<?> loaderClass) {
         properties = load(fileName, loaderClass);
     }
 
     /**
-     * Reads the property file and creates a new SqlPropertiesLoader instance.
+     * Reads the property file and creates a new PropertiesLoader instance.
      * 
      * @param fileName
      *            The name of the file to be read.
@@ -56,19 +56,19 @@ public class SqlPropertiesLoader {
      * @return all properties from the specified file(s)
      */
     public static Properties getProperties(Class<?> loaderClass, String fileName) {
-        SqlPropertiesLoader loader = new SqlPropertiesLoader(fileName, loaderClass);
+        PropertiesLoader loader = new PropertiesLoader(fileName, loaderClass);
         return loader.getProperties();
     }
 
     /**
-     * Reads the property files and creates a new SqlPropertiesLoader instance.
+     * Reads the property files and creates a new PropertiesLoader instance.
      * 
      * @param fileNames
      *            The names of the files to be read.
      * @param loaderClass
      *            Class used to detect the correct classloader.
      */
-    public SqlPropertiesLoader(List<String> fileNames, Class<?> loaderClass) {
+    public PropertiesLoader(List<String> fileNames, Class<?> loaderClass) {
         properties = new Properties();
         if (fileNames == null || fileNames.isEmpty())
             return;
@@ -81,7 +81,7 @@ public class SqlPropertiesLoader {
     }
 
     /**
-     * Reads the property files and creates a new SqlPropertiesLoader instance.
+     * Reads the property files and creates a new PropertiesLoader instance.
      * 
      * @param fileNames
      *            The names of the files to be read.
@@ -92,7 +92,7 @@ public class SqlPropertiesLoader {
     public static Properties getProperties(Class<?> loaderClass, String... fileNames) {
         ArrayList<String> propsNames = new ArrayList<String>();
         Collections.addAll(propsNames, fileNames);
-        SqlPropertiesLoader loader = new SqlPropertiesLoader(propsNames, loaderClass);
+        PropertiesLoader loader = new PropertiesLoader(propsNames, loaderClass);
         return loader.getProperties();
     }
 

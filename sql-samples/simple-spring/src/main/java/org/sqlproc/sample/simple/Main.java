@@ -16,12 +16,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.sqlproc.engine.SqlCrudEngine;
-import org.sqlproc.engine.SqlDDLLoader;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.spring.SpringSimpleSession;
+import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Book;
 import org.sqlproc.sample.simple.model.Contact;
@@ -48,7 +48,7 @@ public class Main {
         jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         session = new SpringSimpleSession(jdbcTemplate);
         sqlFactory = context.getBean("sqlFactory", SqlEngineFactory.class);
-        ddls = SqlDDLLoader.getDDLs(this.getClass(), "hsqldb_catalog.ddl");
+        ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb_catalog.ddl");
     }
 
     public void setupDb() throws SQLException {

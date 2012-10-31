@@ -29,12 +29,10 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.sqlproc.engine.SqlCrudEngine;
-import org.sqlproc.engine.SqlDDLLoader;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlProcessorLoader;
-import org.sqlproc.engine.SqlPropertiesLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.jdbc.type.JdbcTypeFactory;
 import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
@@ -42,6 +40,8 @@ import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.spring.SpringSimpleSession;
 import org.sqlproc.engine.type.PhoneNumberType;
 import org.sqlproc.engine.type.SqlInternalType;
+import org.sqlproc.engine.util.DDLLoader;
+import org.sqlproc.engine.util.PropertiesLoader;
 
 @Ignore("Not test class.")
 public abstract class TestDatabase extends DatabaseTestCase {
@@ -76,14 +76,14 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
     static {
 
-        testProperties = SqlPropertiesLoader.getProperties(DatabaseTestCase.class, "test.properties");
+        testProperties = PropertiesLoader.getProperties(DatabaseTestCase.class, "test.properties");
         dbType = testProperties.getProperty(DB_TYPE);
 
         if (containsProperty(testProperties, DDL_CREATE_DB)) {
-            ddlCreateDb = SqlDDLLoader.getDDLs(DatabaseTestCase.class, testProperties.getProperty(DDL_CREATE_DB));
+            ddlCreateDb = DDLLoader.getDDLs(DatabaseTestCase.class, testProperties.getProperty(DDL_CREATE_DB));
         }
         if (containsProperty(testProperties, DDL_DROP_DB)) {
-            ddlDropDb = SqlDDLLoader.getDDLs(DatabaseTestCase.class, testProperties.getProperty(DDL_DROP_DB));
+            ddlDropDb = DDLLoader.getDDLs(DatabaseTestCase.class, testProperties.getProperty(DDL_DROP_DB));
         }
 
         String[] metaFilesNames = testProperties.getProperty(STATEMENTS_FILES).split("\\s+");
