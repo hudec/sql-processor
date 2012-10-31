@@ -106,8 +106,8 @@ public class SqlQueryEngine extends SqlEngine {
      * Creates a new instance of the SqlQueryEngine from one META SQL query string and one SQL mapping rule string.
      * Constructor will call the internal ANTLR parsers for the query and the mapping rule instances construction. This
      * constructor is devoted to manual META SQL queries and mapping rules construction. More obvious is to put these
-     * definitions into the meta statements file and engage the {@link SqlProcessorLoader} or {@link SqlEngineLoader}
-     * for the SqlQueryEngine instances construction.
+     * definitions into the meta statements file and engage the {@link SqlProcessorLoader} for the SqlQueryEngine
+     * instances construction.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -135,7 +135,7 @@ public class SqlQueryEngine extends SqlEngine {
      * Compared to the previous constructor, an external SQL Monitor for the runtime statistics gathering is engaged and
      * the optional features can be involved. This constructor is devoted to manual META SQL queries and mapping rules
      * construction. More obvious is to put these definitions into the meta statements file and engage the
-     * {@link SqlProcessorLoader} or {@link SqlEngineLoader} for the SqlQueryEngine instances construction.
+     * {@link SqlProcessorLoader} for the SqlQueryEngine instances construction.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -165,8 +165,8 @@ public class SqlQueryEngine extends SqlEngine {
     /**
      * Creates a new instance of the SqlQueryEngine from one META SQL statement and one SQL mapping rule instances. Both
      * parameters are already pre-compiled instances using the ANTLR parsers. This is the recommended usage for the
-     * runtime performance optimization. This constructor is devoted to be used from the SqlEngineLoader, which is able
-     * to read all statements and mapping rules definitions from an external meta statements file and create the named
+     * runtime performance optimization. This constructor is devoted to be used from the custom loader, which is able to
+     * read all statements and mapping rules definitions from an external meta statements file and create the named
      * SqlQueryEngine instances.
      * 
      * @param name
@@ -189,8 +189,8 @@ public class SqlQueryEngine extends SqlEngine {
     /**
      * Creates a new instance of the SqlQueryEngine from one META SQL statement and one SQL mapping rule instances. Both
      * parameters are already pre-compiled instances using the ANTLR parsers. This is the recommended usage for the
-     * runtime performance optimization. This constructor is devoted to be used from the SqlEngineLoader, which is able
-     * to read all statements and mapping rules definitions from an external meta statements file and create the named
+     * runtime performance optimization. This constructor is devoted to be used from the custom loader, which is able to
+     * read all statements and mapping rules definitions from an external meta statements file and create the named
      * instances. Compared to the previous constructor, an external SQL Monitor for the runtime statistics gathering is
      * engaged and the optional features can be involved.
      * 

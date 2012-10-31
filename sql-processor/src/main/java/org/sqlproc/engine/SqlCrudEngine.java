@@ -77,8 +77,7 @@ public class SqlCrudEngine extends SqlEngine {
      * Creates a new instance of the SqlCrudEngine from one META SQL statement string. Constructor will call the
      * internal ANTLR parser for the CRUD statement construction. This constructor is devoted to manual META SQL
      * statements construction. More obvious is to put the META SQL statements definitions into the meta statements file
-     * and engage the {@link SqlProcessorLoader} or {@link SqlEngineLoader} for the SqlCrudEngine instances
-     * construction.
+     * and engage the {@link SqlProcessorLoader} for the SqlCrudEngine instances construction.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -103,8 +102,8 @@ public class SqlCrudEngine extends SqlEngine {
      * internal ANTLR parser for the CRUD statement instances construction. Compared to the previous constructor, an
      * external SQL Monitor for the runtime statistics gathering is engaged and the optional features can be involved.
      * This constructor is devoted to manual META SQL statements construction. More obvious is to put the META SQL
-     * statements definitions into the meta statements file and engage the {@link SqlProcessorLoader} or
-     * {@link SqlEngineLoader} for the SqlCrudEngine instances construction.
+     * statements definitions into the meta statements file and engage the {@link SqlProcessorLoader} for the
+     * SqlCrudEngine instances construction.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -131,7 +130,7 @@ public class SqlCrudEngine extends SqlEngine {
     /**
      * Creates a new instance of the SqlCrudEngine from one META SQL statement instance. This instance is already
      * pre-compiled using the ANTLR parser. This is the recommended usage for the runtime performance optimization. This
-     * constructor is devoted to be used from the SqlEngineLoader, which is able to read all statements definitions from
+     * constructor is devoted to be used from the custom loader, which is able to read all statements definitions from
      * an external meta statements file and create the named SqlCrudEngine instances.
      * 
      * @param name
@@ -152,7 +151,7 @@ public class SqlCrudEngine extends SqlEngine {
     /**
      * Creates a new instance of the SqlCrudEngine from one META SQL statement instance. This instance is already
      * pre-compiled using the ANTLR parsers. This is the recommended usage for the runtime performance optimization.
-     * This constructor is devoted to be used from the SqlEngineLoader, which is able to read all statements definitions
+     * This constructor is devoted to be used from the custom loader, which is able to read all statements definitions
      * from an external meta statements file and create the named SqlCrudEngine instances. Compared to the previous
      * constructor, an external SQL Monitor for the runtime statistics gathering is engaged and the optional features
      * can be involved.
@@ -178,7 +177,7 @@ public class SqlCrudEngine extends SqlEngine {
     /**
      * Creates a new instance of the SqlCrudEngine from one META SQL statement instance. This instance is already
      * pre-compiled using the ANTLR parsers. This is the recommended usage for the runtime performance optimization.
-     * This constructor is devoted to be used from the SqlEngineLoader, which is able to read all statements definitions
+     * This constructor is devoted to be used from the custom loader, which is able to read all statements definitions
      * from an external meta statements file and create the named SqlCrudEngine instances. Compared to the previous
      * constructor, an external SQL Monitor for the runtime statistics gathering is engaged and the optional features
      * can be involved.

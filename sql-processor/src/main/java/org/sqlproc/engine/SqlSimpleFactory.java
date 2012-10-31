@@ -14,7 +14,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * The simple implementation of the {@link SqlEngineFactory}.
  * 
  * <p>
- * It's suitable mainly for the Spring DI based configuration, like the next one for the new loader
+ * It's suitable mainly for the Spring DI based configuration, like the next one for the loader
  * {@link SqlProcessorLoader}:<br>
  * 
  * <pre>
@@ -28,26 +28,6 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  *         &lt;value>statements.qry&lt;/value>
  *       &lt;/list>
  *     &lt;/property>
- *     &lt;property name="typeFactory" ref="typeFactory" /&gt;
- *   &lt;/bean&gt;
- * &lt;/beans&gt;
- * </pre>
- * 
- * or like the next one for the old loader {@link SqlEngineLoader}:<br>
- * 
- * <pre>
- * &lt;beans ...&gt;
- *   ...
- *   &lt;bean id="typeFactory" class="org.sqlproc.engine.jdbc.type.JdbcTypeFactory" factory-method="getInstance" /&gt;
- * 
- *   &lt;bean id="sqlQueries" class="org.springframework.beans.factory.config.PropertiesFactoryBean"&gt;
- *     &lt;property name="location"&gt;
- *       &lt;value>classpath:queries.properties&lt;/value&gt;
- *     &lt;/property&gt;
- *   &lt;/bean&gt;
- *   
- *   &lt;bean id="sqlFactory" class="org.sqlproc.engine.SqlSimpleFactory" init-method="init"&gt;
- *     &lt;property name="metaProps" ref="sqlQueries" /&gt;
  *     &lt;property name="typeFactory" ref="typeFactory" /&gt;
  *   &lt;/bean&gt;
  * &lt;/beans&gt;

@@ -25,23 +25,6 @@ import org.sqlproc.engine.hibernate.type.HibernateTypeFactory;
  * &lt;/beans&gt;
  * </pre>
  * 
- * or like the next one for the old loader {@link SqlEngineLoader}:<br>
- * 
- * <pre>
- * &lt;beans ...&gt;
- *   ...
- *   &lt;bean id="sqlQueries" class="org.springframework.beans.factory.config.PropertiesFactoryBean"&gt;
- *     &lt;property name="location"&gt;
- *       &lt;value>classpath:queries.properties&lt;/value&gt;
- *     &lt;/property&gt;
- *   &lt;/bean&gt;
- *   
- *   &lt;bean id="sqlFactory" class="rg.sqlproc.engine.hibernate.HibernateEngineFactory" init-method="init"&gt;
- *     &lt;property name="metaProps" ref="sqlQueries" /&gt;
- *   &lt;/bean&gt;
- * &lt;/beans&gt;
- * </pre>
- * 
  * and use the next code to obtain an instance of the SQL Query engine
  * 
  * <pre>

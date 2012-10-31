@@ -8,7 +8,7 @@ import java.util.Map;
  * The factory definition, which can be used to construct the {@link SqlMetaType} instances.
  * 
  * It's used to combine the factory of the underlying stack (on top of which the SQL Processor works) and the custom
- * META types provided in the time of {@link org.sqlproc.engine.SqlEngineLoader} construction.
+ * META types provided in the time of {@link org.sqlproc.engine.SqlProcessorLoader} construction.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */

@@ -76,25 +76,28 @@ package org.sqlproc.engine;
 public interface SqlFeature {
 
     /**
-     * The filter for Oracle devoted optional features. It can be used for the construction of {@link SqlEngineLoader}.
+     * The filter for Oracle devoted optional features. It can be used for the construction of
+     * {@link SqlProcessorLoader}.
      */
     public static final String ORACLE = "ORACLE";
     /**
-     * The filter for HSQLDB devoted optional features. It can be used for the construction of {@link SqlEngineLoader}.
+     * The filter for HSQLDB devoted optional features. It can be used for the construction of
+     * {@link SqlProcessorLoader}.
      */
     public static final String HSQLDB = "HSQLDB";
     /**
-     * The filter for MySQL devoted optional features. It can be used for the construction of {@link SqlEngineLoader}.
+     * The filter for MySQL devoted optional features. It can be used for the construction of {@link SqlProcessorLoader}
+     * .
      */
     public static final String MYSQL = "MYSQL";
     /**
-     * The filter for Informix devoted optional features. It can be used for the construction of {@link SqlEngineLoader}
-     * .
+     * The filter for Informix devoted optional features. It can be used for the construction of
+     * {@link SqlProcessorLoader} .
      */
     public static final String INFORMIX = "INFORMIX";
     /**
      * The filter for MS SQL Server devoted optional features. It can be used for the construction of
-     * {@link SqlEngineLoader}.
+     * {@link SqlProcessorLoader}.
      */
     public static final String MSSQL = "MSSQL";
     /**
@@ -224,89 +227,89 @@ public interface SqlFeature {
     public static final String LIMIT_TO_ORDERED = "LIMIT_TO_ORDERED";
     /**
      * <code>HSQLDB_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
-     * in the case the filter value <code>HSQLDB</code> is used for the {@link SqlEngineLoader} instance creation.
+     * in the case the filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String HSQLDB_DEFAULT_LIMIT_FROM_TO = "$S offset $F limit $M";
     /**
      * <code>HSQLDB_DEFAULT_LIMIT_FROM_TO_ORDERED</code> is the default value related to the key
      * <code>LIMIT_FROM_TO_ORDERED</code> in the case the filter value <code>HSQLDB</code> is used for the
-     * {@link SqlEngineLoader} instance creation.
+     * {@link SqlProcessorLoader} instance creation.
      */
     public static final String HSQLDB_DEFAULT_LIMIT_FROM_TO_ORDERED = "$S offset $F limit $M using index";
     /**
      * <code>HSQLDB_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case
-     * the filter value <code>HSQLDB</code> is used for the {@link SqlEngineLoader} instance creation.
+     * the filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String HSQLDB_DEFAULT_LIMIT_TO = "$S limit $M";
     /**
      * <code>HSQLDB_DEFAULT_LIMIT_TO_ORDERED</code> is the default value related to the key
      * <code>LIMIT_TO_ORDERED</code> in the case the filter value <code>HSQLDB</code> is used for the
-     * {@link SqlEngineLoader} instance creation.
+     * {@link SqlProcessorLoader} instance creation.
      */
     public static final String HSQLDB_DEFAULT_LIMIT_TO_ORDERED = "$S limit $M using index";
     /**
      * <code>ORACLE_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
-     * in the case the filter value <code>ORACLE</code> is used for the {@link SqlEngineLoader} instance creation.
+     * in the case the filter value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String ORACLE_DEFAULT_LIMIT_FROM_TO = "select * from ( select row_.*, rownum rownum_ from ($S) row_ where rownum <= $m) where rownum_ > $F";
     /**
      * <code>ORACLE_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the
-     * case the filter value <code>ORACLE</code> is used for the {@link SqlEngineLoader} instance creation.
+     * case the filter value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String ORACLE_DEFAULT_LIMIT_TO = "select * from ($S) where rownum <= $m";
     /**
      * <code>MYSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
-     * in the case the filter value <code>MYSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     * in the case the filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String MYSQL_DEFAULT_LIMIT_FROM_TO = "$S limit $F, $M";
     /**
      * <code>MYSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the case
-     * the filter value <code>MYSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     * the filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String MYSQL_DEFAULT_LIMIT_TO = "$S limit $M";
     /**
      * <code>POSTGRESQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key
      * <code>SET_LIMIT_FROM_TO</code> in the case the filter value <code>POSTGRESQL</code> is used for the
-     * {@link SqlEngineLoader} instance creation.
+     * {@link SqlProcessorLoader} instance creation.
      */
     public static final String POSTGRESQL_DEFAULT_LIMIT_FROM_TO = "$S limit $M offset $F";
     /**
      * <code>POSTGRESQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the
-     * case the filter value <code>POSTGRESQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     * case the filter value <code>POSTGRESQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String POSTGRESQL_DEFAULT_LIMIT_TO = "$S limit $M";
     /**
      * <code>INFORMIX_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key
      * <code>SET_LIMIT_FROM_TO</code> in the case the filter value <code>INFORMIX</code> is used for the
-     * {@link SqlEngineLoader} instance creation.
+     * {@link SqlProcessorLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_LIMIT_FROM_TO = "select skip $F first $M $s";
     /**
      * <code>INFORMIX_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the
-     * case the filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
+     * case the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_LIMIT_TO = "select first $M $s";
     /*
      * Unsupported now.
      * 
      * <code>MSSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
-     * in the case the filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     * in the case the filter value <code>MSSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     // version for MS SQL Server 2012:
     // public static final String MSSQL_DEFAULT_LIMIT_FROM_TO = "$S OFFSET ($F) ROWS FETCH NEXT ($M) ROWS ONLY";
     /**
      * <code>MSSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the case
-     * the filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     * the filter value <code>MSSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String MSSQL_DEFAULT_LIMIT_TO = "select top ($M) $s";
     /**
      * <code>DB2_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code> in
-     * the case the filter value <code>DB2</code> is used for the {@link SqlEngineLoader} instance creation.
+     * the case the filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String DB2_DEFAULT_LIMIT_FROM_TO = "select * from (select row_.*, rownumber() over() rownum_ from ($S) row_) where rownum_ <= $m and rownum_ > $F";
     /**
      * <code>DB2_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the case
-     * the filter value <code>DB2</code> is used for the {@link SqlEngineLoader} instance creation.
+     * the filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String DB2_DEFAULT_LIMIT_TO = "select * from (select row_.*, rownumber() over() rownum_ from ($S) row_) where rownum_ <= $m";
     /**
@@ -319,27 +322,27 @@ public interface SqlFeature {
     public static final String SEQ = "SEQ";
     /**
      * <code>HSQLDB_DEFAULT_SEQ</code> is the default value related to the key <code>SET_SEQ</code> in the case the
-     * filter value <code>HSQLDB</code> is used for the {@link SqlEngineLoader} instance creation.
+     * filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String HSQLDB_DEFAULT_SEQ = "call next value for $n";
     /**
      * <code>ORACLE_DEFAULT_SEQ</code> is the default value related to the key <code>SET_SEQ</code> in the case the
-     * filter value <code>ORACLE</code> is used for the {@link SqlEngineLoader} instance creation.
+     * filter value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String ORACLE_DEFAULT_SEQ = "select $n.nextval from dual";
     /**
      * <code>POSTGRESQL_DEFAULT_SEQ</code> is the default value related to the key <code>SET_SEQ</code> in the case the
-     * filter value <code>POSTGRESQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     * filter value <code>POSTGRESQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String POSTGRESQL_DEFAULT_SEQ = "select nextval('$n')";
     /**
      * <code>INFORMIX_DEFAULT_SEQ</code> is the default value related to the key <code>SET_SEQ</code> in the case the
-     * filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
+     * filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_SEQ = "SELECT FIRST 1 $n.NEXTVAL FROM systables";
     /**
      * <code>DB2_DEFAULT_SEQ</code> is the default value related to the key <code>SET_SEQ</code> in the case the filter
-     * value <code>DB2</code> is used for the {@link SqlEngineLoader} instance creation.
+     * value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String DB2_DEFAULT_SEQ = "values nextval for $n";
 
@@ -360,35 +363,35 @@ public interface SqlFeature {
     public static final String IDSEL_JDBC = "JDBC";
     /**
      * <code>HSQLDB_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
-     * filter value <code>HSQLDB</code> is used for the {@link SqlEngineLoader} instance creation.
+     * filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String HSQLDB_DEFAULT_IDSEL = "call identity()";
     /**
      * <code>MYSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
-     * filter value <code>MYSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     * filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String MYSQL_DEFAULT_IDSEL = "select last_insert_id()";
     /**
      * <code>POSTGRESQL_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case
-     * the filter value <code>POSTGRESQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     * the filter value <code>POSTGRESQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     // TODO $t - table name, $c - column name
     // public static final String POSTGRESQL_DEFAULT_IDSEL = "select currval(pg_get_serial_sequence('$t','$c'))";
     /**
      * <code>INFORMIX_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case
-     * the filter value <code>INFORMIX</code> is used for the {@link SqlEngineLoader} instance creation.
+     * the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_IDSEL = "SELECT FIRST 1 dbinfo('bigserial') FROM systables";
     /**
      * <code>MSSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
-     * filter value <code>MSSQL</code> is used for the {@link SqlEngineLoader} instance creation.
+     * filter value <code>MSSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      * <p/>
      * The default value is {@link #IDSEL_JDBC}.
      */
     public static final String MSSQL_DEFAULT_IDSEL = IDSEL_JDBC;
     /**
      * /** <code>DB2_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
-     * filter value <code>DB2</code> is used for the {@link SqlEngineLoader} instance creation.
+     * filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String DB2_DEFAULT_IDSEL = "SELECT identity_val_local() FROM SYSIBM.DUAL";
     /*
