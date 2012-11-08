@@ -29,6 +29,8 @@ public class DbResolverBean implements DbResolver {
         public String dbUsername;
         public String dbPassword;
         public String dbSchema;
+        public String dbSqlsBefore;
+        public String dbSqlsAfter;
         public String dir;
         public Connection connection;
         boolean doReconnect;
@@ -36,7 +38,8 @@ public class DbResolverBean implements DbResolver {
         @Override
         public String toString() {
             return "DatabaseValues [dbDriver=" + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername
-                    + ", dbPassword=" + dbPassword + ", dbSchema=" + dbSchema + ", connection=" + connection + "]";
+                    + ", dbPassword=" + dbPassword + ", dbSchema=" + dbSchema + ", dbSqlsBefore=" + dbSqlsBefore
+                    + ", dbSqlsAfter=" + dbSqlsAfter + ", connection=" + connection + "]";
         }
 
     }
@@ -131,6 +134,18 @@ public class DbResolverBean implements DbResolver {
             }
         } else
             modelDatabaseValues.dbSchema = null;
+        if (modelModelValues.dbSqlsBefore != null) {
+            if (!modelModelValues.dbSqlsBefore.equals(modelDatabaseValues.dbSqlsBefore)) {
+                modelDatabaseValues.dbSqlsBefore = modelModelValues.dbSqlsBefore;
+            }
+        } else
+            modelDatabaseValues.dbSqlsBefore = null;
+        if (modelModelValues.dbSqlsAfter != null) {
+            if (!modelModelValues.dbSqlsAfter.equals(modelDatabaseValues.dbSqlsAfter)) {
+                modelDatabaseValues.dbSqlsAfter = modelModelValues.dbSqlsAfter;
+            }
+        } else
+            modelDatabaseValues.dbSqlsAfter = null;
 
         return modelDatabaseValues;
     }
@@ -154,6 +169,7 @@ public class DbResolverBean implements DbResolver {
                     props.setProperty("password", modelDatabaseValues.dbPassword);
                     String dbUrl = modelDatabaseValues.dbUrl.replaceAll("\\\\/", "/");
                     modelDatabaseValues.connection = driver.connect(dbUrl, props);
+                    // TODO execute before
                     LOGGER.info("DB URL " + dbUrl);
                     LOGGER.info("DATA CONNECTION " + modelDatabaseValues.connection);
                 } catch (InstantiationException e) {
@@ -172,6 +188,7 @@ public class DbResolverBean implements DbResolver {
         synchronized (sync) {
             try {
                 if (modelDatabaseValues.connection != null) {
+                    // TODO execute after
                     LOGGER.info("DATA STOP FOR " + modelDatabaseValues.dir);
                     modelDatabaseValues.connection.close();
                 }
