@@ -41,6 +41,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_IS_ONLINE = "is-online";
     public static final String DATABASE_IS_OFFLINE = "is-offline";
     public static final String DATABASE_HAS_URL = "has-url";
+    public static final String DATABASE_EXECUTE_BEFORE = "execute-before";
+    public static final String DATABASE_EXECUTE_AFTER = "execute-after";
     public static final String DATABASE_LOGIN_USERNAME = "login-username";
     public static final String DATABASE_LOGIN_NPASSWORD = "login-password";
     public static final String DATABASE_ACTIVE_SCHEMA = "active-schema";
@@ -77,6 +79,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public String dbUsername;
         public String dbPassword;
         public String dbSchema;
+        public String dbSqlsBefore;
+        public String dbSqlsAfter;
         public String dir;
         public Map<String, PojoAttrType> sqlTypes;
         public Map<String, Map<String, PojoAttrType>> tableTypes;
@@ -263,6 +267,10 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.dbSchema = property.getDbSchema();
         } else if (DATABASE_JDBC_DRIVER.equals(property.getName())) {
             modelValues.dbDriver = property.getDbDriver();
+        } else if (DATABASE_EXECUTE_AFTER.equals(property.getName())) {
+            modelValues.dbSqlsBefore = property.getDbExecuteBefore();
+        } else if (DATABASE_EXECUTE_AFTER.equals(property.getName())) {
+            modelValues.dbSqlsAfter = property.getDbExecuteAfter();
         }
     }
 

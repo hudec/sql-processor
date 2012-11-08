@@ -76,6 +76,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/dbPassword"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/dbSchema"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/dbDriver"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/dbExecuteBefore"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/dbExecuteAfter"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//PojogenProperty">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojogenProperty/name"/>

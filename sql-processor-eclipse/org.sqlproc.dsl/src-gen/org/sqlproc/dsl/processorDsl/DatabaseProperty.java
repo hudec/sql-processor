@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbPassword <em>Db Password</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbSchema <em>Db Schema</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbDriver <em>Db Driver</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteBefore <em>Db Execute Before</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteAfter <em>Db Execute After</em>}</li>
  * </ul>
  * </p>
  *
@@ -182,5 +184,57 @@ public interface DatabaseProperty extends EObject
    * @generated
    */
   void setDbDriver(String value);
+
+  /**
+   * Returns the value of the '<em><b>Db Execute Before</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Execute Before</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Execute Before</em>' attribute.
+   * @see #setDbExecuteBefore(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbExecuteBefore()
+   * @model
+   * @generated
+   */
+  String getDbExecuteBefore();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteBefore <em>Db Execute Before</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Execute Before</em>' attribute.
+   * @see #getDbExecuteBefore()
+   * @generated
+   */
+  void setDbExecuteBefore(String value);
+
+  /**
+   * Returns the value of the '<em><b>Db Execute After</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Execute After</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Execute After</em>' attribute.
+   * @see #setDbExecuteAfter(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbExecuteAfter()
+   * @model
+   * @generated
+   */
+  String getDbExecuteAfter();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteAfter <em>Db Execute After</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Execute After</em>' attribute.
+   * @see #getDbExecuteAfter()
+   * @generated
+   */
+  void setDbExecuteAfter(String value);
 
 } // DatabaseProperty

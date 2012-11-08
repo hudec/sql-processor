@@ -728,16 +728,30 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWSTerminalRuleCall_6_1 = (RuleCall)cGroup_6.eContents().get(1);
 		private final Assignment cDbDriverAssignment_6_2 = (Assignment)cGroup_6.eContents().get(2);
 		private final RuleCall cDbDriverPropertyValueParserRuleCall_6_2_0 = (RuleCall)cDbDriverAssignment_6_2.eContents().get(0);
+		private final Group cGroup_7 = (Group)cAlternatives.eContents().get(7);
+		private final Assignment cNameAssignment_7_0 = (Assignment)cGroup_7.eContents().get(0);
+		private final Keyword cNameExecuteBeforeKeyword_7_0_0 = (Keyword)cNameAssignment_7_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_7_1 = (RuleCall)cGroup_7.eContents().get(1);
+		private final Assignment cDbExecuteBeforeAssignment_7_2 = (Assignment)cGroup_7.eContents().get(2);
+		private final RuleCall cDbExecuteBeforePropertyValueParserRuleCall_7_2_0 = (RuleCall)cDbExecuteBeforeAssignment_7_2.eContents().get(0);
+		private final Group cGroup_8 = (Group)cAlternatives.eContents().get(8);
+		private final Assignment cNameAssignment_8_0 = (Assignment)cGroup_8.eContents().get(0);
+		private final Keyword cNameExecuteAfterKeyword_8_0_0 = (Keyword)cNameAssignment_8_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_8_1 = (RuleCall)cGroup_8.eContents().get(1);
+		private final Assignment cDbExecuteAfterAssignment_8_2 = (Assignment)cGroup_8.eContents().get(2);
+		private final RuleCall cDbExecuteAfterPropertyValueParserRuleCall_8_2_0 = (RuleCall)cDbExecuteAfterAssignment_8_2.eContents().get(0);
 		
 		//DatabaseProperty:
 		//	name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 		//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
-		//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue;
+		//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="execute-before" WS+
+		//	dbExecuteBefore=PropertyValue | name="execute-after" WS+ dbExecuteAfter=PropertyValue;
 		public ParserRule getRule() { return rule; }
 
 		//name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 		//dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
-		//dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue
+		//dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="execute-before" WS+
+		//dbExecuteBefore=PropertyValue | name="execute-after" WS+ dbExecuteAfter=PropertyValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="is-online"
@@ -841,6 +855,42 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//PropertyValue
 		public RuleCall getDbDriverPropertyValueParserRuleCall_6_2_0() { return cDbDriverPropertyValueParserRuleCall_6_2_0; }
+
+		//name="execute-before" WS+ dbExecuteBefore=PropertyValue
+		public Group getGroup_7() { return cGroup_7; }
+
+		//name="execute-before"
+		public Assignment getNameAssignment_7_0() { return cNameAssignment_7_0; }
+
+		//"execute-before"
+		public Keyword getNameExecuteBeforeKeyword_7_0_0() { return cNameExecuteBeforeKeyword_7_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_7_1() { return cWSTerminalRuleCall_7_1; }
+
+		//dbExecuteBefore=PropertyValue
+		public Assignment getDbExecuteBeforeAssignment_7_2() { return cDbExecuteBeforeAssignment_7_2; }
+
+		//PropertyValue
+		public RuleCall getDbExecuteBeforePropertyValueParserRuleCall_7_2_0() { return cDbExecuteBeforePropertyValueParserRuleCall_7_2_0; }
+
+		//name="execute-after" WS+ dbExecuteAfter=PropertyValue
+		public Group getGroup_8() { return cGroup_8; }
+
+		//name="execute-after"
+		public Assignment getNameAssignment_8_0() { return cNameAssignment_8_0; }
+
+		//"execute-after"
+		public Keyword getNameExecuteAfterKeyword_8_0_0() { return cNameExecuteAfterKeyword_8_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_8_1() { return cWSTerminalRuleCall_8_1; }
+
+		//dbExecuteAfter=PropertyValue
+		public Assignment getDbExecuteAfterAssignment_8_2() { return cDbExecuteAfterAssignment_8_2; }
+
+		//PropertyValue
+		public RuleCall getDbExecuteAfterPropertyValueParserRuleCall_8_2_0() { return cDbExecuteAfterPropertyValueParserRuleCall_8_2_0; }
 	}
 
 	public class PojogenPropertyElements extends AbstractParserRuleElementFinder {
@@ -6116,7 +6166,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//DatabaseProperty:
 	//	name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 	//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
-	//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue;
+	//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="execute-before" WS+
+	//	dbExecuteBefore=PropertyValue | name="execute-after" WS+ dbExecuteAfter=PropertyValue;
 	public DatabasePropertyElements getDatabasePropertyAccess() {
 		return (pDatabaseProperty != null) ? pDatabaseProperty : (pDatabaseProperty = new DatabasePropertyElements());
 	}

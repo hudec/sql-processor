@@ -691,13 +691,31 @@ public interface ProcessorDslPackage extends EPackage
   int DATABASE_PROPERTY__DB_DRIVER = 5;
 
   /**
+   * The feature id for the '<em><b>Db Execute Before</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_PROPERTY__DB_EXECUTE_BEFORE = 6;
+
+  /**
+   * The feature id for the '<em><b>Db Execute After</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_PROPERTY__DB_EXECUTE_AFTER = 7;
+
+  /**
    * The number of structural features of the '<em>Database Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATABASE_PROPERTY_FEATURE_COUNT = 6;
+  int DATABASE_PROPERTY_FEATURE_COUNT = 8;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl <em>Pojogen Property</em>}' class.
@@ -3485,6 +3503,28 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getDatabaseProperty_DbDriver();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteBefore <em>Db Execute Before</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Execute Before</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteBefore()
+   * @see #getDatabaseProperty()
+   * @generated
+   */
+  EAttribute getDatabaseProperty_DbExecuteBefore();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteAfter <em>Db Execute After</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Execute After</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteAfter()
+   * @see #getDatabaseProperty()
+   * @generated
+   */
+  EAttribute getDatabaseProperty_DbExecuteAfter();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojogenProperty <em>Pojogen Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5944,6 +5984,22 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute DATABASE_PROPERTY__DB_DRIVER = eINSTANCE.getDatabaseProperty_DbDriver();
+
+    /**
+     * The meta object literal for the '<em><b>Db Execute Before</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DATABASE_PROPERTY__DB_EXECUTE_BEFORE = eINSTANCE.getDatabaseProperty_DbExecuteBefore();
+
+    /**
+     * The meta object literal for the '<em><b>Db Execute After</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DATABASE_PROPERTY__DB_EXECUTE_AFTER = eINSTANCE.getDatabaseProperty_DbExecuteAfter();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl <em>Pojogen Property</em>}' class.

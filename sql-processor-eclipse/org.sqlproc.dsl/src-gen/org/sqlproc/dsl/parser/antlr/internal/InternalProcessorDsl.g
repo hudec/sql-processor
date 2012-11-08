@@ -1400,6 +1400,82 @@ ruleDatabaseProperty returns [EObject current=null]
 	    }
 
 )
+))
+    |((
+(
+		lv_name_17_0=	'execute-before' 
+    {
+        newLeafNode(lv_name_17_0, grammarAccess.getDatabasePropertyAccess().getNameExecuteBeforeKeyword_7_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_17_0, "execute-before");
+	    }
+
+)
+)(this_WS_18=RULE_WS
+    { 
+    newLeafNode(this_WS_18, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_7_1()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDatabasePropertyAccess().getDbExecuteBeforePropertyValueParserRuleCall_7_2_0()); 
+	    }
+		lv_dbExecuteBefore_19_0=rulePropertyValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDatabasePropertyRule());
+	        }
+       		set(
+       			$current, 
+       			"dbExecuteBefore",
+        		lv_dbExecuteBefore_19_0, 
+        		"PropertyValue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+    |((
+(
+		lv_name_20_0=	'execute-after' 
+    {
+        newLeafNode(lv_name_20_0, grammarAccess.getDatabasePropertyAccess().getNameExecuteAfterKeyword_8_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_20_0, "execute-after");
+	    }
+
+)
+)(this_WS_21=RULE_WS
+    { 
+    newLeafNode(this_WS_21, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_8_1()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDatabasePropertyAccess().getDbExecuteAfterPropertyValueParserRuleCall_8_2_0()); 
+	    }
+		lv_dbExecuteAfter_22_0=rulePropertyValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDatabasePropertyRule());
+	        }
+       		set(
+       			$current, 
+       			"dbExecuteAfter",
+        		lv_dbExecuteAfter_22_0, 
+        		"PropertyValue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 )))
 ;
 

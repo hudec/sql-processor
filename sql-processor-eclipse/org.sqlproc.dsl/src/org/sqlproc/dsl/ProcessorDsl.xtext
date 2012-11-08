@@ -37,6 +37,8 @@ DatabaseProperty:
 	|name='login-password' WS+ dbPassword=PropertyValue
 	|name='active-schema' WS+ dbSchema=PropertyValue
 	|name='jdbc-driver' WS+ dbDriver=PropertyValue
+	|name='execute-before' WS+ dbExecuteBefore=PropertyValue
+	|name='execute-after' WS+ dbExecuteAfter=PropertyValue
 	);
 
 PojogenProperty:

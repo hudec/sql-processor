@@ -25,6 +25,8 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbPassword <em>Db Password</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbSchema <em>Db Schema</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbDriver <em>Db Driver</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbExecuteBefore <em>Db Execute Before</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbExecuteAfter <em>Db Execute After</em>}</li>
  * </ul>
  * </p>
  *
@@ -151,6 +153,46 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected String dbDriver = DB_DRIVER_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDbExecuteBefore() <em>Db Execute Before</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbExecuteBefore()
+   * @generated
+   * @ordered
+   */
+  protected static final String DB_EXECUTE_BEFORE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDbExecuteBefore() <em>Db Execute Before</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbExecuteBefore()
+   * @generated
+   * @ordered
+   */
+  protected String dbExecuteBefore = DB_EXECUTE_BEFORE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDbExecuteAfter() <em>Db Execute After</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbExecuteAfter()
+   * @generated
+   * @ordered
+   */
+  protected static final String DB_EXECUTE_AFTER_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDbExecuteAfter() <em>Db Execute After</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbExecuteAfter()
+   * @generated
+   * @ordered
+   */
+  protected String dbExecuteAfter = DB_EXECUTE_AFTER_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -316,6 +358,52 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDbExecuteBefore()
+  {
+    return dbExecuteBefore;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbExecuteBefore(String newDbExecuteBefore)
+  {
+    String oldDbExecuteBefore = dbExecuteBefore;
+    dbExecuteBefore = newDbExecuteBefore;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_BEFORE, oldDbExecuteBefore, dbExecuteBefore));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getDbExecuteAfter()
+  {
+    return dbExecuteAfter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbExecuteAfter(String newDbExecuteAfter)
+  {
+    String oldDbExecuteAfter = dbExecuteAfter;
+    dbExecuteAfter = newDbExecuteAfter;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_AFTER, oldDbExecuteAfter, dbExecuteAfter));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -333,6 +421,10 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return getDbSchema();
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER:
         return getDbDriver();
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_BEFORE:
+        return getDbExecuteBefore();
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_AFTER:
+        return getDbExecuteAfter();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -364,6 +456,12 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER:
         setDbDriver((String)newValue);
+        return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_BEFORE:
+        setDbExecuteBefore((String)newValue);
+        return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_AFTER:
+        setDbExecuteAfter((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -397,6 +495,12 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER:
         setDbDriver(DB_DRIVER_EDEFAULT);
         return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_BEFORE:
+        setDbExecuteBefore(DB_EXECUTE_BEFORE_EDEFAULT);
+        return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_AFTER:
+        setDbExecuteAfter(DB_EXECUTE_AFTER_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -423,6 +527,10 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return DB_SCHEMA_EDEFAULT == null ? dbSchema != null : !DB_SCHEMA_EDEFAULT.equals(dbSchema);
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER:
         return DB_DRIVER_EDEFAULT == null ? dbDriver != null : !DB_DRIVER_EDEFAULT.equals(dbDriver);
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_BEFORE:
+        return DB_EXECUTE_BEFORE_EDEFAULT == null ? dbExecuteBefore != null : !DB_EXECUTE_BEFORE_EDEFAULT.equals(dbExecuteBefore);
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_AFTER:
+        return DB_EXECUTE_AFTER_EDEFAULT == null ? dbExecuteAfter != null : !DB_EXECUTE_AFTER_EDEFAULT.equals(dbExecuteAfter);
     }
     return super.eIsSet(featureID);
   }
@@ -450,6 +558,10 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
     result.append(dbSchema);
     result.append(", dbDriver: ");
     result.append(dbDriver);
+    result.append(", dbExecuteBefore: ");
+    result.append(dbExecuteBefore);
+    result.append(", dbExecuteAfter: ");
+    result.append(dbExecuteAfter);
     result.append(')');
     return result.toString();
   }
