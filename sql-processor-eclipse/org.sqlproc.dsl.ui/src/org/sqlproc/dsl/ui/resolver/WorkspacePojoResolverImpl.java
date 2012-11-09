@@ -4,6 +4,7 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -155,6 +157,7 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
             IProject project = input.getFile().getProject();
             try {
                 project.open(null /* IProgressMonitor */);
+                System.out.println("AAAA " + project.getFile("hsqldb.ddl"));
                 IJavaProject javaProject = JavaCore.create(project);
                 URLClassLoader classLoader = getProjectClassLoader(javaProject);
 
@@ -189,4 +192,23 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
         return pojos;
     }
 
+    @Override
+    public InputStream getFile(String filename) {
+        IEditorPart editorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+        if (editorPart != null) {
+            IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
+            IProject project = input.getFile().getProject();
+            try {
+                project.open(null /* IProgressMonitor */);
+                IFile file = project.getFile(filename);
+                if (file != null) {
+                    return file.getContents();
+                }
+            } catch (CoreException e) {
+                LOGGER.warn("Can't handle project '" + project + "': " + e.getMessage());
+            }
+        }
+        LOGGER.warn("Can't find file '" + filename + "' in any loader " + allLoaders);
+        return null;
+    }
 }

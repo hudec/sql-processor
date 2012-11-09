@@ -5,6 +5,7 @@ database-has-url jdbc:oracle:thin:@127.0.0.1:1521:xe;
 database-login-username sqlsample;
 database-login-password sqlsample;
 database-active-schema SQLSAMPLE;
+database-execute-before src/main/resources/hsqldb.ddl;
 
 identx ALL_PEOPLE Person;
 identx LIKE_PEOPLE Person;

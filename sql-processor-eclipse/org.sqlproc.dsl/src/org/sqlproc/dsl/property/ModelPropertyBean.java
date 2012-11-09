@@ -267,7 +267,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.dbSchema = property.getDbSchema();
         } else if (DATABASE_JDBC_DRIVER.equals(property.getName())) {
             modelValues.dbDriver = property.getDbDriver();
-        } else if (DATABASE_EXECUTE_AFTER.equals(property.getName())) {
+        } else if (DATABASE_EXECUTE_BEFORE.equals(property.getName())) {
             modelValues.dbSqlsBefore = property.getDbExecuteBefore();
         } else if (DATABASE_EXECUTE_AFTER.equals(property.getName())) {
             modelValues.dbSqlsAfter = property.getDbExecuteAfter();

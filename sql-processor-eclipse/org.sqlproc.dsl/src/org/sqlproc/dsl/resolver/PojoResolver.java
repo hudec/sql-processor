@@ -1,6 +1,7 @@
 package org.sqlproc.dsl.resolver;
 
 import java.beans.PropertyDescriptor;
+import java.io.InputStream;
 import java.net.URLClassLoader;
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface PojoResolver {
     boolean isResolvePojo(EObject model);
 
     List<Class<?>> getPojoClasses();
+
+    InputStream getFile(String filename);
 }

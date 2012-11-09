@@ -1,5 +1,8 @@
 package org.sqlproc.dsl.resolver;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
@@ -169,7 +172,14 @@ public class DbResolverBean implements DbResolver {
                     props.setProperty("password", modelDatabaseValues.dbPassword);
                     String dbUrl = modelDatabaseValues.dbUrl.replaceAll("\\\\/", "/");
                     modelDatabaseValues.connection = driver.connect(dbUrl, props);
-                    // TODO execute before
+                    if (modelDatabaseValues.dbSqlsBefore != null
+                            && modelDatabaseValues.dbSqlsBefore.trim().length() > 0) {
+                        InputStream is = pojoResolverFactory.getPojoResolver()
+                                .getFile(modelDatabaseValues.dbSqlsBefore);
+                        System.out.println("XXXXXXXXXX1 " + is);
+                        List<String> ddls = loadDDL(is);
+                        System.out.println("XXXXXXXXXX2 " + ddls);
+                    }
                     LOGGER.info("DB URL " + dbUrl);
                     LOGGER.info("DATA CONNECTION " + modelDatabaseValues.connection);
                 } catch (InstantiationException e) {
@@ -181,6 +191,53 @@ public class DbResolverBean implements DbResolver {
                 }
             }
             return modelDatabaseValues;
+        }
+    }
+
+    private List<String> loadDDL(InputStream is) {
+        BufferedReader bfr = null;
+        List<String> ddls = new ArrayList<String>();
+
+        try {
+            bfr = new BufferedReader(new InputStreamReader(is));
+            StringBuilder completeLine = new StringBuilder("");
+            String line;
+            boolean inFuncOrProc = false;
+            while ((line = bfr.readLine()) != null) {
+                if (line.startsWith("--"))
+                    continue;
+                if (line.trim().length() > 0)
+                    completeLine.append(" ").append(line);
+                if (!inFuncOrProc && line.trim().toUpperCase().startsWith("CREATE")
+                        && (line.indexOf("FUNCTION") >= 0 || line.indexOf("PROCEDURE") >= 0))
+                    inFuncOrProc = true;
+                boolean finishedDdl = false;
+                if (!inFuncOrProc && line.trim().endsWith(";")) {
+                    finishedDdl = true;
+                } else if (line.trim().length() == 0) {
+                    finishedDdl = true;
+                }
+                if (finishedDdl) {
+                    if (completeLine.length() > 0)
+                        ddls.add(completeLine.toString());
+                    completeLine = new StringBuilder("");
+                    inFuncOrProc = false;
+                }
+            }
+            if (completeLine.length() > 0)
+                ddls.add(completeLine.toString());
+            return ddls;
+
+        } catch (Exception ex) {
+            LOGGER.error("loadDDL error", ex);
+            return ddls;
+        } finally {
+            if (bfr != null) {
+                try {
+                    bfr.close();
+                } catch (Exception ignore) {
+                }
+            }
         }
     }
 
