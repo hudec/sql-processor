@@ -21,5 +21,5 @@ public interface PojoResolver {
 
     List<Class<?>> getPojoClasses();
 
-    InputStream getFile(String filename);
+    InputStream getFile(EObject model, String filename);
 }

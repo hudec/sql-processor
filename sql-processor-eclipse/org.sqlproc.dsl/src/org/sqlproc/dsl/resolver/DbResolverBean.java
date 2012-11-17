@@ -8,6 +8,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -172,31 +173,58 @@ public class DbResolverBean implements DbResolver {
                     props.setProperty("password", modelDatabaseValues.dbPassword);
                     String dbUrl = modelDatabaseValues.dbUrl.replaceAll("\\\\/", "/");
                     modelDatabaseValues.connection = driver.connect(dbUrl, props);
-                    if (modelDatabaseValues.dbSqlsBefore != null
-                            && modelDatabaseValues.dbSqlsBefore.trim().length() > 0) {
-                        InputStream is = pojoResolverFactory.getPojoResolver()
-                                .getFile(modelDatabaseValues.dbSqlsBefore);
-                        System.out.println("XXXXXXXXXX1 " + is);
-                        List<String> ddls = loadDDL(is);
-                        System.out.println("XXXXXXXXXX2 " + ddls);
-                    }
                     LOGGER.info("DB URL " + dbUrl);
                     LOGGER.info("DATA CONNECTION " + modelDatabaseValues.connection);
+                    if (modelDatabaseValues.dbSqlsBefore != null
+                            && modelDatabaseValues.dbSqlsBefore.trim().length() > 0) {
+                        InputStream is = pojoResolverFactory.getPojoResolver().getFile(model,
+                                modelDatabaseValues.dbSqlsBefore.trim());
+                        List<String> ddls = loadDDL(is);
+                        System.out.println("DDL input stream " + is);
+                        runDDLs(modelDatabaseValues.connection, ddls);
+                    }
                 } catch (InstantiationException e) {
                     LOGGER.error("getConnection error " + e);
                 } catch (IllegalAccessException e) {
                     LOGGER.error("getConnection error " + e);
                 } catch (SQLException e) {
                     LOGGER.error("getConnection error " + e);
+                } catch (RuntimeException e) {
+                    e.printStackTrace();
+                    throw e;
                 }
             }
             return modelDatabaseValues;
         }
     }
 
+    private void runDDLs(Connection connection, List<String> ddls) throws SQLException {
+
+        Statement stmt = null;
+
+        try {
+            stmt = connection.createStatement();
+            for (int i = 0, n = ddls.size(); i < n; i++) {
+                String ddl = ddls.get(i);
+                if (ddl == null)
+                    continue;
+                LOGGER.info("DB DDL " + ddl);
+                stmt.addBatch(ddl);
+            }
+            stmt.executeBatch();
+
+        } finally {
+            if (stmt != null)
+                stmt.close();
+        }
+    }
+
     private List<String> loadDDL(InputStream is) {
         BufferedReader bfr = null;
         List<String> ddls = new ArrayList<String>();
+
+        if (is == null)
+            return ddls;
 
         try {
             bfr = new BufferedReader(new InputStreamReader(is));

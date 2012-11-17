@@ -1,11 +1,15 @@
 resolve-pojo-on;
 database-is-online;
-database-jdbc-driver oracle.jdbc.OracleDriver;
-database-has-url jdbc:oracle:thin:@127.0.0.1:1521:xe;
-database-login-username sqlsample;
-database-login-password sqlsample;
-database-active-schema SQLSAMPLE;
-database-execute-before src/main/resources/hsqldb.ddl;
+//database-jdbc-driver oracle.jdbc.OracleDriver;
+//database-has-url jdbc:oracle:thin:@127.0.0.1:1521:xe;
+//database-login-username sqlsample;
+//database-login-password sqlsample;
+//database-active-schema SQLSAMPLE;
+database-jdbc-driver org.hsqldb.jdbcDriver;
+database-has-url jdbc:hsqldb:mem:sqlproc;
+database-login-username sa;
+database-login-password "";
+database-execute-before hsqldb.ddl; // should be located in the same directory as definitions.qry
 
 identx ALL_PEOPLE Person;
 identx LIKE_PEOPLE Person;

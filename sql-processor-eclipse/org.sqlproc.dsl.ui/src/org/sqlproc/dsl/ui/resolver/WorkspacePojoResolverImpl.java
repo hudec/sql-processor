@@ -13,13 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -157,7 +162,6 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
             IProject project = input.getFile().getProject();
             try {
                 project.open(null /* IProgressMonitor */);
-                System.out.println("AAAA " + project.getFile("hsqldb.ddl"));
                 IJavaProject javaProject = JavaCore.create(project);
                 URLClassLoader classLoader = getProjectClassLoader(javaProject);
 
@@ -192,23 +196,37 @@ public class WorkspacePojoResolverImpl implements PojoResolver {
         return pojos;
     }
 
+    // 0000000a org.sqlproc.dsl.processorDsl.impl.TableDefinitionImpl@d452db (name: person, table: PERSON)
+    // 0000000b org.eclipse.xtext.linking.lazy.LazyLinkingResource@1386e14
+    // uri='platform:/resource/simple-jdbc-all/src/main/resources/definitions.qry'
+    // 0000000c platform:/resource/simple-jdbc-all/src/main/resources/definitions.qry
+    // 0000000d R/
+    // 0000000e /simple-jdbc-all/src/main/resources/definitions.qry
+    // 0000000f /simple-jdbc-all/src/main/resources/definitions.qry
+    // 0000000g L/simple-jdbc-all/src/main/resources/definitions.qry
+    // 0000000h F/simple-jdbc-all/src/main/resources
+    // 0000000i F/simple-jdbc-all/src/main/resources
+    // 0000000j L/simple-jdbc-all/src/main/resources/hsqldb.ddl
+
     @Override
-    public InputStream getFile(String filename) {
-        IEditorPart editorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-        if (editorPart != null) {
-            IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
-            IProject project = input.getFile().getProject();
-            try {
-                project.open(null /* IProgressMonitor */);
-                IFile file = project.getFile(filename);
-                if (file != null) {
+    public InputStream getFile(EObject model, String filename) {
+        Resource resource = model.eResource();
+        URI uri = resource.getURI();
+        if (uri.isPlatformResource()) {
+            IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+            IFile modelFile = root.getFile(new Path(uri.toPlatformString(false)));
+            IContainer modelParent = modelFile.getParent();
+            if (modelParent instanceof IFolder) {
+                IFolder modelDir = (IFolder) modelParent;
+                IFile file = modelDir.getFile(filename);
+                try {
                     return file.getContents();
+                } catch (CoreException e) {
+                    LOGGER.warn("Can't handle file '" + filename + "': " + e.getMessage());
                 }
-            } catch (CoreException e) {
-                LOGGER.warn("Can't handle project '" + project + "': " + e.getMessage());
             }
         }
-        LOGGER.warn("Can't find file '" + filename + "' in any loader " + allLoaders);
+        LOGGER.warn("Can't find file '" + filename + "' in project");
         return null;
     }
 }
