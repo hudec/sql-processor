@@ -10,6 +10,7 @@ database-has-url jdbc:hsqldb:mem:sqlproc;
 database-login-username sa;
 database-login-password "";
 database-execute-before hsqldb.ddl; // should be located in the same directory as definitions.qry
+database-execute-after hsqldb_drop.ddl; // should be located in the same directory as definitions.qry
 
 identx ALL_PEOPLE Person;
 identx LIKE_PEOPLE Person;

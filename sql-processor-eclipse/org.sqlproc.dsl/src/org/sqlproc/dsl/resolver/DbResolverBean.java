@@ -38,6 +38,8 @@ public class DbResolverBean implements DbResolver {
         public String dir;
         public Connection connection;
         boolean doReconnect;
+        public List<String> ddlsBefore;
+        public List<String> ddlsAfter;
 
         @Override
         public String toString() {
@@ -175,13 +177,18 @@ public class DbResolverBean implements DbResolver {
                     modelDatabaseValues.connection = driver.connect(dbUrl, props);
                     LOGGER.info("DB URL " + dbUrl);
                     LOGGER.info("DATA CONNECTION " + modelDatabaseValues.connection);
+
                     if (modelDatabaseValues.dbSqlsBefore != null
                             && modelDatabaseValues.dbSqlsBefore.trim().length() > 0) {
                         InputStream is = pojoResolverFactory.getPojoResolver().getFile(model,
                                 modelDatabaseValues.dbSqlsBefore.trim());
-                        List<String> ddls = loadDDL(is);
-                        System.out.println("DDL input stream " + is);
-                        runDDLs(modelDatabaseValues.connection, ddls);
+                        modelDatabaseValues.ddlsBefore = loadDDL(is);
+                        runDDLs(modelDatabaseValues.connection, modelDatabaseValues.ddlsBefore, "BEFORE");
+                    }
+                    if (modelDatabaseValues.dbSqlsAfter != null && modelDatabaseValues.dbSqlsAfter.trim().length() > 0) {
+                        InputStream is = pojoResolverFactory.getPojoResolver().getFile(model,
+                                modelDatabaseValues.dbSqlsAfter.trim());
+                        modelDatabaseValues.ddlsAfter = loadDDL(is);
                     }
                 } catch (InstantiationException e) {
                     LOGGER.error("getConnection error " + e);
@@ -198,7 +205,33 @@ public class DbResolverBean implements DbResolver {
         }
     }
 
-    private void runDDLs(Connection connection, List<String> ddls) throws SQLException {
+    private void closeConnection(DatabaseValues modelDatabaseValues) {
+        synchronized (sync) {
+            try {
+                if (modelDatabaseValues.connection != null) {
+                    if (modelDatabaseValues.ddlsAfter != null)
+                        runDDLs(modelDatabaseValues.connection, modelDatabaseValues.ddlsAfter, "AFTER");
+
+                    LOGGER.info("DATA STOP FOR " + modelDatabaseValues.dir);
+                    modelDatabaseValues.connection.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error("closeConnection error " + e);
+            }
+            modelDatabaseValues.connection = null;
+            modelDatabaseValues.ddlsBefore = null;
+            modelDatabaseValues.ddlsAfter = null;
+            tables.remove(modelDatabaseValues.dir);
+            columns.remove(modelDatabaseValues.dir);
+            dbColumns.remove(modelDatabaseValues.dir);
+            dbExports.remove(modelDatabaseValues.dir);
+            dbImports.remove(modelDatabaseValues.dir);
+        }
+    }
+
+    private void runDDLs(Connection connection, List<String> ddls, String msg) throws SQLException {
+
+        System.out.println("Run DDLs " + msg + ", number of statements is " + ddls.size());
 
         Statement stmt = null;
 
@@ -266,26 +299,6 @@ public class DbResolverBean implements DbResolver {
                 } catch (Exception ignore) {
                 }
             }
-        }
-    }
-
-    private void closeConnection(DatabaseValues modelDatabaseValues) {
-        synchronized (sync) {
-            try {
-                if (modelDatabaseValues.connection != null) {
-                    // TODO execute after
-                    LOGGER.info("DATA STOP FOR " + modelDatabaseValues.dir);
-                    modelDatabaseValues.connection.close();
-                }
-            } catch (SQLException e) {
-                LOGGER.error("closeConnection error " + e);
-            }
-            modelDatabaseValues.connection = null;
-            tables.remove(modelDatabaseValues.dir);
-            columns.remove(modelDatabaseValues.dir);
-            dbColumns.remove(modelDatabaseValues.dir);
-            dbExports.remove(modelDatabaseValues.dir);
-            dbImports.remove(modelDatabaseValues.dir);
         }
     }
 
