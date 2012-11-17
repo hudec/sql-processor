@@ -22287,16 +22287,16 @@ rule__DatabaseProperty__NameAssignment_7_0
     }
 :
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getNameExecuteBeforeKeyword_7_0_0()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getNameDdlCreateKeyword_7_0_0()); }
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getNameExecuteBeforeKeyword_7_0_0()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getNameDdlCreateKeyword_7_0_0()); }
 
-	'execute-before' 
+	'ddl-create' 
 
-{ after(grammarAccess.getDatabasePropertyAccess().getNameExecuteBeforeKeyword_7_0_0()); }
+{ after(grammarAccess.getDatabasePropertyAccess().getNameDdlCreateKeyword_7_0_0()); }
 )
 
-{ after(grammarAccess.getDatabasePropertyAccess().getNameExecuteBeforeKeyword_7_0_0()); }
+{ after(grammarAccess.getDatabasePropertyAccess().getNameDdlCreateKeyword_7_0_0()); }
 )
 
 ;
@@ -22325,16 +22325,16 @@ rule__DatabaseProperty__NameAssignment_8_0
     }
 :
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getNameExecuteAfterKeyword_8_0_0()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getNameDdlDropKeyword_8_0_0()); }
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getNameExecuteAfterKeyword_8_0_0()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getNameDdlDropKeyword_8_0_0()); }
 
-	'execute-after' 
+	'ddl-drop' 
 
-{ after(grammarAccess.getDatabasePropertyAccess().getNameExecuteAfterKeyword_8_0_0()); }
+{ after(grammarAccess.getDatabasePropertyAccess().getNameDdlDropKeyword_8_0_0()); }
 )
 
-{ after(grammarAccess.getDatabasePropertyAccess().getNameExecuteAfterKeyword_8_0_0()); }
+{ after(grammarAccess.getDatabasePropertyAccess().getNameDdlDropKeyword_8_0_0()); }
 )
 
 ;

@@ -23,7 +23,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalProcessorDslParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_REST", "RULE_IDENT_DOT", "RULE_IDENT", "RULE_NUMBER", "RULE_COLON", "RULE_STRING", "RULE_COMMA", "RULE_MINUS", "RULE_PLUS", "RULE_LPAREN", "RULE_RPAREN", "RULE_LBRACE", "RULE_RBRACE", "RULE_QUESTI", "RULE_NOT", "RULE_BAND", "RULE_BOR", "RULE_HASH", "RULE_AT", "RULE_CARET", "RULE_EQUALS", "RULE_LESS_THAN", "RULE_MORE_THAN", "RULE_PERCENT", "RULE_AND", "RULE_OR", "RULE_ESC_CHAR", "RULE_ON_OFF", "RULE_STATEMEN_TYPE", "RULE_MAPPING_TYPE", "RULE_OPTION_TYPE", "RULE_WS", "RULE_SEMICOLON", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'_char'", "'_byte'", "'_short'", "'_int'", "'_long'", "'_float'", "'_double'", "'_boolean'", "'->'", "'pojo'", "'col'", "'ident'", "'const'", "'out'", "'colx'", "'identx'", "'constx'", "'outx'", "'table'", "'dbcol'", "'prefix'", "'package'", "'suffix'", "'import'", "'implements'", "'extends'", "'discriminator'", "'serializable'", "'.*'", "'resolve-pojo-on'", "'resolve-pojo-off'", "'database-'", "'pojogen-'", "'is-online'", "'is-offline'", "'has-url'", "'login-username'", "'login-password'", "'active-schema'", "'jdbc-driver'", "'execute-before'", "'execute-after'", "'types-sqltypes'", "'types-in-table'", "'types-for-columns'", "'show-type-for-column'", "'ignore-tables'", "'only-tables'", "'join-tables'", "'ignore-columns'", "'required-columns'", "'not-required-columns'", "'create-columns'", "'rename-tables'", "'rename-columns'", "'ignore-one-to-many'", "'ignore-many-to-one'", "'inherit-many-to-one'", "'create-one-to-many'", "'create-many-to-one'", "'table-many-to-many'", "'inherit-discriminator'", "'generate-methods'", "'implements-interfaces'", "'extends-class'", "'[]'", "'final'", "'abstract'", "'required'", "'primaryKey'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_REST", "RULE_IDENT_DOT", "RULE_IDENT", "RULE_NUMBER", "RULE_COLON", "RULE_STRING", "RULE_COMMA", "RULE_MINUS", "RULE_PLUS", "RULE_LPAREN", "RULE_RPAREN", "RULE_LBRACE", "RULE_RBRACE", "RULE_QUESTI", "RULE_NOT", "RULE_BAND", "RULE_BOR", "RULE_HASH", "RULE_AT", "RULE_CARET", "RULE_EQUALS", "RULE_LESS_THAN", "RULE_MORE_THAN", "RULE_PERCENT", "RULE_AND", "RULE_OR", "RULE_ESC_CHAR", "RULE_ON_OFF", "RULE_STATEMEN_TYPE", "RULE_MAPPING_TYPE", "RULE_OPTION_TYPE", "RULE_WS", "RULE_SEMICOLON", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'_char'", "'_byte'", "'_short'", "'_int'", "'_long'", "'_float'", "'_double'", "'_boolean'", "'->'", "'pojo'", "'col'", "'ident'", "'const'", "'out'", "'colx'", "'identx'", "'constx'", "'outx'", "'table'", "'dbcol'", "'prefix'", "'package'", "'suffix'", "'import'", "'implements'", "'extends'", "'discriminator'", "'serializable'", "'.*'", "'resolve-pojo-on'", "'resolve-pojo-off'", "'database-'", "'pojogen-'", "'is-online'", "'is-offline'", "'has-url'", "'login-username'", "'login-password'", "'active-schema'", "'jdbc-driver'", "'ddl-create'", "'ddl-drop'", "'types-sqltypes'", "'types-in-table'", "'types-for-columns'", "'show-type-for-column'", "'ignore-tables'", "'only-tables'", "'join-tables'", "'ignore-columns'", "'required-columns'", "'not-required-columns'", "'create-columns'", "'rename-tables'", "'rename-columns'", "'ignore-one-to-many'", "'ignore-many-to-one'", "'inherit-many-to-one'", "'create-one-to-many'", "'create-many-to-one'", "'table-many-to-many'", "'inherit-discriminator'", "'generate-methods'", "'implements-interfaces'", "'extends-class'", "'[]'", "'final'", "'abstract'", "'required'", "'primaryKey'"
     };
     public static final int RULE_OR=29;
     public static final int RULE_PERCENT=27;
@@ -69038,36 +69038,36 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__DatabaseProperty__NameAssignment_7_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22284:1: rule__DatabaseProperty__NameAssignment_7_0 : ( ( 'execute-before' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22284:1: rule__DatabaseProperty__NameAssignment_7_0 : ( ( 'ddl-create' ) ) ;
     public final void rule__DatabaseProperty__NameAssignment_7_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22288:1: ( ( ( 'execute-before' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22289:1: ( ( 'execute-before' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22288:1: ( ( ( 'ddl-create' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22289:1: ( ( 'ddl-create' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22289:1: ( ( 'execute-before' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22290:1: ( 'execute-before' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22289:1: ( ( 'ddl-create' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22290:1: ( 'ddl-create' )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getDatabasePropertyAccess().getNameExecuteBeforeKeyword_7_0_0()); 
+               before(grammarAccess.getDatabasePropertyAccess().getNameDdlCreateKeyword_7_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22291:1: ( 'execute-before' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22292:1: 'execute-before'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22291:1: ( 'ddl-create' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22292:1: 'ddl-create'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getDatabasePropertyAccess().getNameExecuteBeforeKeyword_7_0_0()); 
+               before(grammarAccess.getDatabasePropertyAccess().getNameDdlCreateKeyword_7_0_0()); 
             }
             match(input,79,FOLLOW_79_in_rule__DatabaseProperty__NameAssignment_7_046725); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getDatabasePropertyAccess().getNameExecuteBeforeKeyword_7_0_0()); 
+               after(grammarAccess.getDatabasePropertyAccess().getNameDdlCreateKeyword_7_0_0()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getDatabasePropertyAccess().getNameExecuteBeforeKeyword_7_0_0()); 
+               after(grammarAccess.getDatabasePropertyAccess().getNameDdlCreateKeyword_7_0_0()); 
             }
 
             }
@@ -69136,36 +69136,36 @@ public class InternalProcessorDslParser extends AbstractInternalContentAssistPar
 
 
     // $ANTLR start "rule__DatabaseProperty__NameAssignment_8_0"
-    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22322:1: rule__DatabaseProperty__NameAssignment_8_0 : ( ( 'execute-after' ) ) ;
+    // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22322:1: rule__DatabaseProperty__NameAssignment_8_0 : ( ( 'ddl-drop' ) ) ;
     public final void rule__DatabaseProperty__NameAssignment_8_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22326:1: ( ( ( 'execute-after' ) ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22327:1: ( ( 'execute-after' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22326:1: ( ( ( 'ddl-drop' ) ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22327:1: ( ( 'ddl-drop' ) )
             {
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22327:1: ( ( 'execute-after' ) )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22328:1: ( 'execute-after' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22327:1: ( ( 'ddl-drop' ) )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22328:1: ( 'ddl-drop' )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getDatabasePropertyAccess().getNameExecuteAfterKeyword_8_0_0()); 
+               before(grammarAccess.getDatabasePropertyAccess().getNameDdlDropKeyword_8_0_0()); 
             }
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22329:1: ( 'execute-after' )
-            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22330:1: 'execute-after'
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22329:1: ( 'ddl-drop' )
+            // ../org.sqlproc.dsl.ui/src-gen/org/sqlproc/dsl/ui/contentassist/antlr/internal/InternalProcessorDsl.g:22330:1: 'ddl-drop'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getDatabasePropertyAccess().getNameExecuteAfterKeyword_8_0_0()); 
+               before(grammarAccess.getDatabasePropertyAccess().getNameDdlDropKeyword_8_0_0()); 
             }
             match(input,80,FOLLOW_80_in_rule__DatabaseProperty__NameAssignment_8_046800); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getDatabasePropertyAccess().getNameExecuteAfterKeyword_8_0_0()); 
+               after(grammarAccess.getDatabasePropertyAccess().getNameDdlDropKeyword_8_0_0()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getDatabasePropertyAccess().getNameExecuteAfterKeyword_8_0_0()); 
+               after(grammarAccess.getDatabasePropertyAccess().getNameDdlDropKeyword_8_0_0()); 
             }
 
             }

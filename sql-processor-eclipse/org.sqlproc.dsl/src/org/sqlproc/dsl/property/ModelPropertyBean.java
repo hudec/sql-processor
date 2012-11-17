@@ -41,8 +41,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_IS_ONLINE = "is-online";
     public static final String DATABASE_IS_OFFLINE = "is-offline";
     public static final String DATABASE_HAS_URL = "has-url";
-    public static final String DATABASE_EXECUTE_BEFORE = "execute-before";
-    public static final String DATABASE_EXECUTE_AFTER = "execute-after";
+    public static final String DATABASE_EXECUTE_BEFORE = "ddl-create";
+    public static final String DATABASE_EXECUTE_AFTER = "ddl-drop";
     public static final String DATABASE_LOGIN_USERNAME = "login-username";
     public static final String DATABASE_LOGIN_NPASSWORD = "login-password";
     public static final String DATABASE_ACTIVE_SCHEMA = "active-schema";

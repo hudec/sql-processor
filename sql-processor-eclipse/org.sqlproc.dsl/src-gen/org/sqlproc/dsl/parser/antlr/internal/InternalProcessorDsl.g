@@ -1403,16 +1403,16 @@ ruleDatabaseProperty returns [EObject current=null]
 ))
     |((
 (
-		lv_name_17_0=	'execute-before' 
+		lv_name_17_0=	'ddl-create' 
     {
-        newLeafNode(lv_name_17_0, grammarAccess.getDatabasePropertyAccess().getNameExecuteBeforeKeyword_7_0_0());
+        newLeafNode(lv_name_17_0, grammarAccess.getDatabasePropertyAccess().getNameDdlCreateKeyword_7_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_17_0, "execute-before");
+       		setWithLastConsumed($current, "name", lv_name_17_0, "ddl-create");
 	    }
 
 )
@@ -1441,16 +1441,16 @@ ruleDatabaseProperty returns [EObject current=null]
 ))
     |((
 (
-		lv_name_20_0=	'execute-after' 
+		lv_name_20_0=	'ddl-drop' 
     {
-        newLeafNode(lv_name_20_0, grammarAccess.getDatabasePropertyAccess().getNameExecuteAfterKeyword_8_0_0());
+        newLeafNode(lv_name_20_0, grammarAccess.getDatabasePropertyAccess().getNameDdlDropKeyword_8_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_20_0, "execute-after");
+       		setWithLastConsumed($current, "name", lv_name_20_0, "ddl-drop");
 	    }
 
 )

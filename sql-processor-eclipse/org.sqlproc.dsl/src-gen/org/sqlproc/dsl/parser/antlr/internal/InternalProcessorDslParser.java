@@ -22,7 +22,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_WS", "RULE_IDENT", "RULE_LPAREN", "RULE_NUMBER", "RULE_RPAREN", "RULE_SEMICOLON", "RULE_REST", "RULE_IDENT_DOT", "RULE_COLON", "RULE_STRING", "RULE_COMMA", "RULE_MINUS", "RULE_PLUS", "RULE_LBRACE", "RULE_RBRACE", "RULE_QUESTI", "RULE_NOT", "RULE_BAND", "RULE_BOR", "RULE_HASH", "RULE_AT", "RULE_CARET", "RULE_EQUALS", "RULE_LESS_THAN", "RULE_MORE_THAN", "RULE_PERCENT", "RULE_AND", "RULE_OR", "RULE_ESC_CHAR", "RULE_ON_OFF", "RULE_STATEMEN_TYPE", "RULE_MAPPING_TYPE", "RULE_OPTION_TYPE", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'->'", "'resolve-pojo-on'", "'resolve-pojo-off'", "'database-'", "'pojogen-'", "'is-online'", "'is-offline'", "'has-url'", "'login-username'", "'login-password'", "'active-schema'", "'jdbc-driver'", "'execute-before'", "'execute-after'", "'types-sqltypes'", "'types-in-table'", "'types-for-columns'", "'show-type-for-column'", "'ignore-tables'", "'only-tables'", "'join-tables'", "'ignore-columns'", "'required-columns'", "'not-required-columns'", "'create-columns'", "'rename-tables'", "'rename-columns'", "'ignore-one-to-many'", "'ignore-many-to-one'", "'inherit-many-to-one'", "'create-one-to-many'", "'create-many-to-one'", "'table-many-to-many'", "'inherit-discriminator'", "'generate-methods'", "'implements-interfaces'", "'extends-class'", "'pojo'", "'col'", "'ident'", "'const'", "'out'", "'colx'", "'identx'", "'constx'", "'outx'", "'table'", "'dbcol'", "'prefix'", "'_char'", "'_byte'", "'_short'", "'_int'", "'_long'", "'_float'", "'_double'", "'_boolean'", "'[]'", "'package'", "'suffix'", "'import'", "'implements'", "'extends'", "'final'", "'abstract'", "'discriminator'", "'serializable'", "'required'", "'primaryKey'", "'.*'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_WS", "RULE_IDENT", "RULE_LPAREN", "RULE_NUMBER", "RULE_RPAREN", "RULE_SEMICOLON", "RULE_REST", "RULE_IDENT_DOT", "RULE_COLON", "RULE_STRING", "RULE_COMMA", "RULE_MINUS", "RULE_PLUS", "RULE_LBRACE", "RULE_RBRACE", "RULE_QUESTI", "RULE_NOT", "RULE_BAND", "RULE_BOR", "RULE_HASH", "RULE_AT", "RULE_CARET", "RULE_EQUALS", "RULE_LESS_THAN", "RULE_MORE_THAN", "RULE_PERCENT", "RULE_AND", "RULE_OR", "RULE_ESC_CHAR", "RULE_ON_OFF", "RULE_STATEMEN_TYPE", "RULE_MAPPING_TYPE", "RULE_OPTION_TYPE", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'->'", "'resolve-pojo-on'", "'resolve-pojo-off'", "'database-'", "'pojogen-'", "'is-online'", "'is-offline'", "'has-url'", "'login-username'", "'login-password'", "'active-schema'", "'jdbc-driver'", "'ddl-create'", "'ddl-drop'", "'types-sqltypes'", "'types-in-table'", "'types-for-columns'", "'show-type-for-column'", "'ignore-tables'", "'only-tables'", "'join-tables'", "'ignore-columns'", "'required-columns'", "'not-required-columns'", "'create-columns'", "'rename-tables'", "'rename-columns'", "'ignore-one-to-many'", "'ignore-many-to-one'", "'inherit-many-to-one'", "'create-one-to-many'", "'create-many-to-one'", "'table-many-to-many'", "'inherit-discriminator'", "'generate-methods'", "'implements-interfaces'", "'extends-class'", "'pojo'", "'col'", "'ident'", "'const'", "'out'", "'colx'", "'identx'", "'constx'", "'outx'", "'table'", "'dbcol'", "'prefix'", "'_char'", "'_byte'", "'_short'", "'_int'", "'_long'", "'_float'", "'_double'", "'_boolean'", "'[]'", "'package'", "'suffix'", "'import'", "'implements'", "'extends'", "'final'", "'abstract'", "'discriminator'", "'serializable'", "'required'", "'primaryKey'", "'.*'"
     };
     public static final int RULE_OR=31;
     public static final int RULE_PERCENT=29;
@@ -3276,7 +3276,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDatabaseProperty"
-    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1178:1: ruleDatabaseProperty returns [EObject current=null] : ( ( (lv_name_0_0= 'is-online' ) ) | ( (lv_name_1_0= 'is-offline' ) ) | ( ( (lv_name_2_0= 'has-url' ) ) (this_WS_3= RULE_WS )+ ( (lv_dbUrl_4_0= rulePropertyValue ) ) ) | ( ( (lv_name_5_0= 'login-username' ) ) (this_WS_6= RULE_WS )+ ( (lv_dbUsername_7_0= rulePropertyValue ) ) ) | ( ( (lv_name_8_0= 'login-password' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbPassword_10_0= rulePropertyValue ) ) ) | ( ( (lv_name_11_0= 'active-schema' ) ) (this_WS_12= RULE_WS )+ ( (lv_dbSchema_13_0= rulePropertyValue ) ) ) | ( ( (lv_name_14_0= 'jdbc-driver' ) ) (this_WS_15= RULE_WS )+ ( (lv_dbDriver_16_0= rulePropertyValue ) ) ) | ( ( (lv_name_17_0= 'execute-before' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) ) ) | ( ( (lv_name_20_0= 'execute-after' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) ) ) ) ;
+    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1178:1: ruleDatabaseProperty returns [EObject current=null] : ( ( (lv_name_0_0= 'is-online' ) ) | ( (lv_name_1_0= 'is-offline' ) ) | ( ( (lv_name_2_0= 'has-url' ) ) (this_WS_3= RULE_WS )+ ( (lv_dbUrl_4_0= rulePropertyValue ) ) ) | ( ( (lv_name_5_0= 'login-username' ) ) (this_WS_6= RULE_WS )+ ( (lv_dbUsername_7_0= rulePropertyValue ) ) ) | ( ( (lv_name_8_0= 'login-password' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbPassword_10_0= rulePropertyValue ) ) ) | ( ( (lv_name_11_0= 'active-schema' ) ) (this_WS_12= RULE_WS )+ ( (lv_dbSchema_13_0= rulePropertyValue ) ) ) | ( ( (lv_name_14_0= 'jdbc-driver' ) ) (this_WS_15= RULE_WS )+ ( (lv_dbDriver_16_0= rulePropertyValue ) ) ) | ( ( (lv_name_17_0= 'ddl-create' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) ) ) | ( ( (lv_name_20_0= 'ddl-drop' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) ) ) ) ;
     public final EObject ruleDatabaseProperty() throws RecognitionException {
         EObject current = null;
 
@@ -3314,10 +3314,10 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1181:28: ( ( ( (lv_name_0_0= 'is-online' ) ) | ( (lv_name_1_0= 'is-offline' ) ) | ( ( (lv_name_2_0= 'has-url' ) ) (this_WS_3= RULE_WS )+ ( (lv_dbUrl_4_0= rulePropertyValue ) ) ) | ( ( (lv_name_5_0= 'login-username' ) ) (this_WS_6= RULE_WS )+ ( (lv_dbUsername_7_0= rulePropertyValue ) ) ) | ( ( (lv_name_8_0= 'login-password' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbPassword_10_0= rulePropertyValue ) ) ) | ( ( (lv_name_11_0= 'active-schema' ) ) (this_WS_12= RULE_WS )+ ( (lv_dbSchema_13_0= rulePropertyValue ) ) ) | ( ( (lv_name_14_0= 'jdbc-driver' ) ) (this_WS_15= RULE_WS )+ ( (lv_dbDriver_16_0= rulePropertyValue ) ) ) | ( ( (lv_name_17_0= 'execute-before' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) ) ) | ( ( (lv_name_20_0= 'execute-after' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) ) ) ) )
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1182:1: ( ( (lv_name_0_0= 'is-online' ) ) | ( (lv_name_1_0= 'is-offline' ) ) | ( ( (lv_name_2_0= 'has-url' ) ) (this_WS_3= RULE_WS )+ ( (lv_dbUrl_4_0= rulePropertyValue ) ) ) | ( ( (lv_name_5_0= 'login-username' ) ) (this_WS_6= RULE_WS )+ ( (lv_dbUsername_7_0= rulePropertyValue ) ) ) | ( ( (lv_name_8_0= 'login-password' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbPassword_10_0= rulePropertyValue ) ) ) | ( ( (lv_name_11_0= 'active-schema' ) ) (this_WS_12= RULE_WS )+ ( (lv_dbSchema_13_0= rulePropertyValue ) ) ) | ( ( (lv_name_14_0= 'jdbc-driver' ) ) (this_WS_15= RULE_WS )+ ( (lv_dbDriver_16_0= rulePropertyValue ) ) ) | ( ( (lv_name_17_0= 'execute-before' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) ) ) | ( ( (lv_name_20_0= 'execute-after' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) ) ) )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1181:28: ( ( ( (lv_name_0_0= 'is-online' ) ) | ( (lv_name_1_0= 'is-offline' ) ) | ( ( (lv_name_2_0= 'has-url' ) ) (this_WS_3= RULE_WS )+ ( (lv_dbUrl_4_0= rulePropertyValue ) ) ) | ( ( (lv_name_5_0= 'login-username' ) ) (this_WS_6= RULE_WS )+ ( (lv_dbUsername_7_0= rulePropertyValue ) ) ) | ( ( (lv_name_8_0= 'login-password' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbPassword_10_0= rulePropertyValue ) ) ) | ( ( (lv_name_11_0= 'active-schema' ) ) (this_WS_12= RULE_WS )+ ( (lv_dbSchema_13_0= rulePropertyValue ) ) ) | ( ( (lv_name_14_0= 'jdbc-driver' ) ) (this_WS_15= RULE_WS )+ ( (lv_dbDriver_16_0= rulePropertyValue ) ) ) | ( ( (lv_name_17_0= 'ddl-create' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) ) ) | ( ( (lv_name_20_0= 'ddl-drop' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) ) ) ) )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1182:1: ( ( (lv_name_0_0= 'is-online' ) ) | ( (lv_name_1_0= 'is-offline' ) ) | ( ( (lv_name_2_0= 'has-url' ) ) (this_WS_3= RULE_WS )+ ( (lv_dbUrl_4_0= rulePropertyValue ) ) ) | ( ( (lv_name_5_0= 'login-username' ) ) (this_WS_6= RULE_WS )+ ( (lv_dbUsername_7_0= rulePropertyValue ) ) ) | ( ( (lv_name_8_0= 'login-password' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbPassword_10_0= rulePropertyValue ) ) ) | ( ( (lv_name_11_0= 'active-schema' ) ) (this_WS_12= RULE_WS )+ ( (lv_dbSchema_13_0= rulePropertyValue ) ) ) | ( ( (lv_name_14_0= 'jdbc-driver' ) ) (this_WS_15= RULE_WS )+ ( (lv_dbDriver_16_0= rulePropertyValue ) ) ) | ( ( (lv_name_17_0= 'ddl-create' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) ) ) | ( ( (lv_name_20_0= 'ddl-drop' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) ) ) )
             {
-            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1182:1: ( ( (lv_name_0_0= 'is-online' ) ) | ( (lv_name_1_0= 'is-offline' ) ) | ( ( (lv_name_2_0= 'has-url' ) ) (this_WS_3= RULE_WS )+ ( (lv_dbUrl_4_0= rulePropertyValue ) ) ) | ( ( (lv_name_5_0= 'login-username' ) ) (this_WS_6= RULE_WS )+ ( (lv_dbUsername_7_0= rulePropertyValue ) ) ) | ( ( (lv_name_8_0= 'login-password' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbPassword_10_0= rulePropertyValue ) ) ) | ( ( (lv_name_11_0= 'active-schema' ) ) (this_WS_12= RULE_WS )+ ( (lv_dbSchema_13_0= rulePropertyValue ) ) ) | ( ( (lv_name_14_0= 'jdbc-driver' ) ) (this_WS_15= RULE_WS )+ ( (lv_dbDriver_16_0= rulePropertyValue ) ) ) | ( ( (lv_name_17_0= 'execute-before' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) ) ) | ( ( (lv_name_20_0= 'execute-after' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) ) ) )
+            // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1182:1: ( ( (lv_name_0_0= 'is-online' ) ) | ( (lv_name_1_0= 'is-offline' ) ) | ( ( (lv_name_2_0= 'has-url' ) ) (this_WS_3= RULE_WS )+ ( (lv_dbUrl_4_0= rulePropertyValue ) ) ) | ( ( (lv_name_5_0= 'login-username' ) ) (this_WS_6= RULE_WS )+ ( (lv_dbUsername_7_0= rulePropertyValue ) ) ) | ( ( (lv_name_8_0= 'login-password' ) ) (this_WS_9= RULE_WS )+ ( (lv_dbPassword_10_0= rulePropertyValue ) ) ) | ( ( (lv_name_11_0= 'active-schema' ) ) (this_WS_12= RULE_WS )+ ( (lv_dbSchema_13_0= rulePropertyValue ) ) ) | ( ( (lv_name_14_0= 'jdbc-driver' ) ) (this_WS_15= RULE_WS )+ ( (lv_dbDriver_16_0= rulePropertyValue ) ) ) | ( ( (lv_name_17_0= 'ddl-create' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) ) ) | ( ( (lv_name_20_0= 'ddl-drop' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) ) ) )
             int alt27=9;
             switch ( input.LA(1) ) {
             case 44:
@@ -3984,21 +3984,21 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1404:6: ( ( (lv_name_17_0= 'execute-before' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1404:6: ( ( (lv_name_17_0= 'ddl-create' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) ) )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1404:6: ( ( (lv_name_17_0= 'execute-before' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1404:7: ( (lv_name_17_0= 'execute-before' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1404:6: ( ( (lv_name_17_0= 'ddl-create' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1404:7: ( (lv_name_17_0= 'ddl-create' ) ) (this_WS_18= RULE_WS )+ ( (lv_dbExecuteBefore_19_0= rulePropertyValue ) )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1404:7: ( (lv_name_17_0= 'execute-before' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1405:1: (lv_name_17_0= 'execute-before' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1404:7: ( (lv_name_17_0= 'ddl-create' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1405:1: (lv_name_17_0= 'ddl-create' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1405:1: (lv_name_17_0= 'execute-before' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1406:3: lv_name_17_0= 'execute-before'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1405:1: (lv_name_17_0= 'ddl-create' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1406:3: lv_name_17_0= 'ddl-create'
                     {
                     lv_name_17_0=(Token)match(input,51,FOLLOW_51_in_ruleDatabaseProperty2803); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              newLeafNode(lv_name_17_0, grammarAccess.getDatabasePropertyAccess().getNameExecuteBeforeKeyword_7_0_0());
+                              newLeafNode(lv_name_17_0, grammarAccess.getDatabasePropertyAccess().getNameDdlCreateKeyword_7_0_0());
                           
                     }
                     if ( state.backtracking==0 ) {
@@ -4006,7 +4006,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getDatabasePropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_17_0, "execute-before");
+                             		setWithLastConsumed(current, "name", lv_name_17_0, "ddl-create");
                       	    
                     }
 
@@ -4093,21 +4093,21 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 9 :
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1442:6: ( ( (lv_name_20_0= 'execute-after' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1442:6: ( ( (lv_name_20_0= 'ddl-drop' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) ) )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1442:6: ( ( (lv_name_20_0= 'execute-after' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1442:7: ( (lv_name_20_0= 'execute-after' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1442:6: ( ( (lv_name_20_0= 'ddl-drop' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1442:7: ( (lv_name_20_0= 'ddl-drop' ) ) (this_WS_21= RULE_WS )+ ( (lv_dbExecuteAfter_22_0= rulePropertyValue ) )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1442:7: ( (lv_name_20_0= 'execute-after' ) )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1443:1: (lv_name_20_0= 'execute-after' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1442:7: ( (lv_name_20_0= 'ddl-drop' ) )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1443:1: (lv_name_20_0= 'ddl-drop' )
                     {
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1443:1: (lv_name_20_0= 'execute-after' )
-                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1444:3: lv_name_20_0= 'execute-after'
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1443:1: (lv_name_20_0= 'ddl-drop' )
+                    // ../org.sqlproc.dsl/src-gen/org/sqlproc/dsl/parser/antlr/internal/InternalProcessorDsl.g:1444:3: lv_name_20_0= 'ddl-drop'
                     {
                     lv_name_20_0=(Token)match(input,52,FOLLOW_52_in_ruleDatabaseProperty2876); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              newLeafNode(lv_name_20_0, grammarAccess.getDatabasePropertyAccess().getNameExecuteAfterKeyword_8_0_0());
+                              newLeafNode(lv_name_20_0, grammarAccess.getDatabasePropertyAccess().getNameDdlDropKeyword_8_0_0());
                           
                     }
                     if ( state.backtracking==0 ) {
@@ -4115,7 +4115,7 @@ public class InternalProcessorDslParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getDatabasePropertyRule());
                       	        }
-                             		setWithLastConsumed(current, "name", lv_name_20_0, "execute-after");
+                             		setWithLastConsumed(current, "name", lv_name_20_0, "ddl-drop");
                       	    
                     }
 
