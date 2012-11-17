@@ -49,7 +49,7 @@ public class Main {
         factory.addCustomType(new PhoneNumberType());
         sqlFactory = factory;
 
-        ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb_catalog.ddl");
+        ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
 
         Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
         sessionFactory = configuration.buildSessionFactory();

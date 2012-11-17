@@ -44,7 +44,7 @@
     <bean id="TestDataInitializer" class="org.sqlproc.sample.catalog.db.TestDataInitializer">
         <property name="sessionFactory" ref="sessionFactory" />
         <property name="initData" value="${init.data}" />
-        <property name="catalog" value="hsqldb_catalog.ddl" />
+        <property name="catalog" value="hsqldb.ddl" />
     </bean>
 
     <bean id="dao" autowire="byType" abstract="true">

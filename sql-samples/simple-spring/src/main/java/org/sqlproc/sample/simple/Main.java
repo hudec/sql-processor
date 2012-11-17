@@ -48,7 +48,7 @@ public class Main {
         jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         session = new SpringSimpleSession(jdbcTemplate);
         sqlFactory = context.getBean("sqlFactory", SqlEngineFactory.class);
-        ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb_catalog.ddl");
+        ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
     }
 
     public void setupDb() throws SQLException {

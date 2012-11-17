@@ -41,7 +41,7 @@
         <property name="jdbcTemplate" ref="jdbcTemplate" />
         <property name="itemService" ref="itemService" />
         <property name="initData" value="${init.data}" />
-        <property name="catalog" value="hsqldb_catalog.ddl" />
+        <property name="catalog" value="hsqldb.ddl" />
     </bean>
 
     <bean id="dao" autowire="byType" abstract="true">

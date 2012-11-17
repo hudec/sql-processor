@@ -60,7 +60,7 @@ public class Main {
         factory.addCustomType(new PhoneNumberType());
         sqlFactory = factory;
 
-        ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb_catalog.ddl");
+        ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
 
         connection = DriverManager.getConnection("jdbc:hsqldb:mem:sqlproc", "sa", "");
         session = new JdbcSimpleSession(connection);
