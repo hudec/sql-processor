@@ -40,7 +40,8 @@ public class DbResolverBean implements DbResolver {
         public String dir;
         public Connection connection;
         boolean doReconnect;
-        public List<String> ddlsBefore;
+        public List<String> ddlsBefore0;
+        public List<String> ddlsBefore1;
         public List<String> ddlsAfter;
 
         @Override
@@ -184,8 +185,21 @@ public class DbResolverBean implements DbResolver {
                             && modelDatabaseValues.dbSqlsBefore.trim().length() > 0) {
                         InputStream is = pojoResolverFactory.getPojoResolver().getFile(model,
                                 modelDatabaseValues.dbSqlsBefore.trim());
-                        modelDatabaseValues.ddlsBefore = loadDDL(is);
-                        runDDLs(modelDatabaseValues.connection, modelDatabaseValues.ddlsBefore, "BEFORE");
+                        List<String> ddls = loadDDL(is);
+                        modelDatabaseValues.ddlsBefore0 = new ArrayList<String>();
+                        modelDatabaseValues.ddlsBefore1 = new ArrayList<String>();
+                        boolean inDrop = true;
+                        for (String ddl : ddls) {
+                            if (inDrop && !ddl.toUpperCase().trim().startsWith("DROP"))
+                                inDrop = false;
+                            if (inDrop)
+                                modelDatabaseValues.ddlsBefore0.add(ddl);
+                            else
+                                modelDatabaseValues.ddlsBefore1.add(ddl);
+                        }
+
+                        runDDLs(modelDatabaseValues.connection, modelDatabaseValues.ddlsBefore0, "BEFORE");
+                        runDDLs(modelDatabaseValues.connection, modelDatabaseValues.ddlsBefore1, "BEFORE");
                     }
                     if (modelDatabaseValues.dbSqlsAfter != null && modelDatabaseValues.dbSqlsAfter.trim().length() > 0) {
                         InputStream is = pojoResolverFactory.getPojoResolver().getFile(model,
@@ -221,7 +235,8 @@ public class DbResolverBean implements DbResolver {
                 LOGGER.error("closeConnection error " + e);
             }
             modelDatabaseValues.connection = null;
-            modelDatabaseValues.ddlsBefore = null;
+            modelDatabaseValues.ddlsBefore0 = null;
+            modelDatabaseValues.ddlsBefore1 = null;
             modelDatabaseValues.ddlsAfter = null;
             tables.remove(modelDatabaseValues.dir);
             columns.remove(modelDatabaseValues.dir);
@@ -232,6 +247,9 @@ public class DbResolverBean implements DbResolver {
     }
 
     private void runDDLs(Connection connection, List<String> ddls, String msg) throws SQLException {
+
+        if (ddls == null || ddls.isEmpty())
+            return;
 
         System.out.println("Run DDLs " + msg + ", number of statements is " + ddls.size());
 
