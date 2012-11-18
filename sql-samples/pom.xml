@@ -11,8 +11,6 @@
 
     <modules>
         <module>simple-jdbc</module>
-        <module>simple-jdbc-pojo</module>
-        <module>simple-jdbc-all</module>
         <module>simple-hibernate</module>
         <module>simple-spring</module>
         <module>catalog-jpa</module>
