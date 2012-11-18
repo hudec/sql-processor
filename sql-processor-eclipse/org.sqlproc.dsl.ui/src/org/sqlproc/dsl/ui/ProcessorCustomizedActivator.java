@@ -23,6 +23,12 @@ public class ProcessorCustomizedActivator extends ProcessorDslActivator {
         super.start(context);
     }
 
+    @Override
+    public void stop(BundleContext context) throws Exception {
+
+        super.stop(context);
+    }
+
     // final private List<PluginLogListener> pluginLogHooks = new ArrayList<PluginLogListener>();
     //
     // // Hook all loaded bundles into the log4j framework
@@ -33,4 +39,5 @@ public class ProcessorCustomizedActivator extends ProcessorDslActivator {
     // LOGGER.trace("Added logging hook for bundle: " + bundle.getSymbolicName());
     // }
     // }
+
 }

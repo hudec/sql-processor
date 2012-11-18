@@ -3,6 +3,7 @@ package org.sqlproc.dsl.resolver;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.BatchUpdateException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
@@ -14,6 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -234,6 +236,7 @@ public class DbResolverBean implements DbResolver {
         System.out.println("Run DDLs " + msg + ", number of statements is " + ddls.size());
 
         Statement stmt = null;
+        int[] result = null;
 
         try {
             stmt = connection.createStatement();
@@ -244,12 +247,17 @@ public class DbResolverBean implements DbResolver {
                 LOGGER.info("DB DDL " + ddl);
                 stmt.addBatch(ddl);
             }
-            stmt.executeBatch();
+            result = stmt.executeBatch();
+
+        } catch (BatchUpdateException ex) {
+            System.out.println("Run DDLs chyba " + ex);
 
         } finally {
             if (stmt != null)
                 stmt.close();
         }
+
+        System.out.println("Run DDLs OK for " + ((result != null) ? result.length : -1));
     }
 
     private List<String> loadDDL(InputStream is) {
@@ -657,5 +665,13 @@ public class DbResolverBean implements DbResolver {
             }
         }
         return type + "(" + typeSize + ")";
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        for (Entry<String, DatabaseValues> modelDatabaseValues : connections.entrySet()) {
+            closeConnection(modelDatabaseValues.getValue());
+        }
+        super.finalize();
     }
 }
