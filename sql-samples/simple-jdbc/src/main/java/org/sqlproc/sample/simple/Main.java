@@ -314,8 +314,8 @@ public class Main {
         Subscriber arnost = main.insertSubscriber(new Subscriber(lib, "Arnost"));
         Subscriber maria = main.insertSubscriber(new Subscriber(lib, "Maria"));
 
-        main.insertBankAccount(new BankAccount(arnost, "BA", "account 1"));
-        main.insertBankAccount(new BankAccount(maria, "BA", "account 2"));
+        main.insertBankAccount(new BankAccount(arnost, "BA")._setBaAccount("account 1"));
+        main.insertBankAccount(new BankAccount(maria, "BA")._setBaAccount("account 2"));
         main.insertCreditCard(new CreditCard(arnost, "CC")._setCcNumber(123L));
         main.insertCreditCard(new CreditCard(maria, "CC")._setCcNumber(456L));
 

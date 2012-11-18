@@ -13,6 +13,7 @@ pojogen-table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
 pojogen-generate-methods toString equals hashCode;
 pojogen-implements-interfaces java.io.Serializable;
 
+
 package org.sqlproc.sample.simple.model {
 
 

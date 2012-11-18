@@ -105,7 +105,7 @@ public class Main {
         logger.info("insert: " + person);
         if (contacts != null && count > 0) {
             for (Contact contact : contacts) {
-                contact.setPersonId(person.getId());
+                contact.setPerson(person);
                 sqlInsertContact.insert(session, contact);
             }
         }
@@ -120,7 +120,7 @@ public class Main {
         logger.info("insert: " + person);
         if (contacts != null && count > 0) {
             for (Contact contact : contacts) {
-                contact.setPersonId(person.getId());
+                contact.setPerson(person);
                 sqlInsertContact.insert(session, contact);
             }
         }
@@ -207,7 +207,7 @@ public class Main {
             logger.info("insert: " + person);
             if (contacts != null && count > 0) {
                 for (Contact contact : contacts) {
-                    contact.setPersonId(person.getId());
+                    contact.setPerson(person);
                     sqlInsertContact.insert(session, contact);
                 }
             }
@@ -276,11 +276,12 @@ public class Main {
         main.setupDb();
 
         // init
-        Person jan = main.insert(new Person("Jan"), new Contact("Jan address 1"));
-        Person janik = main.insert(new Person("Janik"), new Contact("Janik address 1"));
-        Person honza = main.insert(new Person("Honza"), new Contact("Honza address 1"), new Contact("Honza address 2"));
+        Person jan = main.insert(new Person("Jan"), new Contact()._setAddress("Jan address 1"));
+        Person janik = main.insert(new Person("Janik"), new Contact()._setAddress("Janik address 1"));
+        Person honza = main.insert(new Person("Honza"), new Contact()._setAddress("Honza address 1"),
+                new Contact()._setAddress("Honza address 2"));
         Person honzik = main.insert(new Person("Honzik"));
-        Person andrej = main.insert2(new Person("Andrej"), new Contact("Andrej address 1"));
+        Person andrej = main.insert(new Person("Andrej"), new Contact()._setAddress("Andrej address 1"));
 
         Book book1 = main.insertBook(new Book("The Adventures of Robin Hood", "978-0140367003"));
         Book book2 = main.insertBook(new Book("The Three Musketeers", "978-1897093634"));
@@ -292,13 +293,13 @@ public class Main {
         main.createPersonLibrary(andrej, book1, book2, movie2);
 
         Library lib = main.insertLibrary(new Library("Alexandria Library"));
-        Subscriber arnost = main.insertSubscriber(new Subscriber("Arnošt", lib));
-        Subscriber maria = main.insertSubscriber(new Subscriber("Mária", lib));
+        Subscriber arnost = main.insertSubscriber(new Subscriber(lib, "Arnošt"));
+        Subscriber maria = main.insertSubscriber(new Subscriber(lib, "Mária"));
 
-        main.insertBankAccount(new BankAccount("account 1", arnost));
-        main.insertBankAccount(new BankAccount("account 2", maria));
-        main.insertCreditCard(new CreditCard(123L, arnost));
-        main.insertCreditCard(new CreditCard(456L, maria));
+        main.insertBankAccount(new BankAccount(arnost, "BA")._setBaAccount("account 1"));
+        main.insertBankAccount(new BankAccount(maria, "BA")._setBaAccount("account 2"));
+        main.insertCreditCard(new CreditCard(arnost, "CC")._setCcNumber(123L));
+        main.insertCreditCard(new CreditCard(maria, "CC")._setCcNumber(456L));
 
         // queries
         list = main.listAll();
@@ -331,8 +332,8 @@ public class Main {
         Assert.assertEquals(3, list.get(0).getLibrary().size());
         Assert.assertEquals("Die Another Day", list.get(0).getLibrary().get(0).getTitle());
         Assert.assertTrue(list.get(0).getLibrary().get(0) instanceof Movie);
-        Assert.assertEquals("def", ((Movie) list.get(0).getLibrary().get(0)).getUrlIMDB());
-        Assert.assertEquals(new Integer(95), ((Movie) list.get(0).getLibrary().get(0)).getPlayLength());
+        Assert.assertEquals("def", ((Movie) list.get(0).getLibrary().get(0)).getUrlimdb());
+        Assert.assertEquals(new Integer(95), ((Movie) list.get(0).getLibrary().get(0)).getPlaylength());
         Assert.assertEquals("The Adventures of Robin Hood", list.get(0).getLibrary().get(1).getTitle());
         Assert.assertTrue(list.get(0).getLibrary().get(1) instanceof Book);
         Assert.assertEquals("978-0140367003", ((Book) list.get(0).getLibrary().get(1)).getIsbn());
@@ -370,13 +371,14 @@ public class Main {
         Assert.assertEquals(4, list.size());
 
         // custom type
-        Person pepa = main.insertCustom(new Person("Pepa"), new Contact("Pepa address 1", new PhoneNumber(111, 222,
-                3333)));
+        Contact cc = new Contact()._setAddress("Pepa address 1");
+        cc.setPhoneNumber(new PhoneNumber(111, 222, 3333));
+        Person pepa = main.insertCustom(new Person("Pepa"), cc);
         Contact contact = new Contact();
-        contact.setHomePhone(new PhoneNumber(111, 222, 3333));
+        contact.setPhoneNumber(new PhoneNumber(111, 222, 3333));
         list = main.listCustom(contact);
         Assert.assertEquals(1, list.size());
-        Assert.assertEquals("111-222-3333", list.get(0).getContacts().get(0).getHomePhone().toString());
+        Assert.assertEquals("111-222-3333", list.get(0).getContacts().get(0).getPhoneNumber().toString());
 
         List<Subscriber> subscribers = main.listAllSubsribersWithBillingDetails();
         Assert.assertEquals(2, subscribers.size());
