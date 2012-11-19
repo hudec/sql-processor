@@ -24,4 +24,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.sqlproc.dsl.ui.contentassist,
  org.sqlproc.dsl.ui.contentassist.antlr,
  org.sqlproc.dsl.ui.internal
-Bundle-Activator: org.sqlproc.dsl.ui.ProcessorCustomizedActivator
+Bundle-Activator: org.sqlproc.dsl.ui.internal.ProcessorDslActivator
