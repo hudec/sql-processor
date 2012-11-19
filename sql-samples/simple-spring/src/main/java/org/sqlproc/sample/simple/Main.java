@@ -2,11 +2,11 @@ package org.sqlproc.sample.simple;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.junit.Assert;
 import org.slf4j.Logger;
@@ -21,6 +21,7 @@ import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.spring.SpringSimpleSession;
+import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Book;
 import org.sqlproc.sample.simple.model.Contact;
@@ -40,26 +41,26 @@ public class Main {
     private JdbcTemplate jdbcTemplate;
     private SqlSession session;
     private SqlEngineFactory sqlFactory;
-    private Properties catalog;
+    private List<String> ddls;
 
     public Main() throws BeansException, IOException {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         session = new SpringSimpleSession(jdbcTemplate);
         sqlFactory = context.getBean("sqlFactory", SqlEngineFactory.class);
-        catalog = context.getBean("catalog", Properties.class);
+        ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
     }
 
-    public void setupDb() throws Exception {
+    public void setupDb() throws SQLException {
 
         Connection connection = null;
         Statement stmt = null;
 
         try {
             connection = jdbcTemplate.getDataSource().getConnection();
-            stmt = connection.createStatement();
-            for (int i = 1; i <= 50; i++) {
-                String ddl = catalog.getProperty("s" + i);
+            stmt = jdbcTemplate.getDataSource().getConnection().createStatement();
+            for (int i = 0, n = ddls.size(); i < n; i++) {
+                String ddl = ddls.get(i);
                 if (ddl == null)
                     continue;
                 System.out.println(ddl);

@@ -24,12 +24,6 @@
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" /-->
 
-    <bean id="catalog" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location">
-            <value>classpath:hsqldb_catalog.properties</value>
-        </property>
-    </bean>
-
     <bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory" init-method="init">
         <property name="metaFilesNames">
             <list>
