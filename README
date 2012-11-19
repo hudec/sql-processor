@@ -18,10 +18,10 @@ Project content
 * sql-processor-eclipse - the SQL Processor Eclipse plugin
 * sql-samples - the samples to demonstrate the SQL Processor features
 ** simple-jdbc -  the Simple tutorial for the JDBC stack
-** simple-jdbc-old -  the Simple tutorial for the JDBC stack, simple pojo style
+** simple-jdbc-pojo -  the Simple tutorial for the JDBC stack, POJO modelling & generation
 ** simple-hibernate -  the Simple tutorial for the Hibernate stack
 ** simple-spring -  the Simple tutorial for the Spring stack
-** simple-spring-old -  the Simple tutorial for the Spring stack, simple pojo style
+** simple-spring-pojo -  the Simple tutorial for the Spring stack, POJO modelling & generation
 ** catalog-jpa - the working Web application based on JPA and the Hibernate stack
 ** catalog-hibernate - the working Web application based on the Hibernate stack
 ** catalog-spring - the working Web application based on the Spring stack

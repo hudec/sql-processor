@@ -11,10 +11,10 @@
 
     <modules>
         <module>simple-jdbc</module>
-        <module>simple-jdbc-old</module>
+        <module>simple-jdbc-pojo</module>
         <module>simple-hibernate</module>
         <module>simple-spring</module>
-        <module>simple-spring-old</module>
+        <module>simple-spring-pojo</module>
         <module>catalog-jpa</module>
         <module>catalog-hibernate</module>
         <module>catalog-spring</module>

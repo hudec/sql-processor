@@ -2,7 +2,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc.samples</groupId>
-    <artifactId>simple-spring</artifactId>
+    <artifactId>simple-spring-pojo</artifactId>
     <packaging>jar</packaging>
     <name>SQL Processor Samples, New Simple (Spring)</name>
     <description>It's based on the new loader.</description>
