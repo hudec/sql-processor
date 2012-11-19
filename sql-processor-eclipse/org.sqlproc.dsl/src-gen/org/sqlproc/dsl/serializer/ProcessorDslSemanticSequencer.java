@@ -1079,7 +1079,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='inherit-discriminator' dbTable=IDENT dbColumn=IDENT inheritance+=InheritanceAssignement+) | 
 	 *         (name='generate-methods' methods+=IDENT+) | 
 	 *         (name='implements-interfaces' toImplements+=[JvmType|QualifiedName]+) | 
-	 *         (name='extends-class' toExtends=[JvmType|QualifiedName])
+	 *         (name='extends-class' toExtends=[JvmType|QualifiedName]) | 
+	 *         name='generate-wrappers'
 	 *     )
 	 */
 	protected void sequence_PojogenProperty(EObject context, PojogenProperty semanticObject) {

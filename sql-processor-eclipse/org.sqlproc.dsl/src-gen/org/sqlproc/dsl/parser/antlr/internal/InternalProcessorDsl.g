@@ -2716,7 +2716,23 @@ rulePojogenProperty returns [EObject current=null]
 	    }
 
 )
-)))
+))
+    |(
+(
+		lv_name_101_0=	'generate-wrappers' 
+    {
+        newLeafNode(lv_name_101_0, grammarAccess.getPojogenPropertyAccess().getNameGenerateWrappersKeyword_23_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_101_0, "generate-wrappers");
+	    }
+
+)
+))
 ;
 
 

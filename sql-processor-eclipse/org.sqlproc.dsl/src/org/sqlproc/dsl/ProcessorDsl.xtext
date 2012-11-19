@@ -65,6 +65,7 @@ PojogenProperty:
 	|name='generate-methods' (WS+ methods+=IDENT)+
 	|name='implements-interfaces' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
 	|name='extends-class' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
+	|name='generate-wrappers'
 	);
 
 PropertyValue:

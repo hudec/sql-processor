@@ -1105,6 +1105,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cToExtendsAssignment_22_2 = (Assignment)cGroup_22.eContents().get(2);
 		private final CrossReference cToExtendsJvmTypeCrossReference_22_2_0 = (CrossReference)cToExtendsAssignment_22_2.eContents().get(0);
 		private final RuleCall cToExtendsJvmTypeQualifiedNameParserRuleCall_22_2_0_1 = (RuleCall)cToExtendsJvmTypeCrossReference_22_2_0.eContents().get(1);
+		private final Assignment cNameAssignment_23 = (Assignment)cAlternatives.eContents().get(23);
+		private final Keyword cNameGenerateWrappersKeyword_23_0 = (Keyword)cNameAssignment_23.eContents().get(0);
 		
 		//PojogenProperty:
 		//	name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types-in-table" WS+ dbTable=IDENT (WS+
@@ -1123,7 +1125,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	| name="table-many-to-many" WS+ dbTable=IDENT (WS+ many2s+=ManyToManyAssignement)+ | name="inherit-discriminator" WS+
 		//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 		//	methods+=IDENT)+ | name="implements-interfaces" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ |
-		//	name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName];
+		//	name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName] | name="generate-wrappers";
 		public ParserRule getRule() { return rule; }
 
 		//name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types-in-table" WS+ dbTable=IDENT (WS+
@@ -1142,7 +1144,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//| name="table-many-to-many" WS+ dbTable=IDENT (WS+ many2s+=ManyToManyAssignement)+ | name="inherit-discriminator" WS+
 		//dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 		//methods+=IDENT)+ | name="implements-interfaces" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ |
-		//name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
+		//name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName] | name="generate-wrappers"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+
@@ -1771,6 +1773,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//QualifiedName
 		public RuleCall getToExtendsJvmTypeQualifiedNameParserRuleCall_22_2_0_1() { return cToExtendsJvmTypeQualifiedNameParserRuleCall_22_2_0_1; }
+
+		//name="generate-wrappers"
+		public Assignment getNameAssignment_23() { return cNameAssignment_23; }
+
+		//"generate-wrappers"
+		public Keyword getNameGenerateWrappersKeyword_23_0() { return cNameGenerateWrappersKeyword_23_0; }
 	}
 
 	public class PropertyValueElements extends AbstractParserRuleElementFinder {
@@ -6193,7 +6201,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	| name="table-many-to-many" WS+ dbTable=IDENT (WS+ many2s+=ManyToManyAssignement)+ | name="inherit-discriminator" WS+
 	//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 	//	methods+=IDENT)+ | name="implements-interfaces" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ |
-	//	name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName];
+	//	name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName] | name="generate-wrappers";
 	public PojogenPropertyElements getPojogenPropertyAccess() {
 		return (pPojogenProperty != null) ? pPojogenProperty : (pPojogenProperty = new PojogenPropertyElements());
 	}

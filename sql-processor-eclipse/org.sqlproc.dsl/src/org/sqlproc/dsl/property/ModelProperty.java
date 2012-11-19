@@ -62,4 +62,6 @@ public interface ModelProperty extends Adapter {
     Set<String> getOnlyTables(EObject model);
 
     Map<String, List<String>> getJoinTables(EObject model);
+
+    boolean isDoGenerateWrappers(EObject model);
 }

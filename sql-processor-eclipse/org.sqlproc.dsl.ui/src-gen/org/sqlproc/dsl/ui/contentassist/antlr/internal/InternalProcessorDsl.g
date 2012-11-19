@@ -2389,6 +2389,12 @@ rule__PojogenProperty__Alternatives
 { after(grammarAccess.getPojogenPropertyAccess().getGroup_22()); }
 )
 
+    |(
+{ before(grammarAccess.getPojogenPropertyAccess().getNameAssignment_23()); }
+(rule__PojogenProperty__NameAssignment_23)
+{ after(grammarAccess.getPojogenPropertyAccess().getNameAssignment_23()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -23472,6 +23478,29 @@ rule__PojogenProperty__ToExtendsAssignment_22_2
 	ruleQualifiedName{ after(grammarAccess.getPojogenPropertyAccess().getToExtendsJvmTypeQualifiedNameParserRuleCall_22_2_0_1()); }
 )
 { after(grammarAccess.getPojogenPropertyAccess().getToExtendsJvmTypeCrossReference_22_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PojogenProperty__NameAssignment_23
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPojogenPropertyAccess().getNameGenerateWrappersKeyword_23_0()); }
+(
+{ before(grammarAccess.getPojogenPropertyAccess().getNameGenerateWrappersKeyword_23_0()); }
+
+	'generate-wrappers' 
+
+{ after(grammarAccess.getPojogenPropertyAccess().getNameGenerateWrappersKeyword_23_0()); }
+)
+
+{ after(grammarAccess.getPojogenPropertyAccess().getNameGenerateWrappersKeyword_23_0()); }
 )
 
 ;

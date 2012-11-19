@@ -70,6 +70,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_IMPLEMENTS_INTERFACES = "implements-interfaces";
     public static final String POJOGEN_EXTENDS_CLASS = "extends-class";
     public static final String POJOGEN_JOIN_TABLES = "join-tables";
+    public static final String POJOGEN_GENERATE_WRAPPERS = "generate-wrappers";
 
     public static class ModelValues {
         public boolean doResolvePojo;
@@ -105,6 +106,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, JvmType> toImplements;
         public JvmType toExtends;
         public Map<String, List<String>> joinTables;
+        public boolean doGenerateWrappers;
 
         @Override
         public String toString() {
@@ -120,7 +122,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     + ", manyToManyImports=" + manyToManyImports + ", inheritance=" + inheritance
                     + ", inheritanceColumns=" + inheritanceColumns + ", generateMethods=" + generateMethods
                     + ", toImplements=" + toImplements + ", toExtends=" + toExtends + ", joinTables=" + joinTables
-                    + "]";
+                    + ", doGenerateWrappers=" + doGenerateWrappers + "]";
         }
     }
 
@@ -480,6 +482,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     modelValues.joinTables.get(joinTableAssignement.getDbTable()).add(dbTable);
                 }
             }
+        } else if (POJOGEN_GENERATE_WRAPPERS.equals(property.getName())) {
+            modelValues.doGenerateWrappers = true;
         }
     }
 
@@ -641,6 +645,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Map<String, List<String>> getJoinTables(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.joinTables : Collections.<String, List<String>> emptyMap();
+    }
+
+    @Override
+    public boolean isDoGenerateWrappers(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.doGenerateWrappers : false;
     }
 
     @Override

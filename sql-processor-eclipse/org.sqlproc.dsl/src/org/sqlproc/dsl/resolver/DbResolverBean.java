@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -251,7 +250,7 @@ public class DbResolverBean implements DbResolver {
         if (ddls == null || ddls.isEmpty())
             return;
 
-        System.out.println("Run DDLs " + msg + ", number of statements is " + ddls.size());
+        LOGGER.info("Run DDLs " + msg + ", number of statements is " + ddls.size());
 
         Statement stmt = null;
         int[] result = null;
@@ -268,14 +267,14 @@ public class DbResolverBean implements DbResolver {
             result = stmt.executeBatch();
 
         } catch (BatchUpdateException ex) {
-            System.out.println("Run DDLs chyba " + ex);
+            LOGGER.error("Run DDLs chyba " + ex);
 
         } finally {
             if (stmt != null)
                 stmt.close();
         }
 
-        System.out.println("Run DDLs OK for " + ((result != null) ? result.length : -1));
+        LOGGER.info("Run DDLs OK for " + ((result != null) ? result.length : -1));
     }
 
     private List<String> loadDDL(InputStream is) {
@@ -687,9 +686,10 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     protected void finalize() throws Throwable {
-        for (Entry<String, DatabaseValues> modelDatabaseValues : connections.entrySet()) {
-            closeConnection(modelDatabaseValues.getValue());
-        }
+        // TODO - how to close connection in the process of the IDE shutdown?
+        // for (Entry<String, DatabaseValues> modelDatabaseValues : connections.entrySet()) {
+        // closeConnection(modelDatabaseValues.getValue());
+        // }
         super.finalize();
     }
 }

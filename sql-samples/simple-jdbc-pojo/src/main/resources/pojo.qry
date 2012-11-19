@@ -1,6 +1,4 @@
-// HSQLBD versus Oracle
-pojogen-types-sqltypes BIGINT(64)->:java.lang.Long;
-pojogen-types-for-columns MOVIE PLAYLENGTH->:java.lang.Integer;
+pojogen-generate-wrappers;
 // custom type
 pojogen-types-for-columns CONTACT PHONE_NUMBER->:org.sqlproc.sample.simple.model.PhoneNumber;
 // inheritance
@@ -16,12 +14,12 @@ pojogen-implements-interfaces java.io.Serializable;
 package org.sqlproc.sample.simple.model {
 
 
-pojo BankAccount extends BillingDetails discriminator BA serializable 1  {
+  pojo BankAccount extends BillingDetails discriminator BA serializable 1  {
     baAccount : java.lang.String
     toString ::: baAccount
   }
 
-abstract pojo BillingDetails serializable 1  {
+  abstract pojo BillingDetails serializable 1  {
     id : java.lang.Long primaryKey
     subscriber :: Subscriber required
     type : java.lang.String discriminator required
@@ -30,12 +28,12 @@ abstract pojo BillingDetails serializable 1  {
     toString ::: id type subscriber
   }
 
-pojo Book extends Media serializable 1  {
+  pojo Book extends Media serializable 1  {
     isbn : java.lang.String required
     toString ::: isbn
   }
 
-pojo Contact serializable 1  {
+  pojo Contact serializable 1  {
     id : java.lang.Long primaryKey
     person :: Person required
     address : java.lang.String required
@@ -45,12 +43,12 @@ pojo Contact serializable 1  {
     toString ::: id person phoneNumber address
   }
 
-pojo CreditCard extends BillingDetails discriminator CC serializable 1  {
+  pojo CreditCard extends BillingDetails discriminator CC serializable 1  {
     ccNumber : java.lang.Long
     toString ::: ccNumber
   }
 
-pojo Library serializable 1  {
+  pojo Library serializable 1  {
     id : java.lang.Long primaryKey
     name : java.lang.String required
     subscribers : java.util.List <:Subscriber>
@@ -59,7 +57,7 @@ pojo Library serializable 1  {
     toString ::: id name
   }
 
-abstract pojo Media serializable 1  {
+  abstract pojo Media serializable 1  {
     id : java.lang.Long primaryKey
     title : java.lang.String required
     equals ::: id
@@ -67,13 +65,13 @@ abstract pojo Media serializable 1  {
     toString ::: id title
   }
 
-pojo Movie extends Media serializable 1  {
+  pojo Movie extends Media serializable 1  {
     urlimdb : java.lang.String required
     playlength : java.lang.Integer required
     toString ::: playlength urlimdb
   }
 
-pojo Person serializable 1  {
+  pojo Person serializable 1  {
     id : java.lang.Long primaryKey
     name : java.lang.String required
     library : java.util.List <:Media>
@@ -83,7 +81,7 @@ pojo Person serializable 1  {
     toString ::: id name
   }
 
-pojo PersonLibrary serializable 1  {
+  pojo PersonLibrary serializable 1  {
     id : java.lang.Long primaryKey
     personId : java.lang.Long required
     mediaId : java.lang.Long required
@@ -92,7 +90,7 @@ pojo PersonLibrary serializable 1  {
     toString ::: mediaId id personId
   }
 
-pojo Subscriber serializable 1  {
+  pojo Subscriber serializable 1  {
     id : java.lang.Long primaryKey
     library :: Library required
     contact : java.lang.Long

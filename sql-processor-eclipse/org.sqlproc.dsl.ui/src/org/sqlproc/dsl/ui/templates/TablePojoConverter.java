@@ -66,6 +66,7 @@ public class TablePojoConverter {
     private Map<String, JvmType> toImplements = new HashMap<String, JvmType>();
     private JvmType toExtends = null;
     private Map<String, List<String>> joinTables = new HashMap<String, List<String>>();
+    private boolean doGenerateWrappers;
 
     private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     private Map<String, String> pojoExtends = new HashMap<String, String>();
@@ -169,6 +170,7 @@ public class TablePojoConverter {
         if (joinTables != null) {
             this.joinTables.putAll(joinTables);
         }
+        this.doGenerateWrappers = modelProperty.isDoGenerateWrappers(artifacts);
 
         for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : this.inheritImports.entrySet()) {
             for (Map.Entry<String, Map<String, String>> inherit : inheritImport.getValue().entrySet()) {
@@ -212,6 +214,7 @@ public class TablePojoConverter {
         // System.out.println("toImplements " + this.toImplements);
         // System.out.println("toExtends " + this.toExtends);
         // System.out.println("joinTables " + this.joinTables);
+        // System.out.println("doGenerateWrappers " + this.doGenerateWrappers);
     }
 
     public void addTableDefinition(String table, List<DbColumn> dbColumns, List<String> dbPrimaryKeys,
@@ -481,7 +484,7 @@ public class TablePojoConverter {
             String pojoName = tableNames.get(pojo);
             if (pojoName == null)
                 pojoName = pojo;
-            buffer.append("\n");
+            buffer.append("\n  ");
             if (pojoAbstracts.contains(pojo))
                 buffer.append("abstract ");
             buffer.append("pojo ");
@@ -667,67 +670,67 @@ public class TablePojoConverter {
         switch (dbColumn.getSqlType()) {
         case Types.BIT:
         case Types.BOOLEAN:
-            if (!dbColumn.isNullable()) {
-                attribute.setPrimitive(true);
-                attribute.setClassName(PrimitiveType.BOOLEAN.getName());
-            } else {
+            if (dbColumn.isNullable() || doGenerateWrappers) {
                 attribute.setPrimitive(false);
                 attribute.setClassName(Boolean.class.getName());
+            } else {
+                attribute.setPrimitive(true);
+                attribute.setClassName(PrimitiveType.BOOLEAN.getName());
             }
             break;
         case Types.TINYINT:
-            if (!dbColumn.isNullable()) {
-                attribute.setPrimitive(true);
-                attribute.setClassName(PrimitiveType.BYTE.getName());
-            } else {
+            if (dbColumn.isNullable() || doGenerateWrappers) {
                 attribute.setPrimitive(false);
                 attribute.setClassName(Byte.class.getName());
+            } else {
+                attribute.setPrimitive(true);
+                attribute.setClassName(PrimitiveType.BYTE.getName());
             }
             break;
         case Types.SMALLINT:
-            if (!dbColumn.isNullable()) {
-                attribute.setPrimitive(true);
-                attribute.setClassName(PrimitiveType.SHORT.getName());
-            } else {
+            if (dbColumn.isNullable() || doGenerateWrappers) {
                 attribute.setPrimitive(false);
                 attribute.setClassName(Short.class.getName());
+            } else {
+                attribute.setPrimitive(true);
+                attribute.setClassName(PrimitiveType.SHORT.getName());
             }
             break;
         case Types.INTEGER:
-            if (!dbColumn.isNullable()) {
-                attribute.setPrimitive(true);
-                attribute.setClassName(PrimitiveType.INT.getName());
-            } else {
+            if (dbColumn.isNullable() || doGenerateWrappers) {
                 attribute.setPrimitive(false);
                 attribute.setClassName(Integer.class.getName());
+            } else {
+                attribute.setPrimitive(true);
+                attribute.setClassName(PrimitiveType.INT.getName());
             }
             break;
         case Types.BIGINT:
-            if (!dbColumn.isNullable()) {
-                attribute.setPrimitive(true);
-                attribute.setClassName(PrimitiveType.LONG.getName());
-            } else {
+            if (dbColumn.isNullable() || doGenerateWrappers) {
                 attribute.setPrimitive(false);
                 attribute.setClassName(Long.class.getName());
+            } else {
+                attribute.setPrimitive(true);
+                attribute.setClassName(PrimitiveType.LONG.getName());
             }
             break;
         case Types.FLOAT:
         case Types.REAL:
-            if (!dbColumn.isNullable()) {
-                attribute.setPrimitive(true);
-                attribute.setClassName(PrimitiveType.FLOAT.getName());
-            } else {
+            if (dbColumn.isNullable() || doGenerateWrappers) {
                 attribute.setPrimitive(false);
                 attribute.setClassName(Float.class.getName());
+            } else {
+                attribute.setPrimitive(true);
+                attribute.setClassName(PrimitiveType.FLOAT.getName());
             }
             break;
         case Types.DOUBLE:
-            if (!dbColumn.isNullable()) {
-                attribute.setPrimitive(true);
-                attribute.setClassName(PrimitiveType.DOUBLE.getName());
-            } else {
+            if (dbColumn.isNullable() || doGenerateWrappers) {
                 attribute.setPrimitive(false);
                 attribute.setClassName(Double.class.getName());
+            } else {
+                attribute.setPrimitive(true);
+                attribute.setClassName(PrimitiveType.DOUBLE.getName());
             }
             break;
         case Types.NUMERIC:
@@ -749,12 +752,12 @@ public class TablePojoConverter {
             break;
         case Types.CHAR:
         case Types.NCHAR:
-            if (!dbColumn.isNullable() && dbColumn.getSize() == 1) {
-                attribute.setPrimitive(true);
-                attribute.setClassName(PrimitiveType.CHAR.getName());
-            } else {
+            if (dbColumn.isNullable() || dbColumn.getSize() > 1 || doGenerateWrappers) {
                 attribute.setPrimitive(false);
                 attribute.setClassName(String.class.getName());
+            } else {
+                attribute.setPrimitive(true);
+                attribute.setClassName(PrimitiveType.CHAR.getName());
             }
             break;
         case Types.VARCHAR:
