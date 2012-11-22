@@ -161,7 +161,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             return null;
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < columns.size(); i++) {
-            builder.append(columns.get(i)).append(" @").append(toCamelCase(columns.get(i)));
+            builder.append("%" + columns.get(i)).append(" @").append(toCamelCase(columns.get(i)));
             if (i < columns.size() - 1)
                 builder.append(", ");
         }
@@ -173,7 +173,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             return null;
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < columns.size(); i++) {
-            builder.append(columns.get(i));
+            builder.append("%" + columns.get(i));
             if (i < columns.size() - 1)
                 builder.append(", ");
         }
@@ -185,7 +185,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             return null;
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < columns.size(); i++) {
-            builder.append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)));
+            builder.append("%" + columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)));
             if (i < columns.size() - 1)
                 builder.append(", ");
         }
@@ -197,7 +197,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             return null;
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < columns.size(); i++) {
-            builder.append("\n  {& ").append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)))
+            builder.append("\n  {& ").append("%" + columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)))
                     .append(" }");
         }
         return builder.toString();
@@ -209,7 +209,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < columns.size(); i++) {
             if (columns.get(i).toUpperCase().indexOf("VER") == 0) {
-                builder.append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i))).append(" + 1, ");
+                builder.append("%" + columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)))
+                        .append(" + 1, ");
                 break;
             }
         }
@@ -232,7 +233,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 verFind = true;
                 continue;
             }
-            builder.append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)));
+            builder.append("%" + columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)));
             if (i < columns.size() - 1)
                 builder.append(", ");
         }
@@ -249,14 +250,14 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             if (!idFind
                     && (columns.get(i).toUpperCase().equals("ID") || columns.get(i).toUpperCase().indexOf("ID_") == 0)) {
                 idFind = true;
-                builder.append("\n  {& ").append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)))
-                        .append(" }");
+                builder.append("\n  {& ").append("%" + columns.get(i)).append(" = :")
+                        .append(toCamelCase(columns.get(i))).append(" }");
                 continue;
             }
             if (!verFind && columns.get(i).toUpperCase().indexOf("VER") == 0) {
                 verFind = true;
-                builder.append("\n  {& ").append(columns.get(i)).append(" = :").append(toCamelCase(columns.get(i)))
-                        .append(" }");
+                builder.append("\n  {& ").append("%" + columns.get(i)).append(" = :")
+                        .append(toCamelCase(columns.get(i))).append(" }");
                 continue;
             }
         }
@@ -308,9 +309,10 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
 
         @Override
         protected String resolve(TemplateContext context) {
+            // System.out.println("SSSSSS " + context);
             TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
             if (tableDefinition != null && dbResolver.isResolveDb(tableDefinition)) {
-                return tableDefinition.getTable();
+                return "%%" + tableDefinition.getTable();
             }
             return super.resolve(context);
         }

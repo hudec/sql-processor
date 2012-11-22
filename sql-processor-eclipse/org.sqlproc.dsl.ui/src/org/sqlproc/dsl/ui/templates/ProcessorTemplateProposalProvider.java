@@ -9,7 +9,6 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ITemplateAcceptor;
 import org.eclipse.xtext.ui.editor.templates.ContextTypeIdHelper;
 import org.eclipse.xtext.ui.editor.templates.DefaultTemplateProposalProvider;
-import org.sqlproc.dsl.processorDsl.SqlFragment;
 import org.sqlproc.dsl.services.ProcessorDslGrammarAccess;
 
 import com.google.inject.Inject;
@@ -39,8 +38,12 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
 
         // create the template only if that id fits the id of
         // the current template context type
-        if (templateContext.getContextType().getId().equals(id)
-                && (context.getPreviousModel() == null || context.getPreviousModel() instanceof SqlFragment)) {
+        if (templateContext.getContextType().getId().equals(id)) {
+            // && (context.getPreviousModel() == null || context.getPreviousModel() instanceof SqlFragment)) {
+            // System.out.println("AAAA1 " + id);
+            // System.out.println("AAAA2 " + templateContext.getContextType().getId());
+            // System.out.println("AAAA3 " + context.getPreviousModel());
+            // System.out.println("AAAA4 " + context.getCurrentModel());
 
             // create a template on the fly
             Template template = new Template("ins", "CRUD insert statement", "uniqueTemplateID",
