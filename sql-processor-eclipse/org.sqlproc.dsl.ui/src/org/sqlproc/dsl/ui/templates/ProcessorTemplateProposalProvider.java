@@ -5,6 +5,7 @@ import org.eclipse.jface.text.templates.Template;
 import org.eclipse.jface.text.templates.TemplateContext;
 import org.eclipse.jface.text.templates.TemplateProposal;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ITemplateAcceptor;
 import org.eclipse.xtext.ui.editor.templates.ContextTypeIdHelper;
@@ -27,49 +28,53 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
     @Inject
     ProcessorDslGrammarAccess ga;
 
+    protected boolean validate1(Template template, ContentAssistContext context) {
+        boolean result = context.getMatcher().isCandidateMatchingPrefix(template.getName(), context.getPrefix());
+        return result;
+    }
+
+    protected TemplateProposal createProposal1(Template template, TemplateContext templateContext,
+            ContentAssistContext context, Image image, int relevance) {
+        if (!validate1(template, context))
+            return null;
+        return doCreateProposal(template, templateContext, context, image, relevance);
+    }
+
     @Override
     protected void createTemplates(TemplateContext templateContext, ContentAssistContext context,
             ITemplateAcceptor acceptor) {
         // "regular templates"
         super.createTemplates(templateContext, context, acceptor);
 
-        // String id = helper.getId(ga.getSqlRule());
-        String id = helper.getId(ga.getSqlValueRule());
-
         // create the template only if that id fits the id of
         // the current template context type
-        if (templateContext.getContextType().getId().equals(id)) {
-            // && (context.getPreviousModel() == null || context.getPreviousModel() instanceof SqlFragment)) {
-            // System.out.println("AAAA1 " + id);
-            // System.out.println("AAAA2 " + templateContext.getContextType().getId());
-            // System.out.println("AAAA3 " + context.getPreviousModel());
-            // System.out.println("AAAA4 " + context.getCurrentModel());
+        if (templateContext.getContextType().getId().equals(helper.getId(ga.getSqlValueRule()))) {
 
             // create a template on the fly
-            Template template = new Template("ins", "CRUD insert statement", "uniqueTemplateID",
+            Template template = new Template("ins", "CRUD insert statement", "insertTemplateID",
                     "\n  insert into ${dbTable}\n  (${dbInsertColumn})\n  {= values (${pojoColumn}) }\n", false);// auto-insertable?
-            TemplateProposal tp = createProposal(template, templateContext, context, getImage(template),
+            TemplateProposal tp = createProposal1(template, templateContext, context, getImage(template),
                     getRelevance(template));
             acceptor.accept(tp);
-            template = new Template("sel", "CRUD select statement", "uniqueTemplateID",
+            template = new Template("sel", "CRUD select statement", "selectTemplateID",
                     "\n  select ${dbSelectColumn}\n  from ${dbTable}\n  {= where${dbCondColumn}\n  }\n", false);// auto-insertable?
-            tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
+            tp = createProposal1(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
-            template = new Template("upd", "CRUD update statement", "uniqueTemplateID",
+            template = new Template("upd", "CRUD update statement", "updateTemplateID",
                     "\n  update ${dbTable}\n  {= set (${dbUpdateColumn})}\n  {= where${dbCondColumn}\n  }\n", false);// auto-insertable?
-            tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
+            tp = createProposal1(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
             template = new Template(
                     "upd-opt",
                     "CRUD optimistic update statement",
-                    "uniqueTemplateID",
+                    "updateOptTemplateID",
                     "\n  update ${dbTable}\n  {= set (${dbVerUpdateColumn}${dbOptUpdateColumn})}\n  {= where${dbOptCondColumn}\n  }\n",
                     false);// auto-insertable?
-            tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
+            tp = createProposal1(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
-            template = new Template("del", "CRUD delete statement", "uniqueTemplateID",
+            template = new Template("del", "CRUD delete statement", "deleteTemplateID",
                     "\n  delete from ${dbTable}\n  {= where${dbCondColumn}\n  }\n", false);// auto-insertable?
-            tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
+            tp = createProposal1(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
             // template = new Template("frm", "Form select statement", "uniqueTemplateID",
             // "\n  select ${dbSelectColumn}\n  from ${dbTable}\n  where 1=1${dbCondColumn}\n", false);//
@@ -78,14 +83,12 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
             // acceptor.accept(tp);
         }
 
-        String idDef = helper.getId(ga.getOptionalFeatureRule());
-
         // create the template only if that id fits the id of
         // the current template context type
-        if (templateContext.getContextType().getId().equals(idDef)) {
+        if (templateContext.getContextType().getId().equals(helper.getId(ga.getOptionalFeatureRule()))) {
 
             // create a template on the fly
-            Template template = new Template("pojos", "Pojo definitions", "uniqueTemplateID", "${pojoDefinitions}",
+            Template template = new Template("pojos", "Pojo definitions", "pojosTemplateID", "${pojoDefinitions}",
                     false);// auto-insertable?
             TemplateProposal tp = createProposal(template, templateContext, context, getImage(template),
                     getRelevance(template));
@@ -95,15 +98,13 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
             acceptor.accept(tp);
         }
 
-        // generate POJOs
-        String idPkg = helper.getId(ga.getPackageDeclarationRule());
-
         // create the template only if that id fits the id of
         // the current template context type
-        if (templateContext.getContextType().getId().equals(idPkg)) {
+        if (templateContext.getContextType().getId().equals(helper.getId(ga.getAbstractPojoEntityRule()))) {
 
             // create a template on the fly
-            Template template = new Template("pojogen", "Pojo generator", "uniqueTemplateID", "${pojoGenerator}", false);// auto-insertable?
+            Template template = new Template("pojogen", "Pojo generator", "pojogenTemplateID", "${pojoGenerator}",
+                    false);// auto-insertable?
             TemplateProposal tp = createProposal(template, templateContext, context, getImage(template),
                     getRelevance(template));
             acceptor.accept(tp);
