@@ -4188,6 +4188,34 @@ finally {
 
 
 
+// Entry rule entryRuleFilter
+entryRuleFilter returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getFilterRule()); } 
+	 iv_ruleFilter=ruleFilter 
+	 { $current=$iv_ruleFilter.current.getText(); }  
+	 EOF 
+;
+
+// Rule Filter
+ruleFilter returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+    this_IDENT_0=RULE_IDENT    {
+		$current.merge(this_IDENT_0);
+    }
+
+    { 
+    newLeafNode(this_IDENT_0, grammarAccess.getFilterAccess().getIDENTTerminalRuleCall()); 
+    }
+
+    ;
+
+
+
+
+
 // Entry rule entryRuleMetaStatement
 entryRuleMetaStatement returns [EObject current=null] 
 	:
@@ -4248,19 +4276,19 @@ ruleMetaStatement returns [EObject current=null]
     }
 (
 (
-		lv_filters_4_0=RULE_IDENT
-		{
-			newLeafNode(lv_filters_4_0, grammarAccess.getMetaStatementAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getMetaStatementAccess().getFiltersFilterParserRuleCall_3_1_0()); 
+	    }
+		lv_filters_4_0=ruleFilter		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getMetaStatementRule());
+	            $current = createModelElementForParent(grammarAccess.getMetaStatementRule());
 	        }
-       		addWithLastConsumed(
+       		add(
        			$current, 
        			"filters",
         		lv_filters_4_0, 
-        		"IDENT");
+        		"Filter");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )

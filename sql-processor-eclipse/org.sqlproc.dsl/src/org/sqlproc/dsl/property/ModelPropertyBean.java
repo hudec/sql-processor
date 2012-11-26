@@ -260,20 +260,31 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         } else if (DATABASE_IS_OFFLINE.equals(property.getName())) {
             modelValues.doResolveDb = false;
         } else if (DATABASE_HAS_URL.equals(property.getName())) {
-            modelValues.dbUrl = property.getDbUrl();
+            modelValues.dbUrl = getPropertyValue(property.getDbUrl());
         } else if (DATABASE_LOGIN_USERNAME.equals(property.getName())) {
-            modelValues.dbUsername = property.getDbUsername();
+            modelValues.dbUsername = getPropertyValue(property.getDbUsername());
         } else if (DATABASE_LOGIN_NPASSWORD.equals(property.getName())) {
-            modelValues.dbPassword = property.getDbPassword();
+            modelValues.dbPassword = getPropertyValue(property.getDbPassword());
         } else if (DATABASE_ACTIVE_SCHEMA.equals(property.getName())) {
-            modelValues.dbSchema = property.getDbSchema();
+            modelValues.dbSchema = getPropertyValue(property.getDbSchema());
         } else if (DATABASE_JDBC_DRIVER.equals(property.getName())) {
-            modelValues.dbDriver = property.getDbDriver();
+            modelValues.dbDriver = getPropertyValue(property.getDbDriver());
         } else if (DATABASE_EXECUTE_BEFORE.equals(property.getName())) {
-            modelValues.dbSqlsBefore = property.getDbExecuteBefore();
+            modelValues.dbSqlsBefore = getPropertyValue(property.getDbExecuteBefore());
         } else if (DATABASE_EXECUTE_AFTER.equals(property.getName())) {
-            modelValues.dbSqlsAfter = property.getDbExecuteAfter();
+            modelValues.dbSqlsAfter = getPropertyValue(property.getDbExecuteAfter());
         }
+    }
+
+    private String getPropertyValue(String value) {
+        if (value == null)
+            return null;
+        value = value.trim();
+        if (value.startsWith("\""))
+            value = value.substring(1);
+        if (value.endsWith("\""))
+            value = value.substring(0, value.length() - 1);
+        return value;
     }
 
     public void setValue(ModelValues modelValues, PojogenProperty property) {

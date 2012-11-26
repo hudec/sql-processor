@@ -929,6 +929,34 @@ finally {
 
 
 
+// Entry rule entryRuleFilter
+entryRuleFilter 
+:
+{ before(grammarAccess.getFilterRule()); }
+	 ruleFilter
+{ after(grammarAccess.getFilterRule()); } 
+	 EOF 
+;
+
+// Rule Filter
+ruleFilter
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getFilterAccess().getIDENTTerminalRuleCall()); }
+	RULE_IDENT
+{ after(grammarAccess.getFilterAccess().getIDENTTerminalRuleCall()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleMetaStatement
 entryRuleMetaStatement 
 :
@@ -23962,8 +23990,8 @@ rule__MetaStatement__FiltersAssignment_3_1
     }
 :
 (
-{ before(grammarAccess.getMetaStatementAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); }
-	RULE_IDENT{ after(grammarAccess.getMetaStatementAccess().getFiltersIDENTTerminalRuleCall_3_1_0()); }
+{ before(grammarAccess.getMetaStatementAccess().getFiltersFilterParserRuleCall_3_1_0()); }
+	ruleFilter{ after(grammarAccess.getMetaStatementAccess().getFiltersFilterParserRuleCall_3_1_0()); }
 )
 
 ;

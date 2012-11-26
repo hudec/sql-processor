@@ -917,7 +917,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (name=IDENT type=STATEMEN_TYPE filters+=IDENT* statement=Sql)
+	 *     (name=IDENT type=STATEMEN_TYPE filters+=Filter* statement=Sql)
 	 */
 	protected void sequence_MetaStatement(EObject context, MetaStatement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -109,8 +109,10 @@ TableDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
 TableUsage hidden(ML_COMMENT, SL_COMMENT, WS):
 	'dbcol' statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] ('prefix' prefix=IDENT)? SEMICOLON;
 
+Filter: IDENT;
+
 MetaStatement:
-	name=IDENT LPAREN type=STATEMEN_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS statement=Sql SEMICOLON;
+	name=IDENT LPAREN type=STATEMEN_TYPE (COMMA filters+=Filter)* RPAREN EQUALS statement=Sql SEMICOLON;
 
 Sql: (sqls+=SqlFragment)+;
 

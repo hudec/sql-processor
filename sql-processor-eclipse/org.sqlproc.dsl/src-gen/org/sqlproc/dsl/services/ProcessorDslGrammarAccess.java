@@ -2619,6 +2619,18 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getSEMICOLONTerminalRuleCall_4() { return cSEMICOLONTerminalRuleCall_4; }
 	}
 
+	public class FilterElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Filter");
+		private final RuleCall cIDENTTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//Filter:
+		//	IDENT;
+		public ParserRule getRule() { return rule; }
+
+		//IDENT
+		public RuleCall getIDENTTerminalRuleCall() { return cIDENTTerminalRuleCall; }
+	}
+
 	public class MetaStatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MetaStatement");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -2630,7 +2642,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final RuleCall cCOMMATerminalRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
 		private final Assignment cFiltersAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cFiltersIDENTTerminalRuleCall_3_1_0 = (RuleCall)cFiltersAssignment_3_1.eContents().get(0);
+		private final RuleCall cFiltersFilterParserRuleCall_3_1_0 = (RuleCall)cFiltersAssignment_3_1.eContents().get(0);
 		private final RuleCall cRPARENTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		private final RuleCall cEQUALSTerminalRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		private final Assignment cStatementAssignment_6 = (Assignment)cGroup.eContents().get(6);
@@ -2638,10 +2650,10 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSEMICOLONTerminalRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
 		
 		//MetaStatement:
-		//	name=IDENT LPAREN type=STATEMEN_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS statement=Sql SEMICOLON;
+		//	name=IDENT LPAREN type=STATEMEN_TYPE (COMMA filters+=Filter)* RPAREN EQUALS statement=Sql SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
-		//name=IDENT LPAREN type=STATEMEN_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS statement=Sql SEMICOLON
+		//name=IDENT LPAREN type=STATEMEN_TYPE (COMMA filters+=Filter)* RPAREN EQUALS statement=Sql SEMICOLON
 		public Group getGroup() { return cGroup; }
 
 		//name=IDENT
@@ -2659,17 +2671,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//STATEMEN_TYPE
 		public RuleCall getTypeSTATEMEN_TYPETerminalRuleCall_2_0() { return cTypeSTATEMEN_TYPETerminalRuleCall_2_0; }
 
-		//(COMMA filters+=IDENT)*
+		//(COMMA filters+=Filter)*
 		public Group getGroup_3() { return cGroup_3; }
 
 		//COMMA
 		public RuleCall getCOMMATerminalRuleCall_3_0() { return cCOMMATerminalRuleCall_3_0; }
 
-		//filters+=IDENT
+		//filters+=Filter
 		public Assignment getFiltersAssignment_3_1() { return cFiltersAssignment_3_1; }
 
-		//IDENT
-		public RuleCall getFiltersIDENTTerminalRuleCall_3_1_0() { return cFiltersIDENTTerminalRuleCall_3_1_0; }
+		//Filter
+		public RuleCall getFiltersFilterParserRuleCall_3_1_0() { return cFiltersFilterParserRuleCall_3_1_0; }
 
 		//RPAREN
 		public RuleCall getRPARENTerminalRuleCall_4() { return cRPARENTerminalRuleCall_4; }
@@ -5944,6 +5956,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private MappingUsageExtElements pMappingUsageExt;
 	private TableDefinitionElements pTableDefinition;
 	private TableUsageElements pTableUsage;
+	private FilterElements pFilter;
 	private MetaStatementElements pMetaStatement;
 	private SqlElements pSql;
 	private SqlFragmentElements pSqlFragment;
@@ -6354,8 +6367,18 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getTableUsageAccess().getRule();
 	}
 
+	//Filter:
+	//	IDENT;
+	public FilterElements getFilterAccess() {
+		return (pFilter != null) ? pFilter : (pFilter = new FilterElements());
+	}
+	
+	public ParserRule getFilterRule() {
+		return getFilterAccess().getRule();
+	}
+
 	//MetaStatement:
-	//	name=IDENT LPAREN type=STATEMEN_TYPE (COMMA filters+=IDENT)* RPAREN EQUALS statement=Sql SEMICOLON;
+	//	name=IDENT LPAREN type=STATEMEN_TYPE (COMMA filters+=Filter)* RPAREN EQUALS statement=Sql SEMICOLON;
 	public MetaStatementElements getMetaStatementAccess() {
 		return (pMetaStatement != null) ? pMetaStatement : (pMetaStatement = new MetaStatementElements());
 	}

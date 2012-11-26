@@ -46,11 +46,8 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
         // "regular templates"
         super.createTemplates(templateContext, context, acceptor);
 
-        // create the template only if that id fits the id of
-        // the current template context type
         if (templateContext.getContextType().getId().equals(helper.getId(ga.getSqlValueRule()))) {
 
-            // create a template on the fly
             Template template = new Template("ins", "CRUD insert statement", "insertTemplateID",
                     "\n  insert into ${dbTable}\n  (${dbInsertColumn})\n  {= values (${pojoColumn}) }\n", false);// auto-insertable?
             TemplateProposal tp = createProposal1(template, templateContext, context, getImage(template),
@@ -83,11 +80,8 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
             // acceptor.accept(tp);
         }
 
-        // create the template only if that id fits the id of
-        // the current template context type
         if (templateContext.getContextType().getId().equals(helper.getId(ga.getOptionalFeatureRule()))) {
 
-            // create a template on the fly
             Template template = new Template("pojos", "Pojo definitions", "pojosTemplateID", "${pojoDefinitions}",
                     false);// auto-insertable?
             TemplateProposal tp = createProposal(template, templateContext, context, getImage(template),
@@ -98,11 +92,8 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
             acceptor.accept(tp);
         }
 
-        // create the template only if that id fits the id of
-        // the current template context type
         if (templateContext.getContextType().getId().equals(helper.getId(ga.getAbstractPojoEntityRule()))) {
 
-            // create a template on the fly
             Template template = new Template("pojogen", "Pojo generator", "pojogenTemplateID", "${pojoGenerator}",
                     false);// auto-insertable?
             TemplateProposal tp = createProposal(template, templateContext, context, getImage(template),

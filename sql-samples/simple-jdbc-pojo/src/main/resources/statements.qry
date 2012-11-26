@@ -55,12 +55,12 @@ DELETE_PERSON(CRUD)=
   {= where {& %ID = :id^long^notnull}}
 ;
 
-INSERT_CONTACT(CRUD)=
+INSERT_CONTACT(CRUD,identx=Contact,dbcol=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %ADDRESS)
   {= values (:id^long^seq=SEQ1, :person.id, :address) }
 ;
 
-ALL_PEOPLE_AND_CONTACTS(QRY)=
+ALL_PEOPLE_AND_CONTACTS(QRY,inx=Person,outx=Person,dbcol=CONTACT=c,dbcol=PERSON=p)=
   select %p.ID @id^long^id, %p.NAME @name, %c.ID @contacts.id^long^id, %p.ID @contacts.person.id, %c.ADDRESS @contacts.address
   from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
   {= where

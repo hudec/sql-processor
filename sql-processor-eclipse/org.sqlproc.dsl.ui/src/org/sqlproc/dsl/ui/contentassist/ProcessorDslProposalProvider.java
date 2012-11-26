@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -22,6 +25,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+import org.sqlproc.dsl.processorDsl.AbstractPojoEntity;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.ColumnUsage;
 import org.sqlproc.dsl.processorDsl.ColumnUsageExt;
@@ -37,6 +41,7 @@ import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MappingUsageExt;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
+import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
@@ -965,5 +970,108 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
             acceptor.accept(completionProposal);
         }
+    }
+
+    @Override
+    public void complete_Filter(EObject model, RuleCall ruleCall, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        Artifacts artifacts = null;
+        if (model instanceof MetaStatement) {
+            MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
+            artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
+        } else if (model instanceof MappingRule) {
+            MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
+            artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
+        }
+        if (artifacts != null) {
+            Set<PojoEntity> entities = listEntities(artifacts.eResource().getResourceSet(), getScopeProvider()
+                    .getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES));
+            for (PojoEntity entity : entities) {
+                String proposal = getValueConverter().toString(entity.getName(), "IDENT");
+                ICompletionProposal completionProposal2 = createCompletionProposal("constx=" + proposal, context);
+                acceptor.accept(completionProposal2);
+                ICompletionProposal completionProposal = createCompletionProposal("identx=" + proposal, context);
+                acceptor.accept(completionProposal);
+                ICompletionProposal completionProposal3 = createCompletionProposal("outx=" + proposal, context);
+                acceptor.accept(completionProposal3);
+            }
+            Set<PojoDefinition> pojos = listPojos(artifacts.eResource().getResourceSet(),
+                    getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS));
+            for (PojoDefinition pojo : pojos) {
+                String proposal = getValueConverter().toString(pojo.getName(), "IDENT");
+                ICompletionProposal completionProposal2 = createCompletionProposal("const=" + proposal, context);
+                acceptor.accept(completionProposal2);
+                ICompletionProposal completionProposal = createCompletionProposal("in=" + proposal, context);
+                acceptor.accept(completionProposal);
+                ICompletionProposal completionProposal3 = createCompletionProposal("out=" + proposal, context);
+                acceptor.accept(completionProposal3);
+            }
+            Set<TableDefinition> tables = listTables(artifacts.eResource().getResourceSet(), getScopeProvider()
+                    .getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
+            for (TableDefinition table : tables) {
+                String proposal = getValueConverter().toString(table.getName(), "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal("dbcol=" + proposal, context);
+                acceptor.accept(completionProposal);
+            }
+        } else {
+            super.complete_Filter(model, ruleCall, context, acceptor);
+        }
+    }
+
+    protected Set<PojoEntity> listEntities(ResourceSet resourceSet, IScope scope) {
+        Set<PojoEntity> result = new TreeSet<PojoEntity>(new Comparator<PojoEntity>() {
+
+            @Override
+            public int compare(PojoEntity o1, PojoEntity o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            PackageDeclaration packageDeclaration = (PackageDeclaration) resourceSet.getEObject(
+                    description.getEObjectURI(), true);
+            for (AbstractPojoEntity aEntity : packageDeclaration.getElements()) {
+                if (aEntity instanceof PojoEntity) {
+                    result.add((PojoEntity) aEntity);
+
+                }
+            }
+        }
+        return result;
+    }
+
+    protected Set<PojoDefinition> listPojos(ResourceSet resourceSet, IScope scope) {
+        Set<PojoDefinition> result = new TreeSet<PojoDefinition>(new Comparator<PojoDefinition>() {
+
+            @Override
+            public int compare(PojoDefinition o1, PojoDefinition o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            PojoDefinition pojo = (PojoDefinition) resourceSet.getEObject(description.getEObjectURI(), true);
+            result.add(pojo);
+        }
+        return result;
+    }
+
+    protected Set<TableDefinition> listTables(ResourceSet resourceSet, IScope scope) {
+        Set<TableDefinition> result = new TreeSet<TableDefinition>(new Comparator<TableDefinition>() {
+
+            @Override
+            public int compare(TableDefinition o1, TableDefinition o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            TableDefinition table = (TableDefinition) resourceSet.getEObject(description.getEObjectURI(), true);
+            result.add(table);
+        }
+        return result;
     }
 }
