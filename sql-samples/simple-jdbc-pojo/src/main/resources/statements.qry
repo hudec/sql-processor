@@ -60,7 +60,7 @@ INSERT_CONTACT(CRUD,identx=Contact,dbcol=contact)=
   {= values (:id^long^seq=SEQ1, :person.id, :address) }
 ;
 
-ALL_PEOPLE_AND_CONTACTS(QRY,inx=Person,outx=Person,dbcol=CONTACT=c,dbcol=PERSON=p)=
+ALL_PEOPLE_AND_CONTACTS(QRY,identx=Person,colx=Person,dbcol=contact=c,dbcol=person=p)=
   select %p.ID @id^long^id, %p.NAME @name, %c.ID @contacts.id^long^id, %p.ID @contacts.person.id, %c.ADDRESS @contacts.address
   from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
   {= where

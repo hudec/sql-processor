@@ -213,7 +213,7 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
             Iterator<INode> iterator = new NodeTreeIterator(node);
             while (iterator.hasNext()) {
                 INode inode = iterator.next();
-                System.out.println("XXXXX " + inode.getText() + " " + inode);
+                // System.out.println("XXXXX " + inode.getText() + " " + inode);
                 if (filters.contains(inode.getText())) {
                     acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.FILTER);
                     if (--count <= 0)

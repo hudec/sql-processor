@@ -50,16 +50,16 @@ public class ProcessorDslJvmModelInferrer extends AbstractModelInferrer {
   protected void _infer(final Artifacts element, final IJvmDeclaredTypeAcceptor acceptor, final boolean isPreIndexingPhase) {
   }
   
-  public void infer(final EObject element, final IJvmDeclaredTypeAcceptor acceptor, final boolean isPreIndexingPhase) {
-    if (element instanceof Artifacts) {
-      _infer((Artifacts)element, acceptor, isPreIndexingPhase);
+  public void infer(final EObject e, final IJvmDeclaredTypeAcceptor acceptor, final boolean preIndexingPhase) {
+    if (e != null) {
+      _infer(e, acceptor, preIndexingPhase);
       return;
-    } else if (element != null) {
-      _infer(element, acceptor, isPreIndexingPhase);
+    } else if (e instanceof Artifacts) {
+      _infer((Artifacts)e, acceptor, preIndexingPhase);
       return;
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(element, acceptor, isPreIndexingPhase).toString());
+        Arrays.<Object>asList(e, acceptor, preIndexingPhase).toString());
     }
   }
 }

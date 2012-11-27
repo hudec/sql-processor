@@ -1,5 +1,15 @@
 package org.sqlproc.dsl.validation;
 
+import static org.sqlproc.dsl.util.Constants.COLUMN_USAGE;
+import static org.sqlproc.dsl.util.Constants.COLUMN_USAGE_EXTENDED;
+import static org.sqlproc.dsl.util.Constants.CONSTANT_USAGE;
+import static org.sqlproc.dsl.util.Constants.CONSTANT_USAGE_EXTENDED;
+import static org.sqlproc.dsl.util.Constants.IDENTIFIER_USAGE;
+import static org.sqlproc.dsl.util.Constants.IDENTIFIER_USAGE_EXTENDED;
+import static org.sqlproc.dsl.util.Constants.MAPPING_USAGE;
+import static org.sqlproc.dsl.util.Constants.MAPPING_USAGE_EXTENDED;
+import static org.sqlproc.dsl.util.Constants.TABLE_USAGE;
+
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
@@ -637,6 +647,152 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             break;
 
         }
+    }
+
+    @Check
+    public void checkMetaStatement(MetaStatement statement) {
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
+
+        if (statement.getFilters() == null || statement.getFilters().isEmpty())
+            return;
+
+        int index = 0;
+        for (String filter : statement.getFilters()) {
+            int ix = filter.indexOf('=');
+            if (ix <= 0)
+                continue;
+            String kw = filter.substring(0, ix);
+            String val = filter.substring(ix + 1);
+            if (IDENTIFIER_USAGE_EXTENDED.equals(kw)) {
+                PojoEntity entity = findEntity(artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), val);
+                if (entity == null) {
+                    error("Cannot find entity : " + val + "[" + IDENTIFIER_USAGE_EXTENDED + "]",
+                            ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
+                }
+            } else if (IDENTIFIER_USAGE.equals(kw)) {
+                PojoDefinition pojo = findPojo(artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), val);
+                if (pojo == null) {
+                    error("Cannot find pojo : " + val + "[" + IDENTIFIER_USAGE + "]",
+                            ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
+                }
+            } else if (COLUMN_USAGE_EXTENDED.equals(kw)) {
+                PojoEntity entity = findEntity(artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), val);
+                if (entity == null) {
+                    error("Cannot find entity : " + val + "[" + COLUMN_USAGE_EXTENDED + "]",
+                            ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
+                }
+            } else if (COLUMN_USAGE.equals(kw)) {
+                PojoDefinition pojo = findPojo(artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), val);
+                if (pojo == null) {
+                    error("Cannot find pojo : " + val + "[" + COLUMN_USAGE + "]",
+                            ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
+                }
+            } else if (CONSTANT_USAGE_EXTENDED.equals(kw)) {
+                PojoEntity entity = findEntity(artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), val);
+                if (entity == null) {
+                    error("Cannot find entity : " + val + "[" + CONSTANT_USAGE_EXTENDED + "]",
+                            ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
+                }
+            } else if (CONSTANT_USAGE.equals(kw)) {
+                PojoDefinition pojo = findPojo(artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), val);
+                if (pojo == null) {
+                    error("Cannot find pojo : " + val + "[" + CONSTANT_USAGE + "]",
+                            ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
+                }
+            } else if (TABLE_USAGE.equals(kw)) {
+                int ix1 = val.indexOf('=');
+                if (ix1 >= 0)
+                    val = val.substring(0, ix1);
+                TableDefinition table = findTable(artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES), val);
+                if (table == null) {
+                    error("Cannot find table : " + val + "[" + TABLE_USAGE + "]",
+                            ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
+                }
+            }
+            index++;
+        }
+    }
+
+    @Check
+    public void checkMappingRule(MappingRule rule) {
+        Artifacts artifacts = EcoreUtil2.getContainerOfType(rule, Artifacts.class);
+
+        if (rule.getFilters() == null || rule.getFilters().isEmpty())
+            return;
+
+        int index = 0;
+        for (String filter : rule.getFilters()) {
+            int ix = filter.indexOf('=');
+            if (ix <= 0)
+                continue;
+            String kw = filter.substring(0, ix);
+            String val = filter.substring(ix + 1);
+            if (MAPPING_USAGE_EXTENDED.equals(kw)) {
+                PojoEntity entity = findEntity(artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), val);
+                if (entity == null) {
+                    error("Cannot find entity : " + val + "[" + MAPPING_USAGE_EXTENDED + "]",
+                            ProcessorDslPackage.Literals.MAPPING_RULE__FILTERS, index);
+                }
+            } else if (MAPPING_USAGE.equals(kw)) {
+                PojoDefinition pojo = findPojo(artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), val);
+                if (pojo == null) {
+                    error("Cannot find pojo : " + val + "[" + MAPPING_USAGE + "]",
+                            ProcessorDslPackage.Literals.MAPPING_RULE__FILTERS, index);
+                }
+            }
+            index++;
+        }
+    }
+
+    PojoEntity findEntity(Artifacts artifacts, IScope scope, String name) {
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            PackageDeclaration packageDeclaration = (PackageDeclaration) artifacts.eResource().getResourceSet()
+                    .getEObject(description.getEObjectURI(), true);
+            for (AbstractPojoEntity aEntity : packageDeclaration.getElements()) {
+                if (aEntity instanceof PojoEntity) {
+                    PojoEntity entity = (PojoEntity) aEntity;
+                    if (name.equals(entity.getName())) {
+                        return entity;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    PojoDefinition findPojo(Artifacts artifacts, IScope scope, String name) {
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            if (qualifiedNameConverter.toQualifiedName(name).equals(description.getName())) {
+                return (PojoDefinition) artifacts.eResource().getResourceSet()
+                        .getEObject(description.getEObjectURI(), true);
+            }
+        }
+        return null;
+    }
+
+    TableDefinition findTable(Artifacts artifacts, IScope scope, String name) {
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            if (qualifiedNameConverter.toQualifiedName(name).equals(description.getName())) {
+                return (TableDefinition) artifacts.eResource().getResourceSet()
+                        .getEObject(description.getEObjectURI(), true);
+            }
+        }
+        return null;
     }
 
     protected boolean isNumber(String param) {

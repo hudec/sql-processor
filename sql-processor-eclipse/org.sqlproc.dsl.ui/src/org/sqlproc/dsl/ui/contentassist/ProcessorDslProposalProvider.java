@@ -3,6 +3,16 @@
  */
 package org.sqlproc.dsl.ui.contentassist;
 
+import static org.sqlproc.dsl.util.Constants.COLUMN_USAGE;
+import static org.sqlproc.dsl.util.Constants.COLUMN_USAGE_EXTENDED;
+import static org.sqlproc.dsl.util.Constants.CONSTANT_USAGE;
+import static org.sqlproc.dsl.util.Constants.CONSTANT_USAGE_EXTENDED;
+import static org.sqlproc.dsl.util.Constants.IDENTIFIER_USAGE;
+import static org.sqlproc.dsl.util.Constants.IDENTIFIER_USAGE_EXTENDED;
+import static org.sqlproc.dsl.util.Constants.MAPPING_USAGE;
+import static org.sqlproc.dsl.util.Constants.MAPPING_USAGE_EXTENDED;
+import static org.sqlproc.dsl.util.Constants.TABLE_USAGE;
+
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -979,39 +989,58 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         if (model instanceof MetaStatement) {
             MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
             artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
-        } else if (model instanceof MappingRule) {
-            MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
-            artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
-        }
-        if (artifacts != null) {
             Set<PojoEntity> entities = listEntities(artifacts.eResource().getResourceSet(), getScopeProvider()
                     .getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES));
             for (PojoEntity entity : entities) {
                 String proposal = getValueConverter().toString(entity.getName(), "IDENT");
-                ICompletionProposal completionProposal2 = createCompletionProposal("constx=" + proposal, context);
+                ICompletionProposal completionProposal2 = createCompletionProposal(CONSTANT_USAGE_EXTENDED + "="
+                        + proposal, context);
                 acceptor.accept(completionProposal2);
-                ICompletionProposal completionProposal = createCompletionProposal("identx=" + proposal, context);
+                ICompletionProposal completionProposal = createCompletionProposal(IDENTIFIER_USAGE_EXTENDED + "="
+                        + proposal, context);
                 acceptor.accept(completionProposal);
-                ICompletionProposal completionProposal3 = createCompletionProposal("outx=" + proposal, context);
+                ICompletionProposal completionProposal3 = createCompletionProposal(COLUMN_USAGE_EXTENDED + "="
+                        + proposal, context);
                 acceptor.accept(completionProposal3);
             }
             Set<PojoDefinition> pojos = listPojos(artifacts.eResource().getResourceSet(),
                     getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS));
             for (PojoDefinition pojo : pojos) {
                 String proposal = getValueConverter().toString(pojo.getName(), "IDENT");
-                ICompletionProposal completionProposal2 = createCompletionProposal("const=" + proposal, context);
+                ICompletionProposal completionProposal2 = createCompletionProposal(CONSTANT_USAGE + "=" + proposal,
+                        context);
                 acceptor.accept(completionProposal2);
-                ICompletionProposal completionProposal = createCompletionProposal("in=" + proposal, context);
+                ICompletionProposal completionProposal = createCompletionProposal(IDENTIFIER_USAGE + "=" + proposal,
+                        context);
                 acceptor.accept(completionProposal);
-                ICompletionProposal completionProposal3 = createCompletionProposal("out=" + proposal, context);
+                ICompletionProposal completionProposal3 = createCompletionProposal(COLUMN_USAGE + "=" + proposal,
+                        context);
                 acceptor.accept(completionProposal3);
             }
             Set<TableDefinition> tables = listTables(artifacts.eResource().getResourceSet(), getScopeProvider()
                     .getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
             for (TableDefinition table : tables) {
                 String proposal = getValueConverter().toString(table.getName(), "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal("dbcol=" + proposal, context);
+                ICompletionProposal completionProposal = createCompletionProposal(TABLE_USAGE + "=" + proposal, context);
                 acceptor.accept(completionProposal);
+            }
+        } else if (model instanceof MappingRule) {
+            MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
+            artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
+            Set<PojoEntity> entities = listEntities(artifacts.eResource().getResourceSet(), getScopeProvider()
+                    .getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES));
+            for (PojoEntity entity : entities) {
+                String proposal = getValueConverter().toString(entity.getName(), "IDENT");
+                ICompletionProposal completionProposal2 = createCompletionProposal(MAPPING_USAGE_EXTENDED + "="
+                        + proposal, context);
+            }
+            Set<PojoDefinition> pojos = listPojos(artifacts.eResource().getResourceSet(),
+                    getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS));
+            for (PojoDefinition pojo : pojos) {
+                String proposal = getValueConverter().toString(pojo.getName(), "IDENT");
+                ICompletionProposal completionProposal2 = createCompletionProposal(MAPPING_USAGE + "=" + proposal,
+                        context);
+                acceptor.accept(completionProposal2);
             }
         } else {
             super.complete_Filter(model, ruleCall, context, acceptor);
@@ -1034,7 +1063,6 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             for (AbstractPojoEntity aEntity : packageDeclaration.getElements()) {
                 if (aEntity instanceof PojoEntity) {
                     result.add((PojoEntity) aEntity);
-
                 }
             }
         }
