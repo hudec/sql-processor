@@ -13,6 +13,7 @@ import static org.sqlproc.dsl.util.Constants.TABLE_USAGE;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -1108,12 +1109,43 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         }
         MetaStatement statement = EcoreUtil2.getContainerOfType(databaseColumn, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
-        TableDefinition tableDefinition = getTableDefinition(artifacts, statement, null, prefix);
+
+        String val = getTokenFromFilter(statement, TABLE_USAGE, prefix);
+        TableDefinition tableDefinition = (val != null) ? findTable(artifacts,
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES), val) : null;
+        if (tableDefinition == null) {
+            tableDefinition = getTableDefinition(artifacts, statement, null, prefix);
+        }
         String tableName = tableDefinition != null ? tableDefinition.getTable() : null;
         if (tableName == null || !dbResolver.checkColumn(databaseColumn, tableName, columnName)) {
             error("Cannot find column in DB : " + databaseColumn.getName() + "[" + tableName + "]",
                     ProcessorDslPackage.Literals.DATABASE_COLUMN__NAME);
         }
+    }
+
+    private String getTokenFromFilter(MetaStatement statement, String tokenName, String tokenSuffix) {
+        if (statement.getFilters() == null || statement.getFilters().isEmpty()) {
+            return null;
+        }
+        for (String filter : statement.getFilters()) {
+            int ix = filter.indexOf('=');
+            if (ix <= 0)
+                continue;
+            String key = filter.substring(0, ix);
+            String val = filter.substring(ix + 1);
+            if (tokenSuffix != null) {
+                int ix2 = val.indexOf('=');
+                if (ix2 <= 0)
+                    continue;
+                if (!tokenSuffix.equals(val.substring(ix2 + 1)))
+                    continue;
+                val = val.substring(0, ix2);
+            }
+            if (key.equals(tokenName)) {
+                return val;
+            }
+        }
+        return null;
     }
 
     @Check
@@ -1123,10 +1155,42 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         String tableName = databaseTable.getName();
         MetaStatement statement = EcoreUtil2.getContainerOfType(databaseTable, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
-        TableDefinition tableDefinition = getTableDefinition(artifacts, statement, tableName, null);
+
+        TableDefinition tableDefinition = null;
+        List<String> vals = getTokensFromFilter(statement, TABLE_USAGE);
+        for (String val : vals) {
+            tableDefinition = findTable(artifacts,
+                    scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES), val);
+            if (tableDefinition != null)
+                break;
+        }
+        if (tableDefinition == null) {
+            tableDefinition = getTableDefinition(artifacts, statement, tableName, null);
+        }
         if (tableDefinition == null || !dbResolver.checkTable(databaseTable, tableName)) {
             error("Cannot find table in DB : " + tableName, ProcessorDslPackage.Literals.DATABASE_TABLE__NAME);
         }
+    }
+
+    private List<String> getTokensFromFilter(MetaStatement statement, String tokenName) {
+        List<String> result = new ArrayList<String>();
+        if (statement.getFilters() == null || statement.getFilters().isEmpty()) {
+            return result;
+        }
+        for (String filter : statement.getFilters()) {
+            int ix = filter.indexOf('=');
+            if (ix <= 0)
+                continue;
+            String key = filter.substring(0, ix);
+            String val = filter.substring(ix + 1);
+            int ix2 = val.indexOf('=');
+            // String val2 = (ix2 > 0) ? val.substring(ix2 + 1) : null;
+            val = (ix2 > 0) ? val.substring(0, ix2) : val;
+            if (key.equals(tokenName)) {
+                result.add(val);
+            }
+        }
+        return result;
     }
 
     protected boolean isResolvePojo(EObject model) {

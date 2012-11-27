@@ -100,7 +100,7 @@ CREATE_LIBRARY(CRUD,identx=PersonLibrary,dbcol=person_library)=
   {= values (:id^long^seq=SEQ1, :personId, :mediaId) }
 ;
 
-ALL_PEOPLE_LIBRARY(QRY,identx=Person,colx=Person,dbcol=person=p,dbcol=library=l,dbcol=media=m,dbcol=movie=mo,dbcol=book=bk)=
+ALL_PEOPLE_LIBRARY(QRY,identx=Person,colx=Person,dbcol=person=p,dbcol=person_library=l,dbcol=media=m,dbcol=movie=mo,dbcol=book=bk)=
   select %p.ID @id^long^id, %p.NAME @name, %mo.MEDIA_ID @library==movie.id^long^id, %bk.MEDIA_ID @library==book.id^long^id,
   %m.TITLE @library.title, %mo.URLIMDB @library.urlimdb, %mo.PLAYLENGTH @library.playlength, %bk.ISBN @library.isbn
   from %%PERSON p left join %%PERSON_LIBRARY l on %p.ID = %l.PERSON_ID
