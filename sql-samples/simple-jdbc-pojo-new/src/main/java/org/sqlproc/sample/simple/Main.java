@@ -329,9 +329,9 @@ public class Main {
         Assert.assertEquals(1, list.size());
 
         person = new Person();
-        person.setName("an");
+        person.setName("Jan");
         list = main.listLike(person);
-        Assert.assertEquals(3, list.size());
+        Assert.assertEquals(2, list.size());
 
         // left join
         person = new Person();
