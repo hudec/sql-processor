@@ -248,14 +248,15 @@ public class SqlProcessor {
             this.errors.addAll(errors);
             return false;
         }
-        FilterStatus status = filtersControl(filters, activeFilters);
+        List<String> filteredActiveFilters = filterActiveFilters(activeFilters);
+        FilterStatus status = filtersControl(filters, filteredActiveFilters);
         if (status == FilterStatus.NOK) {
             return false;
         }
         Map<String, SqlMetaStatement> statements = getMetaStatements(type);
         if (status == FilterStatus.OK_LOWER) {
             if (statements.containsKey(name)) {
-                warnings.add("The artifact " + uniqueArtifactName(type, name, activeFilters)
+                warnings.add("The artifact " + uniqueArtifactName(type, name, filteredActiveFilters)
                         + " is already defined, the first definition is used.");
                 return false;
             } else {
@@ -263,7 +264,7 @@ public class SqlProcessor {
                 return true;
             }
         } else {
-            duplicityControl(type, name, activeFilters);
+            duplicityControl(type, name, filteredActiveFilters);
             statements.put(name, statement);
             return true;
         }
@@ -323,14 +324,15 @@ public class SqlProcessor {
             this.errors.addAll(errors);
             return false;
         }
-        FilterStatus status = filtersControl(filters, activeFilters);
+        List<String> filteredActiveFilters = filterActiveFilters(activeFilters);
+        FilterStatus status = filtersControl(filters, filteredActiveFilters);
         if (status == FilterStatus.NOK) {
             return false;
         }
         Map<String, SqlMappingRule> mappings = getMappingRules(type);
         if (status == FilterStatus.OK_LOWER) {
             if (mappings.containsKey(name)) {
-                warnings.add("The artifact " + uniqueArtifactName(type, name, activeFilters)
+                warnings.add("The artifact " + uniqueArtifactName(type, name, filteredActiveFilters)
                         + " is already defined, the first definition is used.");
                 return false;
             } else {
@@ -338,7 +340,7 @@ public class SqlProcessor {
                 return true;
             }
         } else {
-            duplicityControl(type, name, activeFilters);
+            duplicityControl(type, name, filteredActiveFilters);
             mappings.put(name, mapping);
             return true;
         }
@@ -564,5 +566,24 @@ public class SqlProcessor {
         if (onlyStatements == null || onlyStatements.isEmpty())
             return false;
         return !onlyStatements.contains(name);
+    }
+
+    /**
+     * Filter the active filters removing all values, which contain the character '='
+     * 
+     * @param activeFilters
+     *            the active filters from the artifact definition
+     * @return filtered active filters
+     */
+    private List<String> filterActiveFilters(List<String> activeFilters) {
+        if (activeFilters == null)
+            return null;
+        List<String> filteredActiveFilters = new ArrayList<String>();
+        for (String filter : activeFilters) {
+            if (filter.indexOf('=') >= 0)
+                continue;
+        }
+        return filteredActiveFilters;
+
     }
 }

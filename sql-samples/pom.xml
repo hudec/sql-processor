@@ -12,6 +12,7 @@
     <modules>
         <module>simple-jdbc</module>
         <module>simple-jdbc-pojo</module>
+        <module>simple-jdbc-pojo-new</module>
         <module>simple-hibernate</module>
         <module>simple-spring</module>
         <module>simple-spring-pojo</module>

@@ -1,0 +1,111 @@
+pojogen-generate-wrappers;
+// custom type
+pojogen-types-for-columns CONTACT PHONE_NUMBER->:org.sqlproc.sample.simple.model.PhoneNumber;
+// inheritance
+pojogen-inherit-many-to-one BOOK MEDIA_ID->MEDIA->ID;
+pojogen-inherit-many-to-one MOVIE MEDIA_ID->MEDIA->ID;
+pojogen-inherit-discriminator BILLING_DETAILS TYPE BA->BANK_ACCOUNT->BA_ACCOUNT CC->CREDIT_CARD->CC_NUMBER;
+// many-to-many
+pojogen-table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
+// others
+pojogen-generate-methods toString equals hashCode;
+pojogen-implements-interfaces java.io.Serializable;
+
+package org.sqlproc.sample.simple.model {
+
+
+  pojo BankAccount extends BillingDetails discriminator BA serializable 1  {
+    baAccount : java.lang.String
+    toString ::: baAccount
+  }
+
+  abstract pojo BillingDetails serializable 1  {
+    id : java.lang.Long primaryKey
+    subscriber :: Subscriber required
+    type : java.lang.String discriminator required
+    equals ::: id
+    hashCode ::: id
+    toString ::: id type subscriber
+  }
+
+  pojo Book extends Media serializable 1  {
+    isbn : java.lang.String required
+    toString ::: isbn
+  }
+
+  pojo Contact serializable 1  {
+    id : java.lang.Long primaryKey
+    person :: Person required
+    address : java.lang.String required
+    phoneNumber : org.sqlproc.sample.simple.model.PhoneNumber
+    equals ::: id
+    hashCode ::: id
+    toString ::: id person phoneNumber address
+  }
+
+  pojo CreditCard extends BillingDetails discriminator CC serializable 1  {
+    ccNumber : java.lang.Long
+    toString ::: ccNumber
+  }
+
+  pojo Library serializable 1  {
+    id : java.lang.Long primaryKey
+    name : java.lang.String required
+    subscribers : java.util.List <:Subscriber>
+    equals ::: id
+    hashCode ::: id
+    toString ::: id name
+  }
+
+  abstract pojo Media serializable 1  {
+    id : java.lang.Long primaryKey
+    title : java.lang.String required
+    equals ::: id
+    hashCode ::: id
+    toString ::: id title
+  }
+
+  pojo Movie extends Media serializable 1  {
+    urlimdb : java.lang.String required
+    playlength : java.lang.Integer required
+    toString ::: playlength urlimdb
+  }
+
+  pojo Person serializable 1  {
+    id : java.lang.Long primaryKey
+    name : java.lang.String required
+    library : java.util.List <:Media>
+    contacts : java.util.List <:Contact>
+    equals ::: id
+    hashCode ::: id
+    toString ::: id name
+  }
+
+  pojo PersonLibrary serializable 1  {
+    id : java.lang.Long primaryKey
+    personId : java.lang.Long required
+    mediaId : java.lang.Long required
+    equals ::: id
+    hashCode ::: id
+    toString ::: mediaId id personId
+  }
+
+  pojo Subscriber serializable 1  {
+    id : java.lang.Long primaryKey
+    library :: Library required
+    contact : java.lang.Long
+    name : java.lang.String required
+    billingDetails : java.util.List <:BillingDetails>
+    equals ::: id
+    hashCode ::: id
+    toString ::: id name library contact
+  }
+}
+
+package org.sqlproc.sample.simple.form {
+	
+	pojo FormSimpleFunction {
+		time : java.sql.Timestamp
+		time2 : java.sql.Timestamp
+	}
+}
