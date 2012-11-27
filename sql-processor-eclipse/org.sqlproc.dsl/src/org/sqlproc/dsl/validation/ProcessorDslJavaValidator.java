@@ -401,19 +401,24 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         MetaStatement statement = EcoreUtil2.getContainerOfType(column, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
 
-        PojoEntity entity = null;
-        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT);
-        Iterable<IEObjectDescription> iterable = scope.getAllElements();
-        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-            IEObjectDescription description = iter.next();
-            if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
-                PojoUsageExt pojoUsage = (PojoUsageExt) artifacts.eResource().getResourceSet()
-                        .getEObject(description.getEObjectURI(), true);
-                if (pojoUsage instanceof ColumnUsageExt) {
-                    entity = pojoUsage.getPojo();
-                }
-                if (pojoUsage instanceof MappingUsageExt) {
-                    entity = pojoUsage.getPojo();
+        String entityName = getTokenFromFilter(statement, COLUMN_USAGE_EXTENDED);
+        PojoEntity entity = (entityName != null) ? findEntity(artifacts,
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), entityName)
+                : null;
+        if (entity == null) {
+            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT);
+            Iterable<IEObjectDescription> iterable = scope.getAllElements();
+            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+                IEObjectDescription description = iter.next();
+                if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
+                    PojoUsageExt pojoUsage = (PojoUsageExt) artifacts.eResource().getResourceSet()
+                            .getEObject(description.getEObjectURI(), true);
+                    if (pojoUsage instanceof ColumnUsageExt) {
+                        entity = pojoUsage.getPojo();
+                    }
+                    if (pojoUsage instanceof MappingUsageExt) {
+                        entity = pojoUsage.getPojo();
+                    }
                 }
             }
         }
@@ -431,20 +436,26 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             return;
         }
 
-        String columnUsageClass = null;
+        String pojoName = getTokenFromFilter(statement, COLUMN_USAGE);
+        PojoDefinition pojo = (pojoName != null) ? findPojo(artifacts,
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), pojoName)
+                : null;
+        String columnUsageClass = (pojo != null) ? pojo.getClass_() : null;
         MappingUsage mappingUsage = null;
-        scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
-        iterable = scope.getAllElements();
-        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-            IEObjectDescription description = iter.next();
-            if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
-                PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
-                        .getEObject(description.getEObjectURI(), true);
-                if (pojoUsage instanceof ColumnUsage) {
-                    columnUsageClass = ((ColumnUsage) pojoUsage).getPojo().getClass_();
-                }
-                if (pojoUsage instanceof MappingUsage) {
-                    mappingUsage = (MappingUsage) pojoUsage;
+        if (columnUsageClass == null) {
+            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
+            Iterable<IEObjectDescription> iterable = scope.getAllElements();
+            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+                IEObjectDescription description = iter.next();
+                if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
+                    PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
+                            .getEObject(description.getEObjectURI(), true);
+                    if (pojoUsage instanceof ColumnUsage) {
+                        columnUsageClass = ((ColumnUsage) pojoUsage).getPojo().getClass_();
+                    }
+                    if (pojoUsage instanceof MappingUsage) {
+                        mappingUsage = (MappingUsage) pojoUsage;
+                    }
                 }
             }
         }
@@ -475,16 +486,21 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         MetaStatement statement = EcoreUtil2.getContainerOfType(identifier, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
 
-        PojoEntity entity = null;
-        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT);
-        Iterable<IEObjectDescription> iterable = scope.getAllElements();
-        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-            IEObjectDescription description = iter.next();
-            if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
-                PojoUsageExt pojoUsage = (PojoUsageExt) artifacts.eResource().getResourceSet()
-                        .getEObject(description.getEObjectURI(), true);
-                if (pojoUsage instanceof IdentifierUsageExt) {
-                    entity = pojoUsage.getPojo();
+        String entityName = getTokenFromFilter(statement, IDENTIFIER_USAGE_EXTENDED);
+        PojoEntity entity = (entityName != null) ? findEntity(artifacts,
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), entityName)
+                : null;
+        if (entity == null) {
+            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT);
+            Iterable<IEObjectDescription> iterable = scope.getAllElements();
+            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+                IEObjectDescription description = iter.next();
+                if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
+                    PojoUsageExt pojoUsage = (PojoUsageExt) artifacts.eResource().getResourceSet()
+                            .getEObject(description.getEObjectURI(), true);
+                    if (pojoUsage instanceof IdentifierUsageExt) {
+                        entity = pojoUsage.getPojo();
+                    }
                 }
             }
         }
@@ -502,17 +518,23 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             return;
         }
 
-        String identifierUsageClass = null;
-        scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
-        iterable = scope.getAllElements();
-        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-            IEObjectDescription description = iter.next();
-            if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
-                PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
-                        .getEObject(description.getEObjectURI(), true);
-                if (pojoUsage instanceof IdentifierUsage) {
-                    identifierUsageClass = ((IdentifierUsage) pojoUsage).getPojo().getClass_();
-                    break;
+        String pojoName = getTokenFromFilter(statement, IDENTIFIER_USAGE);
+        PojoDefinition pojo = (pojoName != null) ? findPojo(artifacts,
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), pojoName)
+                : null;
+        String identifierUsageClass = (pojo != null) ? pojo.getClass_() : null;
+        if (identifierUsageClass == null) {
+            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
+            Iterable<IEObjectDescription> iterable = scope.getAllElements();
+            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+                IEObjectDescription description = iter.next();
+                if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
+                    PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
+                            .getEObject(description.getEObjectURI(), true);
+                    if (pojoUsage instanceof IdentifierUsage) {
+                        identifierUsageClass = ((IdentifierUsage) pojoUsage).getPojo().getClass_();
+                        break;
+                    }
                 }
             }
         }
@@ -535,16 +557,21 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         MetaStatement statement = EcoreUtil2.getContainerOfType(constant, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
 
-        PojoEntity entity = null;
-        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT);
-        Iterable<IEObjectDescription> iterable = scope.getAllElements();
-        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-            IEObjectDescription description = iter.next();
-            if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
-                PojoUsageExt pojoUsage = (PojoUsageExt) artifacts.eResource().getResourceSet()
-                        .getEObject(description.getEObjectURI(), true);
-                if (pojoUsage instanceof ConstantUsageExt) {
-                    entity = pojoUsage.getPojo();
+        String entityName = getTokenFromFilter(statement, CONSTANT_USAGE_EXTENDED);
+        PojoEntity entity = (entityName != null) ? findEntity(artifacts,
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), entityName)
+                : null;
+        if (entity == null) {
+            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT);
+            Iterable<IEObjectDescription> iterable = scope.getAllElements();
+            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+                IEObjectDescription description = iter.next();
+                if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
+                    PojoUsageExt pojoUsage = (PojoUsageExt) artifacts.eResource().getResourceSet()
+                            .getEObject(description.getEObjectURI(), true);
+                    if (pojoUsage instanceof ConstantUsageExt) {
+                        entity = pojoUsage.getPojo();
+                    }
                 }
             }
         }
@@ -562,17 +589,23 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             return;
         }
 
-        String constantUsageClass = null;
-        scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
-        iterable = scope.getAllElements();
-        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-            IEObjectDescription description = iter.next();
-            if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
-                PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
-                        .getEObject(description.getEObjectURI(), true);
-                if (pojoUsage instanceof ConstantUsage) {
-                    constantUsageClass = ((ConstantUsage) pojoUsage).getPojo().getClass_();
-                    break;
+        String pojoName = getTokenFromFilter(statement, CONSTANT_USAGE);
+        PojoDefinition pojo = (pojoName != null) ? findPojo(artifacts,
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), pojoName)
+                : null;
+        String constantUsageClass = (pojo != null) ? pojo.getClass_() : null;
+        if (constantUsageClass == null) {
+            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
+            Iterable<IEObjectDescription> iterable = scope.getAllElements();
+            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+                IEObjectDescription description = iter.next();
+                if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
+                    PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
+                            .getEObject(description.getEObjectURI(), true);
+                    if (pojoUsage instanceof ConstantUsage) {
+                        constantUsageClass = ((ConstantUsage) pojoUsage).getPojo().getClass_();
+                        break;
+                    }
                 }
             }
         }
@@ -595,16 +628,21 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         MappingRule rule = EcoreUtil2.getContainerOfType(column, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(rule, Artifacts.class);
 
-        PojoEntity entity = null;
-        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT);
-        Iterable<IEObjectDescription> iterable = scope.getAllElements();
-        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-            IEObjectDescription description = iter.next();
-            if (qualifiedNameConverter.toQualifiedName(rule.getName()).equals(description.getName())) {
-                PojoUsageExt pojoUsage = (PojoUsageExt) artifacts.eResource().getResourceSet()
-                        .getEObject(description.getEObjectURI(), true);
-                if (pojoUsage instanceof MappingUsageExt) {
-                    entity = pojoUsage.getPojo();
+        String entityName = getTokenFromFilter(rule, MAPPING_USAGE_EXTENDED);
+        PojoEntity entity = (entityName != null) ? findEntity(artifacts,
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), entityName)
+                : null;
+        if (entity == null) {
+            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT);
+            Iterable<IEObjectDescription> iterable = scope.getAllElements();
+            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+                IEObjectDescription description = iter.next();
+                if (qualifiedNameConverter.toQualifiedName(rule.getName()).equals(description.getName())) {
+                    PojoUsageExt pojoUsage = (PojoUsageExt) artifacts.eResource().getResourceSet()
+                            .getEObject(description.getEObjectURI(), true);
+                    if (pojoUsage instanceof MappingUsageExt) {
+                        entity = pojoUsage.getPojo();
+                    }
                 }
             }
         }
@@ -622,17 +660,23 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             return;
         }
 
-        String mappingUsageClass = null;
-        scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
-        iterable = scope.getAllElements();
-        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-            IEObjectDescription description = iter.next();
-            if (qualifiedNameConverter.toQualifiedName(rule.getName()).equals(description.getName())) {
-                PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
-                        .getEObject(description.getEObjectURI(), true);
-                if (pojoUsage instanceof MappingUsage) {
-                    mappingUsageClass = ((MappingUsage) pojoUsage).getPojo().getClass_();
-                    break;
+        String pojoName = getTokenFromFilter(rule, MAPPING_USAGE);
+        PojoDefinition pojo = (pojoName != null) ? findPojo(artifacts,
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), pojoName)
+                : null;
+        String mappingUsageClass = (pojo != null) ? pojo.getClass_() : null;
+        if (mappingUsageClass == null) {
+            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
+            Iterable<IEObjectDescription> iterable = scope.getAllElements();
+            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+                IEObjectDescription description = iter.next();
+                if (qualifiedNameConverter.toQualifiedName(rule.getName()).equals(description.getName())) {
+                    PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
+                            .getEObject(description.getEObjectURI(), true);
+                    if (pojoUsage instanceof MappingUsage) {
+                        mappingUsageClass = ((MappingUsage) pojoUsage).getPojo().getClass_();
+                        break;
+                    }
                 }
             }
         }
@@ -649,6 +693,40 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         }
     }
 
+    private String getTokenFromFilter(MetaStatement statement, String tokenName) {
+        if (statement.getFilters() == null || statement.getFilters().isEmpty()) {
+            return null;
+        }
+        for (String filter : statement.getFilters()) {
+            int ix = filter.indexOf('=');
+            if (ix <= 0)
+                continue;
+            String key = filter.substring(0, ix);
+            String val = filter.substring(ix + 1);
+            if (key.equals(tokenName)) {
+                return val;
+            }
+        }
+        return null;
+    }
+
+    private String getTokenFromFilter(MappingRule rule, String tokenName) {
+        if (rule.getFilters() == null || rule.getFilters().isEmpty()) {
+            return null;
+        }
+        for (String filter : rule.getFilters()) {
+            int ix = filter.indexOf('=');
+            if (ix <= 0)
+                continue;
+            String key = filter.substring(0, ix);
+            String val = filter.substring(ix + 1);
+            if (key.equals(tokenName)) {
+                return val;
+            }
+        }
+        return null;
+    }
+
     @Check
     public void checkMetaStatement(MetaStatement statement) {
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
@@ -661,51 +739,51 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             int ix = filter.indexOf('=');
             if (ix <= 0)
                 continue;
-            String kw = filter.substring(0, ix);
+            String key = filter.substring(0, ix);
             String val = filter.substring(ix + 1);
-            if (IDENTIFIER_USAGE_EXTENDED.equals(kw)) {
+            if (IDENTIFIER_USAGE_EXTENDED.equals(key)) {
                 PojoEntity entity = findEntity(artifacts,
                         scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), val);
                 if (entity == null) {
                     error("Cannot find entity : " + val + "[" + IDENTIFIER_USAGE_EXTENDED + "]",
                             ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
                 }
-            } else if (IDENTIFIER_USAGE.equals(kw)) {
+            } else if (IDENTIFIER_USAGE.equals(key)) {
                 PojoDefinition pojo = findPojo(artifacts,
                         scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), val);
                 if (pojo == null) {
                     error("Cannot find pojo : " + val + "[" + IDENTIFIER_USAGE + "]",
                             ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
                 }
-            } else if (COLUMN_USAGE_EXTENDED.equals(kw)) {
+            } else if (COLUMN_USAGE_EXTENDED.equals(key)) {
                 PojoEntity entity = findEntity(artifacts,
                         scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), val);
                 if (entity == null) {
                     error("Cannot find entity : " + val + "[" + COLUMN_USAGE_EXTENDED + "]",
                             ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
                 }
-            } else if (COLUMN_USAGE.equals(kw)) {
+            } else if (COLUMN_USAGE.equals(key)) {
                 PojoDefinition pojo = findPojo(artifacts,
                         scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), val);
                 if (pojo == null) {
                     error("Cannot find pojo : " + val + "[" + COLUMN_USAGE + "]",
                             ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
                 }
-            } else if (CONSTANT_USAGE_EXTENDED.equals(kw)) {
+            } else if (CONSTANT_USAGE_EXTENDED.equals(key)) {
                 PojoEntity entity = findEntity(artifacts,
                         scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), val);
                 if (entity == null) {
                     error("Cannot find entity : " + val + "[" + CONSTANT_USAGE_EXTENDED + "]",
                             ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
                 }
-            } else if (CONSTANT_USAGE.equals(kw)) {
+            } else if (CONSTANT_USAGE.equals(key)) {
                 PojoDefinition pojo = findPojo(artifacts,
                         scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), val);
                 if (pojo == null) {
                     error("Cannot find pojo : " + val + "[" + CONSTANT_USAGE + "]",
                             ProcessorDslPackage.Literals.META_STATEMENT__FILTERS, index);
                 }
-            } else if (TABLE_USAGE.equals(kw)) {
+            } else if (TABLE_USAGE.equals(key)) {
                 int ix1 = val.indexOf('=');
                 if (ix1 >= 0)
                     val = val.substring(0, ix1);
@@ -732,16 +810,16 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             int ix = filter.indexOf('=');
             if (ix <= 0)
                 continue;
-            String kw = filter.substring(0, ix);
+            String key = filter.substring(0, ix);
             String val = filter.substring(ix + 1);
-            if (MAPPING_USAGE_EXTENDED.equals(kw)) {
+            if (MAPPING_USAGE_EXTENDED.equals(key)) {
                 PojoEntity entity = findEntity(artifacts,
                         scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), val);
                 if (entity == null) {
                     error("Cannot find entity : " + val + "[" + MAPPING_USAGE_EXTENDED + "]",
                             ProcessorDslPackage.Literals.MAPPING_RULE__FILTERS, index);
                 }
-            } else if (MAPPING_USAGE.equals(kw)) {
+            } else if (MAPPING_USAGE.equals(key)) {
                 PojoDefinition pojo = findPojo(artifacts,
                         scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), val);
                 if (pojo == null) {
