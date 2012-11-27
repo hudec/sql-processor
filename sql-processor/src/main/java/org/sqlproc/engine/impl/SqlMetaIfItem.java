@@ -82,14 +82,17 @@ class SqlMetaIfItem implements SqlMetaElement {
                 result.addOutputValues(itemResult.getOutputValues());
                 result.addIdentities(itemResult.getIdentities());
                 result.addOutValues(itemResult.getOutValues());
-                if (SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE) && item instanceof SqlMetaIdent && like) {
+                if ((SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE) || SqlProcessContext
+                        .isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL)) && item instanceof SqlMetaIdent && like) {
                     for (String ident : itemResult.getInputValues()) {
                         itemResult.getInputValue(ident).setLike(
                                 SqlProcessContext.getFeature(SqlFeature.WILDCARD_CHARACTER),
-                                SqlProcessContext.getFeatureAsInt(SqlFeature.SURROUND_QUERY_MIN_LEN));
+                                SqlProcessContext.getFeatureAsInt(SqlFeature.SURROUND_QUERY_MIN_LEN),
+                                SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL));
                     }
                 } else if (item instanceof SqlMetaText
-                        && SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE)
+                        && (SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE) || SqlProcessContext
+                                .isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL))
                         && itemResult.getSql().toString().trim().toLowerCase()
                                 .endsWith(SqlProcessContext.getFeature(SqlFeature.LIKE_STRING))) {
                     like = true;

@@ -112,6 +112,10 @@ class SqlInputValue {
      */
     private int minLikeLength;
     /**
+     * a wildcard character is going to be only a postfix
+     */
+    private boolean partialLike;
+    /**
      * The input value META type.
      */
     private SqlType type;
@@ -280,10 +284,13 @@ class SqlInputValue {
      *            a wildcard character
      * @param minLikeLength
      *            the minimum length of inputValue to enable likeChar special treatment
+     * @param partialLike
+     *            a wildcard character is going to be only a postfix
      */
-    void setLike(String likeChar, Integer minLikeLength) {
+    void setLike(String likeChar, Integer minLikeLength, boolean partialLike) {
         this.likeChar = likeChar;
         this.minLikeLength = (minLikeLength == null) ? 1 : minLikeLength.intValue();
+        this.partialLike = partialLike;
     }
 
     /**
@@ -295,28 +302,44 @@ class SqlInputValue {
      */
     private String processLike(Object val) {
         String param = (String) val;
-        if (likeChar != null && param != null) {
-            param = param.trim();
-            int length = param.length();
-            boolean startsWith = param.startsWith(this.likeChar);
-            boolean endsWith = param.endsWith(this.likeChar);
-            if (startsWith && endsWith)
-                return param;
-            else if (startsWith) {
-                if (length >= minLikeLength + 1)
-                    return param + likeChar;
-                else
+        if (partialLike) {
+            if (likeChar != null && param != null) {
+                param = param.trim();
+                int length = param.length();
+                boolean endsWith = param.endsWith(this.likeChar);
+                if (endsWith)
                     return param;
-            } else if (endsWith) {
-                if (length >= minLikeLength + 1)
-                    return likeChar + param;
-                else
+                else {
+                    if (length >= minLikeLength)
+                        return param + likeChar;
+                    else
+                        return param;
+                }
+            }
+        } else {
+            if (likeChar != null && param != null) {
+                param = param.trim();
+                int length = param.length();
+                boolean startsWith = param.startsWith(this.likeChar);
+                boolean endsWith = param.endsWith(this.likeChar);
+                if (startsWith && endsWith)
                     return param;
-            } else {
-                if (length >= minLikeLength)
-                    return likeChar + param + likeChar;
-                else
-                    return param;
+                else if (startsWith) {
+                    if (length >= minLikeLength + 1)
+                        return param + likeChar;
+                    else
+                        return param;
+                } else if (endsWith) {
+                    if (length >= minLikeLength + 1)
+                        return likeChar + param;
+                    else
+                        return param;
+                } else {
+                    if (length >= minLikeLength)
+                        return likeChar + param + likeChar;
+                    else
+                        return param;
+                }
             }
         }
         return param;
