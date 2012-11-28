@@ -582,6 +582,7 @@ public class SqlProcessor {
         for (String filter : activeFilters) {
             if (filter.indexOf('=') >= 0)
                 continue;
+            filteredActiveFilters.add(filter);
         }
         return filteredActiveFilters;
 
