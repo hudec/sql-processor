@@ -34,8 +34,8 @@ identx INSERT_SUBSCRIBER Subscriber;
 identx INSERT_CREDIT_CARD CreditCard;
 identx INSERT_BANK_ACCOUNT BankAccount;
 identx ALL_SUBSCRIBERS_BILLING_DETAILS Subscriber;
-identx SIMPLE_FUNCION FormSimpleFunction;
-identx SIMPLE_FUNCION_TO_IN_FORM FormSimpleFunction;
+identx SIMPLE_FUNCTION FormSimpleFunction;
+identx SIMPLE_FUNCTION_TO_IN_FORM FormSimpleFunction;
 identx INSERT_PERSON_CALL Person;
 
 colx ALL_PEOPLE Person;

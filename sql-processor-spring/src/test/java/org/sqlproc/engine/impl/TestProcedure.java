@@ -24,7 +24,7 @@ public class TestProcedure extends TestDatabase {
         if ("hsqldb".equalsIgnoreCase(dbType) || "informix".equalsIgnoreCase(dbType) || "db2".equalsIgnoreCase(dbType))
             return;
 
-        SqlProcedureEngine callableEngine = getProcedureEngine("SIMPLE_FUNCION_TO_IN_FORM");
+        SqlProcedureEngine callableEngine = getProcedureEngine("SIMPLE_FUNCTION_TO_IN_FORM");
 
         FormSimpleFunction f = new FormSimpleFunction();
         f.setTime(new java.sql.Timestamp(new Date().getTime()));
@@ -44,7 +44,7 @@ public class TestProcedure extends TestDatabase {
             return;
         }
 
-        SqlProcedureEngine callableEngine = getProcedureEngine("SIMPLE_FUNCION");
+        SqlProcedureEngine callableEngine = getProcedureEngine("SIMPLE_FUNCTION");
 
         FormSimpleFunction f = new FormSimpleFunction();
         f.setTime(new java.sql.Timestamp(new Date().getTime()));
@@ -58,7 +58,7 @@ public class TestProcedure extends TestDatabase {
     }
 
     private void simpleFunctionDB2() {
-        SqlQueryEngine queryEngine = getQueryEngine("SIMPLE_FUNCION_QRY");
+        SqlQueryEngine queryEngine = getQueryEngine("SIMPLE_FUNCTION_QRY");
 
         FormSimpleFunction f = new FormSimpleFunction();
         f.setTime(new java.sql.Timestamp(new Date().getTime()));

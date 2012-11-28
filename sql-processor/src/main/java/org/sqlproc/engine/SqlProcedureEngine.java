@@ -35,10 +35,10 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * statement and mapping rule should be used
  * 
  * <pre>
- * SIMPLE_FUNCION(CALL)=
+ * SIMPLE_FUNCTION(CALL)=
  *   call an_hour_before(:time)
  * ;
- * SIMPLE_FUNCION(OUT)=
+ * SIMPLE_FUNCTION(OUT)=
  *   1$stamp
  * ;
  * </pre>
@@ -73,7 +73,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * To invoke them the next META SQL statement without any mapping rule should be used, as there's no output result set
  * 
  * <pre>
- * SIMPLE_FUNCION(CALL)=
+ * SIMPLE_FUNCTION(CALL)=
  *   :&lt;1^stamp = call an_hour_before(:time)
  * ;
  * </pre>
@@ -88,12 +88,12 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * <pre>
  * JdbcEngineFactory sqlFactory = new JdbcEngineFactory();
  * sqlFactory.setMetaFilesNames(&quot;statements.qry&quot;); // the meta statements file
- * SqlProcedureEngine sqlEngine = sqlFactory.getProcedureEngine(&quot;SIMPLE_FUNCION&quot;);
+ * SqlProcedureEngine sqlEngine = sqlFactory.getProcedureEngine(&quot;SIMPLE_FUNCTION&quot;);
  * Connection connection = DriverManager.getConnection(&quot;jdbc:hsqldb:mem:sqlproc&quot;, &quot;sa&quot;, &quot;&quot;);
  * SqlSession session = new JdbcSimpleSession(connection);
  * </pre>
  * 
- * there's created an instance of SqlProcessorEngine with the name <code>SIMPLE_FUNCION</code>.
+ * there's created an instance of SqlProcessorEngine with the name <code>SIMPLE_FUNCTION</code>.
  * 
  * <p>
  * Let's have an input form
@@ -119,7 +119,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * statement
  * 
  * <pre>
- * SIMPLE_FUNCION(CALL)=
+ * SIMPLE_FUNCTION(CALL)=
  *   :&lt;time2 = call an_hour_before(:time)
  * ;
  * </pre>

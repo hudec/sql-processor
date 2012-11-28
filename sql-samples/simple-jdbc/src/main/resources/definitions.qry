@@ -42,8 +42,8 @@ ident INSERT_SUBSCRIBER subscriber;
 ident INSERT_CREDIT_CARD creditCard;
 ident INSERT_BANK_ACCOUNT bankAccount;
 ident ALL_SUBSCRIBERS_BILLING_DETAILS subscriber;
-ident SIMPLE_FUNCION formSimpleFunction;
-ident SIMPLE_FUNCION_TO_IN_FORM formSimpleFunction;
+ident SIMPLE_FUNCTION formSimpleFunction;
+ident SIMPLE_FUNCTION_TO_IN_FORM formSimpleFunction;
 ident INSERT_PERSON_CALL person;
 
 col ALL_PEOPLE person;

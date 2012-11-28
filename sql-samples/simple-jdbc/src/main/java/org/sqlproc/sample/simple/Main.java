@@ -262,7 +262,7 @@ public class Main {
     public java.sql.Timestamp callSimpleFunction(java.sql.Timestamp stamp) {
         FormSimpleFunction f = new FormSimpleFunction();
         f.setTime(stamp);
-        SqlProcedureEngine callableEngine = sqlFactory.getProcedureEngine("SIMPLE_FUNCION");
+        SqlProcedureEngine callableEngine = sqlFactory.getProcedureEngine("SIMPLE_FUNCTION");
         Object result = callableEngine.callFunction(session, f);
         logger.info("callSimpleFunction result: " + result);
         return (java.sql.Timestamp) result;
@@ -271,7 +271,7 @@ public class Main {
     // public java.sql.Timestamp callSimpleFunctionToInputForm(java.sql.Timestamp stamp) {
     // FormSimpleFunction f = new FormSimpleFunction();
     // f.setTime(stamp);
-    // SqlProcedureEngine callableEngine = sqlFactory.getProcedureEngine("SIMPLE_FUNCION_TO_IN_FORM");
+    // SqlProcedureEngine callableEngine = sqlFactory.getProcedureEngine("SIMPLE_FUNCTION_TO_IN_FORM");
     // callableEngine.callFunction(session, f);
     // logger.info("callSimpleFunctionToInputForm result: " + f.getTime2());
     // return f.getTime2();

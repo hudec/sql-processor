@@ -162,13 +162,13 @@ ALL_SUBSCRIBERS_BILLING_DETAILS(QRY)=
   {#1 order by %s.ID, %bd.ID}
 ;
   
-SIMPLE_FUNCION(CALL)=
+SIMPLE_FUNCTION(CALL)=
   call an_hour_before(:time)
 ;
-SIMPLE_FUNCION(OUT)=1$stamp
+SIMPLE_FUNCTION(OUT)=1$stamp
 ;
 
-SIMPLE_FUNCION_TO_IN_FORM(CALL)=
+SIMPLE_FUNCTION_TO_IN_FORM(CALL)=
   :<time2 = call an_hour_before(:time)
 ;
 
