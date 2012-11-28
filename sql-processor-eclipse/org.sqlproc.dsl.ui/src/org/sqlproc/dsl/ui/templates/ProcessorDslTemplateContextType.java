@@ -1,5 +1,7 @@
 package org.sqlproc.dsl.ui.templates;
 
+import static org.sqlproc.dsl.util.Constants.TABLE_USAGE;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -84,8 +86,18 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
     protected TableDefinition getTableDefinition(MetaStatement statement) {
         if (statement == null)
             return null;
-        TableUsage usage = null;
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
+
+        TableDefinition tableDefinition = null;
+        List<String> vals = Utils.getTokensFromFilter(statement, TABLE_USAGE);
+        for (String val : vals) {
+            tableDefinition = Utils.findTable(null, artifacts,
+                    scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES), val);
+            if (tableDefinition != null)
+                return tableDefinition;
+        }
+
+        TableUsage usage = null;
         IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
         Iterable<IEObjectDescription> iterable = scope.getAllElements();
         for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
@@ -105,7 +117,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
                 IEObjectDescription description = iter.next();
                 if (ProcessorDslPackage.Literals.TABLE_DEFINITION.getName().equals(description.getEClass().getName())) {
-                    TableDefinition tableDefinition = (TableDefinition) artifacts.eResource().getResourceSet()
+                    tableDefinition = (TableDefinition) artifacts.eResource().getResourceSet()
                             .getEObject(description.getEObjectURI(), true);
                     if (usage.getTable().getName().equals(tableDefinition.getName())) {
                         return tableDefinition;
@@ -309,7 +321,6 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
 
         @Override
         protected String resolve(TemplateContext context) {
-            // System.out.println("SSSSSS " + context);
             TableDefinition tableDefinition = getTableDefinition(getMetaStatement((XtextTemplateContext) context));
             if (tableDefinition != null && dbResolver.isResolveDb(tableDefinition)) {
                 return "%%" + tableDefinition.getTable();
