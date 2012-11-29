@@ -93,10 +93,39 @@ public abstract class SqlEngine {
         this.name = name;
         this.statement = statement;
         this.mapping = mapping;
-        this.features = (features != null) ? features : new HashMap<String, Object>();
+        if (features != null) {
+            this.features.putAll(features);
+        }
         this.monitor = (monitor != null) ? monitor : new SqlEmptyMonitor();
         this.typeFactory = typeFactory;
         this.pluginFactory = (pluginFactory != null) ? pluginFactory : SimpleSqlPluginFactory.getInstance();
     }
 
+    /**
+     * Sets the optional feature in the runtime.
+     * 
+     * @param name
+     *            the name of the optional feature
+     * @param value
+     *            the value of the optional feature
+     */
+    public void setFeature(String name, Object value) {
+        features.put(name, value);
+        if (SqlFeature.SURROUND_QUERY_LIKE_FULL.equals(name) || SqlFeature.SURROUND_QUERY_LIKE.equals(name)) {
+            unsetFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL);
+        } else if (SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.equals(name)) {
+            unsetFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL);
+            unsetFeature(SqlFeature.SURROUND_QUERY_LIKE);
+        }
+    }
+
+    /**
+     * Clears the optional feature in the runtime.
+     * 
+     * @param name
+     *            the name of the optional feature
+     */
+    public void unsetFeature(String name) {
+        features.remove(name);
+    }
 }

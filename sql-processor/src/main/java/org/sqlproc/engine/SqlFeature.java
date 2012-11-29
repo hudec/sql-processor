@@ -115,7 +115,16 @@ public interface SqlFeature {
      * length greater or equal to <code>SET_SURROUND_QUERY_MIN_LEN</code>. The default value related to this key is
      * <code>false</code>.
      */
+    @Deprecated
     public static final String SURROUND_QUERY_LIKE = "SURROUND_QUERY_LIKE";
+    /**
+     * <code>SET_SURROUND_QUERY_LIKE</code> is the key for the special SQL Processor behavior. In the case the value of
+     * this property is <code>true</code>, the SQL Processor sets the wildcard character as a prefix and postfix for all
+     * string values related to the SQL command <code>like</code>. These string values should have to have the minimal
+     * length greater or equal to <code>SET_SURROUND_QUERY_MIN_LEN</code>. The default value related to this key is
+     * <code>false</code>.
+     */
+    public static final String SURROUND_QUERY_LIKE_FULL = "SURROUND_QUERY_LIKE_FULL";
     /**
      * <code>SET_SURROUND_QUERY_LIKE_PARTIAL</code> is the key for the special SQL Processor behavior. In the case the
      * value of this property is <code>true</code>, the SQL Processor sets the wildcard character as a postfix for all

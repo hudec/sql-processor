@@ -58,7 +58,7 @@ public class Main {
         JdbcEngineFactory factory = new JdbcEngineFactory();
         factory.setMetaFilesNames("statements.qry");
         factory.addCustomType(new PhoneNumberType());
-        sqlFactory = factory;
+        this.sqlFactory = factory;
 
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
 
@@ -101,8 +101,9 @@ public class Main {
         return list;
     }
 
-    public List<Person> listLike(Person person) {
-        SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("LIKE_PEOPLE");
+    public List<Person> listLike(Person person, boolean partialLike) {
+        SqlQueryEngine sqlEngine = partialLike ? sqlFactory.getQueryEngine("LIKE_PEOPLE") : sqlFactory
+                .getQueryEngine("LIKE_PEOPLE_FULL");
         List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(2));
         logger.info("listSome size: " + list.size());
         return list;
@@ -330,8 +331,15 @@ public class Main {
 
         person = new Person();
         person.setName("Jan");
-        list = main.listLike(person);
+        list = main.listLike(person, true);
         Assert.assertEquals(2, list.size());
+        list = main.listLike(person, false);
+        Assert.assertEquals(2, list.size());
+        person.setName("an");
+        list = main.listLike(person, true);
+        Assert.assertEquals(1, list.size());
+        list = main.listLike(person, false);
+        Assert.assertEquals(3, list.size());
 
         // left join
         person = new Person();

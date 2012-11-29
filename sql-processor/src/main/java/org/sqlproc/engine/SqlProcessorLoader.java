@@ -135,6 +135,10 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * The collection of the SQL Processor optional features.
      */
     private Map<String, Object> features;
+    /**
+     * The collection of the SQL Processor optional features in the statement context.
+     */
+    private Map<String, Map<String, Object>> statementsFeatures;
 
     /**
      * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
@@ -310,6 +314,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             calls = processor.getMetaStatements(SqlProcessor.StatementType.CALL);
             outs = processor.getMappingRules(SqlProcessor.MappingType.OUT);
             features = processor.getFeatures();
+            statementsFeatures = processor.getStatementsFeatures();
 
             for (String name : outs.keySet()) {
                 if (!sqls.containsKey(name) && !calls.containsKey(name) && !cruds.containsKey(name))
@@ -334,6 +339,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                 if (stmt != null) {
                     engines.put(name, new SqlQueryEngine(name, stmt, mapping, monitor, features,
                             this.composedTypeFactory, this.pluginFactory));
+                    loadStatementFeatures(name);
                 }
             }
 
@@ -347,6 +353,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                 if (stmt != null) {
                     engines.put(name, new SqlCrudEngine(name, stmt, mapping, monitor, features,
                             this.composedTypeFactory, this.pluginFactory));
+                    loadStatementFeatures(name);
                 }
             }
 
@@ -362,6 +369,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                 if (stmt != null) {
                     engines.put(name, new SqlProcedureEngine(name, stmt, mapping, monitor, features,
                             this.composedTypeFactory, this.pluginFactory));
+                    loadStatementFeatures(name);
                 }
             }
 
@@ -372,6 +380,22 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                 logger.debug("<< SqlProcessorLoader, engines=" + engines + ", sqls=" + sqls + ", cruds=" + cruds
                         + ", fields=" + outs + ", features=" + features);
             }
+        }
+    }
+
+    /**
+     * Some filters can be the optional features in the statement context.
+     * 
+     * @param name
+     *            the name of the META SQL statement
+     */
+    private void loadStatementFeatures(String name) {
+        SqlEngine sqlEngine = engines.get(name);
+        Map<String, Object> statementFeatures = statementsFeatures.get(name);
+        if (statementFeatures == null)
+            return;
+        for (Map.Entry<String, Object> entry : statementFeatures.entrySet()) {
+            sqlEngine.setFeature(entry.getKey(), entry.getValue());
         }
     }
 

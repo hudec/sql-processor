@@ -28,6 +28,17 @@ LIKE_PEOPLE(QRY,identx=Person,colx=Person,dbcol=person)=
   {#2 order by %NAME}
 ;
 
+LIKE_PEOPLE_FULL(QRY,BOPT=SURROUND_QUERY_LIKE_FULL=true,identx=Person,colx=Person,dbcol=person)=
+  select %ID @id, %NAME @name
+  from %%PERSON
+  {= where
+   {& %ID = :id}
+   {& UPPER(%NAME) like :+name}
+  }
+  {#1 order by %ID}
+  {#2 order by %NAME}
+;
+
 INSERT_PERSON(CRUD,identx=Person,dbcol=person)=
   insert into %%PERSON (%ID, %NAME)
   {= values (:id^long^seq=SEQ1, :name) }

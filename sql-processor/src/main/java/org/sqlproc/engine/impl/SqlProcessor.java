@@ -1,6 +1,7 @@
 package org.sqlproc.engine.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -103,6 +104,10 @@ public class SqlProcessor {
      */
     private Map<String, Object> features;
     /**
+     * The collection of the SQL Processor optional features in the statement context.
+     */
+    private Map<String, Map<String, Object>> statementsFeatures;
+    /**
      * The collection of the SQL Processor default optional features.
      */
     private Map<String, Object> defaultFeatures;
@@ -187,6 +192,7 @@ public class SqlProcessor {
         this.defaultFeatures = defaultFeatures;
         features = new LinkedHashMap<String, Object>();
         features.putAll(defaultFeatures);
+        statementsFeatures = new HashMap<String, Map<String, Object>>();
         if (onlyStatements != null && !onlyStatements.isEmpty())
             this.onlyStatements = onlyStatements;
         allArtifactsNames = new HashSet<String>();
@@ -261,11 +267,13 @@ public class SqlProcessor {
                 return false;
             } else {
                 statements.put(name, statement);
+                loadStatementFeatures(name, activeFilters);
                 return true;
             }
         } else {
             duplicityControl(type, name, filteredActiveFilters);
             statements.put(name, statement);
+            loadStatementFeatures(name, activeFilters);
             return true;
         }
     }
@@ -356,6 +364,15 @@ public class SqlProcessor {
     }
 
     /**
+     * Returns the collection of the SQL Processor optional features in the statement context.
+     * 
+     * @return the collection of the SQL Processor optional features in the statement context
+     */
+    public Map<String, Map<String, Object>> getStatementsFeatures() {
+        return statementsFeatures;
+    }
+
+    /**
      * Builds the correct class instance for the optional feature
      * 
      * @param type
@@ -374,8 +391,10 @@ public class SqlProcessor {
             return Short.parseShort(feature);
         } else if (ftype == FeatureType.BOPT) {
             return Boolean.parseBoolean(feature);
+        } else if (ftype == FeatureType.OPT) {
+            return feature;
         }
-        return feature;
+        return null;
     }
 
     /**
@@ -585,6 +604,39 @@ public class SqlProcessor {
             filteredActiveFilters.add(filter);
         }
         return filteredActiveFilters;
+    }
 
+    /**
+     * Some filters can be the optional features in the statement context.
+     * 
+     * @param name
+     *            the name of the META SQL statement
+     * @param activeFilters
+     *            the active filters from the META SQL statement definition
+     */
+    private void loadStatementFeatures(String name, List<String> activeFilters) {
+        if (activeFilters == null)
+            return;
+        for (String filter : activeFilters) {
+            int ix = filter.indexOf('=');
+            if (ix <= 0)
+                continue;
+            String type = filter.substring(0, ix);
+            if (!type.equals(FeatureType.OPT.name()) && !type.equals(FeatureType.IOPT.name())
+                    && !type.equals(FeatureType.LOPT.name()) && !type.equals(FeatureType.BOPT.name())
+                    && !type.equals(FeatureType.SOPT.name()))
+                continue;
+            filter = filter.substring(ix + 1);
+            int ix2 = filter.indexOf('=');
+            if (ix2 <= 0)
+                continue;
+            String featureName = filter.substring(0, ix2);
+            Object value = getFeature(type, filter.substring(ix2 + 1));
+            if (value != null) {
+                if (!getStatementsFeatures().containsKey(name))
+                    getStatementsFeatures().put(name, new HashMap<String, Object>());
+                getStatementsFeatures().get(name).put(featureName, value);
+            }
+        }
     }
 }
