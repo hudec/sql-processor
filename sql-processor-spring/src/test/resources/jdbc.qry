@@ -635,7 +635,38 @@ LIKE_BASIC_2(QRY)=
   {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
   {#1 order by id}
 ;
- 
+
+LIKE_BASIC_PARTIAL(QRY,BOPT=SURROUND_QUERY_LIKE_PARTIAL=true)=
+  select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  where 1=1
+  {& p.id = :id}
+  {& UPPER(p.NAME_FIRST) like :+name.first}
+  {? :name.last | and UPPER(p.NAME_LAST) like :+name.last}
+  {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
+  {#1 order by id}
+;
+LIKE_BASIC_PARTIAL(OUT)=
+  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
+  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
+  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
+  version$Long$version
+;
+
+LIKE_BASIC_2_PARTIAL(QRY,BOPT=SURROUND_QUERY_LIKE_PARTIAL=true)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
+  from PERSON p
+  where 1=1
+  {& p.id = :id}
+  {& UPPER(p.NAME_FIRST) like :+name.first}
+  {? :name.last | and UPPER(p.NAME_LAST) like :+name.last}
+  {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
+  {#1 order by id}
+;
+
  
 ORDER(QRY)=
   select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,

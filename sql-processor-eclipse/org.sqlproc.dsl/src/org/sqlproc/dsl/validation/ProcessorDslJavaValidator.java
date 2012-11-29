@@ -13,6 +13,7 @@ import static org.sqlproc.dsl.util.Constants.TABLE_USAGE;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -318,20 +319,8 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             return false;
         if (statement2 == null || statement2.getName() == null)
             return false;
-        if (statement1.getName().equals(statement2.getName()) && statement1.getType() == statement2.getType()) {
-            if (statement1.getFilters() == null && statement2.getFilters() == null)
-                return true;
-            if (statement1.getFilters() == null)
-                return false;
-            if (statement2.getFilters() == null)
-                return false;
-            if (statement1.getFilters().isEmpty() && statement2.getFilters().isEmpty())
-                return true;
-            // Filtry musi byt disjunktni, pro jednu shodu je vysledek komparace kladny
-            for (String filter1 : statement1.getFilters())
-                for (String filter2 : statement2.getFilters())
-                    if (filter1.equals(filter2))
-                        return true;
+        if (statement1.getName().equals(statement2.getName()) && statement1.getType().equals(statement2.getType())) {
+            return equalsFilters(statement1.getFilters(), statement2.getFilters());
         }
         return false;
     }
@@ -343,20 +332,8 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             return false;
         if (rule2 == null || rule2.getName() == null)
             return false;
-        if (rule1.getName().equals(rule2.getName()) && rule1.getType() == rule2.getType()) {
-            if (rule1.getFilters() == null && rule2.getFilters() == null)
-                return true;
-            if (rule1.getFilters() == null)
-                return false;
-            if (rule2.getFilters() == null)
-                return false;
-            if (rule1.getFilters().isEmpty() && rule2.getFilters().isEmpty())
-                return true;
-            // Filtry musi byt disjunktni, pro jednu shodu je vysledek komparace kladny
-            for (String filter1 : rule1.getFilters())
-                for (String filter2 : rule2.getFilters())
-                    if (filter1.equals(filter2))
-                        return true;
+        if (rule1.getName().equals(rule2.getName()) && rule1.getType().equals(rule2.getType())) {
+            return equalsFilters(rule1.getFilters(), rule2.getFilters());
         }
         return false;
     }
@@ -368,22 +345,40 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             return false;
         if (feature2 == null || feature2.getName() == null)
             return false;
-        if (feature1.getName().equals(feature2.getName()) && feature1.getType() == feature2.getType()) {
-            if (feature1.getFilters() == null && feature2.getFilters() == null)
-                return true;
-            if (feature1.getFilters() == null)
-                return false;
-            if (feature2.getFilters() == null)
-                return false;
-            if (feature1.getFilters().isEmpty() && feature2.getFilters().isEmpty())
-                return true;
-            // Filtry musi byt disjunktni, pro jednu shodu je vysledek komparace kladny
-            for (String filter1 : feature1.getFilters())
-                for (String filter2 : feature2.getFilters())
-                    if (filter1.equals(filter2))
-                        return true;
+        if (feature1.getName().equals(feature2.getName()) && feature1.getType().equals(feature2.getType())) {
+            return equalsFilters(feature1.getFilters(), feature2.getFilters());
         }
         return false;
+    }
+
+    protected boolean equalsFilters(List<String> filters1, List<String> filters2) {
+        List<String> filteredFilters1 = filteredFilters(filters1);
+        List<String> filteredFilters2 = filteredFilters(filters2);
+        if (filteredFilters1 == null && filteredFilters2 == null)
+            return true;
+        if (filteredFilters1 == null)
+            return false;
+        if (filteredFilters2 == null)
+            return false;
+        if (filteredFilters1.isEmpty() && filteredFilters2.isEmpty())
+            return true;
+        // Filtry musi byt disjunktni, pro jednu shodu je vysledek komparace kladny
+        for (String filter1 : filteredFilters1)
+            for (String filter2 : filteredFilters2)
+                if (filter1.equals(filter2))
+                    return true;
+        return false;
+    }
+
+    protected List<String> filteredFilters(List<String> filters) {
+        if (filters == null)
+            return null;
+        List<String> filteredFilters = new ArrayList<String>();
+        for (String filter : filters) {
+            if (filter.indexOf('=') < 0)
+                filteredFilters.add(filter);
+        }
+        return filteredFilters;
     }
 
     protected boolean checkClass(String className) {
