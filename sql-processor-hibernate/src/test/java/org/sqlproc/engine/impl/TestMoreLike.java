@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.junit.Test;
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.form.PersonForm;
 import org.sqlproc.engine.form.PersonNameForm;
@@ -54,6 +55,14 @@ public class TestMoreLike extends TestDatabase {
         assertNotNull(p.getName());
         assertEquals("Pierce", p.getName().getFirst());
         assertEquals("Brosnan", p.getName().getLast());
+
+        sqlEngine.unsetFeature(SqlFeature.SURROUND_QUERY_LIKE);
+        list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+        assertEquals(0, list.size());
+
+        sqlEngine.setFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL, Boolean.TRUE);
+        list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+        assertEquals(1, list.size());
     }
 
     @Test
@@ -92,6 +101,14 @@ public class TestMoreLike extends TestDatabase {
         assertNotNull(p.getName());
         assertEquals("Pierce", p.getName().getFirst());
         assertEquals("Brosnan", p.getName().getLast());
+
+        sqlEngine.unsetFeature(SqlFeature.SURROUND_QUERY_LIKE);
+        list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+        assertEquals(0, list.size());
+
+        sqlEngine.setFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL, Boolean.TRUE);
+        list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+        assertEquals(1, list.size());
     }
 
     @Test

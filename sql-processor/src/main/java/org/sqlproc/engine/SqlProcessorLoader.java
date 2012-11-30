@@ -139,6 +139,10 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * The collection of the SQL Processor optional features in the statement context.
      */
     private Map<String, Map<String, Object>> statementsFeatures;
+    /**
+     * The collection of the SQL Processor optional features to be cleared in the statement context.
+     */
+    private Map<String, Set<String>> statementsFeaturesUnset;
 
     /**
      * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
@@ -315,6 +319,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             outs = processor.getMappingRules(SqlProcessor.MappingType.OUT);
             features = processor.getFeatures();
             statementsFeatures = processor.getStatementsFeatures();
+            statementsFeaturesUnset = processor.getStatementsFeaturesUnset();
 
             for (String name : outs.keySet()) {
                 if (!sqls.containsKey(name) && !calls.containsKey(name) && !cruds.containsKey(name))
@@ -392,10 +397,16 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     private void loadStatementFeatures(String name) {
         SqlEngine sqlEngine = engines.get(name);
         Map<String, Object> statementFeatures = statementsFeatures.get(name);
-        if (statementFeatures == null)
-            return;
-        for (Map.Entry<String, Object> entry : statementFeatures.entrySet()) {
-            sqlEngine.setFeature(entry.getKey(), entry.getValue());
+        if (statementFeatures != null) {
+            for (Map.Entry<String, Object> entry : statementFeatures.entrySet()) {
+                sqlEngine.setFeature(entry.getKey(), entry.getValue());
+            }
+        }
+        Set<String> statementFeaturesUnset = statementsFeaturesUnset.get(name);
+        if (statementFeaturesUnset != null) {
+            for (String feature : statementFeaturesUnset) {
+                sqlEngine.unsetFeature(feature);
+            }
         }
     }
 

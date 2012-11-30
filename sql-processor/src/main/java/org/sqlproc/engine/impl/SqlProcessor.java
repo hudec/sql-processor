@@ -108,6 +108,10 @@ public class SqlProcessor {
      */
     private Map<String, Map<String, Object>> statementsFeatures;
     /**
+     * The collection of the SQL Processor optional features to be cleared in the statement context.
+     */
+    private Map<String, Set<String>> statementsFeaturesUnset;
+    /**
      * The collection of the SQL Processor default optional features.
      */
     private Map<String, Object> defaultFeatures;
@@ -193,6 +197,7 @@ public class SqlProcessor {
         features = new LinkedHashMap<String, Object>();
         features.putAll(defaultFeatures);
         statementsFeatures = new HashMap<String, Map<String, Object>>();
+        statementsFeaturesUnset = new HashMap<String, Set<String>>();
         if (onlyStatements != null && !onlyStatements.isEmpty())
             this.onlyStatements = onlyStatements;
         allArtifactsNames = new HashSet<String>();
@@ -370,6 +375,15 @@ public class SqlProcessor {
      */
     public Map<String, Map<String, Object>> getStatementsFeatures() {
         return statementsFeatures;
+    }
+
+    /**
+     * Returns the collection of the SQL Processor optional features to be cleared in the statement context.
+     * 
+     * @return the collection of the SQL Processor optional features to be cleared in the statement context
+     */
+    public Map<String, Set<String>> getStatementsFeaturesUnset() {
+        return statementsFeaturesUnset;
     }
 
     /**
@@ -628,8 +642,12 @@ public class SqlProcessor {
                 continue;
             filter = filter.substring(ix + 1);
             int ix2 = filter.indexOf('=');
-            if (ix2 <= 0)
+            if (ix2 <= 0) {
+                if (!getStatementsFeaturesUnset().containsKey(name))
+                    getStatementsFeaturesUnset().put(name, new HashSet<String>());
+                getStatementsFeaturesUnset().get(name).add(filter);
                 continue;
+            }
             String featureName = filter.substring(0, ix2);
             Object value = getFeature(type, filter.substring(ix2 + 1));
             if (value != null) {
