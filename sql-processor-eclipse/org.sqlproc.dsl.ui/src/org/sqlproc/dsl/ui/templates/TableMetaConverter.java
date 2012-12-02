@@ -2,6 +2,7 @@ package org.sqlproc.dsl.ui.templates;
 
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
@@ -10,6 +11,7 @@ import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.property.ModelProperty;
+import org.sqlproc.dsl.property.PojoAttribute;
 
 public class TableMetaConverter extends TablePojoConverter {
 
@@ -33,23 +35,91 @@ public class TableMetaConverter extends TablePojoConverter {
                 continue;
             if (ignoreTables.contains(pojo))
                 continue;
-            String tableName = tableNames.get(pojo);
-            if (tableName == null)
-                tableName = pojo;
-            buffer.append("\n");
-            buffer.append("SELECT_").append(tableName).append("(QRY,");
-            buffer.append("identx=").append(tableToCamelCase(tableName));
-            buffer.append(",colx=").append(tableToCamelCase(tableName));
-            buffer.append(",dbcol=");
-            TableDefinition tableDefinition = getTableDefinition(tableName);
-            if (tableDefinition != null)
-                buffer.append(tableDefinition.getName());
-            else
-                buffer.append(tableName);
-            buffer.append(")=");
-            buffer.append("\n;\n");
+            System.out.println("000 " + pojo);
+            if (pojoAbstracts.contains(pojo))
+                continue;
+            System.out.println("111 " + pojo);
+            buffer.append(getMetaInsertDefinition(pojo));
         }
         return buffer.toString();
+    }
+
+    public StringBuilder getMetaSelectDefinition(String pojo) {
+        StringBuilder buffer = new StringBuilder();
+        String tableName = tableNames.get(pojo);
+        if (tableName == null)
+            tableName = pojo;
+        buffer.append("\n");
+        buffer.append("SELECT_").append(tableName).append("(QRY,");
+        buffer.append("identx=").append(tableToCamelCase(tableName));
+        buffer.append(",colx=").append(tableToCamelCase(tableName));
+        buffer.append(",dbcol=");
+        TableDefinition tableDefinition = getTableDefinition(tableName);
+        if (tableDefinition != null)
+            buffer.append(tableDefinition.getName());
+        else
+            buffer.append(tableName);
+        buffer.append(")=");
+        buffer.append("\n;\n");
+        return buffer;
+    }
+
+    public StringBuilder getMetaInsertDefinition(String pojo) {
+        StringBuilder buffer = new StringBuilder();
+        String tableName = tableNames.get(pojo);
+        if (tableName == null)
+            tableName = pojo;
+        buffer.append("\nINSERT_").append(tableName).append("(CRUD,");
+        buffer.append("identx=").append(tableToCamelCase(tableName));
+        buffer.append(",colx=").append(tableToCamelCase(tableName));
+        buffer.append(",dbcol=");
+        TableDefinition tableDefinition = getTableDefinition(tableName);
+        if (tableDefinition != null)
+            buffer.append(tableDefinition.getName());
+        else
+            buffer.append(tableName);
+        buffer.append(")=");
+        buffer.append("\n  insert into %%").append(tableName);
+        buffer.append("\n    (");
+        boolean first = true;
+        for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
+                continue;
+            PojoAttribute attribute = pentry.getValue();
+            if (attribute.getClassName().startsWith(COLLECTION_LIST))
+                continue;
+            String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : pentry
+                    .getKey();
+            if (!first)
+                buffer.append(", %");
+            else
+                buffer.append("%");
+            buffer.append(name);
+            first = false;
+        }
+        buffer.append(")\n    {= values (");
+        first = true;
+        for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
+                continue;
+            PojoAttribute attribute = pentry.getValue();
+            if (attribute.getClassName().startsWith(COLLECTION_LIST))
+                continue;
+            String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : null;
+            if (name == null)
+                name = attribute.getName();
+            else
+                name = columnToCamelCase(name);
+            if (!first)
+                buffer.append(", :");
+            else
+                buffer.append(":");
+            buffer.append(name);
+            first = false;
+        }
+        buffer.append(") }");
+        buffer.append("\n;\n");
+        return buffer;
     }
 
     protected TableDefinition getTableDefinition(String tableName) {

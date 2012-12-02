@@ -502,7 +502,6 @@ public class TablePojoConverter {
                 if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
                     continue;
                 PojoAttribute attribute = pentry.getValue();
-                // System.out.println("AAA " + pojo + " " + pentry.getKey() + " " + columnNames);
                 String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : null;
                 if (name == null)
                     name = attribute.getName();
@@ -517,7 +516,6 @@ public class TablePojoConverter {
                     strs.add(name);
                 } else {
                     buffer.append(": ").append(attribute.getClassName());
-                    // System.out.println("XXXXXXXXXXXXXXXXXXXX " + attribute.toString() + " " + pentry.getKey());
                     if (!attribute.getClassName().startsWith(COLLECTION_LIST))
                         strs.add(name);
                 }
@@ -648,15 +646,12 @@ public class TablePojoConverter {
         if (sqlType.getRef() != null) {
             attribute.setPrimitive(false);
             attribute.setDependencyClassName(sqlType.getRef().getName());
-            // System.out.println("222 " + table + " " + dbColumn.getName() + " " + attribute.getDependencyClassName());
         } else if (sqlType.getNativeType() != null) {
             attribute.setPrimitive(true);
             attribute.setClassName(sqlType.getNativeType().substring(1) + (sqlType.isArray() ? " []" : ""));
-            // System.out.println("333 " + table + " " + dbColumn.getName() + " " + attribute.getClassName());
         } else {
             attribute.setPrimitive(false);
             attribute.setClassName(sqlType.getType().getIdentifier());
-            // System.out.println("444 " + table + " " + dbColumn.getName() + " " + attribute.getClassName());
         }
         return attribute;
     }
@@ -799,7 +794,6 @@ public class TablePojoConverter {
             else
                 attribute.setClassName("java.lang.Object");
         }
-        // System.out.println("555 " + table + " " + dbColumn.getName() + " " + attribute.getClassName());
         return attribute;
     }
 }
