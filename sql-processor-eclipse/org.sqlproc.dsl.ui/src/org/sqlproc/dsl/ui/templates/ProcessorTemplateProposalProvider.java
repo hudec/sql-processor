@@ -53,7 +53,7 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
             TemplateProposal tp = createProposal1(template, templateContext, context, getImage(template),
                     getRelevance(template));
             acceptor.accept(tp);
-            template = new Template("sel", "CRUD select statement", "selectTemplateID",
+            template = new Template("get", "CRUD get statement", "getTemplateID",
                     "\n  select ${dbSelectColumn}\n  from ${dbTable}\n  {= where${dbCondColumn}\n  }\n", false);// auto-insertable?
             tp = createProposal1(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
@@ -73,11 +73,11 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
                     "\n  delete from ${dbTable}\n  {= where${dbCondColumn}\n  }\n", false);// auto-insertable?
             tp = createProposal1(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
-            // template = new Template("frm", "Form select statement", "uniqueTemplateID",
-            // "\n  select ${dbSelectColumn}\n  from ${dbTable}\n  where 1=1${dbCondColumn}\n", false);//
-            // auto-insertable?
-            // tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
-            // acceptor.accept(tp);
+
+            template = new Template("select", "QRY select statement", "selectTemplateID",
+                    "\n  select ${dbSelectColumn}\n  from ${dbTable}\n  {= where${dbCondColumn}\n  }\n", false);// auto-insertable?
+            tp = createProposal1(template, templateContext, context, getImage(template), getRelevance(template));
+            acceptor.accept(tp);
         }
 
         if (templateContext.getContextType().getId().equals(helper.getId(ga.getOptionalFeatureRule()))) {
@@ -88,6 +88,9 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
                     getRelevance(template));
             acceptor.accept(tp);
             template = new Template("tables", "Table definitions", "uniqueTemplateID", "${tableDefinitions}", false);// auto-insertable?
+            tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
+            acceptor.accept(tp);
+            template = new Template("metagen", "Meta SQL generator", "metagenTemplateID", "${metaGenerator}", false);// auto-insertable?
             tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
         }

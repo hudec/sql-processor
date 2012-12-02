@@ -66,6 +66,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         super.addResolver(new PojoDefinitionsResolver());
         super.addResolver(new TableDefinitionsResolver());
         super.addResolver(new PojoGeneratorResolver());
+        super.addResolver(new MetaGeneratorResolver());
     }
 
     protected Artifacts getArtifacts(XtextTemplateContext xtextTemplateContext) {
@@ -635,6 +636,47 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                     converter.resolveReferencesOnKeys();
                     converter.joinTables();
                     return converter.getPojoDefinitions();
+                }
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class MetaGeneratorResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "metaGenerator";
+
+        public MetaGeneratorResolver() {
+            super(NAME, "MetaGenerator");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
+            PackageDeclaration packagex = getPackage((XtextTemplateContext) context);
+            if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
+
+                List<String> tables = dbResolver.getTables(artifacts);
+                if (tables != null) {
+                    TableMetaConverter converter = new TableMetaConverter(modelProperty, artifacts, scopeProvider);
+                    for (String table : tables) {
+                        if (table.toUpperCase().startsWith("BIN$"))
+                            continue;
+                        List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
+                        List<String> dbPrimaryKeys = dbResolver.getDbPrimaryKeys(artifacts, table);
+                        List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);
+                        List<DbImport> dbImports = dbResolver.getDbImports(artifacts, table);
+                        converter.addTableDefinition(table, dbColumns, dbPrimaryKeys, dbExports, dbImports);
+                    }
+                    // converter.resolveReferencesOnConvention();
+                    converter.resolveReferencesOnKeys();
+                    converter.joinTables();
+                    return converter.getMetaDefinitions();
                 }
             }
             return super.resolve(context);

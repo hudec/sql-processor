@@ -6,6 +6,50 @@ SURROUND_QUERY_MIN_LEN(IOPT)=2;
 SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity();
 
+
+SELECT_BILLING_DETAILS(QRY,identx=BillingDetails,colx=BillingDetails,dbcol=billing_details)=
+;
+
+SELECT_BOOK(QRY,identx=Book,colx=Book,dbcol=book)=
+;
+
+SELECT_CONTACT(QRY,identx=Contact,colx=Contact,dbcol=contact)=
+;
+
+SELECT_LIBRARY(QRY,identx=Library,colx=Library,dbcol=library)=
+;
+
+SELECT_MEDIA(QRY,identx=Media,colx=Media,dbcol=media)=
+;
+
+SELECT_MOVIE(QRY,identx=Movie,colx=Movie,dbcol=movie)=
+;
+
+SELECT_PERSON(QRY,identx=Person,colx=Person,dbcol=person)=
+  select %ID @id, %NAME @name
+  from %%PERSON
+  {= where
+  {& %ID = :id }
+  {& %NAME = :name }
+  }
+;
+
+SELECT_PERSON_LIBRARY(QRY,identx=PersonLibrary,colx=PersonLibrary,dbcol=person_library)=
+;
+
+SELECT_SUBSCRIBER(QRY,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
+  select %ID @id, %LIBRARY @library, %CONTACT @contact, %NAME @name
+  from %%SUBSCRIBER
+  {= where
+  {& %ID = :id }
+  {& %LIBRARY = :library }
+  {& %CONTACT = :contact }
+  {& %NAME = :name }
+  }
+;
+
+
+
 ALL_PEOPLE(QRY,identx=Person,colx=Person,dbcol=person)=
   select %ID @id, %NAME @name
   from %%PERSON

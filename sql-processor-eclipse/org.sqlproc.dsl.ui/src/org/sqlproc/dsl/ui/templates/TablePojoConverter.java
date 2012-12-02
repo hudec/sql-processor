@@ -24,7 +24,7 @@ import org.sqlproc.dsl.resolver.DbImport;
 
 public class TablePojoConverter {
 
-    private enum PrimitiveType {
+    protected enum PrimitiveType {
         BOOLEAN, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, CHAR, BYTE_ARRAY, CHAR_ARRAY;
 
         public String getName() {
@@ -36,42 +36,42 @@ public class TablePojoConverter {
         }
     }
 
-    private static final String METHOD_TO_STRING = "toString";
-    private static final String METHOD_HASH_CODE = "hashCode";
-    private static final String METHOD_EQUALS = "equals";
-    private static final String COLLECTION_LIST = "java.util.List";
+    protected static final String METHOD_TO_STRING = "toString";
+    protected static final String METHOD_HASH_CODE = "hashCode";
+    protected static final String METHOD_EQUALS = "equals";
+    protected static final String COLLECTION_LIST = "java.util.List";
 
-    private String suffix;
-    private Set<String> finalEntities;
-    private Map<String, PojoAttrType> sqlTypes = new HashMap<String, PojoAttrType>();
-    private Map<String, Map<String, PojoAttrType>> tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
-    private Map<String, Map<String, PojoAttrType>> columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
-    private Map<String, String> tableNames = new HashMap<String, String>();
-    private Map<String, Map<String, String>> columnNames = new HashMap<String, Map<String, String>>();
-    private Set<String> ignoreTables = new HashSet<String>();
-    private Set<String> onlyTables = new HashSet<String>();
-    private Map<String, Set<String>> ignoreColumns = new HashMap<String, Set<String>>();
-    private Map<String, Set<String>> requiredColumns = new HashMap<String, Set<String>>();
-    private Map<String, Set<String>> notRequiredColumns = new HashMap<String, Set<String>>();
-    private Map<String, Map<String, PojoAttrType>> createColumns = new HashMap<String, Map<String, PojoAttrType>>();
-    private Map<String, Map<String, Map<String, String>>> ignoreExports = new HashMap<String, Map<String, Map<String, String>>>();
-    private Map<String, Map<String, Map<String, String>>> ignoreImports = new HashMap<String, Map<String, Map<String, String>>>();
-    private Map<String, Map<String, Map<String, String>>> createExports = new HashMap<String, Map<String, Map<String, String>>>();
-    private Map<String, Map<String, Map<String, String>>> createImports = new HashMap<String, Map<String, Map<String, String>>>();
-    private Map<String, Map<String, Map<String, String>>> inheritImports = new HashMap<String, Map<String, Map<String, String>>>();
-    private Map<String, Map<String, Map<String, String>>> manyToManyImports = new HashMap<String, Map<String, Map<String, String>>>();
-    private Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
-    private Map<String, String> inheritanceColumns = new HashMap<String, String>();
-    private Set<String> generateMethods = new HashSet<String>();
-    private Map<String, JvmType> toImplements = new HashMap<String, JvmType>();
-    private JvmType toExtends = null;
-    private Map<String, List<String>> joinTables = new HashMap<String, List<String>>();
-    private boolean doGenerateWrappers;
+    protected String suffix;
+    protected Set<String> finalEntities;
+    protected Map<String, PojoAttrType> sqlTypes = new HashMap<String, PojoAttrType>();
+    protected Map<String, Map<String, PojoAttrType>> tableTypes = new HashMap<String, Map<String, PojoAttrType>>();
+    protected Map<String, Map<String, PojoAttrType>> columnTypes = new HashMap<String, Map<String, PojoAttrType>>();
+    protected Map<String, String> tableNames = new HashMap<String, String>();
+    protected Map<String, Map<String, String>> columnNames = new HashMap<String, Map<String, String>>();
+    protected Set<String> ignoreTables = new HashSet<String>();
+    protected Set<String> onlyTables = new HashSet<String>();
+    protected Map<String, Set<String>> ignoreColumns = new HashMap<String, Set<String>>();
+    protected Map<String, Set<String>> requiredColumns = new HashMap<String, Set<String>>();
+    protected Map<String, Set<String>> notRequiredColumns = new HashMap<String, Set<String>>();
+    protected Map<String, Map<String, PojoAttrType>> createColumns = new HashMap<String, Map<String, PojoAttrType>>();
+    protected Map<String, Map<String, Map<String, String>>> ignoreExports = new HashMap<String, Map<String, Map<String, String>>>();
+    protected Map<String, Map<String, Map<String, String>>> ignoreImports = new HashMap<String, Map<String, Map<String, String>>>();
+    protected Map<String, Map<String, Map<String, String>>> createExports = new HashMap<String, Map<String, Map<String, String>>>();
+    protected Map<String, Map<String, Map<String, String>>> createImports = new HashMap<String, Map<String, Map<String, String>>>();
+    protected Map<String, Map<String, Map<String, String>>> inheritImports = new HashMap<String, Map<String, Map<String, String>>>();
+    protected Map<String, Map<String, Map<String, String>>> manyToManyImports = new HashMap<String, Map<String, Map<String, String>>>();
+    protected Map<String, Map<String, Map<String, List<String>>>> inheritance = new HashMap<String, Map<String, Map<String, List<String>>>>();
+    protected Map<String, String> inheritanceColumns = new HashMap<String, String>();
+    protected Set<String> generateMethods = new HashSet<String>();
+    protected Map<String, JvmType> toImplements = new HashMap<String, JvmType>();
+    protected JvmType toExtends = null;
+    protected Map<String, List<String>> joinTables = new HashMap<String, List<String>>();
+    protected boolean doGenerateWrappers;
 
-    private Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
-    private Map<String, String> pojoExtends = new HashMap<String, String>();
-    private Set<String> pojoAbstracts = new HashSet<String>();
-    private Map<String, String> pojoDiscriminators = new HashMap<String, String>();
+    protected Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
+    protected Map<String, String> pojoExtends = new HashMap<String, String>();
+    protected Set<String> pojoAbstracts = new HashSet<String>();
+    protected Map<String, String> pojoDiscriminators = new HashMap<String, String>();
 
     public TablePojoConverter() {
     }
@@ -417,7 +417,7 @@ public class TablePojoConverter {
         }
     }
 
-    private String lowerFirstChar(String s) {
+    protected String lowerFirstChar(String s) {
         if (s == null)
             return null;
         String ss = s.substring(0, 1).toLowerCase();
@@ -558,7 +558,7 @@ public class TablePojoConverter {
         return buffer.toString();
     }
 
-    private String tableToCamelCase(String value) {
+    protected String tableToCamelCase(String value) {
         if (value == null)
             return null;
         String[] parts = value.split("_");
@@ -579,7 +579,7 @@ public class TablePojoConverter {
         return camelCaseString + suffix;
     }
 
-    private String columnToCamelCase(String value) {
+    protected String columnToCamelCase(String value) {
         if (value == null)
             return null;
         String[] parts = value.split("_");
@@ -596,7 +596,7 @@ public class TablePojoConverter {
         return camelCaseString;
     }
 
-    private String columnToDbConv(String value) {
+    protected String columnToDbConv(String value) {
         if (value == null)
             return null;
         String result = "";
@@ -612,7 +612,7 @@ public class TablePojoConverter {
         return result;
     }
 
-    private PojoAttribute convertDbColumnDefinition(String dbName, PojoAttrType sqlType) {
+    protected PojoAttribute convertDbColumnDefinition(String dbName, PojoAttrType sqlType) {
         PojoAttribute attribute = new PojoAttribute();
         attribute.setName(columnToCamelCase(dbName));
         if (sqlType.getNativeType() != null) {
@@ -631,7 +631,7 @@ public class TablePojoConverter {
         return attribute;
     }
 
-    private PojoAttribute convertDbColumnDefinition(String table, DbColumn dbColumn) {
+    protected PojoAttribute convertDbColumnDefinition(String table, DbColumn dbColumn) {
         if (dbColumn == null)
             return null;
         PojoAttrType sqlType = columnTypes.containsKey(table) ? columnTypes.get(table).get(dbColumn.getName()) : null;
@@ -661,7 +661,7 @@ public class TablePojoConverter {
         return attribute;
     }
 
-    private PojoAttribute convertDbColumnDefault(String table, DbColumn dbColumn) {
+    protected PojoAttribute convertDbColumnDefault(String table, DbColumn dbColumn) {
         if (dbColumn == null)
             return null;
         PojoAttribute attribute = new PojoAttribute();
