@@ -9,14 +9,14 @@ SEL1(OPT)=call identity();
 
 INSERT_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billing_details)=
   insert into %%BILLING_DETAILS
-    (%BA_ACCOUNT)
-    {= values (:baAccount) }
+    (%BA_ACCOUNT, %ID, %SUBSCRIBER, %TYPE)
+    {= values (:baAccount, :id, :subscriber.id, :type) }
 ;
 
 INSERT_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
   insert into %%BOOK
-    (%ISBN)
-    {= values (:isbn) }
+    (%MEDIA_ID, %ISBN)
+    {= values (:id, :isbn) }
 ;
 
 INSERT_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
@@ -27,8 +27,8 @@ INSERT_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
 
 INSERT_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billing_details)=
   insert into %%BILLING_DETAILS
-    (%CC_NUMBER)
-    {= values (:ccNumber) }
+    (%CC_NUMBER, %ID, %SUBSCRIBER, %TYPE)
+    {= values (:ccNumber, :id, :subscriber.id, :type) }
 ;
 
 INSERT_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
@@ -39,8 +39,8 @@ INSERT_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
 
 INSERT_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
   insert into %%MOVIE
-    (%URLIMDB, %PLAYLENGTH)
-    {= values (:urlimdb, :playlength) }
+    (%MEDIA_ID, %URLIMDB, %PLAYLENGTH)
+    {= values (:id, :urlimdb, :playlength) }
 ;
 
 INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=

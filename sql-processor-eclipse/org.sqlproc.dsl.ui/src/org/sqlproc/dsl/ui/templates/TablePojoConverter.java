@@ -477,6 +477,7 @@ public class TablePojoConverter {
             buffer.append("\n");
         }
         for (String pojo : pojos.keySet()) {
+            // System.out.println("QQQQQ " + pojo);
             if (!onlyTables.isEmpty() && !onlyTables.contains(pojo))
                 continue;
             if (ignoreTables.contains(pojo))
@@ -501,6 +502,7 @@ public class TablePojoConverter {
             Set<String> pkeys = new HashSet<String>();
             Set<String> strs = new HashSet<String>();
             for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+                // System.out.println("  RRR " + pentry.getKey());
                 if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
                     continue;
                 PojoAttribute attribute = pentry.getValue();

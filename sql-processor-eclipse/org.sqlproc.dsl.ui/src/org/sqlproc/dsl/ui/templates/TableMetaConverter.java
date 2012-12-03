@@ -35,10 +35,8 @@ public class TableMetaConverter extends TablePojoConverter {
                 continue;
             if (ignoreTables.contains(pojo))
                 continue;
-            System.out.println("000 " + pojo);
             if (pojoAbstracts.contains(pojo))
                 continue;
-            System.out.println("111 " + pojo);
             buffer.append(getMetaInsertDefinition(pojo));
         }
         return buffer.toString();
@@ -84,10 +82,29 @@ public class TableMetaConverter extends TablePojoConverter {
         buffer.append(")=");
         buffer.append("\n  insert into %%").append(realTableName);
         buffer.append("\n    (");
-        boolean first = true;
+        String parentPojo = pojoDiscriminators.containsKey(tableName) ? pojoExtends.get(tableName) : null;
+        boolean first = insertColumns(buffer, pojo, true);
+        if (parentPojo != null)
+            insertColumns(buffer, parentPojo, first);
+        buffer.append(")\n    {= values (");
+        first = insertValues(buffer, pojo, true);
+        if (parentPojo != null)
+            insertValues(buffer, parentPojo, first);
+        buffer.append(") }");
+        buffer.append("\n;\n");
+        return buffer;
+    }
+
+    private boolean insertColumns(StringBuilder buffer, String pojo, boolean first) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
-            if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
-                continue;
+            if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey())) {
+                boolean ignore = true;
+                if (inheritImports.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey())) {
+                    ignore = false;
+                }
+                if (ignore)
+                    continue;
+            }
             PojoAttribute attribute = pentry.getValue();
             if (attribute.getClassName().startsWith(COLLECTION_LIST))
                 continue;
@@ -100,11 +117,21 @@ public class TableMetaConverter extends TablePojoConverter {
             buffer.append(name);
             first = false;
         }
-        buffer.append(")\n    {= values (");
-        first = true;
+        return first;
+    }
+
+    private boolean insertValues(StringBuilder buffer, String pojo, boolean first) {
+        if ("BOOK".equals(pojo))
+            System.out.println("aha");
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
-            if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
-                continue;
+            if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey())) {
+                boolean ignore = true;
+                if (inheritImports.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey())) {
+                    ignore = false;
+                }
+                if (ignore)
+                    continue;
+            }
             PojoAttribute attribute = pentry.getValue();
             if (attribute.getClassName().startsWith(COLLECTION_LIST))
                 continue;
@@ -123,9 +150,7 @@ public class TableMetaConverter extends TablePojoConverter {
             }
             first = false;
         }
-        buffer.append(") }");
-        buffer.append("\n;\n");
-        return buffer;
+        return first;
     }
 
     protected TableDefinition getTableDefinition(String tableName) {
