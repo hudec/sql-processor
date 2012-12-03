@@ -253,9 +253,11 @@ public class TablePojoConverter {
                     && inheritImports.get(table).get(dbImport.getFkColumn()).containsKey(dbImport.getPkTable())) {
                 PojoAttribute attribute = attributes.get(dbImport.getFkColumn());
                 attribute.setParentTable(dbImport.getPkTable());
+                attribute.setPkColumn(dbImport.getPkColumn());
             } else {
                 PojoAttribute attribute = attributes.get(dbImport.getFkColumn());
                 attribute.setPkTable(dbImport.getPkTable());
+                attribute.setPkColumn(dbImport.getPkColumn());
             }
         }
         if (createImports.containsKey(table)) {
@@ -318,7 +320,7 @@ public class TablePojoConverter {
                     allInheritedAttributes.putAll(inheritedAttributes);
                     pojos.put(inheritedTable, inheritedAttributes);
                     pojoDiscriminators.put(inheritedTable, discriminator);
-                    pojoExtends.put(inheritedTable, tableToCamelCase(table));
+                    pojoExtends.put(inheritedTable, table);
                     break;
                 }
             }
@@ -359,7 +361,7 @@ public class TablePojoConverter {
                     }
                 }
                 pojos.put(newTable, newAttributes);
-                pojoExtends.put(newTable, tableToCamelCase(table0));
+                pojoExtends.put(newTable, table0);
                 if (!onlyTables.isEmpty())
                     onlyTables.add(newTable);
                 table0 = newTable;
@@ -385,7 +387,7 @@ public class TablePojoConverter {
                 }
                 if (attribute.getParentTable() != null) {
                     if (pojos.containsKey(attribute.getParentTable())) {
-                        pojoExtends.put(pojo, tableToCamelCase(attribute.getParentTable()));
+                        pojoExtends.put(pojo, attribute.getParentTable());
                         pojoAbstracts.add(attribute.getParentTable());
                     }
                 }
@@ -490,7 +492,7 @@ public class TablePojoConverter {
             buffer.append("pojo ");
             buffer.append(tableToCamelCase(pojoName));
             if (pojoExtends.containsKey(pojo))
-                buffer.append(" extends ").append(pojoExtends.get(pojo));
+                buffer.append(" extends ").append(tableToCamelCase(pojoExtends.get(pojo)));
             if (pojoDiscriminators.containsKey(pojo))
                 buffer.append(" discriminator ").append(pojoDiscriminators.get(pojo));
             if (isSerializable)

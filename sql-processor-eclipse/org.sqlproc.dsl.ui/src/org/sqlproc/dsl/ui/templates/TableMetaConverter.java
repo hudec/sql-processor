@@ -69,17 +69,20 @@ public class TableMetaConverter extends TablePojoConverter {
         String tableName = tableNames.get(pojo);
         if (tableName == null)
             tableName = pojo;
+        String realTableName = tableName;
+        if (pojoDiscriminators.containsKey(tableName))
+            realTableName = pojoExtends.get(tableName);
         buffer.append("\nINSERT_").append(tableName).append("(CRUD,");
         buffer.append("identx=").append(tableToCamelCase(tableName));
         buffer.append(",colx=").append(tableToCamelCase(tableName));
         buffer.append(",dbcol=");
-        TableDefinition tableDefinition = getTableDefinition(tableName);
+        TableDefinition tableDefinition = getTableDefinition(realTableName);
         if (tableDefinition != null)
             buffer.append(tableDefinition.getName());
         else
             buffer.append(tableName);
         buffer.append(")=");
-        buffer.append("\n  insert into %%").append(tableName);
+        buffer.append("\n  insert into %%").append(realTableName);
         buffer.append("\n    (");
         boolean first = true;
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
@@ -115,6 +118,9 @@ public class TableMetaConverter extends TablePojoConverter {
             else
                 buffer.append(":");
             buffer.append(name);
+            if (attribute.getPkTable() != null) {
+                buffer.append(".").append(columnToCamelCase(attribute.getPkColumn()));
+            }
             first = false;
         }
         buffer.append(") }");

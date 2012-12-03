@@ -12,6 +12,7 @@ public class PojoAttribute {
     private String className;
     private String dependencyClassName;
     private String pkTable;
+    private String pkColumn;
     private String parentTable;
     private Map<String, String> fkTables = new HashMap<String, String>();
 
@@ -74,6 +75,14 @@ public class PojoAttribute {
         this.pkTable = pkTable;
     }
 
+    public String getPkColumn() {
+        return pkColumn;
+    }
+
+    public void setPkColumn(String pkColumn) {
+        this.pkColumn = pkColumn;
+    }
+
     public String getParentTable() {
         return parentTable;
     }
@@ -94,6 +103,7 @@ public class PojoAttribute {
     public String toString() {
         return "PojoAttribute [primitive=" + primitive + ", required=" + required + ", primaryKey=" + primaryKey
                 + ", name=" + name + ", className=" + className + ", dependencyClassName=" + dependencyClassName
-                + ", pkTable=" + pkTable + ", parentTable=" + parentTable + ", fkTables=" + fkTables + "]";
+                + ", pkTable=" + pkTable + ", pkColumn=" + pkColumn + ", parentTable=" + parentTable + ", fkTables="
+                + fkTables + "]";
     }
 }
