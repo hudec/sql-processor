@@ -23,6 +23,7 @@ import org.sqlproc.sample.simple.model.Media;
 import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.Person;
 import org.sqlproc.sample.simple.model.PersonLibrary;
+import org.sqlproc.sample.simple.model.PhoneNumber;
 import org.sqlproc.sample.simple.model.Subscriber;
 import org.sqlproc.sample.simple.type.PhoneNumberType;
 
@@ -296,7 +297,8 @@ public class Main {
 
         // insert
         Person jan = main.insertPerson(new Person("Jan"));
-        main.insertPersonContacts(jan, new Contact()._setAddress("Jan address 1"));
+        main.insertPersonContacts(jan,
+                new Contact()._setAddress("Jan address 1")._setPhoneNumber(new PhoneNumber(111, 222, 3333)));
         Person janik = main.insertPerson(new Person("Janik"));
         main.insertPersonContacts(janik, new Contact()._setAddress("Janik address 1"));
         Person honza = main.insertPerson(new Person("Honza"));
@@ -304,7 +306,8 @@ public class Main {
                 new Contact()._setAddress("Honza address 2"));
         Person honzik = main.insertPerson(new Person("Honzik"));
         Person andrej = main.insertPerson(new Person("Andrej"));
-        main.insertPersonContacts(andrej, new Contact()._setAddress("Andrej address 1"));
+        main.insertPersonContacts(andrej,
+                new Contact()._setAddress("Andrej address 1")._setPhoneNumber(new PhoneNumber(444, 555, 6666)));
 
         Library lib = main.insertLibrary(new Library("Alexandria Library"));
         Subscriber janikS = main.insertLibrarySubscriber(lib,

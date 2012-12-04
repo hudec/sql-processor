@@ -22,7 +22,7 @@ INSERT_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
 INSERT_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
   insert into %%CONTACT
     (%PERSON_ID, %ADDRESS, %PHONE_NUMBER)
-    {= values (:id^^idsel=SEL1, :person.id, :address, :phoneNumber) }
+    {= values (:id^^idsel=SEL1, :person.id, :address, :phoneNumber^phone) }
 ;
 
 INSERT_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billing_details)=

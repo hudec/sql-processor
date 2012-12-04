@@ -549,11 +549,11 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                         new PairValues(metaType.getType(), metaType.getExtension()));
             }
         } else if (METAGEN_STATEMENT_META_TYPE.equals(property.getName())) {
-            if (!modelValues.statementsMetaTypes.containsKey(property.getDbTable()))
-                modelValues.statementsMetaTypes.put(property.getDbTable(), new HashMap<String, PairValues>());
+            if (!modelValues.statementsMetaTypes.containsKey(property.getDbStatement()))
+                modelValues.statementsMetaTypes.put(property.getDbStatement(), new HashMap<String, PairValues>());
             for (int i = 0, m = property.getMetaTypes().size(); i < m; i++) {
                 MetaTypeAssignement metaType = property.getMetaTypes().get(i);
-                modelValues.statementsMetaTypes.get(property.getDbTable()).put(metaType.getDbColumn(),
+                modelValues.statementsMetaTypes.get(property.getDbStatement()).put(metaType.getDbColumn(),
                         new PairValues(metaType.getType(), metaType.getExtension()));
             }
         }

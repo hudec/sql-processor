@@ -24,8 +24,8 @@ public class TableMetaConverter extends TablePojoConverter {
     protected Map<String, PairValues> tablesSequence = new HashMap<String, PairValues>();
     protected PairValues globalIdentity;
     protected Map<String, PairValues> tablesIdentity = new HashMap<String, PairValues>();
-    protected Map<String, Map<String, PairValues>> columnsMetaTypes;
-    protected Map<String, Map<String, PairValues>> statementsMetaTypes;
+    protected Map<String, Map<String, PairValues>> columnsMetaTypes = new HashMap<String, Map<String, PairValues>>();
+    protected Map<String, Map<String, PairValues>> statementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
 
     public TableMetaConverter() {
         super();
@@ -98,7 +98,8 @@ public class TableMetaConverter extends TablePojoConverter {
         String realTableName = tableName;
         if (pojoDiscriminators.containsKey(tableName))
             realTableName = pojoExtends.get(tableName);
-        buffer.append("\nINSERT_").append(tableName).append("(CRUD,");
+        String statementName = "INSERT_" + tableName;
+        buffer.append("\n").append(statementName).append("(CRUD,");
         buffer.append("identx=").append(tableToCamelCase(tableName));
         buffer.append(",colx=").append(tableToCamelCase(tableName));
         buffer.append(",dbcol=");
@@ -118,9 +119,9 @@ public class TableMetaConverter extends TablePojoConverter {
         first = insertIdentity(buffer, pojo, true);
         if (parentPojo != null)
             first = insertIdentity(buffer, parentPojo, first);
-        first = insertValues(buffer, pojo, first);
+        first = insertValues(buffer, pojo, first, statementName);
         if (parentPojo != null)
-            insertValues(buffer, parentPojo, first);
+            insertValues(buffer, parentPojo, first, statementName);
         buffer.append(") }");
         buffer.append("\n;\n");
         return buffer;
@@ -181,7 +182,7 @@ public class TableMetaConverter extends TablePojoConverter {
         return first;
     }
 
-    private boolean insertValues(StringBuilder buffer, String pojo, boolean first) {
+    private boolean insertValues(StringBuilder buffer, String pojo, boolean first, String statementName) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             if (createColumns.containsKey(pojo) && createColumns.get(pojo).containsKey(pentry.getKey()))
                 continue;
@@ -231,6 +232,24 @@ public class TableMetaConverter extends TablePojoConverter {
             }
             if (attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attribute.getPkColumn()));
+            }
+            if (columnsMetaTypes.containsKey(tableName) && columnsMetaTypes.get(tableName).containsKey(attributeName)) {
+                PairValues metaType = columnsMetaTypes.get(tableName).get(attributeName);
+                buffer.append("^");
+                if (!"null".equalsIgnoreCase(metaType.value1))
+                    buffer.append(metaType.value1);
+                if (metaType.value2 != null) {
+                    buffer.append("^").append(metaType.value2);
+                }
+            } else if (statementsMetaTypes.containsKey(statementName)
+                    && statementsMetaTypes.get(statementName).containsKey(attributeName)) {
+                PairValues metaType = statementsMetaTypes.get(statementName).get(attributeName);
+                buffer.append("^");
+                if (!"null".equalsIgnoreCase(metaType.value1))
+                    buffer.append(metaType.value1);
+                if (metaType.value2 != null) {
+                    buffer.append("^").append(metaType.value2);
+                }
             }
             first = false;
         }
