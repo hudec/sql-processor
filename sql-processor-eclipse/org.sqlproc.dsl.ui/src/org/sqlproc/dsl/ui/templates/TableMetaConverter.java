@@ -105,7 +105,10 @@ public class TableMetaConverter extends TablePojoConverter {
         if (parentPojo != null)
             insertColumns(buffer, parentPojo, first);
         buffer.append(")\n    {= values (");
-        first = insertValues(buffer, pojo, true);
+        first = insertIdentity(buffer, pojo, true);
+        if (parentPojo != null)
+            first = insertIdentity(buffer, parentPojo, first);
+        first = insertValues(buffer, pojo, first);
         if (parentPojo != null)
             insertValues(buffer, parentPojo, first);
         buffer.append(") }");
@@ -143,12 +146,38 @@ public class TableMetaConverter extends TablePojoConverter {
         return first;
     }
 
+    private boolean insertIdentity(StringBuilder buffer, String pojo, boolean first) {
+        PairValues identity = null;
+        for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            if (createColumns.containsKey(pojo) && createColumns.get(pojo).containsKey(pentry.getKey()))
+                continue;
+            identity = getIdentity(pojo, pentry.getValue());
+            if (identity != null) {
+                String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : null;
+                if (name == null)
+                    name = pentry.getValue().getName();
+                else
+                    name = columnToCamelCase(name);
+                buffer.append(":");
+                buffer.append(name);
+                buffer.append("^");
+                if (identity.value2 != null)
+                    buffer.append(identity.value2);
+                buffer.append("^idsel=").append(identity.value1);
+                first = false;
+                break;
+            }
+        }
+        return first;
+    }
+
     private boolean insertValues(StringBuilder buffer, String pojo, boolean first) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             if (createColumns.containsKey(pojo) && createColumns.get(pojo).containsKey(pentry.getKey()))
                 continue;
+            if (getIdentity(pojo, pentry.getValue()) != null)
+                continue;
             PairValues sequence = getSequence(pojo, pentry.getValue());
-            PairValues identity = getIdentity(pojo, pentry.getValue());
             String tableName = null;
             String attributeName = null;
             PojoAttribute attribute = null;
@@ -189,11 +218,6 @@ public class TableMetaConverter extends TablePojoConverter {
                 if (sequence.value2 != null)
                     buffer.append(sequence.value2);
                 buffer.append("^seq=").append(sequence.value1);
-            } else if (identity != null) {
-                buffer.append("^");
-                if (identity.value2 != null)
-                    buffer.append(identity.value2);
-                buffer.append("^idsel=").append(identity.value1);
             }
             if (attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attribute.getPkColumn()));
