@@ -7,6 +7,7 @@ SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity();
 
 
+
 INSERT_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billing_details)=
   insert into %%BILLING_DETAILS
     (%BA_ACCOUNT, %ID, %SUBSCRIBER, %TYPE)
@@ -60,6 +61,7 @@ INSERT_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
     (%ID, %LIBRARY, %CONTACT, %NAME)
     {= values (:id, :library.id, :contact, :name) }
 ;
+
 
 //
 //

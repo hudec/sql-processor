@@ -99,7 +99,7 @@ public class TableMetaConverter extends TablePojoConverter {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey())) {
                 boolean ignore = true;
-                if (inheritImports.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey())) {
+                if (inheritImports.containsKey(pojo) && inheritImports.get(pojo).containsKey(pentry.getKey())) {
                     ignore = false;
                 }
                 if (ignore)
@@ -121,21 +121,33 @@ public class TableMetaConverter extends TablePojoConverter {
     }
 
     private boolean insertValues(StringBuilder buffer, String pojo, boolean first) {
-        if ("BOOK".equals(pojo))
-            System.out.println("aha");
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            String tableName = null;
+            String attributeName = null;
+            PojoAttribute attribute = null;
             if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey())) {
                 boolean ignore = true;
-                if (inheritImports.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey())) {
+                if (inheritImports.containsKey(pojo) && inheritImports.get(pojo).containsKey(pentry.getKey())) {
                     ignore = false;
+                    for (Map.Entry<String, String> pentry2 : inheritImports.get(pojo).get(pentry.getKey()).entrySet()) {
+                        tableName = pentry2.getKey();
+                        attributeName = pentry2.getValue();
+                        attribute = pojos.get(tableName).get(attributeName);
+                        break;
+                    }
                 }
                 if (ignore)
                     continue;
             }
-            PojoAttribute attribute = pentry.getValue();
+            if (tableName == null)
+                tableName = pojo;
+            if (attributeName == null)
+                attributeName = pentry.getKey();
+            if (attribute == null)
+                attribute = pentry.getValue();
             if (attribute.getClassName().startsWith(COLLECTION_LIST))
                 continue;
-            String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : null;
+            String name = (columnNames.containsKey(tableName)) ? columnNames.get(tableName).get(attributeName) : null;
             if (name == null)
                 name = attribute.getName();
             else
