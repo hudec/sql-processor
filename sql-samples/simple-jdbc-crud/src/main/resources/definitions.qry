@@ -21,3 +21,5 @@ table person_library PERSON_LIBRARY;
 table library LIBRARY;
 table subscriber SUBSCRIBER;
 table billing_details BILLING_DETAILS;
+
+//metagen-global-sequence SEQ1;

@@ -1,6 +1,7 @@
 package org.sqlproc.dsl.ui.templates;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -11,12 +12,18 @@ import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.property.ModelProperty;
+import org.sqlproc.dsl.property.ModelPropertyBean.PairValues;
 import org.sqlproc.dsl.property.PojoAttribute;
 
 public class TableMetaConverter extends TablePojoConverter {
 
     protected Artifacts artifacts;
     protected IScopeProvider scopeProvider;
+
+    protected PairValues globalSequence;
+    protected Map<String, PairValues> tablesSequence = new HashMap<String, PairValues>();
+    protected PairValues globalIdentity;
+    protected Map<String, PairValues> tablesIdentity = new HashMap<String, PairValues>();
 
     public TableMetaConverter() {
         super();
@@ -26,6 +33,17 @@ public class TableMetaConverter extends TablePojoConverter {
         super(modelProperty, artifacts, null, Collections.<String> emptySet());
         this.scopeProvider = scopeProvider;
         this.artifacts = artifacts;
+
+        this.globalSequence = modelProperty.getGlobalSequence(artifacts);
+        Map<String, PairValues> tablesSequence = modelProperty.getTablesSequence(artifacts);
+        if (tablesSequence != null) {
+            this.tablesSequence.putAll(tablesSequence);
+        }
+        this.globalIdentity = modelProperty.getGlobalIdentity(artifacts);
+        Map<String, PairValues> tablesIdentity = modelProperty.getTablesIdentity(artifacts);
+        if (tablesIdentity != null) {
+            this.tablesIdentity.putAll(tablesIdentity);
+        }
     }
 
     public String getMetaDefinitions() {
@@ -35,7 +53,7 @@ public class TableMetaConverter extends TablePojoConverter {
                 continue;
             if (ignoreTables.contains(pojo))
                 continue;
-            if (pojoAbstracts.contains(pojo))
+            if (pojoInheritanceDiscriminator.contains(pojo))
                 continue;
             buffer.append(getMetaInsertDefinition(pojo));
         }

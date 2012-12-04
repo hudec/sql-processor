@@ -49,6 +49,7 @@ import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MappingUsageExt;
 import org.sqlproc.dsl.processorDsl.MetaSql;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
+import org.sqlproc.dsl.processorDsl.MetagenProperty;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.OrdSql;
 import org.sqlproc.dsl.processorDsl.OrdSql2;
@@ -304,6 +305,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.META_STATEMENT:
 				if(context == grammarAccess.getMetaStatementRule()) {
 					sequence_MetaStatement(context, (MetaStatement) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.METAGEN_PROPERTY:
+				if(context == grammarAccess.getMetagenPropertyRule()) {
+					sequence_MetagenProperty(context, (MetagenProperty) semanticObject); 
 					return; 
 				}
 				else break;
@@ -926,6 +933,20 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
+	 *     (
+	 *         (name='global-sequence' sequence=IDENT type=IDENT?) | 
+	 *         (name='table-sequence' dbTable=IDENT sequence=IDENT type=IDENT?) | 
+	 *         (name='global-identity' identity=IDENT type=IDENT?) | 
+	 *         (name='table-identity' dbTable=IDENT identity=IDENT type=IDENT?)
+	 *     )
+	 */
+	protected void sequence_MetagenProperty(EObject context, MetagenProperty semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (name=IDENT type=OPTION_TYPE filters+=IDENT* option=FeatureValue)
 	 */
 	protected void sequence_OptionalFeature(EObject context, OptionalFeature semanticObject) {
@@ -1090,7 +1111,13 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (name='resolve-pojo-on' | name='resolve-pojo-off' | (name='database-' database=DatabaseProperty) | (name='pojogen-' pojogen=PojogenProperty))
+	 *     (
+	 *         name='resolve-pojo-on' | 
+	 *         name='resolve-pojo-off' | 
+	 *         (name='database-' database=DatabaseProperty) | 
+	 *         (name='pojogen-' pojogen=PojogenProperty) | 
+	 *         (name='metagen-' metagen=MetagenProperty)
+	 *     )
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

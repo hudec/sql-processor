@@ -24,6 +24,7 @@ import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
 import org.sqlproc.dsl.processorDsl.JoinTableAssignement;
 import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
+import org.sqlproc.dsl.processorDsl.MetagenProperty;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.util.Utils;
@@ -71,6 +72,21 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_EXTENDS_CLASS = "extends-class";
     public static final String POJOGEN_JOIN_TABLES = "join-tables";
     public static final String POJOGEN_GENERATE_WRAPPERS = "generate-wrappers";
+    public static final String METAGEN = "metagen";
+    public static final String METAGEN_GLOBAL_SEQUENCE = "global-sequence";
+    public static final String METAGEN_TABLE_SEQUENCE = "table-sequence";
+    public static final String METAGEN_GLOBAL_IDENTITY = "global-identity";
+    public static final String METAGEN_TABLE_IDENTITY = "table-identity";
+
+    public static class PairValues {
+        public String value1;
+        public String value2;
+
+        public PairValues(String value1, String value2) {
+            this.value1 = value1;
+            this.value2 = value2;
+        }
+    }
 
     public static class ModelValues {
         public boolean doResolvePojo;
@@ -107,23 +123,10 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public JvmType toExtends;
         public Map<String, List<String>> joinTables;
         public boolean doGenerateWrappers;
-
-        @Override
-        public String toString() {
-            return "ModelValues [doResolvePojo=" + doResolvePojo + ", doResolveDb=" + doResolveDb + ", dbDriver="
-                    + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername + ", dbPassword=" + dbPassword
-                    + ", dbSchema=" + dbSchema + ", dir=" + dir + ", sqlTypes=" + sqlTypes + ", tableTypes="
-                    + tableTypes + ", columnTypes=" + columnTypes + ", tableNames=" + tableNames + ", columnNames="
-                    + columnNames + ", ignoreTables=" + ignoreTables + ", onlyTables=" + onlyTables
-                    + ", ignoreColumns=" + ignoreColumns + ", requiredColumns=" + requiredColumns
-                    + ", notRequiredColumns=" + notRequiredColumns + ", createColumns=" + createColumns
-                    + ", ignoreExports=" + ignoreExports + ", ignoreImports=" + ignoreImports + ", createExports="
-                    + createExports + ", createImports=" + createImports + ", inheritImports=" + inheritImports
-                    + ", manyToManyImports=" + manyToManyImports + ", inheritance=" + inheritance
-                    + ", inheritanceColumns=" + inheritanceColumns + ", generateMethods=" + generateMethods
-                    + ", toImplements=" + toImplements + ", toExtends=" + toExtends + ", joinTables=" + joinTables
-                    + ", doGenerateWrappers=" + doGenerateWrappers + "]";
-        }
+        public PairValues globalSequence;
+        public Map<String, PairValues> tablesSequence;
+        public PairValues globalIdentity;
+        public Map<String, PairValues> tablesIdentity;
     }
 
     private Map<String, ModelValues> dirs2models = new HashMap<String, ModelValues>();
@@ -181,11 +184,23 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 if (reloadPojogen) {
                     initPojogenModel(modelValues);
                 }
+                boolean reloadMetagen = false;
+                for (Property property : artifacts.getProperties()) {
+                    if (property.getName().startsWith(METAGEN)) {
+                        reloadMetagen = true;
+                        break;
+                    }
+                }
+                if (reloadMetagen) {
+                    initMetagenModel(modelValues);
+                }
                 for (Property property : artifacts.getProperties()) {
                     if (property.getName().startsWith(DATABASE)) {
                         setValue(modelValues, property.getDatabase());
                     } else if (property.getName().startsWith(POJOGEN)) {
                         setValue(modelValues, property.getPojogen());
+                    } else if (property.getName().startsWith(METAGEN)) {
+                        setValue(modelValues, property.getMetagen());
                     } else {
                         setValue(modelValues, property);
                     }
@@ -240,6 +255,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.toImplements = new HashMap<String, JvmType>();
         modelValues.toExtends = null;
         modelValues.joinTables = new HashMap<String, List<String>>();
+    }
+
+    private void initMetagenModel(ModelValues modelValues) {
+        modelValues.globalSequence = null;
+        modelValues.tablesSequence = new HashMap<String, PairValues>();
+        modelValues.globalIdentity = null;
+        modelValues.tablesIdentity = new HashMap<String, PairValues>();
     }
 
     public void setValue(ModelValues modelValues, Property property) {
@@ -498,6 +520,22 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         }
     }
 
+    public void setValue(ModelValues modelValues, MetagenProperty property) {
+        if (property == null)
+            return;
+        if (METAGEN_GLOBAL_IDENTITY.equals(property.getName())) {
+            modelValues.globalIdentity = new PairValues(property.getIdentity(), property.getType());
+        } else if (METAGEN_TABLE_IDENTITY.equals(property.getName())) {
+            modelValues.tablesIdentity.put(property.getDbTable(),
+                    new PairValues(property.getIdentity(), property.getType()));
+        } else if (METAGEN_GLOBAL_SEQUENCE.equals(property.getName())) {
+            modelValues.globalSequence = new PairValues(property.getIdentity(), property.getType());
+        } else if (METAGEN_TABLE_SEQUENCE.equals(property.getName())) {
+            modelValues.tablesSequence.put(property.getDbTable(),
+                    new PairValues(property.getIdentity(), property.getType()));
+        }
+    }
+
     @Override
     public boolean isDoResolvePojo(EObject model) {
         ModelValues modelValues = getModelValues(model);
@@ -662,6 +700,30 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public boolean isDoGenerateWrappers(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.doGenerateWrappers : false;
+    }
+
+    @Override
+    public PairValues getGlobalIdentity(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.globalIdentity : null;
+    }
+
+    @Override
+    public Map<String, PairValues> getTablesIdentity(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.tablesIdentity : Collections.<String, PairValues> emptyMap();
+    }
+
+    @Override
+    public PairValues getGlobalSequence(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.globalSequence : null;
+    }
+
+    @Override
+    public Map<String, PairValues> getTablesSequence(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.tablesSequence : Collections.<String, PairValues> emptyMap();
     }
 
     @Override

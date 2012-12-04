@@ -149,6 +149,15 @@ public interface ProcessorDslFactory extends EFactory
   PojogenProperty createPojogenProperty();
 
   /**
+   * Returns a new object of class '<em>Metagen Property</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Metagen Property</em>'.
+   * @generated
+   */
+  MetagenProperty createMetagenProperty();
+
+  /**
    * Returns a new object of class '<em>Pojo Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

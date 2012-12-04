@@ -70,7 +70,8 @@ public class TablePojoConverter {
 
     protected Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     protected Map<String, String> pojoExtends = new HashMap<String, String>();
-    protected Set<String> pojoAbstracts = new HashSet<String>();
+    protected Set<String> pojoInheritanceDiscriminator = new HashSet<String>();
+    protected Set<String> pojoInheritanceSimple = new HashSet<String>();
     protected Map<String, String> pojoDiscriminators = new HashMap<String, String>();
 
     public TablePojoConverter() {
@@ -327,7 +328,7 @@ public class TablePojoConverter {
             for (String dbColumn : allInheritedAttributes.keySet()) {
                 attributes.remove(dbColumn);
             }
-            pojoAbstracts.add(table);
+            pojoInheritanceDiscriminator.add(table);
         }
     }
 
@@ -388,7 +389,7 @@ public class TablePojoConverter {
                 if (attribute.getParentTable() != null) {
                     if (pojos.containsKey(attribute.getParentTable())) {
                         pojoExtends.put(pojo, attribute.getParentTable());
-                        pojoAbstracts.add(attribute.getParentTable());
+                        pojoInheritanceSimple.add(attribute.getParentTable());
                     }
                 }
                 for (Map.Entry<String, String> fk : attribute.getFkTables().entrySet()) {
@@ -488,7 +489,7 @@ public class TablePojoConverter {
             if (pojoName == null)
                 pojoName = pojo;
             buffer.append("\n  ");
-            if (pojoAbstracts.contains(pojo))
+            if (pojoInheritanceDiscriminator.contains(pojo) || pojoInheritanceSimple.contains(pojo))
                 buffer.append("abstract ");
             buffer.append("pojo ");
             buffer.append(tableToCamelCase(pojoName));

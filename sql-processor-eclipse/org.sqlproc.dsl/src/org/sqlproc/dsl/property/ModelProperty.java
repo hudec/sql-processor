@@ -8,6 +8,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmType;
 import org.sqlproc.dsl.property.ModelPropertyBean.ModelValues;
+import org.sqlproc.dsl.property.ModelPropertyBean.PairValues;
 
 public interface ModelProperty extends Adapter {
 
@@ -64,4 +65,12 @@ public interface ModelProperty extends Adapter {
     Map<String, List<String>> getJoinTables(EObject model);
 
     boolean isDoGenerateWrappers(EObject model);
+
+    PairValues getGlobalIdentity(EObject model);
+
+    PairValues getGlobalSequence(EObject model);
+
+    Map<String, PairValues> getTablesIdentity(EObject model);
+
+    Map<String, PairValues> getTablesSequence(EObject model);
 }

@@ -630,19 +630,24 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cNamePojogenKeyword_0_3_0_0 = (Keyword)cNameAssignment_0_3_0.eContents().get(0);
 		private final Assignment cPojogenAssignment_0_3_1 = (Assignment)cGroup_0_3.eContents().get(1);
 		private final RuleCall cPojogenPojogenPropertyParserRuleCall_0_3_1_0 = (RuleCall)cPojogenAssignment_0_3_1.eContents().get(0);
+		private final Group cGroup_0_4 = (Group)cAlternatives_0.eContents().get(4);
+		private final Assignment cNameAssignment_0_4_0 = (Assignment)cGroup_0_4.eContents().get(0);
+		private final Keyword cNameMetagenKeyword_0_4_0_0 = (Keyword)cNameAssignment_0_4_0.eContents().get(0);
+		private final Assignment cMetagenAssignment_0_4_1 = (Assignment)cGroup_0_4.eContents().get(1);
+		private final RuleCall cMetagenMetagenPropertyParserRuleCall_0_4_1_0 = (RuleCall)cMetagenAssignment_0_4_1.eContents().get(0);
 		private final RuleCall cSEMICOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//Property:
 		//	(name="resolve-pojo-on" | name="resolve-pojo-off" | name="database-" database=DatabaseProperty | name="pojogen-"
-		//	pojogen=PojogenProperty) SEMICOLON;
+		//	pojogen=PojogenProperty | name="metagen-" metagen=MetagenProperty) SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
 		//(name="resolve-pojo-on" | name="resolve-pojo-off" | name="database-" database=DatabaseProperty | name="pojogen-"
-		//pojogen=PojogenProperty) SEMICOLON
+		//pojogen=PojogenProperty | name="metagen-" metagen=MetagenProperty) SEMICOLON
 		public Group getGroup() { return cGroup; }
 
 		//name="resolve-pojo-on" | name="resolve-pojo-off" | name="database-" database=DatabaseProperty | name="pojogen-"
-		//pojogen=PojogenProperty
+		//pojogen=PojogenProperty | name="metagen-" metagen=MetagenProperty
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//name="resolve-pojo-on"
@@ -686,6 +691,21 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//PojogenProperty
 		public RuleCall getPojogenPojogenPropertyParserRuleCall_0_3_1_0() { return cPojogenPojogenPropertyParserRuleCall_0_3_1_0; }
+
+		//name="metagen-" metagen=MetagenProperty
+		public Group getGroup_0_4() { return cGroup_0_4; }
+
+		//name="metagen-"
+		public Assignment getNameAssignment_0_4_0() { return cNameAssignment_0_4_0; }
+
+		//"metagen-"
+		public Keyword getNameMetagenKeyword_0_4_0_0() { return cNameMetagenKeyword_0_4_0_0; }
+
+		//metagen=MetagenProperty
+		public Assignment getMetagenAssignment_0_4_1() { return cMetagenAssignment_0_4_1; }
+
+		//MetagenProperty
+		public RuleCall getMetagenMetagenPropertyParserRuleCall_0_4_1_0() { return cMetagenMetagenPropertyParserRuleCall_0_4_1_0; }
 
 		//SEMICOLON
 		public RuleCall getSEMICOLONTerminalRuleCall_1() { return cSEMICOLONTerminalRuleCall_1; }
@@ -1779,6 +1799,206 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"generate-wrappers"
 		public Keyword getNameGenerateWrappersKeyword_23_0() { return cNameGenerateWrappersKeyword_23_0; }
+	}
+
+	public class MetagenPropertyElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MetagenProperty");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Assignment cNameAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final Keyword cNameGlobalSequenceKeyword_0_0_0 = (Keyword)cNameAssignment_0_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_0_1 = (RuleCall)cGroup_0.eContents().get(1);
+		private final Assignment cSequenceAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
+		private final RuleCall cSequenceIDENTTerminalRuleCall_0_2_0 = (RuleCall)cSequenceAssignment_0_2.eContents().get(0);
+		private final Group cGroup_0_3 = (Group)cGroup_0.eContents().get(3);
+		private final RuleCall cWSTerminalRuleCall_0_3_0 = (RuleCall)cGroup_0_3.eContents().get(0);
+		private final Assignment cTypeAssignment_0_3_1 = (Assignment)cGroup_0_3.eContents().get(1);
+		private final RuleCall cTypeIDENTTerminalRuleCall_0_3_1_0 = (RuleCall)cTypeAssignment_0_3_1.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Assignment cNameAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
+		private final Keyword cNameTableSequenceKeyword_1_0_0 = (Keyword)cNameAssignment_1_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		private final Assignment cDbTableAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cDbTableIDENTTerminalRuleCall_1_2_0 = (RuleCall)cDbTableAssignment_1_2.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_1_3 = (RuleCall)cGroup_1.eContents().get(3);
+		private final Assignment cSequenceAssignment_1_4 = (Assignment)cGroup_1.eContents().get(4);
+		private final RuleCall cSequenceIDENTTerminalRuleCall_1_4_0 = (RuleCall)cSequenceAssignment_1_4.eContents().get(0);
+		private final Group cGroup_1_5 = (Group)cGroup_1.eContents().get(5);
+		private final RuleCall cWSTerminalRuleCall_1_5_0 = (RuleCall)cGroup_1_5.eContents().get(0);
+		private final Assignment cTypeAssignment_1_5_1 = (Assignment)cGroup_1_5.eContents().get(1);
+		private final RuleCall cTypeIDENTTerminalRuleCall_1_5_1_0 = (RuleCall)cTypeAssignment_1_5_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final Assignment cNameAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final Keyword cNameGlobalIdentityKeyword_2_0_0 = (Keyword)cNameAssignment_2_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Assignment cIdentityAssignment_2_2 = (Assignment)cGroup_2.eContents().get(2);
+		private final RuleCall cIdentityIDENTTerminalRuleCall_2_2_0 = (RuleCall)cIdentityAssignment_2_2.eContents().get(0);
+		private final Group cGroup_2_3 = (Group)cGroup_2.eContents().get(3);
+		private final RuleCall cWSTerminalRuleCall_2_3_0 = (RuleCall)cGroup_2_3.eContents().get(0);
+		private final Assignment cTypeAssignment_2_3_1 = (Assignment)cGroup_2_3.eContents().get(1);
+		private final RuleCall cTypeIDENTTerminalRuleCall_2_3_1_0 = (RuleCall)cTypeAssignment_2_3_1.eContents().get(0);
+		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
+		private final Assignment cNameAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final Keyword cNameTableIdentityKeyword_3_0_0 = (Keyword)cNameAssignment_3_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
+		private final Assignment cDbTableAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
+		private final RuleCall cDbTableIDENTTerminalRuleCall_3_2_0 = (RuleCall)cDbTableAssignment_3_2.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_3_3 = (RuleCall)cGroup_3.eContents().get(3);
+		private final Assignment cIdentityAssignment_3_4 = (Assignment)cGroup_3.eContents().get(4);
+		private final RuleCall cIdentityIDENTTerminalRuleCall_3_4_0 = (RuleCall)cIdentityAssignment_3_4.eContents().get(0);
+		private final Group cGroup_3_5 = (Group)cGroup_3.eContents().get(5);
+		private final RuleCall cWSTerminalRuleCall_3_5_0 = (RuleCall)cGroup_3_5.eContents().get(0);
+		private final Assignment cTypeAssignment_3_5_1 = (Assignment)cGroup_3_5.eContents().get(1);
+		private final RuleCall cTypeIDENTTerminalRuleCall_3_5_1_0 = (RuleCall)cTypeAssignment_3_5_1.eContents().get(0);
+		
+		//MetagenProperty:
+		//	name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+
+		//	sequence=IDENT (WS+ type=IDENT)? | name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)? | name="table-identity"
+		//	WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)?;
+		public ParserRule getRule() { return rule; }
+
+		//name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+ sequence=IDENT
+		//(WS+ type=IDENT)? | name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)? | name="table-identity" WS+
+		//dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)?
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)?
+		public Group getGroup_0() { return cGroup_0; }
+
+		//name="global-sequence"
+		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
+
+		//"global-sequence"
+		public Keyword getNameGlobalSequenceKeyword_0_0_0() { return cNameGlobalSequenceKeyword_0_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_1() { return cWSTerminalRuleCall_0_1; }
+
+		//sequence=IDENT
+		public Assignment getSequenceAssignment_0_2() { return cSequenceAssignment_0_2; }
+
+		//IDENT
+		public RuleCall getSequenceIDENTTerminalRuleCall_0_2_0() { return cSequenceIDENTTerminalRuleCall_0_2_0; }
+
+		//(WS+ type=IDENT)?
+		public Group getGroup_0_3() { return cGroup_0_3; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_3_0() { return cWSTerminalRuleCall_0_3_0; }
+
+		//type=IDENT
+		public Assignment getTypeAssignment_0_3_1() { return cTypeAssignment_0_3_1; }
+
+		//IDENT
+		public RuleCall getTypeIDENTTerminalRuleCall_0_3_1_0() { return cTypeIDENTTerminalRuleCall_0_3_1_0; }
+
+		//name="table-sequence" WS+ dbTable=IDENT WS+ sequence=IDENT (WS+ type=IDENT)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//name="table-sequence"
+		public Assignment getNameAssignment_1_0() { return cNameAssignment_1_0; }
+
+		//"table-sequence"
+		public Keyword getNameTableSequenceKeyword_1_0_0() { return cNameTableSequenceKeyword_1_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_1_1() { return cWSTerminalRuleCall_1_1; }
+
+		//dbTable=IDENT
+		public Assignment getDbTableAssignment_1_2() { return cDbTableAssignment_1_2; }
+
+		//IDENT
+		public RuleCall getDbTableIDENTTerminalRuleCall_1_2_0() { return cDbTableIDENTTerminalRuleCall_1_2_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_1_3() { return cWSTerminalRuleCall_1_3; }
+
+		//sequence=IDENT
+		public Assignment getSequenceAssignment_1_4() { return cSequenceAssignment_1_4; }
+
+		//IDENT
+		public RuleCall getSequenceIDENTTerminalRuleCall_1_4_0() { return cSequenceIDENTTerminalRuleCall_1_4_0; }
+
+		//(WS+ type=IDENT)?
+		public Group getGroup_1_5() { return cGroup_1_5; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_1_5_0() { return cWSTerminalRuleCall_1_5_0; }
+
+		//type=IDENT
+		public Assignment getTypeAssignment_1_5_1() { return cTypeAssignment_1_5_1; }
+
+		//IDENT
+		public RuleCall getTypeIDENTTerminalRuleCall_1_5_1_0() { return cTypeIDENTTerminalRuleCall_1_5_1_0; }
+
+		//name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//name="global-identity"
+		public Assignment getNameAssignment_2_0() { return cNameAssignment_2_0; }
+
+		//"global-identity"
+		public Keyword getNameGlobalIdentityKeyword_2_0_0() { return cNameGlobalIdentityKeyword_2_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_2_1() { return cWSTerminalRuleCall_2_1; }
+
+		//identity=IDENT
+		public Assignment getIdentityAssignment_2_2() { return cIdentityAssignment_2_2; }
+
+		//IDENT
+		public RuleCall getIdentityIDENTTerminalRuleCall_2_2_0() { return cIdentityIDENTTerminalRuleCall_2_2_0; }
+
+		//(WS+ type=IDENT)?
+		public Group getGroup_2_3() { return cGroup_2_3; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_2_3_0() { return cWSTerminalRuleCall_2_3_0; }
+
+		//type=IDENT
+		public Assignment getTypeAssignment_2_3_1() { return cTypeAssignment_2_3_1; }
+
+		//IDENT
+		public RuleCall getTypeIDENTTerminalRuleCall_2_3_1_0() { return cTypeIDENTTerminalRuleCall_2_3_1_0; }
+
+		//name="table-identity" WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//name="table-identity"
+		public Assignment getNameAssignment_3_0() { return cNameAssignment_3_0; }
+
+		//"table-identity"
+		public Keyword getNameTableIdentityKeyword_3_0_0() { return cNameTableIdentityKeyword_3_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_3_1() { return cWSTerminalRuleCall_3_1; }
+
+		//dbTable=IDENT
+		public Assignment getDbTableAssignment_3_2() { return cDbTableAssignment_3_2; }
+
+		//IDENT
+		public RuleCall getDbTableIDENTTerminalRuleCall_3_2_0() { return cDbTableIDENTTerminalRuleCall_3_2_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_3_3() { return cWSTerminalRuleCall_3_3; }
+
+		//identity=IDENT
+		public Assignment getIdentityAssignment_3_4() { return cIdentityAssignment_3_4; }
+
+		//IDENT
+		public RuleCall getIdentityIDENTTerminalRuleCall_3_4_0() { return cIdentityIDENTTerminalRuleCall_3_4_0; }
+
+		//(WS+ type=IDENT)?
+		public Group getGroup_3_5() { return cGroup_3_5; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_3_5_0() { return cWSTerminalRuleCall_3_5_0; }
+
+		//type=IDENT
+		public Assignment getTypeAssignment_3_5_1() { return cTypeAssignment_3_5_1; }
+
+		//IDENT
+		public RuleCall getTypeIDENTTerminalRuleCall_3_5_1_0() { return cTypeIDENTTerminalRuleCall_3_5_1_0; }
 	}
 
 	public class PropertyValueElements extends AbstractParserRuleElementFinder {
@@ -5942,6 +6162,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private PropertyElements pProperty;
 	private DatabasePropertyElements pDatabaseProperty;
 	private PojogenPropertyElements pPojogenProperty;
+	private MetagenPropertyElements pMetagenProperty;
 	private PropertyValueElements pPropertyValue;
 	private PojoDefinitionElements pPojoDefinition;
 	private PojoUsageElements pPojoUsage;
@@ -6175,7 +6396,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Property:
 	//	(name="resolve-pojo-on" | name="resolve-pojo-off" | name="database-" database=DatabaseProperty | name="pojogen-"
-	//	pojogen=PojogenProperty) SEMICOLON;
+	//	pojogen=PojogenProperty | name="metagen-" metagen=MetagenProperty) SEMICOLON;
 	public PropertyElements getPropertyAccess() {
 		return (pProperty != null) ? pProperty : (pProperty = new PropertyElements());
 	}
@@ -6221,6 +6442,18 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getPojogenPropertyRule() {
 		return getPojogenPropertyAccess().getRule();
+	}
+
+	//MetagenProperty:
+	//	name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+
+	//	sequence=IDENT (WS+ type=IDENT)? | name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)? | name="table-identity"
+	//	WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)?;
+	public MetagenPropertyElements getMetagenPropertyAccess() {
+		return (pMetagenProperty != null) ? pMetagenProperty : (pMetagenProperty = new MetagenPropertyElements());
+	}
+	
+	public ParserRule getMetagenPropertyRule() {
+		return getMetagenPropertyAccess().getRule();
 	}
 
 	//PropertyValue:

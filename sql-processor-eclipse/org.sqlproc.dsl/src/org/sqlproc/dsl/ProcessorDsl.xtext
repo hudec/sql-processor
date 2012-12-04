@@ -27,6 +27,7 @@ Property:
 	|name='resolve-pojo-off'
 	|name='database-' database=DatabaseProperty
 	|name='pojogen-' pojogen=PojogenProperty
+	|name='metagen-' metagen=MetagenProperty
 	) SEMICOLON;
 
 DatabaseProperty:
@@ -66,6 +67,13 @@ PojogenProperty:
 	|name='implements-interfaces' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
 	|name='extends-class' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
 	|name='generate-wrappers'
+	);
+
+MetagenProperty:
+	(name='global-sequence' WS+ sequence=IDENT (WS+ type=IDENT)?
+	|name='table-sequence' WS+ dbTable=IDENT WS+ sequence=IDENT (WS+ type=IDENT)?
+	|name='global-identity' WS+ identity=IDENT (WS+ type=IDENT)?
+	|name='table-identity' WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)?
 	);
 
 PropertyValue:

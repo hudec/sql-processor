@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
+import org.sqlproc.dsl.processorDsl.MetagenProperty;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
@@ -26,6 +27,7 @@ import org.sqlproc.dsl.processorDsl.Property;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDatabase <em>Database</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getPojogen <em>Pojogen</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getMetagen <em>Metagen</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,6 +74,16 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * @ordered
    */
   protected PojogenProperty pojogen;
+
+  /**
+   * The cached value of the '{@link #getMetagen() <em>Metagen</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMetagen()
+   * @generated
+   * @ordered
+   */
+  protected MetagenProperty metagen;
 
   /**
    * <!-- begin-user-doc -->
@@ -218,6 +230,54 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
+  public MetagenProperty getMetagen()
+  {
+    return metagen;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetMetagen(MetagenProperty newMetagen, NotificationChain msgs)
+  {
+    MetagenProperty oldMetagen = metagen;
+    metagen = newMetagen;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__METAGEN, oldMetagen, newMetagen);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setMetagen(MetagenProperty newMetagen)
+  {
+    if (newMetagen != metagen)
+    {
+      NotificationChain msgs = null;
+      if (metagen != null)
+        msgs = ((InternalEObject)metagen).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.PROPERTY__METAGEN, null, msgs);
+      if (newMetagen != null)
+        msgs = ((InternalEObject)newMetagen).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.PROPERTY__METAGEN, null, msgs);
+      msgs = basicSetMetagen(newMetagen, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__METAGEN, newMetagen, newMetagen));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -227,6 +287,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return basicSetDatabase(null, msgs);
       case ProcessorDslPackage.PROPERTY__POJOGEN:
         return basicSetPojogen(null, msgs);
+      case ProcessorDslPackage.PROPERTY__METAGEN:
+        return basicSetMetagen(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -247,6 +309,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return getDatabase();
       case ProcessorDslPackage.PROPERTY__POJOGEN:
         return getPojogen();
+      case ProcessorDslPackage.PROPERTY__METAGEN:
+        return getMetagen();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -269,6 +333,9 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return;
       case ProcessorDslPackage.PROPERTY__POJOGEN:
         setPojogen((PojogenProperty)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__METAGEN:
+        setMetagen((MetagenProperty)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -293,6 +360,9 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
       case ProcessorDslPackage.PROPERTY__POJOGEN:
         setPojogen((PojogenProperty)null);
         return;
+      case ProcessorDslPackage.PROPERTY__METAGEN:
+        setMetagen((MetagenProperty)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -313,6 +383,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return database != null;
       case ProcessorDslPackage.PROPERTY__POJOGEN:
         return pojogen != null;
+      case ProcessorDslPackage.PROPERTY__METAGEN:
+        return metagen != null;
     }
     return super.eIsSet(featureID);
   }
