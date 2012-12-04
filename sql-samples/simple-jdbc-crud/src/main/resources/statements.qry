@@ -8,63 +8,153 @@ SEL1(OPT)=call identity();
 
 
 INSERT_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billing_details)=
-  insert into %%BILLING_DETAILS
-    (%BA_ACCOUNT, %SUBSCRIBER, %TYPE)
-    {= values (:id^^idsel=SEL1, :baAccount, :subscriber.id, :type) }
+  insert into %%BILLING_DETAILS (%BA_ACCOUNT, %SUBSCRIBER, %TYPE)
+  {= values (:id^^idsel=SEL1, :baAccount, :subscriber.id, :type) }
+;
+
+GET_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billing_details)=
+  select %BA_ACCOUNT @baAccount, %ID @id, %SUBSCRIBER @subscriber.id, %TYPE @type
+  from %%BILLING_DETAILS
+  {= where
+    {& %BA_ACCOUNT = :baAccount }
+    {& %ID = :id }
+    {& %SUBSCRIBER = :subscriber.id }
+    {& %TYPE = :type }
+  }
 ;
 
 INSERT_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
-  insert into %%BOOK
-    (%MEDIA_ID, %ISBN)
-    {= values (:id, :isbn) }
+  insert into %%BOOK (%MEDIA_ID, %ISBN)
+  {= values (:id, :isbn) }
+;
+
+GET_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
+  select %MEDIA_ID @id, %ISBN @isbn
+  from %%BOOK
+  {= where
+    {& %MEDIA_ID = :id }
+    {& %ISBN = :isbn }
+  }
 ;
 
 INSERT_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
-  insert into %%CONTACT
-    (%PERSON_ID, %ADDRESS, %PHONE_NUMBER)
-    {= values (:id^^idsel=SEL1, :person.id, :address, :phoneNumber^phone) }
+  insert into %%CONTACT (%PERSON_ID, %ADDRESS, %PHONE_NUMBER)
+  {= values (:id^^idsel=SEL1, :person.id, :address, :phoneNumber^phone) }
+;
+
+GET_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
+  select %ID @id, %PERSON_ID @person.id, %ADDRESS @address, %PHONE_NUMBER @phoneNumber^phone
+  from %%CONTACT
+  {= where
+    {& %ID = :id }
+    {& %PERSON_ID = :person.id }
+    {& %ADDRESS = :address }
+    {& %PHONE_NUMBER = :phoneNumber^phone }
+  }
 ;
 
 INSERT_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billing_details)=
-  insert into %%BILLING_DETAILS
-    (%CC_NUMBER, %SUBSCRIBER, %TYPE)
-    {= values (:id^^idsel=SEL1, :ccNumber, :subscriber.id, :type) }
+  insert into %%BILLING_DETAILS (%CC_NUMBER, %SUBSCRIBER, %TYPE)
+  {= values (:id^^idsel=SEL1, :ccNumber, :subscriber.id, :type) }
+;
+
+GET_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billing_details)=
+  select %CC_NUMBER @ccNumber, %ID @id, %SUBSCRIBER @subscriber.id, %TYPE @type
+  from %%BILLING_DETAILS
+  {= where
+    {& %CC_NUMBER = :ccNumber }
+    {& %ID = :id }
+    {& %SUBSCRIBER = :subscriber.id }
+    {& %TYPE = :type }
+  }
 ;
 
 INSERT_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
-  insert into %%LIBRARY
-    (%NAME)
-    {= values (:id^^idsel=SEL1, :name) }
+  insert into %%LIBRARY (%NAME)
+  {= values (:id^^idsel=SEL1, :name) }
+;
+
+GET_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
+  select %ID @id, %NAME @name
+  from %%LIBRARY
+  {= where
+    {& %ID = :id }
+    {& %NAME = :name }
+  }
 ;
 
 INSERT_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
-  insert into %%MEDIA
-    (%TITLE)
-    {= values (:id^^idsel=SEL1, :title) }
+  insert into %%MEDIA (%TITLE)
+  {= values (:id^^idsel=SEL1, :title) }
+;
+
+GET_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
+  select %ID @id, %TITLE @title
+  from %%MEDIA
+  {= where
+    {& %ID = :id }
+    {& %TITLE = :title }
+  }
 ;
 
 INSERT_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
-  insert into %%MOVIE
-    (%MEDIA_ID, %URLIMDB, %PLAYLENGTH)
-    {= values (:id, :urlimdb, :playlength) }
+  insert into %%MOVIE (%MEDIA_ID, %URLIMDB, %PLAYLENGTH)
+  {= values (:id, :urlimdb, :playlength) }
+;
+
+GET_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
+  select %MEDIA_ID @id, %URLIMDB @urlimdb, %PLAYLENGTH @playlength
+  from %%MOVIE
+  {= where
+    {& %MEDIA_ID = :id }
+    {& %URLIMDB = :urlimdb }
+    {& %PLAYLENGTH = :playlength }
+  }
 ;
 
 INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
-  insert into %%PERSON
-    (%NAME)
-    {= values (:id^^idsel=SEL1, :name) }
+  insert into %%PERSON (%NAME)
+  {= values (:id^^idsel=SEL1, :name) }
+;
+
+GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
+  select %ID @id, %NAME @name
+  from %%PERSON
+  {= where
+    {& %ID = :id }
+    {& %NAME = :name }
+  }
 ;
 
 INSERT_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=person_library)=
-  insert into %%PERSON_LIBRARY
-    (%PERSON_ID, %MEDIA_ID)
-    {= values (:id^^idsel=SEL1, :personId, :mediaId) }
+  insert into %%PERSON_LIBRARY (%PERSON_ID, %MEDIA_ID)
+  {= values (:id^^idsel=SEL1, :personId, :mediaId) }
+;
+
+GET_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=person_library)=
+  select %ID @id, %PERSON_ID @personId, %MEDIA_ID @mediaId
+  from %%PERSON_LIBRARY
+  {= where
+    {& %ID = :id }
+    {& %PERSON_ID = :personId }
+    {& %MEDIA_ID = :mediaId }
+  }
 ;
 
 INSERT_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
-  insert into %%SUBSCRIBER
-    (%LIBRARY, %CONTACT, %NAME)
-    {= values (:id^^idsel=SEL1, :library.id, :contact.id, :name) }
+  insert into %%SUBSCRIBER (%LIBRARY, %CONTACT, %NAME)
+  {= values (:id^^idsel=SEL1, :library.id, :contact.id, :name) }
+;
+
+GET_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
+  select %ID @id, %LIBRARY @library.id, %CONTACT @contact.id, %NAME @name
+  from %%SUBSCRIBER
+  {= where
+    {& %ID = :id }
+    {& %LIBRARY = :library.id }
+    {& %CONTACT = :contact.id }
+    {& %NAME = :name }
+  }
 ;
 
 //

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
@@ -170,6 +171,13 @@ public class Main {
         }
     }
 
+    public Person get(Person person) {
+        SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("GET_PERSON");
+        Person p = sqlEngine.get(session, Person.class, person);
+        logger.info("get person: " + p);
+        return p;
+    }
+
     //
     // public List<Person> listAll() {
     // SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE");
@@ -193,13 +201,6 @@ public class Main {
     // return list;
     // }
     //
-    //
-    // public Person get(Person person) {
-    // SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("GET_PERSON");
-    // Person p = sqlEngine.get(session, Person.class, person);
-    // logger.info("get: " + p);
-    // return p;
-    // }
     //
     // public Person update(Person person) {
     // SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
@@ -329,6 +330,13 @@ public class Main {
         main.insertPersonLibrary(honza, book2, movie2);
         main.insertPersonLibrary(andrej, book1, book2, movie2);
 
+        // get
+        person = new Person();
+        person.setId(andrej.getId());
+        p = main.get(person);
+        Assert.assertNotNull(p);
+        Assert.assertEquals("Andrej", p.getName());
+
         // // queries
         // list = main.listAll();
         // Assert.assertEquals(5, list.size());
@@ -385,12 +393,6 @@ public class Main {
         // Assert.assertEquals("978-1897093634", ((Book) list.get(0).getLibrary().get(2)).getIsbn());
         //
         // // crud
-        // person = new Person();
-        // person.setId(andrej.getId());
-        // p = main.get(person);
-        // Assert.assertNotNull(p);
-        // Assert.assertEquals("Andrej", p.getName());
-        //
         // person = new Person();
         // person.setId(janik.getId());
         // person.setName("Bozena");
