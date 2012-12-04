@@ -40,3 +40,4 @@ pojogen-create-columns PERSON PASSPORT->:java.lang.String;
 
 //metagen-global-sequence SEQ1;
 metagen-global-identity SEL1;
+//metagen-custom-type org.sqlproc.sample.simple.type.PhoneNumberType;

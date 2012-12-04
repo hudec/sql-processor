@@ -145,6 +145,11 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createPojogenPropertyAdapter();
       }
       @Override
+      public Adapter caseMetaTypeAssignement(MetaTypeAssignement object)
+      {
+        return createMetaTypeAssignementAdapter();
+      }
+      @Override
       public Adapter caseMetagenProperty(MetagenProperty object)
       {
         return createMetagenPropertyAdapter();
@@ -602,6 +607,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPojogenPropertyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.MetaTypeAssignement <em>Meta Type Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.MetaTypeAssignement
+   * @generated
+   */
+  public Adapter createMetaTypeAssignementAdapter()
   {
     return null;
   }

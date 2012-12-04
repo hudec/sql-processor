@@ -2773,6 +2773,89 @@ rulePojogenProperty returns [EObject current=null]
 
 
 
+// Entry rule entryRuleMetaTypeAssignement
+entryRuleMetaTypeAssignement returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getMetaTypeAssignementRule()); }
+	 iv_ruleMetaTypeAssignement=ruleMetaTypeAssignement 
+	 { $current=$iv_ruleMetaTypeAssignement.current; } 
+	 EOF 
+;
+
+// Rule MetaTypeAssignement
+ruleMetaTypeAssignement returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_dbColumn_0_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbColumn_0_0, grammarAccess.getMetaTypeAssignementAccess().getDbColumnIDENTTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetaTypeAssignementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbColumn",
+        		lv_dbColumn_0_0, 
+        		"IDENT");
+	    }
+
+)
+)	otherlv_1='->' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getMetaTypeAssignementAccess().getHyphenMinusGreaterThanSignKeyword_1());
+    }
+(
+(
+		lv_type_2_0=RULE_IDENT
+		{
+			newLeafNode(lv_type_2_0, grammarAccess.getMetaTypeAssignementAccess().getTypeIDENTTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetaTypeAssignementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"type",
+        		lv_type_2_0, 
+        		"IDENT");
+	    }
+
+)
+)(	otherlv_3='->' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getMetaTypeAssignementAccess().getHyphenMinusGreaterThanSignKeyword_3_0());
+    }
+(
+(
+		lv_extension_4_0=RULE_IDENT
+		{
+			newLeafNode(lv_extension_4_0, grammarAccess.getMetaTypeAssignementAccess().getExtensionIDENTTerminalRuleCall_3_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetaTypeAssignementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"extension",
+        		lv_extension_4_0, 
+        		"IDENT");
+	    }
+
+)
+))?)
+;
+
+
+
+
+
 // Entry rule entryRuleMetagenProperty
 entryRuleMetagenProperty returns [EObject current=null] 
 	:
@@ -3070,7 +3153,127 @@ ruleMetagenProperty returns [EObject current=null]
 	    }
 
 )
-))?))
+))?)
+    |((
+(
+		lv_name_24_0=	'column-meta-type' 
+    {
+        newLeafNode(lv_name_24_0, grammarAccess.getMetagenPropertyAccess().getNameColumnMetaTypeKeyword_4_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_24_0, "column-meta-type");
+	    }
+
+)
+)(this_WS_25=RULE_WS
+    { 
+    newLeafNode(this_WS_25, grammarAccess.getMetagenPropertyAccess().getWSTerminalRuleCall_4_1()); 
+    }
+)+(
+(
+		lv_dbTable_26_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbTable_26_0, grammarAccess.getMetagenPropertyAccess().getDbTableIDENTTerminalRuleCall_4_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbTable",
+        		lv_dbTable_26_0, 
+        		"IDENT");
+	    }
+
+)
+)((this_WS_27=RULE_WS
+    { 
+    newLeafNode(this_WS_27, grammarAccess.getMetagenPropertyAccess().getWSTerminalRuleCall_4_3_0()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getMetagenPropertyAccess().getMetaTypesMetaTypeAssignementParserRuleCall_4_3_1_0()); 
+	    }
+		lv_metaTypes_28_0=ruleMetaTypeAssignement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getMetagenPropertyRule());
+	        }
+       		add(
+       			$current, 
+       			"metaTypes",
+        		lv_metaTypes_28_0, 
+        		"MetaTypeAssignement");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))+)
+    |((
+(
+		lv_name_29_0=	'statement-meta-type' 
+    {
+        newLeafNode(lv_name_29_0, grammarAccess.getMetagenPropertyAccess().getNameStatementMetaTypeKeyword_5_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_29_0, "statement-meta-type");
+	    }
+
+)
+)(this_WS_30=RULE_WS
+    { 
+    newLeafNode(this_WS_30, grammarAccess.getMetagenPropertyAccess().getWSTerminalRuleCall_5_1()); 
+    }
+)+(
+(
+		lv_dbStatement_31_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbStatement_31_0, grammarAccess.getMetagenPropertyAccess().getDbStatementIDENTTerminalRuleCall_5_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbStatement",
+        		lv_dbStatement_31_0, 
+        		"IDENT");
+	    }
+
+)
+)((this_WS_32=RULE_WS
+    { 
+    newLeafNode(this_WS_32, grammarAccess.getMetagenPropertyAccess().getWSTerminalRuleCall_5_3_0()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getMetagenPropertyAccess().getMetaTypesMetaTypeAssignementParserRuleCall_5_3_1_0()); 
+	    }
+		lv_metaTypes_33_0=ruleMetaTypeAssignement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getMetagenPropertyRule());
+	        }
+       		add(
+       			$current, 
+       			"metaTypes",
+        		lv_metaTypes_33_0, 
+        		"MetaTypeAssignement");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))+))
 ;
 
 

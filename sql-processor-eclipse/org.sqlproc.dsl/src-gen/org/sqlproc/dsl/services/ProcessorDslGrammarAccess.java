@@ -1801,6 +1801,54 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getNameGenerateWrappersKeyword_23_0() { return cNameGenerateWrappersKeyword_23_0; }
 	}
 
+	public class MetaTypeAssignementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MetaTypeAssignement");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cDbColumnAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDbColumnIDENTTerminalRuleCall_0_0 = (RuleCall)cDbColumnAssignment_0.eContents().get(0);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cTypeIDENTTerminalRuleCall_2_0 = (RuleCall)cTypeAssignment_2.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cExtensionAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cExtensionIDENTTerminalRuleCall_3_1_0 = (RuleCall)cExtensionAssignment_3_1.eContents().get(0);
+		
+		//MetaTypeAssignement:
+		//	dbColumn=IDENT "->" type=IDENT ("->" extension=IDENT)?;
+		public ParserRule getRule() { return rule; }
+
+		//dbColumn=IDENT "->" type=IDENT ("->" extension=IDENT)?
+		public Group getGroup() { return cGroup; }
+
+		//dbColumn=IDENT
+		public Assignment getDbColumnAssignment_0() { return cDbColumnAssignment_0; }
+
+		//IDENT
+		public RuleCall getDbColumnIDENTTerminalRuleCall_0_0() { return cDbColumnIDENTTerminalRuleCall_0_0; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_1() { return cHyphenMinusGreaterThanSignKeyword_1; }
+
+		//type=IDENT
+		public Assignment getTypeAssignment_2() { return cTypeAssignment_2; }
+
+		//IDENT
+		public RuleCall getTypeIDENTTerminalRuleCall_2_0() { return cTypeIDENTTerminalRuleCall_2_0; }
+
+		//("->" extension=IDENT)?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_3_0() { return cHyphenMinusGreaterThanSignKeyword_3_0; }
+
+		//extension=IDENT
+		public Assignment getExtensionAssignment_3_1() { return cExtensionAssignment_3_1; }
+
+		//IDENT
+		public RuleCall getExtensionIDENTTerminalRuleCall_3_1_0() { return cExtensionIDENTTerminalRuleCall_3_1_0; }
+	}
+
 	public class MetagenPropertyElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MetagenProperty");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -1850,16 +1898,40 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWSTerminalRuleCall_3_5_0 = (RuleCall)cGroup_3_5.eContents().get(0);
 		private final Assignment cTypeAssignment_3_5_1 = (Assignment)cGroup_3_5.eContents().get(1);
 		private final RuleCall cTypeIDENTTerminalRuleCall_3_5_1_0 = (RuleCall)cTypeAssignment_3_5_1.eContents().get(0);
+		private final Group cGroup_4 = (Group)cAlternatives.eContents().get(4);
+		private final Assignment cNameAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final Keyword cNameColumnMetaTypeKeyword_4_0_0 = (Keyword)cNameAssignment_4_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_4_1 = (RuleCall)cGroup_4.eContents().get(1);
+		private final Assignment cDbTableAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
+		private final RuleCall cDbTableIDENTTerminalRuleCall_4_2_0 = (RuleCall)cDbTableAssignment_4_2.eContents().get(0);
+		private final Group cGroup_4_3 = (Group)cGroup_4.eContents().get(3);
+		private final RuleCall cWSTerminalRuleCall_4_3_0 = (RuleCall)cGroup_4_3.eContents().get(0);
+		private final Assignment cMetaTypesAssignment_4_3_1 = (Assignment)cGroup_4_3.eContents().get(1);
+		private final RuleCall cMetaTypesMetaTypeAssignementParserRuleCall_4_3_1_0 = (RuleCall)cMetaTypesAssignment_4_3_1.eContents().get(0);
+		private final Group cGroup_5 = (Group)cAlternatives.eContents().get(5);
+		private final Assignment cNameAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
+		private final Keyword cNameStatementMetaTypeKeyword_5_0_0 = (Keyword)cNameAssignment_5_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
+		private final Assignment cDbStatementAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
+		private final RuleCall cDbStatementIDENTTerminalRuleCall_5_2_0 = (RuleCall)cDbStatementAssignment_5_2.eContents().get(0);
+		private final Group cGroup_5_3 = (Group)cGroup_5.eContents().get(3);
+		private final RuleCall cWSTerminalRuleCall_5_3_0 = (RuleCall)cGroup_5_3.eContents().get(0);
+		private final Assignment cMetaTypesAssignment_5_3_1 = (Assignment)cGroup_5_3.eContents().get(1);
+		private final RuleCall cMetaTypesMetaTypeAssignementParserRuleCall_5_3_1_0 = (RuleCall)cMetaTypesAssignment_5_3_1.eContents().get(0);
 		
 		//MetagenProperty:
 		//	name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+
 		//	sequence=IDENT (WS+ type=IDENT)? | name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)? | name="table-identity"
-		//	WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)?;
+		//	WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+ dbTable=IDENT (WS+
+		//	metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
+		//	metaTypes+=MetaTypeAssignement)+;
 		public ParserRule getRule() { return rule; }
 
 		//name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+ sequence=IDENT
 		//(WS+ type=IDENT)? | name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)? | name="table-identity" WS+
-		//dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)?
+		//dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+ dbTable=IDENT (WS+
+		//metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
+		//metaTypes+=MetaTypeAssignement)+
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)?
@@ -1999,6 +2071,66 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//IDENT
 		public RuleCall getTypeIDENTTerminalRuleCall_3_5_1_0() { return cTypeIDENTTerminalRuleCall_3_5_1_0; }
+
+		//name="column-meta-type" WS+ dbTable=IDENT (WS+ metaTypes+=MetaTypeAssignement)+
+		public Group getGroup_4() { return cGroup_4; }
+
+		//name="column-meta-type"
+		public Assignment getNameAssignment_4_0() { return cNameAssignment_4_0; }
+
+		//"column-meta-type"
+		public Keyword getNameColumnMetaTypeKeyword_4_0_0() { return cNameColumnMetaTypeKeyword_4_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_4_1() { return cWSTerminalRuleCall_4_1; }
+
+		//dbTable=IDENT
+		public Assignment getDbTableAssignment_4_2() { return cDbTableAssignment_4_2; }
+
+		//IDENT
+		public RuleCall getDbTableIDENTTerminalRuleCall_4_2_0() { return cDbTableIDENTTerminalRuleCall_4_2_0; }
+
+		//(WS+ metaTypes+=MetaTypeAssignement)+
+		public Group getGroup_4_3() { return cGroup_4_3; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_4_3_0() { return cWSTerminalRuleCall_4_3_0; }
+
+		//metaTypes+=MetaTypeAssignement
+		public Assignment getMetaTypesAssignment_4_3_1() { return cMetaTypesAssignment_4_3_1; }
+
+		//MetaTypeAssignement
+		public RuleCall getMetaTypesMetaTypeAssignementParserRuleCall_4_3_1_0() { return cMetaTypesMetaTypeAssignementParserRuleCall_4_3_1_0; }
+
+		//name="statement-meta-type" WS+ dbStatement=IDENT (WS+ metaTypes+=MetaTypeAssignement)+
+		public Group getGroup_5() { return cGroup_5; }
+
+		//name="statement-meta-type"
+		public Assignment getNameAssignment_5_0() { return cNameAssignment_5_0; }
+
+		//"statement-meta-type"
+		public Keyword getNameStatementMetaTypeKeyword_5_0_0() { return cNameStatementMetaTypeKeyword_5_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_5_1() { return cWSTerminalRuleCall_5_1; }
+
+		//dbStatement=IDENT
+		public Assignment getDbStatementAssignment_5_2() { return cDbStatementAssignment_5_2; }
+
+		//IDENT
+		public RuleCall getDbStatementIDENTTerminalRuleCall_5_2_0() { return cDbStatementIDENTTerminalRuleCall_5_2_0; }
+
+		//(WS+ metaTypes+=MetaTypeAssignement)+
+		public Group getGroup_5_3() { return cGroup_5_3; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_5_3_0() { return cWSTerminalRuleCall_5_3_0; }
+
+		//metaTypes+=MetaTypeAssignement
+		public Assignment getMetaTypesAssignment_5_3_1() { return cMetaTypesAssignment_5_3_1; }
+
+		//MetaTypeAssignement
+		public RuleCall getMetaTypesMetaTypeAssignementParserRuleCall_5_3_1_0() { return cMetaTypesMetaTypeAssignementParserRuleCall_5_3_1_0; }
 	}
 
 	public class PropertyValueElements extends AbstractParserRuleElementFinder {
@@ -6162,6 +6294,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private PropertyElements pProperty;
 	private DatabasePropertyElements pDatabaseProperty;
 	private PojogenPropertyElements pPojogenProperty;
+	private MetaTypeAssignementElements pMetaTypeAssignement;
 	private MetagenPropertyElements pMetagenProperty;
 	private PropertyValueElements pPropertyValue;
 	private PojoDefinitionElements pPojoDefinition;
@@ -6444,10 +6577,22 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getPojogenPropertyAccess().getRule();
 	}
 
+	//MetaTypeAssignement:
+	//	dbColumn=IDENT "->" type=IDENT ("->" extension=IDENT)?;
+	public MetaTypeAssignementElements getMetaTypeAssignementAccess() {
+		return (pMetaTypeAssignement != null) ? pMetaTypeAssignement : (pMetaTypeAssignement = new MetaTypeAssignementElements());
+	}
+	
+	public ParserRule getMetaTypeAssignementRule() {
+		return getMetaTypeAssignementAccess().getRule();
+	}
+
 	//MetagenProperty:
 	//	name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+
 	//	sequence=IDENT (WS+ type=IDENT)? | name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)? | name="table-identity"
-	//	WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)?;
+	//	WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+ dbTable=IDENT (WS+
+	//	metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
+	//	metaTypes+=MetaTypeAssignement)+;
 	public MetagenPropertyElements getMetagenPropertyAccess() {
 		return (pMetagenProperty != null) ? pMetagenProperty : (pMetagenProperty = new MetagenPropertyElements());
 	}

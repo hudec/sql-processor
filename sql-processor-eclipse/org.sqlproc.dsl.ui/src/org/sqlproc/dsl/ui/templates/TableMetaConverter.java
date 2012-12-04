@@ -24,6 +24,8 @@ public class TableMetaConverter extends TablePojoConverter {
     protected Map<String, PairValues> tablesSequence = new HashMap<String, PairValues>();
     protected PairValues globalIdentity;
     protected Map<String, PairValues> tablesIdentity = new HashMap<String, PairValues>();
+    protected Map<String, Map<String, PairValues>> columnsMetaTypes;
+    protected Map<String, Map<String, PairValues>> statementsMetaTypes;
 
     public TableMetaConverter() {
         super();
@@ -43,6 +45,14 @@ public class TableMetaConverter extends TablePojoConverter {
         Map<String, PairValues> tablesIdentity = modelProperty.getTablesIdentity(artifacts);
         if (tablesIdentity != null) {
             this.tablesIdentity.putAll(tablesIdentity);
+        }
+        Map<String, Map<String, PairValues>> columnsMetaTypes = modelProperty.getColumnsMetaTypes(artifacts);
+        if (columnsMetaTypes != null) {
+            this.columnsMetaTypes.putAll(columnsMetaTypes);
+        }
+        Map<String, Map<String, PairValues>> statementsMetaTypes = modelProperty.getStatementsMetaTypes(artifacts);
+        if (statementsMetaTypes != null) {
+            this.statementsMetaTypes.putAll(statementsMetaTypes);
         }
     }
 

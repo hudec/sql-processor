@@ -24,6 +24,7 @@ import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
 import org.sqlproc.dsl.processorDsl.JoinTableAssignement;
 import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
+import org.sqlproc.dsl.processorDsl.MetaTypeAssignement;
 import org.sqlproc.dsl.processorDsl.MetagenProperty;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.Property;
@@ -77,6 +78,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String METAGEN_TABLE_SEQUENCE = "table-sequence";
     public static final String METAGEN_GLOBAL_IDENTITY = "global-identity";
     public static final String METAGEN_TABLE_IDENTITY = "table-identity";
+    public static final String METAGEN_COLUMN_META_TYPE = "column-meta-type";
+    public static final String METAGEN_STATEMENT_META_TYPE = "statement-meta-type";
 
     public static class PairValues {
         public String value1;
@@ -127,6 +130,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, PairValues> tablesSequence;
         public PairValues globalIdentity;
         public Map<String, PairValues> tablesIdentity;
+        public Map<String, Map<String, PairValues>> columnsMetaTypes;
+        public Map<String, Map<String, PairValues>> statementsMetaTypes;
     }
 
     private Map<String, ModelValues> dirs2models = new HashMap<String, ModelValues>();
@@ -262,6 +267,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.tablesSequence = new HashMap<String, PairValues>();
         modelValues.globalIdentity = null;
         modelValues.tablesIdentity = new HashMap<String, PairValues>();
+        modelValues.columnsMetaTypes = new HashMap<String, Map<String, PairValues>>();
+        modelValues.statementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
     }
 
     public void setValue(ModelValues modelValues, Property property) {
@@ -533,6 +540,22 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         } else if (METAGEN_TABLE_SEQUENCE.equals(property.getName())) {
             modelValues.tablesSequence.put(property.getDbTable(),
                     new PairValues(property.getSequence(), property.getType()));
+        } else if (METAGEN_COLUMN_META_TYPE.equals(property.getName())) {
+            if (!modelValues.columnsMetaTypes.containsKey(property.getDbTable()))
+                modelValues.columnsMetaTypes.put(property.getDbTable(), new HashMap<String, PairValues>());
+            for (int i = 0, m = property.getMetaTypes().size(); i < m; i++) {
+                MetaTypeAssignement metaType = property.getMetaTypes().get(i);
+                modelValues.columnsMetaTypes.get(property.getDbTable()).put(metaType.getDbColumn(),
+                        new PairValues(metaType.getType(), metaType.getExtension()));
+            }
+        } else if (METAGEN_STATEMENT_META_TYPE.equals(property.getName())) {
+            if (!modelValues.statementsMetaTypes.containsKey(property.getDbTable()))
+                modelValues.statementsMetaTypes.put(property.getDbTable(), new HashMap<String, PairValues>());
+            for (int i = 0, m = property.getMetaTypes().size(); i < m; i++) {
+                MetaTypeAssignement metaType = property.getMetaTypes().get(i);
+                modelValues.statementsMetaTypes.get(property.getDbTable()).put(metaType.getDbColumn(),
+                        new PairValues(metaType.getType(), metaType.getExtension()));
+            }
         }
     }
 
@@ -724,6 +747,20 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Map<String, PairValues> getTablesSequence(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.tablesSequence : Collections.<String, PairValues> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, PairValues>> getColumnsMetaTypes(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.columnsMetaTypes : Collections
+                .<String, Map<String, PairValues>> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, PairValues>> getStatementsMetaTypes(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.statementsMetaTypes : Collections
+                .<String, Map<String, PairValues>> emptyMap();
     }
 
     @Override

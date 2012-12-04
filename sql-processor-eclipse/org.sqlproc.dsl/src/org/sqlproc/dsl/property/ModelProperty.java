@@ -73,4 +73,8 @@ public interface ModelProperty extends Adapter {
     Map<String, PairValues> getTablesIdentity(EObject model);
 
     Map<String, PairValues> getTablesSequence(EObject model);
+
+    Map<String, Map<String, PairValues>> getColumnsMetaTypes(EObject model);
+
+    Map<String, Map<String, PairValues>> getStatementsMetaTypes(EObject model);
 }

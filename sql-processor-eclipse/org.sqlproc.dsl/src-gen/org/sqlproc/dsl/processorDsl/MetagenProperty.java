@@ -2,6 +2,8 @@
  */
 package org.sqlproc.dsl.processorDsl;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -17,6 +19,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getType <em>Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDbTable <em>Db Table</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getIdentity <em>Identity</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getMetaTypes <em>Meta Types</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDbStatement <em>Db Statement</em>}</li>
  * </ul>
  * </p>
  *
@@ -155,5 +159,47 @@ public interface MetagenProperty extends EObject
    * @generated
    */
   void setIdentity(String value);
+
+  /**
+   * Returns the value of the '<em><b>Meta Types</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.MetaTypeAssignement}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Meta Types</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Meta Types</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMetagenProperty_MetaTypes()
+   * @model containment="true"
+   * @generated
+   */
+  EList<MetaTypeAssignement> getMetaTypes();
+
+  /**
+   * Returns the value of the '<em><b>Db Statement</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Statement</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Statement</em>' attribute.
+   * @see #setDbStatement(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMetagenProperty_DbStatement()
+   * @model
+   * @generated
+   */
+  String getDbStatement();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDbStatement <em>Db Statement</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Statement</em>' attribute.
+   * @see #getDbStatement()
+   * @generated
+   */
+  void setDbStatement(String value);
 
 } // MetagenProperty

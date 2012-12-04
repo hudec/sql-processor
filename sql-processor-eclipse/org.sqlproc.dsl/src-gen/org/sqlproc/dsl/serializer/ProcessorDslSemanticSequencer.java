@@ -49,6 +49,7 @@ import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MappingUsageExt;
 import org.sqlproc.dsl.processorDsl.MetaSql;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
+import org.sqlproc.dsl.processorDsl.MetaTypeAssignement;
 import org.sqlproc.dsl.processorDsl.MetagenProperty;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.OrdSql;
@@ -305,6 +306,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.META_STATEMENT:
 				if(context == grammarAccess.getMetaStatementRule()) {
 					sequence_MetaStatement(context, (MetaStatement) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.META_TYPE_ASSIGNEMENT:
+				if(context == grammarAccess.getMetaTypeAssignementRule()) {
+					sequence_MetaTypeAssignement(context, (MetaTypeAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -933,11 +940,22 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
+	 *     (dbColumn=IDENT type=IDENT extension=IDENT?)
+	 */
+	protected void sequence_MetaTypeAssignement(EObject context, MetaTypeAssignement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         (name='global-sequence' sequence=IDENT type=IDENT?) | 
 	 *         (name='table-sequence' dbTable=IDENT sequence=IDENT type=IDENT?) | 
 	 *         (name='global-identity' identity=IDENT type=IDENT?) | 
-	 *         (name='table-identity' dbTable=IDENT identity=IDENT type=IDENT?)
+	 *         (name='table-identity' dbTable=IDENT identity=IDENT type=IDENT?) | 
+	 *         (name='column-meta-type' dbTable=IDENT metaTypes+=MetaTypeAssignement+) | 
+	 *         (name='statement-meta-type' dbStatement=IDENT metaTypes+=MetaTypeAssignement+)
 	 *     )
 	 */
 	protected void sequence_MetagenProperty(EObject context, MetagenProperty semanticObject) {

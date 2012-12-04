@@ -78,6 +78,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.PROPERTY: return createProperty();
       case ProcessorDslPackage.DATABASE_PROPERTY: return createDatabaseProperty();
       case ProcessorDslPackage.POJOGEN_PROPERTY: return createPojogenProperty();
+      case ProcessorDslPackage.META_TYPE_ASSIGNEMENT: return createMetaTypeAssignement();
       case ProcessorDslPackage.METAGEN_PROPERTY: return createMetagenProperty();
       case ProcessorDslPackage.POJO_DEFINITION: return createPojoDefinition();
       case ProcessorDslPackage.POJO_USAGE: return createPojoUsage();
@@ -281,6 +282,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     PojogenPropertyImpl pojogenProperty = new PojogenPropertyImpl();
     return pojogenProperty;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public MetaTypeAssignement createMetaTypeAssignement()
+  {
+    MetaTypeAssignementImpl metaTypeAssignement = new MetaTypeAssignementImpl();
+    return metaTypeAssignement;
   }
 
   /**
