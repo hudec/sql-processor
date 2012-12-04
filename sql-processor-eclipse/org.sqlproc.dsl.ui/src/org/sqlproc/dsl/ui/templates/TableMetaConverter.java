@@ -120,14 +120,12 @@ public class TableMetaConverter extends TablePojoConverter {
                 if (inheritImports.containsKey(pojo) && inheritImports.get(pojo).containsKey(pentry.getKey())) {
                     ignore = false;
                 }
-                if (!ignore) {
-                    PairValues identity = getIdentity(pojo, pentry.getValue());
-                    if (identity != null)
-                        ignore = true;
-                }
                 if (ignore)
                     continue;
             }
+            PairValues identity = getIdentity(pojo, pentry.getValue());
+            if (identity != null)
+                continue;
             PojoAttribute attribute = pentry.getValue();
             if (attribute.getClassName().startsWith(COLLECTION_LIST))
                 continue;

@@ -35,5 +35,5 @@ pojogen-table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
 pojogen-generate-methods toString equals hashCode;
 pojogen-implements-interfaces java.io.Serializable;
 
-metagen-global-sequence SEQ1;
-//metagen-global-identity SEL1;
+//metagen-global-sequence SEQ1;
+metagen-global-identity SEL1;
