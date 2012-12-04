@@ -120,6 +120,11 @@ public class TableMetaConverter extends TablePojoConverter {
                 if (inheritImports.containsKey(pojo) && inheritImports.get(pojo).containsKey(pentry.getKey())) {
                     ignore = false;
                 }
+                if (!ignore) {
+                    PairValues identity = getIdentity(pojo, pentry.getValue());
+                    if (identity != null)
+                        ignore = true;
+                }
                 if (ignore)
                     continue;
             }
@@ -140,6 +145,8 @@ public class TableMetaConverter extends TablePojoConverter {
 
     private boolean insertValues(StringBuilder buffer, String pojo, boolean first) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            PairValues sequence = getSequence(pojo, pentry.getValue());
+            PairValues identity = getIdentity(pojo, pentry.getValue());
             String tableName = null;
             String attributeName = null;
             PojoAttribute attribute = null;
@@ -175,12 +182,43 @@ public class TableMetaConverter extends TablePojoConverter {
             else
                 buffer.append(":");
             buffer.append(name);
+            if (sequence != null) {
+                buffer.append("^");
+                if (sequence.value2 != null)
+                    buffer.append(sequence.value2);
+                buffer.append("^seq=").append(sequence.value1);
+            } else if (identity != null) {
+                buffer.append("^");
+                if (identity.value2 != null)
+                    buffer.append(identity.value2);
+                buffer.append("^idsel=").append(identity.value1);
+            }
             if (attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attribute.getPkColumn()));
             }
             first = false;
         }
         return first;
+    }
+
+    private PairValues getIdentity(String pojo, PojoAttribute attribute) {
+        if (attribute.isPrimaryKey()) {
+            if (tablesIdentity.containsKey(pojo))
+                return tablesIdentity.get(pojo);
+            else if (globalIdentity != null)
+                return globalIdentity;
+        }
+        return null;
+    }
+
+    private PairValues getSequence(String pojo, PojoAttribute attribute) {
+        if (attribute.isPrimaryKey()) {
+            if (tablesSequence.containsKey(pojo))
+                return tablesSequence.get(pojo);
+            else if (globalSequence != null)
+                return globalSequence;
+        }
+        return null;
     }
 
     protected TableDefinition getTableDefinition(String tableName) {

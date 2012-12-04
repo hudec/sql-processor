@@ -529,10 +529,10 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.tablesIdentity.put(property.getDbTable(),
                     new PairValues(property.getIdentity(), property.getType()));
         } else if (METAGEN_GLOBAL_SEQUENCE.equals(property.getName())) {
-            modelValues.globalSequence = new PairValues(property.getIdentity(), property.getType());
+            modelValues.globalSequence = new PairValues(property.getSequence(), property.getType());
         } else if (METAGEN_TABLE_SEQUENCE.equals(property.getName())) {
             modelValues.tablesSequence.put(property.getDbTable(),
-                    new PairValues(property.getIdentity(), property.getType()));
+                    new PairValues(property.getSequence(), property.getType()));
         }
     }
 

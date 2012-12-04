@@ -7,6 +7,7 @@ SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity();
 
 
+
 INSERT_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billing_details)=
   insert into %%BILLING_DETAILS
     (%BA_ACCOUNT, %ID, %SUBSCRIBER, %TYPE)
@@ -22,25 +23,25 @@ INSERT_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
 INSERT_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
   insert into %%CONTACT
     (%ID, %PERSON_ID, %ADDRESS, %PHONE_NUMBER)
-    {= values (:id, :person.id, :address, :phoneNumber) }
+    {= values (:id^^seq=SEQ1, :person.id, :address, :phoneNumber) }
 ;
 
 INSERT_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billing_details)=
   insert into %%BILLING_DETAILS
     (%CC_NUMBER, %ID, %SUBSCRIBER, %TYPE)
-    {= values (:ccNumber, :id, :subscriber.id, :type) }
+    {= values (:ccNumber, :id^^seq=SEQ1, :subscriber.id, :type) }
 ;
 
 INSERT_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
   insert into %%LIBRARY
     (%ID, %NAME)
-    {= values (:id, :name) }
+    {= values (:id^^seq=SEQ1, :name) }
 ;
 
 INSERT_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
   insert into %%MEDIA
     (%ID, %TITLE)
-    {= values (:id, :title) }
+    {= values (:id^^seq=SEQ1, :title) }
 ;
 
 INSERT_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
@@ -58,13 +59,13 @@ INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
 INSERT_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=person_library)=
   insert into %%PERSON_LIBRARY
     (%ID, %PERSON_ID, %MEDIA_ID)
-    {= values (:id, :personId, :mediaId) }
+    {= values (:id^^seq=SEQ1, :personId, :mediaId) }
 ;
 
 INSERT_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
   insert into %%SUBSCRIBER
     (%ID, %LIBRARY, %CONTACT, %NAME)
-    {= values (:id, :library.id, :contact, :name) }
+    {= values (:id^^seq=SEQ1, :library.id, :contact, :name) }
 ;
 
 //

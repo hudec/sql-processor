@@ -22,4 +22,18 @@ table library LIBRARY;
 table subscriber SUBSCRIBER;
 table billing_details BILLING_DETAILS;
 
-//metagen-global-sequence SEQ1;
+pojogen-generate-wrappers;
+// custom type
+pojogen-types-for-columns CONTACT PHONE_NUMBER->:org.sqlproc.sample.simple.model.PhoneNumber;
+// inheritance
+pojogen-inherit-many-to-one BOOK MEDIA_ID->MEDIA->ID;
+pojogen-inherit-many-to-one MOVIE MEDIA_ID->MEDIA->ID;
+pojogen-inherit-discriminator BILLING_DETAILS TYPE BA->BANK_ACCOUNT->BA_ACCOUNT CC->CREDIT_CARD->CC_NUMBER;
+// many-to-many
+pojogen-table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
+// others
+pojogen-generate-methods toString equals hashCode;
+pojogen-implements-interfaces java.io.Serializable;
+
+metagen-global-sequence SEQ1;
+//metagen-global-identity SEL1;
