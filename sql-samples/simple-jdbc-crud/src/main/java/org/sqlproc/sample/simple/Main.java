@@ -14,6 +14,7 @@ import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.util.DDLLoader;
+import org.sqlproc.sample.simple.model.Contact;
 import org.sqlproc.sample.simple.model.Person;
 import org.sqlproc.sample.simple.type.PhoneNumberType;
 
@@ -67,11 +68,25 @@ public class Main {
         }
     }
 
-    public Person insert(Person person) {
+    public Person insertPerson(Person person) {
         SqlCrudEngine sqlInsertPerson = sqlFactory.getCrudEngine("INSERT_PERSON");
         int count = sqlInsertPerson.insert(session, person);
         logger.info("insert: " + count + ": " + person);
         return (count > 0) ? person : null;
+    }
+
+    public Person insertContacts(Person person, Contact... contacts) {
+        SqlCrudEngine sqlInsertContact = sqlFactory.getCrudEngine("INSERT_CONTACT");
+        if (contacts != null) {
+            for (Contact contact : contacts) {
+                contact.setPerson(person);
+                int count = sqlInsertContact.insert(session, contact);
+                logger.info("insert: " + count + ": " + contact);
+                if (count > 0)
+                    person.getContacts().add(contact);
+            }
+        }
+        return person;
     }
 
     //
@@ -97,20 +112,6 @@ public class Main {
     // return list;
     // }
     //
-    // public Person insert(Person person, Contact... contacts) {
-    // SqlCrudEngine sqlInsertPerson = sqlFactory.getCrudEngine("INSERT_PERSON");
-    // SqlCrudEngine sqlInsertContact = sqlFactory.getCrudEngine("INSERT_CONTACT");
-    // int count = sqlInsertPerson.insert(session, person);
-    // logger.info("insert: " + count);
-    // logger.info("insert: " + person);
-    // if (contacts != null && count > 0) {
-    // for (Contact contact : contacts) {
-    // contact.setPerson(person);
-    // sqlInsertContact.insert(session, contact);
-    // }
-    // }
-    // return (count > 0) ? person : null;
-    // }
     //
     // public Person get(Person person) {
     // SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("GET_PERSON");
@@ -283,13 +284,17 @@ public class Main {
         main.setupDb();
 
         // init
-        Person jan = main.insert(new Person("Jan")); // , new Contact()._setAddress("Jan address 1"));
-        // Person janik = main.insert(new Person("Janik"), new Contact()._setAddress("Janik address 1"));
-        // Person honza = main.insert(new Person("Honza"), new Contact()._setAddress("Honza address 1"),
-        // new Contact()._setAddress("Honza address 2"));
-        // Person honzik = main.insert(new Person("Honzik"));
-        // Person andrej = main.insert(new Person("Andrej"), new Contact()._setAddress("Andrej address 1"));
-        //
+        Person jan = main.insertPerson(new Person("Jan"));
+        main.insertContacts(jan, new Contact()._setAddress("Jan address 1"));
+        Person janik = main.insertPerson(new Person("Janik"));
+        main.insertContacts(janik, new Contact()._setAddress("Janik address 1"));
+        Person honza = main.insertPerson(new Person("Honza"));
+        main.insertContacts(honza, new Contact()._setAddress("Honza address 1"),
+                new Contact()._setAddress("Honza address 2"));
+        Person honzik = main.insertPerson(new Person("Honzik"));
+        Person andrej = main.insertPerson(new Person("Andrej"));
+        main.insertContacts(andrej, new Contact()._setAddress("Andrej address 1"));
+
         // Book book1 = main.insertBook(new Book("The Adventures of Robin Hood", "978-0140367003"));
         // Book book2 = main.insertBook(new Book("The Three Musketeers", "978-1897093634"));
         // Movie movie1 = main.insertMovie(new Movie("Pippi Långstrump i Söderhavet", "abc", 82));

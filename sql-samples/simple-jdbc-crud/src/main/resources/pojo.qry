@@ -62,11 +62,12 @@ package org.sqlproc.sample.simple.model {
   pojo Person serializable 1  {
     id : java.lang.Long primaryKey
     name : java.lang.String required
+    passport : java.lang.String
     library : java.util.List <:Media>
     contacts : java.util.List <:Contact>
     equals ::: id
     hashCode ::: id
-    toString ::: id name
+    toString ::: id name passport
   }
 
   pojo PersonLibrary serializable 1  {
@@ -81,7 +82,7 @@ package org.sqlproc.sample.simple.model {
   pojo Subscriber serializable 1  {
     id : java.lang.Long primaryKey
     library :: Library required
-    contact : java.lang.Long
+    contact :: Contact
     name : java.lang.String required
     billingDetails : java.util.List <:BillingDetails>
     equals ::: id

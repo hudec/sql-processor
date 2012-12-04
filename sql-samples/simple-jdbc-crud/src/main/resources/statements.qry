@@ -65,7 +65,7 @@ INSERT_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=person_
 INSERT_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
   insert into %%SUBSCRIBER
     (%LIBRARY, %CONTACT, %NAME)
-    {= values (:id^^idsel=SEL1, :library.id, :contact, :name) }
+    {= values (:id^^idsel=SEL1, :library.id, :contact.id, :name) }
 ;
 
 //

@@ -46,6 +46,21 @@ public class Person implements Serializable {
     return this;
   }
   
+  private String passport;
+    
+  public String getPassport() {
+    return passport;
+  }
+    
+  public void setPassport(String passport) {
+    this.passport = passport;
+  }
+    
+  public Person _setPassport(String passport) {
+    this.passport = passport;
+    return this;
+  }
+  
   private List<Media> library = new ArrayList<Media>();
     
   public List<Media> getLibrary() {
@@ -100,10 +115,10 @@ public class Person implements Serializable {
   
   @Override
   public String toString() {
-    return "Person [id=" + id + ", name=" + name + "]";
+    return "Person [id=" + id + ", name=" + name + ", passport=" + passport + "]";
   }
   
   public String toStringFull() {
-    return "Person [id=" + id + ", name=" + name + "]";
+    return "Person [id=" + id + ", name=" + name + ", passport=" + passport + "]";
   }
 }

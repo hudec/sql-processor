@@ -29,11 +29,14 @@ pojogen-types-for-columns CONTACT PHONE_NUMBER->:org.sqlproc.sample.simple.model
 pojogen-inherit-many-to-one BOOK MEDIA_ID->MEDIA->ID;
 pojogen-inherit-many-to-one MOVIE MEDIA_ID->MEDIA->ID;
 pojogen-inherit-discriminator BILLING_DETAILS TYPE BA->BANK_ACCOUNT->BA_ACCOUNT CC->CREDIT_CARD->CC_NUMBER;
+// many-to-one
+pojogen-create-many-to-one SUBSCRIBER CONTACT->CONTACT->ID;
 // many-to-many
 pojogen-table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
 // others
 pojogen-generate-methods toString equals hashCode;
 pojogen-implements-interfaces java.io.Serializable;
+pojogen-create-columns PERSON PASSPORT->:java.lang.String;
 
 //metagen-global-sequence SEQ1;
 metagen-global-identity SEL1;

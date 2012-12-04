@@ -115,6 +115,8 @@ public class TableMetaConverter extends TablePojoConverter {
 
     private boolean insertColumns(StringBuilder buffer, String pojo, boolean first) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            if (createColumns.containsKey(pojo) && createColumns.get(pojo).containsKey(pentry.getKey()))
+                continue;
             if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey())) {
                 boolean ignore = true;
                 if (inheritImports.containsKey(pojo) && inheritImports.get(pojo).containsKey(pentry.getKey())) {
@@ -143,6 +145,8 @@ public class TableMetaConverter extends TablePojoConverter {
 
     private boolean insertValues(StringBuilder buffer, String pojo, boolean first) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            if (createColumns.containsKey(pojo) && createColumns.get(pojo).containsKey(pentry.getKey()))
+                continue;
             PairValues sequence = getSequence(pojo, pentry.getValue());
             PairValues identity = getIdentity(pojo, pentry.getValue());
             String tableName = null;

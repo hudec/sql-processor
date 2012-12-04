@@ -47,17 +47,17 @@ public class Subscriber implements Serializable {
     return this;
   }
   
-  private Long contact;
+  private Contact contact;
     
-  public Long getContact() {
+  public Contact getContact() {
     return contact;
   }
     
-  public void setContact(Long contact) {
+  public void setContact(Contact contact) {
     this.contact = contact;
   }
     
-  public Subscriber _setContact(Long contact) {
+  public Subscriber _setContact(Contact contact) {
     this.contact = contact;
     return this;
   }
@@ -116,7 +116,7 @@ public class Subscriber implements Serializable {
   
   @Override
   public String toString() {
-    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + ", contact=" + contact + "]";
+    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + "]";
   }
   
   public String toStringFull() {

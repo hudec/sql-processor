@@ -264,8 +264,10 @@ public class TablePojoConverter {
         if (createImports.containsKey(table)) {
             for (Map.Entry<String, Map<String, String>> pentry : createImports.get(table).entrySet()) {
                 PojoAttribute attribute = attributes.get(pentry.getKey());
-                for (String pkTable : pentry.getValue().keySet())
-                    attribute.setPkTable(pkTable);
+                for (Entry<String, String> pkEntry : pentry.getValue().entrySet()) {
+                    attribute.setPkTable(pkEntry.getKey());
+                    attribute.setPkColumn(pkEntry.getValue());
+                }
             }
         }
         for (DbExport dbExport : dbExports) {
