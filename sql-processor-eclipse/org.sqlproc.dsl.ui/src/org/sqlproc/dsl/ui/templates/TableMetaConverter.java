@@ -95,7 +95,7 @@ public class TableMetaConverter extends TablePojoConverter {
         String tableName = tableNames.get(pojo);
         if (tableName == null)
             tableName = pojo;
-        String realTableName = tableName;
+        String realTableName = pojo;
         if (pojoDiscriminators.containsKey(tableName))
             realTableName = pojoExtends.get(tableName);
         String statementName = "INSERT_" + tableName;
@@ -145,13 +145,11 @@ public class TableMetaConverter extends TablePojoConverter {
             PojoAttribute attribute = pentry.getValue();
             if (attribute.getClassName().startsWith(COLLECTION_LIST))
                 continue;
-            String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : pentry
-                    .getKey();
             if (!first)
                 buffer.append(", %");
             else
                 buffer.append("%");
-            buffer.append(name);
+            buffer.append(pentry.getKey());
             first = false;
         }
         return first;
