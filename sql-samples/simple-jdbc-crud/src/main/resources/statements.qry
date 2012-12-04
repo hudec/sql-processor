@@ -7,11 +7,10 @@ SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity();
 
 
-
 INSERT_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billing_details)=
   insert into %%BILLING_DETAILS
-    (%BA_ACCOUNT, %SUBSCRIBER, %TYPE)
-    {= values (:baAccount, :id^^idsel=SEL1, :subscriber.id, :type) }
+    (%BA_ACCOUNT, %ID, %SUBSCRIBER, %TYPE)
+    {= values (:baAccount, :id^^seq=SEQ1, :subscriber.id, :type) }
 ;
 
 INSERT_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
@@ -22,26 +21,26 @@ INSERT_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
 
 INSERT_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
   insert into %%CONTACT
-    (%PERSON_ID, %ADDRESS, %PHONE_NUMBER)
-    {= values (:id^^idsel=SEL1, :person.id, :address, :phoneNumber) }
+    (%ID, %PERSON_ID, %ADDRESS, %PHONE_NUMBER)
+    {= values (:id^^seq=SEQ1, :person.id, :address, :phoneNumber) }
 ;
 
 INSERT_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billing_details)=
   insert into %%BILLING_DETAILS
-    (%CC_NUMBER, %SUBSCRIBER, %TYPE)
-    {= values (:ccNumber, :id^^idsel=SEL1, :subscriber.id, :type) }
+    (%CC_NUMBER, %ID, %SUBSCRIBER, %TYPE)
+    {= values (:ccNumber, :id^^seq=SEQ1, :subscriber.id, :type) }
 ;
 
 INSERT_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
   insert into %%LIBRARY
-    (%NAME)
-    {= values (:id^^idsel=SEL1, :name) }
+    (%ID, %NAME)
+    {= values (:id^^seq=SEQ1, :name) }
 ;
 
 INSERT_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
   insert into %%MEDIA
-    (%TITLE)
-    {= values (:id^^idsel=SEL1, :title) }
+    (%ID, %TITLE)
+    {= values (:id^^seq=SEQ1, :title) }
 ;
 
 INSERT_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
@@ -52,21 +51,22 @@ INSERT_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
 
 INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   insert into %%PERSON
-    (%NAME)
-    {= values (:id^^idsel=SEL1, :name) }
+    (%ID, %NAME)
+    {= values (:id^^seq=SEQ1, :name) }
 ;
 
 INSERT_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=person_library)=
   insert into %%PERSON_LIBRARY
-    (%PERSON_ID, %MEDIA_ID)
-    {= values (:id^^idsel=SEL1, :personId, :mediaId) }
+    (%ID, %PERSON_ID, %MEDIA_ID)
+    {= values (:id^^seq=SEQ1, :personId, :mediaId) }
 ;
 
 INSERT_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
   insert into %%SUBSCRIBER
-    (%LIBRARY, %CONTACT, %NAME)
-    {= values (:id^^idsel=SEL1, :library.id, :contact.id, :name) }
+    (%ID, %LIBRARY, %CONTACT, %NAME)
+    {= values (:id^^seq=SEQ1, :library.id, :contact.id, :name) }
 ;
+
 
 //
 //
