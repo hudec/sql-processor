@@ -178,6 +178,13 @@ public class Main {
         return p;
     }
 
+    public Person update(Person person) {
+        SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
+        int count = sqlEngine.update(session, person);
+        logger.info("update person: " + count);
+        return (count > 0) ? person : null;
+    }
+
     //
     // public List<Person> listAll() {
     // SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE");
@@ -201,13 +208,6 @@ public class Main {
     // return list;
     // }
     //
-    //
-    // public Person update(Person person) {
-    // SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
-    // int count = sqlEngine.update(session, person);
-    // logger.info("update: " + count);
-    // return (count > 0) ? person : null;
-    // }
     //
     // public boolean delete(Person person) {
     // SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("DELETE_PERSON");
@@ -290,8 +290,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Person person, p;
-        // List<Person> list;
-        // boolean deleted;
+        List<Person> list;
+        boolean deleted;
 
         Main main = new Main();
         main.setupDb();
@@ -330,12 +330,19 @@ public class Main {
         main.insertPersonLibrary(honza, book2, movie2);
         main.insertPersonLibrary(andrej, book1, book2, movie2);
 
+        // update
+        person = new Person();
+        person.setId(andrej.getId());
+        person.setName("Andrejik");
+        p = main.update(person);
+        Assert.assertNotNull(p);
+
         // get
         person = new Person();
         person.setId(andrej.getId());
         p = main.get(person);
         Assert.assertNotNull(p);
-        Assert.assertEquals("Andrej", p.getName());
+        Assert.assertEquals("Andrejik", p.getName());
 
         // // queries
         // list = main.listAll();

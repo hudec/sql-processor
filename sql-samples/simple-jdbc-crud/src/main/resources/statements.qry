@@ -23,6 +23,19 @@ GET_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billing_details)
   }
 ;
 
+UPDATE_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billing_details)=
+  update %%BILLING_DETAILS
+  {= set
+    %BA_ACCOUNT = :baAccount, %SUBSCRIBER = :subscriber.id, %TYPE = :type
+  }
+  {= where
+    {& %BA_ACCOUNT = :baAccount }
+    {& %ID = :id }
+    {& %SUBSCRIBER = :subscriber.id }
+    {& %TYPE = :type }
+  }
+;
+
 INSERT_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
   insert into %%BOOK (%MEDIA_ID, %ISBN)
   {= values (:id, :isbn) }
@@ -37,6 +50,17 @@ GET_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
   }
 ;
 
+UPDATE_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
+  update %%BOOK
+  {= set
+    %ISBN = :isbn
+  }
+  {= where
+    {& %MEDIA_ID = :id }
+    {& %ISBN = :isbn }
+  }
+;
+
 INSERT_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
   insert into %%CONTACT (%PERSON_ID, %ADDRESS, %PHONE_NUMBER)
   {= values (:id^^idsel=SEL1, :person.id, :address, :phoneNumber^phone) }
@@ -45,6 +69,19 @@ INSERT_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
 GET_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
   select %ID @id, %PERSON_ID @person.id, %ADDRESS @address, %PHONE_NUMBER @phoneNumber^phone
   from %%CONTACT
+  {= where
+    {& %ID = :id }
+    {& %PERSON_ID = :person.id }
+    {& %ADDRESS = :address }
+    {& %PHONE_NUMBER = :phoneNumber^phone }
+  }
+;
+
+UPDATE_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
+  update %%CONTACT
+  {= set
+    %PERSON_ID = :person.id, %ADDRESS = :address, %PHONE_NUMBER = :phoneNumber^phone
+  }
   {= where
     {& %ID = :id }
     {& %PERSON_ID = :person.id }
@@ -69,6 +106,19 @@ GET_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billing_details)=
   }
 ;
 
+UPDATE_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billing_details)=
+  update %%BILLING_DETAILS
+  {= set
+    %CC_NUMBER = :ccNumber, %SUBSCRIBER = :subscriber.id, %TYPE = :type
+  }
+  {= where
+    {& %CC_NUMBER = :ccNumber }
+    {& %ID = :id }
+    {& %SUBSCRIBER = :subscriber.id }
+    {& %TYPE = :type }
+  }
+;
+
 INSERT_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
   insert into %%LIBRARY (%NAME)
   {= values (:id^^idsel=SEL1, :name) }
@@ -83,6 +133,17 @@ GET_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
   }
 ;
 
+UPDATE_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
+  update %%LIBRARY
+  {= set
+    %NAME = :name
+  }
+  {= where
+    {& %ID = :id }
+    {& %NAME = :name }
+  }
+;
+
 INSERT_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
   insert into %%MEDIA (%TITLE)
   {= values (:id^^idsel=SEL1, :title) }
@@ -91,6 +152,17 @@ INSERT_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
 GET_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
   select %ID @id, %TITLE @title
   from %%MEDIA
+  {= where
+    {& %ID = :id }
+    {& %TITLE = :title }
+  }
+;
+
+UPDATE_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
+  update %%MEDIA
+  {= set
+    %TITLE = :title
+  }
   {= where
     {& %ID = :id }
     {& %TITLE = :title }
@@ -112,6 +184,18 @@ GET_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
   }
 ;
 
+UPDATE_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
+  update %%MOVIE
+  {= set
+    %URLIMDB = :urlimdb, %PLAYLENGTH = :playlength
+  }
+  {= where
+    {& %MEDIA_ID = :id }
+    {& %URLIMDB = :urlimdb }
+    {& %PLAYLENGTH = :playlength }
+  }
+;
+
 INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   insert into %%PERSON (%NAME)
   {= values (:id^^idsel=SEL1, :name) }
@@ -120,6 +204,17 @@ INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
 GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   select %ID @id, %NAME @name
   from %%PERSON
+  {= where
+    {& %ID = :id }
+    {& %NAME = :name }
+  }
+;
+
+UPDATE_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
+  update %%PERSON
+  {= set
+    %NAME = :name
+  }
   {= where
     {& %ID = :id }
     {& %NAME = :name }
@@ -141,6 +236,18 @@ GET_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=person_lib
   }
 ;
 
+UPDATE_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=person_library)=
+  update %%PERSON_LIBRARY
+  {= set
+    %PERSON_ID = :personId, %MEDIA_ID = :mediaId
+  }
+  {= where
+    {& %ID = :id }
+    {& %PERSON_ID = :personId }
+    {& %MEDIA_ID = :mediaId }
+  }
+;
+
 INSERT_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
   insert into %%SUBSCRIBER (%LIBRARY, %CONTACT, %NAME)
   {= values (:id^^idsel=SEL1, :library.id, :contact.id, :name) }
@@ -149,6 +256,19 @@ INSERT_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
 GET_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
   select %ID @id, %LIBRARY @library.id, %CONTACT @contact.id, %NAME @name
   from %%SUBSCRIBER
+  {= where
+    {& %ID = :id }
+    {& %LIBRARY = :library.id }
+    {& %CONTACT = :contact.id }
+    {& %NAME = :name }
+  }
+;
+
+UPDATE_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
+  update %%SUBSCRIBER
+  {= set
+    %LIBRARY = :library.id, %CONTACT = :contact.id, %NAME = :name
+  }
   {= where
     {& %ID = :id }
     {& %LIBRARY = :library.id }

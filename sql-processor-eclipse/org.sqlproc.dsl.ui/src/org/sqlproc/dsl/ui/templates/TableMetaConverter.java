@@ -67,32 +67,17 @@ public class TableMetaConverter extends TablePojoConverter {
                 continue;
             buffer.append(getMetaInsertDefinition(pojo));
             buffer.append(getMetaGetDefinition(pojo));
+            buffer.append(getMetaUpdateDefinition(pojo));
         }
         return buffer.toString();
     }
 
-    public StringBuilder getMetaInsertDefinition(String pojo) {
+    StringBuilder getMetaInsertDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
-        String tableName = tableNames.get(pojo);
-        if (tableName == null)
-            tableName = pojo;
-        String realTableName = pojo;
-        if (pojoDiscriminators.containsKey(tableName))
-            realTableName = pojoExtends.get(tableName);
-        String statementName = "INSERT_" + tableName;
-        buffer.append("\n").append(statementName).append("(CRUD,");
-        buffer.append("identx=").append(tableToCamelCase(tableName));
-        buffer.append(",colx=").append(tableToCamelCase(tableName));
-        buffer.append(",dbcol=");
-        TableDefinition tableDefinition = getTableDefinition(realTableName);
-        if (tableDefinition != null)
-            buffer.append(tableDefinition.getName());
-        else
-            buffer.append(tableName);
-        buffer.append(")=");
-        buffer.append("\n  insert into %%").append(realTableName);
+        Names names = getStatementHeader(pojo, buffer, Names.StatementType.INSERT);
+        buffer.append("\n  insert into %%").append(names.realTableName);
         buffer.append(" (");
-        String parentPojo = pojoDiscriminators.containsKey(tableName) ? pojoExtends.get(tableName) : null;
+        String parentPojo = pojoDiscriminators.containsKey(names.tableName) ? pojoExtends.get(names.tableName) : null;
         boolean first = insertColumns(buffer, pojo, true);
         if (parentPojo != null)
             insertColumns(buffer, parentPojo, first);
@@ -100,15 +85,51 @@ public class TableMetaConverter extends TablePojoConverter {
         first = insertIdentity(buffer, pojo, true);
         if (parentPojo != null)
             first = insertIdentity(buffer, parentPojo, first);
-        first = insertValues(buffer, pojo, first, statementName);
+        first = pojoColumns(buffer, pojo, first, names.statementName);
         if (parentPojo != null)
-            insertValues(buffer, parentPojo, first, statementName);
+            pojoColumns(buffer, parentPojo, first, names.statementName);
         buffer.append(") }");
         buffer.append("\n;\n");
         return buffer;
     }
 
-    private boolean insertColumns(StringBuilder buffer, String pojo, boolean first) {
+    StringBuilder getMetaGetDefinition(String pojo) {
+        StringBuilder buffer = new StringBuilder();
+        Names names = getStatementHeader(pojo, buffer, Names.StatementType.GET);
+        buffer.append("\n  select ");
+        String parentPojo = pojoDiscriminators.containsKey(names.tableName) ? pojoExtends.get(names.tableName) : null;
+        boolean first = selectColumns(buffer, pojo, true, names.statementName);
+        if (parentPojo != null)
+            selectColumns(buffer, parentPojo, first, names.statementName);
+        buffer.append("\n  from %%").append(names.realTableName);
+        buffer.append("\n  {= where");
+        first = whereColumns(buffer, pojo, first, names.statementName);
+        if (parentPojo != null)
+            whereColumns(buffer, parentPojo, first, names.statementName);
+        buffer.append("\n  }");
+        buffer.append("\n;\n");
+        return buffer;
+    }
+
+    StringBuilder getMetaUpdateDefinition(String pojo) {
+        StringBuilder buffer = new StringBuilder();
+        Names names = getStatementHeader(pojo, buffer, Names.StatementType.UPDATE);
+        buffer.append("\n  update %%").append(names.realTableName);
+        buffer.append("\n  {= set\n    ");
+        String parentPojo = pojoDiscriminators.containsKey(names.tableName) ? pojoExtends.get(names.tableName) : null;
+        boolean first = updateColumns(buffer, pojo, true, names.statementName);
+        if (parentPojo != null)
+            updateColumns(buffer, parentPojo, first, names.statementName);
+        buffer.append("\n  }\n  {= where");
+        first = whereColumns(buffer, pojo, first, names.statementName);
+        if (parentPojo != null)
+            whereColumns(buffer, parentPojo, first, names.statementName);
+        buffer.append("\n  }");
+        buffer.append("\n;\n");
+        return buffer;
+    }
+
+    boolean insertColumns(StringBuilder buffer, String pojo, boolean first) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             if (createColumns.containsKey(pojo) && createColumns.get(pojo).containsKey(pentry.getKey()))
                 continue;
@@ -136,7 +157,7 @@ public class TableMetaConverter extends TablePojoConverter {
         return first;
     }
 
-    private boolean insertIdentity(StringBuilder buffer, String pojo, boolean first) {
+    boolean insertIdentity(StringBuilder buffer, String pojo, boolean first) {
         PairValues identity = null;
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             if (createColumns.containsKey(pojo) && createColumns.get(pojo).containsKey(pentry.getKey()))
@@ -161,7 +182,7 @@ public class TableMetaConverter extends TablePojoConverter {
         return first;
     }
 
-    private boolean insertValues(StringBuilder buffer, String pojo, boolean first, String statementName) {
+    boolean pojoColumns(StringBuilder buffer, String pojo, boolean first, String statementName) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             if (createColumns.containsKey(pojo) && createColumns.get(pojo).containsKey(pentry.getKey()))
                 continue;
@@ -235,41 +256,7 @@ public class TableMetaConverter extends TablePojoConverter {
         return first;
     }
 
-    public StringBuilder getMetaGetDefinition(String pojo) {
-        StringBuilder buffer = new StringBuilder();
-        String tableName = tableNames.get(pojo);
-        if (tableName == null)
-            tableName = pojo;
-        String realTableName = pojo;
-        if (pojoDiscriminators.containsKey(tableName))
-            realTableName = pojoExtends.get(tableName);
-        String statementName = "GET_" + tableName;
-        buffer.append("\n").append(statementName).append("(CRUD,");
-        buffer.append("identx=").append(tableToCamelCase(tableName));
-        buffer.append(",colx=").append(tableToCamelCase(tableName));
-        buffer.append(",dbcol=");
-        TableDefinition tableDefinition = getTableDefinition(realTableName);
-        if (tableDefinition != null)
-            buffer.append(tableDefinition.getName());
-        else
-            buffer.append(tableName);
-        buffer.append(")=");
-        buffer.append("\n  select ");
-        String parentPojo = pojoDiscriminators.containsKey(tableName) ? pojoExtends.get(tableName) : null;
-        boolean first = getColumns(buffer, pojo, true, statementName);
-        if (parentPojo != null)
-            getColumns(buffer, parentPojo, first, statementName);
-        buffer.append("\n  from %%").append(realTableName);
-        buffer.append("\n  {= where");
-        first = getValues(buffer, pojo, first, statementName);
-        if (parentPojo != null)
-            getValues(buffer, parentPojo, first, statementName);
-        buffer.append("\n  }");
-        buffer.append("\n;\n");
-        return buffer;
-    }
-
-    private boolean getColumns(StringBuilder buffer, String pojo, boolean first, String statementName) {
+    boolean selectColumns(StringBuilder buffer, String pojo, boolean first, String statementName) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             if (createColumns.containsKey(pojo) && createColumns.get(pojo).containsKey(pentry.getKey()))
                 continue;
@@ -335,7 +322,7 @@ public class TableMetaConverter extends TablePojoConverter {
         return first;
     }
 
-    private boolean getValues(StringBuilder buffer, String pojo, boolean first, String statementName) {
+    boolean whereColumns(StringBuilder buffer, String pojo, boolean first, String statementName) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             if (createColumns.containsKey(pojo) && createColumns.get(pojo).containsKey(pentry.getKey()))
                 continue;
@@ -398,7 +385,75 @@ public class TableMetaConverter extends TablePojoConverter {
         return first;
     }
 
-    // public StringBuilder getMetaSelectDefinition(String pojo) {
+    boolean updateColumns(StringBuilder buffer, String pojo, boolean first, String statementName) {
+        for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            if (createColumns.containsKey(pojo) && createColumns.get(pojo).containsKey(pentry.getKey()))
+                continue;
+            String tableName = null;
+            String attributeName = null;
+            PojoAttribute attribute = null;
+            if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey())) {
+                boolean ignore = true;
+                if (inheritImports.containsKey(pojo) && inheritImports.get(pojo).containsKey(pentry.getKey())) {
+                    ignore = false;
+                    for (Map.Entry<String, String> pentry2 : inheritImports.get(pojo).get(pentry.getKey()).entrySet()) {
+                        tableName = pentry2.getKey();
+                        attributeName = pentry2.getValue();
+                        attribute = pojos.get(tableName).get(attributeName);
+                        break;
+                    }
+                }
+                if (ignore)
+                    continue;
+            }
+            if (tableName == null)
+                tableName = pojo;
+            if (attributeName == null)
+                attributeName = pentry.getKey();
+            if (attribute == null)
+                attribute = pentry.getValue();
+            if (attribute.getClassName().startsWith(COLLECTION_LIST))
+                continue;
+            if (attribute.isPrimaryKey())
+                continue;
+            String name = (columnNames.containsKey(tableName)) ? columnNames.get(tableName).get(attributeName) : null;
+            if (name == null)
+                name = attribute.getName();
+            else
+                name = columnToCamelCase(name);
+            if (!first)
+                buffer.append(", %");
+            else
+                buffer.append("%");
+            buffer.append(pentry.getKey());
+            buffer.append(" = :").append(name);
+            if (attribute.getPkTable() != null) {
+                buffer.append(".").append(columnToCamelCase(attribute.getPkColumn()));
+            }
+            if (columnsMetaTypes.containsKey(tableName) && columnsMetaTypes.get(tableName).containsKey(attributeName)) {
+                PairValues metaType = columnsMetaTypes.get(tableName).get(attributeName);
+                buffer.append("^");
+                if (!"null".equalsIgnoreCase(metaType.value1))
+                    buffer.append(metaType.value1);
+                if (metaType.value2 != null) {
+                    buffer.append("^").append(metaType.value2);
+                }
+            } else if (statementsMetaTypes.containsKey(statementName)
+                    && statementsMetaTypes.get(statementName).containsKey(attributeName)) {
+                PairValues metaType = statementsMetaTypes.get(statementName).get(attributeName);
+                buffer.append("^");
+                if (!"null".equalsIgnoreCase(metaType.value1))
+                    buffer.append(metaType.value1);
+                if (metaType.value2 != null) {
+                    buffer.append("^").append(metaType.value2);
+                }
+            }
+            first = false;
+        }
+        return first;
+    }
+
+    // StringBuilder getMetaSelectDefinition(String pojo) {
     // StringBuilder buffer = new StringBuilder();
     // String tableName = tableNames.get(pojo);
     // if (tableName == null)
@@ -418,7 +473,49 @@ public class TableMetaConverter extends TablePojoConverter {
     // return buffer;
     // }
 
-    private PairValues getIdentity(String pojo, PojoAttribute attribute) {
+    static class Names {
+        enum StatementType {
+            INSERT, GET, UPDATE, DELETE, SELECT
+        }
+
+        String tableName;
+        String realTableName;
+        String statementName;
+    }
+
+    Names getStatementHeader(String pojo, StringBuilder buffer, Names.StatementType type) {
+        Names names = new Names();
+        names.tableName = tableNames.get(pojo);
+        if (names.tableName == null)
+            names.tableName = pojo;
+        names.realTableName = pojo;
+        if (pojoDiscriminators.containsKey(names.tableName))
+            names.realTableName = pojoExtends.get(names.tableName);
+        if (type == Names.StatementType.INSERT)
+            names.statementName = "INSERT_";
+        else if (type == Names.StatementType.GET)
+            names.statementName = "GET_";
+        else if (type == Names.StatementType.UPDATE)
+            names.statementName = "UPDATE_";
+        else if (type == Names.StatementType.DELETE)
+            names.statementName = "DELETE_";
+        else if (type == Names.StatementType.SELECT)
+            names.statementName = "SELECT_";
+        names.statementName = names.statementName + names.tableName;
+        buffer.append("\n").append(names.statementName).append("(CRUD,");
+        buffer.append("identx=").append(tableToCamelCase(names.tableName));
+        buffer.append(",colx=").append(tableToCamelCase(names.tableName));
+        buffer.append(",dbcol=");
+        TableDefinition tableDefinition = getTableDefinition(names.realTableName);
+        if (tableDefinition != null)
+            buffer.append(tableDefinition.getName());
+        else
+            buffer.append(names.tableName);
+        buffer.append(")=");
+        return names;
+    }
+
+    PairValues getIdentity(String pojo, PojoAttribute attribute) {
         if (attribute.isPrimaryKey()) {
             if (tablesIdentity.containsKey(pojo))
                 return tablesIdentity.get(pojo);
@@ -428,7 +525,7 @@ public class TableMetaConverter extends TablePojoConverter {
         return null;
     }
 
-    private PairValues getSequence(String pojo, PojoAttribute attribute) {
+    PairValues getSequence(String pojo, PojoAttribute attribute) {
         if (attribute.isPrimaryKey()) {
             if (tablesSequence.containsKey(pojo))
                 return tablesSequence.get(pojo);
@@ -438,7 +535,7 @@ public class TableMetaConverter extends TablePojoConverter {
         return null;
     }
 
-    protected TableDefinition getTableDefinition(String tableName) {
+    TableDefinition getTableDefinition(String tableName) {
         IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES);
         Iterable<IEObjectDescription> iterable = scope.getAllElements();
         for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
