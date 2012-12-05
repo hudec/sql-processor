@@ -12,16 +12,6 @@ database-login-password "";
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
 //database-ddl-drop hsqldb_drop.ddl;
 
-table person PERSON;
-table contact CONTACT;
-table media MEDIA;
-table movie MOVIE;
-table book BOOK;
-table person_library PERSON_LIBRARY;
-table library LIBRARY;
-table subscriber SUBSCRIBER;
-table billing_details BILLING_DETAILS;
-
 pojogen-generate-wrappers;
 // custom type
 pojogen-types-for-columns CONTACT PHONE_NUMBER->:org.sqlproc.sample.simple.model.PhoneNumber;
@@ -46,3 +36,13 @@ metagen-column-meta-type CONTACT PHONE_NUMBER->phone;
 // just for dev
 //pojogen-rename-columns BOOK ISBN->NEW_ISBN;
 //pojogen-rename-tables BOOK->NEW_BOOK;
+
+table billingDetails BILLING_DETAILS;
+table book BOOK;
+table contact CONTACT;
+table library LIBRARY;
+table media MEDIA;
+table movie MOVIE;
+table person PERSON;
+table personLibrary PERSON_LIBRARY;
+table subscriber SUBSCRIBER;

@@ -121,9 +121,9 @@ public class TableMetaConverter extends TablePojoConverter {
         if (parentPojo != null)
             updateColumns(buffer, parentPojo, first, names.statementName);
         buffer.append("\n  }\n  {= where");
-        first = whereColumns(buffer, pojo, first, names.statementName);
+        first = wherePrimaryKeys(buffer, pojo, first, names.statementName);
         if (parentPojo != null)
-            whereColumns(buffer, parentPojo, first, names.statementName);
+            wherePrimaryKeys(buffer, parentPojo, first, names.statementName);
         buffer.append("\n  }");
         buffer.append("\n;\n");
         return buffer;
@@ -350,6 +350,71 @@ public class TableMetaConverter extends TablePojoConverter {
             if (attribute == null)
                 attribute = pentry.getValue();
             if (attribute.getClassName().startsWith(COLLECTION_LIST))
+                continue;
+            String name = (columnNames.containsKey(tableName)) ? columnNames.get(tableName).get(attributeName) : null;
+            if (name == null)
+                name = attribute.getName();
+            else
+                name = columnToCamelCase(name);
+            buffer.append("\n    {& %").append(pentry.getKey());
+            buffer.append(" = :").append(name);
+            if (attribute.getPkTable() != null) {
+                buffer.append(".").append(columnToCamelCase(attribute.getPkColumn()));
+            }
+            if (columnsMetaTypes.containsKey(tableName) && columnsMetaTypes.get(tableName).containsKey(attributeName)) {
+                PairValues metaType = columnsMetaTypes.get(tableName).get(attributeName);
+                buffer.append("^");
+                if (!"null".equalsIgnoreCase(metaType.value1))
+                    buffer.append(metaType.value1);
+                if (metaType.value2 != null) {
+                    buffer.append("^").append(metaType.value2);
+                }
+            } else if (statementsMetaTypes.containsKey(statementName)
+                    && statementsMetaTypes.get(statementName).containsKey(attributeName)) {
+                PairValues metaType = statementsMetaTypes.get(statementName).get(attributeName);
+                buffer.append("^");
+                if (!"null".equalsIgnoreCase(metaType.value1))
+                    buffer.append(metaType.value1);
+                if (metaType.value2 != null) {
+                    buffer.append("^").append(metaType.value2);
+                }
+            }
+            buffer.append(" }");
+            first = false;
+        }
+        return first;
+    }
+
+    boolean wherePrimaryKeys(StringBuilder buffer, String pojo, boolean first, String statementName) {
+        for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            if (createColumns.containsKey(pojo) && createColumns.get(pojo).containsKey(pentry.getKey()))
+                continue;
+            String tableName = null;
+            String attributeName = null;
+            PojoAttribute attribute = null;
+            if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey())) {
+                boolean ignore = true;
+                if (inheritImports.containsKey(pojo) && inheritImports.get(pojo).containsKey(pentry.getKey())) {
+                    ignore = false;
+                    for (Map.Entry<String, String> pentry2 : inheritImports.get(pojo).get(pentry.getKey()).entrySet()) {
+                        tableName = pentry2.getKey();
+                        attributeName = pentry2.getValue();
+                        attribute = pojos.get(tableName).get(attributeName);
+                        break;
+                    }
+                }
+                if (ignore)
+                    continue;
+            }
+            if (tableName == null)
+                tableName = pojo;
+            if (attributeName == null)
+                attributeName = pentry.getKey();
+            if (attribute == null)
+                attribute = pentry.getValue();
+            if (attribute.getClassName().startsWith(COLLECTION_LIST))
+                continue;
+            if (!attribute.isPrimaryKey())
                 continue;
             String name = (columnNames.containsKey(tableName)) ? columnNames.get(tableName).get(attributeName) : null;
             if (name == null)
