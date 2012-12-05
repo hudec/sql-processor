@@ -65,16 +65,18 @@ public class TableMetaConverter extends TablePojoConverter {
                 continue;
             if (pojoInheritanceDiscriminator.contains(pojo))
                 continue;
-            buffer.append(getMetaInsertDefinition(pojo));
-            buffer.append(getMetaGetDefinition(pojo));
-            buffer.append(getMetaUpdateDefinition(pojo));
+            buffer.append(metaInsertDefinition(pojo));
+            buffer.append(metaGetDefinition(pojo));
+            buffer.append(metaUpdateDefinition(pojo));
+            buffer.append(metaDeleteDefinition(pojo));
+            buffer.append(metaDeleteMoreDefinition(pojo));
         }
         return buffer.toString();
     }
 
-    StringBuilder getMetaInsertDefinition(String pojo) {
+    StringBuilder metaInsertDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
-        Names names = getStatementHeader(pojo, buffer, Names.StatementType.INSERT);
+        Names names = getStatementHeader(pojo, buffer, Names.StatementType.INSERT, null);
         buffer.append("\n  insert into %%").append(names.realTableName);
         buffer.append(" (");
         String parentPojo = pojoDiscriminators.containsKey(names.tableName) ? pojoExtends.get(names.tableName) : null;
@@ -93,9 +95,9 @@ public class TableMetaConverter extends TablePojoConverter {
         return buffer;
     }
 
-    StringBuilder getMetaGetDefinition(String pojo) {
+    StringBuilder metaGetDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
-        Names names = getStatementHeader(pojo, buffer, Names.StatementType.GET);
+        Names names = getStatementHeader(pojo, buffer, Names.StatementType.GET, null);
         buffer.append("\n  select ");
         String parentPojo = pojoDiscriminators.containsKey(names.tableName) ? pojoExtends.get(names.tableName) : null;
         boolean first = selectColumns(buffer, pojo, true, names.statementName);
@@ -111,9 +113,9 @@ public class TableMetaConverter extends TablePojoConverter {
         return buffer;
     }
 
-    StringBuilder getMetaUpdateDefinition(String pojo) {
+    StringBuilder metaUpdateDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
-        Names names = getStatementHeader(pojo, buffer, Names.StatementType.UPDATE);
+        Names names = getStatementHeader(pojo, buffer, Names.StatementType.UPDATE, null);
         buffer.append("\n  update %%").append(names.realTableName);
         buffer.append("\n  {= set\n    ");
         String parentPojo = pojoDiscriminators.containsKey(names.tableName) ? pojoExtends.get(names.tableName) : null;
@@ -124,6 +126,34 @@ public class TableMetaConverter extends TablePojoConverter {
         first = wherePrimaryKeys(buffer, pojo, first, names.statementName);
         if (parentPojo != null)
             wherePrimaryKeys(buffer, parentPojo, first, names.statementName);
+        buffer.append("\n  }");
+        buffer.append("\n;\n");
+        return buffer;
+    }
+
+    StringBuilder metaDeleteDefinition(String pojo) {
+        StringBuilder buffer = new StringBuilder();
+        Names names = getStatementHeader(pojo, buffer, Names.StatementType.DELETE, null);
+        buffer.append("\n  delete from %%").append(names.realTableName);
+        buffer.append("\n  {= where");
+        String parentPojo = pojoDiscriminators.containsKey(names.tableName) ? pojoExtends.get(names.tableName) : null;
+        boolean first = wherePrimaryKeys(buffer, pojo, true, names.statementName);
+        if (parentPojo != null)
+            wherePrimaryKeys(buffer, parentPojo, first, names.statementName);
+        buffer.append("\n  }");
+        buffer.append("\n;\n");
+        return buffer;
+    }
+
+    StringBuilder metaDeleteMoreDefinition(String pojo) {
+        StringBuilder buffer = new StringBuilder();
+        Names names = getStatementHeader(pojo, buffer, Names.StatementType.DELETE, "MORE");
+        buffer.append("\n  delete from %%").append(names.realTableName);
+        buffer.append("\n  {= where");
+        String parentPojo = pojoDiscriminators.containsKey(names.tableName) ? pojoExtends.get(names.tableName) : null;
+        boolean first = whereColumns(buffer, pojo, true, names.statementName);
+        if (parentPojo != null)
+            whereColumns(buffer, parentPojo, first, names.statementName);
         buffer.append("\n  }");
         buffer.append("\n;\n");
         return buffer;
@@ -299,24 +329,7 @@ public class TableMetaConverter extends TablePojoConverter {
             if (attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attribute.getPkColumn()));
             }
-            if (columnsMetaTypes.containsKey(tableName) && columnsMetaTypes.get(tableName).containsKey(attributeName)) {
-                PairValues metaType = columnsMetaTypes.get(tableName).get(attributeName);
-                buffer.append("^");
-                if (!"null".equalsIgnoreCase(metaType.value1))
-                    buffer.append(metaType.value1);
-                if (metaType.value2 != null) {
-                    buffer.append("^").append(metaType.value2);
-                }
-            } else if (statementsMetaTypes.containsKey(statementName)
-                    && statementsMetaTypes.get(statementName).containsKey(attributeName)) {
-                PairValues metaType = statementsMetaTypes.get(statementName).get(attributeName);
-                buffer.append("^");
-                if (!"null".equalsIgnoreCase(metaType.value1))
-                    buffer.append(metaType.value1);
-                if (metaType.value2 != null) {
-                    buffer.append("^").append(metaType.value2);
-                }
-            }
+            metaTypes(buffer, tableName, attributeName, statementName);
             first = false;
         }
         return first;
@@ -361,24 +374,7 @@ public class TableMetaConverter extends TablePojoConverter {
             if (attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attribute.getPkColumn()));
             }
-            if (columnsMetaTypes.containsKey(tableName) && columnsMetaTypes.get(tableName).containsKey(attributeName)) {
-                PairValues metaType = columnsMetaTypes.get(tableName).get(attributeName);
-                buffer.append("^");
-                if (!"null".equalsIgnoreCase(metaType.value1))
-                    buffer.append(metaType.value1);
-                if (metaType.value2 != null) {
-                    buffer.append("^").append(metaType.value2);
-                }
-            } else if (statementsMetaTypes.containsKey(statementName)
-                    && statementsMetaTypes.get(statementName).containsKey(attributeName)) {
-                PairValues metaType = statementsMetaTypes.get(statementName).get(attributeName);
-                buffer.append("^");
-                if (!"null".equalsIgnoreCase(metaType.value1))
-                    buffer.append(metaType.value1);
-                if (metaType.value2 != null) {
-                    buffer.append("^").append(metaType.value2);
-                }
-            }
+            metaTypes(buffer, tableName, attributeName, statementName);
             buffer.append(" }");
             first = false;
         }
@@ -426,23 +422,8 @@ public class TableMetaConverter extends TablePojoConverter {
             if (attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attribute.getPkColumn()));
             }
-            if (columnsMetaTypes.containsKey(tableName) && columnsMetaTypes.get(tableName).containsKey(attributeName)) {
-                PairValues metaType = columnsMetaTypes.get(tableName).get(attributeName);
-                buffer.append("^");
-                if (!"null".equalsIgnoreCase(metaType.value1))
-                    buffer.append(metaType.value1);
-                if (metaType.value2 != null) {
-                    buffer.append("^").append(metaType.value2);
-                }
-            } else if (statementsMetaTypes.containsKey(statementName)
-                    && statementsMetaTypes.get(statementName).containsKey(attributeName)) {
-                PairValues metaType = statementsMetaTypes.get(statementName).get(attributeName);
-                buffer.append("^");
-                if (!"null".equalsIgnoreCase(metaType.value1))
-                    buffer.append(metaType.value1);
-                if (metaType.value2 != null) {
-                    buffer.append("^").append(metaType.value2);
-                }
+            if (!metaTypes(buffer, tableName, attributeName, statementName)) {
+                buffer.append("^^notnull");
             }
             buffer.append(" }");
             first = false;
@@ -495,24 +476,7 @@ public class TableMetaConverter extends TablePojoConverter {
             if (attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attribute.getPkColumn()));
             }
-            if (columnsMetaTypes.containsKey(tableName) && columnsMetaTypes.get(tableName).containsKey(attributeName)) {
-                PairValues metaType = columnsMetaTypes.get(tableName).get(attributeName);
-                buffer.append("^");
-                if (!"null".equalsIgnoreCase(metaType.value1))
-                    buffer.append(metaType.value1);
-                if (metaType.value2 != null) {
-                    buffer.append("^").append(metaType.value2);
-                }
-            } else if (statementsMetaTypes.containsKey(statementName)
-                    && statementsMetaTypes.get(statementName).containsKey(attributeName)) {
-                PairValues metaType = statementsMetaTypes.get(statementName).get(attributeName);
-                buffer.append("^");
-                if (!"null".equalsIgnoreCase(metaType.value1))
-                    buffer.append(metaType.value1);
-                if (metaType.value2 != null) {
-                    buffer.append("^").append(metaType.value2);
-                }
-            }
+            metaTypes(buffer, tableName, attributeName, statementName);
             first = false;
         }
         return first;
@@ -538,6 +502,30 @@ public class TableMetaConverter extends TablePojoConverter {
     // return buffer;
     // }
 
+    boolean metaTypes(StringBuilder buffer, String tableName, String attributeName, String statementName) {
+        if (columnsMetaTypes.containsKey(tableName) && columnsMetaTypes.get(tableName).containsKey(attributeName)) {
+            PairValues metaType = columnsMetaTypes.get(tableName).get(attributeName);
+            buffer.append("^");
+            if (!"null".equalsIgnoreCase(metaType.value1))
+                buffer.append(metaType.value1);
+            if (metaType.value2 != null) {
+                buffer.append("^").append(metaType.value2);
+            }
+            return true;
+        } else if (statementsMetaTypes.containsKey(statementName)
+                && statementsMetaTypes.get(statementName).containsKey(attributeName)) {
+            PairValues metaType = statementsMetaTypes.get(statementName).get(attributeName);
+            buffer.append("^");
+            if (!"null".equalsIgnoreCase(metaType.value1))
+                buffer.append(metaType.value1);
+            if (metaType.value2 != null) {
+                buffer.append("^").append(metaType.value2);
+            }
+            return true;
+        }
+        return false;
+    }
+
     static class Names {
         enum StatementType {
             INSERT, GET, UPDATE, DELETE, SELECT
@@ -548,7 +536,7 @@ public class TableMetaConverter extends TablePojoConverter {
         String statementName;
     }
 
-    Names getStatementHeader(String pojo, StringBuilder buffer, Names.StatementType type) {
+    Names getStatementHeader(String pojo, StringBuilder buffer, Names.StatementType type, String suffix) {
         Names names = new Names();
         names.tableName = tableNames.get(pojo);
         if (names.tableName == null)
@@ -567,6 +555,9 @@ public class TableMetaConverter extends TablePojoConverter {
         else if (type == Names.StatementType.SELECT)
             names.statementName = "SELECT_";
         names.statementName = names.statementName + names.tableName;
+        if (suffix != null) {
+            names.statementName = names.statementName + "_" + suffix;
+        }
         buffer.append("\n").append(names.statementName).append("(CRUD,");
         buffer.append("identx=").append(tableToCamelCase(names.tableName));
         buffer.append(",colx=").append(tableToCamelCase(names.tableName));

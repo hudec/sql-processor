@@ -29,7 +29,24 @@ UPDATE_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetail
     %BA_ACCOUNT = :baAccount, %SUBSCRIBER = :subscriber.id, %TYPE = :type
   }
   {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
+  delete from %%BILLING_DETAILS
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_BANK_ACCOUNT_MORE(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
+  delete from %%BILLING_DETAILS
+  {= where
+    {& %BA_ACCOUNT = :baAccount }
     {& %ID = :id }
+    {& %SUBSCRIBER = :subscriber.id }
+    {& %TYPE = :type }
   }
 ;
 
@@ -53,7 +70,22 @@ UPDATE_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
     %ISBN = :isbn
   }
   {= where
+    {& %MEDIA_ID = :id^^notnull }
+  }
+;
+
+DELETE_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
+  delete from %%BOOK
+  {= where
+    {& %MEDIA_ID = :id^^notnull }
+  }
+;
+
+DELETE_BOOK_MORE(CRUD,identx=Book,colx=Book,dbcol=book)=
+  delete from %%BOOK
+  {= where
     {& %MEDIA_ID = :id }
+    {& %ISBN = :isbn }
   }
 ;
 
@@ -79,7 +111,24 @@ UPDATE_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
     %PERSON_ID = :person.id, %ADDRESS = :address, %PHONE_NUMBER = :phoneNumber^phone
   }
   {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
+  delete from %%CONTACT
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_CONTACT_MORE(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
+  delete from %%CONTACT
+  {= where
     {& %ID = :id }
+    {& %PERSON_ID = :person.id }
+    {& %ADDRESS = :address }
+    {& %PHONE_NUMBER = :phoneNumber^phone }
   }
 ;
 
@@ -105,7 +154,24 @@ UPDATE_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
     %CC_NUMBER = :ccNumber, %SUBSCRIBER = :subscriber.id, %TYPE = :type
   }
   {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
+  delete from %%BILLING_DETAILS
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_CREDIT_CARD_MORE(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
+  delete from %%BILLING_DETAILS
+  {= where
+    {& %CC_NUMBER = :ccNumber }
     {& %ID = :id }
+    {& %SUBSCRIBER = :subscriber.id }
+    {& %TYPE = :type }
   }
 ;
 
@@ -129,7 +195,22 @@ UPDATE_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
     %NAME = :name
   }
   {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
+  delete from %%LIBRARY
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_LIBRARY_MORE(CRUD,identx=Library,colx=Library,dbcol=library)=
+  delete from %%LIBRARY
+  {= where
     {& %ID = :id }
+    {& %NAME = :name }
   }
 ;
 
@@ -153,7 +234,22 @@ UPDATE_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
     %TITLE = :title
   }
   {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
+  delete from %%MEDIA
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_MEDIA_MORE(CRUD,identx=Media,colx=Media,dbcol=media)=
+  delete from %%MEDIA
+  {= where
     {& %ID = :id }
+    {& %TITLE = :title }
   }
 ;
 
@@ -178,7 +274,23 @@ UPDATE_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
     %URLIMDB = :urlimdb, %PLAYLENGTH = :playlength
   }
   {= where
+    {& %MEDIA_ID = :id^^notnull }
+  }
+;
+
+DELETE_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
+  delete from %%MOVIE
+  {= where
+    {& %MEDIA_ID = :id^^notnull }
+  }
+;
+
+DELETE_MOVIE_MORE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
+  delete from %%MOVIE
+  {= where
     {& %MEDIA_ID = :id }
+    {& %URLIMDB = :urlimdb }
+    {& %PLAYLENGTH = :playlength }
   }
 ;
 
@@ -202,7 +314,22 @@ UPDATE_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
     %NAME = :name
   }
   {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
+  delete from %%PERSON
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_PERSON_MORE(CRUD,identx=Person,colx=Person,dbcol=person)=
+  delete from %%PERSON
+  {= where
     {& %ID = :id }
+    {& %NAME = :name }
   }
 ;
 
@@ -227,7 +354,23 @@ UPDATE_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=personL
     %PERSON_ID = :personId, %MEDIA_ID = :mediaId
   }
   {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=personLibrary)=
+  delete from %%PERSON_LIBRARY
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_PERSON_LIBRARY_MORE(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=personLibrary)=
+  delete from %%PERSON_LIBRARY
+  {= where
     {& %ID = :id }
+    {& %PERSON_ID = :personId }
+    {& %MEDIA_ID = :mediaId }
   }
 ;
 
@@ -253,7 +396,24 @@ UPDATE_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
     %LIBRARY = :library.id, %CONTACT = :contact.id, %NAME = :name
   }
   {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
+  delete from %%SUBSCRIBER
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_SUBSCRIBER_MORE(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
+  delete from %%SUBSCRIBER
+  {= where
     {& %ID = :id }
+    {& %LIBRARY = :library.id }
+    {& %CONTACT = :contact.id }
+    {& %NAME = :name }
   }
 ;
 
@@ -293,38 +453,6 @@ UPDATE_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
 //  {#2 order by %NAME}
 //;
 //
-//INSERT_PERSON(CRUD,identx=Person,dbcol=person)=
-//  insert into %%PERSON (%ID, %NAME)
-//  {= values (:id^long^seq=SEQ1, :name) }
-//;
-//  
-//INSERT_PERSON2(CRUD,identx=Person,dbcol=person)=
-//  insert into %%PERSON (%NAME)
-//  {= values (:id^long^idsel, :name) }
-//;
-//
-//GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
-//  select @id, @name
-//  from %%PERSON
-//  {= where %ID = :id}
-//;
-//
-//UPDATE_PERSON(CRUD,identx=Person,dbcol=person)=
-//  update %%PERSON
-//  {= set %NAME = :name}
-//  {= where {& %ID = :id^long^notnull}}
-//;
-//  
-//DELETE_PERSON(CRUD,identx=Person,dbcol=person)=
-//  delete from %%PERSON
-//  {= where {& %ID = :id^long^notnull}}
-//;
-//
-//INSERT_CONTACT(CRUD,identx=Contact,dbcol=contact)=
-//  insert into %%CONTACT (%ID, %PERSON_ID, %ADDRESS)
-//  {= values (:id^long^seq=SEQ1, :person.id, :address) }
-//;
-//
 //ALL_PEOPLE_AND_CONTACTS(QRY,identx=Person,colx=Person,dbcol=contact=c,dbcol=person=p)=
 //  select %p.ID @id^long^id, %p.NAME @name, %c.ID @contacts.id^long^id, %p.ID @contacts.person.id, %c.ADDRESS @contacts.address
 //  from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
@@ -345,26 +473,6 @@ UPDATE_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
 //  {#1 order by %p.NAME, %c.ADDRESS}
 //;
 //
-//INSERT_MEDIA(CRUD,identx=Media,dbcol=media)=
-//  insert into %%MEDIA (%ID, %TITLE)
-//  {= values (:id^long^seq=SEQ1, :title) }
-//;
-//
-//INSERT_MOVIE(CRUD,identx=Movie,dbcol=movie)=
-//  insert into %%MOVIE (%MEDIA_ID, %URLIMDB, %PLAYLENGTH)
-//  {= values (:id, :urlimdb, :playlength) }
-//;
-//
-//INSERT_BOOK(CRUD,identx=Book,dbcol=book)=
-//  insert into %%BOOK (%MEDIA_ID, %ISBN)
-//  {= values (:id, :isbn) }
-//;
-//
-//CREATE_LIBRARY(CRUD,identx=PersonLibrary,dbcol=person_library)=
-//  insert into %%PERSON_LIBRARY (%ID, %PERSON_ID, %MEDIA_ID)
-//  {= values (:id^long^seq=SEQ1, :personId, :mediaId) }
-//;
-//
 //ALL_PEOPLE_LIBRARY(QRY,identx=Person,colx=Person,dbcol=person=p,dbcol=person_library=l,dbcol=media=m,dbcol=movie=mo,dbcol=book=bk)=
 //  select %p.ID @id^long^id, %p.NAME @name, %mo.MEDIA_ID @library==movie.id^long^id, %bk.MEDIA_ID @library==book.id^long^id,
 //  %m.TITLE @library.title, %mo.URLIMDB @library.urlimdb, %mo.PLAYLENGTH @library.playlength, %bk.ISBN @library.isbn
@@ -379,11 +487,6 @@ UPDATE_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
 //  {#1 order by %p.NAME, %m.TITLE}
 //;
 //
-//INSERT_CONTACT_CUSTOM(CRUD,identx=Contact,dbcol=contact)=
-//  insert into %%CONTACT (%ID, %PERSON_ID, %ADDRESS, %PHONE_NUMBER)
-//  {= values (:id^long^seq=SEQ1, :person.id, :address, :phoneNumber^phone) }
-//;
-//
 //ALL_PEOPLE_AND_CONTACTS_CUSTOM(QRY,identx=Contact,colx=Person,dbcol=person=p,dbcol=contact=c)=
 //  select %p.ID @id^long^id, %p.NAME @name, %c.ID @contacts.id^long^id, %p.ID @contacts.person.id, %c.ADDRESS @contacts.address,
 //  %c.PHONE_NUMBER @contacts.phoneNumber^phone
@@ -395,26 +498,6 @@ UPDATE_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
 //  {#1 order by %p.NAME, %c.ADDRESS}
 //;
 //  
-//INSERT_LIBRARY(CRUD,identx=Library,dbcol=library)=
-//  insert into %%LIBRARY (%ID, %NAME)
-//  {= values (:id^long^seq=SEQ1, :name) }
-//;
-//  
-//INSERT_SUBSCRIBER(CRUD,identx=Subscriber,dbcol=subscriber)=
-//  insert into %%SUBSCRIBER (%ID, %LIBRARY, %NAME)
-//  {= values (:id^long^seq=SEQ1, :library.id, :name) }
-//;
-//  
-//INSERT_CREDIT_CARD(CRUD,identx=CreditCard,dbcol=billing_details)=
-//  insert into %%BILLING_DETAILS (%ID, %SUBSCRIBER, %TYPE, %CC_NUMBER)
-//  {= values (:id^long^seq=SEQ1, :subscriber.id, 'CC', :ccNumber) }
-//;
-//  
-//INSERT_BANK_ACCOUNT(CRUD,identx=BankAccount,dbcol=billing_details)=
-//  insert into %%BILLING_DETAILS (%ID, %SUBSCRIBER, %TYPE, %BA_ACCOUNT)
-//  {= values (:id^long^seq=SEQ1, :subscriber.id, 'BA', :baAccount) }
-//;
-//
 //ALL_SUBSCRIBERS_BILLING_DETAILS(QRY,identx=Subscriber,colx=Subscriber,dbcol=subscriber=s,dbcol=billing_details=bd)=
 //  select %s.ID @id^long^id, %s.NAME @name, %s.LIBRARY @library.id^long^id,
 //  %bd.TYPE @billingDetails==discriminator.type, %bd.ID @billingDetails.id^long^id,
