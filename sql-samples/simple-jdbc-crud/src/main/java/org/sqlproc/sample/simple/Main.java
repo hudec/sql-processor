@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
@@ -180,6 +181,7 @@ public class Main {
 
     public Person update(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
+        sqlEngine.setFeature(SqlFeature.EMPTY_FOR_NULL, Boolean.TRUE);
         String s = sqlEngine.getUpdateSql(person, null);
         System.out.println("XXXXXXXXXXX " + s);
         int count = sqlEngine.update(session, person);

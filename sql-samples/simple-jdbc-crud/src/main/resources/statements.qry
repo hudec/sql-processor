@@ -26,7 +26,9 @@ GET_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
 UPDATE_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
   update %%BILLING_DETAILS
   {= set
-    %BA_ACCOUNT = :baAccount, %SUBSCRIBER = :subscriber.id, %TYPE = :type
+    { ,%BA_ACCOUNT = :baAccount }
+    { ,%SUBSCRIBER = :subscriber.id }
+    { ,%TYPE = :type }
   }
   {= where
     {& %ID = :id^^notnull }
@@ -67,7 +69,7 @@ GET_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
 UPDATE_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
   update %%BOOK
   {= set
-    %ISBN = :isbn
+    { ,%ISBN = :isbn }
   }
   {= where
     {& %MEDIA_ID = :id^^notnull }
@@ -108,7 +110,9 @@ GET_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
 UPDATE_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
   update %%CONTACT
   {= set
-    %PERSON_ID = :person.id, %ADDRESS = :address, %PHONE_NUMBER = :phoneNumber^phone
+    { ,%PERSON_ID = :person.id }
+    { ,%ADDRESS = :address }
+    { ,%PHONE_NUMBER = :phoneNumber }^phone
   }
   {= where
     {& %ID = :id^^notnull }
@@ -151,7 +155,9 @@ GET_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
 UPDATE_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
   update %%BILLING_DETAILS
   {= set
-    %CC_NUMBER = :ccNumber, %SUBSCRIBER = :subscriber.id, %TYPE = :type
+    { ,%CC_NUMBER = :ccNumber }
+    { ,%SUBSCRIBER = :subscriber.id }
+    { ,%TYPE = :type }
   }
   {= where
     {& %ID = :id^^notnull }
@@ -192,7 +198,7 @@ GET_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
 UPDATE_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
   update %%LIBRARY
   {= set
-    %NAME = :name
+    { ,%NAME = :name }
   }
   {= where
     {& %ID = :id^^notnull }
@@ -231,7 +237,7 @@ GET_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
 UPDATE_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
   update %%MEDIA
   {= set
-    %TITLE = :title
+    { ,%TITLE = :title }
   }
   {= where
     {& %ID = :id^^notnull }
@@ -271,7 +277,8 @@ GET_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
 UPDATE_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
   update %%MOVIE
   {= set
-    %URLIMDB = :urlimdb, %PLAYLENGTH = :playlength
+    { ,%URLIMDB = :urlimdb }
+    { ,%PLAYLENGTH = :playlength }
   }
   {= where
     {& %MEDIA_ID = :id^^notnull }
@@ -311,12 +318,12 @@ GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   }
 ;
 
-UPDATE_PERSON(CRUD,BOPT=EMPTY_FOR_NULL=true,identx=Person,colx=Person,dbcol=person)=
+UPDATE_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   update %%PERSON
   {= set
     { ,%FIRST_NAME = :firstName }
     { ,%LAST_NAME = :lastName }
-    { ,%DATE_OF_BIRTH = :dateOfBirth } 
+    { ,%DATE_OF_BIRTH = :dateOfBirth }
     { ,%SSN = :ssn }
   }
   {= where
@@ -360,7 +367,8 @@ GET_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=personLibr
 UPDATE_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=personLibrary)=
   update %%PERSON_LIBRARY
   {= set
-    %PERSON_ID = :personId, %MEDIA_ID = :mediaId
+    { ,%PERSON_ID = :personId }
+    { ,%MEDIA_ID = :mediaId }
   }
   {= where
     {& %ID = :id^^notnull }
@@ -402,7 +410,9 @@ GET_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
 UPDATE_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
   update %%SUBSCRIBER
   {= set
-    %LIBRARY = :library.id, %CONTACT = :contact.id, %NAME = :name
+    { ,%LIBRARY = :library.id }
+    { ,%CONTACT = :contact.id }
+    { ,%NAME = :name }
   }
   {= where
     {& %ID = :id^^notnull }

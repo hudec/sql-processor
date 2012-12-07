@@ -117,7 +117,7 @@ public class TableMetaConverter extends TablePojoConverter {
         StringBuilder buffer = new StringBuilder();
         Header header = getStatementHeader(pojo, buffer, Header.StatementType.UPDATE, null);
         buffer.append("\n  update %%").append(header.realTableName);
-        buffer.append("\n  {= set\n    ");
+        buffer.append("\n  {= set");
         String parentPojo = pojoDiscriminators.containsKey(header.tableName) ? pojoExtends.get(header.tableName) : null;
         boolean first = updateColumns(buffer, pojo, true, header.statementName);
         if (parentPojo != null)
@@ -332,15 +332,12 @@ public class TableMetaConverter extends TablePojoConverter {
                 name = attr.attribute.getName();
             else
                 name = columnToCamelCase(name);
-            if (!first)
-                buffer.append(", %");
-            else
-                buffer.append("%");
-            buffer.append(pentry.getKey());
+            buffer.append("\n    { ,%").append(pentry.getKey());
             buffer.append(" = :").append(name);
             if (attr.attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
             }
+            buffer.append(" }");
             metaTypes(buffer, attr.tableName, attr.attributeName, statementName);
             first = false;
         }
