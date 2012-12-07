@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
@@ -100,14 +101,32 @@ public class TableMetaConverter extends TablePojoConverter {
         Header header = getStatementHeader(pojo, buffer, Header.StatementType.GET, null);
         buffer.append("\n  select ");
         String parentPojo = pojoDiscriminators.containsKey(header.tableName) ? pojoExtends.get(header.tableName) : null;
-        boolean first = selectColumns(buffer, pojo, true, header.statementName);
+        boolean first = selectColumns(buffer, pojo, true, header.statementName, header.realTableNamePrefix, false);
         if (parentPojo != null)
-            selectColumns(buffer, parentPojo, first, header.statementName);
+            selectColumns(buffer, parentPojo, first, header.statementName, null, false);
+        else if (header.extendedTableName != null)
+            selectColumns(buffer, header.extendedTableName, first, header.statementName,
+                    header.extendedTableNamePrefix, true);
         buffer.append("\n  from %%").append(header.realTableName);
+        if (header.realTableNamePrefix != null) {
+            buffer.append(" ").append(header.realTableNamePrefix);
+            if (header.extendedTableName != null) {
+
+                buffer.append(" join %%").append(header.extendedTableName);
+                buffer.append(" ").append(header.extendedTableNamePrefix);
+                buffer.append(" on %").append(header.realTableNamePrefix).append(".");
+                buffer.append(header.tableKey);
+                buffer.append(" = %").append(header.extendedTableNamePrefix).append(".");
+                buffer.append(header.extendedTableKey);
+            }
+        }
         buffer.append("\n  {= where");
-        first = whereColumns(buffer, pojo, first, header.statementName);
+        first = whereColumns(buffer, pojo, first, header.statementName, header.realTableNamePrefix, false);
         if (parentPojo != null)
-            whereColumns(buffer, parentPojo, first, header.statementName);
+            whereColumns(buffer, parentPojo, first, header.statementName, null, false);
+        else if (header.extendedTableName != null)
+            whereColumns(buffer, header.extendedTableName, first, header.statementName, header.extendedTableNamePrefix,
+                    true);
         buffer.append("\n  }");
         buffer.append("\n;\n");
         return buffer;
@@ -151,9 +170,9 @@ public class TableMetaConverter extends TablePojoConverter {
         buffer.append("\n  delete from %%").append(header.realTableName);
         buffer.append("\n  {= where");
         String parentPojo = pojoDiscriminators.containsKey(header.tableName) ? pojoExtends.get(header.tableName) : null;
-        boolean first = whereColumns(buffer, pojo, true, header.statementName);
+        boolean first = whereColumns(buffer, pojo, true, header.statementName, null, false);
         if (parentPojo != null)
-            whereColumns(buffer, parentPojo, first, header.statementName);
+            whereColumns(buffer, parentPojo, first, header.statementName, null, false);
         buffer.append("\n  }");
         buffer.append("\n;\n");
         return buffer;
@@ -243,10 +262,13 @@ public class TableMetaConverter extends TablePojoConverter {
         return first;
     }
 
-    boolean selectColumns(StringBuilder buffer, String pojo, boolean first, String statementName) {
+    boolean selectColumns(StringBuilder buffer, String pojo, boolean first, String statementName, String prefix,
+            boolean notPrimaryKeys) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             Attribute attr = getStatementAttribute(pojo, pentry, false);
             if (attr == null)
+                continue;
+            if (attr.attribute.isPrimaryKey() && notPrimaryKeys)
                 continue;
             String name = (columnNames.containsKey(attr.tableName)) ? columnNames.get(attr.tableName).get(
                     attr.attributeName) : null;
@@ -258,6 +280,8 @@ public class TableMetaConverter extends TablePojoConverter {
                 buffer.append(", %");
             else
                 buffer.append("%");
+            if (prefix != null)
+                buffer.append(prefix).append(".");
             buffer.append(pentry.getKey());
             buffer.append(" @").append(name);
             if (attr.attribute.getPkTable() != null) {
@@ -269,10 +293,13 @@ public class TableMetaConverter extends TablePojoConverter {
         return first;
     }
 
-    boolean whereColumns(StringBuilder buffer, String pojo, boolean first, String statementName) {
+    boolean whereColumns(StringBuilder buffer, String pojo, boolean first, String statementName, String prefix,
+            boolean notPrimaryKeys) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             Attribute attr = getStatementAttribute(pojo, pentry, false);
             if (attr == null)
+                continue;
+            if (attr.attribute.isPrimaryKey() && notPrimaryKeys)
                 continue;
             String name = (columnNames.containsKey(attr.tableName)) ? columnNames.get(attr.tableName).get(
                     attr.attributeName) : null;
@@ -280,7 +307,10 @@ public class TableMetaConverter extends TablePojoConverter {
                 name = attr.attribute.getName();
             else
                 name = columnToCamelCase(name);
-            buffer.append("\n    {& %").append(pentry.getKey());
+            buffer.append("\n    {& %");
+            if (prefix != null)
+                buffer.append(prefix).append(".");
+            buffer.append(pentry.getKey());
             buffer.append(" = :").append(name);
             if (attr.attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
@@ -375,6 +405,11 @@ public class TableMetaConverter extends TablePojoConverter {
 
         String tableName;
         String realTableName;
+        String extendedTableName;
+        String realTableNamePrefix;
+        String extendedTableNamePrefix;
+        String tableKey;
+        String extendedTableKey;
         String statementName;
     }
 
@@ -386,6 +421,24 @@ public class TableMetaConverter extends TablePojoConverter {
         header.realTableName = pojo;
         if (pojoDiscriminators.containsKey(header.tableName))
             header.realTableName = pojoExtends.get(header.tableName);
+        else if (pojoExtends.containsKey(header.tableName)
+                && pojoInheritanceSimple.contains(pojoExtends.get(header.tableName))) {
+            header.extendedTableName = pojoExtends.get(header.tableName);
+            header.realTableNamePrefix = header.realTableName.substring(0, 1).toLowerCase();
+            header.extendedTableNamePrefix = header.extendedTableName.substring(0, 1).toLowerCase();
+            if (header.realTableNamePrefix.equals(header.extendedTableNamePrefix)) {
+                header.extendedTableNamePrefix = header.extendedTableNamePrefix + "2";
+            }
+            outerloop: for (Entry<String, Map<String, String>> e1 : inheritImports.get(header.realTableName).entrySet()) {
+                for (Entry<String, String> e2 : e1.getValue().entrySet()) {
+                    if (e2.getKey().equals(header.extendedTableName)) {
+                        header.tableKey = e1.getKey();
+                        header.extendedTableKey = e2.getValue();
+                    }
+                    break outerloop;
+                }
+            }
+        }
         if (type == Header.StatementType.INSERT)
             header.statementName = "INSERT_";
         else if (type == Header.StatementType.GET)
@@ -409,6 +462,16 @@ public class TableMetaConverter extends TablePojoConverter {
             buffer.append(tableDefinition.getName());
         else
             buffer.append(header.tableName);
+        if (header.extendedTableName != null && type == Header.StatementType.GET) {
+            buffer.append("=").append(header.realTableNamePrefix);
+            buffer.append(",dbcol=");
+            TableDefinition tableDefinitionExtended = getTableDefinition(header.extendedTableName);
+            if (tableDefinitionExtended != null)
+                buffer.append(tableDefinitionExtended.getName());
+            else
+                buffer.append(header.extendedTableName);
+            buffer.append("=").append(header.extendedTableNamePrefix);
+        }
         buffer.append(")=");
         return header;
     }

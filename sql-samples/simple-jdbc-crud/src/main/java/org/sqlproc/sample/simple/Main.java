@@ -172,21 +172,27 @@ public class Main {
         }
     }
 
-    public Person get(Person person) {
+    public Person getPerson(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("GET_PERSON");
         Person p = sqlEngine.get(session, Person.class, person);
         logger.info("get person: " + p);
         return p;
     }
 
-    public Person update(Person person) {
+    public Person updatePerson(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
         sqlEngine.setFeature(SqlFeature.EMPTY_FOR_NULL, Boolean.TRUE);
         String s = sqlEngine.getUpdateSql(person, null);
-        System.out.println("XXXXXXXXXXX " + s);
         int count = sqlEngine.update(session, person);
         logger.info("update person: " + count);
         return (count > 0) ? person : null;
+    }
+
+    public Book getBook(Book book) {
+        SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("GET_BOOK");
+        Book b = sqlEngine.get(session, Book.class, book);
+        logger.info("get book: " + b);
+        return b;
     }
 
     //
@@ -294,6 +300,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Person person, p;
+        Book book, b;
         List<Person> list;
         boolean deleted;
 
@@ -338,16 +345,23 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andrejík");
-        p = main.update(person);
+        p = main.updatePerson(person);
         Assert.assertNotNull(p);
 
         // get
         person = new Person();
         person.setId(andrej.getId());
-        p = main.get(person);
+        p = main.getPerson(person);
         Assert.assertNotNull(p);
         Assert.assertEquals("Andrejík", p.getFirstName());
         Assert.assertEquals("Andrejček", p.getLastName());
+
+        book = new Book();
+        book.setId(book1.getId());
+        b = main.getBook(book);
+        Assert.assertNotNull(b);
+        Assert.assertEquals("978-0140367003", b.getIsbn());
+        Assert.assertEquals("The Adventures of Robin Hood", b.getTitle());
 
         // // queries
         // list = main.listAll();

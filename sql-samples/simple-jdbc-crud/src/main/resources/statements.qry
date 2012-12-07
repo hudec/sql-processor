@@ -57,12 +57,13 @@ INSERT_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
   {= values (:id, :isbn) }
 ;
 
-GET_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
-  select %MEDIA_ID @id, %ISBN @isbn
-  from %%BOOK
+GET_BOOK(CRUD,identx=Book,colx=Book,dbcol=book=b,dbcol=media=m)=
+  select %b.MEDIA_ID @id, %b.ISBN @isbn, %m.TITLE @title
+  from %%BOOK b join %%MEDIA m on %b.MEDIA_ID = %m.ID
   {= where
-    {& %MEDIA_ID = :id }
-    {& %ISBN = :isbn }
+    {& %b.MEDIA_ID = :id }
+    {& %b.ISBN = :isbn }
+    {& %m.TITLE = :title }
   }
 ;
 
@@ -264,13 +265,14 @@ INSERT_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
   {= values (:id, :urlimdb, :playlength) }
 ;
 
-GET_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
-  select %MEDIA_ID @id, %URLIMDB @urlimdb, %PLAYLENGTH @playlength
-  from %%MOVIE
+GET_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie=m,dbcol=media=m2)=
+  select %m.MEDIA_ID @id, %m.URLIMDB @urlimdb, %m.PLAYLENGTH @playlength, %m2.TITLE @title
+  from %%MOVIE m join %%MEDIA m2 on %m.MEDIA_ID = %m2.ID
   {= where
-    {& %MEDIA_ID = :id }
-    {& %URLIMDB = :urlimdb }
-    {& %PLAYLENGTH = :playlength }
+    {& %m.MEDIA_ID = :id }
+    {& %m.URLIMDB = :urlimdb }
+    {& %m.PLAYLENGTH = :playlength }
+    {& %m2.TITLE = :title }
   }
 ;
 
@@ -435,7 +437,6 @@ DELETE_SUBSCRIBER_MORE(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
     {& %NAME = :name }
   }
 ;
-
 
 //
 //
