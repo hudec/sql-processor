@@ -1,5 +1,6 @@
 package org.sqlproc.sample.simple.model;
   
+import java.util.Date;
 import java.util.List;
 
 import java.io.Serializable;
@@ -12,8 +13,9 @@ public class Person implements Serializable {
   public Person() {
   }
   
-  public Person(String name) {
-    this.name = name;
+  public Person(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
   
   private Long id;
@@ -31,18 +33,63 @@ public class Person implements Serializable {
     return this;
   }
   
-  private String name;
+  private String firstName;
     
-  public String getName() {
-    return name;
+  public String getFirstName() {
+    return firstName;
   }
     
-  public void setName(String name) {
-    this.name = name;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
   }
     
-  public Person _setName(String name) {
-    this.name = name;
+  public Person _setFirstName(String firstName) {
+    this.firstName = firstName;
+    return this;
+  }
+  
+  private String lastName;
+    
+  public String getLastName() {
+    return lastName;
+  }
+    
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+    
+  public Person _setLastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+  
+  private Date dateOfBirth;
+    
+  public Date getDateOfBirth() {
+    return dateOfBirth;
+  }
+    
+  public void setDateOfBirth(Date dateOfBirth) {
+    this.dateOfBirth = dateOfBirth;
+  }
+    
+  public Person _setDateOfBirth(Date dateOfBirth) {
+    this.dateOfBirth = dateOfBirth;
+    return this;
+  }
+  
+  private String ssn;
+    
+  public String getSsn() {
+    return ssn;
+  }
+    
+  public void setSsn(String ssn) {
+    this.ssn = ssn;
+  }
+    
+  public Person _setSsn(String ssn) {
+    this.ssn = ssn;
     return this;
   }
   
@@ -115,10 +162,10 @@ public class Person implements Serializable {
   
   @Override
   public String toString() {
-    return "Person [id=" + id + ", name=" + name + ", passport=" + passport + "]";
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", passport=" + passport + ", firstName=" + firstName + "]";
   }
   
   public String toStringFull() {
-    return "Person [id=" + id + ", name=" + name + ", passport=" + passport + "]";
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", passport=" + passport + ", firstName=" + firstName + "]";
   }
 }

@@ -295,23 +295,29 @@ DELETE_MOVIE_MORE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
 ;
 
 INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
-  insert into %%PERSON (%NAME)
-  {= values (:id^^idsel=SEL1, :name) }
+  insert into %%PERSON (%FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %SSN)
+  {= values (:id^^idsel=SEL1, :firstName, :lastName, :dateOfBirth, :ssn) }
 ;
 
 GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
-  select %ID @id, %NAME @name
+  select %ID @id, %FIRST_NAME @firstName, %LAST_NAME @lastName, %DATE_OF_BIRTH @dateOfBirth, %SSN @ssn
   from %%PERSON
   {= where
     {& %ID = :id }
-    {& %NAME = :name }
+    {& %FIRST_NAME = :firstName }
+    {& %LAST_NAME = :lastName }
+    {& %DATE_OF_BIRTH = :dateOfBirth }
+    {& %SSN = :ssn }
   }
 ;
 
-UPDATE_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
+UPDATE_PERSON(CRUD,BOPT=EMPTY_FOR_NULL=true,identx=Person,colx=Person,dbcol=person)=
   update %%PERSON
   {= set
-    %NAME = :name
+    { ,%FIRST_NAME = :firstName }
+    { ,%LAST_NAME = :lastName }
+    { ,%DATE_OF_BIRTH = :dateOfBirth } 
+    { ,%SSN = :ssn }
   }
   {= where
     {& %ID = :id^^notnull }
@@ -329,7 +335,10 @@ DELETE_PERSON_MORE(CRUD,identx=Person,colx=Person,dbcol=person)=
   delete from %%PERSON
   {= where
     {& %ID = :id }
-    {& %NAME = :name }
+    {& %FIRST_NAME = :firstName }
+    {& %LAST_NAME = :lastName }
+    {& %DATE_OF_BIRTH = :dateOfBirth }
+    {& %SSN = :ssn }
   }
 ;
 

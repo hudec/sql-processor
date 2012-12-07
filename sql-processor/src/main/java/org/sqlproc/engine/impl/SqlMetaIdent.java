@@ -273,7 +273,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                         .getIsEmptyPlugin()
                         .isEmpty(obj, (sqlType == null) ? null : sqlType.getMetaType(),
                                 (sqlType == null) ? null : sqlType.getValue(),
-                                ctx.inSqlSetOrInsert || ctx.sqlStatementType == SqlMetaStatement.Type.CALL));
+                                ctx.inSqlSetOrInsert || ctx.sqlStatementType == SqlMetaStatement.Type.CALL,
+                                ctx.isFeature(SqlFeature.EMPTY_FOR_NULL)));
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
             }

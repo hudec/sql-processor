@@ -180,6 +180,8 @@ public class Main {
 
     public Person update(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
+        String s = sqlEngine.getUpdateSql(person, null);
+        System.out.println("XXXXXXXXXXX " + s);
         int count = sqlEngine.update(session, person);
         logger.info("update person: " + count);
         return (count > 0) ? person : null;
@@ -297,16 +299,16 @@ public class Main {
         main.setupDb();
 
         // insert
-        Person jan = main.insertPerson(new Person("Jan"));
+        Person jan = main.insertPerson(new Person("Jan", "Jánský"));
         main.insertPersonContacts(jan,
                 new Contact()._setAddress("Jan address 1")._setPhoneNumber(new PhoneNumber(111, 222, 3333)));
-        Person janik = main.insertPerson(new Person("Janik"));
+        Person janik = main.insertPerson(new Person("Janík", "Janíček"));
         main.insertPersonContacts(janik, new Contact()._setAddress("Janik address 1"));
-        Person honza = main.insertPerson(new Person("Honza"));
+        Person honza = main.insertPerson(new Person("Honza", "Honzovský"));
         main.insertPersonContacts(honza, new Contact()._setAddress("Honza address 1"),
                 new Contact()._setAddress("Honza address 2"));
-        Person honzik = main.insertPerson(new Person("Honzik"));
-        Person andrej = main.insertPerson(new Person("Andrej"));
+        Person honzik = main.insertPerson(new Person("Honzik", "Honzíček"));
+        Person andrej = main.insertPerson(new Person("Andrej", "Andrejček"));
         main.insertPersonContacts(andrej,
                 new Contact()._setAddress("Andrej address 1")._setPhoneNumber(new PhoneNumber(444, 555, 6666)));
 
@@ -333,7 +335,7 @@ public class Main {
         // update
         person = new Person();
         person.setId(andrej.getId());
-        person.setName("Andrejik");
+        person.setFirstName("Andrejík");
         p = main.update(person);
         Assert.assertNotNull(p);
 
@@ -342,7 +344,8 @@ public class Main {
         person.setId(andrej.getId());
         p = main.get(person);
         Assert.assertNotNull(p);
-        Assert.assertEquals("Andrejik", p.getName());
+        Assert.assertEquals("Andrejík", p.getFirstName());
+        Assert.assertEquals("Andrejček", p.getLastName());
 
         // // queries
         // list = main.listAll();

@@ -32,8 +32,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public boolean isEmpty(Object obj, SqlMetaType sqlMetaType, String sqlMetaTypeExt, boolean inSqlSetOrInsert)
-            throws IllegalArgumentException {
+    public boolean isEmpty(Object obj, SqlMetaType sqlMetaType, String sqlMetaTypeExt, boolean inSqlSetOrInsert,
+            boolean isEmptyForNull) throws IllegalArgumentException {
         String value = (sqlMetaTypeExt != null) ? sqlMetaTypeExt.toLowerCase() : null;
 
         if (SUPPVAL_NOTNULL.equalsIgnoreCase(value)) {
@@ -41,7 +41,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                 throw new IllegalArgumentException(SUPPVAL_NOTNULL);
         }
 
-        if (inSqlSetOrInsert) {
+        if (inSqlSetOrInsert && !isEmptyForNull) {
             if (obj == null)
                 return true;
         }

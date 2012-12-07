@@ -101,63 +101,63 @@ public interface SqlFeature {
      */
     public static final String MSSQL = "MSSQL";
     /**
-     * <code>SET_WILDCARD_CHARACTER</code> is the key for the wildcard character for the SQL <code>like</code> command.
+     * <code>WILDCARD_CHARACTER</code> is the key for the wildcard character for the SQL <code>like</code> command.
      */
     public static final String WILDCARD_CHARACTER = "WILDCARD_CHARACTER";
     /**
-     * This is the default value related to the key <code>SET_WILDCARD_CHARACTER</code> .
+     * This is the default value related to the key <code>WILDCARD_CHARACTER</code> .
      */
     public static final String DEFAULT_WILDCARD_CHARACTER = "%";
     /**
-     * <code>SET_SURROUND_QUERY_LIKE</code> is the key for the special SQL Processor behavior. In the case the value of
-     * this property is <code>true</code>, the SQL Processor sets the wildcard character as a prefix and postfix for all
+     * <code>SURROUND_QUERY_LIKE</code> is the key for the special SQL Processor behavior. In the case the value of this
+     * property is <code>true</code>, the SQL Processor sets the wildcard character as a prefix and postfix for all
      * string values related to the SQL command <code>like</code>. These string values should have to have the minimal
-     * length greater or equal to <code>SET_SURROUND_QUERY_MIN_LEN</code>. The default value related to this key is
+     * length greater or equal to <code>SURROUND_QUERY_MIN_LEN</code>. The default value related to this key is
      * <code>false</code>.
      */
     @Deprecated
     public static final String SURROUND_QUERY_LIKE = "SURROUND_QUERY_LIKE";
     /**
-     * <code>SET_SURROUND_QUERY_LIKE</code> is the key for the special SQL Processor behavior. In the case the value of
-     * this property is <code>true</code>, the SQL Processor sets the wildcard character as a prefix and postfix for all
+     * <code>SURROUND_QUERY_LIKE</code> is the key for the special SQL Processor behavior. In the case the value of this
+     * property is <code>true</code>, the SQL Processor sets the wildcard character as a prefix and postfix for all
      * string values related to the SQL command <code>like</code>. These string values should have to have the minimal
-     * length greater or equal to <code>SET_SURROUND_QUERY_MIN_LEN</code>. The default value related to this key is
+     * length greater or equal to <code>SURROUND_QUERY_MIN_LEN</code>. The default value related to this key is
      * <code>false</code>.
      */
     public static final String SURROUND_QUERY_LIKE_FULL = "SURROUND_QUERY_LIKE_FULL";
     /**
-     * <code>SET_SURROUND_QUERY_LIKE_PARTIAL</code> is the key for the special SQL Processor behavior. In the case the
-     * value of this property is <code>true</code>, the SQL Processor sets the wildcard character as a postfix for all
-     * string values related to the SQL command <code>like</code>. These string values should have to have the minimal
-     * length greater or equal to <code>SET_SURROUND_QUERY_MIN_LEN</code>. The default value related to this key is
+     * <code>SURROUND_QUERY_LIKE_PARTIAL</code> is the key for the special SQL Processor behavior. In the case the value
+     * of this property is <code>true</code>, the SQL Processor sets the wildcard character as a postfix for all string
+     * values related to the SQL command <code>like</code>. These string values should have to have the minimal length
+     * greater or equal to <code>SURROUND_QUERY_MIN_LEN</code>. The default value related to this key is
      * <code>false</code>.
      */
     public static final String SURROUND_QUERY_LIKE_PARTIAL = "SURROUND_QUERY_LIKE_PARTIAL";
     /**
-     * <code>SET_SURROUND_QUERY_MIN_LEN</code> is the minimal length of the string input values for the SQL
+     * <code>SURROUND_QUERY_MIN_LEN</code> is the minimal length of the string input values for the SQL
      * <code>like</code> command to switch on the SQL Processor special behavior described above in the runtime.
      */
     public static final String SURROUND_QUERY_MIN_LEN = "SURROUND_QUERY_MIN_LEN";
     /**
-     * This is the default value related to the key <code>SET_SURROUND_QUERY_MIN_LEN</code>.
+     * This is the default value related to the key <code>SURROUND_QUERY_MIN_LEN</code>.
      */
     public static final Integer DEFAULT_SURROUND_QUERY_MIN_LEN = 2;
     /**
-     * <code>SET_LIKE_STRING</code> is the key for the SQL command <code>like</code>. For example for the Informix
-     * database it can be <code>matches</code>.
+     * <code>LIKE_STRING</code> is the key for the SQL command <code>like</code>. For example for the Informix database
+     * it can be <code>matches</code>.
      */
     public static final String LIKE_STRING = "LIKE_STRING";
     /**
-     * This is the default value related to the key <code>SET_LIKE_STRING</code>.
+     * This is the default value related to the key <code>LIKE_STRING</code>.
      */
     public static final String DEFAULT_LIKE_STRING = "like";
     /**
-     * <code>SET_METHODS_ENUM_IN</code> lists the methods used in the translation from a Java type to a JDBC datatype
-     * for enumerations based input values.
+     * <code>METHODS_ENUM_IN</code> lists the methods used in the translation from a Java type to a JDBC datatype for
+     * enumerations based input values.
      */
     public static final String METHODS_ENUM_IN = "METHODS_ENUM_IN";
     /**
-     * This is the default value related to the key <code>SET_METHODS_ENUM_IN</code>. It is list of the next methods:
+     * This is the default value related to the key <code>METHODS_ENUM_IN</code>. It is list of the next methods:
      * <ul>
      * <li>getCode</li>
      * <li>getValue</li>
@@ -167,12 +167,12 @@ public interface SqlFeature {
      */
     public static final String[] DEFAULT_METHODS_ENUM_IN = new String[] { "getCode", "getValue", "getName", "name" };
     /**
-     * <code>SET_METHODS_ENUM_OUT</code> lists the methods used in the translation from a JDBC datatype to a Java type
-     * for enumerations based output values.
+     * <code>METHODS_ENUM_OUT</code> lists the methods used in the translation from a JDBC datatype to a Java type for
+     * enumerations based output values.
      */
     public static final String METHODS_ENUM_OUT = "METHODS_ENUM_OUT";
     /**
-     * This is the default value related to the key <code>SET_METHODS_ENUM_OUT</code>. It is list of the next methods:
+     * This is the default value related to the key <code>METHODS_ENUM_OUT</code>. It is list of the next methods:
      * <ul>
      * <li>fromCode</li>
      * <li>fromValue</li>
@@ -181,25 +181,25 @@ public interface SqlFeature {
      */
     public static final String[] DEFAULT_METHODS_ENUM_OUT = new String[] { "fromCode", "fromValue", "valueOf" };
     /**
-     * <code>SET_ID</code> is the key for the identity columns. In the case it's values is defined, all columns with
-     * this name are implicitly treated as an identifier.
+     * <code>ID</code> is the key for the identity columns. In the case it's values is defined, all columns with this
+     * name are implicitly treated as an identifier.
      */
     public static final String ID = "ID";
     /**
-     * <code>SET_IGNORE_INPROPER_IN</code> is the key for special handling of input/output values. In the case it's
-     * value is defined as true, in the case of any problems with input values the SqlRuntimeException is not thrown,
-     * only the related error is logged.
+     * <code>IGNORE_INPROPER_IN</code> is the key for special handling of input/output values. In the case it's value is
+     * defined as true, in the case of any problems with input values the SqlRuntimeException is not thrown, only the
+     * related error is logged.
      */
     public static final String IGNORE_INPROPER_IN = "IGNORE_INPROPER_IN";
     /**
-     * <code>SET_IGNORE_INPROPER_OUT</code> is the key for special handling of input/output values. In the case it's
-     * value is defined as true, in the case of any problems with output values the SqlRuntimeException is not thrown,
-     * only the related error is logged.
+     * <code>IGNORE_INPROPER_OUT</code> is the key for special handling of input/output values. In the case it's value
+     * is defined as true, in the case of any problems with output values the SqlRuntimeException is not thrown, only
+     * the related error is logged.
      */
     public static final String IGNORE_INPROPER_OUT = "IGNORE_INPROPER_OUT";
     /**
-     * <code>SET_JDBC</code> is the key for the raw JDBC stack usage. In this SQL Processor version the next stacks can
-     * be used:
+     * <code>JDBC</code> is the key for the raw JDBC stack usage. In this SQL Processor version the next stacks can be
+     * used:
      * <ul>
      * <li>raw JDBC</li>
      * <li>Hibernate</li>
@@ -209,8 +209,8 @@ public interface SqlFeature {
      */
     public static final String JDBC = "JDBC";
     /**
-     * <code>SET_LIMIT_FROM_TO</code> is the key for the SQL query pattern used to limit the query results. This pattern
-     * has to be combined with the original SQL query, the limit and the offset in the next way:
+     * <code>LIMIT_FROM_TO</code> is the key for the SQL query pattern used to limit the query results. This pattern has
+     * to be combined with the original SQL query, the limit and the offset in the next way:
      * <ul>
      * <li>$S is the full original query</li>
      * <li>$s is the original query without the token <code>select</code></li>
@@ -227,8 +227,8 @@ public interface SqlFeature {
      */
     public static final String LIMIT_FROM_TO_ORDERED = "LIMIT_FROM_TO_ORDERED";
     /**
-     * <code>SET_LIMIT_TO</code> is the key for the SQL query pattern used to limit the query results. This pattern has
-     * to be combined with the original SQL query and the limit in the next way:
+     * <code>LIMIT_TO</code> is the key for the SQL query pattern used to limit the query results. This pattern has to
+     * be combined with the original SQL query and the limit in the next way:
      * <ul>
      * <li>$S is the full original query</li>
      * <li>$s is the original query without the token <code>select</code></li>
@@ -243,8 +243,8 @@ public interface SqlFeature {
      */
     public static final String LIMIT_TO_ORDERED = "LIMIT_TO_ORDERED";
     /**
-     * <code>HSQLDB_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
-     * in the case the filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>HSQLDB_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code> in
+     * the case the filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String HSQLDB_DEFAULT_LIMIT_FROM_TO = "$S offset $F limit $M";
     /**
@@ -265,100 +265,99 @@ public interface SqlFeature {
      */
     public static final String HSQLDB_DEFAULT_LIMIT_TO_ORDERED = "$S limit $M using index";
     /**
-     * <code>ORACLE_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
-     * in the case the filter value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>ORACLE_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code> in
+     * the case the filter value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String ORACLE_DEFAULT_LIMIT_FROM_TO = "select * from ( select row_.*, rownum rownum_ from ($S) row_ where rownum <= $m) where rownum_ > $F";
     /**
-     * <code>ORACLE_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the
-     * case the filter value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>ORACLE_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case
+     * the filter value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String ORACLE_DEFAULT_LIMIT_TO = "select * from ($S) where rownum <= $m";
     /**
-     * <code>MYSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
-     * in the case the filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>MYSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code> in
+     * the case the filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String MYSQL_DEFAULT_LIMIT_FROM_TO = "$S limit $F, $M";
     /**
-     * <code>MYSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the case
-     * the filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>MYSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case the
+     * filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String MYSQL_DEFAULT_LIMIT_TO = "$S limit $M";
     /**
-     * <code>POSTGRESQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key
-     * <code>SET_LIMIT_FROM_TO</code> in the case the filter value <code>POSTGRESQL</code> is used for the
-     * {@link SqlProcessorLoader} instance creation.
+     * <code>POSTGRESQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code>
+     * in the case the filter value <code>POSTGRESQL</code> is used for the {@link SqlProcessorLoader} instance
+     * creation.
      */
     public static final String POSTGRESQL_DEFAULT_LIMIT_FROM_TO = "$S limit $M offset $F";
     /**
-     * <code>POSTGRESQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the
+     * <code>POSTGRESQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the
      * case the filter value <code>POSTGRESQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String POSTGRESQL_DEFAULT_LIMIT_TO = "$S limit $M";
     /**
-     * <code>INFORMIX_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key
-     * <code>SET_LIMIT_FROM_TO</code> in the case the filter value <code>INFORMIX</code> is used for the
-     * {@link SqlProcessorLoader} instance creation.
+     * <code>INFORMIX_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code> in
+     * the case the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_LIMIT_FROM_TO = "select skip $F first $M $s";
     /**
-     * <code>INFORMIX_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the
-     * case the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>INFORMIX_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case
+     * the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_LIMIT_TO = "select first $M $s";
     /*
      * Unsupported now.
      * 
-     * <code>MSSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code>
-     * in the case the filter value <code>MSSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>MSSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code> in
+     * the case the filter value <code>MSSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     // version for MS SQL Server 2012:
     // public static final String MSSQL_DEFAULT_LIMIT_FROM_TO = "$S OFFSET ($F) ROWS FETCH NEXT ($M) ROWS ONLY";
     /**
-     * <code>MSSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the case
-     * the filter value <code>MSSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>MSSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case the
+     * filter value <code>MSSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String MSSQL_DEFAULT_LIMIT_TO = "select top ($M) $s";
     /**
-     * <code>DB2_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>SET_LIMIT_FROM_TO</code> in
-     * the case the filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>DB2_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code> in the
+     * case the filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String DB2_DEFAULT_LIMIT_FROM_TO = "select * from (select row_.*, rownumber() over() rownum_ from ($S) row_) where rownum_ <= $m and rownum_ > $F";
     /**
-     * <code>DB2_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>SET_LIMIT_TO</code> in the case
-     * the filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>DB2_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case the
+     * filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String DB2_DEFAULT_LIMIT_TO = "select * from (select row_.*, rownumber() over() rownum_ from ($S) row_) where rownum_ <= $m";
     /**
-     * <code>SET_SEQ</code> is the key for the SQL query pattern used for the sequences. This pattern can be combined
-     * with the sequence name used in the META SQL query in the next way:
+     * <code>SEQ</code> is the key for the SQL query pattern used for the sequences. This pattern can be combined with
+     * the sequence name used in the META SQL query in the next way:
      * <ul>
      * <li>$n is the name of the sequence from the META SQL query</li>
      * </ul>
      */
     public static final String SEQ = "SEQ";
     /**
-     * <code>HSQLDB_DEFAULT_SEQ</code> is the default value related to the key <code>SET_SEQ</code> in the case the
-     * filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>HSQLDB_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the filter
+     * value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String HSQLDB_DEFAULT_SEQ = "call next value for $n";
     /**
-     * <code>ORACLE_DEFAULT_SEQ</code> is the default value related to the key <code>SET_SEQ</code> in the case the
-     * filter value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>ORACLE_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the filter
+     * value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String ORACLE_DEFAULT_SEQ = "select $n.nextval from dual";
     /**
-     * <code>POSTGRESQL_DEFAULT_SEQ</code> is the default value related to the key <code>SET_SEQ</code> in the case the
+     * <code>POSTGRESQL_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the
      * filter value <code>POSTGRESQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String POSTGRESQL_DEFAULT_SEQ = "select nextval('$n')";
     /**
-     * <code>INFORMIX_DEFAULT_SEQ</code> is the default value related to the key <code>SET_SEQ</code> in the case the
-     * filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>INFORMIX_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the filter
+     * value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_SEQ = "SELECT FIRST 1 $n.NEXTVAL FROM systables";
     /**
-     * <code>DB2_DEFAULT_SEQ</code> is the default value related to the key <code>SET_SEQ</code> in the case the filter
+     * <code>DB2_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the filter
      * value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String DB2_DEFAULT_SEQ = "values nextval for $n";
@@ -368,51 +367,56 @@ public interface SqlFeature {
      */
     public static final String DEFAULT_SEQ_NAME = "SQLPROC_SEQUENCE";
     /**
-     * <code>SET_IDSEL</code> is the key for the SQL query pattern used to obtain the value of identities after the
-     * INSERT command.
+     * <code>IDSEL</code> is the key for the SQL query pattern used to obtain the value of identities after the INSERT
+     * command.
      */
     public static final String IDSEL = "IDSEL";
     /**
-     * <code>IDSEL_JDBC</code> is the special value related to the key <code>SET_IDSEL</code> indicating that the
-     * generated identity value is determined using JDBC capabilities to return generated keys for SQL statement. This
-     * feature requires that both the database and the JDBC driver support it.
+     * <code>IDSEL_JDBC</code> is the special value related to the key <code>IDSEL</code> indicating that the generated
+     * identity value is determined using JDBC capabilities to return generated keys for SQL statement. This feature
+     * requires that both the database and the JDBC driver support it.
      */
     public static final String IDSEL_JDBC = "JDBC";
     /**
-     * <code>HSQLDB_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
+     * <code>HSQLDB_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
      * filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String HSQLDB_DEFAULT_IDSEL = "call identity()";
     /**
-     * <code>MYSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
+     * <code>MYSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
      * filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String MYSQL_DEFAULT_IDSEL = "select last_insert_id()";
     /**
-     * <code>POSTGRESQL_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case
-     * the filter value <code>POSTGRESQL</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>POSTGRESQL_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
+     * filter value <code>POSTGRESQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     // TODO $t - table name, $c - column name
     // public static final String POSTGRESQL_DEFAULT_IDSEL = "select currval(pg_get_serial_sequence('$t','$c'))";
     /**
-     * <code>INFORMIX_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case
-     * the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
+     * <code>INFORMIX_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
+     * filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_IDSEL = "SELECT FIRST 1 dbinfo('bigserial') FROM systables";
     /**
-     * <code>MSSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
+     * <code>MSSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
      * filter value <code>MSSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      * <p/>
      * The default value is {@link #IDSEL_JDBC}.
      */
     public static final String MSSQL_DEFAULT_IDSEL = IDSEL_JDBC;
     /**
-     * /** <code>DB2_DEFAULT_IDSEL</code> is the default value related to the key <code>SET_IDSEL</code> in the case the
+     * /** <code>DB2_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
      * filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String DB2_DEFAULT_IDSEL = "SELECT identity_val_local() FROM SYSIBM.DUAL";
-    /*
+    /**
      * <code>DEFAULT_VERSION_COLUMN</code> is the default name of the column devoted to the optimistic locking.
      */
     public static final String DEFAULT_VERSION_COLUMN = "version";
+    /**
+     * <code>EMPTY_FOR_NULL</code> is indicator that the NULL values are always empty. It has meaning for the UPDATE
+     * statements, where the standard handling is to treat any values as not empty.
+     */
+    public static final String EMPTY_FOR_NULL = "EMPTY_FOR_NULL";
 }

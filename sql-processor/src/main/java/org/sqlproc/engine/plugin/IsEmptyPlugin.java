@@ -35,8 +35,11 @@ public interface IsEmptyPlugin {
      *            of the input values
      * @param inSqlSetOrInsert
      *            an indicator the input value is evaluated in the CRUD statement (INSERT or SET)
+     * @param isEmptyForNull
+     *            an indicator the NULL values are always empty. It has meaning for the UPDATE statements, where the
+     *            standard handling is to treat any values as not empty.
      * @return the emptiness of the input value
      */
-    public boolean isEmpty(Object obj, SqlMetaType sqlMetaType, String sqlMetaTypeExt, boolean inSqlSetOrInsert)
-            throws IllegalArgumentException;
+    public boolean isEmpty(Object obj, SqlMetaType sqlMetaType, String sqlMetaTypeExt, boolean inSqlSetOrInsert,
+            boolean isEmptyForNull) throws IllegalArgumentException;
 }

@@ -61,13 +61,16 @@ package org.sqlproc.sample.simple.model {
 
   pojo Person serializable 1  {
     id : java.lang.Long primaryKey
-    name : java.lang.String required
+    firstName : java.lang.String required
+    lastName : java.lang.String required
+    dateOfBirth : java.util.Date
+    ssn : java.lang.String
     passport : java.lang.String
     library : java.util.List <:Media>
     contacts : java.util.List <:Contact>
     equals ::: id
     hashCode ::: id
-    toString ::: id name passport
+    toString ::: dateOfBirth id lastName ssn passport firstName
   }
 
   pojo PersonLibrary serializable 1  {
