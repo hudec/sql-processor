@@ -49,8 +49,9 @@ public abstract class SqlIdentityType extends SqlProviderType {
     public void setParameter(SqlQuery query, String paramName, Object identitySetter, Class<?> inputType,
             boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", identitySetter="
-                    + identitySetter + ", inputType=" + inputType);
+            logger.trace(">>> setParameter "
+                    + ((getMetaTypes() != null && getMetaTypes().length > 0) ? getMetaTypes()[0] : "null")
+                    + ": paramName=" + paramName + ", identitySetter=" + identitySetter + ", inputType=" + inputType);
         }
         if (identitySetter != null && identitySetter instanceof IdentitySetter) {
             query.setParameter(paramName, identitySetter, getProviderSqlType());
