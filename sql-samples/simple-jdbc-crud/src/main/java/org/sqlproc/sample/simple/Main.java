@@ -183,9 +183,13 @@ public class Main {
     public Person updatePerson(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
         sqlEngine.setFeature(SqlFeature.EMPTY_FOR_NULL, Boolean.TRUE);
-        String s = sqlEngine.getUpdateSql(person, null);
-        int count = sqlEngine.update(session, person);
-        sqlEngine.unsetFeature(SqlFeature.EMPTY_FOR_NULL);
+        int count = 0;
+        try {
+            count = sqlEngine.update(session, person);
+        } catch (RuntimeException e) {
+            sqlEngine.unsetFeature(SqlFeature.EMPTY_FOR_NULL);
+            throw e;
+        }
         logger.info("update person: " + count);
         return (count > 0) ? person : null;
     }
@@ -193,9 +197,13 @@ public class Main {
     public Person updatePersonWithNull(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
         sqlEngine.setFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL, Boolean.TRUE);
-        String s = sqlEngine.getUpdateSql(person, null);
-        int count = sqlEngine.update(session, person);
-        sqlEngine.unsetFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
+        int count = 0;
+        try {
+            count = sqlEngine.update(session, person);
+        } catch (RuntimeException e) {
+            sqlEngine.unsetFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
+            throw e;
+        }
         logger.info("update person: " + count);
         return (count > 0) ? person : null;
     }
@@ -380,7 +388,7 @@ public class Main {
         PersonExt personExt = new PersonExt();
         personExt.setId(andrej.getId());
         personExt.setFirstName("Andrioša");
-        personExt.setNull("ssn");
+        personExt.setNull(PersonExt.Attribute.ssn);
         p = main.updatePersonWithNull(personExt);
         Assert.assertNotNull(p);
 

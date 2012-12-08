@@ -24,7 +24,7 @@ pojogen-create-many-to-one SUBSCRIBER CONTACT->CONTACT->ID;
 // many-to-many
 pojogen-table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
 // others
-pojogen-generate-methods toString equals hashCode;
+pojogen-generate-methods toString equals hashCode isNull;
 pojogen-implements-interfaces java.io.Serializable;
 pojogen-create-columns PERSON PASSPORT->:java.lang.String;
 

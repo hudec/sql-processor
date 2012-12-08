@@ -14,19 +14,28 @@ public class PersonExt extends Person {
 
     private Set<String> nullValues = new HashSet<String>();
 
-    public void setNull(String attrName) {
-        // TODO - check attrName
-        nullValues.add(attrName);
+    public enum Attribute {
+        id, firstName, lastName, dateOfBirth, ssn, passport
     }
 
-    public void clearNull(String attrName) {
+    public void setNull(Attribute attribute) {
         // TODO - check attrName
-        nullValues.remove(attrName);
+        nullValues.add(attribute.name());
+    }
+
+    public void clearNull(Attribute attribute) {
+        // TODO - check attrName
+        nullValues.remove(attribute.name());
     }
 
     public Boolean isNull(String attrName) {
         // TODO - check attrName
         return nullValues.contains(attrName);
+    }
+
+    public Boolean isNull(Attribute attribute) {
+        // TODO - check attrName
+        return nullValues.contains(attribute.name());
     }
 
     public void clearAllNull() {

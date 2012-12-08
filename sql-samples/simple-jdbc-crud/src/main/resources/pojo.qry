@@ -14,6 +14,7 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toString ::: id type subscriber
+    isNull ::: id type subscriber
   }
 
   pojo Book extends Media serializable 1  {
@@ -29,6 +30,7 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toString ::: id person phoneNumber address
+    isNull ::: id person phoneNumber address
   }
 
   pojo CreditCard extends BillingDetails discriminator CC serializable 1  {
@@ -43,6 +45,7 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toString ::: id name
+    isNull ::: id name
   }
 
   abstract pojo Media serializable 1  {
@@ -51,6 +54,7 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toString ::: id title
+    isNull ::: id title
   }
 
   pojo Movie extends Media serializable 1  {
@@ -71,6 +75,7 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toString ::: dateOfBirth id lastName ssn passport firstName
+    isNull ::: dateOfBirth id lastName ssn passport firstName
   }
 
   pojo PersonLibrary serializable 1  {
@@ -80,6 +85,7 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toString ::: mediaId id personId
+    isNull ::: mediaId id personId
   }
 
   pojo Subscriber serializable 1  {
@@ -91,6 +97,7 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toString ::: id name library contact
+    isNull ::: id name library contact
   }
 }
 

@@ -39,6 +39,7 @@ public class TablePojoConverter {
     protected static final String METHOD_TO_STRING = "toString";
     protected static final String METHOD_HASH_CODE = "hashCode";
     protected static final String METHOD_EQUALS = "equals";
+    protected static final String METHOD_IS_NULL = "isNull";
     protected static final String COLLECTION_LIST = "java.util.List";
 
     protected String suffix;
@@ -554,6 +555,12 @@ public class TablePojoConverter {
             }
             if (generateMethods.contains(METHOD_TO_STRING) && !strs.isEmpty()) {
                 buffer.append("\n    ").append(METHOD_TO_STRING).append(" :::");
+                for (String name : strs) {
+                    buffer.append(" ").append(name);
+                }
+            }
+            if (generateMethods.contains(METHOD_IS_NULL) && !pkeys.isEmpty()) {
+                buffer.append("\n    ").append(METHOD_IS_NULL).append(" :::");
                 for (String name : strs) {
                     buffer.append(" ").append(name);
                 }
