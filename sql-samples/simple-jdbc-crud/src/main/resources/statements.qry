@@ -42,16 +42,6 @@ DELETE_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetail
   }
 ;
 
-DELETE_BANK_ACCOUNT_MORE(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
-  delete from %%BILLING_DETAILS
-  {= where
-    {& %BA_ACCOUNT = :baAccount }
-    {& %ID = :id }
-    {& %SUBSCRIBER = :subscriber.id }
-    {& %TYPE = :type }
-  }
-;
-
 INSERT_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
   insert into %%BOOK (%MEDIA_ID, %ISBN)
   {= values (:id, :isbn) }
@@ -81,14 +71,6 @@ DELETE_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
   delete from %%BOOK
   {= where
     {& %MEDIA_ID = :id^^notnull }
-  }
-;
-
-DELETE_BOOK_MORE(CRUD,identx=Book,colx=Book,dbcol=book)=
-  delete from %%BOOK
-  {= where
-    {& %MEDIA_ID = :id }
-    {& %ISBN = :isbn }
   }
 ;
 
@@ -127,16 +109,6 @@ DELETE_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
   }
 ;
 
-DELETE_CONTACT_MORE(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
-  delete from %%CONTACT
-  {= where
-    {& %ID = :id }
-    {& %PERSON_ID = :person.id }
-    {& %ADDRESS = :address }
-    {& %PHONE_NUMBER = :phoneNumber^phone }
-  }
-;
-
 INSERT_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
   insert into %%BILLING_DETAILS (%CC_NUMBER, %SUBSCRIBER, %TYPE)
   {= values (:id^^idsel=SEL1, :ccNumber, :subscriber.id, :type) }
@@ -172,16 +144,6 @@ DELETE_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
   }
 ;
 
-DELETE_CREDIT_CARD_MORE(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
-  delete from %%BILLING_DETAILS
-  {= where
-    {& %CC_NUMBER = :ccNumber }
-    {& %ID = :id }
-    {& %SUBSCRIBER = :subscriber.id }
-    {& %TYPE = :type }
-  }
-;
-
 INSERT_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
   insert into %%LIBRARY (%NAME)
   {= values (:id^^idsel=SEL1, :name) }
@@ -210,14 +172,6 @@ DELETE_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
   delete from %%LIBRARY
   {= where
     {& %ID = :id^^notnull }
-  }
-;
-
-DELETE_LIBRARY_MORE(CRUD,identx=Library,colx=Library,dbcol=library)=
-  delete from %%LIBRARY
-  {= where
-    {& %ID = :id }
-    {& %NAME = :name }
   }
 ;
 
@@ -252,14 +206,6 @@ DELETE_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
   }
 ;
 
-DELETE_MEDIA_MORE(CRUD,identx=Media,colx=Media,dbcol=media)=
-  delete from %%MEDIA
-  {= where
-    {& %ID = :id }
-    {& %TITLE = :title }
-  }
-;
-
 INSERT_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
   insert into %%MOVIE (%MEDIA_ID, %URLIMDB, %PLAYLENGTH)
   {= values (:id, :urlimdb, :playlength) }
@@ -291,15 +237,6 @@ DELETE_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
   delete from %%MOVIE
   {= where
     {& %MEDIA_ID = :id^^notnull }
-  }
-;
-
-DELETE_MOVIE_MORE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
-  delete from %%MOVIE
-  {= where
-    {& %MEDIA_ID = :id }
-    {& %URLIMDB = :urlimdb }
-    {& %PLAYLENGTH = :playlength }
   }
 ;
 
@@ -340,17 +277,6 @@ DELETE_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   }
 ;
 
-DELETE_PERSON_MORE(CRUD,identx=Person,colx=Person,dbcol=person)=
-  delete from %%PERSON
-  {= where
-    {& %ID = :id }
-    {& %FIRST_NAME = :firstName }
-    {& %LAST_NAME = :lastName }
-    {& %DATE_OF_BIRTH = :dateOfBirth }
-    {& %SSN = :ssn }
-  }
-;
-
 INSERT_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=personLibrary)=
   insert into %%PERSON_LIBRARY (%PERSON_ID, %MEDIA_ID)
   {= values (:id^^idsel=SEL1, :personId, :mediaId) }
@@ -381,15 +307,6 @@ DELETE_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=personL
   delete from %%PERSON_LIBRARY
   {= where
     {& %ID = :id^^notnull }
-  }
-;
-
-DELETE_PERSON_LIBRARY_MORE(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=personLibrary)=
-  delete from %%PERSON_LIBRARY
-  {= where
-    {& %ID = :id }
-    {& %PERSON_ID = :personId }
-    {& %MEDIA_ID = :mediaId }
   }
 ;
 
@@ -425,16 +342,6 @@ DELETE_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
   delete from %%SUBSCRIBER
   {= where
     {& %ID = :id^^notnull }
-  }
-;
-
-DELETE_SUBSCRIBER_MORE(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
-  delete from %%SUBSCRIBER
-  {= where
-    {& %ID = :id }
-    {& %LIBRARY = :library.id }
-    {& %CONTACT = :contact.id }
-    {& %NAME = :name }
   }
 ;
 

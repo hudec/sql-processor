@@ -70,7 +70,6 @@ public class TableMetaConverter extends TablePojoConverter {
             buffer.append(metaGetDefinition(pojo));
             buffer.append(metaUpdateDefinition(pojo));
             buffer.append(metaDeleteDefinition(pojo));
-            buffer.append(metaDeleteMoreDefinition(pojo));
         }
         return buffer.toString();
     }
@@ -159,20 +158,6 @@ public class TableMetaConverter extends TablePojoConverter {
         boolean first = wherePrimaryKeys(buffer, pojo, true, header.statementName);
         if (parentPojo != null)
             wherePrimaryKeys(buffer, parentPojo, first, header.statementName);
-        buffer.append("\n  }");
-        buffer.append("\n;\n");
-        return buffer;
-    }
-
-    StringBuilder metaDeleteMoreDefinition(String pojo) {
-        StringBuilder buffer = new StringBuilder();
-        Header header = getStatementHeader(pojo, buffer, Header.StatementType.DELETE, "MORE");
-        buffer.append("\n  delete from %%").append(header.realTableName);
-        buffer.append("\n  {= where");
-        String parentPojo = pojoDiscriminators.containsKey(header.tableName) ? pojoExtends.get(header.tableName) : null;
-        boolean first = whereColumns(buffer, pojo, true, header.statementName, null, false);
-        if (parentPojo != null)
-            whereColumns(buffer, parentPojo, first, header.statementName, null, false);
         buffer.append("\n  }");
         buffer.append("\n;\n");
         return buffer;
