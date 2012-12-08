@@ -420,8 +420,8 @@ public interface SqlFeature {
      */
     public static final String EMPTY_FOR_NULL = "EMPTY_FOR_NULL";
     /**
-     * <code>NOT_EMPTY_FOR_CHANGED</code> is indicator that the non-emptiness depends the special isNull method. It has
-     * meaning for the UPDATE statements, where the standard handling is to treat any values as not empty.
+     * <code>EMPTY_USE_METHOD_IS_NULL</code> is indicator that the non-emptiness depends the special isNull method. It
+     * has meaning for the UPDATE statements, where the standard handling is to treat any values as not empty.
      */
-    public static final String NOT_EMPTY_FOR_CHANGED = "EMPTY_METHOD_IS_NULL";
+    public static final String EMPTY_USE_METHOD_IS_NULL = "EMPTY_USE_METHOD_IS_NULL";
 }

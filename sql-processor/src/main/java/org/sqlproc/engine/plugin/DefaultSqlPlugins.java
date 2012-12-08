@@ -1,8 +1,10 @@
 package org.sqlproc.engine.plugin;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Map;
 
+import org.apache.commons.beanutils.MethodUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlUtils;
@@ -44,11 +46,35 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         }
 
         if (inSqlSetOrInsert) {
-            Object o = features.get(SqlFeature.EMPTY_FOR_NULL);
-            boolean isEmptyForNull = (o != null && o instanceof Boolean && ((Boolean) o)) ? true : false;
-            if (!isEmptyForNull)
-                if (obj == null)
+            boolean isEmptyUseMethodIsNull = false;
+            if (obj == null && attributeName != null && parentObj != null) {
+                Object o = features.get(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
+                if (o != null && o instanceof Boolean && ((Boolean) o))
+                    isEmptyUseMethodIsNull = true;
+            }
+            Object isNullObj = null;
+            if (isEmptyUseMethodIsNull) {
+                try {
+                    isNullObj = MethodUtils.invokeMethod(parentObj, "isNull", attributeName);
+                } catch (NoSuchMethodException e) {
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                } catch (InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+            if (isNullObj != null && isNullObj instanceof Boolean && ((Boolean) isNullObj)) {
+                return true;
+            }
+            boolean isEmptyForNull = isEmptyUseMethodIsNull;
+            if (obj == null) {
+                Object o = features.get(SqlFeature.EMPTY_FOR_NULL);
+                if (o != null && o instanceof Boolean && ((Boolean) o))
+                    isEmptyForNull = true;
+                if (!isEmptyForNull)
                     return true;
+            }
         }
 
         if (SUPPVAL_ANY.equalsIgnoreCase(value)) {

@@ -24,7 +24,7 @@ public class PersonExt extends Person {
         nullValues.remove(attrName);
     }
 
-    public boolean isNull(String attrName) {
+    public Boolean isNull(String attrName) {
         // TODO - check attrName
         return nullValues.contains(attrName);
     }

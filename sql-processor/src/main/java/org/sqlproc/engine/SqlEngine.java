@@ -116,6 +116,10 @@ public abstract class SqlEngine {
         } else if (SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.equals(name)) {
             unsetFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL);
             unsetFeature(SqlFeature.SURROUND_QUERY_LIKE);
+        } else if (SqlFeature.EMPTY_FOR_NULL.equals(name)) {
+            unsetFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
+        } else if (SqlFeature.EMPTY_USE_METHOD_IS_NULL.equals(name)) {
+            unsetFeature(SqlFeature.EMPTY_FOR_NULL);
         }
     }
 
