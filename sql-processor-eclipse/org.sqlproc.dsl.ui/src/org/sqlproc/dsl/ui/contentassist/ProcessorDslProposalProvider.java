@@ -31,6 +31,7 @@ import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
@@ -80,6 +81,9 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
 
     @Inject
     DbResolver dbResolver;
+
+    @Inject
+    IQualifiedNameConverter qualifiedNameConverter;
 
     private static final List<String> ON_OFF = Collections
             .unmodifiableList(Arrays.asList(new String[] { "ON", "OFF" }));
@@ -189,7 +193,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     public void completeColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
         if (!completeUsage(model, assignment, context, acceptor, ProcessorDslPackage.Literals.COLUMN_USAGE.getName(),
-                ProcessorDslPackage.Literals.COLUMN_USAGE_EXT.getName()))
+                ProcessorDslPackage.Literals.COLUMN_USAGE_EXT.getName(), COLUMN_USAGE, COLUMN_USAGE_EXTENDED))
             super.completeColumn_Name(model, assignment, context, acceptor);
     }
 
@@ -197,7 +201,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     public void completeConstant_Name(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
         if (!completeUsage(model, assignment, context, acceptor, ProcessorDslPackage.Literals.CONSTANT_USAGE.getName(),
-                ProcessorDslPackage.Literals.CONSTANT_USAGE_EXT.getName()))
+                ProcessorDslPackage.Literals.CONSTANT_USAGE_EXT.getName(), CONSTANT_USAGE, CONSTANT_USAGE_EXTENDED))
             super.completeConstant_Name(model, assignment, context, acceptor);
     }
 
@@ -206,22 +210,37 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             ICompletionProposalAcceptor acceptor) {
         if (!completeUsage(model, assignment, context, acceptor,
                 ProcessorDslPackage.Literals.IDENTIFIER_USAGE.getName(),
-                ProcessorDslPackage.Literals.IDENTIFIER_USAGE_EXT.getName()))
+                ProcessorDslPackage.Literals.IDENTIFIER_USAGE_EXT.getName(), IDENTIFIER_USAGE,
+                IDENTIFIER_USAGE_EXTENDED))
             super.completeIdentifier_Name(model, assignment, context, acceptor);
     }
 
     public boolean completeUsage(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor, String name, String nameExt) {
+            ICompletionProposalAcceptor acceptor, String name, String nameExt, String usageInFilter,
+            String usageInFilterExt) {
         if (!isResolvePojo(model))
             return false;
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
-        PojoDefinition pojoDefinition = findPojo(artifacts.eResource().getResourceSet(),
-                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES), name,
-                metaStatement.getName());
-        PojoEntity pojoEntity = (pojoDefinition != null) ? null : findEntity(artifacts.eResource().getResourceSet(),
-                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT), nameExt,
-                metaStatement.getName());
+
+        String entityName = Utils.getTokenFromFilter(metaStatement, usageInFilterExt);
+        PojoEntity pojoEntity = (entityName != null) ? Utils.findEntity(qualifiedNameConverter, artifacts,
+                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
+                entityName) : null;
+        String pojoName = (pojoEntity != null) ? null : Utils.getTokenFromFilter(metaStatement, usageInFilter);
+        PojoDefinition pojoDefinition = (pojoName != null) ? Utils
+                .findPojo(qualifiedNameConverter, artifacts,
+                        getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
+                        pojoName) : null;
+
+        if (pojoEntity == null && pojoDefinition == null)
+            pojoDefinition = findPojo(artifacts.eResource().getResourceSet(),
+                    getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES), name,
+                    metaStatement.getName());
+        if (pojoEntity == null && pojoDefinition == null)
+            pojoEntity = findEntity(artifacts.eResource().getResourceSet(),
+                    getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT),
+                    nameExt, metaStatement.getName());
         if (pojoDefinition == null && pojoEntity == null) {
             String proposal = getValueConverter().toString("Error: I can't load pojo for " + model, "IDENT");
             ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
