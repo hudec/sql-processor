@@ -297,12 +297,25 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         }
         MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
-        PojoDefinition pojoDefinition = findPojo(artifacts.eResource().getResourceSet(),
-                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES),
-                ProcessorDslPackage.Literals.MAPPING_USAGE.getName(), mappingRule.getName());
-        PojoEntity pojoEntity = (pojoDefinition != null) ? null : findEntity(artifacts.eResource().getResourceSet(),
-                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT),
-                ProcessorDslPackage.Literals.MAPPING_USAGE_EXT.getName(), mappingRule.getName());
+
+        String entityName = Utils.getTokenFromFilter(mappingRule, MAPPING_USAGE_EXTENDED);
+        PojoEntity pojoEntity = (entityName != null) ? Utils.findEntity(qualifiedNameConverter, artifacts,
+                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
+                entityName) : null;
+        String pojoName = (pojoEntity != null) ? null : Utils.getTokenFromFilter(mappingRule, MAPPING_USAGE);
+        PojoDefinition pojoDefinition = (pojoName != null) ? Utils
+                .findPojo(qualifiedNameConverter, artifacts,
+                        getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
+                        pojoName) : null;
+
+        if (pojoEntity == null && pojoDefinition == null)
+            pojoDefinition = findPojo(artifacts.eResource().getResourceSet(),
+                    getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES),
+                    ProcessorDslPackage.Literals.MAPPING_USAGE.getName(), mappingRule.getName());
+        if (pojoEntity == null && pojoDefinition == null)
+            pojoEntity = (pojoDefinition != null) ? null : findEntity(artifacts.eResource().getResourceSet(),
+                    getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT),
+                    ProcessorDslPackage.Literals.MAPPING_USAGE_EXT.getName(), mappingRule.getName());
         if (pojoDefinition == null && pojoEntity == null) {
             String proposal = getValueConverter().toString("Error: I can't load pojo for " + model, "IDENT");
             ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
@@ -351,7 +364,8 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         List<PojoProperty> properties = (inproperties != null) ? inproperties : new ArrayList<PojoProperty>();
 
         for (PojoProperty pojoProperty : pojoEntity.getFeatures()) {
-            properties.add(pojoProperty);
+            if (pojoProperty.getNative() != null || pojoProperty.getRef() != null || pojoProperty.getType() != null)
+                properties.add(pojoProperty);
         }
 
         PojoEntity superType = Utils.getSuperType(pojoEntity);
@@ -532,7 +546,13 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         }
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
-        TableDefinition tableDefinition = getTableDefinition(artifacts, metaStatement, prefix);
+
+        String val = Utils.getTokenFromFilter(metaStatement, TABLE_USAGE, prefix);
+        TableDefinition tableDefinition = (val != null) ? Utils.findTable(qualifiedNameConverter, artifacts,
+                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES), val) : null;
+        if (tableDefinition == null) {
+            tableDefinition = getTableDefinition(artifacts, metaStatement, prefix);
+        }
         if (tableDefinition != null && tableDefinition.getTable() != null) {
             for (String column : dbResolver.getColumns(model, tableDefinition.getTable())) {
                 String proposal = getValueConverter().toString(column, "IDENT");
@@ -590,6 +610,22 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         }
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
+
+        TableDefinition tableDefinition = null;
+        List<String> vals = Utils.getTokensFromFilter(metaStatement, TABLE_USAGE);
+        boolean found = false;
+        for (String val : vals) {
+            tableDefinition = Utils.findTable(qualifiedNameConverter, artifacts,
+                    getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES), val);
+            if (tableDefinition != null) {
+                String proposal = getValueConverter().toString(tableDefinition.getTable(), "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
+                found = true;
+            }
+        }
+        if (found)
+            return;
 
         IScope scope = getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
         Iterable<IEObjectDescription> iterable = scope.getAllElements();
