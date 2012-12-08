@@ -433,8 +433,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
         String pojoName = Utils.getTokenFromFilter(statement, COLUMN_USAGE);
         PojoDefinition pojo = (pojoName != null) ? Utils.findPojo(qualifiedNameConverter, artifacts,
-                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), pojoName)
-                : null;
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
         String columnUsageClass = (pojo != null) ? pojo.getClass_() : null;
         MappingUsage mappingUsage = null;
         if (columnUsageClass == null) {
@@ -515,8 +514,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
         String pojoName = Utils.getTokenFromFilter(statement, IDENTIFIER_USAGE);
         PojoDefinition pojo = (pojoName != null) ? Utils.findPojo(qualifiedNameConverter, artifacts,
-                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), pojoName)
-                : null;
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
         String identifierUsageClass = (pojo != null) ? pojo.getClass_() : null;
         if (identifierUsageClass == null) {
             IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
@@ -586,8 +584,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
         String pojoName = Utils.getTokenFromFilter(statement, CONSTANT_USAGE);
         PojoDefinition pojo = (pojoName != null) ? Utils.findPojo(qualifiedNameConverter, artifacts,
-                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), pojoName)
-                : null;
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
         String constantUsageClass = (pojo != null) ? pojo.getClass_() : null;
         if (constantUsageClass == null) {
             IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
@@ -657,8 +654,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
         String pojoName = Utils.getTokenFromFilter(rule, MAPPING_USAGE);
         PojoDefinition pojo = (pojoName != null) ? Utils.findPojo(qualifiedNameConverter, artifacts,
-                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), pojoName)
-                : null;
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
         String mappingUsageClass = (pojo != null) ? pojo.getClass_() : null;
         if (mappingUsageClass == null) {
             IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);

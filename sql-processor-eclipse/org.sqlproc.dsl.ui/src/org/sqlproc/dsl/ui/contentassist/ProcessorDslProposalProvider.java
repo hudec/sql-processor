@@ -228,10 +228,8 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
                 getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
                 entityName) : null;
         String pojoName = (pojoEntity != null) ? null : Utils.getTokenFromFilter(metaStatement, usageInFilter);
-        PojoDefinition pojoDefinition = (pojoName != null) ? Utils
-                .findPojo(qualifiedNameConverter, artifacts,
-                        getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
-                        pojoName) : null;
+        PojoDefinition pojoDefinition = (pojoName != null) ? Utils.findPojo(qualifiedNameConverter, artifacts,
+                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
 
         if (pojoEntity == null && pojoDefinition == null)
             pojoDefinition = findPojo(artifacts.eResource().getResourceSet(),

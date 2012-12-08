@@ -4,7 +4,7 @@ SURROUND_QUERY_LIKE_PARTIAL(BOPT)=true;
 SURROUND_QUERY_MIN_LEN(IOPT)=2;
 
 SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
-SEL1(OPT)=call identity();
+SEL1(OPT)=call identity(); 
 
 
 INSERT_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
@@ -255,9 +255,9 @@ GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
     {& %DATE_OF_BIRTH = :dateOfBirth }
     {& %SSN = :ssn }
   }
-;
+; 
 
-UPDATE_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
+UPDATE_PERSON(CRUD,ident=personExt,colx=Person,dbcol=person)=
   update %%PERSON
   {= set
     { ,%FIRST_NAME = :firstName }
