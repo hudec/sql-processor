@@ -1,5 +1,7 @@
 package org.sqlproc.engine.plugin;
 
+import java.util.Map;
+
 import org.sqlproc.engine.type.SqlMetaType;
 
 /**
@@ -11,7 +13,7 @@ import org.sqlproc.engine.type.SqlMetaType;
  * <p>
  * The standard evaluation is the next one:
  * <p>
- * The emptiness of a dynamic input value depends on the Java type of the related attribute
+ * The non-emptiness of a dynamic input value depends on the Java type of the related attribute
  * <ul>
  * <li>for a String it must be not null and the length must be &gt;0</li>
  * <li>for a Collection it must be not null and the size must be &gt;0</li>
@@ -26,8 +28,12 @@ public interface IsEmptyPlugin {
     /**
      * Used for the evaluation of the emptiness in the META SQL fragments.
      * 
+     * @param attributeName
+     *            the name of the input value
      * @param obj
      *            the input value
+     * @param parentObj
+     *            the parent of the input value
      * @param sqlMetaType
      *            the internal type (= META type) devoted for the special processing of the input values
      * @param sqlMetaTypeExt
@@ -35,11 +41,11 @@ public interface IsEmptyPlugin {
      *            of the input values
      * @param inSqlSetOrInsert
      *            an indicator the input value is evaluated in the CRUD statement (INSERT or SET)
-     * @param isEmptyForNull
-     *            an indicator the NULL values are always empty. It has meaning for the UPDATE statements, where the
-     *            standard handling is to treat any values as not empty.
-     * @return the emptiness of the input value
+     * @param features
+     *            the optional features in the statement coontext
+     * @return the non-emptiness of the input value
      */
-    public boolean isEmpty(Object obj, SqlMetaType sqlMetaType, String sqlMetaTypeExt, boolean inSqlSetOrInsert,
-            boolean isEmptyForNull) throws IllegalArgumentException;
+    public boolean isNotEmpty(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
+            String sqlMetaTypeExt, boolean inSqlSetOrInsert, Map<String, Object> features)
+            throws IllegalArgumentException;
 }

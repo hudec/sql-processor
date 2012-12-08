@@ -260,10 +260,10 @@ GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
 UPDATE_PERSON(CRUD,ident=personExt,colx=Person,dbcol=person)=
   update %%PERSON
   {= set
-    { ,%FIRST_NAME = :firstName }
-    { ,%LAST_NAME = :lastName }
-    { ,%DATE_OF_BIRTH = :dateOfBirth }
-    { ,%SSN = :ssn }
+    { ,%FIRST_NAME = :firstName^^nullupd }
+    { ,%LAST_NAME = :lastName^^nullupd }
+    { ,%DATE_OF_BIRTH = :dateOfBirth^^nullupd }
+    { ,%SSN = :ssn^^nullupd }
   }
   {= where
     {& %ID = :id^^notnull }

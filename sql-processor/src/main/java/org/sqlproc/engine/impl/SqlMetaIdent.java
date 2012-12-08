@@ -271,10 +271,10 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                 result.add(SqlProcessContext
                         .getPluginFactory()
                         .getIsEmptyPlugin()
-                        .isEmpty(obj, (sqlType == null) ? null : sqlType.getMetaType(),
+                        .isNotEmpty(attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(),
                                 (sqlType == null) ? null : sqlType.getValue(),
                                 ctx.inSqlSetOrInsert || ctx.sqlStatementType == SqlMetaStatement.Type.CALL,
-                                ctx.isFeature(SqlFeature.EMPTY_FOR_NULL)));
+                                SqlProcessContext.getFeatures()));
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
             }
@@ -326,10 +326,14 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                     + sqlType);
         }
 
+        Object parentObj = null;
         Object obj = ctx.dynamicInputValues;
+        String attributeName = null;
 
         for (String item : this.elements) {
+            attributeName = item;
             if (obj != null) {
+                parentObj = obj;
                 obj = BeanUtils.getProperty(obj, item);
             }
         }
@@ -337,8 +341,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         boolean result = SqlProcessContext
                 .getPluginFactory()
                 .getIsTruePlugin()
-                .isTrue(obj, (sqlType == null) ? null : sqlType.getMetaType(),
-                        (sqlType == null) ? null : sqlType.getValue());
+                .isTrue(attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(),
+                        (sqlType == null) ? null : sqlType.getValue(), SqlProcessContext.getFeatures());
         return (this.not ? !result : result);
     }
 }

@@ -1,5 +1,7 @@
 package org.sqlproc.engine.plugin;
 
+import java.util.Map;
+
 import org.sqlproc.engine.type.SqlMetaType;
 
 /**
@@ -34,14 +36,21 @@ public interface IsTruePlugin {
     /**
      * Used for the evaluation of the logical expression in the conditional META SQL fragments.
      * 
+     * @param attributeName
+     *            the name of the input value
      * @param obj
      *            the input value
+     * @param parentObj
+     *            the parent of the input value
      * @param sqlMetaType
      *            the internal type (= META type) devoted for the special processing of the input values
      * @param sqlMetaTypeExt
      *            the META type extension (=the internal type supplement value) devoted to extend the special processing
      *            of the input values
+     * @param features
+     *            the optional features in the statement coontext
      * @return the boolean value of the logical expression
      */
-    public boolean isTrue(Object obj, SqlMetaType sqlMetaType, String sqlMetaTypeExt);
+    public boolean isTrue(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
+            String sqlMetaTypeExt, Map<String, Object> features);
 }

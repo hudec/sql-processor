@@ -1,7 +1,9 @@
 package org.sqlproc.engine.plugin;
 
 import java.util.Collection;
+import java.util.Map;
 
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.SqlMetaType;
@@ -34,8 +36,9 @@ public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
      * {@inheritDoc}
      */
     @Override
-    public boolean isEmpty(Object obj, SqlMetaType sqlMetaType, String sqlMetaTypeExt, boolean inSqlSetOrInsert,
-            boolean isEmptyForNull) throws IllegalArgumentException {
+    public boolean isNotEmpty(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
+            String sqlMetaTypeExt, boolean inSqlSetOrInsert, Map<String, Object> features)
+            throws IllegalArgumentException {
         String value = (sqlMetaTypeExt != null) ? sqlMetaTypeExt.toLowerCase() : null;
 
         if (SUPPVAL_ZERO.equalsIgnoreCase(value)) {
@@ -54,9 +57,11 @@ public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
                 throw new IllegalArgumentException(SUPPVAL_NOTNULL);
         }
 
-        if (inSqlSetOrInsert && !isEmptyForNull) {
-            if (obj == null)
-                return true;
+        if (inSqlSetOrInsert) {
+            Object o = features.get(SqlFeature.EMPTY_FOR_NULL);
+            if (o == null || !(o instanceof Boolean) || !((Boolean) o))
+                if (obj == null)
+                    return true;
         }
 
         if (SUPPVAL_ANY.equalsIgnoreCase(value)) {
@@ -83,7 +88,8 @@ public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
      * {@inheritDoc}
      */
     @Override
-    public boolean isTrue(Object obj, SqlMetaType sqlMetaType, String sqlMetaTypeExt) {
+    public boolean isTrue(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
+            String sqlMetaTypeExt, Map<String, Object> features) {
         if (SUPPVAL_ZERO.equalsIgnoreCase(sqlMetaTypeExt)) {
             if (obj != null) {
                 if (obj instanceof String) {

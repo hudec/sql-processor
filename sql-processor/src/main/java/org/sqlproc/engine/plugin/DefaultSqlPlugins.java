@@ -1,6 +1,7 @@
 package org.sqlproc.engine.plugin;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.impl.SqlProcessContext;
@@ -32,8 +33,9 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public boolean isEmpty(Object obj, SqlMetaType sqlMetaType, String sqlMetaTypeExt, boolean inSqlSetOrInsert,
-            boolean isEmptyForNull) throws IllegalArgumentException {
+    public boolean isNotEmpty(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
+            String sqlMetaTypeExt, boolean inSqlSetOrInsert, Map<String, Object> features)
+            throws IllegalArgumentException {
         String value = (sqlMetaTypeExt != null) ? sqlMetaTypeExt.toLowerCase() : null;
 
         if (SUPPVAL_NOTNULL.equalsIgnoreCase(value)) {
@@ -41,9 +43,12 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                 throw new IllegalArgumentException(SUPPVAL_NOTNULL);
         }
 
-        if (inSqlSetOrInsert && !isEmptyForNull) {
-            if (obj == null)
-                return true;
+        if (inSqlSetOrInsert) {
+            Object o = features.get(SqlFeature.EMPTY_FOR_NULL);
+            boolean isEmptyForNull = (o != null && o instanceof Boolean && ((Boolean) o)) ? true : false;
+            if (!isEmptyForNull)
+                if (obj == null)
+                    return true;
         }
 
         if (SUPPVAL_ANY.equalsIgnoreCase(value)) {
@@ -70,7 +75,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public boolean isTrue(Object obj, SqlMetaType sqlMetaType, String sqlMetaTypeExt) {
+    public boolean isTrue(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
+            String sqlMetaTypeExt, Map<String, Object> features) {
         if (sqlMetaTypeExt == null) {
             if (obj != null) {
                 if (obj instanceof Boolean) {
