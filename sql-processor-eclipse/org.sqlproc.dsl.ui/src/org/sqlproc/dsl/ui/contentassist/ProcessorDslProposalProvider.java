@@ -786,11 +786,21 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         PojogenProperty prop = EcoreUtil2.getContainerOfType(imp, PojogenProperty.class);
         if (prop.getDbTable() != null && imp.getDbColumn() != null) {
             // System.out.println("PKTABLE for " + prop.getDbTable() + " and " + imp.getDbColumn());
-            for (DbImport dbImport : dbResolver.getDbImports(model, prop.getDbTable())) {
-                if (dbImport.getFkColumn() != null && dbImport.getFkColumn().equals(imp.getDbColumn())) {
-                    String proposal = getValueConverter().toString(dbImport.getPkTable(), "IDENT");
+            if ("create-many-to-one".equals(prop.getName())) {
+                for (String table : dbResolver.getTables(model)) {
+                    if (table.indexOf('$') >= 0)
+                        continue;
+                    String proposal = getValueConverter().toString(table, "IDENT");
                     ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
                     acceptor.accept(completionProposal);
+                }
+            } else {
+                for (DbImport dbImport : dbResolver.getDbImports(model, prop.getDbTable())) {
+                    if (dbImport.getFkColumn() != null && dbImport.getFkColumn().equals(imp.getDbColumn())) {
+                        String proposal = getValueConverter().toString(dbImport.getPkTable(), "IDENT");
+                        ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                        acceptor.accept(completionProposal);
+                    }
                 }
             }
         }
@@ -808,12 +818,20 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         if (prop.getDbTable() != null && imp.getDbColumn() != null & imp.getPkTable() != null) {
             // System.out.println("PKCOLUMN for " + prop.getDbTable() + " and " + imp.getDbColumn() + " and "
             // + imp.getPkTable());
-            for (DbImport dbImport : dbResolver.getDbImports(model, prop.getDbTable())) {
-                if (dbImport.getFkColumn() != null && dbImport.getFkColumn().equals(imp.getDbColumn())) {
-                    if (dbImport.getPkTable() != null && dbImport.getPkTable().equals(imp.getPkTable())) {
-                        String proposal = getValueConverter().toString(dbImport.getPkColumn(), "IDENT");
-                        ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
-                        acceptor.accept(completionProposal);
+            if ("create-many-to-one".equals(prop.getName())) {
+                for (String column : dbResolver.getColumns(model, imp.getPkTable())) {
+                    String proposal = getValueConverter().toString(column, "IDENT");
+                    ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                    acceptor.accept(completionProposal);
+                }
+            } else {
+                for (DbImport dbImport : dbResolver.getDbImports(model, prop.getDbTable())) {
+                    if (dbImport.getFkColumn() != null && dbImport.getFkColumn().equals(imp.getDbColumn())) {
+                        if (dbImport.getPkTable() != null && dbImport.getPkTable().equals(imp.getPkTable())) {
+                            String proposal = getValueConverter().toString(dbImport.getPkColumn(), "IDENT");
+                            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                            acceptor.accept(completionProposal);
+                        }
                     }
                 }
             }
@@ -848,11 +866,21 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         PojogenProperty prop = EcoreUtil2.getContainerOfType(exp, PojogenProperty.class);
         if (prop.getDbTable() != null && exp.getDbColumn() != null) {
             // System.out.println("FKTABLE for " + prop.getDbTable() + " and " + exp.getDbColumn());
-            for (DbExport dbExport : dbResolver.getDbExports(model, prop.getDbTable())) {
-                if (dbExport.getPkColumn() != null && dbExport.getPkColumn().equals(exp.getDbColumn())) {
-                    String proposal = getValueConverter().toString(dbExport.getFkTable(), "IDENT");
+            if ("create-one-to-many".equals(prop.getName())) {
+                for (String table : dbResolver.getTables(model)) {
+                    if (table.indexOf('$') >= 0)
+                        continue;
+                    String proposal = getValueConverter().toString(table, "IDENT");
                     ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
                     acceptor.accept(completionProposal);
+                }
+            } else {
+                for (DbExport dbExport : dbResolver.getDbExports(model, prop.getDbTable())) {
+                    if (dbExport.getPkColumn() != null && dbExport.getPkColumn().equals(exp.getDbColumn())) {
+                        String proposal = getValueConverter().toString(dbExport.getFkTable(), "IDENT");
+                        ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                        acceptor.accept(completionProposal);
+                    }
                 }
             }
         }
@@ -870,12 +898,20 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         if (prop.getDbTable() != null && exp.getDbColumn() != null & exp.getFkTable() != null) {
             // System.out.println("FKCOLUMN for " + prop.getDbTable() + " and " + exp.getDbColumn() + " and "
             // + exp.getFkTable());
-            for (DbExport dbExport : dbResolver.getDbExports(model, prop.getDbTable())) {
-                if (dbExport.getPkColumn() != null && dbExport.getPkColumn().equals(exp.getDbColumn())) {
-                    if (dbExport.getFkTable() != null && dbExport.getFkTable().equals(exp.getFkTable())) {
-                        String proposal = getValueConverter().toString(dbExport.getFkColumn(), "IDENT");
-                        ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
-                        acceptor.accept(completionProposal);
+            if ("create-one-to-many".equals(prop.getName())) {
+                for (String column : dbResolver.getColumns(model, exp.getFkTable())) {
+                    String proposal = getValueConverter().toString(column, "IDENT");
+                    ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                    acceptor.accept(completionProposal);
+                }
+            } else {
+                for (DbExport dbExport : dbResolver.getDbExports(model, prop.getDbTable())) {
+                    if (dbExport.getPkColumn() != null && dbExport.getPkColumn().equals(exp.getDbColumn())) {
+                        if (dbExport.getFkTable() != null && dbExport.getFkTable().equals(exp.getFkTable())) {
+                            String proposal = getValueConverter().toString(dbExport.getFkColumn(), "IDENT");
+                            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                            acceptor.accept(completionProposal);
+                        }
                     }
                 }
             }
