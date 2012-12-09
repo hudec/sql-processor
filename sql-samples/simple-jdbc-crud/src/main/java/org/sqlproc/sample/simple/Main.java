@@ -24,7 +24,6 @@ import org.sqlproc.sample.simple.model.Library;
 import org.sqlproc.sample.simple.model.Media;
 import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.Person;
-import org.sqlproc.sample.simple.model.PersonExt;
 import org.sqlproc.sample.simple.model.PersonLibrary;
 import org.sqlproc.sample.simple.model.PhoneNumber;
 import org.sqlproc.sample.simple.model.Subscriber;
@@ -180,29 +179,27 @@ public class Main {
         return p;
     }
 
-    public Person updatePerson(Person person) {
+    public Person updatePersonNoNull(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
         sqlEngine.setFeature(SqlFeature.EMPTY_FOR_NULL, Boolean.TRUE);
         int count = 0;
         try {
             count = sqlEngine.update(session, person);
-        } catch (RuntimeException e) {
+        } finally {
             sqlEngine.unsetFeature(SqlFeature.EMPTY_FOR_NULL);
-            throw e;
         }
         logger.info("update person: " + count);
         return (count > 0) ? person : null;
     }
 
-    public Person updatePersonWithNull(Person person) {
+    public Person updatePerson(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
         sqlEngine.setFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL, Boolean.TRUE);
         int count = 0;
         try {
             count = sqlEngine.update(session, person);
-        } catch (RuntimeException e) {
+        } finally {
             sqlEngine.unsetFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
-            throw e;
         }
         logger.info("update person: " + count);
         return (count > 0) ? person : null;
@@ -365,7 +362,7 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andrejík");
-        p = main.updatePerson(person);
+        p = main.updatePersonNoNull(person);
         Assert.assertNotNull(p);
 
         // get
@@ -377,19 +374,12 @@ public class Main {
         Assert.assertEquals("Andrejček", p.getLastName());
         Assert.assertEquals("123456789", p.getSsn());
 
-        book = new Book();
-        book.setId(book1.getId());
-        b = main.getBook(book);
-        Assert.assertNotNull(b);
-        Assert.assertEquals("978-0140367003", b.getIsbn());
-        Assert.assertEquals("The Adventures of Robin Hood", b.getTitle());
-
         // update also with null values
-        PersonExt personExt = new PersonExt();
-        personExt.setId(andrej.getId());
-        personExt.setFirstName("Andrioša");
-        personExt.setNull(PersonExt.Attribute.ssn);
-        p = main.updatePersonWithNull(personExt);
+        person = new Person();
+        person.setId(andrej.getId());
+        person.setFirstName("Andrioša");
+        person.setNull(Person.Attribute.ssn);
+        p = main.updatePerson(person);
         Assert.assertNotNull(p);
 
         person = new Person();
@@ -399,6 +389,14 @@ public class Main {
         Assert.assertEquals("Andrioša", p.getFirstName());
         Assert.assertEquals("Andrejček", p.getLastName());
         Assert.assertNull(p.getSsn());
+
+        // get
+        book = new Book();
+        book.setId(book1.getId());
+        b = main.getBook(book);
+        Assert.assertNotNull(b);
+        Assert.assertEquals("978-0140367003", b.getIsbn());
+        Assert.assertEquals("The Adventures of Robin Hood", b.getTitle());
 
         // // queries
         // list = main.listAll();

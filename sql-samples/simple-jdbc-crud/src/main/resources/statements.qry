@@ -257,7 +257,7 @@ GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   }
 ; 
 
-UPDATE_PERSON(CRUD,ident=personExt,colx=Person,dbcol=person)=
+UPDATE_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   update %%PERSON
   {= set
     { ,%FIRST_NAME = :firstName^^nullupd }

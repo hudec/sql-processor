@@ -107,6 +107,16 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.newLine();
       }
     }
+    {
+      PojoProperty _hasIsNull = this.hasIsNull(e);
+      boolean _notEquals_2 = (!Objects.equal(_hasIsNull, null));
+      if (_notEquals_2) {
+        _builder.append("import java.util.Set;");
+        _builder.newLine();
+        _builder.append("import java.util.HashSet;");
+        _builder.newLine();
+      }
+    }
     _builder.newLine();
     _builder.append(classBody, "");
     _builder.newLineIfNotEmpty();
@@ -265,18 +275,31 @@ public class ProcessorDslGenerator implements IGenerator {
           if (_equalsIgnoreCase) {
             CharSequence _compileHashCode = this.compileHashCode(f_4, importManager, e);
             _builder.append(_compileHashCode, "  ");
+            _builder.newLineIfNotEmpty();
+            _builder.append("  ");
           } else {
             String _name_8 = f_4.getName();
             boolean _equalsIgnoreCase_1 = _name_8.equalsIgnoreCase("equals");
             if (_equalsIgnoreCase_1) {
               CharSequence _compileEquals = this.compileEquals(f_4, importManager, e);
               _builder.append(_compileEquals, "  ");
+              _builder.newLineIfNotEmpty();
+              _builder.append("  ");
             } else {
               String _name_9 = f_4.getName();
               boolean _equalsIgnoreCase_2 = _name_9.equalsIgnoreCase("toString");
               if (_equalsIgnoreCase_2) {
                 CharSequence _compileToString = this.compileToString(f_4, importManager, e);
                 _builder.append(_compileToString, "  ");
+                _builder.newLineIfNotEmpty();
+                _builder.append("  ");
+              } else {
+                String _name_10 = f_4.getName();
+                boolean _equalsIgnoreCase_3 = _name_10.equalsIgnoreCase("isNull");
+                if (_equalsIgnoreCase_3) {
+                  CharSequence _compileIsNull = this.compileIsNull(f_4, importManager, e);
+                  _builder.append(_compileIsNull, "  ");
+                }
               }
             }
           }
@@ -558,6 +581,104 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
+  public CharSequence compileIsNull(final PojoProperty f, final ImportManager importManager, final PojoEntity e) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.newLine();
+    _builder.append("private Set<String> nullValues = new HashSet<String>();");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public enum Attribute {");
+    _builder.newLine();
+    _builder.append("  ");
+    {
+      EList<PojoProperty> _attrs = f.getAttrs();
+      boolean _hasElements = false;
+      for(final PojoProperty f2 : _attrs) {
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          _builder.appendImmediate(", ", "  ");
+        }
+        String _name = f2.getName();
+        _builder.append(_name, "  ");
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public void setNull(Attribute... attributes) {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("if (attributes == null)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new IllegalArgumentException();");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("for (Attribute attribute : attributes)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("nullValues.add(attribute.name());");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public void clearNull(Attribute... attributes) {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("if (attributes == null)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new IllegalArgumentException();");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("for (Attribute attribute : attributes)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("nullValues.remove(attribute.name());");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public Boolean isNull(String attrName) {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("if (attrName == null)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new IllegalArgumentException();");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("return nullValues.contains(attrName);");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public Boolean isNull(Attribute attribute) {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("if (attribute == null)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new IllegalArgumentException();");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("return nullValues.contains(attribute.name());");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public void clearAllNull() {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("nullValues = new HashSet<String>();");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
   public CharSequence compileType(final PojoProperty f, final ImportManager importManager) {
     StringConcatenation _builder = new StringConcatenation();
     {
@@ -681,6 +802,18 @@ public class ProcessorDslGenerator implements IGenerator {
       };
     Iterable<PojoProperty> _filter = IterableExtensions.<PojoProperty>filter(_features, _function);
     return IterableExtensions.<PojoProperty>toList(_filter);
+  }
+  
+  public PojoProperty hasIsNull(final PojoEntity e) {
+    EList<PojoProperty> _features = e.getFeatures();
+    final Function1<PojoProperty,Boolean> _function = new Function1<PojoProperty,Boolean>() {
+        public Boolean apply(final PojoProperty f) {
+          String _name = f.getName();
+          boolean _equals = Objects.equal(_name, "isNull");
+          return Boolean.valueOf(_equals);
+        }
+      };
+    return IterableExtensions.<PojoProperty>findFirst(_features, _function);
   }
   
   public boolean isAttribute(final PojoProperty f) {

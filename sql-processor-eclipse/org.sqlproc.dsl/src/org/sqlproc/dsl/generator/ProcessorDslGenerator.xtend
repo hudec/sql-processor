@@ -48,6 +48,10 @@ import java.io.Serializable;
   «IF !e.listFeatures.empty»
 import java.util.ArrayList;
   «ENDIF»
+  «IF e.hasIsNull != null»
+import java.util.Set;
+import java.util.HashSet;
+  «ENDIF»
 
 «classBody»
 '''
@@ -72,7 +76,10 @@ public «IF isAbstract(e)»abstract «ENDIF»class «e.name» «compileExtends(e
   «FOR f:e.features.filter(x| isAttribute(x))»
     «f.compile(importManager, e)»
   «ENDFOR»
-  «FOR f:e.features.filter(x| !isAttribute(x))»«IF f.name.equalsIgnoreCase("hashCode")»«f.compileHashCode(importManager, e)»«ELSEIF f.name.equalsIgnoreCase("equals")»«f.compileEquals(importManager, e)»«ELSEIF f.name.equalsIgnoreCase("toString")»«f.compileToString(importManager, e)»«ENDIF»«ENDFOR»
+  «FOR f:e.features.filter(x| !isAttribute(x))»«IF f.name.equalsIgnoreCase("hashCode")»«f.compileHashCode(importManager, e)»
+  «ELSEIF f.name.equalsIgnoreCase("equals")»«f.compileEquals(importManager, e)»
+  «ELSEIF f.name.equalsIgnoreCase("toString")»«f.compileToString(importManager, e)»
+  «ELSEIF f.name.equalsIgnoreCase("isNull")»«f.compileIsNull(importManager, e)»«ENDIF»«ENDFOR»
 }
 '''
 
@@ -138,6 +145,45 @@ def compileToString(PojoProperty f, ImportManager importManager, PojoEntity e) '
     }
 '''
 
+def compileIsNull(PojoProperty f, ImportManager importManager, PojoEntity e) '''
+
+    private Set<String> nullValues = new HashSet<String>();
+
+    public enum Attribute {
+      «FOR f2:f.attrs SEPARATOR ", "»«f2.name»«ENDFOR»
+    }
+
+    public void setNull(Attribute... attributes) {
+      if (attributes == null)
+        throw new IllegalArgumentException();
+      for (Attribute attribute : attributes)
+        nullValues.add(attribute.name());
+    }
+
+    public void clearNull(Attribute... attributes) {
+      if (attributes == null)
+        throw new IllegalArgumentException();
+      for (Attribute attribute : attributes)
+        nullValues.remove(attribute.name());
+    }
+
+    public Boolean isNull(String attrName) {
+      if (attrName == null)
+        throw new IllegalArgumentException();
+      return nullValues.contains(attrName);
+    }
+
+    public Boolean isNull(Attribute attribute) {
+      if (attribute == null)
+        throw new IllegalArgumentException();
+      return nullValues.contains(attribute.name());
+    }
+
+    public void clearAllNull() {
+      nullValues = new HashSet<String>();
+    }
+'''
+
 def compileType(PojoProperty f, ImportManager importManager) '''
   «IF f.getNative != null»«f.getNative.substring(1)»«ELSEIF f.getRef != null»«f.getRef.fullyQualifiedName»«ELSEIF f.getType != null»«importManager.serialize(f.getType)»«ENDIF»«IF f.getGtype != null»<«importManager.serialize(f.getGtype)»>«ENDIF»«IF f.getGref != null»<«f.getGref.fullyQualifiedName»>«ENDIF»«IF f.array»[]«ENDIF»'''
   
@@ -173,6 +219,11 @@ def requiredSuperFeatures(PojoEntity e) {
 
 def requiredFeatures1(PojoEntity e) {
 	return e.features.filter(f|isRequired(f)).toList
+}
+
+def hasIsNull(PojoEntity e) {
+	
+	return e.features.findFirst(f|f.name == "isNull")
 }
 
 def isAttribute(PojoProperty f) {

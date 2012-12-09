@@ -1,6 +1,8 @@
 package org.sqlproc.sample.simple.model;
 
 import java.io.Serializable;
+import java.util.Set;
+import java.util.HashSet;
 
 public abstract class Media implements Serializable {
   
@@ -72,5 +74,41 @@ public abstract class Media implements Serializable {
   
   public String toStringFull() {
     return "Media [id=" + id + ", title=" + title + "]";
+  }
+  
+  private Set<String> nullValues = new HashSet<String>();
+  
+  public enum Attribute {
+    id, title
+  }
+  
+  public void setNull(Attribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (Attribute attribute : attributes)
+      nullValues.add(attribute.name());
+  }
+  
+  public void clearNull(Attribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (Attribute attribute : attributes)
+      nullValues.remove(attribute.name());
+  }
+  
+  public Boolean isNull(String attrName) {
+    if (attrName == null)
+      throw new IllegalArgumentException();
+    return nullValues.contains(attrName);
+  }
+  
+  public Boolean isNull(Attribute attribute) {
+    if (attribute == null)
+      throw new IllegalArgumentException();
+    return nullValues.contains(attribute.name());
+  }
+  
+  public void clearAllNull() {
+    nullValues = new HashSet<String>();
   }
 }

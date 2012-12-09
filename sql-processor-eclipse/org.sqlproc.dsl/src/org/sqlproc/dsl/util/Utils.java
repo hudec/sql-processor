@@ -138,6 +138,12 @@ public class Utils {
         return features;
     }
 
+    public static boolean hasName(PojoProperty f, String name) {
+        if (f.getName().equals(name))
+            return true;
+        return false;
+    }
+
     public static String getTokenFromFilter(MetaStatement statement, String tokenName) {
         if (statement.getFilters() == null || statement.getFilters().isEmpty()) {
             return null;
