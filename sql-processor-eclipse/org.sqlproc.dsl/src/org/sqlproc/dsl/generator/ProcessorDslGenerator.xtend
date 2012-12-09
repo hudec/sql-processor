@@ -48,7 +48,7 @@ import java.io.Serializable;
   «IF !e.listFeatures.empty»
 import java.util.ArrayList;
   «ENDIF»
-  «IF e.hasIsNull != null»
+  «IF e.hasIsNull != null || e.hasIsInit != null»
 import java.util.Set;
 import java.util.HashSet;
   «ENDIF»
@@ -78,8 +78,9 @@ public «IF isAbstract(e)»abstract «ENDIF»class «e.name» «compileExtends(e
   «ENDFOR»
   «FOR f:e.features.filter(x| !isAttribute(x))»«IF f.name.equalsIgnoreCase("hashCode")»«f.compileHashCode(importManager, e)»
   «ELSEIF f.name.equalsIgnoreCase("equals")»«f.compileEquals(importManager, e)»
-  «ELSEIF f.name.equalsIgnoreCase("toString")»«f.compileToString(importManager, e)»
-  «ELSEIF f.name.equalsIgnoreCase("isNull")»«f.compileIsNull(importManager, e)»«ENDIF»«ENDFOR»
+  «ELSEIF f.name.equalsIgnoreCase("isInit")»«f.compileIsInit(importManager, e)»
+  «ELSEIF f.name.equalsIgnoreCase("isNull")»«f.compileIsNull(importManager, e)»
+  «ELSEIF f.name.equalsIgnoreCase("toString")»«f.compileToString(importManager, e)»«ENDIF»«ENDFOR»
 }
 '''
 
@@ -184,6 +185,45 @@ def compileIsNull(PojoProperty f, ImportManager importManager, PojoEntity e) '''
     }
 '''
 
+def compileIsInit(PojoProperty f, ImportManager importManager, PojoEntity e) '''
+
+    private Set<String> initAssociations = new HashSet<String>();
+
+    public enum Association {
+      «FOR f2:f.attrs SEPARATOR ", "»«f2.name»«ENDFOR»
+    }
+
+    public void setInit(Association... associations) {
+      if (associations == null)
+        throw new IllegalArgumentException();
+      for (Association association : associations)
+        initAssociations.add(association.name());
+    }
+
+    public void clearInit(Association... associations) {
+      if (associations == null)
+        throw new IllegalArgumentException();
+      for (Association association : associations)
+        initAssociations.remove(association.name());
+    }
+
+    public Boolean isInit(String attrName) {
+      if (attrName == null)
+        throw new IllegalArgumentException();
+      return initAssociations.contains(attrName);
+    }
+
+    public Boolean isInit(Association association) {
+      if (association == null)
+        throw new IllegalArgumentException();
+      return initAssociations.contains(association.name());
+    }
+
+    public void clearAllInit() {
+      initAssociations = new HashSet<String>();
+    }
+'''
+
 def compileType(PojoProperty f, ImportManager importManager) '''
   «IF f.getNative != null»«f.getNative.substring(1)»«ELSEIF f.getRef != null»«f.getRef.fullyQualifiedName»«ELSEIF f.getType != null»«importManager.serialize(f.getType)»«ENDIF»«IF f.getGtype != null»<«importManager.serialize(f.getGtype)»>«ENDIF»«IF f.getGref != null»<«f.getGref.fullyQualifiedName»>«ENDIF»«IF f.array»[]«ENDIF»'''
   
@@ -222,8 +262,11 @@ def requiredFeatures1(PojoEntity e) {
 }
 
 def hasIsNull(PojoEntity e) {
-	
 	return e.features.findFirst(f|f.name == "isNull")
+}
+
+def hasIsInit(PojoEntity e) {
+	return e.features.findFirst(f|f.name == "isInit")
 }
 
 def isAttribute(PojoProperty f) {

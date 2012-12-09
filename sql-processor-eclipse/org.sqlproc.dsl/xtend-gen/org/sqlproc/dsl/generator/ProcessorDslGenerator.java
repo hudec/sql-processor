@@ -108,9 +108,17 @@ public class ProcessorDslGenerator implements IGenerator {
       }
     }
     {
+      boolean _or = false;
       PojoProperty _hasIsNull = this.hasIsNull(e);
       boolean _notEquals_2 = (!Objects.equal(_hasIsNull, null));
       if (_notEquals_2) {
+        _or = true;
+      } else {
+        PojoProperty _hasIsInit = this.hasIsInit(e);
+        boolean _notEquals_3 = (!Objects.equal(_hasIsInit, null));
+        _or = (_notEquals_2 || _notEquals_3);
+      }
+      if (_or) {
         _builder.append("import java.util.Set;");
         _builder.newLine();
         _builder.append("import java.util.HashSet;");
@@ -287,10 +295,10 @@ public class ProcessorDslGenerator implements IGenerator {
               _builder.append("  ");
             } else {
               String _name_9 = f_4.getName();
-              boolean _equalsIgnoreCase_2 = _name_9.equalsIgnoreCase("toString");
+              boolean _equalsIgnoreCase_2 = _name_9.equalsIgnoreCase("isInit");
               if (_equalsIgnoreCase_2) {
-                CharSequence _compileToString = this.compileToString(f_4, importManager, e);
-                _builder.append(_compileToString, "  ");
+                CharSequence _compileIsInit = this.compileIsInit(f_4, importManager, e);
+                _builder.append(_compileIsInit, "  ");
                 _builder.newLineIfNotEmpty();
                 _builder.append("  ");
               } else {
@@ -299,6 +307,15 @@ public class ProcessorDslGenerator implements IGenerator {
                 if (_equalsIgnoreCase_3) {
                   CharSequence _compileIsNull = this.compileIsNull(f_4, importManager, e);
                   _builder.append(_compileIsNull, "  ");
+                  _builder.newLineIfNotEmpty();
+                  _builder.append("  ");
+                } else {
+                  String _name_11 = f_4.getName();
+                  boolean _equalsIgnoreCase_4 = _name_11.equalsIgnoreCase("toString");
+                  if (_equalsIgnoreCase_4) {
+                    CharSequence _compileToString = this.compileToString(f_4, importManager, e);
+                    _builder.append(_compileToString, "  ");
+                  }
                 }
               }
             }
@@ -679,6 +696,104 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
+  public CharSequence compileIsInit(final PojoProperty f, final ImportManager importManager, final PojoEntity e) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.newLine();
+    _builder.append("private Set<String> initAssociations = new HashSet<String>();");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public enum Association {");
+    _builder.newLine();
+    _builder.append("  ");
+    {
+      EList<PojoProperty> _attrs = f.getAttrs();
+      boolean _hasElements = false;
+      for(final PojoProperty f2 : _attrs) {
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          _builder.appendImmediate(", ", "  ");
+        }
+        String _name = f2.getName();
+        _builder.append(_name, "  ");
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public void setInit(Association... associations) {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("if (associations == null)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new IllegalArgumentException();");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("for (Association association : associations)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("initAssociations.add(association.name());");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public void clearInit(Association... associations) {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("if (associations == null)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new IllegalArgumentException();");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("for (Association association : associations)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("initAssociations.remove(association.name());");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public Boolean isInit(String attrName) {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("if (attrName == null)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new IllegalArgumentException();");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("return initAssociations.contains(attrName);");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public Boolean isInit(Association association) {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("if (association == null)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new IllegalArgumentException();");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("return initAssociations.contains(association.name());");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public void clearAllInit() {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("initAssociations = new HashSet<String>();");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
   public CharSequence compileType(final PojoProperty f, final ImportManager importManager) {
     StringConcatenation _builder = new StringConcatenation();
     {
@@ -810,6 +925,18 @@ public class ProcessorDslGenerator implements IGenerator {
         public Boolean apply(final PojoProperty f) {
           String _name = f.getName();
           boolean _equals = Objects.equal(_name, "isNull");
+          return Boolean.valueOf(_equals);
+        }
+      };
+    return IterableExtensions.<PojoProperty>findFirst(_features, _function);
+  }
+  
+  public PojoProperty hasIsInit(final PojoEntity e) {
+    EList<PojoProperty> _features = e.getFeatures();
+    final Function1<PojoProperty,Boolean> _function = new Function1<PojoProperty,Boolean>() {
+        public Boolean apply(final PojoProperty f) {
+          String _name = f.getName();
+          boolean _equals = Objects.equal(_name, "isInit");
           return Boolean.valueOf(_equals);
         }
       };

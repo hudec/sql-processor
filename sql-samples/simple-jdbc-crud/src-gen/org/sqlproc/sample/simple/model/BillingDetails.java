@@ -1,6 +1,8 @@
 package org.sqlproc.sample.simple.model;
 
 import java.io.Serializable;
+import java.util.Set;
+import java.util.HashSet;
 
 public abstract class BillingDetails implements Serializable {
   
@@ -80,6 +82,42 @@ public abstract class BillingDetails implements Serializable {
     result = prime * result + (int) (id ^ (id >>> 32));
     return result;
   }  
+  
+  private Set<String> initAssociations = new HashSet<String>();
+  
+  public enum Association {
+    subscriber
+  }
+  
+  public void setInit(Association... associations) {
+    if (associations == null)
+      throw new IllegalArgumentException();
+    for (Association association : associations)
+      initAssociations.add(association.name());
+  }
+  
+  public void clearInit(Association... associations) {
+    if (associations == null)
+      throw new IllegalArgumentException();
+    for (Association association : associations)
+      initAssociations.remove(association.name());
+  }
+  
+  public Boolean isInit(String attrName) {
+    if (attrName == null)
+      throw new IllegalArgumentException();
+    return initAssociations.contains(attrName);
+  }
+  
+  public Boolean isInit(Association association) {
+    if (association == null)
+      throw new IllegalArgumentException();
+    return initAssociations.contains(association.name());
+  }
+  
+  public void clearAllInit() {
+    initAssociations = new HashSet<String>();
+  }
   
   @Override
   public String toString() {
