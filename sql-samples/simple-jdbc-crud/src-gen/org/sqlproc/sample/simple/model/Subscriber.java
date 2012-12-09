@@ -116,19 +116,10 @@ public class Subscriber implements Serializable {
     return result;
   }  
   
-  @Override
-  public String toString() {
-    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + "]";
-  }
-  
-  public String toStringFull() {
-    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + ", contact=" + contact + "]";
-  }
-  
   private Set<String> nullValues = new HashSet<String>();
   
   public enum Attribute {
-    id, name, library, contact
+    contact
   }
   
   public void setNull(Attribute... attributes) {
@@ -159,5 +150,14 @@ public class Subscriber implements Serializable {
   
   public void clearAllNull() {
     nullValues = new HashSet<String>();
+  }
+  
+  @Override
+  public String toString() {
+    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + "]";
+  }
+  
+  public String toStringFull() {
+    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + ", contact=" + contact + "]";
   }
 }

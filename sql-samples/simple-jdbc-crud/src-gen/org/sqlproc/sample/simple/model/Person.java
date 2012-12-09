@@ -162,19 +162,10 @@ public class Person implements Serializable {
     return result;
   }  
   
-  @Override
-  public String toString() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", passport=" + passport + ", firstName=" + firstName + "]";
-  }
-  
-  public String toStringFull() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", passport=" + passport + ", firstName=" + firstName + "]";
-  }
-  
   private Set<String> nullValues = new HashSet<String>();
   
   public enum Attribute {
-    dateOfBirth, id, lastName, ssn, passport, firstName
+    dateOfBirth, ssn, passport
   }
   
   public void setNull(Attribute... attributes) {
@@ -205,5 +196,14 @@ public class Person implements Serializable {
   
   public void clearAllNull() {
     nullValues = new HashSet<String>();
+  }
+  
+  @Override
+  public String toString() {
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", passport=" + passport + ", firstName=" + firstName + "]";
+  }
+  
+  public String toStringFull() {
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", passport=" + passport + ", firstName=" + firstName + "]";
   }
 }

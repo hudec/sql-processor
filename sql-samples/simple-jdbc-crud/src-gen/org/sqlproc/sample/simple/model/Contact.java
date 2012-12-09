@@ -100,19 +100,10 @@ public class Contact implements Serializable {
     return result;
   }  
   
-  @Override
-  public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
-  }
-  
-  public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
-  }
-  
   private Set<String> nullValues = new HashSet<String>();
   
   public enum Attribute {
-    id, person, phoneNumber, address
+    phoneNumber
   }
   
   public void setNull(Attribute... attributes) {
@@ -143,5 +134,14 @@ public class Contact implements Serializable {
   
   public void clearAllNull() {
     nullValues = new HashSet<String>();
+  }
+  
+  @Override
+  public String toString() {
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
+  }
+  
+  public String toStringFull() {
+    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
   }
 }
