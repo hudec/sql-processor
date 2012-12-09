@@ -174,6 +174,7 @@ public class Main {
 
     public Person getPerson(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("GET_PERSON");
+        String s = sqlEngine.getGetSql(person, null);
         Person p = sqlEngine.get(session, Person.class, person);
         logger.info("get person: " + p);
         return p;
@@ -397,6 +398,16 @@ public class Main {
         Assert.assertNotNull(b);
         Assert.assertEquals("978-0140367003", b.getIsbn());
         Assert.assertEquals("The Adventures of Robin Hood", b.getTitle());
+
+        // get object tree
+        person = new Person();
+        person.setId(andrej.getId());
+        person.setInit(Person.Association.contacts);
+        p = main.getPerson(person);
+        Assert.assertNotNull(p);
+        Assert.assertEquals("Andrejček", p.getLastName());
+        Assert.assertTrue(p.getContacts().size() == 1);
+        System.out.println("Contact for Andrej " + p.getContacts().get(0));
 
         // // queries
         // list = main.listAll();

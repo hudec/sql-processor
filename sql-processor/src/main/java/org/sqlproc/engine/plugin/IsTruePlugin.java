@@ -47,10 +47,12 @@ public interface IsTruePlugin {
      * @param sqlMetaTypeExt
      *            the META type extension (=the internal type supplement value) devoted to extend the special processing
      *            of the input values
+     * @param values
+     *            values for a special identifier handling, for example a sequence for an identity
      * @param features
      *            the optional features in the statement coontext
      * @return the boolean value of the logical expression
      */
     public boolean isTrue(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String sqlMetaTypeExt, Map<String, Object> features);
+            String sqlMetaTypeExt, Map<String, String> values, Map<String, Object> features);
 }

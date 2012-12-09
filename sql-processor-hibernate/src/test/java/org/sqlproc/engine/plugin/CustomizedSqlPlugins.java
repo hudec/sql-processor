@@ -37,7 +37,7 @@ public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
      */
     @Override
     public boolean isNotEmpty(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String sqlMetaTypeExt, boolean inSqlSetOrInsert, Map<String, Object> features)
+            String sqlMetaTypeExt, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
             throws IllegalArgumentException {
         String value = (sqlMetaTypeExt != null) ? sqlMetaTypeExt.toLowerCase() : null;
 
@@ -89,7 +89,7 @@ public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
      */
     @Override
     public boolean isTrue(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String sqlMetaTypeExt, Map<String, Object> features) {
+            String sqlMetaTypeExt, Map<String, String> values, Map<String, Object> features) {
         if (SUPPVAL_ZERO.equalsIgnoreCase(sqlMetaTypeExt)) {
             if (obj != null) {
                 if (obj instanceof String) {

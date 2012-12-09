@@ -273,7 +273,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                         .getIsEmptyPlugin()
                         .isNotEmpty(attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(),
                                 (sqlType == null) ? null : sqlType.getValue(),
-                                ctx.inSqlSetOrInsert || ctx.sqlStatementType == SqlMetaStatement.Type.CALL,
+                                ctx.inSqlSetOrInsert || ctx.sqlStatementType == SqlMetaStatement.Type.CALL, values,
                                 SqlProcessContext.getFeatures()));
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
@@ -342,7 +342,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                 .getPluginFactory()
                 .getIsTruePlugin()
                 .isTrue(attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(),
-                        (sqlType == null) ? null : sqlType.getValue(), SqlProcessContext.getFeatures());
+                        (sqlType == null) ? null : sqlType.getValue(), values, SqlProcessContext.getFeatures());
         return (this.not ? !result : result);
     }
 }

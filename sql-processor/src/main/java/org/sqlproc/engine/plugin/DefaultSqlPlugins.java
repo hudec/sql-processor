@@ -30,13 +30,18 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
      */
     public static final String SUPPVAL_NULL = "null";
+    /**
+     * The supplement value used to detect the method call invoked on the parent object. For the usage please see the
+     * Wiki Tutorials.
+     */
+    public static final String SUPPVAL_CALL = "call";
 
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean isNotEmpty(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String sqlMetaTypeExt, boolean inSqlSetOrInsert, Map<String, Object> features)
+            String sqlMetaTypeExt, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
             throws IllegalArgumentException {
         String value = (sqlMetaTypeExt != null) ? sqlMetaTypeExt.toLowerCase() : null;
 
@@ -102,7 +107,13 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      */
     @Override
     public boolean isTrue(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String sqlMetaTypeExt, Map<String, Object> features) {
+            String sqlMetaTypeExt, Map<String, String> values, Map<String, Object> features) {
+
+        Boolean delegatedResult = callMethod(attributeName, parentObj, values);
+        if (delegatedResult != null) {
+            return delegatedResult;
+        }
+
         if (sqlMetaTypeExt == null) {
             if (obj != null) {
                 if (obj instanceof Boolean) {
@@ -194,6 +205,28 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             limitType = limitQuery(limitPattern, limitType, queryString, queryResult, firstResult, maxResults);
             return limitType;
         }
+    }
+
+    private Boolean callMethod(String attributeName, Object parentObj, Map<String, String> values) {
+        if (attributeName == null || parentObj == null || values == null)
+            return null;
+        String methodName = values.get(SUPPVAL_CALL);
+        if (methodName == null)
+            return null;
+        Object result = null;
+        try {
+            result = MethodUtils.invokeMethod(parentObj, methodName, attributeName);
+        } catch (NoSuchMethodException e) {
+            return null;
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+        if (result == null || !(result instanceof Boolean)) {
+            return null;
+        }
+        return (Boolean) result;
     }
 
     private LimitType limitQuery(String limitPattern, LimitType limitType, String queryString,

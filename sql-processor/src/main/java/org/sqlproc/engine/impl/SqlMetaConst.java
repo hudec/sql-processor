@@ -2,8 +2,10 @@ package org.sqlproc.engine.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +52,11 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
      * The type of this input value. It can be Hibernate or an internal type.
      */
     private SqlType sqlType;
+
+    /**
+     * Values for a special identifier handling, for example a sequence for an identity.
+     */
+    Map<String, String> values = new HashMap<String, String>();
 
     /**
      * Creates a new instance of this entity. Used from inside ANTLR parser.
@@ -127,8 +134,11 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
             value2 = value.substring(ix + 1);
             value = value.substring(0, ix);
         }
-        if (value2 == null)
+        if (value2 == null) {
             sqlType.setValue(value);
+        } else {
+            values.put(value, value2);
+        }
     }
 
     /**
@@ -209,7 +219,8 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
                     .getPluginFactory()
                     .getIsEmptyPlugin()
                     .isNotEmpty(attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(),
-                            (sqlType == null) ? null : sqlType.getValue(), ctx.inSqlSetOrInsert, ctx.getFeatures()));
+                            (sqlType == null) ? null : sqlType.getValue(), ctx.inSqlSetOrInsert, values,
+                            ctx.getFeatures()));
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
         }
@@ -318,7 +329,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
                 .getPluginFactory()
                 .getIsTruePlugin()
                 .isTrue(attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(),
-                        (sqlType == null) ? null : sqlType.getValue(), SqlProcessContext.getFeatures());
+                        (sqlType == null) ? null : sqlType.getValue(), values, SqlProcessContext.getFeatures());
         return (this.not ? !result : result);
     }
 }

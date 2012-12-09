@@ -245,25 +245,27 @@ INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   {= values (:id^^idsel=SEL1, :firstName, :lastName, :dateOfBirth, :ssn) }
 ;
 
-GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
-  select %ID @id, %FIRST_NAME @firstName, %LAST_NAME @lastName, %DATE_OF_BIRTH @dateOfBirth, %SSN @ssn
-  from %%PERSON
+GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person=p,dbcol=contact=c)=
+  select %p.ID @id^^id, %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
+  {? :contacts^^call=isInit | , %c.ID @contacts.id^^id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber^phone } 
+  from %%PERSON p
+  {? :contacts^^call=isInit | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
   {= where
-    {& %ID = :id }
-    {& %FIRST_NAME = :firstName }
-    {& %LAST_NAME = :lastName }
-    {& %DATE_OF_BIRTH = :dateOfBirth }
-    {& %SSN = :ssn }
+    {& %p.ID = :id }
+    {& %p.FIRST_NAME = :firstName }
+    {& %p.LAST_NAME = :lastName }
+    {& %p.DATE_OF_BIRTH = :dateOfBirth }
+    {& %p.SSN = :ssn }
   }
-; 
+;
 
 UPDATE_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   update %%PERSON
   {= set
-    { ,%FIRST_NAME = :firstName^^nullupd }
-    { ,%LAST_NAME = :lastName^^nullupd }
-    { ,%DATE_OF_BIRTH = :dateOfBirth^^nullupd }
-    { ,%SSN = :ssn^^nullupd }
+    { ,%FIRST_NAME = :firstName^^call=isNull }
+    { ,%LAST_NAME = :lastName^^call=isNull }
+    { ,%DATE_OF_BIRTH = :dateOfBirth^^call=isNull }
+    { ,%SSN = :ssn^^call=isNull }
   }
   {= where
     {& %ID = :id^^notnull }
