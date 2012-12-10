@@ -247,9 +247,9 @@ INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
 
 GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person=p,dbcol=contact=c)=
   select %p.ID @id^^id, %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
-  {? :contacts^^call=isInit | , %c.ID @contacts.id^^id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber^phone } 
+  {? :contacts^^call=toInit | , %c.ID @contacts.id^^id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber^phone } 
   from %%PERSON p
-  {? :contacts^^call=isInit | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+  {? :contacts^^call=toInit | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
   {= where
     {& %p.ID = :id }
     {& %p.FIRST_NAME = :firstName }
@@ -262,10 +262,10 @@ GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person=p,dbcol=contact=c)=
 UPDATE_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   update %%PERSON
   {= set
-    { ,%FIRST_NAME = :firstName^^call=isNull }
-    { ,%LAST_NAME = :lastName^^call=isNull }
-    { ,%DATE_OF_BIRTH = :dateOfBirth^^call=isNull }
-    { ,%SSN = :ssn^^call=isNull }
+    { ,%FIRST_NAME = :firstName^^call=isDef }
+    { ,%LAST_NAME = :lastName^^call=isDef }
+    { ,%DATE_OF_BIRTH = :dateOfBirth^^call=isDef }
+    { ,%SSN = :ssn^^call=isDef }
   }
   {= where
     {& %ID = :id^^notnull }

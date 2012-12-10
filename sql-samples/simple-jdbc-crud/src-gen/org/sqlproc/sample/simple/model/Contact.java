@@ -5,6 +5,8 @@ import org.sqlproc.sample.simple.model.PhoneNumber;
 import java.io.Serializable;
 import java.util.Set;
 import java.util.HashSet;
+import java.lang.reflect.InvocationTargetException;
+import org.apache.commons.beanutils.MethodUtils;
 
 public class Contact implements Serializable {
   
@@ -120,13 +122,13 @@ public class Contact implements Serializable {
       initAssociations.remove(association.name());
   }
   
-  public Boolean isInit(String attrName) {
+  public Boolean toInit(String attrName) {
     if (attrName == null)
       throw new IllegalArgumentException();
     return initAssociations.contains(attrName);
   }
   
-  public Boolean isInit(Association association) {
+  public Boolean toInit(Association association) {
     if (association == null)
       throw new IllegalArgumentException();
     return initAssociations.contains(association.name());
@@ -166,6 +168,32 @@ public class Contact implements Serializable {
     if (attribute == null)
       throw new IllegalArgumentException();
     return nullValues.contains(attribute.name());
+  }
+  
+  public Boolean isDef(String attrName) {
+    if (attrName == null)
+      throw new IllegalArgumentException();
+    if (nullValues.contains(attrName))
+      return true;
+    try {
+      Object result = MethodUtils.invokeMethod(this, "get" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
+      return (result != null) ? true : false;
+    } catch (NoSuchMethodException e) {
+    } catch (IllegalAccessException e) {
+      throw new RuntimeException(e);
+    } catch (InvocationTargetException e) {
+      throw new RuntimeException(e);
+    }
+    try {
+      Object result = MethodUtils.invokeMethod(this, "is" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
+      return (result != null) ? true : false;
+    } catch (NoSuchMethodException e) {
+    } catch (IllegalAccessException e) {
+      throw new RuntimeException(e);
+    } catch (InvocationTargetException e) {
+      throw new RuntimeException(e);
+    }
+    return false;
   }
   
   public void clearAllNull() {

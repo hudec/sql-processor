@@ -48,9 +48,11 @@ import java.io.Serializable;
   «IF !e.listFeatures.empty»
 import java.util.ArrayList;
   «ENDIF»
-  «IF e.hasIsNull != null || e.hasIsInit != null»
+  «IF e.hasIsDef != null || e.hasToInit != null»
 import java.util.Set;
 import java.util.HashSet;
+import java.lang.reflect.InvocationTargetException;
+import org.apache.commons.beanutils.MethodUtils;
   «ENDIF»
 
 «classBody»
@@ -78,8 +80,8 @@ public «IF isAbstract(e)»abstract «ENDIF»class «e.name» «compileExtends(e
   «ENDFOR»
   «FOR f:e.features.filter(x| !isAttribute(x))»«IF f.name.equalsIgnoreCase("hashCode")»«f.compileHashCode(importManager, e)»
   «ELSEIF f.name.equalsIgnoreCase("equals")»«f.compileEquals(importManager, e)»
-  «ELSEIF f.name.equalsIgnoreCase("isInit")»«f.compileIsInit(importManager, e)»
-  «ELSEIF f.name.equalsIgnoreCase("isNull")»«f.compileIsNull(importManager, e)»
+  «ELSEIF f.name.equalsIgnoreCase("toInit")»«f.compileToInit(importManager, e)»
+  «ELSEIF f.name.equalsIgnoreCase("isDef")»«f.compileIsDef(importManager, e)»
   «ELSEIF f.name.equalsIgnoreCase("toString")»«f.compileToString(importManager, e)»«ENDIF»«ENDFOR»
 }
 '''
@@ -146,7 +148,7 @@ def compileToString(PojoProperty f, ImportManager importManager, PojoEntity e) '
     }
 '''
 
-def compileIsNull(PojoProperty f, ImportManager importManager, PojoEntity e) '''
+def compileIsDef(PojoProperty f, ImportManager importManager, PojoEntity e) '''
 
     private Set<String> nullValues = new HashSet<String>();
 
@@ -180,12 +182,38 @@ def compileIsNull(PojoProperty f, ImportManager importManager, PojoEntity e) '''
       return nullValues.contains(attribute.name());
     }
 
+    public Boolean isDef(String attrName) {
+      if (attrName == null)
+        throw new IllegalArgumentException();
+      if (nullValues.contains(attrName))
+        return true;
+      try {
+        Object result = MethodUtils.invokeMethod(this, "get" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
+        return (result != null) ? true : false;
+      } catch (NoSuchMethodException e) {
+      } catch (IllegalAccessException e) {
+        throw new RuntimeException(e);
+      } catch (InvocationTargetException e) {
+        throw new RuntimeException(e);
+      }
+      try {
+        Object result = MethodUtils.invokeMethod(this, "is" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
+        return (result != null) ? true : false;
+      } catch (NoSuchMethodException e) {
+      } catch (IllegalAccessException e) {
+        throw new RuntimeException(e);
+      } catch (InvocationTargetException e) {
+        throw new RuntimeException(e);
+      }
+      return false;
+    }
+
     public void clearAllNull() {
       nullValues = new HashSet<String>();
     }
 '''
 
-def compileIsInit(PojoProperty f, ImportManager importManager, PojoEntity e) '''
+def compileToInit(PojoProperty f, ImportManager importManager, PojoEntity e) '''
 
     private Set<String> initAssociations = new HashSet<String>();
 
@@ -207,13 +235,13 @@ def compileIsInit(PojoProperty f, ImportManager importManager, PojoEntity e) '''
         initAssociations.remove(association.name());
     }
 
-    public Boolean isInit(String attrName) {
+    public Boolean toInit(String attrName) {
       if (attrName == null)
         throw new IllegalArgumentException();
       return initAssociations.contains(attrName);
     }
 
-    public Boolean isInit(Association association) {
+    public Boolean toInit(Association association) {
       if (association == null)
         throw new IllegalArgumentException();
       return initAssociations.contains(association.name());
@@ -261,12 +289,12 @@ def requiredFeatures1(PojoEntity e) {
 	return e.features.filter(f|isRequired(f)).toList
 }
 
-def hasIsNull(PojoEntity e) {
-	return e.features.findFirst(f|f.name == "isNull")
+def hasIsDef(PojoEntity e) {
+	return e.features.findFirst(f|f.name == "isDef")
 }
 
-def hasIsInit(PojoEntity e) {
-	return e.features.findFirst(f|f.name == "isInit")
+def hasToInit(PojoEntity e) {
+	return e.features.findFirst(f|f.name == "toInit")
 }
 
 def isAttribute(PojoProperty f) {

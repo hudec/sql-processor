@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
-import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
@@ -180,28 +179,35 @@ public class Main {
         return p;
     }
 
-    public Person updatePersonNoNull(Person person) {
-        SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
-        sqlEngine.setFeature(SqlFeature.EMPTY_FOR_NULL, Boolean.TRUE);
-        int count = 0;
-        try {
-            count = sqlEngine.update(session, person);
-        } finally {
-            sqlEngine.unsetFeature(SqlFeature.EMPTY_FOR_NULL);
-        }
-        logger.info("update person: " + count);
-        return (count > 0) ? person : null;
-    }
+    // public Person updatePersonNoNull(Person person) {
+    // SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
+    // sqlEngine.setFeature(SqlFeature.EMPTY_FOR_NULL, Boolean.TRUE);
+    // int count = 0;
+    // try {
+    // count = sqlEngine.update(session, person);
+    // } finally {
+    // sqlEngine.unsetFeature(SqlFeature.EMPTY_FOR_NULL);
+    // }
+    // logger.info("update person: " + count);
+    // return (count > 0) ? person : null;
+    // }
+    //
+    // public Person updatePersonIsNull(Person person) {
+    // SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
+    // sqlEngine.setFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL, Boolean.TRUE);
+    // int count = 0;
+    // try {
+    // count = sqlEngine.update(session, person);
+    // } finally {
+    // sqlEngine.unsetFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
+    // }
+    // logger.info("update person: " + count);
+    // return (count > 0) ? person : null;
+    // }
 
     public Person updatePerson(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
-        sqlEngine.setFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL, Boolean.TRUE);
-        int count = 0;
-        try {
-            count = sqlEngine.update(session, person);
-        } finally {
-            sqlEngine.unsetFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
-        }
+        int count = sqlEngine.update(session, person);
         logger.info("update person: " + count);
         return (count > 0) ? person : null;
     }
@@ -363,7 +369,7 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andrejík");
-        p = main.updatePersonNoNull(person);
+        p = main.updatePerson(person);
         Assert.assertNotNull(p);
 
         // get

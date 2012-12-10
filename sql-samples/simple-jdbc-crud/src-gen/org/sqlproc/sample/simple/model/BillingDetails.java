@@ -3,6 +3,8 @@ package org.sqlproc.sample.simple.model;
 import java.io.Serializable;
 import java.util.Set;
 import java.util.HashSet;
+import java.lang.reflect.InvocationTargetException;
+import org.apache.commons.beanutils.MethodUtils;
 
 public abstract class BillingDetails implements Serializable {
   
@@ -103,13 +105,13 @@ public abstract class BillingDetails implements Serializable {
       initAssociations.remove(association.name());
   }
   
-  public Boolean isInit(String attrName) {
+  public Boolean toInit(String attrName) {
     if (attrName == null)
       throw new IllegalArgumentException();
     return initAssociations.contains(attrName);
   }
   
-  public Boolean isInit(Association association) {
+  public Boolean toInit(Association association) {
     if (association == null)
       throw new IllegalArgumentException();
     return initAssociations.contains(association.name());

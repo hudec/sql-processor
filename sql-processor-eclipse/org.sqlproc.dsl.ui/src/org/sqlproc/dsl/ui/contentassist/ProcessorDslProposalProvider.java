@@ -988,7 +988,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         }
     }
 
-    private static final String[] methods = { "toString", "hashCode", "equals", "isNull", "isInit" };
+    private static final String[] methods = { "toString", "hashCode", "equals", "isDef", "toInit" };
 
     @Override
     public void completePojogenProperty_Methods(EObject model, Assignment assignment, ContentAssistContext context,

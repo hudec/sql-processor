@@ -43,6 +43,12 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     public boolean isNotEmpty(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
             String sqlMetaTypeExt, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
             throws IllegalArgumentException {
+
+        Boolean delegatedResult = callMethod(attributeName, parentObj, values);
+        if (delegatedResult != null) {
+            return delegatedResult;
+        }
+
         String value = (sqlMetaTypeExt != null) ? sqlMetaTypeExt.toLowerCase() : null;
 
         if (SUPPVAL_NOTNULL.equalsIgnoreCase(value)) {

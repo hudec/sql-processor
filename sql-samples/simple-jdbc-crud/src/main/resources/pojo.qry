@@ -4,8 +4,8 @@ package org.sqlproc.sample.simple.model {
 
   pojo BankAccount extends BillingDetails discriminator BA serializable 1  {
     baAccount : java.lang.String
-    isInit ::: subscriber
-    isNull ::: baAccount
+    toInit ::: subscriber
+    isDef ::: baAccount
     toString ::: baAccount
   }
 
@@ -15,7 +15,7 @@ package org.sqlproc.sample.simple.model {
     type : java.lang.String discriminator required
     equals ::: id
     hashCode ::: id
-    isInit ::: subscriber
+    toInit ::: subscriber
     toString ::: id type subscriber
   }
 
@@ -31,15 +31,15 @@ package org.sqlproc.sample.simple.model {
     phoneNumber : org.sqlproc.sample.simple.model.PhoneNumber
     equals ::: id
     hashCode ::: id
-    isInit ::: person
-    isNull ::: phoneNumber
+    toInit ::: person
+    isDef ::: phoneNumber
     toString ::: id person phoneNumber address
   }
 
   pojo CreditCard extends BillingDetails discriminator CC serializable 1  {
     ccNumber : java.lang.Long
-    isInit ::: subscriber
-    isNull ::: ccNumber
+    toInit ::: subscriber
+    isDef ::: ccNumber
     toString ::: ccNumber
   }
 
@@ -49,7 +49,7 @@ package org.sqlproc.sample.simple.model {
     subscribers : java.util.List <:Subscriber>
     equals ::: id
     hashCode ::: id
-    isInit ::: subscribers
+    toInit ::: subscribers
     toString ::: id name
   }
 
@@ -78,8 +78,8 @@ package org.sqlproc.sample.simple.model {
     contacts : java.util.List <:Contact>
     equals ::: id
     hashCode ::: id
-    isInit ::: library contacts
-    isNull ::: dateOfBirth ssn passport
+    toInit ::: library contacts
+    isDef ::: dateOfBirth ssn passport
     toString ::: dateOfBirth id lastName ssn passport firstName
   }
 
@@ -100,8 +100,8 @@ package org.sqlproc.sample.simple.model {
     billingDetails : java.util.List <:BillingDetails>
     equals ::: id
     hashCode ::: id
-    isInit ::: library billingDetails contact
-    isNull ::: contact
+    toInit ::: library billingDetails contact
+    isDef ::: contact
     toString ::: id name library contact
   }
 }

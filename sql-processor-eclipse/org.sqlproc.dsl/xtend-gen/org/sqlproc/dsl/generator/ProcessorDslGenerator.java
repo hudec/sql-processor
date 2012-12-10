@@ -109,19 +109,23 @@ public class ProcessorDslGenerator implements IGenerator {
     }
     {
       boolean _or = false;
-      PojoProperty _hasIsNull = this.hasIsNull(e);
-      boolean _notEquals_2 = (!Objects.equal(_hasIsNull, null));
+      PojoProperty _hasIsDef = this.hasIsDef(e);
+      boolean _notEquals_2 = (!Objects.equal(_hasIsDef, null));
       if (_notEquals_2) {
         _or = true;
       } else {
-        PojoProperty _hasIsInit = this.hasIsInit(e);
-        boolean _notEquals_3 = (!Objects.equal(_hasIsInit, null));
+        PojoProperty _hasToInit = this.hasToInit(e);
+        boolean _notEquals_3 = (!Objects.equal(_hasToInit, null));
         _or = (_notEquals_2 || _notEquals_3);
       }
       if (_or) {
         _builder.append("import java.util.Set;");
         _builder.newLine();
         _builder.append("import java.util.HashSet;");
+        _builder.newLine();
+        _builder.append("import java.lang.reflect.InvocationTargetException;");
+        _builder.newLine();
+        _builder.append("import org.apache.commons.beanutils.MethodUtils;");
         _builder.newLine();
       }
     }
@@ -295,18 +299,18 @@ public class ProcessorDslGenerator implements IGenerator {
               _builder.append("  ");
             } else {
               String _name_9 = f_4.getName();
-              boolean _equalsIgnoreCase_2 = _name_9.equalsIgnoreCase("isInit");
+              boolean _equalsIgnoreCase_2 = _name_9.equalsIgnoreCase("toInit");
               if (_equalsIgnoreCase_2) {
-                CharSequence _compileIsInit = this.compileIsInit(f_4, importManager, e);
-                _builder.append(_compileIsInit, "  ");
+                CharSequence _compileToInit = this.compileToInit(f_4, importManager, e);
+                _builder.append(_compileToInit, "  ");
                 _builder.newLineIfNotEmpty();
                 _builder.append("  ");
               } else {
                 String _name_10 = f_4.getName();
-                boolean _equalsIgnoreCase_3 = _name_10.equalsIgnoreCase("isNull");
+                boolean _equalsIgnoreCase_3 = _name_10.equalsIgnoreCase("isDef");
                 if (_equalsIgnoreCase_3) {
-                  CharSequence _compileIsNull = this.compileIsNull(f_4, importManager, e);
-                  _builder.append(_compileIsNull, "  ");
+                  CharSequence _compileIsDef = this.compileIsDef(f_4, importManager, e);
+                  _builder.append(_compileIsDef, "  ");
                   _builder.newLineIfNotEmpty();
                   _builder.append("  ");
                 } else {
@@ -598,7 +602,7 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
-  public CharSequence compileIsNull(final PojoProperty f, final ImportManager importManager, final PojoEntity e) {
+  public CharSequence compileIsDef(final PojoProperty f, final ImportManager importManager, final PojoEntity e) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.newLine();
     _builder.append("private Set<String> nullValues = new HashSet<String>();");
@@ -686,6 +690,80 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("}");
     _builder.newLine();
     _builder.newLine();
+    _builder.append("public Boolean isDef(String attrName) {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("if (attrName == null)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new IllegalArgumentException();");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("if (nullValues.contains(attrName))");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("return true;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("try {");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("Object result = MethodUtils.invokeMethod(this, \"get\" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("return (result != null) ? true : false;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("} catch (NoSuchMethodException e) {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("} catch (IllegalAccessException e) {");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new RuntimeException(e);");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("} catch (InvocationTargetException e) {");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new RuntimeException(e);");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("try {");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("Object result = MethodUtils.invokeMethod(this, \"is\" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("return (result != null) ? true : false;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("} catch (NoSuchMethodException e) {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("} catch (IllegalAccessException e) {");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new RuntimeException(e);");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("} catch (InvocationTargetException e) {");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("throw new RuntimeException(e);");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("return false;");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
     _builder.append("public void clearAllNull() {");
     _builder.newLine();
     _builder.append("  ");
@@ -696,7 +774,7 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
-  public CharSequence compileIsInit(final PojoProperty f, final ImportManager importManager, final PojoEntity e) {
+  public CharSequence compileToInit(final PojoProperty f, final ImportManager importManager, final PojoEntity e) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.newLine();
     _builder.append("private Set<String> initAssociations = new HashSet<String>();");
@@ -756,7 +834,7 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("}");
     _builder.newLine();
     _builder.newLine();
-    _builder.append("public Boolean isInit(String attrName) {");
+    _builder.append("public Boolean toInit(String attrName) {");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("if (attrName == null)");
@@ -770,7 +848,7 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("}");
     _builder.newLine();
     _builder.newLine();
-    _builder.append("public Boolean isInit(Association association) {");
+    _builder.append("public Boolean toInit(Association association) {");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("if (association == null)");
@@ -919,24 +997,24 @@ public class ProcessorDslGenerator implements IGenerator {
     return IterableExtensions.<PojoProperty>toList(_filter);
   }
   
-  public PojoProperty hasIsNull(final PojoEntity e) {
+  public PojoProperty hasIsDef(final PojoEntity e) {
     EList<PojoProperty> _features = e.getFeatures();
     final Function1<PojoProperty,Boolean> _function = new Function1<PojoProperty,Boolean>() {
         public Boolean apply(final PojoProperty f) {
           String _name = f.getName();
-          boolean _equals = Objects.equal(_name, "isNull");
+          boolean _equals = Objects.equal(_name, "isDef");
           return Boolean.valueOf(_equals);
         }
       };
     return IterableExtensions.<PojoProperty>findFirst(_features, _function);
   }
   
-  public PojoProperty hasIsInit(final PojoEntity e) {
+  public PojoProperty hasToInit(final PojoEntity e) {
     EList<PojoProperty> _features = e.getFeatures();
     final Function1<PojoProperty,Boolean> _function = new Function1<PojoProperty,Boolean>() {
         public Boolean apply(final PojoProperty f) {
           String _name = f.getName();
-          boolean _equals = Objects.equal(_name, "isInit");
+          boolean _equals = Objects.equal(_name, "toInit");
           return Boolean.valueOf(_equals);
         }
       };
