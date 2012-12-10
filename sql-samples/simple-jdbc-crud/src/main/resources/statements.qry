@@ -95,7 +95,7 @@ UPDATE_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
   {= set
     { ,%PERSON_ID = :person.id }
     { ,%ADDRESS = :address }
-    { ,%PHONE_NUMBER = :phoneNumber }^phone
+    { ,%PHONE_NUMBER = :phoneNumber^phone }
   }
   {= where
     {& %ID = :id^^notnull }
