@@ -16,12 +16,12 @@ import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.simple.model.BankAccount;
-import org.sqlproc.sample.simple.model.Book;
 import org.sqlproc.sample.simple.model.Contact;
 import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.Library;
 import org.sqlproc.sample.simple.model.Media;
 import org.sqlproc.sample.simple.model.Movie;
+import org.sqlproc.sample.simple.model.NewBook;
 import org.sqlproc.sample.simple.model.Person;
 import org.sqlproc.sample.simple.model.PersonLibrary;
 import org.sqlproc.sample.simple.model.PhoneNumber;
@@ -147,12 +147,12 @@ public class Main {
         return (count > 0) ? movie : null;
     }
 
-    public Book insertBook(Book book) {
+    public NewBook insertNewBook(NewBook book) {
         SqlCrudEngine sqlInsertMedia = sqlFactory.getCrudEngine("INSERT_MEDIA");
-        SqlCrudEngine sqlInsertBook = sqlFactory.getCrudEngine("INSERT_BOOK");
+        SqlCrudEngine sqlInsertNewBook = sqlFactory.getCrudEngine("INSERT_NEW_BOOK");
         int count = sqlInsertMedia.insert(session, book);
         if (count > 0) {
-            sqlInsertBook.insert(session, book);
+            sqlInsertNewBook.insert(session, book);
         }
         logger.info("insert book: " + count + ": " + book);
         return (count > 0) ? book : null;
@@ -212,9 +212,9 @@ public class Main {
         return (count > 0) ? person : null;
     }
 
-    public Book getBook(Book book) {
-        SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("GET_BOOK");
-        Book b = sqlEngine.get(session, Book.class, book);
+    public NewBook getNewBook(NewBook book) {
+        SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("GET_NEW_BOOK");
+        NewBook b = sqlEngine.get(session, NewBook.class, book);
         logger.info("get book: " + b);
         return b;
     }
@@ -271,7 +271,7 @@ public class Main {
     // SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_LIBRARY");
     // Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
     // moreResultClasses.put("movie", Movie.class);
-    // moreResultClasses.put("book", Book.class);
+    // moreResultClasses.put("book", NewBook.class);
     // List<Person> list = sqlEngine.query(session, Person.class, null, null, SqlQueryEngine.ASC_ORDER,
     // moreResultClasses);
     // logger.info("listSome size: " + list.size());
@@ -324,7 +324,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Person person, p;
-        Book book, b;
+        NewBook book, b;
         List<Person> list;
         boolean deleted;
 
@@ -356,8 +356,8 @@ public class Main {
         main.insertCreditCard(new CreditCard(janikS, "CC")._setCcNumber(123L));
         main.insertCreditCard(new CreditCard(honzaS, "CC")._setCcNumber(456L));
 
-        Book book1 = main.insertBook(new Book("The Adventures of Robin Hood", "978-0140367003"));
-        Book book2 = main.insertBook(new Book("The Three Musketeers", "978-1897093634"));
+        NewBook book1 = main.insertNewBook(new NewBook("The Adventures of Robin Hood", "978-0140367003"));
+        NewBook book2 = main.insertNewBook(new NewBook("The Three Musketeers", "978-1897093634"));
         Movie movie1 = main.insertMovie(new Movie("Pippi Långstrump i Söderhavet", "abc", 82));
         Movie movie2 = main.insertMovie(new Movie("Die Another Day", "def", 95));
 
@@ -398,11 +398,11 @@ public class Main {
         Assert.assertNull(p.getSsn());
 
         // get
-        book = new Book();
+        book = new NewBook();
         book.setId(book1.getId());
-        b = main.getBook(book);
+        b = main.getNewBook(book);
         Assert.assertNotNull(b);
-        Assert.assertEquals("978-0140367003", b.getIsbn());
+        Assert.assertEquals("978-0140367003", b.getNewIsbn());
         Assert.assertEquals("The Adventures of Robin Hood", b.getTitle());
 
         // get object tree
@@ -464,11 +464,11 @@ public class Main {
         // Assert.assertEquals("def", ((Movie) list.get(0).getLibrary().get(0)).getUrlimdb());
         // Assert.assertEquals(new Integer(95), ((Movie) list.get(0).getLibrary().get(0)).getPlaylength());
         // Assert.assertEquals("The Adventures of Robin Hood", list.get(0).getLibrary().get(1).getTitle());
-        // Assert.assertTrue(list.get(0).getLibrary().get(1) instanceof Book);
-        // Assert.assertEquals("978-0140367003", ((Book) list.get(0).getLibrary().get(1)).getIsbn());
+        // Assert.assertTrue(list.get(0).getLibrary().get(1) instanceof NewBook);
+        // Assert.assertEquals("978-0140367003", ((NewBook) list.get(0).getLibrary().get(1)).getIsbn());
         // Assert.assertEquals("The Three Musketeers", list.get(0).getLibrary().get(2).getTitle());
-        // Assert.assertTrue(list.get(0).getLibrary().get(2) instanceof Book);
-        // Assert.assertEquals("978-1897093634", ((Book) list.get(0).getLibrary().get(2)).getIsbn());
+        // Assert.assertTrue(list.get(0).getLibrary().get(2) instanceof NewBook);
+        // Assert.assertEquals("978-1897093634", ((NewBook) list.get(0).getLibrary().get(2)).getIsbn());
         //
         // // crud
         // person = new Person();

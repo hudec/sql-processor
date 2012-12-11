@@ -26,7 +26,7 @@ GET_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
 UPDATE_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
   update %%BILLING_DETAILS
   {= set
-    { ,%BA_ACCOUNT = :baAccount }
+    { ,%BA_ACCOUNT = :baAccount^^call=isDef }
     { ,%SUBSCRIBER = :subscriber.id }
     { ,%TYPE = :type }
   }
@@ -42,32 +42,32 @@ DELETE_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetail
   }
 ;
 
-INSERT_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
+INSERT_NEW_BOOK(CRUD,identx=NewBook,colx=NewBook,dbcol=book)=
   insert into %%BOOK (%MEDIA_ID, %ISBN)
-  {= values (:id, :isbn) }
+  {= values (:id, :newIsbn) }
 ;
 
-GET_BOOK(CRUD,identx=Book,colx=Book,dbcol=book=b,dbcol=media=m)=
-  select %b.MEDIA_ID @id, %b.ISBN @isbn, %m.TITLE @title
+GET_NEW_BOOK(CRUD,identx=NewBook,colx=NewBook,dbcol=book=b,dbcol=media=m)=
+  select %b.MEDIA_ID @id, %b.ISBN @newIsbn, %m.TITLE @title
   from %%BOOK b join %%MEDIA m on %b.MEDIA_ID = %m.ID
   {= where
     {& %b.MEDIA_ID = :id }
-    {& %b.ISBN = :isbn }
+    {& %b.ISBN = :newIsbn }
     {& %m.TITLE = :title }
   }
 ;
 
-UPDATE_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
+UPDATE_NEW_BOOK(CRUD,identx=NewBook,colx=NewBook,dbcol=book)=
   update %%BOOK
   {= set
-    { ,%ISBN = :isbn }
+    { ,%ISBN = :newIsbn }
   }
   {= where
     {& %MEDIA_ID = :id^^notnull }
   }
 ;
 
-DELETE_BOOK(CRUD,identx=Book,colx=Book,dbcol=book)=
+DELETE_NEW_BOOK(CRUD,identx=NewBook,colx=NewBook,dbcol=book)=
   delete from %%BOOK
   {= where
     {& %MEDIA_ID = :id^^notnull }
@@ -93,9 +93,9 @@ GET_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
 UPDATE_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
   update %%CONTACT
   {= set
-    { ,%PERSON_ID = :person.id }
-    { ,%ADDRESS = :address }
-    { ,%PHONE_NUMBER = :phoneNumber }^phone
+    { ,%PERSON_ID = :person.id^^call=isDef }
+    { ,%ADDRESS = :address^^call=isDef }
+    { ,%PHONE_NUMBER = :phoneNumber^phone^call=isDef }
   }
   {= where
     {& %ID = :id^^notnull }
@@ -128,7 +128,7 @@ GET_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
 UPDATE_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
   update %%BILLING_DETAILS
   {= set
-    { ,%CC_NUMBER = :ccNumber }
+    { ,%CC_NUMBER = :ccNumber^^call=isDef }
     { ,%SUBSCRIBER = :subscriber.id }
     { ,%TYPE = :type }
   }
@@ -331,9 +331,9 @@ GET_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
 UPDATE_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
   update %%SUBSCRIBER
   {= set
-    { ,%LIBRARY = :library.id }
-    { ,%CONTACT = :contact.id }
-    { ,%NAME = :name }
+    { ,%LIBRARY = :library.id^^call=isDef }
+    { ,%CONTACT = :contact.id^^call=isDef }
+    { ,%NAME = :name^^call=isDef }
   }
   {= where
     {& %ID = :id^^notnull }

@@ -19,9 +19,9 @@ package org.sqlproc.sample.simple.model {
     toString ::: id type subscriber
   }
 
-  pojo Book extends Media serializable 1  {
-    isbn : java.lang.String required
-    toString ::: isbn
+  pojo NewBook extends Media serializable 1  {
+    newIsbn : java.lang.String required
+    toString ::: newIsbn
   }
 
   pojo Contact serializable 1  {

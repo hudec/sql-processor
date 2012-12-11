@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class PojoAttribute {
 
+    protected static final String COLLECTION_LIST = "java.util.List";
+
     private boolean primitive;
     private boolean required;
     private boolean primaryKey;
@@ -97,6 +99,39 @@ public class PojoAttribute {
 
     public void setFkTables(Map<String, String> fkTables) {
         this.fkTables = fkTables;
+    }
+
+    public boolean isDef() {
+        if (getDependencyClassName() != null) {
+            if (!isRequired())
+                return true;
+        } else if (isPrimitive()) {
+            if (!isRequired())
+                return true;
+        } else {
+            if (!getClassName().startsWith(COLLECTION_LIST)) {
+                if (!isRequired())
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean toInit() {
+        if (getDependencyClassName() != null) {
+            if (getPkTable() != null) {
+                return true;
+            }
+        } else {
+            if (!getClassName().startsWith(COLLECTION_LIST)) {
+                if (getPkTable() != null) {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

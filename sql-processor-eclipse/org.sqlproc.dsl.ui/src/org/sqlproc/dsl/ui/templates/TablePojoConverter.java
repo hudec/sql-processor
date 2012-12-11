@@ -464,6 +464,12 @@ public class TablePojoConverter {
     }
 
     public String getPojoDefinitions() {
+        // System.out.println("pojos " + this.pojos);
+        // System.out.println("pojoExtends " + this.pojoExtends);
+        // System.out.println("pojoInheritanceDiscriminator " + this.pojoInheritanceDiscriminator);
+        // System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
+        // System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
+
         StringBuilder buffer = new StringBuilder();
         boolean isSerializable = false;
         if (!toImplements.isEmpty()) {
@@ -522,27 +528,18 @@ public class TablePojoConverter {
                 if (attribute.getDependencyClassName() != null) {
                     buffer.append(":: ").append(attribute.getDependencyClassName());
                     toStr.add(name);
-                    if (!attribute.isRequired())
-                        isDef.add(name);
-                    if (attribute.getPkTable() != null)
-                        toInit.add(name);
                 } else if (attribute.isPrimitive()) {
                     buffer.append('_').append(attribute.getClassName());
                     toStr.add(name);
-                    if (!attribute.isRequired())
-                        isDef.add(name);
                 } else {
                     buffer.append(": ").append(attribute.getClassName());
-                    if (!attribute.getClassName().startsWith(COLLECTION_LIST)) {
+                    if (!attribute.getClassName().startsWith(COLLECTION_LIST))
                         toStr.add(name);
-                        if (!attribute.isRequired())
-                            isDef.add(name);
-                        if (attribute.getPkTable() != null)
-                            toInit.add(name);
-                    } else {
-                        toInit.add(name);
-                    }
                 }
+                if (attribute.isDef())
+                    isDef.add(name);
+                if (attribute.toInit())
+                    toInit.add(name);
                 if (inheritanceColumns.containsKey(pojo) && pentry.getKey().equals(inheritanceColumns.get(pojo))) {
                     buffer.append(" discriminator");
                 }
@@ -605,24 +602,10 @@ public class TablePojoConverter {
                 name = attribute.getName();
             else
                 name = columnToCamelCase(name);
-            if (attribute.getDependencyClassName() != null) {
-                if (!attribute.isRequired())
-                    isDef.add(name);
-                if (attribute.getPkTable() != null)
-                    toInit.add(name);
-            } else if (attribute.isPrimitive()) {
-                if (!attribute.isRequired())
-                    isDef.add(name);
-            } else {
-                if (!attribute.getClassName().startsWith(COLLECTION_LIST)) {
-                    if (!attribute.isRequired())
-                        isDef.add(name);
-                    if (attribute.getPkTable() != null)
-                        toInit.add(name);
-                } else {
-                    toInit.add(name);
-                }
-            }
+            if (attribute.isDef())
+                isDef.add(name);
+            if (attribute.toInit())
+                toInit.add(name);
         }
         if (pojoExtends.containsKey(pojo)) {
             getParentAttrs(pojoExtends.get(pojo), isDef, toInit);

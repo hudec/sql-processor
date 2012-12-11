@@ -335,6 +335,13 @@ public class TableMetaConverter extends TablePojoConverter {
     }
 
     boolean updateColumns(StringBuilder buffer, String pojo, boolean first, String statementName) {
+        boolean isDef = false;
+        for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            if (pentry.getValue().isDef()) {
+                isDef = true;
+                break;
+            }
+        }
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             Attribute attr = getStatementAttribute(pojo, pentry, false);
             if (attr == null)
@@ -352,8 +359,13 @@ public class TableMetaConverter extends TablePojoConverter {
             if (attr.attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
             }
+            boolean hasMetaType = metaTypes(buffer, attr.tableName, attr.attributeName, statementName);
+            if (isDef) {
+                if (!hasMetaType)
+                    buffer.append("^");
+                buffer.append("^call=isDef");
+            }
             buffer.append(" }");
-            metaTypes(buffer, attr.tableName, attr.attributeName, statementName);
             first = false;
         }
         return first;
@@ -406,9 +418,9 @@ public class TableMetaConverter extends TablePojoConverter {
         header.realTableName = pojo;
         if (pojoDiscriminators.containsKey(header.tableName))
             header.realTableName = pojoExtends.get(header.tableName);
-        else if (pojoExtends.containsKey(header.tableName)
-                && pojoInheritanceSimple.contains(pojoExtends.get(header.tableName))) {
-            header.extendedTableName = pojoExtends.get(header.tableName);
+        else if (pojoExtends.containsKey(header.realTableName)
+                && pojoInheritanceSimple.contains(pojoExtends.get(header.realTableName))) {
+            header.extendedTableName = pojoExtends.get(header.realTableName);
             header.realTableNamePrefix = header.realTableName.substring(0, 1).toLowerCase();
             header.extendedTableNamePrefix = header.extendedTableName.substring(0, 1).toLowerCase();
             if (header.realTableNamePrefix.equals(header.extendedTableNamePrefix)) {
