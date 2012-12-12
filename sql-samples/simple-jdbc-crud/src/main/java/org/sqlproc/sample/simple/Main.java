@@ -512,14 +512,24 @@ public class Main {
         Assert.assertEquals("Janik Subscr Updated", s.getName());
 
         // get object tree
-        person = new Person();
-        person.setId(andrej.getId());
-        person.setInit(Person.Association.contacts);
-        p = main.getPersonDao().getPerson(person);
-        Assert.assertNotNull(p);
-        Assert.assertEquals("Andrejček", p.getLastName());
-        Assert.assertTrue(p.getContacts().size() == 1);
-        System.out.println("Contact for Andrej " + p.getContacts().get(0));
+        // person = new Person();
+        // person.setId(andrej.getId());
+        // person.setInit(Person.Association.contacts);
+        // p = main.getPersonDao().getPerson(person);
+        // Assert.assertNotNull(p);
+        // Assert.assertEquals("Andrejček", p.getLastName());
+        // Assert.assertTrue(p.getContacts().size() == 1);
+        // System.out.println("Contact for Andrej " + p.getContacts().get(0));
+
+        contact = new Contact();
+        contact.setId(honza.getContacts().get(0).getId());
+        contact.setInit(Contact.Association.person);
+        c = main.getContactDao().getContact(contact);
+        Assert.assertNotNull(c);
+        Assert.assertEquals("Honza address 1 Updated", c.getAddress());
+        Assert.assertEquals(new PhoneNumber(000, 0000, 0000), c.getPhoneNumber());
+        Assert.assertNotNull(c.getPerson());
+        Assert.assertEquals("Honzovský", c.getPerson().getLastName());
 
         // // queries
         // list = main.listAll();

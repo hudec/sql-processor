@@ -48,8 +48,10 @@ INSERT_NEW_BOOK(CRUD,identx=NewBook,colx=NewBook,dbcol=book)=
 ;
 
 GET_NEW_BOOK(CRUD,identx=NewBook,colx=NewBook,dbcol=book=b,dbcol=media=m)=
-  select %b.MEDIA_ID @id, %b.ISBN @newIsbn, %m.TITLE @title
-  from %%BOOK b join %%MEDIA m on %b.MEDIA_ID = %m.ID
+  select %b.MEDIA_ID @id, %b.ISBN @newIsbn
+         , %m.TITLE @title
+  from %%BOOK b
+  join %%MEDIA m on %b.MEDIA_ID = %m.ID
   {= where
     {& %b.MEDIA_ID = :id }
     {& %b.ISBN = :newIsbn }
@@ -79,14 +81,16 @@ INSERT_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
   {= values (:id^^idsel=SEL1, :person.id, :address, :phoneNumber^phone) }
 ;
 
-GET_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
-  select %ID @id, %PERSON_ID @person.id, %ADDRESS @address, %PHONE_NUMBER @phoneNumber^phone
-  from %%CONTACT
+GET_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact=c,dbcol=person=p)=
+  select %c.ID @id, %c.PERSON_ID @person.id, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber^phone
+         , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.SSN @person.ssn
+  from %%CONTACT c
+  join %%PERSON p on %c.PERSON_ID = %p.ID
   {= where
-    {& %ID = :id }
-    {& %PERSON_ID = :person.id }
-    {& %ADDRESS = :address }
-    {& %PHONE_NUMBER = :phoneNumber^phone }
+    {& %c.ID = :id }
+    {& %c.PERSON_ID = :person.id }
+    {& %c.ADDRESS = :address }
+    {& %c.PHONE_NUMBER = :phoneNumber^phone }
   }
 ;
 
@@ -212,8 +216,10 @@ INSERT_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
 ;
 
 GET_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie=m,dbcol=media=m1)=
-  select %m.MEDIA_ID @id, %m.URLIMDB @urlimdb, %m.PLAYLENGTH @playlength, %m1.TITLE @title
-  from %%MOVIE m join %%MEDIA m1 on %m.MEDIA_ID = %m1.ID
+  select %m.MEDIA_ID @id, %m.URLIMDB @urlimdb, %m.PLAYLENGTH @playlength
+         , %m1.TITLE @title
+  from %%MOVIE m
+  join %%MEDIA m1 on %m.MEDIA_ID = %m1.ID
   {= where
     {& %m.MEDIA_ID = :id }
     {& %m.URLIMDB = :urlimdb }
@@ -245,17 +251,15 @@ INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   {= values (:id^^idsel=SEL1, :firstName, :lastName, :dateOfBirth, :ssn) }
 ;
 
-GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person=p,dbcol=contact=c)=
-  select %p.ID @id^^id, %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
-  {? :contacts^^call=toInit | , %c.ID @contacts.id^^id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber^phone } 
-  from %%PERSON p
-  {? :contacts^^call=toInit | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
+  select %ID @id, %FIRST_NAME @firstName, %LAST_NAME @lastName, %DATE_OF_BIRTH @dateOfBirth, %SSN @ssn
+  from %%PERSON
   {= where
-    {& %p.ID = :id }
-    {& %p.FIRST_NAME = :firstName }
-    {& %p.LAST_NAME = :lastName }
-    {& %p.DATE_OF_BIRTH = :dateOfBirth }
-    {& %p.SSN = :ssn }
+    {& %ID = :id }
+    {& %FIRST_NAME = :firstName }
+    {& %LAST_NAME = :lastName }
+    {& %DATE_OF_BIRTH = :dateOfBirth }
+    {& %SSN = :ssn }
   }
 ;
 
@@ -317,14 +321,18 @@ INSERT_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
   {= values (:id^^idsel=SEL1, :library.id, :contact.id, :name) }
 ;
 
-GET_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
-  select %ID @id, %LIBRARY @library.id, %CONTACT @contact.id, %NAME @name
-  from %%SUBSCRIBER
+GET_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber=s,dbcol=library=l,dbcol=contact=c)=
+  select %s.ID @id, %s.LIBRARY @library.id, %s.CONTACT @contact.id, %s.NAME @name
+         , %l.NAME @library.name
+         , %c.PERSON_ID @contact.person.id, %c.ADDRESS @contact.address, %c.PHONE_NUMBER @contact.phoneNumber^phone
+  from %%SUBSCRIBER s
+  join %%LIBRARY l on %s.LIBRARY = %l.ID
+  join %%CONTACT c on %s.CONTACT = %c.ID
   {= where
-    {& %ID = :id }
-    {& %LIBRARY = :library.id }
-    {& %CONTACT = :contact.id }
-    {& %NAME = :name }
+    {& %s.ID = :id }
+    {& %s.LIBRARY = :library.id }
+    {& %s.CONTACT = :contact.id }
+    {& %s.NAME = :name }
   }
 ;
 
