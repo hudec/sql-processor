@@ -2,9 +2,11 @@ package org.sqlproc.dsl.ui.templates;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
@@ -27,6 +29,10 @@ public class TableMetaConverter extends TablePojoConverter {
     protected Map<String, PairValues> tablesIdentity = new HashMap<String, PairValues>();
     protected Map<String, Map<String, PairValues>> columnsMetaTypes = new HashMap<String, Map<String, PairValues>>();
     protected Map<String, Map<String, PairValues>> statementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
+
+    enum StatementType {
+        INSERT, GET, UPDATE, DELETE, SELECT
+    }
 
     public TableMetaConverter() {
         super();
@@ -76,10 +82,11 @@ public class TableMetaConverter extends TablePojoConverter {
 
     StringBuilder metaInsertDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
-        Header header = getStatementHeader(pojo, buffer, Header.StatementType.INSERT, null);
-        buffer.append("\n  insert into %%").append(header.realTableName);
+        Header header = getStatementHeader(pojo, buffer, StatementType.INSERT, null);
+        buffer.append("\n  insert into %%").append(header.table.realTableName);
         buffer.append(" (");
-        String parentPojo = pojoDiscriminators.containsKey(header.tableName) ? pojoExtends.get(header.tableName) : null;
+        String parentPojo = pojoDiscriminators.containsKey(header.table.tableName) ? pojoExtends
+                .get(header.table.tableName) : null;
         boolean first = insertColumns(buffer, pojo, true);
         if (parentPojo != null)
             insertColumns(buffer, parentPojo, first);
@@ -97,35 +104,36 @@ public class TableMetaConverter extends TablePojoConverter {
 
     StringBuilder metaGetDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
-        Header header = getStatementHeader(pojo, buffer, Header.StatementType.GET, null);
+        Header header = getStatementHeader(pojo, buffer, StatementType.GET, null);
         buffer.append("\n  select ");
-        String parentPojo = pojoDiscriminators.containsKey(header.tableName) ? pojoExtends.get(header.tableName) : null;
-        boolean first = selectColumns(buffer, pojo, true, header.statementName, header.realTableNamePrefix, false);
+        String parentPojo = pojoDiscriminators.containsKey(header.table.tableName) ? pojoExtends
+                .get(header.table.tableName) : null;
+        boolean first = selectColumns(buffer, pojo, true, header.statementName, header.table.tablePrefix, false);
         if (parentPojo != null)
             selectColumns(buffer, parentPojo, first, header.statementName, null, false);
-        else if (header.extendedTableName != null)
-            selectColumns(buffer, header.extendedTableName, first, header.statementName,
-                    header.extendedTableNamePrefix, true);
-        buffer.append("\n  from %%").append(header.realTableName);
-        if (header.realTableNamePrefix != null) {
-            buffer.append(" ").append(header.realTableNamePrefix);
-            if (header.extendedTableName != null) {
+        else if (header.extendTable.tableName != null)
+            selectColumns(buffer, header.extendTable.tableName, first, header.statementName,
+                    header.extendTable.tablePrefix, true);
+        buffer.append("\n  from %%").append(header.table.realTableName);
+        if (header.table.tablePrefix != null) {
+            buffer.append(" ").append(header.table.tablePrefix);
+            if (header.extendTable.tableName != null) {
 
-                buffer.append(" join %%").append(header.extendedTableName);
-                buffer.append(" ").append(header.extendedTableNamePrefix);
-                buffer.append(" on %").append(header.realTableNamePrefix).append(".");
-                buffer.append(header.tableKey);
-                buffer.append(" = %").append(header.extendedTableNamePrefix).append(".");
-                buffer.append(header.extendedTableKey);
+                buffer.append(" join %%").append(header.extendTable.tableName);
+                buffer.append(" ").append(header.extendTable.tablePrefix);
+                buffer.append(" on %").append(header.table.tablePrefix).append(".");
+                buffer.append(header.table.tableKey);
+                buffer.append(" = %").append(header.extendTable.tablePrefix).append(".");
+                buffer.append(header.extendTable.tableKey);
             }
         }
         buffer.append("\n  {= where");
-        first = whereColumns(buffer, pojo, first, header.statementName, header.realTableNamePrefix, false);
+        first = whereColumns(buffer, pojo, first, header.statementName, header.table.tablePrefix, false);
         if (parentPojo != null)
             whereColumns(buffer, parentPojo, first, header.statementName, null, false);
-        else if (header.extendedTableName != null)
-            whereColumns(buffer, header.extendedTableName, first, header.statementName, header.extendedTableNamePrefix,
-                    true);
+        else if (header.extendTable.tableName != null)
+            whereColumns(buffer, header.extendTable.tableName, first, header.statementName,
+                    header.extendTable.tablePrefix, true);
         buffer.append("\n  }");
         buffer.append("\n;\n");
         return buffer;
@@ -133,10 +141,11 @@ public class TableMetaConverter extends TablePojoConverter {
 
     StringBuilder metaUpdateDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
-        Header header = getStatementHeader(pojo, buffer, Header.StatementType.UPDATE, null);
-        buffer.append("\n  update %%").append(header.realTableName);
+        Header header = getStatementHeader(pojo, buffer, StatementType.UPDATE, null);
+        buffer.append("\n  update %%").append(header.table.realTableName);
         buffer.append("\n  {= set");
-        String parentPojo = pojoDiscriminators.containsKey(header.tableName) ? pojoExtends.get(header.tableName) : null;
+        String parentPojo = pojoDiscriminators.containsKey(header.table.tableName) ? pojoExtends
+                .get(header.table.tableName) : null;
         boolean first = updateColumns(buffer, pojo, true, header.statementName);
         if (parentPojo != null)
             updateColumns(buffer, parentPojo, first, header.statementName);
@@ -151,10 +160,11 @@ public class TableMetaConverter extends TablePojoConverter {
 
     StringBuilder metaDeleteDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
-        Header header = getStatementHeader(pojo, buffer, Header.StatementType.DELETE, null);
-        buffer.append("\n  delete from %%").append(header.realTableName);
+        Header header = getStatementHeader(pojo, buffer, StatementType.DELETE, null);
+        buffer.append("\n  delete from %%").append(header.table.realTableName);
         buffer.append("\n  {= where");
-        String parentPojo = pojoDiscriminators.containsKey(header.tableName) ? pojoExtends.get(header.tableName) : null;
+        String parentPojo = pojoDiscriminators.containsKey(header.table.tableName) ? pojoExtends
+                .get(header.table.tableName) : null;
         boolean first = wherePrimaryKeys(buffer, pojo, true, header.statementName);
         if (parentPojo != null)
             wherePrimaryKeys(buffer, parentPojo, first, header.statementName);
@@ -395,82 +405,95 @@ public class TableMetaConverter extends TablePojoConverter {
         return false;
     }
 
-    static class Header {
-        enum StatementType {
-            INSERT, GET, UPDATE, DELETE, SELECT
-        }
+    class Table {
 
         String tableName;
         String realTableName;
-        String extendedTableName;
-        String realTableNamePrefix;
-        String extendedTableNamePrefix;
+        String tablePrefix;
         String tableKey;
-        String extendedTableKey;
+
+        String getTableName() {
+            TableDefinition tableDefinition = getTableDefinition((realTableName != null) ? realTableName : tableName);
+            if (tableDefinition != null)
+                return tableDefinition.getName();
+            else
+                return tableName;
+        }
+    }
+
+    class Header {
+        Table table = new Table();
+        Table extendTable = new Table();
         String statementName;
     }
 
-    Header getStatementHeader(String pojo, StringBuilder buffer, Header.StatementType type, String suffix) {
+    Header getStatementHeader(String pojo, StringBuilder buffer, StatementType type, String suffix) {
         Header header = new Header();
-        header.tableName = tableNames.get(pojo);
-        if (header.tableName == null)
-            header.tableName = pojo;
-        header.realTableName = pojo;
-        if (pojoDiscriminators.containsKey(header.tableName))
-            header.realTableName = pojoExtends.get(header.tableName);
-        else if (pojoExtends.containsKey(header.realTableName)
-                && pojoInheritanceSimple.contains(pojoExtends.get(header.realTableName))) {
-            header.extendedTableName = pojoExtends.get(header.realTableName);
-            header.realTableNamePrefix = header.realTableName.substring(0, 1).toLowerCase();
-            header.extendedTableNamePrefix = header.extendedTableName.substring(0, 1).toLowerCase();
-            if (header.realTableNamePrefix.equals(header.extendedTableNamePrefix)) {
-                header.extendedTableNamePrefix = header.extendedTableNamePrefix + "2";
-            }
-            outerloop: for (Entry<String, Map<String, String>> e1 : inheritImports.get(header.realTableName).entrySet()) {
+        Set<String> prefixes = new HashSet<String>();
+        header.table.tableName = tableNames.get(pojo);
+        if (header.table.tableName == null)
+            header.table.tableName = pojo;
+        header.table.realTableName = pojo;
+        if (pojoDiscriminators.containsKey(header.table.tableName))
+            header.table.realTableName = pojoExtends.get(header.table.tableName);
+        else if (pojoExtends.containsKey(header.table.realTableName)
+                && pojoInheritanceSimple.contains(pojoExtends.get(header.table.realTableName))) {
+            header.extendTable.tableName = pojoExtends.get(header.table.realTableName);
+            header.table.tablePrefix = newPrefix(prefixes, header.table.realTableName);
+            header.extendTable.tablePrefix = newPrefix(prefixes, header.extendTable.tableName);
+
+            outerloop: for (Entry<String, Map<String, String>> e1 : inheritImports.get(header.table.realTableName)
+                    .entrySet()) {
                 for (Entry<String, String> e2 : e1.getValue().entrySet()) {
-                    if (e2.getKey().equals(header.extendedTableName)) {
-                        header.tableKey = e1.getKey();
-                        header.extendedTableKey = e2.getValue();
+                    if (e2.getKey().equals(header.extendTable.tableName)) {
+                        header.table.tableKey = e1.getKey();
+                        header.extendTable.tableKey = e2.getValue();
                     }
                     break outerloop;
                 }
             }
         }
-        if (type == Header.StatementType.INSERT)
+        if (type == StatementType.INSERT)
             header.statementName = "INSERT_";
-        else if (type == Header.StatementType.GET)
+        else if (type == StatementType.GET)
             header.statementName = "GET_";
-        else if (type == Header.StatementType.UPDATE)
+        else if (type == StatementType.UPDATE)
             header.statementName = "UPDATE_";
-        else if (type == Header.StatementType.DELETE)
+        else if (type == StatementType.DELETE)
             header.statementName = "DELETE_";
-        else if (type == Header.StatementType.SELECT)
+        else if (type == StatementType.SELECT)
             header.statementName = "SELECT_";
-        header.statementName = header.statementName + header.tableName;
+        header.statementName = header.statementName + header.table.tableName;
         if (suffix != null) {
             header.statementName = header.statementName + "_" + suffix;
         }
         buffer.append("\n").append(header.statementName).append("(CRUD,");
-        buffer.append("identx=").append(tableToCamelCase(header.tableName));
-        buffer.append(",colx=").append(tableToCamelCase(header.tableName));
+        buffer.append("identx=").append(tableToCamelCase(header.table.tableName));
+        buffer.append(",colx=").append(tableToCamelCase(header.table.tableName));
         buffer.append(",dbcol=");
-        TableDefinition tableDefinition = getTableDefinition(header.realTableName);
-        if (tableDefinition != null)
-            buffer.append(tableDefinition.getName());
-        else
-            buffer.append(header.tableName);
-        if (header.extendedTableName != null && type == Header.StatementType.GET) {
-            buffer.append("=").append(header.realTableNamePrefix);
+        buffer.append(header.table.getTableName());
+        if (header.extendTable.tableName != null && type == StatementType.GET) {
+            buffer.append("=").append(header.table.tablePrefix);
             buffer.append(",dbcol=");
-            TableDefinition tableDefinitionExtended = getTableDefinition(header.extendedTableName);
-            if (tableDefinitionExtended != null)
-                buffer.append(tableDefinitionExtended.getName());
-            else
-                buffer.append(header.extendedTableName);
-            buffer.append("=").append(header.extendedTableNamePrefix);
+            buffer.append(header.extendTable.getTableName());
+            buffer.append("=").append(header.extendTable.tablePrefix);
         }
         buffer.append(")=");
         return header;
+    }
+
+    String newPrefix(Set<String> prefixes, String tableName) {
+        String pp = tableName.substring(0, 1).toLowerCase();
+        String p = pp;
+        for (int i = 0; i < 1000; i++) {
+            if (i > 0)
+                p = pp + i;
+            if (!prefixes.contains(p)) {
+                prefixes.add(p);
+                return p;
+            }
+        }
+        return pp;
     }
 
     static class Attribute {

@@ -211,14 +211,14 @@ INSERT_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
   {= values (:id, :urlimdb, :playlength) }
 ;
 
-GET_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie=m,dbcol=media=m2)=
-  select %m.MEDIA_ID @id, %m.URLIMDB @urlimdb, %m.PLAYLENGTH @playlength, %m2.TITLE @title
-  from %%MOVIE m join %%MEDIA m2 on %m.MEDIA_ID = %m2.ID
+GET_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie=m,dbcol=media=m1)=
+  select %m.MEDIA_ID @id, %m.URLIMDB @urlimdb, %m.PLAYLENGTH @playlength, %m1.TITLE @title
+  from %%MOVIE m join %%MEDIA m1 on %m.MEDIA_ID = %m1.ID
   {= where
     {& %m.MEDIA_ID = :id }
     {& %m.URLIMDB = :urlimdb }
     {& %m.PLAYLENGTH = :playlength }
-    {& %m2.TITLE = :title }
+    {& %m1.TITLE = :title }
   }
 ;
 
