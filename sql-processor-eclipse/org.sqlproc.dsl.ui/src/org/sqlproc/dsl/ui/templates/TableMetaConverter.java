@@ -110,7 +110,7 @@ public class TableMetaConverter extends TablePojoConverter {
                 .get(header.table.tableName) : null;
         boolean first = selectColumns(buffer, pojo, true, header.statementName, header.table.tablePrefix, null, false);
         if (parentPojo != null)
-            selectColumns(buffer, parentPojo, first, header.statementName, null, null, false);
+            selectColumns(buffer, parentPojo, first, header.statementName, header.table.tablePrefix, null, false);
         else if (header.table.tablePrefix != null) {
             if (header.extendTable.tableName != null) {
                 if (!first)
@@ -153,7 +153,7 @@ public class TableMetaConverter extends TablePojoConverter {
         buffer.append("\n  {= where");
         first = whereColumns(buffer, pojo, first, header.statementName, header.table.tablePrefix, false);
         if (parentPojo != null)
-            whereColumns(buffer, parentPojo, first, header.statementName, null, false);
+            whereColumns(buffer, parentPojo, first, header.statementName, header.table.tablePrefix, false);
         else if (header.extendTable.tableName != null)
             whereColumns(buffer, header.extendTable.tableName, first, header.statementName,
                     header.extendTable.tablePrefix, true);
@@ -487,7 +487,7 @@ public class TableMetaConverter extends TablePojoConverter {
             }
         }
         if (type == StatementType.GET || type == StatementType.SELECT) {
-            for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            for (Map.Entry<String, PojoAttribute> pentry : pojos.get(header.table.realTableName).entrySet()) {
                 PojoAttribute attr = pentry.getValue();
                 if (attr.getPkTable() != null) {
                     if (header.table.tablePrefix == null)
@@ -500,6 +500,9 @@ public class TableMetaConverter extends TablePojoConverter {
                     table.attrName = attr.getName();
                     header.pkTables.put(pentry.getKey(), table);
                 }
+            }
+            if (pojoDiscriminators.containsKey(header.table.tableName)) {
+
             }
         }
         if (type == StatementType.INSERT)

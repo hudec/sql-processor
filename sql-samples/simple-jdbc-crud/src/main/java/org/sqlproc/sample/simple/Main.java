@@ -475,17 +475,23 @@ public class Main {
 
         bankAccount = new BankAccount();
         bankAccount.setId(bankAccount1.getId());
+        bankAccount.setInit(BankAccount.Association.subscriber);
         b1 = main.getBankAccountDao().getBankAccount(bankAccount);
         Assert.assertNotNull(b1);
         Assert.assertEquals("updated account", b1.getBaAccount());
         Assert.assertEquals(honzaS.getId(), b1.getSubscriber().getId());
+        Assert.assertNotNull(b1.getSubscriber());
+        Assert.assertEquals("Honzovský", b1.getSubscriber().getName());
 
         contact = new Contact();
         contact.setId(honza.getContacts().get(0).getId());
+        contact.setInit(Contact.Association.person);
         c = main.getContactDao().getContact(contact);
         Assert.assertNotNull(c);
         Assert.assertEquals("Honza address 1 Updated", c.getAddress());
         Assert.assertEquals(new PhoneNumber(000, 0000, 0000), c.getPhoneNumber());
+        Assert.assertNotNull(c.getPerson());
+        Assert.assertEquals("Honzovský", c.getPerson().getLastName());
 
         creditCard = new CreditCard();
         creditCard.setId(creditCard1.getId());
@@ -520,16 +526,6 @@ public class Main {
         // Assert.assertEquals("Andrejček", p.getLastName());
         // Assert.assertTrue(p.getContacts().size() == 1);
         // System.out.println("Contact for Andrej " + p.getContacts().get(0));
-
-        contact = new Contact();
-        contact.setId(honza.getContacts().get(0).getId());
-        contact.setInit(Contact.Association.person);
-        c = main.getContactDao().getContact(contact);
-        Assert.assertNotNull(c);
-        Assert.assertEquals("Honza address 1 Updated", c.getAddress());
-        Assert.assertEquals(new PhoneNumber(000, 0000, 0000), c.getPhoneNumber());
-        Assert.assertNotNull(c.getPerson());
-        Assert.assertEquals("Honzovský", c.getPerson().getLastName());
 
         // // queries
         // list = main.listAll();

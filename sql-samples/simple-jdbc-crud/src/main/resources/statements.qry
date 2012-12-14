@@ -12,14 +12,15 @@ INSERT_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetail
   {= values (:id^^idsel=SEL1, :baAccount, :subscriber.id, :type) }
 ;
 
-GET_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
-  select %BA_ACCOUNT @baAccount, %ID @id, %SUBSCRIBER @subscriber.id, %TYPE @type
-  from %%BILLING_DETAILS
+GET_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails=b,dbcol=subscriber=s)=
+  select %b.BA_ACCOUNT @baAccount, %b.ID @id, %b.SUBSCRIBER @subscriber.id, %b.TYPE @type
+  from %%BILLING_DETAILS b
+  join %%SUBSCRIBER s on %b.SUBSCRIBER = %s.ID
   {= where
-    {& %BA_ACCOUNT = :baAccount }
-    {& %ID = :id }
-    {& %SUBSCRIBER = :subscriber.id }
-    {& %TYPE = :type }
+    {& %b.BA_ACCOUNT = :baAccount }
+    {& %b.ID = :id }
+    {& %b.SUBSCRIBER = :subscriber.id }
+    {& %b.TYPE = :type }
   }
 ;
 
@@ -118,14 +119,15 @@ INSERT_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
   {= values (:id^^idsel=SEL1, :ccNumber, :subscriber.id, :type) }
 ;
 
-GET_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
-  select %CC_NUMBER @ccNumber, %ID @id, %SUBSCRIBER @subscriber.id, %TYPE @type
-  from %%BILLING_DETAILS
+GET_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails=b,dbcol=subscriber=s)=
+  select %b.CC_NUMBER @ccNumber, %b.ID @id, %b.SUBSCRIBER @subscriber.id, %b.TYPE @type
+  from %%BILLING_DETAILS b
+  join %%SUBSCRIBER s on %b.SUBSCRIBER = %s.ID
   {= where
-    {& %CC_NUMBER = :ccNumber }
-    {& %ID = :id }
-    {& %SUBSCRIBER = :subscriber.id }
-    {& %TYPE = :type }
+    {& %b.CC_NUMBER = :ccNumber }
+    {& %b.ID = :id }
+    {& %b.SUBSCRIBER = :subscriber.id }
+    {& %b.TYPE = :type }
   }
 ;
 
