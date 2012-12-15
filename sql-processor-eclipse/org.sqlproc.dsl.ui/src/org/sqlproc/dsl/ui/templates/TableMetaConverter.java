@@ -142,9 +142,9 @@ public class TableMetaConverter extends TablePojoConverter {
             }
             if (!header.pkTables.isEmpty()) {
                 for (Table table : header.pkTables.values()) {
-                    buffer.append("\n  join %%").append(table.tableName);
+                    buffer.append("\n  left join %%").append(table.tableName);
                     buffer.append(" ").append(table.tablePrefix);
-                    buffer.append(" on %").append(header.table.tablePrefix).append(".");
+                    buffer.append(" on %").append(table.oppositePrefix).append(".");
                     buffer.append(table.primaryKey);
                     buffer.append(" = %").append(table.tablePrefix).append(".");
                     buffer.append(table.tableKey);
@@ -440,6 +440,7 @@ public class TableMetaConverter extends TablePojoConverter {
         String primaryKey;
         String tableKey;
         String attrName;
+        String oppositePrefix;
 
         void setNames(String pojo) {
             tableName = tableNames.get(pojo);
@@ -499,11 +500,26 @@ public class TableMetaConverter extends TablePojoConverter {
                     table.tableKey = attr.getPkColumn();
                     table.tablePrefix = newPrefix(prefixes, table);
                     table.attrName = attr.getName();
+                    table.oppositePrefix = header.table.tablePrefix;
                     header.pkTables.put(pentry.getKey(), table);
                 }
             }
-            if (pojoDiscriminators.containsKey(header.table.tableName)) {
-
+            if (header.extendTable.tableName != null) {
+                for (Map.Entry<String, PojoAttribute> pentry : pojos.get(header.extendTable.realTableName).entrySet()) {
+                    PojoAttribute attr = pentry.getValue();
+                    if (attr.getPkTable() != null) {
+                        if (header.extendTable.tablePrefix == null)
+                            header.extendTable.tablePrefix = newPrefix(prefixes, header.extendTable);
+                        Table table = new Table();
+                        table.setNames(attr.getPkTable());
+                        table.primaryKey = pentry.getKey();
+                        table.tableKey = attr.getPkColumn();
+                        table.tablePrefix = newPrefix(prefixes, table);
+                        table.attrName = attr.getName();
+                        table.oppositePrefix = header.extendTable.tablePrefix;
+                        header.pkTables.put(pentry.getKey(), table);
+                    }
+                }
             }
         }
         if (type == StatementType.INSERT)

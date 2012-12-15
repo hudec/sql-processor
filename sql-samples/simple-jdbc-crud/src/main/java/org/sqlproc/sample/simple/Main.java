@@ -27,6 +27,7 @@ import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Contact;
 import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.Library;
+import org.sqlproc.sample.simple.model.Media;
 import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.NewBook;
 import org.sqlproc.sample.simple.model.Person;
@@ -391,7 +392,8 @@ public class Main {
                 new CreditCard(janikS, "CC")._setCcNumber(123L));
         main.getCreditCardDao().insertCreditCard(new CreditCard(honzaS, "CC")._setCcNumber(456L));
 
-        NewBook book1 = main.getBookDao().insertBook(new NewBook("The Adventures of Robin Hood", "978-0140367003"));
+        NewBook book1 = main.getBookDao().insertBook(
+                (NewBook) new NewBook("The Adventures of Robin Hood", "978-0140367003")._setAuthor(honzik));
         NewBook book2 = main.getBookDao().insertBook(new NewBook("The Three Musketeers", "978-1897093634"));
         Movie movie1 = main.getMovieDao().insertMovie(new Movie("Pippi Långstrump i Söderhavet", "abc", 82));
         Movie movie2 = main.getMovieDao().insertMovie(new Movie("Die Another Day", "def", 95));
@@ -468,10 +470,13 @@ public class Main {
         // get
         book = new NewBook();
         book.setId(book1.getId());
+        book.setInit(Media.Association.author);
         b = main.getBookDao().getBook(book);
         Assert.assertNotNull(b);
         Assert.assertEquals("978-9940367003", b.getNewIsbn());
         Assert.assertEquals("The Adventures of Robin Hood Updated", b.getTitle());
+        Assert.assertNotNull(b.getAuthor());
+        Assert.assertEquals("Honzíček", b.getAuthor().getLastName());
 
         bankAccount = new BankAccount();
         bankAccount.setId(bankAccount1.getId());

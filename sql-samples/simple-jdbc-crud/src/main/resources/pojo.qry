@@ -21,6 +21,8 @@ package org.sqlproc.sample.simple.model {
 
   pojo NewBook extends Media serializable 1  {
     newIsbn : java.lang.String required
+    toInit ::: author
+    isDef ::: author
     toString ::: newIsbn
   }
 
@@ -56,14 +58,19 @@ package org.sqlproc.sample.simple.model {
   abstract pojo Media serializable 1  {
     id : java.lang.Long primaryKey
     title : java.lang.String required
+    author :: Person
     equals ::: id
     hashCode ::: id
-    toString ::: id title
+    toInit ::: author
+    isDef ::: author
+    toString ::: id author title
   }
 
   pojo Movie extends Media serializable 1  {
     urlimdb : java.lang.String required
     playlength : java.lang.Integer required
+    toInit ::: author
+    isDef ::: author
     toString ::: playlength urlimdb
   }
 

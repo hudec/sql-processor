@@ -25,7 +25,7 @@ public class MovieDao extends BaseDao {
     public Movie getMovie(Movie movie) {
         SqlCrudEngine sqlEngine = getCrudEngine("GET_MOVIE");
         Movie m = sqlEngine.get(session, Movie.class, movie);
-        logger.info("get movie: " + m);
+        logger.info("get movie: " + m + " for " + movie);
         return m;
     }
 
