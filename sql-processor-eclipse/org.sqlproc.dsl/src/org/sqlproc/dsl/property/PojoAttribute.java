@@ -1,6 +1,6 @@
 package org.sqlproc.dsl.property;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class PojoAttribute {
@@ -16,7 +16,10 @@ public class PojoAttribute {
     private String pkTable;
     private String pkColumn;
     private String parentTable;
-    private Map<String, String> fkTables = new HashMap<String, String>();
+    private Map<String, String> fkTables = new LinkedHashMap<String, String>();
+    private Map<String, String> fkColumns = new LinkedHashMap<String, String>();
+    private String oneToManyColumn;
+    private String oneToManyTable;
 
     public PojoAttribute() {
     }
@@ -101,6 +104,30 @@ public class PojoAttribute {
         this.fkTables = fkTables;
     }
 
+    public Map<String, String> getFkColumns() {
+        return fkColumns;
+    }
+
+    public void setFkColumns(Map<String, String> fkColumns) {
+        this.fkColumns = fkColumns;
+    }
+
+    public String getOneToManyColumn() {
+        return oneToManyColumn;
+    }
+
+    public void setOneToManyColumn(String oneToManyColumn) {
+        this.oneToManyColumn = oneToManyColumn;
+    }
+
+    public String getOneToManyTable() {
+        return oneToManyTable;
+    }
+
+    public void setOneToManyTable(String oneToManyTable) {
+        this.oneToManyTable = oneToManyTable;
+    }
+
     public boolean isDef() {
         if (getDependencyClassName() != null) {
             if (!isRequired())
@@ -139,6 +166,7 @@ public class PojoAttribute {
         return "PojoAttribute [primitive=" + primitive + ", required=" + required + ", primaryKey=" + primaryKey
                 + ", name=" + name + ", className=" + className + ", dependencyClassName=" + dependencyClassName
                 + ", pkTable=" + pkTable + ", pkColumn=" + pkColumn + ", parentTable=" + parentTable + ", fkTables="
-                + fkTables + "]";
+                + fkTables + ", fkColumns=" + fkColumns + ", oneToManyColumn=" + oneToManyColumn + ", oneToManyTable="
+                + oneToManyTable + "]";
     }
 }

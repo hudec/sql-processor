@@ -36,6 +36,7 @@ metagen-column-meta-type CONTACT PHONE_NUMBER->phone;
 // just for dev
 pojogen-rename-columns BOOK ISBN->NEW_ISBN;
 pojogen-rename-tables BOOK->NEW_BOOK;
+pojogen-ignore-one-to-many PERSON ID->MEDIA->AUTHOR;
 
 table billingDetails BILLING_DETAILS;
 table book BOOK;

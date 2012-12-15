@@ -298,13 +298,16 @@ public class TablePojoConverter {
             } else {
                 PojoAttribute attribute = attributes.get(dbExport.getPkColumn());
                 attribute.getFkTables().put(dbExport.getFkTable(), null);
+                attribute.getFkColumns().put(dbExport.getFkTable(), dbExport.getFkColumn());
             }
         }
         if (createExports.containsKey(table)) {
             for (Map.Entry<String, Map<String, String>> pentry : createExports.get(table).entrySet()) {
                 PojoAttribute attribute = attributes.get(pentry.getKey());
-                for (Map.Entry<String, String> fk : pentry.getValue().entrySet())
+                for (Map.Entry<String, String> fk : pentry.getValue().entrySet()) {
                     attribute.getFkTables().put(fk.getKey(), fk.getValue());
+                    // attribute.getFkColumns().put(fk.getKey(), fk.getValue());
+                }
             }
         }
         if (inheritance.containsKey(table)) {
@@ -377,7 +380,8 @@ public class TablePojoConverter {
     public void resolveReferencesOnKeys() {
         for (String pojo : pojos.keySet()) {
             Map<String, PojoAttribute> newAttributes = new HashMap<String, PojoAttribute>();
-            for (PojoAttribute attribute : pojos.get(pojo).values()) {
+            for (Entry<String, PojoAttribute> entry : pojos.get(pojo).entrySet()) {
+                PojoAttribute attribute = entry.getValue();
                 if (attribute.getPkTable() != null) {
                     if (pojos.containsKey(attribute.getPkTable())) {
                         attribute.setDependencyClassName(tableToCamelCase(attribute.getPkTable()));
@@ -399,9 +403,9 @@ public class TablePojoConverter {
                 for (Map.Entry<String, String> fk : attribute.getFkTables().entrySet()) {
                     if (pojos.containsKey(fk.getKey())) {
                         String referName = null;
-                        if (fk.getValue() != null)
+                        if (fk.getValue() != null) {
                             referName = columnToCamelCase(fk.getValue());
-                        else {
+                        } else {
                             referName = lowerFirstChar(tableToCamelCase(fk.getKey()));
                             if (!referName.endsWith("s")) {
                                 if (referName.endsWith("y")) {
@@ -414,8 +418,13 @@ public class TablePojoConverter {
                         }
                         PojoAttribute attrib = new PojoAttribute();
                         attrib.setName(referName);
+                        if (attribute.getFkColumns().containsKey(fk.getKey())) {
+                            attrib.setOneToManyColumn(entry.getKey());
+                            attrib.setOneToManyTable(fk.getKey());
+                        }
                         attrib.setClassName(COLLECTION_LIST + " <:" + tableToCamelCase(fk.getKey()) + ">");
-                        newAttributes.put(columnToDbConv(attrib.getName()), attrib);
+                        String dbColumnName = columnToDbConv(attrib.getName());
+                        newAttributes.put(dbColumnName, attrib);
                     }
                 }
             }

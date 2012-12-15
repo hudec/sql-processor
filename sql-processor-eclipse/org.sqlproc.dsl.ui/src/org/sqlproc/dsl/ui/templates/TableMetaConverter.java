@@ -122,9 +122,10 @@ public class TableMetaConverter extends TablePojoConverter {
             if (!header.pkTables.isEmpty()) {
                 for (Table table : header.pkTables.values()) {
                     if (!first)
-                        buffer.append("\n         ");
+                        buffer.append("\n         {? :").append(table.attrName).append("^^call=toInit | ");
                     first = selectColumns(buffer, table.tableName, first, header.statementName, table.tablePrefix,
                             table.attrName, true);
+                    buffer.append(" }");
                 }
             }
         }
@@ -142,12 +143,13 @@ public class TableMetaConverter extends TablePojoConverter {
             }
             if (!header.pkTables.isEmpty()) {
                 for (Table table : header.pkTables.values()) {
-                    buffer.append("\n  left join %%").append(table.tableName);
+                    buffer.append("\n  {? :").append(table.attrName).append("^^call=toInit | left join %%")
+                            .append(table.tableName);
                     buffer.append(" ").append(table.tablePrefix);
                     buffer.append(" on %").append(table.oppositePrefix).append(".");
                     buffer.append(table.primaryKey);
                     buffer.append(" = %").append(table.tablePrefix).append(".");
-                    buffer.append(table.tableKey);
+                    buffer.append(table.tableKey).append(" }");
                 }
             }
         }
@@ -309,6 +311,8 @@ public class TableMetaConverter extends TablePojoConverter {
             if (attr.attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
             }
+            if (attr.attribute.isPrimaryKey())
+                buffer.append("^^id");
             metaTypes(buffer, attr.tableName, attr.attributeName, statementName);
             first = false;
         }
@@ -502,6 +506,18 @@ public class TableMetaConverter extends TablePojoConverter {
                     table.attrName = attr.getName();
                     table.oppositePrefix = header.table.tablePrefix;
                     header.pkTables.put(pentry.getKey(), table);
+                } else if (attr.getOneToManyColumn() != null) {
+                    PojoAttribute attr1 = pojos.get(header.table.realTableName).get(attr.getOneToManyColumn());
+                    if (header.table.tablePrefix == null)
+                        header.table.tablePrefix = newPrefix(prefixes, header.table);
+                    Table table = new Table();
+                    table.setNames(attr.getOneToManyTable());
+                    table.primaryKey = attr.getOneToManyColumn();
+                    table.tableKey = attr1.getFkColumns().get(attr.getOneToManyTable());
+                    table.tablePrefix = newPrefix(prefixes, table);
+                    table.attrName = attr.getName();
+                    table.oppositePrefix = header.table.tablePrefix;
+                    header.pkTables.put(pentry.getKey(), table);
                 }
             }
             if (header.extendTable.tableName != null) {
@@ -514,6 +530,19 @@ public class TableMetaConverter extends TablePojoConverter {
                         table.setNames(attr.getPkTable());
                         table.primaryKey = pentry.getKey();
                         table.tableKey = attr.getPkColumn();
+                        table.tablePrefix = newPrefix(prefixes, table);
+                        table.attrName = attr.getName();
+                        table.oppositePrefix = header.extendTable.tablePrefix;
+                        header.pkTables.put(pentry.getKey(), table);
+                    } else if (attr.getOneToManyColumn() != null) {
+                        PojoAttribute attr1 = pojos.get(header.extendTable.realTableName)
+                                .get(attr.getOneToManyColumn());
+                        if (header.extendTable.tablePrefix == null)
+                            header.extendTable.tablePrefix = newPrefix(prefixes, header.table);
+                        Table table = new Table();
+                        table.setNames(attr.getOneToManyTable());
+                        table.primaryKey = attr.getOneToManyColumn();
+                        table.tableKey = attr1.getFkColumns().get(attr.getOneToManyTable());
                         table.tablePrefix = newPrefix(prefixes, table);
                         table.attrName = attr.getName();
                         table.oppositePrefix = header.extendTable.tablePrefix;
