@@ -110,8 +110,9 @@ public class TableMetaConverter extends TablePojoConverter {
                 .get(header.table.tableName) : null;
         boolean first = selectColumns(buffer, pojo, true, header.statementName, header.table.tablePrefix, null, false);
         if (parentPojo != null)
-            selectColumns(buffer, parentPojo, first, header.statementName, header.table.tablePrefix, null, false);
-        else if (header.table.tablePrefix != null) {
+            first = selectColumns(buffer, parentPojo, first, header.statementName, header.table.tablePrefix, null,
+                    false);
+        if (header.table.tablePrefix != null) {
             if (header.extendTable.tableName != null) {
                 if (!first)
                     buffer.append("\n         ");

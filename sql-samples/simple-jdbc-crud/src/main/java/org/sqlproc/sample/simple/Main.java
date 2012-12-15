@@ -481,7 +481,7 @@ public class Main {
         Assert.assertEquals("updated account", b1.getBaAccount());
         Assert.assertEquals(honzaS.getId(), b1.getSubscriber().getId());
         Assert.assertNotNull(b1.getSubscriber());
-        Assert.assertEquals("Honzovský", b1.getSubscriber().getName());
+        Assert.assertEquals("Honza Subscr", b1.getSubscriber().getName());
 
         contact = new Contact();
         contact.setId(honza.getContacts().get(0).getId());
@@ -495,9 +495,12 @@ public class Main {
 
         creditCard = new CreditCard();
         creditCard.setId(creditCard1.getId());
+        creditCard.setInit(CreditCard.Association.subscriber);
         c1 = main.getCreditCardDao().getCreditCard(creditCard);
         Assert.assertNotNull(c1);
         Assert.assertEquals("DD", c1.getType());
+        Assert.assertNotNull(c1.getSubscriber());
+        Assert.assertEquals("Janik Subscr Updated", c1.getSubscriber().getName());
 
         library = new Library();
         library.setId(lib.getId());
@@ -513,9 +516,15 @@ public class Main {
 
         subscriber = new Subscriber();
         subscriber.setId(janikS.getId());
+        subscriber.setInit(Subscriber.Association.contact);
+        subscriber.setInit(Subscriber.Association.library);
         s = main.getSubscriberDao().getSubscriber(subscriber);
         Assert.assertNotNull(s);
         Assert.assertEquals("Janik Subscr Updated", s.getName());
+        Assert.assertNotNull(s.getLibrary());
+        Assert.assertNotNull(s.getContact());
+        Assert.assertEquals("Alexandria Library Updated", s.getLibrary().getName());
+        Assert.assertEquals("Jan address 1", s.getContact().getAddress());
 
         // get object tree
         // person = new Person();
