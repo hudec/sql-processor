@@ -27,7 +27,6 @@ import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Contact;
 import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.Library;
-import org.sqlproc.sample.simple.model.Media;
 import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.NewBook;
 import org.sqlproc.sample.simple.model.Person;
@@ -470,7 +469,7 @@ public class Main {
         // get
         book = new NewBook();
         book.setId(book1.getId());
-        book.setInit(Media.Association.author);
+        book.setInit(NewBook.Association.author);
         b = main.getBookDao().getBook(book);
         Assert.assertNotNull(b);
         Assert.assertEquals("978-9940367003", b.getNewIsbn());

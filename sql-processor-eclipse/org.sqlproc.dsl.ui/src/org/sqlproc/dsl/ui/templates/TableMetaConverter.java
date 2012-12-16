@@ -34,6 +34,8 @@ public class TableMetaConverter extends TablePojoConverter {
         INSERT, GET, UPDATE, DELETE, SELECT
     }
 
+    boolean debug = false;
+
     public TableMetaConverter() {
         super();
     }
@@ -64,6 +66,14 @@ public class TableMetaConverter extends TablePojoConverter {
     }
 
     public String getMetaDefinitions() {
+        if (debug) {
+            System.out.println("pojos " + this.pojos);
+            System.out.println("pojoExtends " + this.pojoExtends);
+            System.out.println("pojoInheritanceDiscriminator " + this.pojoInheritanceDiscriminator);
+            System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
+            System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
+        }
+
         StringBuilder buffer = new StringBuilder();
         for (String pojo : pojos.keySet()) {
             if (!onlyTables.isEmpty() && !onlyTables.contains(pojo))
@@ -108,24 +118,29 @@ public class TableMetaConverter extends TablePojoConverter {
         buffer.append("\n  select ");
         String parentPojo = pojoDiscriminators.containsKey(header.table.tableName) ? pojoExtends
                 .get(header.table.tableName) : null;
-        boolean first = selectColumns(buffer, pojo, true, header.statementName, header.table.tablePrefix, null, false);
+        boolean first = selectColumns(buffer, pojo, true, header.statementName, header.table.tablePrefix, null, false,
+                header.pkTables);
         if (parentPojo != null)
             first = selectColumns(buffer, parentPojo, first, header.statementName, header.table.tablePrefix, null,
-                    false);
+                    false, header.pkTables);
         if (header.table.tablePrefix != null) {
             if (header.extendTable.tableName != null) {
                 if (!first)
                     buffer.append("\n         ");
                 first = selectColumns(buffer, header.extendTable.tableName, first, header.statementName,
-                        header.extendTable.tablePrefix, null, true);
+                        header.extendTable.tablePrefix, null, true, header.pkTables);
             }
             if (!header.pkTables.isEmpty()) {
-                for (Table table : header.pkTables.values()) {
+                for (Entry<String, Table> entry : header.pkTables.entrySet()) {
+                    Table table = entry.getValue();
                     if (!first)
-                        buffer.append("\n         {? :").append(table.attrName).append("^^call=toInit | ");
+                        buffer.append("\n         ");
+                    if (table.toInit)
+                        buffer.append("{? :").append(table.attrName).append("^^call=toInit | ");
                     first = selectColumns(buffer, table.tableName, first, header.statementName, table.tablePrefix,
-                            table.attrName, true);
-                    buffer.append(" }");
+                            table.attrName, true, header.pkTables);
+                    if (table.toInit)
+                        buffer.append(" }");
                 }
             }
         }
@@ -142,14 +157,19 @@ public class TableMetaConverter extends TablePojoConverter {
                 buffer.append(header.extendTable.tableKey);
             }
             if (!header.pkTables.isEmpty()) {
-                for (Table table : header.pkTables.values()) {
-                    buffer.append("\n  {? :").append(table.attrName).append("^^call=toInit | left join %%")
-                            .append(table.tableName);
+                for (Entry<String, Table> entry : header.pkTables.entrySet()) {
+                    Table table = entry.getValue();
+                    buffer.append("\n  ");
+                    if (table.toInit)
+                        buffer.append("{? :").append(table.attrName).append("^^call=toInit | ");
+                    buffer.append("left join %%").append(table.tableName);
                     buffer.append(" ").append(table.tablePrefix);
                     buffer.append(" on %").append(table.oppositePrefix).append(".");
                     buffer.append(table.primaryKey);
                     buffer.append(" = %").append(table.tablePrefix).append(".");
-                    buffer.append(table.tableKey).append(" }");
+                    buffer.append(table.tableKey);
+                    if (table.toInit)
+                        buffer.append(" }");
                 }
             }
         }
@@ -284,7 +304,7 @@ public class TableMetaConverter extends TablePojoConverter {
     }
 
     boolean selectColumns(StringBuilder buffer, String pojo, boolean first, String statementName, String tablePrefix,
-            String pojoPrefix, boolean notPrimaryKeys) {
+            String pojoPrefix, boolean notPrimaryKeys, Map<String, Table> pkTables) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             Attribute attr = getStatementAttribute(pojo, pentry, false);
             if (attr == null)
@@ -311,7 +331,7 @@ public class TableMetaConverter extends TablePojoConverter {
             if (attr.attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
             }
-            if (attr.attribute.isPrimaryKey())
+            if (attr.attribute.isPrimaryKey() || pkTables.containsKey(pentry.getKey()))
                 buffer.append("^^id");
             metaTypes(buffer, attr.tableName, attr.attributeName, statementName);
             first = false;
@@ -445,6 +465,7 @@ public class TableMetaConverter extends TablePojoConverter {
         String tableKey;
         String attrName;
         String oppositePrefix;
+        boolean toInit;
 
         void setNames(String pojo) {
             tableName = tableNames.get(pojo);
@@ -460,6 +481,13 @@ public class TableMetaConverter extends TablePojoConverter {
             else
                 return tableName;
         }
+
+        @Override
+        public String toString() {
+            return "Table [tableName=" + tableName + ", realTableName=" + realTableName + ", tablePrefix="
+                    + tablePrefix + ", primaryKey=" + primaryKey + ", tableKey=" + tableKey + ", attrName=" + attrName
+                    + ", oppositePrefix=" + oppositePrefix + ", toInit=" + toInit + "]";
+        }
     }
 
     class Header {
@@ -473,9 +501,11 @@ public class TableMetaConverter extends TablePojoConverter {
         Header header = new Header();
         Set<String> prefixes = new HashSet<String>();
         header.table.setNames(pojo);
-        if (pojoDiscriminators.containsKey(header.table.tableName))
+        if (pojoDiscriminators.containsKey(header.table.tableName)) {
             header.table.realTableName = pojoExtends.get(header.table.tableName);
-        else if (pojoExtends.containsKey(header.table.realTableName)
+            if (debug)
+                System.out.println("000 " + pojo + " " + header.table.realTableName);
+        } else if (pojoExtends.containsKey(header.table.realTableName)
                 && pojoInheritanceSimple.contains(pojoExtends.get(header.table.realTableName))) {
             header.extendTable.setNames(pojoExtends.get(header.table.realTableName));
             header.table.tablePrefix = newPrefix(prefixes, header.table);
@@ -491,7 +521,13 @@ public class TableMetaConverter extends TablePojoConverter {
                     break outerloop;
                 }
             }
+            if (debug)
+                System.out.println("001 " + pojo + " " + header.extendTable.realTableName);
         }
+        if (debug)
+            System.out.println("111 " + pojo + " " + header.table);
+        if (debug)
+            System.out.println("222 " + pojo + " " + header.extendTable);
         if (type == StatementType.GET || type == StatementType.SELECT) {
             for (Map.Entry<String, PojoAttribute> pentry : pojos.get(header.table.realTableName).entrySet()) {
                 PojoAttribute attr = pentry.getValue();
@@ -505,7 +541,10 @@ public class TableMetaConverter extends TablePojoConverter {
                     table.tablePrefix = newPrefix(prefixes, table);
                     table.attrName = attr.getName();
                     table.oppositePrefix = header.table.tablePrefix;
+                    table.toInit = attr.toInit();
                     header.pkTables.put(pentry.getKey(), table);
+                    if (debug)
+                        System.out.println("333 " + pentry.getKey() + " " + table + " " + attr);
                 } else if (attr.getOneToManyColumn() != null) {
                     PojoAttribute attr1 = pojos.get(header.table.realTableName).get(attr.getOneToManyColumn());
                     if (header.table.tablePrefix == null)
@@ -517,7 +556,10 @@ public class TableMetaConverter extends TablePojoConverter {
                     table.tablePrefix = newPrefix(prefixes, table);
                     table.attrName = attr.getName();
                     table.oppositePrefix = header.table.tablePrefix;
+                    table.toInit = attr.toInit();
                     header.pkTables.put(pentry.getKey(), table);
+                    if (debug)
+                        System.out.println("444 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
                 }
             }
             if (header.extendTable.tableName != null) {
@@ -533,7 +575,10 @@ public class TableMetaConverter extends TablePojoConverter {
                         table.tablePrefix = newPrefix(prefixes, table);
                         table.attrName = attr.getName();
                         table.oppositePrefix = header.extendTable.tablePrefix;
+                        table.toInit = attr.toInit();
                         header.pkTables.put(pentry.getKey(), table);
+                        if (debug)
+                            System.out.println("555 " + pentry.getKey() + " " + table + " " + attr);
                     } else if (attr.getOneToManyColumn() != null) {
                         PojoAttribute attr1 = pojos.get(header.extendTable.realTableName)
                                 .get(attr.getOneToManyColumn());
@@ -546,7 +591,10 @@ public class TableMetaConverter extends TablePojoConverter {
                         table.tablePrefix = newPrefix(prefixes, table);
                         table.attrName = attr.getName();
                         table.oppositePrefix = header.extendTable.tablePrefix;
+                        table.toInit = attr.toInit();
                         header.pkTables.put(pentry.getKey(), table);
+                        if (debug)
+                            System.out.println("666 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
                     }
                 }
             }

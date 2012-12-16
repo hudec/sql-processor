@@ -7,13 +7,14 @@ SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity(); 
 
 
+
 INSERT_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
   insert into %%BILLING_DETAILS (%BA_ACCOUNT, %SUBSCRIBER, %TYPE)
   {= values (:id^^idsel=SEL1, :baAccount, :subscriber.id, :type) }
 ;
 
 GET_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails=b,dbcol=subscriber=s)=
-  select %b.BA_ACCOUNT @baAccount, %b.ID @id^^id, %b.SUBSCRIBER @subscriber.id, %b.TYPE @type
+  select %b.BA_ACCOUNT @baAccount, %b.ID @id^^id, %b.SUBSCRIBER @subscriber.id^^id, %b.TYPE @type
          {? :subscriber^^call=toInit | , %s.LIBRARY @subscriber.library.id, %s.CONTACT @subscriber.contact.id, %s.NAME @subscriber.name }
   from %%BILLING_DETAILS b
   {? :subscriber^^call=toInit | left join %%SUBSCRIBER s on %b.SUBSCRIBER = %s.ID }
@@ -51,7 +52,7 @@ INSERT_NEW_BOOK(CRUD,identx=NewBook,colx=NewBook,dbcol=book)=
 
 GET_NEW_BOOK(CRUD,identx=NewBook,colx=NewBook,dbcol=book=b,dbcol=media=m,dbcol=person=p)=
   select %b.MEDIA_ID @id^^id, %b.ISBN @newIsbn
-         , %m.TITLE @title, %m.AUTHOR @author.id
+         , %m.TITLE @title, %m.AUTHOR @author.id^^id
          {? :author^^call=toInit | , %p.FIRST_NAME @author.firstName, %p.LAST_NAME @author.lastName, %p.DATE_OF_BIRTH @author.dateOfBirth, %p.SSN @author.ssn }
   from %%BOOK b
   join %%MEDIA m on %b.MEDIA_ID = %m.ID
@@ -87,7 +88,7 @@ INSERT_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
 ;
 
 GET_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact=c,dbcol=person=p)=
-  select %c.ID @id^^id, %c.PERSON_ID @person.id, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber^phone
+  select %c.ID @id^^id, %c.PERSON_ID @person.id^^id, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber^phone
          {? :person^^call=toInit | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.SSN @person.ssn }
   from %%CONTACT c
   {? :person^^call=toInit | left join %%PERSON p on %c.PERSON_ID = %p.ID }
@@ -124,7 +125,7 @@ INSERT_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
 ;
 
 GET_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails=b,dbcol=subscriber=s)=
-  select %b.CC_NUMBER @ccNumber, %b.ID @id^^id, %b.SUBSCRIBER @subscriber.id, %b.TYPE @type
+  select %b.CC_NUMBER @ccNumber, %b.ID @id^^id, %b.SUBSCRIBER @subscriber.id^^id, %b.TYPE @type
          {? :subscriber^^call=toInit | , %s.LIBRARY @subscriber.library.id, %s.CONTACT @subscriber.contact.id, %s.NAME @subscriber.name }
   from %%BILLING_DETAILS b
   {? :subscriber^^call=toInit | left join %%SUBSCRIBER s on %b.SUBSCRIBER = %s.ID }
@@ -194,7 +195,7 @@ INSERT_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
 ;
 
 GET_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media=m,dbcol=person=p)=
-  select %m.ID @id^^id, %m.TITLE @title, %m.AUTHOR @author.id
+  select %m.ID @id^^id, %m.TITLE @title, %m.AUTHOR @author.id^^id
          {? :author^^call=toInit | , %p.FIRST_NAME @author.firstName, %p.LAST_NAME @author.lastName, %p.DATE_OF_BIRTH @author.dateOfBirth, %p.SSN @author.ssn }
   from %%MEDIA m
   {? :author^^call=toInit | left join %%PERSON p on %m.AUTHOR = %p.ID }
@@ -230,7 +231,7 @@ INSERT_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
 
 GET_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie=m,dbcol=media=m1,dbcol=person=p)=
   select %m.MEDIA_ID @id^^id, %m.URLIMDB @urlimdb, %m.PLAYLENGTH @playlength
-         , %m1.TITLE @title, %m1.AUTHOR @author.id
+         , %m1.TITLE @title, %m1.AUTHOR @author.id^^id
          {? :author^^call=toInit | , %p.FIRST_NAME @author.firstName, %p.LAST_NAME @author.lastName, %p.DATE_OF_BIRTH @author.dateOfBirth, %p.SSN @author.ssn }
   from %%MOVIE m
   join %%MEDIA m1 on %m.MEDIA_ID = %m1.ID
@@ -340,7 +341,7 @@ INSERT_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
 ;
 
 GET_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber=s,dbcol=library=l,dbcol=billingDetails=b,dbcol=contact=c)=
-  select %s.ID @id^^id, %s.LIBRARY @library.id, %s.CONTACT @contact.id, %s.NAME @name
+  select %s.ID @id^^id, %s.LIBRARY @library.id^^id, %s.CONTACT @contact.id^^id, %s.NAME @name
          {? :library^^call=toInit | , %l.NAME @library.name }
          {? :billingDetails^^call=toInit | , %b.SUBSCRIBER @billingDetails.subscriber.id, %b.TYPE @billingDetails.type }
          {? :contact^^call=toInit | , %c.PERSON_ID @contact.person.id, %c.ADDRESS @contact.address, %c.PHONE_NUMBER @contact.phoneNumber^phone }
