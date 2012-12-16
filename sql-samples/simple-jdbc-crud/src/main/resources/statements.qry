@@ -343,7 +343,7 @@ INSERT_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
 GET_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber=s,dbcol=library=l,dbcol=billingDetails=b,dbcol=contact=c)=
   select %s.ID @id^^id, %s.LIBRARY @library.id^^id, %s.CONTACT @contact.id^^id, %s.NAME @name
          {? :library^^call=toInit | , %l.NAME @library.name }
-         {? :billingDetails^^call=toInit | , %b.ID @billingDetails.id^^id, %b.SUBSCRIBER @billingDetails.subscriber.id, %b.TYPE @billingDetails.type }
+         {? :billingDetails^^call=toInit | , %b.TYPE @billingDetails==discriminator.type, %b.ID @billingDetails.id^^id, %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
          {? :contact^^call=toInit | , %c.PERSON_ID @contact.person.id, %c.ADDRESS @contact.address, %c.PHONE_NUMBER @contact.phoneNumber^phone }
   from %%SUBSCRIBER s
   {? :library^^call=toInit | left join %%LIBRARY l on %s.LIBRARY = %l.ID }

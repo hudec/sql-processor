@@ -1,5 +1,7 @@
 package org.sqlproc.sample.simple.dao;
 
+import java.util.Map;
+
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlSession;
@@ -27,6 +29,13 @@ public class SubscriberDao extends BaseDao {
     public Subscriber getSubscriber(Subscriber subscriber) {
         SqlCrudEngine sqlEngine = getCrudEngine("GET_SUBSCRIBER");
         Subscriber s = sqlEngine.get(session, Subscriber.class, subscriber);
+        logger.info("get subscriber: " + s);
+        return s;
+    }
+
+    public Subscriber getSubscriber(Subscriber subscriber, Map<String, Class<?>> moreResultClasses) {
+        SqlCrudEngine sqlEngine = getCrudEngine("GET_SUBSCRIBER");
+        Subscriber s = sqlEngine.get(session, Subscriber.class, subscriber, null, moreResultClasses);
         logger.info("get subscriber: " + s);
         return s;
     }

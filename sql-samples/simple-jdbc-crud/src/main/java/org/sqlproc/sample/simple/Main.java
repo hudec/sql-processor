@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.slf4j.Logger;
@@ -424,7 +426,7 @@ public class Main {
         c = main.getContactDao().updateContact(contact);
         Assert.assertNotNull(c);
 
-        creditCard1.setType("DD");
+        creditCard1.setCcNumber(789L);
         c1 = main.getCreditCardDao().updateCreditCard(creditCard1);
         Assert.assertNotNull(c1);
 
@@ -449,6 +451,7 @@ public class Main {
         Assert.assertEquals("Andrejík", p.getFirstName());
         Assert.assertEquals("Andrejček", p.getLastName());
         Assert.assertEquals("123456789", p.getSsn());
+        Assert.assertTrue(p.getContacts().size() == 0);
 
         // update also with null values
         person = new Person();
@@ -458,13 +461,18 @@ public class Main {
         p = main.getPersonDao().updatePerson(person);
         Assert.assertNotNull(p);
 
+        // get
         person = new Person();
         person.setId(andrej.getId());
+        person.setInit(Person.Association.contacts);
         p = main.getPersonDao().getPerson(person);
         Assert.assertNotNull(p);
         Assert.assertEquals("Andrioša", p.getFirstName());
         Assert.assertEquals("Andrejček", p.getLastName());
         Assert.assertNull(p.getSsn());
+        Assert.assertTrue(p.getContacts().size() == 1);
+        Assert.assertEquals("Andrej address 1", p.getContacts().get(0).getAddress());
+        Assert.assertEquals(new PhoneNumber(444, 555, 6666), p.getContacts().get(0).getPhoneNumber());
 
         // get
         book = new NewBook();
@@ -502,7 +510,7 @@ public class Main {
         creditCard.setInit(CreditCard.Association.subscriber);
         c1 = main.getCreditCardDao().getCreditCard(creditCard);
         Assert.assertNotNull(c1);
-        Assert.assertEquals("DD", c1.getType());
+        Assert.assertEquals(new Long(789), c1.getCcNumber());
         Assert.assertNotNull(c1.getSubscriber());
         Assert.assertEquals("Janik Subscr Updated", c1.getSubscriber().getName());
 
@@ -520,25 +528,28 @@ public class Main {
 
         subscriber = new Subscriber();
         subscriber.setId(janikS.getId());
+        s = main.getSubscriberDao().getSubscriber(subscriber);
+        Assert.assertNotNull(s);
+        Assert.assertEquals("Janik Subscr Updated", s.getName());
+        Assert.assertNull(s.getLibrary().getName());
+        Assert.assertNull(s.getContact().getAddress());
+
         subscriber.setInit(Subscriber.Association.contact);
         subscriber.setInit(Subscriber.Association.library);
         s = main.getSubscriberDao().getSubscriber(subscriber);
         Assert.assertNotNull(s);
-        Assert.assertEquals("Janik Subscr Updated", s.getName());
-        Assert.assertNotNull(s.getLibrary());
-        Assert.assertNotNull(s.getContact());
         Assert.assertEquals("Alexandria Library Updated", s.getLibrary().getName());
         Assert.assertEquals("Jan address 1", s.getContact().getAddress());
 
-        // get object tree
-        // person = new Person();
-        // person.setId(andrej.getId());
-        // person.setInit(Person.Association.contacts);
-        // p = main.getPersonDao().getPerson(person);
-        // Assert.assertNotNull(p);
-        // Assert.assertEquals("Andrejček", p.getLastName());
-        // Assert.assertTrue(p.getContacts().size() == 1);
-        // System.out.println("Contact for Andrej " + p.getContacts().get(0));
+        subscriber.setInit(Subscriber.Association.billingDetails);
+        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
+        moreResultClasses.put("BA", BankAccount.class);
+        moreResultClasses.put("CC", CreditCard.class);
+        s = main.getSubscriberDao().getSubscriber(subscriber, moreResultClasses);
+        Assert.assertNotNull(s);
+        Assert.assertNotNull(s.getLibrary());
+        Assert.assertNotNull(s.getContact());
+        Assert.assertTrue(s.getBillingDetails().size() == 1);
 
         // // queries
         // list = main.listAll();
