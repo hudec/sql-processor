@@ -163,7 +163,7 @@ INSERT_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
 
 GET_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library=l,dbcol=subscriber=s)=
   select %l.ID @id^^id, %l.NAME @name
-         {? :subscribers^^call=toInit | , %s.LIBRARY @subscribers.library.id, %s.CONTACT @subscribers.contact.id, %s.NAME @subscribers.name }
+         {? :subscribers^^call=toInit | , %s.ID @subscribers.id^^id, %s.LIBRARY @subscribers.library.id, %s.CONTACT @subscribers.contact.id, %s.NAME @subscribers.name }
   from %%LIBRARY l
   {? :subscribers^^call=toInit | left join %%SUBSCRIBER s on %l.ID = %s.LIBRARY }
   {= where
@@ -270,7 +270,7 @@ INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
 
 GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person=p,dbcol=contact=c)=
   select %p.ID @id^^id, %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
-         {? :contacts^^call=toInit | , %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber^phone }
+         {? :contacts^^call=toInit | , %c.ID @contacts.id^^id, %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber^phone }
   from %%PERSON p
   {? :contacts^^call=toInit | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
   {= where
@@ -343,7 +343,7 @@ INSERT_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
 GET_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber=s,dbcol=library=l,dbcol=billingDetails=b,dbcol=contact=c)=
   select %s.ID @id^^id, %s.LIBRARY @library.id^^id, %s.CONTACT @contact.id^^id, %s.NAME @name
          {? :library^^call=toInit | , %l.NAME @library.name }
-         {? :billingDetails^^call=toInit | , %b.SUBSCRIBER @billingDetails.subscriber.id, %b.TYPE @billingDetails.type }
+         {? :billingDetails^^call=toInit | , %b.ID @billingDetails.id^^id, %b.SUBSCRIBER @billingDetails.subscriber.id, %b.TYPE @billingDetails.type }
          {? :contact^^call=toInit | , %c.PERSON_ID @contact.person.id, %c.ADDRESS @contact.address, %c.PHONE_NUMBER @contact.phoneNumber^phone }
   from %%SUBSCRIBER s
   {? :library^^call=toInit | left join %%LIBRARY l on %s.LIBRARY = %l.ID }

@@ -138,7 +138,7 @@ public class TableMetaConverter extends TablePojoConverter {
                     if (table.toInit)
                         buffer.append("{? :").append(table.attrName).append("^^call=toInit | ");
                     first = selectColumns(buffer, table.tableName, first, header.statementName, table.tablePrefix,
-                            table.attrName, true, header.pkTables);
+                            table.attrName, !table.one2many, header.pkTables);
                     if (table.toInit)
                         buffer.append(" }");
                 }
@@ -466,6 +466,7 @@ public class TableMetaConverter extends TablePojoConverter {
         String attrName;
         String oppositePrefix;
         boolean toInit;
+        boolean one2many;
 
         void setNames(String pojo) {
             tableName = tableNames.get(pojo);
@@ -557,6 +558,7 @@ public class TableMetaConverter extends TablePojoConverter {
                     table.attrName = attr.getName();
                     table.oppositePrefix = header.table.tablePrefix;
                     table.toInit = attr.toInit();
+                    table.one2many = true;
                     header.pkTables.put(pentry.getKey(), table);
                     if (debug)
                         System.out.println("444 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
@@ -592,6 +594,7 @@ public class TableMetaConverter extends TablePojoConverter {
                         table.attrName = attr.getName();
                         table.oppositePrefix = header.extendTable.tablePrefix;
                         table.toInit = attr.toInit();
+                        table.one2many = true;
                         header.pkTables.put(pentry.getKey(), table);
                         if (debug)
                             System.out.println("666 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
