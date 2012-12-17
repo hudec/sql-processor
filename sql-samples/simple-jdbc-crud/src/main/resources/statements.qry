@@ -268,11 +268,14 @@ INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   {= values (:id^^idsel=SEL1, :firstName, :lastName, :dateOfBirth, :ssn) }
 ;
 
-GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person=p,dbcol=contact=c)=
+GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person=p,dbcol=contact=c,dbcol=personLibrary=p2,dbcol=media=m,dbcol=book=b,dbcol=movie=m3)=
   select %p.ID @id^^id, %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
          {? :contacts^^call=toInit | , %c.ID @contacts.id^^id, %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber^phone }
+//         {? :library^^call=toInit | , %m.ID @library.id^^id, %m.AUTHOR @library.author.id, %m.TITLE @library.title }
+         {? :library^^call=toInit | , %b.MEDIA_ID @library==book.id^^id, %m3.MEDIA_ID @library==movie.id^^id, %m.AUTHOR @library.author.id, %m.TITLE @library.title, %b.ISBN @library.newIsbn, %m3.PLAYLENGTH @library.playlength, %m3.URLIMDB @library.urlimdb}
   from %%PERSON p
   {? :contacts^^call=toInit | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+  {? :library^^call=toInit | left join %%PERSON_LIBRARY p2 on %p.ID = %p2.PERSON_ID join %%MEDIA m on %p2.MEDIA_ID = %m.ID left join %%BOOK b on %b.MEDIA_ID = %m.ID left join %%MOVIE m3 on %m3.MEDIA_ID = %m.ID }
   {= where
     {& %p.ID = :id }
     {& %p.FIRST_NAME = :firstName }

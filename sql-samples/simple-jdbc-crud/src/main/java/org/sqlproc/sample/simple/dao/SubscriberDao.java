@@ -42,13 +42,6 @@ public class SubscriberDao extends BaseDao {
         return s;
     }
 
-    public Subscriber getSubscriber(Subscriber subscriber, Map<String, Class<?>> moreResultClasses) {
-        SqlCrudEngine sqlEngine = getCrudEngine("GET_SUBSCRIBER");
-        Subscriber s = sqlEngine.get(session, Subscriber.class, subscriber, null, moreResultClasses);
-        logger.info("get subscriber: " + s);
-        return s;
-    }
-
     public Subscriber updateSubscriber(Subscriber subscriber) {
         SqlCrudEngine sqlEngine = getCrudEngine("UPDATE_SUBSCRIBER");
         int count = sqlEngine.update(session, subscriber);

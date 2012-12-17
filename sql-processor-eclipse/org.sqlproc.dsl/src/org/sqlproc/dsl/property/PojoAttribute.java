@@ -20,6 +20,8 @@ public class PojoAttribute {
     private Map<String, String> fkColumns = new LinkedHashMap<String, String>();
     private String oneToManyColumn;
     private String oneToManyTable;
+    private String manyToManyColumn;
+    private String manyToManyTable;
 
     public PojoAttribute() {
     }
@@ -126,6 +128,22 @@ public class PojoAttribute {
 
     public void setOneToManyTable(String oneToManyTable) {
         this.oneToManyTable = oneToManyTable;
+    }
+
+    public String getManyToManyColumn() {
+        return manyToManyColumn;
+    }
+
+    public void setManyToManyColumn(String manyToManyColumn) {
+        this.manyToManyColumn = manyToManyColumn;
+    }
+
+    public String getManyToManyTable() {
+        return manyToManyTable;
+    }
+
+    public void setManyToManyTable(String manyToManyTable) {
+        this.manyToManyTable = manyToManyTable;
     }
 
     public boolean isDef() {

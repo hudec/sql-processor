@@ -1,8 +1,13 @@
 package org.sqlproc.sample.simple.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.sample.simple.model.Movie;
+import org.sqlproc.sample.simple.model.NewBook;
 import org.sqlproc.sample.simple.model.Person;
 
 public class PersonDao extends BaseDao {
@@ -20,7 +25,13 @@ public class PersonDao extends BaseDao {
 
     public Person getPerson(Person person) {
         SqlCrudEngine sqlEngine = getCrudEngine("GET_PERSON");
-        Person p = sqlEngine.get(session, Person.class, person);
+        Map<String, Class<?>> moreResultClasses = null;
+        if (person.toInit(Person.Association.library)) {
+            moreResultClasses = new HashMap<String, Class<?>>();
+            moreResultClasses.put("movie", Movie.class);
+            moreResultClasses.put("book", NewBook.class);
+        }
+        Person p = sqlEngine.get(session, Person.class, person, null, moreResultClasses);
         logger.info("get person: " + p);
         return p;
     }
