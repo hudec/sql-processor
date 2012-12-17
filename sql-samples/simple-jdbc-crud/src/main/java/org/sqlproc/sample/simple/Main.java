@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Assert;
 import org.slf4j.Logger;
@@ -542,10 +540,7 @@ public class Main {
         Assert.assertEquals("Jan address 1", s.getContact().getAddress());
 
         subscriber.setInit(Subscriber.Association.billingDetails);
-        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
-        moreResultClasses.put("BA", BankAccount.class);
-        moreResultClasses.put("CC", CreditCard.class);
-        s = main.getSubscriberDao().getSubscriber(subscriber, moreResultClasses);
+        s = main.getSubscriberDao().getSubscriber(subscriber);
         Assert.assertNotNull(s);
         Assert.assertNotNull(s.getLibrary());
         Assert.assertNotNull(s.getContact());

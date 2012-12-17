@@ -1,10 +1,13 @@
 package org.sqlproc.sample.simple.dao;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.sample.simple.model.BankAccount;
+import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.Library;
 import org.sqlproc.sample.simple.model.Subscriber;
 
@@ -28,7 +31,13 @@ public class SubscriberDao extends BaseDao {
 
     public Subscriber getSubscriber(Subscriber subscriber) {
         SqlCrudEngine sqlEngine = getCrudEngine("GET_SUBSCRIBER");
-        Subscriber s = sqlEngine.get(session, Subscriber.class, subscriber);
+        Map<String, Class<?>> moreResultClasses = null;
+        if (subscriber.toInit(Subscriber.Association.billingDetails)) {
+            moreResultClasses = new HashMap<String, Class<?>>();
+            moreResultClasses.put("BA", BankAccount.class);
+            moreResultClasses.put("CC", CreditCard.class);
+        }
+        Subscriber s = sqlEngine.get(session, Subscriber.class, subscriber, null, moreResultClasses);
         logger.info("get subscriber: " + s);
         return s;
     }
