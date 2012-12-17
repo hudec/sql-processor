@@ -550,6 +550,8 @@ public class Main {
         Assert.assertNotNull(s.getLibrary());
         Assert.assertNotNull(s.getContact());
         Assert.assertTrue(s.getBillingDetails().size() == 1);
+        Assert.assertTrue(s.getBillingDetails().get(0) instanceof CreditCard);
+        Assert.assertEquals(new Long(789), ((CreditCard) s.getBillingDetails().get(0)).getCcNumber());
 
         // // queries
         // list = main.listAll();

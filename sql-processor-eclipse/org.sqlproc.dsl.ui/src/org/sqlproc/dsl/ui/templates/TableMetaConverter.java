@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -139,6 +140,16 @@ public class TableMetaConverter extends TablePojoConverter {
                         buffer.append("{? :").append(table.attrName).append("^^call=toInit | ");
                     first = selectColumns(buffer, table.tableName, first, header.statementName, table.tablePrefix,
                             table.attrName, !table.one2many, header.pkTables, table.discriminator);
+                    if (table.discriminator != null && inheritance.containsKey(table.tableName)) {
+                        for (Entry<String, Map<String, List<String>>> ientry : inheritance.get(table.tableName)
+                                .entrySet()) {
+                            for (Entry<String, List<String>> tentry : ientry.getValue().entrySet()) {
+                                String tableName = tentry.getKey();
+                                first = selectColumns(buffer, tableName, first, header.statementName,
+                                        table.tablePrefix, table.attrName, true, Collections.EMPTY_MAP, null);
+                            }
+                        }
+                    }
                     if (table.toInit)
                         buffer.append(" }");
                 }
@@ -307,20 +318,22 @@ public class TableMetaConverter extends TablePojoConverter {
             String pojoPrefix, boolean notPrimaryKeys, Map<String, Table> pkTables, String discriminator) {
         if (discriminator != null) {
             Attribute attr = getStatementAttribute(pojo, discriminator, pojos.get(pojo).get(discriminator), false);
-            first = selectColumns0(discriminator, attr, buffer, pojo, first, statementName, tablePrefix, pojoPrefix,
+            first = selectColumn(discriminator, attr, buffer, pojo, first, statementName, tablePrefix, pojoPrefix,
                     notPrimaryKeys, pkTables, discriminator);
         }
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             if (discriminator != null && discriminator.equals(pentry.getKey()))
                 continue;
             Attribute attr = getStatementAttribute(pojo, pentry.getKey(), pentry.getValue(), false);
-            first = selectColumns0(pentry.getKey(), attr, buffer, pojo, first, statementName, tablePrefix, pojoPrefix,
-                    notPrimaryKeys, pkTables, discriminator);
+            first = selectColumn(pentry.getKey(), attr, buffer, pojo, first, statementName, tablePrefix, pojoPrefix,
+                    notPrimaryKeys, pkTables, null);
+        }
+        if (discriminator != null) {
         }
         return first;
     }
 
-    boolean selectColumns0(String colname, Attribute attr, StringBuilder buffer, String pojo, boolean first,
+    boolean selectColumn(String colname, Attribute attr, StringBuilder buffer, String pojo, boolean first,
             String statementName, String tablePrefix, String pojoPrefix, boolean notPrimaryKeys,
             Map<String, Table> pkTables, String discriminator) {
         if (attr == null)
@@ -342,7 +355,11 @@ public class TableMetaConverter extends TablePojoConverter {
         buffer.append(colname);
         buffer.append(" @");
         if (pojoPrefix != null)
-            buffer.append(pojoPrefix).append(".");
+            buffer.append(pojoPrefix);
+        if (discriminator != null)
+            buffer.append("==discriminator");
+        if (pojoPrefix != null)
+            buffer.append(".");
         buffer.append(name);
         if (attr.attribute.getPkTable() != null) {
             buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
@@ -558,8 +575,6 @@ public class TableMetaConverter extends TablePojoConverter {
                     table.attrName = attr.getName();
                     table.oppositePrefix = header.table.tablePrefix;
                     table.toInit = attr.toInit();
-                    if (inheritanceColumns.containsKey(pojo))
-                        table.discriminator = inheritanceColumns.get(pojo);
                     header.pkTables.put(pentry.getKey(), table);
                     if (debug)
                         System.out.println("333 " + pentry.getKey() + " " + table + " " + attr);
@@ -576,6 +591,8 @@ public class TableMetaConverter extends TablePojoConverter {
                     table.oppositePrefix = header.table.tablePrefix;
                     table.toInit = attr.toInit();
                     table.one2many = true;
+                    if (inheritanceColumns.containsKey(pentry.getKey()))
+                        table.discriminator = inheritanceColumns.get(pentry.getKey());
                     header.pkTables.put(pentry.getKey(), table);
                     if (debug)
                         System.out.println("444 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
@@ -612,8 +629,8 @@ public class TableMetaConverter extends TablePojoConverter {
                         table.oppositePrefix = header.extendTable.tablePrefix;
                         table.toInit = attr.toInit();
                         table.one2many = true;
-                        if (inheritanceColumns.containsKey(pojo))
-                            table.discriminator = inheritanceColumns.get(pojo);
+                        if (inheritanceColumns.containsKey(pentry.getKey()))
+                            table.discriminator = inheritanceColumns.get(pentry.getKey());
                         header.pkTables.put(pentry.getKey(), table);
                         if (debug)
                             System.out.println("666 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
