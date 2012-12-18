@@ -138,8 +138,14 @@ public class TableMetaConverter extends TablePojoConverter {
                         buffer.append("\n         ");
                     if (table.toInit)
                         buffer.append("{? :").append(table.attrName).append("^^call=toInit | ");
-                    first = selectColumns(buffer, table.tableName, first, header.statementName, table.tablePrefix,
-                            table.attrName, !table.one2many, header.pkTables, table.discriminator);
+                    if (table.many2many) {
+                        Table table2 = header.pkTables2.get(entry.getKey());
+                        first = selectColumns(buffer, table2.tableName, first, header.statementName,
+                                table2.tablePrefix, table.attrName, false, Collections.EMPTY_MAP, null);
+                    } else {
+                        first = selectColumns(buffer, table.tableName, first, header.statementName, table.tablePrefix,
+                                table.attrName, !table.one2many, header.pkTables, table.discriminator);
+                    }
                     if (table.discriminator != null && inheritance.containsKey(table.tableName)) {
                         for (Entry<String, Map<String, List<String>>> ientry : inheritance.get(table.tableName)
                                 .entrySet()) {
@@ -179,6 +185,15 @@ public class TableMetaConverter extends TablePojoConverter {
                     buffer.append(table.primaryKey);
                     buffer.append(" = %").append(table.tablePrefix).append(".");
                     buffer.append(table.tableKey);
+                    if (header.pkTables2.containsKey(entry.getKey())) {
+                        Table table2 = header.pkTables2.get(entry.getKey());
+                        buffer.append(" left join %%").append(table2.tableName);
+                        buffer.append(" ").append(table2.tablePrefix);
+                        buffer.append(" on %").append(table2.oppositePrefix).append(".");
+                        buffer.append(table2.primaryKey);
+                        buffer.append(" = %").append(table2.tablePrefix).append(".");
+                        buffer.append(table2.tableKey);
+                    }
                     if (table.toInit)
                         buffer.append(" }");
                 }
@@ -619,8 +634,8 @@ public class TableMetaConverter extends TablePojoConverter {
                     header.pkTables.put(pentry.getKey(), table);
                     Table table2 = new Table();
                     table2.setNames(attr.getManyToManyTable());
-                    table2.primaryKey = findPKeyName(table.realTableName);
-                    table2.tableKey = findM2mKeyName(table.realTableName, table2.realTableName);
+                    table2.tableKey = findPKeyName(table.realTableName);
+                    table2.primaryKey = findM2mKeyName(table.realTableName, table2.realTableName);
                     if (table2.tableKey == null) {
                         System.out.println("Error for findM2mKeyName " + table2.realTableName + " "
                                 + table.realTableName);
@@ -631,7 +646,8 @@ public class TableMetaConverter extends TablePojoConverter {
                     table2.oppositePrefix = table.tablePrefix;
                     header.pkTables2.put(pentry.getKey(), table2);
                     if (debug)
-                        System.out.println("555 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
+                        System.out.println("555 " + pentry.getKey() + " " + table + " " + attr + " " + attr1 + " "
+                                + table2);
                 }
             }
             if (header.extendTable.tableName != null) {
@@ -692,8 +708,8 @@ public class TableMetaConverter extends TablePojoConverter {
                         header.pkTables.put(pentry.getKey(), table);
                         Table table2 = new Table();
                         table2.setNames(attr.getManyToManyTable());
-                        table2.primaryKey = findPKeyName(table.realTableName);
-                        table2.tableKey = findM2mKeyName(table2.realTableName, table.realTableName);
+                        table2.tableKey = findPKeyName(table.realTableName);
+                        table2.primaryKey = findM2mKeyName(table2.realTableName, table.realTableName);
                         if (table2.tableKey == null) {
                             System.out.println("Error for findM2mKeyName " + table2.realTableName + " "
                                     + table.realTableName);
@@ -704,7 +720,8 @@ public class TableMetaConverter extends TablePojoConverter {
                         table2.oppositePrefix = table.tablePrefix;
                         header.pkTables2.put(pentry.getKey(), table2);
                         if (debug)
-                            System.out.println("888 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
+                            System.out.println("888 " + pentry.getKey() + " " + table + " " + attr + " " + attr1 + " "
+                                    + table2);
                     }
                 }
             }
