@@ -16,7 +16,9 @@ public class PojoAttribute {
     private String pkTable;
     private String pkColumn;
     private String parentTable;
+    private String m2mTable;
     private Map<String, String> fkTables = new LinkedHashMap<String, String>();
+    private Map<String, String> m2Tables = new LinkedHashMap<String, String>();
     private Map<String, String> fkColumns = new LinkedHashMap<String, String>();
     private String oneToManyColumn;
     private String oneToManyTable;
@@ -98,12 +100,28 @@ public class PojoAttribute {
         this.parentTable = parentTable;
     }
 
+    public String getM2mTable() {
+        return m2mTable;
+    }
+
+    public void setM2mTable(String m2mTable) {
+        this.m2mTable = m2mTable;
+    }
+
     public Map<String, String> getFkTables() {
         return fkTables;
     }
 
     public void setFkTables(Map<String, String> fkTables) {
         this.fkTables = fkTables;
+    }
+
+    public Map<String, String> getM2Tables() {
+        return m2Tables;
+    }
+
+    public void setM2Tables(Map<String, String> m2Tables) {
+        this.m2Tables = m2Tables;
     }
 
     public Map<String, String> getFkColumns() {
@@ -179,12 +197,18 @@ public class PojoAttribute {
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "PojoAttribute [primitive=" + primitive + ", required=" + required + ", primaryKey=" + primaryKey
                 + ", name=" + name + ", className=" + className + ", dependencyClassName=" + dependencyClassName
-                + ", pkTable=" + pkTable + ", pkColumn=" + pkColumn + ", parentTable=" + parentTable + ", fkTables="
-                + fkTables + ", fkColumns=" + fkColumns + ", oneToManyColumn=" + oneToManyColumn + ", oneToManyTable="
-                + oneToManyTable + "]";
+                + ", pkTable=" + pkTable + ", pkColumn=" + pkColumn + ", parentTable=" + parentTable + ", m2mTable="
+                + m2mTable + ", fkTables=" + fkTables + ", m2Tables=" + m2Tables + ", fkColumns=" + fkColumns
+                + ", oneToManyColumn=" + oneToManyColumn + ", oneToManyTable=" + oneToManyTable + ", manyToManyColumn="
+                + manyToManyColumn + ", manyToManyTable=" + manyToManyTable + "]";
     }
 }

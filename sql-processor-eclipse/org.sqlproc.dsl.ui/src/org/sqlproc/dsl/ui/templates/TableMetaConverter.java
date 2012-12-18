@@ -21,6 +21,8 @@ import org.sqlproc.dsl.property.PojoAttribute;
 
 public class TableMetaConverter extends TablePojoConverter {
 
+    private boolean debug = false;
+
     protected Artifacts artifacts;
     protected IScopeProvider scopeProvider;
 
@@ -34,8 +36,6 @@ public class TableMetaConverter extends TablePojoConverter {
     enum StatementType {
         INSERT, GET, UPDATE, DELETE, SELECT
     }
-
-    boolean debug = false;
 
     public TableMetaConverter() {
         super();
