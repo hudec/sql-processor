@@ -7,7 +7,6 @@ SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity(); 
 
 
-
 INSERT_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
   insert into %%BILLING_DETAILS (%BA_ACCOUNT, %SUBSCRIBER, %TYPE)
   {= values (:id^^idsel=SEL1, :baAccount, :subscriber.id, :type) }
@@ -268,14 +267,13 @@ INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   {= values (:id^^idsel=SEL1, :firstName, :lastName, :dateOfBirth, :ssn) }
 ;
 
-GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person=p,dbcol=contact=c,dbcol=personLibrary=p2,dbcol=media=m,dbcol=book=b,dbcol=movie=m3)=
+GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person=p,dbcol=personLibrary=p1,dbcol=media=m,dbcol=contact=c)=
   select %p.ID @id^^id, %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
+         {? :library^^call=toInit | , %p1.PERSON_ID @library.personId, %p1.MEDIA_ID @library.mediaId }
          {? :contacts^^call=toInit | , %c.ID @contacts.id^^id, %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber^phone }
-//         {? :library^^call=toInit | , %m.ID @library.id^^id, %m.AUTHOR @library.author.id, %m.TITLE @library.title }
-         {? :library^^call=toInit | , %b.MEDIA_ID @library==book.id^^id, %m3.MEDIA_ID @library==movie.id^^id, %m.AUTHOR @library.author.id, %m.TITLE @library.title, %b.ISBN @library.newIsbn, %m3.PLAYLENGTH @library.playlength, %m3.URLIMDB @library.urlimdb}
   from %%PERSON p
+  {? :library^^call=toInit | left join %%PERSON_LIBRARY p1 on %p.ID = %p1.PERSON_ID }
   {? :contacts^^call=toInit | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
-  {? :library^^call=toInit | left join %%PERSON_LIBRARY p2 on %p.ID = %p2.PERSON_ID join %%MEDIA m on %p2.MEDIA_ID = %m.ID left join %%BOOK b on %b.MEDIA_ID = %m.ID left join %%MOVIE m3 on %m3.MEDIA_ID = %m.ID }
   {= where
     {& %p.ID = :id }
     {& %p.FIRST_NAME = :firstName }

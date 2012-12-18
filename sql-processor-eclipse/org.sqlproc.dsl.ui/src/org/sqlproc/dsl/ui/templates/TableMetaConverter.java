@@ -21,7 +21,7 @@ import org.sqlproc.dsl.property.PojoAttribute;
 
 public class TableMetaConverter extends TablePojoConverter {
 
-    private boolean debug = false;
+    private boolean debug = true;
 
     protected Artifacts artifacts;
     protected IScopeProvider scopeProvider;
@@ -599,13 +599,18 @@ public class TableMetaConverter extends TablePojoConverter {
                     if (debug)
                         System.out.println("444 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
                 } else if (attr.getManyToManyColumn() != null) {
-                    PojoAttribute attr1 = pojos.get(header.table.realTableName).get(attr.getOneToManyColumn());
+                    PojoAttribute attr1 = pojos.get(header.table.realTableName).get(attr.getManyToManyColumn());
                     if (header.table.tablePrefix == null)
                         header.table.tablePrefix = newPrefix(prefixes, header.table);
                     Table table = new Table();
                     table.setNames(attr1.getM2Tables().get(attr.getManyToManyTable()));
                     table.primaryKey = attr.getManyToManyColumn();
-                    table.tableKey = findM2mKey(table.realTableName, header.table.realTableName).getName();
+                    table.tableKey = findM2mKeyName(table.realTableName, header.table.realTableName);
+                    if (table.tableKey == null) {
+                        System.out.println("Error for findM2mKeyName " + table.realTableName + " "
+                                + header.table.realTableName);
+                        continue;
+                    }
                     table.tablePrefix = newPrefix(prefixes, table);
                     table.attrName = attr.getName();
                     table.oppositePrefix = header.table.tablePrefix;
@@ -614,8 +619,13 @@ public class TableMetaConverter extends TablePojoConverter {
                     header.pkTables.put(pentry.getKey(), table);
                     Table table2 = new Table();
                     table2.setNames(attr.getManyToManyTable());
-                    table2.primaryKey = findPrimKey(table.realTableName).getName();
-                    table2.tableKey = findM2mKey(table2.realTableName, table.realTableName).getName();
+                    table2.primaryKey = findPKeyName(table.realTableName);
+                    table2.tableKey = findM2mKeyName(table.realTableName, table2.realTableName);
+                    if (table2.tableKey == null) {
+                        System.out.println("Error for findM2mKeyName " + table2.realTableName + " "
+                                + table.realTableName);
+                        continue;
+                    }
                     table2.tablePrefix = newPrefix(prefixes, table2);
                     table2.attrName = null;
                     table2.oppositePrefix = table.tablePrefix;
@@ -645,7 +655,7 @@ public class TableMetaConverter extends TablePojoConverter {
                         PojoAttribute attr1 = pojos.get(header.extendTable.realTableName)
                                 .get(attr.getOneToManyColumn());
                         if (header.extendTable.tablePrefix == null)
-                            header.extendTable.tablePrefix = newPrefix(prefixes, header.table);
+                            header.extendTable.tablePrefix = newPrefix(prefixes, header.extendTable);
                         Table table = new Table();
                         table.setNames(attr.getOneToManyTable());
                         table.primaryKey = attr.getOneToManyColumn();
@@ -661,22 +671,38 @@ public class TableMetaConverter extends TablePojoConverter {
                         if (debug)
                             System.out.println("777 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
                     } else if (attr.getManyToManyColumn() != null) {
-                        PojoAttribute attr1 = pojos.get(header.extendTable.realTableName)
-                                .get(attr.getOneToManyColumn());
+                        PojoAttribute attr1 = pojos.get(header.extendTable.realTableName).get(
+                                attr.getManyToManyColumn());
                         if (header.extendTable.tablePrefix == null)
-                            header.extendTable.tablePrefix = newPrefix(prefixes, header.table);
+                            header.extendTable.tablePrefix = newPrefix(prefixes, header.extendTable);
                         Table table = new Table();
-                        table.setNames(attr.getOneToManyTable());
-                        table.primaryKey = attr.getOneToManyColumn();
-                        table.tableKey = attr1.getFkColumns().get(attr.getOneToManyTable());
+                        table.setNames(attr1.getM2Tables().get(attr.getManyToManyTable()));
+                        table.primaryKey = attr.getManyToManyColumn();
+                        table.tableKey = findM2mKeyName(table.realTableName, header.extendTable.realTableName);
+                        if (table.tableKey == null) {
+                            System.out.println("Error for findM2mKeyName " + table.realTableName + " "
+                                    + header.extendTable.realTableName);
+                            continue;
+                        }
                         table.tablePrefix = newPrefix(prefixes, table);
                         table.attrName = attr.getName();
                         table.oppositePrefix = header.extendTable.tablePrefix;
                         table.toInit = attr.toInit();
-                        table.one2many = true;
-                        if (inheritanceColumns.containsKey(pentry.getKey()))
-                            table.discriminator = inheritanceColumns.get(pentry.getKey());
+                        table.many2many = true;
                         header.pkTables.put(pentry.getKey(), table);
+                        Table table2 = new Table();
+                        table2.setNames(attr.getManyToManyTable());
+                        table2.primaryKey = findPKeyName(table.realTableName);
+                        table2.tableKey = findM2mKeyName(table2.realTableName, table.realTableName);
+                        if (table2.tableKey == null) {
+                            System.out.println("Error for findM2mKeyName " + table2.realTableName + " "
+                                    + table.realTableName);
+                            continue;
+                        }
+                        table2.tablePrefix = newPrefix(prefixes, table2);
+                        table2.attrName = null;
+                        table2.oppositePrefix = table.tablePrefix;
+                        header.pkTables2.put(pentry.getKey(), table2);
                         if (debug)
                             System.out.println("888 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
                     }
@@ -711,10 +737,17 @@ public class TableMetaConverter extends TablePojoConverter {
                 buffer.append("=").append(header.extendTable.tablePrefix);
             }
             if (!header.pkTables.isEmpty()) {
-                for (Table table : header.pkTables.values()) {
+                for (Entry<String, Table> entry : header.pkTables.entrySet()) {
+                    Table table = entry.getValue();
                     buffer.append(",dbcol=");
                     buffer.append(table.getTableName());
                     buffer.append("=").append(table.tablePrefix);
+                    if (header.pkTables2.containsKey(entry.getKey())) {
+                        Table table2 = header.pkTables2.get(entry.getKey());
+                        buffer.append(",dbcol=");
+                        buffer.append(table2.getTableName());
+                        buffer.append("=").append(table2.tablePrefix);
+                    }
                 }
             }
         }
@@ -722,24 +755,24 @@ public class TableMetaConverter extends TablePojoConverter {
         return header;
     }
 
-    PojoAttribute findPrimKey(String pojo) {
+    String findPKeyName(String pojo) {
         if (!pojos.containsKey(pojo))
             return null;
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             PojoAttribute attr = pentry.getValue();
             if (attr.isPrimaryKey())
-                return attr;
+                return pentry.getKey();
         }
         return null;
     }
 
-    PojoAttribute findM2mKey(String pojo, String tablename) {
+    String findM2mKeyName(String pojo, String tablename) {
         if (!pojos.containsKey(pojo))
             return null;
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             PojoAttribute attr = pentry.getValue();
             if (attr.getM2mTable() != null && attr.getM2mTable().equals(tablename))
-                return attr;
+                return pentry.getKey();
         }
         return null;
     }
