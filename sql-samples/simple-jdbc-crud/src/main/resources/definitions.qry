@@ -38,6 +38,8 @@ pojogen-rename-columns BOOK ISBN->NEW_ISBN;
 pojogen-rename-tables BOOK->NEW_BOOK;
 pojogen-ignore-one-to-many PERSON ID->MEDIA->AUTHOR;
 
+pojogen-create-many-to-one PHYSICAL_MEDIA MEDIA->MEDIA->ID;
+
 table billingDetails BILLING_DETAILS;
 table book BOOK;
 table contact CONTACT;
@@ -46,4 +48,5 @@ table media MEDIA;
 table movie MOVIE;
 table person PERSON;
 table personLibrary PERSON_LIBRARY;
+table physicalMedia PHYSICAL_MEDIA;
 table subscriber SUBSCRIBER;

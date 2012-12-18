@@ -99,6 +99,16 @@ package org.sqlproc.sample.simple.model {
     toString ::: mediaId id personId
   }
 
+  pojo PhysicalMedia serializable 1  {
+    id : java.lang.Long primaryKey
+    location : java.lang.String required
+    media :: Media required
+    equals ::: id
+    hashCode ::: id
+    toInit ::: media
+    toString ::: id location media
+  }
+
   pojo Subscriber serializable 1  {
     id : java.lang.Long primaryKey
     library :: Library required
