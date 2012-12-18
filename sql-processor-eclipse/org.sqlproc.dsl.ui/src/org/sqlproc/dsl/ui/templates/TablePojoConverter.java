@@ -24,7 +24,7 @@ import org.sqlproc.dsl.resolver.DbImport;
 
 public class TablePojoConverter {
 
-    private boolean debug = true;
+    private boolean debug = false;
 
     protected enum PrimitiveType {
         BOOLEAN, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, CHAR, BYTE_ARRAY, CHAR_ARRAY;

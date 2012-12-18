@@ -498,6 +498,7 @@ public class TableMetaConverter extends TablePojoConverter {
         String oppositePrefix;
         boolean toInit;
         boolean one2many;
+        boolean many2many;
         String discriminator;
 
         void setNames(String pojo) {
@@ -528,6 +529,7 @@ public class TableMetaConverter extends TablePojoConverter {
         Table extendTable = new Table();
         String statementName;
         Map<String, Table> pkTables = new HashMap<String, Table>();
+        Map<String, Table> pkTables2 = new HashMap<String, Table>();
     }
 
     Header getStatementHeader(String pojo, StringBuilder buffer, StatementType type, String suffix) {
@@ -596,6 +598,30 @@ public class TableMetaConverter extends TablePojoConverter {
                     header.pkTables.put(pentry.getKey(), table);
                     if (debug)
                         System.out.println("444 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
+                } else if (attr.getManyToManyColumn() != null) {
+                    PojoAttribute attr1 = pojos.get(header.table.realTableName).get(attr.getOneToManyColumn());
+                    if (header.table.tablePrefix == null)
+                        header.table.tablePrefix = newPrefix(prefixes, header.table);
+                    Table table = new Table();
+                    table.setNames(attr1.getM2Tables().get(attr.getManyToManyTable()));
+                    table.primaryKey = attr.getManyToManyColumn();
+                    table.tableKey = findM2mKey(table.realTableName, header.table.realTableName).getName();
+                    table.tablePrefix = newPrefix(prefixes, table);
+                    table.attrName = attr.getName();
+                    table.oppositePrefix = header.table.tablePrefix;
+                    table.toInit = attr.toInit();
+                    table.many2many = true;
+                    header.pkTables.put(pentry.getKey(), table);
+                    Table table2 = new Table();
+                    table2.setNames(attr.getManyToManyTable());
+                    table2.primaryKey = findPrimKey(table.realTableName).getName();
+                    table2.tableKey = findM2mKey(table2.realTableName, table.realTableName).getName();
+                    table2.tablePrefix = newPrefix(prefixes, table2);
+                    table2.attrName = null;
+                    table2.oppositePrefix = table.tablePrefix;
+                    header.pkTables2.put(pentry.getKey(), table2);
+                    if (debug)
+                        System.out.println("555 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
                 }
             }
             if (header.extendTable.tableName != null) {
@@ -614,7 +640,7 @@ public class TableMetaConverter extends TablePojoConverter {
                         table.toInit = attr.toInit();
                         header.pkTables.put(pentry.getKey(), table);
                         if (debug)
-                            System.out.println("555 " + pentry.getKey() + " " + table + " " + attr);
+                            System.out.println("666 " + pentry.getKey() + " " + table + " " + attr);
                     } else if (attr.getOneToManyColumn() != null) {
                         PojoAttribute attr1 = pojos.get(header.extendTable.realTableName)
                                 .get(attr.getOneToManyColumn());
@@ -633,7 +659,26 @@ public class TableMetaConverter extends TablePojoConverter {
                             table.discriminator = inheritanceColumns.get(pentry.getKey());
                         header.pkTables.put(pentry.getKey(), table);
                         if (debug)
-                            System.out.println("666 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
+                            System.out.println("777 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
+                    } else if (attr.getManyToManyColumn() != null) {
+                        PojoAttribute attr1 = pojos.get(header.extendTable.realTableName)
+                                .get(attr.getOneToManyColumn());
+                        if (header.extendTable.tablePrefix == null)
+                            header.extendTable.tablePrefix = newPrefix(prefixes, header.table);
+                        Table table = new Table();
+                        table.setNames(attr.getOneToManyTable());
+                        table.primaryKey = attr.getOneToManyColumn();
+                        table.tableKey = attr1.getFkColumns().get(attr.getOneToManyTable());
+                        table.tablePrefix = newPrefix(prefixes, table);
+                        table.attrName = attr.getName();
+                        table.oppositePrefix = header.extendTable.tablePrefix;
+                        table.toInit = attr.toInit();
+                        table.one2many = true;
+                        if (inheritanceColumns.containsKey(pentry.getKey()))
+                            table.discriminator = inheritanceColumns.get(pentry.getKey());
+                        header.pkTables.put(pentry.getKey(), table);
+                        if (debug)
+                            System.out.println("888 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
                     }
                 }
             }
@@ -675,6 +720,28 @@ public class TableMetaConverter extends TablePojoConverter {
         }
         buffer.append(")=");
         return header;
+    }
+
+    PojoAttribute findPrimKey(String pojo) {
+        if (!pojos.containsKey(pojo))
+            return null;
+        for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            PojoAttribute attr = pentry.getValue();
+            if (attr.isPrimaryKey())
+                return attr;
+        }
+        return null;
+    }
+
+    PojoAttribute findM2mKey(String pojo, String tablename) {
+        if (!pojos.containsKey(pojo))
+            return null;
+        for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            PojoAttribute attr = pentry.getValue();
+            if (attr.getM2mTable() != null && attr.getM2mTable().equals(tablename))
+                return attr;
+        }
+        return null;
     }
 
     String newPrefix(Set<String> prefixes, Table table) {
