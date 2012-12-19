@@ -121,16 +121,16 @@ public class TableMetaConverter extends TablePojoConverter {
         String parentPojo = pojoDiscriminators.containsKey(header.table.tableName) ? pojoExtends
                 .get(header.table.tableName) : null;
         boolean first = selectColumns(buffer, pojo, true, header.statementName, header.table.tablePrefix, null, false,
-                header.assocTables, null);
+                header.assocTables, null, header.inherTables, null);
         if (parentPojo != null)
             first = selectColumns(buffer, parentPojo, first, header.statementName, header.table.tablePrefix, null,
-                    false, header.assocTables, null);
+                    false, header.assocTables, null, header.inherTables, null);
         if (header.table.tablePrefix != null) {
             if (header.extendTable.tableName != null) {
                 if (!first)
                     buffer.append("\n         ");
                 first = selectColumns(buffer, header.extendTable.tableName, first, header.statementName,
-                        header.extendTable.tablePrefix, null, true, header.assocTables, null);
+                        header.extendTable.tablePrefix, null, true, header.assocTables, null, header.inherTables, null);
             }
             if (!header.assocTables.isEmpty()) {
                 for (Entry<String, Table> entry : header.assocTables.entrySet()) {
@@ -141,11 +141,20 @@ public class TableMetaConverter extends TablePojoConverter {
                         buffer.append("{? :").append(table.attrName).append("^^call=toInit | ");
                     if (table.many2many) {
                         Table table2 = header.m2mTables.get(entry.getKey());
-                        first = selectColumns(buffer, table2.tableName, first, header.statementName,
-                                table2.tablePrefix, table.attrName, false, Collections.EMPTY_MAP, null);
+                        first = selectColumns(buffer, table2.realTableName, first, header.statementName,
+                                table2.tablePrefix, table.attrName, false, Collections.EMPTY_MAP, null,
+                                Collections.EMPTY_MAP, null);
                     } else {
-                        first = selectColumns(buffer, table.tableName, first, header.statementName, table.tablePrefix,
-                                table.attrName, !table.one2many, header.assocTables, table.discriminator);
+                        if (header.inherTables.containsKey(entry.getKey())) {
+                            for (Table table2 : header.inherTables.get(entry.getKey())) {
+                                first = selectColumns(buffer, table2.realTableName, first, header.statementName,
+                                        table2.tablePrefix, table2.attrName, false, header.assocTables,
+                                        table2.discriminator, Collections.EMPTY_MAP, table2.inheritance);
+                            }
+                        }
+                        first = selectColumns(buffer, table.realTableName, first, header.statementName,
+                                table.tablePrefix, table.attrName, !table.one2many, header.assocTables,
+                                table.discriminator, Collections.EMPTY_MAP, table.inheritance);
                     }
                     if (table.discriminator != null && inheritance.containsKey(table.tableName)) {
                         for (Entry<String, Map<String, List<String>>> ientry : inheritance.get(table.tableName)
@@ -153,7 +162,8 @@ public class TableMetaConverter extends TablePojoConverter {
                             for (Entry<String, List<String>> tentry : ientry.getValue().entrySet()) {
                                 String tableName = tentry.getKey();
                                 first = selectColumns(buffer, tableName, first, header.statementName,
-                                        table.tablePrefix, table.attrName, true, Collections.EMPTY_MAP, null);
+                                        table.tablePrefix, table.attrName, true, Collections.EMPTY_MAP, null,
+                                        Collections.EMPTY_MAP, null);
                             }
                         }
                     }
@@ -341,18 +351,21 @@ public class TableMetaConverter extends TablePojoConverter {
     }
 
     boolean selectColumns(StringBuilder buffer, String pojo, boolean first, String statementName, String tablePrefix,
-            String pojoPrefix, boolean notPrimaryKeys, Map<String, Table> pkTables, String discriminator) {
+            String pojoPrefix, boolean notPrimaryKeys, Map<String, Table> assocTables, String discriminator,
+            Map<String, List<Table>> inherTables, String inheritance) {
         if (discriminator != null) {
             Attribute attr = getStatementAttribute(pojo, discriminator, pojos.get(pojo).get(discriminator), false);
             first = selectColumn(discriminator, attr, buffer, pojo, first, statementName, tablePrefix, pojoPrefix,
-                    notPrimaryKeys, pkTables, discriminator);
+                    notPrimaryKeys, assocTables, discriminator, inherTables, inheritance);
         }
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             if (discriminator != null && discriminator.equals(pentry.getKey()))
                 continue;
+            if (inherTables.containsKey(pentry.getValue().getPkTable()))
+                continue;
             Attribute attr = getStatementAttribute(pojo, pentry.getKey(), pentry.getValue(), false);
             first = selectColumn(pentry.getKey(), attr, buffer, pojo, first, statementName, tablePrefix, pojoPrefix,
-                    notPrimaryKeys, pkTables, null);
+                    notPrimaryKeys, assocTables, null, inherTables, null);
         }
         if (discriminator != null) {
         }
@@ -361,7 +374,8 @@ public class TableMetaConverter extends TablePojoConverter {
 
     boolean selectColumn(String colname, Attribute attr, StringBuilder buffer, String pojo, boolean first,
             String statementName, String tablePrefix, String pojoPrefix, boolean notPrimaryKeys,
-            Map<String, Table> pkTables, String discriminator) {
+            Map<String, Table> assocTables, String discriminator, Map<String, List<Table>> inherTables,
+            String inheritance) {
         if (attr == null)
             return first;
         if (attr.attribute.isPrimaryKey() && notPrimaryKeys)
@@ -390,7 +404,7 @@ public class TableMetaConverter extends TablePojoConverter {
         if (attr.attribute.getPkTable() != null) {
             buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
         }
-        if (attr.attribute.isPrimaryKey() || pkTables.containsKey(colname))
+        if (attr.attribute.isPrimaryKey() || assocTables.containsKey(colname))
             buffer.append("^^id");
         metaTypes(buffer, attr.tableName, attr.attributeName, statementName);
         return false;
@@ -526,6 +540,7 @@ public class TableMetaConverter extends TablePojoConverter {
         boolean one2many;
         boolean many2many;
         String discriminator;
+        String inheritance;
 
         void setNames(String pojo) {
             tableName = tableNames.get(pojo);
@@ -617,8 +632,10 @@ public class TableMetaConverter extends TablePojoConverter {
                             table2.primaryKey = kk[1];
                             table2.tableKey = kk[0];
                             table2.tablePrefix = newPrefix(prefixes, table2);
-                            table2.attrName = null;
+                            table2.attrName = attr.getName();
                             table2.oppositePrefix = table.tablePrefix;
+                            table2.discriminator = kk[0];
+                            table2.inheritance = table2.realTableName.toLowerCase();
                             header.inherTables.get(pentry.getKey()).add(table2);
                         }
                     }
@@ -706,8 +723,10 @@ public class TableMetaConverter extends TablePojoConverter {
                                 table2.primaryKey = kk[1];
                                 table2.tableKey = kk[0];
                                 table2.tablePrefix = newPrefix(prefixes, table2);
-                                table2.attrName = null;
+                                table2.attrName = attr.getName();
                                 table2.oppositePrefix = table.tablePrefix;
+                                table2.discriminator = kk[0];
+                                table2.inheritance = table2.realTableName.toLowerCase();
                                 header.inherTables.get(pentry.getKey()).add(table2);
                             }
                         }
