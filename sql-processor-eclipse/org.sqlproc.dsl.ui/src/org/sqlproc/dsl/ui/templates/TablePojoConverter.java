@@ -6,6 +6,7 @@ import java.sql.Types;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -24,7 +25,7 @@ import org.sqlproc.dsl.resolver.DbImport;
 
 public class TablePojoConverter {
 
-    private boolean debug = false;
+    private boolean debug = true;
 
     protected enum PrimitiveType {
         BOOLEAN, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, CHAR, BYTE_ARRAY, CHAR_ARRAY;
@@ -74,8 +75,8 @@ public class TablePojoConverter {
 
     protected Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     protected Map<String, String> pojoExtends = new HashMap<String, String>();
-    protected Set<String> pojoInheritanceDiscriminator = new HashSet<String>();
-    protected Set<String> pojoInheritanceSimple = new HashSet<String>();
+    protected Map<String, Set<String>> pojoInheritanceDiscriminator = new HashMap<String, Set<String>>();
+    protected Map<String, Set<String>> pojoInheritanceSimple = new HashMap<String, Set<String>>();
     protected Map<String, String> pojoDiscriminators = new HashMap<String, String>();
 
     public TablePojoConverter() {
@@ -339,7 +340,7 @@ public class TablePojoConverter {
             for (String dbColumn : allInheritedAttributes.keySet()) {
                 attributes.remove(dbColumn);
             }
-            pojoInheritanceDiscriminator.add(table);
+            pojoInheritanceDiscriminator.put(table, new LinkedHashSet<String>());
         }
     }
 
@@ -401,7 +402,7 @@ public class TablePojoConverter {
                 if (attribute.getParentTable() != null) {
                     if (pojos.containsKey(attribute.getParentTable())) {
                         pojoExtends.put(pojo, attribute.getParentTable());
-                        pojoInheritanceSimple.add(attribute.getParentTable());
+                        pojoInheritanceSimple.put(attribute.getParentTable(), new LinkedHashSet<String>());
                     }
                 }
                 for (Map.Entry<String, String> fk : attribute.getFkTables().entrySet()) {
@@ -437,6 +438,13 @@ public class TablePojoConverter {
             }
             if (!newAttributes.isEmpty())
                 pojos.get(pojo).putAll(newAttributes);
+        }
+        for (Entry<String, String> entry : pojoExtends.entrySet()) {
+            if (pojoInheritanceDiscriminator.containsKey(entry.getValue())) {
+                pojoInheritanceDiscriminator.get(entry.getValue()).add(entry.getKey());
+            } else if (pojoInheritanceSimple.containsKey(entry.getValue())) {
+                pojoInheritanceSimple.get(entry.getValue()).add(entry.getKey());
+            }
         }
     }
 
@@ -517,7 +525,7 @@ public class TablePojoConverter {
             if (pojoName == null)
                 pojoName = pojo;
             buffer.append("\n  ");
-            if (pojoInheritanceDiscriminator.contains(pojo) || pojoInheritanceSimple.contains(pojo))
+            if (pojoInheritanceDiscriminator.containsKey(pojo) || pojoInheritanceSimple.containsKey(pojo))
                 buffer.append("abstract ");
             buffer.append("pojo ");
             buffer.append(tableToCamelCase(pojoName));
