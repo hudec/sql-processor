@@ -304,6 +304,12 @@ class SqlMappingItem implements SqlMetaElement {
                                     + ", complete attribute name is '" + attr.getFullName()
                                     + "', possible type name is " + typeName);
                         }
+                    } else if (moreResultClasses != null) {
+                        String typeName = (moreResultClasses != null) ? values.get(attr.getFullName()
+                                + SqlUtils.SUPPVAL_GTYPE) : null;
+                        Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
+                        if (typeClass != null)
+                            objClass = typeClass;
                     }
                 }
             }
@@ -404,6 +410,18 @@ class SqlMappingItem implements SqlMetaElement {
                     }
                     if (!exit) {
                         nextObj = BeanUtils.getInstance(typeClass);
+                        if (nextObj == null && moreResultClasses != null) {
+                            String typeName2 = values.get(attr.getFullName() + SqlUtils.SUPPVAL_GTYPE);
+                            Class<?> typeClass2 = null;
+                            if (typeName2 != null) {
+                                if (typeName2.toLowerCase().startsWith(SqlUtils.SUPPVAL_DISCRIMINATOR))
+                                    typeClass2 = moreResultClasses.get(resultValues[resultIndex]);
+                                else
+                                    typeClass2 = moreResultClasses.get(typeName2);
+                            }
+                            if (typeClass2 != null)
+                                nextObj = BeanUtils.getInstance(typeClass2);
+                        }
                         if (nextObj != null) {
                             BeanUtils.setProperty(obj, name, nextObj);
                         } else if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {

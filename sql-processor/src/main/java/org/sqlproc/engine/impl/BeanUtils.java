@@ -28,6 +28,11 @@ public class BeanUtils {
     @SuppressWarnings("unchecked")
     public static <E> E getInstance(Class<E> clazz) {
         try {
+            int isAstract = clazz.getModifiers() & 0x0400;
+            if (isAstract != 0) {
+                logger.warn("getInstance: " + clazz + " is abstract");
+                return null;
+            }
             Object o = ConstructorUtils.invokeConstructor(clazz, (Object[]) null);
             return (E) o;
         } catch (NoSuchMethodException e) {
