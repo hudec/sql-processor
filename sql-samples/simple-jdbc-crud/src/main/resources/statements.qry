@@ -302,15 +302,13 @@ INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
   {= values (:id^^idsel=SEL1, :firstName, :lastName, :dateOfBirth, :ssn) }
 ;
 
-GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person=p,dbcol=personLibrary=p1,dbcol=media=m,dbcol=contact=c,dbcol=performer=p2)=
+GET_PERSON(CRUD,identx=Person,colx=Person,dbcol=person=p,dbcol=personLibrary=p1,dbcol=media=m,dbcol=movie=m1,dbcol=book=b,dbcol=contact=c)=
   select %p.ID @id^^id, %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
-         {? :library^^call=toInit | , %m.ID @library.id^^id, %m.TITLE @library.title, %m.AUTHOR @library.author.id }
+         {? :library^^call=toInit | , %m1.MEDIA_ID @library==movie.id^^id, %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library==book.id^^id, %b.ISBN @library.newIsbn, %m.ID @library.id^^id, %m.TITLE @library.title, %m.AUTHOR @library.author.id }
          {? :contacts^^call=toInit | , %c.ID @contacts.id^^id, %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber^phone }
-         {? :performers^^call=toInit | , %p2.ID @performers.id^^id, %p2.PERSON_ID @performers.person.id }
   from %%PERSON p
-  {? :library^^call=toInit | left join %%PERSON_LIBRARY p1 on %p.ID = %p1.PERSON_ID left join %%MEDIA m on %p1.MEDIA_ID = %m.ID }
+  {? :library^^call=toInit | left join %%PERSON_LIBRARY p1 on %p.ID = %p1.PERSON_ID left join %%MEDIA m on %p1.MEDIA_ID = %m.ID left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
   {? :contacts^^call=toInit | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
-  {? :performers^^call=toInit | left join %%PERFORMER p2 on %p.ID = %p2.PERSON_ID }
   {= where
     {& %p.ID = :id }
     {& %p.FIRST_NAME = :firstName }

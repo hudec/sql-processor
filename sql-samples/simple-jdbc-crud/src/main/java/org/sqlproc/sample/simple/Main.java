@@ -251,19 +251,19 @@ public class Main {
         Assert.assertEquals("Andrej address 1", p.getContacts().get(0).getAddress());
         Assert.assertEquals(new PhoneNumber(444, 555, 6666), p.getContacts().get(0).getPhoneNumber());
 
-        // person.setInit(Person.Association.library);
-        // p = main.getPersonDao().getPerson(person);
-        // Assert.assertNotNull(p);
-        // Assert.assertEquals(3, p.getLibrary().size());
-        // Assert.assertEquals("The Adventures of Robin Hood Updated", p.getLibrary().get(0).getTitle());
-        // Assert.assertTrue(p.getLibrary().get(0) instanceof NewBook);
-        // Assert.assertEquals("978-9940367003", ((NewBook) p.getLibrary().get(0)).getNewIsbn());
-        // Assert.assertEquals("The Three Musketeers", p.getLibrary().get(1).getTitle());
-        // Assert.assertTrue(p.getLibrary().get(1) instanceof NewBook);
-        // Assert.assertEquals("978-1897093634", ((NewBook) p.getLibrary().get(1)).getNewIsbn());
-        // Assert.assertEquals("Die Another Day", p.getLibrary().get(2).getTitle());
-        // Assert.assertTrue(p.getLibrary().get(2) instanceof Movie);
-        // Assert.assertEquals("def", ((Movie) p.getLibrary().get(2)).getUrlimdb());
+        person.setInit(Person.Association.library);
+        p = main.getPersonDao().getPerson(person);
+        Assert.assertNotNull(p);
+        Assert.assertEquals(3, p.getLibrary().size());
+        Assert.assertEquals("The Adventures of Robin Hood Updated", p.getLibrary().get(0).getTitle());
+        Assert.assertTrue(p.getLibrary().get(0) instanceof NewBook);
+        Assert.assertEquals("978-9940367003", ((NewBook) p.getLibrary().get(0)).getNewIsbn());
+        Assert.assertEquals("The Three Musketeers", p.getLibrary().get(1).getTitle());
+        Assert.assertTrue(p.getLibrary().get(1) instanceof NewBook);
+        Assert.assertEquals("978-1897093634", ((NewBook) p.getLibrary().get(1)).getNewIsbn());
+        Assert.assertEquals("Die Another Day", p.getLibrary().get(2).getTitle());
+        Assert.assertTrue(p.getLibrary().get(2) instanceof Movie);
+        Assert.assertEquals("def", ((Movie) p.getLibrary().get(2)).getUrlimdb());
 
         performer = new Performer();
         performer.setId(honzikp.getId());

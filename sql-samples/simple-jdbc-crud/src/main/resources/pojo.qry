@@ -93,10 +93,9 @@ package org.sqlproc.sample.simple.model {
     passport : java.lang.String
     library : java.util.List <:Media>
     contacts : java.util.List <:Contact>
-    performers : java.util.List <:Performer>
     equals ::: id
     hashCode ::: id
-    toInit ::: performers library contacts
+    toInit ::: library contacts
     isDef ::: dateOfBirth ssn passport
     toString ::: dateOfBirth id lastName ssn passport firstName
   }

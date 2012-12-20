@@ -151,6 +151,13 @@ public class TableMetaConverter extends TablePojoConverter {
                     if (table.toInit)
                         buffer.append("{? :").append(table.attrName).append("^^call=toInit | ");
                     if (table.many2many) {
+                        if (header.inherTables.containsKey(entry.getKey())) {
+                            for (Table table2 : header.inherTables.get(entry.getKey())) {
+                                first = selectColumns(buffer, table2.realTableName, first, header.statementName,
+                                        table2.tablePrefix, table2.attrName, false, header.assocTables,
+                                        table2.discriminator, Collections.EMPTY_MAP, table2.inheritance);
+                            }
+                        }
                         Table table2 = header.m2mTables.get(entry.getKey());
                         first = selectColumns(buffer, table2.realTableName, first, header.statementName,
                                 table2.tablePrefix, table.attrName, false, Collections.EMPTY_MAP, null,
@@ -712,22 +719,41 @@ public class TableMetaConverter extends TablePojoConverter {
                     table.toInit = attr.toInit();
                     table.many2many = true;
                     header.assocTables.put(pentry.getKey(), table);
-                    Table table2 = new Table();
-                    table2.setNames(attr.getManyToManyTable());
-                    table2.tableKey = findPKeyName(table.realTableName);
-                    table2.primaryKey = findM2mKeyName(table.realTableName, table2.realTableName);
-                    if (table2.tableKey == null) {
-                        System.out.println("Error for findM2mKeyName " + table2.realTableName + " "
+                    Table table12 = new Table();
+                    table12.setNames(attr.getManyToManyTable());
+                    table12.tableKey = findPKeyName(table.realTableName);
+                    table12.primaryKey = findM2mKeyName(table.realTableName, table12.realTableName);
+                    if (table12.tableKey == null) {
+                        System.out.println("Error for findM2mKeyName " + table12.realTableName + " "
                                 + table.realTableName);
                         continue;
                     }
-                    table2.tablePrefix = newPrefix(prefixes, table2);
-                    table2.attrName = null;
-                    table2.oppositePrefix = table.tablePrefix;
-                    header.m2mTables.put(pentry.getKey(), table2);
+                    table12.tablePrefix = newPrefix(prefixes, table12);
+                    table12.attrName = null;
+                    table12.oppositePrefix = table.tablePrefix;
+                    header.m2mTables.put(pentry.getKey(), table12);
                     if (debug && (type == StatementType.GET || type == StatementType.SELECT))
                         System.out.println("555 " + pentry.getKey() + " " + table + " " + attr + " " + attr1 + " "
-                                + table2);
+                                + table12);
+                    if (pojoInheritanceSimple.containsKey(table12.realTableName)) {
+                        header.inherTables.put(pentry.getKey(), new ArrayList<Table>());
+                        for (String name : pojoInheritanceSimple.get(table12.realTableName)) {
+                            Table table2 = new Table();
+                            table2.setNames(name);
+                            // inheritImports {MOVIE={MEDIA_ID={MEDIA=ID}}, BOOK={MEDIA_ID={MEDIA=ID}}}
+                            String[] kk = findInheritanceKeysName(name, table12.realTableName);
+                            table2.primaryKey = kk[1];
+                            table2.tableKey = kk[0];
+                            table2.tablePrefix = newPrefix(prefixes, table2);
+                            table2.attrName = attrName(pojo, pentry.getKey(), attr);
+                            table2.oppositePrefix = table12.tablePrefix;
+                            table2.discriminator = kk[0];
+                            table2.inheritance = table2.realTableName.toLowerCase();
+                            header.inherTables.get(pentry.getKey()).add(table2);
+                        }
+                    }
+                    if (debug && (type == StatementType.GET || type == StatementType.SELECT))
+                        System.out.println("555b " + header.inherTables);
                 }
             }
             if (header.extendTable.tableName != null) {
@@ -824,22 +850,41 @@ public class TableMetaConverter extends TablePojoConverter {
                         table.toInit = attr.toInit();
                         table.many2many = true;
                         header.assocTables.put(pentry.getKey(), table);
-                        Table table2 = new Table();
-                        table2.setNames(attr.getManyToManyTable());
-                        table2.tableKey = findPKeyName(table.realTableName);
-                        table2.primaryKey = findM2mKeyName(table2.realTableName, table.realTableName);
-                        if (table2.tableKey == null) {
-                            System.out.println("Error for findM2mKeyName " + table2.realTableName + " "
+                        Table table12 = new Table();
+                        table12.setNames(attr.getManyToManyTable());
+                        table12.tableKey = findPKeyName(table.realTableName);
+                        table12.primaryKey = findM2mKeyName(table12.realTableName, table.realTableName);
+                        if (table12.tableKey == null) {
+                            System.out.println("Error for findM2mKeyName " + table12.realTableName + " "
                                     + table.realTableName);
                             continue;
                         }
-                        table2.tablePrefix = newPrefix(prefixes, table2);
-                        table2.attrName = null;
-                        table2.oppositePrefix = table.tablePrefix;
-                        header.m2mTables.put(pentry.getKey(), table2);
+                        table12.tablePrefix = newPrefix(prefixes, table12);
+                        table12.attrName = null;
+                        table12.oppositePrefix = table.tablePrefix;
+                        header.m2mTables.put(pentry.getKey(), table12);
                         if (debug && (type == StatementType.GET || type == StatementType.SELECT))
                             System.out.println("888 " + pentry.getKey() + " " + table + " " + attr + " " + attr1 + " "
-                                    + table2);
+                                    + table12);
+                        if (pojoInheritanceSimple.containsKey(table12.realTableName)) {
+                            header.inherTables.put(pentry.getKey(), new ArrayList<Table>());
+                            for (String name : pojoInheritanceSimple.get(table12.realTableName)) {
+                                Table table2 = new Table();
+                                table2.setNames(name);
+                                // inheritImports {MOVIE={MEDIA_ID={MEDIA=ID}}, BOOK={MEDIA_ID={MEDIA=ID}}}
+                                String[] kk = findInheritanceKeysName(name, table12.realTableName);
+                                table2.primaryKey = kk[1];
+                                table2.tableKey = kk[0];
+                                table2.tablePrefix = newPrefix(prefixes, table2);
+                                table2.attrName = attrName(pojo, pentry.getKey(), attr);
+                                table2.oppositePrefix = table12.tablePrefix;
+                                table2.discriminator = kk[0];
+                                table2.inheritance = table2.realTableName.toLowerCase();
+                                header.inherTables.get(pentry.getKey()).add(table2);
+                            }
+                        }
+                        if (debug && (type == StatementType.GET || type == StatementType.SELECT))
+                            System.out.println("888b " + header.inherTables);
                     }
                 }
             }

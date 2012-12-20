@@ -142,21 +142,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private List<Performer> performers = new ArrayList<Performer>();
-    
-  public List<Performer> getPerformers() {
-    return performers;
-  }
-    
-  public void setPerformers(List<Performer> performers) {
-    this.performers = performers;
-  }
-    
-  public Person _setPerformers(List<Performer> performers) {
-    this.performers = performers;
-    return this;
-  }
-  
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -182,7 +167,7 @@ public class Person implements Serializable {
   private Set<String> initAssociations = new HashSet<String>();
   
   public enum Association {
-    performers, library, contacts
+    library, contacts
   }
   
   public void setInit(Association... associations) {
