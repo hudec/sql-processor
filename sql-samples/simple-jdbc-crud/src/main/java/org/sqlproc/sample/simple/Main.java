@@ -179,10 +179,14 @@ public class Main {
                 (Movie) new Movie("Pippi Långstrump i Söderhavet", "abc", 82)._setAuthor(honzikp));
         Movie movie2 = main.getMovieDao().insertMovie(new Movie("Die Another Day", "def", 95));
 
-        PhysicalMedia pbook1 = main.getPhysicalMediaDao().insertPhysicalMedia(new PhysicalMedia("folder 001", book1));
-        PhysicalMedia pbook2 = main.getPhysicalMediaDao().insertPhysicalMedia(new PhysicalMedia("folder 002", book2));
-        PhysicalMedia pmovie1 = main.getPhysicalMediaDao().insertPhysicalMedia(new PhysicalMedia("folder 003", movie1));
-        PhysicalMedia pmovie2 = main.getPhysicalMediaDao().insertPhysicalMedia(new PhysicalMedia("folder 004", movie2));
+        PhysicalMedia pbook1 = main.getPhysicalMediaDao().insertPhysicalMedia(
+                new PhysicalMedia("folder 001", book1, lib));
+        PhysicalMedia pbook2 = main.getPhysicalMediaDao().insertPhysicalMedia(
+                new PhysicalMedia("folder 002", book2, lib));
+        PhysicalMedia pmovie1 = main.getPhysicalMediaDao().insertPhysicalMedia(
+                new PhysicalMedia("folder 003", movie1, lib));
+        PhysicalMedia pmovie2 = main.getPhysicalMediaDao().insertPhysicalMedia(
+                new PhysicalMedia("folder 004", movie2, lib));
 
         main.getPersonLibraryDao().insertPersonLibrary(jan, book1, movie1);
         main.getPersonLibraryDao().insertPersonLibrary(honza, book2, movie2);

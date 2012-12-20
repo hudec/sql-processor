@@ -36,6 +36,8 @@ pojogen-rename-columns PERFORMER MEDIAS->WORK;
 pojogen-ignore-one-to-many BILLING_DETAILS ID->PAYMENT->BILLING_DETAILS;
 
 pojogen-create-many-to-one PHYSICAL_MEDIA MEDIA->MEDIA->ID;
+pojogen-create-one-to-many LIBRARY ID->PHYSICAL_MEDIA->LIBRARY;
+pojogen-create-many-to-one PHYSICAL_MEDIA LIBRARY->LIBRARY->ID;
 
 table billingDetails BILLING_DETAILS;
 table book BOOK;

@@ -13,9 +13,10 @@ public class PhysicalMedia implements Serializable {
   public PhysicalMedia() {
   }
   
-  public PhysicalMedia(String location, Media media) {
+  public PhysicalMedia(String location, Media media, Library library) {
     this.location = location;
     this.media = media;
+    this.library = library;
   }
   
   private Long id;
@@ -63,6 +64,21 @@ public class PhysicalMedia implements Serializable {
     return this;
   }
   
+  private Library library;
+    
+  public Library getLibrary() {
+    return library;
+  }
+    
+  public void setLibrary(Library library) {
+    this.library = library;
+  }
+    
+  public PhysicalMedia _setLibrary(Library library) {
+    this.library = library;
+    return this;
+  }
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -88,7 +104,7 @@ public class PhysicalMedia implements Serializable {
   private Set<String> initAssociations = new HashSet<String>();
   
   public enum Association {
-    media
+    library, media
   }
   
   public void setInit(Association... associations) {
@@ -123,10 +139,10 @@ public class PhysicalMedia implements Serializable {
   
   @Override
   public String toString() {
-    return "PhysicalMedia [id=" + id + ", location=" + location + "]";
+    return "PhysicalMedia [id=" + id + ", location=" + location + ", library=" + library + "]";
   }
   
   public String toStringFull() {
-    return "PhysicalMedia [id=" + id + ", location=" + location + ", media=" + media + "]";
+    return "PhysicalMedia [id=" + id + ", location=" + location + ", library=" + library + ", media=" + media + "]";
   }
 }

@@ -407,19 +407,22 @@ DELETE_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=personL
 ;
 
 INSERT_PHYSICAL_MEDIA(CRUD,identx=PhysicalMedia,colx=PhysicalMedia,dbcol=physicalMedia)=
-  insert into %%PHYSICAL_MEDIA (%LOCATION, %MEDIA)
-  {= values (:id^^idsel=SEL1, :location, :media.id) }
+  insert into %%PHYSICAL_MEDIA (%LOCATION, %MEDIA, %LIBRARY)
+  {= values (:id^^idsel=SEL1, :location, :media.id, :library.id) }
 ;
 
-GET_PHYSICAL_MEDIA(CRUD,identx=PhysicalMedia,colx=PhysicalMedia,dbcol=physicalMedia=p,dbcol=media=m,dbcol=movie=m1,dbcol=book=b)=
-  select %p.ID @id^^id, %p.LOCATION @location
+GET_PHYSICAL_MEDIA(CRUD,identx=PhysicalMedia,colx=PhysicalMedia,dbcol=physicalMedia=p,dbcol=library=l,dbcol=media=m,dbcol=movie=m1,dbcol=book=b)=
+  select %p.ID @id^^id, %p.LOCATION @location, %p.LIBRARY @library.id^^id
+         {? :library^^call=toInit | , %l.NAME @library.name }
          {? :media^^call=toInit | , %m1.MEDIA_ID @media==movie.id^^id, %m1.URLIMDB @media.urlimdb, %m1.PLAYLENGTH @media.playlength, %b.MEDIA_ID @media==book.id^^id, %b.ISBN @media.newIsbn, %m.TITLE @media.title, %m.AUTHOR @media.author.id }
   from %%PHYSICAL_MEDIA p
+  {? :library^^call=toInit | left join %%LIBRARY l on %p.LIBRARY = %l.ID }
   {? :media^^call=toInit | left join %%MEDIA m on %p.MEDIA = %m.ID left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
   {= where
     {& %p.ID = :id }
     {& %p.LOCATION = :location }
     {& %p.MEDIA = :media.id }
+    {& %p.LIBRARY = :library.id }
   }
 ;
 
@@ -428,6 +431,7 @@ UPDATE_PHYSICAL_MEDIA(CRUD,identx=PhysicalMedia,colx=PhysicalMedia,dbcol=physica
   {= set
     { ,%LOCATION = :location }
     { ,%MEDIA = :media.id }
+    { ,%LIBRARY = :library.id }
   }
   {= where
     {& %ID = :id^^notnull }
@@ -481,7 +485,6 @@ DELETE_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
     {& %ID = :id^^notnull }
   }
 ;
-
 
 //
 //
