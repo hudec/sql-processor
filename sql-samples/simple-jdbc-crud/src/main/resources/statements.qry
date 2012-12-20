@@ -7,6 +7,7 @@ SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity(); 
 
 
+
 INSERT_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
   insert into %%BILLING_DETAILS (%BA_ACCOUNT, %SUBSCRIBER, %TYPE)
   {= values (:id^^idsel=SEL1, :baAccount, :subscriber.id, :type) }
@@ -268,8 +269,8 @@ INSERT_PAYMENT(CRUD,identx=Payment,colx=Payment,dbcol=payment)=
 ;
 
 GET_PAYMENT(CRUD,identx=Payment,colx=Payment,dbcol=payment=p,dbcol=billingDetails=b)=
-  select %p.ID @id^^id, %p.BILLING_DETAILS @billingDetails.id^^id, %p.PAID @paid
-         {? :billingDetails^^call=toInit | , %b.SUBSCRIBER @billingDetails.subscriber.id, %b.TYPE @billingDetails.type }
+  select %p.ID @id^^id, %p.PAID @paid
+         {? :billingDetails^^call=toInit | , %b.TYPE @billingDetails==discriminator.type, %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
   from %%PAYMENT p
   {? :billingDetails^^call=toInit | left join %%BILLING_DETAILS b on %p.BILLING_DETAILS = %b.ID }
   {= where

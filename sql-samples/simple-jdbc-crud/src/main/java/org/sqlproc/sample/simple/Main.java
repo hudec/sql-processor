@@ -400,12 +400,20 @@ public class Main {
         Assert.assertTrue(s.getBillingDetails().get(0) instanceof CreditCard);
         Assert.assertEquals(new Long(789), ((CreditCard) s.getBillingDetails().get(0)).getCcNumber());
 
-        // payment = new Payment();
-        // payment.setId(payment1.getId());
-        // py = main.getPaymentDao().getPayment(payment);
-        // Assert.assertNotNull(py);
-        // Assert.assertNotNull(py.getPaid());
-        // Assert.assertNull(py.getBillingDetails());
+        payment = new Payment();
+        payment.setId(payment1.getId());
+        py = main.getPaymentDao().getPayment(payment);
+        Assert.assertNotNull(py);
+        Assert.assertNotNull(py.getPaid());
+        Assert.assertNull(py.getBillingDetails());
+
+        payment.setInit(Payment.Association.billingDetails);
+        py = main.getPaymentDao().getPayment(payment);
+        Assert.assertNotNull(py);
+        Assert.assertNotNull(py.getPaid());
+        Assert.assertNotNull(py.getBillingDetails());
+        Assert.assertTrue(py.getBillingDetails() instanceof BankAccount);
+        Assert.assertEquals("updated account", ((BankAccount) py.getBillingDetails()).getBaAccount());
 
         // // queries
         // list = main.listAll();

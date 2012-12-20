@@ -126,6 +126,8 @@ public class TableMetaConverter extends TablePojoConverter {
     }
 
     StringBuilder metaGetDefinition(String pojo) {
+        if (pojo.equals("PAYMENT"))
+            System.out.println("AHA");
         StringBuilder buffer = new StringBuilder();
         Header header = getStatementHeader(pojo, buffer, StatementType.GET, null);
         buffer.append("\n  select ");
@@ -641,6 +643,8 @@ public class TableMetaConverter extends TablePojoConverter {
                     table.attrName = attrName(pojo, pentry.getKey(), attr);
                     table.oppositePrefix = header.table.tablePrefix;
                     table.toInit = attr.toInit();
+                    if (inheritanceColumns.containsKey(pentry.getKey()))
+                        table.discriminator = inheritanceColumns.get(pentry.getKey());
                     header.assocTables.put(pentry.getKey(), table);
                     if (debug && (type == StatementType.GET || type == StatementType.SELECT))
                         System.out.println("333 " + pentry.getKey() + " " + table + " " + attr);
@@ -770,6 +774,8 @@ public class TableMetaConverter extends TablePojoConverter {
                         table.attrName = attrName(pojo, pentry.getKey(), attr);
                         table.oppositePrefix = header.extendTable.tablePrefix;
                         table.toInit = attr.toInit();
+                        if (inheritanceColumns.containsKey(pentry.getKey()))
+                            table.discriminator = inheritanceColumns.get(pentry.getKey());
                         header.assocTables.put(pentry.getKey(), table);
                         if (debug && (type == StatementType.GET || type == StatementType.SELECT))
                             System.out.println("666 " + pentry.getKey() + " " + table + " " + attr);
