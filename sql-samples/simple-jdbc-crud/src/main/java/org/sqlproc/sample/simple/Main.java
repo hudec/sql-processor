@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
@@ -20,6 +22,7 @@ import org.sqlproc.sample.simple.dao.ContactDao;
 import org.sqlproc.sample.simple.dao.CreditCardDao;
 import org.sqlproc.sample.simple.dao.LibraryDao;
 import org.sqlproc.sample.simple.dao.MovieDao;
+import org.sqlproc.sample.simple.dao.PaymentDao;
 import org.sqlproc.sample.simple.dao.PerformerDao;
 import org.sqlproc.sample.simple.dao.PersonDao;
 import org.sqlproc.sample.simple.dao.PersonLibraryDao;
@@ -31,6 +34,7 @@ import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.Library;
 import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.NewBook;
+import org.sqlproc.sample.simple.model.Payment;
 import org.sqlproc.sample.simple.model.Performer;
 import org.sqlproc.sample.simple.model.Person;
 import org.sqlproc.sample.simple.model.PhoneNumber;
@@ -100,6 +104,7 @@ public class Main {
         personLibraryDao = new PersonLibraryDao(session, sqlFactory);
         subscriberDao = new SubscriberDao(session, sqlFactory);
         physicalMediaDao = new PhysicalMediaDao(session, sqlFactory);
+        paymentDao = new PaymentDao(session, sqlFactory);
     }
 
     private BankAccountDao bankAccountDao;
@@ -113,6 +118,7 @@ public class Main {
     private PersonLibraryDao personLibraryDao;
     private SubscriberDao subscriberDao;
     private PhysicalMediaDao physicalMediaDao;
+    private PaymentDao paymentDao;
 
     public static void main(String[] args) throws Exception {
         Person person, p;
@@ -125,6 +131,7 @@ public class Main {
         Movie movie, m;
         Subscriber subscriber, s;
         PhysicalMedia physicalMedia, pm;
+        Payment payment, py;
 
         List<Person> list;
         boolean deleted;
@@ -159,6 +166,11 @@ public class Main {
         CreditCard creditCard1 = main.getCreditCardDao().insertCreditCard(
                 new CreditCard(janikS, "CC")._setCcNumber(123L));
         main.getCreditCardDao().insertCreditCard(new CreditCard(honzaS, "CC")._setCcNumber(456L));
+
+        Payment payment1 = main.getPaymentDao().insertPayment(
+                new Payment(bankAccount1, new Timestamp(new Date().getTime())));
+        Payment payment2 = main.getPaymentDao().insertPayment(
+                new Payment(creditCard1, new Timestamp(new Date().getTime())));
 
         NewBook book1 = main.getBookDao().insertBook(
                 (NewBook) new NewBook("The Adventures of Robin Hood", "978-0140367003")._setAuthor(honzikp));
@@ -388,6 +400,13 @@ public class Main {
         Assert.assertTrue(s.getBillingDetails().get(0) instanceof CreditCard);
         Assert.assertEquals(new Long(789), ((CreditCard) s.getBillingDetails().get(0)).getCcNumber());
 
+        // payment = new Payment();
+        // payment.setId(payment1.getId());
+        // py = main.getPaymentDao().getPayment(payment);
+        // Assert.assertNotNull(py);
+        // Assert.assertNotNull(py.getPaid());
+        // Assert.assertNull(py.getBillingDetails());
+
         // // queries
         // list = main.listAll();
         // Assert.assertEquals(5, list.size());
@@ -528,5 +547,9 @@ public class Main {
 
     public PhysicalMediaDao getPhysicalMediaDao() {
         return physicalMediaDao;
+    }
+
+    public PaymentDao getPaymentDao() {
+        return paymentDao;
     }
 }

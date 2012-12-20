@@ -1,16 +1,10 @@
 resolve-pojo-on;
 database-is-online;
-//database-jdbc-driver oracle.jdbc.OracleDriver;
-//database-has-url jdbc:oracle:thin:@127.0.0.1:1521:xe;
-//database-login-username sqlsample;
-//database-login-password sqlsample;
-//database-active-schema SQLSAMPLE;
 database-jdbc-driver org.hsqldb.jdbcDriver;
 database-has-url jdbc:hsqldb:mem:sqlproc;
 database-login-username sa;
 database-login-password "";
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
-//database-ddl-drop hsqldb_drop.ddl;
 
 pojogen-generate-wrappers;
 // custom type
@@ -36,8 +30,10 @@ metagen-column-meta-type CONTACT PHONE_NUMBER->phone;
 // just for dev
 pojogen-rename-columns BOOK ISBN->NEW_ISBN;
 pojogen-rename-tables BOOK->NEW_BOOK;
+
 pojogen-ignore-one-to-many PERSON ID->PERFORMER->PERSON_ID;
 pojogen-rename-columns PERFORMER MEDIAS->WORK;
+pojogen-ignore-one-to-many BILLING_DETAILS ID->PAYMENT->BILLING_DETAILS;
 
 pojogen-create-many-to-one PHYSICAL_MEDIA MEDIA->MEDIA->ID;
 
@@ -47,6 +43,7 @@ table contact CONTACT;
 table library LIBRARY;
 table media MEDIA;
 table movie MOVIE;
+table payment PAYMENT;
 table performer PERFORMER;
 table person PERSON;
 table personLibrary PERSON_LIBRARY;

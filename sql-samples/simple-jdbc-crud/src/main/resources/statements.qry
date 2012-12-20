@@ -262,6 +262,41 @@ DELETE_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
   }
 ;
 
+INSERT_PAYMENT(CRUD,identx=Payment,colx=Payment,dbcol=payment)=
+  insert into %%PAYMENT (%BILLING_DETAILS, %PAID)
+  {= values (:id^^idsel=SEL1, :billingDetails.id, :paid) }
+;
+
+GET_PAYMENT(CRUD,identx=Payment,colx=Payment,dbcol=payment=p,dbcol=billingDetails=b)=
+  select %p.ID @id^^id, %p.BILLING_DETAILS @billingDetails.id^^id, %p.PAID @paid
+         {? :billingDetails^^call=toInit | , %b.SUBSCRIBER @billingDetails.subscriber.id, %b.TYPE @billingDetails.type }
+  from %%PAYMENT p
+  {? :billingDetails^^call=toInit | left join %%BILLING_DETAILS b on %p.BILLING_DETAILS = %b.ID }
+  {= where
+    {& %p.ID = :id }
+    {& %p.BILLING_DETAILS = :billingDetails.id }
+    {& %p.PAID = :paid }
+  }
+;
+
+UPDATE_PAYMENT(CRUD,identx=Payment,colx=Payment,dbcol=payment)=
+  update %%PAYMENT
+  {= set
+    { ,%BILLING_DETAILS = :billingDetails.id }
+    { ,%PAID = :paid }
+  }
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_PAYMENT(CRUD,identx=Payment,colx=Payment,dbcol=payment)=
+  delete from %%PAYMENT
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
 INSERT_PERFORMER(CRUD,identx=Performer,colx=Performer,dbcol=performer)=
   insert into %%PERFORMER (%PERSON_ID)
   {= values (:id^^idsel=SEL1, :person.id) }

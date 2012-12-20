@@ -74,6 +74,16 @@ package org.sqlproc.sample.simple.model {
     toString ::: playlength urlimdb
   }
 
+  pojo Payment serializable 1  {
+    id : java.lang.Long primaryKey
+    billingDetails :: BillingDetails required
+    paid : java.sql.Timestamp required
+    equals ::: id
+    hashCode ::: id
+    toInit ::: billingDetails
+    toString ::: id paid billingDetails
+  }
+
   pojo Performer serializable 1  {
     id : java.lang.Long primaryKey
     person :: Person required
