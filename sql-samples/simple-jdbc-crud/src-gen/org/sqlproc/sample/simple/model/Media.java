@@ -47,17 +47,17 @@ public abstract class Media implements Serializable {
     return this;
   }
   
-  private Person author;
+  private Performer author;
     
-  public Person getAuthor() {
+  public Performer getAuthor() {
     return author;
   }
     
-  public void setAuthor(Person author) {
+  public void setAuthor(Performer author) {
     this.author = author;
   }
     
-  public Media _setAuthor(Person author) {
+  public Media _setAuthor(Performer author) {
     this.author = author;
     return this;
   }

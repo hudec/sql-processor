@@ -58,7 +58,7 @@ package org.sqlproc.sample.simple.model {
   abstract pojo Media serializable 1  {
     id : java.lang.Long primaryKey
     title : java.lang.String required
-    author :: Person
+    author :: Performer
     equals ::: id
     hashCode ::: id
     toInit ::: author
@@ -74,6 +74,16 @@ package org.sqlproc.sample.simple.model {
     toString ::: playlength urlimdb
   }
 
+  pojo Performer serializable 1  {
+    id : java.lang.Long primaryKey
+    person :: Person required
+    work : java.util.List <:Media>
+    equals ::: id
+    hashCode ::: id
+    toInit ::: work person
+    toString ::: id person
+  }
+
   pojo Person serializable 1  {
     id : java.lang.Long primaryKey
     firstName : java.lang.String required
@@ -83,9 +93,10 @@ package org.sqlproc.sample.simple.model {
     passport : java.lang.String
     library : java.util.List <:Media>
     contacts : java.util.List <:Contact>
+    performers : java.util.List <:Performer>
     equals ::: id
     hashCode ::: id
-    toInit ::: library contacts
+    toInit ::: performers library contacts
     isDef ::: dateOfBirth ssn passport
     toString ::: dateOfBirth id lastName ssn passport firstName
   }

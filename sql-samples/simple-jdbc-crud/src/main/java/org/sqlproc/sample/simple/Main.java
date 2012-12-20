@@ -20,6 +20,7 @@ import org.sqlproc.sample.simple.dao.ContactDao;
 import org.sqlproc.sample.simple.dao.CreditCardDao;
 import org.sqlproc.sample.simple.dao.LibraryDao;
 import org.sqlproc.sample.simple.dao.MovieDao;
+import org.sqlproc.sample.simple.dao.PerformerDao;
 import org.sqlproc.sample.simple.dao.PersonDao;
 import org.sqlproc.sample.simple.dao.PersonLibraryDao;
 import org.sqlproc.sample.simple.dao.PhysicalMediaDao;
@@ -30,6 +31,7 @@ import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.Library;
 import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.NewBook;
+import org.sqlproc.sample.simple.model.Performer;
 import org.sqlproc.sample.simple.model.Person;
 import org.sqlproc.sample.simple.model.PhoneNumber;
 import org.sqlproc.sample.simple.model.PhysicalMedia;
@@ -94,6 +96,7 @@ public class Main {
         libraryDao = new LibraryDao(session, sqlFactory);
         movieDao = new MovieDao(session, sqlFactory);
         personDao = new PersonDao(session, sqlFactory);
+        performerDao = new PerformerDao(session, sqlFactory);
         personLibraryDao = new PersonLibraryDao(session, sqlFactory);
         subscriberDao = new SubscriberDao(session, sqlFactory);
         physicalMediaDao = new PhysicalMediaDao(session, sqlFactory);
@@ -106,6 +109,7 @@ public class Main {
     private LibraryDao libraryDao;
     private MovieDao movieDao;
     private PersonDao personDao;
+    private PerformerDao performerDao;
     private PersonLibraryDao personLibraryDao;
     private SubscriberDao subscriberDao;
     private PhysicalMediaDao physicalMediaDao;
@@ -137,6 +141,7 @@ public class Main {
         main.getContactDao().insertPersonContacts(honza, new Contact()._setAddress("Honza address 1"),
                 new Contact()._setAddress("Honza address 2"));
         Person honzik = main.getPersonDao().insertPerson(new Person("Honzik", "Honzíček"));
+        Performer honzikp = main.getPerformerDao().insertPerformer(new Performer()._setPerson(honzik));
         Person andrej = main.getPersonDao().insertPerson(new Person("Andrej", "Andrejček")._setSsn("123456789"));
         main.getContactDao().insertPersonContacts(andrej,
                 new Contact()._setAddress("Andrej address 1")._setPhoneNumber(new PhoneNumber(444, 555, 6666)));
@@ -155,7 +160,7 @@ public class Main {
         main.getCreditCardDao().insertCreditCard(new CreditCard(honzaS, "CC")._setCcNumber(456L));
 
         NewBook book1 = main.getBookDao().insertBook(
-                (NewBook) new NewBook("The Adventures of Robin Hood", "978-0140367003")._setAuthor(honzik));
+                (NewBook) new NewBook("The Adventures of Robin Hood", "978-0140367003")._setAuthor(honzikp));
         NewBook book2 = main.getBookDao().insertBook(new NewBook("The Three Musketeers", "978-1897093634"));
         Movie movie1 = main.getMovieDao().insertMovie(new Movie("Pippi Långstrump i Söderhavet", "abc", 82));
         Movie movie2 = main.getMovieDao().insertMovie(new Movie("Die Another Day", "def", 95));
@@ -267,7 +272,7 @@ public class Main {
         Assert.assertEquals("978-9940367003", b.getNewIsbn());
         Assert.assertEquals("The Adventures of Robin Hood Updated", b.getTitle());
         Assert.assertNotNull(b.getAuthor());
-        Assert.assertEquals("Honzíček", b.getAuthor().getLastName());
+        Assert.assertEquals(honzikp.getId(), b.getAuthor().getId());
 
         bankAccount = new BankAccount();
         bankAccount.setId(bankAccount1.getId());
@@ -486,6 +491,10 @@ public class Main {
 
     public PersonDao getPersonDao() {
         return personDao;
+    }
+
+    public PerformerDao getPerformerDao() {
+        return performerDao;
     }
 
     public SubscriberDao getSubscriberDao() {

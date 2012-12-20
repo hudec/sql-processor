@@ -618,7 +618,7 @@ public class TableMetaConverter extends TablePojoConverter {
                     table.primaryKey = pentry.getKey();
                     table.tableKey = attr.getPkColumn();
                     table.tablePrefix = newPrefix(prefixes, table);
-                    table.attrName = attr.getName();
+                    table.attrName = attrName(pojo, pentry.getKey(), attr);
                     table.oppositePrefix = header.table.tablePrefix;
                     table.toInit = attr.toInit();
                     header.assocTables.put(pentry.getKey(), table);
@@ -634,7 +634,7 @@ public class TableMetaConverter extends TablePojoConverter {
                             table2.primaryKey = kk[1];
                             table2.tableKey = kk[0];
                             table2.tablePrefix = newPrefix(prefixes, table2);
-                            table2.attrName = attr.getName();
+                            table2.attrName = attrName(pojo, pentry.getKey(), attr);
                             table2.oppositePrefix = table.tablePrefix;
                             table2.discriminator = kk[0];
                             table2.inheritance = table2.realTableName.toLowerCase();
@@ -652,7 +652,7 @@ public class TableMetaConverter extends TablePojoConverter {
                     table.primaryKey = attr.getOneToManyColumn();
                     table.tableKey = attr1.getFkColumns().get(attr.getOneToManyTable());
                     table.tablePrefix = newPrefix(prefixes, table);
-                    table.attrName = attr.getName();
+                    table.attrName = attrName(pojo, pentry.getKey(), attr);
                     table.oppositePrefix = header.table.tablePrefix;
                     table.toInit = attr.toInit();
                     table.one2many = true;
@@ -675,7 +675,7 @@ public class TableMetaConverter extends TablePojoConverter {
                         continue;
                     }
                     table.tablePrefix = newPrefix(prefixes, table);
-                    table.attrName = attr.getName();
+                    table.attrName = attrName(pojo, pentry.getKey(), attr);
                     table.oppositePrefix = header.table.tablePrefix;
                     table.toInit = attr.toInit();
                     table.many2many = true;
@@ -709,7 +709,7 @@ public class TableMetaConverter extends TablePojoConverter {
                         table.primaryKey = pentry.getKey();
                         table.tableKey = attr.getPkColumn();
                         table.tablePrefix = newPrefix(prefixes, table);
-                        table.attrName = attr.getName();
+                        table.attrName = attrName(pojo, pentry.getKey(), attr);
                         table.oppositePrefix = header.extendTable.tablePrefix;
                         table.toInit = attr.toInit();
                         header.assocTables.put(pentry.getKey(), table);
@@ -725,7 +725,7 @@ public class TableMetaConverter extends TablePojoConverter {
                                 table2.primaryKey = kk[1];
                                 table2.tableKey = kk[0];
                                 table2.tablePrefix = newPrefix(prefixes, table2);
-                                table2.attrName = attr.getName();
+                                table2.attrName = attrName(pojo, pentry.getKey(), attr);
                                 table2.oppositePrefix = table.tablePrefix;
                                 table2.discriminator = kk[0];
                                 table2.inheritance = table2.realTableName.toLowerCase();
@@ -744,7 +744,7 @@ public class TableMetaConverter extends TablePojoConverter {
                         table.primaryKey = attr.getOneToManyColumn();
                         table.tableKey = attr1.getFkColumns().get(attr.getOneToManyTable());
                         table.tablePrefix = newPrefix(prefixes, table);
-                        table.attrName = attr.getName();
+                        table.attrName = attrName(pojo, pentry.getKey(), attr);
                         table.oppositePrefix = header.extendTable.tablePrefix;
                         table.toInit = attr.toInit();
                         table.one2many = true;
@@ -768,7 +768,7 @@ public class TableMetaConverter extends TablePojoConverter {
                             continue;
                         }
                         table.tablePrefix = newPrefix(prefixes, table);
-                        table.attrName = attr.getName();
+                        table.attrName = attrName(pojo, pentry.getKey(), attr);
                         table.oppositePrefix = header.extendTable.tablePrefix;
                         table.toInit = attr.toInit();
                         table.many2many = true;
@@ -866,6 +866,15 @@ public class TableMetaConverter extends TablePojoConverter {
                 return pentry.getKey();
         }
         return null;
+    }
+
+    String attrName(String pojo, String colname, PojoAttribute attr) {
+        String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(colname) : null;
+        if (name == null)
+            name = attr.getName();
+        else
+            name = columnToCamelCase(name);
+        return name;
     }
 
     String[] findInheritanceKeysName(String name1, String name2) {

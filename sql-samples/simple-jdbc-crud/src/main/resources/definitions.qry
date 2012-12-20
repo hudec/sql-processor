@@ -36,7 +36,8 @@ metagen-column-meta-type CONTACT PHONE_NUMBER->phone;
 // just for dev
 pojogen-rename-columns BOOK ISBN->NEW_ISBN;
 pojogen-rename-tables BOOK->NEW_BOOK;
-pojogen-ignore-one-to-many PERSON ID->MEDIA->AUTHOR;
+//pojogen-ignore-one-to-many PERSON ID->MEDIA->AUTHOR;
+pojogen-rename-columns PERFORMER MEDIAS->WORK;
 
 pojogen-create-many-to-one PHYSICAL_MEDIA MEDIA->MEDIA->ID;
 
@@ -46,6 +47,7 @@ table contact CONTACT;
 table library LIBRARY;
 table media MEDIA;
 table movie MOVIE;
+table performer PERFORMER;
 table person PERSON;
 table personLibrary PERSON_LIBRARY;
 table physicalMedia PHYSICAL_MEDIA;
