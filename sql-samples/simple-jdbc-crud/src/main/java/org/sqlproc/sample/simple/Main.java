@@ -116,6 +116,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Person person, p;
+        Performer performer, pf;
         BankAccount bankAccount, b1;
         NewBook book, b;
         Contact contact, c;
@@ -162,7 +163,8 @@ public class Main {
         NewBook book1 = main.getBookDao().insertBook(
                 (NewBook) new NewBook("The Adventures of Robin Hood", "978-0140367003")._setAuthor(honzikp));
         NewBook book2 = main.getBookDao().insertBook(new NewBook("The Three Musketeers", "978-1897093634"));
-        Movie movie1 = main.getMovieDao().insertMovie(new Movie("Pippi Långstrump i Söderhavet", "abc", 82));
+        Movie movie1 = main.getMovieDao().insertMovie(
+                (Movie) new Movie("Pippi Långstrump i Söderhavet", "abc", 82)._setAuthor(honzikp));
         Movie movie2 = main.getMovieDao().insertMovie(new Movie("Die Another Day", "def", 95));
 
         PhysicalMedia pbook1 = main.getPhysicalMediaDao().insertPhysicalMedia(new PhysicalMedia("folder 001", book1));
@@ -262,6 +264,25 @@ public class Main {
         // Assert.assertEquals("Die Another Day", p.getLibrary().get(2).getTitle());
         // Assert.assertTrue(p.getLibrary().get(2) instanceof Movie);
         // Assert.assertEquals("def", ((Movie) p.getLibrary().get(2)).getUrlimdb());
+
+        performer = new Performer();
+        performer.setId(honzikp.getId());
+        performer.setInit(Performer.Association.person);
+        pf = main.getPerformerDao().getPerformer(performer);
+        Assert.assertNotNull(pf);
+        Assert.assertEquals("Honzik", pf.getPerson().getFirstName());
+        Assert.assertEquals("Honzíček", pf.getPerson().getLastName());
+        Assert.assertEquals(0, pf.getWork().size());
+        performer.setInit(Performer.Association.work);
+        pf = main.getPerformerDao().getPerformer(performer);
+        Assert.assertNotNull(pf);
+        Assert.assertEquals(2, pf.getWork().size());
+        Assert.assertEquals("The Adventures of Robin Hood Updated", pf.getWork().get(0).getTitle());
+        Assert.assertTrue(pf.getWork().get(0) instanceof NewBook);
+        Assert.assertEquals("978-9940367003", ((NewBook) pf.getWork().get(0)).getNewIsbn());
+        Assert.assertEquals("Die Another Day Updated", pf.getWork().get(1).getTitle());
+        Assert.assertTrue(pf.getWork().get(1) instanceof Movie);
+        Assert.assertEquals("def Updated", ((Movie) pf.getWork().get(1)).getUrlimdb());
 
         // get
         book = new NewBook();

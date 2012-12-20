@@ -1,5 +1,8 @@
 package org.sqlproc.dsl.ui.templates;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -68,28 +71,36 @@ public class TableMetaConverter extends TablePojoConverter {
     }
 
     public String getMetaDefinitions() {
-        if (debug) {
-            System.out.println("pojos " + this.pojos);
-            System.out.println("pojoExtends " + this.pojoExtends);
-            System.out.println("pojoInheritanceDiscriminator " + this.pojoInheritanceDiscriminator);
-            System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
-            System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
-        }
+        try {
+            if (debug) {
+                System.out.println("pojos " + this.pojos);
+                System.out.println("pojoExtends " + this.pojoExtends);
+                System.out.println("pojoInheritanceDiscriminator " + this.pojoInheritanceDiscriminator);
+                System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
+                System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
+            }
 
-        StringBuilder buffer = new StringBuilder();
-        for (String pojo : pojos.keySet()) {
-            if (!onlyTables.isEmpty() && !onlyTables.contains(pojo))
-                continue;
-            if (ignoreTables.contains(pojo))
-                continue;
-            if (pojoInheritanceDiscriminator.containsKey(pojo))
-                continue;
-            buffer.append(metaInsertDefinition(pojo));
-            buffer.append(metaGetDefinition(pojo));
-            buffer.append(metaUpdateDefinition(pojo));
-            buffer.append(metaDeleteDefinition(pojo));
+            StringBuilder buffer = new StringBuilder();
+            for (String pojo : pojos.keySet()) {
+                if (!onlyTables.isEmpty() && !onlyTables.contains(pojo))
+                    continue;
+                if (ignoreTables.contains(pojo))
+                    continue;
+                if (pojoInheritanceDiscriminator.containsKey(pojo))
+                    continue;
+                buffer.append(metaInsertDefinition(pojo));
+                buffer.append(metaGetDefinition(pojo));
+                buffer.append(metaUpdateDefinition(pojo));
+                buffer.append(metaDeleteDefinition(pojo));
+            }
+            return buffer.toString();
+        } catch (RuntimeException ex) {
+            Writer writer = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(writer);
+            ex.printStackTrace(printWriter);
+            String s = writer.toString();
+            return s;
         }
-        return buffer.toString();
     }
 
     StringBuilder metaInsertDefinition(String pojo) {
@@ -577,6 +588,8 @@ public class TableMetaConverter extends TablePojoConverter {
     }
 
     Header getStatementHeader(String pojo, StringBuilder buffer, StatementType type, String suffix) {
+        if (debug && (type == StatementType.GET || type == StatementType.SELECT))
+            System.out.println("\n--- " + pojo + " " + suffix);
         Header header = new Header();
         Set<String> prefixes = new HashSet<String>();
         header.table.setNames(pojo);
@@ -661,6 +674,25 @@ public class TableMetaConverter extends TablePojoConverter {
                     header.assocTables.put(pentry.getKey(), table);
                     if (debug && (type == StatementType.GET || type == StatementType.SELECT))
                         System.out.println("444 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
+                    if (pojoInheritanceSimple.containsKey(table.realTableName)) {
+                        header.inherTables.put(pentry.getKey(), new ArrayList<Table>());
+                        for (String name : pojoInheritanceSimple.get(table.realTableName)) {
+                            Table table2 = new Table();
+                            table2.setNames(name);
+                            // inheritImports {MOVIE={MEDIA_ID={MEDIA=ID}}, BOOK={MEDIA_ID={MEDIA=ID}}}
+                            String[] kk = findInheritanceKeysName(name, table.realTableName);
+                            table2.primaryKey = kk[1];
+                            table2.tableKey = kk[0];
+                            table2.tablePrefix = newPrefix(prefixes, table2);
+                            table2.attrName = attrName(pojo, pentry.getKey(), attr);
+                            table2.oppositePrefix = table.tablePrefix;
+                            table2.discriminator = kk[0];
+                            table2.inheritance = table2.realTableName.toLowerCase();
+                            header.inherTables.get(pentry.getKey()).add(table2);
+                        }
+                    }
+                    if (debug && (type == StatementType.GET || type == StatementType.SELECT))
+                        System.out.println("444b " + header.inherTables);
                 } else if (attr.getManyToManyColumn() != null) {
                     PojoAttribute attr1 = pojos.get(header.table.realTableName).get(attr.getManyToManyColumn());
                     if (header.table.tablePrefix == null)
@@ -753,6 +785,25 @@ public class TableMetaConverter extends TablePojoConverter {
                         header.assocTables.put(pentry.getKey(), table);
                         if (debug && (type == StatementType.GET || type == StatementType.SELECT))
                             System.out.println("777 " + pentry.getKey() + " " + table + " " + attr + " " + attr1);
+                        if (pojoInheritanceSimple.containsKey(table.realTableName)) {
+                            header.inherTables.put(pentry.getKey(), new ArrayList<Table>());
+                            for (String name : pojoInheritanceSimple.get(table.realTableName)) {
+                                Table table2 = new Table();
+                                table2.setNames(name);
+                                // inheritImports {MOVIE={MEDIA_ID={MEDIA=ID}}, BOOK={MEDIA_ID={MEDIA=ID}}}
+                                String[] kk = findInheritanceKeysName(name, table.realTableName);
+                                table2.primaryKey = kk[1];
+                                table2.tableKey = kk[0];
+                                table2.tablePrefix = newPrefix(prefixes, table2);
+                                table2.attrName = attrName(pojo, pentry.getKey(), attr);
+                                table2.oppositePrefix = table.tablePrefix;
+                                table2.discriminator = kk[0];
+                                table2.inheritance = table2.realTableName.toLowerCase();
+                                header.inherTables.get(pentry.getKey()).add(table2);
+                            }
+                        }
+                        if (debug && (type == StatementType.GET || type == StatementType.SELECT))
+                            System.out.println("777b " + header.inherTables);
                     } else if (attr.getManyToManyColumn() != null) {
                         PojoAttribute attr1 = pojos.get(header.extendTable.realTableName).get(
                                 attr.getManyToManyColumn());

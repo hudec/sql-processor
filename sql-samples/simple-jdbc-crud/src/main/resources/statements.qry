@@ -267,13 +267,13 @@ INSERT_PERFORMER(CRUD,identx=Performer,colx=Performer,dbcol=performer)=
   {= values (:id^^idsel=SEL1, :person.id) }
 ;
 
-GET_PERFORMER(CRUD,identx=Performer,colx=Performer,dbcol=performer=p,dbcol=person=p1,dbcol=media=m)=
+GET_PERFORMER(CRUD,identx=Performer,colx=Performer,dbcol=performer=p,dbcol=person=p1,dbcol=media=m,dbcol=movie=m1,dbcol=book=b)=
   select %p.ID @id^^id, %p.PERSON_ID @person.id^^id
          {? :person^^call=toInit | , %p1.FIRST_NAME @person.firstName, %p1.LAST_NAME @person.lastName, %p1.DATE_OF_BIRTH @person.dateOfBirth, %p1.SSN @person.ssn }
-         {? :work^^call=toInit | , %m.ID @work.id^^id, %m.TITLE @work.title, %m.AUTHOR @work.author.id }
+         {? :work^^call=toInit | , %m1.MEDIA_ID @work==movie.id^^id, %m1.URLIMDB @work.urlimdb, %m1.PLAYLENGTH @work.playlength, %b.MEDIA_ID @work==book.id^^id, %b.ISBN @work.newIsbn, %m.ID @work.id^^id, %m.TITLE @work.title, %m.AUTHOR @work.author.id }
   from %%PERFORMER p
   {? :person^^call=toInit | left join %%PERSON p1 on %p.PERSON_ID = %p1.ID }
-  {? :work^^call=toInit | left join %%MEDIA m on %p.ID = %m.AUTHOR }
+  {? :work^^call=toInit | left join %%MEDIA m on %p.ID = %m.AUTHOR left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
   {= where
     {& %p.ID = :id }
     {& %p.PERSON_ID = :person.id }

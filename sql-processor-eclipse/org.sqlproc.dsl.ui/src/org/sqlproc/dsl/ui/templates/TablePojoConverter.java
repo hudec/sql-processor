@@ -1,5 +1,8 @@
 package org.sqlproc.dsl.ui.templates;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Types;
@@ -488,134 +491,142 @@ public class TablePojoConverter {
     }
 
     public String getPojoDefinitions() {
-        if (debug) {
-            System.out.println("pojos " + this.pojos);
-            System.out.println("pojoExtends " + this.pojoExtends);
-            System.out.println("pojoInheritanceDiscriminator " + this.pojoInheritanceDiscriminator);
-            System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
-            System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
-        }
+        try {
+            if (debug) {
+                System.out.println("pojos " + this.pojos);
+                System.out.println("pojoExtends " + this.pojoExtends);
+                System.out.println("pojoInheritanceDiscriminator " + this.pojoInheritanceDiscriminator);
+                System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
+                System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
+            }
 
-        StringBuilder buffer = new StringBuilder();
-        boolean isSerializable = false;
-        if (!toImplements.isEmpty()) {
-            for (JvmType type : toImplements.values()) {
-                if (type.getIdentifier().endsWith("Serializable")) {
-                    isSerializable = true;
-                    continue;
+            StringBuilder buffer = new StringBuilder();
+            boolean isSerializable = false;
+            if (!toImplements.isEmpty()) {
+                for (JvmType type : toImplements.values()) {
+                    if (type.getIdentifier().endsWith("Serializable")) {
+                        isSerializable = true;
+                        continue;
+                    }
+                    buffer.append("\n  implements ").append(type.getIdentifier());
                 }
-                buffer.append("\n  implements ").append(type.getIdentifier());
             }
-        }
-        if (toExtends != null) {
-            buffer.append("\n  extends ").append(toExtends.getIdentifier());
-        }
-        if (!toImplements.isEmpty() || toExtends != null) {
-            buffer.append("\n");
-        }
-        for (String pojo : pojos.keySet()) {
-            // System.out.println("QQQQQ " + pojo);
-            if (!onlyTables.isEmpty() && !onlyTables.contains(pojo))
-                continue;
-            if (ignoreTables.contains(pojo))
-                continue;
-            if (finalEntities.contains(tableToCamelCase(pojo)))
-                continue;
-            String pojoName = tableNames.get(pojo);
-            if (pojoName == null)
-                pojoName = pojo;
-            buffer.append("\n  ");
-            if (pojoInheritanceDiscriminator.containsKey(pojo) || pojoInheritanceSimple.containsKey(pojo))
-                buffer.append("abstract ");
-            buffer.append("pojo ");
-            buffer.append(tableToCamelCase(pojoName));
-            if (pojoExtends.containsKey(pojo))
-                buffer.append(" extends ").append(tableToCamelCase(pojoExtends.get(pojo)));
-            if (pojoDiscriminators.containsKey(pojo))
-                buffer.append(" discriminator ").append(pojoDiscriminators.get(pojo));
-            if (isSerializable)
-                buffer.append(" serializable 1 ");
-            buffer.append(" {");
-            Set<String> pkeys = new HashSet<String>();
-            Set<String> toStr = new HashSet<String>();
-            Set<String> isDef = new HashSet<String>();
-            Set<String> toInit = new HashSet<String>();
-            for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
-                // System.out.println("  RRR " + pentry.getKey());
-                if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
+            if (toExtends != null) {
+                buffer.append("\n  extends ").append(toExtends.getIdentifier());
+            }
+            if (!toImplements.isEmpty() || toExtends != null) {
+                buffer.append("\n");
+            }
+            for (String pojo : pojos.keySet()) {
+                // System.out.println("QQQQQ " + pojo);
+                if (!onlyTables.isEmpty() && !onlyTables.contains(pojo))
                     continue;
-                PojoAttribute attribute = pentry.getValue();
-                String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : null;
-                if (name == null)
-                    name = attribute.getName();
-                else
-                    name = columnToCamelCase(name);
-                buffer.append("\n    ").append(name).append(' ');
-                if (attribute.getDependencyClassName() != null) {
-                    buffer.append(":: ").append(attribute.getDependencyClassName());
-                    toStr.add(name);
-                } else if (attribute.isPrimitive()) {
-                    buffer.append('_').append(attribute.getClassName());
-                    toStr.add(name);
-                } else {
-                    buffer.append(": ").append(attribute.getClassName());
-                    if (!attribute.getClassName().startsWith(COLLECTION_LIST))
+                if (ignoreTables.contains(pojo))
+                    continue;
+                if (finalEntities.contains(tableToCamelCase(pojo)))
+                    continue;
+                String pojoName = tableNames.get(pojo);
+                if (pojoName == null)
+                    pojoName = pojo;
+                buffer.append("\n  ");
+                if (pojoInheritanceDiscriminator.containsKey(pojo) || pojoInheritanceSimple.containsKey(pojo))
+                    buffer.append("abstract ");
+                buffer.append("pojo ");
+                buffer.append(tableToCamelCase(pojoName));
+                if (pojoExtends.containsKey(pojo))
+                    buffer.append(" extends ").append(tableToCamelCase(pojoExtends.get(pojo)));
+                if (pojoDiscriminators.containsKey(pojo))
+                    buffer.append(" discriminator ").append(pojoDiscriminators.get(pojo));
+                if (isSerializable)
+                    buffer.append(" serializable 1 ");
+                buffer.append(" {");
+                Set<String> pkeys = new HashSet<String>();
+                Set<String> toStr = new HashSet<String>();
+                Set<String> isDef = new HashSet<String>();
+                Set<String> toInit = new HashSet<String>();
+                for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+                    // System.out.println("  RRR " + pentry.getKey());
+                    if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
+                        continue;
+                    PojoAttribute attribute = pentry.getValue();
+                    String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : null;
+                    if (name == null)
+                        name = attribute.getName();
+                    else
+                        name = columnToCamelCase(name);
+                    buffer.append("\n    ").append(name).append(' ');
+                    if (attribute.getDependencyClassName() != null) {
+                        buffer.append(":: ").append(attribute.getDependencyClassName());
                         toStr.add(name);
+                    } else if (attribute.isPrimitive()) {
+                        buffer.append('_').append(attribute.getClassName());
+                        toStr.add(name);
+                    } else {
+                        buffer.append(": ").append(attribute.getClassName());
+                        if (!attribute.getClassName().startsWith(COLLECTION_LIST))
+                            toStr.add(name);
+                    }
+                    if (attribute.isDef())
+                        isDef.add(name);
+                    if (attribute.toInit())
+                        toInit.add(name);
+                    if (inheritanceColumns.containsKey(pojo) && pentry.getKey().equals(inheritanceColumns.get(pojo))) {
+                        buffer.append(" discriminator");
+                    }
+                    if ((requiredColumns.containsKey(pojo) && requiredColumns.get(pojo).contains(pentry.getKey()))
+                            || (attribute.isRequired() && !attribute.isPrimaryKey())) {
+                        if (!notRequiredColumns.containsKey(pojo)
+                                || !notRequiredColumns.get(pojo).contains(pentry.getKey()))
+                            buffer.append(" required");
+                    }
+                    if (attribute.isPrimaryKey()) {
+                        buffer.append(" primaryKey");
+                        pkeys.add(name);
+                    }
                 }
-                if (attribute.isDef())
-                    isDef.add(name);
-                if (attribute.toInit())
-                    toInit.add(name);
-                if (inheritanceColumns.containsKey(pojo) && pentry.getKey().equals(inheritanceColumns.get(pojo))) {
-                    buffer.append(" discriminator");
+                if (pojoExtends.containsKey(pojo)) {
+                    getParentAttrs(pojoExtends.get(pojo), isDef, toInit);
                 }
-                if ((requiredColumns.containsKey(pojo) && requiredColumns.get(pojo).contains(pentry.getKey()))
-                        || (attribute.isRequired() && !attribute.isPrimaryKey())) {
-                    if (!notRequiredColumns.containsKey(pojo)
-                            || !notRequiredColumns.get(pojo).contains(pentry.getKey()))
-                        buffer.append(" required");
+                if (generateMethods.contains(METHOD_EQUALS) && !pkeys.isEmpty()) {
+                    buffer.append("\n    ").append(METHOD_EQUALS).append(" :::");
+                    for (String name : pkeys) {
+                        buffer.append(" ").append(name);
+                    }
                 }
-                if (attribute.isPrimaryKey()) {
-                    buffer.append(" primaryKey");
-                    pkeys.add(name);
+                if (generateMethods.contains(METHOD_HASH_CODE) && !pkeys.isEmpty()) {
+                    buffer.append("\n    ").append(METHOD_HASH_CODE).append(" :::");
+                    for (String name : pkeys) {
+                        buffer.append(" ").append(name);
+                    }
                 }
+                if (generateMethods.contains(METHOD_TO_INIT) && !toInit.isEmpty()) {
+                    buffer.append("\n    ").append(METHOD_TO_INIT).append(" :::");
+                    for (String name : toInit) {
+                        buffer.append(" ").append(name);
+                    }
+                }
+                if (generateMethods.contains(METHOD_IS_DEF) && !isDef.isEmpty()) {
+                    buffer.append("\n    ").append(METHOD_IS_DEF).append(" :::");
+                    for (String name : isDef) {
+                        buffer.append(" ").append(name);
+                    }
+                }
+                if (generateMethods.contains(METHOD_TO_STRING) && !toStr.isEmpty()) {
+                    buffer.append("\n    ").append(METHOD_TO_STRING).append(" :::");
+                    for (String name : toStr) {
+                        buffer.append(" ").append(name);
+                    }
+                }
+                buffer.append("\n  }\n");
             }
-            if (pojoExtends.containsKey(pojo)) {
-                getParentAttrs(pojoExtends.get(pojo), isDef, toInit);
-            }
-            if (generateMethods.contains(METHOD_EQUALS) && !pkeys.isEmpty()) {
-                buffer.append("\n    ").append(METHOD_EQUALS).append(" :::");
-                for (String name : pkeys) {
-                    buffer.append(" ").append(name);
-                }
-            }
-            if (generateMethods.contains(METHOD_HASH_CODE) && !pkeys.isEmpty()) {
-                buffer.append("\n    ").append(METHOD_HASH_CODE).append(" :::");
-                for (String name : pkeys) {
-                    buffer.append(" ").append(name);
-                }
-            }
-            if (generateMethods.contains(METHOD_TO_INIT) && !toInit.isEmpty()) {
-                buffer.append("\n    ").append(METHOD_TO_INIT).append(" :::");
-                for (String name : toInit) {
-                    buffer.append(" ").append(name);
-                }
-            }
-            if (generateMethods.contains(METHOD_IS_DEF) && !isDef.isEmpty()) {
-                buffer.append("\n    ").append(METHOD_IS_DEF).append(" :::");
-                for (String name : isDef) {
-                    buffer.append(" ").append(name);
-                }
-            }
-            if (generateMethods.contains(METHOD_TO_STRING) && !toStr.isEmpty()) {
-                buffer.append("\n    ").append(METHOD_TO_STRING).append(" :::");
-                for (String name : toStr) {
-                    buffer.append(" ").append(name);
-                }
-            }
-            buffer.append("\n  }\n");
+            return buffer.toString();
+        } catch (RuntimeException ex) {
+            Writer writer = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(writer);
+            ex.printStackTrace(printWriter);
+            String s = writer.toString();
+            return s;
         }
-        return buffer.toString();
     }
 
     protected void getParentAttrs(String pojo, Set<String> isDef, Set<String> toInit) {
