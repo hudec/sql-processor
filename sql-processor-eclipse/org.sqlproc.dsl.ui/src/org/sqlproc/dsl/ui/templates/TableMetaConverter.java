@@ -367,8 +367,6 @@ public class TableMetaConverter extends TablePojoConverter {
             first = selectColumn(pentry.getKey(), attr, buffer, pojo, first, statementName, tablePrefix, pojoPrefix,
                     notPrimaryKeys, assocTables, null, inherTables, null);
         }
-        if (discriminator != null) {
-        }
         return first;
     }
 
@@ -396,8 +394,12 @@ public class TableMetaConverter extends TablePojoConverter {
         buffer.append(" @");
         if (pojoPrefix != null)
             buffer.append(pojoPrefix);
-        if (discriminator != null)
-            buffer.append("==discriminator");
+        if (discriminator != null) {
+            if (inheritance != null)
+                buffer.append("==").append(inheritance);
+            else
+                buffer.append("==discriminator");
+        }
         if (pojoPrefix != null)
             buffer.append(".");
         buffer.append(name);

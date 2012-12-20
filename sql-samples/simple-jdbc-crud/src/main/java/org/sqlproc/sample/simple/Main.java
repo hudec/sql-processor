@@ -316,13 +316,13 @@ public class Main {
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 011", pm.getLocation());
         Assert.assertNull(pm.getMedia());
-        // physicalMedia.setInit(PhysicalMedia.Association.media);
-        // pm = main.getPhysicalMediaDao().getPhysicalMedia(physicalMedia);
-        // Assert.assertNotNull(pm);
-        // Assert.assertEquals("folder 011", pm.getLocation());
-        // Assert.assertNotNull(pm.getMedia());
-        // Assert.assertTrue(pm.getMedia() instanceof NewBook);
-        // Assert.assertEquals("978-9940367003", ((NewBook) pm.getMedia()).getNewIsbn());
+        physicalMedia.setInit(PhysicalMedia.Association.media);
+        pm = main.getPhysicalMediaDao().getPhysicalMedia(physicalMedia);
+        Assert.assertNotNull(pm);
+        Assert.assertEquals("folder 011", pm.getLocation());
+        Assert.assertNotNull(pm.getMedia());
+        Assert.assertTrue(pm.getMedia() instanceof NewBook);
+        Assert.assertEquals("978-9940367003", ((NewBook) pm.getMedia()).getNewIsbn());
 
         physicalMedia = new PhysicalMedia();
         physicalMedia.setId(pmovie1.getId());
@@ -330,13 +330,13 @@ public class Main {
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 003", pm.getLocation());
         Assert.assertNull(pm.getMedia());
-        // physicalMedia.setInit(PhysicalMedia.Association.media);
-        // pm = main.getPhysicalMediaDao().getPhysicalMedia(physicalMedia);
-        // Assert.assertNotNull(pm);
-        // Assert.assertEquals("folder 003", pm.getLocation());
-        // Assert.assertNotNull(pm.getMedia());
-        // Assert.assertTrue(pm.getMedia() instanceof Movie);
-        // Assert.assertEquals("def Updated", ((Movie) pm.getMedia()).getUrlimdb());
+        physicalMedia.setInit(PhysicalMedia.Association.media);
+        pm = main.getPhysicalMediaDao().getPhysicalMedia(physicalMedia);
+        Assert.assertNotNull(pm);
+        Assert.assertEquals("folder 003", pm.getLocation());
+        Assert.assertNotNull(pm.getMedia());
+        Assert.assertTrue(pm.getMedia() instanceof Movie);
+        Assert.assertEquals("def Updated", ((Movie) pm.getMedia()).getUrlimdb());
 
         subscriber = new Subscriber();
         subscriber.setId(janikS.getId());
