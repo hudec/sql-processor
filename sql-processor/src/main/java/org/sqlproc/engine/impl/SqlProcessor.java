@@ -173,12 +173,14 @@ public class SqlProcessor {
             return processor;
         } finally {
             if (logger.isTraceEnabled()) {
-                logger.trace("<< getInstance, queries=" + processor.getMetaStatements(StatementType.QRY));
-                logger.trace("<< getInstance, cruds=" + processor.getMetaStatements(StatementType.CRUD));
-                logger.trace("<< getInstance, calls=" + processor.getMetaStatements(StatementType.CALL));
-                logger.trace("<< getInstance, input mappings=" + processor.getMappingRules(MappingType.IN));
-                logger.trace("<< getInstance, output mappings=" + processor.getMappingRules(MappingType.OUT));
-                logger.trace("<< getInstance, features=" + processor.getFeatures());
+                if (processor != null) {
+                    logger.trace("<< getInstance, queries=" + processor.getMetaStatements(StatementType.QRY));
+                    logger.trace("<< getInstance, cruds=" + processor.getMetaStatements(StatementType.CRUD));
+                    logger.trace("<< getInstance, calls=" + processor.getMetaStatements(StatementType.CALL));
+                    logger.trace("<< getInstance, input mappings=" + processor.getMappingRules(MappingType.IN));
+                    logger.trace("<< getInstance, output mappings=" + processor.getMappingRules(MappingType.OUT));
+                    logger.trace("<< getInstance, features=" + processor.getFeatures());
+                }
             }
         }
     }
