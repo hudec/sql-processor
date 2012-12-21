@@ -160,11 +160,13 @@ INSERT_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library)=
   {= values (:id^^idsel=SEL1, :name) }
 ;
 
-GET_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library=l,dbcol=subscriber=s)=
+GET_LIBRARY(CRUD,identx=Library,colx=Library,dbcol=library=l,dbcol=subscriber=s,dbcol=physicalMedia=p)=
   select %l.ID @id^^id, %l.NAME @name
          {? :subscribers^^call=toInit | , %s.ID @subscribers.id^^id, %s.LIBRARY @subscribers.library.id, %s.CONTACT @subscribers.contact.id, %s.NAME @subscribers.name }
+         {? :catalog^^call=toInit | , %p.ID @catalog.id^^id, %p.LOCATION @catalog.location, %p.MEDIA @catalog.media.id, %p.LIBRARY @catalog.library.id }
   from %%LIBRARY l
   {? :subscribers^^call=toInit | left join %%SUBSCRIBER s on %l.ID = %s.LIBRARY }
+  {? :catalog^^call=toInit | left join %%PHYSICAL_MEDIA p on %l.ID = %p.LIBRARY }
   {= where
     {& %l.ID = :id }
     {& %l.NAME = :name }

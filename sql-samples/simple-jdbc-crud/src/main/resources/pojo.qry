@@ -48,11 +48,11 @@ package org.sqlproc.sample.simple.model {
   pojo Library serializable 1  {
     id : java.lang.Long primaryKey
     name : java.lang.String required
-    library : java.util.List <:PhysicalMedia>
     subscribers : java.util.List <:Subscriber>
+    catalog : java.util.List <:PhysicalMedia>
     equals ::: id
     hashCode ::: id
-    toInit ::: library subscribers
+    toInit ::: catalog subscribers
     toString ::: id name
   }
 

@@ -50,21 +50,6 @@ public class Library implements Serializable {
     return this;
   }
   
-  private List<PhysicalMedia> library = new ArrayList<PhysicalMedia>();
-    
-  public List<PhysicalMedia> getLibrary() {
-    return library;
-  }
-    
-  public void setLibrary(List<PhysicalMedia> library) {
-    this.library = library;
-  }
-    
-  public Library _setLibrary(List<PhysicalMedia> library) {
-    this.library = library;
-    return this;
-  }
-  
   private List<Subscriber> subscribers = new ArrayList<Subscriber>();
     
   public List<Subscriber> getSubscribers() {
@@ -77,6 +62,21 @@ public class Library implements Serializable {
     
   public Library _setSubscribers(List<Subscriber> subscribers) {
     this.subscribers = subscribers;
+    return this;
+  }
+  
+  private List<PhysicalMedia> catalog = new ArrayList<PhysicalMedia>();
+    
+  public List<PhysicalMedia> getCatalog() {
+    return catalog;
+  }
+    
+  public void setCatalog(List<PhysicalMedia> catalog) {
+    this.catalog = catalog;
+  }
+    
+  public Library _setCatalog(List<PhysicalMedia> catalog) {
+    this.catalog = catalog;
     return this;
   }
   
@@ -105,7 +105,7 @@ public class Library implements Serializable {
   private Set<String> initAssociations = new HashSet<String>();
   
   public enum Association {
-    library, subscribers
+    catalog, subscribers
   }
   
   public void setInit(Association... associations) {

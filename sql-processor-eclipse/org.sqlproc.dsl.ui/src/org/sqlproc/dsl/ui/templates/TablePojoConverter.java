@@ -313,8 +313,8 @@ public class TablePojoConverter {
             for (Map.Entry<String, Map<String, String>> pentry : createExports.get(table).entrySet()) {
                 PojoAttribute attribute = attributes.get(pentry.getKey());
                 for (Map.Entry<String, String> fk : pentry.getValue().entrySet()) {
-                    attribute.getFkTables().put(fk.getKey(), fk.getValue());
-                    // attribute.getFkColumns().put(fk.getKey(), fk.getValue());
+                    attribute.getFkTables().put(fk.getKey(), null);
+                    attribute.getFkColumns().put(fk.getKey(), fk.getValue());
                 }
             }
         }

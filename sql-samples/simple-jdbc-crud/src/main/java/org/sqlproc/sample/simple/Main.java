@@ -236,7 +236,7 @@ public class Main {
         s = main.getSubscriberDao().updateSubscriber(janikS);
         Assert.assertNotNull(s);
 
-        // get
+        // get & update person with null values
         person = new Person();
         person.setId(andrej.getId());
         p = main.getPersonDao().getPerson(person);
@@ -246,7 +246,6 @@ public class Main {
         Assert.assertEquals("123456789", p.getSsn());
         Assert.assertTrue(p.getContacts().size() == 0);
 
-        // update also with null values
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andrioša");
@@ -254,35 +253,106 @@ public class Main {
         p = main.getPersonDao().updatePerson(person);
         Assert.assertNotNull(p);
 
-        // get
-        person = new Person();
-        person.setId(andrej.getId());
-        person.setInit(Person.Association.contacts);
-        p = main.getPersonDao().getPerson(person);
-        Assert.assertNotNull(p);
-        Assert.assertEquals("Andrioša", p.getFirstName());
-        Assert.assertEquals("Andrejček", p.getLastName());
-        Assert.assertNull(p.getSsn());
-        Assert.assertEquals(1, p.getContacts().size());
-        Assert.assertEquals("Andrej address 1", p.getContacts().get(0).getAddress());
-        Assert.assertEquals(new PhoneNumber(444, 555, 6666), p.getContacts().get(0).getPhoneNumber());
+        // get bankAccount with associations
+        bankAccount = new BankAccount();
+        bankAccount.setId(bankAccount1.getId());
+        b1 = main.getBankAccountDao().getBankAccount(bankAccount);
+        Assert.assertNotNull(b1);
+        Assert.assertNull(b1.getSubscriber().getName());
+        bankAccount.setInit(BankAccount.Association.subscriber);
+        b1 = main.getBankAccountDao().getBankAccount(bankAccount);
+        Assert.assertNotNull(b1);
+        Assert.assertEquals("updated account", b1.getBaAccount());
+        Assert.assertEquals(honzaS.getId(), b1.getSubscriber().getId());
+        Assert.assertNotNull(b1.getSubscriber());
+        Assert.assertEquals("Honza Subscr", b1.getSubscriber().getName());
 
-        person.setInit(Person.Association.library);
-        p = main.getPersonDao().getPerson(person);
-        Assert.assertNotNull(p);
-        Assert.assertEquals(3, p.getLibrary().size());
-        Assert.assertEquals("The Adventures of Robin Hood Updated", p.getLibrary().get(0).getTitle());
-        Assert.assertTrue(p.getLibrary().get(0) instanceof NewBook);
-        Assert.assertEquals("978-9940367003", ((NewBook) p.getLibrary().get(0)).getNewIsbn());
-        Assert.assertEquals("The Three Musketeers", p.getLibrary().get(1).getTitle());
-        Assert.assertTrue(p.getLibrary().get(1) instanceof NewBook);
-        Assert.assertEquals("978-1897093634", ((NewBook) p.getLibrary().get(1)).getNewIsbn());
-        Assert.assertEquals("Die Another Day", p.getLibrary().get(2).getTitle());
-        Assert.assertTrue(p.getLibrary().get(2) instanceof Movie);
-        Assert.assertEquals("def", ((Movie) p.getLibrary().get(2)).getUrlimdb());
+        // get contact with associations
+        contact = new Contact();
+        contact.setId(honza.getContacts().get(0).getId());
+        c = main.getContactDao().getContact(contact);
+        Assert.assertNotNull(c);
+        Assert.assertNull(c.getPerson().getLastName());
+        contact.setInit(Contact.Association.person);
+        c = main.getContactDao().getContact(contact);
+        Assert.assertNotNull(c);
+        Assert.assertEquals("Honza address 1 Updated", c.getAddress());
+        Assert.assertEquals(new PhoneNumber(000, 0000, 0000), c.getPhoneNumber());
+        Assert.assertNotNull(c.getPerson());
+        Assert.assertEquals("Honzovský", c.getPerson().getLastName());
 
+        // get creditCard with associations
+        creditCard = new CreditCard();
+        creditCard.setId(creditCard1.getId());
+        c1 = main.getCreditCardDao().getCreditCard(creditCard);
+        Assert.assertNotNull(c1);
+        Assert.assertNull(c1.getSubscriber().getName());
+        creditCard.setInit(CreditCard.Association.subscriber);
+        c1 = main.getCreditCardDao().getCreditCard(creditCard);
+        Assert.assertNotNull(c1);
+        Assert.assertEquals(new Long(789), c1.getCcNumber());
+        Assert.assertNotNull(c1.getSubscriber());
+        Assert.assertEquals("Janik Subscr Updated", c1.getSubscriber().getName());
+
+        // get library with associations
+        library = new Library();
+        library.setId(lib.getId());
+        l = main.getLibraryDao().getLibrary(library);
+        Assert.assertNotNull(l);
+        Assert.assertTrue(l.getCatalog().isEmpty());
+        Assert.assertTrue(l.getSubscribers().isEmpty());
+        // library.setInit(Library.Association.catalog);
+        library.setInit(Library.Association.subscribers);
+        l = main.getLibraryDao().getLibrary(library);
+        Assert.assertNotNull(l);
+        // Assert.assertEquals(1, l.getCatalog().size());
+        Assert.assertEquals(2, l.getSubscribers().size());
+        Assert.assertEquals("Alexandria Library Updated", l.getName());
+
+        // get movie with associations
+        movie = new Movie();
+        movie.setId(movie1.getId());
+        m = main.getMovieDao().getMovie(movie);
+        Assert.assertNotNull(m);
+        Assert.assertEquals("def Updated", m.getUrlimdb());
+        Assert.assertEquals("Die Another Day Updated", m.getTitle());
+        Assert.assertNull(m.getAuthor().getPerson());
+        movie.setInit(Movie.Association.author);
+        m = main.getMovieDao().getMovie(movie);
+        Assert.assertNotNull(m);
+        Assert.assertNotNull(m.getAuthor().getPerson());
+
+        // get book with associations
+        book = new NewBook();
+        book.setId(book1.getId());
+        book.setInit(NewBook.Association.author);
+        b = main.getBookDao().getBook(book);
+        Assert.assertNotNull(b);
+        Assert.assertEquals("978-9940367003", b.getNewIsbn());
+        Assert.assertEquals("The Adventures of Robin Hood Updated", b.getTitle());
+        Assert.assertNotNull(b.getAuthor());
+        Assert.assertEquals(honzikp.getId(), b.getAuthor().getId());
+
+        // get payment with associations
+        payment = new Payment();
+        payment.setId(payment1.getId());
+        py = main.getPaymentDao().getPayment(payment);
+        Assert.assertNotNull(py);
+        Assert.assertNotNull(py.getPaid());
+        Assert.assertNull(py.getBillingDetails());
+        payment.setInit(Payment.Association.billingDetails);
+        py = main.getPaymentDao().getPayment(payment);
+        Assert.assertNotNull(py);
+        Assert.assertNotNull(py.getPaid());
+        Assert.assertNotNull(py.getBillingDetails());
+        Assert.assertTrue(py.getBillingDetails() instanceof BankAccount);
+        Assert.assertEquals("updated account", ((BankAccount) py.getBillingDetails()).getBaAccount());
+
+        // get performer with associations
         performer = new Performer();
         performer.setId(honzikp.getId());
+        pf = main.getPerformerDao().getPerformer(performer);
+        Assert.assertNull(pf.getPerson().getLastName());
         performer.setInit(Performer.Association.person);
         pf = main.getPerformerDao().getPerformer(performer);
         Assert.assertNotNull(pf);
@@ -300,58 +370,33 @@ public class Main {
         Assert.assertTrue(pf.getWork().get(1) instanceof Movie);
         Assert.assertEquals("def Updated", ((Movie) pf.getWork().get(1)).getUrlimdb());
 
-        // get
-        book = new NewBook();
-        book.setId(book1.getId());
-        book.setInit(NewBook.Association.author);
-        b = main.getBookDao().getBook(book);
-        Assert.assertNotNull(b);
-        Assert.assertEquals("978-9940367003", b.getNewIsbn());
-        Assert.assertEquals("The Adventures of Robin Hood Updated", b.getTitle());
-        Assert.assertNotNull(b.getAuthor());
-        Assert.assertEquals(honzikp.getId(), b.getAuthor().getId());
+        // get person with associations
+        person = new Person();
+        person.setId(andrej.getId());
+        person.setInit(Person.Association.contacts);
+        p = main.getPersonDao().getPerson(person);
+        Assert.assertNotNull(p);
+        Assert.assertEquals("Andrioša", p.getFirstName());
+        Assert.assertEquals("Andrejček", p.getLastName());
+        Assert.assertNull(p.getSsn());
+        Assert.assertEquals(1, p.getContacts().size());
+        Assert.assertEquals("Andrej address 1", p.getContacts().get(0).getAddress());
+        Assert.assertEquals(new PhoneNumber(444, 555, 6666), p.getContacts().get(0).getPhoneNumber());
+        person.setInit(Person.Association.library);
+        p = main.getPersonDao().getPerson(person);
+        Assert.assertNotNull(p);
+        Assert.assertEquals(3, p.getLibrary().size());
+        Assert.assertEquals("The Adventures of Robin Hood Updated", p.getLibrary().get(0).getTitle());
+        Assert.assertTrue(p.getLibrary().get(0) instanceof NewBook);
+        Assert.assertEquals("978-9940367003", ((NewBook) p.getLibrary().get(0)).getNewIsbn());
+        Assert.assertEquals("The Three Musketeers", p.getLibrary().get(1).getTitle());
+        Assert.assertTrue(p.getLibrary().get(1) instanceof NewBook);
+        Assert.assertEquals("978-1897093634", ((NewBook) p.getLibrary().get(1)).getNewIsbn());
+        Assert.assertEquals("Die Another Day", p.getLibrary().get(2).getTitle());
+        Assert.assertTrue(p.getLibrary().get(2) instanceof Movie);
+        Assert.assertEquals("def", ((Movie) p.getLibrary().get(2)).getUrlimdb());
 
-        bankAccount = new BankAccount();
-        bankAccount.setId(bankAccount1.getId());
-        bankAccount.setInit(BankAccount.Association.subscriber);
-        b1 = main.getBankAccountDao().getBankAccount(bankAccount);
-        Assert.assertNotNull(b1);
-        Assert.assertEquals("updated account", b1.getBaAccount());
-        Assert.assertEquals(honzaS.getId(), b1.getSubscriber().getId());
-        Assert.assertNotNull(b1.getSubscriber());
-        Assert.assertEquals("Honza Subscr", b1.getSubscriber().getName());
-
-        contact = new Contact();
-        contact.setId(honza.getContacts().get(0).getId());
-        contact.setInit(Contact.Association.person);
-        c = main.getContactDao().getContact(contact);
-        Assert.assertNotNull(c);
-        Assert.assertEquals("Honza address 1 Updated", c.getAddress());
-        Assert.assertEquals(new PhoneNumber(000, 0000, 0000), c.getPhoneNumber());
-        Assert.assertNotNull(c.getPerson());
-        Assert.assertEquals("Honzovský", c.getPerson().getLastName());
-
-        creditCard = new CreditCard();
-        creditCard.setId(creditCard1.getId());
-        creditCard.setInit(CreditCard.Association.subscriber);
-        c1 = main.getCreditCardDao().getCreditCard(creditCard);
-        Assert.assertNotNull(c1);
-        Assert.assertEquals(new Long(789), c1.getCcNumber());
-        Assert.assertNotNull(c1.getSubscriber());
-        Assert.assertEquals("Janik Subscr Updated", c1.getSubscriber().getName());
-
-        library = new Library();
-        library.setId(lib.getId());
-        l = main.getLibraryDao().getLibrary(library);
-        Assert.assertNotNull(l);
-
-        movie = new Movie();
-        movie.setId(movie1.getId());
-        m = main.getMovieDao().getMovie(movie);
-        Assert.assertNotNull(m);
-        Assert.assertEquals("def Updated", m.getUrlimdb());
-        Assert.assertEquals("Die Another Day Updated", m.getTitle());
-
+        // get physicalMedia with associations
         physicalMedia = new PhysicalMedia();
         physicalMedia.setId(pbook1.getId());
         pm = main.getPhysicalMediaDao().getPhysicalMedia(physicalMedia);
@@ -380,6 +425,7 @@ public class Main {
         Assert.assertTrue(pm.getMedia() instanceof Movie);
         Assert.assertEquals("def Updated", ((Movie) pm.getMedia()).getUrlimdb());
 
+        // get subscriber with associations
         subscriber = new Subscriber();
         subscriber.setId(janikS.getId());
         s = main.getSubscriberDao().getSubscriber(subscriber);
@@ -387,14 +433,12 @@ public class Main {
         Assert.assertEquals("Janik Subscr Updated", s.getName());
         Assert.assertNull(s.getLibrary().getName());
         Assert.assertNull(s.getContact().getAddress());
-
         subscriber.setInit(Subscriber.Association.contact);
         subscriber.setInit(Subscriber.Association.library);
         s = main.getSubscriberDao().getSubscriber(subscriber);
         Assert.assertNotNull(s);
         Assert.assertEquals("Alexandria Library Updated", s.getLibrary().getName());
         Assert.assertEquals("Jan address 1", s.getContact().getAddress());
-
         subscriber.setInit(Subscriber.Association.billingDetails);
         s = main.getSubscriberDao().getSubscriber(subscriber);
         Assert.assertNotNull(s);
@@ -403,21 +447,6 @@ public class Main {
         Assert.assertTrue(s.getBillingDetails().size() == 1);
         Assert.assertTrue(s.getBillingDetails().get(0) instanceof CreditCard);
         Assert.assertEquals(new Long(789), ((CreditCard) s.getBillingDetails().get(0)).getCcNumber());
-
-        payment = new Payment();
-        payment.setId(payment1.getId());
-        py = main.getPaymentDao().getPayment(payment);
-        Assert.assertNotNull(py);
-        Assert.assertNotNull(py.getPaid());
-        Assert.assertNull(py.getBillingDetails());
-
-        payment.setInit(Payment.Association.billingDetails);
-        py = main.getPaymentDao().getPayment(payment);
-        Assert.assertNotNull(py);
-        Assert.assertNotNull(py.getPaid());
-        Assert.assertNotNull(py.getBillingDetails());
-        Assert.assertTrue(py.getBillingDetails() instanceof BankAccount);
-        Assert.assertEquals("updated account", ((BankAccount) py.getBillingDetails()).getBaAccount());
 
         // // queries
         // list = main.listAll();
