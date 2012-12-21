@@ -728,7 +728,7 @@ public class DbResolverBean implements DbResolver {
                     detail.setColname(result.getString("COLUMN_NAME"));
                     detail.setDesc("D".equalsIgnoreCase(result.getString("ASC_OR_DESC")));
                     dbIndex.getColumns().add(detail);
-                    System.out.println("EEE " + table + " " + dbIndex.toString());
+                    // System.out.println("EEE " + table + " " + dbIndex.toString());
                     indexesForModel.add(dbIndex);
                 }
             } catch (SQLException e) {
