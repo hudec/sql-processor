@@ -616,6 +616,9 @@ public class AbstractProcessorDslProposalProvider extends AbstractJavaBasedConte
 	public void completePojoPropertyModifier_PrimaryKey(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
 	}
+	public void completePojoPropertyModifier_Index(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		// subclasses may override
+	}
 	public void completePojoProperty_Name(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
 	}

@@ -76,6 +76,8 @@ public class Payment implements Serializable {
     Payment other = (Payment) obj;
     if (id != other.id)
       return false;
+    if (billingDetails != other.billingDetails)
+      return false;
     return true;
   }  
   
@@ -84,6 +86,7 @@ public class Payment implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + (int) (id ^ (id >>> 32));
+    result = prime * result + (int) (billingDetails ^ (billingDetails >>> 32));
     return result;
   }  
   

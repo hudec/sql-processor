@@ -25,7 +25,7 @@ import org.sqlproc.dsl.property.PojoAttribute;
 
 public class TableMetaConverter extends TablePojoConverter {
 
-    private boolean debug = true;
+    private boolean debug = false;
 
     protected Artifacts artifacts;
     protected IScopeProvider scopeProvider;

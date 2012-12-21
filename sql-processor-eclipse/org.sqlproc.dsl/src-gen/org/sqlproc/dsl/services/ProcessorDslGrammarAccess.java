@@ -6001,12 +6001,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cDiscriminatorDiscriminatorKeyword_1_0 = (Keyword)cDiscriminatorAssignment_1.eContents().get(0);
 		private final Assignment cPrimaryKeyAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final Keyword cPrimaryKeyPrimaryKeyKeyword_2_0 = (Keyword)cPrimaryKeyAssignment_2.eContents().get(0);
+		private final Assignment cIndexAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
+		private final Keyword cIndexIndexKeyword_3_0 = (Keyword)cIndexAssignment_3.eContents().get(0);
 		
 		//PojoPropertyModifier:
-		//	required?="required" | discriminator?="discriminator" | primaryKey?="primaryKey";
+		//	required?="required" | discriminator?="discriminator" | primaryKey?="primaryKey" | index?="index";
 		public ParserRule getRule() { return rule; }
 
-		//required?="required" | discriminator?="discriminator" | primaryKey?="primaryKey"
+		//required?="required" | discriminator?="discriminator" | primaryKey?="primaryKey" | index?="index"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//required?="required"
@@ -6026,6 +6028,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"primaryKey"
 		public Keyword getPrimaryKeyPrimaryKeyKeyword_2_0() { return cPrimaryKeyPrimaryKeyKeyword_2_0; }
+
+		//index?="index"
+		public Assignment getIndexAssignment_3() { return cIndexAssignment_3; }
+
+		//"index"
+		public Keyword getIndexIndexKeyword_3_0() { return cIndexIndexKeyword_3_0; }
 	}
 
 	public class PojoPropertyElements extends AbstractParserRuleElementFinder {
@@ -7335,7 +7343,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PojoPropertyModifier:
-	//	required?="required" | discriminator?="discriminator" | primaryKey?="primaryKey";
+	//	required?="required" | discriminator?="discriminator" | primaryKey?="primaryKey" | index?="index";
 	public PojoPropertyModifierElements getPojoPropertyModifierAccess() {
 		return (pPojoPropertyModifier != null) ? pPojoPropertyModifier : (pPojoPropertyModifier = new PojoPropertyModifierElements());
 	}

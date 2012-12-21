@@ -2611,6 +2611,9 @@
       <elements xsi:type="xtext:Assignment" feature="primaryKey" operator="?=">
         <terminal xsi:type="xtext:Keyword" value="primaryKey"/>
       </elements>
+      <elements xsi:type="xtext:Assignment" feature="index" operator="?=">
+        <terminal xsi:type="xtext:Keyword" value="index"/>
+      </elements>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="PojoProperty" definesHiddenTokens="true" hiddenTokens="//@rules.63 //@rules.64 //@rules.65">

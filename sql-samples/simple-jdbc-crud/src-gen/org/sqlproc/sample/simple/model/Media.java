@@ -73,6 +73,8 @@ public abstract class Media implements Serializable {
     Media other = (Media) obj;
     if (id != other.id)
       return false;
+    if (author != other.author)
+      return false;
     return true;
   }  
   
@@ -81,6 +83,7 @@ public abstract class Media implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + (int) (id ^ (id >>> 32));
+    result = prime * result + (int) (author ^ (author >>> 32));
     return result;
   }  
   

@@ -31,6 +31,7 @@ import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.DbColumn;
 import org.sqlproc.dsl.resolver.DbExport;
 import org.sqlproc.dsl.resolver.DbImport;
+import org.sqlproc.dsl.resolver.DbIndex;
 import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolver;
 import org.sqlproc.dsl.util.Utils;
@@ -630,7 +631,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                         List<String> dbPrimaryKeys = dbResolver.getDbPrimaryKeys(artifacts, table);
                         List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);
                         List<DbImport> dbImports = dbResolver.getDbImports(artifacts, table);
-                        converter.addTableDefinition(table, dbColumns, dbPrimaryKeys, dbExports, dbImports);
+                        List<DbIndex> dbIndexes = dbResolver.getDbIndexes(artifacts, table);
+                        converter.addTableDefinition(table, dbColumns, dbPrimaryKeys, dbExports, dbImports, dbIndexes);
                     }
                     // converter.resolveReferencesOnConvention();
                     converter.resolveReferencesOnKeys();
@@ -671,7 +673,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                         List<String> dbPrimaryKeys = dbResolver.getDbPrimaryKeys(artifacts, table);
                         List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);
                         List<DbImport> dbImports = dbResolver.getDbImports(artifacts, table);
-                        converter.addTableDefinition(table, dbColumns, dbPrimaryKeys, dbExports, dbImports);
+                        List<DbIndex> dbIndexes = dbResolver.getDbIndexes(artifacts, table);
+                        converter.addTableDefinition(table, dbColumns, dbPrimaryKeys, dbExports, dbImports, dbIndexes);
                     }
                     // converter.resolveReferencesOnConvention();
                     converter.resolveReferencesOnKeys();

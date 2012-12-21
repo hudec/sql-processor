@@ -3021,6 +3021,16 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getPojoPropertyModifier_Index()
+  {
+    return (EAttribute)pojoPropertyModifierEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPojoProperty()
   {
     return pojoPropertyEClass;
@@ -3449,6 +3459,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEAttribute(pojoPropertyModifierEClass, POJO_PROPERTY_MODIFIER__REQUIRED);
     createEAttribute(pojoPropertyModifierEClass, POJO_PROPERTY_MODIFIER__DISCRIMINATOR);
     createEAttribute(pojoPropertyModifierEClass, POJO_PROPERTY_MODIFIER__PRIMARY_KEY);
+    createEAttribute(pojoPropertyModifierEClass, POJO_PROPERTY_MODIFIER__INDEX);
 
     pojoPropertyEClass = createEClass(POJO_PROPERTY);
     createEAttribute(pojoPropertyEClass, POJO_PROPERTY__NAME);
@@ -3812,6 +3823,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEAttribute(getPojoPropertyModifier_Required(), ecorePackage.getEBoolean(), "required", null, 0, 1, PojoPropertyModifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPojoPropertyModifier_Discriminator(), ecorePackage.getEBoolean(), "discriminator", null, 0, 1, PojoPropertyModifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPojoPropertyModifier_PrimaryKey(), ecorePackage.getEBoolean(), "primaryKey", null, 0, 1, PojoPropertyModifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPojoPropertyModifier_Index(), ecorePackage.getEBoolean(), "index", null, 0, 1, PojoPropertyModifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pojoPropertyEClass, PojoProperty.class, "PojoProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPojoProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

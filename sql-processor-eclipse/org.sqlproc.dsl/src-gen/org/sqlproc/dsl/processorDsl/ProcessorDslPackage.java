@@ -2916,13 +2916,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_PROPERTY_MODIFIER__PRIMARY_KEY = 2;
 
   /**
+   * The feature id for the '<em><b>Index</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_PROPERTY_MODIFIER__INDEX = 3;
+
+  /**
    * The number of structural features of the '<em>Pojo Property Modifier</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY_MODIFIER_FEATURE_COUNT = 3;
+  int POJO_PROPERTY_MODIFIER_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl <em>Pojo Property</em>}' class.
@@ -5650,6 +5659,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getPojoPropertyModifier_PrimaryKey();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isIndex <em>Index</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Index</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isIndex()
+   * @see #getPojoPropertyModifier()
+   * @generated
+   */
+  EAttribute getPojoPropertyModifier_Index();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoProperty <em>Pojo Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -7852,6 +7872,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute POJO_PROPERTY_MODIFIER__PRIMARY_KEY = eINSTANCE.getPojoPropertyModifier_PrimaryKey();
+
+    /**
+     * The meta object literal for the '<em><b>Index</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_PROPERTY_MODIFIER__INDEX = eINSTANCE.getPojoPropertyModifier_Index();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl <em>Pojo Property</em>}' class.

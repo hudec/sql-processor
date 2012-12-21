@@ -25,10 +25,12 @@ import org.sqlproc.dsl.property.PojoAttribute;
 import org.sqlproc.dsl.resolver.DbColumn;
 import org.sqlproc.dsl.resolver.DbExport;
 import org.sqlproc.dsl.resolver.DbImport;
+import org.sqlproc.dsl.resolver.DbIndex;
+import org.sqlproc.dsl.resolver.DbIndex.DbIndexDetail;
 
 public class TablePojoConverter {
 
-    private boolean debug = true;
+    private boolean debug = false;
 
     protected enum PrimitiveType {
         BOOLEAN, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, CHAR, BYTE_ARRAY, CHAR_ARRAY;
@@ -223,7 +225,7 @@ public class TablePojoConverter {
     }
 
     public void addTableDefinition(String table, List<DbColumn> dbColumns, List<String> dbPrimaryKeys,
-            List<DbExport> dbExports, List<DbImport> dbImports) {
+            List<DbExport> dbExports, List<DbImport> dbImports, List<DbIndex> dbIndexes) {
         if (table == null || dbColumns == null)
             return;
         Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
@@ -344,6 +346,18 @@ public class TablePojoConverter {
                 attributes.remove(dbColumn);
             }
             pojoInheritanceDiscriminator.put(table, new LinkedHashSet<String>());
+        }
+
+        for (DbIndex dbIndex : dbIndexes) {
+            if (dbIndex.getColumns().size() != 1)
+                continue;
+            DbIndexDetail dbIndexDetail = dbIndex.getColumns().get(0);
+            PojoAttribute attr = attributes.get(dbIndexDetail.getColname());
+            if (attr == null)
+                continue;
+            if (attr.isPrimaryKey())
+                continue;
+            attr.setIndex(true);
         }
     }
 
@@ -581,6 +595,10 @@ public class TablePojoConverter {
                     }
                     if (attribute.isPrimaryKey()) {
                         buffer.append(" primaryKey");
+                        pkeys.add(name);
+                    }
+                    if (attribute.isIndex()) {
+                        buffer.append(" index");
                         pkeys.add(name);
                     }
                 }

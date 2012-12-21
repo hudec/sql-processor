@@ -76,6 +76,8 @@ public class Performer implements Serializable {
     Performer other = (Performer) obj;
     if (id != other.id)
       return false;
+    if (person != other.person)
+      return false;
     return true;
   }  
   
@@ -84,6 +86,7 @@ public class Performer implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + (int) (id ^ (id >>> 32));
+    result = prime * result + (int) (person ^ (person >>> 32));
     return result;
   }  
   

@@ -76,6 +76,8 @@ public class DbResolverBean implements DbResolver {
             .synchronizedMap(new HashMap<String, Map<String, List<DbExport>>>());
     private final Map<String, Map<String, List<DbImport>>> dbImports = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<DbImport>>>());
+    private final Map<String, Map<String, List<DbIndex>>> dbIndexes = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<DbIndex>>>());
 
     private DatabaseValues checkReconnect(EObject model) {
         if (model == null)
@@ -682,6 +684,65 @@ public class DbResolverBean implements DbResolver {
             }
         }
         return type + "(" + typeSize + ")";
+    }
+
+    @Override
+    public List<DbIndex> getDbIndexes(EObject model, String table) {
+        if (table == null)
+            return Collections.emptyList();
+        DatabaseValues modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        boolean doInit = false;
+        Map<String, List<DbIndex>> allIndexesForModel = dbIndexes.get(modelDatabaseValues.dir);
+        if (allIndexesForModel == null) {
+            allIndexesForModel = Collections.synchronizedMap(new HashMap<String, List<DbIndex>>());
+            dbIndexes.put(modelDatabaseValues.dir, allIndexesForModel);
+            doInit = true;
+        }
+        List<DbIndex> indexesForModel = allIndexesForModel.get(table);
+        if (indexesForModel == null) {
+            indexesForModel = Collections.synchronizedList(new ArrayList<DbIndex>());
+            allIndexesForModel.put(table, indexesForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return indexesForModel;
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                Map<String, DbIndex> mapOfIndexes = new HashMap<String, DbIndex>();
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getIndexInfo(null, modelDatabaseValues.dbSchema, table, false, true);
+                while (result.next()) {
+                    String name = result.getString("INDEX_NAME");
+                    if (result.getShort("TYPE") != 3) {
+                        System.out.println("INDEX TYPE " + result.getShort("TYPE") + " for " + name);
+                        LOGGER.warn("INDEX TYPE " + result.getShort("TYPE") + " for " + name);
+                        continue;
+                    }
+                    DbIndex dbIndex = (mapOfIndexes.containsKey(name)) ? mapOfIndexes.get(name) : new DbIndex();
+                    dbIndex.setName(name);
+                    DbIndex.DbIndexDetail detail = new DbIndex.DbIndexDetail();
+                    detail.setPosition(result.getShort("ORDINAL_POSITION"));
+                    detail.setColname(result.getString("COLUMN_NAME"));
+                    detail.setDesc("D".equalsIgnoreCase(result.getString("ASC_OR_DESC")));
+                    dbIndex.getColumns().add(detail);
+                    System.out.println("EEE " + table + " " + dbIndex.toString());
+                    indexesForModel.add(dbIndex);
+                }
+            } catch (SQLException e) {
+                LOGGER.error("getDbColumns error " + e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    LOGGER.error("getDbColumns error " + e);
+                }
+            }
+        }
+        return indexesForModel;
     }
 
     @Override

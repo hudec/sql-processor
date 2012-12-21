@@ -5215,6 +5215,12 @@ rule__PojoPropertyModifier__Alternatives
 { after(grammarAccess.getPojoPropertyModifierAccess().getPrimaryKeyAssignment_2()); }
 )
 
+    |(
+{ before(grammarAccess.getPojoPropertyModifierAccess().getIndexAssignment_3()); }
+(rule__PojoPropertyModifier__IndexAssignment_3)
+{ after(grammarAccess.getPojoPropertyModifierAccess().getIndexAssignment_3()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -27910,6 +27916,29 @@ rule__PojoPropertyModifier__PrimaryKeyAssignment_2
 )
 
 { after(grammarAccess.getPojoPropertyModifierAccess().getPrimaryKeyPrimaryKeyKeyword_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PojoPropertyModifier__IndexAssignment_3
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPojoPropertyModifierAccess().getIndexIndexKeyword_3_0()); }
+(
+{ before(grammarAccess.getPojoPropertyModifierAccess().getIndexIndexKeyword_3_0()); }
+
+	'index' 
+
+{ after(grammarAccess.getPojoPropertyModifierAccess().getIndexIndexKeyword_3_0()); }
+)
+
+{ after(grammarAccess.getPojoPropertyModifierAccess().getIndexIndexKeyword_3_0()); }
 )
 
 ;

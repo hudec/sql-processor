@@ -10114,6 +10114,22 @@ rulePojoPropertyModifier returns [EObject current=null]
 	    }
 
 )
+)
+    |(
+(
+		lv_index_3_0=	'index' 
+    {
+        newLeafNode(lv_index_3_0, grammarAccess.getPojoPropertyModifierAccess().getIndexIndexKeyword_3_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoPropertyModifierRule());
+	        }
+       		setWithLastConsumed($current, "index", true, "index");
+	    }
+
+)
 ))
 ;
 

@@ -10,6 +10,7 @@ public class PojoAttribute {
     private boolean primitive;
     private boolean required;
     private boolean primaryKey;
+    private boolean index;
     private String name;
     private String className;
     private String dependencyClassName;
@@ -50,6 +51,14 @@ public class PojoAttribute {
 
     public void setPrimaryKey(boolean primaryKey) {
         this.primaryKey = primaryKey;
+    }
+
+    public boolean isIndex() {
+        return index;
+    }
+
+    public void setIndex(boolean index) {
+        this.index = index;
     }
 
     public String getName() {
@@ -197,18 +206,14 @@ public class PojoAttribute {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return "PojoAttribute [primitive=" + primitive + ", required=" + required + ", primaryKey=" + primaryKey
-                + ", name=" + name + ", className=" + className + ", dependencyClassName=" + dependencyClassName
-                + ", pkTable=" + pkTable + ", pkColumn=" + pkColumn + ", parentTable=" + parentTable + ", m2mTable="
-                + m2mTable + ", fkTables=" + fkTables + ", m2Tables=" + m2Tables + ", fkColumns=" + fkColumns
-                + ", oneToManyColumn=" + oneToManyColumn + ", oneToManyTable=" + oneToManyTable + ", manyToManyColumn="
-                + manyToManyColumn + ", manyToManyTable=" + manyToManyTable + "]";
+                + ", index=" + index + ", name=" + name + ", className=" + className + ", dependencyClassName="
+                + dependencyClassName + ", pkTable=" + pkTable + ", pkColumn=" + pkColumn + ", parentTable="
+                + parentTable + ", m2mTable=" + m2mTable + ", fkTables=" + fkTables + ", m2Tables=" + m2Tables
+                + ", fkColumns=" + fkColumns + ", oneToManyColumn=" + oneToManyColumn + ", oneToManyTable="
+                + oneToManyTable + ", manyToManyColumn=" + manyToManyColumn + ", manyToManyTable=" + manyToManyTable
+                + "]";
     }
 }

@@ -107,6 +107,8 @@ public class Subscriber implements Serializable {
     Subscriber other = (Subscriber) obj;
     if (id != other.id)
       return false;
+    if (library != other.library)
+      return false;
     return true;
   }  
   
@@ -115,6 +117,7 @@ public class Subscriber implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + (int) (id ^ (id >>> 32));
+    result = prime * result + (int) (library ^ (library >>> 32));
     return result;
   }  
   

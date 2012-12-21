@@ -1037,7 +1037,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (required?='required' | discriminator?='discriminator' | primaryKey?='primaryKey')
+	 *     (required?='required' | discriminator?='discriminator' | primaryKey?='primaryKey' | index?='index')
 	 */
 	protected void sequence_PojoPropertyModifier(EObject context, PojoPropertyModifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

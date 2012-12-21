@@ -309,6 +309,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojoPropertyModifier/required"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojoPropertyModifier/discriminator"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojoPropertyModifier/primaryKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojoPropertyModifier/index"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//PojoProperty">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojoProperty/name"/>
