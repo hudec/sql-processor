@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.beanutils.MethodUtils;
 
-public class Media implements Serializable {
+public abstract class Media implements Serializable {
   
   private static final long serialVersionUID = 1L;
 	

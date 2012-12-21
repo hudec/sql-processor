@@ -56,7 +56,7 @@ package org.sqlproc.sample.simple.model {
     toString ::: id name
   }
 
-  pojo Media serializable 1  {
+  abstract pojo Media serializable 1  {
     id : java.lang.Long primaryKey
     title : java.lang.String required
     author :: Performer index
