@@ -301,7 +301,7 @@ public class Main {
         Assert.assertNotNull(l);
         Assert.assertTrue(l.getCatalog().isEmpty());
         Assert.assertTrue(l.getSubscribers().isEmpty());
-        // library.setInit(Library.Association.catalog);
+        // library.setInit(Library.Association.catalog); - in this case the statement should be manually fixed
         library.setInit(Library.Association.subscribers);
         l = main.getLibraryDao().getLibrary(library);
         Assert.assertNotNull(l);
