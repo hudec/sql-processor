@@ -68,11 +68,7 @@ public class PersonLibrary implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     PersonLibrary other = (PersonLibrary) obj;
-    if (mediaId != other.mediaId)
-      return false;
     if (id != other.id)
-      return false;
-    if (personId != other.personId)
       return false;
     return true;
   }  
@@ -81,9 +77,7 @@ public class PersonLibrary implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + (int) (mediaId ^ (mediaId >>> 32));
     result = prime * result + (int) (id ^ (id >>> 32));
-    result = prime * result + (int) (personId ^ (personId >>> 32));
     return result;
   }  
   

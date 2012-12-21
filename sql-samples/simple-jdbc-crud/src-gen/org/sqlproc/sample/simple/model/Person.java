@@ -153,8 +153,6 @@ public class Person implements Serializable {
     Person other = (Person) obj;
     if (id != other.id)
       return false;
-    if (lastName != other.lastName)
-      return false;
     return true;
   }  
   
@@ -163,7 +161,6 @@ public class Person implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + (int) (id ^ (id >>> 32));
-    result = prime * result + (int) (lastName ^ (lastName >>> 32));
     return result;
   }  
   

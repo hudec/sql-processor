@@ -60,6 +60,7 @@ public class TablePojoConverter {
     protected Map<String, Map<String, String>> columnNames = new HashMap<String, Map<String, String>>();
     protected Set<String> ignoreTables = new HashSet<String>();
     protected Set<String> onlyTables = new HashSet<String>();
+    protected Set<String> notAbstractTables = new HashSet<String>();
     protected Map<String, Set<String>> ignoreColumns = new HashMap<String, Set<String>>();
     protected Map<String, Set<String>> requiredColumns = new HashMap<String, Set<String>>();
     protected Map<String, Set<String>> notRequiredColumns = new HashMap<String, Set<String>>();
@@ -119,6 +120,10 @@ public class TablePojoConverter {
         Set<String> onlyTables = modelProperty.getOnlyTables(artifacts);
         if (onlyTables != null) {
             this.onlyTables.addAll(onlyTables);
+        }
+        Set<String> notAbstractTables = modelProperty.getNotAbstractTables(artifacts);
+        if (onlyTables != null) {
+            this.notAbstractTables.addAll(notAbstractTables);
         }
         Map<String, Set<String>> ignoreColumns = modelProperty.getIgnoreColumns(artifacts);
         if (ignoreColumns != null) {
@@ -543,8 +548,10 @@ public class TablePojoConverter {
                 if (pojoName == null)
                     pojoName = pojo;
                 buffer.append("\n  ");
-                if (pojoInheritanceDiscriminator.containsKey(pojo) || pojoInheritanceSimple.containsKey(pojo))
-                    buffer.append("abstract ");
+                if (pojoInheritanceDiscriminator.containsKey(pojo) || pojoInheritanceSimple.containsKey(pojo)) {
+                    if (!notAbstractTables.contains(pojo))
+                        buffer.append("abstract ");
+                }
                 buffer.append("pojo ");
                 buffer.append(tableToCamelCase(pojoName));
                 if (pojoExtends.containsKey(pojo))
@@ -599,7 +606,6 @@ public class TablePojoConverter {
                     }
                     if (attribute.isIndex()) {
                         buffer.append(" index");
-                        pkeys.add(name);
                     }
                 }
                 if (pojoExtends.containsKey(pojo)) {

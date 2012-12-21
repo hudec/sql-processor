@@ -74,8 +74,6 @@ public abstract class BillingDetails implements Serializable {
     BillingDetails other = (BillingDetails) obj;
     if (id != other.id)
       return false;
-    if (subscriber != other.subscriber)
-      return false;
     return true;
   }  
   
@@ -84,7 +82,6 @@ public abstract class BillingDetails implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + (int) (id ^ (id >>> 32));
-    result = prime * result + (int) (subscriber ^ (subscriber >>> 32));
     return result;
   }  
   

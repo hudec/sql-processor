@@ -77,4 +77,6 @@ public interface ModelProperty extends Adapter {
     Map<String, Map<String, PairValues>> getColumnsMetaTypes(EObject model);
 
     Map<String, Map<String, PairValues>> getStatementsMetaTypes(EObject model);
+
+    Set<String> getNotAbstractTables(EObject model);
 }

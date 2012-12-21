@@ -1102,6 +1102,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='show-type-for-column' dbTable=IDENT columnType=ShowColumnTypeAssignement) | 
 	 *         (name='ignore-tables' dbTables+=IDENT+) | 
 	 *         (name='only-tables' dbTables+=IDENT+) | 
+	 *         (name='not-abstract-tables' dbTables+=IDENT+) | 
 	 *         (name='join-tables' joinTables+=JoinTableAssignement+) | 
 	 *         (name='ignore-columns' dbTable=IDENT dbColumns+=IDENT+) | 
 	 *         (name='required-columns' dbTable=IDENT dbColumns+=IDENT+) | 

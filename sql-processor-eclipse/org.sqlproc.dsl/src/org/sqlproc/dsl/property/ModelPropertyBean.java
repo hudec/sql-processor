@@ -73,6 +73,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_EXTENDS_CLASS = "extends-class";
     public static final String POJOGEN_JOIN_TABLES = "join-tables";
     public static final String POJOGEN_GENERATE_WRAPPERS = "generate-wrappers";
+    public static final String POJOGEN_NOT_ABSTRACT_TABLES_TABLES = "not-abstract-tables";
     public static final String METAGEN = "metagen";
     public static final String METAGEN_GLOBAL_SEQUENCE = "global-sequence";
     public static final String METAGEN_TABLE_SEQUENCE = "table-sequence";
@@ -109,6 +110,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Map<String, String>> columnNames;
         public Set<String> ignoreTables;
         public Set<String> onlyTables;
+        public Set<String> notAbstractTables;
         public Map<String, Set<String>> ignoreColumns;
         public Map<String, Set<String>> requiredColumns;
         public Map<String, Set<String>> notRequiredColumns;
@@ -244,6 +246,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.columnNames = new HashMap<String, Map<String, String>>();
         modelValues.ignoreTables = new HashSet<String>();
         modelValues.onlyTables = new HashSet<String>();
+        modelValues.notAbstractTables = new HashSet<String>();
         modelValues.ignoreColumns = new HashMap<String, Set<String>>();
         modelValues.requiredColumns = new HashMap<String, Set<String>>();
         modelValues.notRequiredColumns = new HashMap<String, Set<String>>();
@@ -374,6 +377,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             // modelValues.onlyTables = new HashSet<String>();
             for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
                 modelValues.onlyTables.add(property.getDbTables().get(i));
+            }
+        } else if (POJOGEN_NOT_ABSTRACT_TABLES_TABLES.equals(property.getName())) {
+            // if (modelValues.notAbstractTables == null)
+            // modelValues.notAbstractTables = new HashSet<String>();
+            for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
+                modelValues.notAbstractTables.add(property.getDbTables().get(i));
             }
         } else if (POJOGEN_IGNORE_COLUMNS.equals(property.getName())) {
             // if (modelValues.ignoreColumns == null)
@@ -613,6 +622,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Set<String> getOnlyTables(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.onlyTables : Collections.<String> emptySet();
+    }
+
+    @Override
+    public Set<String> getNotAbstractTables(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.notAbstractTables : Collections.<String> emptySet();
     }
 
     @Override
