@@ -19,9 +19,6 @@ public class PhysicalMediaDao extends BaseDao {
     public PhysicalMedia insertPhysicalMedia(PhysicalMedia physicalMedia) {
         SqlCrudEngine sqlEngine = getCrudEngine("INSERT_PHYSICAL_MEDIA");
         int count = sqlEngine.insert(session, physicalMedia);
-        if (count > 0) {
-            sqlEngine.insert(session, physicalMedia);
-        }
         logger.info("insert physicalMedia: " + count + ": " + physicalMedia);
         return (count > 0) ? physicalMedia : null;
     }

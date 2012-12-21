@@ -409,19 +409,20 @@ class SqlMappingItem implements SqlMetaElement {
                         }
                     }
                     if (!exit) {
-                        nextObj = BeanUtils.getInstance(typeClass);
-                        if (nextObj == null && moreResultClasses != null) {
+                        Class<?> typeClass2 = null;
+                        if (moreResultClasses != null) {
                             String typeName2 = values.get(attr.getFullName() + SqlUtils.SUPPVAL_GTYPE);
-                            Class<?> typeClass2 = null;
                             if (typeName2 != null) {
                                 if (typeName2.toLowerCase().startsWith(SqlUtils.SUPPVAL_DISCRIMINATOR))
                                     typeClass2 = moreResultClasses.get(resultValues[resultIndex]);
                                 else
                                     typeClass2 = moreResultClasses.get(typeName2);
                             }
-                            if (typeClass2 != null)
-                                nextObj = BeanUtils.getInstance(typeClass2);
                         }
+                        if (typeClass2 != null && typeClass.isAssignableFrom(typeClass2))
+                            nextObj = BeanUtils.getInstance(typeClass2);
+                        else
+                            nextObj = BeanUtils.getInstance(typeClass);
                         if (nextObj != null) {
                             BeanUtils.setProperty(obj, name, nextObj);
                         } else if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
