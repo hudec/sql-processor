@@ -250,6 +250,8 @@ public class TableMetaConverter extends TablePojoConverter {
             whereColumns(buffer, header.extendTable.tableName, first, header.statementName,
                     header.extendTable.tablePrefix, true, select);
         buffer.append("\n  }");
+        if (select)
+            first = indexColumns(buffer, pojo, first, header.statementName, header.table.tablePrefix);
         buffer.append("\n;\n");
         return buffer;
     }
@@ -534,6 +536,21 @@ public class TableMetaConverter extends TablePojoConverter {
                     buffer.append("^");
                 buffer.append("^call=isDef");
             }
+            buffer.append(" }");
+            first = false;
+        }
+        return first;
+    }
+
+    boolean indexColumns(StringBuilder buffer, String pojo, boolean first, String statementName, String prefix) {
+        for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            Attribute attr = getStatementAttribute(pojo, pentry.getKey(), pentry.getValue(), false);
+            if (attr == null || attr.attribute.getIndex() == null)
+                continue;
+            buffer.append("\n  {#").append(attr.attribute.getIndex()).append(" order by %");
+            if (prefix != null)
+                buffer.append(prefix).append(".");
+            buffer.append(pentry.getKey());
             buffer.append(" }");
             first = false;
         }

@@ -6,7 +6,6 @@ SURROUND_QUERY_MIN_LEN(IOPT)=2;
 SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity(); 
 
-
 INSERT_BANK_ACCOUNT(CRUD,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
   insert into %%BILLING_DETAILS (%BA_ACCOUNT, %SUBSCRIBER, %TYPE)
   {= values (:id^^idsel=SEL1, :baAccount, :subscriber.id, :type) }
@@ -107,6 +106,7 @@ SELECT_NEW_BOOK(QRY,identx=NewBook,colx=NewBook,dbcol=book=b,dbcol=media=m,dbcol
     {& UPPER(%m.TITLE) like :+title }
     {& %m.AUTHOR = :author.id }
   }
+  {#1 order by %b.MEDIA_ID }
 ;
 
 INSERT_CONTACT(CRUD,identx=Contact,colx=Contact,dbcol=contact)=
@@ -157,6 +157,8 @@ SELECT_CONTACT(QRY,identx=Contact,colx=Contact,dbcol=contact=c,dbcol=person=p)=
     {& UPPER(%c.ADDRESS) like :+address }
     {& %c.PHONE_NUMBER = :phoneNumber^phone }
   }
+  {#1 order by %c.ID }
+  {#2 order by %c.PERSON_ID }
 ;
 
 INSERT_CREDIT_CARD(CRUD,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
@@ -255,6 +257,7 @@ SELECT_LIBRARY(QRY,identx=Library,colx=Library,dbcol=library=l,dbcol=subscriber=
     {& %l.ID = :id }
     {& UPPER(%l.NAME) like :+name }
   }
+  {#1 order by %l.ID }
 ;
 
 INSERT_MEDIA(CRUD,identx=Media,colx=Media,dbcol=media)=
@@ -302,6 +305,8 @@ SELECT_MEDIA(QRY,identx=Media,colx=Media,dbcol=media=m,dbcol=performer=p)=
     {& UPPER(%m.TITLE) like :+title }
     {& %m.AUTHOR = :author.id }
   }
+  {#1 order by %m.ID }
+  {#2 order by %m.AUTHOR }
 ;
 
 INSERT_MOVIE(CRUD,identx=Movie,colx=Movie,dbcol=movie)=
@@ -357,6 +362,7 @@ SELECT_MOVIE(QRY,identx=Movie,colx=Movie,dbcol=movie=m,dbcol=media=m1,dbcol=perf
     {& UPPER(%m1.TITLE) like :+title }
     {& %m1.AUTHOR = :author.id }
   }
+  {#1 order by %m.MEDIA_ID }
 ;
 
 INSERT_PAYMENT(CRUD,identx=Payment,colx=Payment,dbcol=payment)=
@@ -404,6 +410,8 @@ SELECT_PAYMENT(QRY,identx=Payment,colx=Payment,dbcol=payment=p,dbcol=billingDeta
     {& %p.BILLING_DETAILS = :billingDetails.id }
     {& %p.PAID = :paid }
   }
+  {#1 order by %p.ID }
+  {#2 order by %p.BILLING_DETAILS }
 ;
 
 INSERT_PERFORMER(CRUD,identx=Performer,colx=Performer,dbcol=performer)=
@@ -452,6 +460,8 @@ SELECT_PERFORMER(QRY,identx=Performer,colx=Performer,dbcol=performer=p,dbcol=per
     {& %p.ID = :id }
     {& %p.PERSON_ID = :person.id }
   }
+  {#1 order by %p.ID }
+  {#2 order by %p.PERSON_ID }
 ;
 
 INSERT_PERSON(CRUD,identx=Person,colx=Person,dbcol=person)=
@@ -509,6 +519,8 @@ SELECT_PERSON(QRY,identx=Person,colx=Person,dbcol=person=p,dbcol=personLibrary=p
     {& %p.DATE_OF_BIRTH = :dateOfBirth }
     {& UPPER(%p.SSN) like :+ssn }
   }
+  {#1 order by %p.ID }
+  {#2 order by %p.LAST_NAME }
 ;
 
 INSERT_PERSON_LIBRARY(CRUD,identx=PersonLibrary,colx=PersonLibrary,dbcol=personLibrary)=
@@ -552,6 +564,9 @@ SELECT_PERSON_LIBRARY(QRY,identx=PersonLibrary,colx=PersonLibrary,dbcol=personLi
     {& %PERSON_ID = :personId }
     {& %MEDIA_ID = :mediaId }
   }
+  {#1 order by %ID }
+  {#2 order by %PERSON_ID }
+  {#3 order by %MEDIA_ID }
 ;
 
 INSERT_PHYSICAL_MEDIA(CRUD,identx=PhysicalMedia,colx=PhysicalMedia,dbcol=physicalMedia)=
@@ -606,6 +621,7 @@ SELECT_PHYSICAL_MEDIA(QRY,identx=PhysicalMedia,colx=PhysicalMedia,dbcol=physical
     {& %p.MEDIA = :media.id }
     {& %p.LIBRARY = :library.id }
   }
+  {#1 order by %p.ID }
 ;
 
 INSERT_SUBSCRIBER(CRUD,identx=Subscriber,colx=Subscriber,dbcol=subscriber)=
@@ -664,110 +680,6 @@ SELECT_SUBSCRIBER(QRY,identx=Subscriber,colx=Subscriber,dbcol=subscriber=s,dbcol
     {& %s.CONTACT = :contact.id }
     {& UPPER(%s.NAME) like :+name }
   }
+  {#1 order by %s.ID }
+  {#2 order by %s.LIBRARY }
 ;
-
-//
-//
-//ALL_PEOPLE(QRY,identx=Person,colx=Person,dbcol=person)=
-//  select %ID @id, %NAME @name
-//  from %%PERSON
-//  {= where
-//   {& %ID = :id}
-//   {& UPPER(%NAME) = :+name}
-//  }
-//  {#1 order by %ID}
-//  {#2 order by %NAME}
-//;
-//
-//LIKE_PEOPLE(QRY,identx=Person,colx=Person,dbcol=person)=
-//  select %ID @id, %NAME @name
-//  from %%PERSON
-//  {= where
-//   {& %ID = :id}
-//   {& UPPER(%NAME) like :+name}
-//  }
-//  {#1 order by %ID}
-//  {#2 order by %NAME}
-//;
-//
-//LIKE_PEOPLE_FULL(QRY,BOPT=SURROUND_QUERY_LIKE_FULL=true,identx=Person,colx=Person,dbcol=person)=
-//  select %ID @id, %NAME @name
-//  from %%PERSON
-//  {= where
-//   {& %ID = :id}
-//   {& UPPER(%NAME) like :+name}
-//  }
-//  {#1 order by %ID}
-//  {#2 order by %NAME}
-//;
-//
-//ALL_PEOPLE_AND_CONTACTS(QRY,identx=Person,colx=Person,dbcol=contact=c,dbcol=person=p)=
-//  select %p.ID @id^long^id, %p.NAME @name, %c.ID @contacts.id^long^id, %p.ID @contacts.person.id, %c.ADDRESS @contacts.address
-//  from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
-//  {= where
-//   {& %p.ID = :id}
-//   {& UPPER(%p.NAME) like :+name}
-//  }
-//  {#1 order by %p.NAME, %c.ADDRESS}
-//;
-//
-//ALL_PEOPLE_AND_CONTACTS2(QRY,identx=Person,colx=Person,dbcol=contact=c,dbcol=person=p)=
-//  select %p.ID @id^long^id, %p.NAME @name, %c.ID @contacts=linked.id^long^id, %p.ID @contacts.person.id, %c.ADDRESS @contacts.address
-//  from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
-//  {= where
-//   {& %p.ID = :id}
-//   {& UPPER(%p.NAME) like :+name}
-//  }
-//  {#1 order by %p.NAME, %c.ADDRESS}
-//;
-//
-//ALL_PEOPLE_LIBRARY(QRY,identx=Person,colx=Person,dbcol=person=p,dbcol=person_library=l,dbcol=media=m,dbcol=movie=mo,dbcol=book=bk)=
-//  select %p.ID @id^long^id, %p.NAME @name, %mo.MEDIA_ID @library==movie.id^long^id, %bk.MEDIA_ID @library==book.id^long^id,
-//  %m.TITLE @library.title, %mo.URLIMDB @library.urlimdb, %mo.PLAYLENGTH @library.playlength, %bk.ISBN @library.isbn
-//  from %%PERSON p left join %%PERSON_LIBRARY l on %p.ID = %l.PERSON_ID
-//  left join %%MEDIA m on %m.ID = %l.MEDIA_ID
-//  left join %%MOVIE mo on %mo.MEDIA_ID = %m.ID
-//  left join %%BOOK bk on %bk.MEDIA_ID = %m.ID
-//  {= where
-//   {& %p.ID = :id}
-//   {& UPPER(%p.NAME) like :+name}
-//  }
-//  {#1 order by %p.NAME, %m.TITLE}
-//;
-//
-//ALL_PEOPLE_AND_CONTACTS_CUSTOM(QRY,identx=Contact,colx=Person,dbcol=person=p,dbcol=contact=c)=
-//  select %p.ID @id^long^id, %p.NAME @name, %c.ID @contacts.id^long^id, %p.ID @contacts.person.id, %c.ADDRESS @contacts.address,
-//  %c.PHONE_NUMBER @contacts.phoneNumber^phone
-//  from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
-//  {= where
-//   {& %c.ID = :id}
-//   {& %c.PHONE_NUMBER = :phoneNumber^phone}
-//  }
-//  {#1 order by %p.NAME, %c.ADDRESS}
-//;
-//  
-//ALL_SUBSCRIBERS_BILLING_DETAILS(QRY,identx=Subscriber,colx=Subscriber,dbcol=subscriber=s,dbcol=billing_details=bd)=
-//  select %s.ID @id^long^id, %s.NAME @name, %s.LIBRARY @library.id^long^id,
-//  %bd.TYPE @billingDetails==discriminator.type, %bd.ID @billingDetails.id^long^id,
-//  %bd.CC_NUMBER @billingDetails.ccNumber, %bd.BA_ACCOUNT @billingDetails.baAccount
-//  from %%SUBSCRIBER s left join %%BILLING_DETAILS bd on %s.ID = %bd.SUBSCRIBER
-//  {= where
-//   {& UPPER(%s.NAME)=:+name}
-////   {& %bd.TYPE = :type}
-//  }
-//  {#1 order by %s.ID, %bd.ID}
-//;
-//  
-//SIMPLE_FUNCTION(CALL,identx=FormSimpleFunction)=
-//  call an_hour_before(:time)
-//;
-//SIMPLE_FUNCTION(OUT)=1$stamp
-//;
-//
-//SIMPLE_FUNCTION_TO_IN_FORM(CALL,identx=FormSimpleFunction)=
-//  :<time2 = call an_hour_before(:time)
-//;
-//
-//INSERT_PERSON_CALL(CALL,identx=Person)=
-//  call new_person(:<id, :name)
-//;
