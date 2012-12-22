@@ -89,9 +89,10 @@ public class TableMetaConverter extends TablePojoConverter {
                 if (pojoInheritanceDiscriminator.containsKey(pojo))
                     continue;
                 buffer.append(metaInsertDefinition(pojo));
-                buffer.append(metaGetDefinition(pojo));
+                buffer.append(metaGetSelectDefinition(pojo, false));
                 buffer.append(metaUpdateDefinition(pojo));
                 buffer.append(metaDeleteDefinition(pojo));
+                buffer.append(metaGetSelectDefinition(pojo, true));
             }
             return buffer.toString();
         } catch (RuntimeException ex) {
@@ -125,11 +126,9 @@ public class TableMetaConverter extends TablePojoConverter {
         return buffer;
     }
 
-    StringBuilder metaGetDefinition(String pojo) {
-        if (pojo.equals("PAYMENT") || pojo.equals("PHYSICAL_MEDIA"))
-            System.out.println("AHA");
+    StringBuilder metaGetSelectDefinition(String pojo, boolean select) {
         StringBuilder buffer = new StringBuilder();
-        Header header = getStatementHeader(pojo, buffer, StatementType.GET, null);
+        Header header = getStatementHeader(pojo, buffer, (select) ? StatementType.SELECT : StatementType.GET, null);
         buffer.append("\n  select ");
         String parentPojo = pojoDiscriminators.containsKey(header.table.tableName) ? pojoExtends
                 .get(header.table.tableName) : null;
@@ -244,12 +243,12 @@ public class TableMetaConverter extends TablePojoConverter {
             }
         }
         buffer.append("\n  {= where");
-        first = whereColumns(buffer, pojo, first, header.statementName, header.table.tablePrefix, false);
+        first = whereColumns(buffer, pojo, first, header.statementName, header.table.tablePrefix, false, select);
         if (parentPojo != null)
-            whereColumns(buffer, parentPojo, first, header.statementName, header.table.tablePrefix, false);
+            whereColumns(buffer, parentPojo, first, header.statementName, header.table.tablePrefix, false, select);
         else if (header.extendTable.tableName != null)
             whereColumns(buffer, header.extendTable.tableName, first, header.statementName,
-                    header.extendTable.tablePrefix, true);
+                    header.extendTable.tablePrefix, true, select);
         buffer.append("\n  }");
         buffer.append("\n;\n");
         return buffer;
@@ -438,24 +437,35 @@ public class TableMetaConverter extends TablePojoConverter {
     }
 
     boolean whereColumns(StringBuilder buffer, String pojo, boolean first, String statementName, String prefix,
-            boolean notPrimaryKeys) {
+            boolean notPrimaryKeys, boolean select) {
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             Attribute attr = getStatementAttribute(pojo, pentry.getKey(), pentry.getValue(), false);
             if (attr == null)
                 continue;
             if (attr.attribute.isPrimaryKey() && notPrimaryKeys)
                 continue;
+            boolean useLike = select && attr.attribute.getClassName() != null
+                    && attr.attribute.getClassName().endsWith("String");
             String name = (columnNames.containsKey(attr.tableName)) ? columnNames.get(attr.tableName).get(
                     attr.attributeName) : null;
             if (name == null)
                 name = attr.attribute.getName();
             else
                 name = columnToCamelCase(name);
-            buffer.append("\n    {& %");
+            buffer.append("\n    {& ");
+            if (useLike)
+                buffer.append("UPPER(%");
+            else
+                buffer.append("%");
             if (prefix != null)
                 buffer.append(prefix).append(".");
             buffer.append(pentry.getKey());
-            buffer.append(" = :").append(name);
+            if (useLike) {
+                buffer.append(") like :+");
+            } else {
+                buffer.append(" = :");
+            }
+            buffer.append(name);
             if (attr.attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
             }
@@ -923,7 +933,11 @@ public class TableMetaConverter extends TablePojoConverter {
         if (suffix != null) {
             header.statementName = header.statementName + "_" + suffix;
         }
-        buffer.append("\n").append(header.statementName).append("(CRUD,");
+        buffer.append("\n").append(header.statementName);
+        if (type == StatementType.SELECT)
+            buffer.append("(QRY,");
+        else
+            buffer.append("(CRUD,");
         buffer.append("identx=").append(tableToCamelCase(header.table.tableName));
         buffer.append(",colx=").append(tableToCamelCase(header.table.tableName));
         buffer.append(",dbcol=");

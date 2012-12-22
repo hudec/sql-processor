@@ -140,17 +140,17 @@ public class Main {
         main.initDao();
 
         // insert
-        Person jan = main.getPersonDao().insertPerson(new Person("Jan", "Jánský"));
+        Person jan = main.getPersonDao().insert(new Person("Jan", "Jánský"));
         main.getContactDao().insertPersonContacts(jan,
                 new Contact()._setAddress("Jan address 1")._setPhoneNumber(new PhoneNumber(111, 222, 3333)));
-        Person janik = main.getPersonDao().insertPerson(new Person("Janík", "Janíček"));
+        Person janik = main.getPersonDao().insert(new Person("Janík", "Janíček"));
         main.getContactDao().insertPersonContacts(janik, new Contact()._setAddress("Janik address 1"));
-        Person honza = main.getPersonDao().insertPerson(new Person("Honza", "Honzovský"));
+        Person honza = main.getPersonDao().insert(new Person("Honza", "Honzovský"));
         main.getContactDao().insertPersonContacts(honza, new Contact()._setAddress("Honza address 1"),
                 new Contact()._setAddress("Honza address 2"));
-        Person honzik = main.getPersonDao().insertPerson(new Person("Honzik", "Honzíček"));
+        Person honzik = main.getPersonDao().insert(new Person("Honzik", "Honzíček"));
         Performer honzikp = main.getPerformerDao().insertPerformer(new Performer()._setPerson(honzik));
-        Person andrej = main.getPersonDao().insertPerson(new Person("Andrej", "Andrejček")._setSsn("123456789"));
+        Person andrej = main.getPersonDao().insert(new Person("Andrej", "Andrejček")._setSsn("123456789"));
         main.getContactDao().insertPersonContacts(andrej,
                 new Contact()._setAddress("Andrej address 1")._setPhoneNumber(new PhoneNumber(444, 555, 6666)));
 
@@ -196,7 +196,7 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andrejík");
-        p = main.getPersonDao().updatePerson(person);
+        p = main.getPersonDao().update(person);
         Assert.assertNotNull(p);
 
         bankAccount1.setBaAccount("updated account");
@@ -239,7 +239,7 @@ public class Main {
         // get & update person with null values
         person = new Person();
         person.setId(andrej.getId());
-        p = main.getPersonDao().getPerson(person);
+        p = main.getPersonDao().get(person);
         Assert.assertNotNull(p);
         Assert.assertEquals("Andrejík", p.getFirstName());
         Assert.assertEquals("Andrejček", p.getLastName());
@@ -250,7 +250,7 @@ public class Main {
         person.setId(andrej.getId());
         person.setFirstName("Andrioša");
         person.setNull(Person.Attribute.ssn);
-        p = main.getPersonDao().updatePerson(person);
+        p = main.getPersonDao().update(person);
         Assert.assertNotNull(p);
 
         // get bankAccount with associations
@@ -376,7 +376,7 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setInit(Person.Association.contacts);
-        p = main.getPersonDao().getPerson(person);
+        p = main.getPersonDao().get(person);
         Assert.assertNotNull(p);
         Assert.assertEquals("Andrioša", p.getFirstName());
         Assert.assertEquals("Andrejček", p.getLastName());
@@ -385,7 +385,7 @@ public class Main {
         Assert.assertEquals("Andrej address 1", p.getContacts().get(0).getAddress());
         Assert.assertEquals(new PhoneNumber(444, 555, 6666), p.getContacts().get(0).getPhoneNumber());
         person.setInit(Person.Association.library);
-        p = main.getPersonDao().getPerson(person);
+        p = main.getPersonDao().get(person);
         Assert.assertNotNull(p);
         Assert.assertEquals(3, p.getLibrary().size());
         Assert.assertEquals("The Adventures of Robin Hood Updated", p.getLibrary().get(0).getTitle());
@@ -449,6 +449,19 @@ public class Main {
         Assert.assertTrue(s.getBillingDetails().size() == 1);
         Assert.assertTrue(s.getBillingDetails().get(0) instanceof CreditCard);
         Assert.assertEquals(new Long(789), ((CreditCard) s.getBillingDetails().get(0)).getCcNumber());
+
+        // list people with associations
+        list = main.getPersonDao().listAll();
+        Assert.assertEquals(5, list.size());
+        person = new Person();
+        person.setFirstName("XXX");
+        list = main.getPersonDao().list(person);
+        Assert.assertEquals(0, list.size());
+        person.setFirstName("Jan");
+        person.setInit(Person.Association.contacts);
+        person.setInit(Person.Association.library);
+        list = main.getPersonDao().list(person);
+        Assert.assertEquals(2, list.size());
 
         // // queries
         // list = main.listAll();
