@@ -52,7 +52,7 @@ public class PersonDao extends BaseDao {
         return (count > 0);
     }
 
-    public List<Person> list(Person person) {
+    public List<Person> list(Person person, DaoControl control) {
         SqlQueryEngine sqlEngine = getQueryEngine("SELECT_PERSON");
         Map<String, Class<?>> moreResultClasses = null;
         if (person != null && person.toInit(Person.Association.library)) {
@@ -60,9 +60,16 @@ public class PersonDao extends BaseDao {
             moreResultClasses.put("movie", Movie.class);
             moreResultClasses.put("book", NewBook.class);
         }
-        List<Person> result = sqlEngine.query(session, Person.class, person, null, moreResultClasses);
+        List<Person> result = sqlEngine.query(session, Person.class, person, null,
+                (control != null) ? control.getOrder() : null, (control != null) ? control.getMaxTimeout() : 0,
+                (control != null) ? control.getMaxResults() : 0, (control != null) ? control.getFirstResult() : 0,
+                moreResultClasses);
         logger.info("list person size: " + result.size());
         return result;
+    }
+
+    public List<Person> list(Person person) {
+        return list(person, null);
     }
 
     public List<Person> listAll() {

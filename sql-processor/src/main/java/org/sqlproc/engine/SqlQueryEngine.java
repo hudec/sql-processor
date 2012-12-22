@@ -383,7 +383,8 @@ public class SqlQueryEngine extends SqlEngine {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            staticInputValues, order.getOrders(), features, typeFactory, pluginFactory);
+                            staticInputValues, (order != null) ? order.getOrders() : NO_ORDER.getOrders(), features,
+                            typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (maxTimeout > 0)
                         query.setTimeout(maxTimeout);

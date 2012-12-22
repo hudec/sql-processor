@@ -12,6 +12,7 @@ import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
@@ -20,6 +21,7 @@ import org.sqlproc.sample.simple.dao.BankAccountDao;
 import org.sqlproc.sample.simple.dao.BookDao;
 import org.sqlproc.sample.simple.dao.ContactDao;
 import org.sqlproc.sample.simple.dao.CreditCardDao;
+import org.sqlproc.sample.simple.dao.DaoControl;
 import org.sqlproc.sample.simple.dao.LibraryDao;
 import org.sqlproc.sample.simple.dao.MovieDao;
 import org.sqlproc.sample.simple.dao.PaymentDao;
@@ -63,6 +65,7 @@ public class Main {
         JdbcEngineFactory factory = new JdbcEngineFactory();
         factory.setMetaFilesNames("statements.qry");
         factory.addCustomType(new PhoneNumberType());
+        factory.setFilter(SqlFeature.HSQLDB);
         this.sqlFactory = factory;
 
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
@@ -461,104 +464,19 @@ public class Main {
         person.setInit(Person.Association.contacts);
         person.setInit(Person.Association.library);
         list = main.getPersonDao().list(person);
+        person = new Person();
+        person.setInit(Person.Association.contacts);
+        person.setInit(Person.Association.library);
+        list = main.getPersonDao().list(person, new DaoControl().setDescOrder(Person.ORDER_BY_ID));
+        Assert.assertEquals(5, list.size());
+        Assert.assertEquals("Honzíček", list.get(1).getLastName());
+        list = main.getPersonDao().list(person, new DaoControl().setAscOrder(Person.ORDER_BY_LAST_NAME));
+        Assert.assertEquals(5, list.size());
+        Assert.assertEquals("Honzovský", list.get(1).getLastName());
+        person = new Person();
+        list = main.getPersonDao().list(person,
+                new DaoControl().setAscOrder(Person.ORDER_BY_LAST_NAME).setMaxResults(2));
         Assert.assertEquals(2, list.size());
-
-        // // queries
-        // list = main.listAll();
-        // Assert.assertEquals(5, list.size());
-        //
-        // person = new Person();
-        // person.setName("Jan");
-        // list = main.listSome(person);
-        // Assert.assertEquals(1, list.size());
-        //
-        // person = new Person();
-        // person.setName("Jan");
-        // list = main.listLike(person, true);
-        // Assert.assertEquals(2, list.size());
-        // list = main.listLike(person, false);
-        // Assert.assertEquals(2, list.size());
-        // person.setName("an");
-        // list = main.listLike(person, true);
-        // Assert.assertEquals(1, list.size());
-        // list = main.listLike(person, false);
-        // Assert.assertEquals(3, list.size());
-        //
-        // // left join
-        // person = new Person();
-        // person.setName("Honza");
-        // list = main.listPeopleAndContacts(person);
-        // Assert.assertEquals(1, list.size());
-        // Assert.assertEquals("Honza", list.get(0).getName());
-        // Assert.assertEquals(2, list.get(0).getContacts().size());
-        // Assert.assertTrue(list.get(0).getContacts() instanceof ArrayList);
-        // Assert.assertEquals("Honza address 1", list.get(0).getContacts().get(0).getAddress());
-        // Assert.assertEquals("Honza address 2", list.get(0).getContacts().get(1).getAddress());
-        // list = main.listPeopleAndContacts2(person);
-        // Assert.assertEquals(1, list.size());
-        // Assert.assertEquals("Honza", list.get(0).getName());
-        // Assert.assertEquals(2, list.get(0).getContacts().size());
-        // Assert.assertTrue(list.get(0).getContacts() instanceof List);
-        // Assert.assertEquals("Honza address 1", list.get(0).getContacts().get(0).getAddress());
-        // Assert.assertEquals("Honza address 2", list.get(0).getContacts().get(1).getAddress());
-        //
-        // // inheritance
-        // list = main.listPeopleLibrary(null);
-        // Assert.assertEquals(5, list.size());
-        // Assert.assertEquals("Andrej", list.get(0).getName());
-        // Assert.assertEquals(3, list.get(0).getLibrary().size());
-        // Assert.assertEquals("Die Another Day", list.get(0).getLibrary().get(0).getTitle());
-        // Assert.assertTrue(list.get(0).getLibrary().get(0) instanceof Movie);
-        // Assert.assertEquals("def", ((Movie) list.get(0).getLibrary().get(0)).getUrlimdb());
-        // Assert.assertEquals(new Integer(95), ((Movie) list.get(0).getLibrary().get(0)).getPlaylength());
-        // Assert.assertEquals("The Adventures of Robin Hood", list.get(0).getLibrary().get(1).getTitle());
-        // Assert.assertTrue(list.get(0).getLibrary().get(1) instanceof NewBook);
-        // Assert.assertEquals("978-0140367003", ((NewBook) list.get(0).getLibrary().get(1)).getIsbn());
-        // Assert.assertEquals("The Three Musketeers", list.get(0).getLibrary().get(2).getTitle());
-        // Assert.assertTrue(list.get(0).getLibrary().get(2) instanceof NewBook);
-        // Assert.assertEquals("978-1897093634", ((NewBook) list.get(0).getLibrary().get(2)).getIsbn());
-        //
-        // // crud
-        // person = new Person();
-        // person.setId(janik.getId());
-        // person.setName("Bozena");
-        // p = main.update(person);
-        // Assert.assertNotNull(p);
-        // Assert.assertEquals("Bozena", p.getName());
-        //
-        // person = new Person();
-        // person.setId(jan.getId());
-        // deleted = main.delete(person);
-        // Assert.assertTrue(deleted);
-        // list = main.listAll();
-        // Assert.assertEquals(4, list.size());
-        //
-        // try {
-        // deleted = main.delete(null);
-        // Assert.fail();
-        // } catch (IllegalArgumentException e) {
-        // }
-        // list = main.listAll();
-        // Assert.assertEquals(4, list.size());
-        //
-        // // custom type
-        // Contact cc = new Contact()._setAddress("Pepa address 1");
-        // cc.setPhoneNumber(new PhoneNumber(111, 222, 3333));
-        // Person pepa = main.insertCustom(new Person("Pepa"), cc);
-        // Contact contact = new Contact();
-        // contact.setPhoneNumber(new PhoneNumber(111, 222, 3333));
-        // list = main.listCustom(contact);
-        // Assert.assertEquals(1, list.size());
-        // Assert.assertEquals("111-222-3333", list.get(0).getContacts().get(0).getPhoneNumber().toString());
-        //
-        // List<Subscriber> subscribers = main.listAllSubsribersWithBillingDetails();
-        // Assert.assertEquals(2, subscribers.size());
-        //
-        // java.sql.Timestamp stamp = main.callSimpleFunction(new java.sql.Timestamp(new Date().getTime()));
-        // Assert.assertNotNull(stamp);
-        //
-        // Long id = main.callStoredProcedure("Katka");
-        // Assert.assertNotNull(id);
     }
 
     public BankAccountDao getBankAccountDao() {
