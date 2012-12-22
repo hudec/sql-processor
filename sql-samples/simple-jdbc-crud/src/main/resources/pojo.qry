@@ -10,8 +10,8 @@ package org.sqlproc.sample.simple.model {
   }
 
   abstract pojo BillingDetails serializable 1  {
-    id : java.lang.Long primaryKey
-    subscriber :: Subscriber required index
+    id : java.lang.Long primaryKey index 1
+    subscriber :: Subscriber required index 2
     type : java.lang.String discriminator required
     equals ::: id
     hashCode ::: id
@@ -27,8 +27,8 @@ package org.sqlproc.sample.simple.model {
   }
 
   pojo Contact serializable 1  {
-    id : java.lang.Long primaryKey
-    person :: Person required index
+    id : java.lang.Long primaryKey index 1
+    person :: Person required index 2
     address : java.lang.String required
     phoneNumber : org.sqlproc.sample.simple.model.PhoneNumber
     equals ::: id
@@ -46,7 +46,7 @@ package org.sqlproc.sample.simple.model {
   }
 
   pojo Library serializable 1  {
-    id : java.lang.Long primaryKey
+    id : java.lang.Long primaryKey index 1
     name : java.lang.String required
     subscribers : java.util.List <:Subscriber>
     catalog : java.util.List <:PhysicalMedia>
@@ -57,9 +57,9 @@ package org.sqlproc.sample.simple.model {
   }
 
   abstract pojo Media serializable 1  {
-    id : java.lang.Long primaryKey
+    id : java.lang.Long primaryKey index 1
     title : java.lang.String required
-    author :: Performer index
+    author :: Performer index 2
     equals ::: id
     hashCode ::: id
     toInit ::: author
@@ -76,8 +76,8 @@ package org.sqlproc.sample.simple.model {
   }
 
   pojo Payment serializable 1  {
-    id : java.lang.Long primaryKey
-    billingDetails :: BillingDetails required index
+    id : java.lang.Long primaryKey index 1
+    billingDetails :: BillingDetails required index 2
     paid : java.sql.Timestamp required
     equals ::: id
     hashCode ::: id
@@ -86,8 +86,8 @@ package org.sqlproc.sample.simple.model {
   }
 
   pojo Performer serializable 1  {
-    id : java.lang.Long primaryKey
-    person :: Person required index
+    id : java.lang.Long primaryKey index 1
+    person :: Person required index 2
     work : java.util.List <:Media>
     equals ::: id
     hashCode ::: id
@@ -96,9 +96,9 @@ package org.sqlproc.sample.simple.model {
   }
 
   pojo Person serializable 1  {
-    id : java.lang.Long primaryKey
+    id : java.lang.Long primaryKey index 1
     firstName : java.lang.String required
-    lastName : java.lang.String required index
+    lastName : java.lang.String required index 2
     dateOfBirth : java.util.Date
     ssn : java.lang.String
     passport : java.lang.String
@@ -112,16 +112,16 @@ package org.sqlproc.sample.simple.model {
   }
 
   pojo PersonLibrary serializable 1  {
-    id : java.lang.Long primaryKey
-    personId : java.lang.Long required index
-    mediaId : java.lang.Long required index
+    id : java.lang.Long primaryKey index 1
+    personId : java.lang.Long required index 2
+    mediaId : java.lang.Long required index 3
     equals ::: id
     hashCode ::: id
     toString ::: mediaId id personId
   }
 
   pojo PhysicalMedia serializable 1  {
-    id : java.lang.Long primaryKey
+    id : java.lang.Long primaryKey index 1
     location : java.lang.String required
     media :: Media required
     library :: Library required
@@ -132,8 +132,8 @@ package org.sqlproc.sample.simple.model {
   }
 
   pojo Subscriber serializable 1  {
-    id : java.lang.Long primaryKey
-    library :: Library required index
+    id : java.lang.Long primaryKey index 1
+    library :: Library required index 2
     contact :: Contact
     name : java.lang.String required
     billingDetails : java.util.List <:BillingDetails>

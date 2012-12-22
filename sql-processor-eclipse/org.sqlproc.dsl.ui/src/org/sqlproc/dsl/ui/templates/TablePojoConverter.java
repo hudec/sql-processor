@@ -353,6 +353,7 @@ public class TablePojoConverter {
             pojoInheritanceDiscriminator.put(table, new LinkedHashSet<String>());
         }
 
+        int currIndex = 1;
         for (DbIndex dbIndex : dbIndexes) {
             if (dbIndex.getColumns().size() != 1)
                 continue;
@@ -360,9 +361,7 @@ public class TablePojoConverter {
             PojoAttribute attr = attributes.get(dbIndexDetail.getColname());
             if (attr == null)
                 continue;
-            if (attr.isPrimaryKey())
-                continue;
-            attr.setIndex(true);
+            attr.setIndex(currIndex++);
         }
     }
 
@@ -604,8 +603,8 @@ public class TablePojoConverter {
                         buffer.append(" primaryKey");
                         pkeys.add(name);
                     }
-                    if (attribute.isIndex()) {
-                        buffer.append(" index");
+                    if (attribute.getIndex() != null) {
+                        buffer.append(" index ").append(attribute.getIndex());
                     }
                 }
                 if (pojoExtends.containsKey(pojo)) {

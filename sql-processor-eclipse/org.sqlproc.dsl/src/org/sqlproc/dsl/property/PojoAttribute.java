@@ -10,7 +10,7 @@ public class PojoAttribute {
     private boolean primitive;
     private boolean required;
     private boolean primaryKey;
-    private boolean index;
+    private Integer index;
     private String name;
     private String className;
     private String dependencyClassName;
@@ -53,11 +53,11 @@ public class PojoAttribute {
         this.primaryKey = primaryKey;
     }
 
-    public boolean isIndex() {
+    public Integer getIndex() {
         return index;
     }
 
-    public void setIndex(boolean index) {
+    public void setIndex(Integer index) {
         this.index = index;
     }
 

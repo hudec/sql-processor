@@ -53,6 +53,16 @@ public class Utils {
         return false;
     }
 
+    public static String getIndex(PojoProperty f) {
+        if (f.getModifiers() == null || f.getModifiers().isEmpty())
+            return null;
+        for (PojoPropertyModifier modifier : f.getModifiers()) {
+            if (modifier.getIndex() != null)
+                return modifier.getIndex();
+        }
+        return null;
+    }
+
     public static boolean isDiscriminator(PojoProperty f) {
         if (f.getModifiers() == null || f.getModifiers().isEmpty())
             return false;
@@ -271,5 +281,19 @@ public class Utils {
             }
         }
         return null;
+    }
+
+    public static String constName(PojoProperty f) {
+        String result = "";
+        int last = 0;
+        for (int i = 0, l = f.getName().length(); i < l; i++) {
+            if (Character.isUpperCase(f.getName().charAt(i))) {
+                result = result + f.getName().substring(last, i).toUpperCase() + "_";
+                last = i;
+            }
+        }
+        if (last < f.getName().length())
+            result = result + f.getName().substring(last).toUpperCase();
+        return result;
     }
 }

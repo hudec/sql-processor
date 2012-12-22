@@ -5659,11 +5659,11 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getPojoPropertyModifier_PrimaryKey();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isIndex <em>Index</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#getIndex <em>Index</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Index</em>'.
-   * @see org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isIndex()
+   * @see org.sqlproc.dsl.processorDsl.PojoPropertyModifier#getIndex()
    * @see #getPojoPropertyModifier()
    * @generated
    */

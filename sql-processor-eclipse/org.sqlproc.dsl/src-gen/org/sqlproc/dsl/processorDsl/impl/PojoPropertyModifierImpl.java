@@ -22,7 +22,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyModifierImpl#isRequired <em>Required</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyModifierImpl#isDiscriminator <em>Discriminator</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyModifierImpl#isPrimaryKey <em>Primary Key</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyModifierImpl#isIndex <em>Index</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyModifierImpl#getIndex <em>Index</em>}</li>
  * </ul>
  * </p>
  *
@@ -91,24 +91,24 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
   protected boolean primaryKey = PRIMARY_KEY_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isIndex() <em>Index</em>}' attribute.
+   * The default value of the '{@link #getIndex() <em>Index</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isIndex()
+   * @see #getIndex()
    * @generated
    * @ordered
    */
-  protected static final boolean INDEX_EDEFAULT = false;
+  protected static final String INDEX_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #isIndex() <em>Index</em>}' attribute.
+   * The cached value of the '{@link #getIndex() <em>Index</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isIndex()
+   * @see #getIndex()
    * @generated
    * @ordered
    */
-  protected boolean index = INDEX_EDEFAULT;
+  protected String index = INDEX_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -205,7 +205,7 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isIndex()
+  public String getIndex()
   {
     return index;
   }
@@ -215,9 +215,9 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setIndex(boolean newIndex)
+  public void setIndex(String newIndex)
   {
-    boolean oldIndex = index;
+    String oldIndex = index;
     index = newIndex;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_PROPERTY_MODIFIER__INDEX, oldIndex, index));
@@ -240,7 +240,7 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
       case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__PRIMARY_KEY:
         return isPrimaryKey();
       case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__INDEX:
-        return isIndex();
+        return getIndex();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -265,7 +265,7 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
         setPrimaryKey((Boolean)newValue);
         return;
       case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__INDEX:
-        setIndex((Boolean)newValue);
+        setIndex((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -314,7 +314,7 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
       case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__PRIMARY_KEY:
         return primaryKey != PRIMARY_KEY_EDEFAULT;
       case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__INDEX:
-        return index != INDEX_EDEFAULT;
+        return INDEX_EDEFAULT == null ? index != null : !INDEX_EDEFAULT.equals(index);
     }
     return super.eIsSet(featureID);
   }

@@ -287,6 +287,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPojoEntityModifier2Access().getGroup_1(), "rule__PojoEntityModifier2__Group_1__0");
 					put(grammarAccess.getPojoEntityModifier2Access().getGroup_2(), "rule__PojoEntityModifier2__Group_2__0");
 					put(grammarAccess.getPojoEntityAccess().getGroup(), "rule__PojoEntity__Group__0");
+					put(grammarAccess.getPojoPropertyModifierAccess().getGroup_3(), "rule__PojoPropertyModifier__Group_3__0");
 					put(grammarAccess.getPojoPropertyAccess().getGroup(), "rule__PojoProperty__Group__0");
 					put(grammarAccess.getPojoPropertyAccess().getGroup_1_1(), "rule__PojoProperty__Group_1_1__0");
 					put(grammarAccess.getPojoPropertyAccess().getGroup_1_1_0(), "rule__PojoProperty__Group_1_1_0__0");
@@ -581,7 +582,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPojoPropertyModifierAccess().getRequiredAssignment_0(), "rule__PojoPropertyModifier__RequiredAssignment_0");
 					put(grammarAccess.getPojoPropertyModifierAccess().getDiscriminatorAssignment_1(), "rule__PojoPropertyModifier__DiscriminatorAssignment_1");
 					put(grammarAccess.getPojoPropertyModifierAccess().getPrimaryKeyAssignment_2(), "rule__PojoPropertyModifier__PrimaryKeyAssignment_2");
-					put(grammarAccess.getPojoPropertyModifierAccess().getIndexAssignment_3(), "rule__PojoPropertyModifier__IndexAssignment_3");
+					put(grammarAccess.getPojoPropertyModifierAccess().getIndexAssignment_3_1(), "rule__PojoPropertyModifier__IndexAssignment_3_1");
 					put(grammarAccess.getPojoPropertyAccess().getNameAssignment_0(), "rule__PojoProperty__NameAssignment_0");
 					put(grammarAccess.getPojoPropertyAccess().getNativeAssignment_1_0(), "rule__PojoProperty__NativeAssignment_1_0");
 					put(grammarAccess.getPojoPropertyAccess().getAttrsAssignment_1_1_0_1_0_1_0_1(), "rule__PojoProperty__AttrsAssignment_1_1_0_1_0_1_0_1");

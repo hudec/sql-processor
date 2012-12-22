@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isRequired <em>Required</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isDiscriminator <em>Discriminator</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isPrimaryKey <em>Primary Key</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isIndex <em>Index</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#getIndex <em>Index</em>}</li>
  * </ul>
  * </p>
  *
@@ -112,21 +112,21 @@ public interface PojoPropertyModifier extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Index</em>' attribute.
-   * @see #setIndex(boolean)
+   * @see #setIndex(String)
    * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoPropertyModifier_Index()
    * @model
    * @generated
    */
-  boolean isIndex();
+  String getIndex();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isIndex <em>Index</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#getIndex <em>Index</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Index</em>' attribute.
-   * @see #isIndex()
+   * @see #getIndex()
    * @generated
    */
-  void setIndex(boolean value);
+  void setIndex(String value);
 
 } // PojoPropertyModifier

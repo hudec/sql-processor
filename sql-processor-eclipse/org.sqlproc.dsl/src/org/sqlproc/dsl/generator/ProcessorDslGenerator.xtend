@@ -64,6 +64,9 @@ public «IF isAbstract(e)»abstract «ENDIF»class «e.name» «compileExtends(e
   
   private static final long serialVersionUID = «getSernum(e)»L;
   «ENDIF»
+  «FOR f:e.features.filter(x| getIndex(x)!=null)»
+  public static final int ORDER_BY_«constName(f)» = «getIndex(f)»;
+  «ENDFOR»
 	
   public «e.name»() {
   }

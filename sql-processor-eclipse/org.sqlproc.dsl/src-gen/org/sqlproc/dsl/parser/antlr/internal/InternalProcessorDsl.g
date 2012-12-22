@@ -10153,22 +10153,29 @@ rulePojoPropertyModifier returns [EObject current=null]
 
 )
 )
-    |(
-(
-		lv_index_3_0=	'index' 
+    |(	otherlv_3='index' 
     {
-        newLeafNode(lv_index_3_0, grammarAccess.getPojoPropertyModifierAccess().getIndexIndexKeyword_3_0());
+    	newLeafNode(otherlv_3, grammarAccess.getPojoPropertyModifierAccess().getIndexKeyword_3_0());
     }
- 
-	    {
+(
+(
+		lv_index_4_0=RULE_NUMBER
+		{
+			newLeafNode(lv_index_4_0, grammarAccess.getPojoPropertyModifierAccess().getIndexNUMBERTerminalRuleCall_3_1_0()); 
+		}
+		{
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojoPropertyModifierRule());
 	        }
-       		setWithLastConsumed($current, "index", true, "index");
+       		setWithLastConsumed(
+       			$current, 
+       			"index",
+        		lv_index_4_0, 
+        		"NUMBER");
 	    }
 
 )
-))
+)))
 ;
 
 

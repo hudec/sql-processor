@@ -2622,8 +2622,11 @@
       <elements xsi:type="xtext:Assignment" feature="primaryKey" operator="?=">
         <terminal xsi:type="xtext:Keyword" value="primaryKey"/>
       </elements>
-      <elements xsi:type="xtext:Assignment" feature="index" operator="?=">
-        <terminal xsi:type="xtext:Keyword" value="index"/>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="index"/>
+        <elements xsi:type="xtext:Assignment" feature="index" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.61"/>
+        </elements>
       </elements>
     </alternatives>
   </rules>
