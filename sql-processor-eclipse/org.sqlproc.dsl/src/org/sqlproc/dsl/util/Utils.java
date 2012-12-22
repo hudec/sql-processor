@@ -296,4 +296,18 @@ public class Utils {
             result = result + f.getName().substring(last).toUpperCase();
         return result;
     }
+
+    public static String dbName(PojoEntity e) {
+        String result = "";
+        int last = 0;
+        for (int i = 0, l = e.getName().length(); i < l; i++) {
+            if (Character.isUpperCase(e.getName().charAt(i))) {
+                result = result + e.getName().substring(last, i).toUpperCase() + "_";
+                last = i;
+            }
+        }
+        if (last < e.getName().length())
+            result = result + e.getName().substring(last).toUpperCase();
+        return result.startsWith("_") ? result.substring(1) : result;
+    }
 }

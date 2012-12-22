@@ -303,11 +303,11 @@ public class Main {
         Assert.assertTrue(l.getSubscribers().isEmpty());
         // to make the next line to work, in definitions.qry should be uncommented
         // pojogen-not-abstract-tables MEDIA; and pojo.qry and statements.qry should be recreated
-        // library.setInit(Library.Association.catalog);
+        library.setInit(Library.Association.catalog);
         library.setInit(Library.Association.subscribers);
         l = main.getLibraryDao().getLibrary(library);
         Assert.assertNotNull(l);
-        // Assert.assertEquals(4, l.getCatalog().size());
+        Assert.assertEquals(4, l.getCatalog().size());
         Assert.assertEquals(2, l.getSubscribers().size());
         Assert.assertEquals("Alexandria Library Updated", l.getName());
 

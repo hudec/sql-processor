@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -59,6 +60,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.processorDsl.TableUsage;
+import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
 import org.sqlproc.dsl.util.Utils;
@@ -78,6 +80,9 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     @Inject
     IQualifiedNameConverter qualifiedNameConverter;
+
+    @Inject
+    ModelProperty modelProperty;
 
     public enum ValidationResult {
         OK, WARNING, ERROR;
@@ -929,8 +934,15 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         }
         if (Utils.isAbstract(entity))
             return ValidationResult.WARNING;
-        else
-            return ValidationResult.ERROR;
+        else {
+            Set<String> suppressedAbstracts = modelProperty.getNotAbstractTables(entity);
+            // System.out.println("AAAAAAAA " + entity + "->" + suppressedAbstracts + "->" + property + "->" +
+            // Utils.dbName(entity));
+            if (suppressedAbstracts != null && suppressedAbstracts.contains(Utils.dbName(entity)))
+                return ValidationResult.WARNING;
+            else
+                return ValidationResult.ERROR;
+        }
     }
 
     @Check

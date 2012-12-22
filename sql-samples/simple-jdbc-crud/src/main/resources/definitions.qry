@@ -32,7 +32,7 @@ pojogen-create-one-to-many LIBRARY ID->PHYSICAL_MEDIA->LIBRARY;
 pojogen-generate-methods toString equals hashCode isDef toInit;
 pojogen-implements-interfaces java.io.Serializable;
 pojogen-create-columns PERSON PASSPORT->:java.lang.String;
-//pojogen-not-abstract-tables MEDIA;
+pojogen-not-abstract-tables MEDIA;
 
 //metagen-global-sequence SEQ1;
 metagen-global-identity SEL1;
