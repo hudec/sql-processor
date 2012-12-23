@@ -59,10 +59,6 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     private static final String LINESEP = System.getProperty("line.separator");
     /**
-     * Default value for {@link SqlSimpleFactory#metaPropsNames}.
-     */
-    protected static final String DEFAULT_META_PROPS_NAME = "queries.properties";
-    /**
      * The names of files, which hold a collection of the SQL Processor artifacts (META SQL statements, mapping rules
      * and optional features).
      */

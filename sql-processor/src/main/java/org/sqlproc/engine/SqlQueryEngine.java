@@ -11,6 +11,7 @@ import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
 import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlProcessResult;
+import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
@@ -370,11 +371,51 @@ public class SqlQueryEngine extends SqlEngine {
             final Object staticInputValues, final SqlOrder order, final int maxTimeout, final int maxResults,
             final int firstResult, final Map<String, Class<?>> moreResultClasses) throws SqlProcessorException,
             SqlRuntimeException {
+        return query(session, resultClass, dynamicInputValues, staticInputValues,
+                new SqlStandardControl().setOrder(order).setMaxTimeout(maxTimeout).setMaxResults(maxResults)
+                        .setFirstResult(firstResult).setMoreResultClasses(moreResultClasses));
+    }
+
+    /**
+     * Runs the META SQL query to obtain a list of database rows. This is the primary and the most complex SQL Processor
+     * execution method to obtain a list of result class instances. Criteria to pickup the correct database rows are
+     * taken from the input values.
+     * 
+     * @param session
+     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
+     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
+     *            Hibernate session.
+     * @param resultClass
+     *            The class used for the return values, the SQL query execution output. This class is also named as the
+     *            output class or the transport class, In fact it's a standard POJO class, which must include all the
+     *            attributes described in the mapping rule statement. This class itself and all its subclasses must have
+     *            public constructors without any parameters. All the attributes used in the mapping rule statement must
+     *            be accessible using public getters and setters. The instances of this class are created on the fly in
+     *            the process of query execution using the reflection API.
+     * @param dynamicInputValues
+     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
+     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     * @param staticInputValues
+     *            The object used for the SQL statement static input values. The class of this object is also named as
+     *            the input class or the static parameters class. The exact class type isn't important, all the
+     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
+     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
+     *            prevent SQL injection threat!
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
+     * @return The list of the resultClass instances.
+     * @throws org.hibernate.SqlProcessorException
+     *             in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with the input/output values handling
+     */
+    public <E> List<E> query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
+            final Object staticInputValues, final SqlControl sqlControl) throws SqlProcessorException,
+            SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> query, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
-                    + dynamicInputValues + ", staticInputValues=" + staticInputValues + ", order=" + order
-                    + ", maxTimeout=" + maxTimeout + ", maxResults=" + maxResults + ", firstResult=" + firstResult
-                    + ", moreResultClasses=" + moreResultClasses);
+                    + dynamicInputValues + ", staticInputValues=" + staticInputValues + ", sqlControl=" + sqlControl);
         }
 
         List<E> result = null;
@@ -383,21 +424,21 @@ public class SqlQueryEngine extends SqlEngine {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            staticInputValues, (order != null) ? order.getOrders() : NO_ORDER.getOrders(), features,
-                            typeFactory, pluginFactory);
+                            staticInputValues, (sqlControl.getOrder() != null) ? sqlControl.getOrder().getOrders()
+                                    : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (maxTimeout > 0)
-                        query.setTimeout(maxTimeout);
-                    query.setOrdered(order != null && order != NO_ORDER);
+                    if (sqlControl.getMaxTimeout() > 0)
+                        query.setTimeout(sqlControl.getMaxTimeout());
+                    query.setOrdered(sqlControl.getOrder() != null && sqlControl.getOrder() != NO_ORDER);
                     processResult.setQueryParams(session, query);
                     SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
-                    mappingResult.setQueryResultMapping(resultClass, moreResultClasses, query);
+                    mappingResult.setQueryResultMapping(resultClass, sqlControl.getMoreResultClasses(), query);
 
-                    if (firstResult > 0) {
-                        query.setFirstResult(firstResult);
-                        query.setMaxResults(maxResults);
-                    } else if (maxResults > 0) {
-                        query.setMaxResults(maxResults);
+                    if (sqlControl.getFirstResult() > 0) {
+                        query.setFirstResult(sqlControl.getFirstResult());
+                        query.setMaxResults(sqlControl.getMaxResults());
+                    } else if (sqlControl.getMaxResults() > 0) {
+                        query.setMaxResults(sqlControl.getMaxResults());
                     }
 
                     @SuppressWarnings("rawtypes")
@@ -429,7 +470,8 @@ public class SqlQueryEngine extends SqlEngine {
                             }
                         }
 
-                        mappingResult.setQueryResultData(resultInstance, resultValue, ids, moreResultClasses);
+                        mappingResult.setQueryResultData(resultInstance, resultValue, ids,
+                                sqlControl.getMoreResultClasses());
 
                         if (changedIdentity) {
                             result.add(resultInstance);

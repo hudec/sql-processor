@@ -9,6 +9,7 @@ import org.sqlproc.engine.impl.SqlMappingResult;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
 import org.sqlproc.engine.impl.SqlProcessResult;
+import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
@@ -251,9 +252,42 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int insert(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        return insert(session, dynamicInputValues, staticInputValues,
+                new SqlStandardControl().setMaxTimeout(maxTimeout));
+
+    }
+
+    /**
+     * Runs the META SQL insert statement to persist a database row. This is the primary and the most complex SQL
+     * Processor execution method to persist an instance of input values.
+     * 
+     * @param session
+     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
+     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
+     *            Hibernate session.
+     * @param dynamicInputValues
+     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
+     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     * @param staticInputValues
+     *            The object used for the SQL statement static input values. The class of this object is also named as
+     *            the input class or the static parameters class. The exact class type isn't important, all the
+     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
+     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
+     *            prevent SQL injection threat!
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
+     * @return The number of persisted database rows.
+     * @throws org.hibernate.SqlProcessorException
+     *             in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with the input/output values handling
+     */
+    public int insert(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
+            final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> insert, session=" + session + ", dynamicInputValues=" + dynamicInputValues
-                    + ", staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout);
+                    + ", staticInputValues=" + staticInputValues + ", sqlControl=" + sqlControl);
         }
 
         Integer count = null;
@@ -264,8 +298,8 @@ public class SqlCrudEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CREATE,
                             dynamicInputValues, staticInputValues, null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (maxTimeout > 0)
-                        query.setTimeout(maxTimeout);
+                    if (sqlControl.getMaxTimeout() > 0)
+                        query.setTimeout(sqlControl.getMaxTimeout());
                     processResult.setQueryParams(session, query);
 
                     Integer count = query.update();
@@ -363,10 +397,50 @@ public class SqlCrudEngine extends SqlEngine {
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout, final Map<String, Class<?>> moreResultClasses)
             throws SqlProcessorException, SqlRuntimeException {
+        return get(session, resultClass, dynamicInputValues, staticInputValues,
+                new SqlStandardControl().setMaxTimeout(maxTimeout).setMoreResultClasses(moreResultClasses));
+    }
+
+    /**
+     * Runs the META SQL query to obtain a unique database row. This is the primary and the most complex SQL Processor
+     * execution method to obtain an unique instance of the result class. Criteria to pickup the correct database row
+     * are taken from input values.
+     * 
+     * @param session
+     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
+     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
+     *            Hibernate session.
+     * @param resultClass
+     *            The class used for the return values, the SQL query execution output. This class is also named as the
+     *            output class or the transport class, In fact it's a standard POJO class, which must include all the
+     *            attributes described in the mapping rule statement. This class itself and all its subclasses must have
+     *            public constructors without any parameters. All the attributes used in the mapping rule statement must
+     *            be accessible using public getters and setters. The instances of this class are created on the fly in
+     *            the process of query execution using the reflection API.
+     * @param dynamicInputValues
+     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
+     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     * @param staticInputValues
+     *            The object used for the SQL statement static input values. The class of this object is also named as
+     *            the input class or the static parameters class. The exact class type isn't important, all the
+     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
+     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
+     *            prevent SQL injection threat!
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
+     * @return The instance of the resultClass.
+     * @throws org.hibernate.SqlProcessorException
+     *             in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with the input/output values handling
+     */
+    public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
+            final Object staticInputValues, final SqlControl sqlControl) throws SqlProcessorException,
+            SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> get, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
-                    + dynamicInputValues + ", staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout
-                    + ", moreResultClasses=" + moreResultClasses);
+                    + dynamicInputValues + ", staticInputValues=" + staticInputValues + ", sqlControl=" + sqlControl);
         }
 
         E result = null;
@@ -377,11 +451,11 @@ public class SqlCrudEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.RETRIEVE,
                             dynamicInputValues, staticInputValues, null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (maxTimeout > 0)
-                        query.setTimeout(maxTimeout);
+                    if (sqlControl.getMaxTimeout() > 0)
+                        query.setTimeout(sqlControl.getMaxTimeout());
                     processResult.setQueryParams(session, query);
                     SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
-                    mappingResult.setQueryResultMapping(resultClass, moreResultClasses, query);
+                    mappingResult.setQueryResultMapping(resultClass, sqlControl.getMoreResultClasses(), query);
 
                     @SuppressWarnings("rawtypes")
                     List list = query.list();
@@ -412,7 +486,8 @@ public class SqlCrudEngine extends SqlEngine {
                             }
                         }
 
-                        mappingResult.setQueryResultData(resultInstance, resultValue, ids, moreResultClasses);
+                        mappingResult.setQueryResultData(resultInstance, resultValue, ids,
+                                sqlControl.getMoreResultClasses());
                         if (changedIdentity) {
                             if (ids != null) {
                                 String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
@@ -481,9 +556,42 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int update(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        return update(session, dynamicInputValues, staticInputValues,
+                new SqlStandardControl().setMaxTimeout(maxTimeout));
+    }
+
+    /**
+     * Runs the META SQL update statement to persist a database row. This is the primary and the most complex SQL
+     * Processor execution method to persist an instance of input values. Changed values are taken from the input
+     * values. At the same time criteria to pickup the correct database rows(s) are taken from the input values too.
+     * 
+     * @param session
+     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
+     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
+     *            Hibernate session.
+     * @param dynamicInputValues
+     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
+     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     * @param staticInputValues
+     *            The object used for the SQL statement static input values. The class of this object is also named as
+     *            the input class or the static parameters class. The exact class type isn't important, all the
+     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
+     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
+     *            prevent SQL injection threat!
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
+     * @return The number of updated database rows.
+     * @throws org.hibernate.SqlProcessorException
+     *             in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with the input/output values handling
+     */
+    public int update(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
+            final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> update, session=" + session + ", dynamicInputValues=" + dynamicInputValues
-                    + ", staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout);
+                    + ", staticInputValues=" + staticInputValues + ", sqlControl=" + sqlControl);
         }
 
         Integer count = null;
@@ -494,8 +602,8 @@ public class SqlCrudEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.UPDATE,
                             dynamicInputValues, staticInputValues, null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (maxTimeout > 0)
-                        query.setTimeout(maxTimeout);
+                    if (sqlControl.getMaxTimeout() > 0)
+                        query.setTimeout(sqlControl.getMaxTimeout());
                     processResult.setQueryParams(session, query);
 
                     return query.update();
@@ -558,9 +666,41 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int delete(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        return delete(session, dynamicInputValues, staticInputValues,
+                new SqlStandardControl().setMaxTimeout(maxTimeout));
+    }
+
+    /**
+     * Runs the META SQL delete statement to delete a database row. This is the primary and the most complex SQL
+     * Processor execution method to delete the database row(s) based on criteria from the input values.
+     * 
+     * @param session
+     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
+     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
+     *            Hibernate session.
+     * @param dynamicInputValues
+     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
+     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     * @param staticInputValues
+     *            The object used for the SQL statement static input values. The class of this object is also named as
+     *            the input class or the static parameters class. The exact class type isn't important, all the
+     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
+     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
+     *            prevent SQL injection threat!
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
+     * @return The number of updated database rows.
+     * @throws org.hibernate.SqlProcessorException
+     *             in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with the input/output values handling
+     */
+    public int delete(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
+            final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> delete, session=" + session + ", dynamicInputValues=" + dynamicInputValues
-                    + ", staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout);
+                    + ", staticInputValues=" + staticInputValues + ", sqlControl=" + sqlControl);
         }
 
         Integer count = null;
@@ -571,8 +711,8 @@ public class SqlCrudEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.DELETE,
                             dynamicInputValues, staticInputValues, null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (maxTimeout > 0)
-                        query.setTimeout(maxTimeout);
+                    if (sqlControl.getMaxTimeout() > 0)
+                        query.setTimeout(sqlControl.getMaxTimeout());
                     processResult.setQueryParams(session, query);
 
                     return query.update();

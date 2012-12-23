@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.util.DDLLoader;
@@ -21,7 +22,6 @@ import org.sqlproc.sample.simple.dao.BankAccountDao;
 import org.sqlproc.sample.simple.dao.BookDao;
 import org.sqlproc.sample.simple.dao.ContactDao;
 import org.sqlproc.sample.simple.dao.CreditCardDao;
-import org.sqlproc.sample.simple.dao.DaoControl;
 import org.sqlproc.sample.simple.dao.LibraryDao;
 import org.sqlproc.sample.simple.dao.MovieDao;
 import org.sqlproc.sample.simple.dao.PaymentDao;
@@ -467,15 +467,15 @@ public class Main {
         person = new Person();
         person.setInit(Person.Association.contacts);
         person.setInit(Person.Association.library);
-        list = main.getPersonDao().list(person, new DaoControl().setDescOrder(Person.ORDER_BY_ID));
+        list = main.getPersonDao().list(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID));
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzíček", list.get(1).getLastName());
-        list = main.getPersonDao().list(person, new DaoControl().setAscOrder(Person.ORDER_BY_LAST_NAME));
+        list = main.getPersonDao().list(person, new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME));
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzovský", list.get(1).getLastName());
         person = new Person();
         list = main.getPersonDao().list(person,
-                new DaoControl().setAscOrder(Person.ORDER_BY_LAST_NAME).setMaxResults(2));
+                new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME).setMaxResults(2));
         Assert.assertEquals(2, list.size());
     }
 
