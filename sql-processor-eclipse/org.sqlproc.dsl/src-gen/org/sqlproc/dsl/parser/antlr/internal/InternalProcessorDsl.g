@@ -2993,16 +2993,16 @@ ruleDaogenProperty returns [EObject current=null]
 ))+)
     |((
 (
-		lv_name_10_0=	'control-class' 
+		lv_name_10_0=	'control-parameter' 
     {
-        newLeafNode(lv_name_10_0, grammarAccess.getDaogenPropertyAccess().getNameControlClassKeyword_3_0_0());
+        newLeafNode(lv_name_10_0, grammarAccess.getDaogenPropertyAccess().getNameControlParameterKeyword_3_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_10_0, "control-class");
+       		setWithLastConsumed($current, "name", lv_name_10_0, "control-parameter");
 	    }
 
 )
@@ -3019,6 +3019,76 @@ ruleDaogenProperty returns [EObject current=null]
         }
 		{ 
 	        newCompositeNode(grammarAccess.getDaogenPropertyAccess().getControlClassJvmTypeCrossReference_3_2_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+    |((
+(
+		lv_name_13_0=	'implements-interfaces' 
+    {
+        newLeafNode(lv_name_13_0, grammarAccess.getDaogenPropertyAccess().getNameImplementsInterfacesKeyword_4_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_13_0, "implements-interfaces");
+	    }
+
+)
+)((this_WS_14=RULE_WS
+    { 
+    newLeafNode(this_WS_14, grammarAccess.getDaogenPropertyAccess().getWSTerminalRuleCall_4_1_0()); 
+    }
+)+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getDaogenPropertyAccess().getToImplementsJvmTypeCrossReference_4_1_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))+)
+    |((
+(
+		lv_name_16_0=	'extends-class' 
+    {
+        newLeafNode(lv_name_16_0, grammarAccess.getDaogenPropertyAccess().getNameExtendsClassKeyword_5_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_16_0, "extends-class");
+	    }
+
+)
+)(this_WS_17=RULE_WS
+    { 
+    newLeafNode(this_WS_17, grammarAccess.getDaogenPropertyAccess().getWSTerminalRuleCall_5_1()); 
+    }
+)+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getDaogenPropertyAccess().getToExtendsJvmTypeCrossReference_5_2_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -10427,9 +10497,9 @@ rulePojoEntityModifier3 returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='extends' 
+((	otherlv_0='extends' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getPojoEntityModifier3Access().getExtendsKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getPojoEntityModifier3Access().getExtendsKeyword_0_0());
     }
 (
 (
@@ -10440,11 +10510,57 @@ rulePojoEntityModifier3 returns [EObject current=null]
         }
 	otherlv_1=RULE_IDENT
 	{
-		newLeafNode(otherlv_1, grammarAccess.getPojoEntityModifier3Access().getSuperTypePojoEntityCrossReference_1_0()); 
+		newLeafNode(otherlv_1, grammarAccess.getPojoEntityModifier3Access().getSuperTypePojoEntityCrossReference_0_1_0()); 
 	}
 
 )
 ))
+    |(	otherlv_2='implementation package' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getPojoEntityModifier3Access().getImplementationPackageKeyword_1_0());
+    }
+(
+(
+		lv_implementation_3_0=RULE_IDENT
+		{
+			newLeafNode(lv_implementation_3_0, grammarAccess.getPojoEntityModifier3Access().getImplementationIDENTTerminalRuleCall_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoEntityModifier3Rule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"implementation",
+        		lv_implementation_3_0, 
+        		"IDENT");
+	    }
+
+)
+))
+    |(	otherlv_4='serializable' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getPojoEntityModifier3Access().getSerializableKeyword_2_0());
+    }
+(
+(
+		lv_sernum_5_0=RULE_NUMBER
+		{
+			newLeafNode(lv_sernum_5_0, grammarAccess.getPojoEntityModifier3Access().getSernumNUMBERTerminalRuleCall_2_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoEntityModifier3Rule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"sernum",
+        		lv_sernum_5_0, 
+        		"NUMBER");
+	    }
+
+)
+)))
 ;
 
 
@@ -10832,7 +10948,15 @@ this_COLON_4=RULE_COLON
 	    }
 
 )
-)*)
+)*this_LBRACE_7=RULE_LBRACE
+    { 
+    newLeafNode(this_LBRACE_7, grammarAccess.getPojoDaoAccess().getLBRACETerminalRuleCall_7()); 
+    }
+this_RBRACE_8=RULE_RBRACE
+    { 
+    newLeafNode(this_RBRACE_8, grammarAccess.getPojoDaoAccess().getRBRACETerminalRuleCall_8()); 
+    }
+)
 ;
 finally {
 	myHiddenTokenState.restore();

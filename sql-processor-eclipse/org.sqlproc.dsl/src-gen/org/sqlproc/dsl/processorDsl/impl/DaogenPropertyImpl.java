@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.eclipse.xtext.common.types.JvmType;
 
@@ -32,6 +33,8 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl#getDbTables <em>Db Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl#getImplPackage <em>Impl Package</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl#getControlClass <em>Control Class</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl#getToImplements <em>To Implements</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl#getToExtends <em>To Extends</em>}</li>
  * </ul>
  * </p>
  *
@@ -98,6 +101,26 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected JvmType controlClass;
+
+  /**
+   * The cached value of the '{@link #getToImplements() <em>To Implements</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getToImplements()
+   * @generated
+   * @ordered
+   */
+  protected EList<JvmType> toImplements;
+
+  /**
+   * The cached value of the '{@link #getToExtends() <em>To Extends</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getToExtends()
+   * @generated
+   * @ordered
+   */
+  protected JvmType toExtends;
 
   /**
    * <!-- begin-user-doc -->
@@ -228,6 +251,63 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<JvmType> getToImplements()
+  {
+    if (toImplements == null)
+    {
+      toImplements = new EObjectResolvingEList<JvmType>(JvmType.class, this, ProcessorDslPackage.DAOGEN_PROPERTY__TO_IMPLEMENTS);
+    }
+    return toImplements;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JvmType getToExtends()
+  {
+    if (toExtends != null && toExtends.eIsProxy())
+    {
+      InternalEObject oldToExtends = (InternalEObject)toExtends;
+      toExtends = (JvmType)eResolveProxy(oldToExtends);
+      if (toExtends != oldToExtends)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.DAOGEN_PROPERTY__TO_EXTENDS, oldToExtends, toExtends));
+      }
+    }
+    return toExtends;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JvmType basicGetToExtends()
+  {
+    return toExtends;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setToExtends(JvmType newToExtends)
+  {
+    JvmType oldToExtends = toExtends;
+    toExtends = newToExtends;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DAOGEN_PROPERTY__TO_EXTENDS, oldToExtends, toExtends));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -242,6 +322,11 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
       case ProcessorDslPackage.DAOGEN_PROPERTY__CONTROL_CLASS:
         if (resolve) return getControlClass();
         return basicGetControlClass();
+      case ProcessorDslPackage.DAOGEN_PROPERTY__TO_IMPLEMENTS:
+        return getToImplements();
+      case ProcessorDslPackage.DAOGEN_PROPERTY__TO_EXTENDS:
+        if (resolve) return getToExtends();
+        return basicGetToExtends();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -270,6 +355,13 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
       case ProcessorDslPackage.DAOGEN_PROPERTY__CONTROL_CLASS:
         setControlClass((JvmType)newValue);
         return;
+      case ProcessorDslPackage.DAOGEN_PROPERTY__TO_IMPLEMENTS:
+        getToImplements().clear();
+        getToImplements().addAll((Collection<? extends JvmType>)newValue);
+        return;
+      case ProcessorDslPackage.DAOGEN_PROPERTY__TO_EXTENDS:
+        setToExtends((JvmType)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -296,6 +388,12 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
       case ProcessorDslPackage.DAOGEN_PROPERTY__CONTROL_CLASS:
         setControlClass((JvmType)null);
         return;
+      case ProcessorDslPackage.DAOGEN_PROPERTY__TO_IMPLEMENTS:
+        getToImplements().clear();
+        return;
+      case ProcessorDslPackage.DAOGEN_PROPERTY__TO_EXTENDS:
+        setToExtends((JvmType)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -318,6 +416,10 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
         return IMPL_PACKAGE_EDEFAULT == null ? implPackage != null : !IMPL_PACKAGE_EDEFAULT.equals(implPackage);
       case ProcessorDslPackage.DAOGEN_PROPERTY__CONTROL_CLASS:
         return controlClass != null;
+      case ProcessorDslPackage.DAOGEN_PROPERTY__TO_IMPLEMENTS:
+        return toImplements != null && !toImplements.isEmpty();
+      case ProcessorDslPackage.DAOGEN_PROPERTY__TO_EXTENDS:
+        return toExtends != null;
     }
     return super.eIsSet(featureID);
   }

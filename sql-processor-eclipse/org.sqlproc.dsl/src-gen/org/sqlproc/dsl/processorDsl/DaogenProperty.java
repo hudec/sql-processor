@@ -20,6 +20,8 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getDbTables <em>Db Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getImplPackage <em>Impl Package</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getControlClass <em>Control Class</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToImplements <em>To Implements</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToExtends <em>To Extends</em>}</li>
  * </ul>
  * </p>
  *
@@ -122,5 +124,47 @@ public interface DaogenProperty extends EObject
    * @generated
    */
   void setControlClass(JvmType value);
+
+  /**
+   * Returns the value of the '<em><b>To Implements</b></em>' reference list.
+   * The list contents are of type {@link org.eclipse.xtext.common.types.JvmType}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>To Implements</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>To Implements</em>' reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDaogenProperty_ToImplements()
+   * @model
+   * @generated
+   */
+  EList<JvmType> getToImplements();
+
+  /**
+   * Returns the value of the '<em><b>To Extends</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>To Extends</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>To Extends</em>' reference.
+   * @see #setToExtends(JvmType)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDaogenProperty_ToExtends()
+   * @model
+   * @generated
+   */
+  JvmType getToExtends();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToExtends <em>To Extends</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>To Extends</em>' reference.
+   * @see #getToExtends()
+   * @generated
+   */
+  void setToExtends(JvmType value);
 
 } // DaogenProperty

@@ -1455,6 +1455,26 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getDaogenProperty_ToImplements()
+  {
+    return (EReference)daogenPropertyEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDaogenProperty_ToExtends()
+  {
+    return (EReference)daogenPropertyEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getMetaTypeAssignement()
   {
     return metaTypeAssignementEClass;
@@ -3135,6 +3155,26 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getPojoEntityModifier3_Implementation()
+  {
+    return (EAttribute)pojoEntityModifier3EClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPojoEntityModifier3_Sernum()
+  {
+    return (EAttribute)pojoEntityModifier3EClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPojoProperty()
   {
     return pojoPropertyEClass;
@@ -3409,6 +3449,8 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEAttribute(daogenPropertyEClass, DAOGEN_PROPERTY__DB_TABLES);
     createEAttribute(daogenPropertyEClass, DAOGEN_PROPERTY__IMPL_PACKAGE);
     createEReference(daogenPropertyEClass, DAOGEN_PROPERTY__CONTROL_CLASS);
+    createEReference(daogenPropertyEClass, DAOGEN_PROPERTY__TO_IMPLEMENTS);
+    createEReference(daogenPropertyEClass, DAOGEN_PROPERTY__TO_EXTENDS);
 
     metaTypeAssignementEClass = createEClass(META_TYPE_ASSIGNEMENT);
     createEAttribute(metaTypeAssignementEClass, META_TYPE_ASSIGNEMENT__DB_COLUMN);
@@ -3624,6 +3666,8 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     pojoEntityModifier3EClass = createEClass(POJO_ENTITY_MODIFIER3);
     createEReference(pojoEntityModifier3EClass, POJO_ENTITY_MODIFIER3__SUPER_TYPE);
+    createEAttribute(pojoEntityModifier3EClass, POJO_ENTITY_MODIFIER3__IMPLEMENTATION);
+    createEAttribute(pojoEntityModifier3EClass, POJO_ENTITY_MODIFIER3__SERNUM);
 
     pojoPropertyEClass = createEClass(POJO_PROPERTY);
     createEAttribute(pojoPropertyEClass, POJO_PROPERTY__NAME);
@@ -3790,6 +3834,8 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEAttribute(getDaogenProperty_DbTables(), ecorePackage.getEString(), "dbTables", null, 0, -1, DaogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDaogenProperty_ImplPackage(), ecorePackage.getEString(), "implPackage", null, 0, 1, DaogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDaogenProperty_ControlClass(), theTypesPackage.getJvmType(), null, "controlClass", null, 0, 1, DaogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDaogenProperty_ToImplements(), theTypesPackage.getJvmType(), null, "toImplements", null, 0, -1, DaogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDaogenProperty_ToExtends(), theTypesPackage.getJvmType(), null, "toExtends", null, 0, 1, DaogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(metaTypeAssignementEClass, MetaTypeAssignement.class, "MetaTypeAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMetaTypeAssignement_DbColumn(), ecorePackage.getEString(), "dbColumn", null, 0, 1, MetaTypeAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4005,6 +4051,8 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     initEClass(pojoEntityModifier3EClass, PojoEntityModifier3.class, "PojoEntityModifier3", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPojoEntityModifier3_SuperType(), this.getPojoEntity(), null, "superType", null, 0, 1, PojoEntityModifier3.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPojoEntityModifier3_Implementation(), ecorePackage.getEString(), "implementation", null, 0, 1, PojoEntityModifier3.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPojoEntityModifier3_Sernum(), ecorePackage.getEString(), "sernum", null, 0, 1, PojoEntityModifier3.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pojoPropertyEClass, PojoProperty.class, "PojoProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPojoProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, PojoProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

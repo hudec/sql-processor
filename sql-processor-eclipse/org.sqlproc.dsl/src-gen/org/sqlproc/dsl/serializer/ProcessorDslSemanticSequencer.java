@@ -627,7 +627,9 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='ignore-tables' dbTables+=IDENT+) | 
 	 *         (name='only-tables' dbTables+=IDENT*) | 
 	 *         (name='separate-implementation' implPackage=IDENT dbTables+=IDENT+) | 
-	 *         (name='control-class' controlClass=[JvmType|QualifiedName])
+	 *         (name='control-parameter' controlClass=[JvmType|QualifiedName]) | 
+	 *         (name='implements-interfaces' toImplements+=[JvmType|QualifiedName]+) | 
+	 *         (name='extends-class' toExtends=[JvmType|QualifiedName])
 	 *     )
 	 */
 	protected void sequence_DaogenProperty(EObject context, DaogenProperty semanticObject) {
@@ -1073,17 +1075,10 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     superType=[PojoEntity|IDENT]
+	 *     (superType=[PojoEntity|IDENT] | implementation=IDENT | sernum=NUMBER)
 	 */
 	protected void sequence_PojoEntityModifier3(EObject context, PojoEntityModifier3 semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.POJO_ENTITY_MODIFIER3__SUPER_TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.POJO_ENTITY_MODIFIER3__SUPER_TYPE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getPojoEntityModifier3Access().getSuperTypePojoEntityIDENTTerminalRuleCall_1_0_1(), semanticObject.getSuperType());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

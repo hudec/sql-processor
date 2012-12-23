@@ -13,6 +13,7 @@ import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
+import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier1;
@@ -97,6 +98,16 @@ public class Utils {
         if (e.getModifiers1() == null || e.getModifiers1().isEmpty())
             return false;
         for (PojoEntityModifier1 modifier : e.getModifiers1()) {
+            if (modifier.isFinal())
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean isFinal(PojoDao d) {
+        if (d.getModifiers1() == null || d.getModifiers1().isEmpty())
+            return false;
+        for (PojoEntityModifier1 modifier : d.getModifiers1()) {
             if (modifier.isFinal())
                 return true;
         }

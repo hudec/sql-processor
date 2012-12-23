@@ -86,7 +86,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DAOGEN_IGNORE_TABLES = "ignore-tables";
     public static final String DAOGEN_ONLY_TABLES = "only-tables";
     public static final String DAOGEN_SEPARATE_IMPLEMENTATION = "separate-implementation";
-    public static final String DAOGEN_CONTROL_CLASS = "control-class";
+    public static final String DAOGEN_CONTROL_PARAMETER = "control-parameter";
+    public static final String DAOGEN_IMPLEMENTS_INTERFACES = "implements-interfaces";
+    public static final String DAOGEN_EXTENDS_CLASS = "extends-class";
 
     public static class PairValues {
         public String value1;
@@ -142,8 +144,10 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Map<String, PairValues>> statementsMetaTypes;
         public Set<String> daoIgnoreTables;
         public Set<String> daoOnlyTables;
-        public Map<String, Set<String>> daoImplementsInterfaces;
-        public JvmType daoControlClass;
+        public Map<String, String> daoImplementsInterfaces;
+        public JvmType daoControlParameter;
+        public Map<String, JvmType> daoToImplements;
+        public JvmType daoToExtends;
     }
 
     private Map<String, ModelValues> dirs2models = new HashMap<String, ModelValues>();
@@ -299,8 +303,10 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     private void initDaogenModel(ModelValues modelValues) {
         modelValues.daoIgnoreTables = new HashSet<String>();
         modelValues.daoOnlyTables = new HashSet<String>();
-        modelValues.daoImplementsInterfaces = new HashMap<String, Set<String>>();
-        modelValues.daoControlClass = null;
+        modelValues.daoImplementsInterfaces = new HashMap<String, String>();
+        modelValues.daoControlParameter = null;
+        modelValues.daoToImplements = new HashMap<String, JvmType>();
+        modelValues.daoToExtends = null;
     }
 
     public void setValue(ModelValues modelValues, Property property) {
@@ -578,13 +584,18 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             }
         } else if (DAOGEN_SEPARATE_IMPLEMENTATION.equals(property.getName())) {
             String packageName = property.getImplPackage();
-            if (!modelValues.daoImplementsInterfaces.containsKey(packageName))
-                modelValues.daoImplementsInterfaces.put(packageName, new HashSet<String>());
             for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
-                modelValues.daoImplementsInterfaces.get(packageName).add(property.getDbTables().get(i));
+                modelValues.daoImplementsInterfaces.put(property.getDbTables().get(i), packageName);
             }
-        } else if (DAOGEN_CONTROL_CLASS.equals(property.getName())) {
-            modelValues.daoControlClass = property.getControlClass();
+        } else if (DAOGEN_CONTROL_PARAMETER.equals(property.getName())) {
+            modelValues.daoControlParameter = property.getControlClass();
+        } else if (DAOGEN_IMPLEMENTS_INTERFACES.equals(property.getName())) {
+            for (int i = 0, m = property.getToImplements().size(); i < m; i++) {
+                modelValues.daoToImplements.put(property.getToImplements().get(i).getIdentifier(), property
+                        .getToImplements().get(i));
+            }
+        } else if (DAOGEN_EXTENDS_CLASS.equals(property.getName())) {
+            modelValues.daoToExtends = property.getToExtends();
         }
     }
 
@@ -843,16 +854,27 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
-    public Map<String, Set<String>> getDaoImplementsInterfaces(EObject model) {
+    public Map<String, String> getDaoImplementsInterfaces(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.daoImplementsInterfaces : Collections
-                .<String, Set<String>> emptyMap();
+        return (modelValues != null) ? modelValues.daoImplementsInterfaces : Collections.<String, String> emptyMap();
     }
 
     @Override
-    public JvmType getDaoControlClass(EObject model) {
+    public JvmType getDaoControlParameter(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.daoControlClass : null;
+        return (modelValues != null) ? modelValues.daoControlParameter : null;
+    }
+
+    @Override
+    public Map<String, JvmType> getDaoToImplements(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.daoToImplements : Collections.<String, JvmType> emptyMap();
+    }
+
+    @Override
+    public JvmType getDaoToExtends(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.daoToExtends : null;
     }
 
     @Override

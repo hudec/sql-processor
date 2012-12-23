@@ -23,6 +23,7 @@ import org.sqlproc.dsl.processorDsl.AbstractPojoEntity;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
+import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
@@ -706,9 +707,32 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             PackageDeclaration packagex = getPackage((XtextTemplateContext) context);
             if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
 
+                List<PojoDao> daosToRemove = new ArrayList<PojoDao>();
+                Set<String> finalDaos = new HashSet<String>();
+                String suffix = packagex.getSuffix();
+
+                for (AbstractPojoEntity ape : packagex.getElements()) {
+                    if (ape instanceof PojoDao) {
+                        PojoDao dao = (PojoDao) ape;
+                        if (Utils.isFinal(dao)) {
+                            // if (suffix != null && dao.getName().endsWith(suffix))
+                            // finalDaos.add(dao.getName()
+                            // .substring(0, dao.getName().length() - suffix.length()));
+                            // else
+                            finalDaos.add(dao.getName());
+                        } else {
+                            daosToRemove.add(dao);
+                        }
+                    }
+                }
+                // for (PojoDao dao : daosToRemove) {
+                // packagex.getElements().remove(dao);
+                // }
+
                 List<String> tables = dbResolver.getTables(artifacts);
                 if (tables != null) {
-                    TableDaoConverter converter = new TableDaoConverter(modelProperty, artifacts, scopeProvider);
+                    TableDaoConverter converter = new TableDaoConverter(modelProperty, artifacts, scopeProvider,
+                            finalDaos);
                     for (String table : tables) {
                         if (table.toUpperCase().startsWith("BIN$"))
                             continue;

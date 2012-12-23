@@ -22,6 +22,8 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityModifier3Impl#getSuperType <em>Super Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityModifier3Impl#getImplementation <em>Implementation</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityModifier3Impl#getSernum <em>Sernum</em>}</li>
  * </ul>
  * </p>
  *
@@ -38,6 +40,46 @@ public class PojoEntityModifier3Impl extends MinimalEObjectImpl.Container implem
    * @ordered
    */
   protected PojoEntity superType;
+
+  /**
+   * The default value of the '{@link #getImplementation() <em>Implementation</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getImplementation()
+   * @generated
+   * @ordered
+   */
+  protected static final String IMPLEMENTATION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getImplementation() <em>Implementation</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getImplementation()
+   * @generated
+   * @ordered
+   */
+  protected String implementation = IMPLEMENTATION_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getSernum() <em>Sernum</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSernum()
+   * @generated
+   * @ordered
+   */
+  protected static final String SERNUM_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getSernum() <em>Sernum</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSernum()
+   * @generated
+   * @ordered
+   */
+  protected String sernum = SERNUM_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -108,6 +150,52 @@ public class PojoEntityModifier3Impl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getImplementation()
+  {
+    return implementation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setImplementation(String newImplementation)
+  {
+    String oldImplementation = implementation;
+    implementation = newImplementation;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_ENTITY_MODIFIER3__IMPLEMENTATION, oldImplementation, implementation));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getSernum()
+  {
+    return sernum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSernum(String newSernum)
+  {
+    String oldSernum = sernum;
+    sernum = newSernum;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_ENTITY_MODIFIER3__SERNUM, oldSernum, sernum));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -116,6 +204,10 @@ public class PojoEntityModifier3Impl extends MinimalEObjectImpl.Container implem
       case ProcessorDslPackage.POJO_ENTITY_MODIFIER3__SUPER_TYPE:
         if (resolve) return getSuperType();
         return basicGetSuperType();
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER3__IMPLEMENTATION:
+        return getImplementation();
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER3__SERNUM:
+        return getSernum();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -132,6 +224,12 @@ public class PojoEntityModifier3Impl extends MinimalEObjectImpl.Container implem
     {
       case ProcessorDslPackage.POJO_ENTITY_MODIFIER3__SUPER_TYPE:
         setSuperType((PojoEntity)newValue);
+        return;
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER3__IMPLEMENTATION:
+        setImplementation((String)newValue);
+        return;
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER3__SERNUM:
+        setSernum((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -150,6 +248,12 @@ public class PojoEntityModifier3Impl extends MinimalEObjectImpl.Container implem
       case ProcessorDslPackage.POJO_ENTITY_MODIFIER3__SUPER_TYPE:
         setSuperType((PojoEntity)null);
         return;
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER3__IMPLEMENTATION:
+        setImplementation(IMPLEMENTATION_EDEFAULT);
+        return;
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER3__SERNUM:
+        setSernum(SERNUM_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -166,8 +270,31 @@ public class PojoEntityModifier3Impl extends MinimalEObjectImpl.Container implem
     {
       case ProcessorDslPackage.POJO_ENTITY_MODIFIER3__SUPER_TYPE:
         return superType != null;
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER3__IMPLEMENTATION:
+        return IMPLEMENTATION_EDEFAULT == null ? implementation != null : !IMPLEMENTATION_EDEFAULT.equals(implementation);
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER3__SERNUM:
+        return SERNUM_EDEFAULT == null ? sernum != null : !SERNUM_EDEFAULT.equals(sernum);
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (implementation: ");
+    result.append(implementation);
+    result.append(", sernum: ");
+    result.append(sernum);
+    result.append(')');
+    return result.toString();
   }
 
 } //PojoEntityModifier3Impl

@@ -75,7 +75,9 @@ DaogenProperty:
 	(name='ignore-tables' (WS+ dbTables+=IDENT)+
 	|name='only-tables' (WS+ dbTables+=IDENT)*
 	|name='separate-implementation' implPackage=IDENT (WS+ dbTables+=IDENT)+
-	|name='control-class' WS+ controlClass=[jvmTypes::JvmType|QualifiedName]
+	|name='control-parameter' WS+ controlClass=[jvmTypes::JvmType|QualifiedName]
+	|name='implements-interfaces' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
+	|name='extends-class' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
 	);
 
 MetaTypeAssignement: dbColumn=IDENT '->' type=IDENT ('->' extension=IDENT)?;
@@ -317,7 +319,7 @@ PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
 
 PojoPropertyModifier: ((required?='required') | (discriminator?='discriminator') | (primaryKey?='primaryKey') | ('index' index=NUMBER));
 
-PojoEntityModifier3: (('extends' superType=[PojoEntity|IDENT]));
+PojoEntityModifier3: (('extends' superType=[PojoEntity|IDENT]) | ('implementation package' implementation=IDENT) | ('serializable' sernum=NUMBER));
 
 PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 	name=IDENT (native = ('_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') | 
@@ -328,7 +330,8 @@ PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 
 PojoDao hidden(ML_COMMENT, SL_COMMENT, WS):
 	(modifiers1+=PojoEntityModifier1)* 'dao' name=IDENT COLON COLON pojo=[PojoEntity|IDENT] (modifiers2+=PojoEntityModifier3)* 
-;
+	LBRACE
+	RBRACE;
 
 QualifiedNameWithWildcard:
   QualifiedName '.*'?; 

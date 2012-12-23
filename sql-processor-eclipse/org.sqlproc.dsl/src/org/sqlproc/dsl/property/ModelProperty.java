@@ -84,7 +84,11 @@ public interface ModelProperty extends Adapter {
 
     Set<String> getDaoOnlyTables(EObject model);
 
-    JvmType getDaoControlClass(EObject model);
+    JvmType getDaoControlParameter(EObject model);
 
-    Map<String, Set<String>> getDaoImplementsInterfaces(EObject model);
+    Map<String, String> getDaoImplementsInterfaces(EObject model);
+
+    JvmType getDaoToExtends(EObject model);
+
+    Map<String, JvmType> getDaoToImplements(EObject model);
 }

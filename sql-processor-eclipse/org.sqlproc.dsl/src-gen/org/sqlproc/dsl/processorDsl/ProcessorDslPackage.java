@@ -963,13 +963,31 @@ public interface ProcessorDslPackage extends EPackage
   int DAOGEN_PROPERTY__CONTROL_CLASS = 3;
 
   /**
+   * The feature id for the '<em><b>To Implements</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DAOGEN_PROPERTY__TO_IMPLEMENTS = 4;
+
+  /**
+   * The feature id for the '<em><b>To Extends</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DAOGEN_PROPERTY__TO_EXTENDS = 5;
+
+  /**
    * The number of structural features of the '<em>Daogen Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DAOGEN_PROPERTY_FEATURE_COUNT = 4;
+  int DAOGEN_PROPERTY_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaTypeAssignementImpl <em>Meta Type Assignement</em>}' class.
@@ -3017,13 +3035,31 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_ENTITY_MODIFIER3__SUPER_TYPE = 0;
 
   /**
+   * The feature id for the '<em><b>Implementation</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_ENTITY_MODIFIER3__IMPLEMENTATION = 1;
+
+  /**
+   * The feature id for the '<em><b>Sernum</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_ENTITY_MODIFIER3__SERNUM = 2;
+
+  /**
    * The number of structural features of the '<em>Pojo Entity Modifier3</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_ENTITY_MODIFIER3_FEATURE_COUNT = 1;
+  int POJO_ENTITY_MODIFIER3_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl <em>Pojo Property</em>}' class.
@@ -4100,6 +4136,28 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EReference getDaogenProperty_ControlClass();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToImplements <em>To Implements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>To Implements</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getToImplements()
+   * @see #getDaogenProperty()
+   * @generated
+   */
+  EReference getDaogenProperty_ToImplements();
+
+  /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToExtends <em>To Extends</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>To Extends</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getToExtends()
+   * @see #getDaogenProperty()
+   * @generated
+   */
+  EReference getDaogenProperty_ToExtends();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.MetaTypeAssignement <em>Meta Type Assignement</em>}'.
@@ -5903,6 +5961,28 @@ public interface ProcessorDslPackage extends EPackage
   EReference getPojoEntityModifier3_SuperType();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoEntityModifier3#getImplementation <em>Implementation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Implementation</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoEntityModifier3#getImplementation()
+   * @see #getPojoEntityModifier3()
+   * @generated
+   */
+  EAttribute getPojoEntityModifier3_Implementation();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoEntityModifier3#getSernum <em>Sernum</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Sernum</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoEntityModifier3#getSernum()
+   * @see #getPojoEntityModifier3()
+   * @generated
+   */
+  EAttribute getPojoEntityModifier3_Sernum();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoProperty <em>Pojo Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6797,6 +6877,22 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EReference DAOGEN_PROPERTY__CONTROL_CLASS = eINSTANCE.getDaogenProperty_ControlClass();
+
+    /**
+     * The meta object literal for the '<em><b>To Implements</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DAOGEN_PROPERTY__TO_IMPLEMENTS = eINSTANCE.getDaogenProperty_ToImplements();
+
+    /**
+     * The meta object literal for the '<em><b>To Extends</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DAOGEN_PROPERTY__TO_EXTENDS = eINSTANCE.getDaogenProperty_ToExtends();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaTypeAssignementImpl <em>Meta Type Assignement</em>}' class.
@@ -8235,6 +8331,22 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EReference POJO_ENTITY_MODIFIER3__SUPER_TYPE = eINSTANCE.getPojoEntityModifier3_SuperType();
+
+    /**
+     * The meta object literal for the '<em><b>Implementation</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_ENTITY_MODIFIER3__IMPLEMENTATION = eINSTANCE.getPojoEntityModifier3_Implementation();
+
+    /**
+     * The meta object literal for the '<em><b>Sernum</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_ENTITY_MODIFIER3__SERNUM = eINSTANCE.getPojoEntityModifier3_Sernum();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl <em>Pojo Property</em>}' class.

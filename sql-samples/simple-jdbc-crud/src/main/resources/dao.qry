@@ -1,4 +1,41 @@
 package org.sqlproc.sample.simple.dao {
-	
-	dao PersonDao :: Person
+
+  dao BankAccountDao :: BankAccount {
+  }
+  
+  dao NewBookDao :: NewBook {
+  }
+
+  dao ContactDao :: Contact {
+  }
+
+  dao CreditCardDao :: CreditCard {
+  }
+
+  dao LibraryDao :: Library {
+  }
+
+  dao MediaDao :: Media {
+  }
+
+  dao MovieDao :: Movie {
+  }
+
+  dao PaymentDao :: Payment {
+  }
+
+  dao PerformerDao :: Performer {
+  }
+
+  dao PersonDao :: Person {
+  }
+
+  dao PersonLibraryDao :: PersonLibrary {
+  }
+
+  dao PhysicalMediaDao :: PhysicalMedia {
+  }
+
+  dao SubscriberDao :: Subscriber {
+  }
 }

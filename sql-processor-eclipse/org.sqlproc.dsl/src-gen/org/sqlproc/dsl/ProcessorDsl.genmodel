@@ -106,6 +106,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DaogenProperty/dbTables"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DaogenProperty/implPackage"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DaogenProperty/controlClass"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DaogenProperty/toImplements"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DaogenProperty/toExtends"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//MetaTypeAssignement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MetaTypeAssignement/dbColumn"/>
@@ -320,6 +322,8 @@
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//PojoEntityModifier3">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//PojoEntityModifier3/superType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojoEntityModifier3/implementation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojoEntityModifier3/sernum"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//PojoProperty">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojoProperty/name"/>
