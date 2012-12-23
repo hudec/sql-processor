@@ -635,19 +635,24 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cNameMetagenKeyword_0_4_0_0 = (Keyword)cNameAssignment_0_4_0.eContents().get(0);
 		private final Assignment cMetagenAssignment_0_4_1 = (Assignment)cGroup_0_4.eContents().get(1);
 		private final RuleCall cMetagenMetagenPropertyParserRuleCall_0_4_1_0 = (RuleCall)cMetagenAssignment_0_4_1.eContents().get(0);
+		private final Group cGroup_0_5 = (Group)cAlternatives_0.eContents().get(5);
+		private final Assignment cNameAssignment_0_5_0 = (Assignment)cGroup_0_5.eContents().get(0);
+		private final Keyword cNameDaogenKeyword_0_5_0_0 = (Keyword)cNameAssignment_0_5_0.eContents().get(0);
+		private final Assignment cDaogenAssignment_0_5_1 = (Assignment)cGroup_0_5.eContents().get(1);
+		private final RuleCall cDaogenDaogenPropertyParserRuleCall_0_5_1_0 = (RuleCall)cDaogenAssignment_0_5_1.eContents().get(0);
 		private final RuleCall cSEMICOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//Property:
 		//	(name="resolve-pojo-on" | name="resolve-pojo-off" | name="database-" database=DatabaseProperty | name="pojogen-"
-		//	pojogen=PojogenProperty | name="metagen-" metagen=MetagenProperty) SEMICOLON;
+		//	pojogen=PojogenProperty | name="metagen-" metagen=MetagenProperty | name="daogen-" daogen=DaogenProperty) SEMICOLON;
 		public ParserRule getRule() { return rule; }
 
 		//(name="resolve-pojo-on" | name="resolve-pojo-off" | name="database-" database=DatabaseProperty | name="pojogen-"
-		//pojogen=PojogenProperty | name="metagen-" metagen=MetagenProperty) SEMICOLON
+		//pojogen=PojogenProperty | name="metagen-" metagen=MetagenProperty | name="daogen-" daogen=DaogenProperty) SEMICOLON
 		public Group getGroup() { return cGroup; }
 
 		//name="resolve-pojo-on" | name="resolve-pojo-off" | name="database-" database=DatabaseProperty | name="pojogen-"
-		//pojogen=PojogenProperty | name="metagen-" metagen=MetagenProperty
+		//pojogen=PojogenProperty | name="metagen-" metagen=MetagenProperty | name="daogen-" daogen=DaogenProperty
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//name="resolve-pojo-on"
@@ -706,6 +711,21 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//MetagenProperty
 		public RuleCall getMetagenMetagenPropertyParserRuleCall_0_4_1_0() { return cMetagenMetagenPropertyParserRuleCall_0_4_1_0; }
+
+		//name="daogen-" daogen=DaogenProperty
+		public Group getGroup_0_5() { return cGroup_0_5; }
+
+		//name="daogen-"
+		public Assignment getNameAssignment_0_5_0() { return cNameAssignment_0_5_0; }
+
+		//"daogen-"
+		public Keyword getNameDaogenKeyword_0_5_0_0() { return cNameDaogenKeyword_0_5_0_0; }
+
+		//daogen=DaogenProperty
+		public Assignment getDaogenAssignment_0_5_1() { return cDaogenAssignment_0_5_1; }
+
+		//DaogenProperty
+		public RuleCall getDaogenDaogenPropertyParserRuleCall_0_5_1_0() { return cDaogenDaogenPropertyParserRuleCall_0_5_1_0; }
 
 		//SEMICOLON
 		public RuleCall getSEMICOLONTerminalRuleCall_1() { return cSEMICOLONTerminalRuleCall_1; }
@@ -1829,6 +1849,141 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"generate-wrappers"
 		public Keyword getNameGenerateWrappersKeyword_24_0() { return cNameGenerateWrappersKeyword_24_0; }
+	}
+
+	public class DaogenPropertyElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DaogenProperty");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Assignment cNameAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final Keyword cNameIgnoreTablesKeyword_0_0_0 = (Keyword)cNameAssignment_0_0.eContents().get(0);
+		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
+		private final RuleCall cWSTerminalRuleCall_0_1_0 = (RuleCall)cGroup_0_1.eContents().get(0);
+		private final Assignment cDbTablesAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
+		private final RuleCall cDbTablesIDENTTerminalRuleCall_0_1_1_0 = (RuleCall)cDbTablesAssignment_0_1_1.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Assignment cNameAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
+		private final Keyword cNameOnlyTablesKeyword_1_0_0 = (Keyword)cNameAssignment_1_0.eContents().get(0);
+		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
+		private final RuleCall cWSTerminalRuleCall_1_1_0 = (RuleCall)cGroup_1_1.eContents().get(0);
+		private final Assignment cDbTablesAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+		private final RuleCall cDbTablesIDENTTerminalRuleCall_1_1_1_0 = (RuleCall)cDbTablesAssignment_1_1_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final Assignment cNameAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final Keyword cNameSeparateImplementationKeyword_2_0_0 = (Keyword)cNameAssignment_2_0.eContents().get(0);
+		private final Assignment cImplPackageAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cImplPackageIDENTTerminalRuleCall_2_1_0 = (RuleCall)cImplPackageAssignment_2_1.eContents().get(0);
+		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
+		private final RuleCall cWSTerminalRuleCall_2_2_0 = (RuleCall)cGroup_2_2.eContents().get(0);
+		private final Assignment cDbTablesAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
+		private final RuleCall cDbTablesIDENTTerminalRuleCall_2_2_1_0 = (RuleCall)cDbTablesAssignment_2_2_1.eContents().get(0);
+		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
+		private final Assignment cNameAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final Keyword cNameControlClassKeyword_3_0_0 = (Keyword)cNameAssignment_3_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
+		private final Assignment cControlClassAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
+		private final CrossReference cControlClassJvmTypeCrossReference_3_2_0 = (CrossReference)cControlClassAssignment_3_2.eContents().get(0);
+		private final RuleCall cControlClassJvmTypeQualifiedNameParserRuleCall_3_2_0_1 = (RuleCall)cControlClassJvmTypeCrossReference_3_2_0.eContents().get(1);
+		
+		//DaogenProperty:
+		//	name="ignore-tables" (WS+ dbTables+=IDENT)+ | name="only-tables" (WS+ dbTables+=IDENT)* |
+		//	name="separate-implementation" implPackage=IDENT (WS+ dbTables+=IDENT)+ | name="control-class" WS+
+		//	controlClass=[jvmTypes::JvmType|QualifiedName];
+		public ParserRule getRule() { return rule; }
+
+		//name="ignore-tables" (WS+ dbTables+=IDENT)+ | name="only-tables" (WS+ dbTables+=IDENT)* | name="separate-implementation"
+		//implPackage=IDENT (WS+ dbTables+=IDENT)+ | name="control-class" WS+ controlClass=[jvmTypes::JvmType|QualifiedName]
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//name="ignore-tables" (WS+ dbTables+=IDENT)+
+		public Group getGroup_0() { return cGroup_0; }
+
+		//name="ignore-tables"
+		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
+
+		//"ignore-tables"
+		public Keyword getNameIgnoreTablesKeyword_0_0_0() { return cNameIgnoreTablesKeyword_0_0_0; }
+
+		//(WS+ dbTables+=IDENT)+
+		public Group getGroup_0_1() { return cGroup_0_1; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_0_1_0() { return cWSTerminalRuleCall_0_1_0; }
+
+		//dbTables+=IDENT
+		public Assignment getDbTablesAssignment_0_1_1() { return cDbTablesAssignment_0_1_1; }
+
+		//IDENT
+		public RuleCall getDbTablesIDENTTerminalRuleCall_0_1_1_0() { return cDbTablesIDENTTerminalRuleCall_0_1_1_0; }
+
+		//name="only-tables" (WS+ dbTables+=IDENT)*
+		public Group getGroup_1() { return cGroup_1; }
+
+		//name="only-tables"
+		public Assignment getNameAssignment_1_0() { return cNameAssignment_1_0; }
+
+		//"only-tables"
+		public Keyword getNameOnlyTablesKeyword_1_0_0() { return cNameOnlyTablesKeyword_1_0_0; }
+
+		//(WS+ dbTables+=IDENT)*
+		public Group getGroup_1_1() { return cGroup_1_1; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_1_1_0() { return cWSTerminalRuleCall_1_1_0; }
+
+		//dbTables+=IDENT
+		public Assignment getDbTablesAssignment_1_1_1() { return cDbTablesAssignment_1_1_1; }
+
+		//IDENT
+		public RuleCall getDbTablesIDENTTerminalRuleCall_1_1_1_0() { return cDbTablesIDENTTerminalRuleCall_1_1_1_0; }
+
+		//name="separate-implementation" implPackage=IDENT (WS+ dbTables+=IDENT)+
+		public Group getGroup_2() { return cGroup_2; }
+
+		//name="separate-implementation"
+		public Assignment getNameAssignment_2_0() { return cNameAssignment_2_0; }
+
+		//"separate-implementation"
+		public Keyword getNameSeparateImplementationKeyword_2_0_0() { return cNameSeparateImplementationKeyword_2_0_0; }
+
+		//implPackage=IDENT
+		public Assignment getImplPackageAssignment_2_1() { return cImplPackageAssignment_2_1; }
+
+		//IDENT
+		public RuleCall getImplPackageIDENTTerminalRuleCall_2_1_0() { return cImplPackageIDENTTerminalRuleCall_2_1_0; }
+
+		//(WS+ dbTables+=IDENT)+
+		public Group getGroup_2_2() { return cGroup_2_2; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_2_2_0() { return cWSTerminalRuleCall_2_2_0; }
+
+		//dbTables+=IDENT
+		public Assignment getDbTablesAssignment_2_2_1() { return cDbTablesAssignment_2_2_1; }
+
+		//IDENT
+		public RuleCall getDbTablesIDENTTerminalRuleCall_2_2_1_0() { return cDbTablesIDENTTerminalRuleCall_2_2_1_0; }
+
+		//name="control-class" WS+ controlClass=[jvmTypes::JvmType|QualifiedName]
+		public Group getGroup_3() { return cGroup_3; }
+
+		//name="control-class"
+		public Assignment getNameAssignment_3_0() { return cNameAssignment_3_0; }
+
+		//"control-class"
+		public Keyword getNameControlClassKeyword_3_0_0() { return cNameControlClassKeyword_3_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_3_1() { return cWSTerminalRuleCall_3_1; }
+
+		//controlClass=[jvmTypes::JvmType|QualifiedName]
+		public Assignment getControlClassAssignment_3_2() { return cControlClassAssignment_3_2; }
+
+		//[jvmTypes::JvmType|QualifiedName]
+		public CrossReference getControlClassJvmTypeCrossReference_3_2_0() { return cControlClassJvmTypeCrossReference_3_2_0; }
+
+		//QualifiedName
+		public RuleCall getControlClassJvmTypeQualifiedNameParserRuleCall_3_2_0_1() { return cControlClassJvmTypeQualifiedNameParserRuleCall_3_2_0_1; }
 	}
 
 	public class MetaTypeAssignementElements extends AbstractParserRuleElementFinder {
@@ -6433,6 +6588,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private PropertyElements pProperty;
 	private DatabasePropertyElements pDatabaseProperty;
 	private PojogenPropertyElements pPojogenProperty;
+	private DaogenPropertyElements pDaogenProperty;
 	private MetaTypeAssignementElements pMetaTypeAssignement;
 	private MetagenPropertyElements pMetagenProperty;
 	private PropertyValueElements pPropertyValue;
@@ -6670,7 +6826,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Property:
 	//	(name="resolve-pojo-on" | name="resolve-pojo-off" | name="database-" database=DatabaseProperty | name="pojogen-"
-	//	pojogen=PojogenProperty | name="metagen-" metagen=MetagenProperty) SEMICOLON;
+	//	pojogen=PojogenProperty | name="metagen-" metagen=MetagenProperty | name="daogen-" daogen=DaogenProperty) SEMICOLON;
 	public PropertyElements getPropertyAccess() {
 		return (pProperty != null) ? pProperty : (pProperty = new PropertyElements());
 	}
@@ -6717,6 +6873,18 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getPojogenPropertyRule() {
 		return getPojogenPropertyAccess().getRule();
+	}
+
+	//DaogenProperty:
+	//	name="ignore-tables" (WS+ dbTables+=IDENT)+ | name="only-tables" (WS+ dbTables+=IDENT)* |
+	//	name="separate-implementation" implPackage=IDENT (WS+ dbTables+=IDENT)+ | name="control-class" WS+
+	//	controlClass=[jvmTypes::JvmType|QualifiedName];
+	public DaogenPropertyElements getDaogenPropertyAccess() {
+		return (pDaogenProperty != null) ? pDaogenProperty : (pDaogenProperty = new DaogenPropertyElements());
+	}
+	
+	public ParserRule getDaogenPropertyRule() {
+		return getDaogenPropertyAccess().getRule();
 	}
 
 	//MetaTypeAssignement:

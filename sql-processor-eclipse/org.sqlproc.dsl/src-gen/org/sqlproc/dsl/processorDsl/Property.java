@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDatabase <em>Database</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getPojogen <em>Pojogen</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getMetagen <em>Metagen</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Property#getDaogen <em>Daogen</em>}</li>
  * </ul>
  * </p>
  *
@@ -128,5 +129,31 @@ public interface Property extends EObject
    * @generated
    */
   void setMetagen(MetagenProperty value);
+
+  /**
+   * Returns the value of the '<em><b>Daogen</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Daogen</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Daogen</em>' containment reference.
+   * @see #setDaogen(DaogenProperty)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getProperty_Daogen()
+   * @model containment="true"
+   * @generated
+   */
+  DaogenProperty getDaogen();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Property#getDaogen <em>Daogen</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Daogen</em>' containment reference.
+   * @see #getDaogen()
+   * @generated
+   */
+  void setDaogen(DaogenProperty value);
 
 } // Property

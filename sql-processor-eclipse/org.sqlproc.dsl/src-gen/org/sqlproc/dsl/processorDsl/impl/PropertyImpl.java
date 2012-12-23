@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.sqlproc.dsl.processorDsl.DaogenProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.MetagenProperty;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
@@ -28,6 +29,7 @@ import org.sqlproc.dsl.processorDsl.Property;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDatabase <em>Database</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getPojogen <em>Pojogen</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getMetagen <em>Metagen</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PropertyImpl#getDaogen <em>Daogen</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,6 +86,16 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * @ordered
    */
   protected MetagenProperty metagen;
+
+  /**
+   * The cached value of the '{@link #getDaogen() <em>Daogen</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDaogen()
+   * @generated
+   * @ordered
+   */
+  protected DaogenProperty daogen;
 
   /**
    * <!-- begin-user-doc -->
@@ -278,6 +290,54 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * <!-- end-user-doc -->
    * @generated
    */
+  public DaogenProperty getDaogen()
+  {
+    return daogen;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDaogen(DaogenProperty newDaogen, NotificationChain msgs)
+  {
+    DaogenProperty oldDaogen = daogen;
+    daogen = newDaogen;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__DAOGEN, oldDaogen, newDaogen);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDaogen(DaogenProperty newDaogen)
+  {
+    if (newDaogen != daogen)
+    {
+      NotificationChain msgs = null;
+      if (daogen != null)
+        msgs = ((InternalEObject)daogen).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.PROPERTY__DAOGEN, null, msgs);
+      if (newDaogen != null)
+        msgs = ((InternalEObject)newDaogen).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.PROPERTY__DAOGEN, null, msgs);
+      msgs = basicSetDaogen(newDaogen, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.PROPERTY__DAOGEN, newDaogen, newDaogen));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -289,6 +349,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return basicSetPojogen(null, msgs);
       case ProcessorDslPackage.PROPERTY__METAGEN:
         return basicSetMetagen(null, msgs);
+      case ProcessorDslPackage.PROPERTY__DAOGEN:
+        return basicSetDaogen(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -311,6 +373,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return getPojogen();
       case ProcessorDslPackage.PROPERTY__METAGEN:
         return getMetagen();
+      case ProcessorDslPackage.PROPERTY__DAOGEN:
+        return getDaogen();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -336,6 +400,9 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return;
       case ProcessorDslPackage.PROPERTY__METAGEN:
         setMetagen((MetagenProperty)newValue);
+        return;
+      case ProcessorDslPackage.PROPERTY__DAOGEN:
+        setDaogen((DaogenProperty)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -363,6 +430,9 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
       case ProcessorDslPackage.PROPERTY__METAGEN:
         setMetagen((MetagenProperty)null);
         return;
+      case ProcessorDslPackage.PROPERTY__DAOGEN:
+        setDaogen((DaogenProperty)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -385,6 +455,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return pojogen != null;
       case ProcessorDslPackage.PROPERTY__METAGEN:
         return metagen != null;
+      case ProcessorDslPackage.PROPERTY__DAOGEN:
+        return daogen != null;
     }
     return super.eIsSet(featureID);
   }

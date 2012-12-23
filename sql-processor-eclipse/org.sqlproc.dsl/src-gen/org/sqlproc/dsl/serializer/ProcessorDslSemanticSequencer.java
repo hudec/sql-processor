@@ -22,6 +22,7 @@ import org.sqlproc.dsl.processorDsl.ColumnUsageExt;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
+import org.sqlproc.dsl.processorDsl.DaogenProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
@@ -139,6 +140,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 				if(context == grammarAccess.getConstantUsageExtRule() ||
 				   context == grammarAccess.getPojoUsageExtRule()) {
 					sequence_ConstantUsageExt(context, (ConstantUsageExt) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.DAOGEN_PROPERTY:
+				if(context == grammarAccess.getDaogenPropertyRule()) {
+					sequence_DaogenProperty(context, (DaogenProperty) semanticObject); 
 					return; 
 				}
 				else break;
@@ -610,6 +617,20 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     ((case=PLUS | case=MINUS)? (name=IDENT | name=IDENT_DOT) (type=IDENT? (vals+=IDENT | vals+=NUMBER)*)?)
 	 */
 	protected void sequence_Constant(EObject context, Constant semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name='ignore-tables' dbTables+=IDENT+) | 
+	 *         (name='only-tables' dbTables+=IDENT*) | 
+	 *         (name='separate-implementation' implPackage=IDENT dbTables+=IDENT+) | 
+	 *         (name='control-class' controlClass=[JvmType|QualifiedName])
+	 *     )
+	 */
+	protected void sequence_DaogenProperty(EObject context, DaogenProperty semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1175,7 +1196,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         name='resolve-pojo-off' | 
 	 *         (name='database-' database=DatabaseProperty) | 
 	 *         (name='pojogen-' pojogen=PojogenProperty) | 
-	 *         (name='metagen-' metagen=MetagenProperty)
+	 *         (name='metagen-' metagen=MetagenProperty) | 
+	 *         (name='daogen-' daogen=DaogenProperty)
 	 *     )
 	 */
 	protected void sequence_Property(EObject context, Property semanticObject) {

@@ -1188,9 +1188,43 @@ ruleProperty returns [EObject current=null]
 	    }
 
 )
-)))this_SEMICOLON_8=RULE_SEMICOLON
+))
+    |((
+(
+		lv_name_8_0=	'daogen-' 
+    {
+        newLeafNode(lv_name_8_0, grammarAccess.getPropertyAccess().getNameDaogenKeyword_0_5_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_8_0, "daogen-");
+	    }
+
+)
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPropertyAccess().getDaogenDaogenPropertyParserRuleCall_0_5_1_0()); 
+	    }
+		lv_daogen_9_0=ruleDaogenProperty		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPropertyRule());
+	        }
+       		set(
+       			$current, 
+       			"daogen",
+        		lv_daogen_9_0, 
+        		"DaogenProperty");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)))this_SEMICOLON_10=RULE_SEMICOLON
     { 
-    newLeafNode(this_SEMICOLON_8, grammarAccess.getPropertyAccess().getSEMICOLONTerminalRuleCall_1()); 
+    newLeafNode(this_SEMICOLON_10, grammarAccess.getPropertyAccess().getSEMICOLONTerminalRuleCall_1()); 
     }
 )
 ;
@@ -2805,6 +2839,193 @@ rulePojogenProperty returns [EObject current=null]
 
 )
 ))
+;
+
+
+
+
+
+// Entry rule entryRuleDaogenProperty
+entryRuleDaogenProperty returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getDaogenPropertyRule()); }
+	 iv_ruleDaogenProperty=ruleDaogenProperty 
+	 { $current=$iv_ruleDaogenProperty.current; } 
+	 EOF 
+;
+
+// Rule DaogenProperty
+ruleDaogenProperty returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(((
+(
+		lv_name_0_0=	'ignore-tables' 
+    {
+        newLeafNode(lv_name_0_0, grammarAccess.getDaogenPropertyAccess().getNameIgnoreTablesKeyword_0_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_0_0, "ignore-tables");
+	    }
+
+)
+)((this_WS_1=RULE_WS
+    { 
+    newLeafNode(this_WS_1, grammarAccess.getDaogenPropertyAccess().getWSTerminalRuleCall_0_1_0()); 
+    }
+)+(
+(
+		lv_dbTables_2_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbTables_2_0, grammarAccess.getDaogenPropertyAccess().getDbTablesIDENTTerminalRuleCall_0_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		addWithLastConsumed(
+       			$current, 
+       			"dbTables",
+        		lv_dbTables_2_0, 
+        		"IDENT");
+	    }
+
+)
+))+)
+    |((
+(
+		lv_name_3_0=	'only-tables' 
+    {
+        newLeafNode(lv_name_3_0, grammarAccess.getDaogenPropertyAccess().getNameOnlyTablesKeyword_1_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_3_0, "only-tables");
+	    }
+
+)
+)((this_WS_4=RULE_WS
+    { 
+    newLeafNode(this_WS_4, grammarAccess.getDaogenPropertyAccess().getWSTerminalRuleCall_1_1_0()); 
+    }
+)+(
+(
+		lv_dbTables_5_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbTables_5_0, grammarAccess.getDaogenPropertyAccess().getDbTablesIDENTTerminalRuleCall_1_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		addWithLastConsumed(
+       			$current, 
+       			"dbTables",
+        		lv_dbTables_5_0, 
+        		"IDENT");
+	    }
+
+)
+))*)
+    |((
+(
+		lv_name_6_0=	'separate-implementation' 
+    {
+        newLeafNode(lv_name_6_0, grammarAccess.getDaogenPropertyAccess().getNameSeparateImplementationKeyword_2_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_6_0, "separate-implementation");
+	    }
+
+)
+)(
+(
+		lv_implPackage_7_0=RULE_IDENT
+		{
+			newLeafNode(lv_implPackage_7_0, grammarAccess.getDaogenPropertyAccess().getImplPackageIDENTTerminalRuleCall_2_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"implPackage",
+        		lv_implPackage_7_0, 
+        		"IDENT");
+	    }
+
+)
+)((this_WS_8=RULE_WS
+    { 
+    newLeafNode(this_WS_8, grammarAccess.getDaogenPropertyAccess().getWSTerminalRuleCall_2_2_0()); 
+    }
+)+(
+(
+		lv_dbTables_9_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbTables_9_0, grammarAccess.getDaogenPropertyAccess().getDbTablesIDENTTerminalRuleCall_2_2_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		addWithLastConsumed(
+       			$current, 
+       			"dbTables",
+        		lv_dbTables_9_0, 
+        		"IDENT");
+	    }
+
+)
+))+)
+    |((
+(
+		lv_name_10_0=	'control-class' 
+    {
+        newLeafNode(lv_name_10_0, grammarAccess.getDaogenPropertyAccess().getNameControlClassKeyword_3_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_10_0, "control-class");
+	    }
+
+)
+)(this_WS_11=RULE_WS
+    { 
+    newLeafNode(this_WS_11, grammarAccess.getDaogenPropertyAccess().getWSTerminalRuleCall_3_1()); 
+    }
+)+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getDaogenPropertyAccess().getControlClassJvmTypeCrossReference_3_2_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)))
 ;
 
 

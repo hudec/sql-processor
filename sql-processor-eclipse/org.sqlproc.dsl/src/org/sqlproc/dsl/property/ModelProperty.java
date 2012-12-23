@@ -79,4 +79,12 @@ public interface ModelProperty extends Adapter {
     Map<String, Map<String, PairValues>> getStatementsMetaTypes(EObject model);
 
     Set<String> getNotAbstractTables(EObject model);
+
+    Set<String> getDaoIgnoreTables(EObject model);
+
+    Set<String> getDaoOnlyTables(EObject model);
+
+    JvmType getDaoControlClass(EObject model);
+
+    Map<String, Set<String>> getDaoImplementsInterfaces(EObject model);
 }

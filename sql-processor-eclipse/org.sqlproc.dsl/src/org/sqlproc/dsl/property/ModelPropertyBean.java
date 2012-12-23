@@ -18,6 +18,7 @@ import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.DaogenProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
@@ -81,6 +82,11 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String METAGEN_TABLE_IDENTITY = "table-identity";
     public static final String METAGEN_COLUMN_META_TYPE = "column-meta-type";
     public static final String METAGEN_STATEMENT_META_TYPE = "statement-meta-type";
+    public static final String DAOGEN = "daogen";
+    public static final String DAOGEN_IGNORE_TABLES = "ignore-tables";
+    public static final String DAOGEN_ONLY_TABLES = "only-tables";
+    public static final String DAOGEN_SEPARATE_IMPLEMENTATION = "separate-implementation";
+    public static final String DAOGEN_CONTROL_CLASS = "control-class";
 
     public static class PairValues {
         public String value1;
@@ -134,6 +140,10 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, PairValues> tablesIdentity;
         public Map<String, Map<String, PairValues>> columnsMetaTypes;
         public Map<String, Map<String, PairValues>> statementsMetaTypes;
+        public Set<String> daoIgnoreTables;
+        public Set<String> daoOnlyTables;
+        public Map<String, Set<String>> daoImplementsInterfaces;
+        public JvmType daoControlClass;
     }
 
     private Map<String, ModelValues> dirs2models = new HashMap<String, ModelValues>();
@@ -201,6 +211,16 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 if (reloadMetagen) {
                     initMetagenModel(modelValues);
                 }
+                boolean reloadDaogen = false;
+                for (Property property : artifacts.getProperties()) {
+                    if (property.getName().startsWith(DAOGEN)) {
+                        reloadDaogen = true;
+                        break;
+                    }
+                }
+                if (reloadDaogen) {
+                    initDaogenModel(modelValues);
+                }
                 for (Property property : artifacts.getProperties()) {
                     if (property.getName().startsWith(DATABASE)) {
                         setValue(modelValues, property.getDatabase());
@@ -208,6 +228,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                         setValue(modelValues, property.getPojogen());
                     } else if (property.getName().startsWith(METAGEN)) {
                         setValue(modelValues, property.getMetagen());
+                    } else if (property.getName().startsWith(DAOGEN)) {
+                        setValue(modelValues, property.getDaogen());
                     } else {
                         setValue(modelValues, property);
                     }
@@ -272,6 +294,13 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.tablesIdentity = new HashMap<String, PairValues>();
         modelValues.columnsMetaTypes = new HashMap<String, Map<String, PairValues>>();
         modelValues.statementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
+    }
+
+    private void initDaogenModel(ModelValues modelValues) {
+        modelValues.daoIgnoreTables = new HashSet<String>();
+        modelValues.daoOnlyTables = new HashSet<String>();
+        modelValues.daoImplementsInterfaces = new HashMap<String, Set<String>>();
+        modelValues.daoControlClass = null;
     }
 
     public void setValue(ModelValues modelValues, Property property) {
@@ -536,6 +565,29 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         }
     }
 
+    public void setValue(ModelValues modelValues, DaogenProperty property) {
+        if (property == null)
+            return;
+        if (DAOGEN_IGNORE_TABLES.equals(property.getName())) {
+            for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
+                modelValues.ignoreTables.add(property.getDbTables().get(i));
+            }
+        } else if (DAOGEN_ONLY_TABLES.equals(property.getName())) {
+            for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
+                modelValues.onlyTables.add(property.getDbTables().get(i));
+            }
+        } else if (DAOGEN_SEPARATE_IMPLEMENTATION.equals(property.getName())) {
+            String packageName = property.getImplPackage();
+            if (!modelValues.daoImplementsInterfaces.containsKey(packageName))
+                modelValues.daoImplementsInterfaces.put(packageName, new HashSet<String>());
+            for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
+                modelValues.daoImplementsInterfaces.get(packageName).add(property.getDbTables().get(i));
+            }
+        } else if (DAOGEN_CONTROL_CLASS.equals(property.getName())) {
+            modelValues.daoControlClass = property.getControlClass();
+        }
+    }
+
     public void setValue(ModelValues modelValues, MetagenProperty property) {
         if (property == null)
             return;
@@ -776,6 +828,31 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.statementsMetaTypes : Collections
                 .<String, Map<String, PairValues>> emptyMap();
+    }
+
+    @Override
+    public Set<String> getDaoIgnoreTables(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.daoIgnoreTables : Collections.<String> emptySet();
+    }
+
+    @Override
+    public Set<String> getDaoOnlyTables(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.daoOnlyTables : Collections.<String> emptySet();
+    }
+
+    @Override
+    public Map<String, Set<String>> getDaoImplementsInterfaces(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.daoImplementsInterfaces : Collections
+                .<String, Set<String>> emptyMap();
+    }
+
+    @Override
+    public JvmType getDaoControlClass(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.daoControlClass : null;
     }
 
     @Override

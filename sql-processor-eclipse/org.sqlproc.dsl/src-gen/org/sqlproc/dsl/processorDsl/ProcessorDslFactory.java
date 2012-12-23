@@ -149,6 +149,15 @@ public interface ProcessorDslFactory extends EFactory
   PojogenProperty createPojogenProperty();
 
   /**
+   * Returns a new object of class '<em>Daogen Property</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Daogen Property</em>'.
+   * @generated
+   */
+  DaogenProperty createDaogenProperty();
+
+  /**
    * Returns a new object of class '<em>Meta Type Assignement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
