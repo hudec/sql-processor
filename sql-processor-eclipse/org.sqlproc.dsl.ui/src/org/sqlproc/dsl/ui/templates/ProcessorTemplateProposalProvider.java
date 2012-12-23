@@ -103,5 +103,13 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
                     getRelevance(template));
             acceptor.accept(tp);
         }
+
+        if (templateContext.getContextType().getId().equals(helper.getId(ga.getAbstractPojoEntityRule()))) {
+
+            Template template = new Template("daogen", "DAO generator", "daogenTemplateID", "${daoGenerator}", false);// auto-insertable?
+            TemplateProposal tp = createProposal(template, templateContext, context, getImage(template),
+                    getRelevance(template));
+            acceptor.accept(tp);
+        }
     }
 }

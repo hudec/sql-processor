@@ -68,6 +68,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         super.addResolver(new TableDefinitionsResolver());
         super.addResolver(new PojoGeneratorResolver());
         super.addResolver(new MetaGeneratorResolver());
+        super.addResolver(new DaoGeneratorResolver());
     }
 
     protected Artifacts getArtifacts(XtextTemplateContext xtextTemplateContext) {
@@ -680,6 +681,48 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                     converter.resolveReferencesOnKeys();
                     converter.joinTables();
                     return converter.getMetaDefinitions();
+                }
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class DaoGeneratorResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "daoGenerator";
+
+        public DaoGeneratorResolver() {
+            super(NAME, "DaoGenerator");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
+            PackageDeclaration packagex = getPackage((XtextTemplateContext) context);
+            if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
+
+                List<String> tables = dbResolver.getTables(artifacts);
+                if (tables != null) {
+                    TableDaoConverter converter = new TableDaoConverter(modelProperty, artifacts, scopeProvider);
+                    for (String table : tables) {
+                        if (table.toUpperCase().startsWith("BIN$"))
+                            continue;
+                        List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
+                        List<String> dbPrimaryKeys = dbResolver.getDbPrimaryKeys(artifacts, table);
+                        List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);
+                        List<DbImport> dbImports = dbResolver.getDbImports(artifacts, table);
+                        List<DbIndex> dbIndexes = dbResolver.getDbIndexes(artifacts, table);
+                        converter.addTableDefinition(table, dbColumns, dbPrimaryKeys, dbExports, dbImports, dbIndexes);
+                    }
+                    // converter.resolveReferencesOnConvention();
+                    converter.resolveReferencesOnKeys();
+                    converter.joinTables();
+                    return converter.getDaoDefinitions();
                 }
             }
             return super.resolve(context);

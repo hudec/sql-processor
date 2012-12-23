@@ -68,6 +68,15 @@ public class TableMetaConverter extends TablePojoConverter {
         if (statementsMetaTypes != null) {
             this.statementsMetaTypes.putAll(statementsMetaTypes);
         }
+
+        if (debug) {
+            System.out.println("globalSequence " + this.globalSequence);
+            System.out.println("tablesSequence " + this.tablesSequence);
+            System.out.println("globalIdentity " + this.globalIdentity);
+            System.out.println("tablesIdentity " + this.tablesIdentity);
+            System.out.println("columnsMetaTypes " + this.columnsMetaTypes);
+            System.out.println("statementsMetaTypes " + this.statementsMetaTypes);
+        }
     }
 
     public String getMetaDefinitions() {
