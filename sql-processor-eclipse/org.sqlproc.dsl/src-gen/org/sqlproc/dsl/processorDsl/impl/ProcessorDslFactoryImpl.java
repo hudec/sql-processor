@@ -124,7 +124,9 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.POJO_ENTITY_MODIFIER2: return createPojoEntityModifier2();
       case ProcessorDslPackage.POJO_ENTITY: return createPojoEntity();
       case ProcessorDslPackage.POJO_PROPERTY_MODIFIER: return createPojoPropertyModifier();
+      case ProcessorDslPackage.POJO_ENTITY_MODIFIER3: return createPojoEntityModifier3();
       case ProcessorDslPackage.POJO_PROPERTY: return createPojoProperty();
+      case ProcessorDslPackage.POJO_DAO: return createPojoDao();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -795,10 +797,32 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public PojoEntityModifier3 createPojoEntityModifier3()
+  {
+    PojoEntityModifier3Impl pojoEntityModifier3 = new PojoEntityModifier3Impl();
+    return pojoEntityModifier3;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public PojoProperty createPojoProperty()
   {
     PojoPropertyImpl pojoProperty = new PojoPropertyImpl();
     return pojoProperty;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoDao createPojoDao()
+  {
+    PojoDaoImpl pojoDao = new PojoDaoImpl();
+    return pojoDao;
   }
 
   /**

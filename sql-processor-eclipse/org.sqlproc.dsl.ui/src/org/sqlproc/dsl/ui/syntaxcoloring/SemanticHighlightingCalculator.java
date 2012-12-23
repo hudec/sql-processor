@@ -31,6 +31,7 @@ import org.sqlproc.dsl.processorDsl.MappingUsageExt;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
+import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
@@ -202,6 +203,13 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 PojoEntity gref = property.getGref();
                 if (gref != null)
                     provideHighlightingForPojoEntity(gref.getName(), node, acceptor);
+            } else if (current instanceof PojoDao) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                PojoDao dao = (PojoDao) current;
+                provideHighlightingForPojoDao(dao.getName(), node, acceptor);
+                PojoEntity ref = dao.getPojo();
+                if (ref != null)
+                    provideHighlightingForPojoEntity(ref.getName(), node, acceptor);
             }
         }
     }
@@ -308,6 +316,19 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
             INode inode = iterator.next();
             if (pojo != null && pojo.contains(inode.getText())) {
                 acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.PROPERTY_NAME);
+                return;
+            }
+        }
+    }
+
+    private void provideHighlightingForPojoDao(String dao, ICompositeNode node, IHighlightedPositionAcceptor acceptor) {
+        if (dao == null)
+            return;
+        Iterator<INode> iterator = new NodeTreeIterator(node);
+        while (iterator.hasNext()) {
+            INode inode = iterator.next();
+            if (dao != null && dao.contains(inode.getText())) {
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.DAO_NAME);
                 return;
             }
         }

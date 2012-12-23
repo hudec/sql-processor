@@ -9659,6 +9659,16 @@ ruleAbstractPojoEntity returns [EObject current=null]
         $current = $this_Extends_4.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getAbstractPojoEntityAccess().getPojoDaoParserRuleCall_5()); 
+    }
+    this_PojoDao_5=rulePojoDao
+    { 
+        $current = $this_PojoDao_5.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 finally {
@@ -10182,6 +10192,44 @@ rulePojoPropertyModifier returns [EObject current=null]
 
 
 
+// Entry rule entryRulePojoEntityModifier3
+entryRulePojoEntityModifier3 returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getPojoEntityModifier3Rule()); }
+	 iv_rulePojoEntityModifier3=rulePojoEntityModifier3 
+	 { $current=$iv_rulePojoEntityModifier3.current; } 
+	 EOF 
+;
+
+// Rule PojoEntityModifier3
+rulePojoEntityModifier3 returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='extends' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getPojoEntityModifier3Access().getExtendsKeyword_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoEntityModifier3Rule());
+	        }
+        }
+	otherlv_1=RULE_IDENT
+	{
+		newLeafNode(otherlv_1, grammarAccess.getPojoEntityModifier3Access().getSuperTypePojoEntityCrossReference_1_0()); 
+	}
+
+)
+))
+;
+
+
+
+
+
 // Entry rule entryRulePojoProperty
 entryRulePojoProperty returns [EObject current=null] 
 	@init { 
@@ -10449,6 +10497,116 @@ rulePojoProperty returns [EObject current=null]
        			"modifiers",
         		lv_modifiers_14_0, 
         		"PojoPropertyModifier");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*)
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+
+
+
+
+// Entry rule entryRulePojoDao
+entryRulePojoDao returns [EObject current=null] 
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+	}
+	:
+	{ newCompositeNode(grammarAccess.getPojoDaoRule()); }
+	 iv_rulePojoDao=rulePojoDao 
+	 { $current=$iv_rulePojoDao.current; } 
+	 EOF 
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+// Rule PojoDao
+rulePojoDao returns [EObject current=null] 
+    @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+    }
+    @after { leaveRule(); }:
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPojoDaoAccess().getModifiers1PojoEntityModifier1ParserRuleCall_0_0()); 
+	    }
+		lv_modifiers1_0_0=rulePojoEntityModifier1		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPojoDaoRule());
+	        }
+       		add(
+       			$current, 
+       			"modifiers1",
+        		lv_modifiers1_0_0, 
+        		"PojoEntityModifier1");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*	otherlv_1='dao' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getPojoDaoAccess().getDaoKeyword_1());
+    }
+(
+(
+		lv_name_2_0=RULE_IDENT
+		{
+			newLeafNode(lv_name_2_0, grammarAccess.getPojoDaoAccess().getNameIDENTTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoDaoRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_2_0, 
+        		"IDENT");
+	    }
+
+)
+)this_COLON_3=RULE_COLON
+    { 
+    newLeafNode(this_COLON_3, grammarAccess.getPojoDaoAccess().getCOLONTerminalRuleCall_3()); 
+    }
+this_COLON_4=RULE_COLON
+    { 
+    newLeafNode(this_COLON_4, grammarAccess.getPojoDaoAccess().getCOLONTerminalRuleCall_4()); 
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoDaoRule());
+	        }
+        }
+	otherlv_5=RULE_IDENT
+	{
+		newLeafNode(otherlv_5, grammarAccess.getPojoDaoAccess().getPojoPojoEntityCrossReference_5_0()); 
+	}
+
+)
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPojoDaoAccess().getModifiers2PojoEntityModifier3ParserRuleCall_6_0()); 
+	    }
+		lv_modifiers2_6_0=rulePojoEntityModifier3		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPojoDaoRule());
+	        }
+       		add(
+       			$current, 
+       			"modifiers2",
+        		lv_modifiers2_6_0, 
+        		"PojoEntityModifier3");
 	        afterParserOrEnumRuleCall();
 	    }
 

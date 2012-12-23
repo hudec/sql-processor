@@ -25,6 +25,7 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
     public final static String ENTITY_NAME = "entityName";
     public final static String TYPE_NAME = "typeName";
     public final static String PROPERTY_NAME = "propertyName";
+    public final static String DAO_NAME = "daoName";
 
     public void configure(IHighlightingConfigurationAcceptor acceptor) {
         // super.configure(acceptor);
@@ -45,6 +46,7 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
         acceptor.acceptDefaultHighlighting(ENTITY_NAME, "Pojo entity name", entityNameStyle());
         acceptor.acceptDefaultHighlighting(TYPE_NAME, "Type definition name", identifierStyle());
         acceptor.acceptDefaultHighlighting(PROPERTY_NAME, "Pojo property name", propertyNameStyle());
+        acceptor.acceptDefaultHighlighting(DAO_NAME, "Pojo DAO name", daoNameStyle());
     }
 
     public TextStyle punctationStyle() {
@@ -104,6 +106,12 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
     public TextStyle propertyNameStyle() {
         TextStyle textStyle = defaultStyle();
         textStyle.setColor(new RGB(42, 0, 255));
+        return textStyle;
+    }
+
+    public TextStyle daoNameStyle() {
+        TextStyle textStyle = defaultStyle();
+        textStyle.setColor(new RGB(165, 42, 42));
         return textStyle;
     }
 

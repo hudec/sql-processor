@@ -1,0 +1,4 @@
+package org.sqlproc.sample.simple.dao {
+	
+	dao PersonDao :: Person
+}

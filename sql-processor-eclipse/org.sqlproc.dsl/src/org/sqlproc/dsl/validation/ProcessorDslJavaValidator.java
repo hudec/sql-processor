@@ -51,6 +51,7 @@ import org.sqlproc.dsl.processorDsl.MetaSql;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
+import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
@@ -1162,6 +1163,30 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             if (pojoProperty.getName().equals(property.getName())) {
                 error("Duplicate name : " + pojoProperty.getName(), ProcessorDslPackage.Literals.POJO_PROPERTY__NAME);
                 return;
+            }
+        }
+    }
+
+    @Check
+    public void checkUniquePojoDao(PojoDao pojoDao) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(pojoDao);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+        for (PackageDeclaration pkg : artifacts.getPojoPackages()) {
+            if (pkg == null)
+                continue;
+            for (AbstractPojoEntity dao : pkg.getElements()) {
+                if (dao == null || !(dao instanceof PojoDao))
+                    continue;
+                PojoDao pdao = (PojoDao) dao;
+                if (pdao == pojoDao)
+                    continue;
+                if (pojoDao.getName().equals(pdao.getName())) {
+                    error("Duplicate name : " + pojoDao.getName(), ProcessorDslPackage.Literals.POJO_DAO__NAME);
+                    return;
+                }
             }
         }
     }

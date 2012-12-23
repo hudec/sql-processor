@@ -286,7 +286,7 @@ PackageDeclaration hidden(ML_COMMENT, SL_COMMENT, WS):
 	RBRACE;
 
 AbstractPojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-	PackageDeclaration | PojoEntity | Import | Implements | Extends;
+	PackageDeclaration | PojoEntity | Import | Implements | Extends | PojoDao;
 
 Import hidden(ML_COMMENT, SL_COMMENT, WS):
 	'import' importedNamespace = QualifiedNameWithWildcard;
@@ -309,11 +309,17 @@ PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
 
 PojoPropertyModifier: ((required?='required') | (discriminator?='discriminator') | (primaryKey?='primaryKey') | ('index' index=NUMBER));
 
+PojoEntityModifier3: (('extends' superType=[PojoEntity|IDENT]));
+
 PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 	name=IDENT (native = ('_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') | 
 	(COLON (COLON (COLON (attrs+=[PojoProperty|IDENT])* | ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]))
 	(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) (array ?= '[]')?
 	(modifiers+=PojoPropertyModifier)*
+;
+
+PojoDao hidden(ML_COMMENT, SL_COMMENT, WS):
+	(modifiers1+=PojoEntityModifier1)* 'dao' name=IDENT COLON COLON pojo=[PojoEntity|IDENT] (modifiers2+=PojoEntityModifier3)* 
 ;
 
 QualifiedNameWithWildcard:

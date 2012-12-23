@@ -375,9 +375,19 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createPojoPropertyModifierAdapter();
       }
       @Override
+      public Adapter casePojoEntityModifier3(PojoEntityModifier3 object)
+      {
+        return createPojoEntityModifier3Adapter();
+      }
+      @Override
       public Adapter casePojoProperty(PojoProperty object)
       {
         return createPojoPropertyAdapter();
+      }
+      @Override
+      public Adapter casePojoDao(PojoDao object)
+      {
+        return createPojoDaoAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -1302,6 +1312,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.PojoEntityModifier3 <em>Pojo Entity Modifier3</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.PojoEntityModifier3
+   * @generated
+   */
+  public Adapter createPojoEntityModifier3Adapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.PojoProperty <em>Pojo Property</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1312,6 +1337,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPojoPropertyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.PojoDao <em>Pojo Dao</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.PojoDao
+   * @generated
+   */
+  public Adapter createPojoDaoAdapter()
   {
     return null;
   }
