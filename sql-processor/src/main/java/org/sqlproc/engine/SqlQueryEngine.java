@@ -371,9 +371,13 @@ public class SqlQueryEngine extends SqlEngine {
             final Object staticInputValues, final SqlOrder order, final int maxTimeout, final int maxResults,
             final int firstResult, final Map<String, Class<?>> moreResultClasses) throws SqlProcessorException,
             SqlRuntimeException {
-        return query(session, resultClass, dynamicInputValues, staticInputValues,
-                new SqlStandardControl().setOrder(order).setMaxTimeout(maxTimeout).setMaxResults(maxResults)
-                        .setFirstResult(firstResult).setMoreResultClasses(moreResultClasses));
+        return query(
+                session,
+                resultClass,
+                dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues).setOrder(order)
+                        .setMaxTimeout(maxTimeout).setMaxResults(maxResults).setFirstResult(firstResult)
+                        .setMoreResultClasses(moreResultClasses));
     }
 
     /**
@@ -396,12 +400,6 @@ public class SqlQueryEngine extends SqlEngine {
      *            The object used for the SQL statement dynamic input values. The class of this object is also named as
      *            the input class or the dynamic parameters class. The exact class type isn't important, all the
      *            parameters settled into the SQL prepared statement are picked up using the reflection API.
-     * @param staticInputValues
-     *            The object used for the SQL statement static input values. The class of this object is also named as
-     *            the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
-     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
-     *            prevent SQL injection threat!
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The list of the resultClass instances.
@@ -411,11 +409,10 @@ public class SqlQueryEngine extends SqlEngine {
      *             in the case of any problem with the input/output values handling
      */
     public <E> List<E> query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
-            final Object staticInputValues, final SqlControl sqlControl) throws SqlProcessorException,
-            SqlRuntimeException {
+            final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> query, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
-                    + dynamicInputValues + ", staticInputValues=" + staticInputValues + ", sqlControl=" + sqlControl);
+                    + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
 
         List<E> result = null;
@@ -424,8 +421,8 @@ public class SqlQueryEngine extends SqlEngine {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            staticInputValues, (sqlControl.getOrder() != null) ? sqlControl.getOrder().getOrders()
-                                    : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
+                            sqlControl.getStaticInputValues(), (sqlControl.getOrder() != null) ? sqlControl.getOrder()
+                                    .getOrders() : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (sqlControl.getMaxTimeout() > 0)
                         query.setTimeout(sqlControl.getMaxTimeout());
@@ -554,9 +551,36 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public int queryCount(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final SqlOrder order, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        return queryCount(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
+                .setOrder(order).setMaxTimeout(maxTimeout));
+    }
+
+    /**
+     * Runs META SQL query to obtain the number of database rows. This is the primary and the most complex SQL Processor
+     * execution method to count the rows in database, which match the criteria. These criteria are taken from the input
+     * values. The primary usage is to support the pagination.
+     * 
+     * @param session
+     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
+     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
+     *            Hibernate session.
+     * @param dynamicInputValues
+     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
+     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
+     * @return The size of potential list of resultClass instances.
+     * @throws org.hibernate.SqlProcessorException
+     *             in the case of any problem with ORM or JDBC stack stack
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with the input/output values handling
+     */
+    public int queryCount(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
+            throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> queryCount, session=" + session + ", dynamicInputValues=" + dynamicInputValues
-                    + ", staticInputValues=" + staticInputValues + ", order=" + order + ", maxTimeout=" + maxTimeout);
+                    + ", sqlControl=" + sqlControl);
         }
 
         Integer count = null;
@@ -565,14 +589,15 @@ public class SqlQueryEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            staticInputValues, order.getOrders(), features, typeFactory, pluginFactory);
+                            sqlControl.getStaticInputValues(), (sqlControl.getOrder() != null) ? sqlControl.getOrder()
+                                    .getOrders() : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
                     SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
                             processResult.getSql()));
                     SqlProcessContext.getTypeFactory().getDefaultType()
                             .addScalar(queryCount, "vysledek", Integer.class);
-                    if (maxTimeout > 0)
-                        queryCount.setTimeout(maxTimeout);
-                    queryCount.setOrdered(order != null && order != NO_ORDER);
+                    if (sqlControl.getMaxTimeout() > 0)
+                        queryCount.setTimeout(sqlControl.getMaxTimeout());
+                    queryCount.setOrdered(sqlControl.getOrder() != null && sqlControl.getOrder() != NO_ORDER);
                     processResult.setQueryParams(session, queryCount);
                     return (Integer) queryCount.unique();
                 }
@@ -611,9 +636,31 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public String getSql(final Object dynamicInputValues, final Object staticInputValues, final SqlOrder order)
             throws SqlProcessorException, SqlRuntimeException {
+        return getSql(dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues).setOrder(order));
+    }
+
+    /**
+     * Because the SQL Processor is Data Driven Query engine, every input parameters can produce in fact different SQL
+     * query command. This method can help to identify the exact SQL query command, which is generated in the background
+     * of the SQL Processor execution. The query is derived from the META SQL query.
+     * 
+     * @param dynamicInputValues
+     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
+     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
+     * @return The SQL query command derived from the META SQL query based on the input parameters.
+     * @throws org.hibernate.SqlProcessorException
+     *             in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with the input/output values handling
+     */
+    public String getSql(final Object dynamicInputValues, final SqlControl sqlControl) throws SqlProcessorException,
+            SqlRuntimeException {
         if (logger.isDebugEnabled()) {
-            logger.debug(">> getSql, dynamicInputValues=" + dynamicInputValues + ", staticInputValues="
-                    + staticInputValues + ", order=" + order);
+            logger.debug(">> getSql, dynamicInputValues=" + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
 
         String sql = null;
@@ -623,7 +670,8 @@ public class SqlQueryEngine extends SqlEngine {
 
                 public String run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            staticInputValues, order.getOrders(), features, typeFactory, pluginFactory);
+                            sqlControl.getStaticInputValues(), (sqlControl.getOrder() != null) ? sqlControl.getOrder()
+                                    .getOrders() : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
                     return processResult.getSql().toString();
                 }
             }, String.class);

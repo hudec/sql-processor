@@ -16,6 +16,12 @@ import org.sqlproc.engine.SqlOrder;
 public class SqlStandardControl implements SqlControl {
 
     /**
+     * The object used for the SQL statement dynamic input values. The class of this object is also named as the input
+     * class or the dynamic parameters class. The exact class type isn't important, all the parameters settled into the
+     * SQL prepared statement are picked up using the reflection API.
+     */
+    private Object staticInputValues;
+    /**
      * The max SQL execution time. This parameter can help to protect production system against ineffective SQL query
      * commands. The value is in milliseconds.
      */
@@ -52,12 +58,35 @@ public class SqlStandardControl implements SqlControl {
      */
     public SqlStandardControl(SqlControl sqlControl) {
         if (sqlControl != null) {
+            setStaticInputValues(sqlControl.getStaticInputValues());
             setFirstResult(sqlControl.getFirstResult());
             setMaxResults(sqlControl.getMaxResults());
             setMaxTimeout(sqlControl.getMaxTimeout());
             setMoreResultClasses(sqlControl.getMoreResultClasses());
             setOrder(sqlControl.getOrder());
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Object getStaticInputValues() {
+        return staticInputValues;
+    }
+
+    /**
+     * Sets the object used for the SQL statement static input values. The class of this object is also named as the
+     * input class or the static parameters class. The exact class type isn't important, all the parameters injected
+     * into the SQL query command are picked up using the reflection API. Compared to dynamicInputValues input
+     * parameters, parameters in this class should't be produced by an end user to prevent SQL injection threat!
+     * 
+     * @param staticInputValues
+     *            the object used for the SQL statement static input values
+     * @return this instance
+     */
+    public SqlStandardControl setStaticInputValues(Object staticInputValues) {
+        this.staticInputValues = staticInputValues;
+        return this;
     }
 
     /**
@@ -196,7 +225,8 @@ public class SqlStandardControl implements SqlControl {
      */
     @Override
     public String toString() {
-        return "SqlStandardControl [maxTimeout=" + maxTimeout + ", firstResult=" + firstResult + ", maxResults="
-                + maxResults + ", order=" + order + ", moreResultClasses=" + moreResultClasses + "]";
+        return "SqlStandardControl [staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout
+                + ", firstResult=" + firstResult + ", maxResults=" + maxResults + ", order=" + order
+                + ", moreResultClasses=" + moreResultClasses + "]";
     }
 }

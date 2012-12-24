@@ -57,13 +57,13 @@ public class PersonDao extends BaseDao {
     public List<Person> list(Person person, SqlControl sqlControl) {
         SqlQueryEngine sqlEngine = getQueryEngine("SELECT_PERSON");
         SqlStandardControl sqlControl2 = new SqlStandardControl(sqlControl);
-        if (person != null && person.toInit(Person.Association.library)) {
+        if (person != null && person.toInit(Person.Association.library) && sqlControl2.getMoreResultClasses() == null) {
             Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
             moreResultClasses.put("movie", Movie.class);
             moreResultClasses.put("book", NewBook.class);
             sqlControl2.setMoreResultClasses(moreResultClasses);
         }
-        List<Person> result = sqlEngine.query(session, Person.class, person, null, sqlControl2);
+        List<Person> result = sqlEngine.query(session, Person.class, person, sqlControl2);
         logger.info("list person size: " + result.size());
         return result;
     }

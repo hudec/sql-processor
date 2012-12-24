@@ -302,8 +302,8 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public <E> List<E> callQuery(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
-        return callQuery(session, resultClass, dynamicInputValues, staticInputValues,
-                new SqlStandardControl().setMaxTimeout(maxTimeout));
+        return callQuery(session, resultClass, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout));
     }
 
     /**
@@ -327,12 +327,6 @@ public class SqlProcedureEngine extends SqlEngine {
      *            as the input class or the dynamic parameters class. The exact class type isn't important, all the
      *            parameters settled into the SQL callable statement are picked up using the reflection API. At the same
      *            time this object can collect the output values from all OUT and INOUT stored procedure parameters.
-     * @param staticInputValues
-     *            The object used for the stored procedure static input values. The class of this object is also named
-     *            as the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the callable statement are picked up using the reflection API. Compared to
-     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
-     *            prevent SQL injection threat!
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The list of the resultClass instances.
@@ -342,11 +336,10 @@ public class SqlProcedureEngine extends SqlEngine {
      *             in the case of any problem with the input/output values handling
      */
     public <E> List<E> callQuery(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
-            final Object staticInputValues, final SqlControl sqlControl) throws SqlProcessorException,
-            SqlRuntimeException {
+            final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> callQuery, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
-                    + dynamicInputValues + ", staticInputValues=" + staticInputValues + ", sqlControl=" + sqlControl);
+                    + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
 
         List<E> result = null;
@@ -355,7 +348,7 @@ public class SqlProcedureEngine extends SqlEngine {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            staticInputValues, null, features, typeFactory, pluginFactory);
+                            sqlControl.getStaticInputValues(), null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (sqlControl.getMaxTimeout() > 0)
                         query.setTimeout(sqlControl.getMaxTimeout());
@@ -433,8 +426,8 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public int callUpdate(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
-        return callUpdate(session, dynamicInputValues, staticInputValues,
-                new SqlStandardControl().setMaxTimeout(maxTimeout));
+        return callUpdate(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
+                .setMaxTimeout(maxTimeout));
     }
 
     /**
@@ -450,12 +443,6 @@ public class SqlProcedureEngine extends SqlEngine {
      *            as the input class or the dynamic parameters class. The exact class type isn't important, all the
      *            parameters settled into the SQL callable statement are picked up using the reflection API. At the same
      *            time this object can collect the output values from all OUT and INOUT stored procedure parameters.
-     * @param staticInputValues
-     *            The object used for the stored procedure static input values. The class of this object is also named
-     *            as the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the callable statement are picked up using the reflection API. Compared to
-     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
-     *            prevent SQL injection threat!
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The number of persisted, updated, deleted or otherwise affected database rows. It's value strongly
@@ -465,11 +452,11 @@ public class SqlProcedureEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    public int callUpdate(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
-            final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
+    public int callUpdate(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
+            throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> callUpdate, session=" + session + ", dynamicInputValues=" + dynamicInputValues
-                    + ", staticInputValues=" + staticInputValues + ", sqlControl=" + sqlControl);
+                    + ", sqlControl=" + sqlControl);
         }
 
         Integer count = null;
@@ -478,7 +465,7 @@ public class SqlProcedureEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            staticInputValues, null, features, typeFactory, pluginFactory);
+                            sqlControl.getStaticInputValues(), null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (sqlControl.getMaxTimeout() > 0)
                         query.setTimeout(sqlControl.getMaxTimeout());
@@ -537,8 +524,8 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public Object callFunction(final SqlSession session, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
-        return callFunction(session, dynamicInputValues, staticInputValues,
-                new SqlStandardControl().setMaxTimeout(maxTimeout));
+        return callFunction(session, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout));
     }
 
     /**
@@ -554,12 +541,6 @@ public class SqlProcedureEngine extends SqlEngine {
      *            as the input class or the dynamic parameters class. The exact class type isn't important, all the
      *            parameters settled into the SQL callable statement are picked up using the reflection API. At the same
      *            time this object can collect the output values from all OUT and INOUT stored procedure parameters.
-     * @param staticInputValues
-     *            The object used for the stored procedure static input values. The class of this object is also named
-     *            as the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the callable statement are picked up using the reflection API. Compared to
-     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
-     *            prevent SQL injection threat!
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The result from the stored function execution.
@@ -568,12 +549,11 @@ public class SqlProcedureEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    public Object callFunction(final SqlSession session, final Object dynamicInputValues,
-            final Object staticInputValues, final SqlControl sqlControl) throws SqlProcessorException,
-            SqlRuntimeException {
+    public Object callFunction(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
+            throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> callFunction, session=" + session + ", dynamicInputValues=" + dynamicInputValues
-                    + ", staticInputValues=" + staticInputValues + ", sqlControl=" + sqlControl);
+                    + ", sqlControl=" + sqlControl);
         }
 
         Object result = null;
@@ -582,7 +562,7 @@ public class SqlProcedureEngine extends SqlEngine {
             result = monitor.run(new SqlMonitor.Runner() {
                 public Object run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            staticInputValues, null, features, typeFactory, pluginFactory);
+                            sqlControl.getStaticInputValues(), null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     if (sqlControl.getMaxTimeout() > 0)
                         query.setTimeout(sqlControl.getMaxTimeout());
