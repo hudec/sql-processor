@@ -13,10 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFeature;
-import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
-import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.simple.dao.BankAccountDao;
 import org.sqlproc.sample.simple.dao.BookDao;
@@ -49,7 +47,6 @@ public class Main {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Connection connection;
-    private SqlSession session;
     private SqlEngineFactory sqlFactory;
     private List<String> ddls;
 
@@ -69,9 +66,7 @@ public class Main {
         this.sqlFactory = factory;
 
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
-
         connection = DriverManager.getConnection("jdbc:hsqldb:mem:sqlproc", "sa", "");
-        session = new JdbcSimpleSession(connection);
     }
 
     public void setupDb() throws SQLException {
@@ -96,18 +91,42 @@ public class Main {
     }
 
     public void initDao() throws SQLException {
-        bankAccountDao = new BankAccountDao(session, sqlFactory);
-        bookDao = new BookDao(session, sqlFactory);
-        contactDao = new ContactDao(session, sqlFactory);
-        creditCardDao = new CreditCardDao(session, sqlFactory);
-        libraryDao = new LibraryDao(session, sqlFactory);
-        movieDao = new MovieDao(session, sqlFactory);
-        personDao = new PersonDao(session, sqlFactory);
-        performerDao = new PerformerDao(session, sqlFactory);
-        personLibraryDao = new PersonLibraryDao(session, sqlFactory);
-        subscriberDao = new SubscriberDao(session, sqlFactory);
-        physicalMediaDao = new PhysicalMediaDao(session, sqlFactory);
-        paymentDao = new PaymentDao(session, sqlFactory);
+        bankAccountDao = new BankAccountDao();
+        bankAccountDao.setConnection(connection);
+        bankAccountDao.setSqlFactory(sqlFactory);
+        bookDao = new BookDao();
+        bookDao.setConnection(connection);
+        bookDao.setSqlFactory(sqlFactory);
+        contactDao = new ContactDao();
+        contactDao.setConnection(connection);
+        contactDao.setSqlFactory(sqlFactory);
+        creditCardDao = new CreditCardDao();
+        creditCardDao.setConnection(connection);
+        creditCardDao.setSqlFactory(sqlFactory);
+        libraryDao = new LibraryDao();
+        libraryDao.setConnection(connection);
+        libraryDao.setSqlFactory(sqlFactory);
+        movieDao = new MovieDao();
+        movieDao.setConnection(connection);
+        movieDao.setSqlFactory(sqlFactory);
+        personDao = new PersonDao();
+        personDao.setConnection(connection);
+        personDao.setSqlFactory(sqlFactory);
+        performerDao = new PerformerDao();
+        performerDao.setConnection(connection);
+        performerDao.setSqlFactory(sqlFactory);
+        personLibraryDao = new PersonLibraryDao();
+        personLibraryDao.setConnection(connection);
+        personLibraryDao.setSqlFactory(sqlFactory);
+        subscriberDao = new SubscriberDao();
+        subscriberDao.setConnection(connection);
+        subscriberDao.setSqlFactory(sqlFactory);
+        physicalMediaDao = new PhysicalMediaDao();
+        physicalMediaDao.setConnection(connection);
+        physicalMediaDao.setSqlFactory(sqlFactory);
+        paymentDao = new PaymentDao();
+        paymentDao.setConnection(connection);
+        paymentDao.setSqlFactory(sqlFactory);
     }
 
     private BankAccountDao bankAccountDao;

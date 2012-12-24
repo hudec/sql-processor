@@ -3,22 +3,20 @@ package org.sqlproc.sample.simple.dao;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
-import org.sqlproc.engine.SqlEngineFactory;
-import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.NewBook;
 import org.sqlproc.sample.simple.model.PhysicalMedia;
 
-public class PhysicalMediaDao extends BaseDao {
+public class PhysicalMediaDao extends BaseDaoImpl {
 
-    public PhysicalMediaDao(SqlSession session, SqlEngineFactory sqlFactory) {
-        super(sqlFactory, session);
-    }
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     public PhysicalMedia insertPhysicalMedia(PhysicalMedia physicalMedia) {
         SqlCrudEngine sqlEngine = getCrudEngine("INSERT_PHYSICAL_MEDIA");
-        int count = sqlEngine.insert(session, physicalMedia);
+        int count = sqlEngine.insert(getSqlSession(), physicalMedia);
         logger.info("insert physicalMedia: " + count + ": " + physicalMedia);
         return (count > 0) ? physicalMedia : null;
     }
@@ -31,16 +29,16 @@ public class PhysicalMediaDao extends BaseDao {
             moreResultClasses.put("book", NewBook.class);
             moreResultClasses.put("movie", Movie.class);
         }
-        PhysicalMedia m = sqlEngine.get(session, PhysicalMedia.class, physicalMedia, null, moreResultClasses);
+        PhysicalMedia m = sqlEngine.get(getSqlSession(), PhysicalMedia.class, physicalMedia, null, moreResultClasses);
         logger.info("get physicalMedia: " + m + " for " + physicalMedia);
         return m;
     }
 
     public PhysicalMedia updatePhysicalMedia(PhysicalMedia physicalMedia) {
         SqlCrudEngine sqlEngine = getCrudEngine("UPDATE_PHYSICAL_MEDIA");
-        int count = sqlEngine.update(session, physicalMedia);
+        int count = sqlEngine.update(getSqlSession(), physicalMedia);
         if (count > 0) {
-            sqlEngine.update(session, physicalMedia);
+            sqlEngine.update(getSqlSession(), physicalMedia);
         }
         logger.info("update physicalMedia: " + count);
         return (count > 0) ? physicalMedia : null;
@@ -48,7 +46,7 @@ public class PhysicalMediaDao extends BaseDao {
 
     public boolean deletePhysicalMedia(PhysicalMedia physicalMedia) {
         SqlCrudEngine sqlEngine = getCrudEngine("DELETE_PHYSICAL_MEDIA");
-        int count = sqlEngine.delete(session, physicalMedia);
+        int count = sqlEngine.delete(getSqlSession(), physicalMedia);
         logger.info("delete physicalMedia: " + count);
         return (count > 0);
     }
