@@ -290,11 +290,11 @@ public class SqlCrudEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CREATE,
-                            dynamicInputValues, sqlControl.getStaticInputValues(), null, features, typeFactory,
+                            dynamicInputValues, getStaticInputValues(sqlControl), null, features, typeFactory,
                             pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (sqlControl.getMaxTimeout() > 0)
-                        query.setTimeout(sqlControl.getMaxTimeout());
+                    if (getMaxTimeout(sqlControl) > 0)
+                        query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
                     Integer count = query.update();
@@ -438,14 +438,14 @@ public class SqlCrudEngine extends SqlEngine {
             result = monitor.run(new SqlMonitor.Runner() {
                 public E run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.RETRIEVE,
-                            dynamicInputValues, sqlControl.getStaticInputValues(), null, features, typeFactory,
+                            dynamicInputValues, getStaticInputValues(sqlControl), null, features, typeFactory,
                             pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (sqlControl.getMaxTimeout() > 0)
-                        query.setTimeout(sqlControl.getMaxTimeout());
+                    if (getMaxTimeout(sqlControl) > 0)
+                        query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
                     SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
-                    mappingResult.setQueryResultMapping(resultClass, sqlControl.getMoreResultClasses(), query);
+                    mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
 
                     @SuppressWarnings("rawtypes")
                     List list = query.list();
@@ -477,7 +477,7 @@ public class SqlCrudEngine extends SqlEngine {
                         }
 
                         mappingResult.setQueryResultData(resultInstance, resultValue, ids,
-                                sqlControl.getMoreResultClasses());
+                                getMoreResultClasses(sqlControl));
                         if (changedIdentity) {
                             if (ids != null) {
                                 String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
@@ -584,11 +584,11 @@ public class SqlCrudEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.UPDATE,
-                            dynamicInputValues, sqlControl.getStaticInputValues(), null, features, typeFactory,
+                            dynamicInputValues, getStaticInputValues(sqlControl), null, features, typeFactory,
                             pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (sqlControl.getMaxTimeout() > 0)
-                        query.setTimeout(sqlControl.getMaxTimeout());
+                    if (getMaxTimeout(sqlControl) > 0)
+                        query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
                     return query.update();
@@ -688,11 +688,11 @@ public class SqlCrudEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.DELETE,
-                            dynamicInputValues, sqlControl.getStaticInputValues(), null, features, typeFactory,
+                            dynamicInputValues, getStaticInputValues(sqlControl), null, features, typeFactory,
                             pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (sqlControl.getMaxTimeout() > 0)
-                        query.setTimeout(sqlControl.getMaxTimeout());
+                    if (getMaxTimeout(sqlControl) > 0)
+                        query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
                     return query.update();

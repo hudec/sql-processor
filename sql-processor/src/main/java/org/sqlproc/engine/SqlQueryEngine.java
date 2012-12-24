@@ -421,21 +421,21 @@ public class SqlQueryEngine extends SqlEngine {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            sqlControl.getStaticInputValues(), (sqlControl.getOrder() != null) ? sqlControl.getOrder()
-                                    .getOrders() : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
+                            getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features, typeFactory,
+                            pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (sqlControl.getMaxTimeout() > 0)
-                        query.setTimeout(sqlControl.getMaxTimeout());
-                    query.setOrdered(sqlControl.getOrder() != null && sqlControl.getOrder() != NO_ORDER);
+                    if (getMaxTimeout(sqlControl) > 0)
+                        query.setTimeout(getMaxTimeout(sqlControl));
+                    query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
                     processResult.setQueryParams(session, query);
                     SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
-                    mappingResult.setQueryResultMapping(resultClass, sqlControl.getMoreResultClasses(), query);
+                    mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
 
-                    if (sqlControl.getFirstResult() > 0) {
-                        query.setFirstResult(sqlControl.getFirstResult());
-                        query.setMaxResults(sqlControl.getMaxResults());
-                    } else if (sqlControl.getMaxResults() > 0) {
-                        query.setMaxResults(sqlControl.getMaxResults());
+                    if (getFirstResult(sqlControl) > 0) {
+                        query.setFirstResult(getFirstResult(sqlControl));
+                        query.setMaxResults(getMaxResults(sqlControl));
+                    } else if (getMaxResults(sqlControl) > 0) {
+                        query.setMaxResults(getMaxResults(sqlControl));
                     }
 
                     @SuppressWarnings("rawtypes")
@@ -468,7 +468,7 @@ public class SqlQueryEngine extends SqlEngine {
                         }
 
                         mappingResult.setQueryResultData(resultInstance, resultValue, ids,
-                                sqlControl.getMoreResultClasses());
+                                getMoreResultClasses(sqlControl));
 
                         if (changedIdentity) {
                             result.add(resultInstance);
@@ -589,15 +589,15 @@ public class SqlQueryEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            sqlControl.getStaticInputValues(), (sqlControl.getOrder() != null) ? sqlControl.getOrder()
+                            getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
                                     .getOrders() : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
                     SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
                             processResult.getSql()));
                     SqlProcessContext.getTypeFactory().getDefaultType()
                             .addScalar(queryCount, "vysledek", Integer.class);
-                    if (sqlControl.getMaxTimeout() > 0)
-                        queryCount.setTimeout(sqlControl.getMaxTimeout());
-                    queryCount.setOrdered(sqlControl.getOrder() != null && sqlControl.getOrder() != NO_ORDER);
+                    if (getMaxTimeout(sqlControl) > 0)
+                        queryCount.setTimeout(getMaxTimeout(sqlControl));
+                    queryCount.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
                     processResult.setQueryParams(session, queryCount);
                     return (Integer) queryCount.unique();
                 }
@@ -670,7 +670,7 @@ public class SqlQueryEngine extends SqlEngine {
 
                 public String run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            sqlControl.getStaticInputValues(), (sqlControl.getOrder() != null) ? sqlControl.getOrder()
+                            getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
                                     .getOrders() : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
                     return processResult.getSql().toString();
                 }

@@ -348,10 +348,10 @@ public class SqlProcedureEngine extends SqlEngine {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            sqlControl.getStaticInputValues(), null, features, typeFactory, pluginFactory);
+                            getStaticInputValues(sqlControl), null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (sqlControl.getMaxTimeout() > 0)
-                        query.setTimeout(sqlControl.getMaxTimeout());
+                    if (getMaxTimeout(sqlControl) > 0)
+                        query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
                     SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, null, query);
@@ -465,10 +465,10 @@ public class SqlProcedureEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            sqlControl.getStaticInputValues(), null, features, typeFactory, pluginFactory);
+                            getStaticInputValues(sqlControl), null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (sqlControl.getMaxTimeout() > 0)
-                        query.setTimeout(sqlControl.getMaxTimeout());
+                    if (getMaxTimeout(sqlControl) > 0)
+                        query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
                     Integer count = query.callUpdate();
@@ -562,10 +562,10 @@ public class SqlProcedureEngine extends SqlEngine {
             result = monitor.run(new SqlMonitor.Runner() {
                 public Object run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            sqlControl.getStaticInputValues(), null, features, typeFactory, pluginFactory);
+                            getStaticInputValues(sqlControl), null, features, typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
-                    if (sqlControl.getMaxTimeout() > 0)
-                        query.setTimeout(sqlControl.getMaxTimeout());
+                    if (getMaxTimeout(sqlControl) > 0)
+                        query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
                     if (mapping != null) {
                         SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);

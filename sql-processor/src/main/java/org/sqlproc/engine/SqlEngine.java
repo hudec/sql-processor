@@ -132,4 +132,88 @@ public abstract class SqlEngine {
     public void unsetFeature(String name) {
         features.remove(name);
     }
+
+    /**
+     * The helper to prevent the NPE
+     * 
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @return the object used for the SQL statement static input values
+     */
+    Object getStaticInputValues(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return null;
+        else
+            return sqlControl.getStaticInputValues();
+    }
+
+    /**
+     * The helper to prevent the NPE
+     * 
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @return the max SQL execution time
+     */
+    int getMaxTimeout(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return 0;
+        else
+            return sqlControl.getMaxTimeout();
+    }
+
+    /**
+     * The helper to prevent the NPE
+     * 
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @return the first SQL execution output row
+     */
+    int getFirstResult(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return 0;
+        else
+            return sqlControl.getFirstResult();
+    }
+
+    /**
+     * The helper to prevent the NPE
+     * 
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @return the max number of SQL execution output rows
+     */
+    int getMaxResults(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return 0;
+        else
+            return sqlControl.getMaxResults();
+    }
+
+    /**
+     * The helper to prevent the NPE
+     * 
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @return the ordering directive list
+     */
+    SqlOrder getOrder(SqlControl sqlControl) {
+        if (sqlControl == null || sqlControl.getOrder() == null)
+            return SqlQueryEngine.NO_ORDER;
+        else
+            return sqlControl.getOrder();
+    }
+
+    /**
+     * The helper to prevent the NPE
+     * 
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @return more result classes used for the return values
+     */
+    Map<String, Class<?>> getMoreResultClasses(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return null;
+        else
+            return sqlControl.getMoreResultClasses();
+    }
 }
