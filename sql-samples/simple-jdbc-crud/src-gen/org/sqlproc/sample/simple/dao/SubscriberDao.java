@@ -47,7 +47,7 @@ public class SubscriberDao {
       logger.trace("get get: " + subscriber + " " + sqlControl);
     }
     SqlCrudEngine sqlEngineSubscriber = sqlEngineFactory.getCrudEngine("GET_SUBSCRIBER");
-    //sqlControl = getMoreResultClasses(subscriber, sqlControl);
+    sqlControl = getMoreResultClasses(subscriber, sqlControl);
     Subscriber subscriberGot = sqlEngineSubscriber.get(sqlSessionFactory.getSqlSession(), Subscriber.class, subscriber, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get subscriber result: " + subscriberGot);
@@ -96,7 +96,7 @@ public class SubscriberDao {
       logger.trace("list subscriber: " + subscriber + " " + sqlControl);
     }
     SqlQueryEngine sqlEngineSubscriber = sqlEngineFactory.getQueryEngine("SELECT_SUBSCRIBER");
-    //sqlControl = getMoreResultClasses(subscriber, sqlControl);
+    sqlControl = getMoreResultClasses(subscriber, sqlControl);
     List<Subscriber> subscriberList = sqlEngineSubscriber.query(sqlSessionFactory.getSqlSession(), Subscriber.class, subscriber, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("list subscriber size: " + ((subscriberList != null) ? subscriberList.size() : "null"));
@@ -106,5 +106,22 @@ public class SubscriberDao {
   
   public List<Subscriber> list(Subscriber subscriber) {
     return list(subscriber, null);
+  }
+  
+  SqlControl getMoreResultClasses(Subscriber subscriber, SqlControl sqlControl) {
+    if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
+      return sqlControl;
+    Map<String, Class<?>> moreResultClasses = null;
+    if (subscriber != null && subscriber.toInit(Subscriber.Association.billingDetails)) {
+      if (moreResultClasses == null)
+        moreResultClasses = new HashMap<String, Class<?>>();
+      moreResultClasses.put("CC", CreditCard.class);
+      moreResultClasses.put("BA", BankAccount.class);
+  }
+    if (moreResultClasses != null) {
+      sqlControl = new SqlStandardControl(sqlControl);
+      ((SqlStandardControl) sqlControl).setMoreResultClasses(moreResultClasses);
+    }
+    return sqlControl;
   }
 }

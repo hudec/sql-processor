@@ -6,9 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -24,6 +22,8 @@ import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier1;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier2;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier3;
+import org.sqlproc.dsl.processorDsl.PojoMethod;
+import org.sqlproc.dsl.processorDsl.PojoMethodArg;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoPropertyModifier;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
@@ -363,51 +363,17 @@ public class Utils {
         return packageDeclaration.getName();
     }
 
-    public static List<PojoProperty> getToInits(PojoEntity e) {
-        List<PojoProperty> result = new ArrayList<PojoProperty>();
-        List<PojoProperty> toInitAttrs = new ArrayList<PojoProperty>();
-        for (PojoProperty f : e.getFeatures()) {
-            if (f.getName().equalsIgnoreCase("toInit")) {
-                for (PojoProperty f2 : f.getAttrs()) {
-                    if (f2.getGref() != null) {
-                        toInitAttrs.add(f2);
-                    }
+    public static Map<String, List<PojoMethodArg>> getToInits(PojoDao d) {
+        Map<String, List<PojoMethodArg>> result = new LinkedHashMap<String, List<PojoMethodArg>>();
+        for (PojoMethod m : d.getMethods()) {
+            if (m.getToInits() != null && !m.getToInits().isEmpty()) {
+                result.put(m.getName(), new ArrayList<PojoMethodArg>());
+                for (PojoMethodArg a : m.getToInits()) {
+                    result.get(m.getName()).add(a);
                 }
             }
         }
-        System.out.println("UUUU toInitAttrs=" + toInitAttrs);
-        for (PojoProperty f : toInitAttrs) {
-            if (!childClasses(f.getGref()).isEmpty()) {
-                result.add(f);
-            }
-        }
-        System.out.println("UUUU result=" + result);
-        return result;
-    }
-
-    public static Map<String, PojoEntity> childClasses(PojoEntity e) {
-        Map<String, PojoEntity> result = new LinkedHashMap<String, PojoEntity>();
-        PackageDeclaration packageDeclaration = EcoreUtil2.getContainerOfType(e, PackageDeclaration.class);
-        EObject object = EcoreUtil.getRootContainer(packageDeclaration);
-        if (!(object instanceof Artifacts))
-            return result;
-        Artifacts artifacts = (Artifacts) object;
-        for (PackageDeclaration pkg : artifacts.getPojoPackages()) {
-            for (AbstractPojoEntity ae : pkg.getElements()) {
-                if (ae instanceof PojoEntity) {
-                    PojoEntity e2 = (PojoEntity) ae;
-                    PojoEntity se = getSuperType(e2);
-                    if (e.equals(se)) {
-                        String discr = getDiscriminator(e2);
-                        if (discr != null)
-                            result.put(discr, e2);
-                        else
-                            result.put(e2.getName().substring(0, 1).toLowerCase() + e2.getName().substring(1), e2);
-                    }
-                }
-            }
-        }
-        System.out.println("VVVV result=" + result);
+        System.out.println("UUUU " + result);
         return result;
     }
 }

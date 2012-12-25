@@ -47,7 +47,7 @@ public class PersonDao {
       logger.trace("get get: " + person + " " + sqlControl);
     }
     SqlCrudEngine sqlEnginePerson = sqlEngineFactory.getCrudEngine("GET_PERSON");
-    //sqlControl = getMoreResultClasses(person, sqlControl);
+    sqlControl = getMoreResultClasses(person, sqlControl);
     Person personGot = sqlEnginePerson.get(sqlSessionFactory.getSqlSession(), Person.class, person, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get person result: " + personGot);
@@ -96,7 +96,7 @@ public class PersonDao {
       logger.trace("list person: " + person + " " + sqlControl);
     }
     SqlQueryEngine sqlEnginePerson = sqlEngineFactory.getQueryEngine("SELECT_PERSON");
-    //sqlControl = getMoreResultClasses(person, sqlControl);
+    sqlControl = getMoreResultClasses(person, sqlControl);
     List<Person> personList = sqlEnginePerson.query(sqlSessionFactory.getSqlSession(), Person.class, person, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("list person size: " + ((personList != null) ? personList.size() : "null"));
@@ -106,5 +106,22 @@ public class PersonDao {
   
   public List<Person> list(Person person) {
     return list(person, null);
+  }
+  
+  SqlControl getMoreResultClasses(Person person, SqlControl sqlControl) {
+    if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
+      return sqlControl;
+    Map<String, Class<?>> moreResultClasses = null;
+    if (person != null && person.toInit(Person.Association.library)) {
+      if (moreResultClasses == null)
+        moreResultClasses = new HashMap<String, Class<?>>();
+      moreResultClasses.put("media", Media.class);
+      moreResultClasses.put("book", NewBook.class);
+  }
+    if (moreResultClasses != null) {
+      sqlControl = new SqlStandardControl(sqlControl);
+      ((SqlStandardControl) sqlControl).setMoreResultClasses(moreResultClasses);
+    }
+    return sqlControl;
   }
 }

@@ -27,6 +27,7 @@ import org.sqlproc.dsl.processorDsl.Extends;
 import org.sqlproc.dsl.processorDsl.Implements;
 import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
+import org.sqlproc.dsl.processorDsl.PojoMethodArg;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.util.Utils;
 
@@ -1124,7 +1125,7 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("  ");
     _builder.newLine();
     _builder.append("  ");
-    final List<PojoProperty> toInits = Utils.getToInits(e);
+    final Map<String,List<PojoMethodArg>> toInits = Utils.getToInits(d);
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
     CharSequence _compileInsert = this.compileInsert(d, e, importManager);
@@ -1145,6 +1146,16 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("  ");
     CharSequence _compileList = this.compileList(d, e, toInits, importManager);
     _builder.append(_compileList, "  ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("  ");
+    {
+      boolean _isEmpty = toInits.isEmpty();
+      boolean _not = (!_isEmpty);
+      if (_not) {
+        CharSequence _compileMoreResultClasses = this.compileMoreResultClasses(d, e, toInits, importManager);
+        _builder.append(_compileMoreResultClasses, "  ");
+      }
+    }
     _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
@@ -1253,7 +1264,7 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
-  public CharSequence compileGet(final PojoDao d, final PojoEntity e, final List<PojoProperty> toInits, final ImportManager importManager) {
+  public CharSequence compileGet(final PojoDao d, final PojoEntity e, final Map<String,List<PojoMethodArg>> toInits, final ImportManager importManager) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.newLine();
     _builder.append("public ");
@@ -1291,7 +1302,13 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
-    _builder.append("//sqlControl = getMoreResultClasses(");
+    {
+      boolean _isEmpty = toInits.isEmpty();
+      if (_isEmpty) {
+        _builder.append("//");
+      }
+    }
+    _builder.append("sqlControl = getMoreResultClasses(");
     String _name_5 = e.getName();
     String _firstLower_2 = StringExtensions.toFirstLower(_name_5);
     _builder.append(_firstLower_2, "  ");
@@ -1544,7 +1561,7 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
-  public CharSequence compileList(final PojoDao d, final PojoEntity e, final List<PojoProperty> toInits, final ImportManager importManager) {
+  public CharSequence compileList(final PojoDao d, final PojoEntity e, final Map<String,List<PojoMethodArg>> toInits, final ImportManager importManager) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.newLine();
     _builder.append("public List<");
@@ -1586,7 +1603,13 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("\");");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
-    _builder.append("//sqlControl = getMoreResultClasses(");
+    {
+      boolean _isEmpty = toInits.isEmpty();
+      if (_isEmpty) {
+        _builder.append("//");
+      }
+    }
+    _builder.append("sqlControl = getMoreResultClasses(");
     String _name_6 = e.getName();
     String _firstLower_3 = StringExtensions.toFirstLower(_name_6);
     _builder.append(_firstLower_3, "  ");
@@ -1667,7 +1690,7 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
-  public CharSequence compileMoreResultClasses(final PojoDao d, final PojoEntity e, final List<PojoProperty> toInits, final ImportManager importManager) {
+  public CharSequence compileMoreResultClasses(final PojoDao d, final PojoEntity e, final Map<String,List<PojoMethodArg>> toInits, final ImportManager importManager) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.newLine();
     _builder.append("SqlControl getMoreResultClasses(");
@@ -1688,62 +1711,57 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("  ");
     _builder.append("Map<String, Class<?>> moreResultClasses = null;");
     _builder.newLine();
-    _builder.append("    ");
     {
+      Set<Entry<String,List<PojoMethodArg>>> _entrySet = toInits.entrySet();
       boolean _hasElements = false;
-      for(final PojoProperty f : toInits) {
+      for(final Entry<String,List<PojoMethodArg>> f : _entrySet) {
         if (!_hasElements) {
           _hasElements = true;
         } else {
-          _builder.appendImmediate("\n", "    ");
+          _builder.appendImmediate("\n", "");
         }
-        _builder.append("      if (");
+        _builder.append("  if (");
         String _name_2 = e.getName();
         String _firstLower_1 = StringExtensions.toFirstLower(_name_2);
-        _builder.append(_firstLower_1, "    ");
+        _builder.append(_firstLower_1, "");
         _builder.append(" != null && ");
         String _name_3 = e.getName();
         String _firstLower_2 = StringExtensions.toFirstLower(_name_3);
-        _builder.append(_firstLower_2, "    ");
+        _builder.append(_firstLower_2, "");
         _builder.append(".toInit(");
         String _name_4 = e.getName();
-        _builder.append(_name_4, "    ");
+        _builder.append(_name_4, "");
         _builder.append(".Association.");
-        String _name_5 = f.getName();
-        _builder.append(_name_5, "    ");
+        String _key = f.getKey();
+        _builder.append(_key, "");
         _builder.append(")) {");
         _builder.newLineIfNotEmpty();
         _builder.append("    ");
         _builder.append("if (moreResultClasses == null)");
         _builder.newLine();
-        _builder.append("    ");
-        _builder.append("  ");
+        _builder.append("      ");
         _builder.append("moreResultClasses = new HashMap<String, Class<?>>();");
         _builder.newLine();
-        _builder.append("    ");
         {
-          PojoEntity _gref = f.getGref();
-          Map<String,PojoEntity> _childClasses = Utils.childClasses(_gref);
-          Set<Entry<String,PojoEntity>> _entrySet = _childClasses.entrySet();
+          List<PojoMethodArg> _value = f.getValue();
           boolean _hasElements_1 = false;
-          for(final Entry<String,PojoEntity> map : _entrySet) {
+          for(final PojoMethodArg a : _value) {
             if (!_hasElements_1) {
               _hasElements_1 = true;
             } else {
-              _builder.appendImmediate("\n", "    ");
+              _builder.appendImmediate("\n", "");
             }
-            _builder.append("  moreResultClasses.put(\"");
-            String _key = map.getKey();
-            _builder.append(_key, "    ");
+            _builder.append("    moreResultClasses.put(\"");
+            String _name_5 = a.getName();
+            _builder.append(_name_5, "");
             _builder.append("\", ");
-            PojoEntity _value = map.getValue();
-            QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(_value);
-            _builder.append(_fullyQualifiedName, "    ");
+            PojoEntity _ref = a.getRef();
+            QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(_ref);
+            _builder.append(_fullyQualifiedName, "");
             _builder.append(".class);");
           }
         }
         _builder.newLineIfNotEmpty();
-        _builder.append("    ");
         _builder.append("}");
         _builder.newLine();
       }
