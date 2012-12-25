@@ -41,4 +41,70 @@ public class LibraryDao {
   public Library insert(Library library) {
     return insert(library, null);
   }
+  
+  public Library get(Library library, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("get get: " + library + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineLibrary = sqlEngineFactory.getCrudEngine("GET_LIBRARY");
+    //sqlControl = getMoreResultClasses(library, sqlControl);
+    Library libraryGot = sqlEngineLibrary.get(sqlSessionFactory.getSqlSession(), Library.class, library, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("get library result: " + libraryGot);
+    }
+    return libraryGot;
+  }
+  	
+  public Library get(Library library) {
+    return get(library, null);
+  }
+  
+  public int update(Library library, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("update library: " + library + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineLibrary = sqlEngineFactory.getCrudEngine("UPDATE_LIBRARY");
+    int count = sqlEngineLibrary.update(sqlSessionFactory.getSqlSession(), library);
+    if (logger.isTraceEnabled()) {
+      logger.trace("update library result count: " + count);
+    }
+    return count;
+  }
+  
+  public int update(Library library) {
+    return update(library, null);
+  }
+  
+  public int delete(Library library, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete library: " + library + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineLibrary = sqlEngineFactory.getCrudEngine("DELETE_LIBRARY");
+    int count = sqlEngineLibrary.delete(sqlSessionFactory.getSqlSession(), library);
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete library result count: " + count);
+    }
+    return count;
+  }
+  
+  public int delete(Library library) {
+    return delete(library, null);
+  }
+  
+  public List<Library> list(Library library, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("list library: " + library + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineLibrary = sqlEngineFactory.getQueryEngine("SELECT_LIBRARY");
+    //sqlControl = getMoreResultClasses(library, sqlControl);
+    List<Library> libraryList = sqlEngineLibrary.query(sqlSessionFactory.getSqlSession(), Library.class, library, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("list library size: " + ((libraryList != null) ? libraryList.size() : "null"));
+    }
+    return libraryList;
+  }
+  
+  public List<Library> list(Library library) {
+    return list(library, null);
+  }
 }

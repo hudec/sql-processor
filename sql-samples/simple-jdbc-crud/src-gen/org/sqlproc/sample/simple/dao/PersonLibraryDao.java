@@ -41,4 +41,70 @@ public class PersonLibraryDao {
   public PersonLibrary insert(PersonLibrary personLibrary) {
     return insert(personLibrary, null);
   }
+  
+  public PersonLibrary get(PersonLibrary personLibrary, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("get get: " + personLibrary + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePersonLibrary = sqlEngineFactory.getCrudEngine("GET_PERSON_LIBRARY");
+    //sqlControl = getMoreResultClasses(personLibrary, sqlControl);
+    PersonLibrary personLibraryGot = sqlEnginePersonLibrary.get(sqlSessionFactory.getSqlSession(), PersonLibrary.class, personLibrary, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("get personLibrary result: " + personLibraryGot);
+    }
+    return personLibraryGot;
+  }
+  	
+  public PersonLibrary get(PersonLibrary personLibrary) {
+    return get(personLibrary, null);
+  }
+  
+  public int update(PersonLibrary personLibrary, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("update personLibrary: " + personLibrary + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePersonLibrary = sqlEngineFactory.getCrudEngine("UPDATE_PERSON_LIBRARY");
+    int count = sqlEnginePersonLibrary.update(sqlSessionFactory.getSqlSession(), personLibrary);
+    if (logger.isTraceEnabled()) {
+      logger.trace("update personLibrary result count: " + count);
+    }
+    return count;
+  }
+  
+  public int update(PersonLibrary personLibrary) {
+    return update(personLibrary, null);
+  }
+  
+  public int delete(PersonLibrary personLibrary, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete personLibrary: " + personLibrary + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePersonLibrary = sqlEngineFactory.getCrudEngine("DELETE_PERSON_LIBRARY");
+    int count = sqlEnginePersonLibrary.delete(sqlSessionFactory.getSqlSession(), personLibrary);
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete personLibrary result count: " + count);
+    }
+    return count;
+  }
+  
+  public int delete(PersonLibrary personLibrary) {
+    return delete(personLibrary, null);
+  }
+  
+  public List<PersonLibrary> list(PersonLibrary personLibrary, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("list personLibrary: " + personLibrary + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEnginePersonLibrary = sqlEngineFactory.getQueryEngine("SELECT_PERSON_LIBRARY");
+    //sqlControl = getMoreResultClasses(personLibrary, sqlControl);
+    List<PersonLibrary> personLibraryList = sqlEnginePersonLibrary.query(sqlSessionFactory.getSqlSession(), PersonLibrary.class, personLibrary, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("list personLibrary size: " + ((personLibraryList != null) ? personLibraryList.size() : "null"));
+    }
+    return personLibraryList;
+  }
+  
+  public List<PersonLibrary> list(PersonLibrary personLibrary) {
+    return list(personLibrary, null);
+  }
 }

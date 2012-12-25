@@ -41,4 +41,70 @@ public class MediaDao {
   public Media insert(Media media) {
     return insert(media, null);
   }
+  
+  public Media get(Media media, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("get get: " + media + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineMedia = sqlEngineFactory.getCrudEngine("GET_MEDIA");
+    //sqlControl = getMoreResultClasses(media, sqlControl);
+    Media mediaGot = sqlEngineMedia.get(sqlSessionFactory.getSqlSession(), Media.class, media, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("get media result: " + mediaGot);
+    }
+    return mediaGot;
+  }
+  	
+  public Media get(Media media) {
+    return get(media, null);
+  }
+  
+  public int update(Media media, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("update media: " + media + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
+    int count = sqlEngineMedia.update(sqlSessionFactory.getSqlSession(), media);
+    if (logger.isTraceEnabled()) {
+      logger.trace("update media result count: " + count);
+    }
+    return count;
+  }
+  
+  public int update(Media media) {
+    return update(media, null);
+  }
+  
+  public int delete(Media media, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete media: " + media + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineMedia = sqlEngineFactory.getCrudEngine("DELETE_MEDIA");
+    int count = sqlEngineMedia.delete(sqlSessionFactory.getSqlSession(), media);
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete media result count: " + count);
+    }
+    return count;
+  }
+  
+  public int delete(Media media) {
+    return delete(media, null);
+  }
+  
+  public List<Media> list(Media media, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("list media: " + media + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineMedia = sqlEngineFactory.getQueryEngine("SELECT_MEDIA");
+    //sqlControl = getMoreResultClasses(media, sqlControl);
+    List<Media> mediaList = sqlEngineMedia.query(sqlSessionFactory.getSqlSession(), Media.class, media, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("list media size: " + ((mediaList != null) ? mediaList.size() : "null"));
+    }
+    return mediaList;
+  }
+  
+  public List<Media> list(Media media) {
+    return list(media, null);
+  }
 }

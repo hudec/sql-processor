@@ -41,4 +41,70 @@ public class MovieDao {
   public Movie insert(Movie movie) {
     return insert(movie, null);
   }
+  
+  public Movie get(Movie movie, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("get get: " + movie + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineMovie = sqlEngineFactory.getCrudEngine("GET_MOVIE");
+    //sqlControl = getMoreResultClasses(movie, sqlControl);
+    Movie movieGot = sqlEngineMovie.get(sqlSessionFactory.getSqlSession(), Movie.class, movie, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("get movie result: " + movieGot);
+    }
+    return movieGot;
+  }
+  	
+  public Movie get(Movie movie) {
+    return get(movie, null);
+  }
+  
+  public int update(Movie movie, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("update movie: " + movie + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineMovie = sqlEngineFactory.getCrudEngine("UPDATE_MOVIE");
+    int count = sqlEngineMovie.update(sqlSessionFactory.getSqlSession(), movie);
+    if (logger.isTraceEnabled()) {
+      logger.trace("update movie result count: " + count);
+    }
+    return count;
+  }
+  
+  public int update(Movie movie) {
+    return update(movie, null);
+  }
+  
+  public int delete(Movie movie, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete movie: " + movie + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineMovie = sqlEngineFactory.getCrudEngine("DELETE_MOVIE");
+    int count = sqlEngineMovie.delete(sqlSessionFactory.getSqlSession(), movie);
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete movie result count: " + count);
+    }
+    return count;
+  }
+  
+  public int delete(Movie movie) {
+    return delete(movie, null);
+  }
+  
+  public List<Movie> list(Movie movie, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("list movie: " + movie + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineMovie = sqlEngineFactory.getQueryEngine("SELECT_MOVIE");
+    //sqlControl = getMoreResultClasses(movie, sqlControl);
+    List<Movie> movieList = sqlEngineMovie.query(sqlSessionFactory.getSqlSession(), Movie.class, movie, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("list movie size: " + ((movieList != null) ? movieList.size() : "null"));
+    }
+    return movieList;
+  }
+  
+  public List<Movie> list(Movie movie) {
+    return list(movie, null);
+  }
 }

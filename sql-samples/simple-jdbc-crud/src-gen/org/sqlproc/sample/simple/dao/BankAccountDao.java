@@ -41,4 +41,70 @@ public class BankAccountDao {
   public BankAccount insert(BankAccount bankAccount) {
     return insert(bankAccount, null);
   }
+  
+  public BankAccount get(BankAccount bankAccount, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("get get: " + bankAccount + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineBankAccount = sqlEngineFactory.getCrudEngine("GET_BANK_ACCOUNT");
+    //sqlControl = getMoreResultClasses(bankAccount, sqlControl);
+    BankAccount bankAccountGot = sqlEngineBankAccount.get(sqlSessionFactory.getSqlSession(), BankAccount.class, bankAccount, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("get bankAccount result: " + bankAccountGot);
+    }
+    return bankAccountGot;
+  }
+  	
+  public BankAccount get(BankAccount bankAccount) {
+    return get(bankAccount, null);
+  }
+  
+  public int update(BankAccount bankAccount, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("update bankAccount: " + bankAccount + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineBankAccount = sqlEngineFactory.getCrudEngine("UPDATE_BANK_ACCOUNT");
+    int count = sqlEngineBankAccount.update(sqlSessionFactory.getSqlSession(), bankAccount);
+    if (logger.isTraceEnabled()) {
+      logger.trace("update bankAccount result count: " + count);
+    }
+    return count;
+  }
+  
+  public int update(BankAccount bankAccount) {
+    return update(bankAccount, null);
+  }
+  
+  public int delete(BankAccount bankAccount, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete bankAccount: " + bankAccount + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineBankAccount = sqlEngineFactory.getCrudEngine("DELETE_BANK_ACCOUNT");
+    int count = sqlEngineBankAccount.delete(sqlSessionFactory.getSqlSession(), bankAccount);
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete bankAccount result count: " + count);
+    }
+    return count;
+  }
+  
+  public int delete(BankAccount bankAccount) {
+    return delete(bankAccount, null);
+  }
+  
+  public List<BankAccount> list(BankAccount bankAccount, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("list bankAccount: " + bankAccount + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineBankAccount = sqlEngineFactory.getQueryEngine("SELECT_BANK_ACCOUNT");
+    //sqlControl = getMoreResultClasses(bankAccount, sqlControl);
+    List<BankAccount> bankAccountList = sqlEngineBankAccount.query(sqlSessionFactory.getSqlSession(), BankAccount.class, bankAccount, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("list bankAccount size: " + ((bankAccountList != null) ? bankAccountList.size() : "null"));
+    }
+    return bankAccountList;
+  }
+  
+  public List<BankAccount> list(BankAccount bankAccount) {
+    return list(bankAccount, null);
+  }
 }

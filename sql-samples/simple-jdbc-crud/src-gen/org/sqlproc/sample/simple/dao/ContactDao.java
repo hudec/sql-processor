@@ -41,4 +41,70 @@ public class ContactDao {
   public Contact insert(Contact contact) {
     return insert(contact, null);
   }
+  
+  public Contact get(Contact contact, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("get get: " + contact + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineContact = sqlEngineFactory.getCrudEngine("GET_CONTACT");
+    //sqlControl = getMoreResultClasses(contact, sqlControl);
+    Contact contactGot = sqlEngineContact.get(sqlSessionFactory.getSqlSession(), Contact.class, contact, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("get contact result: " + contactGot);
+    }
+    return contactGot;
+  }
+  	
+  public Contact get(Contact contact) {
+    return get(contact, null);
+  }
+  
+  public int update(Contact contact, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("update contact: " + contact + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineContact = sqlEngineFactory.getCrudEngine("UPDATE_CONTACT");
+    int count = sqlEngineContact.update(sqlSessionFactory.getSqlSession(), contact);
+    if (logger.isTraceEnabled()) {
+      logger.trace("update contact result count: " + count);
+    }
+    return count;
+  }
+  
+  public int update(Contact contact) {
+    return update(contact, null);
+  }
+  
+  public int delete(Contact contact, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete contact: " + contact + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineContact = sqlEngineFactory.getCrudEngine("DELETE_CONTACT");
+    int count = sqlEngineContact.delete(sqlSessionFactory.getSqlSession(), contact);
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete contact result count: " + count);
+    }
+    return count;
+  }
+  
+  public int delete(Contact contact) {
+    return delete(contact, null);
+  }
+  
+  public List<Contact> list(Contact contact, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("list contact: " + contact + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineContact = sqlEngineFactory.getQueryEngine("SELECT_CONTACT");
+    //sqlControl = getMoreResultClasses(contact, sqlControl);
+    List<Contact> contactList = sqlEngineContact.query(sqlSessionFactory.getSqlSession(), Contact.class, contact, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("list contact size: " + ((contactList != null) ? contactList.size() : "null"));
+    }
+    return contactList;
+  }
+  
+  public List<Contact> list(Contact contact) {
+    return list(contact, null);
+  }
 }

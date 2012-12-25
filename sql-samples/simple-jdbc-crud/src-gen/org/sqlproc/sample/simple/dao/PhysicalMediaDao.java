@@ -41,4 +41,70 @@ public class PhysicalMediaDao {
   public PhysicalMedia insert(PhysicalMedia physicalMedia) {
     return insert(physicalMedia, null);
   }
+  
+  public PhysicalMedia get(PhysicalMedia physicalMedia, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("get get: " + physicalMedia + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("GET_PHYSICAL_MEDIA");
+    //sqlControl = getMoreResultClasses(physicalMedia, sqlControl);
+    PhysicalMedia physicalMediaGot = sqlEnginePhysicalMedia.get(sqlSessionFactory.getSqlSession(), PhysicalMedia.class, physicalMedia, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("get physicalMedia result: " + physicalMediaGot);
+    }
+    return physicalMediaGot;
+  }
+  	
+  public PhysicalMedia get(PhysicalMedia physicalMedia) {
+    return get(physicalMedia, null);
+  }
+  
+  public int update(PhysicalMedia physicalMedia, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("update physicalMedia: " + physicalMedia + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("UPDATE_PHYSICAL_MEDIA");
+    int count = sqlEnginePhysicalMedia.update(sqlSessionFactory.getSqlSession(), physicalMedia);
+    if (logger.isTraceEnabled()) {
+      logger.trace("update physicalMedia result count: " + count);
+    }
+    return count;
+  }
+  
+  public int update(PhysicalMedia physicalMedia) {
+    return update(physicalMedia, null);
+  }
+  
+  public int delete(PhysicalMedia physicalMedia, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete physicalMedia: " + physicalMedia + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("DELETE_PHYSICAL_MEDIA");
+    int count = sqlEnginePhysicalMedia.delete(sqlSessionFactory.getSqlSession(), physicalMedia);
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete physicalMedia result count: " + count);
+    }
+    return count;
+  }
+  
+  public int delete(PhysicalMedia physicalMedia) {
+    return delete(physicalMedia, null);
+  }
+  
+  public List<PhysicalMedia> list(PhysicalMedia physicalMedia, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("list physicalMedia: " + physicalMedia + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEnginePhysicalMedia = sqlEngineFactory.getQueryEngine("SELECT_PHYSICAL_MEDIA");
+    //sqlControl = getMoreResultClasses(physicalMedia, sqlControl);
+    List<PhysicalMedia> physicalMediaList = sqlEnginePhysicalMedia.query(sqlSessionFactory.getSqlSession(), PhysicalMedia.class, physicalMedia, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("list physicalMedia size: " + ((physicalMediaList != null) ? physicalMediaList.size() : "null"));
+    }
+    return physicalMediaList;
+  }
+  
+  public List<PhysicalMedia> list(PhysicalMedia physicalMedia) {
+    return list(physicalMedia, null);
+  }
 }

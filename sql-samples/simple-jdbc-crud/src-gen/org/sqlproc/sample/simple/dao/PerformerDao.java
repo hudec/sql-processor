@@ -41,4 +41,70 @@ public class PerformerDao {
   public Performer insert(Performer performer) {
     return insert(performer, null);
   }
+  
+  public Performer get(Performer performer, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("get get: " + performer + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePerformer = sqlEngineFactory.getCrudEngine("GET_PERFORMER");
+    //sqlControl = getMoreResultClasses(performer, sqlControl);
+    Performer performerGot = sqlEnginePerformer.get(sqlSessionFactory.getSqlSession(), Performer.class, performer, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("get performer result: " + performerGot);
+    }
+    return performerGot;
+  }
+  	
+  public Performer get(Performer performer) {
+    return get(performer, null);
+  }
+  
+  public int update(Performer performer, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("update performer: " + performer + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePerformer = sqlEngineFactory.getCrudEngine("UPDATE_PERFORMER");
+    int count = sqlEnginePerformer.update(sqlSessionFactory.getSqlSession(), performer);
+    if (logger.isTraceEnabled()) {
+      logger.trace("update performer result count: " + count);
+    }
+    return count;
+  }
+  
+  public int update(Performer performer) {
+    return update(performer, null);
+  }
+  
+  public int delete(Performer performer, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete performer: " + performer + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePerformer = sqlEngineFactory.getCrudEngine("DELETE_PERFORMER");
+    int count = sqlEnginePerformer.delete(sqlSessionFactory.getSqlSession(), performer);
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete performer result count: " + count);
+    }
+    return count;
+  }
+  
+  public int delete(Performer performer) {
+    return delete(performer, null);
+  }
+  
+  public List<Performer> list(Performer performer, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("list performer: " + performer + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEnginePerformer = sqlEngineFactory.getQueryEngine("SELECT_PERFORMER");
+    //sqlControl = getMoreResultClasses(performer, sqlControl);
+    List<Performer> performerList = sqlEnginePerformer.query(sqlSessionFactory.getSqlSession(), Performer.class, performer, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("list performer size: " + ((performerList != null) ? performerList.size() : "null"));
+    }
+    return performerList;
+  }
+  
+  public List<Performer> list(Performer performer) {
+    return list(performer, null);
+  }
 }

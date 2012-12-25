@@ -41,4 +41,70 @@ public class PaymentDao {
   public Payment insert(Payment payment) {
     return insert(payment, null);
   }
+  
+  public Payment get(Payment payment, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("get get: " + payment + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePayment = sqlEngineFactory.getCrudEngine("GET_PAYMENT");
+    //sqlControl = getMoreResultClasses(payment, sqlControl);
+    Payment paymentGot = sqlEnginePayment.get(sqlSessionFactory.getSqlSession(), Payment.class, payment, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("get payment result: " + paymentGot);
+    }
+    return paymentGot;
+  }
+  	
+  public Payment get(Payment payment) {
+    return get(payment, null);
+  }
+  
+  public int update(Payment payment, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("update payment: " + payment + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePayment = sqlEngineFactory.getCrudEngine("UPDATE_PAYMENT");
+    int count = sqlEnginePayment.update(sqlSessionFactory.getSqlSession(), payment);
+    if (logger.isTraceEnabled()) {
+      logger.trace("update payment result count: " + count);
+    }
+    return count;
+  }
+  
+  public int update(Payment payment) {
+    return update(payment, null);
+  }
+  
+  public int delete(Payment payment, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete payment: " + payment + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePayment = sqlEngineFactory.getCrudEngine("DELETE_PAYMENT");
+    int count = sqlEnginePayment.delete(sqlSessionFactory.getSqlSession(), payment);
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete payment result count: " + count);
+    }
+    return count;
+  }
+  
+  public int delete(Payment payment) {
+    return delete(payment, null);
+  }
+  
+  public List<Payment> list(Payment payment, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("list payment: " + payment + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEnginePayment = sqlEngineFactory.getQueryEngine("SELECT_PAYMENT");
+    //sqlControl = getMoreResultClasses(payment, sqlControl);
+    List<Payment> paymentList = sqlEnginePayment.query(sqlSessionFactory.getSqlSession(), Payment.class, payment, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("list payment size: " + ((paymentList != null) ? paymentList.size() : "null"));
+    }
+    return paymentList;
+  }
+  
+  public List<Payment> list(Payment payment) {
+    return list(payment, null);
+  }
 }

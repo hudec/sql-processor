@@ -41,4 +41,70 @@ public class CreditCardDao {
   public CreditCard insert(CreditCard creditCard) {
     return insert(creditCard, null);
   }
+  
+  public CreditCard get(CreditCard creditCard, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("get get: " + creditCard + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineCreditCard = sqlEngineFactory.getCrudEngine("GET_CREDIT_CARD");
+    //sqlControl = getMoreResultClasses(creditCard, sqlControl);
+    CreditCard creditCardGot = sqlEngineCreditCard.get(sqlSessionFactory.getSqlSession(), CreditCard.class, creditCard, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("get creditCard result: " + creditCardGot);
+    }
+    return creditCardGot;
+  }
+  	
+  public CreditCard get(CreditCard creditCard) {
+    return get(creditCard, null);
+  }
+  
+  public int update(CreditCard creditCard, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("update creditCard: " + creditCard + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineCreditCard = sqlEngineFactory.getCrudEngine("UPDATE_CREDIT_CARD");
+    int count = sqlEngineCreditCard.update(sqlSessionFactory.getSqlSession(), creditCard);
+    if (logger.isTraceEnabled()) {
+      logger.trace("update creditCard result count: " + count);
+    }
+    return count;
+  }
+  
+  public int update(CreditCard creditCard) {
+    return update(creditCard, null);
+  }
+  
+  public int delete(CreditCard creditCard, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete creditCard: " + creditCard + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineCreditCard = sqlEngineFactory.getCrudEngine("DELETE_CREDIT_CARD");
+    int count = sqlEngineCreditCard.delete(sqlSessionFactory.getSqlSession(), creditCard);
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete creditCard result count: " + count);
+    }
+    return count;
+  }
+  
+  public int delete(CreditCard creditCard) {
+    return delete(creditCard, null);
+  }
+  
+  public List<CreditCard> list(CreditCard creditCard, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("list creditCard: " + creditCard + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineCreditCard = sqlEngineFactory.getQueryEngine("SELECT_CREDIT_CARD");
+    //sqlControl = getMoreResultClasses(creditCard, sqlControl);
+    List<CreditCard> creditCardList = sqlEngineCreditCard.query(sqlSessionFactory.getSqlSession(), CreditCard.class, creditCard, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("list creditCard size: " + ((creditCardList != null) ? creditCardList.size() : "null"));
+    }
+    return creditCardList;
+  }
+  
+  public List<CreditCard> list(CreditCard creditCard) {
+    return list(creditCard, null);
+  }
 }

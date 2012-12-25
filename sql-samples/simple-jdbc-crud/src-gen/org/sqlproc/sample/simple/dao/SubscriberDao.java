@@ -41,4 +41,70 @@ public class SubscriberDao {
   public Subscriber insert(Subscriber subscriber) {
     return insert(subscriber, null);
   }
+  
+  public Subscriber get(Subscriber subscriber, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("get get: " + subscriber + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineSubscriber = sqlEngineFactory.getCrudEngine("GET_SUBSCRIBER");
+    //sqlControl = getMoreResultClasses(subscriber, sqlControl);
+    Subscriber subscriberGot = sqlEngineSubscriber.get(sqlSessionFactory.getSqlSession(), Subscriber.class, subscriber, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("get subscriber result: " + subscriberGot);
+    }
+    return subscriberGot;
+  }
+  	
+  public Subscriber get(Subscriber subscriber) {
+    return get(subscriber, null);
+  }
+  
+  public int update(Subscriber subscriber, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("update subscriber: " + subscriber + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineSubscriber = sqlEngineFactory.getCrudEngine("UPDATE_SUBSCRIBER");
+    int count = sqlEngineSubscriber.update(sqlSessionFactory.getSqlSession(), subscriber);
+    if (logger.isTraceEnabled()) {
+      logger.trace("update subscriber result count: " + count);
+    }
+    return count;
+  }
+  
+  public int update(Subscriber subscriber) {
+    return update(subscriber, null);
+  }
+  
+  public int delete(Subscriber subscriber, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete subscriber: " + subscriber + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEngineSubscriber = sqlEngineFactory.getCrudEngine("DELETE_SUBSCRIBER");
+    int count = sqlEngineSubscriber.delete(sqlSessionFactory.getSqlSession(), subscriber);
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete subscriber result count: " + count);
+    }
+    return count;
+  }
+  
+  public int delete(Subscriber subscriber) {
+    return delete(subscriber, null);
+  }
+  
+  public List<Subscriber> list(Subscriber subscriber, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("list subscriber: " + subscriber + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineSubscriber = sqlEngineFactory.getQueryEngine("SELECT_SUBSCRIBER");
+    //sqlControl = getMoreResultClasses(subscriber, sqlControl);
+    List<Subscriber> subscriberList = sqlEngineSubscriber.query(sqlSessionFactory.getSqlSession(), Subscriber.class, subscriber, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("list subscriber size: " + ((subscriberList != null) ? subscriberList.size() : "null"));
+    }
+    return subscriberList;
+  }
+  
+  public List<Subscriber> list(Subscriber subscriber) {
+    return list(subscriber, null);
+  }
 }

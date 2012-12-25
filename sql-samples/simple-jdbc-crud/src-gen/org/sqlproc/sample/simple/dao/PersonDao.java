@@ -41,4 +41,70 @@ public class PersonDao {
   public Person insert(Person person) {
     return insert(person, null);
   }
+  
+  public Person get(Person person, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("get get: " + person + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePerson = sqlEngineFactory.getCrudEngine("GET_PERSON");
+    //sqlControl = getMoreResultClasses(person, sqlControl);
+    Person personGot = sqlEnginePerson.get(sqlSessionFactory.getSqlSession(), Person.class, person, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("get person result: " + personGot);
+    }
+    return personGot;
+  }
+  	
+  public Person get(Person person) {
+    return get(person, null);
+  }
+  
+  public int update(Person person, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("update person: " + person + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePerson = sqlEngineFactory.getCrudEngine("UPDATE_PERSON");
+    int count = sqlEnginePerson.update(sqlSessionFactory.getSqlSession(), person);
+    if (logger.isTraceEnabled()) {
+      logger.trace("update person result count: " + count);
+    }
+    return count;
+  }
+  
+  public int update(Person person) {
+    return update(person, null);
+  }
+  
+  public int delete(Person person, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete person: " + person + " " + sqlControl);
+    }
+    SqlCrudEngine sqlEnginePerson = sqlEngineFactory.getCrudEngine("DELETE_PERSON");
+    int count = sqlEnginePerson.delete(sqlSessionFactory.getSqlSession(), person);
+    if (logger.isTraceEnabled()) {
+      logger.trace("delete person result count: " + count);
+    }
+    return count;
+  }
+  
+  public int delete(Person person) {
+    return delete(person, null);
+  }
+  
+  public List<Person> list(Person person, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("list person: " + person + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEnginePerson = sqlEngineFactory.getQueryEngine("SELECT_PERSON");
+    //sqlControl = getMoreResultClasses(person, sqlControl);
+    List<Person> personList = sqlEnginePerson.query(sqlSessionFactory.getSqlSession(), Person.class, person, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("list person size: " + ((personList != null) ? personList.size() : "null"));
+    }
+    return personList;
+  }
+  
+  public List<Person> list(Person person) {
+    return list(person, null);
+  }
 }
