@@ -8,69 +8,121 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
+import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.NewBook;
 import org.sqlproc.sample.simple.model.Person;
 
-public class PersonDao extends BaseDaoImpl {
+public class PersonDao {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public Person insert(Person person) {
-        SqlCrudEngine sqlInsertPerson = getCrudEngine("INSERT_PERSON");
-        int count = sqlInsertPerson.insert(getSqlSession(), person);
-        logger.info("insert person: " + count + ": " + person);
+    private SqlEngineFactory sqlEngineFactory;
+    private SqlSessionFactory sqlSessionFactory;
+
+    public PersonDao(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
+        this.sqlEngineFactory = sqlEngineFactory;
+        this.sqlSessionFactory = sqlSessionFactory;
+    }
+
+    public Person insert(Person person, SqlControl sqlControl) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("insert person: " + person + " " + sqlControl);
+        }
+        SqlCrudEngine sqlInsertPerson = sqlEngineFactory.getCrudEngine("INSERT_PERSON");
+        int count = sqlInsertPerson.insert(sqlSessionFactory.getSqlSession(), person);
+        if (logger.isTraceEnabled()) {
+            logger.trace("insert person result: " + count + " " + person);
+        }
         return (count > 0) ? person : null;
+    }
+
+    public Person insert(Person person) {
+        return insert(person, null);
+    }
+
+    public Person get(Person person, SqlControl sqlControl) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("get get: " + person + " " + sqlControl);
+        }
+        SqlCrudEngine sqlEngine = sqlEngineFactory.getCrudEngine("GET_PERSON");
+        sqlControl = getMoreResultClasses(person, sqlControl);
+        Person personGot = sqlEngine.get(sqlSessionFactory.getSqlSession(), Person.class, person, sqlControl);
+        if (logger.isTraceEnabled()) {
+            logger.trace("get person result: " + personGot);
+        }
+        return personGot;
     }
 
     public Person get(Person person) {
-        SqlCrudEngine sqlEngine = getCrudEngine("GET_PERSON");
-        Map<String, Class<?>> moreResultClasses = null;
-        if (person.toInit(Person.Association.library)) {
-            moreResultClasses = new HashMap<String, Class<?>>();
-            moreResultClasses.put("movie", Movie.class);
-            moreResultClasses.put("book", NewBook.class);
+        return get(person, null);
+    }
+
+    public int update(Person person, SqlControl sqlControl) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("update person: " + person + " " + sqlControl);
         }
-        Person result = sqlEngine.get(getSqlSession(), Person.class, person, null, moreResultClasses);
-        logger.info("get person: " + result);
-        return result;
+        SqlCrudEngine sqlEngine = sqlEngineFactory.getCrudEngine("UPDATE_PERSON");
+        int count = sqlEngine.update(sqlSessionFactory.getSqlSession(), person);
+        if (logger.isTraceEnabled()) {
+            logger.trace("update person result count: " + count);
+        }
+        return count;
     }
 
-    public Person update(Person person) {
-        SqlCrudEngine sqlEngine = getCrudEngine("UPDATE_PERSON");
-        int count = sqlEngine.update(getSqlSession(), person);
-        logger.info("update person: " + count);
-        return (count > 0) ? person : null;
+    public int update(Person person) {
+        return update(person, null);
     }
 
-    public boolean delete(Person person) {
-        SqlCrudEngine sqlEngine = getCrudEngine("DELETE_PERSON");
-        int count = sqlEngine.delete(getSqlSession(), person);
-        logger.info("delete: " + count);
-        return (count > 0);
+    public int delete(Person person, SqlControl sqlControl) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("delete person: " + person + " " + sqlControl);
+        }
+        SqlCrudEngine sqlEngine = sqlEngineFactory.getCrudEngine("DELETE_PERSON");
+        int count = sqlEngine.delete(sqlSessionFactory.getSqlSession(), person);
+        if (logger.isTraceEnabled()) {
+            logger.trace("delete person result count: " + count);
+        }
+        return count;
+    }
+
+    public int delete(Person person) {
+        return delete(person, null);
     }
 
     public List<Person> list(Person person, SqlControl sqlControl) {
-        SqlQueryEngine sqlEngine = getQueryEngine("SELECT_PERSON");
-        SqlStandardControl sqlControl2 = new SqlStandardControl(sqlControl);
-        if (person != null && person.toInit(Person.Association.library)) {
-            Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
-            moreResultClasses.put("movie", Movie.class);
-            moreResultClasses.put("book", NewBook.class);
-            sqlControl2.setMoreResultClasses(moreResultClasses);
+        if (logger.isTraceEnabled()) {
+            logger.trace("list person: " + person + " " + sqlControl);
         }
-        List<Person> result = sqlEngine.query(getSqlSession(), Person.class, person, sqlControl2);
-        logger.info("list person size: " + result.size());
-        return result;
+        SqlQueryEngine sqlEngine = sqlEngineFactory.getQueryEngine("SELECT_PERSON");
+        sqlControl = getMoreResultClasses(person, sqlControl);
+        List<Person> personList = sqlEngine.query(sqlSessionFactory.getSqlSession(), Person.class, person, sqlControl);
+        if (logger.isTraceEnabled()) {
+            logger.trace("list person size: " + ((personList != null) ? personList.size() : "null"));
+        }
+        return personList;
     }
 
     public List<Person> list(Person person) {
         return list(person, null);
     }
 
-    public List<Person> listAll() {
-        return list(null);
+    SqlControl getMoreResultClasses(Person person, SqlControl sqlControl) {
+        if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
+            return sqlControl;
+        Map<String, Class<?>> moreResultClasses = null;
+        if (person != null && person.toInit(Person.Association.library)) {
+            moreResultClasses = new HashMap<String, Class<?>>();
+            moreResultClasses.put("movie", Movie.class);
+            moreResultClasses.put("book", NewBook.class);
+        }
+        if (moreResultClasses != null) {
+            sqlControl = new SqlStandardControl(sqlControl);
+            ((SqlStandardControl) sqlControl).setMoreResultClasses(moreResultClasses);
+        }
+        return sqlControl;
     }
 }

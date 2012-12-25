@@ -113,9 +113,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         movieDao = new MovieDao();
         movieDao.setConnection(connection);
         movieDao.setSqlFactory(sqlFactory);
-        personDao = new PersonDao();
-        personDao.setConnection(connection);
-        personDao.setSqlFactory(sqlFactory);
+        personDao = new PersonDao(this, this);
         performerDao = new PerformerDao();
         performerDao.setConnection(connection);
         performerDao.setSqlFactory(sqlFactory);
@@ -158,6 +156,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Subscriber subscriber, s;
         PhysicalMedia physicalMedia, pm;
         Payment payment, py;
+        int count;
 
         List<Person> list;
         boolean deleted;
@@ -222,8 +221,8 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andrejík");
-        p = main.getPersonDao().update(person);
-        Assert.assertNotNull(p);
+        count = main.getPersonDao().update(person);
+        Assert.assertEquals(1, count);
 
         bankAccount1.setBaAccount("updated account");
         bankAccount1.setSubscriber(honzaS);
@@ -276,8 +275,8 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         person.setId(andrej.getId());
         person.setFirstName("Andrioša");
         person.setNull(Person.Attribute.ssn);
-        p = main.getPersonDao().update(person);
-        Assert.assertNotNull(p);
+        count = main.getPersonDao().update(person);
+        Assert.assertEquals(1, count);
 
         // get bankAccount with associations
         bankAccount = new BankAccount();
@@ -477,7 +476,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertEquals(new Long(789), ((CreditCard) s.getBillingDetails().get(0)).getCcNumber());
 
         // list people with associations
-        list = main.getPersonDao().listAll();
+        list = main.getPersonDao().list(null);
         Assert.assertEquals(5, list.size());
         person = new Person();
         person.setFirstName("XXX");
