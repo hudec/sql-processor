@@ -3208,13 +3208,114 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_DAO__MODIFIERS2 = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Methods</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_DAO__METHODS = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 4;
+
+  /**
    * The number of structural features of the '<em>Pojo Dao</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_DAO_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 4;
+  int POJO_DAO_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 5;
+
+  /**
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodImpl <em>Pojo Method</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.sqlproc.dsl.processorDsl.impl.PojoMethodImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoMethod()
+   * @generated
+   */
+  int POJO_METHOD = 64;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_METHOD__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>To Inits</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_METHOD__TO_INITS = 1;
+
+  /**
+   * The number of structural features of the '<em>Pojo Method</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_METHOD_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodArgImpl <em>Pojo Method Arg</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.sqlproc.dsl.processorDsl.impl.PojoMethodArgImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoMethodArg()
+   * @generated
+   */
+  int POJO_METHOD_ARG = 65;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_METHOD_ARG__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Native</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_METHOD_ARG__NATIVE = 1;
+
+  /**
+   * The feature id for the '<em><b>Ref</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_METHOD_ARG__REF = 2;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_METHOD_ARG__TYPE = 3;
+
+  /**
+   * The number of structural features of the '<em>Pojo Method Arg</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_METHOD_ARG_FEATURE_COUNT = 4;
 
 
   /**
@@ -6146,6 +6247,103 @@ public interface ProcessorDslPackage extends EPackage
   EReference getPojoDao_Modifiers2();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.PojoDao#getMethods <em>Methods</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Methods</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoDao#getMethods()
+   * @see #getPojoDao()
+   * @generated
+   */
+  EReference getPojoDao_Methods();
+
+  /**
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoMethod <em>Pojo Method</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Pojo Method</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoMethod
+   * @generated
+   */
+  EClass getPojoMethod();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoMethod#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoMethod#getName()
+   * @see #getPojoMethod()
+   * @generated
+   */
+  EAttribute getPojoMethod_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.PojoMethod#getToInits <em>To Inits</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>To Inits</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoMethod#getToInits()
+   * @see #getPojoMethod()
+   * @generated
+   */
+  EReference getPojoMethod_ToInits();
+
+  /**
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoMethodArg <em>Pojo Method Arg</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Pojo Method Arg</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoMethodArg
+   * @generated
+   */
+  EClass getPojoMethodArg();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoMethodArg#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoMethodArg#getName()
+   * @see #getPojoMethodArg()
+   * @generated
+   */
+  EAttribute getPojoMethodArg_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoMethodArg#getNative <em>Native</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Native</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoMethodArg#getNative()
+   * @see #getPojoMethodArg()
+   * @generated
+   */
+  EAttribute getPojoMethodArg_Native();
+
+  /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoMethodArg#getRef <em>Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Ref</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoMethodArg#getRef()
+   * @see #getPojoMethodArg()
+   * @generated
+   */
+  EReference getPojoMethodArg_Ref();
+
+  /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoMethodArg#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Type</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoMethodArg#getType()
+   * @see #getPojoMethodArg()
+   * @generated
+   */
+  EReference getPojoMethodArg_Type();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -8471,6 +8669,82 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EReference POJO_DAO__MODIFIERS2 = eINSTANCE.getPojoDao_Modifiers2();
+
+    /**
+     * The meta object literal for the '<em><b>Methods</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference POJO_DAO__METHODS = eINSTANCE.getPojoDao_Methods();
+
+    /**
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodImpl <em>Pojo Method</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.sqlproc.dsl.processorDsl.impl.PojoMethodImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoMethod()
+     * @generated
+     */
+    EClass POJO_METHOD = eINSTANCE.getPojoMethod();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_METHOD__NAME = eINSTANCE.getPojoMethod_Name();
+
+    /**
+     * The meta object literal for the '<em><b>To Inits</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference POJO_METHOD__TO_INITS = eINSTANCE.getPojoMethod_ToInits();
+
+    /**
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodArgImpl <em>Pojo Method Arg</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.sqlproc.dsl.processorDsl.impl.PojoMethodArgImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoMethodArg()
+     * @generated
+     */
+    EClass POJO_METHOD_ARG = eINSTANCE.getPojoMethodArg();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_METHOD_ARG__NAME = eINSTANCE.getPojoMethodArg_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Native</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_METHOD_ARG__NATIVE = eINSTANCE.getPojoMethodArg_Native();
+
+    /**
+     * The meta object literal for the '<em><b>Ref</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference POJO_METHOD_ARG__REF = eINSTANCE.getPojoMethodArg_Ref();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference POJO_METHOD_ARG__TYPE = eINSTANCE.getPojoMethodArg_Type();
 
   }
 

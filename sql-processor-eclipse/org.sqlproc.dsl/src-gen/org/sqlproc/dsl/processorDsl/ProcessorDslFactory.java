@@ -599,6 +599,24 @@ public interface ProcessorDslFactory extends EFactory
   PojoDao createPojoDao();
 
   /**
+   * Returns a new object of class '<em>Pojo Method</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojo Method</em>'.
+   * @generated
+   */
+  PojoMethod createPojoMethod();
+
+  /**
+   * Returns a new object of class '<em>Pojo Method Arg</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojo Method Arg</em>'.
+   * @generated
+   */
+  PojoMethodArg createPojoMethodArg();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -5,6 +5,9 @@ import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -1121,11 +1124,14 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("  ");
     _builder.newLine();
     _builder.append("  ");
+    final List<PojoProperty> toInits = Utils.getToInits(e);
+    _builder.newLineIfNotEmpty();
+    _builder.append("  ");
     CharSequence _compileInsert = this.compileInsert(d, e, importManager);
     _builder.append(_compileInsert, "  ");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
-    CharSequence _compileGet = this.compileGet(d, e, importManager);
+    CharSequence _compileGet = this.compileGet(d, e, toInits, importManager);
     _builder.append(_compileGet, "  ");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
@@ -1137,7 +1143,7 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append(_compileDelete, "  ");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
-    CharSequence _compileList = this.compileList(d, e, importManager);
+    CharSequence _compileList = this.compileList(d, e, toInits, importManager);
     _builder.append(_compileList, "  ");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -1247,7 +1253,7 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
-  public CharSequence compileGet(final PojoDao d, final PojoEntity e, final ImportManager importManager) {
+  public CharSequence compileGet(final PojoDao d, final PojoEntity e, final List<PojoProperty> toInits, final ImportManager importManager) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.newLine();
     _builder.append("public ");
@@ -1538,7 +1544,7 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
-  public CharSequence compileList(final PojoDao d, final PojoEntity e, final ImportManager importManager) {
+  public CharSequence compileList(final PojoDao d, final PojoEntity e, final List<PojoProperty> toInits, final ImportManager importManager) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.newLine();
     _builder.append("public List<");
@@ -1656,6 +1662,107 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append(_firstLower_11, "  ");
     _builder.append(", null);");
     _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileMoreResultClasses(final PojoDao d, final PojoEntity e, final List<PojoProperty> toInits, final ImportManager importManager) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.newLine();
+    _builder.append("SqlControl getMoreResultClasses(");
+    String _name = e.getName();
+    _builder.append(_name, "");
+    _builder.append(" ");
+    String _name_1 = e.getName();
+    String _firstLower = StringExtensions.toFirstLower(_name_1);
+    _builder.append(_firstLower, "");
+    _builder.append(", SqlControl sqlControl) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("  ");
+    _builder.append("if (sqlControl != null && sqlControl.getMoreResultClasses() != null)");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("return sqlControl;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("Map<String, Class<?>> moreResultClasses = null;");
+    _builder.newLine();
+    _builder.append("    ");
+    {
+      boolean _hasElements = false;
+      for(final PojoProperty f : toInits) {
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          _builder.appendImmediate("\n", "    ");
+        }
+        _builder.append("      if (");
+        String _name_2 = e.getName();
+        String _firstLower_1 = StringExtensions.toFirstLower(_name_2);
+        _builder.append(_firstLower_1, "    ");
+        _builder.append(" != null && ");
+        String _name_3 = e.getName();
+        String _firstLower_2 = StringExtensions.toFirstLower(_name_3);
+        _builder.append(_firstLower_2, "    ");
+        _builder.append(".toInit(");
+        String _name_4 = e.getName();
+        _builder.append(_name_4, "    ");
+        _builder.append(".Association.");
+        String _name_5 = f.getName();
+        _builder.append(_name_5, "    ");
+        _builder.append(")) {");
+        _builder.newLineIfNotEmpty();
+        _builder.append("    ");
+        _builder.append("if (moreResultClasses == null)");
+        _builder.newLine();
+        _builder.append("    ");
+        _builder.append("  ");
+        _builder.append("moreResultClasses = new HashMap<String, Class<?>>();");
+        _builder.newLine();
+        _builder.append("    ");
+        {
+          PojoEntity _gref = f.getGref();
+          Map<String,PojoEntity> _childClasses = Utils.childClasses(_gref);
+          Set<Entry<String,PojoEntity>> _entrySet = _childClasses.entrySet();
+          boolean _hasElements_1 = false;
+          for(final Entry<String,PojoEntity> map : _entrySet) {
+            if (!_hasElements_1) {
+              _hasElements_1 = true;
+            } else {
+              _builder.appendImmediate("\n", "    ");
+            }
+            _builder.append("  moreResultClasses.put(\"");
+            String _key = map.getKey();
+            _builder.append(_key, "    ");
+            _builder.append("\", ");
+            PojoEntity _value = map.getValue();
+            QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(_value);
+            _builder.append(_fullyQualifiedName, "    ");
+            _builder.append(".class);");
+          }
+        }
+        _builder.newLineIfNotEmpty();
+        _builder.append("    ");
+        _builder.append("}");
+        _builder.newLine();
+      }
+    }
+    _builder.append("  ");
+    _builder.append("if (moreResultClasses != null) {");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("sqlControl = new SqlStandardControl(sqlControl);");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("((SqlStandardControl) sqlControl).setMoreResultClasses(moreResultClasses);");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("return sqlControl;");
+    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;

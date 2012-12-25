@@ -10952,11 +10952,297 @@ this_COLON_4=RULE_COLON
     { 
     newLeafNode(this_LBRACE_7, grammarAccess.getPojoDaoAccess().getLBRACETerminalRuleCall_7()); 
     }
-this_RBRACE_8=RULE_RBRACE
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPojoDaoAccess().getMethodsPojoMethodParserRuleCall_8_0()); 
+	    }
+		lv_methods_8_0=rulePojoMethod		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPojoDaoRule());
+	        }
+       		add(
+       			$current, 
+       			"methods",
+        		lv_methods_8_0, 
+        		"PojoMethod");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*this_RBRACE_9=RULE_RBRACE
     { 
-    newLeafNode(this_RBRACE_8, grammarAccess.getPojoDaoAccess().getRBRACETerminalRuleCall_8()); 
+    newLeafNode(this_RBRACE_9, grammarAccess.getPojoDaoAccess().getRBRACETerminalRuleCall_9()); 
     }
 )
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+
+
+
+
+// Entry rule entryRulePojoMethod
+entryRulePojoMethod returns [EObject current=null] 
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+	}
+	:
+	{ newCompositeNode(grammarAccess.getPojoMethodRule()); }
+	 iv_rulePojoMethod=rulePojoMethod 
+	 { $current=$iv_rulePojoMethod.current; } 
+	 EOF 
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+// Rule PojoMethod
+rulePojoMethod returns [EObject current=null] 
+    @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_name_0_0=RULE_IDENT
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getPojoMethodAccess().getNameIDENTTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"IDENT");
+	    }
+
+)
+)this_COLON_1=RULE_COLON
+    { 
+    newLeafNode(this_COLON_1, grammarAccess.getPojoMethodAccess().getCOLONTerminalRuleCall_1()); 
+    }
+this_COLON_2=RULE_COLON
+    { 
+    newLeafNode(this_COLON_2, grammarAccess.getPojoMethodAccess().getCOLONTerminalRuleCall_2()); 
+    }
+this_COLON_3=RULE_COLON
+    { 
+    newLeafNode(this_COLON_3, grammarAccess.getPojoMethodAccess().getCOLONTerminalRuleCall_3()); 
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPojoMethodAccess().getToInitsPojoMethodArgParserRuleCall_4_0()); 
+	    }
+		lv_toInits_4_0=rulePojoMethodArg		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPojoMethodRule());
+	        }
+       		add(
+       			$current, 
+       			"toInits",
+        		lv_toInits_4_0, 
+        		"PojoMethodArg");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+)
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+
+
+
+
+// Entry rule entryRulePojoMethodArg
+entryRulePojoMethodArg returns [EObject current=null] 
+	@init { 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+	}
+	:
+	{ newCompositeNode(grammarAccess.getPojoMethodArgRule()); }
+	 iv_rulePojoMethodArg=rulePojoMethodArg 
+	 { $current=$iv_rulePojoMethodArg.current; } 
+	 EOF 
+;
+finally {
+	myHiddenTokenState.restore();
+}
+
+// Rule PojoMethodArg
+rulePojoMethodArg returns [EObject current=null] 
+    @init { enterRule(); 
+		HiddenTokens myHiddenTokenState = ((XtextTokenStream)input).setHiddenTokens("RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS");
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_name_0_0=RULE_IDENT
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getPojoMethodArgAccess().getNameIDENTTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodArgRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"IDENT");
+	    }
+
+)
+)((
+(
+(
+		lv_native_1_1=	'_char' 
+    {
+        newLeafNode(lv_native_1_1, grammarAccess.getPojoMethodArgAccess().getNative_charKeyword_1_0_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodArgRule());
+	        }
+       		setWithLastConsumed($current, "native", lv_native_1_1, null);
+	    }
+
+    |		lv_native_1_2=	'_byte' 
+    {
+        newLeafNode(lv_native_1_2, grammarAccess.getPojoMethodArgAccess().getNative_byteKeyword_1_0_0_1());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodArgRule());
+	        }
+       		setWithLastConsumed($current, "native", lv_native_1_2, null);
+	    }
+
+    |		lv_native_1_3=	'_short' 
+    {
+        newLeafNode(lv_native_1_3, grammarAccess.getPojoMethodArgAccess().getNative_shortKeyword_1_0_0_2());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodArgRule());
+	        }
+       		setWithLastConsumed($current, "native", lv_native_1_3, null);
+	    }
+
+    |		lv_native_1_4=	'_int' 
+    {
+        newLeafNode(lv_native_1_4, grammarAccess.getPojoMethodArgAccess().getNative_intKeyword_1_0_0_3());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodArgRule());
+	        }
+       		setWithLastConsumed($current, "native", lv_native_1_4, null);
+	    }
+
+    |		lv_native_1_5=	'_long' 
+    {
+        newLeafNode(lv_native_1_5, grammarAccess.getPojoMethodArgAccess().getNative_longKeyword_1_0_0_4());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodArgRule());
+	        }
+       		setWithLastConsumed($current, "native", lv_native_1_5, null);
+	    }
+
+    |		lv_native_1_6=	'_float' 
+    {
+        newLeafNode(lv_native_1_6, grammarAccess.getPojoMethodArgAccess().getNative_floatKeyword_1_0_0_5());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodArgRule());
+	        }
+       		setWithLastConsumed($current, "native", lv_native_1_6, null);
+	    }
+
+    |		lv_native_1_7=	'_double' 
+    {
+        newLeafNode(lv_native_1_7, grammarAccess.getPojoMethodArgAccess().getNative_doubleKeyword_1_0_0_6());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodArgRule());
+	        }
+       		setWithLastConsumed($current, "native", lv_native_1_7, null);
+	    }
+
+    |		lv_native_1_8=	'_boolean' 
+    {
+        newLeafNode(lv_native_1_8, grammarAccess.getPojoMethodArgAccess().getNative_booleanKeyword_1_0_0_7());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodArgRule());
+	        }
+       		setWithLastConsumed($current, "native", lv_native_1_8, null);
+	    }
+
+)
+
+)
+)
+    |((this_COLON_2=RULE_COLON
+    { 
+    newLeafNode(this_COLON_2, grammarAccess.getPojoMethodArgAccess().getCOLONTerminalRuleCall_1_1_0_0()); 
+    }
+(this_COLON_3=RULE_COLON
+    { 
+    newLeafNode(this_COLON_3, grammarAccess.getPojoMethodArgAccess().getCOLONTerminalRuleCall_1_1_0_1_0()); 
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodArgRule());
+	        }
+        }
+	otherlv_4=RULE_IDENT
+	{
+		newLeafNode(otherlv_4, grammarAccess.getPojoMethodArgAccess().getRefPojoEntityCrossReference_1_1_0_1_1_0()); 
+	}
+
+)
+)))
+    |(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodArgRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getPojoMethodArgAccess().getTypeJvmTypeCrossReference_1_1_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))))
 ;
 finally {
 	myHiddenTokenState.restore();

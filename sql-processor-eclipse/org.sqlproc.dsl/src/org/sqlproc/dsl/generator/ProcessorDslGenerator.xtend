@@ -17,6 +17,7 @@ import java.util.ArrayList
 import org.sqlproc.dsl.processorDsl.Implements
 import org.sqlproc.dsl.processorDsl.Extends
 import org.sqlproc.dsl.processorDsl.PojoDao
+import java.util.List
 
 class ProcessorDslGenerator implements IGenerator {
 	
@@ -315,11 +316,12 @@ public «IF isAbstract(d)»abstract «ENDIF»class «d.name» «compileExtends(d
     this.sqlSessionFactory = sqlSessionFactory;
   }
   
+  «val toInits = getToInits(e)»
   «compileInsert(d, e, importManager)»
-  «compileGet(d, e, importManager)»
+  «compileGet(d, e, toInits, importManager)»
   «compileUpdate(d, e, importManager)»
   «compileDelete(d, e, importManager)»
-  «compileList(d, e, importManager)»
+  «compileList(d, e, toInits, importManager)»
 }
 '''
 
@@ -342,7 +344,7 @@ def compileInsert(PojoDao d, PojoEntity e, ImportManager importManager) '''
     }
 '''
 
-def compileGet(PojoDao d, PojoEntity e, ImportManager importManager) '''
+def compileGet(PojoDao d, PojoEntity e, List<PojoProperty> toInits, ImportManager importManager) '''
 
     public «e.name» get(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
       if (logger.isTraceEnabled()) {
@@ -400,7 +402,7 @@ def compileDelete(PojoDao d, PojoEntity e, ImportManager importManager) '''
     }
 '''
 
-def compileList(PojoDao d, PojoEntity e, ImportManager importManager) '''
+def compileList(PojoDao d, PojoEntity e, List<PojoProperty> toInits, ImportManager importManager) '''
 
     public List<«e.name»> list(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
       if (logger.isTraceEnabled()) {
@@ -417,6 +419,28 @@ def compileList(PojoDao d, PojoEntity e, ImportManager importManager) '''
 
     public List<«e.name»> list(«e.name» «e.name.toFirstLower») {
       return list(«e.name.toFirstLower», null);
+    }
+'''
+
+def compileMoreResultClasses(PojoDao d, PojoEntity e, List<PojoProperty> toInits, ImportManager importManager) '''
+
+    SqlControl getMoreResultClasses(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+      if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
+        return sqlControl;
+      Map<String, Class<?>> moreResultClasses = null;
+        «FOR f:toInits SEPARATOR "
+"»      if («e.name.toFirstLower» != null && «e.name.toFirstLower».toInit(«e.name».Association.«f.name»)) {
+        if (moreResultClasses == null)
+          moreResultClasses = new HashMap<String, Class<?>>();
+        «FOR map:childClasses(f.gref).entrySet SEPARATOR "
+"»  moreResultClasses.put("«map.key»", «map.value.fullyQualifiedName».class);«ENDFOR»
+    }
+      «ENDFOR»
+      if (moreResultClasses != null) {
+        sqlControl = new SqlStandardControl(sqlControl);
+        ((SqlStandardControl) sqlControl).setMoreResultClasses(moreResultClasses);
+      }
+      return sqlControl;
     }
 '''
 

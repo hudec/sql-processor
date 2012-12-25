@@ -696,7 +696,7 @@
               <type metamodel="//@metamodelDeclarations.1">
                 <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
             </terminal>
           </elements>
         </elements>
@@ -711,7 +711,7 @@
             <type metamodel="//@metamodelDeclarations.1">
               <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
           </terminal>
         </elements>
       </elements>
@@ -771,7 +771,7 @@
             <type metamodel="//@metamodelDeclarations.1">
               <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
           </terminal>
         </elements>
       </elements>
@@ -786,7 +786,7 @@
               <type metamodel="//@metamodelDeclarations.1">
                 <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
             </terminal>
           </elements>
         </elements>
@@ -801,7 +801,7 @@
             <type metamodel="//@metamodelDeclarations.1">
               <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
           </terminal>
         </elements>
       </elements>
@@ -2515,7 +2515,7 @@
                   <type metamodel="//@metamodelDeclarations.1">
                     <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
                   </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
                 </terminal>
               </elements>
             </elements>
@@ -2539,7 +2539,7 @@
                   <type metamodel="//@metamodelDeclarations.1">
                     <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
                   </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
                 </terminal>
               </elements>
             </elements>
@@ -2600,7 +2600,7 @@
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Keyword" value="import"/>
       <elements xsi:type="xtext:Assignment" feature="importedNamespace" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.105"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.107"/>
       </elements>
     </alternatives>
   </rules>
@@ -2615,7 +2615,7 @@
           <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
         </terminal>
       </elements>
     </alternatives>
@@ -2631,7 +2631,7 @@
           <type metamodel="//@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
         </terminal>
       </elements>
     </alternatives>
@@ -2810,7 +2810,7 @@
                   <type metamodel="//@metamodelDeclarations.1">
                     <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
                   </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
                 </terminal>
               </elements>
             </elements>
@@ -2834,7 +2834,7 @@
                   <type metamodel="//@metamodelDeclarations.1">
                     <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
                   </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
                 </terminal>
               </elements>
             </elements>
@@ -2876,7 +2876,74 @@
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.102"/>
       </elements>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.77"/>
+      <elements xsi:type="xtext:Assignment" cardinality="*" feature="methods" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.105"/>
+      </elements>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.78"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="PojoMethod" definesHiddenTokens="true" hiddenTokens="//@rules.64 //@rules.65 //@rules.66">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//PojoMethod"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.61"/>
+      </elements>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.69"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.69"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.69"/>
+      <elements xsi:type="xtext:Assignment" cardinality="+" feature="toInits" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="PojoMethodArg" definesHiddenTokens="true" hiddenTokens="//@rules.64 //@rules.65 //@rules.66">
+    <type metamodel="//@metamodelDeclarations.2">
+      <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//PojoMethodArg"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.61"/>
+      </elements>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Assignment" feature="native" operator="=">
+          <terminal xsi:type="xtext:Alternatives">
+            <elements xsi:type="xtext:Keyword" value="_char"/>
+            <elements xsi:type="xtext:Keyword" value="_byte"/>
+            <elements xsi:type="xtext:Keyword" value="_short"/>
+            <elements xsi:type="xtext:Keyword" value="_int"/>
+            <elements xsi:type="xtext:Keyword" value="_long"/>
+            <elements xsi:type="xtext:Keyword" value="_float"/>
+            <elements xsi:type="xtext:Keyword" value="_double"/>
+            <elements xsi:type="xtext:Keyword" value="_boolean"/>
+          </terminal>
+        </elements>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:RuleCall" rule="//@rules.69"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:RuleCall" rule="//@rules.69"/>
+              <elements xsi:type="xtext:Assignment" feature="ref" operator="=">
+                <terminal xsi:type="xtext:CrossReference">
+                  <type metamodel="//@metamodelDeclarations.2">
+                    <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//PojoEntity"/>
+                  </type>
+                  <terminal xsi:type="xtext:RuleCall" rule="//@rules.61"/>
+                </terminal>
+              </elements>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+            <terminal xsi:type="xtext:CrossReference">
+              <type metamodel="//@metamodelDeclarations.1">
+                <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/xtext/common/JavaVMTypes#//JvmType"/>
+              </type>
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.108"/>
+            </terminal>
+          </elements>
+        </elements>
+      </elements>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="QualifiedNameWithWildcard">
@@ -2884,7 +2951,7 @@
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.106"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.108"/>
       <elements xsi:type="xtext:Keyword" cardinality="?" value=".*"/>
     </alternatives>
   </rules>

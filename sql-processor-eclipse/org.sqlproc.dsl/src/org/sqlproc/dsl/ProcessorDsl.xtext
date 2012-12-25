@@ -331,7 +331,17 @@ PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 PojoDao hidden(ML_COMMENT, SL_COMMENT, WS):
 	(modifiers1+=PojoEntityModifier1)* 'dao' name=IDENT COLON COLON pojo=[PojoEntity|IDENT] (modifiers2+=PojoEntityModifier3)* 
 	LBRACE
+		methods+=PojoMethod*
 	RBRACE;
+
+PojoMethod hidden(ML_COMMENT, SL_COMMENT, WS):
+	name=IDENT COLON COLON COLON (toInits+=PojoMethodArg)+
+;
+
+PojoMethodArg hidden(ML_COMMENT, SL_COMMENT, WS):
+	name=IDENT (native = ('_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') |
+	(COLON (COLON ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]))
+;
 
 QualifiedNameWithWildcard:
   QualifiedName '.*'?; 

@@ -21,6 +21,7 @@ import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier1;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier3;
+import org.sqlproc.dsl.processorDsl.PojoMethod;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -34,6 +35,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoDaoImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoDaoImpl#getPojo <em>Pojo</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoDaoImpl#getModifiers2 <em>Modifiers2</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoDaoImpl#getMethods <em>Methods</em>}</li>
  * </ul>
  * </p>
  *
@@ -90,6 +92,16 @@ public class PojoDaoImpl extends AbstractPojoEntityImpl implements PojoDao
    * @ordered
    */
   protected EList<PojoEntityModifier3> modifiers2;
+
+  /**
+   * The cached value of the '{@link #getMethods() <em>Methods</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMethods()
+   * @generated
+   * @ordered
+   */
+  protected EList<PojoMethod> methods;
 
   /**
    * <!-- begin-user-doc -->
@@ -211,6 +223,20 @@ public class PojoDaoImpl extends AbstractPojoEntityImpl implements PojoDao
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<PojoMethod> getMethods()
+  {
+    if (methods == null)
+    {
+      methods = new EObjectContainmentEList<PojoMethod>(PojoMethod.class, this, ProcessorDslPackage.POJO_DAO__METHODS);
+    }
+    return methods;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -220,6 +246,8 @@ public class PojoDaoImpl extends AbstractPojoEntityImpl implements PojoDao
         return ((InternalEList<?>)getModifiers1()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.POJO_DAO__MODIFIERS2:
         return ((InternalEList<?>)getModifiers2()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.POJO_DAO__METHODS:
+        return ((InternalEList<?>)getMethods()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -243,6 +271,8 @@ public class PojoDaoImpl extends AbstractPojoEntityImpl implements PojoDao
         return basicGetPojo();
       case ProcessorDslPackage.POJO_DAO__MODIFIERS2:
         return getModifiers2();
+      case ProcessorDslPackage.POJO_DAO__METHODS:
+        return getMethods();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -272,6 +302,10 @@ public class PojoDaoImpl extends AbstractPojoEntityImpl implements PojoDao
         getModifiers2().clear();
         getModifiers2().addAll((Collection<? extends PojoEntityModifier3>)newValue);
         return;
+      case ProcessorDslPackage.POJO_DAO__METHODS:
+        getMethods().clear();
+        getMethods().addAll((Collection<? extends PojoMethod>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -298,6 +332,9 @@ public class PojoDaoImpl extends AbstractPojoEntityImpl implements PojoDao
       case ProcessorDslPackage.POJO_DAO__MODIFIERS2:
         getModifiers2().clear();
         return;
+      case ProcessorDslPackage.POJO_DAO__METHODS:
+        getMethods().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -320,6 +357,8 @@ public class PojoDaoImpl extends AbstractPojoEntityImpl implements PojoDao
         return pojo != null;
       case ProcessorDslPackage.POJO_DAO__MODIFIERS2:
         return modifiers2 != null && !modifiers2.isEmpty();
+      case ProcessorDslPackage.POJO_DAO__METHODS:
+        return methods != null && !methods.isEmpty();
     }
     return super.eIsSet(featureID);
   }

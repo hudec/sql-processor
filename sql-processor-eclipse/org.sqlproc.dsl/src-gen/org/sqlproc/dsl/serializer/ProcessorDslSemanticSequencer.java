@@ -62,6 +62,8 @@ import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier1;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier2;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier3;
+import org.sqlproc.dsl.processorDsl.PojoMethod;
+import org.sqlproc.dsl.processorDsl.PojoMethodArg;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoPropertyModifier;
 import org.sqlproc.dsl.processorDsl.PojoType;
@@ -390,6 +392,18 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.POJO_ENTITY_MODIFIER3:
 				if(context == grammarAccess.getPojoEntityModifier3Rule()) {
 					sequence_PojoEntityModifier3(context, (PojoEntityModifier3) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.POJO_METHOD:
+				if(context == grammarAccess.getPojoMethodRule()) {
+					sequence_PojoMethod(context, (PojoMethod) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.POJO_METHOD_ARG:
+				if(context == grammarAccess.getPojoMethodArgRule()) {
+					sequence_PojoMethodArg(context, (PojoMethodArg) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1039,7 +1053,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (modifiers1+=PojoEntityModifier1* name=IDENT pojo=[PojoEntity|IDENT] modifiers2+=PojoEntityModifier3*)
+	 *     (modifiers1+=PojoEntityModifier1* name=IDENT pojo=[PojoEntity|IDENT] modifiers2+=PojoEntityModifier3* methods+=PojoMethod*)
 	 */
 	protected void sequence_PojoDao(EObject context, PojoDao semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1087,6 +1101,38 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (modifiers1+=PojoEntityModifier1* name=IDENT modifiers2+=PojoEntityModifier2* features+=PojoProperty*)
 	 */
 	protected void sequence_PojoEntity(EObject context, PojoEntity semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=IDENT 
+	 *         (
+	 *             native='_char' | 
+	 *             native='_byte' | 
+	 *             native='_short' | 
+	 *             native='_int' | 
+	 *             native='_long' | 
+	 *             native='_float' | 
+	 *             native='_double' | 
+	 *             native='_boolean' | 
+	 *             ref=[PojoEntity|IDENT] | 
+	 *             type=[JvmType|QualifiedName]
+	 *         )
+	 *     )
+	 */
+	protected void sequence_PojoMethodArg(EObject context, PojoMethodArg semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=IDENT toInits+=PojoMethodArg+)
+	 */
+	protected void sequence_PojoMethod(EObject context, PojoMethod semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

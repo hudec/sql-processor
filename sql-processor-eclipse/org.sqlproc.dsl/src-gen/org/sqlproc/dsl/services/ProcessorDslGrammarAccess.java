@@ -6586,15 +6586,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cModifiers2Assignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cModifiers2PojoEntityModifier3ParserRuleCall_6_0 = (RuleCall)cModifiers2Assignment_6.eContents().get(0);
 		private final RuleCall cLBRACETerminalRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
-		private final RuleCall cRBRACETerminalRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
+		private final Assignment cMethodsAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cMethodsPojoMethodParserRuleCall_8_0 = (RuleCall)cMethodsAssignment_8.eContents().get(0);
+		private final RuleCall cRBRACETerminalRuleCall_9 = (RuleCall)cGroup.eContents().get(9);
 		
 		//PojoDao hidden(ML_COMMENT, SL_COMMENT, WS):
 		//	modifiers1+=PojoEntityModifier1* "dao" name=IDENT COLON COLON pojo=[PojoEntity|IDENT] modifiers2+=PojoEntityModifier3*
-		//	LBRACE RBRACE;
+		//	LBRACE methods+=PojoMethod* RBRACE;
 		public ParserRule getRule() { return rule; }
 
 		//modifiers1+=PojoEntityModifier1* "dao" name=IDENT COLON COLON pojo=[PojoEntity|IDENT] modifiers2+=PojoEntityModifier3*
-		//LBRACE RBRACE
+		//LBRACE methods+=PojoMethod* RBRACE
 		public Group getGroup() { return cGroup; }
 
 		//modifiers1+=PojoEntityModifier1*
@@ -6636,8 +6638,165 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//LBRACE
 		public RuleCall getLBRACETerminalRuleCall_7() { return cLBRACETerminalRuleCall_7; }
 
+		//methods+=PojoMethod*
+		public Assignment getMethodsAssignment_8() { return cMethodsAssignment_8; }
+
+		//PojoMethod
+		public RuleCall getMethodsPojoMethodParserRuleCall_8_0() { return cMethodsPojoMethodParserRuleCall_8_0; }
+
 		//RBRACE
-		public RuleCall getRBRACETerminalRuleCall_8() { return cRBRACETerminalRuleCall_8; }
+		public RuleCall getRBRACETerminalRuleCall_9() { return cRBRACETerminalRuleCall_9; }
+	}
+
+	public class PojoMethodElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PojoMethod");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDENTTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final RuleCall cCOLONTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final RuleCall cCOLONTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Assignment cToInitsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cToInitsPojoMethodArgParserRuleCall_4_0 = (RuleCall)cToInitsAssignment_4.eContents().get(0);
+		
+		//PojoMethod hidden(ML_COMMENT, SL_COMMENT, WS):
+		//	name=IDENT COLON COLON COLON toInits+=PojoMethodArg+;
+		public ParserRule getRule() { return rule; }
+
+		//name=IDENT COLON COLON COLON toInits+=PojoMethodArg+
+		public Group getGroup() { return cGroup; }
+
+		//name=IDENT
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//IDENT
+		public RuleCall getNameIDENTTerminalRuleCall_0_0() { return cNameIDENTTerminalRuleCall_0_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1() { return cCOLONTerminalRuleCall_1; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_2() { return cCOLONTerminalRuleCall_2; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_3() { return cCOLONTerminalRuleCall_3; }
+
+		//toInits+=PojoMethodArg+
+		public Assignment getToInitsAssignment_4() { return cToInitsAssignment_4; }
+
+		//PojoMethodArg
+		public RuleCall getToInitsPojoMethodArgParserRuleCall_4_0() { return cToInitsPojoMethodArgParserRuleCall_4_0; }
+	}
+
+	public class PojoMethodArgElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PojoMethodArg");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDENTTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Assignment cNativeAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
+		private final Alternatives cNativeAlternatives_1_0_0 = (Alternatives)cNativeAssignment_1_0.eContents().get(0);
+		private final Keyword cNative_charKeyword_1_0_0_0 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(0);
+		private final Keyword cNative_byteKeyword_1_0_0_1 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(1);
+		private final Keyword cNative_shortKeyword_1_0_0_2 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(2);
+		private final Keyword cNative_intKeyword_1_0_0_3 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(3);
+		private final Keyword cNative_longKeyword_1_0_0_4 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(4);
+		private final Keyword cNative_floatKeyword_1_0_0_5 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(5);
+		private final Keyword cNative_doubleKeyword_1_0_0_6 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(6);
+		private final Keyword cNative_booleanKeyword_1_0_0_7 = (Keyword)cNativeAlternatives_1_0_0.eContents().get(7);
+		private final Alternatives cAlternatives_1_1 = (Alternatives)cAlternatives_1.eContents().get(1);
+		private final Group cGroup_1_1_0 = (Group)cAlternatives_1_1.eContents().get(0);
+		private final RuleCall cCOLONTerminalRuleCall_1_1_0_0 = (RuleCall)cGroup_1_1_0.eContents().get(0);
+		private final Group cGroup_1_1_0_1 = (Group)cGroup_1_1_0.eContents().get(1);
+		private final RuleCall cCOLONTerminalRuleCall_1_1_0_1_0 = (RuleCall)cGroup_1_1_0_1.eContents().get(0);
+		private final Assignment cRefAssignment_1_1_0_1_1 = (Assignment)cGroup_1_1_0_1.eContents().get(1);
+		private final CrossReference cRefPojoEntityCrossReference_1_1_0_1_1_0 = (CrossReference)cRefAssignment_1_1_0_1_1.eContents().get(0);
+		private final RuleCall cRefPojoEntityIDENTTerminalRuleCall_1_1_0_1_1_0_1 = (RuleCall)cRefPojoEntityCrossReference_1_1_0_1_1_0.eContents().get(1);
+		private final Assignment cTypeAssignment_1_1_1 = (Assignment)cAlternatives_1_1.eContents().get(1);
+		private final CrossReference cTypeJvmTypeCrossReference_1_1_1_0 = (CrossReference)cTypeAssignment_1_1_1.eContents().get(0);
+		private final RuleCall cTypeJvmTypeQualifiedNameParserRuleCall_1_1_1_0_1 = (RuleCall)cTypeJvmTypeCrossReference_1_1_1_0.eContents().get(1);
+		
+		//PojoMethodArg hidden(ML_COMMENT, SL_COMMENT, WS):
+		//	name=IDENT (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON
+		//	(COLON ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]));
+		public ParserRule getRule() { return rule; }
+
+		//name=IDENT (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
+		//ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]))
+		public Group getGroup() { return cGroup; }
+
+		//name=IDENT
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//IDENT
+		public RuleCall getNameIDENTTerminalRuleCall_0_0() { return cNameIDENTTerminalRuleCall_0_0; }
+
+		//native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON (COLON
+		//ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName])
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+
+		//native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean")
+		public Assignment getNativeAssignment_1_0() { return cNativeAssignment_1_0; }
+
+		//"_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean"
+		public Alternatives getNativeAlternatives_1_0_0() { return cNativeAlternatives_1_0_0; }
+
+		//"_char"
+		public Keyword getNative_charKeyword_1_0_0_0() { return cNative_charKeyword_1_0_0_0; }
+
+		//"_byte"
+		public Keyword getNative_byteKeyword_1_0_0_1() { return cNative_byteKeyword_1_0_0_1; }
+
+		//"_short"
+		public Keyword getNative_shortKeyword_1_0_0_2() { return cNative_shortKeyword_1_0_0_2; }
+
+		//"_int"
+		public Keyword getNative_intKeyword_1_0_0_3() { return cNative_intKeyword_1_0_0_3; }
+
+		//"_long"
+		public Keyword getNative_longKeyword_1_0_0_4() { return cNative_longKeyword_1_0_0_4; }
+
+		//"_float"
+		public Keyword getNative_floatKeyword_1_0_0_5() { return cNative_floatKeyword_1_0_0_5; }
+
+		//"_double"
+		public Keyword getNative_doubleKeyword_1_0_0_6() { return cNative_doubleKeyword_1_0_0_6; }
+
+		//"_boolean"
+		public Keyword getNative_booleanKeyword_1_0_0_7() { return cNative_booleanKeyword_1_0_0_7; }
+
+		//COLON (COLON ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]
+		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
+
+		//COLON (COLON ref=[PojoEntity|IDENT])
+		public Group getGroup_1_1_0() { return cGroup_1_1_0; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1_1_0_0() { return cCOLONTerminalRuleCall_1_1_0_0; }
+
+		//COLON ref=[PojoEntity|IDENT]
+		public Group getGroup_1_1_0_1() { return cGroup_1_1_0_1; }
+
+		//COLON
+		public RuleCall getCOLONTerminalRuleCall_1_1_0_1_0() { return cCOLONTerminalRuleCall_1_1_0_1_0; }
+
+		//ref=[PojoEntity|IDENT]
+		public Assignment getRefAssignment_1_1_0_1_1() { return cRefAssignment_1_1_0_1_1; }
+
+		//[PojoEntity|IDENT]
+		public CrossReference getRefPojoEntityCrossReference_1_1_0_1_1_0() { return cRefPojoEntityCrossReference_1_1_0_1_1_0; }
+
+		//IDENT
+		public RuleCall getRefPojoEntityIDENTTerminalRuleCall_1_1_0_1_1_0_1() { return cRefPojoEntityIDENTTerminalRuleCall_1_1_0_1_1_0_1; }
+
+		//type=[jvmTypes::JvmType|QualifiedName]
+		public Assignment getTypeAssignment_1_1_1() { return cTypeAssignment_1_1_1; }
+
+		//[jvmTypes::JvmType|QualifiedName]
+		public CrossReference getTypeJvmTypeCrossReference_1_1_1_0() { return cTypeJvmTypeCrossReference_1_1_1_0; }
+
+		//QualifiedName
+		public RuleCall getTypeJvmTypeQualifiedNameParserRuleCall_1_1_1_0_1() { return cTypeJvmTypeQualifiedNameParserRuleCall_1_1_1_0_1; }
 	}
 
 	public class QualifiedNameWithWildcardElements extends AbstractParserRuleElementFinder {
@@ -6788,6 +6947,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private PojoEntityModifier3Elements pPojoEntityModifier3;
 	private PojoPropertyElements pPojoProperty;
 	private PojoDaoElements pPojoDao;
+	private PojoMethodElements pPojoMethod;
+	private PojoMethodArgElements pPojoMethodArg;
 	private QualifiedNameWithWildcardElements pQualifiedNameWithWildcard;
 	private QualifiedNameElements pQualifiedName;
 	
@@ -7790,13 +7951,34 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PojoDao hidden(ML_COMMENT, SL_COMMENT, WS):
 	//	modifiers1+=PojoEntityModifier1* "dao" name=IDENT COLON COLON pojo=[PojoEntity|IDENT] modifiers2+=PojoEntityModifier3*
-	//	LBRACE RBRACE;
+	//	LBRACE methods+=PojoMethod* RBRACE;
 	public PojoDaoElements getPojoDaoAccess() {
 		return (pPojoDao != null) ? pPojoDao : (pPojoDao = new PojoDaoElements());
 	}
 	
 	public ParserRule getPojoDaoRule() {
 		return getPojoDaoAccess().getRule();
+	}
+
+	//PojoMethod hidden(ML_COMMENT, SL_COMMENT, WS):
+	//	name=IDENT COLON COLON COLON toInits+=PojoMethodArg+;
+	public PojoMethodElements getPojoMethodAccess() {
+		return (pPojoMethod != null) ? pPojoMethod : (pPojoMethod = new PojoMethodElements());
+	}
+	
+	public ParserRule getPojoMethodRule() {
+		return getPojoMethodAccess().getRule();
+	}
+
+	//PojoMethodArg hidden(ML_COMMENT, SL_COMMENT, WS):
+	//	name=IDENT (native=("_char" | "_byte" | "_short" | "_int" | "_long" | "_float" | "_double" | "_boolean") | (COLON
+	//	(COLON ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]));
+	public PojoMethodArgElements getPojoMethodArgAccess() {
+		return (pPojoMethodArg != null) ? pPojoMethodArg : (pPojoMethodArg = new PojoMethodArgElements());
+	}
+	
+	public ParserRule getPojoMethodArgRule() {
+		return getPojoMethodArgAccess().getRule();
 	}
 
 	//QualifiedNameWithWildcard:
