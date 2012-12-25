@@ -22,18 +22,18 @@ import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.util.DDLLoader;
-import org.sqlproc.sample.simple.dao.BankAccountDao;
-import org.sqlproc.sample.simple.dao.BookDao;
-import org.sqlproc.sample.simple.dao.ContactDao;
-import org.sqlproc.sample.simple.dao.CreditCardDao;
-import org.sqlproc.sample.simple.dao.LibraryDao;
-import org.sqlproc.sample.simple.dao.MovieDao;
-import org.sqlproc.sample.simple.dao.PaymentDao;
-import org.sqlproc.sample.simple.dao.PerformerDao;
-import org.sqlproc.sample.simple.dao.PersonDao;
-import org.sqlproc.sample.simple.dao.PersonLibraryDao;
-import org.sqlproc.sample.simple.dao.PhysicalMediaDao;
-import org.sqlproc.sample.simple.dao.SubscriberDao;
+import org.sqlproc.sample.simple.dao.BankAccountDao1;
+import org.sqlproc.sample.simple.dao.BookDao1;
+import org.sqlproc.sample.simple.dao.ContactDao1;
+import org.sqlproc.sample.simple.dao.CreditCardDao1;
+import org.sqlproc.sample.simple.dao.LibraryDao1;
+import org.sqlproc.sample.simple.dao.MovieDao1;
+import org.sqlproc.sample.simple.dao.PaymentDao1;
+import org.sqlproc.sample.simple.dao.PerformerDao1;
+import org.sqlproc.sample.simple.dao.PersonDao1;
+import org.sqlproc.sample.simple.dao.PersonLibraryDao1;
+import org.sqlproc.sample.simple.dao.PhysicalMediaDao1;
+import org.sqlproc.sample.simple.dao.SubscriberDao1;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Contact;
 import org.sqlproc.sample.simple.model.CreditCard;
@@ -97,52 +97,52 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
     }
 
     public void initDao() throws SQLException {
-        bankAccountDao = new BankAccountDao(this, this);
-        bookDao = new BookDao();
+        bankAccountDao = new BankAccountDao1(this, this);
+        bookDao = new BookDao1();
         bookDao.setConnection(connection);
         bookDao.setSqlFactory(sqlFactory);
-        contactDao = new ContactDao();
+        contactDao = new ContactDao1();
         contactDao.setConnection(connection);
         contactDao.setSqlFactory(sqlFactory);
-        creditCardDao = new CreditCardDao();
+        creditCardDao = new CreditCardDao1();
         creditCardDao.setConnection(connection);
         creditCardDao.setSqlFactory(sqlFactory);
-        libraryDao = new LibraryDao();
+        libraryDao = new LibraryDao1();
         libraryDao.setConnection(connection);
         libraryDao.setSqlFactory(sqlFactory);
-        movieDao = new MovieDao();
+        movieDao = new MovieDao1();
         movieDao.setConnection(connection);
         movieDao.setSqlFactory(sqlFactory);
-        personDao = new PersonDao(this, this);
-        performerDao = new PerformerDao();
+        personDao = new PersonDao1(this, this);
+        performerDao = new PerformerDao1();
         performerDao.setConnection(connection);
         performerDao.setSqlFactory(sqlFactory);
-        personLibraryDao = new PersonLibraryDao();
+        personLibraryDao = new PersonLibraryDao1();
         personLibraryDao.setConnection(connection);
         personLibraryDao.setSqlFactory(sqlFactory);
-        subscriberDao = new SubscriberDao();
+        subscriberDao = new SubscriberDao1();
         subscriberDao.setConnection(connection);
         subscriberDao.setSqlFactory(sqlFactory);
-        physicalMediaDao = new PhysicalMediaDao();
+        physicalMediaDao = new PhysicalMediaDao1();
         physicalMediaDao.setConnection(connection);
         physicalMediaDao.setSqlFactory(sqlFactory);
-        paymentDao = new PaymentDao();
+        paymentDao = new PaymentDao1();
         paymentDao.setConnection(connection);
         paymentDao.setSqlFactory(sqlFactory);
     }
 
-    private BankAccountDao bankAccountDao;
-    private BookDao bookDao;
-    private ContactDao contactDao;
-    private CreditCardDao creditCardDao;
-    private LibraryDao libraryDao;
-    private MovieDao movieDao;
-    private PersonDao personDao;
-    private PerformerDao performerDao;
-    private PersonLibraryDao personLibraryDao;
-    private SubscriberDao subscriberDao;
-    private PhysicalMediaDao physicalMediaDao;
-    private PaymentDao paymentDao;
+    private BankAccountDao1 bankAccountDao;
+    private BookDao1 bookDao;
+    private ContactDao1 contactDao;
+    private CreditCardDao1 creditCardDao;
+    private LibraryDao1 libraryDao;
+    private MovieDao1 movieDao;
+    private PersonDao1 personDao;
+    private PerformerDao1 performerDao;
+    private PersonLibraryDao1 personLibraryDao;
+    private SubscriberDao1 subscriberDao;
+    private PhysicalMediaDao1 physicalMediaDao;
+    private PaymentDao1 paymentDao;
 
     public static void main(String[] args) throws Exception {
         Person person, p;
@@ -501,51 +501,51 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertEquals(2, list.size());
     }
 
-    public BankAccountDao getBankAccountDao() {
+    public BankAccountDao1 getBankAccountDao() {
         return bankAccountDao;
     }
 
-    public BookDao getBookDao() {
+    public BookDao1 getBookDao() {
         return bookDao;
     }
 
-    public ContactDao getContactDao() {
+    public ContactDao1 getContactDao() {
         return contactDao;
     }
 
-    public CreditCardDao getCreditCardDao() {
+    public CreditCardDao1 getCreditCardDao() {
         return creditCardDao;
     }
 
-    public LibraryDao getLibraryDao() {
+    public LibraryDao1 getLibraryDao() {
         return libraryDao;
     }
 
-    public MovieDao getMovieDao() {
+    public MovieDao1 getMovieDao() {
         return movieDao;
     }
 
-    public PersonDao getPersonDao() {
+    public PersonDao1 getPersonDao() {
         return personDao;
     }
 
-    public PerformerDao getPerformerDao() {
+    public PerformerDao1 getPerformerDao() {
         return performerDao;
     }
 
-    public SubscriberDao getSubscriberDao() {
+    public SubscriberDao1 getSubscriberDao() {
         return subscriberDao;
     }
 
-    public PersonLibraryDao getPersonLibraryDao() {
+    public PersonLibraryDao1 getPersonLibraryDao() {
         return personLibraryDao;
     }
 
-    public PhysicalMediaDao getPhysicalMediaDao() {
+    public PhysicalMediaDao1 getPhysicalMediaDao() {
         return physicalMediaDao;
     }
 
-    public PaymentDao getPaymentDao() {
+    public PaymentDao1 getPaymentDao() {
         return paymentDao;
     }
 

@@ -7,7 +7,7 @@ import org.sqlproc.sample.simple.model.Media;
 import org.sqlproc.sample.simple.model.Person;
 import org.sqlproc.sample.simple.model.PersonLibrary;
 
-public class PersonLibraryDao extends BaseDaoImpl {
+public class PersonLibraryDao1 extends BaseDaoImpl {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 

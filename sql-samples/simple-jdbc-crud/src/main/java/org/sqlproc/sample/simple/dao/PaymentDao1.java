@@ -10,7 +10,7 @@ import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.Payment;
 
-public class PaymentDao extends BaseDaoImpl {
+public class PaymentDao1 extends BaseDaoImpl {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 

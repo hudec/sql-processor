@@ -16,14 +16,14 @@ import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.NewBook;
 import org.sqlproc.sample.simple.model.Person;
 
-public class PersonDao {
+public class PersonDao1 {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     private SqlEngineFactory sqlEngineFactory;
     private SqlSessionFactory sqlSessionFactory;
 
-    public PersonDao(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
+    public PersonDao1(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
         this.sqlEngineFactory = sqlEngineFactory;
         this.sqlSessionFactory = sqlSessionFactory;
     }

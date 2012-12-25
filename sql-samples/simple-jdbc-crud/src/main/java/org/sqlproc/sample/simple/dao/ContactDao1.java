@@ -6,7 +6,7 @@ import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.sample.simple.model.Contact;
 import org.sqlproc.sample.simple.model.Person;
 
-public class ContactDao extends BaseDaoImpl {
+public class ContactDao1 extends BaseDaoImpl {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 

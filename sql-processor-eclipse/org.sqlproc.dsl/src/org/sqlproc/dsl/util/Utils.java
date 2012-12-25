@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
@@ -18,6 +19,7 @@ import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier1;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier2;
+import org.sqlproc.dsl.processorDsl.PojoEntityModifier3;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoPropertyModifier;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
@@ -94,6 +96,16 @@ public class Utils {
         return false;
     }
 
+    public static boolean isAbstract(PojoDao e) {
+        if (e.getModifiers1() == null || e.getModifiers1().isEmpty())
+            return false;
+        for (PojoEntityModifier1 modifier : e.getModifiers1()) {
+            if (modifier.isAbstract())
+                return true;
+        }
+        return false;
+    }
+
     public static boolean isFinal(PojoEntity e) {
         if (e.getModifiers1() == null || e.getModifiers1().isEmpty())
             return false;
@@ -124,6 +136,16 @@ public class Utils {
         return null;
     }
 
+    public static PojoEntity getSuperType(PojoDao e) {
+        if (e.getModifiers2() == null || e.getModifiers2().isEmpty())
+            return null;
+        for (PojoEntityModifier3 modifier : e.getModifiers2()) {
+            if (modifier.getSuperType() != null)
+                return modifier.getSuperType();
+        }
+        return null;
+    }
+
     public static String getDiscriminator(PojoEntity e) {
         if (e.getModifiers2() == null || e.getModifiers2().isEmpty())
             return null;
@@ -138,6 +160,16 @@ public class Utils {
         if (e.getModifiers2() == null || e.getModifiers2().isEmpty())
             return null;
         for (PojoEntityModifier2 modifier : e.getModifiers2()) {
+            if (modifier.getSernum() != null)
+                return modifier.getSernum();
+        }
+        return null;
+    }
+
+    public static String getSernum(PojoDao e) {
+        if (e.getModifiers2() == null || e.getModifiers2().isEmpty())
+            return null;
+        for (PojoEntityModifier3 modifier : e.getModifiers2()) {
             if (modifier.getSernum() != null)
                 return modifier.getSernum();
         }
@@ -320,5 +352,10 @@ public class Utils {
         if (last < e.getName().length())
             result = result + e.getName().substring(last).toUpperCase();
         return result.startsWith("_") ? result.substring(1) : result;
+    }
+
+    public static String getPackage(PojoEntity e) {
+        PackageDeclaration packageDeclaration = EcoreUtil2.getContainerOfType(e, PackageDeclaration.class);
+        return packageDeclaration.getName();
     }
 }

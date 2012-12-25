@@ -10,7 +10,7 @@ import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.NewBook;
 import org.sqlproc.sample.simple.model.Performer;
 
-public class PerformerDao extends BaseDaoImpl {
+public class PerformerDao1 extends BaseDaoImpl {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 

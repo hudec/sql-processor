@@ -10,7 +10,7 @@ import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.NewBook;
 import org.sqlproc.sample.simple.model.PhysicalMedia;
 
-public class PhysicalMediaDao extends BaseDaoImpl {
+public class PhysicalMediaDao1 extends BaseDaoImpl {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 

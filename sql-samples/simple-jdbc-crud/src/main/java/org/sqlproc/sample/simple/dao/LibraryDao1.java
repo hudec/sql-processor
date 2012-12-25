@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.sample.simple.model.Library;
 
-public class LibraryDao extends BaseDaoImpl {
+public class LibraryDao1 extends BaseDaoImpl {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 

@@ -7,14 +7,14 @@ import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.sample.simple.model.BankAccount;
 
-public class BankAccountDao {
+public class BankAccountDao1 {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     private SqlEngineFactory sqlEngineFactory;
     private SqlSessionFactory sqlSessionFactory;
 
-    public BankAccountDao(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
+    public BankAccountDao1(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
         this.sqlEngineFactory = sqlEngineFactory;
         this.sqlSessionFactory = sqlSessionFactory;
     }

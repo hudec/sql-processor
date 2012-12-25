@@ -22,6 +22,7 @@ import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.sqlproc.dsl.processorDsl.Extends;
 import org.sqlproc.dsl.processorDsl.Implements;
+import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.util.Utils;
@@ -45,6 +46,20 @@ public class ProcessorDslGenerator implements IGenerator {
       String _plus_2 = (_plus_1 + ".java");
       CharSequence _compile = this.compile(e);
       fsa.generateFile(_plus_2, _compile);
+    }
+    TreeIterator<EObject> _allContents_1 = resource.getAllContents();
+    Iterable<EObject> _iterable_1 = IteratorExtensions.<EObject>toIterable(_allContents_1);
+    Iterable<PojoDao> _filter_1 = Iterables.<PojoDao>filter(_iterable_1, PojoDao.class);
+    for (final PojoDao e_1 : _filter_1) {
+      EObject _eContainer_1 = e_1.eContainer();
+      QualifiedName _fullyQualifiedName_2 = this._iQualifiedNameProvider.getFullyQualifiedName(_eContainer_1);
+      String _string_1 = _fullyQualifiedName_2.toString("/");
+      String _plus_3 = (_string_1 + "/");
+      QualifiedName _fullyQualifiedName_3 = this._iQualifiedNameProvider.getFullyQualifiedName(e_1);
+      String _plus_4 = (_plus_3 + _fullyQualifiedName_3);
+      String _plus_5 = (_plus_4 + ".java");
+      CharSequence _compile_1 = this.compile(e_1);
+      fsa.generateFile(_plus_5, _compile_1);
     }
   }
   
@@ -952,6 +967,270 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
+  public CharSequence compile(final PojoDao d) {
+    StringConcatenation _builder = new StringConcatenation();
+    ImportManager _importManager = new ImportManager(true);
+    final ImportManager importManager = _importManager;
+    _builder.newLineIfNotEmpty();
+    this.addImplements(d, importManager);
+    _builder.newLineIfNotEmpty();
+    this.addExtends(d, importManager);
+    _builder.newLineIfNotEmpty();
+    PojoEntity _pojo = d.getPojo();
+    final CharSequence classBody = this.compile(d, _pojo, importManager);
+    _builder.newLineIfNotEmpty();
+    {
+      EObject _eContainer = d.eContainer();
+      boolean _notEquals = (!Objects.equal(_eContainer, null));
+      if (_notEquals) {
+        _builder.append("package ");
+        EObject _eContainer_1 = d.eContainer();
+        QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(_eContainer_1);
+        _builder.append(_fullyQualifiedName, "");
+        _builder.append(";");
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    {
+      List<String> _imports = importManager.getImports();
+      boolean _isEmpty = _imports.isEmpty();
+      boolean _not = (!_isEmpty);
+      if (_not) {
+        _builder.append("  ");
+        _builder.newLine();
+        {
+          List<String> _imports_1 = importManager.getImports();
+          for(final String i : _imports_1) {
+            _builder.append("import ");
+            _builder.append(i, "");
+            _builder.append(";");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    {
+      String _sernum = Utils.getSernum(d);
+      boolean _notEquals_1 = (!Objects.equal(_sernum, null));
+      if (_notEquals_1) {
+        _builder.newLine();
+        _builder.append("import java.io.Serializable;");
+        _builder.newLine();
+      }
+    }
+    _builder.newLine();
+    _builder.append("import java.util.HashMap;");
+    _builder.newLine();
+    _builder.append("import java.util.List;");
+    _builder.newLine();
+    _builder.append("import java.util.Map;");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("import org.slf4j.Logger;");
+    _builder.newLine();
+    _builder.append("import org.slf4j.LoggerFactory;");
+    _builder.newLine();
+    _builder.append("import org.sqlproc.engine.SqlControl;");
+    _builder.newLine();
+    _builder.append("import org.sqlproc.engine.SqlCrudEngine;");
+    _builder.newLine();
+    _builder.append("import org.sqlproc.engine.SqlEngineFactory;");
+    _builder.newLine();
+    _builder.append("import org.sqlproc.engine.SqlQueryEngine;");
+    _builder.newLine();
+    _builder.append("import org.sqlproc.engine.SqlSessionFactory;");
+    _builder.newLine();
+    _builder.append("import org.sqlproc.engine.impl.SqlStandardControl;");
+    _builder.newLine();
+    _builder.append("import ");
+    PojoEntity _pojo_1 = d.getPojo();
+    String _package = Utils.getPackage(_pojo_1);
+    _builder.append(_package, "");
+    _builder.append(".");
+    PojoEntity _pojo_2 = d.getPojo();
+    String _name = _pojo_2.getName();
+    _builder.append(_name, "");
+    _builder.append(";");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append(classBody, "");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence compile(final PojoDao d, final PojoEntity e, final ImportManager importManager) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("public ");
+    {
+      boolean _isAbstract = Utils.isAbstract(d);
+      if (_isAbstract) {
+        _builder.append("abstract ");
+      }
+    }
+    _builder.append("class ");
+    String _name = d.getName();
+    _builder.append(_name, "");
+    _builder.append(" ");
+    CharSequence _compileExtends = this.compileExtends(d);
+    _builder.append(_compileExtends, "");
+    CharSequence _compileImplements = this.compileImplements(d);
+    _builder.append(_compileImplements, "");
+    _builder.append("{");
+    _builder.newLineIfNotEmpty();
+    {
+      String _sernum = Utils.getSernum(d);
+      boolean _notEquals = (!Objects.equal(_sernum, null));
+      if (_notEquals) {
+        _builder.append("  ");
+        _builder.newLine();
+        _builder.append("  ");
+        _builder.append("private static final long serialVersionUID = ");
+        String _sernum_1 = Utils.getSernum(d);
+        _builder.append(_sernum_1, "  ");
+        _builder.append("L;");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("  ");
+    _builder.append("protected final Logger logger = LoggerFactory.getLogger(getClass());");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("private SqlEngineFactory sqlEngineFactory;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("private SqlSessionFactory sqlSessionFactory;");
+    _builder.newLine();
+    _builder.append("    \t");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("public ");
+    String _name_1 = d.getName();
+    _builder.append(_name_1, "  ");
+    _builder.append("(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    _builder.append("this.sqlEngineFactory = sqlEngineFactory;");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("this.sqlSessionFactory = sqlSessionFactory;");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.newLine();
+    _builder.append("  ");
+    CharSequence _compileInsert = this.compileInsert(d, e, importManager);
+    _builder.append(_compileInsert, "  ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileInsert(final PojoDao d, final PojoEntity e, final ImportManager importManager) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.newLine();
+    _builder.append("public ");
+    String _name = e.getName();
+    _builder.append(_name, "");
+    _builder.append(" insert(");
+    String _name_1 = e.getName();
+    _builder.append(_name_1, "");
+    _builder.append(" ");
+    String _name_2 = e.getName();
+    String _firstLower = StringExtensions.toFirstLower(_name_2);
+    _builder.append(_firstLower, "");
+    _builder.append(", SqlControl sqlControl) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("  ");
+    _builder.append("if (logger.isTraceEnabled()) {");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("logger.trace(\"insert ");
+    String _name_3 = e.getName();
+    String _firstLower_1 = StringExtensions.toFirstLower(_name_3);
+    _builder.append(_firstLower_1, "    ");
+    _builder.append(": \" + ");
+    String _name_4 = e.getName();
+    String _firstLower_2 = StringExtensions.toFirstLower(_name_4);
+    _builder.append(_firstLower_2, "    ");
+    _builder.append(" + \" \" + sqlControl);");
+    _builder.newLineIfNotEmpty();
+    _builder.append("  ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("SqlCrudEngine sqlInsert");
+    String _name_5 = e.getName();
+    _builder.append(_name_5, "  ");
+    _builder.append(" = sqlEngineFactory.getCrudEngine(\"INSERT_");
+    String _dbName = Utils.dbName(e);
+    _builder.append(_dbName, "  ");
+    _builder.append("\");");
+    _builder.newLineIfNotEmpty();
+    _builder.append("  ");
+    _builder.append("int count = sqlInsert");
+    String _name_6 = e.getName();
+    _builder.append(_name_6, "  ");
+    _builder.append(".insert(sqlSessionFactory.getSqlSession(), ");
+    String _name_7 = e.getName();
+    String _firstLower_3 = StringExtensions.toFirstLower(_name_7);
+    _builder.append(_firstLower_3, "  ");
+    _builder.append(");");
+    _builder.newLineIfNotEmpty();
+    _builder.append("  ");
+    _builder.append("if (logger.isTraceEnabled()) {");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("logger.trace(\"insert ");
+    String _name_8 = e.getName();
+    String _firstLower_4 = StringExtensions.toFirstLower(_name_8);
+    _builder.append(_firstLower_4, "    ");
+    _builder.append(" result: \" + count + \" \" + ");
+    String _name_9 = e.getName();
+    String _firstLower_5 = StringExtensions.toFirstLower(_name_9);
+    _builder.append(_firstLower_5, "    ");
+    _builder.append(");");
+    _builder.newLineIfNotEmpty();
+    _builder.append("  ");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("return (count > 0) ? ");
+    String _name_10 = e.getName();
+    String _firstLower_6 = StringExtensions.toFirstLower(_name_10);
+    _builder.append(_firstLower_6, "  ");
+    _builder.append(" : null;");
+    _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public ");
+    String _name_11 = e.getName();
+    _builder.append(_name_11, "");
+    _builder.append(" insert(");
+    String _name_12 = e.getName();
+    _builder.append(_name_12, "");
+    _builder.append(" ");
+    String _name_13 = e.getName();
+    String _firstLower_7 = StringExtensions.toFirstLower(_name_13);
+    _builder.append(_firstLower_7, "");
+    _builder.append(") {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("  ");
+    _builder.append("return insert(");
+    String _name_14 = e.getName();
+    String _firstLower_8 = StringExtensions.toFirstLower(_name_14);
+    _builder.append(_firstLower_8, "  ");
+    _builder.append(", null);");
+    _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
   public ArrayList<PojoProperty> listFeatures(final PojoEntity e) {
     ArrayList<PojoProperty> _arrayList = new ArrayList<PojoProperty>();
     final ArrayList<PojoProperty> list = _arrayList;
@@ -1160,6 +1439,80 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
+  public CharSequence compileExtends(final PojoDao e) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      PojoEntity _superType = Utils.getSuperType(e);
+      boolean _notEquals = (!Objects.equal(_superType, null));
+      if (_notEquals) {
+        _builder.append("extends ");
+        PojoEntity _superType_1 = Utils.getSuperType(e);
+        QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(_superType_1);
+        _builder.append(_fullyQualifiedName, "");
+        _builder.append(" ");
+      } else {
+        String _extends = this.getExtends(e);
+        boolean _notEquals_1 = (!Objects.equal(_extends, ""));
+        if (_notEquals_1) {
+          _builder.append("extends ");
+          String _extends_1 = this.getExtends(e);
+          _builder.append(_extends_1, "");
+          _builder.append(" ");
+        }
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence compileImplements(final PojoDao e) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      boolean _or = false;
+      boolean _isImplements = this.isImplements(e);
+      if (_isImplements) {
+        _or = true;
+      } else {
+        String _sernum = Utils.getSernum(e);
+        boolean _notEquals = (!Objects.equal(_sernum, null));
+        _or = (_isImplements || _notEquals);
+      }
+      if (_or) {
+        _builder.append("implements ");
+        {
+          EObject _eContainer = e.eContainer();
+          EList<EObject> _eContents = _eContainer.eContents();
+          Iterable<Implements> _filter = Iterables.<Implements>filter(_eContents, Implements.class);
+          boolean _hasElements = false;
+          for(final Implements f : _filter) {
+            if (!_hasElements) {
+              _hasElements = true;
+            } else {
+              _builder.appendImmediate(", ", "");
+            }
+            JvmType _implements = f.getImplements();
+            String _simpleName = _implements.getSimpleName();
+            _builder.append(_simpleName, "");
+          }
+        }
+        {
+          String _sernum_1 = Utils.getSernum(e);
+          boolean _notEquals_1 = (!Objects.equal(_sernum_1, null));
+          if (_notEquals_1) {
+            {
+              boolean _isImplements_1 = this.isImplements(e);
+              if (_isImplements_1) {
+                _builder.append(", ");
+              }
+            }
+            _builder.append("Serializable");
+          }
+        }
+        _builder.append(" ");
+      }
+    }
+    return _builder;
+  }
+  
   public boolean compile(final Extends e, final ImportManager importManager) {
     JvmType _extends = e.getExtends();
     boolean _addImportFor = importManager.addImportFor(_extends);
@@ -1186,6 +1539,26 @@ public class ProcessorDslGenerator implements IGenerator {
     }
   }
   
+  public void addImplements(final PojoDao e, final ImportManager importManager) {
+    EObject _eContainer = e.eContainer();
+    EList<EObject> _eContents = _eContainer.eContents();
+    Iterable<Implements> _filter = Iterables.<Implements>filter(_eContents, Implements.class);
+    for (final Implements impl : _filter) {
+      JvmType _implements = impl.getImplements();
+      importManager.addImportFor(_implements);
+    }
+  }
+  
+  public void addExtends(final PojoDao e, final ImportManager importManager) {
+    EObject _eContainer = e.eContainer();
+    EList<EObject> _eContents = _eContainer.eContents();
+    Iterable<Extends> _filter = Iterables.<Extends>filter(_eContents, Extends.class);
+    for (final Extends ext : _filter) {
+      JvmType _extends = ext.getExtends();
+      importManager.addImportFor(_extends);
+    }
+  }
+  
   public String getExtends(final PojoEntity e) {
     EObject _eContainer = e.eContainer();
     EList<EObject> _eContents = _eContainer.eContents();
@@ -1198,6 +1571,27 @@ public class ProcessorDslGenerator implements IGenerator {
   }
   
   public boolean isImplements(final PojoEntity e) {
+    EObject _eContainer = e.eContainer();
+    EList<EObject> _eContents = _eContainer.eContents();
+    Iterable<Implements> _filter = Iterables.<Implements>filter(_eContents, Implements.class);
+    for (final Implements ext : _filter) {
+      return true;
+    }
+    return false;
+  }
+  
+  public String getExtends(final PojoDao e) {
+    EObject _eContainer = e.eContainer();
+    EList<EObject> _eContents = _eContainer.eContents();
+    Iterable<Extends> _filter = Iterables.<Extends>filter(_eContents, Extends.class);
+    for (final Extends ext : _filter) {
+      JvmType _extends = ext.getExtends();
+      return _extends.getSimpleName();
+    }
+    return "";
+  }
+  
+  public boolean isImplements(final PojoDao e) {
     EObject _eContainer = e.eContainer();
     EList<EObject> _eContents = _eContainer.eContents();
     Iterable<Implements> _filter = Iterables.<Implements>filter(_eContents, Implements.class);

@@ -16,6 +16,7 @@ import static org.sqlproc.dsl.util.Utils.*;
 import java.util.ArrayList
 import org.sqlproc.dsl.processorDsl.Implements
 import org.sqlproc.dsl.processorDsl.Extends
+import org.sqlproc.dsl.processorDsl.PojoDao
 
 class ProcessorDslGenerator implements IGenerator {
 	
@@ -23,6 +24,11 @@ class ProcessorDslGenerator implements IGenerator {
 	
 override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 	for(e: resource.allContents.toIterable.filter(typeof(PojoEntity))) {
+		fsa.generateFile(e.eContainer.fullyQualifiedName.toString("/") + "/"+
+			e.fullyQualifiedName + ".java",e.compile
+		)
+	}
+	for(e: resource.allContents.toIterable.filter(typeof(PojoDao))) {
 		fsa.generateFile(e.eContainer.fullyQualifiedName.toString("/") + "/"+
 			e.fullyQualifiedName + ".java",e.compile
 		)
@@ -258,6 +264,80 @@ def compileToInit(PojoProperty f, ImportManager importManager, PojoEntity e) '''
 def compileType(PojoProperty f, ImportManager importManager) '''
   «IF f.getNative != null»«f.getNative.substring(1)»«ELSEIF f.getRef != null»«f.getRef.fullyQualifiedName»«ELSEIF f.getType != null»«importManager.serialize(f.getType)»«ENDIF»«IF f.getGtype != null»<«importManager.serialize(f.getGtype)»>«ENDIF»«IF f.getGref != null»<«f.getGref.fullyQualifiedName»>«ENDIF»«IF f.array»[]«ENDIF»'''
   
+
+def compile(PojoDao d) '''
+«val importManager = new ImportManager(true)»
+«addImplements(d, importManager)»
+«addExtends(d, importManager)»
+«val classBody = compile(d, d.pojo, importManager)»
+«IF d.eContainer != null»package «d.eContainer.fullyQualifiedName»;«ENDIF»
+  «IF !importManager.imports.empty»
+  
+  «FOR i : importManager.imports»
+import «i»;
+  «ENDFOR»
+  «ENDIF»
+  «IF getSernum(d) != null»
+
+import java.io.Serializable;
+  «ENDIF»
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlCrudEngine;
+import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlSessionFactory;
+import org.sqlproc.engine.impl.SqlStandardControl;
+import «getPackage(d.pojo)».«d.pojo.name»;
+
+«classBody»
+'''
+
+def compile(PojoDao d, PojoEntity e, ImportManager importManager) '''
+public «IF isAbstract(d)»abstract «ENDIF»class «d.name» «compileExtends(d)»«compileImplements(d)»{
+  «IF getSernum(d) != null»
+  
+  private static final long serialVersionUID = «getSernum(d)»L;
+  «ENDIF»
+  protected final Logger logger = LoggerFactory.getLogger(getClass());
+
+  private SqlEngineFactory sqlEngineFactory;
+  private SqlSessionFactory sqlSessionFactory;
+    	
+  public «d.name»(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
+    this.sqlEngineFactory = sqlEngineFactory;
+    this.sqlSessionFactory = sqlSessionFactory;
+  }
+  
+  «compileInsert(d, e, importManager)»
+}
+'''
+
+def compileInsert(PojoDao d, PojoEntity e, ImportManager importManager) '''
+
+    public «e.name» insert(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+      if (logger.isTraceEnabled()) {
+        logger.trace("insert «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
+      }
+      SqlCrudEngine sqlInsert«e.name» = sqlEngineFactory.getCrudEngine("INSERT_«dbName(e)»");
+      int count = sqlInsert«e.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      if (logger.isTraceEnabled()) {
+        logger.trace("insert «e.name.toFirstLower» result: " + count + " " + «e.name.toFirstLower»);
+      }
+      return (count > 0) ? «e.name.toFirstLower» : null;
+    }
+
+    public «e.name» insert(«e.name» «e.name.toFirstLower») {
+      return insert(«e.name.toFirstLower», null);
+    }
+'''
+
 def listFeatures(PojoEntity e) {
 	
    	val list = new ArrayList<PojoProperty>()
@@ -314,6 +394,12 @@ def compileExtends(PojoEntity e) '''
 def compileImplements(PojoEntity e) '''
 	«IF isImplements(e) || getSernum(e) != null»implements «FOR f:e.eContainer.eContents.filter(typeof(Implements)) SEPARATOR ", " »«f.getImplements().simpleName»«ENDFOR»«IF getSernum(e) != null»«IF isImplements(e)», «ENDIF»Serializable«ENDIF» «ENDIF»'''
 
+def compileExtends(PojoDao e) '''
+	«IF getSuperType(e) != null»extends «getSuperType(e).fullyQualifiedName» «ELSEIF getExtends(e) != ""»extends «getExtends(e)» «ENDIF»'''
+
+def compileImplements(PojoDao e) '''
+	«IF isImplements(e) || getSernum(e) != null»implements «FOR f:e.eContainer.eContents.filter(typeof(Implements)) SEPARATOR ", " »«f.getImplements().simpleName»«ENDFOR»«IF getSernum(e) != null»«IF isImplements(e)», «ENDIF»Serializable«ENDIF» «ENDIF»'''
+
 def compile(Extends e, ImportManager importManager) {
 	importManager.addImportFor(e.getExtends())
 }
@@ -330,6 +416,18 @@ def addExtends(PojoEntity e, ImportManager importManager) {
 	}
 }
 
+def addImplements(PojoDao e, ImportManager importManager) {
+	for(impl: e.eContainer.eContents.filter(typeof(Implements))) {
+		importManager.addImportFor(impl.getImplements())
+	}
+}
+
+def addExtends(PojoDao e, ImportManager importManager) {
+	for(ext: e.eContainer.eContents.filter(typeof(Extends))) {
+		importManager.addImportFor(ext.getExtends())
+	}
+}
+
 def getExtends(PojoEntity e) {
 	for(ext: e.eContainer.eContents.filter(typeof(Extends))) {
 		return ext.getExtends().simpleName
@@ -338,6 +436,20 @@ def getExtends(PojoEntity e) {
 }
 
 def isImplements(PojoEntity e) {
+	for(ext: e.eContainer.eContents.filter(typeof(Implements))) {
+		return true
+	}
+	return false
+}
+
+def getExtends(PojoDao e) {
+	for(ext: e.eContainer.eContents.filter(typeof(Extends))) {
+		return ext.getExtends().simpleName
+	}
+	return ""
+}
+
+def isImplements(PojoDao e) {
 	for(ext: e.eContainer.eContents.filter(typeof(Implements))) {
 		return true
 	}

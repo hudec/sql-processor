@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.sample.simple.model.CreditCard;
 
-public class CreditCardDao extends BaseDaoImpl {
+public class CreditCardDao1 extends BaseDaoImpl {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 

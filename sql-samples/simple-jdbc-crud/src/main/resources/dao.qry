@@ -2,7 +2,7 @@ package org.sqlproc.sample.simple.dao {
 
   dao BankAccountDao :: BankAccount {
   }
-  
+
   dao NewBookDao :: NewBook {
   }
 
