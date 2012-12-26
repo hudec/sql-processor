@@ -46,9 +46,9 @@ public class CreditCardDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + creditCard + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineCreditCard = sqlEngineFactory.getCrudEngine("GET_CREDIT_CARD");
+    SqlCrudEngine sqlGetEngineCreditCard = sqlEngineFactory.getCrudEngine("GET_CREDIT_CARD");
     //sqlControl = getMoreResultClasses(creditCard, sqlControl);
-    CreditCard creditCardGot = sqlEngineCreditCard.get(sqlSessionFactory.getSqlSession(), CreditCard.class, creditCard, sqlControl);
+    CreditCard creditCardGot = sqlGetEngineCreditCard.get(sqlSessionFactory.getSqlSession(), CreditCard.class, creditCard, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get creditCard result: " + creditCardGot);
     }
@@ -63,8 +63,8 @@ public class CreditCardDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update creditCard: " + creditCard + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineCreditCard = sqlEngineFactory.getCrudEngine("UPDATE_CREDIT_CARD");
-    int count = sqlEngineCreditCard.update(sqlSessionFactory.getSqlSession(), creditCard);
+    SqlCrudEngine sqlUpdateEngineCreditCard = sqlEngineFactory.getCrudEngine("UPDATE_CREDIT_CARD");
+    int count = sqlUpdateEngineCreditCard.update(sqlSessionFactory.getSqlSession(), creditCard);
     if (logger.isTraceEnabled()) {
       logger.trace("update creditCard result count: " + count);
     }
@@ -79,8 +79,8 @@ public class CreditCardDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete creditCard: " + creditCard + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineCreditCard = sqlEngineFactory.getCrudEngine("DELETE_CREDIT_CARD");
-    int count = sqlEngineCreditCard.delete(sqlSessionFactory.getSqlSession(), creditCard);
+    SqlCrudEngine sqlDeleteEngineCreditCard = sqlEngineFactory.getCrudEngine("DELETE_CREDIT_CARD");
+    int count = sqlDeleteEngineCreditCard.delete(sqlSessionFactory.getSqlSession(), creditCard);
     if (logger.isTraceEnabled()) {
       logger.trace("delete creditCard result count: " + count);
     }

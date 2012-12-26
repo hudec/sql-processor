@@ -321,23 +321,27 @@ public «IF isAbstract(d)»abstract «ENDIF»class «d.name» «compileExtends(d
     this.sqlSessionFactory = sqlSessionFactory;
   }
   
-  «compileInsert(d, e, importManager)»
+  «compileInsert(d, e, getParent(e), importManager)»
   «compileGet(d, e, toInits, importManager)»
-  «compileUpdate(d, e, importManager)»
-  «compileDelete(d, e, importManager)»
+  «compileUpdate(d, e, getParent(e), importManager)»
+  «compileDelete(d, e, getParent(e), importManager)»
   «compileList(d, e, toInits, importManager)»
   «IF !toInits.empty»«compileMoreResultClasses(d, e, toInits, importManager)»«ENDIF»
 }
 '''
 
-def compileInsert(PojoDao d, PojoEntity e, ImportManager importManager) '''
+def compileInsert(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importManager) '''
 
     public «e.name» insert(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
       if (logger.isTraceEnabled()) {
         logger.trace("insert «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
-      SqlCrudEngine sqlInsert«e.name» = sqlEngineFactory.getCrudEngine("INSERT_«dbName(e)»");
-      int count = sqlInsert«e.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      SqlCrudEngine sqlInsert«e.name» = sqlEngineFactory.getCrudEngine("INSERT_«dbName(e)»");«IF pe != null»
+      SqlCrudEngine sqlInsert«pe.name» = sqlEngineFactory.getCrudEngine("INSERT_«dbName(pe)»");«ENDIF»
+      int count = sqlInsert«e.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
+      if (count > 0) {
+      	sqlInsert«pe.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      }«ENDIF»
       if (logger.isTraceEnabled()) {
         logger.trace("insert «e.name.toFirstLower» result: " + count + " " + «e.name.toFirstLower»);
       }
@@ -355,9 +359,9 @@ def compileGet(PojoDao d, PojoEntity e, Map<String, List<PojoMethodArg>> toInits
       if (logger.isTraceEnabled()) {
         logger.trace("get get: " + «e.name.toFirstLower» + " " + sqlControl);
       }
-      SqlCrudEngine sqlEngine«e.name» = sqlEngineFactory.getCrudEngine("GET_«dbName(e)»");
+      SqlCrudEngine sqlGetEngine«e.name» = sqlEngineFactory.getCrudEngine("GET_«dbName(e)»");
       «IF toInits.empty»//«ENDIF»sqlControl = getMoreResultClasses(«e.name.toFirstLower», sqlControl);
-      «e.name» «e.name.toFirstLower»Got = sqlEngine«e.name».get(sqlSessionFactory.getSqlSession(), «e.name».class, «e.name.toFirstLower», sqlControl);
+      «e.name» «e.name.toFirstLower»Got = sqlGetEngine«e.name».get(sqlSessionFactory.getSqlSession(), «e.name».class, «e.name.toFirstLower», sqlControl);
       if (logger.isTraceEnabled()) {
         logger.trace("get «e.name.toFirstLower» result: " + «e.name.toFirstLower»Got);
       }
@@ -369,14 +373,18 @@ def compileGet(PojoDao d, PojoEntity e, Map<String, List<PojoMethodArg>> toInits
     }
 '''
 
-def compileUpdate(PojoDao d, PojoEntity e, ImportManager importManager) '''
+def compileUpdate(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importManager) '''
 
     public int update(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
       if (logger.isTraceEnabled()) {
         logger.trace("update «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
-      SqlCrudEngine sqlEngine«e.name» = sqlEngineFactory.getCrudEngine("UPDATE_«dbName(e)»");
-      int count = sqlEngine«e.name».update(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      SqlCrudEngine sqlUpdateEngine«e.name» = sqlEngineFactory.getCrudEngine("UPDATE_«dbName(e)»");«IF pe != null»
+      SqlCrudEngine sqlUpdate«pe.name» = sqlEngineFactory.getCrudEngine("UPDATE_«dbName(pe)»");«ENDIF»
+      int count = sqlUpdateEngine«e.name».update(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
+      if (count > 0) {
+      	sqlUpdate«pe.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      }«ENDIF»
       if (logger.isTraceEnabled()) {
         logger.trace("update «e.name.toFirstLower» result count: " + count);
       }
@@ -388,14 +396,18 @@ def compileUpdate(PojoDao d, PojoEntity e, ImportManager importManager) '''
     }
 '''
 
-def compileDelete(PojoDao d, PojoEntity e, ImportManager importManager) '''
+def compileDelete(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importManager) '''
 
     public int delete(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
       if (logger.isTraceEnabled()) {
         logger.trace("delete «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
-      SqlCrudEngine sqlEngine«e.name» = sqlEngineFactory.getCrudEngine("DELETE_«dbName(e)»");
-      int count = sqlEngine«e.name».delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      SqlCrudEngine sqlDeleteEngine«e.name» = sqlEngineFactory.getCrudEngine("DELETE_«dbName(e)»");«IF pe != null»
+      SqlCrudEngine sqlDelete«pe.name» = sqlEngineFactory.getCrudEngine("UPDATE_«dbName(pe)»");«ENDIF»
+      int count = sqlDeleteEngine«e.name».delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
+      if (count > 0) {
+      	sqlDelete«pe.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      }«ENDIF»
       if (logger.isTraceEnabled()) {
         logger.trace("delete «e.name.toFirstLower» result count: " + count);
       }

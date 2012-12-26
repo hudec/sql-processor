@@ -48,9 +48,9 @@ public class SubscriberDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + subscriber + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineSubscriber = sqlEngineFactory.getCrudEngine("GET_SUBSCRIBER");
+    SqlCrudEngine sqlGetEngineSubscriber = sqlEngineFactory.getCrudEngine("GET_SUBSCRIBER");
     sqlControl = getMoreResultClasses(subscriber, sqlControl);
-    Subscriber subscriberGot = sqlEngineSubscriber.get(sqlSessionFactory.getSqlSession(), Subscriber.class, subscriber, sqlControl);
+    Subscriber subscriberGot = sqlGetEngineSubscriber.get(sqlSessionFactory.getSqlSession(), Subscriber.class, subscriber, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get subscriber result: " + subscriberGot);
     }
@@ -65,8 +65,8 @@ public class SubscriberDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update subscriber: " + subscriber + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineSubscriber = sqlEngineFactory.getCrudEngine("UPDATE_SUBSCRIBER");
-    int count = sqlEngineSubscriber.update(sqlSessionFactory.getSqlSession(), subscriber);
+    SqlCrudEngine sqlUpdateEngineSubscriber = sqlEngineFactory.getCrudEngine("UPDATE_SUBSCRIBER");
+    int count = sqlUpdateEngineSubscriber.update(sqlSessionFactory.getSqlSession(), subscriber);
     if (logger.isTraceEnabled()) {
       logger.trace("update subscriber result count: " + count);
     }
@@ -81,8 +81,8 @@ public class SubscriberDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete subscriber: " + subscriber + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineSubscriber = sqlEngineFactory.getCrudEngine("DELETE_SUBSCRIBER");
-    int count = sqlEngineSubscriber.delete(sqlSessionFactory.getSqlSession(), subscriber);
+    SqlCrudEngine sqlDeleteEngineSubscriber = sqlEngineFactory.getCrudEngine("DELETE_SUBSCRIBER");
+    int count = sqlDeleteEngineSubscriber.delete(sqlSessionFactory.getSqlSession(), subscriber);
     if (logger.isTraceEnabled()) {
       logger.trace("delete subscriber result count: " + count);
     }

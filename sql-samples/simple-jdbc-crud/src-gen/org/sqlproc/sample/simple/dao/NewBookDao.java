@@ -31,7 +31,11 @@ public class NewBookDao {
       logger.trace("insert newBook: " + newBook + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertNewBook = sqlEngineFactory.getCrudEngine("INSERT_NEW_BOOK");
+    SqlCrudEngine sqlInsertMedia = sqlEngineFactory.getCrudEngine("INSERT_MEDIA");
     int count = sqlInsertNewBook.insert(sqlSessionFactory.getSqlSession(), newBook);
+    if (count > 0) {
+    	sqlInsertMedia.insert(sqlSessionFactory.getSqlSession(), newBook);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("insert newBook result: " + count + " " + newBook);
     }
@@ -46,9 +50,9 @@ public class NewBookDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + newBook + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineNewBook = sqlEngineFactory.getCrudEngine("GET_NEW_BOOK");
+    SqlCrudEngine sqlGetEngineNewBook = sqlEngineFactory.getCrudEngine("GET_NEW_BOOK");
     //sqlControl = getMoreResultClasses(newBook, sqlControl);
-    NewBook newBookGot = sqlEngineNewBook.get(sqlSessionFactory.getSqlSession(), NewBook.class, newBook, sqlControl);
+    NewBook newBookGot = sqlGetEngineNewBook.get(sqlSessionFactory.getSqlSession(), NewBook.class, newBook, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get newBook result: " + newBookGot);
     }
@@ -63,8 +67,12 @@ public class NewBookDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update newBook: " + newBook + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineNewBook = sqlEngineFactory.getCrudEngine("UPDATE_NEW_BOOK");
-    int count = sqlEngineNewBook.update(sqlSessionFactory.getSqlSession(), newBook);
+    SqlCrudEngine sqlUpdateEngineNewBook = sqlEngineFactory.getCrudEngine("UPDATE_NEW_BOOK");
+    SqlCrudEngine sqlUpdateMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
+    int count = sqlUpdateEngineNewBook.update(sqlSessionFactory.getSqlSession(), newBook);
+    if (count > 0) {
+    	sqlUpdateMedia.insert(sqlSessionFactory.getSqlSession(), newBook);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("update newBook result count: " + count);
     }
@@ -79,8 +87,12 @@ public class NewBookDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete newBook: " + newBook + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineNewBook = sqlEngineFactory.getCrudEngine("DELETE_NEW_BOOK");
-    int count = sqlEngineNewBook.delete(sqlSessionFactory.getSqlSession(), newBook);
+    SqlCrudEngine sqlDeleteEngineNewBook = sqlEngineFactory.getCrudEngine("DELETE_NEW_BOOK");
+    SqlCrudEngine sqlDeleteMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
+    int count = sqlDeleteEngineNewBook.delete(sqlSessionFactory.getSqlSession(), newBook);
+    if (count > 0) {
+    	sqlDeleteMedia.insert(sqlSessionFactory.getSqlSession(), newBook);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("delete newBook result count: " + count);
     }

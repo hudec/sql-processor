@@ -48,9 +48,9 @@ public class PhysicalMediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + physicalMedia + " " + sqlControl);
     }
-    SqlCrudEngine sqlEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("GET_PHYSICAL_MEDIA");
+    SqlCrudEngine sqlGetEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("GET_PHYSICAL_MEDIA");
     sqlControl = getMoreResultClasses(physicalMedia, sqlControl);
-    PhysicalMedia physicalMediaGot = sqlEnginePhysicalMedia.get(sqlSessionFactory.getSqlSession(), PhysicalMedia.class, physicalMedia, sqlControl);
+    PhysicalMedia physicalMediaGot = sqlGetEnginePhysicalMedia.get(sqlSessionFactory.getSqlSession(), PhysicalMedia.class, physicalMedia, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get physicalMedia result: " + physicalMediaGot);
     }
@@ -65,8 +65,8 @@ public class PhysicalMediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update physicalMedia: " + physicalMedia + " " + sqlControl);
     }
-    SqlCrudEngine sqlEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("UPDATE_PHYSICAL_MEDIA");
-    int count = sqlEnginePhysicalMedia.update(sqlSessionFactory.getSqlSession(), physicalMedia);
+    SqlCrudEngine sqlUpdateEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("UPDATE_PHYSICAL_MEDIA");
+    int count = sqlUpdateEnginePhysicalMedia.update(sqlSessionFactory.getSqlSession(), physicalMedia);
     if (logger.isTraceEnabled()) {
       logger.trace("update physicalMedia result count: " + count);
     }
@@ -81,8 +81,8 @@ public class PhysicalMediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete physicalMedia: " + physicalMedia + " " + sqlControl);
     }
-    SqlCrudEngine sqlEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("DELETE_PHYSICAL_MEDIA");
-    int count = sqlEnginePhysicalMedia.delete(sqlSessionFactory.getSqlSession(), physicalMedia);
+    SqlCrudEngine sqlDeleteEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("DELETE_PHYSICAL_MEDIA");
+    int count = sqlDeleteEnginePhysicalMedia.delete(sqlSessionFactory.getSqlSession(), physicalMedia);
     if (logger.isTraceEnabled()) {
       logger.trace("delete physicalMedia result count: " + count);
     }

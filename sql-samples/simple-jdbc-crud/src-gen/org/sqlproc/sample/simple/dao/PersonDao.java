@@ -48,9 +48,9 @@ public class PersonDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + person + " " + sqlControl);
     }
-    SqlCrudEngine sqlEnginePerson = sqlEngineFactory.getCrudEngine("GET_PERSON");
+    SqlCrudEngine sqlGetEnginePerson = sqlEngineFactory.getCrudEngine("GET_PERSON");
     sqlControl = getMoreResultClasses(person, sqlControl);
-    Person personGot = sqlEnginePerson.get(sqlSessionFactory.getSqlSession(), Person.class, person, sqlControl);
+    Person personGot = sqlGetEnginePerson.get(sqlSessionFactory.getSqlSession(), Person.class, person, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get person result: " + personGot);
     }
@@ -65,8 +65,8 @@ public class PersonDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update person: " + person + " " + sqlControl);
     }
-    SqlCrudEngine sqlEnginePerson = sqlEngineFactory.getCrudEngine("UPDATE_PERSON");
-    int count = sqlEnginePerson.update(sqlSessionFactory.getSqlSession(), person);
+    SqlCrudEngine sqlUpdateEnginePerson = sqlEngineFactory.getCrudEngine("UPDATE_PERSON");
+    int count = sqlUpdateEnginePerson.update(sqlSessionFactory.getSqlSession(), person);
     if (logger.isTraceEnabled()) {
       logger.trace("update person result count: " + count);
     }
@@ -81,8 +81,8 @@ public class PersonDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete person: " + person + " " + sqlControl);
     }
-    SqlCrudEngine sqlEnginePerson = sqlEngineFactory.getCrudEngine("DELETE_PERSON");
-    int count = sqlEnginePerson.delete(sqlSessionFactory.getSqlSession(), person);
+    SqlCrudEngine sqlDeleteEnginePerson = sqlEngineFactory.getCrudEngine("DELETE_PERSON");
+    int count = sqlDeleteEnginePerson.delete(sqlSessionFactory.getSqlSession(), person);
     if (logger.isTraceEnabled()) {
       logger.trace("delete person result count: " + count);
     }

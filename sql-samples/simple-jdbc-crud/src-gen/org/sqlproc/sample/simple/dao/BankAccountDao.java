@@ -46,9 +46,9 @@ public class BankAccountDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + bankAccount + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineBankAccount = sqlEngineFactory.getCrudEngine("GET_BANK_ACCOUNT");
+    SqlCrudEngine sqlGetEngineBankAccount = sqlEngineFactory.getCrudEngine("GET_BANK_ACCOUNT");
     //sqlControl = getMoreResultClasses(bankAccount, sqlControl);
-    BankAccount bankAccountGot = sqlEngineBankAccount.get(sqlSessionFactory.getSqlSession(), BankAccount.class, bankAccount, sqlControl);
+    BankAccount bankAccountGot = sqlGetEngineBankAccount.get(sqlSessionFactory.getSqlSession(), BankAccount.class, bankAccount, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get bankAccount result: " + bankAccountGot);
     }
@@ -63,8 +63,8 @@ public class BankAccountDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update bankAccount: " + bankAccount + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineBankAccount = sqlEngineFactory.getCrudEngine("UPDATE_BANK_ACCOUNT");
-    int count = sqlEngineBankAccount.update(sqlSessionFactory.getSqlSession(), bankAccount);
+    SqlCrudEngine sqlUpdateEngineBankAccount = sqlEngineFactory.getCrudEngine("UPDATE_BANK_ACCOUNT");
+    int count = sqlUpdateEngineBankAccount.update(sqlSessionFactory.getSqlSession(), bankAccount);
     if (logger.isTraceEnabled()) {
       logger.trace("update bankAccount result count: " + count);
     }
@@ -79,8 +79,8 @@ public class BankAccountDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete bankAccount: " + bankAccount + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineBankAccount = sqlEngineFactory.getCrudEngine("DELETE_BANK_ACCOUNT");
-    int count = sqlEngineBankAccount.delete(sqlSessionFactory.getSqlSession(), bankAccount);
+    SqlCrudEngine sqlDeleteEngineBankAccount = sqlEngineFactory.getCrudEngine("DELETE_BANK_ACCOUNT");
+    int count = sqlDeleteEngineBankAccount.delete(sqlSessionFactory.getSqlSession(), bankAccount);
     if (logger.isTraceEnabled()) {
       logger.trace("delete bankAccount result count: " + count);
     }

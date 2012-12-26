@@ -375,4 +375,11 @@ public class Utils {
         }
         return result;
     }
+
+    public static PojoEntity getParent(PojoEntity e) {
+        if (getDiscriminator(e) != null)
+            return null;
+        PojoEntity e2 = getSuperType(e);
+        return e2;
+    }
 }

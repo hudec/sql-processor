@@ -46,9 +46,9 @@ public class MediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + media + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineMedia = sqlEngineFactory.getCrudEngine("GET_MEDIA");
+    SqlCrudEngine sqlGetEngineMedia = sqlEngineFactory.getCrudEngine("GET_MEDIA");
     //sqlControl = getMoreResultClasses(media, sqlControl);
-    Media mediaGot = sqlEngineMedia.get(sqlSessionFactory.getSqlSession(), Media.class, media, sqlControl);
+    Media mediaGot = sqlGetEngineMedia.get(sqlSessionFactory.getSqlSession(), Media.class, media, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get media result: " + mediaGot);
     }
@@ -63,8 +63,8 @@ public class MediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update media: " + media + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
-    int count = sqlEngineMedia.update(sqlSessionFactory.getSqlSession(), media);
+    SqlCrudEngine sqlUpdateEngineMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
+    int count = sqlUpdateEngineMedia.update(sqlSessionFactory.getSqlSession(), media);
     if (logger.isTraceEnabled()) {
       logger.trace("update media result count: " + count);
     }
@@ -79,8 +79,8 @@ public class MediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete media: " + media + " " + sqlControl);
     }
-    SqlCrudEngine sqlEngineMedia = sqlEngineFactory.getCrudEngine("DELETE_MEDIA");
-    int count = sqlEngineMedia.delete(sqlSessionFactory.getSqlSession(), media);
+    SqlCrudEngine sqlDeleteEngineMedia = sqlEngineFactory.getCrudEngine("DELETE_MEDIA");
+    int count = sqlDeleteEngineMedia.delete(sqlSessionFactory.getSqlSession(), media);
     if (logger.isTraceEnabled()) {
       logger.trace("delete media result count: " + count);
     }

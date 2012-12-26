@@ -48,9 +48,9 @@ public class PerformerDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + performer + " " + sqlControl);
     }
-    SqlCrudEngine sqlEnginePerformer = sqlEngineFactory.getCrudEngine("GET_PERFORMER");
+    SqlCrudEngine sqlGetEnginePerformer = sqlEngineFactory.getCrudEngine("GET_PERFORMER");
     sqlControl = getMoreResultClasses(performer, sqlControl);
-    Performer performerGot = sqlEnginePerformer.get(sqlSessionFactory.getSqlSession(), Performer.class, performer, sqlControl);
+    Performer performerGot = sqlGetEnginePerformer.get(sqlSessionFactory.getSqlSession(), Performer.class, performer, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get performer result: " + performerGot);
     }
@@ -65,8 +65,8 @@ public class PerformerDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update performer: " + performer + " " + sqlControl);
     }
-    SqlCrudEngine sqlEnginePerformer = sqlEngineFactory.getCrudEngine("UPDATE_PERFORMER");
-    int count = sqlEnginePerformer.update(sqlSessionFactory.getSqlSession(), performer);
+    SqlCrudEngine sqlUpdateEnginePerformer = sqlEngineFactory.getCrudEngine("UPDATE_PERFORMER");
+    int count = sqlUpdateEnginePerformer.update(sqlSessionFactory.getSqlSession(), performer);
     if (logger.isTraceEnabled()) {
       logger.trace("update performer result count: " + count);
     }
@@ -81,8 +81,8 @@ public class PerformerDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete performer: " + performer + " " + sqlControl);
     }
-    SqlCrudEngine sqlEnginePerformer = sqlEngineFactory.getCrudEngine("DELETE_PERFORMER");
-    int count = sqlEnginePerformer.delete(sqlSessionFactory.getSqlSession(), performer);
+    SqlCrudEngine sqlDeleteEnginePerformer = sqlEngineFactory.getCrudEngine("DELETE_PERFORMER");
+    int count = sqlDeleteEnginePerformer.delete(sqlSessionFactory.getSqlSession(), performer);
     if (logger.isTraceEnabled()) {
       logger.trace("delete performer result count: " + count);
     }
