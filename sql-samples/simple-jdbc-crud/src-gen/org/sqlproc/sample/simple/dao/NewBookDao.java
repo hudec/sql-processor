@@ -71,7 +71,7 @@ public class NewBookDao {
     SqlCrudEngine sqlUpdateMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
     int count = sqlUpdateEngineNewBook.update(sqlSessionFactory.getSqlSession(), newBook);
     if (count > 0) {
-    	sqlUpdateMedia.insert(sqlSessionFactory.getSqlSession(), newBook);
+    	sqlUpdateMedia.update(sqlSessionFactory.getSqlSession(), newBook);
     }
     if (logger.isTraceEnabled()) {
       logger.trace("update newBook result count: " + count);
@@ -91,7 +91,7 @@ public class NewBookDao {
     SqlCrudEngine sqlDeleteMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
     int count = sqlDeleteEngineNewBook.delete(sqlSessionFactory.getSqlSession(), newBook);
     if (count > 0) {
-    	sqlDeleteMedia.insert(sqlSessionFactory.getSqlSession(), newBook);
+    	sqlDeleteMedia.delete(sqlSessionFactory.getSqlSession(), newBook);
     }
     if (logger.isTraceEnabled()) {
       logger.trace("delete newBook result count: " + count);

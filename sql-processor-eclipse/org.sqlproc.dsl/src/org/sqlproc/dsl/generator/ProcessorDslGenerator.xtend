@@ -384,7 +384,7 @@ def compileUpdate(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
       SqlCrudEngine sqlUpdate«pe.name» = sqlEngineFactory.getCrudEngine("UPDATE_«dbName(pe)»");«ENDIF»
       int count = sqlUpdateEngine«e.name».update(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
       if (count > 0) {
-      	sqlUpdate«pe.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      	sqlUpdate«pe.name».update(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
       }«ENDIF»
       if (logger.isTraceEnabled()) {
         logger.trace("update «e.name.toFirstLower» result count: " + count);
@@ -407,7 +407,7 @@ def compileDelete(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
       SqlCrudEngine sqlDelete«pe.name» = sqlEngineFactory.getCrudEngine("UPDATE_«dbName(pe)»");«ENDIF»
       int count = sqlDeleteEngine«e.name».delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
       if (count > 0) {
-      	sqlDelete«pe.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      	sqlDelete«pe.name».delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
       }«ENDIF»
       if (logger.isTraceEnabled()) {
         logger.trace("delete «e.name.toFirstLower» result count: " + count);

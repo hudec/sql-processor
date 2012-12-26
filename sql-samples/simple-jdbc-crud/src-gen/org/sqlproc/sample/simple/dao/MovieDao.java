@@ -71,7 +71,7 @@ public class MovieDao {
     SqlCrudEngine sqlUpdateMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
     int count = sqlUpdateEngineMovie.update(sqlSessionFactory.getSqlSession(), movie);
     if (count > 0) {
-    	sqlUpdateMedia.insert(sqlSessionFactory.getSqlSession(), movie);
+    	sqlUpdateMedia.update(sqlSessionFactory.getSqlSession(), movie);
     }
     if (logger.isTraceEnabled()) {
       logger.trace("update movie result count: " + count);
@@ -91,7 +91,7 @@ public class MovieDao {
     SqlCrudEngine sqlDeleteMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
     int count = sqlDeleteEngineMovie.delete(sqlSessionFactory.getSqlSession(), movie);
     if (count > 0) {
-    	sqlDeleteMedia.insert(sqlSessionFactory.getSqlSession(), movie);
+    	sqlDeleteMedia.delete(sqlSessionFactory.getSqlSession(), movie);
     }
     if (logger.isTraceEnabled()) {
       logger.trace("delete movie result count: " + count);

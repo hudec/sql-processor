@@ -1520,7 +1520,7 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.append("sqlUpdate");
         String _name_8 = pe.getName();
         _builder.append(_name_8, "  	");
-        _builder.append(".insert(sqlSessionFactory.getSqlSession(), ");
+        _builder.append(".update(sqlSessionFactory.getSqlSession(), ");
         String _name_9 = e.getName();
         String _firstLower_4 = StringExtensions.toFirstLower(_name_9);
         _builder.append(_firstLower_4, "  	");
@@ -1644,7 +1644,7 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.append("sqlDelete");
         String _name_8 = pe.getName();
         _builder.append(_name_8, "  	");
-        _builder.append(".insert(sqlSessionFactory.getSqlSession(), ");
+        _builder.append(".delete(sqlSessionFactory.getSqlSession(), ");
         String _name_9 = e.getName();
         String _firstLower_4 = StringExtensions.toFirstLower(_name_9);
         _builder.append(_firstLower_4, "  	");
