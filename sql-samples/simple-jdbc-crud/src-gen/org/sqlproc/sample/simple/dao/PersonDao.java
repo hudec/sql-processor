@@ -13,6 +13,8 @@ import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.sample.simple.model.Person;
+import org.sqlproc.sample.simple.model.Media;
+import org.sqlproc.sample.simple.model.NewBook;
 
 public class PersonDao {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -117,7 +119,7 @@ public class PersonDao {
         moreResultClasses = new HashMap<String, Class<?>>();
       moreResultClasses.put("media", Media.class);
       moreResultClasses.put("book", NewBook.class);
-  }
+    }
     if (moreResultClasses != null) {
       sqlControl = new SqlStandardControl(sqlControl);
       ((SqlStandardControl) sqlControl).setMoreResultClasses(moreResultClasses);

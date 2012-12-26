@@ -13,6 +13,8 @@ import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.sample.simple.model.PhysicalMedia;
+import org.sqlproc.sample.simple.model.Media;
+import org.sqlproc.sample.simple.model.NewBook;
 
 public class PhysicalMediaDao {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -47,7 +49,7 @@ public class PhysicalMediaDao {
       logger.trace("get get: " + physicalMedia + " " + sqlControl);
     }
     SqlCrudEngine sqlEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("GET_PHYSICAL_MEDIA");
-    //sqlControl = getMoreResultClasses(physicalMedia, sqlControl);
+    sqlControl = getMoreResultClasses(physicalMedia, sqlControl);
     PhysicalMedia physicalMediaGot = sqlEnginePhysicalMedia.get(sqlSessionFactory.getSqlSession(), PhysicalMedia.class, physicalMedia, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get physicalMedia result: " + physicalMediaGot);
@@ -96,7 +98,7 @@ public class PhysicalMediaDao {
       logger.trace("list physicalMedia: " + physicalMedia + " " + sqlControl);
     }
     SqlQueryEngine sqlEnginePhysicalMedia = sqlEngineFactory.getQueryEngine("SELECT_PHYSICAL_MEDIA");
-    //sqlControl = getMoreResultClasses(physicalMedia, sqlControl);
+    sqlControl = getMoreResultClasses(physicalMedia, sqlControl);
     List<PhysicalMedia> physicalMediaList = sqlEnginePhysicalMedia.query(sqlSessionFactory.getSqlSession(), PhysicalMedia.class, physicalMedia, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("list physicalMedia size: " + ((physicalMediaList != null) ? physicalMediaList.size() : "null"));
@@ -106,5 +108,22 @@ public class PhysicalMediaDao {
   
   public List<PhysicalMedia> list(PhysicalMedia physicalMedia) {
     return list(physicalMedia, null);
+  }
+  
+  SqlControl getMoreResultClasses(PhysicalMedia physicalMedia, SqlControl sqlControl) {
+    if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
+      return sqlControl;
+    Map<String, Class<?>> moreResultClasses = null;
+    if (physicalMedia != null && physicalMedia.toInit(PhysicalMedia.Association.media)) {
+      if (moreResultClasses == null)
+        moreResultClasses = new HashMap<String, Class<?>>();
+      moreResultClasses.put("media", Media.class);
+      moreResultClasses.put("book", NewBook.class);
+    }
+    if (moreResultClasses != null) {
+      sqlControl = new SqlStandardControl(sqlControl);
+      ((SqlStandardControl) sqlControl).setMoreResultClasses(moreResultClasses);
+    }
+    return sqlControl;
   }
 }

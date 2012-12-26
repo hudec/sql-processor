@@ -980,8 +980,10 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.newLineIfNotEmpty();
     this.addExtends(d, importManager);
     _builder.newLineIfNotEmpty();
+    final Map<String,List<PojoMethodArg>> toInits = Utils.getToInits(d);
+    _builder.newLineIfNotEmpty();
     PojoEntity _pojo = d.getPojo();
-    final CharSequence classBody = this.compile(d, _pojo, importManager);
+    final CharSequence classBody = this.compile(d, _pojo, toInits, importManager);
     _builder.newLineIfNotEmpty();
     {
       EObject _eContainer = d.eContainer();
@@ -1048,13 +1050,31 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.newLine();
     _builder.append("import ");
     PojoEntity _pojo_1 = d.getPojo();
-    String _package = Utils.getPackage(_pojo_1);
-    _builder.append(_package, "");
-    _builder.append(".");
-    PojoEntity _pojo_2 = d.getPojo();
-    String _name = _pojo_2.getName();
-    _builder.append(_name, "");
+    String _completeName = this.completeName(_pojo_1);
+    _builder.append(_completeName, "");
     _builder.append(";");
+    _builder.newLineIfNotEmpty();
+    {
+      Set<Entry<String,List<PojoMethodArg>>> _entrySet = toInits.entrySet();
+      for(final Entry<String,List<PojoMethodArg>> f : _entrySet) {
+        {
+          List<PojoMethodArg> _value = f.getValue();
+          boolean _hasElements = false;
+          for(final PojoMethodArg a : _value) {
+            if (!_hasElements) {
+              _hasElements = true;
+            } else {
+              _builder.appendImmediate("\n", "");
+            }
+            _builder.append("import ");
+            PojoEntity _ref = a.getRef();
+            String _completeName_1 = this.completeName(_ref);
+            _builder.append(_completeName_1, "");
+            _builder.append(";");
+          }
+        }
+      }
+    }
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append(classBody, "");
@@ -1062,7 +1082,7 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
-  public CharSequence compile(final PojoDao d, final PojoEntity e, final ImportManager importManager) {
+  public CharSequence compile(final PojoDao d, final PojoEntity e, final Map<String,List<PojoMethodArg>> toInits, final ImportManager importManager) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("public ");
     {
@@ -1124,9 +1144,6 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.newLine();
     _builder.append("  ");
     _builder.newLine();
-    _builder.append("  ");
-    final Map<String,List<PojoMethodArg>> toInits = Utils.getToInits(d);
-    _builder.newLineIfNotEmpty();
     _builder.append("  ");
     CharSequence _compileInsert = this.compileInsert(d, e, importManager);
     _builder.append(_compileInsert, "  ");
@@ -1762,6 +1779,7 @@ public class ProcessorDslGenerator implements IGenerator {
           }
         }
         _builder.newLineIfNotEmpty();
+        _builder.append("  ");
         _builder.append("}");
         _builder.newLine();
       }
@@ -2154,5 +2172,12 @@ public class ProcessorDslGenerator implements IGenerator {
       return true;
     }
     return false;
+  }
+  
+  public String completeName(final PojoEntity e) {
+    String _package = Utils.getPackage(e);
+    String _plus = (_package + ".");
+    String _name = e.getName();
+    return (_plus + _name);
   }
 }

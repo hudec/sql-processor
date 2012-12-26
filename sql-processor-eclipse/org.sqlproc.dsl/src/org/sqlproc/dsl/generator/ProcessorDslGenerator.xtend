@@ -272,7 +272,8 @@ def compile(PojoDao d) '''
 «val importManager = new ImportManager(true)»
 «addImplements(d, importManager)»
 «addExtends(d, importManager)»
-«val classBody = compile(d, d.pojo, importManager)»
+«val toInits = getToInits(d)»
+«val classBody = compile(d, d.pojo, toInits, importManager)»
 «IF d.eContainer != null»package «d.eContainer.fullyQualifiedName»;«ENDIF»
   «IF !importManager.imports.empty»
   
@@ -297,12 +298,14 @@ import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
-import «getPackage(d.pojo)».«d.pojo.name»;
+import «d.pojo.completeName»;
+«FOR f:toInits.entrySet»«FOR a:f.value SEPARATOR "
+"»import «a.ref.completeName»;«ENDFOR»«ENDFOR»
 
 «classBody»
 '''
 
-def compile(PojoDao d, PojoEntity e, ImportManager importManager) '''
+def compile(PojoDao d, PojoEntity e, Map<String, List<PojoMethodArg>> toInits, ImportManager importManager) '''
 public «IF isAbstract(d)»abstract «ENDIF»class «d.name» «compileExtends(d)»«compileImplements(d)»{
   «IF getSernum(d) != null»
   
@@ -318,7 +321,6 @@ public «IF isAbstract(d)»abstract «ENDIF»class «d.name» «compileExtends(d
     this.sqlSessionFactory = sqlSessionFactory;
   }
   
-  «val toInits = getToInits(d)»
   «compileInsert(d, e, importManager)»
   «compileGet(d, e, toInits, importManager)»
   «compileUpdate(d, e, importManager)»
@@ -437,7 +439,7 @@ def compileMoreResultClasses(PojoDao d, PojoEntity e, Map<String, List<PojoMetho
           moreResultClasses = new HashMap<String, Class<?>>();
     «FOR a:f.value SEPARATOR "
 "»    moreResultClasses.put("«a.name»", «a.ref.fullyQualifiedName».class);«ENDFOR»
-    }
+      }
       «ENDFOR»
       if (moreResultClasses != null) {
         sqlControl = new SqlStandardControl(sqlControl);
@@ -563,5 +565,9 @@ def isImplements(PojoDao e) {
 		return true
 	}
 	return false
+}
+
+def completeName(PojoEntity e) {
+	return getPackage(e)+"."+e.name;
 }
 }

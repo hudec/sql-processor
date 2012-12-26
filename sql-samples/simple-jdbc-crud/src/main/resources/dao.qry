@@ -1,5 +1,5 @@
 package org.sqlproc.sample.simple.dao {
-
+ 
   dao BankAccountDao :: BankAccount {
   }
 
@@ -35,6 +35,7 @@ package org.sqlproc.sample.simple.dao {
   }
 
   dao PhysicalMediaDao :: PhysicalMedia {
+  	media ::: media ::Media book ::NewBook
   }
 
   dao SubscriberDao :: Subscriber {
