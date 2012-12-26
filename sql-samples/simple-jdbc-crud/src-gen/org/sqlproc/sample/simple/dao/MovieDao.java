@@ -88,7 +88,7 @@ public class MovieDao {
       logger.trace("delete movie: " + movie + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEngineMovie = sqlEngineFactory.getCrudEngine("DELETE_MOVIE");
-    SqlCrudEngine sqlDeleteMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
+    SqlCrudEngine sqlDeleteMedia = sqlEngineFactory.getCrudEngine("DELETE_MEDIA");
     int count = sqlDeleteEngineMovie.delete(sqlSessionFactory.getSqlSession(), movie);
     if (count > 0) {
     	sqlDeleteMedia.delete(sqlSessionFactory.getSqlSession(), movie);

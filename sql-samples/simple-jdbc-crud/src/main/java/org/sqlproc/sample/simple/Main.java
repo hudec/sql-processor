@@ -161,7 +161,6 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         int count;
 
         List<Person> list;
-        boolean deleted;
         Main main = new Main();
         main.setupDb();
         main.initDao();
@@ -493,6 +492,20 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         list = main.getPersonDao().list(person,
                 new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME).setMaxResults(2));
         Assert.assertEquals(2, list.size());
+
+        // delete
+        count = main.getPersonDao().delete(jan);
+        Assert.assertEquals(1, count);
+        count = main.getBookDao().delete(book1);
+        Assert.assertEquals(1, count);
+        count = main.getMovieDao().delete(movie1);
+        Assert.assertEquals(1, count);
+        count = main.getCreditCardDao().delete(creditCard1);
+        Assert.assertEquals(1, count);
+        count = main.getBankAccountDao().delete(bankAccount1);
+        Assert.assertEquals(1, count);
+        count = main.getLibraryDao().delete(lib);
+        Assert.assertEquals(1, count);
     }
 
     public BankAccountDao getBankAccountDao() {

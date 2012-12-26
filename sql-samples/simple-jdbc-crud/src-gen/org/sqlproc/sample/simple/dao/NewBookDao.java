@@ -88,7 +88,7 @@ public class NewBookDao {
       logger.trace("delete newBook: " + newBook + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEngineNewBook = sqlEngineFactory.getCrudEngine("DELETE_NEW_BOOK");
-    SqlCrudEngine sqlDeleteMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
+    SqlCrudEngine sqlDeleteMedia = sqlEngineFactory.getCrudEngine("DELETE_MEDIA");
     int count = sqlDeleteEngineNewBook.delete(sqlSessionFactory.getSqlSession(), newBook);
     if (count > 0) {
     	sqlDeleteMedia.delete(sqlSessionFactory.getSqlSession(), newBook);

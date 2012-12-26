@@ -1616,7 +1616,7 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.append("SqlCrudEngine sqlDelete");
         String _name_5 = pe.getName();
         _builder.append(_name_5, "  ");
-        _builder.append(" = sqlEngineFactory.getCrudEngine(\"UPDATE_");
+        _builder.append(" = sqlEngineFactory.getCrudEngine(\"DELETE_");
         String _dbName_1 = Utils.dbName(pe);
         _builder.append(_dbName_1, "  ");
         _builder.append("\");");

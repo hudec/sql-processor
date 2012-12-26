@@ -404,7 +404,7 @@ def compileDelete(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
         logger.trace("delete «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
       SqlCrudEngine sqlDeleteEngine«e.name» = sqlEngineFactory.getCrudEngine("DELETE_«dbName(e)»");«IF pe != null»
-      SqlCrudEngine sqlDelete«pe.name» = sqlEngineFactory.getCrudEngine("UPDATE_«dbName(pe)»");«ENDIF»
+      SqlCrudEngine sqlDelete«pe.name» = sqlEngineFactory.getCrudEngine("DELETE_«dbName(pe)»");«ENDIF»
       int count = sqlDeleteEngine«e.name».delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
       if (count > 0) {
       	sqlDelete«pe.name».delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
