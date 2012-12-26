@@ -26,23 +26,25 @@ import org.sqlproc.sample.simple.dao.BankAccountDao1;
 import org.sqlproc.sample.simple.dao.BookDao1;
 import org.sqlproc.sample.simple.dao.ContactDao;
 import org.sqlproc.sample.simple.dao.CreditCardDao1;
-import org.sqlproc.sample.simple.dao.LibraryDao1;
+import org.sqlproc.sample.simple.dao.LibraryDao;
 import org.sqlproc.sample.simple.dao.MovieDao1;
 import org.sqlproc.sample.simple.dao.PaymentDao1;
 import org.sqlproc.sample.simple.dao.PerformerDao1;
 import org.sqlproc.sample.simple.dao.PersonDao;
-import org.sqlproc.sample.simple.dao.PersonLibraryDao1;
-import org.sqlproc.sample.simple.dao.PhysicalMediaDao1;
+import org.sqlproc.sample.simple.dao.PersonLibraryDao;
+import org.sqlproc.sample.simple.dao.PhysicalMediaDao;
 import org.sqlproc.sample.simple.dao.SubscriberDao1;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Contact;
 import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.Library;
+import org.sqlproc.sample.simple.model.Media;
 import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.NewBook;
 import org.sqlproc.sample.simple.model.Payment;
 import org.sqlproc.sample.simple.model.Performer;
 import org.sqlproc.sample.simple.model.Person;
+import org.sqlproc.sample.simple.model.PersonLibrary;
 import org.sqlproc.sample.simple.model.PhoneNumber;
 import org.sqlproc.sample.simple.model.PhysicalMedia;
 import org.sqlproc.sample.simple.model.Subscriber;
@@ -105,9 +107,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         creditCardDao = new CreditCardDao1();
         creditCardDao.setConnection(connection);
         creditCardDao.setSqlFactory(sqlFactory);
-        libraryDao = new LibraryDao1();
-        libraryDao.setConnection(connection);
-        libraryDao.setSqlFactory(sqlFactory);
+        libraryDao = new LibraryDao(this, this);
         movieDao = new MovieDao1();
         movieDao.setConnection(connection);
         movieDao.setSqlFactory(sqlFactory);
@@ -115,15 +115,11 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         performerDao = new PerformerDao1();
         performerDao.setConnection(connection);
         performerDao.setSqlFactory(sqlFactory);
-        personLibraryDao = new PersonLibraryDao1();
-        personLibraryDao.setConnection(connection);
-        personLibraryDao.setSqlFactory(sqlFactory);
+        personLibraryDao = new PersonLibraryDao(this, this);
         subscriberDao = new SubscriberDao1();
         subscriberDao.setConnection(connection);
         subscriberDao.setSqlFactory(sqlFactory);
-        physicalMediaDao = new PhysicalMediaDao1();
-        physicalMediaDao.setConnection(connection);
-        physicalMediaDao.setSqlFactory(sqlFactory);
+        physicalMediaDao = new PhysicalMediaDao(this, this);
         paymentDao = new PaymentDao1();
         paymentDao.setConnection(connection);
         paymentDao.setSqlFactory(sqlFactory);
@@ -133,14 +129,34 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
     private BookDao1 bookDao;
     private ContactDao contactDao;
     private CreditCardDao1 creditCardDao;
-    private LibraryDao1 libraryDao;
+    private LibraryDao libraryDao;
     private MovieDao1 movieDao;
     private PersonDao personDao;
     private PerformerDao1 performerDao;
-    private PersonLibraryDao1 personLibraryDao;
+    private PersonLibraryDao personLibraryDao;
     private SubscriberDao1 subscriberDao;
-    private PhysicalMediaDao1 physicalMediaDao;
+    private PhysicalMediaDao physicalMediaDao;
     private PaymentDao1 paymentDao;
+
+    public Person insertPersonContacts(Person person, Contact... contacts) {
+        Person p = getPersonDao().insert(person);
+        for (Contact contact : contacts) {
+            Contact c = getContactDao().insert(contact._setPerson(p));
+            p.getContacts().add(c);
+        }
+        return p;
+    }
+
+    public void insertPersonLibrary(Person person, Media... media) {
+        if (media != null) {
+            for (Media media1 : media) {
+                PersonLibrary personLibrary = new PersonLibrary(person.getId(), media1.getId());
+                personLibrary = getPersonLibraryDao().insert(personLibrary);
+                if (personLibrary != null)
+                    person.getLibrary().add(media1);
+            }
+        }
+    }
 
     public static void main(String[] args) throws Exception {
         Person person, p;
@@ -163,28 +179,18 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         main.initDao();
 
         // insert
-        Person jan = main.getPersonDao().insert(new Person("Jan", "Jánský"));
-        jan.getContacts().add(
-                main.getContactDao().insert(
-                        new Contact()._setAddress("Jan address 1")._setPhoneNumber(new PhoneNumber(111, 222, 3333))
-                                ._setPerson(jan)));
-        Person janik = main.getPersonDao().insert(new Person("Janík", "Janíček"));
-        janik.getContacts().add(
-                main.getContactDao().insert(new Contact()._setAddress("Janik address 1")._setPerson(janik)));
-        Person honza = main.getPersonDao().insert(new Person("Honza", "Honzovský"));
-        honza.getContacts().add(
-                main.getContactDao().insert(new Contact()._setAddress("Honza address 1")._setPerson(honza)));
-        honza.getContacts().add(
-                main.getContactDao().insert(new Contact()._setAddress("Honza address 2")._setPerson(honza)));
-        Person honzik = main.getPersonDao().insert(new Person("Honzik", "Honzíček"));
+        Person jan = main.insertPersonContacts(new Person("Jan", "Jánský"), new Contact()._setAddress("Jan address 1")
+                ._setPhoneNumber(new PhoneNumber(111, 222, 3333)));
+        Person janik = main.insertPersonContacts(new Person("Janík", "Janíček"),
+                new Contact()._setAddress("Janik address 1"));
+        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovský"),
+                new Contact()._setAddress("Honza address 1"), new Contact()._setAddress("Honza address 2"));
+        Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzíček"));
         Performer honzikp = main.getPerformerDao().insertPerformer(new Performer()._setPerson(honzik));
-        Person andrej = main.getPersonDao().insert(new Person("Andrej", "Andrejček")._setSsn("123456789"));
-        andrej.getContacts().add(
-                main.getContactDao().insert(
-                        new Contact()._setAddress("Andrej address 1")._setPhoneNumber(new PhoneNumber(444, 555, 6666))
-                                ._setPerson(andrej)));
+        Person andrej = main.insertPersonContacts(new Person("Andrej", "Andrejček")._setSsn("123456789"), new Contact()
+                ._setAddress("Andrej address 1")._setPhoneNumber(new PhoneNumber(444, 555, 6666)));
 
-        Library lib = main.getLibraryDao().insertLibrary(new Library("Alexandria Library"));
+        Library lib = main.getLibraryDao().insert(new Library("Alexandria Library"));
         Subscriber janikS = main.getSubscriberDao().insertLibrarySubscriber(lib,
                 new Subscriber(lib, "Janik Subscr")._setContact(jan.getContacts().get(0)));
         Subscriber honzaS = main.getSubscriberDao().insertLibrarySubscriber(lib,
@@ -209,18 +215,14 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
                 (Movie) new Movie("Pippi Långstrump i Söderhavet", "abc", 82)._setAuthor(honzikp));
         Movie movie2 = main.getMovieDao().insertMovie(new Movie("Die Another Day", "def", 95));
 
-        PhysicalMedia pbook1 = main.getPhysicalMediaDao().insertPhysicalMedia(
-                new PhysicalMedia("folder 001", book1, lib));
-        PhysicalMedia pbook2 = main.getPhysicalMediaDao().insertPhysicalMedia(
-                new PhysicalMedia("folder 002", book2, lib));
-        PhysicalMedia pmovie1 = main.getPhysicalMediaDao().insertPhysicalMedia(
-                new PhysicalMedia("folder 003", movie1, lib));
-        PhysicalMedia pmovie2 = main.getPhysicalMediaDao().insertPhysicalMedia(
-                new PhysicalMedia("folder 004", movie2, lib));
+        PhysicalMedia pbook1 = main.getPhysicalMediaDao().insert(new PhysicalMedia("folder 001", book1, lib));
+        PhysicalMedia pbook2 = main.getPhysicalMediaDao().insert(new PhysicalMedia("folder 002", book2, lib));
+        PhysicalMedia pmovie1 = main.getPhysicalMediaDao().insert(new PhysicalMedia("folder 003", movie1, lib));
+        PhysicalMedia pmovie2 = main.getPhysicalMediaDao().insert(new PhysicalMedia("folder 004", movie2, lib));
 
-        main.getPersonLibraryDao().insertPersonLibrary(jan, book1, movie1);
-        main.getPersonLibraryDao().insertPersonLibrary(honza, book2, movie2);
-        main.getPersonLibraryDao().insertPersonLibrary(andrej, book1, book2, movie2);
+        main.insertPersonLibrary(jan, book1, movie1);
+        main.insertPersonLibrary(honza, book2, movie2);
+        main.insertPersonLibrary(andrej, book1, book2, movie2);
 
         // update
         person = new Person();
@@ -250,8 +252,8 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertNotNull(c1);
 
         lib.setName("Alexandria Library Updated");
-        l = main.getLibraryDao().updateLibrary(lib);
-        Assert.assertNotNull(l);
+        count = main.getLibraryDao().update(lib);
+        Assert.assertEquals(1, count);
 
         movie1.setUrlimdb("def Updated");
         movie1.setTitle("Die Another Day Updated");
@@ -259,8 +261,8 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertNotNull(m);
 
         pbook1.setLocation("folder 011");
-        pm = main.getPhysicalMediaDao().updatePhysicalMedia(pbook1);
-        Assert.assertNotNull(pm);
+        count = main.getPhysicalMediaDao().update(pbook1);
+        Assert.assertEquals(1, count);
 
         janikS.setName("Janik Subscr Updated");
         s = main.getSubscriberDao().updateSubscriber(janikS);
@@ -327,7 +329,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         // get library with associations
         library = new Library();
         library.setId(lib.getId());
-        l = main.getLibraryDao().getLibrary(library);
+        l = main.getLibraryDao().get(library);
         Assert.assertNotNull(l);
         Assert.assertTrue(l.getCatalog().isEmpty());
         Assert.assertTrue(l.getSubscribers().isEmpty());
@@ -335,7 +337,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         // pojogen-not-abstract-tables MEDIA; and pojo.qry and statements.qry should be recreated
         library.setInit(Library.Association.catalog);
         library.setInit(Library.Association.subscribers);
-        l = main.getLibraryDao().getLibrary(library);
+        l = main.getLibraryDao().get(library);
         Assert.assertNotNull(l);
         Assert.assertEquals(4, l.getCatalog().size());
         Assert.assertEquals(2, l.getSubscribers().size());
@@ -431,12 +433,12 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         // get physicalMedia with associations
         physicalMedia = new PhysicalMedia();
         physicalMedia.setId(pbook1.getId());
-        pm = main.getPhysicalMediaDao().getPhysicalMedia(physicalMedia);
+        pm = main.getPhysicalMediaDao().get(physicalMedia);
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 011", pm.getLocation());
         Assert.assertNull(pm.getMedia());
         physicalMedia.setInit(PhysicalMedia.Association.media);
-        pm = main.getPhysicalMediaDao().getPhysicalMedia(physicalMedia);
+        pm = main.getPhysicalMediaDao().get(physicalMedia);
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 011", pm.getLocation());
         Assert.assertNotNull(pm.getMedia());
@@ -445,12 +447,12 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
 
         physicalMedia = new PhysicalMedia();
         physicalMedia.setId(pmovie1.getId());
-        pm = main.getPhysicalMediaDao().getPhysicalMedia(physicalMedia);
+        pm = main.getPhysicalMediaDao().get(physicalMedia);
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 003", pm.getLocation());
         Assert.assertNull(pm.getMedia());
         physicalMedia.setInit(PhysicalMedia.Association.media);
-        pm = main.getPhysicalMediaDao().getPhysicalMedia(physicalMedia);
+        pm = main.getPhysicalMediaDao().get(physicalMedia);
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 003", pm.getLocation());
         Assert.assertNotNull(pm.getMedia());
@@ -522,7 +524,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         return creditCardDao;
     }
 
-    public LibraryDao1 getLibraryDao() {
+    public LibraryDao getLibraryDao() {
         return libraryDao;
     }
 
@@ -542,11 +544,11 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         return subscriberDao;
     }
 
-    public PersonLibraryDao1 getPersonLibraryDao() {
+    public PersonLibraryDao getPersonLibraryDao() {
         return personLibraryDao;
     }
 
-    public PhysicalMediaDao1 getPhysicalMediaDao() {
+    public PhysicalMediaDao getPhysicalMediaDao() {
         return physicalMediaDao;
     }
 
