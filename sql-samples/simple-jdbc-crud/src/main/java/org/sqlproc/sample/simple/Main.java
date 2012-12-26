@@ -23,11 +23,11 @@ import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.simple.dao.BankAccountDao;
-import org.sqlproc.sample.simple.dao.BookDao1;
 import org.sqlproc.sample.simple.dao.ContactDao;
 import org.sqlproc.sample.simple.dao.CreditCardDao;
 import org.sqlproc.sample.simple.dao.LibraryDao;
-import org.sqlproc.sample.simple.dao.MovieDao1;
+import org.sqlproc.sample.simple.dao.MovieDao;
+import org.sqlproc.sample.simple.dao.NewBookDao;
 import org.sqlproc.sample.simple.dao.PaymentDao1;
 import org.sqlproc.sample.simple.dao.PerformerDao;
 import org.sqlproc.sample.simple.dao.PersonDao;
@@ -100,15 +100,11 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
 
     public void initDao() throws SQLException {
         bankAccountDao = new BankAccountDao(this, this);
-        bookDao = new BookDao1();
-        bookDao.setConnection(connection);
-        bookDao.setSqlFactory(sqlFactory);
+        bookDao = new NewBookDao(this, this);
         contactDao = new ContactDao(this, this);
         creditCardDao = new CreditCardDao(this, this);
         libraryDao = new LibraryDao(this, this);
-        movieDao = new MovieDao1();
-        movieDao.setConnection(connection);
-        movieDao.setSqlFactory(sqlFactory);
+        movieDao = new MovieDao(this, this);
         personDao = new PersonDao(this, this);
         performerDao = new PerformerDao(this, this);
         personLibraryDao = new PersonLibraryDao(this, this);
@@ -122,11 +118,11 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
     }
 
     private BankAccountDao bankAccountDao;
-    private BookDao1 bookDao;
+    private NewBookDao bookDao;
     private ContactDao contactDao;
     private CreditCardDao creditCardDao;
     private LibraryDao libraryDao;
-    private MovieDao1 movieDao;
+    private MovieDao movieDao;
     private PersonDao personDao;
     private PerformerDao performerDao;
     private PersonLibraryDao personLibraryDao;
@@ -203,12 +199,12 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Payment payment2 = main.getPaymentDao().insertPayment(
                 new Payment(creditCard1, new Timestamp(new Date().getTime())));
 
-        NewBook book1 = main.getBookDao().insertBook(
+        NewBook book1 = main.getBookDao().insert(
                 (NewBook) new NewBook("The Adventures of Robin Hood", "978-0140367003")._setAuthor(honzikp));
-        NewBook book2 = main.getBookDao().insertBook(new NewBook("The Three Musketeers", "978-1897093634"));
-        Movie movie1 = main.getMovieDao().insertMovie(
+        NewBook book2 = main.getBookDao().insert(new NewBook("The Three Musketeers", "978-1897093634"));
+        Movie movie1 = main.getMovieDao().insert(
                 (Movie) new Movie("Pippi Långstrump i Söderhavet", "abc", 82)._setAuthor(honzikp));
-        Movie movie2 = main.getMovieDao().insertMovie(new Movie("Die Another Day", "def", 95));
+        Movie movie2 = main.getMovieDao().insert(new Movie("Die Another Day", "def", 95));
 
         PhysicalMedia pbook1 = main.getPhysicalMediaDao().insert(new PhysicalMedia("folder 001", book1, lib));
         PhysicalMedia pbook2 = main.getPhysicalMediaDao().insert(new PhysicalMedia("folder 002", book2, lib));
@@ -233,8 +229,8 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
 
         book1.setNewIsbn("978-9940367003");
         book1.setTitle("The Adventures of Robin Hood Updated");
-        b = main.getBookDao().updateBook(book1);
-        Assert.assertNotNull(b);
+        count = main.getBookDao().update(book1);
+        Assert.assertEquals(1, count);
 
         contact = honza.getContacts().get(0);
         contact.setAddress("Honza address 1 Updated");
@@ -252,8 +248,8 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
 
         movie1.setUrlimdb("def Updated");
         movie1.setTitle("Die Another Day Updated");
-        m = main.getMovieDao().updateMovie(movie1);
-        Assert.assertNotNull(m);
+        count = main.getMovieDao().update(movie1);
+        Assert.assertEquals(1, count);
 
         pbook1.setLocation("folder 011");
         count = main.getPhysicalMediaDao().update(pbook1);
@@ -341,13 +337,13 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         // get movie with associations
         movie = new Movie();
         movie.setId(movie1.getId());
-        m = main.getMovieDao().getMovie(movie);
+        m = main.getMovieDao().get(movie);
         Assert.assertNotNull(m);
         Assert.assertEquals("def Updated", m.getUrlimdb());
         Assert.assertEquals("Die Another Day Updated", m.getTitle());
         Assert.assertNull(m.getAuthor().getPerson());
         movie.setInit(Movie.Association.author);
-        m = main.getMovieDao().getMovie(movie);
+        m = main.getMovieDao().get(movie);
         Assert.assertNotNull(m);
         Assert.assertNotNull(m.getAuthor().getPerson());
 
@@ -355,7 +351,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         book = new NewBook();
         book.setId(book1.getId());
         book.setInit(NewBook.Association.author);
-        b = main.getBookDao().getBook(book);
+        b = main.getBookDao().get(book);
         Assert.assertNotNull(b);
         Assert.assertEquals("978-9940367003", b.getNewIsbn());
         Assert.assertEquals("The Adventures of Robin Hood Updated", b.getTitle());
@@ -507,7 +503,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         return bankAccountDao;
     }
 
-    public BookDao1 getBookDao() {
+    public NewBookDao getBookDao() {
         return bookDao;
     }
 
@@ -523,7 +519,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         return libraryDao;
     }
 
-    public MovieDao1 getMovieDao() {
+    public MovieDao getMovieDao() {
         return movieDao;
     }
 

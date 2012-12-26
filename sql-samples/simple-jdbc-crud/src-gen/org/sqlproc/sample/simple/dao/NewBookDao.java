@@ -32,9 +32,9 @@ public class NewBookDao {
     }
     SqlCrudEngine sqlInsertNewBook = sqlEngineFactory.getCrudEngine("INSERT_NEW_BOOK");
     SqlCrudEngine sqlInsertMedia = sqlEngineFactory.getCrudEngine("INSERT_MEDIA");
-    int count = sqlInsertNewBook.insert(sqlSessionFactory.getSqlSession(), newBook);
+    int count = sqlInsertMedia.insert(sqlSessionFactory.getSqlSession(), newBook);
     if (count > 0) {
-    	sqlInsertMedia.insert(sqlSessionFactory.getSqlSession(), newBook);
+      sqlInsertNewBook.insert(sqlSessionFactory.getSqlSession(), newBook);
     }
     if (logger.isTraceEnabled()) {
       logger.trace("insert newBook result: " + count + " " + newBook);

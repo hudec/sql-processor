@@ -337,11 +337,12 @@ def compileInsert(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
         logger.trace("insert «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
       SqlCrudEngine sqlInsert«e.name» = sqlEngineFactory.getCrudEngine("INSERT_«dbName(e)»");«IF pe != null»
-      SqlCrudEngine sqlInsert«pe.name» = sqlEngineFactory.getCrudEngine("INSERT_«dbName(pe)»");«ENDIF»
-      int count = sqlInsert«e.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
+      SqlCrudEngine sqlInsert«pe.name» = sqlEngineFactory.getCrudEngine("INSERT_«dbName(pe)»");
+      int count = sqlInsert«pe.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
       if (count > 0) {
-      	sqlInsert«pe.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
-      }«ENDIF»
+        sqlInsert«e.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      }«ELSE»
+      int count = sqlInsert«e.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«ENDIF»
       if (logger.isTraceEnabled()) {
         logger.trace("insert «e.name.toFirstLower» result: " + count + " " + «e.name.toFirstLower»);
       }

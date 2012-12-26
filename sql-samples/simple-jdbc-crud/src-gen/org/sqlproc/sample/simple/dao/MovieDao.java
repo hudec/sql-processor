@@ -32,9 +32,9 @@ public class MovieDao {
     }
     SqlCrudEngine sqlInsertMovie = sqlEngineFactory.getCrudEngine("INSERT_MOVIE");
     SqlCrudEngine sqlInsertMedia = sqlEngineFactory.getCrudEngine("INSERT_MEDIA");
-    int count = sqlInsertMovie.insert(sqlSessionFactory.getSqlSession(), movie);
+    int count = sqlInsertMedia.insert(sqlSessionFactory.getSqlSession(), movie);
     if (count > 0) {
-    	sqlInsertMedia.insert(sqlSessionFactory.getSqlSession(), movie);
+      sqlInsertMovie.insert(sqlSessionFactory.getSqlSession(), movie);
     }
     if (logger.isTraceEnabled()) {
       logger.trace("insert movie result: " + count + " " + movie);
