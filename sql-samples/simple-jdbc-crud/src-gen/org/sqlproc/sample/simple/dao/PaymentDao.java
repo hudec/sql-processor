@@ -13,6 +13,8 @@ import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.sample.simple.model.Payment;
+import org.sqlproc.sample.simple.model.BankAccount;
+import org.sqlproc.sample.simple.model.CreditCard;
 
 public class PaymentDao {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -47,7 +49,7 @@ public class PaymentDao {
       logger.trace("get get: " + payment + " " + sqlControl);
     }
     SqlCrudEngine sqlEnginePayment = sqlEngineFactory.getCrudEngine("GET_PAYMENT");
-    //sqlControl = getMoreResultClasses(payment, sqlControl);
+    sqlControl = getMoreResultClasses(payment, sqlControl);
     Payment paymentGot = sqlEnginePayment.get(sqlSessionFactory.getSqlSession(), Payment.class, payment, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get payment result: " + paymentGot);
@@ -96,7 +98,7 @@ public class PaymentDao {
       logger.trace("list payment: " + payment + " " + sqlControl);
     }
     SqlQueryEngine sqlEnginePayment = sqlEngineFactory.getQueryEngine("SELECT_PAYMENT");
-    //sqlControl = getMoreResultClasses(payment, sqlControl);
+    sqlControl = getMoreResultClasses(payment, sqlControl);
     List<Payment> paymentList = sqlEnginePayment.query(sqlSessionFactory.getSqlSession(), Payment.class, payment, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("list payment size: " + ((paymentList != null) ? paymentList.size() : "null"));
@@ -106,5 +108,22 @@ public class PaymentDao {
   
   public List<Payment> list(Payment payment) {
     return list(payment, null);
+  }
+  
+  SqlControl getMoreResultClasses(Payment payment, SqlControl sqlControl) {
+    if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
+      return sqlControl;
+    Map<String, Class<?>> moreResultClasses = null;
+    if (payment != null && payment.toInit(Payment.Association.billingDetails)) {
+      if (moreResultClasses == null)
+        moreResultClasses = new HashMap<String, Class<?>>();
+      moreResultClasses.put("BA", BankAccount.class);
+      moreResultClasses.put("CC", CreditCard.class);
+    }
+    if (moreResultClasses != null) {
+      sqlControl = new SqlStandardControl(sqlControl);
+      ((SqlStandardControl) sqlControl).setMoreResultClasses(moreResultClasses);
+    }
+    return sqlControl;
   }
 }

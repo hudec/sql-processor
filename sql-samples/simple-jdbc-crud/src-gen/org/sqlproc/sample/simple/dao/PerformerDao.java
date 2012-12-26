@@ -13,6 +13,8 @@ import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.sample.simple.model.Performer;
+import org.sqlproc.sample.simple.model.Movie;
+import org.sqlproc.sample.simple.model.NewBook;
 
 public class PerformerDao {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -47,7 +49,7 @@ public class PerformerDao {
       logger.trace("get get: " + performer + " " + sqlControl);
     }
     SqlCrudEngine sqlEnginePerformer = sqlEngineFactory.getCrudEngine("GET_PERFORMER");
-    //sqlControl = getMoreResultClasses(performer, sqlControl);
+    sqlControl = getMoreResultClasses(performer, sqlControl);
     Performer performerGot = sqlEnginePerformer.get(sqlSessionFactory.getSqlSession(), Performer.class, performer, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get performer result: " + performerGot);
@@ -96,7 +98,7 @@ public class PerformerDao {
       logger.trace("list performer: " + performer + " " + sqlControl);
     }
     SqlQueryEngine sqlEnginePerformer = sqlEngineFactory.getQueryEngine("SELECT_PERFORMER");
-    //sqlControl = getMoreResultClasses(performer, sqlControl);
+    sqlControl = getMoreResultClasses(performer, sqlControl);
     List<Performer> performerList = sqlEnginePerformer.query(sqlSessionFactory.getSqlSession(), Performer.class, performer, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("list performer size: " + ((performerList != null) ? performerList.size() : "null"));
@@ -106,5 +108,22 @@ public class PerformerDao {
   
   public List<Performer> list(Performer performer) {
     return list(performer, null);
+  }
+  
+  SqlControl getMoreResultClasses(Performer performer, SqlControl sqlControl) {
+    if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
+      return sqlControl;
+    Map<String, Class<?>> moreResultClasses = null;
+    if (performer != null && performer.toInit(Performer.Association.work)) {
+      if (moreResultClasses == null)
+        moreResultClasses = new HashMap<String, Class<?>>();
+      moreResultClasses.put("movie", Movie.class);
+      moreResultClasses.put("book", NewBook.class);
+    }
+    if (moreResultClasses != null) {
+      sqlControl = new SqlStandardControl(sqlControl);
+      ((SqlStandardControl) sqlControl).setMoreResultClasses(moreResultClasses);
+    }
+    return sqlControl;
   }
 }

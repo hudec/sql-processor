@@ -13,7 +13,7 @@ import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.sample.simple.model.PhysicalMedia;
-import org.sqlproc.sample.simple.model.Media;
+import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.NewBook;
 
 public class PhysicalMediaDao {
@@ -117,7 +117,7 @@ public class PhysicalMediaDao {
     if (physicalMedia != null && physicalMedia.toInit(PhysicalMedia.Association.media)) {
       if (moreResultClasses == null)
         moreResultClasses = new HashMap<String, Class<?>>();
-      moreResultClasses.put("media", Media.class);
+      moreResultClasses.put("movie", Movie.class);
       moreResultClasses.put("book", NewBook.class);
     }
     if (moreResultClasses != null) {

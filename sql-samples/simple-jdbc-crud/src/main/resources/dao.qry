@@ -1,5 +1,5 @@
 package org.sqlproc.sample.simple.dao {
- 
+
   dao BankAccountDao :: BankAccount {
   }
 
@@ -22,23 +22,25 @@ package org.sqlproc.sample.simple.dao {
   }
 
   dao PaymentDao :: Payment {
+    billingDetails ::: BA ::BankAccount CC ::CreditCard
   }
 
   dao PerformerDao :: Performer {
+    work ::: movie ::Movie book ::NewBook
   }
 
   dao PersonDao :: Person {
-  	library ::: media ::Media book ::NewBook
+    library ::: movie ::Movie book ::NewBook
   }
 
   dao PersonLibraryDao :: PersonLibrary {
   }
 
   dao PhysicalMediaDao :: PhysicalMedia {
-  	media ::: media ::Media book ::NewBook
+    media ::: movie ::Movie book ::NewBook
   }
 
   dao SubscriberDao :: Subscriber {
-  	billingDetails ::: CC ::CreditCard BA ::BankAccount
+    billingDetails ::: BA ::BankAccount CC ::CreditCard
   }
 }

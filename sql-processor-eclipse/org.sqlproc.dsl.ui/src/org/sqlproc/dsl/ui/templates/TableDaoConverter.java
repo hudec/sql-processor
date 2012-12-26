@@ -5,13 +5,16 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.property.ModelProperty;
+import org.sqlproc.dsl.property.PojoAttribute;
 
 public class TableDaoConverter extends TableMetaConverter {
 
@@ -113,6 +116,32 @@ public class TableDaoConverter extends TableMetaConverter {
                 if (isSerializable)
                     buffer.append(" serializable 1 ");
                 buffer.append(" {");
+                Map<String, String> toInit = new LinkedHashMap<String, String>();
+                toInits(pojo, toInit);
+                for (Entry<String, String> entry : toInit.entrySet()) {
+                    buffer.append("\n    ").append(entry.getKey()).append(" :::");
+                    // pojoExtends {BANK_ACCOUNT=BILLING_DETAILS, MOVIE=MEDIA, CREDIT_CARD=BILLING_DETAILS, BOOK=MEDIA}
+                    // pojoInheritanceDiscriminator {BILLING_DETAILS=[BANK_ACCOUNT, CREDIT_CARD]}
+                    // pojoInheritanceSimple {MEDIA=[MOVIE, BOOK]}
+                    // pojoDiscriminators {BANK_ACCOUNT=BA, CREDIT_CARD=CC}
+                    if (pojoInheritanceSimple.containsKey(entry.getValue())) {
+                        for (String pojo2 : pojoInheritanceSimple.get(entry.getValue())) {
+                            buffer.append(" ").append(columnToCamelCase(pojo2));
+                            String pojoName2 = tableNames.get(pojo2);
+                            if (pojoName2 == null)
+                                pojoName2 = pojo2;
+                            buffer.append(" ::").append(tableToCamelCase(pojoName2));
+                        }
+                    } else {
+                        for (String pojo2 : pojoInheritanceDiscriminator.get(entry.getValue())) {
+                            buffer.append(" ").append(pojoDiscriminators.get(pojo2));
+                            String pojoName2 = tableNames.get(pojo2);
+                            if (pojoName2 == null)
+                                pojoName2 = pojo2;
+                            buffer.append(" ::").append(tableToCamelCase(pojoName2));
+                        }
+                    }
+                }
                 buffer.append("\n  }\n");
             }
             return buffer.toString();
@@ -122,6 +151,31 @@ public class TableDaoConverter extends TableMetaConverter {
             ex.printStackTrace(printWriter);
             String s = writer.toString();
             return s;
+        }
+    }
+
+    protected void toInits(String pojo, Map<String, String> toInit) {
+        for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+            if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
+                continue;
+            PojoAttribute attribute = pentry.getValue();
+            String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : null;
+            if (name == null)
+                name = attribute.getName();
+            else
+                name = columnToCamelCase(name);
+            if (attribute.toInit()) {
+                if (attribute.getRef() != null) {
+                    if (pojoInheritanceDiscriminator.containsKey(attribute.getRef())
+                            || pojoInheritanceSimple.containsKey(attribute.getRef())) {
+                        toInit.put(name, attribute.getRef());
+                        // System.out.println("AAAAAAAAA " + " " + pojo + " " + attribute.getRef() + " " + name);
+                    }
+                }
+            }
+        }
+        if (pojoExtends.containsKey(pojo)) {
+            toInits(pojoExtends.get(pojo), toInit);
         }
     }
 }

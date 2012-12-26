@@ -13,6 +13,7 @@ public class PojoAttribute {
     private Integer index;
     private String name;
     private String className;
+    private String ref;
     private String dependencyClassName;
     private String pkTable;
     private String pkColumn;
@@ -75,6 +76,14 @@ public class PojoAttribute {
 
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    public String getRef() {
+        return ref;
+    }
+
+    public void setRef(String ref) {
+        this.ref = ref;
     }
 
     public String getDependencyClassName() {
@@ -209,10 +218,10 @@ public class PojoAttribute {
     @Override
     public String toString() {
         return "PojoAttribute [primitive=" + primitive + ", required=" + required + ", primaryKey=" + primaryKey
-                + ", index=" + index + ", name=" + name + ", className=" + className + ", dependencyClassName="
-                + dependencyClassName + ", pkTable=" + pkTable + ", pkColumn=" + pkColumn + ", parentTable="
-                + parentTable + ", m2mTable=" + m2mTable + ", fkTables=" + fkTables + ", m2Tables=" + m2Tables
-                + ", fkColumns=" + fkColumns + ", oneToManyColumn=" + oneToManyColumn + ", oneToManyTable="
+                + ", index=" + index + ", name=" + name + ", className=" + className + ", ref=" + ref
+                + ", dependencyClassName=" + dependencyClassName + ", pkTable=" + pkTable + ", pkColumn=" + pkColumn
+                + ", parentTable=" + parentTable + ", m2mTable=" + m2mTable + ", fkTables=" + fkTables + ", m2Tables="
+                + m2Tables + ", fkColumns=" + fkColumns + ", oneToManyColumn=" + oneToManyColumn + ", oneToManyTable="
                 + oneToManyTable + ", manyToManyColumn=" + manyToManyColumn + ", manyToManyTable=" + manyToManyTable
                 + "]";
     }

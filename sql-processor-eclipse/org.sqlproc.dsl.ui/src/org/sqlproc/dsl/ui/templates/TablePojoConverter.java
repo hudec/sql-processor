@@ -411,6 +411,7 @@ public class TablePojoConverter {
                 if (attribute.getPkTable() != null) {
                     if (pojos.containsKey(attribute.getPkTable())) {
                         attribute.setDependencyClassName(tableToCamelCase(attribute.getPkTable()));
+                        attribute.setRef(attribute.getPkTable());
                         if (attribute.getName().length() >= 3) {
                             if (attribute.getName().startsWith("id")) {
                                 attribute.setName(lowerFirstChar(attribute.getName().substring(2)));
@@ -452,6 +453,7 @@ public class TablePojoConverter {
                             attrib.setOneToManyTable(fk.getKey());
                         }
                         attrib.setClassName(COLLECTION_LIST + " <:" + tableToCamelCase(fk.getKey()) + ">");
+                        attrib.setRef(fk.getKey());
                         String dbColumnName = columnToDbConv(attrib.getName());
                         newAttributes.put(dbColumnName, attrib);
                     }

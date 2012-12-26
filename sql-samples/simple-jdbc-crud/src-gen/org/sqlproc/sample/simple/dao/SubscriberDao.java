@@ -13,8 +13,8 @@ import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.sample.simple.model.Subscriber;
-import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.BankAccount;
+import org.sqlproc.sample.simple.model.CreditCard;
 
 public class SubscriberDao {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -117,8 +117,8 @@ public class SubscriberDao {
     if (subscriber != null && subscriber.toInit(Subscriber.Association.billingDetails)) {
       if (moreResultClasses == null)
         moreResultClasses = new HashMap<String, Class<?>>();
-      moreResultClasses.put("CC", CreditCard.class);
       moreResultClasses.put("BA", BankAccount.class);
+      moreResultClasses.put("CC", CreditCard.class);
     }
     if (moreResultClasses != null) {
       sqlControl = new SqlStandardControl(sqlControl);
