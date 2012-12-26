@@ -22,14 +22,14 @@ import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.util.DDLLoader;
-import org.sqlproc.sample.simple.dao.BankAccountDao1;
+import org.sqlproc.sample.simple.dao.BankAccountDao;
 import org.sqlproc.sample.simple.dao.BookDao1;
 import org.sqlproc.sample.simple.dao.ContactDao;
-import org.sqlproc.sample.simple.dao.CreditCardDao1;
+import org.sqlproc.sample.simple.dao.CreditCardDao;
 import org.sqlproc.sample.simple.dao.LibraryDao;
 import org.sqlproc.sample.simple.dao.MovieDao1;
 import org.sqlproc.sample.simple.dao.PaymentDao1;
-import org.sqlproc.sample.simple.dao.PerformerDao1;
+import org.sqlproc.sample.simple.dao.PerformerDao;
 import org.sqlproc.sample.simple.dao.PersonDao;
 import org.sqlproc.sample.simple.dao.PersonLibraryDao;
 import org.sqlproc.sample.simple.dao.PhysicalMediaDao;
@@ -99,22 +99,18 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
     }
 
     public void initDao() throws SQLException {
-        bankAccountDao = new BankAccountDao1(this, this);
+        bankAccountDao = new BankAccountDao(this, this);
         bookDao = new BookDao1();
         bookDao.setConnection(connection);
         bookDao.setSqlFactory(sqlFactory);
         contactDao = new ContactDao(this, this);
-        creditCardDao = new CreditCardDao1();
-        creditCardDao.setConnection(connection);
-        creditCardDao.setSqlFactory(sqlFactory);
+        creditCardDao = new CreditCardDao(this, this);
         libraryDao = new LibraryDao(this, this);
         movieDao = new MovieDao1();
         movieDao.setConnection(connection);
         movieDao.setSqlFactory(sqlFactory);
         personDao = new PersonDao(this, this);
-        performerDao = new PerformerDao1();
-        performerDao.setConnection(connection);
-        performerDao.setSqlFactory(sqlFactory);
+        performerDao = new PerformerDao(this, this);
         personLibraryDao = new PersonLibraryDao(this, this);
         subscriberDao = new SubscriberDao1();
         subscriberDao.setConnection(connection);
@@ -125,14 +121,14 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         paymentDao.setSqlFactory(sqlFactory);
     }
 
-    private BankAccountDao1 bankAccountDao;
+    private BankAccountDao bankAccountDao;
     private BookDao1 bookDao;
     private ContactDao contactDao;
-    private CreditCardDao1 creditCardDao;
+    private CreditCardDao creditCardDao;
     private LibraryDao libraryDao;
     private MovieDao1 movieDao;
     private PersonDao personDao;
-    private PerformerDao1 performerDao;
+    private PerformerDao performerDao;
     private PersonLibraryDao personLibraryDao;
     private SubscriberDao1 subscriberDao;
     private PhysicalMediaDao physicalMediaDao;
@@ -186,7 +182,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Person honza = main.insertPersonContacts(new Person("Honza", "Honzovský"),
                 new Contact()._setAddress("Honza address 1"), new Contact()._setAddress("Honza address 2"));
         Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzíček"));
-        Performer honzikp = main.getPerformerDao().insertPerformer(new Performer()._setPerson(honzik));
+        Performer honzikp = main.getPerformerDao().insert(new Performer()._setPerson(honzik));
         Person andrej = main.insertPersonContacts(new Person("Andrej", "Andrejček")._setSsn("123456789"), new Contact()
                 ._setAddress("Andrej address 1")._setPhoneNumber(new PhoneNumber(444, 555, 6666)));
 
@@ -196,12 +192,11 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Subscriber honzaS = main.getSubscriberDao().insertLibrarySubscriber(lib,
                 new Subscriber(lib, "Honza Subscr")._setContact(honza.getContacts().get(0)));
 
-        BankAccount bankAccount1 = main.getBankAccountDao().insertBankAccount(
+        BankAccount bankAccount1 = main.getBankAccountDao().insert(
                 new BankAccount(janikS, "BA")._setBaAccount("account 1"));
-        main.getBankAccountDao().insertBankAccount(new BankAccount(honzaS, "BA")._setBaAccount("account 2"));
-        CreditCard creditCard1 = main.getCreditCardDao().insertCreditCard(
-                new CreditCard(janikS, "CC")._setCcNumber(123L));
-        main.getCreditCardDao().insertCreditCard(new CreditCard(honzaS, "CC")._setCcNumber(456L));
+        main.getBankAccountDao().insert(new BankAccount(honzaS, "BA")._setBaAccount("account 2"));
+        CreditCard creditCard1 = main.getCreditCardDao().insert(new CreditCard(janikS, "CC")._setCcNumber(123L));
+        main.getCreditCardDao().insert(new CreditCard(honzaS, "CC")._setCcNumber(456L));
 
         Payment payment1 = main.getPaymentDao().insertPayment(
                 new Payment(bankAccount1, new Timestamp(new Date().getTime())));
@@ -233,8 +228,8 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
 
         bankAccount1.setBaAccount("updated account");
         bankAccount1.setSubscriber(honzaS);
-        b1 = main.getBankAccountDao().updateBankAccount(bankAccount1);
-        Assert.assertNotNull(b1);
+        count = main.getBankAccountDao().update(bankAccount1);
+        Assert.assertEquals(1, count);
 
         book1.setNewIsbn("978-9940367003");
         book1.setTitle("The Adventures of Robin Hood Updated");
@@ -248,8 +243,8 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertEquals(1, count);
 
         creditCard1.setCcNumber(789L);
-        c1 = main.getCreditCardDao().updateCreditCard(creditCard1);
-        Assert.assertNotNull(c1);
+        count = main.getCreditCardDao().update(creditCard1);
+        Assert.assertEquals(1, count);
 
         lib.setName("Alexandria Library Updated");
         count = main.getLibraryDao().update(lib);
@@ -288,11 +283,11 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         // get bankAccount with associations
         bankAccount = new BankAccount();
         bankAccount.setId(bankAccount1.getId());
-        b1 = main.getBankAccountDao().getBankAccount(bankAccount);
+        b1 = main.getBankAccountDao().get(bankAccount);
         Assert.assertNotNull(b1);
         Assert.assertNull(b1.getSubscriber().getName());
         bankAccount.setInit(BankAccount.Association.subscriber);
-        b1 = main.getBankAccountDao().getBankAccount(bankAccount);
+        b1 = main.getBankAccountDao().get(bankAccount);
         Assert.assertNotNull(b1);
         Assert.assertEquals("updated account", b1.getBaAccount());
         Assert.assertEquals(honzaS.getId(), b1.getSubscriber().getId());
@@ -316,11 +311,11 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         // get creditCard with associations
         creditCard = new CreditCard();
         creditCard.setId(creditCard1.getId());
-        c1 = main.getCreditCardDao().getCreditCard(creditCard);
+        c1 = main.getCreditCardDao().get(creditCard);
         Assert.assertNotNull(c1);
         Assert.assertNull(c1.getSubscriber().getName());
         creditCard.setInit(CreditCard.Association.subscriber);
-        c1 = main.getCreditCardDao().getCreditCard(creditCard);
+        c1 = main.getCreditCardDao().get(creditCard);
         Assert.assertNotNull(c1);
         Assert.assertEquals(new Long(789), c1.getCcNumber());
         Assert.assertNotNull(c1.getSubscriber());
@@ -385,16 +380,16 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         // get performer with associations
         performer = new Performer();
         performer.setId(honzikp.getId());
-        pf = main.getPerformerDao().getPerformer(performer);
+        pf = main.getPerformerDao().get(performer);
         Assert.assertNull(pf.getPerson().getLastName());
         performer.setInit(Performer.Association.person);
-        pf = main.getPerformerDao().getPerformer(performer);
+        pf = main.getPerformerDao().get(performer);
         Assert.assertNotNull(pf);
         Assert.assertEquals("Honzik", pf.getPerson().getFirstName());
         Assert.assertEquals("Honzíček", pf.getPerson().getLastName());
         Assert.assertEquals(0, pf.getWork().size());
         performer.setInit(Performer.Association.work);
-        pf = main.getPerformerDao().getPerformer(performer);
+        pf = main.getPerformerDao().get(performer);
         Assert.assertNotNull(pf);
         Assert.assertEquals(2, pf.getWork().size());
         Assert.assertEquals("The Adventures of Robin Hood Updated", pf.getWork().get(0).getTitle());
@@ -508,7 +503,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertEquals(2, list.size());
     }
 
-    public BankAccountDao1 getBankAccountDao() {
+    public BankAccountDao getBankAccountDao() {
         return bankAccountDao;
     }
 
@@ -520,7 +515,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         return contactDao;
     }
 
-    public CreditCardDao1 getCreditCardDao() {
+    public CreditCardDao getCreditCardDao() {
         return creditCardDao;
     }
 
@@ -536,7 +531,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         return personDao;
     }
 
-    public PerformerDao1 getPerformerDao() {
+    public PerformerDao getPerformerDao() {
         return performerDao;
     }
 
