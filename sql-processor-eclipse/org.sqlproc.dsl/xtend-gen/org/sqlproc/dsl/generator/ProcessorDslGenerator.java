@@ -1037,6 +1037,7 @@ public class ProcessorDslGenerator implements IGenerator {
       String _implPackage_2 = this.getImplPackage(d);
       boolean _notEquals_2 = (!Objects.equal(_implPackage_2, null));
       if (_notEquals_2) {
+        _builder.newLine();
         _builder.append("import ");
         EObject _eContainer_2 = d.eContainer();
         QualifiedName _fullyQualifiedName_1 = this._iQualifiedNameProvider.getFullyQualifiedName(_eContainer_2);
@@ -2034,7 +2035,6 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append(_name, "");
     _builder.append(" {");
     _builder.newLineIfNotEmpty();
-    _builder.newLine();
     _builder.append("  ");
     CharSequence _compileInsertIfx = this.compileInsertIfx(d, e, importManager);
     _builder.append(_compileInsertIfx, "  ");

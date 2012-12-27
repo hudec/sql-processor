@@ -5,7 +5,6 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.Person;
 
 public interface PersonDao {
-
   
   public Person insert(Person person, SqlControl sqlControl);
   

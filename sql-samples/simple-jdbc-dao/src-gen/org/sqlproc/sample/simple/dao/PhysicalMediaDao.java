@@ -5,7 +5,6 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.PhysicalMedia;
 
 public interface PhysicalMediaDao {
-
   
   public PhysicalMedia insert(PhysicalMedia physicalMedia, SqlControl sqlControl);
   

@@ -5,7 +5,6 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.Media;
 
 public interface MediaDao {
-
   
   public Media insert(Media media, SqlControl sqlControl);
   

@@ -5,7 +5,6 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.NewBook;
 
 public interface NewBookDao {
-
   
   public NewBook insert(NewBook newBook, SqlControl sqlControl);
   

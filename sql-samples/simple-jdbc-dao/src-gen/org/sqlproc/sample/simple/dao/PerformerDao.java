@@ -5,7 +5,6 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.Performer;
 
 public interface PerformerDao {
-
   
   public Performer insert(Performer performer, SqlControl sqlControl);
   

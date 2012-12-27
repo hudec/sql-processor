@@ -5,7 +5,6 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.Subscriber;
 
 public interface SubscriberDao {
-
   
   public Subscriber insert(Subscriber subscriber, SqlControl sqlControl);
   

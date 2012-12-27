@@ -5,7 +5,6 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.BankAccount;
 
 public interface BankAccountDao {
-
   
   public BankAccount insert(BankAccount bankAccount, SqlControl sqlControl);
   

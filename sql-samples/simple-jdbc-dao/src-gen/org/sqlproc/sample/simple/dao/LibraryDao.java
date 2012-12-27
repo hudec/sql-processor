@@ -5,7 +5,6 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.Library;
 
 public interface LibraryDao {
-
   
   public Library insert(Library library, SqlControl sqlControl);
   

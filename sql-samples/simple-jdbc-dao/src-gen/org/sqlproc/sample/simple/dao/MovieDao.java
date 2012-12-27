@@ -5,7 +5,6 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.Movie;
 
 public interface MovieDao {
-
   
   public Movie insert(Movie movie, SqlControl sqlControl);
   

@@ -1,4 +1,5 @@
 package org.sqlproc.sample.simple.dao.impl;
+
 import org.sqlproc.sample.simple.dao.PhysicalMediaDao;
   
 import org.sqlproc.sample.simple.dao.BaseDao;

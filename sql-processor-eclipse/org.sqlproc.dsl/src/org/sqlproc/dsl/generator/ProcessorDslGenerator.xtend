@@ -287,6 +287,7 @@ def compile(PojoDao d) '''
 «val classBody = compile(d, d.pojo, toInits, importManager)»
 «IF d.eContainer != null»package «d.eContainer.fullyQualifiedName»«IF d.implPackage != null».«d.implPackage»«ENDIF»;«ENDIF»
   «IF d.implPackage != null»
+
 import «d.eContainer.fullyQualifiedName».«d.name»;
   «ENDIF»
   «IF !importManager.imports.empty»
@@ -492,7 +493,6 @@ import «d.pojo.completeName»;
 
 def compileIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
 public interface «d.name» {
-
   «compileInsertIfx(d, e, importManager)»
   «compileGetIfx(d, e, importManager)»
   «compileUpdateIfx(d, e, importManager)»

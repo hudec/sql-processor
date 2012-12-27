@@ -5,7 +5,6 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.CreditCard;
 
 public interface CreditCardDao {
-
   
   public CreditCard insert(CreditCard creditCard, SqlControl sqlControl);
   

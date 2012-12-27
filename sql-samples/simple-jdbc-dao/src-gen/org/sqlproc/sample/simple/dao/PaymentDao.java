@@ -5,7 +5,6 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.Payment;
 
 public interface PaymentDao {
-
   
   public Payment insert(Payment payment, SqlControl sqlControl);
   

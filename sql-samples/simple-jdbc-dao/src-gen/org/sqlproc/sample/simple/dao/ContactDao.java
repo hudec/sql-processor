@@ -5,7 +5,6 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.Contact;
 
 public interface ContactDao {
-
   
   public Contact insert(Contact contact, SqlControl sqlControl);
   
