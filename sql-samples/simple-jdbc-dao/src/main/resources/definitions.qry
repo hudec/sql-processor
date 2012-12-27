@@ -41,7 +41,7 @@ metagen-column-meta-type CONTACT PHONE_NUMBER->phone;
 
 daogen-extends-class org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
 daogen-implements-interfaces org.sqlproc.sample.simple.dao.BaseDao;
-daogen-implementation-package Impl;
+daogen-implementation-package impl;
 
 table billingDetails BILLING_DETAILS;
 table book BOOK;

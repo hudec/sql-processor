@@ -20,6 +20,7 @@ import org.sqlproc.dsl.processorDsl.PojoDao
 import java.util.List
 import org.sqlproc.dsl.processorDsl.PojoMethodArg
 import java.util.Map
+import org.sqlproc.dsl.processorDsl.ImplPackage
 
 class ProcessorDslGenerator implements IGenerator {
 	
@@ -31,10 +32,20 @@ override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 			e.fullyQualifiedName + ".java",e.compile
 		)
 	}
-	for(e: resource.allContents.toIterable.filter(typeof(PojoDao))) {
-		fsa.generateFile(e.eContainer.fullyQualifiedName.toString("/") + "/"+
-			e.fullyQualifiedName + ".java",e.compile
-		)
+	for(d: resource.allContents.toIterable.filter(typeof(PojoDao))) {
+		if (d.implPackage != null) {
+    		fsa.generateFile(d.eContainer.fullyQualifiedName.toString("/") + "/"+
+	      		d.fullyQualifiedName + ".java",d.compileIfx
+		    )
+    		fsa.generateFile(d.eContainer.fullyQualifiedName.toString("/") + "/"+ 
+	      		d.implPackage + "/" + d.fullyQualifiedName + "Impl.java",d.compile
+		    )
+		}
+		else {
+    		fsa.generateFile(d.eContainer.fullyQualifiedName.toString("/") + "/"+
+	      		d.fullyQualifiedName + ".java",d.compile
+		    )
+		}
 	}
 }
 
@@ -274,7 +285,10 @@ def compile(PojoDao d) '''
 «addExtends(d, importManager)»
 «val toInits = getToInits(d)»
 «val classBody = compile(d, d.pojo, toInits, importManager)»
-«IF d.eContainer != null»package «d.eContainer.fullyQualifiedName»;«ENDIF»
+«IF d.eContainer != null»package «d.eContainer.fullyQualifiedName»«IF d.implPackage != null».«d.implPackage»«ENDIF»;«ENDIF»
+  «IF d.implPackage != null»
+import «d.eContainer.fullyQualifiedName».«d.name»;
+  «ENDIF»
   «IF !importManager.imports.empty»
   
   «FOR i : importManager.imports»
@@ -306,7 +320,7 @@ import «d.pojo.completeName»;
 '''
 
 def compile(PojoDao d, PojoEntity e, Map<String, List<PojoMethodArg>> toInits, ImportManager importManager) '''
-public «IF isAbstract(d)»abstract «ENDIF»class «d.name» «compileExtends(d)»«compileImplements(d)»{
+public «IF isAbstract(d)»abstract «ENDIF»class «d.name»«IF d.implPackage != null»Impl«ENDIF» «compileExtends(d)»«compileImplements(d)»{
   «IF getSernum(d) != null»
   
   private static final long serialVersionUID = «getSernum(d)»L;
@@ -316,7 +330,7 @@ public «IF isAbstract(d)»abstract «ENDIF»class «d.name» «compileExtends(d
   private SqlEngineFactory sqlEngineFactory;
   private SqlSessionFactory sqlSessionFactory;
     	
-  public «d.name»(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
+  public «d.name»«IF d.implPackage != null»Impl«ENDIF»(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
     this.sqlSessionFactory = sqlSessionFactory;
   }
@@ -462,6 +476,66 @@ def compileMoreResultClasses(PojoDao d, PojoEntity e, Map<String, List<PojoMetho
     }
 '''
 
+def compileIfx(PojoDao d) '''
+«val importManager = new ImportManager(true)»
+«addImplements(d, importManager)»
+«addExtends(d, importManager)»
+«val classBody = compileIfx(d, d.pojo, importManager)»
+«IF d.eContainer != null»package «d.eContainer.fullyQualifiedName»;«ENDIF»
+
+import java.util.List;
+import org.sqlproc.engine.SqlControl;
+import «d.pojo.completeName»;
+
+«classBody»
+'''
+
+def compileIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
+public interface «d.name» {
+
+  «compileInsertIfx(d, e, importManager)»
+  «compileGetIfx(d, e, importManager)»
+  «compileUpdateIfx(d, e, importManager)»
+  «compileDeleteIfx(d, e, importManager)»
+  «compileListIfx(d, e, importManager)»
+}
+'''
+
+def compileInsertIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
+
+    public «e.name» insert(«e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
+    public «e.name» insert(«e.name» «e.name.toFirstLower»);
+'''
+
+def compileGetIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
+
+    public «e.name» get(«e.name» «e.name.toFirstLower», SqlControl sqlControl);
+	
+    public «e.name» get(«e.name» «e.name.toFirstLower»);
+'''
+
+def compileUpdateIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
+
+    public int update(«e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
+    public int update(«e.name» «e.name.toFirstLower»);
+'''
+
+def compileDeleteIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
+
+    public int delete(«e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
+    public int delete(«e.name» «e.name.toFirstLower»);
+'''
+
+def compileListIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
+
+    public List<«e.name»> list(«e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
+    public List<«e.name»> list(«e.name» «e.name.toFirstLower»);
+'''
+
 def listFeatures(PojoEntity e) {
 	
    	val list = new ArrayList<PojoProperty>()
@@ -521,8 +595,8 @@ def compileImplements(PojoEntity e) '''
 def compileExtends(PojoDao e) '''
 	«IF getSuperType(e) != null»extends «getSuperType(e).fullyQualifiedName» «ELSEIF getExtends(e) != ""»extends «getExtends(e)» «ENDIF»'''
 
-def compileImplements(PojoDao e) '''
-	«IF isImplements(e) || getSernum(e) != null»implements «FOR f:e.eContainer.eContents.filter(typeof(Implements)) SEPARATOR ", " »«f.getImplements().simpleName»«ENDFOR»«IF getSernum(e) != null»«IF isImplements(e)», «ENDIF»Serializable«ENDIF» «ENDIF»'''
+def compileImplements(PojoDao d) '''
+	«IF isImplements(d) || getSernum(d) != null || d.implPackage != null»implements «FOR f:d.eContainer.eContents.filter(typeof(Implements)) SEPARATOR ", " »«f.getImplements().simpleName»«ENDFOR»«IF getSernum(d) != null»«IF isImplements(d)», «ENDIF»Serializable«ENDIF»«IF d.implPackage != null»«IF isImplements(d) || getSernum(d) != null», «ENDIF»«d.name»«ENDIF» «ENDIF»'''
 
 def compile(Extends e, ImportManager importManager) {
 	importManager.addImportFor(e.getExtends())
@@ -578,6 +652,13 @@ def isImplements(PojoDao e) {
 		return true
 	}
 	return false
+}
+
+def getImplPackage(PojoDao e) {
+	for(ext: e.eContainer.eContents.filter(typeof(ImplPackage))) {
+		return ext.name
+	}
+	return null
 }
 
 def completeName(PojoEntity e) {

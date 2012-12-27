@@ -2,7 +2,7 @@ package org.sqlproc.sample.simple.dao {
 
   implements org.sqlproc.sample.simple.dao.BaseDao
   extends org.sqlproc.sample.simple.dao.impl.BaseDaoImpl
-  implementation-package Impl
+  implementation-package impl
 
   dao BankAccountDao :: BankAccount {
     scaffold

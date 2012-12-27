@@ -34,6 +34,18 @@ import org.sqlproc.sample.simple.dao.PersonDao;
 import org.sqlproc.sample.simple.dao.PersonLibraryDao;
 import org.sqlproc.sample.simple.dao.PhysicalMediaDao;
 import org.sqlproc.sample.simple.dao.SubscriberDao;
+import org.sqlproc.sample.simple.dao.impl.BankAccountDaoImpl;
+import org.sqlproc.sample.simple.dao.impl.ContactDaoImpl;
+import org.sqlproc.sample.simple.dao.impl.CreditCardDaoImpl;
+import org.sqlproc.sample.simple.dao.impl.LibraryDaoImpl;
+import org.sqlproc.sample.simple.dao.impl.MovieDaoImpl;
+import org.sqlproc.sample.simple.dao.impl.NewBookDaoImpl;
+import org.sqlproc.sample.simple.dao.impl.PaymentDaoImpl;
+import org.sqlproc.sample.simple.dao.impl.PerformerDaoImpl;
+import org.sqlproc.sample.simple.dao.impl.PersonDaoImpl;
+import org.sqlproc.sample.simple.dao.impl.PersonLibraryDaoImpl;
+import org.sqlproc.sample.simple.dao.impl.PhysicalMediaDaoImpl;
+import org.sqlproc.sample.simple.dao.impl.SubscriberDaoImpl;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Contact;
 import org.sqlproc.sample.simple.model.CreditCard;
@@ -99,18 +111,18 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
     }
 
     public void initDao() throws SQLException {
-        bankAccountDao = new BankAccountDao(this, this);
-        bookDao = new NewBookDao(this, this);
-        contactDao = new ContactDao(this, this);
-        creditCardDao = new CreditCardDao(this, this);
-        libraryDao = new LibraryDao(this, this);
-        movieDao = new MovieDao(this, this);
-        personDao = new PersonDao(this, this);
-        performerDao = new PerformerDao(this, this);
-        personLibraryDao = new PersonLibraryDao(this, this);
-        subscriberDao = new SubscriberDao(this, this);
-        physicalMediaDao = new PhysicalMediaDao(this, this);
-        paymentDao = new PaymentDao(this, this);
+        bankAccountDao = new BankAccountDaoImpl(this, this);
+        bookDao = new NewBookDaoImpl(this, this);
+        contactDao = new ContactDaoImpl(this, this);
+        creditCardDao = new CreditCardDaoImpl(this, this);
+        libraryDao = new LibraryDaoImpl(this, this);
+        movieDao = new MovieDaoImpl(this, this);
+        personDao = new PersonDaoImpl(this, this);
+        performerDao = new PerformerDaoImpl(this, this);
+        personLibraryDao = new PersonLibraryDaoImpl(this, this);
+        subscriberDao = new SubscriberDaoImpl(this, this);
+        physicalMediaDao = new PhysicalMediaDaoImpl(this, this);
+        paymentDao = new PaymentDaoImpl(this, this);
     }
 
     private BankAccountDao bankAccountDao;
