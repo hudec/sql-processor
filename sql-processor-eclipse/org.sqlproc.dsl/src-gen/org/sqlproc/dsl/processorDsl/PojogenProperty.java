@@ -34,6 +34,7 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getMethods <em>Methods</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getToImplements <em>To Implements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getToExtends <em>To Extends</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getImplPackage <em>Impl Package</em>}</li>
  * </ul>
  * </p>
  *
@@ -380,5 +381,31 @@ public interface PojogenProperty extends EObject
    * @generated
    */
   void setToExtends(JvmType value);
+
+  /**
+   * Returns the value of the '<em><b>Impl Package</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Impl Package</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Impl Package</em>' attribute.
+   * @see #setImplPackage(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojogenProperty_ImplPackage()
+   * @model
+   * @generated
+   */
+  String getImplPackage();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getImplPackage <em>Impl Package</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Impl Package</em>' attribute.
+   * @see #getImplPackage()
+   * @generated
+   */
+  void setImplPackage(String value);
 
 } // PojogenProperty

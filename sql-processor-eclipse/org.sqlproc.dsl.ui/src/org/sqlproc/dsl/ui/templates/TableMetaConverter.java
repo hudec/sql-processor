@@ -30,12 +30,12 @@ public class TableMetaConverter extends TablePojoConverter {
     protected Artifacts artifacts;
     protected IScopeProvider scopeProvider;
 
-    protected PairValues globalSequence;
-    protected Map<String, PairValues> tablesSequence = new HashMap<String, PairValues>();
-    protected PairValues globalIdentity;
-    protected Map<String, PairValues> tablesIdentity = new HashMap<String, PairValues>();
-    protected Map<String, Map<String, PairValues>> columnsMetaTypes = new HashMap<String, Map<String, PairValues>>();
-    protected Map<String, Map<String, PairValues>> statementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
+    protected PairValues metaGlobalSequence;
+    protected Map<String, PairValues> metaTablesSequence = new HashMap<String, PairValues>();
+    protected PairValues metaGlobalIdentity;
+    protected Map<String, PairValues> metaTablesIdentity = new HashMap<String, PairValues>();
+    protected Map<String, Map<String, PairValues>> metaColumnsMetaTypes = new HashMap<String, Map<String, PairValues>>();
+    protected Map<String, Map<String, PairValues>> metaStatementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
 
     enum StatementType {
         INSERT, GET, UPDATE, DELETE, SELECT
@@ -50,32 +50,32 @@ public class TableMetaConverter extends TablePojoConverter {
         this.scopeProvider = scopeProvider;
         this.artifacts = artifacts;
 
-        this.globalSequence = modelProperty.getGlobalSequence(artifacts);
-        Map<String, PairValues> tablesSequence = modelProperty.getTablesSequence(artifacts);
+        this.metaGlobalSequence = modelProperty.getMetaGlobalSequence(artifacts);
+        Map<String, PairValues> tablesSequence = modelProperty.getMetaTablesSequence(artifacts);
         if (tablesSequence != null) {
-            this.tablesSequence.putAll(tablesSequence);
+            this.metaTablesSequence.putAll(tablesSequence);
         }
-        this.globalIdentity = modelProperty.getGlobalIdentity(artifacts);
-        Map<String, PairValues> tablesIdentity = modelProperty.getTablesIdentity(artifacts);
+        this.metaGlobalIdentity = modelProperty.getMetaGlobalIdentity(artifacts);
+        Map<String, PairValues> tablesIdentity = modelProperty.getMetaTablesIdentity(artifacts);
         if (tablesIdentity != null) {
-            this.tablesIdentity.putAll(tablesIdentity);
+            this.metaTablesIdentity.putAll(tablesIdentity);
         }
-        Map<String, Map<String, PairValues>> columnsMetaTypes = modelProperty.getColumnsMetaTypes(artifacts);
+        Map<String, Map<String, PairValues>> columnsMetaTypes = modelProperty.getMetaColumnsMetaTypes(artifacts);
         if (columnsMetaTypes != null) {
-            this.columnsMetaTypes.putAll(columnsMetaTypes);
+            this.metaColumnsMetaTypes.putAll(columnsMetaTypes);
         }
-        Map<String, Map<String, PairValues>> statementsMetaTypes = modelProperty.getStatementsMetaTypes(artifacts);
+        Map<String, Map<String, PairValues>> statementsMetaTypes = modelProperty.getMetaStatementsMetaTypes(artifacts);
         if (statementsMetaTypes != null) {
-            this.statementsMetaTypes.putAll(statementsMetaTypes);
+            this.metaStatementsMetaTypes.putAll(statementsMetaTypes);
         }
 
         if (debug) {
-            System.out.println("globalSequence " + this.globalSequence);
-            System.out.println("tablesSequence " + this.tablesSequence);
-            System.out.println("globalIdentity " + this.globalIdentity);
-            System.out.println("tablesIdentity " + this.tablesIdentity);
-            System.out.println("columnsMetaTypes " + this.columnsMetaTypes);
-            System.out.println("statementsMetaTypes " + this.statementsMetaTypes);
+            System.out.println("metaGlobalSequence " + this.metaGlobalSequence);
+            System.out.println("metaTablesSequence " + this.metaTablesSequence);
+            System.out.println("metaGlobalIdentity " + this.metaGlobalIdentity);
+            System.out.println("metaTablesIdentity " + this.metaTablesIdentity);
+            System.out.println("metaColumnsMetaTypes " + this.metaColumnsMetaTypes);
+            System.out.println("metaStatementsMetaTypes " + this.metaStatementsMetaTypes);
         }
     }
 
@@ -567,8 +567,9 @@ public class TableMetaConverter extends TablePojoConverter {
     }
 
     boolean metaTypes(StringBuilder buffer, String tableName, String attributeName, String statementName) {
-        if (columnsMetaTypes.containsKey(tableName) && columnsMetaTypes.get(tableName).containsKey(attributeName)) {
-            PairValues metaType = columnsMetaTypes.get(tableName).get(attributeName);
+        if (metaColumnsMetaTypes.containsKey(tableName)
+                && metaColumnsMetaTypes.get(tableName).containsKey(attributeName)) {
+            PairValues metaType = metaColumnsMetaTypes.get(tableName).get(attributeName);
             buffer.append("^");
             if (!"null".equalsIgnoreCase(metaType.value1))
                 buffer.append(metaType.value1);
@@ -576,9 +577,9 @@ public class TableMetaConverter extends TablePojoConverter {
                 buffer.append("^").append(metaType.value2);
             }
             return true;
-        } else if (statementsMetaTypes.containsKey(statementName)
-                && statementsMetaTypes.get(statementName).containsKey(attributeName)) {
-            PairValues metaType = statementsMetaTypes.get(statementName).get(attributeName);
+        } else if (metaStatementsMetaTypes.containsKey(statementName)
+                && metaStatementsMetaTypes.get(statementName).containsKey(attributeName)) {
+            PairValues metaType = metaStatementsMetaTypes.get(statementName).get(attributeName);
             buffer.append("^");
             if (!"null".equalsIgnoreCase(metaType.value1))
                 buffer.append(metaType.value1);
@@ -1108,20 +1109,20 @@ public class TableMetaConverter extends TablePojoConverter {
 
     PairValues getIdentity(String pojo, PojoAttribute attribute) {
         if (attribute.isPrimaryKey()) {
-            if (tablesIdentity.containsKey(pojo))
-                return tablesIdentity.get(pojo);
-            else if (globalIdentity != null)
-                return globalIdentity;
+            if (metaTablesIdentity.containsKey(pojo))
+                return metaTablesIdentity.get(pojo);
+            else if (metaGlobalIdentity != null)
+                return metaGlobalIdentity;
         }
         return null;
     }
 
     PairValues getSequence(String pojo, PojoAttribute attribute) {
         if (attribute.isPrimaryKey()) {
-            if (tablesSequence.containsKey(pojo))
-                return tablesSequence.get(pojo);
-            else if (globalSequence != null)
-                return globalSequence;
+            if (metaTablesSequence.containsKey(pojo))
+                return metaTablesSequence.get(pojo);
+            else if (metaGlobalSequence != null)
+                return metaGlobalSequence;
         }
         return null;
     }

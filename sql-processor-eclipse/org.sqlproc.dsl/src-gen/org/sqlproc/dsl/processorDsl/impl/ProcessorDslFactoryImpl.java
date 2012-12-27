@@ -78,9 +78,9 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.PROPERTY: return createProperty();
       case ProcessorDslPackage.DATABASE_PROPERTY: return createDatabaseProperty();
       case ProcessorDslPackage.POJOGEN_PROPERTY: return createPojogenProperty();
-      case ProcessorDslPackage.DAOGEN_PROPERTY: return createDaogenProperty();
       case ProcessorDslPackage.META_TYPE_ASSIGNEMENT: return createMetaTypeAssignement();
       case ProcessorDslPackage.METAGEN_PROPERTY: return createMetagenProperty();
+      case ProcessorDslPackage.DAOGEN_PROPERTY: return createDaogenProperty();
       case ProcessorDslPackage.POJO_DEFINITION: return createPojoDefinition();
       case ProcessorDslPackage.POJO_USAGE: return createPojoUsage();
       case ProcessorDslPackage.COLUMN_USAGE: return createColumnUsage();
@@ -121,6 +121,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.IMPORT: return createImport();
       case ProcessorDslPackage.IMPLEMENTS: return createImplements();
       case ProcessorDslPackage.EXTENDS: return createExtends();
+      case ProcessorDslPackage.IMPL_PACKAGE: return createImplPackage();
       case ProcessorDslPackage.POJO_ENTITY_MODIFIER1: return createPojoEntityModifier1();
       case ProcessorDslPackage.POJO_ENTITY_MODIFIER2: return createPojoEntityModifier2();
       case ProcessorDslPackage.POJO_ENTITY: return createPojoEntity();
@@ -294,17 +295,6 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public DaogenProperty createDaogenProperty()
-  {
-    DaogenPropertyImpl daogenProperty = new DaogenPropertyImpl();
-    return daogenProperty;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public MetaTypeAssignement createMetaTypeAssignement()
   {
     MetaTypeAssignementImpl metaTypeAssignement = new MetaTypeAssignementImpl();
@@ -320,6 +310,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     MetagenPropertyImpl metagenProperty = new MetagenPropertyImpl();
     return metagenProperty;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DaogenProperty createDaogenProperty()
+  {
+    DaogenPropertyImpl daogenProperty = new DaogenPropertyImpl();
+    return daogenProperty;
   }
 
   /**
@@ -760,6 +761,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     ExtendsImpl extends_ = new ExtendsImpl();
     return extends_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ImplPackage createImplPackage()
+  {
+    ImplPackageImpl implPackage = new ImplPackageImpl();
+    return implPackage;
   }
 
   /**

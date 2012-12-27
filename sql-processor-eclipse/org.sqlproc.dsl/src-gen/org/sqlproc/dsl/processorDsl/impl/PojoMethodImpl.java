@@ -29,6 +29,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodImpl#getScaffold <em>Scaffold</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodImpl#getToInits <em>To Inits</em>}</li>
  * </ul>
@@ -38,6 +39,26 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  */
 public class PojoMethodImpl extends MinimalEObjectImpl.Container implements PojoMethod
 {
+  /**
+   * The default value of the '{@link #getScaffold() <em>Scaffold</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getScaffold()
+   * @generated
+   * @ordered
+   */
+  protected static final String SCAFFOLD_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getScaffold() <em>Scaffold</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getScaffold()
+   * @generated
+   * @ordered
+   */
+  protected String scaffold = SCAFFOLD_EDEFAULT;
+
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -87,6 +108,29 @@ public class PojoMethodImpl extends MinimalEObjectImpl.Container implements Pojo
   protected EClass eStaticClass()
   {
     return ProcessorDslPackage.Literals.POJO_METHOD;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getScaffold()
+  {
+    return scaffold;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setScaffold(String newScaffold)
+  {
+    String oldScaffold = scaffold;
+    scaffold = newScaffold;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_METHOD__SCAFFOLD, oldScaffold, scaffold));
   }
 
   /**
@@ -152,6 +196,8 @@ public class PojoMethodImpl extends MinimalEObjectImpl.Container implements Pojo
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_METHOD__SCAFFOLD:
+        return getScaffold();
       case ProcessorDslPackage.POJO_METHOD__NAME:
         return getName();
       case ProcessorDslPackage.POJO_METHOD__TO_INITS:
@@ -171,6 +217,9 @@ public class PojoMethodImpl extends MinimalEObjectImpl.Container implements Pojo
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_METHOD__SCAFFOLD:
+        setScaffold((String)newValue);
+        return;
       case ProcessorDslPackage.POJO_METHOD__NAME:
         setName((String)newValue);
         return;
@@ -192,6 +241,9 @@ public class PojoMethodImpl extends MinimalEObjectImpl.Container implements Pojo
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_METHOD__SCAFFOLD:
+        setScaffold(SCAFFOLD_EDEFAULT);
+        return;
       case ProcessorDslPackage.POJO_METHOD__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -212,6 +264,8 @@ public class PojoMethodImpl extends MinimalEObjectImpl.Container implements Pojo
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.POJO_METHOD__SCAFFOLD:
+        return SCAFFOLD_EDEFAULT == null ? scaffold != null : !SCAFFOLD_EDEFAULT.equals(scaffold);
       case ProcessorDslPackage.POJO_METHOD__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.POJO_METHOD__TO_INITS:
@@ -231,7 +285,9 @@ public class PojoMethodImpl extends MinimalEObjectImpl.Container implements Pojo
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
+    result.append(" (scaffold: ");
+    result.append(scaffold);
+    result.append(", name: ");
     result.append(name);
     result.append(')');
     return result.toString();

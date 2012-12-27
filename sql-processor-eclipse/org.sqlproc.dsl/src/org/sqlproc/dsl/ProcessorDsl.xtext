@@ -69,15 +69,7 @@ PojogenProperty:
 	|name='implements-interfaces' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
 	|name='extends-class' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
 	|name='generate-wrappers'
-	);
-
-DaogenProperty:
-	(name='ignore-tables' (WS+ dbTables+=IDENT)+
-	|name='only-tables' (WS+ dbTables+=IDENT)*
-	|name='separate-implementation' implPackage=IDENT (WS+ dbTables+=IDENT)+
-	|name='control-parameter' WS+ controlClass=[jvmTypes::JvmType|QualifiedName]
-	|name='implements-interfaces' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
-	|name='extends-class' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
+	|name='implementation-package' WS+ implPackage=IDENT
 	);
 
 MetaTypeAssignement: dbColumn=IDENT '->' type=IDENT ('->' extension=IDENT)?;
@@ -89,6 +81,14 @@ MetagenProperty:
 	|name='table-identity' WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)?
 	|name='column-meta-type' WS+ dbTable=IDENT (WS+ metaTypes+=MetaTypeAssignement)+
 	|name='statement-meta-type' WS+ dbStatement=IDENT (WS+ metaTypes+=MetaTypeAssignement)+
+	);
+
+DaogenProperty:
+	(name='ignore-tables' (WS+ dbTables+=IDENT)+
+	|name='only-tables' (WS+ dbTables+=IDENT)*
+	|name='implementation-package' WS+ implPackage=IDENT
+	|name='implements-interfaces' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
+	|name='extends-class' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
 	);
 
 PropertyValue:
@@ -296,7 +296,7 @@ PackageDeclaration hidden(ML_COMMENT, SL_COMMENT, WS):
 	RBRACE;
 
 AbstractPojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
-	PackageDeclaration | PojoEntity | Import | Implements | Extends | PojoDao;
+	PackageDeclaration | PojoEntity | Import | Implements | Extends | ImplPackage | PojoDao;
 
 Import hidden(ML_COMMENT, SL_COMMENT, WS):
 	'import' importedNamespace = QualifiedNameWithWildcard;
@@ -306,6 +306,9 @@ Implements hidden(ML_COMMENT, SL_COMMENT, WS):
 
 Extends hidden(ML_COMMENT, SL_COMMENT, WS):
 	'extends' extends = [jvmTypes::JvmType|QualifiedName];
+
+ImplPackage hidden(ML_COMMENT, SL_COMMENT, WS):
+	'implementation-package' name=(IDENT|IDENT_DOT);
 
 PojoEntityModifier1: ((final?='final') | (abstract?='abstract'));
 
@@ -319,7 +322,7 @@ PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
 
 PojoPropertyModifier: ((required?='required') | (discriminator?='discriminator') | (primaryKey?='primaryKey') | ('index' index=NUMBER));
 
-PojoEntityModifier3: (('extends' superType=[PojoEntity|IDENT]) | ('implementation package' implementation=IDENT) | ('serializable' sernum=NUMBER));
+PojoEntityModifier3: (('extends' superType=[PojoEntity|IDENT]) | ('serializable' sernum=NUMBER));
 
 PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 	name=IDENT (native = ('_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') | 
@@ -335,7 +338,7 @@ PojoDao hidden(ML_COMMENT, SL_COMMENT, WS):
 	RBRACE;
 
 PojoMethod hidden(ML_COMMENT, SL_COMMENT, WS):
-	name=IDENT COLON COLON COLON (toInits+=PojoMethodArg)+
+	(scaffold='scaffold' | name=IDENT COLON COLON COLON (toInits+=PojoMethodArg)+)
 ;
 
 PojoMethodArg hidden(ML_COMMENT, SL_COMMENT, WS):

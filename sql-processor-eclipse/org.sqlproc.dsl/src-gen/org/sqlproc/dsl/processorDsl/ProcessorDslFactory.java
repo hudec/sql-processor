@@ -149,15 +149,6 @@ public interface ProcessorDslFactory extends EFactory
   PojogenProperty createPojogenProperty();
 
   /**
-   * Returns a new object of class '<em>Daogen Property</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Daogen Property</em>'.
-   * @generated
-   */
-  DaogenProperty createDaogenProperty();
-
-  /**
    * Returns a new object of class '<em>Meta Type Assignement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -174,6 +165,15 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   MetagenProperty createMetagenProperty();
+
+  /**
+   * Returns a new object of class '<em>Daogen Property</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Daogen Property</em>'.
+   * @generated
+   */
+  DaogenProperty createDaogenProperty();
 
   /**
    * Returns a new object of class '<em>Pojo Definition</em>'.
@@ -534,6 +534,15 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   Extends createExtends();
+
+  /**
+   * Returns a new object of class '<em>Impl Package</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Impl Package</em>'.
+   * @generated
+   */
+  ImplPackage createImplPackage();
 
   /**
    * Returns a new object of class '<em>Pojo Entity Modifier1</em>'.

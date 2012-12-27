@@ -170,13 +170,6 @@ public class ProcessorDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ProcessorDslPackage.DAOGEN_PROPERTY:
-      {
-        DaogenProperty daogenProperty = (DaogenProperty)theEObject;
-        T result = caseDaogenProperty(daogenProperty);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ProcessorDslPackage.META_TYPE_ASSIGNEMENT:
       {
         MetaTypeAssignement metaTypeAssignement = (MetaTypeAssignement)theEObject;
@@ -188,6 +181,13 @@ public class ProcessorDslSwitch<T> extends Switch<T>
       {
         MetagenProperty metagenProperty = (MetagenProperty)theEObject;
         T result = caseMetagenProperty(metagenProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.DAOGEN_PROPERTY:
+      {
+        DaogenProperty daogenProperty = (DaogenProperty)theEObject;
+        T result = caseDaogenProperty(daogenProperty);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -480,6 +480,14 @@ public class ProcessorDslSwitch<T> extends Switch<T>
         Extends extends_ = (Extends)theEObject;
         T result = caseExtends(extends_);
         if (result == null) result = caseAbstractPojoEntity(extends_);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.IMPL_PACKAGE:
+      {
+        ImplPackage implPackage = (ImplPackage)theEObject;
+        T result = caseImplPackage(implPackage);
+        if (result == null) result = caseAbstractPojoEntity(implPackage);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -777,22 +785,6 @@ public class ProcessorDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Daogen Property</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Daogen Property</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseDaogenProperty(DaogenProperty object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Meta Type Assignement</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -820,6 +812,22 @@ public class ProcessorDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseMetagenProperty(MetagenProperty object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Daogen Property</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Daogen Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDaogenProperty(DaogenProperty object)
   {
     return null;
   }
@@ -1460,6 +1468,22 @@ public class ProcessorDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseExtends(Extends object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Impl Package</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Impl Package</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseImplPackage(ImplPackage object)
   {
     return null;
   }

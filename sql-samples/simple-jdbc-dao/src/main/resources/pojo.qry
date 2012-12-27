@@ -1,0 +1,153 @@
+package org.sqlproc.sample.simple.model {
+
+
+  pojo BankAccount extends BillingDetails discriminator BA serializable 1  {
+    baAccount : java.lang.String
+    toInit ::: subscriber
+    isDef ::: baAccount
+    toString ::: baAccount
+  }
+
+  abstract pojo BillingDetails serializable 1  {
+    id : java.lang.Long primaryKey index 1
+    subscriber :: Subscriber required index 2
+    type : java.lang.String discriminator required
+    equals ::: id
+    hashCode ::: id
+    toInit ::: subscriber
+    toString ::: id type subscriber
+  }
+
+  pojo NewBook extends Media serializable 1  {
+    newIsbn : java.lang.String required
+    toInit ::: author
+    isDef ::: author
+    toString ::: newIsbn
+  }
+
+  pojo Contact serializable 1  {
+    id : java.lang.Long primaryKey index 1
+    person :: Person required index 2
+    address : java.lang.String required
+    phoneNumber : org.sqlproc.sample.simple.model.PhoneNumber
+    equals ::: id
+    hashCode ::: id
+    toInit ::: person
+    isDef ::: phoneNumber
+    toString ::: id person phoneNumber address
+  }
+
+  pojo CreditCard extends BillingDetails discriminator CC serializable 1  {
+    ccNumber : java.lang.Long
+    toInit ::: subscriber
+    isDef ::: ccNumber
+    toString ::: ccNumber
+  }
+
+  pojo Library serializable 1  {
+    id : java.lang.Long primaryKey index 1
+    name : java.lang.String required
+    subscribers : java.util.List <:Subscriber>
+    catalog : java.util.List <:PhysicalMedia>
+    equals ::: id
+    hashCode ::: id
+    toInit ::: catalog subscribers
+    toString ::: id name
+  }
+
+  pojo Media serializable 1  {
+    id : java.lang.Long primaryKey index 1
+    title : java.lang.String required
+    author :: Performer index 2
+    equals ::: id
+    hashCode ::: id
+    toInit ::: author
+    isDef ::: author
+    toString ::: id author title
+  }
+
+  pojo Movie extends Media serializable 1  {
+    urlimdb : java.lang.String required
+    playlength : java.lang.Integer required
+    toInit ::: author
+    isDef ::: author
+    toString ::: playlength urlimdb
+  }
+
+  pojo Payment serializable 1  {
+    id : java.lang.Long primaryKey index 1
+    billingDetails :: BillingDetails required index 2
+    paid : java.sql.Timestamp required
+    equals ::: id
+    hashCode ::: id
+    toInit ::: billingDetails
+    toString ::: id paid billingDetails
+  }
+
+  pojo Performer serializable 1  {
+    id : java.lang.Long primaryKey index 1
+    person :: Person required index 2
+    work : java.util.List <:Media>
+    equals ::: id
+    hashCode ::: id
+    toInit ::: work person
+    toString ::: id person
+  }
+
+  pojo Person serializable 1  {
+    id : java.lang.Long primaryKey index 1
+    firstName : java.lang.String required
+    lastName : java.lang.String required index 2
+    dateOfBirth : java.util.Date
+    ssn : java.lang.String
+    passport : java.lang.String
+    library : java.util.List <:Media>
+    contacts : java.util.List <:Contact>
+    equals ::: id
+    hashCode ::: id
+    toInit ::: library contacts
+    isDef ::: dateOfBirth ssn passport
+    toString ::: dateOfBirth id lastName ssn passport firstName
+  }
+
+  pojo PersonLibrary serializable 1  {
+    id : java.lang.Long primaryKey index 1
+    personId : java.lang.Long required index 2
+    mediaId : java.lang.Long required index 3
+    equals ::: id
+    hashCode ::: id
+    toString ::: mediaId id personId
+  }
+
+  pojo PhysicalMedia serializable 1  {
+    id : java.lang.Long primaryKey index 1
+    location : java.lang.String required
+    media :: Media required
+    library :: Library required
+    equals ::: id
+    hashCode ::: id
+    toInit ::: library media
+    toString ::: id location library media
+  }
+
+  pojo Subscriber serializable 1  {
+    id : java.lang.Long primaryKey index 1
+    library :: Library required index 2
+    contact :: Contact
+    name : java.lang.String required
+    billingDetails : java.util.List <:BillingDetails>
+    equals ::: id
+    hashCode ::: id
+    toInit ::: library billingDetails contact
+    isDef ::: contact
+    toString ::: id name library contact
+  }
+}
+
+package org.sqlproc.sample.simple.form {
+	
+	pojo FormSimpleFunction {
+		time : java.sql.Timestamp
+		time2 : java.sql.Timestamp
+	}
+}

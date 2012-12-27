@@ -78,6 +78,7 @@ public class TablePojoConverter {
     protected JvmType toExtends = null;
     protected Map<String, List<String>> joinTables = new HashMap<String, List<String>>();
     protected boolean doGenerateWrappers;
+    protected String implementationPackage;
 
     protected Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     protected Map<String, String> pojoExtends = new HashMap<String, String>();
@@ -187,6 +188,7 @@ public class TablePojoConverter {
             this.joinTables.putAll(joinTables);
         }
         this.doGenerateWrappers = modelProperty.isDoGenerateWrappers(artifacts);
+        this.implementationPackage = modelProperty.getImplementationPackage(artifacts);
 
         for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : this.inheritImports.entrySet()) {
             for (Map.Entry<String, Map<String, String>> inherit : inheritImport.getValue().entrySet()) {
@@ -226,6 +228,7 @@ public class TablePojoConverter {
             System.out.println("toExtends " + this.toExtends);
             System.out.println("joinTables " + this.joinTables);
             System.out.println("doGenerateWrappers " + this.doGenerateWrappers);
+            System.out.println("implementationPackage " + this.implementationPackage);
         }
     }
 
@@ -522,6 +525,7 @@ public class TablePojoConverter {
 
             StringBuilder buffer = new StringBuilder();
             boolean isSerializable = false;
+            boolean oneMoreLine = false;
             if (!toImplements.isEmpty()) {
                 for (JvmType type : toImplements.values()) {
                     if (type.getIdentifier().endsWith("Serializable")) {
@@ -530,11 +534,17 @@ public class TablePojoConverter {
                     }
                     buffer.append("\n  implements ").append(type.getIdentifier());
                 }
+                oneMoreLine = true;
             }
             if (toExtends != null) {
                 buffer.append("\n  extends ").append(toExtends.getIdentifier());
+                oneMoreLine = true;
             }
-            if (!toImplements.isEmpty() || toExtends != null) {
+            if (implementationPackage != null) {
+                buffer.append("\n  implementation-package ").append(implementationPackage);
+                oneMoreLine = true;
+            }
+            if (oneMoreLine) {
                 buffer.append("\n");
             }
             for (String pojo : pojos.keySet()) {

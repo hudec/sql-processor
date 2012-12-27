@@ -60,6 +60,7 @@ import org.sqlproc.dsl.processorDsl.TableAssignement;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getMethods <em>Methods</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getToImplements <em>To Implements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getToExtends <em>To Extends</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getImplPackage <em>Impl Package</em>}</li>
  * </ul>
  * </p>
  *
@@ -276,6 +277,26 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected JvmType toExtends;
+
+  /**
+   * The default value of the '{@link #getImplPackage() <em>Impl Package</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getImplPackage()
+   * @generated
+   * @ordered
+   */
+  protected static final String IMPL_PACKAGE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getImplPackage() <em>Impl Package</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getImplPackage()
+   * @generated
+   * @ordered
+   */
+  protected String implPackage = IMPL_PACKAGE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -645,6 +666,29 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getImplPackage()
+  {
+    return implPackage;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setImplPackage(String newImplPackage)
+  {
+    String oldImplPackage = implPackage;
+    implPackage = newImplPackage;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJOGEN_PROPERTY__IMPL_PACKAGE, oldImplPackage, implPackage));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -721,6 +765,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__TO_EXTENDS:
         if (resolve) return getToExtends();
         return basicGetToExtends();
+      case ProcessorDslPackage.POJOGEN_PROPERTY__IMPL_PACKAGE:
+        return getImplPackage();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -803,6 +849,9 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__TO_EXTENDS:
         setToExtends((JvmType)newValue);
         return;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__IMPL_PACKAGE:
+        setImplPackage((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -871,6 +920,9 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__TO_EXTENDS:
         setToExtends((JvmType)null);
         return;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__IMPL_PACKAGE:
+        setImplPackage(IMPL_PACKAGE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -921,6 +973,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return toImplements != null && !toImplements.isEmpty();
       case ProcessorDslPackage.POJOGEN_PROPERTY__TO_EXTENDS:
         return toExtends != null;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__IMPL_PACKAGE:
+        return IMPL_PACKAGE_EDEFAULT == null ? implPackage != null : !IMPL_PACKAGE_EDEFAULT.equals(implPackage);
     }
     return super.eIsSet(featureID);
   }
@@ -948,6 +1002,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
     result.append(dbColumn);
     result.append(", methods: ");
     result.append(methods);
+    result.append(", implPackage: ");
+    result.append(implPackage);
     result.append(')');
     return result.toString();
   }

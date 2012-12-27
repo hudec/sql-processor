@@ -1,0 +1,63 @@
+package org.sqlproc.sample.simple.dao {
+
+  implements org.sqlproc.sample.simple.dao.BaseDao
+  extends org.sqlproc.sample.simple.dao.impl.BaseDaoImpl
+  implementation-package Impl
+
+  dao BankAccountDao :: BankAccount {
+    scaffold
+  }
+
+  dao NewBookDao :: NewBook {
+    scaffold
+  }
+
+  dao ContactDao :: Contact {
+    scaffold
+  }
+
+  dao CreditCardDao :: CreditCard {
+    scaffold
+  }
+
+  dao LibraryDao :: Library {
+    scaffold
+  }
+
+  dao MediaDao :: Media {
+    scaffold
+  }
+
+  dao MovieDao :: Movie {
+    scaffold
+  }
+
+  dao PaymentDao :: Payment {
+    scaffold
+    billingDetails ::: BA ::BankAccount CC ::CreditCard
+  }
+
+  dao PerformerDao :: Performer {
+    scaffold
+    work ::: movie ::Movie book ::NewBook
+  }
+
+  dao PersonDao :: Person {
+    scaffold
+    library ::: movie ::Movie book ::NewBook
+  }
+
+  dao PersonLibraryDao :: PersonLibrary {
+    scaffold
+  }
+
+  dao PhysicalMediaDao :: PhysicalMedia {
+    scaffold
+    media ::: movie ::Movie book ::NewBook
+  }
+
+  dao SubscriberDao :: Subscriber {
+    scaffold
+    billingDetails ::: BA ::BankAccount CC ::CreditCard
+  }
+}

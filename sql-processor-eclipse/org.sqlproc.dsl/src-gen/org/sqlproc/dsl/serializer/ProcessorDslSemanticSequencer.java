@@ -36,6 +36,7 @@ import org.sqlproc.dsl.processorDsl.IfSql;
 import org.sqlproc.dsl.processorDsl.IfSqlBool;
 import org.sqlproc.dsl.processorDsl.IfSqlCond;
 import org.sqlproc.dsl.processorDsl.IfSqlFragment;
+import org.sqlproc.dsl.processorDsl.ImplPackage;
 import org.sqlproc.dsl.processorDsl.Implements;
 import org.sqlproc.dsl.processorDsl.Import;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
@@ -229,6 +230,13 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.IF_SQL_FRAGMENT:
 				if(context == grammarAccess.getIfSqlFragmentRule()) {
 					sequence_IfSqlFragment(context, (IfSqlFragment) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.IMPL_PACKAGE:
+				if(context == grammarAccess.getAbstractPojoEntityRule() ||
+				   context == grammarAccess.getImplPackageRule()) {
+					sequence_ImplPackage(context, (ImplPackage) semanticObject); 
 					return; 
 				}
 				else break;
@@ -640,8 +648,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (
 	 *         (name='ignore-tables' dbTables+=IDENT+) | 
 	 *         (name='only-tables' dbTables+=IDENT*) | 
-	 *         (name='separate-implementation' implPackage=IDENT dbTables+=IDENT+) | 
-	 *         (name='control-parameter' controlClass=[JvmType|QualifiedName]) | 
+	 *         (name='implementation-package' implPackage=IDENT) | 
 	 *         (name='implements-interfaces' toImplements+=[JvmType|QualifiedName]+) | 
 	 *         (name='extends-class' toExtends=[JvmType|QualifiedName])
 	 *     )
@@ -819,6 +826,15 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     sqls+=IfSqlFragment+
 	 */
 	protected void sequence_IfSql(EObject context, IfSql semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=IDENT | name=IDENT_DOT)
+	 */
+	protected void sequence_ImplPackage(EObject context, ImplPackage semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1089,7 +1105,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (superType=[PojoEntity|IDENT] | implementation=IDENT | sernum=NUMBER)
+	 *     (superType=[PojoEntity|IDENT] | sernum=NUMBER)
 	 */
 	protected void sequence_PojoEntityModifier3(EObject context, PojoEntityModifier3 semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1130,7 +1146,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (name=IDENT toInits+=PojoMethodArg+)
+	 *     (scaffold='scaffold' | (name=IDENT toInits+=PojoMethodArg+))
 	 */
 	protected void sequence_PojoMethod(EObject context, PojoMethod semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1222,7 +1238,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='generate-methods' methods+=IDENT+) | 
 	 *         (name='implements-interfaces' toImplements+=[JvmType|QualifiedName]+) | 
 	 *         (name='extends-class' toExtends=[JvmType|QualifiedName]) | 
-	 *         name='generate-wrappers'
+	 *         name='generate-wrappers' | 
+	 *         (name='implementation-package' implPackage=IDENT)
 	 *     )
 	 */
 	protected void sequence_PojogenProperty(EObject context, PojogenProperty semanticObject) {

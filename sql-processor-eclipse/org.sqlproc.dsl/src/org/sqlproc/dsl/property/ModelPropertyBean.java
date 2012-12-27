@@ -75,6 +75,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_JOIN_TABLES = "join-tables";
     public static final String POJOGEN_GENERATE_WRAPPERS = "generate-wrappers";
     public static final String POJOGEN_NOT_ABSTRACT_TABLES_TABLES = "not-abstract-tables";
+    public static final String POJOGEN_IMPLEMENTATION_PACKAGE = "implementation-package";
     public static final String METAGEN = "metagen";
     public static final String METAGEN_GLOBAL_SEQUENCE = "global-sequence";
     public static final String METAGEN_TABLE_SEQUENCE = "table-sequence";
@@ -85,8 +86,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DAOGEN = "daogen";
     public static final String DAOGEN_IGNORE_TABLES = "ignore-tables";
     public static final String DAOGEN_ONLY_TABLES = "only-tables";
-    public static final String DAOGEN_SEPARATE_IMPLEMENTATION = "separate-implementation";
-    public static final String DAOGEN_CONTROL_PARAMETER = "control-parameter";
+    public static final String DAOGEN_IMPLEMENTATION_PACKAGE = "implementation-package";
     public static final String DAOGEN_IMPLEMENTS_INTERFACES = "implements-interfaces";
     public static final String DAOGEN_EXTENDS_CLASS = "extends-class";
 
@@ -136,16 +136,18 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public JvmType toExtends;
         public Map<String, List<String>> joinTables;
         public boolean doGenerateWrappers;
-        public PairValues globalSequence;
-        public Map<String, PairValues> tablesSequence;
-        public PairValues globalIdentity;
-        public Map<String, PairValues> tablesIdentity;
-        public Map<String, Map<String, PairValues>> columnsMetaTypes;
-        public Map<String, Map<String, PairValues>> statementsMetaTypes;
+        public String implementationPackage;
+
+        public PairValues metaGlobalSequence;
+        public Map<String, PairValues> metaTablesSequence;
+        public PairValues metaGlobalIdentity;
+        public Map<String, PairValues> metaTablesIdentity;
+        public Map<String, Map<String, PairValues>> metaColumnsMetaTypes;
+        public Map<String, Map<String, PairValues>> metaStatementsMetaTypes;
+
         public Set<String> daoIgnoreTables;
         public Set<String> daoOnlyTables;
-        public Map<String, String> daoImplementsInterfaces;
-        public JvmType daoControlParameter;
+        public String daoImplementationPackage;
         public Map<String, JvmType> daoToImplements;
         public JvmType daoToExtends;
     }
@@ -289,22 +291,23 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.toImplements = new HashMap<String, JvmType>();
         modelValues.toExtends = null;
         modelValues.joinTables = new HashMap<String, List<String>>();
+        modelValues.doGenerateWrappers = false;
+        modelValues.implementationPackage = null;
     }
 
     private void initMetagenModel(ModelValues modelValues) {
-        modelValues.globalSequence = null;
-        modelValues.tablesSequence = new HashMap<String, PairValues>();
-        modelValues.globalIdentity = null;
-        modelValues.tablesIdentity = new HashMap<String, PairValues>();
-        modelValues.columnsMetaTypes = new HashMap<String, Map<String, PairValues>>();
-        modelValues.statementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
+        modelValues.metaGlobalSequence = null;
+        modelValues.metaTablesSequence = new HashMap<String, PairValues>();
+        modelValues.metaGlobalIdentity = null;
+        modelValues.metaTablesIdentity = new HashMap<String, PairValues>();
+        modelValues.metaColumnsMetaTypes = new HashMap<String, Map<String, PairValues>>();
+        modelValues.metaStatementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
     }
 
     private void initDaogenModel(ModelValues modelValues) {
         modelValues.daoIgnoreTables = new HashSet<String>();
         modelValues.daoOnlyTables = new HashSet<String>();
-        modelValues.daoImplementsInterfaces = new HashMap<String, String>();
-        modelValues.daoControlParameter = null;
+        modelValues.daoImplementationPackage = null;
         modelValues.daoToImplements = new HashMap<String, JvmType>();
         modelValues.daoToExtends = null;
     }
@@ -568,6 +571,40 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             }
         } else if (POJOGEN_GENERATE_WRAPPERS.equals(property.getName())) {
             modelValues.doGenerateWrappers = true;
+        } else if (POJOGEN_IMPLEMENTATION_PACKAGE.equals(property.getName())) {
+            modelValues.implementationPackage = property.getImplPackage();
+        }
+    }
+
+    public void setValue(ModelValues modelValues, MetagenProperty property) {
+        if (property == null)
+            return;
+        if (METAGEN_GLOBAL_IDENTITY.equals(property.getName())) {
+            modelValues.metaGlobalIdentity = new PairValues(property.getIdentity(), property.getType());
+        } else if (METAGEN_TABLE_IDENTITY.equals(property.getName())) {
+            modelValues.metaTablesIdentity.put(property.getDbTable(),
+                    new PairValues(property.getIdentity(), property.getType()));
+        } else if (METAGEN_GLOBAL_SEQUENCE.equals(property.getName())) {
+            modelValues.metaGlobalSequence = new PairValues(property.getSequence(), property.getType());
+        } else if (METAGEN_TABLE_SEQUENCE.equals(property.getName())) {
+            modelValues.metaTablesSequence.put(property.getDbTable(),
+                    new PairValues(property.getSequence(), property.getType()));
+        } else if (METAGEN_COLUMN_META_TYPE.equals(property.getName())) {
+            if (!modelValues.metaColumnsMetaTypes.containsKey(property.getDbTable()))
+                modelValues.metaColumnsMetaTypes.put(property.getDbTable(), new HashMap<String, PairValues>());
+            for (int i = 0, m = property.getMetaTypes().size(); i < m; i++) {
+                MetaTypeAssignement metaType = property.getMetaTypes().get(i);
+                modelValues.metaColumnsMetaTypes.get(property.getDbTable()).put(metaType.getDbColumn(),
+                        new PairValues(metaType.getType(), metaType.getExtension()));
+            }
+        } else if (METAGEN_STATEMENT_META_TYPE.equals(property.getName())) {
+            if (!modelValues.metaStatementsMetaTypes.containsKey(property.getDbStatement()))
+                modelValues.metaStatementsMetaTypes.put(property.getDbStatement(), new HashMap<String, PairValues>());
+            for (int i = 0, m = property.getMetaTypes().size(); i < m; i++) {
+                MetaTypeAssignement metaType = property.getMetaTypes().get(i);
+                modelValues.metaStatementsMetaTypes.get(property.getDbStatement()).put(metaType.getDbColumn(),
+                        new PairValues(metaType.getType(), metaType.getExtension()));
+            }
         }
     }
 
@@ -576,19 +613,14 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             return;
         if (DAOGEN_IGNORE_TABLES.equals(property.getName())) {
             for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
-                modelValues.ignoreTables.add(property.getDbTables().get(i));
+                modelValues.daoIgnoreTables.add(property.getDbTables().get(i));
             }
         } else if (DAOGEN_ONLY_TABLES.equals(property.getName())) {
             for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
-                modelValues.onlyTables.add(property.getDbTables().get(i));
+                modelValues.daoOnlyTables.add(property.getDbTables().get(i));
             }
-        } else if (DAOGEN_SEPARATE_IMPLEMENTATION.equals(property.getName())) {
-            String packageName = property.getImplPackage();
-            for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
-                modelValues.daoImplementsInterfaces.put(property.getDbTables().get(i), packageName);
-            }
-        } else if (DAOGEN_CONTROL_PARAMETER.equals(property.getName())) {
-            modelValues.daoControlParameter = property.getControlClass();
+        } else if (DAOGEN_IMPLEMENTATION_PACKAGE.equals(property.getName())) {
+            modelValues.daoImplementationPackage = property.getImplPackage();
         } else if (DAOGEN_IMPLEMENTS_INTERFACES.equals(property.getName())) {
             for (int i = 0, m = property.getToImplements().size(); i < m; i++) {
                 modelValues.daoToImplements.put(property.getToImplements().get(i).getIdentifier(), property
@@ -596,38 +628,6 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             }
         } else if (DAOGEN_EXTENDS_CLASS.equals(property.getName())) {
             modelValues.daoToExtends = property.getToExtends();
-        }
-    }
-
-    public void setValue(ModelValues modelValues, MetagenProperty property) {
-        if (property == null)
-            return;
-        if (METAGEN_GLOBAL_IDENTITY.equals(property.getName())) {
-            modelValues.globalIdentity = new PairValues(property.getIdentity(), property.getType());
-        } else if (METAGEN_TABLE_IDENTITY.equals(property.getName())) {
-            modelValues.tablesIdentity.put(property.getDbTable(),
-                    new PairValues(property.getIdentity(), property.getType()));
-        } else if (METAGEN_GLOBAL_SEQUENCE.equals(property.getName())) {
-            modelValues.globalSequence = new PairValues(property.getSequence(), property.getType());
-        } else if (METAGEN_TABLE_SEQUENCE.equals(property.getName())) {
-            modelValues.tablesSequence.put(property.getDbTable(),
-                    new PairValues(property.getSequence(), property.getType()));
-        } else if (METAGEN_COLUMN_META_TYPE.equals(property.getName())) {
-            if (!modelValues.columnsMetaTypes.containsKey(property.getDbTable()))
-                modelValues.columnsMetaTypes.put(property.getDbTable(), new HashMap<String, PairValues>());
-            for (int i = 0, m = property.getMetaTypes().size(); i < m; i++) {
-                MetaTypeAssignement metaType = property.getMetaTypes().get(i);
-                modelValues.columnsMetaTypes.get(property.getDbTable()).put(metaType.getDbColumn(),
-                        new PairValues(metaType.getType(), metaType.getExtension()));
-            }
-        } else if (METAGEN_STATEMENT_META_TYPE.equals(property.getName())) {
-            if (!modelValues.statementsMetaTypes.containsKey(property.getDbStatement()))
-                modelValues.statementsMetaTypes.put(property.getDbStatement(), new HashMap<String, PairValues>());
-            for (int i = 0, m = property.getMetaTypes().size(); i < m; i++) {
-                MetaTypeAssignement metaType = property.getMetaTypes().get(i);
-                modelValues.statementsMetaTypes.get(property.getDbStatement()).put(metaType.getDbColumn(),
-                        new PairValues(metaType.getType(), metaType.getExtension()));
-            }
         }
     }
 
@@ -804,40 +804,46 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
-    public PairValues getGlobalIdentity(EObject model) {
+    public String getImplementationPackage(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.globalIdentity : null;
+        return (modelValues != null) ? modelValues.implementationPackage : null;
     }
 
     @Override
-    public Map<String, PairValues> getTablesIdentity(EObject model) {
+    public PairValues getMetaGlobalIdentity(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.tablesIdentity : Collections.<String, PairValues> emptyMap();
+        return (modelValues != null) ? modelValues.metaGlobalIdentity : null;
     }
 
     @Override
-    public PairValues getGlobalSequence(EObject model) {
+    public Map<String, PairValues> getMetaTablesIdentity(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.globalSequence : null;
+        return (modelValues != null) ? modelValues.metaTablesIdentity : Collections.<String, PairValues> emptyMap();
     }
 
     @Override
-    public Map<String, PairValues> getTablesSequence(EObject model) {
+    public PairValues getMetaGlobalSequence(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.tablesSequence : Collections.<String, PairValues> emptyMap();
+        return (modelValues != null) ? modelValues.metaGlobalSequence : null;
     }
 
     @Override
-    public Map<String, Map<String, PairValues>> getColumnsMetaTypes(EObject model) {
+    public Map<String, PairValues> getMetaTablesSequence(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.columnsMetaTypes : Collections
+        return (modelValues != null) ? modelValues.metaTablesSequence : Collections.<String, PairValues> emptyMap();
+    }
+
+    @Override
+    public Map<String, Map<String, PairValues>> getMetaColumnsMetaTypes(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.metaColumnsMetaTypes : Collections
                 .<String, Map<String, PairValues>> emptyMap();
     }
 
     @Override
-    public Map<String, Map<String, PairValues>> getStatementsMetaTypes(EObject model) {
+    public Map<String, Map<String, PairValues>> getMetaStatementsMetaTypes(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.statementsMetaTypes : Collections
+        return (modelValues != null) ? modelValues.metaStatementsMetaTypes : Collections
                 .<String, Map<String, PairValues>> emptyMap();
     }
 
@@ -854,15 +860,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
-    public Map<String, String> getDaoImplementsInterfaces(EObject model) {
+    public String getDaoImplementationPackage(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.daoImplementsInterfaces : Collections.<String, String> emptyMap();
-    }
-
-    @Override
-    public JvmType getDaoControlParameter(EObject model) {
-        ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.daoControlParameter : null;
+        return (modelValues != null) ? modelValues.daoImplementationPackage : null;
     }
 
     @Override

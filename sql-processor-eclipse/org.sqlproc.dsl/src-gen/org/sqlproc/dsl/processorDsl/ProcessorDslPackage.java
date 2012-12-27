@@ -908,86 +908,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJOGEN_PROPERTY__TO_EXTENDS = 17;
 
   /**
-   * The number of structural features of the '<em>Pojogen Property</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int POJOGEN_PROPERTY_FEATURE_COUNT = 18;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl <em>Daogen Property</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDaogenProperty()
-   * @generated
-   */
-  int DAOGEN_PROPERTY = 14;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DAOGEN_PROPERTY__NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Db Tables</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DAOGEN_PROPERTY__DB_TABLES = 1;
-
-  /**
    * The feature id for the '<em><b>Impl Package</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DAOGEN_PROPERTY__IMPL_PACKAGE = 2;
+  int POJOGEN_PROPERTY__IMPL_PACKAGE = 18;
 
   /**
-   * The feature id for the '<em><b>Control Class</b></em>' reference.
+   * The number of structural features of the '<em>Pojogen Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DAOGEN_PROPERTY__CONTROL_CLASS = 3;
-
-  /**
-   * The feature id for the '<em><b>To Implements</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DAOGEN_PROPERTY__TO_IMPLEMENTS = 4;
-
-  /**
-   * The feature id for the '<em><b>To Extends</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DAOGEN_PROPERTY__TO_EXTENDS = 5;
-
-  /**
-   * The number of structural features of the '<em>Daogen Property</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DAOGEN_PROPERTY_FEATURE_COUNT = 6;
+  int POJOGEN_PROPERTY_FEATURE_COUNT = 19;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaTypeAssignementImpl <em>Meta Type Assignement</em>}' class.
@@ -997,7 +933,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMetaTypeAssignement()
    * @generated
    */
-  int META_TYPE_ASSIGNEMENT = 15;
+  int META_TYPE_ASSIGNEMENT = 14;
 
   /**
    * The feature id for the '<em><b>Db Column</b></em>' attribute.
@@ -1043,7 +979,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMetagenProperty()
    * @generated
    */
-  int METAGEN_PROPERTY = 16;
+  int METAGEN_PROPERTY = 15;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1116,6 +1052,70 @@ public interface ProcessorDslPackage extends EPackage
    * @ordered
    */
   int METAGEN_PROPERTY_FEATURE_COUNT = 7;
+
+  /**
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl <em>Daogen Property</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDaogenProperty()
+   * @generated
+   */
+  int DAOGEN_PROPERTY = 16;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DAOGEN_PROPERTY__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Db Tables</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DAOGEN_PROPERTY__DB_TABLES = 1;
+
+  /**
+   * The feature id for the '<em><b>Impl Package</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DAOGEN_PROPERTY__IMPL_PACKAGE = 2;
+
+  /**
+   * The feature id for the '<em><b>To Implements</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DAOGEN_PROPERTY__TO_IMPLEMENTS = 3;
+
+  /**
+   * The feature id for the '<em><b>To Extends</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DAOGEN_PROPERTY__TO_EXTENDS = 4;
+
+  /**
+   * The number of structural features of the '<em>Daogen Property</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DAOGEN_PROPERTY_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.
@@ -2823,6 +2823,34 @@ public interface ProcessorDslPackage extends EPackage
   int EXTENDS_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ImplPackageImpl <em>Impl Package</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.sqlproc.dsl.processorDsl.impl.ImplPackageImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImplPackage()
+   * @generated
+   */
+  int IMPL_PACKAGE = 57;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPL_PACKAGE__NAME = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Impl Package</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPL_PACKAGE_FEATURE_COUNT = ABSTRACT_POJO_ENTITY_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityModifier1Impl <em>Pojo Entity Modifier1</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2830,7 +2858,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntityModifier1()
    * @generated
    */
-  int POJO_ENTITY_MODIFIER1 = 57;
+  int POJO_ENTITY_MODIFIER1 = 58;
 
   /**
    * The feature id for the '<em><b>Final</b></em>' attribute.
@@ -2867,7 +2895,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntityModifier2()
    * @generated
    */
-  int POJO_ENTITY_MODIFIER2 = 58;
+  int POJO_ENTITY_MODIFIER2 = 59;
 
   /**
    * The feature id for the '<em><b>Super Type</b></em>' reference.
@@ -2913,7 +2941,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntity()
    * @generated
    */
-  int POJO_ENTITY = 59;
+  int POJO_ENTITY = 60;
 
   /**
    * The feature id for the '<em><b>Modifiers1</b></em>' containment reference list.
@@ -2968,7 +2996,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoPropertyModifier()
    * @generated
    */
-  int POJO_PROPERTY_MODIFIER = 60;
+  int POJO_PROPERTY_MODIFIER = 61;
 
   /**
    * The feature id for the '<em><b>Required</b></em>' attribute.
@@ -3023,7 +3051,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntityModifier3()
    * @generated
    */
-  int POJO_ENTITY_MODIFIER3 = 61;
+  int POJO_ENTITY_MODIFIER3 = 62;
 
   /**
    * The feature id for the '<em><b>Super Type</b></em>' reference.
@@ -3035,22 +3063,13 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_ENTITY_MODIFIER3__SUPER_TYPE = 0;
 
   /**
-   * The feature id for the '<em><b>Implementation</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int POJO_ENTITY_MODIFIER3__IMPLEMENTATION = 1;
-
-  /**
    * The feature id for the '<em><b>Sernum</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_ENTITY_MODIFIER3__SERNUM = 2;
+  int POJO_ENTITY_MODIFIER3__SERNUM = 1;
 
   /**
    * The number of structural features of the '<em>Pojo Entity Modifier3</em>' class.
@@ -3059,7 +3078,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_ENTITY_MODIFIER3_FEATURE_COUNT = 3;
+  int POJO_ENTITY_MODIFIER3_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyImpl <em>Pojo Property</em>}' class.
@@ -3069,7 +3088,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoProperty()
    * @generated
    */
-  int POJO_PROPERTY = 62;
+  int POJO_PROPERTY = 63;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3169,7 +3188,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoDao()
    * @generated
    */
-  int POJO_DAO = 63;
+  int POJO_DAO = 64;
 
   /**
    * The feature id for the '<em><b>Modifiers1</b></em>' containment reference list.
@@ -3233,7 +3252,16 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoMethod()
    * @generated
    */
-  int POJO_METHOD = 64;
+  int POJO_METHOD = 65;
+
+  /**
+   * The feature id for the '<em><b>Scaffold</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_METHOD__SCAFFOLD = 0;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3242,7 +3270,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_METHOD__NAME = 0;
+  int POJO_METHOD__NAME = 1;
 
   /**
    * The feature id for the '<em><b>To Inits</b></em>' containment reference list.
@@ -3251,7 +3279,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_METHOD__TO_INITS = 1;
+  int POJO_METHOD__TO_INITS = 2;
 
   /**
    * The number of structural features of the '<em>Pojo Method</em>' class.
@@ -3260,7 +3288,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POJO_METHOD_FEATURE_COUNT = 2;
+  int POJO_METHOD_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodArgImpl <em>Pojo Method Arg</em>}' class.
@@ -3270,7 +3298,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoMethodArg()
    * @generated
    */
-  int POJO_METHOD_ARG = 65;
+  int POJO_METHOD_ARG = 66;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4185,80 +4213,15 @@ public interface ProcessorDslPackage extends EPackage
   EReference getPojogenProperty_ToExtends();
 
   /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.DaogenProperty <em>Daogen Property</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Daogen Property</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DaogenProperty
-   * @generated
-   */
-  EClass getDaogenProperty();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getName()
-   * @see #getDaogenProperty()
-   * @generated
-   */
-  EAttribute getDaogenProperty_Name();
-
-  /**
-   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getDbTables <em>Db Tables</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Db Tables</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getDbTables()
-   * @see #getDaogenProperty()
-   * @generated
-   */
-  EAttribute getDaogenProperty_DbTables();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getImplPackage <em>Impl Package</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getImplPackage <em>Impl Package</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Impl Package</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getImplPackage()
-   * @see #getDaogenProperty()
+   * @see org.sqlproc.dsl.processorDsl.PojogenProperty#getImplPackage()
+   * @see #getPojogenProperty()
    * @generated
    */
-  EAttribute getDaogenProperty_ImplPackage();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getControlClass <em>Control Class</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Control Class</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getControlClass()
-   * @see #getDaogenProperty()
-   * @generated
-   */
-  EReference getDaogenProperty_ControlClass();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToImplements <em>To Implements</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>To Implements</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getToImplements()
-   * @see #getDaogenProperty()
-   * @generated
-   */
-  EReference getDaogenProperty_ToImplements();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToExtends <em>To Extends</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>To Extends</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getToExtends()
-   * @see #getDaogenProperty()
-   * @generated
-   */
-  EReference getDaogenProperty_ToExtends();
+  EAttribute getPojogenProperty_ImplPackage();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.MetaTypeAssignement <em>Meta Type Assignement</em>}'.
@@ -4389,6 +4352,71 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EAttribute getMetagenProperty_DbStatement();
+
+  /**
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.DaogenProperty <em>Daogen Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Daogen Property</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DaogenProperty
+   * @generated
+   */
+  EClass getDaogenProperty();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getName()
+   * @see #getDaogenProperty()
+   * @generated
+   */
+  EAttribute getDaogenProperty_Name();
+
+  /**
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getDbTables <em>Db Tables</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Db Tables</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getDbTables()
+   * @see #getDaogenProperty()
+   * @generated
+   */
+  EAttribute getDaogenProperty_DbTables();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getImplPackage <em>Impl Package</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Impl Package</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getImplPackage()
+   * @see #getDaogenProperty()
+   * @generated
+   */
+  EAttribute getDaogenProperty_ImplPackage();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToImplements <em>To Implements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>To Implements</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getToImplements()
+   * @see #getDaogenProperty()
+   * @generated
+   */
+  EReference getDaogenProperty_ToImplements();
+
+  /**
+   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToExtends <em>To Extends</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>To Extends</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getToExtends()
+   * @see #getDaogenProperty()
+   * @generated
+   */
+  EReference getDaogenProperty_ToExtends();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoDefinition <em>Pojo Definition</em>}'.
@@ -5858,6 +5886,27 @@ public interface ProcessorDslPackage extends EPackage
   EReference getExtends_Extends();
 
   /**
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.ImplPackage <em>Impl Package</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Impl Package</em>'.
+   * @see org.sqlproc.dsl.processorDsl.ImplPackage
+   * @generated
+   */
+  EClass getImplPackage();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.ImplPackage#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.sqlproc.dsl.processorDsl.ImplPackage#getName()
+   * @see #getImplPackage()
+   * @generated
+   */
+  EAttribute getImplPackage_Name();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoEntityModifier1 <em>Pojo Entity Modifier1</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6062,17 +6111,6 @@ public interface ProcessorDslPackage extends EPackage
   EReference getPojoEntityModifier3_SuperType();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoEntityModifier3#getImplementation <em>Implementation</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Implementation</em>'.
-   * @see org.sqlproc.dsl.processorDsl.PojoEntityModifier3#getImplementation()
-   * @see #getPojoEntityModifier3()
-   * @generated
-   */
-  EAttribute getPojoEntityModifier3_Implementation();
-
-  /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoEntityModifier3#getSernum <em>Sernum</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6266,6 +6304,17 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EClass getPojoMethod();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoMethod#getScaffold <em>Scaffold</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Scaffold</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoMethod#getScaffold()
+   * @see #getPojoMethod()
+   * @generated
+   */
+  EAttribute getPojoMethod_Scaffold();
 
   /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoMethod#getName <em>Name</em>}'.
@@ -7035,62 +7084,12 @@ public interface ProcessorDslPackage extends EPackage
     EReference POJOGEN_PROPERTY__TO_EXTENDS = eINSTANCE.getPojogenProperty_ToExtends();
 
     /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl <em>Daogen Property</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDaogenProperty()
-     * @generated
-     */
-    EClass DAOGEN_PROPERTY = eINSTANCE.getDaogenProperty();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute DAOGEN_PROPERTY__NAME = eINSTANCE.getDaogenProperty_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Db Tables</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute DAOGEN_PROPERTY__DB_TABLES = eINSTANCE.getDaogenProperty_DbTables();
-
-    /**
      * The meta object literal for the '<em><b>Impl Package</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute DAOGEN_PROPERTY__IMPL_PACKAGE = eINSTANCE.getDaogenProperty_ImplPackage();
-
-    /**
-     * The meta object literal for the '<em><b>Control Class</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference DAOGEN_PROPERTY__CONTROL_CLASS = eINSTANCE.getDaogenProperty_ControlClass();
-
-    /**
-     * The meta object literal for the '<em><b>To Implements</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference DAOGEN_PROPERTY__TO_IMPLEMENTS = eINSTANCE.getDaogenProperty_ToImplements();
-
-    /**
-     * The meta object literal for the '<em><b>To Extends</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference DAOGEN_PROPERTY__TO_EXTENDS = eINSTANCE.getDaogenProperty_ToExtends();
+    EAttribute POJOGEN_PROPERTY__IMPL_PACKAGE = eINSTANCE.getPojogenProperty_ImplPackage();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaTypeAssignementImpl <em>Meta Type Assignement</em>}' class.
@@ -7191,6 +7190,56 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute METAGEN_PROPERTY__DB_STATEMENT = eINSTANCE.getMetagenProperty_DbStatement();
+
+    /**
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl <em>Daogen Property</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDaogenProperty()
+     * @generated
+     */
+    EClass DAOGEN_PROPERTY = eINSTANCE.getDaogenProperty();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DAOGEN_PROPERTY__NAME = eINSTANCE.getDaogenProperty_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Db Tables</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DAOGEN_PROPERTY__DB_TABLES = eINSTANCE.getDaogenProperty_DbTables();
+
+    /**
+     * The meta object literal for the '<em><b>Impl Package</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DAOGEN_PROPERTY__IMPL_PACKAGE = eINSTANCE.getDaogenProperty_ImplPackage();
+
+    /**
+     * The meta object literal for the '<em><b>To Implements</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DAOGEN_PROPERTY__TO_IMPLEMENTS = eINSTANCE.getDaogenProperty_ToImplements();
+
+    /**
+     * The meta object literal for the '<em><b>To Extends</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DAOGEN_PROPERTY__TO_EXTENDS = eINSTANCE.getDaogenProperty_ToExtends();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.
@@ -8369,6 +8418,24 @@ public interface ProcessorDslPackage extends EPackage
     EReference EXTENDS__EXTENDS = eINSTANCE.getExtends_Extends();
 
     /**
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ImplPackageImpl <em>Impl Package</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.sqlproc.dsl.processorDsl.impl.ImplPackageImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImplPackage()
+     * @generated
+     */
+    EClass IMPL_PACKAGE = eINSTANCE.getImplPackage();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IMPL_PACKAGE__NAME = eINSTANCE.getImplPackage_Name();
+
+    /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityModifier1Impl <em>Pojo Entity Modifier1</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8531,14 +8598,6 @@ public interface ProcessorDslPackage extends EPackage
     EReference POJO_ENTITY_MODIFIER3__SUPER_TYPE = eINSTANCE.getPojoEntityModifier3_SuperType();
 
     /**
-     * The meta object literal for the '<em><b>Implementation</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute POJO_ENTITY_MODIFIER3__IMPLEMENTATION = eINSTANCE.getPojoEntityModifier3_Implementation();
-
-    /**
      * The meta object literal for the '<em><b>Sernum</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8687,6 +8746,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EClass POJO_METHOD = eINSTANCE.getPojoMethod();
+
+    /**
+     * The meta object literal for the '<em><b>Scaffold</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_METHOD__SCAFFOLD = eINSTANCE.getPojoMethod_Scaffold();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.

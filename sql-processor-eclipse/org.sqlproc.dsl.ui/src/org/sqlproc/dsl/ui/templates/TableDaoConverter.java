@@ -23,8 +23,7 @@ public class TableDaoConverter extends TableMetaConverter {
     protected Set<String> finalDaos;
     protected Set<String> daoIgnoreTables = new HashSet<String>();
     protected Set<String> daoOnlyTables = new HashSet<String>();
-    protected Map<String, String> daoImplementsInterfaces = new HashMap<String, String>();
-    protected JvmType daoControlClass;
+    protected String daoImplementationPackage;
     protected Map<String, JvmType> daoToImplements = new HashMap<String, JvmType>();
     protected JvmType daoToExtends = null;
 
@@ -46,11 +45,7 @@ public class TableDaoConverter extends TableMetaConverter {
         if (daoOnlyTables != null) {
             this.daoOnlyTables.addAll(daoOnlyTables);
         }
-        Map<String, String> daoImplementsInterfaces = modelProperty.getDaoImplementsInterfaces(artifacts);
-        if (daoImplementsInterfaces != null) {
-            this.daoImplementsInterfaces.putAll(daoImplementsInterfaces);
-        }
-        this.daoControlClass = modelProperty.getDaoControlParameter(artifacts);
+        this.daoImplementationPackage = modelProperty.getDaoImplementationPackage(artifacts);
         Map<String, JvmType> daoToImplements = modelProperty.getDaoToImplements(artifacts);
         if (daoToImplements != null) {
             this.daoToImplements.putAll(daoToImplements);
@@ -60,8 +55,9 @@ public class TableDaoConverter extends TableMetaConverter {
         if (debug) {
             System.out.println("daoIgnoreTables " + this.daoIgnoreTables);
             System.out.println("daoOnlyTables " + this.daoOnlyTables);
-            System.out.println("daoImplementsInterfaces " + this.daoImplementsInterfaces);
-            System.out.println("daoControlClass " + this.daoControlClass);
+            System.out.println("daoImplementationPackage " + this.daoImplementationPackage);
+            System.out.println("daoToImplements " + this.daoToImplements);
+            System.out.println("daoToExtends " + this.daoToExtends);
         }
     }
 
@@ -77,6 +73,7 @@ public class TableDaoConverter extends TableMetaConverter {
 
             StringBuilder buffer = new StringBuilder();
             boolean isSerializable = false;
+            boolean oneMoreLine = false;
             if (!daoToImplements.isEmpty()) {
                 for (JvmType type : daoToImplements.values()) {
                     if (type.getIdentifier().endsWith("Serializable")) {
@@ -85,11 +82,17 @@ public class TableDaoConverter extends TableMetaConverter {
                     }
                     buffer.append("\n  implements ").append(type.getIdentifier());
                 }
+                oneMoreLine = true;
             }
             if (daoToExtends != null) {
                 buffer.append("\n  extends ").append(daoToExtends.getIdentifier());
+                oneMoreLine = true;
             }
-            if (!daoToImplements.isEmpty() || daoToExtends != null) {
+            if (daoImplementationPackage != null) {
+                buffer.append("\n  implementation-package ").append(daoImplementationPackage);
+                oneMoreLine = true;
+            }
+            if (oneMoreLine) {
                 buffer.append("\n");
             }
             for (String pojo : pojos.keySet()) {
@@ -111,16 +114,16 @@ public class TableDaoConverter extends TableMetaConverter {
                 buffer.append("dao ");
                 buffer.append(tableToCamelCase(pojoName)).append("Dao");
                 buffer.append(" :: ").append(tableToCamelCase(pojoName));
-                if (daoImplementsInterfaces.containsKey(pojo))
-                    buffer.append(" implementation package ").append(daoImplementsInterfaces.get(pojo));
                 if (isSerializable)
                     buffer.append(" serializable 1 ");
                 buffer.append(" {");
+                buffer.append("\n    scaffold");
                 Map<String, String> toInit = new LinkedHashMap<String, String>();
                 toInits(pojo, toInit);
                 for (Entry<String, String> entry : toInit.entrySet()) {
                     buffer.append("\n    ").append(entry.getKey()).append(" :::");
-                    // pojoExtends {BANK_ACCOUNT=BILLING_DETAILS, MOVIE=MEDIA, CREDIT_CARD=BILLING_DETAILS, BOOK=MEDIA}
+                    // pojoExtends {BANK_ACCOUNT=BILLING_DETAILS, MOVIE=MEDIA, CREDIT_CARD=BILLING_DETAILS,
+                    // BOOK=MEDIA}
                     // pojoInheritanceDiscriminator {BILLING_DETAILS=[BANK_ACCOUNT, CREDIT_CARD]}
                     // pojoInheritanceSimple {MEDIA=[MOVIE, BOOK]}
                     // pojoDiscriminators {BANK_ACCOUNT=BA, CREDIT_CARD=CC}

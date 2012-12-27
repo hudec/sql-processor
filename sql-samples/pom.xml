@@ -13,6 +13,7 @@
         <module>simple-jdbc</module>
         <module>simple-jdbc-pojo</module>
         <module>simple-jdbc-crud</module>
+        <module>simple-jdbc-dao</module>
         <module>simple-hibernate</module>
         <module>simple-spring</module>
         <module>simple-spring-pojo</module>

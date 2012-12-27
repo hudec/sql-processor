@@ -19,7 +19,6 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getDbTables <em>Db Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getImplPackage <em>Impl Package</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getControlClass <em>Control Class</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToImplements <em>To Implements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToExtends <em>To Extends</em>}</li>
  * </ul>
@@ -98,32 +97,6 @@ public interface DaogenProperty extends EObject
    * @generated
    */
   void setImplPackage(String value);
-
-  /**
-   * Returns the value of the '<em><b>Control Class</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Control Class</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Control Class</em>' reference.
-   * @see #setControlClass(JvmType)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDaogenProperty_ControlClass()
-   * @model
-   * @generated
-   */
-  JvmType getControlClass();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getControlClass <em>Control Class</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Control Class</em>' reference.
-   * @see #getControlClass()
-   * @generated
-   */
-  void setControlClass(JvmType value);
 
   /**
    * Returns the value of the '<em><b>To Implements</b></em>' reference list.

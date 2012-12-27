@@ -66,17 +66,17 @@ public interface ModelProperty extends Adapter {
 
     boolean isDoGenerateWrappers(EObject model);
 
-    PairValues getGlobalIdentity(EObject model);
+    PairValues getMetaGlobalIdentity(EObject model);
 
-    PairValues getGlobalSequence(EObject model);
+    PairValues getMetaGlobalSequence(EObject model);
 
-    Map<String, PairValues> getTablesIdentity(EObject model);
+    Map<String, PairValues> getMetaTablesIdentity(EObject model);
 
-    Map<String, PairValues> getTablesSequence(EObject model);
+    Map<String, PairValues> getMetaTablesSequence(EObject model);
 
-    Map<String, Map<String, PairValues>> getColumnsMetaTypes(EObject model);
+    Map<String, Map<String, PairValues>> getMetaColumnsMetaTypes(EObject model);
 
-    Map<String, Map<String, PairValues>> getStatementsMetaTypes(EObject model);
+    Map<String, Map<String, PairValues>> getMetaStatementsMetaTypes(EObject model);
 
     Set<String> getNotAbstractTables(EObject model);
 
@@ -84,11 +84,11 @@ public interface ModelProperty extends Adapter {
 
     Set<String> getDaoOnlyTables(EObject model);
 
-    JvmType getDaoControlParameter(EObject model);
-
-    Map<String, String> getDaoImplementsInterfaces(EObject model);
-
     JvmType getDaoToExtends(EObject model);
 
     Map<String, JvmType> getDaoToImplements(EObject model);
+
+    String getDaoImplementationPackage(EObject model);
+
+    String getImplementationPackage(EObject model);
 }

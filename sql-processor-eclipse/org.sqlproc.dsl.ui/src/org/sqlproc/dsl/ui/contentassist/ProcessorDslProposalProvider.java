@@ -1191,4 +1191,20 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         }
         return result;
     }
+
+    @Override
+    public void completeDaogenProperty_DbTables(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeDaogenProperty_DbTables(model, assignment, context, acceptor);
+            return;
+        }
+        for (String table : dbResolver.getTables(model)) {
+            if (table.indexOf('$') >= 0)
+                continue;
+            String proposal = getValueConverter().toString(table, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+    }
 }

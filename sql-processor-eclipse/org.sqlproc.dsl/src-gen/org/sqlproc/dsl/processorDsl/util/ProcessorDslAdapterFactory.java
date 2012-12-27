@@ -145,11 +145,6 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createPojogenPropertyAdapter();
       }
       @Override
-      public Adapter caseDaogenProperty(DaogenProperty object)
-      {
-        return createDaogenPropertyAdapter();
-      }
-      @Override
       public Adapter caseMetaTypeAssignement(MetaTypeAssignement object)
       {
         return createMetaTypeAssignementAdapter();
@@ -158,6 +153,11 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseMetagenProperty(MetagenProperty object)
       {
         return createMetagenPropertyAdapter();
+      }
+      @Override
+      public Adapter caseDaogenProperty(DaogenProperty object)
+      {
+        return createDaogenPropertyAdapter();
       }
       @Override
       public Adapter casePojoDefinition(PojoDefinition object)
@@ -358,6 +358,11 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseExtends(Extends object)
       {
         return createExtendsAdapter();
+      }
+      @Override
+      public Adapter caseImplPackage(ImplPackage object)
+      {
+        return createImplPackageAdapter();
       }
       @Override
       public Adapter casePojoEntityModifier1(PojoEntityModifier1 object)
@@ -637,21 +642,6 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DaogenProperty <em>Daogen Property</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.sqlproc.dsl.processorDsl.DaogenProperty
-   * @generated
-   */
-  public Adapter createDaogenPropertyAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.MetaTypeAssignement <em>Meta Type Assignement</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -677,6 +667,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createMetagenPropertyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DaogenProperty <em>Daogen Property</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.DaogenProperty
+   * @generated
+   */
+  public Adapter createDaogenPropertyAdapter()
   {
     return null;
   }
@@ -1277,6 +1282,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createExtendsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ImplPackage <em>Impl Package</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ImplPackage
+   * @generated
+   */
+  public Adapter createImplPackageAdapter()
   {
     return null;
   }

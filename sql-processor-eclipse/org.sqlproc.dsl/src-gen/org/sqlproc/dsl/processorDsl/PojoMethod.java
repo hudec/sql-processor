@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethod#getScaffold <em>Scaffold</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethod#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethod#getToInits <em>To Inits</em>}</li>
  * </ul>
@@ -25,6 +26,32 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface PojoMethod extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Scaffold</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Scaffold</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Scaffold</em>' attribute.
+   * @see #setScaffold(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoMethod_Scaffold()
+   * @model
+   * @generated
+   */
+  String getScaffold();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoMethod#getScaffold <em>Scaffold</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Scaffold</em>' attribute.
+   * @see #getScaffold()
+   * @generated
+   */
+  void setScaffold(String value);
+
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
