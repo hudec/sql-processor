@@ -1,12 +1,10 @@
 package org.sqlproc.sample.simple.model;
+  
+import org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 
 import java.io.Serializable;
-import java.util.Set;
-import java.util.HashSet;
-import java.lang.reflect.InvocationTargetException;
-import org.apache.commons.beanutils.MethodUtils;
 
-public abstract class BillingDetails implements Serializable {
+public abstract class BillingDetails extends BaseModelImpl implements Serializable {
   
   private static final long serialVersionUID = 1L;
   public static final int ORDER_BY_ID = 1;
@@ -87,40 +85,8 @@ public abstract class BillingDetails implements Serializable {
     return result;
   }  
   
-  private Set<String> initAssociations = new HashSet<String>();
-  
   public enum Association {
     subscriber
-  }
-  
-  public void setInit(Association... associations) {
-    if (associations == null)
-      throw new IllegalArgumentException();
-    for (Association association : associations)
-      initAssociations.add(association.name());
-  }
-  
-  public void clearInit(Association... associations) {
-    if (associations == null)
-      throw new IllegalArgumentException();
-    for (Association association : associations)
-      initAssociations.remove(association.name());
-  }
-  
-  public Boolean toInit(String attrName) {
-    if (attrName == null)
-      throw new IllegalArgumentException();
-    return initAssociations.contains(attrName);
-  }
-  
-  public Boolean toInit(Association association) {
-    if (association == null)
-      throw new IllegalArgumentException();
-    return initAssociations.contains(association.name());
-  }
-  
-  public void clearAllInit() {
-    initAssociations = new HashSet<String>();
   }
   
   @Override

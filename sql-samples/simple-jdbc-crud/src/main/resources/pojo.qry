@@ -15,6 +15,7 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toInit ::: subscriber
+    isDef :::
     toString ::: id type subscriber
   }
 
@@ -52,6 +53,7 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toInit ::: catalog subscribers
+    isDef :::
     toString ::: id name
   }
 
@@ -81,6 +83,7 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toInit ::: billingDetails
+    isDef :::
     toString ::: id paid billingDetails
   }
 
@@ -91,6 +94,7 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toInit ::: work person
+    isDef :::
     toString ::: id person
   }
 
@@ -116,6 +120,8 @@ package org.sqlproc.sample.simple.model {
     mediaId : java.lang.Long required index 3
     equals ::: id
     hashCode ::: id
+    toInit :::
+    isDef :::
     toString ::: mediaId id personId
   }
 
@@ -127,6 +133,7 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toInit ::: library media
+    isDef :::
     toString ::: id location library media
   }
 

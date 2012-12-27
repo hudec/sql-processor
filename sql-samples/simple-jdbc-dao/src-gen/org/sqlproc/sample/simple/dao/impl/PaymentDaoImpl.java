@@ -119,7 +119,7 @@ public class PaymentDaoImpl extends BaseDaoImpl implements BaseDao, PaymentDao {
     if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
       return sqlControl;
     Map<String, Class<?>> moreResultClasses = null;
-    if (payment != null && payment.toInit(Payment.Association.billingDetails)) {
+    if (payment != null && payment.toInit(Payment.Association.billingDetails.name())) {
       if (moreResultClasses == null)
         moreResultClasses = new HashMap<String, Class<?>>();
       moreResultClasses.put("BA", BankAccount.class);

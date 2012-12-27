@@ -166,47 +166,41 @@ public class Person implements Serializable {
     return result;
   }  
   
-  private Set<String> initAssociations = new HashSet<String>();
-  
   public enum Association {
     library, contacts
   }
   
-  public void setInit(Association... associations) {
+  private Set<String> initAssociations = new HashSet<String>();
+  
+  public void setInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
-    for (Association association : associations)
-      initAssociations.add(association.name());
+    for (String association : associations)
+      initAssociations.add(association);
   }
   
-  public void clearInit(Association... associations) {
+  public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
-    for (Association association : associations)
-      initAssociations.remove(association.name());
+    for (String association : associations)
+      initAssociations.remove(association);
   }
   
-  public Boolean toInit(String attrName) {
-    if (attrName == null)
-      throw new IllegalArgumentException();
-    return initAssociations.contains(attrName);
-  }
-  
-  public Boolean toInit(Association association) {
+  public Boolean toInit(String association) {
     if (association == null)
       throw new IllegalArgumentException();
-    return initAssociations.contains(association.name());
+    return initAssociations.contains(association);
   }
   
   public void clearAllInit() {
     initAssociations = new HashSet<String>();
   }
   
-  private Set<String> nullValues = new HashSet<String>();
-  
   public enum Attribute {
     dateOfBirth, ssn, passport
   }
+  
+  private Set<String> nullValues = new HashSet<String>();
   
   public void setNull(Attribute... attributes) {
     if (attributes == null)

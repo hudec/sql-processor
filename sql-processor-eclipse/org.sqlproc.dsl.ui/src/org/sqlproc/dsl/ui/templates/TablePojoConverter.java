@@ -48,7 +48,9 @@ public class TablePojoConverter {
     protected static final String METHOD_HASH_CODE = "hashCode";
     protected static final String METHOD_EQUALS = "equals";
     protected static final String METHOD_IS_DEF = "isDef";
+    protected static final String ENUM_IS_DEF = "enumDef";
     protected static final String METHOD_TO_INIT = "toInit";
+    protected static final String ENUM_TO_INIT = "enumInit";
     protected static final String COLLECTION_LIST = "java.util.List";
 
     protected String suffix;
@@ -634,14 +636,24 @@ public class TablePojoConverter {
                         buffer.append(" ").append(name);
                     }
                 }
-                if (generateMethods.contains(METHOD_TO_INIT) && !toInit.isEmpty()) {
+                if (generateMethods.contains(METHOD_TO_INIT)) {
                     buffer.append("\n    ").append(METHOD_TO_INIT).append(" :::");
                     for (String name : toInit) {
                         buffer.append(" ").append(name);
                     }
+                } else if (generateMethods.contains(ENUM_TO_INIT) && !toInit.isEmpty()) {
+                    buffer.append("\n    ").append(ENUM_TO_INIT).append(" :::");
+                    for (String name : toInit) {
+                        buffer.append(" ").append(name);
+                    }
                 }
-                if (generateMethods.contains(METHOD_IS_DEF) && !isDef.isEmpty()) {
+                if (generateMethods.contains(METHOD_IS_DEF)) {
                     buffer.append("\n    ").append(METHOD_IS_DEF).append(" :::");
+                    for (String name : isDef) {
+                        buffer.append(" ").append(name);
+                    }
+                } else if (generateMethods.contains(ENUM_IS_DEF) && !isDef.isEmpty()) {
+                    buffer.append("\n    ").append(ENUM_IS_DEF).append(" :::");
                     for (String name : isDef) {
                         buffer.append(" ").append(name);
                     }

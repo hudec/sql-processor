@@ -119,7 +119,7 @@ public class PhysicalMediaDaoImpl extends BaseDaoImpl implements BaseDao, Physic
     if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
       return sqlControl;
     Map<String, Class<?>> moreResultClasses = null;
-    if (physicalMedia != null && physicalMedia.toInit(PhysicalMedia.Association.media)) {
+    if (physicalMedia != null && physicalMedia.toInit(PhysicalMedia.Association.media.name())) {
       if (moreResultClasses == null)
         moreResultClasses = new HashMap<String, Class<?>>();
       moreResultClasses.put("movie", Movie.class);

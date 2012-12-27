@@ -104,7 +104,9 @@ public «IF isAbstract(e)»abstract «ENDIF»class «e.name» «compileExtends(e
   «FOR f:e.features.filter(x| !isAttribute(x))»«IF f.name.equalsIgnoreCase("hashCode")»«f.compileHashCode(importManager, e)»
   «ELSEIF f.name.equalsIgnoreCase("equals")»«f.compileEquals(importManager, e)»
   «ELSEIF f.name.equalsIgnoreCase("toInit")»«f.compileToInit(importManager, e)»
+  «ELSEIF f.name.equalsIgnoreCase("enumInit")»«f.compileEnumInit(importManager, e)»
   «ELSEIF f.name.equalsIgnoreCase("isDef")»«f.compileIsDef(importManager, e)»
+  «ELSEIF f.name.equalsIgnoreCase("enumDef")»«f.compileEnumDef(importManager, e)»
   «ELSEIF f.name.equalsIgnoreCase("toString")»«f.compileToString(importManager, e)»«ENDIF»«ENDFOR»
 }
 '''
@@ -173,11 +175,11 @@ def compileToString(PojoProperty f, ImportManager importManager, PojoEntity e) '
 
 def compileIsDef(PojoProperty f, ImportManager importManager, PojoEntity e) '''
 
-    private Set<String> nullValues = new HashSet<String>();
-
     public enum Attribute {
       «FOR f2:f.attrs SEPARATOR ", "»«f2.name»«ENDFOR»
     }
+
+    private Set<String> nullValues = new HashSet<String>();
 
     public void setNull(Attribute... attributes) {
       if (attributes == null)
@@ -236,42 +238,50 @@ def compileIsDef(PojoProperty f, ImportManager importManager, PojoEntity e) '''
     }
 '''
 
-def compileToInit(PojoProperty f, ImportManager importManager, PojoEntity e) '''
+def compileEnumDef(PojoProperty f, ImportManager importManager, PojoEntity e) '''
 
-    private Set<String> initAssociations = new HashSet<String>();
+    public enum Attribute {
+      «FOR f2:f.attrs SEPARATOR ", "»«f2.name»«ENDFOR»
+    }
+'''
+
+def compileToInit(PojoProperty f, ImportManager importManager, PojoEntity e) '''
 
     public enum Association {
       «FOR f2:f.attrs SEPARATOR ", "»«f2.name»«ENDFOR»
     }
 
-    public void setInit(Association... associations) {
+    private Set<String> initAssociations = new HashSet<String>();
+
+    public void setInit(String... associations) {
       if (associations == null)
         throw new IllegalArgumentException();
-      for (Association association : associations)
-        initAssociations.add(association.name());
+      for (String association : associations)
+        initAssociations.add(association);
     }
 
-    public void clearInit(Association... associations) {
+    public void clearInit(String... associations) {
       if (associations == null)
         throw new IllegalArgumentException();
-      for (Association association : associations)
-        initAssociations.remove(association.name());
+      for (String association : associations)
+        initAssociations.remove(association);
     }
 
-    public Boolean toInit(String attrName) {
-      if (attrName == null)
-        throw new IllegalArgumentException();
-      return initAssociations.contains(attrName);
-    }
-
-    public Boolean toInit(Association association) {
+    public Boolean toInit(String association) {
       if (association == null)
         throw new IllegalArgumentException();
-      return initAssociations.contains(association.name());
+      return initAssociations.contains(association);
     }
 
     public void clearAllInit() {
       initAssociations = new HashSet<String>();
+    }
+'''
+
+def compileEnumInit(PojoProperty f, ImportManager importManager, PojoEntity e) '''
+
+    public enum Association {
+      «FOR f2:f.attrs SEPARATOR ", "»«f2.name»«ENDFOR»
     }
 '''
 
@@ -462,7 +472,7 @@ def compileMoreResultClasses(PojoDao d, PojoEntity e, Map<String, List<PojoMetho
         return sqlControl;
       Map<String, Class<?>> moreResultClasses = null;
     «FOR f:toInits.entrySet SEPARATOR "
-"»  if («e.name.toFirstLower» != null && «e.name.toFirstLower».toInit(«e.name».Association.«f.key»)) {
+"»  if («e.name.toFirstLower» != null && «e.name.toFirstLower».toInit(«e.name».Association.«f.key».name())) {
         if (moreResultClasses == null)
           moreResultClasses = new HashMap<String, Class<?>>();
     «FOR a:f.value SEPARATOR "

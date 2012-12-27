@@ -29,10 +29,11 @@ pojogen-ignore-one-to-many PERSON ID->PERFORMER->PERSON_ID;
 pojogen-ignore-one-to-many BILLING_DETAILS ID->PAYMENT->BILLING_DETAILS;
 pojogen-create-one-to-many LIBRARY ID->PHYSICAL_MEDIA->LIBRARY;
 // others
-pojogen-generate-methods toString equals hashCode isDef toInit;
+pojogen-generate-methods toString equals hashCode enumDef enumInit;
 pojogen-implements-interfaces java.io.Serializable;
 pojogen-create-columns PERSON PASSPORT->:java.lang.String;
 pojogen-not-abstract-tables MEDIA;
+pojogen-extends-class org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 
 //metagen-global-sequence SEQ1;
 metagen-global-identity SEL1;

@@ -289,7 +289,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         b1 = main.getBankAccountDao().get(bankAccount);
         Assert.assertNotNull(b1);
         Assert.assertNull(b1.getSubscriber().getName());
-        bankAccount.setInit(BankAccount.Association.subscriber);
+        bankAccount.setInit(BankAccount.Association.subscriber.name());
         b1 = main.getBankAccountDao().get(bankAccount);
         Assert.assertNotNull(b1);
         Assert.assertEquals("updated account", b1.getBaAccount());
@@ -303,7 +303,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         c = main.getContactDao().get(contact);
         Assert.assertNotNull(c);
         Assert.assertNull(c.getPerson().getLastName());
-        contact.setInit(Contact.Association.person);
+        contact.setInit(Contact.Association.person.name());
         c = main.getContactDao().get(contact);
         Assert.assertNotNull(c);
         Assert.assertEquals("Honza address 1 Updated", c.getAddress());
@@ -317,7 +317,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         c1 = main.getCreditCardDao().get(creditCard);
         Assert.assertNotNull(c1);
         Assert.assertNull(c1.getSubscriber().getName());
-        creditCard.setInit(CreditCard.Association.subscriber);
+        creditCard.setInit(CreditCard.Association.subscriber.name());
         c1 = main.getCreditCardDao().get(creditCard);
         Assert.assertNotNull(c1);
         Assert.assertEquals(new Long(789), c1.getCcNumber());
@@ -333,8 +333,8 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertTrue(l.getSubscribers().isEmpty());
         // to make the next line to work, in definitions.qry should be uncommented
         // pojogen-not-abstract-tables MEDIA; and pojo.qry and statements.qry should be recreated
-        library.setInit(Library.Association.catalog);
-        library.setInit(Library.Association.subscribers);
+        library.setInit(Library.Association.catalog.name());
+        library.setInit(Library.Association.subscribers.name());
         l = main.getLibraryDao().get(library);
         Assert.assertNotNull(l);
         Assert.assertEquals(4, l.getCatalog().size());
@@ -349,7 +349,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertEquals("def Updated", m.getUrlimdb());
         Assert.assertEquals("Die Another Day Updated", m.getTitle());
         Assert.assertNull(m.getAuthor().getPerson());
-        movie.setInit(Movie.Association.author);
+        movie.setInit(Movie.Association.author.name());
         m = main.getMovieDao().get(movie);
         Assert.assertNotNull(m);
         Assert.assertNotNull(m.getAuthor().getPerson());
@@ -357,7 +357,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         // get book with associations
         book = new NewBook();
         book.setId(book1.getId());
-        book.setInit(NewBook.Association.author);
+        book.setInit(NewBook.Association.author.name());
         b = main.getBookDao().get(book);
         Assert.assertNotNull(b);
         Assert.assertEquals("978-9940367003", b.getNewIsbn());
@@ -372,7 +372,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertNotNull(py);
         Assert.assertNotNull(py.getPaid());
         Assert.assertNull(py.getBillingDetails());
-        payment.setInit(Payment.Association.billingDetails);
+        payment.setInit(Payment.Association.billingDetails.name());
         py = main.getPaymentDao().get(payment);
         Assert.assertNotNull(py);
         Assert.assertNotNull(py.getPaid());
@@ -385,13 +385,13 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         performer.setId(honzikp.getId());
         pf = main.getPerformerDao().get(performer);
         Assert.assertNull(pf.getPerson().getLastName());
-        performer.setInit(Performer.Association.person);
+        performer.setInit(Performer.Association.person.name());
         pf = main.getPerformerDao().get(performer);
         Assert.assertNotNull(pf);
         Assert.assertEquals("Honzik", pf.getPerson().getFirstName());
         Assert.assertEquals("Honzíček", pf.getPerson().getLastName());
         Assert.assertEquals(0, pf.getWork().size());
-        performer.setInit(Performer.Association.work);
+        performer.setInit(Performer.Association.work.name());
         pf = main.getPerformerDao().get(performer);
         Assert.assertNotNull(pf);
         Assert.assertEquals(2, pf.getWork().size());
@@ -405,7 +405,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         // get person with associations
         person = new Person();
         person.setId(andrej.getId());
-        person.setInit(Person.Association.contacts);
+        person.setInit(Person.Association.contacts.name());
         p = main.getPersonDao().get(person);
         Assert.assertNotNull(p);
         Assert.assertEquals("Andrioša", p.getFirstName());
@@ -414,7 +414,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertEquals(1, p.getContacts().size());
         Assert.assertEquals("Andrej address 1", p.getContacts().get(0).getAddress());
         Assert.assertEquals(new PhoneNumber(444, 555, 6666), p.getContacts().get(0).getPhoneNumber());
-        person.setInit(Person.Association.library);
+        person.setInit(Person.Association.library.name());
         p = main.getPersonDao().get(person);
         Assert.assertNotNull(p);
         Assert.assertEquals(3, p.getLibrary().size());
@@ -435,7 +435,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 011", pm.getLocation());
         Assert.assertNull(pm.getMedia());
-        physicalMedia.setInit(PhysicalMedia.Association.media);
+        physicalMedia.setInit(PhysicalMedia.Association.media.name());
         pm = main.getPhysicalMediaDao().get(physicalMedia);
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 011", pm.getLocation());
@@ -449,7 +449,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 003", pm.getLocation());
         Assert.assertNull(pm.getMedia());
-        physicalMedia.setInit(PhysicalMedia.Association.media);
+        physicalMedia.setInit(PhysicalMedia.Association.media.name());
         pm = main.getPhysicalMediaDao().get(physicalMedia);
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 003", pm.getLocation());
@@ -465,13 +465,13 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         Assert.assertEquals("Janik Subscr Updated", s.getName());
         Assert.assertNull(s.getLibrary().getName());
         Assert.assertNull(s.getContact().getAddress());
-        subscriber.setInit(Subscriber.Association.contact);
-        subscriber.setInit(Subscriber.Association.library);
+        subscriber.setInit(Subscriber.Association.contact.name());
+        subscriber.setInit(Subscriber.Association.library.name());
         s = main.getSubscriberDao().get(subscriber);
         Assert.assertNotNull(s);
         Assert.assertEquals("Alexandria Library Updated", s.getLibrary().getName());
         Assert.assertEquals("Jan address 1", s.getContact().getAddress());
-        subscriber.setInit(Subscriber.Association.billingDetails);
+        subscriber.setInit(Subscriber.Association.billingDetails.name());
         s = main.getSubscriberDao().get(subscriber);
         Assert.assertNotNull(s);
         Assert.assertNotNull(s.getLibrary());
@@ -488,12 +488,12 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         list = main.getPersonDao().list(person);
         Assert.assertEquals(0, list.size());
         person.setFirstName("Jan");
-        person.setInit(Person.Association.contacts);
-        person.setInit(Person.Association.library);
+        person.setInit(Person.Association.contacts.name());
+        person.setInit(Person.Association.library.name());
         list = main.getPersonDao().list(person);
         person = new Person();
-        person.setInit(Person.Association.contacts);
-        person.setInit(Person.Association.library);
+        person.setInit(Person.Association.contacts.name());
+        person.setInit(Person.Association.library.name());
         list = main.getPersonDao().list(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID));
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzíček", list.get(1).getLastName());

@@ -375,18 +375,36 @@ public class ProcessorDslGenerator implements IGenerator {
                 _builder.append("  ");
               } else {
                 String _name_10 = f_5.getName();
-                boolean _equalsIgnoreCase_3 = _name_10.equalsIgnoreCase("isDef");
+                boolean _equalsIgnoreCase_3 = _name_10.equalsIgnoreCase("enumInit");
                 if (_equalsIgnoreCase_3) {
-                  CharSequence _compileIsDef = this.compileIsDef(f_5, importManager, e);
-                  _builder.append(_compileIsDef, "  ");
+                  CharSequence _compileEnumInit = this.compileEnumInit(f_5, importManager, e);
+                  _builder.append(_compileEnumInit, "  ");
                   _builder.newLineIfNotEmpty();
                   _builder.append("  ");
                 } else {
                   String _name_11 = f_5.getName();
-                  boolean _equalsIgnoreCase_4 = _name_11.equalsIgnoreCase("toString");
+                  boolean _equalsIgnoreCase_4 = _name_11.equalsIgnoreCase("isDef");
                   if (_equalsIgnoreCase_4) {
-                    CharSequence _compileToString = this.compileToString(f_5, importManager, e);
-                    _builder.append(_compileToString, "  ");
+                    CharSequence _compileIsDef = this.compileIsDef(f_5, importManager, e);
+                    _builder.append(_compileIsDef, "  ");
+                    _builder.newLineIfNotEmpty();
+                    _builder.append("  ");
+                  } else {
+                    String _name_12 = f_5.getName();
+                    boolean _equalsIgnoreCase_5 = _name_12.equalsIgnoreCase("enumDef");
+                    if (_equalsIgnoreCase_5) {
+                      CharSequence _compileEnumDef = this.compileEnumDef(f_5, importManager, e);
+                      _builder.append(_compileEnumDef, "  ");
+                      _builder.newLineIfNotEmpty();
+                      _builder.append("  ");
+                    } else {
+                      String _name_13 = f_5.getName();
+                      boolean _equalsIgnoreCase_6 = _name_13.equalsIgnoreCase("toString");
+                      if (_equalsIgnoreCase_6) {
+                        CharSequence _compileToString = this.compileToString(f_5, importManager, e);
+                        _builder.append(_compileToString, "  ");
+                      }
+                    }
                   }
                 }
               }
@@ -673,9 +691,6 @@ public class ProcessorDslGenerator implements IGenerator {
   public CharSequence compileIsDef(final PojoProperty f, final ImportManager importManager, final PojoEntity e) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.newLine();
-    _builder.append("private Set<String> nullValues = new HashSet<String>();");
-    _builder.newLine();
-    _builder.newLine();
     _builder.append("public enum Attribute {");
     _builder.newLine();
     _builder.append("  ");
@@ -694,6 +709,9 @@ public class ProcessorDslGenerator implements IGenerator {
     }
     _builder.newLineIfNotEmpty();
     _builder.append("}");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("private Set<String> nullValues = new HashSet<String>();");
     _builder.newLine();
     _builder.newLine();
     _builder.append("public void setNull(Attribute... attributes) {");
@@ -842,11 +860,33 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
-  public CharSequence compileToInit(final PojoProperty f, final ImportManager importManager, final PojoEntity e) {
+  public CharSequence compileEnumDef(final PojoProperty f, final ImportManager importManager, final PojoEntity e) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.newLine();
-    _builder.append("private Set<String> initAssociations = new HashSet<String>();");
+    _builder.append("public enum Attribute {");
     _builder.newLine();
+    _builder.append("  ");
+    {
+      EList<PojoProperty> _attrs = f.getAttrs();
+      boolean _hasElements = false;
+      for(final PojoProperty f2 : _attrs) {
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          _builder.appendImmediate(", ", "  ");
+        }
+        String _name = f2.getName();
+        _builder.append(_name, "  ");
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileToInit(final PojoProperty f, final ImportManager importManager, final PojoEntity e) {
+    StringConcatenation _builder = new StringConcatenation();
     _builder.newLine();
     _builder.append("public enum Association {");
     _builder.newLine();
@@ -868,7 +908,10 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("}");
     _builder.newLine();
     _builder.newLine();
-    _builder.append("public void setInit(Association... associations) {");
+    _builder.append("private Set<String> initAssociations = new HashSet<String>();");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("public void setInit(String... associations) {");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("if (associations == null)");
@@ -877,15 +920,15 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("throw new IllegalArgumentException();");
     _builder.newLine();
     _builder.append("  ");
-    _builder.append("for (Association association : associations)");
+    _builder.append("for (String association : associations)");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("initAssociations.add(association.name());");
+    _builder.append("initAssociations.add(association);");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     _builder.newLine();
-    _builder.append("public void clearInit(Association... associations) {");
+    _builder.append("public void clearInit(String... associations) {");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("if (associations == null)");
@@ -894,29 +937,15 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("throw new IllegalArgumentException();");
     _builder.newLine();
     _builder.append("  ");
-    _builder.append("for (Association association : associations)");
+    _builder.append("for (String association : associations)");
     _builder.newLine();
     _builder.append("    ");
-    _builder.append("initAssociations.remove(association.name());");
+    _builder.append("initAssociations.remove(association);");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     _builder.newLine();
-    _builder.append("public Boolean toInit(String attrName) {");
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("if (attrName == null)");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("throw new IllegalArgumentException();");
-    _builder.newLine();
-    _builder.append("  ");
-    _builder.append("return initAssociations.contains(attrName);");
-    _builder.newLine();
-    _builder.append("}");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("public Boolean toInit(Association association) {");
+    _builder.append("public Boolean toInit(String association) {");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("if (association == null)");
@@ -925,7 +954,7 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("throw new IllegalArgumentException();");
     _builder.newLine();
     _builder.append("  ");
-    _builder.append("return initAssociations.contains(association.name());");
+    _builder.append("return initAssociations.contains(association);");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
@@ -935,6 +964,31 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("  ");
     _builder.append("initAssociations = new HashSet<String>();");
     _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence compileEnumInit(final PojoProperty f, final ImportManager importManager, final PojoEntity e) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.newLine();
+    _builder.append("public enum Association {");
+    _builder.newLine();
+    _builder.append("  ");
+    {
+      EList<PojoProperty> _attrs = f.getAttrs();
+      boolean _hasElements = false;
+      for(final PojoProperty f2 : _attrs) {
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          _builder.appendImmediate(", ", "  ");
+        }
+        String _name = f2.getName();
+        _builder.append(_name, "  ");
+      }
+    }
+    _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     return _builder;
@@ -1934,7 +1988,7 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.append(".Association.");
         String _key = f.getKey();
         _builder.append(_key, "");
-        _builder.append(")) {");
+        _builder.append(".name())) {");
         _builder.newLineIfNotEmpty();
         _builder.append("    ");
         _builder.append("if (moreResultClasses == null)");

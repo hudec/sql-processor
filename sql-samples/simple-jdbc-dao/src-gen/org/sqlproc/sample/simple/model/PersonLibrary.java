@@ -1,8 +1,10 @@
 package org.sqlproc.sample.simple.model;
+  
+import org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 
 import java.io.Serializable;
 
-public class PersonLibrary implements Serializable {
+public class PersonLibrary extends BaseModelImpl implements Serializable {
   
   private static final long serialVersionUID = 1L;
   public static final int ORDER_BY_ID = 1;

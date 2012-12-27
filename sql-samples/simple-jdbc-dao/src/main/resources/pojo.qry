@@ -1,10 +1,11 @@
 package org.sqlproc.sample.simple.model {
 
+  extends org.sqlproc.sample.simple.model.impl.BaseModelImpl
 
   pojo BankAccount extends BillingDetails discriminator BA serializable 1  {
     baAccount : java.lang.String
-    toInit ::: subscriber
-    isDef ::: baAccount
+    enumInit ::: subscriber
+    enumDef ::: baAccount
     toString ::: baAccount
   }
 
@@ -14,14 +15,14 @@ package org.sqlproc.sample.simple.model {
     type : java.lang.String discriminator required
     equals ::: id
     hashCode ::: id
-    toInit ::: subscriber
+    enumInit ::: subscriber
     toString ::: id type subscriber
   }
 
   pojo NewBook extends Media serializable 1  {
     newIsbn : java.lang.String required
-    toInit ::: author
-    isDef ::: author
+    enumInit ::: author
+    enumDef ::: author
     toString ::: newIsbn
   }
 
@@ -32,15 +33,15 @@ package org.sqlproc.sample.simple.model {
     phoneNumber : org.sqlproc.sample.simple.model.PhoneNumber
     equals ::: id
     hashCode ::: id
-    toInit ::: person
-    isDef ::: phoneNumber
+    enumInit ::: person
+    enumDef ::: phoneNumber
     toString ::: id person phoneNumber address
   }
 
   pojo CreditCard extends BillingDetails discriminator CC serializable 1  {
     ccNumber : java.lang.Long
-    toInit ::: subscriber
-    isDef ::: ccNumber
+    enumInit ::: subscriber
+    enumDef ::: ccNumber
     toString ::: ccNumber
   }
 
@@ -51,7 +52,7 @@ package org.sqlproc.sample.simple.model {
     catalog : java.util.List <:PhysicalMedia>
     equals ::: id
     hashCode ::: id
-    toInit ::: catalog subscribers
+    enumInit ::: catalog subscribers
     toString ::: id name
   }
 
@@ -61,16 +62,16 @@ package org.sqlproc.sample.simple.model {
     author :: Performer index 2
     equals ::: id
     hashCode ::: id
-    toInit ::: author
-    isDef ::: author
+    enumInit ::: author
+    enumDef ::: author
     toString ::: id author title
   }
 
   pojo Movie extends Media serializable 1  {
     urlimdb : java.lang.String required
     playlength : java.lang.Integer required
-    toInit ::: author
-    isDef ::: author
+    enumInit ::: author
+    enumDef ::: author
     toString ::: playlength urlimdb
   }
 
@@ -80,7 +81,7 @@ package org.sqlproc.sample.simple.model {
     paid : java.sql.Timestamp required
     equals ::: id
     hashCode ::: id
-    toInit ::: billingDetails
+    enumInit ::: billingDetails
     toString ::: id paid billingDetails
   }
 
@@ -90,7 +91,7 @@ package org.sqlproc.sample.simple.model {
     work : java.util.List <:Media>
     equals ::: id
     hashCode ::: id
-    toInit ::: work person
+    enumInit ::: work person
     toString ::: id person
   }
 
@@ -105,8 +106,8 @@ package org.sqlproc.sample.simple.model {
     contacts : java.util.List <:Contact>
     equals ::: id
     hashCode ::: id
-    toInit ::: library contacts
-    isDef ::: dateOfBirth ssn passport
+    enumInit ::: library contacts
+    enumDef ::: dateOfBirth ssn passport
     toString ::: dateOfBirth id lastName ssn passport firstName
   }
 
@@ -126,7 +127,7 @@ package org.sqlproc.sample.simple.model {
     library :: Library required
     equals ::: id
     hashCode ::: id
-    toInit ::: library media
+    enumInit ::: library media
     toString ::: id location library media
   }
 
@@ -138,8 +139,8 @@ package org.sqlproc.sample.simple.model {
     billingDetails : java.util.List <:BillingDetails>
     equals ::: id
     hashCode ::: id
-    toInit ::: library billingDetails contact
-    isDef ::: contact
+    enumInit ::: library billingDetails contact
+    enumDef ::: contact
     toString ::: id name library contact
   }
 }

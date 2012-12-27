@@ -119,7 +119,7 @@ public class PersonDaoImpl extends BaseDaoImpl implements BaseDao, PersonDao {
     if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
       return sqlControl;
     Map<String, Class<?>> moreResultClasses = null;
-    if (person != null && person.toInit(Person.Association.library)) {
+    if (person != null && person.toInit(Person.Association.library.name())) {
       if (moreResultClasses == null)
         moreResultClasses = new HashMap<String, Class<?>>();
       moreResultClasses.put("movie", Movie.class);

@@ -114,7 +114,7 @@ public class SubscriberDao {
     if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
       return sqlControl;
     Map<String, Class<?>> moreResultClasses = null;
-    if (subscriber != null && subscriber.toInit(Subscriber.Association.billingDetails)) {
+    if (subscriber != null && subscriber.toInit(Subscriber.Association.billingDetails.name())) {
       if (moreResultClasses == null)
         moreResultClasses = new HashMap<String, Class<?>>();
       moreResultClasses.put("BA", BankAccount.class);
