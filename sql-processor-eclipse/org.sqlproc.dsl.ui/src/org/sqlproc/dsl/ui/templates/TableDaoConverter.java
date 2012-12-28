@@ -3,6 +3,7 @@ package org.sqlproc.dsl.ui.templates;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -31,10 +32,11 @@ public class TableDaoConverter extends TableMetaConverter {
         super();
     }
 
-    public TableDaoConverter(ModelProperty modelProperty, Artifacts artifacts, IScopeProvider scopeProvider,
-            Set<String> finalDaos) {
-        super(modelProperty, artifacts, null);
+    public TableDaoConverter(ModelProperty modelProperty, Artifacts artifacts, String suffix,
+            IScopeProvider scopeProvider, Set<String> finalDaos) {
+        super(modelProperty, artifacts, null, Collections.<String> emptySet());
 
+        this.suffix = (suffix != null) ? suffix : "";
         this.finalDaos = finalDaos;
 
         Set<String> daoIgnoreTables = modelProperty.getDaoIgnoreTables(artifacts);

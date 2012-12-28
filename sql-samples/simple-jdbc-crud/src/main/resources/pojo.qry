@@ -1,7 +1,7 @@
 package org.sqlproc.sample.simple.model {
 
 
-  pojo BankAccount extends BillingDetails discriminator BA serializable 1  {
+  final pojo BankAccount extends BillingDetails discriminator BA serializable 1  {
     baAccount : java.lang.String
     toInit ::: subscriber
     isDef ::: baAccount

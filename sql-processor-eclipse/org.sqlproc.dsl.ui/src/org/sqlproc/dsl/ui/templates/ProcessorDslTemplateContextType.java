@@ -87,6 +87,14 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         return statement;
     }
 
+    protected PackageDeclaration getPackage(XtextTemplateContext xtextTemplateContext) {
+        if (xtextTemplateContext == null)
+            return null;
+        EObject object = xtextTemplateContext.getContentAssistContext().getCurrentModel();
+        PackageDeclaration packagex = EcoreUtil2.getContainerOfType(object, PackageDeclaration.class);
+        return packagex;
+    }
+
     protected TableDefinition getTableDefinition(MetaStatement statement) {
         if (statement == null)
             return null;
@@ -578,14 +586,6 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         }
     }
 
-    protected PackageDeclaration getPackage(XtextTemplateContext xtextTemplateContext) {
-        if (xtextTemplateContext == null)
-            return null;
-        EObject object = xtextTemplateContext.getContentAssistContext().getCurrentModel();
-        PackageDeclaration packagex = EcoreUtil2.getContainerOfType(object, PackageDeclaration.class);
-        return packagex;
-    }
-
     public class PojoGeneratorResolver extends SimpleTemplateVariableResolver {
 
         public static final String NAME = "pojoGenerator";
@@ -662,12 +662,26 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         @Override
         protected String resolve(TemplateContext context) {
             Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
-            PackageDeclaration packagex = getPackage((XtextTemplateContext) context);
             if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
+
+                List<MetaStatement> metasToRemove = new ArrayList<MetaStatement>();
+                Set<String> finalMetas = new HashSet<String>();
+
+                for (MetaStatement meta : artifacts.getStatements()) {
+                    if (Utils.isFinal(meta)) {
+                        finalMetas.add(meta.getName());
+                    } else {
+                        metasToRemove.add(meta);
+                    }
+                }
+                // for (MetaStatement meta : metasToRemove) {
+                // artifacts.getElements().remove(meta);
+                // }
 
                 List<String> tables = dbResolver.getTables(artifacts);
                 if (tables != null) {
-                    TableMetaConverter converter = new TableMetaConverter(modelProperty, artifacts, scopeProvider);
+                    TableMetaConverter converter = new TableMetaConverter(modelProperty, artifacts, scopeProvider,
+                            finalMetas);
                     for (String table : tables) {
                         if (table.toUpperCase().startsWith("BIN$"))
                             continue;
@@ -731,8 +745,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
 
                 List<String> tables = dbResolver.getTables(artifacts);
                 if (tables != null) {
-                    TableDaoConverter converter = new TableDaoConverter(modelProperty, artifacts, scopeProvider,
-                            finalDaos);
+                    TableDaoConverter converter = new TableDaoConverter(modelProperty, artifacts, suffix,
+                            scopeProvider, finalDaos);
                     for (String table : tables) {
                         if (table.toUpperCase().startsWith("BIN$"))
                             continue;

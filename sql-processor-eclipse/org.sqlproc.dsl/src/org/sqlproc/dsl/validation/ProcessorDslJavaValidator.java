@@ -937,8 +937,8 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             return ValidationResult.WARNING;
         else {
             Set<String> suppressedAbstracts = modelProperty.getNotAbstractTables(entity);
-            // System.out.println("AAAAAAAA " + entity + "->" + suppressedAbstracts + "->" + property + "->" +
-            // Utils.dbName(entity));
+            // System.out.println("AAAAAAAA " + entity + "->" + suppressedAbstracts + "->" + property + "->"
+            // + Utils.dbName(entity));
             if (suppressedAbstracts != null && suppressedAbstracts.contains(Utils.dbName(entity)))
                 return ValidationResult.WARNING;
             else

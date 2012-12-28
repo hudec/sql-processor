@@ -27,6 +27,7 @@ public class TableMetaConverter extends TablePojoConverter {
 
     private boolean debug = false;
 
+    protected Set<String> finalMetas;
     protected Artifacts artifacts;
     protected IScopeProvider scopeProvider;
 
@@ -45,10 +46,12 @@ public class TableMetaConverter extends TablePojoConverter {
         super();
     }
 
-    public TableMetaConverter(ModelProperty modelProperty, Artifacts artifacts, IScopeProvider scopeProvider) {
+    public TableMetaConverter(ModelProperty modelProperty, Artifacts artifacts, IScopeProvider scopeProvider,
+            Set<String> finalMetas) {
         super(modelProperty, artifacts, null, Collections.<String> emptySet());
         this.scopeProvider = scopeProvider;
         this.artifacts = artifacts;
+        this.finalMetas = finalMetas;
 
         this.metaGlobalSequence = modelProperty.getMetaGlobalSequence(artifacts);
         Map<String, PairValues> tablesSequence = modelProperty.getMetaTablesSequence(artifacts);
@@ -116,6 +119,8 @@ public class TableMetaConverter extends TablePojoConverter {
     StringBuilder metaInsertDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
         Header header = getStatementHeader(pojo, buffer, StatementType.INSERT, null);
+        if (finalMetas.contains(header.statementName))
+            return buffer;
         buffer.append("\n  insert into %%").append(header.table.realTableName);
         buffer.append(" (");
         String parentPojo = pojoDiscriminators.containsKey(header.table.tableName) ? pojoExtends
@@ -138,6 +143,8 @@ public class TableMetaConverter extends TablePojoConverter {
     StringBuilder metaGetSelectDefinition(String pojo, boolean select) {
         StringBuilder buffer = new StringBuilder();
         Header header = getStatementHeader(pojo, buffer, (select) ? StatementType.SELECT : StatementType.GET, null);
+        if (finalMetas.contains(header.statementName))
+            return buffer;
         buffer.append("\n  select ");
         String parentPojo = pojoDiscriminators.containsKey(header.table.tableName) ? pojoExtends
                 .get(header.table.tableName) : null;
@@ -268,6 +275,8 @@ public class TableMetaConverter extends TablePojoConverter {
     StringBuilder metaUpdateDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
         Header header = getStatementHeader(pojo, buffer, StatementType.UPDATE, null);
+        if (finalMetas.contains(header.statementName))
+            return buffer;
         buffer.append("\n  update %%").append(header.table.realTableName);
         buffer.append("\n  {= set");
         String parentPojo = pojoDiscriminators.containsKey(header.table.tableName) ? pojoExtends
@@ -287,6 +296,8 @@ public class TableMetaConverter extends TablePojoConverter {
     StringBuilder metaDeleteDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
         Header header = getStatementHeader(pojo, buffer, StatementType.DELETE, null);
+        if (finalMetas.contains(header.statementName))
+            return buffer;
         buffer.append("\n  delete from %%").append(header.table.realTableName);
         buffer.append("\n  {= where");
         String parentPojo = pojoDiscriminators.containsKey(header.table.tableName) ? pojoExtends

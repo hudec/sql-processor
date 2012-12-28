@@ -382,4 +382,11 @@ public class Utils {
         PojoEntity e2 = getSuperType(e);
         return e2;
     }
+
+    public static boolean isFinal(MetaStatement m) {
+        String finalToken = getTokenFromFilter(m, "final");
+        if (finalToken != null)
+            return true;
+        return false;
+    }
 }
