@@ -982,6 +982,8 @@ public class TableMetaConverter extends TablePojoConverter {
             buffer.append("(QRY,");
         else
             buffer.append("(CRUD,");
+        if (metaMakeItFinal)
+            buffer.append("final=,");
         buffer.append("identx=").append(tableToCamelCase(header.table.tableName));
         buffer.append(",colx=").append(tableToCamelCase(header.table.tableName));
         buffer.append(",dbcol=");

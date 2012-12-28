@@ -4,55 +4,55 @@ package org.sqlproc.sample.simple.dao {
     scaffold
   }
 
-  dao NewBookDao :: NewBook {
+  final dao NewBookDao :: NewBook {
     scaffold
   }
 
-  dao ContactDao :: Contact {
+  final dao ContactDao :: Contact {
     scaffold
   }
 
-  dao CreditCardDao :: CreditCard {
+  final dao CreditCardDao :: CreditCard {
     scaffold
   }
 
-  dao LibraryDao :: Library {
+  final dao LibraryDao :: Library {
     scaffold
   }
 
-  dao MediaDao :: Media {
+  final dao MediaDao :: Media {
     scaffold
   }
 
-  dao MovieDao :: Movie {
+  final dao MovieDao :: Movie {
     scaffold
   }
 
-  dao PaymentDao :: Payment {
+  final dao PaymentDao :: Payment {
     scaffold
     billingDetails ::: BA ::BankAccount CC ::CreditCard
   }
 
-  dao PerformerDao :: Performer {
+  final dao PerformerDao :: Performer {
     scaffold
     work ::: movie ::Movie book ::NewBook
   }
 
-  dao PersonDao :: Person {
+  final dao PersonDao :: Person {
     scaffold
     library ::: movie ::Movie book ::NewBook
   }
 
-  dao PersonLibraryDao :: PersonLibrary {
+  final dao PersonLibraryDao :: PersonLibrary {
     scaffold
   }
 
-  dao PhysicalMediaDao :: PhysicalMedia {
+  final dao PhysicalMediaDao :: PhysicalMedia {
     scaffold
     media ::: movie ::Movie book ::NewBook
   }
 
-  dao SubscriberDao :: Subscriber {
+  final dao SubscriberDao :: Subscriber {
     scaffold
     billingDetails ::: BA ::BankAccount CC ::CreditCard
   }

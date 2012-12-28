@@ -117,6 +117,8 @@ public class TableDaoConverter extends TableMetaConverter {
                         continue;
                 }
                 buffer.append("\n  ");
+                if (daoMakeItFinal)
+                    buffer.append("final ");
                 buffer.append("dao ");
                 buffer.append(daoName);
                 buffer.append(" :: ").append(tableToCamelCase(pojoName));

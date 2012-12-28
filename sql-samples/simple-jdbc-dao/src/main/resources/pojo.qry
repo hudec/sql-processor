@@ -2,14 +2,14 @@ package org.sqlproc.sample.simple.model {
 
   extends org.sqlproc.sample.simple.model.impl.BaseModelImpl
 
-  pojo BankAccount extends BillingDetails discriminator BA serializable 1  {
+  final pojo BankAccount extends BillingDetails discriminator BA serializable 1  {
     baAccount : java.lang.String
     enumInit ::: subscriber
     enumDef ::: baAccount
     toString ::: baAccount
   }
 
-  abstract pojo BillingDetails serializable 1  {
+  final abstract pojo BillingDetails serializable 1  {
     id : java.lang.Long primaryKey index 1
     subscriber :: Subscriber required index 2
     type : java.lang.String discriminator required
@@ -19,14 +19,14 @@ package org.sqlproc.sample.simple.model {
     toString ::: id type subscriber
   }
 
-  pojo NewBook extends Media serializable 1  {
+  final pojo NewBook extends Media serializable 1  {
     newIsbn : java.lang.String required
     enumInit ::: author
     enumDef ::: author
     toString ::: newIsbn
   }
 
-  pojo Contact serializable 1  {
+  final pojo Contact serializable 1  {
     id : java.lang.Long primaryKey index 1
     person :: Person required index 2
     address : java.lang.String required
@@ -38,14 +38,14 @@ package org.sqlproc.sample.simple.model {
     toString ::: id person phoneNumber address
   }
 
-  pojo CreditCard extends BillingDetails discriminator CC serializable 1  {
+  final pojo CreditCard extends BillingDetails discriminator CC serializable 1  {
     ccNumber : java.lang.Long
     enumInit ::: subscriber
     enumDef ::: ccNumber
     toString ::: ccNumber
   }
 
-  pojo Library serializable 1  {
+  final pojo Library serializable 1  {
     id : java.lang.Long primaryKey index 1
     name : java.lang.String required
     subscribers : java.util.List <:Subscriber>
@@ -56,7 +56,7 @@ package org.sqlproc.sample.simple.model {
     toString ::: id name
   }
 
-  pojo Media serializable 1  {
+  final pojo Media serializable 1  {
     id : java.lang.Long primaryKey index 1
     title : java.lang.String required
     author :: Performer index 2
@@ -67,7 +67,7 @@ package org.sqlproc.sample.simple.model {
     toString ::: id author title
   }
 
-  pojo Movie extends Media serializable 1  {
+  final pojo Movie extends Media serializable 1  {
     urlimdb : java.lang.String required
     playlength : java.lang.Integer required
     enumInit ::: author
@@ -75,7 +75,7 @@ package org.sqlproc.sample.simple.model {
     toString ::: playlength urlimdb
   }
 
-  pojo Payment serializable 1  {
+  final pojo Payment serializable 1  {
     id : java.lang.Long primaryKey index 1
     billingDetails :: BillingDetails required index 2
     paid : java.sql.Timestamp required
@@ -85,7 +85,7 @@ package org.sqlproc.sample.simple.model {
     toString ::: id paid billingDetails
   }
 
-  pojo Performer serializable 1  {
+  final pojo Performer serializable 1  {
     id : java.lang.Long primaryKey index 1
     person :: Person required index 2
     work : java.util.List <:Media>
@@ -95,7 +95,7 @@ package org.sqlproc.sample.simple.model {
     toString ::: id person
   }
 
-  pojo Person serializable 1  {
+  final pojo Person serializable 1  {
     id : java.lang.Long primaryKey index 1
     firstName : java.lang.String required
     lastName : java.lang.String required index 2
@@ -111,7 +111,7 @@ package org.sqlproc.sample.simple.model {
     toString ::: dateOfBirth id lastName ssn passport firstName
   }
 
-  pojo PersonLibrary serializable 1  {
+  final pojo PersonLibrary serializable 1  {
     id : java.lang.Long primaryKey index 1
     personId : java.lang.Long required index 2
     mediaId : java.lang.Long required index 3
@@ -120,7 +120,7 @@ package org.sqlproc.sample.simple.model {
     toString ::: mediaId id personId
   }
 
-  pojo PhysicalMedia serializable 1  {
+  final pojo PhysicalMedia serializable 1  {
     id : java.lang.Long primaryKey index 1
     location : java.lang.String required
     media :: Media required
@@ -131,7 +131,7 @@ package org.sqlproc.sample.simple.model {
     toString ::: id location library media
   }
 
-  pojo Subscriber serializable 1  {
+  final pojo Subscriber serializable 1  {
     id : java.lang.Long primaryKey index 1
     library :: Library required index 2
     contact :: Contact

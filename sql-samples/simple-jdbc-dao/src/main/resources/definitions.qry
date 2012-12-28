@@ -34,15 +34,18 @@ pojogen-implements-interfaces java.io.Serializable;
 pojogen-create-columns PERSON PASSPORT->:java.lang.String;
 pojogen-not-abstract-tables MEDIA;
 pojogen-extends-class org.sqlproc.sample.simple.model.impl.BaseModelImpl;
+pojogen-make-it-final;
 
 //metagen-global-sequence SEQ1;
 metagen-global-identity SEL1;
 metagen-column-meta-type CONTACT PHONE_NUMBER->phone;
 //metagen-statement-meta-type INSERT_CONTACT PHONE_NUMBER->phone;
+metagen-make-it-final;
 
 daogen-extends-class org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
 daogen-implements-interfaces org.sqlproc.sample.simple.dao.BaseDao;
 daogen-implementation-package impl;
+daogen-make-it-final;
 
 table billingDetails BILLING_DETAILS;
 table book BOOK;

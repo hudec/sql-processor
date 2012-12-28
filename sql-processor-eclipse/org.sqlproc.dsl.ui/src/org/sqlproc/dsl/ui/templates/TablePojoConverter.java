@@ -210,6 +210,7 @@ public class TablePojoConverter {
         }
 
         if (debug) {
+            System.out.println("finalEntities " + this.finalEntities);
             System.out.println("sqlTypes " + this.sqlTypes);
             System.out.println("tableTypes " + this.tableTypes);
             System.out.println("columnTypes " + this.columnTypes);
@@ -558,12 +559,14 @@ public class TablePojoConverter {
                     continue;
                 if (ignoreTables.contains(pojo))
                     continue;
-                if (finalEntities.contains(tableToCamelCase(pojo)))
-                    continue;
                 String pojoName = tableNames.get(pojo);
                 if (pojoName == null)
                     pojoName = pojo;
+                if (finalEntities.contains(tableToCamelCase(pojoName)))
+                    continue;
                 buffer.append("\n  ");
+                if (makeItFinal)
+                    buffer.append("final ");
                 if (pojoInheritanceDiscriminator.containsKey(pojo) || pojoInheritanceSimple.containsKey(pojo)) {
                     if (!notAbstractTables.contains(pojo))
                         buffer.append("abstract ");
