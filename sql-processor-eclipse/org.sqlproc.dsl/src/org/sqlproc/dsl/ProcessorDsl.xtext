@@ -70,6 +70,7 @@ PojogenProperty:
 	|name='extends-class' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
 	|name='generate-wrappers'
 	|name='implementation-package' WS+ implPackage=IDENT
+	|name='make-it-final'
 	);
 
 MetaTypeAssignement: dbColumn=IDENT '->' type=IDENT ('->' extension=IDENT)?;
@@ -81,6 +82,7 @@ MetagenProperty:
 	|name='table-identity' WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)?
 	|name='column-meta-type' WS+ dbTable=IDENT (WS+ metaTypes+=MetaTypeAssignement)+
 	|name='statement-meta-type' WS+ dbStatement=IDENT (WS+ metaTypes+=MetaTypeAssignement)+
+	|name='make-it-final'
 	);
 
 DaogenProperty:
@@ -89,6 +91,7 @@ DaogenProperty:
 	|name='implementation-package' WS+ implPackage=IDENT
 	|name='implements-interfaces' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
 	|name='extends-class' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
+	|name='make-it-final'
 	);
 
 PropertyValue:

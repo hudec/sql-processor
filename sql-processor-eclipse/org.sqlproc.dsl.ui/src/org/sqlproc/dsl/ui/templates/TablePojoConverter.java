@@ -81,6 +81,7 @@ public class TablePojoConverter {
     protected Map<String, List<String>> joinTables = new HashMap<String, List<String>>();
     protected boolean doGenerateWrappers;
     protected String implementationPackage;
+    protected boolean makeItFinal;
 
     protected Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     protected Map<String, String> pojoExtends = new HashMap<String, String>();
@@ -191,6 +192,7 @@ public class TablePojoConverter {
         }
         this.doGenerateWrappers = modelProperty.isDoGenerateWrappers(artifacts);
         this.implementationPackage = modelProperty.getImplementationPackage(artifacts);
+        this.makeItFinal = modelProperty.isMakeItFinal(artifacts);
 
         for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : this.inheritImports.entrySet()) {
             for (Map.Entry<String, Map<String, String>> inherit : inheritImport.getValue().entrySet()) {
@@ -231,6 +233,7 @@ public class TablePojoConverter {
             System.out.println("joinTables " + this.joinTables);
             System.out.println("doGenerateWrappers " + this.doGenerateWrappers);
             System.out.println("implementationPackage " + this.implementationPackage);
+            System.out.println("makeItFinal " + this.makeItFinal);
         }
     }
 

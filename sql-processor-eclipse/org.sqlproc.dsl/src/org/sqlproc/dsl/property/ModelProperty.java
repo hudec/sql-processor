@@ -91,4 +91,10 @@ public interface ModelProperty extends Adapter {
     String getDaoImplementationPackage(EObject model);
 
     String getImplementationPackage(EObject model);
+
+    boolean isMakeItFinal(EObject model);
+
+    boolean isDaoMakeItFinal(EObject model);
+
+    boolean isMetaMakeItFinal(EObject model);
 }

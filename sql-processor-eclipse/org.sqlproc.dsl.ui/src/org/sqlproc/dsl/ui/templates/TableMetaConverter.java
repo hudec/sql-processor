@@ -37,6 +37,7 @@ public class TableMetaConverter extends TablePojoConverter {
     protected Map<String, PairValues> metaTablesIdentity = new HashMap<String, PairValues>();
     protected Map<String, Map<String, PairValues>> metaColumnsMetaTypes = new HashMap<String, Map<String, PairValues>>();
     protected Map<String, Map<String, PairValues>> metaStatementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
+    protected boolean metaMakeItFinal;
 
     enum StatementType {
         INSERT, GET, UPDATE, DELETE, SELECT
@@ -71,6 +72,7 @@ public class TableMetaConverter extends TablePojoConverter {
         if (statementsMetaTypes != null) {
             this.metaStatementsMetaTypes.putAll(statementsMetaTypes);
         }
+        this.metaMakeItFinal = modelProperty.isMetaMakeItFinal(artifacts);
 
         if (debug) {
             System.out.println("finalMetas " + this.finalMetas);
@@ -80,6 +82,7 @@ public class TableMetaConverter extends TablePojoConverter {
             System.out.println("metaTablesIdentity " + this.metaTablesIdentity);
             System.out.println("metaColumnsMetaTypes " + this.metaColumnsMetaTypes);
             System.out.println("metaStatementsMetaTypes " + this.metaStatementsMetaTypes);
+            System.out.println("metaMakeItFinal " + this.metaMakeItFinal);
         }
     }
 

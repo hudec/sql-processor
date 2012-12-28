@@ -650,7 +650,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='only-tables' dbTables+=IDENT*) | 
 	 *         (name='implementation-package' implPackage=IDENT) | 
 	 *         (name='implements-interfaces' toImplements+=[JvmType|QualifiedName]+) | 
-	 *         (name='extends-class' toExtends=[JvmType|QualifiedName])
+	 *         (name='extends-class' toExtends=[JvmType|QualifiedName]) | 
+	 *         name='make-it-final'
 	 *     )
 	 */
 	protected void sequence_DaogenProperty(EObject context, DaogenProperty semanticObject) {
@@ -1023,7 +1024,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='global-identity' identity=IDENT type=IDENT?) | 
 	 *         (name='table-identity' dbTable=IDENT identity=IDENT type=IDENT?) | 
 	 *         (name='column-meta-type' dbTable=IDENT metaTypes+=MetaTypeAssignement+) | 
-	 *         (name='statement-meta-type' dbStatement=IDENT metaTypes+=MetaTypeAssignement+)
+	 *         (name='statement-meta-type' dbStatement=IDENT metaTypes+=MetaTypeAssignement+) | 
+	 *         name='make-it-final'
 	 *     )
 	 */
 	protected void sequence_MetagenProperty(EObject context, MetagenProperty semanticObject) {
@@ -1239,7 +1241,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='implements-interfaces' toImplements+=[JvmType|QualifiedName]+) | 
 	 *         (name='extends-class' toExtends=[JvmType|QualifiedName]) | 
 	 *         name='generate-wrappers' | 
-	 *         (name='implementation-package' implPackage=IDENT)
+	 *         (name='implementation-package' implPackage=IDENT) | 
+	 *         name='make-it-final'
 	 *     )
 	 */
 	protected void sequence_PojogenProperty(EObject context, PojogenProperty semanticObject) {

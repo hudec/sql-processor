@@ -76,6 +76,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_GENERATE_WRAPPERS = "generate-wrappers";
     public static final String POJOGEN_NOT_ABSTRACT_TABLES_TABLES = "not-abstract-tables";
     public static final String POJOGEN_IMPLEMENTATION_PACKAGE = "implementation-package";
+    public static final String POJOGEN_MAKE_IT_FINAL = "make-it-final";
     public static final String METAGEN = "metagen";
     public static final String METAGEN_GLOBAL_SEQUENCE = "global-sequence";
     public static final String METAGEN_TABLE_SEQUENCE = "table-sequence";
@@ -83,12 +84,14 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String METAGEN_TABLE_IDENTITY = "table-identity";
     public static final String METAGEN_COLUMN_META_TYPE = "column-meta-type";
     public static final String METAGEN_STATEMENT_META_TYPE = "statement-meta-type";
+    public static final String METAGEN_MAKE_IT_FINAL = "make-it-final";
     public static final String DAOGEN = "daogen";
     public static final String DAOGEN_IGNORE_TABLES = "ignore-tables";
     public static final String DAOGEN_ONLY_TABLES = "only-tables";
     public static final String DAOGEN_IMPLEMENTATION_PACKAGE = "implementation-package";
     public static final String DAOGEN_IMPLEMENTS_INTERFACES = "implements-interfaces";
     public static final String DAOGEN_EXTENDS_CLASS = "extends-class";
+    public static final String DAOGEN_MAKE_IT_FINAL = "make-it-final";
 
     public static class PairValues {
         public String value1;
@@ -137,6 +140,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, List<String>> joinTables;
         public boolean doGenerateWrappers;
         public String implementationPackage;
+        public boolean makeItFinal;
 
         public PairValues metaGlobalSequence;
         public Map<String, PairValues> metaTablesSequence;
@@ -144,12 +148,14 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, PairValues> metaTablesIdentity;
         public Map<String, Map<String, PairValues>> metaColumnsMetaTypes;
         public Map<String, Map<String, PairValues>> metaStatementsMetaTypes;
+        public boolean metaMakeItFinal;
 
         public Set<String> daoIgnoreTables;
         public Set<String> daoOnlyTables;
         public String daoImplementationPackage;
         public Map<String, JvmType> daoToImplements;
         public JvmType daoToExtends;
+        public boolean daoMakeItFinal;
     }
 
     private Map<String, ModelValues> dirs2models = new HashMap<String, ModelValues>();
@@ -293,6 +299,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.joinTables = new HashMap<String, List<String>>();
         modelValues.doGenerateWrappers = false;
         modelValues.implementationPackage = null;
+        modelValues.makeItFinal = false;
     }
 
     private void initMetagenModel(ModelValues modelValues) {
@@ -302,6 +309,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.metaTablesIdentity = new HashMap<String, PairValues>();
         modelValues.metaColumnsMetaTypes = new HashMap<String, Map<String, PairValues>>();
         modelValues.metaStatementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
+        modelValues.metaMakeItFinal = false;
     }
 
     private void initDaogenModel(ModelValues modelValues) {
@@ -310,6 +318,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.daoImplementationPackage = null;
         modelValues.daoToImplements = new HashMap<String, JvmType>();
         modelValues.daoToExtends = null;
+        modelValues.daoMakeItFinal = false;
     }
 
     public void setValue(ModelValues modelValues, Property property) {
@@ -573,6 +582,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.doGenerateWrappers = true;
         } else if (POJOGEN_IMPLEMENTATION_PACKAGE.equals(property.getName())) {
             modelValues.implementationPackage = property.getImplPackage();
+        } else if (POJOGEN_MAKE_IT_FINAL.equals(property.getName())) {
+            modelValues.makeItFinal = true;
         }
     }
 
@@ -605,6 +616,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 modelValues.metaStatementsMetaTypes.get(property.getDbStatement()).put(metaType.getDbColumn(),
                         new PairValues(metaType.getType(), metaType.getExtension()));
             }
+        } else if (METAGEN_MAKE_IT_FINAL.equals(property.getName())) {
+            modelValues.metaMakeItFinal = true;
         }
     }
 
@@ -628,6 +641,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             }
         } else if (DAOGEN_EXTENDS_CLASS.equals(property.getName())) {
             modelValues.daoToExtends = property.getToExtends();
+        } else if (DAOGEN_MAKE_IT_FINAL.equals(property.getName())) {
+            modelValues.daoMakeItFinal = true;
         }
     }
 
@@ -810,6 +825,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
+    public boolean isMakeItFinal(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.makeItFinal : false;
+    }
+
+    @Override
     public PairValues getMetaGlobalIdentity(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.metaGlobalIdentity : null;
@@ -848,6 +869,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
+    public boolean isMetaMakeItFinal(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.metaMakeItFinal : false;
+    }
+
+    @Override
     public Set<String> getDaoIgnoreTables(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.daoIgnoreTables : Collections.<String> emptySet();
@@ -875,6 +902,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public JvmType getDaoToExtends(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.daoToExtends : null;
+    }
+
+    @Override
+    public boolean isDaoMakeItFinal(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.daoMakeItFinal : false;
     }
 
     @Override

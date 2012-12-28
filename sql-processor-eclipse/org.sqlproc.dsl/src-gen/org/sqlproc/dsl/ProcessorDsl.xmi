@@ -727,6 +727,9 @@
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.61"/>
         </elements>
       </elements>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:Keyword" value="make-it-final"/>
+      </elements>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="MetaTypeAssignement">
@@ -852,6 +855,9 @@
           </elements>
         </elements>
       </elements>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:Keyword" value="make-it-final"/>
+      </elements>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="DaogenProperty">
@@ -919,6 +925,9 @@
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.109"/>
           </terminal>
         </elements>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+        <terminal xsi:type="xtext:Keyword" value="make-it-final"/>
       </elements>
     </alternatives>
   </rules>

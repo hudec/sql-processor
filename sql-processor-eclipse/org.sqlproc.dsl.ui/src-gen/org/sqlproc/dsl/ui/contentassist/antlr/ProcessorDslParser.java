@@ -449,6 +449,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPojogenPropertyAccess().getNameAssignment_24(), "rule__PojogenProperty__NameAssignment_24");
 					put(grammarAccess.getPojogenPropertyAccess().getNameAssignment_25_0(), "rule__PojogenProperty__NameAssignment_25_0");
 					put(grammarAccess.getPojogenPropertyAccess().getImplPackageAssignment_25_2(), "rule__PojogenProperty__ImplPackageAssignment_25_2");
+					put(grammarAccess.getPojogenPropertyAccess().getNameAssignment_26(), "rule__PojogenProperty__NameAssignment_26");
 					put(grammarAccess.getMetaTypeAssignementAccess().getDbColumnAssignment_0(), "rule__MetaTypeAssignement__DbColumnAssignment_0");
 					put(grammarAccess.getMetaTypeAssignementAccess().getTypeAssignment_2(), "rule__MetaTypeAssignement__TypeAssignment_2");
 					put(grammarAccess.getMetaTypeAssignementAccess().getExtensionAssignment_3_1(), "rule__MetaTypeAssignement__ExtensionAssignment_3_1");
@@ -472,6 +473,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetagenPropertyAccess().getNameAssignment_5_0(), "rule__MetagenProperty__NameAssignment_5_0");
 					put(grammarAccess.getMetagenPropertyAccess().getDbStatementAssignment_5_2(), "rule__MetagenProperty__DbStatementAssignment_5_2");
 					put(grammarAccess.getMetagenPropertyAccess().getMetaTypesAssignment_5_3_1(), "rule__MetagenProperty__MetaTypesAssignment_5_3_1");
+					put(grammarAccess.getMetagenPropertyAccess().getNameAssignment_6(), "rule__MetagenProperty__NameAssignment_6");
 					put(grammarAccess.getDaogenPropertyAccess().getNameAssignment_0_0(), "rule__DaogenProperty__NameAssignment_0_0");
 					put(grammarAccess.getDaogenPropertyAccess().getDbTablesAssignment_0_1_1(), "rule__DaogenProperty__DbTablesAssignment_0_1_1");
 					put(grammarAccess.getDaogenPropertyAccess().getNameAssignment_1_0(), "rule__DaogenProperty__NameAssignment_1_0");
@@ -482,6 +484,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDaogenPropertyAccess().getToImplementsAssignment_3_1_1(), "rule__DaogenProperty__ToImplementsAssignment_3_1_1");
 					put(grammarAccess.getDaogenPropertyAccess().getNameAssignment_4_0(), "rule__DaogenProperty__NameAssignment_4_0");
 					put(grammarAccess.getDaogenPropertyAccess().getToExtendsAssignment_4_2(), "rule__DaogenProperty__ToExtendsAssignment_4_2");
+					put(grammarAccess.getDaogenPropertyAccess().getNameAssignment_5(), "rule__DaogenProperty__NameAssignment_5");
 					put(grammarAccess.getPojoDefinitionAccess().getNameAssignment_1(), "rule__PojoDefinition__NameAssignment_1");
 					put(grammarAccess.getPojoDefinitionAccess().getClassAssignment_2(), "rule__PojoDefinition__ClassAssignment_2");
 					put(grammarAccess.getColumnUsageAccess().getStatementAssignment_1(), "rule__ColumnUsage__StatementAssignment_1");

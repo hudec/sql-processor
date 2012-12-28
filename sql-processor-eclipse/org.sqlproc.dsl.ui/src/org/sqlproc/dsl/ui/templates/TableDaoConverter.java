@@ -27,6 +27,7 @@ public class TableDaoConverter extends TableMetaConverter {
     protected String daoImplementationPackage;
     protected Map<String, JvmType> daoToImplements = new HashMap<String, JvmType>();
     protected JvmType daoToExtends = null;
+    protected boolean daoMakeItFinal;
 
     public TableDaoConverter() {
         super();
@@ -53,6 +54,7 @@ public class TableDaoConverter extends TableMetaConverter {
             this.daoToImplements.putAll(daoToImplements);
         }
         this.daoToExtends = modelProperty.getDaoToExtends(artifacts);
+        this.daoMakeItFinal = modelProperty.isDaoMakeItFinal(artifacts);
 
         if (debug) {
             System.out.println("finalDaos " + this.finalDaos);

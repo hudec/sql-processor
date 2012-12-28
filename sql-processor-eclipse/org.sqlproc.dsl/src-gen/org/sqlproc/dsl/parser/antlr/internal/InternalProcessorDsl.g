@@ -2876,7 +2876,23 @@ rulePojogenProperty returns [EObject current=null]
 	    }
 
 )
-)))
+))
+    |(
+(
+		lv_name_108_0=	'make-it-final' 
+    {
+        newLeafNode(lv_name_108_0, grammarAccess.getPojogenPropertyAccess().getNameMakeItFinalKeyword_26_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_108_0, "make-it-final");
+	    }
+
+)
+))
 ;
 
 
@@ -3383,7 +3399,23 @@ ruleMetagenProperty returns [EObject current=null]
 	    }
 
 )
-))+))
+))+)
+    |(
+(
+		lv_name_34_0=	'make-it-final' 
+    {
+        newLeafNode(lv_name_34_0, grammarAccess.getMetagenPropertyAccess().getNameMakeItFinalKeyword_6_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_34_0, "make-it-final");
+	    }
+
+)
+))
 ;
 
 
@@ -3587,7 +3619,23 @@ ruleDaogenProperty returns [EObject current=null]
 	    }
 
 )
-)))
+))
+    |(
+(
+		lv_name_15_0=	'make-it-final' 
+    {
+        newLeafNode(lv_name_15_0, grammarAccess.getDaogenPropertyAccess().getNameMakeItFinalKeyword_5_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_15_0, "make-it-final");
+	    }
+
+)
+))
 ;
 
 

@@ -1160,6 +1160,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWSTerminalRuleCall_25_1 = (RuleCall)cGroup_25.eContents().get(1);
 		private final Assignment cImplPackageAssignment_25_2 = (Assignment)cGroup_25.eContents().get(2);
 		private final RuleCall cImplPackageIDENTTerminalRuleCall_25_2_0 = (RuleCall)cImplPackageAssignment_25_2.eContents().get(0);
+		private final Assignment cNameAssignment_26 = (Assignment)cAlternatives.eContents().get(26);
+		private final Keyword cNameMakeItFinalKeyword_26_0 = (Keyword)cNameAssignment_26.eContents().get(0);
 		
 		//PojogenProperty:
 		//	name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types-in-table" WS+ dbTable=IDENT (WS+
@@ -1180,7 +1182,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 		//	methods+=IDENT)+ | name="implements-interfaces" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ |
 		//	name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName] | name="generate-wrappers" |
-		//	name="implementation-package" WS+ implPackage=IDENT;
+		//	name="implementation-package" WS+ implPackage=IDENT | name="make-it-final";
 		public ParserRule getRule() { return rule; }
 
 		//name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types-in-table" WS+ dbTable=IDENT (WS+
@@ -1201,7 +1203,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 		//methods+=IDENT)+ | name="implements-interfaces" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ |
 		//name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName] | name="generate-wrappers" |
-		//name="implementation-package" WS+ implPackage=IDENT
+		//name="implementation-package" WS+ implPackage=IDENT | name="make-it-final"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+
@@ -1875,6 +1877,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//IDENT
 		public RuleCall getImplPackageIDENTTerminalRuleCall_25_2_0() { return cImplPackageIDENTTerminalRuleCall_25_2_0; }
+
+		//name="make-it-final"
+		public Assignment getNameAssignment_26() { return cNameAssignment_26; }
+
+		//"make-it-final"
+		public Keyword getNameMakeItFinalKeyword_26_0() { return cNameMakeItFinalKeyword_26_0; }
 	}
 
 	public class MetaTypeAssignementElements extends AbstractParserRuleElementFinder {
@@ -1994,20 +2002,22 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWSTerminalRuleCall_5_3_0 = (RuleCall)cGroup_5_3.eContents().get(0);
 		private final Assignment cMetaTypesAssignment_5_3_1 = (Assignment)cGroup_5_3.eContents().get(1);
 		private final RuleCall cMetaTypesMetaTypeAssignementParserRuleCall_5_3_1_0 = (RuleCall)cMetaTypesAssignment_5_3_1.eContents().get(0);
+		private final Assignment cNameAssignment_6 = (Assignment)cAlternatives.eContents().get(6);
+		private final Keyword cNameMakeItFinalKeyword_6_0 = (Keyword)cNameAssignment_6.eContents().get(0);
 		
 		//MetagenProperty:
 		//	name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+
 		//	sequence=IDENT (WS+ type=IDENT)? | name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)? | name="table-identity"
 		//	WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+ dbTable=IDENT (WS+
 		//	metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
-		//	metaTypes+=MetaTypeAssignement)+;
+		//	metaTypes+=MetaTypeAssignement)+ | name="make-it-final";
 		public ParserRule getRule() { return rule; }
 
 		//name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+ sequence=IDENT
 		//(WS+ type=IDENT)? | name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)? | name="table-identity" WS+
 		//dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+ dbTable=IDENT (WS+
 		//metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
-		//metaTypes+=MetaTypeAssignement)+
+		//metaTypes+=MetaTypeAssignement)+ | name="make-it-final"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)?
@@ -2207,6 +2217,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//MetaTypeAssignement
 		public RuleCall getMetaTypesMetaTypeAssignementParserRuleCall_5_3_1_0() { return cMetaTypesMetaTypeAssignementParserRuleCall_5_3_1_0; }
+
+		//name="make-it-final"
+		public Assignment getNameAssignment_6() { return cNameAssignment_6; }
+
+		//"make-it-final"
+		public Keyword getNameMakeItFinalKeyword_6_0() { return cNameMakeItFinalKeyword_6_0; }
 	}
 
 	public class DaogenPropertyElements extends AbstractParserRuleElementFinder {
@@ -2247,17 +2263,19 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cToExtendsAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
 		private final CrossReference cToExtendsJvmTypeCrossReference_4_2_0 = (CrossReference)cToExtendsAssignment_4_2.eContents().get(0);
 		private final RuleCall cToExtendsJvmTypeQualifiedNameParserRuleCall_4_2_0_1 = (RuleCall)cToExtendsJvmTypeCrossReference_4_2_0.eContents().get(1);
+		private final Assignment cNameAssignment_5 = (Assignment)cAlternatives.eContents().get(5);
+		private final Keyword cNameMakeItFinalKeyword_5_0 = (Keyword)cNameAssignment_5.eContents().get(0);
 		
 		//DaogenProperty:
 		//	name="ignore-tables" (WS+ dbTables+=IDENT)+ | name="only-tables" (WS+ dbTables+=IDENT)* |
 		//	name="implementation-package" WS+ implPackage=IDENT | name="implements-interfaces" (WS+
 		//	toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends-class" WS+
-		//	toExtends=[jvmTypes::JvmType|QualifiedName];
+		//	toExtends=[jvmTypes::JvmType|QualifiedName] | name="make-it-final";
 		public ParserRule getRule() { return rule; }
 
 		//name="ignore-tables" (WS+ dbTables+=IDENT)+ | name="only-tables" (WS+ dbTables+=IDENT)* | name="implementation-package"
 		//WS+ implPackage=IDENT | name="implements-interfaces" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ |
-		//name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
+		//name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName] | name="make-it-final"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="ignore-tables" (WS+ dbTables+=IDENT)+
@@ -2364,6 +2382,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//QualifiedName
 		public RuleCall getToExtendsJvmTypeQualifiedNameParserRuleCall_4_2_0_1() { return cToExtendsJvmTypeQualifiedNameParserRuleCall_4_2_0_1; }
+
+		//name="make-it-final"
+		public Assignment getNameAssignment_5() { return cNameAssignment_5; }
+
+		//"make-it-final"
+		public Keyword getNameMakeItFinalKeyword_5_0() { return cNameMakeItFinalKeyword_5_0; }
 	}
 
 	public class PropertyValueElements extends AbstractParserRuleElementFinder {
@@ -7154,7 +7178,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 	//	methods+=IDENT)+ | name="implements-interfaces" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ |
 	//	name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName] | name="generate-wrappers" |
-	//	name="implementation-package" WS+ implPackage=IDENT;
+	//	name="implementation-package" WS+ implPackage=IDENT | name="make-it-final";
 	public PojogenPropertyElements getPojogenPropertyAccess() {
 		return (pPojogenProperty != null) ? pPojogenProperty : (pPojogenProperty = new PojogenPropertyElements());
 	}
@@ -7178,7 +7202,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	sequence=IDENT (WS+ type=IDENT)? | name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)? | name="table-identity"
 	//	WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+ dbTable=IDENT (WS+
 	//	metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
-	//	metaTypes+=MetaTypeAssignement)+;
+	//	metaTypes+=MetaTypeAssignement)+ | name="make-it-final";
 	public MetagenPropertyElements getMetagenPropertyAccess() {
 		return (pMetagenProperty != null) ? pMetagenProperty : (pMetagenProperty = new MetagenPropertyElements());
 	}
@@ -7191,7 +7215,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	name="ignore-tables" (WS+ dbTables+=IDENT)+ | name="only-tables" (WS+ dbTables+=IDENT)* |
 	//	name="implementation-package" WS+ implPackage=IDENT | name="implements-interfaces" (WS+
 	//	toImplements+=[jvmTypes::JvmType|QualifiedName])+ | name="extends-class" WS+
-	//	toExtends=[jvmTypes::JvmType|QualifiedName];
+	//	toExtends=[jvmTypes::JvmType|QualifiedName] | name="make-it-final";
 	public DaogenPropertyElements getDaogenPropertyAccess() {
 		return (pDaogenProperty != null) ? pDaogenProperty : (pDaogenProperty = new DaogenPropertyElements());
 	}
