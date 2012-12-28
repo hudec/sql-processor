@@ -73,6 +73,7 @@ public class TableMetaConverter extends TablePojoConverter {
         }
 
         if (debug) {
+            System.out.println("finalMetas " + this.finalMetas);
             System.out.println("metaGlobalSequence " + this.metaGlobalSequence);
             System.out.println("metaTablesSequence " + this.metaTablesSequence);
             System.out.println("metaGlobalIdentity " + this.metaGlobalIdentity);
@@ -119,7 +120,7 @@ public class TableMetaConverter extends TablePojoConverter {
     StringBuilder metaInsertDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
         Header header = getStatementHeader(pojo, buffer, StatementType.INSERT, null);
-        if (finalMetas.contains(header.statementName))
+        if (header == null)
             return buffer;
         buffer.append("\n  insert into %%").append(header.table.realTableName);
         buffer.append(" (");
@@ -143,7 +144,7 @@ public class TableMetaConverter extends TablePojoConverter {
     StringBuilder metaGetSelectDefinition(String pojo, boolean select) {
         StringBuilder buffer = new StringBuilder();
         Header header = getStatementHeader(pojo, buffer, (select) ? StatementType.SELECT : StatementType.GET, null);
-        if (finalMetas.contains(header.statementName))
+        if (header == null)
             return buffer;
         buffer.append("\n  select ");
         String parentPojo = pojoDiscriminators.containsKey(header.table.tableName) ? pojoExtends
@@ -275,7 +276,7 @@ public class TableMetaConverter extends TablePojoConverter {
     StringBuilder metaUpdateDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
         Header header = getStatementHeader(pojo, buffer, StatementType.UPDATE, null);
-        if (finalMetas.contains(header.statementName))
+        if (header == null)
             return buffer;
         buffer.append("\n  update %%").append(header.table.realTableName);
         buffer.append("\n  {= set");
@@ -296,7 +297,7 @@ public class TableMetaConverter extends TablePojoConverter {
     StringBuilder metaDeleteDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
         Header header = getStatementHeader(pojo, buffer, StatementType.DELETE, null);
-        if (finalMetas.contains(header.statementName))
+        if (header == null)
             return buffer;
         buffer.append("\n  delete from %%").append(header.table.realTableName);
         buffer.append("\n  {= where");
@@ -971,6 +972,8 @@ public class TableMetaConverter extends TablePojoConverter {
         if (suffix != null) {
             header.statementName = header.statementName + "_" + suffix;
         }
+        if (finalMetas.contains(header.statementName))
+            return null;
         buffer.append("\n").append(header.statementName);
         if (type == StatementType.SELECT)
             buffer.append("(QRY,");

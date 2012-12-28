@@ -55,6 +55,7 @@ public class TableDaoConverter extends TableMetaConverter {
         this.daoToExtends = modelProperty.getDaoToExtends(artifacts);
 
         if (debug) {
+            System.out.println("finalDaos " + this.finalDaos);
             System.out.println("daoIgnoreTables " + this.daoIgnoreTables);
             System.out.println("daoOnlyTables " + this.daoOnlyTables);
             System.out.println("daoImplementationPackage " + this.daoImplementationPackage);
@@ -103,18 +104,19 @@ public class TableDaoConverter extends TableMetaConverter {
                     continue;
                 if (daoIgnoreTables.contains(pojo))
                     continue;
-                if (finalDaos.contains(tableToCamelCase(pojo)))
-                    continue;
                 String pojoName = tableNames.get(pojo);
                 if (pojoName == null)
                     pojoName = pojo;
+                String daoName = tableToCamelCase(pojoName) + "Dao";
+                if (finalDaos.contains(daoName))
+                    continue;
                 if (pojoInheritanceDiscriminator.containsKey(pojo) || pojoInheritanceSimple.containsKey(pojo)) {
                     if (!notAbstractTables.contains(pojo))
                         continue;
                 }
                 buffer.append("\n  ");
                 buffer.append("dao ");
-                buffer.append(tableToCamelCase(pojoName)).append("Dao");
+                buffer.append(daoName);
                 buffer.append(" :: ").append(tableToCamelCase(pojoName));
                 if (isSerializable)
                     buffer.append(" serializable 1 ");
