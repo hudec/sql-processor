@@ -71,6 +71,7 @@ PojogenProperty:
 	|name='generate-wrappers'
 	|name='implementation-package' WS+ implPackage=IDENT
 	|name='make-it-final'
+	|name='version-column' WS+ version=IDENT (WS+ dbTables+=IDENT)*
 	);
 
 MetaTypeAssignement: dbColumn=IDENT '->' type=IDENT ('->' extension=IDENT)?;
@@ -323,7 +324,7 @@ PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
 		features+=PojoProperty*
 	RBRACE;
 
-PojoPropertyModifier: ((required?='required') | (discriminator?='discriminator') | (primaryKey?='primaryKey') | ('index' index=NUMBER));
+PojoPropertyModifier: ((required?='required') | (discriminator?='discriminator') | (primaryKey?='primaryKey') | ('index' index=NUMBER) | (version?='version'));
 
 PojoEntityModifier3: (('extends' superType=[PojoEntity|IDENT]) | ('serializable' sernum=NUMBER));
 

@@ -2892,7 +2892,67 @@ rulePojogenProperty returns [EObject current=null]
 	    }
 
 )
-))
+)
+    |((
+(
+		lv_name_109_0=	'version-column' 
+    {
+        newLeafNode(lv_name_109_0, grammarAccess.getPojogenPropertyAccess().getNameVersionColumnKeyword_27_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_109_0, "version-column");
+	    }
+
+)
+)(this_WS_110=RULE_WS
+    { 
+    newLeafNode(this_WS_110, grammarAccess.getPojogenPropertyAccess().getWSTerminalRuleCall_27_1()); 
+    }
+)+(
+(
+		lv_version_111_0=RULE_IDENT
+		{
+			newLeafNode(lv_version_111_0, grammarAccess.getPojogenPropertyAccess().getVersionIDENTTerminalRuleCall_27_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"version",
+        		lv_version_111_0, 
+        		"IDENT");
+	    }
+
+)
+)((this_WS_112=RULE_WS
+    { 
+    newLeafNode(this_WS_112, grammarAccess.getPojogenPropertyAccess().getWSTerminalRuleCall_27_3_0()); 
+    }
+)+(
+(
+		lv_dbTables_113_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbTables_113_0, grammarAccess.getPojogenPropertyAccess().getDbTablesIDENTTerminalRuleCall_27_3_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
+	        }
+       		addWithLastConsumed(
+       			$current, 
+       			"dbTables",
+        		lv_dbTables_113_0, 
+        		"IDENT");
+	    }
+
+)
+))*))
 ;
 
 
@@ -10590,7 +10650,23 @@ rulePojoPropertyModifier returns [EObject current=null]
 	    }
 
 )
-)))
+))
+    |(
+(
+		lv_version_5_0=	'version' 
+    {
+        newLeafNode(lv_version_5_0, grammarAccess.getPojoPropertyModifierAccess().getVersionVersionKeyword_4_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoPropertyModifierRule());
+	        }
+       		setWithLastConsumed($current, "version", true, "version");
+	    }
+
+)
+))
 ;
 
 

@@ -97,4 +97,8 @@ public interface ModelProperty extends Adapter {
     boolean isDaoMakeItFinal(EObject model);
 
     boolean isMetaMakeItFinal(EObject model);
+
+    Map<String, String> getVersionColumns(EObject model);
+
+    String getVersionColumn(EObject model);
 }

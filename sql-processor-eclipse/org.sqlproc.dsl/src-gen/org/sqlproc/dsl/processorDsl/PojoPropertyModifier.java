@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isDiscriminator <em>Discriminator</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isPrimaryKey <em>Primary Key</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#getIndex <em>Index</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isVersion <em>Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -128,5 +129,31 @@ public interface PojoPropertyModifier extends EObject
    * @generated
    */
   void setIndex(String value);
+
+  /**
+   * Returns the value of the '<em><b>Version</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Version</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Version</em>' attribute.
+   * @see #setVersion(boolean)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoPropertyModifier_Version()
+   * @model
+   * @generated
+   */
+  boolean isVersion();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isVersion <em>Version</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Version</em>' attribute.
+   * @see #isVersion()
+   * @generated
+   */
+  void setVersion(boolean value);
 
 } // PojoPropertyModifier

@@ -35,6 +35,7 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getToImplements <em>To Implements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getToExtends <em>To Extends</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getImplPackage <em>Impl Package</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getVersion <em>Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -407,5 +408,31 @@ public interface PojogenProperty extends EObject
    * @generated
    */
   void setImplPackage(String value);
+
+  /**
+   * Returns the value of the '<em><b>Version</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Version</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Version</em>' attribute.
+   * @see #setVersion(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojogenProperty_Version()
+   * @model
+   * @generated
+   */
+  String getVersion();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getVersion <em>Version</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Version</em>' attribute.
+   * @see #getVersion()
+   * @generated
+   */
+  void setVersion(String value);
 
 } // PojogenProperty

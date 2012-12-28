@@ -77,6 +77,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_NOT_ABSTRACT_TABLES_TABLES = "not-abstract-tables";
     public static final String POJOGEN_IMPLEMENTATION_PACKAGE = "implementation-package";
     public static final String POJOGEN_MAKE_IT_FINAL = "make-it-final";
+    public static final String POJOGEN_VERSION_COLUMN = "version-column";
     public static final String METAGEN = "metagen";
     public static final String METAGEN_GLOBAL_SEQUENCE = "global-sequence";
     public static final String METAGEN_TABLE_SEQUENCE = "table-sequence";
@@ -141,6 +142,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public boolean doGenerateWrappers;
         public String implementationPackage;
         public boolean makeItFinal;
+        public String versionColumn;
+        public Map<String, String> versionColumns;
 
         public PairValues metaGlobalSequence;
         public Map<String, PairValues> metaTablesSequence;
@@ -300,6 +303,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.doGenerateWrappers = false;
         modelValues.implementationPackage = null;
         modelValues.makeItFinal = false;
+        modelValues.versionColumn = null;
+        modelValues.versionColumns = new HashMap<String, String>();
     }
 
     private void initMetagenModel(ModelValues modelValues) {
@@ -584,6 +589,15 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.implementationPackage = property.getImplPackage();
         } else if (POJOGEN_MAKE_IT_FINAL.equals(property.getName())) {
             modelValues.makeItFinal = true;
+        } else if (POJOGEN_VERSION_COLUMN.equals(property.getName())) {
+            String versionColumn = property.getVersion();
+            if (property.getDbTables() == null || property.getDbTables().isEmpty()) {
+                modelValues.versionColumn = versionColumn;
+            } else {
+                for (int i = 0, m = property.getDbTables().size(); i < m; i++) {
+                    modelValues.versionColumns.put(property.getDbTables().get(i), versionColumn);
+                }
+            }
         }
     }
 
@@ -828,6 +842,18 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public boolean isMakeItFinal(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.makeItFinal : false;
+    }
+
+    @Override
+    public String getVersionColumn(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.versionColumn : null;
+    }
+
+    @Override
+    public Map<String, String> getVersionColumns(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.versionColumns : Collections.<String, String> emptyMap();
     }
 
     @Override

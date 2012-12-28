@@ -917,13 +917,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJOGEN_PROPERTY__IMPL_PACKAGE = 18;
 
   /**
+   * The feature id for the '<em><b>Version</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJOGEN_PROPERTY__VERSION = 19;
+
+  /**
    * The number of structural features of the '<em>Pojogen Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJOGEN_PROPERTY_FEATURE_COUNT = 19;
+  int POJOGEN_PROPERTY_FEATURE_COUNT = 20;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaTypeAssignementImpl <em>Meta Type Assignement</em>}' class.
@@ -3035,13 +3044,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_PROPERTY_MODIFIER__INDEX = 3;
 
   /**
+   * The feature id for the '<em><b>Version</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_PROPERTY_MODIFIER__VERSION = 4;
+
+  /**
    * The number of structural features of the '<em>Pojo Property Modifier</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_PROPERTY_MODIFIER_FEATURE_COUNT = 4;
+  int POJO_PROPERTY_MODIFIER_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityModifier3Impl <em>Pojo Entity Modifier3</em>}' class.
@@ -4222,6 +4240,17 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EAttribute getPojogenProperty_ImplPackage();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getVersion <em>Version</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Version</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojogenProperty#getVersion()
+   * @see #getPojogenProperty()
+   * @generated
+   */
+  EAttribute getPojogenProperty_Version();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.MetaTypeAssignement <em>Meta Type Assignement</em>}'.
@@ -6090,6 +6119,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getPojoPropertyModifier_Index();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isVersion <em>Version</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Version</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoPropertyModifier#isVersion()
+   * @see #getPojoPropertyModifier()
+   * @generated
+   */
+  EAttribute getPojoPropertyModifier_Version();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoEntityModifier3 <em>Pojo Entity Modifier3</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -7090,6 +7130,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute POJOGEN_PROPERTY__IMPL_PACKAGE = eINSTANCE.getPojogenProperty_ImplPackage();
+
+    /**
+     * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJOGEN_PROPERTY__VERSION = eINSTANCE.getPojogenProperty_Version();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaTypeAssignementImpl <em>Meta Type Assignement</em>}' class.
@@ -8578,6 +8626,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute POJO_PROPERTY_MODIFIER__INDEX = eINSTANCE.getPojoPropertyModifier_Index();
+
+    /**
+     * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_PROPERTY_MODIFIER__VERSION = eINSTANCE.getPojoPropertyModifier_Version();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoEntityModifier3Impl <em>Pojo Entity Modifier3</em>}' class.

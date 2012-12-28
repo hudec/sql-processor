@@ -82,6 +82,8 @@ public class TablePojoConverter {
     protected boolean doGenerateWrappers;
     protected String implementationPackage;
     protected boolean makeItFinal;
+    protected String versionColumn;
+    protected Map<String, String> versionColumns = new HashMap<String, String>();
 
     protected Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
     protected Map<String, String> pojoExtends = new HashMap<String, String>();
@@ -193,6 +195,11 @@ public class TablePojoConverter {
         this.doGenerateWrappers = modelProperty.isDoGenerateWrappers(artifacts);
         this.implementationPackage = modelProperty.getImplementationPackage(artifacts);
         this.makeItFinal = modelProperty.isMakeItFinal(artifacts);
+        this.versionColumn = modelProperty.getVersionColumn(artifacts);
+        Map<String, String> versionColumns = modelProperty.getVersionColumns(artifacts);
+        if (versionColumns != null) {
+            this.versionColumns.putAll(versionColumns);
+        }
 
         for (Map.Entry<String, Map<String, Map<String, String>>> inheritImport : this.inheritImports.entrySet()) {
             for (Map.Entry<String, Map<String, String>> inherit : inheritImport.getValue().entrySet()) {
@@ -235,6 +242,8 @@ public class TablePojoConverter {
             System.out.println("doGenerateWrappers " + this.doGenerateWrappers);
             System.out.println("implementationPackage " + this.implementationPackage);
             System.out.println("makeItFinal " + this.makeItFinal);
+            System.out.println("versionColumn " + this.versionColumn);
+            System.out.println("versionColumns " + this.versionColumns);
         }
     }
 
@@ -625,6 +634,11 @@ public class TablePojoConverter {
                     }
                     if (attribute.getIndex() != null) {
                         buffer.append(" index ").append(attribute.getIndex());
+                    }
+                    if (versionColumns.containsKey(pojo) && pentry.getKey().equals(versionColumns.get(pojo))) {
+                        buffer.append(" version");
+                    } else if (pentry.getKey().equalsIgnoreCase(versionColumn)) {
+                        buffer.append(" version");
                     }
                 }
                 if (pojoExtends.containsKey(pojo)) {

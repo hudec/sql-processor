@@ -1162,6 +1162,16 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cImplPackageIDENTTerminalRuleCall_25_2_0 = (RuleCall)cImplPackageAssignment_25_2.eContents().get(0);
 		private final Assignment cNameAssignment_26 = (Assignment)cAlternatives.eContents().get(26);
 		private final Keyword cNameMakeItFinalKeyword_26_0 = (Keyword)cNameAssignment_26.eContents().get(0);
+		private final Group cGroup_27 = (Group)cAlternatives.eContents().get(27);
+		private final Assignment cNameAssignment_27_0 = (Assignment)cGroup_27.eContents().get(0);
+		private final Keyword cNameVersionColumnKeyword_27_0_0 = (Keyword)cNameAssignment_27_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_27_1 = (RuleCall)cGroup_27.eContents().get(1);
+		private final Assignment cVersionAssignment_27_2 = (Assignment)cGroup_27.eContents().get(2);
+		private final RuleCall cVersionIDENTTerminalRuleCall_27_2_0 = (RuleCall)cVersionAssignment_27_2.eContents().get(0);
+		private final Group cGroup_27_3 = (Group)cGroup_27.eContents().get(3);
+		private final RuleCall cWSTerminalRuleCall_27_3_0 = (RuleCall)cGroup_27_3.eContents().get(0);
+		private final Assignment cDbTablesAssignment_27_3_1 = (Assignment)cGroup_27_3.eContents().get(1);
+		private final RuleCall cDbTablesIDENTTerminalRuleCall_27_3_1_0 = (RuleCall)cDbTablesAssignment_27_3_1.eContents().get(0);
 		
 		//PojogenProperty:
 		//	name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types-in-table" WS+ dbTable=IDENT (WS+
@@ -1182,7 +1192,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 		//	methods+=IDENT)+ | name="implements-interfaces" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ |
 		//	name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName] | name="generate-wrappers" |
-		//	name="implementation-package" WS+ implPackage=IDENT | name="make-it-final";
+		//	name="implementation-package" WS+ implPackage=IDENT | name="make-it-final" | name="version-column" WS+ version=IDENT
+		//	(WS+ dbTables+=IDENT)*;
 		public ParserRule getRule() { return rule; }
 
 		//name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+ | name="types-in-table" WS+ dbTable=IDENT (WS+
@@ -1203,7 +1214,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 		//methods+=IDENT)+ | name="implements-interfaces" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ |
 		//name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName] | name="generate-wrappers" |
-		//name="implementation-package" WS+ implPackage=IDENT | name="make-it-final"
+		//name="implementation-package" WS+ implPackage=IDENT | name="make-it-final" | name="version-column" WS+ version=IDENT
+		//(WS+ dbTables+=IDENT)*
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="types-sqltypes" (WS+ sqlTypes+=SqlTypeAssignement)+
@@ -1883,6 +1895,36 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"make-it-final"
 		public Keyword getNameMakeItFinalKeyword_26_0() { return cNameMakeItFinalKeyword_26_0; }
+
+		//name="version-column" WS+ version=IDENT (WS+ dbTables+=IDENT)*
+		public Group getGroup_27() { return cGroup_27; }
+
+		//name="version-column"
+		public Assignment getNameAssignment_27_0() { return cNameAssignment_27_0; }
+
+		//"version-column"
+		public Keyword getNameVersionColumnKeyword_27_0_0() { return cNameVersionColumnKeyword_27_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_27_1() { return cWSTerminalRuleCall_27_1; }
+
+		//version=IDENT
+		public Assignment getVersionAssignment_27_2() { return cVersionAssignment_27_2; }
+
+		//IDENT
+		public RuleCall getVersionIDENTTerminalRuleCall_27_2_0() { return cVersionIDENTTerminalRuleCall_27_2_0; }
+
+		//(WS+ dbTables+=IDENT)*
+		public Group getGroup_27_3() { return cGroup_27_3; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_27_3_0() { return cWSTerminalRuleCall_27_3_0; }
+
+		//dbTables+=IDENT
+		public Assignment getDbTablesAssignment_27_3_1() { return cDbTablesAssignment_27_3_1; }
+
+		//IDENT
+		public RuleCall getDbTablesIDENTTerminalRuleCall_27_3_1_0() { return cDbTablesIDENTTerminalRuleCall_27_3_1_0; }
 	}
 
 	public class MetaTypeAssignementElements extends AbstractParserRuleElementFinder {
@@ -6302,12 +6344,16 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cIndexKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cIndexAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
 		private final RuleCall cIndexNUMBERTerminalRuleCall_3_1_0 = (RuleCall)cIndexAssignment_3_1.eContents().get(0);
+		private final Assignment cVersionAssignment_4 = (Assignment)cAlternatives.eContents().get(4);
+		private final Keyword cVersionVersionKeyword_4_0 = (Keyword)cVersionAssignment_4.eContents().get(0);
 		
 		//PojoPropertyModifier:
-		//	required?="required" | discriminator?="discriminator" | primaryKey?="primaryKey" | "index" index=NUMBER;
+		//	required?="required" | discriminator?="discriminator" | primaryKey?="primaryKey" | "index" index=NUMBER |
+		//	version?="version";
 		public ParserRule getRule() { return rule; }
 
-		//required?="required" | discriminator?="discriminator" | primaryKey?="primaryKey" | "index" index=NUMBER
+		//required?="required" | discriminator?="discriminator" | primaryKey?="primaryKey" | "index" index=NUMBER |
+		//version?="version"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//required?="required"
@@ -6339,6 +6385,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//NUMBER
 		public RuleCall getIndexNUMBERTerminalRuleCall_3_1_0() { return cIndexNUMBERTerminalRuleCall_3_1_0; }
+
+		//version?="version"
+		public Assignment getVersionAssignment_4() { return cVersionAssignment_4; }
+
+		//"version"
+		public Keyword getVersionVersionKeyword_4_0() { return cVersionVersionKeyword_4_0; }
 	}
 
 	public class PojoEntityModifier3Elements extends AbstractParserRuleElementFinder {
@@ -7178,7 +7230,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	dbTable=IDENT WS+ dbColumn=IDENT (WS+ inheritance+=InheritanceAssignement)+ | name="generate-methods" (WS+
 	//	methods+=IDENT)+ | name="implements-interfaces" (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+ |
 	//	name="extends-class" WS+ toExtends=[jvmTypes::JvmType|QualifiedName] | name="generate-wrappers" |
-	//	name="implementation-package" WS+ implPackage=IDENT | name="make-it-final";
+	//	name="implementation-package" WS+ implPackage=IDENT | name="make-it-final" | name="version-column" WS+ version=IDENT
+	//	(WS+ dbTables+=IDENT)*;
 	public PojogenPropertyElements getPojogenPropertyAccess() {
 		return (pPojogenProperty != null) ? pPojogenProperty : (pPojogenProperty = new PojogenPropertyElements());
 	}
@@ -7968,7 +8021,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PojoPropertyModifier:
-	//	required?="required" | discriminator?="discriminator" | primaryKey?="primaryKey" | "index" index=NUMBER;
+	//	required?="required" | discriminator?="discriminator" | primaryKey?="primaryKey" | "index" index=NUMBER |
+	//	version?="version";
 	public PojoPropertyModifierElements getPojoPropertyModifierAccess() {
 		return (pPojoPropertyModifier != null) ? pPojoPropertyModifier : (pPojoPropertyModifier = new PojoPropertyModifierElements());
 	}

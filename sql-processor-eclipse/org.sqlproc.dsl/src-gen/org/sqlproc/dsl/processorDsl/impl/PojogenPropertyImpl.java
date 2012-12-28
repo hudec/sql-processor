@@ -61,6 +61,7 @@ import org.sqlproc.dsl.processorDsl.TableAssignement;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getToImplements <em>To Implements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getToExtends <em>To Extends</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getImplPackage <em>Impl Package</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getVersion <em>Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -297,6 +298,26 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected String implPackage = IMPL_PACKAGE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVersion()
+   * @generated
+   * @ordered
+   */
+  protected static final String VERSION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVersion()
+   * @generated
+   * @ordered
+   */
+  protected String version = VERSION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -689,6 +710,29 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getVersion()
+  {
+    return version;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setVersion(String newVersion)
+  {
+    String oldVersion = version;
+    version = newVersion;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJOGEN_PROPERTY__VERSION, oldVersion, version));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -767,6 +811,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return basicGetToExtends();
       case ProcessorDslPackage.POJOGEN_PROPERTY__IMPL_PACKAGE:
         return getImplPackage();
+      case ProcessorDslPackage.POJOGEN_PROPERTY__VERSION:
+        return getVersion();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -852,6 +898,9 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__IMPL_PACKAGE:
         setImplPackage((String)newValue);
         return;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__VERSION:
+        setVersion((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -923,6 +972,9 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__IMPL_PACKAGE:
         setImplPackage(IMPL_PACKAGE_EDEFAULT);
         return;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__VERSION:
+        setVersion(VERSION_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -975,6 +1027,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return toExtends != null;
       case ProcessorDslPackage.POJOGEN_PROPERTY__IMPL_PACKAGE:
         return IMPL_PACKAGE_EDEFAULT == null ? implPackage != null : !IMPL_PACKAGE_EDEFAULT.equals(implPackage);
+      case ProcessorDslPackage.POJOGEN_PROPERTY__VERSION:
+        return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
     }
     return super.eIsSet(featureID);
   }
@@ -1004,6 +1058,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
     result.append(methods);
     result.append(", implPackage: ");
     result.append(implPackage);
+    result.append(", version: ");
+    result.append(version);
     result.append(')');
     return result.toString();
   }

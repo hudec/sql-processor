@@ -23,6 +23,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyModifierImpl#isDiscriminator <em>Discriminator</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyModifierImpl#isPrimaryKey <em>Primary Key</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyModifierImpl#getIndex <em>Index</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoPropertyModifierImpl#isVersion <em>Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -109,6 +110,26 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
    * @ordered
    */
   protected String index = INDEX_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isVersion() <em>Version</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isVersion()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean VERSION_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isVersion() <em>Version</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isVersion()
+   * @generated
+   * @ordered
+   */
+  protected boolean version = VERSION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -228,6 +249,29 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isVersion()
+  {
+    return version;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setVersion(boolean newVersion)
+  {
+    boolean oldVersion = version;
+    version = newVersion;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_PROPERTY_MODIFIER__VERSION, oldVersion, version));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -241,6 +285,8 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
         return isPrimaryKey();
       case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__INDEX:
         return getIndex();
+      case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__VERSION:
+        return isVersion();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -266,6 +312,9 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
         return;
       case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__INDEX:
         setIndex((String)newValue);
+        return;
+      case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__VERSION:
+        setVersion((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -293,6 +342,9 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
       case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__INDEX:
         setIndex(INDEX_EDEFAULT);
         return;
+      case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__VERSION:
+        setVersion(VERSION_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -315,6 +367,8 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
         return primaryKey != PRIMARY_KEY_EDEFAULT;
       case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__INDEX:
         return INDEX_EDEFAULT == null ? index != null : !INDEX_EDEFAULT.equals(index);
+      case ProcessorDslPackage.POJO_PROPERTY_MODIFIER__VERSION:
+        return version != VERSION_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -338,6 +392,8 @@ public class PojoPropertyModifierImpl extends MinimalEObjectImpl.Container imple
     result.append(primaryKey);
     result.append(", index: ");
     result.append(index);
+    result.append(", version: ");
+    result.append(version);
     result.append(')');
     return result.toString();
   }

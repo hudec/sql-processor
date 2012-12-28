@@ -1157,7 +1157,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (required?='required' | discriminator?='discriminator' | primaryKey?='primaryKey' | index=NUMBER)
+	 *     (required?='required' | discriminator?='discriminator' | primaryKey?='primaryKey' | index=NUMBER | version?='version')
 	 */
 	protected void sequence_PojoPropertyModifier(EObject context, PojoPropertyModifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1242,7 +1242,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='extends-class' toExtends=[JvmType|QualifiedName]) | 
 	 *         name='generate-wrappers' | 
 	 *         (name='implementation-package' implPackage=IDENT) | 
-	 *         name='make-it-final'
+	 *         name='make-it-final' | 
+	 *         (name='version-column' version=IDENT dbTables+=IDENT*)
 	 *     )
 	 */
 	protected void sequence_PojogenProperty(EObject context, PojogenProperty semanticObject) {
