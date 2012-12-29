@@ -225,9 +225,11 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
         // update
         person = new Person();
         person.setId(andrej.getId());
+        person.setVersion(andrej.getVersion());
         person.setFirstName("Andrejík");
         count = main.getPersonDao().update(person);
         Assert.assertEquals(1, count);
+        andrej.setVersion(person.getVersion());
 
         bankAccount1.setBaAccount("updated account");
         bankAccount1.setSubscriber(honzaS);
@@ -278,10 +280,12 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
 
         person = new Person();
         person.setId(andrej.getId());
+        person.setVersion(andrej.getVersion());
         person.setFirstName("Andrioša");
         person.setNull(Person.Attribute.ssn);
         count = main.getPersonDao().update(person);
         Assert.assertEquals(1, count);
+        andrej.setVersion(person.getVersion());
 
         // get bankAccount with associations
         bankAccount = new BankAccount();

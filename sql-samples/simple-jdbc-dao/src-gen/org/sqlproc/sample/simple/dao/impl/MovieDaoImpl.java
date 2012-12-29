@@ -78,6 +78,9 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     if (count > 0) {
     	sqlUpdateMedia.update(sqlSessionFactory.getSqlSession(), movie);
     }
+    if (count > 0) {
+    	movie.setVersion(movie.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("update movie result count: " + count);
     }
@@ -97,6 +100,9 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     int count = sqlDeleteEngineMovie.delete(sqlSessionFactory.getSqlSession(), movie);
     if (count > 0) {
     	sqlDeleteMedia.delete(sqlSessionFactory.getSqlSession(), movie);
+    }
+    if (count > 0) {
+    	movie.setVersion(movie.getVersion() + 1);
     }
     if (logger.isTraceEnabled()) {
       logger.trace("delete movie result count: " + count);

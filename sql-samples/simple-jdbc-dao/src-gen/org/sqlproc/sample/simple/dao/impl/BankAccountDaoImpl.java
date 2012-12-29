@@ -70,6 +70,9 @@ public class BankAccountDaoImpl extends BaseDaoImpl implements BaseDao, BankAcco
     }
     SqlCrudEngine sqlUpdateEngineBankAccount = sqlEngineFactory.getCrudEngine("UPDATE_BANK_ACCOUNT");
     int count = sqlUpdateEngineBankAccount.update(sqlSessionFactory.getSqlSession(), bankAccount);
+    if (count > 0) {
+    	bankAccount.setVersion(bankAccount.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("update bankAccount result count: " + count);
     }
@@ -86,6 +89,9 @@ public class BankAccountDaoImpl extends BaseDaoImpl implements BaseDao, BankAcco
     }
     SqlCrudEngine sqlDeleteEngineBankAccount = sqlEngineFactory.getCrudEngine("DELETE_BANK_ACCOUNT");
     int count = sqlDeleteEngineBankAccount.delete(sqlSessionFactory.getSqlSession(), bankAccount);
+    if (count > 0) {
+    	bankAccount.setVersion(bankAccount.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("delete bankAccount result count: " + count);
     }

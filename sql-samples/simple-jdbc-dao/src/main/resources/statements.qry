@@ -3,6 +3,7 @@ SURROUND_QUERY_LIKE_PARTIAL(BOPT)=true;
 SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity(); 
 
+
 INSERT_BANK_ACCOUNT(CRUD,final=,identx=BankAccount,colx=BankAccount,dbcol=billingDetails)=
   insert into %%BILLING_DETAILS (%BA_ACCOUNT, %SUBSCRIBER, %TYPE, %VERSION)
   {= values (:id^^idsel=SEL1, :baAccount, :subscriber.id, :type, :version) }
@@ -18,7 +19,6 @@ GET_BANK_ACCOUNT(CRUD,final=,identx=BankAccount,colx=BankAccount,dbcol=billingDe
     {& %b.ID = :id }
     {& %b.SUBSCRIBER = :subscriber.id }
     {& %b.TYPE = :type }
-    {& %b.VERSION = :version }
   }
 ;
 
@@ -28,10 +28,11 @@ UPDATE_BANK_ACCOUNT(CRUD,final=,identx=BankAccount,colx=BankAccount,dbcol=billin
     { ,%BA_ACCOUNT = :baAccount^^call=isDef }
     { ,%SUBSCRIBER = :subscriber.id }
     { ,%TYPE = :type }
-    { ,%VERSION = :version }
+    { ,%VERSION = %VERSION + 1 }
   }
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -39,6 +40,7 @@ DELETE_BANK_ACCOUNT(CRUD,final=,identx=BankAccount,colx=BankAccount,dbcol=billin
   delete from %%BILLING_DETAILS
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -52,7 +54,6 @@ SELECT_BANK_ACCOUNT(QRY,final=,identx=BankAccount,colx=BankAccount,dbcol=billing
     {& %b.ID = :id }
     {& %b.SUBSCRIBER = :subscriber.id }
     {& UPPER(%b.TYPE) like :+type }
-    {& %b.VERSION = :version }
   }
 ;
 
@@ -73,7 +74,6 @@ GET_NEW_BOOK(CRUD,final=,identx=NewBook,colx=NewBook,dbcol=book=b,dbcol=media=m,
     {& %b.ISBN = :newIsbn }
     {& %m.TITLE = :title }
     {& %m.AUTHOR = :author.id }
-    {& %m.VERSION = :version }
   }
 ;
 
@@ -106,7 +106,6 @@ SELECT_NEW_BOOK(QRY,final=,identx=NewBook,colx=NewBook,dbcol=book=b,dbcol=media=
     {& UPPER(%b.ISBN) like :+newIsbn }
     {& UPPER(%m.TITLE) like :+title }
     {& %m.AUTHOR = :author.id }
-    {& %m.VERSION = :version }
   }
   {#1 order by %b.MEDIA_ID }
 ;
@@ -126,7 +125,6 @@ GET_CONTACT(CRUD,final=,identx=Contact,colx=Contact,dbcol=contact=c,dbcol=person
     {& %c.PERSON_ID = :person.id }
     {& %c.ADDRESS = :address }
     {& %c.PHONE_NUMBER = :phoneNumber^phone }
-    {& %c.VERSION = :version }
   }
 ;
 
@@ -136,10 +134,11 @@ UPDATE_CONTACT(CRUD,final=,identx=Contact,colx=Contact,dbcol=contact)=
     { ,%PERSON_ID = :person.id^^call=isDef }
     { ,%ADDRESS = :address^^call=isDef }
     { ,%PHONE_NUMBER = :phoneNumber^phone^call=isDef }
-    { ,%VERSION = :version^^call=isDef }
+    { ,%VERSION = %VERSION + 1 }
   }
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -147,6 +146,7 @@ DELETE_CONTACT(CRUD,final=,identx=Contact,colx=Contact,dbcol=contact)=
   delete from %%CONTACT
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -160,7 +160,6 @@ SELECT_CONTACT(QRY,final=,identx=Contact,colx=Contact,dbcol=contact=c,dbcol=pers
     {& %c.PERSON_ID = :person.id }
     {& UPPER(%c.ADDRESS) like :+address }
     {& %c.PHONE_NUMBER = :phoneNumber^phone }
-    {& %c.VERSION = :version }
   }
   {#1 order by %c.ID }
   {#2 order by %c.PERSON_ID }
@@ -181,7 +180,6 @@ GET_CREDIT_CARD(CRUD,final=,identx=CreditCard,colx=CreditCard,dbcol=billingDetai
     {& %b.ID = :id }
     {& %b.SUBSCRIBER = :subscriber.id }
     {& %b.TYPE = :type }
-    {& %b.VERSION = :version }
   }
 ;
 
@@ -191,10 +189,11 @@ UPDATE_CREDIT_CARD(CRUD,final=,identx=CreditCard,colx=CreditCard,dbcol=billingDe
     { ,%CC_NUMBER = :ccNumber^^call=isDef }
     { ,%SUBSCRIBER = :subscriber.id }
     { ,%TYPE = :type }
-    { ,%VERSION = :version }
+    { ,%VERSION = %VERSION + 1 }
   }
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -202,6 +201,7 @@ DELETE_CREDIT_CARD(CRUD,final=,identx=CreditCard,colx=CreditCard,dbcol=billingDe
   delete from %%BILLING_DETAILS
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -215,7 +215,6 @@ SELECT_CREDIT_CARD(QRY,final=,identx=CreditCard,colx=CreditCard,dbcol=billingDet
     {& %b.ID = :id }
     {& %b.SUBSCRIBER = :subscriber.id }
     {& UPPER(%b.TYPE) like :+type }
-    {& %b.VERSION = :version }
   }
 ;
 
@@ -234,7 +233,6 @@ GET_LIBRARY(CRUD,final=,identx=Library,colx=Library,dbcol=library=l,dbcol=subscr
   {= where
     {& %l.ID = :id }
     {& %l.NAME = :name }
-    {& %l.VERSION = :version }
   }
 ;
 
@@ -242,10 +240,11 @@ UPDATE_LIBRARY(CRUD,final=,identx=Library,colx=Library,dbcol=library)=
   update %%LIBRARY
   {= set
     { ,%NAME = :name }
-    { ,%VERSION = :version }
+    { ,%VERSION = %VERSION + 1 }
   }
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -253,6 +252,7 @@ DELETE_LIBRARY(CRUD,final=,identx=Library,colx=Library,dbcol=library)=
   delete from %%LIBRARY
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -266,7 +266,6 @@ SELECT_LIBRARY(QRY,final=,identx=Library,colx=Library,dbcol=library=l,dbcol=subs
   {= where
     {& %l.ID = :id }
     {& UPPER(%l.NAME) like :+name }
-    {& %l.VERSION = :version }
   }
   {#1 order by %l.ID }
 ;
@@ -285,7 +284,6 @@ GET_MEDIA(CRUD,final=,identx=Media,colx=Media,dbcol=media=m,dbcol=performer=p)=
     {& %m.ID = :id }
     {& %m.TITLE = :title }
     {& %m.AUTHOR = :author.id }
-    {& %m.VERSION = :version }
   }
 ;
 
@@ -294,10 +292,11 @@ UPDATE_MEDIA(CRUD,final=,identx=Media,colx=Media,dbcol=media)=
   {= set
     { ,%TITLE = :title^^call=isDef }
     { ,%AUTHOR = :author.id^^call=isDef }
-    { ,%VERSION = :version^^call=isDef }
+    { ,%VERSION = %VERSION + 1 }
   }
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -305,6 +304,7 @@ DELETE_MEDIA(CRUD,final=,identx=Media,colx=Media,dbcol=media)=
   delete from %%MEDIA
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -317,7 +317,6 @@ SELECT_MEDIA(QRY,final=,identx=Media,colx=Media,dbcol=media=m,dbcol=performer=p)
     {& %m.ID = :id }
     {& UPPER(%m.TITLE) like :+title }
     {& %m.AUTHOR = :author.id }
-    {& %m.VERSION = :version }
   }
   {#1 order by %m.ID }
   {#2 order by %m.AUTHOR }
@@ -341,7 +340,6 @@ GET_MOVIE(CRUD,final=,identx=Movie,colx=Movie,dbcol=movie=m,dbcol=media=m1,dbcol
     {& %m.PLAYLENGTH = :playlength }
     {& %m1.TITLE = :title }
     {& %m1.AUTHOR = :author.id }
-    {& %m1.VERSION = :version }
   }
 ;
 
@@ -376,7 +374,6 @@ SELECT_MOVIE(QRY,final=,identx=Movie,colx=Movie,dbcol=movie=m,dbcol=media=m1,dbc
     {& %m.PLAYLENGTH = :playlength }
     {& UPPER(%m1.TITLE) like :+title }
     {& %m1.AUTHOR = :author.id }
-    {& %m1.VERSION = :version }
   }
   {#1 order by %m.MEDIA_ID }
 ;
@@ -395,7 +392,6 @@ GET_PAYMENT(CRUD,final=,identx=Payment,colx=Payment,dbcol=payment=p,dbcol=billin
     {& %p.ID = :id }
     {& %p.BILLING_DETAILS = :billingDetails.id }
     {& %p.PAID = :paid }
-    {& %p.VERSION = :version }
   }
 ;
 
@@ -404,10 +400,11 @@ UPDATE_PAYMENT(CRUD,final=,identx=Payment,colx=Payment,dbcol=payment)=
   {= set
     { ,%BILLING_DETAILS = :billingDetails.id }
     { ,%PAID = :paid }
-    { ,%VERSION = :version }
+    { ,%VERSION = %VERSION + 1 }
   }
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -415,6 +412,7 @@ DELETE_PAYMENT(CRUD,final=,identx=Payment,colx=Payment,dbcol=payment)=
   delete from %%PAYMENT
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -427,7 +425,6 @@ SELECT_PAYMENT(QRY,final=,identx=Payment,colx=Payment,dbcol=payment=p,dbcol=bill
     {& %p.ID = :id }
     {& %p.BILLING_DETAILS = :billingDetails.id }
     {& %p.PAID = :paid }
-    {& %p.VERSION = :version }
   }
   {#1 order by %p.ID }
   {#2 order by %p.BILLING_DETAILS }
@@ -448,7 +445,6 @@ GET_PERFORMER(CRUD,final=,identx=Performer,colx=Performer,dbcol=performer=p,dbco
   {= where
     {& %p.ID = :id }
     {& %p.PERSON_ID = :person.id }
-    {& %p.VER = :ver }
   }
 ;
 
@@ -456,10 +452,11 @@ UPDATE_PERFORMER(CRUD,final=,identx=Performer,colx=Performer,dbcol=performer)=
   update %%PERFORMER
   {= set
     { ,%PERSON_ID = :person.id }
-    { ,%VER = :ver }
+    { ,%VER = %VER + 1 }
   }
   {= where
     {& %ID = :id^^notnull }
+    {& %VER = :ver^^notnull }
   }
 ;
 
@@ -467,6 +464,7 @@ DELETE_PERFORMER(CRUD,final=,identx=Performer,colx=Performer,dbcol=performer)=
   delete from %%PERFORMER
   {= where
     {& %ID = :id^^notnull }
+    {& %VER = :ver^^notnull }
   }
 ;
 
@@ -480,7 +478,6 @@ SELECT_PERFORMER(QRY,final=,identx=Performer,colx=Performer,dbcol=performer=p,db
   {= where
     {& %p.ID = :id }
     {& %p.PERSON_ID = :person.id }
-    {& %p.VER = :ver }
   }
   {#1 order by %p.ID }
   {#2 order by %p.PERSON_ID }
@@ -504,7 +501,6 @@ GET_PERSON(CRUD,final=,identx=Person,colx=Person,dbcol=person=p,dbcol=personLibr
     {& %p.LAST_NAME = :lastName }
     {& %p.DATE_OF_BIRTH = :dateOfBirth }
     {& %p.SSN = :ssn }
-    {& %p.VERSION = :version }
   }
 ;
 
@@ -515,10 +511,11 @@ UPDATE_PERSON(CRUD,final=,identx=Person,colx=Person,dbcol=person)=
     { ,%LAST_NAME = :lastName^^call=isDef }
     { ,%DATE_OF_BIRTH = :dateOfBirth^^call=isDef }
     { ,%SSN = :ssn^^call=isDef }
-    { ,%VERSION = :version^^call=isDef }
+    { ,%VERSION = %VERSION + 1 }
   }
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -526,6 +523,7 @@ DELETE_PERSON(CRUD,final=,identx=Person,colx=Person,dbcol=person)=
   delete from %%PERSON
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -542,7 +540,6 @@ SELECT_PERSON(QRY,final=,identx=Person,colx=Person,dbcol=person=p,dbcol=personLi
     {& UPPER(%p.LAST_NAME) like :+lastName }
     {& %p.DATE_OF_BIRTH = :dateOfBirth }
     {& UPPER(%p.SSN) like :+ssn }
-    {& %p.VERSION = :version }
   }
   {#1 order by %p.ID }
   {#2 order by %p.LAST_NAME }
@@ -611,7 +608,6 @@ GET_PHYSICAL_MEDIA(CRUD,final=,identx=PhysicalMedia,colx=PhysicalMedia,dbcol=phy
     {& %p.LOCATION = :location }
     {& %p.MEDIA = :media.id }
     {& %p.LIBRARY = :library.id }
-    {& %p.VERSION = :version }
   }
 ;
 
@@ -621,10 +617,11 @@ UPDATE_PHYSICAL_MEDIA(CRUD,final=,identx=PhysicalMedia,colx=PhysicalMedia,dbcol=
     { ,%LOCATION = :location }
     { ,%MEDIA = :media.id }
     { ,%LIBRARY = :library.id }
-    { ,%VERSION = :version }
+    { ,%VERSION = %VERSION + 1 }
   }
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -632,6 +629,7 @@ DELETE_PHYSICAL_MEDIA(CRUD,final=,identx=PhysicalMedia,colx=PhysicalMedia,dbcol=
   delete from %%PHYSICAL_MEDIA
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -647,7 +645,6 @@ SELECT_PHYSICAL_MEDIA(QRY,final=,identx=PhysicalMedia,colx=PhysicalMedia,dbcol=p
     {& UPPER(%p.LOCATION) like :+location }
     {& %p.MEDIA = :media.id }
     {& %p.LIBRARY = :library.id }
-    {& %p.VERSION = :version }
   }
   {#1 order by %p.ID }
 ;
@@ -671,7 +668,6 @@ GET_SUBSCRIBER(CRUD,final=,identx=Subscriber,colx=Subscriber,dbcol=subscriber=s,
     {& %s.LIBRARY = :library.id }
     {& %s.CONTACT = :contact.id }
     {& %s.NAME = :name }
-    {& %s.VERSION = :version }
   }
 ;
 
@@ -681,10 +677,11 @@ UPDATE_SUBSCRIBER(CRUD,final=,identx=Subscriber,colx=Subscriber,dbcol=subscriber
     { ,%LIBRARY = :library.id^^call=isDef }
     { ,%CONTACT = :contact.id^^call=isDef }
     { ,%NAME = :name^^call=isDef }
-    { ,%VERSION = :version^^call=isDef }
+    { ,%VERSION = %VERSION + 1 }
   }
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -692,6 +689,7 @@ DELETE_SUBSCRIBER(CRUD,final=,identx=Subscriber,colx=Subscriber,dbcol=subscriber
   delete from %%SUBSCRIBER
   {= where
     {& %ID = :id^^notnull }
+    {& %VERSION = :version^^notnull }
   }
 ;
 
@@ -709,7 +707,6 @@ SELECT_SUBSCRIBER(QRY,final=,identx=Subscriber,colx=Subscriber,dbcol=subscriber=
     {& %s.LIBRARY = :library.id }
     {& %s.CONTACT = :contact.id }
     {& UPPER(%s.NAME) like :+name }
-    {& %s.VERSION = :version }
   }
   {#1 order by %s.ID }
   {#2 order by %s.LIBRARY }

@@ -72,6 +72,9 @@ public class PaymentDaoImpl extends BaseDaoImpl implements BaseDao, PaymentDao {
     }
     SqlCrudEngine sqlUpdateEnginePayment = sqlEngineFactory.getCrudEngine("UPDATE_PAYMENT");
     int count = sqlUpdateEnginePayment.update(sqlSessionFactory.getSqlSession(), payment);
+    if (count > 0) {
+    	payment.setVersion(payment.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("update payment result count: " + count);
     }
@@ -88,6 +91,9 @@ public class PaymentDaoImpl extends BaseDaoImpl implements BaseDao, PaymentDao {
     }
     SqlCrudEngine sqlDeleteEnginePayment = sqlEngineFactory.getCrudEngine("DELETE_PAYMENT");
     int count = sqlDeleteEnginePayment.delete(sqlSessionFactory.getSqlSession(), payment);
+    if (count > 0) {
+    	payment.setVersion(payment.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("delete payment result count: " + count);
     }

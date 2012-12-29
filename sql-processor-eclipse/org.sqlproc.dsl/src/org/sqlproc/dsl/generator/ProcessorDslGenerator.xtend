@@ -410,6 +410,9 @@ def compileUpdate(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
       int count = sqlUpdateEngine«e.name».update(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
       if (count > 0) {
       	sqlUpdate«pe.name».update(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      }«ENDIF»«val f=getOptLock(e)»«IF f != null»
+      if (count > 0) {
+      	«e.name.toFirstLower».set«f.name.toFirstUpper»(«e.name.toFirstLower».get«f.name.toFirstUpper»() + 1);
       }«ENDIF»
       if (logger.isTraceEnabled()) {
         logger.trace("update «e.name.toFirstLower» result count: " + count);
@@ -433,6 +436,9 @@ def compileDelete(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
       int count = sqlDeleteEngine«e.name».delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
       if (count > 0) {
       	sqlDelete«pe.name».delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      }«ENDIF»«val f=getOptLock(e)»«IF f != null»
+      if (count > 0) {
+      	«e.name.toFirstLower».set«f.name.toFirstUpper»(«e.name.toFirstLower».get«f.name.toFirstUpper»() + 1);
       }«ENDIF»
       if (logger.isTraceEnabled()) {
         logger.trace("delete «e.name.toFirstLower» result count: " + count);

@@ -70,6 +70,9 @@ public class MediaDaoImpl extends BaseDaoImpl implements BaseDao, MediaDao {
     }
     SqlCrudEngine sqlUpdateEngineMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
     int count = sqlUpdateEngineMedia.update(sqlSessionFactory.getSqlSession(), media);
+    if (count > 0) {
+    	media.setVersion(media.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("update media result count: " + count);
     }
@@ -86,6 +89,9 @@ public class MediaDaoImpl extends BaseDaoImpl implements BaseDao, MediaDao {
     }
     SqlCrudEngine sqlDeleteEngineMedia = sqlEngineFactory.getCrudEngine("DELETE_MEDIA");
     int count = sqlDeleteEngineMedia.delete(sqlSessionFactory.getSqlSession(), media);
+    if (count > 0) {
+    	media.setVersion(media.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("delete media result count: " + count);
     }

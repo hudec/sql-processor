@@ -264,8 +264,13 @@ public class TablePojoConverter {
             if (dbPrimaryKeys.contains(dbColumn.getName())) {
                 attribute.setPrimaryKey(true);
             }
-
+            if (versionColumns.containsKey(table) && dbColumn.getName().equals(versionColumns.get(table))) {
+                attribute.setVersion(true);
+            } else if (dbColumn.getName().equalsIgnoreCase(versionColumn)) {
+                attribute.setVersion(true);
+            }
         }
+
         if (createColumns.containsKey(table)) {
             for (Map.Entry<String, PojoAttrType> createColumn : createColumns.get(table).entrySet()) {
                 PojoAttribute attribute = convertDbColumnDefinition(createColumn.getKey(), createColumn.getValue());
@@ -622,15 +627,10 @@ public class TablePojoConverter {
                     if (inheritanceColumns.containsKey(pojo) && pentry.getKey().equals(inheritanceColumns.get(pojo))) {
                         buffer.append(" discriminator");
                     }
-                    boolean optLock = false;
-                    if (versionColumns.containsKey(pojo) && pentry.getKey().equals(versionColumns.get(pojo))) {
+                    if (attribute.isVersion()) {
                         buffer.append(" optLock");
-                        optLock = true;
-                    } else if (pentry.getKey().equalsIgnoreCase(versionColumn)) {
-                        buffer.append(" optLock");
-                        optLock = true;
                     }
-                    if (!optLock
+                    if (!attribute.isVersion()
                             && ((requiredColumns.containsKey(pojo) && requiredColumns.get(pojo).contains(
                                     pentry.getKey())) || (attribute.isRequired() && !attribute.isPrimaryKey()))) {
                         if (!notRequiredColumns.containsKey(pojo)

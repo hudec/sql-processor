@@ -70,6 +70,9 @@ public class LibraryDaoImpl extends BaseDaoImpl implements BaseDao, LibraryDao {
     }
     SqlCrudEngine sqlUpdateEngineLibrary = sqlEngineFactory.getCrudEngine("UPDATE_LIBRARY");
     int count = sqlUpdateEngineLibrary.update(sqlSessionFactory.getSqlSession(), library);
+    if (count > 0) {
+    	library.setVersion(library.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("update library result count: " + count);
     }
@@ -86,6 +89,9 @@ public class LibraryDaoImpl extends BaseDaoImpl implements BaseDao, LibraryDao {
     }
     SqlCrudEngine sqlDeleteEngineLibrary = sqlEngineFactory.getCrudEngine("DELETE_LIBRARY");
     int count = sqlDeleteEngineLibrary.delete(sqlSessionFactory.getSqlSession(), library);
+    if (count > 0) {
+    	library.setVersion(library.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("delete library result count: " + count);
     }

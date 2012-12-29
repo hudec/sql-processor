@@ -70,6 +70,9 @@ public class ContactDaoImpl extends BaseDaoImpl implements BaseDao, ContactDao {
     }
     SqlCrudEngine sqlUpdateEngineContact = sqlEngineFactory.getCrudEngine("UPDATE_CONTACT");
     int count = sqlUpdateEngineContact.update(sqlSessionFactory.getSqlSession(), contact);
+    if (count > 0) {
+    	contact.setVersion(contact.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("update contact result count: " + count);
     }
@@ -86,6 +89,9 @@ public class ContactDaoImpl extends BaseDaoImpl implements BaseDao, ContactDao {
     }
     SqlCrudEngine sqlDeleteEngineContact = sqlEngineFactory.getCrudEngine("DELETE_CONTACT");
     int count = sqlDeleteEngineContact.delete(sqlSessionFactory.getSqlSession(), contact);
+    if (count > 0) {
+    	contact.setVersion(contact.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("delete contact result count: " + count);
     }

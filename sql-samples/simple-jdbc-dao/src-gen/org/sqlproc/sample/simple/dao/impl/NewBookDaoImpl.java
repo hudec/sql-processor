@@ -78,6 +78,9 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     if (count > 0) {
     	sqlUpdateMedia.update(sqlSessionFactory.getSqlSession(), newBook);
     }
+    if (count > 0) {
+    	newBook.setVersion(newBook.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("update newBook result count: " + count);
     }
@@ -97,6 +100,9 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     int count = sqlDeleteEngineNewBook.delete(sqlSessionFactory.getSqlSession(), newBook);
     if (count > 0) {
     	sqlDeleteMedia.delete(sqlSessionFactory.getSqlSession(), newBook);
+    }
+    if (count > 0) {
+    	newBook.setVersion(newBook.getVersion() + 1);
     }
     if (logger.isTraceEnabled()) {
       logger.trace("delete newBook result count: " + count);

@@ -1655,15 +1655,46 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.append("}");
       }
     }
+    final PojoProperty f = Utils.getOptLock(e);
+    {
+      boolean _notEquals_2 = (!Objects.equal(f, null));
+      if (_notEquals_2) {
+        _builder.newLineIfNotEmpty();
+        _builder.append("  ");
+        _builder.append("if (count > 0) {");
+        _builder.newLine();
+        _builder.append("  ");
+        _builder.append("\t");
+        String _name_10 = e.getName();
+        String _firstLower_5 = StringExtensions.toFirstLower(_name_10);
+        _builder.append(_firstLower_5, "  	");
+        _builder.append(".set");
+        String _name_11 = f.getName();
+        String _firstUpper = StringExtensions.toFirstUpper(_name_11);
+        _builder.append(_firstUpper, "  	");
+        _builder.append("(");
+        String _name_12 = e.getName();
+        String _firstLower_6 = StringExtensions.toFirstLower(_name_12);
+        _builder.append(_firstLower_6, "  	");
+        _builder.append(".get");
+        String _name_13 = f.getName();
+        String _firstUpper_1 = StringExtensions.toFirstUpper(_name_13);
+        _builder.append(_firstUpper_1, "  	");
+        _builder.append("() + 1);");
+        _builder.newLineIfNotEmpty();
+        _builder.append("  ");
+        _builder.append("}");
+      }
+    }
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
     _builder.append("if (logger.isTraceEnabled()) {");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("logger.trace(\"update ");
-    String _name_10 = e.getName();
-    String _firstLower_5 = StringExtensions.toFirstLower(_name_10);
-    _builder.append(_firstLower_5, "    ");
+    String _name_14 = e.getName();
+    String _firstLower_7 = StringExtensions.toFirstLower(_name_14);
+    _builder.append(_firstLower_7, "    ");
     _builder.append(" result count: \" + count);");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
@@ -1676,19 +1707,19 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("public int update(");
-    String _name_11 = e.getName();
-    _builder.append(_name_11, "");
+    String _name_15 = e.getName();
+    _builder.append(_name_15, "");
     _builder.append(" ");
-    String _name_12 = e.getName();
-    String _firstLower_6 = StringExtensions.toFirstLower(_name_12);
-    _builder.append(_firstLower_6, "");
+    String _name_16 = e.getName();
+    String _firstLower_8 = StringExtensions.toFirstLower(_name_16);
+    _builder.append(_firstLower_8, "");
     _builder.append(") {");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
     _builder.append("return update(");
-    String _name_13 = e.getName();
-    String _firstLower_7 = StringExtensions.toFirstLower(_name_13);
-    _builder.append(_firstLower_7, "  ");
+    String _name_17 = e.getName();
+    String _firstLower_9 = StringExtensions.toFirstLower(_name_17);
+    _builder.append(_firstLower_9, "  ");
     _builder.append(", null);");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
@@ -1779,15 +1810,46 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.append("}");
       }
     }
+    final PojoProperty f = Utils.getOptLock(e);
+    {
+      boolean _notEquals_2 = (!Objects.equal(f, null));
+      if (_notEquals_2) {
+        _builder.newLineIfNotEmpty();
+        _builder.append("  ");
+        _builder.append("if (count > 0) {");
+        _builder.newLine();
+        _builder.append("  ");
+        _builder.append("\t");
+        String _name_10 = e.getName();
+        String _firstLower_5 = StringExtensions.toFirstLower(_name_10);
+        _builder.append(_firstLower_5, "  	");
+        _builder.append(".set");
+        String _name_11 = f.getName();
+        String _firstUpper = StringExtensions.toFirstUpper(_name_11);
+        _builder.append(_firstUpper, "  	");
+        _builder.append("(");
+        String _name_12 = e.getName();
+        String _firstLower_6 = StringExtensions.toFirstLower(_name_12);
+        _builder.append(_firstLower_6, "  	");
+        _builder.append(".get");
+        String _name_13 = f.getName();
+        String _firstUpper_1 = StringExtensions.toFirstUpper(_name_13);
+        _builder.append(_firstUpper_1, "  	");
+        _builder.append("() + 1);");
+        _builder.newLineIfNotEmpty();
+        _builder.append("  ");
+        _builder.append("}");
+      }
+    }
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
     _builder.append("if (logger.isTraceEnabled()) {");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("logger.trace(\"delete ");
-    String _name_10 = e.getName();
-    String _firstLower_5 = StringExtensions.toFirstLower(_name_10);
-    _builder.append(_firstLower_5, "    ");
+    String _name_14 = e.getName();
+    String _firstLower_7 = StringExtensions.toFirstLower(_name_14);
+    _builder.append(_firstLower_7, "    ");
     _builder.append(" result count: \" + count);");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
@@ -1800,19 +1862,19 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("public int delete(");
-    String _name_11 = e.getName();
-    _builder.append(_name_11, "");
+    String _name_15 = e.getName();
+    _builder.append(_name_15, "");
     _builder.append(" ");
-    String _name_12 = e.getName();
-    String _firstLower_6 = StringExtensions.toFirstLower(_name_12);
-    _builder.append(_firstLower_6, "");
+    String _name_16 = e.getName();
+    String _firstLower_8 = StringExtensions.toFirstLower(_name_16);
+    _builder.append(_firstLower_8, "");
     _builder.append(") {");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
     _builder.append("return delete(");
-    String _name_13 = e.getName();
-    String _firstLower_7 = StringExtensions.toFirstLower(_name_13);
-    _builder.append(_firstLower_7, "  ");
+    String _name_17 = e.getName();
+    String _firstLower_9 = StringExtensions.toFirstLower(_name_17);
+    _builder.append(_firstLower_9, "  ");
     _builder.append(", null);");
     _builder.newLineIfNotEmpty();
     _builder.append("}");

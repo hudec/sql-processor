@@ -399,4 +399,17 @@ public class Utils {
             return true;
         return false;
     }
+
+    public static PojoProperty getOptLock(PojoEntity e) {
+        if (e == null || e.getFeatures() == null)
+            return null;
+        for (PojoProperty f : e.getFeatures()) {
+            if (isOptLock(f))
+                return f;
+        }
+        PojoEntity s = getSuperType(e);
+        if (s == null)
+            return null;
+        return getOptLock(s);
+    }
 }

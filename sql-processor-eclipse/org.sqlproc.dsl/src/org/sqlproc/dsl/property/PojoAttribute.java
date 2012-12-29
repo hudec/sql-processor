@@ -10,6 +10,7 @@ public class PojoAttribute {
     private boolean primitive;
     private boolean required;
     private boolean primaryKey;
+    private boolean version;
     private Integer index;
     private String name;
     private String className;
@@ -52,6 +53,14 @@ public class PojoAttribute {
 
     public void setPrimaryKey(boolean primaryKey) {
         this.primaryKey = primaryKey;
+    }
+
+    public boolean isVersion() {
+        return version;
+    }
+
+    public void setVersion(boolean version) {
+        this.version = version;
     }
 
     public Integer getIndex() {
@@ -218,11 +227,11 @@ public class PojoAttribute {
     @Override
     public String toString() {
         return "PojoAttribute [primitive=" + primitive + ", required=" + required + ", primaryKey=" + primaryKey
-                + ", index=" + index + ", name=" + name + ", className=" + className + ", ref=" + ref
-                + ", dependencyClassName=" + dependencyClassName + ", pkTable=" + pkTable + ", pkColumn=" + pkColumn
-                + ", parentTable=" + parentTable + ", m2mTable=" + m2mTable + ", fkTables=" + fkTables + ", m2Tables="
-                + m2Tables + ", fkColumns=" + fkColumns + ", oneToManyColumn=" + oneToManyColumn + ", oneToManyTable="
-                + oneToManyTable + ", manyToManyColumn=" + manyToManyColumn + ", manyToManyTable=" + manyToManyTable
-                + "]";
+                + ", version=" + version + ", index=" + index + ", name=" + name + ", className=" + className
+                + ", ref=" + ref + ", dependencyClassName=" + dependencyClassName + ", pkTable=" + pkTable
+                + ", pkColumn=" + pkColumn + ", parentTable=" + parentTable + ", m2mTable=" + m2mTable + ", fkTables="
+                + fkTables + ", m2Tables=" + m2Tables + ", fkColumns=" + fkColumns + ", oneToManyColumn="
+                + oneToManyColumn + ", oneToManyTable=" + oneToManyTable + ", manyToManyColumn=" + manyToManyColumn
+                + ", manyToManyTable=" + manyToManyTable + "]";
     }
 }

@@ -72,6 +72,9 @@ public class PersonDaoImpl extends BaseDaoImpl implements BaseDao, PersonDao {
     }
     SqlCrudEngine sqlUpdateEnginePerson = sqlEngineFactory.getCrudEngine("UPDATE_PERSON");
     int count = sqlUpdateEnginePerson.update(sqlSessionFactory.getSqlSession(), person);
+    if (count > 0) {
+    	person.setVersion(person.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("update person result count: " + count);
     }
@@ -88,6 +91,9 @@ public class PersonDaoImpl extends BaseDaoImpl implements BaseDao, PersonDao {
     }
     SqlCrudEngine sqlDeleteEnginePerson = sqlEngineFactory.getCrudEngine("DELETE_PERSON");
     int count = sqlDeleteEnginePerson.delete(sqlSessionFactory.getSqlSession(), person);
+    if (count > 0) {
+    	person.setVersion(person.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("delete person result count: " + count);
     }

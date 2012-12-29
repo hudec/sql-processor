@@ -470,6 +470,8 @@ public class TableMetaConverter extends TablePojoConverter {
                 continue;
             if (attr.attribute.isPrimaryKey() && notPrimaryKeys)
                 continue;
+            if (attr.attribute.isVersion())
+                continue;
             boolean useLike = select && attr.attribute.getClassName() != null
                     && attr.attribute.getClassName().endsWith("String");
             String name = (columnNames.containsKey(attr.tableName)) ? columnNames.get(attr.tableName).get(
@@ -507,7 +509,7 @@ public class TableMetaConverter extends TablePojoConverter {
             Attribute attr = getStatementAttribute(pojo, pentry.getKey(), pentry.getValue(), false);
             if (attr == null)
                 continue;
-            if (!attr.attribute.isPrimaryKey())
+            if (!attr.attribute.isPrimaryKey() && !attr.attribute.isVersion())
                 continue;
             String name = (columnNames.containsKey(attr.tableName)) ? columnNames.get(attr.tableName).get(
                     attr.attributeName) : null;
@@ -550,15 +552,19 @@ public class TableMetaConverter extends TablePojoConverter {
             else
                 name = columnToCamelCase(name);
             buffer.append("\n    { ,%").append(pentry.getKey());
-            buffer.append(" = :").append(name);
-            if (attr.attribute.getPkTable() != null) {
-                buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
-            }
-            boolean hasMetaType = metaTypes(buffer, attr.tableName, attr.attributeName, statementName);
-            if (isDef) {
-                if (!hasMetaType)
-                    buffer.append("^");
-                buffer.append("^call=isDef");
+            if (attr.attribute.isVersion()) {
+                buffer.append(" = %").append(pentry.getKey()).append(" + 1");
+            } else {
+                buffer.append(" = :").append(name);
+                if (attr.attribute.getPkTable() != null) {
+                    buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
+                }
+                boolean hasMetaType = metaTypes(buffer, attr.tableName, attr.attributeName, statementName);
+                if (isDef) {
+                    if (!hasMetaType)
+                        buffer.append("^");
+                    buffer.append("^call=isDef");
+                }
             }
             buffer.append(" }");
             first = false;
@@ -652,6 +658,7 @@ public class TableMetaConverter extends TablePojoConverter {
         Map<String, Table> m2mTables = new HashMap<String, Table>();
         Map<String, Table> discrTables = new HashMap<String, Table>();
         Map<String, List<Table>> inherTables = new HashMap<String, List<Table>>();
+        String version;
     }
 
     Header getStatementHeader(String pojo, StringBuilder buffer, StatementType type, String suffix) {
@@ -690,6 +697,8 @@ public class TableMetaConverter extends TablePojoConverter {
         if (type == StatementType.GET || type == StatementType.SELECT) {
             for (Map.Entry<String, PojoAttribute> pentry : pojos.get(header.table.realTableName).entrySet()) {
                 PojoAttribute attr = pentry.getValue();
+                if (attr.isVersion() && header.version == null)
+                    header.version = attr.getName();
                 if (attr.getPkTable() != null) {
                     if (header.table.tablePrefix == null)
                         header.table.tablePrefix = newPrefix(prefixes, header.table);
@@ -825,6 +834,8 @@ public class TableMetaConverter extends TablePojoConverter {
             if (header.extendTable.tableName != null) {
                 for (Map.Entry<String, PojoAttribute> pentry : pojos.get(header.extendTable.realTableName).entrySet()) {
                     PojoAttribute attr = pentry.getValue();
+                    if (attr.isVersion() && header.version == null)
+                        header.version = attr.getName();
                     if (attr.getPkTable() != null) {
                         if (header.extendTable.tablePrefix == null)
                             header.extendTable.tablePrefix = newPrefix(prefixes, header.extendTable);
