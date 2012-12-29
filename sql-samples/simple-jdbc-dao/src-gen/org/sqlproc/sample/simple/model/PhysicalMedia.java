@@ -78,6 +78,21 @@ public class PhysicalMedia extends BaseModelImpl implements Serializable {
     return this;
   }
   
+  private Integer version;
+    
+  public Integer getVersion() {
+    return version;
+  }
+    
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
+    
+  public PhysicalMedia _setVersion(Integer version) {
+    this.version = version;
+    return this;
+  }
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -106,10 +121,10 @@ public class PhysicalMedia extends BaseModelImpl implements Serializable {
   
   @Override
   public String toString() {
-    return "PhysicalMedia [id=" + id + ", location=" + location + ", library=" + library + "]";
+    return "PhysicalMedia [id=" + id + ", location=" + location + ", library=" + library + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "PhysicalMedia [id=" + id + ", location=" + location + ", library=" + library + ", media=" + media + "]";
+    return "PhysicalMedia [id=" + id + ", location=" + location + ", library=" + library + ", media=" + media + ", version=" + version + "]";
   }
 }

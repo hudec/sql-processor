@@ -62,6 +62,21 @@ public class Media extends BaseModelImpl implements Serializable {
     return this;
   }
   
+  private Integer version;
+    
+  public Integer getVersion() {
+    return version;
+  }
+    
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
+    
+  public Media _setVersion(Integer version) {
+    this.version = version;
+    return this;
+  }
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -94,10 +109,10 @@ public class Media extends BaseModelImpl implements Serializable {
   
   @Override
   public String toString() {
-    return "Media [id=" + id + ", title=" + title + "]";
+    return "Media [id=" + id + ", title=" + title + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Media [id=" + id + ", author=" + author + ", title=" + title + "]";
+    return "Media [id=" + id + ", author=" + author + ", title=" + title + ", version=" + version + "]";
   }
 }

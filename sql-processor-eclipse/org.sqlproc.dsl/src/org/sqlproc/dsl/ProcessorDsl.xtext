@@ -324,7 +324,7 @@ PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
 		features+=PojoProperty*
 	RBRACE;
 
-PojoPropertyModifier: ((required?='required') | (discriminator?='discriminator') | (primaryKey?='primaryKey') | ('index' index=NUMBER) | (version?='version'));
+PojoPropertyModifier: ((required?='required') | (discriminator?='discriminator') | (primaryKey?='primaryKey') | ('index' index=NUMBER) | (version?='optLock'));
 
 PojoEntityModifier3: (('extends' superType=[PojoEntity|IDENT]) | ('serializable' sernum=NUMBER));
 

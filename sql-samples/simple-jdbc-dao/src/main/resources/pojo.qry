@@ -13,10 +13,11 @@ package org.sqlproc.sample.simple.model {
     id : java.lang.Long primaryKey index 1
     subscriber :: Subscriber required index 2
     type : java.lang.String discriminator required
+    version : java.lang.Integer optLock
     equals ::: id
     hashCode ::: id
     enumInit ::: subscriber
-    toString ::: id type subscriber
+    toString ::: id type subscriber version
   }
 
   final pojo NewBook extends Media serializable 1  {
@@ -31,11 +32,12 @@ package org.sqlproc.sample.simple.model {
     person :: Person required index 2
     address : java.lang.String required
     phoneNumber : org.sqlproc.sample.simple.model.PhoneNumber
+    version : java.lang.Integer optLock
     equals ::: id
     hashCode ::: id
     enumInit ::: person
     enumDef ::: phoneNumber
-    toString ::: id person phoneNumber address
+    toString ::: id person phoneNumber address version
   }
 
   final pojo CreditCard extends BillingDetails discriminator CC serializable 1  {
@@ -48,23 +50,25 @@ package org.sqlproc.sample.simple.model {
   final pojo Library serializable 1  {
     id : java.lang.Long primaryKey index 1
     name : java.lang.String required
+    version : java.lang.Integer optLock
     subscribers : java.util.List <:Subscriber>
     catalog : java.util.List <:PhysicalMedia>
     equals ::: id
     hashCode ::: id
     enumInit ::: catalog subscribers
-    toString ::: id name
+    toString ::: id name version
   }
 
   final pojo Media serializable 1  {
     id : java.lang.Long primaryKey index 1
     title : java.lang.String required
     author :: Performer index 2
+    version : java.lang.Integer optLock
     equals ::: id
     hashCode ::: id
     enumInit ::: author
     enumDef ::: author
-    toString ::: id author title
+    toString ::: id author title version
   }
 
   final pojo Movie extends Media serializable 1  {
@@ -79,20 +83,22 @@ package org.sqlproc.sample.simple.model {
     id : java.lang.Long primaryKey index 1
     billingDetails :: BillingDetails required index 2
     paid : java.sql.Timestamp required
+    version : java.lang.Integer optLock
     equals ::: id
     hashCode ::: id
     enumInit ::: billingDetails
-    toString ::: id paid billingDetails
+    toString ::: id paid billingDetails version
   }
 
   final pojo Performer serializable 1  {
     id : java.lang.Long primaryKey index 1
     person :: Person required index 2
+    ver : java.lang.Integer optLock
     work : java.util.List <:Media>
     equals ::: id
     hashCode ::: id
     enumInit ::: work person
-    toString ::: id person
+    toString ::: id person ver
   }
 
   final pojo Person serializable 1  {
@@ -101,6 +107,7 @@ package org.sqlproc.sample.simple.model {
     lastName : java.lang.String required index 2
     dateOfBirth : java.util.Date
     ssn : java.lang.String
+    version : java.lang.Integer optLock
     passport : java.lang.String
     library : java.util.List <:Media>
     contacts : java.util.List <:Contact>
@@ -108,7 +115,7 @@ package org.sqlproc.sample.simple.model {
     hashCode ::: id
     enumInit ::: library contacts
     enumDef ::: dateOfBirth ssn passport
-    toString ::: dateOfBirth id lastName ssn passport firstName
+    toString ::: dateOfBirth id lastName ssn passport firstName version
   }
 
   final pojo PersonLibrary serializable 1  {
@@ -125,10 +132,11 @@ package org.sqlproc.sample.simple.model {
     location : java.lang.String required
     media :: Media required
     library :: Library required
+    version : java.lang.Integer optLock
     equals ::: id
     hashCode ::: id
     enumInit ::: library media
-    toString ::: id location library media
+    toString ::: id location library media version
   }
 
   final pojo Subscriber serializable 1  {
@@ -136,12 +144,13 @@ package org.sqlproc.sample.simple.model {
     library :: Library required index 2
     contact :: Contact
     name : java.lang.String required
+    version : java.lang.Integer optLock
     billingDetails : java.util.List <:BillingDetails>
     equals ::: id
     hashCode ::: id
     enumInit ::: library billingDetails contact
     enumDef ::: contact
-    toString ::: id name library contact
+    toString ::: id name library contact version
   }
 }
 

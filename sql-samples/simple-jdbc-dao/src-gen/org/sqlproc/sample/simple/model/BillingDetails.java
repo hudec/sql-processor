@@ -63,6 +63,21 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     return this;
   }
   
+  private Integer version;
+    
+  public Integer getVersion() {
+    return version;
+  }
+    
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
+    
+  public BillingDetails _setVersion(Integer version) {
+    this.version = version;
+    return this;
+  }
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -91,10 +106,10 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
   
   @Override
   public String toString() {
-    return "BillingDetails [id=" + id + ", type=" + type + "]";
+    return "BillingDetails [id=" + id + ", type=" + type + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "BillingDetails [id=" + id + ", type=" + type + ", subscriber=" + subscriber + "]";
+    return "BillingDetails [id=" + id + ", type=" + type + ", subscriber=" + subscriber + ", version=" + version + "]";
   }
 }

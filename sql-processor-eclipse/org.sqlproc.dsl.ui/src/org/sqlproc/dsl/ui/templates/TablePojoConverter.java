@@ -622,8 +622,17 @@ public class TablePojoConverter {
                     if (inheritanceColumns.containsKey(pojo) && pentry.getKey().equals(inheritanceColumns.get(pojo))) {
                         buffer.append(" discriminator");
                     }
-                    if ((requiredColumns.containsKey(pojo) && requiredColumns.get(pojo).contains(pentry.getKey()))
-                            || (attribute.isRequired() && !attribute.isPrimaryKey())) {
+                    boolean optLock = false;
+                    if (versionColumns.containsKey(pojo) && pentry.getKey().equals(versionColumns.get(pojo))) {
+                        buffer.append(" optLock");
+                        optLock = true;
+                    } else if (pentry.getKey().equalsIgnoreCase(versionColumn)) {
+                        buffer.append(" optLock");
+                        optLock = true;
+                    }
+                    if (!optLock
+                            && ((requiredColumns.containsKey(pojo) && requiredColumns.get(pojo).contains(
+                                    pentry.getKey())) || (attribute.isRequired() && !attribute.isPrimaryKey()))) {
                         if (!notRequiredColumns.containsKey(pojo)
                                 || !notRequiredColumns.get(pojo).contains(pentry.getKey()))
                             buffer.append(" required");
@@ -634,11 +643,6 @@ public class TablePojoConverter {
                     }
                     if (attribute.getIndex() != null) {
                         buffer.append(" index ").append(attribute.getIndex());
-                    }
-                    if (versionColumns.containsKey(pojo) && pentry.getKey().equals(versionColumns.get(pojo))) {
-                        buffer.append(" version");
-                    } else if (pentry.getKey().equalsIgnoreCase(versionColumn)) {
-                        buffer.append(" version");
                     }
                 }
                 if (pojoExtends.containsKey(pojo)) {

@@ -10653,16 +10653,16 @@ rulePojoPropertyModifier returns [EObject current=null]
 ))
     |(
 (
-		lv_version_5_0=	'version' 
+		lv_version_5_0=	'optLock' 
     {
-        newLeafNode(lv_version_5_0, grammarAccess.getPojoPropertyModifierAccess().getVersionVersionKeyword_4_0());
+        newLeafNode(lv_version_5_0, grammarAccess.getPojoPropertyModifierAccess().getVersionOptLockKeyword_4_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getPojoPropertyModifierRule());
 	        }
-       		setWithLastConsumed($current, "version", true, "version");
+       		setWithLastConsumed($current, "version", true, "optLock");
 	    }
 
 )

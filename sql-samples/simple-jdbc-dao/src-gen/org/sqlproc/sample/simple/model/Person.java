@@ -96,6 +96,21 @@ public class Person extends BaseModelImpl implements Serializable {
     return this;
   }
   
+  private Integer version;
+    
+  public Integer getVersion() {
+    return version;
+  }
+    
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
+    
+  public Person _setVersion(Integer version) {
+    this.version = version;
+    return this;
+  }
+  
   private String passport;
     
   public String getPassport() {
@@ -173,10 +188,10 @@ public class Person extends BaseModelImpl implements Serializable {
   
   @Override
   public String toString() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", passport=" + passport + ", firstName=" + firstName + "]";
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", passport=" + passport + ", firstName=" + firstName + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", passport=" + passport + ", firstName=" + firstName + "]";
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", passport=" + passport + ", firstName=" + firstName + ", version=" + version + "]";
   }
 }

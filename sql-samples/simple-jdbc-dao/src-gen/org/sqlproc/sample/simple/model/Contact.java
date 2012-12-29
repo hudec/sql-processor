@@ -79,6 +79,21 @@ public class Contact extends BaseModelImpl implements Serializable {
     return this;
   }
   
+  private Integer version;
+    
+  public Integer getVersion() {
+    return version;
+  }
+    
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
+    
+  public Contact _setVersion(Integer version) {
+    this.version = version;
+    return this;
+  }
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -111,10 +126,10 @@ public class Contact extends BaseModelImpl implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
+    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", version=" + version + "]";
   }
 }

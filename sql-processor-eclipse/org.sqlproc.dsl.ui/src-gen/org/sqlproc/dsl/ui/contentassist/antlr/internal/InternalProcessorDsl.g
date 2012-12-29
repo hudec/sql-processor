@@ -30878,16 +30878,16 @@ rule__PojoPropertyModifier__VersionAssignment_4
     }
 :
 (
-{ before(grammarAccess.getPojoPropertyModifierAccess().getVersionVersionKeyword_4_0()); }
+{ before(grammarAccess.getPojoPropertyModifierAccess().getVersionOptLockKeyword_4_0()); }
 (
-{ before(grammarAccess.getPojoPropertyModifierAccess().getVersionVersionKeyword_4_0()); }
+{ before(grammarAccess.getPojoPropertyModifierAccess().getVersionOptLockKeyword_4_0()); }
 
-	'version' 
+	'optLock' 
 
-{ after(grammarAccess.getPojoPropertyModifierAccess().getVersionVersionKeyword_4_0()); }
+{ after(grammarAccess.getPojoPropertyModifierAccess().getVersionOptLockKeyword_4_0()); }
 )
 
-{ after(grammarAccess.getPojoPropertyModifierAccess().getVersionVersionKeyword_4_0()); }
+{ after(grammarAccess.getPojoPropertyModifierAccess().getVersionOptLockKeyword_4_0()); }
 )
 
 ;

@@ -48,6 +48,21 @@ public class Library extends BaseModelImpl implements Serializable {
     return this;
   }
   
+  private Integer version;
+    
+  public Integer getVersion() {
+    return version;
+  }
+    
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
+    
+  public Library _setVersion(Integer version) {
+    this.version = version;
+    return this;
+  }
+  
   private List<Subscriber> subscribers = new ArrayList<Subscriber>();
     
   public List<Subscriber> getSubscribers() {
@@ -106,10 +121,10 @@ public class Library extends BaseModelImpl implements Serializable {
   
   @Override
   public String toString() {
-    return "Library [id=" + id + ", name=" + name + "]";
+    return "Library [id=" + id + ", name=" + name + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Library [id=" + id + ", name=" + name + "]";
+    return "Library [id=" + id + ", name=" + name + ", version=" + version + "]";
   }
 }

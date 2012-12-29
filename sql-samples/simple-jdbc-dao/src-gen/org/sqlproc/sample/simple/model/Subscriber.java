@@ -80,6 +80,21 @@ public class Subscriber extends BaseModelImpl implements Serializable {
     return this;
   }
   
+  private Integer version;
+    
+  public Integer getVersion() {
+    return version;
+  }
+    
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
+    
+  public Subscriber _setVersion(Integer version) {
+    this.version = version;
+    return this;
+  }
+  
   private List<BillingDetails> billingDetails = new ArrayList<BillingDetails>();
     
   public List<BillingDetails> getBillingDetails() {
@@ -127,10 +142,10 @@ public class Subscriber extends BaseModelImpl implements Serializable {
   
   @Override
   public String toString() {
-    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + "]";
+    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + ", contact=" + contact + "]";
+    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + ", contact=" + contact + ", version=" + version + "]";
   }
 }

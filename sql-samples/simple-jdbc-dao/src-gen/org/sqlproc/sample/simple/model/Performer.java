@@ -49,6 +49,21 @@ public class Performer extends BaseModelImpl implements Serializable {
     return this;
   }
   
+  private Integer ver;
+    
+  public Integer getVer() {
+    return ver;
+  }
+    
+  public void setVer(Integer ver) {
+    this.ver = ver;
+  }
+    
+  public Performer _setVer(Integer ver) {
+    this.ver = ver;
+    return this;
+  }
+  
   private List<Media> work = new ArrayList<Media>();
     
   public List<Media> getWork() {
@@ -92,10 +107,10 @@ public class Performer extends BaseModelImpl implements Serializable {
   
   @Override
   public String toString() {
-    return "Performer [id=" + id + "]";
+    return "Performer [id=" + id + ", ver=" + ver + "]";
   }
   
   public String toStringFull() {
-    return "Performer [id=" + id + ", person=" + person + "]";
+    return "Performer [id=" + id + ", person=" + person + ", ver=" + ver + "]";
   }
 }

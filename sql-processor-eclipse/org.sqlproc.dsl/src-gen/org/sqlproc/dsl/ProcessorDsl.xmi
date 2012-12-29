@@ -2754,7 +2754,7 @@
         </elements>
       </elements>
       <elements xsi:type="xtext:Assignment" feature="version" operator="?=">
-        <terminal xsi:type="xtext:Keyword" value="version"/>
+        <terminal xsi:type="xtext:Keyword" value="optLock"/>
       </elements>
     </alternatives>
   </rules>

@@ -35,6 +35,9 @@ pojogen-create-columns PERSON PASSPORT->:java.lang.String;
 pojogen-not-abstract-tables MEDIA;
 pojogen-extends-class org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 pojogen-make-it-final;
+// opt lock
+pojogen-version-column VERSION;
+pojogen-version-column VER PERFORMER;
 
 //metagen-global-sequence SEQ1;
 metagen-global-identity SEL1;
