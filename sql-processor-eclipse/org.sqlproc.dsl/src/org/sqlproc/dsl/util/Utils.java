@@ -100,6 +100,16 @@ public class Utils {
         return false;
     }
 
+    public static boolean isOptLock(PojoProperty f) {
+        if (f.getModifiers() == null || f.getModifiers().isEmpty())
+            return false;
+        for (PojoPropertyModifier modifier : f.getModifiers()) {
+            if (modifier.isVersion())
+                return true;
+        }
+        return false;
+    }
+
     public static boolean isAbstract(PojoDao e) {
         if (e.getModifiers1() == null || e.getModifiers1().isEmpty())
             return false;

@@ -63,7 +63,7 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     return this;
   }
   
-  private Integer version;
+  private Integer version = 0;
     
   public Integer getVersion() {
     return version;

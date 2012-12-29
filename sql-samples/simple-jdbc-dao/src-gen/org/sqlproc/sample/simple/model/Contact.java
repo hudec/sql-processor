@@ -79,7 +79,7 @@ public class Contact extends BaseModelImpl implements Serializable {
     return this;
   }
   
-  private Integer version;
+  private Integer version = 0;
     
   public Integer getVersion() {
     return version;

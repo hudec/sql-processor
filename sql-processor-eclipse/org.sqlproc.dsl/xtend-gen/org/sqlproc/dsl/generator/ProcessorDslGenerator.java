@@ -435,6 +435,11 @@ public class ProcessorDslGenerator implements IGenerator {
         CharSequence _compileType_1 = this.compileType(f, importManager);
         _builder.append(_compileType_1, "");
         _builder.append("()");
+      } else {
+        boolean _isOptLock = Utils.isOptLock(f);
+        if (_isOptLock) {
+          _builder.append(" = 0");
+        }
       }
     }
     _builder.append(";");

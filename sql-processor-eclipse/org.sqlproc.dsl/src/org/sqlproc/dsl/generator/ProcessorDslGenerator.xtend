@@ -113,7 +113,7 @@ public «IF isAbstract(e)»abstract «ENDIF»class «e.name» «compileExtends(e
 
 def compile(PojoProperty f, ImportManager importManager, PojoEntity e) '''
 
-    private «f.compileType(importManager)» «f.name»«IF isList(f)» = new Array«f.compileType(importManager)»()«ENDIF»;
+    private «f.compileType(importManager)» «f.name»«IF isList(f)» = new Array«f.compileType(importManager)»()«ELSEIF isOptLock(f)» = 0«ENDIF»;
   
     public «f.compileType(importManager)» get«f.name.toFirstUpper»() {
       return «f.name»;

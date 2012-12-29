@@ -49,7 +49,7 @@ public class Performer extends BaseModelImpl implements Serializable {
     return this;
   }
   
-  private Integer ver;
+  private Integer ver = 0;
     
   public Integer getVer() {
     return ver;
