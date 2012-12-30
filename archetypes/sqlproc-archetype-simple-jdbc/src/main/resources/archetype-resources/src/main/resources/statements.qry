@@ -1,0 +1,111 @@
+SURROUND_QUERY_LIKE_PARTIAL(BOPT)=true;
+
+SEL1(OPT)=call identity(); 
+
+
+INSERT_CONTACT(CRUD,final=,identx=Contact,colx=Contact,dbcol=contact)=
+  insert into %%CONTACT (%PERSON_ID, %ADDRESS, %PHONE_NUMBER)
+  {= values (:id^^idsel=SEL1, :person.id, :address, :phoneNumber) }
+;
+
+GET_CONTACT(CRUD,final=,identx=Contact,colx=Contact,dbcol=contact=c,dbcol=person=p)=
+  select %c.ID @id^^id, %c.PERSON_ID @person.id^^id, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber
+         {? :person^^call=toInit | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.SSN @person.ssn }
+  from %%CONTACT c
+  {? :person^^call=toInit | left join %%PERSON p on %c.PERSON_ID = %p.ID }
+  {= where
+    {& %c.ID = :id }
+    {& %c.PERSON_ID = :person.id }
+    {& %c.ADDRESS = :address }
+    {& %c.PHONE_NUMBER = :phoneNumber }
+  }
+;
+
+UPDATE_CONTACT(CRUD,final=,identx=Contact,colx=Contact,dbcol=contact)=
+  update %%CONTACT
+  {= set
+    { ,%PERSON_ID = :person.id^^call=isDef }
+    { ,%ADDRESS = :address^^call=isDef }
+    { ,%PHONE_NUMBER = :phoneNumber^^call=isDef }
+  }
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_CONTACT(CRUD,final=,identx=Contact,colx=Contact,dbcol=contact)=
+  delete from %%CONTACT
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+SELECT_CONTACT(QRY,final=,identx=Contact,colx=Contact,dbcol=contact=c,dbcol=person=p)=
+  select %c.ID @id^^id, %c.PERSON_ID @person.id^^id, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber
+         {? :person^^call=toInit | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.SSN @person.ssn }
+  from %%CONTACT c
+  {? :person^^call=toInit | left join %%PERSON p on %c.PERSON_ID = %p.ID }
+  {= where
+    {& %c.ID = :id }
+    {& %c.PERSON_ID = :person.id }
+    {& UPPER(%c.ADDRESS) like :+address }
+    {& UPPER(%c.PHONE_NUMBER) like :+phoneNumber }
+  }
+  {#1 order by %c.ID }
+  {#2 order by %c.PERSON_ID }
+;
+
+INSERT_PERSON(CRUD,final=,identx=Person,colx=Person,dbcol=person)=
+  insert into %%PERSON (%FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %SSN)
+  {= values (:id^^idsel=SEL1, :firstName, :lastName, :dateOfBirth, :ssn) }
+;
+
+GET_PERSON(CRUD,final=,identx=Person,colx=Person,dbcol=person=p,dbcol=contact=c)=
+  select %p.ID @id^^id, %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
+         {? :contacts^^call=toInit | , %c.ID @contacts.id^^id, %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber }
+  from %%PERSON p
+  {? :contacts^^call=toInit | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+  {= where
+    {& %p.ID = :id }
+    {& %p.FIRST_NAME = :firstName }
+    {& %p.LAST_NAME = :lastName }
+    {& %p.DATE_OF_BIRTH = :dateOfBirth }
+    {& %p.SSN = :ssn }
+  }
+;
+
+UPDATE_PERSON(CRUD,final=,identx=Person,colx=Person,dbcol=person)=
+  update %%PERSON
+  {= set
+    { ,%FIRST_NAME = :firstName^^call=isDef }
+    { ,%LAST_NAME = :lastName^^call=isDef }
+    { ,%DATE_OF_BIRTH = :dateOfBirth^^call=isDef }
+    { ,%SSN = :ssn^^call=isDef }
+  }
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+DELETE_PERSON(CRUD,final=,identx=Person,colx=Person,dbcol=person)=
+  delete from %%PERSON
+  {= where
+    {& %ID = :id^^notnull }
+  }
+;
+
+SELECT_PERSON(QRY,final=,identx=Person,colx=Person,dbcol=person=p,dbcol=contact=c)=
+  select %p.ID @id^^id, %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
+         {? :contacts^^call=toInit | , %c.ID @contacts.id^^id, %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber }
+  from %%PERSON p
+  {? :contacts^^call=toInit | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+  {= where
+    {& %p.ID = :id }
+    {& UPPER(%p.FIRST_NAME) like :+firstName }
+    {& UPPER(%p.LAST_NAME) like :+lastName }
+    {& %p.DATE_OF_BIRTH = :dateOfBirth }
+    {& UPPER(%p.SSN) like :+ssn }
+  }
+  {#1 order by %p.ID }
+  {#2 order by %p.LAST_NAME }
+;
