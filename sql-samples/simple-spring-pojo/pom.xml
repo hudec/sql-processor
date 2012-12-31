@@ -4,8 +4,8 @@
     <groupId>org.sqlproc.samples</groupId>
     <artifactId>simple-spring-pojo</artifactId>
     <packaging>jar</packaging>
-    <name>SQL Processor Samples, New Simple (Spring)</name>
-    <description>It's based on the new loader.</description>
+    <name>SQL Processor Samples, Simple Spring Application</name>
+    <description>SQL Processor Simple Spring Application with generated POJO</description>
 
     <parent>
         <groupId>org.sqlproc</groupId>

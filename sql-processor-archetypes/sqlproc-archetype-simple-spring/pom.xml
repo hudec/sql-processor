@@ -4,6 +4,7 @@
   <artifactId>sqlproc-archetype-simple-spring</artifactId>
   <packaging>maven-archetype</packaging>	
   <name>SQL Processor Archetype for Simple Spring Application</name>
+  <description>SQL Processor Archetype for Simple Spring Application</description>
   <url>https://github.com/hudec/sql-processor</url>
 
   <parent>

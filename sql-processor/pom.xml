@@ -3,7 +3,7 @@
     <artifactId>sql-processor</artifactId>
     <packaging>jar</packaging>
     <name>SQL Processor, Core Module</name>
-    <description>SQL Processor - Data Driven Queries</description>
+    <description>SQL Processor, Core Module</description>
     <url>http://code.google.com/p/sql-processor/</url>
 
     <parent>

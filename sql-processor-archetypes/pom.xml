@@ -3,6 +3,7 @@
     <artifactId>sql-processor-archetypes</artifactId>
     <packaging>pom</packaging>
     <name>SQL Processor Archetypes Parent</name>
+    <description>SQL Processor Archetypes Parent</description>
     <url>https://github.com/hudec/sql-processor</url>
 
     <parent>

@@ -4,6 +4,7 @@
   <artifactId>sqlproc-archetype-simple-jdbc</artifactId>
   <packaging>maven-archetype</packaging>	
   <name>SQL Processor Archetype for Simple JDBC Application</name>
+  <description>SQL Processor Archetype for Simple JDBC Application</description>
   <url>https://github.com/hudec/sql-processor</url>
 
   <parent>

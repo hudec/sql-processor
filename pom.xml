@@ -5,7 +5,7 @@
     <version>1.9.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>SQL Processor, Parent Module</name>
-    <description>SQL Processor - Data Driven Queries</description>
+    <description>SQL Processor, Parent Module</description>
     <url>https://github.com/hudec/sql-processor</url>
 
     <parent>

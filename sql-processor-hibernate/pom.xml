@@ -3,7 +3,7 @@
     <artifactId>sql-processor-hibernate</artifactId>
     <packaging>jar</packaging>
     <name>SQL Processor, Hibernate Module</name>
-    <description>SQL Processor - Data Driven Queries</description>
+    <description>SQL Processor, Hibernate Module</description>
     <url>http://code.google.com/p/sql-processor/</url>
 
     <parent>
