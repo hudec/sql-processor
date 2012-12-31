@@ -362,7 +362,7 @@ public class SqlQueryEngine extends SqlEngine {
      *            More result classes used for the return values, like the collections classes or the collections items.
      *            They are used mainly for the one-to-one, one-to-many and many-to-many associations.
      * @return The list of the resultClass instances.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -403,7 +403,7 @@ public class SqlQueryEngine extends SqlEngine {
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The list of the resultClass instances.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -544,7 +544,7 @@ public class SqlQueryEngine extends SqlEngine {
      *            The max SQL execution time. This parameter can help to protect production system against ineffective
      *            SQL query commands. The value is in milliseconds.
      * @return The size of potential list of resultClass instances.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -571,7 +571,7 @@ public class SqlQueryEngine extends SqlEngine {
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The size of potential list of resultClass instances.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -629,7 +629,7 @@ public class SqlQueryEngine extends SqlEngine {
      *            The ordering directive list. Using the class SqlOrder the ordering rules can be chained. Every
      *            ordering rule in this chain should correspond to one META SQL ordering statement.
      * @return The SQL query command derived from the META SQL query based on the input parameters.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -652,7 +652,7 @@ public class SqlQueryEngine extends SqlEngine {
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The SQL query command derived from the META SQL query based on the input parameters.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling

@@ -451,4 +451,37 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             return (SqlProcedureEngine) o;
         return null;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlQueryEngine getCheckedQueryEngine(String name) throws SqlEngineException {
+        SqlQueryEngine queryEngine = getQueryEngine(name);
+        if (queryEngine == null)
+            throw new SqlEngineException("Missing SqlQueryEngine " + name);
+        return queryEngine;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getCheckedCrudEngine(String name) {
+        SqlCrudEngine queryEngine = getCrudEngine(name);
+        if (queryEngine == null)
+            throw new SqlEngineException("Missing SqlQueryEngine " + name);
+        return queryEngine;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getCheckedProcedureEngine(String name) {
+        SqlProcedureEngine procedureEngine = getProcedureEngine(name);
+        if (procedureEngine == null)
+            throw new SqlEngineException("Missing SqlQueryEngine " + name);
+        return procedureEngine;
+    }
 }

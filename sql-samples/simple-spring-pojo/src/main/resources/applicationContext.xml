@@ -19,12 +19,16 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
+    <bean id="sessionFactory" class="org.sqlproc.engine.spring.SpringSessionFactory">
+        <constructor-arg ref="jdbcTemplate" />
+    </bean>
+
     <!-- bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" /-->
 
-    <bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory" init-method="init">
+    <bean id="sqlFactory" class="org.sqlproc.engine.spring.SpringEngineFactory" init-method="init">
         <property name="metaFilesNames">
             <list>
                 <value>statements.qry</value>

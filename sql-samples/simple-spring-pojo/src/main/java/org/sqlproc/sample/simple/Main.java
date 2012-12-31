@@ -20,7 +20,7 @@ import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
-import org.sqlproc.engine.spring.SpringSimpleSession;
+import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Book;
@@ -39,14 +39,14 @@ public class Main {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private JdbcTemplate jdbcTemplate;
-    private SqlSession session;
+    private SqlSessionFactory sessionFactory;
     private SqlEngineFactory sqlFactory;
     private List<String> ddls;
 
     public Main() throws BeansException, IOException {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
-        session = new SpringSimpleSession(jdbcTemplate);
+        sessionFactory = context.getBean("sessionFactory", SqlSessionFactory.class);
         sqlFactory = context.getBean("sqlFactory", SqlEngineFactory.class);
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
     }
@@ -77,29 +77,32 @@ public class Main {
     }
 
     public List<Person> listAll() {
-        SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE");
-        List<Person> list = sqlEngine.query(session, Person.class);
+        SqlQueryEngine sqlEngine = sqlFactory.getCheckedQueryEngine("ALL_PEOPLE");
+        List<Person> list = sqlEngine.query(sessionFactory.getSqlSession(), Person.class);
         logger.info("listAll size: " + list.size());
         return list;
     }
 
     public List<Person> listSome(Person person) {
-        SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE");
-        List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(2));
+        SqlQueryEngine sqlEngine = sqlFactory.getCheckedQueryEngine("ALL_PEOPLE");
+        List<Person> list = sqlEngine.query(sessionFactory.getSqlSession(), Person.class, person,
+                SqlOrder.getDescOrder(2));
         logger.info("listSome size: " + list.size());
         return list;
     }
 
     public List<Person> listLike(Person person) {
-        SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("LIKE_PEOPLE");
-        List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(2));
+        SqlQueryEngine sqlEngine = sqlFactory.getCheckedQueryEngine("LIKE_PEOPLE");
+        List<Person> list = sqlEngine.query(sessionFactory.getSqlSession(), Person.class, person,
+                SqlOrder.getDescOrder(2));
         logger.info("listSome size: " + list.size());
         return list;
     }
 
     public Person insert(Person person, Contact... contacts) {
-        SqlCrudEngine sqlInsertPerson = sqlFactory.getCrudEngine("INSERT_PERSON");
-        SqlCrudEngine sqlInsertContact = sqlFactory.getCrudEngine("INSERT_CONTACT");
+        SqlCrudEngine sqlInsertPerson = sqlFactory.getCheckedCrudEngine("INSERT_PERSON");
+        SqlCrudEngine sqlInsertContact = sqlFactory.getCheckedCrudEngine("INSERT_CONTACT");
+        SqlSession session = sessionFactory.getSqlSession();
         int count = sqlInsertPerson.insert(session, person);
         logger.info("insert: " + count);
         logger.info("insert: " + person);
@@ -113,8 +116,9 @@ public class Main {
     }
 
     public Person insert2(Person person, Contact... contacts) {
-        SqlCrudEngine sqlInsertPerson = sqlFactory.getCrudEngine("INSERT_PERSON2");
-        SqlCrudEngine sqlInsertContact = sqlFactory.getCrudEngine("INSERT_CONTACT");
+        SqlCrudEngine sqlInsertPerson = sqlFactory.getCheckedCrudEngine("INSERT_PERSON2");
+        SqlCrudEngine sqlInsertContact = sqlFactory.getCheckedCrudEngine("INSERT_CONTACT");
+        SqlSession session = sessionFactory.getSqlSession();
         int count = sqlInsertPerson.insert(session, person);
         logger.info("insert: " + count);
         logger.info("insert: " + person);
@@ -128,36 +132,38 @@ public class Main {
     }
 
     public Person get(Person person) {
-        SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("GET_PERSON");
-        Person p = sqlEngine.get(session, Person.class, person);
+        SqlCrudEngine sqlEngine = sqlFactory.getCheckedCrudEngine("GET_PERSON");
+        Person p = sqlEngine.get(sessionFactory.getSqlSession(), Person.class, person);
         logger.info("get: " + p);
         return p;
     }
 
     public Person update(Person person) {
-        SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
-        int count = sqlEngine.update(session, person);
+        SqlCrudEngine sqlEngine = sqlFactory.getCheckedCrudEngine("UPDATE_PERSON");
+        int count = sqlEngine.update(sessionFactory.getSqlSession(), person);
         logger.info("update: " + count);
         return (count > 0) ? person : null;
     }
 
     public boolean delete(Person person) {
-        SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("DELETE_PERSON");
-        int count = sqlEngine.delete(session, person);
+        SqlCrudEngine sqlEngine = sqlFactory.getCheckedCrudEngine("DELETE_PERSON");
+        int count = sqlEngine.delete(sessionFactory.getSqlSession(), person);
         logger.info("delete: " + count);
         return (count > 0);
     }
 
     public List<Person> listPeopleAndContacts(Person person) {
-        SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS");
-        List<Person> list = sqlEngine.query(session, Person.class, person, SqlQueryEngine.ASC_ORDER);
+        SqlQueryEngine sqlEngine = sqlFactory.getCheckedQueryEngine("ALL_PEOPLE_AND_CONTACTS");
+        List<Person> list = sqlEngine.query(sessionFactory.getSqlSession(), Person.class, person,
+                SqlQueryEngine.ASC_ORDER);
         logger.info("listSome size: " + list.size());
         return list;
     }
 
     public Movie insertMovie(Movie movie) {
-        SqlCrudEngine sqlInsertMedia = sqlFactory.getCrudEngine("INSERT_MEDIA");
-        SqlCrudEngine sqlInsertMovie = sqlFactory.getCrudEngine("INSERT_MOVIE");
+        SqlCrudEngine sqlInsertMedia = sqlFactory.getCheckedCrudEngine("INSERT_MEDIA");
+        SqlCrudEngine sqlInsertMovie = sqlFactory.getCheckedCrudEngine("INSERT_MOVIE");
+        SqlSession session = sessionFactory.getSqlSession();
         int count = sqlInsertMedia.insert(session, movie);
         if (count > 0) {
             sqlInsertMovie.insert(session, movie);
@@ -166,8 +172,9 @@ public class Main {
     }
 
     public Book insertBook(Book book) {
-        SqlCrudEngine sqlInsertMedia = sqlFactory.getCrudEngine("INSERT_MEDIA");
-        SqlCrudEngine sqlInsertBook = sqlFactory.getCrudEngine("INSERT_BOOK");
+        SqlCrudEngine sqlInsertMedia = sqlFactory.getCheckedCrudEngine("INSERT_MEDIA");
+        SqlCrudEngine sqlInsertBook = sqlFactory.getCheckedCrudEngine("INSERT_BOOK");
+        SqlSession session = sessionFactory.getSqlSession();
         int count = sqlInsertMedia.insert(session, book);
         if (count > 0) {
             sqlInsertBook.insert(session, book);
@@ -176,32 +183,31 @@ public class Main {
     }
 
     public void createPersonLibrary(Person person, Media... media) {
-        SqlCrudEngine sqlCreateLibrary = sqlFactory.getCrudEngine("CREATE_LIBRARY");
+        SqlCrudEngine sqlCreateLibrary = sqlFactory.getCheckedCrudEngine("CREATE_LIBRARY");
         if (media == null || media.length == 0)
             return;
         for (Media media1 : media) {
             PersonLibrary library = new PersonLibrary(person.getId(), media1.getId());
-            sqlCreateLibrary.insert(session, library);
+            sqlCreateLibrary.insert(sessionFactory.getSqlSession(), library);
         }
     }
 
     public List<Person> listPeopleLibrary(Person person) {
-        SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_LIBRARY");
+        SqlQueryEngine sqlEngine = sqlFactory.getCheckedQueryEngine("ALL_PEOPLE_LIBRARY");
         Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
         moreResultClasses.put("movie", Movie.class);
         moreResultClasses.put("book", Book.class);
-        List<Person> list = sqlEngine.query(session, Person.class, null, null, SqlQueryEngine.ASC_ORDER,
-                moreResultClasses);
+        List<Person> list = sqlEngine.query(sessionFactory.getSqlSession(), Person.class, null, null,
+                SqlQueryEngine.ASC_ORDER, moreResultClasses);
         logger.info("listSome size: " + list.size());
         return list;
     }
 
     public Person insertCustom(Person person, Contact... contacts) {
-        SqlCrudEngine sqlInsertPerson = sqlFactory.getCrudEngine("INSERT_PERSON");
-        SqlCrudEngine sqlInsertContact = sqlFactory.getCrudEngine("INSERT_CONTACT_CUSTOM");
-        SqlSession session = null;
+        SqlCrudEngine sqlInsertPerson = sqlFactory.getCheckedCrudEngine("INSERT_PERSON");
+        SqlCrudEngine sqlInsertContact = sqlFactory.getCheckedCrudEngine("INSERT_CONTACT_CUSTOM");
+        SqlSession session = sessionFactory.getSqlSession();
         try {
-            session = new SpringSimpleSession(jdbcTemplate);
             int count = sqlInsertPerson.insert(session, person);
             logger.info("insert: " + count);
             logger.info("insert: " + person);
@@ -219,10 +225,9 @@ public class Main {
     }
 
     public List<Person> listCustom(Contact contact) {
-        SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS_CUSTOM");
-        SqlSession session = null;
+        SqlQueryEngine sqlEngine = sqlFactory.getCheckedQueryEngine("ALL_PEOPLE_AND_CONTACTS_CUSTOM");
+        SqlSession session = sessionFactory.getSqlSession();
         try {
-            session = new SpringSimpleSession(jdbcTemplate);
             List<Person> list = sqlEngine.query(session, Person.class, contact, SqlQueryEngine.ASC_ORDER);
             logger.info("listCustom size: " + list.size());
             return list;
@@ -233,36 +238,36 @@ public class Main {
     }
 
     public Library insertLibrary(Library library) {
-        SqlCrudEngine sqlInsertLibrary = sqlFactory.getCrudEngine("INSERT_LIBRARY");
-        int count = sqlInsertLibrary.insert(session, library);
+        SqlCrudEngine sqlInsertLibrary = sqlFactory.getCheckedCrudEngine("INSERT_LIBRARY");
+        int count = sqlInsertLibrary.insert(sessionFactory.getSqlSession(), library);
         return (count > 0) ? library : null;
     }
 
     public Subscriber insertSubscriber(Subscriber subscriber) {
-        SqlCrudEngine sqlInsertSubscriber = sqlFactory.getCrudEngine("INSERT_SUBSCRIBER");
-        int count = sqlInsertSubscriber.insert(session, subscriber);
+        SqlCrudEngine sqlInsertSubscriber = sqlFactory.getCheckedCrudEngine("INSERT_SUBSCRIBER");
+        int count = sqlInsertSubscriber.insert(sessionFactory.getSqlSession(), subscriber);
         return (count > 0) ? subscriber : null;
     }
 
     public BankAccount insertBankAccount(BankAccount bankAccount) {
-        SqlCrudEngine sqlInsertBankAccount = sqlFactory.getCrudEngine("INSERT_BANK_ACCOUNT");
-        int count = sqlInsertBankAccount.insert(session, bankAccount);
+        SqlCrudEngine sqlInsertBankAccount = sqlFactory.getCheckedCrudEngine("INSERT_BANK_ACCOUNT");
+        int count = sqlInsertBankAccount.insert(sessionFactory.getSqlSession(), bankAccount);
         return (count > 0) ? bankAccount : null;
     }
 
     public CreditCard insertCreditCard(CreditCard creditCard) {
-        SqlCrudEngine sqlInsertCreditCard = sqlFactory.getCrudEngine("INSERT_CREDIT_CARD");
-        int count = sqlInsertCreditCard.insert(session, creditCard);
+        SqlCrudEngine sqlInsertCreditCard = sqlFactory.getCheckedCrudEngine("INSERT_CREDIT_CARD");
+        int count = sqlInsertCreditCard.insert(sessionFactory.getSqlSession(), creditCard);
         return (count > 0) ? creditCard : null;
     }
 
     public List<Subscriber> listAllSubsribersWithBillingDetails() {
-        SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_SUBSCRIBERS_BILLING_DETAILS");
+        SqlQueryEngine sqlEngine = sqlFactory.getCheckedQueryEngine("ALL_SUBSCRIBERS_BILLING_DETAILS");
         Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
         moreResultClasses.put("BA", BankAccount.class);
         moreResultClasses.put("CC", CreditCard.class);
-        List<Subscriber> list = sqlEngine.query(session, Subscriber.class, null, null, SqlQueryEngine.ASC_ORDER,
-                moreResultClasses);
+        List<Subscriber> list = sqlEngine.query(sessionFactory.getSqlSession(), Subscriber.class, null, null,
+                SqlQueryEngine.ASC_ORDER, moreResultClasses);
         logger.info("listAllSubsribersWithBillingDetails size: " + list.size());
         return list;
     }

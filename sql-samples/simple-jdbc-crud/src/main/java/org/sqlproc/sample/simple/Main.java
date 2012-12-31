@@ -11,16 +11,12 @@ import java.util.List;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFeature;
-import org.sqlproc.engine.SqlProcedureEngine;
-import org.sqlproc.engine.SqlQueryEngine;
-import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
-import org.sqlproc.engine.jdbc.JdbcSimpleSession;
+import org.sqlproc.engine.jdbc.JdbcSessionFactory;
 import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.simple.dao.BankAccountDao;
 import org.sqlproc.sample.simple.dao.ContactDao;
@@ -50,11 +46,12 @@ import org.sqlproc.sample.simple.model.PhysicalMedia;
 import org.sqlproc.sample.simple.model.Subscriber;
 import org.sqlproc.sample.simple.type.PhoneNumberType;
 
-public class Main implements SqlSessionFactory, SqlEngineFactory {
+public class Main {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Connection connection;
+    private SqlSessionFactory sessionFactory;
     private SqlEngineFactory sqlFactory;
     private List<String> ddls;
 
@@ -75,6 +72,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
 
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
         connection = DriverManager.getConnection("jdbc:hsqldb:mem:sqlproc", "sa", "");
+        sessionFactory = new JdbcSessionFactory(connection);
     }
 
     public void setupDb() throws SQLException {
@@ -99,18 +97,18 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
     }
 
     public void initDao() throws SQLException {
-        bankAccountDao = new BankAccountDao(this, this);
-        bookDao = new NewBookDao(this, this);
-        contactDao = new ContactDao(this, this);
-        creditCardDao = new CreditCardDao(this, this);
-        libraryDao = new LibraryDao(this, this);
-        movieDao = new MovieDao(this, this);
-        personDao = new PersonDao(this, this);
-        performerDao = new PerformerDao(this, this);
-        personLibraryDao = new PersonLibraryDao(this, this);
-        subscriberDao = new SubscriberDao(this, this);
-        physicalMediaDao = new PhysicalMediaDao(this, this);
-        paymentDao = new PaymentDao(this, this);
+        bankAccountDao = new BankAccountDao(sqlFactory, sessionFactory);
+        bookDao = new NewBookDao(sqlFactory, sessionFactory);
+        contactDao = new ContactDao(sqlFactory, sessionFactory);
+        creditCardDao = new CreditCardDao(sqlFactory, sessionFactory);
+        libraryDao = new LibraryDao(sqlFactory, sessionFactory);
+        movieDao = new MovieDao(sqlFactory, sessionFactory);
+        personDao = new PersonDao(sqlFactory, sessionFactory);
+        performerDao = new PerformerDao(sqlFactory, sessionFactory);
+        personLibraryDao = new PersonLibraryDao(sqlFactory, sessionFactory);
+        subscriberDao = new SubscriberDao(sqlFactory, sessionFactory);
+        physicalMediaDao = new PhysicalMediaDao(sqlFactory, sessionFactory);
+        paymentDao = new PaymentDao(sqlFactory, sessionFactory);
     }
 
     private BankAccountDao bankAccountDao;
@@ -554,34 +552,5 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
 
     public PaymentDao getPaymentDao() {
         return paymentDao;
-    }
-
-    @Override
-    public SqlQueryEngine getQueryEngine(String name) {
-        SqlQueryEngine queryEngine = sqlFactory.getQueryEngine(name);
-        if (queryEngine == null)
-            throw new RuntimeException("Missing SqlQueryEngine " + name);
-        return queryEngine;
-    }
-
-    @Override
-    public SqlCrudEngine getCrudEngine(String name) {
-        SqlCrudEngine queryEngine = sqlFactory.getCrudEngine(name);
-        if (queryEngine == null)
-            throw new RuntimeException("Missing SqlQueryEngine " + name);
-        return queryEngine;
-    }
-
-    @Override
-    public SqlProcedureEngine getProcedureEngine(String name) {
-        SqlProcedureEngine procedureEngine = sqlFactory.getProcedureEngine(name);
-        if (procedureEngine == null)
-            throw new RuntimeException("Missing SqlQueryEngine " + name);
-        return procedureEngine;
-    }
-
-    @Override
-    public SqlSession getSqlSession() {
-        return new JdbcSimpleSession(connection);
     }
 }

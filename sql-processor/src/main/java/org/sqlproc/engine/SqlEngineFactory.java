@@ -18,7 +18,7 @@ public interface SqlEngineFactory {
      * 
      * @param name
      *            the name of the required SQL Query Engine instance
-     * @return the SQL Engine instance
+     * @return the SQL Engine instance or null value in the case the related statement is missing
      */
     SqlQueryEngine getQueryEngine(String name);
 
@@ -27,7 +27,7 @@ public interface SqlEngineFactory {
      * 
      * @param name
      *            the name of the required SQL CRUD Engine instance
-     * @return the SQL Engine instance
+     * @return the SQL Engine instance or null value in the case the related statement is missing
      */
     SqlCrudEngine getCrudEngine(String name);
 
@@ -36,7 +36,40 @@ public interface SqlEngineFactory {
      * 
      * @param name
      *            the name of the required SQL Procedure Engine instance
-     * @return the SQL Engine instance
+     * @return the SQL Engine instance or null value in the case the related statement is missing
      */
     SqlProcedureEngine getProcedureEngine(String name);
+
+    /**
+     * Returns the named SQL Query Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Query Engine instance
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the related statement is missing
+     */
+    SqlQueryEngine getCheckedQueryEngine(String name) throws SqlEngineException;
+
+    /**
+     * Returns the named SQL CRUD Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL CRUD Engine instance
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the related statement is missing
+     */
+    SqlCrudEngine getCheckedCrudEngine(String name);
+
+    /**
+     * Returns the named SQL Procedure Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine instance
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the related statement is missing
+     */
+    SqlProcedureEngine getCheckedProcedureEngine(String name);
 }

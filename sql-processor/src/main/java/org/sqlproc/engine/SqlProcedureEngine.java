@@ -295,7 +295,7 @@ public class SqlProcedureEngine extends SqlEngine {
      *            The max SQL execution time. This parameter can help to protect production system against ineffective
      *            SQL statements. The value is in milliseconds.
      * @return The list of the resultClass instances.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -330,7 +330,7 @@ public class SqlProcedureEngine extends SqlEngine {
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The list of the resultClass instances.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -419,7 +419,7 @@ public class SqlProcedureEngine extends SqlEngine {
      *            SQL statements. The value is in milliseconds.
      * @return The number of persisted, updated, deleted or otherwise affected database rows. It's value strongly
      *         depends on the type of database.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -447,7 +447,7 @@ public class SqlProcedureEngine extends SqlEngine {
      *            The compound parameters controlling the META SQL execution
      * @return The number of persisted, updated, deleted or otherwise affected database rows. It's value strongly
      *         depends on the type of database.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -517,7 +517,7 @@ public class SqlProcedureEngine extends SqlEngine {
      *            The max SQL execution time. This parameter can help to protect production system against ineffective
      *            SQL statements. The value is in milliseconds.
      * @return The result from the stored function execution.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -544,7 +544,7 @@ public class SqlProcedureEngine extends SqlEngine {
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The result from the stored function execution.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -613,7 +613,7 @@ public class SqlProcedureEngine extends SqlEngine {
      * @param statementType
      *            The type of the statement under consideration. For the stored procedures it is CALL.
      * @return The SQL statement command derived from the META SQL statement based on the input parameters.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling

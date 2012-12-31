@@ -19,6 +19,10 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
+    <bean id="sessionFactory" class="org.sqlproc.engine.spring.SpringSessionFactory">
+        <constructor-arg ref="jdbcTemplate" />
+    </bean>
+
     <!-- bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>

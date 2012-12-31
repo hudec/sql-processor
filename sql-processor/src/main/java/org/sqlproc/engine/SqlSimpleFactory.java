@@ -165,6 +165,39 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlQueryEngine getCheckedQueryEngine(String name) throws SqlEngineException {
+        if (getLoader() == null) {
+            init();
+        }
+        return getLoader().getCheckedQueryEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getCheckedCrudEngine(String name) {
+        if (getLoader() == null) {
+            init();
+        }
+        return getLoader().getCheckedCrudEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getCheckedProcedureEngine(String name) {
+        if (getLoader() == null) {
+            init();
+        }
+        return getLoader().getCheckedProcedureEngine(name);
+    }
+
+    /**
      * Returns the names of files, which holds a collection of META SQL statements, mapping rules and optional features.
      * 
      * @return the names of files, which holds a collection of META SQL statements, mapping rules and optional features

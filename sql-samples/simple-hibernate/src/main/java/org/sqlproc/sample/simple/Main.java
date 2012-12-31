@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.jdbc.Work;
 import org.junit.Assert;
@@ -19,8 +18,9 @@ import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.hibernate.HibernateEngineFactory;
-import org.sqlproc.engine.hibernate.HibernateSession;
+import org.sqlproc.engine.hibernate.HibernateSessionFactory;
 import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Book;
@@ -39,7 +39,8 @@ public class Main {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private SessionFactory sessionFactory;
+    private Configuration configuration;
+    private SqlSessionFactory sessionFactory;
     private SqlEngineFactory sqlFactory;
     private List<String> ddls;
 
@@ -51,8 +52,8 @@ public class Main {
 
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
 
-        Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
-        sessionFactory = configuration.buildSessionFactory();
+        configuration = new Configuration().configure("hibernate.cfg.xml");
+        sessionFactory = new HibernateSessionFactory(configuration.buildSessionFactory());
     }
 
     public void setupDb() throws Exception {
@@ -60,7 +61,7 @@ public class Main {
         Session session = null;
 
         try {
-            session = sessionFactory.openSession();
+            session = configuration.buildSessionFactory().openSession();
             session.doWork(new Work() {
                 @Override
                 public void execute(Connection connection) throws SQLException {
@@ -92,7 +93,7 @@ public class Main {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             List<Person> list = sqlEngine.query(session, Person.class);
             logger.info("listAll size: " + list.size());
             return list;
@@ -106,7 +107,7 @@ public class Main {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(2));
             logger.info("listSome size: " + list.size());
             return list;
@@ -120,7 +121,7 @@ public class Main {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("LIKE_PEOPLE");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(2));
             logger.info("listSome size: " + list.size());
             return list;
@@ -135,7 +136,7 @@ public class Main {
         SqlCrudEngine sqlInsertContact = sqlFactory.getCrudEngine("INSERT_CONTACT");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             int count = sqlInsertPerson.insert(session, person);
             logger.info("insert: " + count);
             logger.info("insert: " + person);
@@ -156,7 +157,7 @@ public class Main {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("GET_PERSON");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             Person p = sqlEngine.get(session, Person.class, person);
             logger.info("get: " + p);
             return p;
@@ -170,7 +171,7 @@ public class Main {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             int count = sqlEngine.update(session, person);
             logger.info("update: " + count);
             return (count > 0) ? person : null;
@@ -184,7 +185,7 @@ public class Main {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("DELETE_PERSON");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             int count = sqlEngine.delete(session, person);
             logger.info("delete: " + count);
             return (count > 0);
@@ -198,7 +199,7 @@ public class Main {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             List<Person> list = sqlEngine.query(session, Person.class, person, SqlQueryEngine.ASC_ORDER);
             logger.info("listSome size: " + list.size());
             return list;
@@ -213,7 +214,7 @@ public class Main {
         SqlCrudEngine sqlInsertMovie = sqlFactory.getCrudEngine("INSERT_MOVIE");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             int count = sqlInsertMedia.insert(session, movie);
             if (count > 0) {
                 sqlInsertMovie.insert(session, movie);
@@ -230,7 +231,7 @@ public class Main {
         SqlCrudEngine sqlInsertBook = sqlFactory.getCrudEngine("INSERT_BOOK");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             int count = sqlInsertMedia.insert(session, book);
             if (count > 0) {
                 sqlInsertBook.insert(session, book);
@@ -248,7 +249,7 @@ public class Main {
             return;
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             for (Media media1 : media) {
                 PersonLibrary library = new PersonLibrary(person.getId(), media1.getId());
                 sqlCreateLibrary.insert(session, library);
@@ -263,7 +264,7 @@ public class Main {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_LIBRARY");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
             moreResultClasses.put("movie", Movie.class);
             moreResultClasses.put("book", Book.class);
@@ -282,7 +283,7 @@ public class Main {
         SqlCrudEngine sqlInsertContact = sqlFactory.getCrudEngine("INSERT_CONTACT_CUSTOM");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             int count = sqlInsertPerson.insert(session, person);
             logger.info("insert: " + count);
             logger.info("insert: " + person);
@@ -303,7 +304,7 @@ public class Main {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS_CUSTOM");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             List<Person> list = sqlEngine.query(session, Person.class, contact, SqlQueryEngine.ASC_ORDER);
             logger.info("listCustom size: " + list.size());
             return list;
@@ -317,7 +318,7 @@ public class Main {
         SqlCrudEngine sqlInsertLibrary = sqlFactory.getCrudEngine("INSERT_LIBRARY");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             int count = sqlInsertLibrary.insert(session, library);
             return (count > 0) ? library : null;
         } finally {
@@ -330,7 +331,7 @@ public class Main {
         SqlCrudEngine sqlInsertSubscriber = sqlFactory.getCrudEngine("INSERT_SUBSCRIBER");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             int count = sqlInsertSubscriber.insert(session, subscriber);
             return (count > 0) ? subscriber : null;
         } finally {
@@ -343,7 +344,7 @@ public class Main {
         SqlCrudEngine sqlInsertBankAccount = sqlFactory.getCrudEngine("INSERT_BANK_ACCOUNT");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             int count = sqlInsertBankAccount.insert(session, bankAccount);
             return (count > 0) ? bankAccount : null;
         } finally {
@@ -356,7 +357,7 @@ public class Main {
         SqlCrudEngine sqlInsertCreditCard = sqlFactory.getCrudEngine("INSERT_CREDIT_CARD");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             int count = sqlInsertCreditCard.insert(session, creditCard);
             return (count > 0) ? creditCard : null;
         } finally {
@@ -369,7 +370,7 @@ public class Main {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_SUBSCRIBERS_BILLING_DETAILS");
         SqlSession session = null;
         try {
-            session = HibernateSession.generateProxy(sessionFactory.openSession());
+            session = sessionFactory.getSqlSession();
             Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
             moreResultClasses.put("BA", BankAccount.class);
             moreResultClasses.put("CC", CreditCard.class);

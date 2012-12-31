@@ -245,7 +245,7 @@ public class SqlCrudEngine extends SqlEngine {
      *            The max SQL execution time. This parameter can help to protect production system against ineffective
      *            SQL query commands. The value is in milliseconds.
      * @return The number of persisted database rows.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -272,7 +272,7 @@ public class SqlCrudEngine extends SqlEngine {
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The number of persisted database rows.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -384,7 +384,7 @@ public class SqlCrudEngine extends SqlEngine {
      *            More result classes used for the return values, like the collections classes or the collections items.
      *            They are used mainly for the one-to-one, one-to-many and many-to-many associations.
      * @return The instance of the resultClass.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -420,7 +420,7 @@ public class SqlCrudEngine extends SqlEngine {
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The instance of the resultClass.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -539,7 +539,7 @@ public class SqlCrudEngine extends SqlEngine {
      *            The max SQL execution time. This parameter can help to protect production system against ineffective
      *            SQL query commands. The value is in milliseconds.
      * @return The number of updated database rows.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -566,7 +566,7 @@ public class SqlCrudEngine extends SqlEngine {
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The number of updated database rows.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -644,7 +644,7 @@ public class SqlCrudEngine extends SqlEngine {
      *            The max SQL execution time. This parameter can help to protect production system against ineffective
      *            SQL query commands. The value is in milliseconds.
      * @return The number of updated database rows.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -670,7 +670,7 @@ public class SqlCrudEngine extends SqlEngine {
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
      * @return The number of updated database rows.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
@@ -761,7 +761,7 @@ public class SqlCrudEngine extends SqlEngine {
      * @param statementType
      *            The type of the statement under consideration. It can be CREATE, RETRIEVE, UPDATE or DELETE.
      * @return The SQL statement command derived from the META SQL statement based on the input parameters.
-     * @throws org.hibernate.SqlProcessorException
+     * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
