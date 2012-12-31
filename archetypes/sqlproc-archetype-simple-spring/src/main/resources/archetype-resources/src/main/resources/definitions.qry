@@ -1,0 +1,29 @@
+resolve-pojo-on;
+database-is-online;
+database-jdbc-driver org.hsqldb.jdbcDriver;
+database-has-url jdbc:hsqldb:mem:sqlproc;
+database-login-username sa;
+database-login-password "";
+database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
+
+// native types
+pojogen-generate-wrappers;
+// POJO helpers' methods
+pojogen-generate-methods toString equals hashCode isDef toInit;
+// POJO are serializable
+pojogen-implements-interfaces java.io.Serializable;
+// can't overwrite existing POJO 
+pojogen-make-it-final;
+
+// use indetity for primary keys
+metagen-global-identity SEL1;
+// can't overwrite existing META SQL 
+metagen-make-it-final;
+
+// can't overwrite existing DAO 
+daogen-make-it-final;
+// separate interface from implementation
+daogen-implementation-package impl;
+
+table contact CONTACT;
+table person PERSON;
