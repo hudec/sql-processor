@@ -4,7 +4,8 @@
     <groupId>org.sqlproc.samples</groupId>
     <artifactId>simple-jdbc</artifactId>
     <packaging>jar</packaging>
-    <name>SQL Processor Samples, Simple (JDBC)</name>
+    <name>SQL Processor Samples, Simple JDBC Application</name>
+    <description>SQL Processor Simple JDBC Application</description>
 
     <parent>
         <groupId>org.sqlproc</groupId>

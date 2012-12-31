@@ -4,7 +4,8 @@
     <groupId>org.sqlproc.samples</groupId>
     <artifactId>simple-hibernate</artifactId>
     <packaging>jar</packaging>
-    <name>SQL Processor Samples, Simple (Hibernate)</name>
+    <name>SQL Processor Samples, Simple Hibernate Application</name>
+    <description>SQL Processor Simple Hibernate Application</description>
 
     <parent>
         <groupId>org.sqlproc</groupId>
