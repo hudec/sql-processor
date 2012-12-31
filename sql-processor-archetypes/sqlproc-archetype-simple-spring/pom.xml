@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.sqlproc</groupId>
-  <artifactId>sqlproc-archetype-simple-jdbc</artifactId>
+  <artifactId>sqlproc-archetype-simple-spring</artifactId>
   <packaging>maven-archetype</packaging>	
-  <name>SQL Processor Archetype for Simple JDBC Application</name>
+  <name>SQL Processor Archetype for Simple Spring Application</name>
   <url>https://github.com/hudec/sql-processor</url>
 
   <parent>
     <groupId>org.sqlproc</groupId>
-    <artifactId>sqlproc-archetype-parent</artifactId>
+    <artifactId>sql-processor-archetypes</artifactId>
     <version>1.9.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
