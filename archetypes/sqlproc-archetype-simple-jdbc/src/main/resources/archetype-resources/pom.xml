@@ -14,7 +14,6 @@
         <version.slf4j>1.7.2</version.slf4j>
         <version.junit>4.10</version.junit>
         <version.hsqldb>2.2.8</version.hsqldb>
-        <version.oracle>10.2.0.4</version.oracle>
     </properties>
 
     <build>

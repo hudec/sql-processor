@@ -12,27 +12,24 @@ import java.util.List;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFeature;
-import org.sqlproc.engine.SqlProcedureEngine;
-import org.sqlproc.engine.SqlQueryEngine;
-import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
-import org.sqlproc.engine.jdbc.JdbcSimpleSession;
+import org.sqlproc.engine.jdbc.JdbcSessionFactory;
 import org.sqlproc.engine.util.DDLLoader;
 import ${package}.dao.ContactDao;
 import ${package}.dao.PersonDao;
 import ${package}.model.Contact;
 import ${package}.model.Person;
 
-public class Main implements SqlSessionFactory, SqlEngineFactory {
+public class Main {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Connection connection;
+    private SqlSessionFactory sessionFactory;
     private SqlEngineFactory sqlFactory;
     private List<String> ddls;
 
@@ -52,6 +49,7 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
 
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
         connection = DriverManager.getConnection("jdbc:hsqldb:mem:sqlproc", "sa", "");
+        sessionFactory = new JdbcSessionFactory(connection);
     }
 
     public void setupDb() throws SQLException {
@@ -76,8 +74,8 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
     }
 
     public void initDao() throws SQLException {
-        contactDao = new ContactDao(this, this);
-        personDao = new PersonDao(this, this);
+        contactDao = new ContactDao(sqlFactory, sessionFactory);
+        personDao = new PersonDao(sqlFactory, sessionFactory);
     }
 
     private ContactDao contactDao;
@@ -184,34 +182,5 @@ public class Main implements SqlSessionFactory, SqlEngineFactory {
 
     public PersonDao getPersonDao() {
         return personDao;
-    }
-
-    @Override
-    public SqlQueryEngine getQueryEngine(String name) {
-        SqlQueryEngine queryEngine = sqlFactory.getQueryEngine(name);
-        if (queryEngine == null)
-            throw new RuntimeException("Missing SqlQueryEngine " + name);
-        return queryEngine;
-    }
-
-    @Override
-    public SqlCrudEngine getCrudEngine(String name) {
-        SqlCrudEngine queryEngine = sqlFactory.getCrudEngine(name);
-        if (queryEngine == null)
-            throw new RuntimeException("Missing SqlQueryEngine " + name);
-        return queryEngine;
-    }
-
-    @Override
-    public SqlProcedureEngine getProcedureEngine(String name) {
-        SqlProcedureEngine procedureEngine = sqlFactory.getProcedureEngine(name);
-        if (procedureEngine == null)
-            throw new RuntimeException("Missing SqlQueryEngine " + name);
-        return procedureEngine;
-    }
-
-    @Override
-    public SqlSession getSqlSession() {
-        return new JdbcSimpleSession(connection);
     }
 }
