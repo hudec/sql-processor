@@ -50,6 +50,9 @@ public class Main {
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
         connection = DriverManager.getConnection("jdbc:hsqldb:mem:sqlproc", "sa", "");
         sessionFactory = new JdbcSessionFactory(connection);
+
+        contactDao = new ContactDao(sqlFactory, sessionFactory);
+        personDao = new PersonDao(sqlFactory, sessionFactory);
     }
 
     public void setupDb() throws SQLException {
@@ -73,11 +76,6 @@ public class Main {
         }
     }
 
-    public void initDao() throws SQLException {
-        contactDao = new ContactDao(sqlFactory, sessionFactory);
-        personDao = new PersonDao(sqlFactory, sessionFactory);
-    }
-
     private ContactDao contactDao;
     private PersonDao personDao;
 
@@ -98,7 +96,6 @@ public class Main {
         List<Person> list;
         Main main = new Main();
         main.setupDb();
-        main.initDao();
 
         // insert
         Person jan = main.insertPersonContacts(new Person("Jan", "Jánský"), new Contact()._setAddress("Jan address 1")
