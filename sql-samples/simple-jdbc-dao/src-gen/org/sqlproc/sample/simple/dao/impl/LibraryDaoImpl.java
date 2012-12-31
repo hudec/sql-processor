@@ -35,7 +35,7 @@ public class LibraryDaoImpl extends BaseDaoImpl implements BaseDao, LibraryDao {
     if (logger.isTraceEnabled()) {
       logger.trace("insert library: " + library + " " + sqlControl);
     }
-    SqlCrudEngine sqlInsertLibrary = sqlEngineFactory.getCrudEngine("INSERT_LIBRARY");
+    SqlCrudEngine sqlInsertLibrary = sqlEngineFactory.getCheckedCrudEngine("INSERT_LIBRARY");
     int count = sqlInsertLibrary.insert(sqlSessionFactory.getSqlSession(), library);
     if (logger.isTraceEnabled()) {
       logger.trace("insert library result: " + count + " " + library);
@@ -51,7 +51,7 @@ public class LibraryDaoImpl extends BaseDaoImpl implements BaseDao, LibraryDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + library + " " + sqlControl);
     }
-    SqlCrudEngine sqlGetEngineLibrary = sqlEngineFactory.getCrudEngine("GET_LIBRARY");
+    SqlCrudEngine sqlGetEngineLibrary = sqlEngineFactory.getCheckedCrudEngine("GET_LIBRARY");
     //sqlControl = getMoreResultClasses(library, sqlControl);
     Library libraryGot = sqlGetEngineLibrary.get(sqlSessionFactory.getSqlSession(), Library.class, library, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -68,7 +68,7 @@ public class LibraryDaoImpl extends BaseDaoImpl implements BaseDao, LibraryDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update library: " + library + " " + sqlControl);
     }
-    SqlCrudEngine sqlUpdateEngineLibrary = sqlEngineFactory.getCrudEngine("UPDATE_LIBRARY");
+    SqlCrudEngine sqlUpdateEngineLibrary = sqlEngineFactory.getCheckedCrudEngine("UPDATE_LIBRARY");
     int count = sqlUpdateEngineLibrary.update(sqlSessionFactory.getSqlSession(), library);
     if (count > 0) {
     	library.setVersion(library.getVersion() + 1);
@@ -87,7 +87,7 @@ public class LibraryDaoImpl extends BaseDaoImpl implements BaseDao, LibraryDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete library: " + library + " " + sqlControl);
     }
-    SqlCrudEngine sqlDeleteEngineLibrary = sqlEngineFactory.getCrudEngine("DELETE_LIBRARY");
+    SqlCrudEngine sqlDeleteEngineLibrary = sqlEngineFactory.getCheckedCrudEngine("DELETE_LIBRARY");
     int count = sqlDeleteEngineLibrary.delete(sqlSessionFactory.getSqlSession(), library);
     if (count > 0) {
     	library.setVersion(library.getVersion() + 1);
@@ -106,7 +106,7 @@ public class LibraryDaoImpl extends BaseDaoImpl implements BaseDao, LibraryDao {
     if (logger.isTraceEnabled()) {
       logger.trace("list library: " + library + " " + sqlControl);
     }
-    SqlQueryEngine sqlEngineLibrary = sqlEngineFactory.getQueryEngine("SELECT_LIBRARY");
+    SqlQueryEngine sqlEngineLibrary = sqlEngineFactory.getCheckedQueryEngine("SELECT_LIBRARY");
     //sqlControl = getMoreResultClasses(library, sqlControl);
     List<Library> libraryList = sqlEngineLibrary.query(sqlSessionFactory.getSqlSession(), Library.class, library, sqlControl);
     if (logger.isTraceEnabled()) {

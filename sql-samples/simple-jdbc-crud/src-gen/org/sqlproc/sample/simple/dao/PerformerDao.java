@@ -32,7 +32,7 @@ public class PerformerDao {
     if (logger.isTraceEnabled()) {
       logger.trace("insert performer: " + performer + " " + sqlControl);
     }
-    SqlCrudEngine sqlInsertPerformer = sqlEngineFactory.getCrudEngine("INSERT_PERFORMER");
+    SqlCrudEngine sqlInsertPerformer = sqlEngineFactory.getCheckedCrudEngine("INSERT_PERFORMER");
     int count = sqlInsertPerformer.insert(sqlSessionFactory.getSqlSession(), performer);
     if (logger.isTraceEnabled()) {
       logger.trace("insert performer result: " + count + " " + performer);
@@ -48,7 +48,7 @@ public class PerformerDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + performer + " " + sqlControl);
     }
-    SqlCrudEngine sqlGetEnginePerformer = sqlEngineFactory.getCrudEngine("GET_PERFORMER");
+    SqlCrudEngine sqlGetEnginePerformer = sqlEngineFactory.getCheckedCrudEngine("GET_PERFORMER");
     sqlControl = getMoreResultClasses(performer, sqlControl);
     Performer performerGot = sqlGetEnginePerformer.get(sqlSessionFactory.getSqlSession(), Performer.class, performer, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -65,7 +65,7 @@ public class PerformerDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update performer: " + performer + " " + sqlControl);
     }
-    SqlCrudEngine sqlUpdateEnginePerformer = sqlEngineFactory.getCrudEngine("UPDATE_PERFORMER");
+    SqlCrudEngine sqlUpdateEnginePerformer = sqlEngineFactory.getCheckedCrudEngine("UPDATE_PERFORMER");
     int count = sqlUpdateEnginePerformer.update(sqlSessionFactory.getSqlSession(), performer);
     if (logger.isTraceEnabled()) {
       logger.trace("update performer result count: " + count);
@@ -81,7 +81,7 @@ public class PerformerDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete performer: " + performer + " " + sqlControl);
     }
-    SqlCrudEngine sqlDeleteEnginePerformer = sqlEngineFactory.getCrudEngine("DELETE_PERFORMER");
+    SqlCrudEngine sqlDeleteEnginePerformer = sqlEngineFactory.getCheckedCrudEngine("DELETE_PERFORMER");
     int count = sqlDeleteEnginePerformer.delete(sqlSessionFactory.getSqlSession(), performer);
     if (logger.isTraceEnabled()) {
       logger.trace("delete performer result count: " + count);
@@ -97,7 +97,7 @@ public class PerformerDao {
     if (logger.isTraceEnabled()) {
       logger.trace("list performer: " + performer + " " + sqlControl);
     }
-    SqlQueryEngine sqlEnginePerformer = sqlEngineFactory.getQueryEngine("SELECT_PERFORMER");
+    SqlQueryEngine sqlEnginePerformer = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERFORMER");
     sqlControl = getMoreResultClasses(performer, sqlControl);
     List<Performer> performerList = sqlEnginePerformer.query(sqlSessionFactory.getSqlSession(), Performer.class, performer, sqlControl);
     if (logger.isTraceEnabled()) {

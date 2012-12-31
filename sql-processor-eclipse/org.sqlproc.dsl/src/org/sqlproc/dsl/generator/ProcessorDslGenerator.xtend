@@ -361,8 +361,8 @@ def compileInsert(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
       if (logger.isTraceEnabled()) {
         logger.trace("insert «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
-      SqlCrudEngine sqlInsert«e.name» = sqlEngineFactory.getCrudEngine("INSERT_«dbName(e)»");«IF pe != null»
-      SqlCrudEngine sqlInsert«pe.name» = sqlEngineFactory.getCrudEngine("INSERT_«dbName(pe)»");
+      SqlCrudEngine sqlInsert«e.name» = sqlEngineFactory.getCheckedCrudEngine("INSERT_«dbName(e)»");«IF pe != null»
+      SqlCrudEngine sqlInsert«pe.name» = sqlEngineFactory.getCheckedCrudEngine("INSERT_«dbName(pe)»");
       int count = sqlInsert«pe.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
       if (count > 0) {
         sqlInsert«e.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
@@ -385,7 +385,7 @@ def compileGet(PojoDao d, PojoEntity e, Map<String, List<PojoMethodArg>> toInits
       if (logger.isTraceEnabled()) {
         logger.trace("get get: " + «e.name.toFirstLower» + " " + sqlControl);
       }
-      SqlCrudEngine sqlGetEngine«e.name» = sqlEngineFactory.getCrudEngine("GET_«dbName(e)»");
+      SqlCrudEngine sqlGetEngine«e.name» = sqlEngineFactory.getCheckedCrudEngine("GET_«dbName(e)»");
       «IF toInits.empty»//«ENDIF»sqlControl = getMoreResultClasses(«e.name.toFirstLower», sqlControl);
       «e.name» «e.name.toFirstLower»Got = sqlGetEngine«e.name».get(sqlSessionFactory.getSqlSession(), «e.name».class, «e.name.toFirstLower», sqlControl);
       if (logger.isTraceEnabled()) {
@@ -405,8 +405,8 @@ def compileUpdate(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
       if (logger.isTraceEnabled()) {
         logger.trace("update «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
-      SqlCrudEngine sqlUpdateEngine«e.name» = sqlEngineFactory.getCrudEngine("UPDATE_«dbName(e)»");«IF pe != null»
-      SqlCrudEngine sqlUpdate«pe.name» = sqlEngineFactory.getCrudEngine("UPDATE_«dbName(pe)»");«ENDIF»
+      SqlCrudEngine sqlUpdateEngine«e.name» = sqlEngineFactory.getCheckedCrudEngine("UPDATE_«dbName(e)»");«IF pe != null»
+      SqlCrudEngine sqlUpdate«pe.name» = sqlEngineFactory.getCheckedCrudEngine("UPDATE_«dbName(pe)»");«ENDIF»
       int count = sqlUpdateEngine«e.name».update(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
       if (count > 0) {
       	sqlUpdate«pe.name».update(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
@@ -431,8 +431,8 @@ def compileDelete(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
       if (logger.isTraceEnabled()) {
         logger.trace("delete «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
-      SqlCrudEngine sqlDeleteEngine«e.name» = sqlEngineFactory.getCrudEngine("DELETE_«dbName(e)»");«IF pe != null»
-      SqlCrudEngine sqlDelete«pe.name» = sqlEngineFactory.getCrudEngine("DELETE_«dbName(pe)»");«ENDIF»
+      SqlCrudEngine sqlDeleteEngine«e.name» = sqlEngineFactory.getCheckedCrudEngine("DELETE_«dbName(e)»");«IF pe != null»
+      SqlCrudEngine sqlDelete«pe.name» = sqlEngineFactory.getCheckedCrudEngine("DELETE_«dbName(pe)»");«ENDIF»
       int count = sqlDeleteEngine«e.name».delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
       if (count > 0) {
       	sqlDelete«pe.name».delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
@@ -457,7 +457,7 @@ def compileList(PojoDao d, PojoEntity e, Map<String, List<PojoMethodArg>> toInit
       if (logger.isTraceEnabled()) {
         logger.trace("list «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
-      SqlQueryEngine sqlEngine«e.name» = sqlEngineFactory.getQueryEngine("SELECT_«dbName(e)»");
+      SqlQueryEngine sqlEngine«e.name» = sqlEngineFactory.getCheckedQueryEngine("SELECT_«dbName(e)»");
       «IF toInits.empty»//«ENDIF»sqlControl = getMoreResultClasses(«e.name.toFirstLower», sqlControl);
       List<«e.name»> «e.name.toFirstLower»List = sqlEngine«e.name».query(sqlSessionFactory.getSqlSession(), «e.name».class, «e.name.toFirstLower», sqlControl);
       if (logger.isTraceEnabled()) {

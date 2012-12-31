@@ -30,7 +30,7 @@ public class BankAccountDao {
     if (logger.isTraceEnabled()) {
       logger.trace("insert bankAccount: " + bankAccount + " " + sqlControl);
     }
-    SqlCrudEngine sqlInsertBankAccount = sqlEngineFactory.getCrudEngine("INSERT_BANK_ACCOUNT");
+    SqlCrudEngine sqlInsertBankAccount = sqlEngineFactory.getCheckedCrudEngine("INSERT_BANK_ACCOUNT");
     int count = sqlInsertBankAccount.insert(sqlSessionFactory.getSqlSession(), bankAccount);
     if (logger.isTraceEnabled()) {
       logger.trace("insert bankAccount result: " + count + " " + bankAccount);
@@ -46,7 +46,7 @@ public class BankAccountDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + bankAccount + " " + sqlControl);
     }
-    SqlCrudEngine sqlGetEngineBankAccount = sqlEngineFactory.getCrudEngine("GET_BANK_ACCOUNT");
+    SqlCrudEngine sqlGetEngineBankAccount = sqlEngineFactory.getCheckedCrudEngine("GET_BANK_ACCOUNT");
     //sqlControl = getMoreResultClasses(bankAccount, sqlControl);
     BankAccount bankAccountGot = sqlGetEngineBankAccount.get(sqlSessionFactory.getSqlSession(), BankAccount.class, bankAccount, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -63,7 +63,7 @@ public class BankAccountDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update bankAccount: " + bankAccount + " " + sqlControl);
     }
-    SqlCrudEngine sqlUpdateEngineBankAccount = sqlEngineFactory.getCrudEngine("UPDATE_BANK_ACCOUNT");
+    SqlCrudEngine sqlUpdateEngineBankAccount = sqlEngineFactory.getCheckedCrudEngine("UPDATE_BANK_ACCOUNT");
     int count = sqlUpdateEngineBankAccount.update(sqlSessionFactory.getSqlSession(), bankAccount);
     if (logger.isTraceEnabled()) {
       logger.trace("update bankAccount result count: " + count);
@@ -79,7 +79,7 @@ public class BankAccountDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete bankAccount: " + bankAccount + " " + sqlControl);
     }
-    SqlCrudEngine sqlDeleteEngineBankAccount = sqlEngineFactory.getCrudEngine("DELETE_BANK_ACCOUNT");
+    SqlCrudEngine sqlDeleteEngineBankAccount = sqlEngineFactory.getCheckedCrudEngine("DELETE_BANK_ACCOUNT");
     int count = sqlDeleteEngineBankAccount.delete(sqlSessionFactory.getSqlSession(), bankAccount);
     if (logger.isTraceEnabled()) {
       logger.trace("delete bankAccount result count: " + count);
@@ -95,7 +95,7 @@ public class BankAccountDao {
     if (logger.isTraceEnabled()) {
       logger.trace("list bankAccount: " + bankAccount + " " + sqlControl);
     }
-    SqlQueryEngine sqlEngineBankAccount = sqlEngineFactory.getQueryEngine("SELECT_BANK_ACCOUNT");
+    SqlQueryEngine sqlEngineBankAccount = sqlEngineFactory.getCheckedQueryEngine("SELECT_BANK_ACCOUNT");
     //sqlControl = getMoreResultClasses(bankAccount, sqlControl);
     List<BankAccount> bankAccountList = sqlEngineBankAccount.query(sqlSessionFactory.getSqlSession(), BankAccount.class, bankAccount, sqlControl);
     if (logger.isTraceEnabled()) {

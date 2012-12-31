@@ -35,8 +35,8 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     if (logger.isTraceEnabled()) {
       logger.trace("insert newBook: " + newBook + " " + sqlControl);
     }
-    SqlCrudEngine sqlInsertNewBook = sqlEngineFactory.getCrudEngine("INSERT_NEW_BOOK");
-    SqlCrudEngine sqlInsertMedia = sqlEngineFactory.getCrudEngine("INSERT_MEDIA");
+    SqlCrudEngine sqlInsertNewBook = sqlEngineFactory.getCheckedCrudEngine("INSERT_NEW_BOOK");
+    SqlCrudEngine sqlInsertMedia = sqlEngineFactory.getCheckedCrudEngine("INSERT_MEDIA");
     int count = sqlInsertMedia.insert(sqlSessionFactory.getSqlSession(), newBook);
     if (count > 0) {
       sqlInsertNewBook.insert(sqlSessionFactory.getSqlSession(), newBook);
@@ -55,7 +55,7 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + newBook + " " + sqlControl);
     }
-    SqlCrudEngine sqlGetEngineNewBook = sqlEngineFactory.getCrudEngine("GET_NEW_BOOK");
+    SqlCrudEngine sqlGetEngineNewBook = sqlEngineFactory.getCheckedCrudEngine("GET_NEW_BOOK");
     //sqlControl = getMoreResultClasses(newBook, sqlControl);
     NewBook newBookGot = sqlGetEngineNewBook.get(sqlSessionFactory.getSqlSession(), NewBook.class, newBook, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -72,8 +72,8 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update newBook: " + newBook + " " + sqlControl);
     }
-    SqlCrudEngine sqlUpdateEngineNewBook = sqlEngineFactory.getCrudEngine("UPDATE_NEW_BOOK");
-    SqlCrudEngine sqlUpdateMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
+    SqlCrudEngine sqlUpdateEngineNewBook = sqlEngineFactory.getCheckedCrudEngine("UPDATE_NEW_BOOK");
+    SqlCrudEngine sqlUpdateMedia = sqlEngineFactory.getCheckedCrudEngine("UPDATE_MEDIA");
     int count = sqlUpdateEngineNewBook.update(sqlSessionFactory.getSqlSession(), newBook);
     if (count > 0) {
     	sqlUpdateMedia.update(sqlSessionFactory.getSqlSession(), newBook);
@@ -95,8 +95,8 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete newBook: " + newBook + " " + sqlControl);
     }
-    SqlCrudEngine sqlDeleteEngineNewBook = sqlEngineFactory.getCrudEngine("DELETE_NEW_BOOK");
-    SqlCrudEngine sqlDeleteMedia = sqlEngineFactory.getCrudEngine("DELETE_MEDIA");
+    SqlCrudEngine sqlDeleteEngineNewBook = sqlEngineFactory.getCheckedCrudEngine("DELETE_NEW_BOOK");
+    SqlCrudEngine sqlDeleteMedia = sqlEngineFactory.getCheckedCrudEngine("DELETE_MEDIA");
     int count = sqlDeleteEngineNewBook.delete(sqlSessionFactory.getSqlSession(), newBook);
     if (count > 0) {
     	sqlDeleteMedia.delete(sqlSessionFactory.getSqlSession(), newBook);
@@ -118,7 +118,7 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     if (logger.isTraceEnabled()) {
       logger.trace("list newBook: " + newBook + " " + sqlControl);
     }
-    SqlQueryEngine sqlEngineNewBook = sqlEngineFactory.getQueryEngine("SELECT_NEW_BOOK");
+    SqlQueryEngine sqlEngineNewBook = sqlEngineFactory.getCheckedQueryEngine("SELECT_NEW_BOOK");
     //sqlControl = getMoreResultClasses(newBook, sqlControl);
     List<NewBook> newBookList = sqlEngineNewBook.query(sqlSessionFactory.getSqlSession(), NewBook.class, newBook, sqlControl);
     if (logger.isTraceEnabled()) {

@@ -30,7 +30,7 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
       logger.trace("insert contact: " + contact + " " + sqlControl);
     }
-    SqlCrudEngine sqlInsertContact = sqlEngineFactory.getCrudEngine("INSERT_CONTACT");
+    SqlCrudEngine sqlInsertContact = sqlEngineFactory.getCheckedCrudEngine("INSERT_CONTACT");
     int count = sqlInsertContact.insert(sqlSessionFactory.getSqlSession(), contact);
     if (logger.isTraceEnabled()) {
       logger.trace("insert contact result: " + count + " " + contact);
@@ -46,7 +46,7 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + contact + " " + sqlControl);
     }
-    SqlCrudEngine sqlGetEngineContact = sqlEngineFactory.getCrudEngine("GET_CONTACT");
+    SqlCrudEngine sqlGetEngineContact = sqlEngineFactory.getCheckedCrudEngine("GET_CONTACT");
     //sqlControl = getMoreResultClasses(contact, sqlControl);
     Contact contactGot = sqlGetEngineContact.get(sqlSessionFactory.getSqlSession(), Contact.class, contact, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -63,7 +63,7 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update contact: " + contact + " " + sqlControl);
     }
-    SqlCrudEngine sqlUpdateEngineContact = sqlEngineFactory.getCrudEngine("UPDATE_CONTACT");
+    SqlCrudEngine sqlUpdateEngineContact = sqlEngineFactory.getCheckedCrudEngine("UPDATE_CONTACT");
     int count = sqlUpdateEngineContact.update(sqlSessionFactory.getSqlSession(), contact);
     if (logger.isTraceEnabled()) {
       logger.trace("update contact result count: " + count);
@@ -79,7 +79,7 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete contact: " + contact + " " + sqlControl);
     }
-    SqlCrudEngine sqlDeleteEngineContact = sqlEngineFactory.getCrudEngine("DELETE_CONTACT");
+    SqlCrudEngine sqlDeleteEngineContact = sqlEngineFactory.getCheckedCrudEngine("DELETE_CONTACT");
     int count = sqlDeleteEngineContact.delete(sqlSessionFactory.getSqlSession(), contact);
     if (logger.isTraceEnabled()) {
       logger.trace("delete contact result count: " + count);
@@ -95,7 +95,7 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
       logger.trace("list contact: " + contact + " " + sqlControl);
     }
-    SqlQueryEngine sqlEngineContact = sqlEngineFactory.getQueryEngine("SELECT_CONTACT");
+    SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine("SELECT_CONTACT");
     //sqlControl = getMoreResultClasses(contact, sqlControl);
     List<Contact> contactList = sqlEngineContact.query(sqlSessionFactory.getSqlSession(), Contact.class, contact, sqlControl);
     if (logger.isTraceEnabled()) {

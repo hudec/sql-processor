@@ -32,7 +32,7 @@ public class PaymentDao {
     if (logger.isTraceEnabled()) {
       logger.trace("insert payment: " + payment + " " + sqlControl);
     }
-    SqlCrudEngine sqlInsertPayment = sqlEngineFactory.getCrudEngine("INSERT_PAYMENT");
+    SqlCrudEngine sqlInsertPayment = sqlEngineFactory.getCheckedCrudEngine("INSERT_PAYMENT");
     int count = sqlInsertPayment.insert(sqlSessionFactory.getSqlSession(), payment);
     if (logger.isTraceEnabled()) {
       logger.trace("insert payment result: " + count + " " + payment);
@@ -48,7 +48,7 @@ public class PaymentDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + payment + " " + sqlControl);
     }
-    SqlCrudEngine sqlGetEnginePayment = sqlEngineFactory.getCrudEngine("GET_PAYMENT");
+    SqlCrudEngine sqlGetEnginePayment = sqlEngineFactory.getCheckedCrudEngine("GET_PAYMENT");
     sqlControl = getMoreResultClasses(payment, sqlControl);
     Payment paymentGot = sqlGetEnginePayment.get(sqlSessionFactory.getSqlSession(), Payment.class, payment, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -65,7 +65,7 @@ public class PaymentDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update payment: " + payment + " " + sqlControl);
     }
-    SqlCrudEngine sqlUpdateEnginePayment = sqlEngineFactory.getCrudEngine("UPDATE_PAYMENT");
+    SqlCrudEngine sqlUpdateEnginePayment = sqlEngineFactory.getCheckedCrudEngine("UPDATE_PAYMENT");
     int count = sqlUpdateEnginePayment.update(sqlSessionFactory.getSqlSession(), payment);
     if (logger.isTraceEnabled()) {
       logger.trace("update payment result count: " + count);
@@ -81,7 +81,7 @@ public class PaymentDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete payment: " + payment + " " + sqlControl);
     }
-    SqlCrudEngine sqlDeleteEnginePayment = sqlEngineFactory.getCrudEngine("DELETE_PAYMENT");
+    SqlCrudEngine sqlDeleteEnginePayment = sqlEngineFactory.getCheckedCrudEngine("DELETE_PAYMENT");
     int count = sqlDeleteEnginePayment.delete(sqlSessionFactory.getSqlSession(), payment);
     if (logger.isTraceEnabled()) {
       logger.trace("delete payment result count: " + count);
@@ -97,7 +97,7 @@ public class PaymentDao {
     if (logger.isTraceEnabled()) {
       logger.trace("list payment: " + payment + " " + sqlControl);
     }
-    SqlQueryEngine sqlEnginePayment = sqlEngineFactory.getQueryEngine("SELECT_PAYMENT");
+    SqlQueryEngine sqlEnginePayment = sqlEngineFactory.getCheckedQueryEngine("SELECT_PAYMENT");
     sqlControl = getMoreResultClasses(payment, sqlControl);
     List<Payment> paymentList = sqlEnginePayment.query(sqlSessionFactory.getSqlSession(), Payment.class, payment, sqlControl);
     if (logger.isTraceEnabled()) {

@@ -1343,7 +1343,7 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("SqlCrudEngine sqlInsert");
     String _name_5 = e.getName();
     _builder.append(_name_5, "  ");
-    _builder.append(" = sqlEngineFactory.getCrudEngine(\"INSERT_");
+    _builder.append(" = sqlEngineFactory.getCheckedCrudEngine(\"INSERT_");
     String _dbName = Utils.dbName(e);
     _builder.append(_dbName, "  ");
     _builder.append("\");");
@@ -1355,7 +1355,7 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.append("SqlCrudEngine sqlInsert");
         String _name_6 = pe.getName();
         _builder.append(_name_6, "  ");
-        _builder.append(" = sqlEngineFactory.getCrudEngine(\"INSERT_");
+        _builder.append(" = sqlEngineFactory.getCheckedCrudEngine(\"INSERT_");
         String _dbName_1 = Utils.dbName(pe);
         _builder.append(_dbName_1, "  ");
         _builder.append("\");");
@@ -1483,7 +1483,7 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("SqlCrudEngine sqlGetEngine");
     String _name_4 = e.getName();
     _builder.append(_name_4, "  ");
-    _builder.append(" = sqlEngineFactory.getCrudEngine(\"GET_");
+    _builder.append(" = sqlEngineFactory.getCheckedCrudEngine(\"GET_");
     String _dbName = Utils.dbName(e);
     _builder.append(_dbName, "  ");
     _builder.append("\");");
@@ -1605,7 +1605,7 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("SqlCrudEngine sqlUpdateEngine");
     String _name_4 = e.getName();
     _builder.append(_name_4, "  ");
-    _builder.append(" = sqlEngineFactory.getCrudEngine(\"UPDATE_");
+    _builder.append(" = sqlEngineFactory.getCheckedCrudEngine(\"UPDATE_");
     String _dbName = Utils.dbName(e);
     _builder.append(_dbName, "  ");
     _builder.append("\");");
@@ -1617,7 +1617,7 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.append("SqlCrudEngine sqlUpdate");
         String _name_5 = pe.getName();
         _builder.append(_name_5, "  ");
-        _builder.append(" = sqlEngineFactory.getCrudEngine(\"UPDATE_");
+        _builder.append(" = sqlEngineFactory.getCheckedCrudEngine(\"UPDATE_");
         String _dbName_1 = Utils.dbName(pe);
         _builder.append(_dbName_1, "  ");
         _builder.append("\");");
@@ -1760,7 +1760,7 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("SqlCrudEngine sqlDeleteEngine");
     String _name_4 = e.getName();
     _builder.append(_name_4, "  ");
-    _builder.append(" = sqlEngineFactory.getCrudEngine(\"DELETE_");
+    _builder.append(" = sqlEngineFactory.getCheckedCrudEngine(\"DELETE_");
     String _dbName = Utils.dbName(e);
     _builder.append(_dbName, "  ");
     _builder.append("\");");
@@ -1772,7 +1772,7 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.append("SqlCrudEngine sqlDelete");
         String _name_5 = pe.getName();
         _builder.append(_name_5, "  ");
-        _builder.append(" = sqlEngineFactory.getCrudEngine(\"DELETE_");
+        _builder.append(" = sqlEngineFactory.getCheckedCrudEngine(\"DELETE_");
         String _dbName_1 = Utils.dbName(pe);
         _builder.append(_dbName_1, "  ");
         _builder.append("\");");
@@ -1918,7 +1918,7 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.append("SqlQueryEngine sqlEngine");
     String _name_5 = e.getName();
     _builder.append(_name_5, "  ");
-    _builder.append(" = sqlEngineFactory.getQueryEngine(\"SELECT_");
+    _builder.append(" = sqlEngineFactory.getCheckedQueryEngine(\"SELECT_");
     String _dbName = Utils.dbName(e);
     _builder.append(_dbName, "  ");
     _builder.append("\");");

@@ -37,7 +37,7 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
     if (logger.isTraceEnabled()) {
       logger.trace("insert subscriber: " + subscriber + " " + sqlControl);
     }
-    SqlCrudEngine sqlInsertSubscriber = sqlEngineFactory.getCrudEngine("INSERT_SUBSCRIBER");
+    SqlCrudEngine sqlInsertSubscriber = sqlEngineFactory.getCheckedCrudEngine("INSERT_SUBSCRIBER");
     int count = sqlInsertSubscriber.insert(sqlSessionFactory.getSqlSession(), subscriber);
     if (logger.isTraceEnabled()) {
       logger.trace("insert subscriber result: " + count + " " + subscriber);
@@ -53,7 +53,7 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + subscriber + " " + sqlControl);
     }
-    SqlCrudEngine sqlGetEngineSubscriber = sqlEngineFactory.getCrudEngine("GET_SUBSCRIBER");
+    SqlCrudEngine sqlGetEngineSubscriber = sqlEngineFactory.getCheckedCrudEngine("GET_SUBSCRIBER");
     sqlControl = getMoreResultClasses(subscriber, sqlControl);
     Subscriber subscriberGot = sqlGetEngineSubscriber.get(sqlSessionFactory.getSqlSession(), Subscriber.class, subscriber, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -70,7 +70,7 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
     if (logger.isTraceEnabled()) {
       logger.trace("update subscriber: " + subscriber + " " + sqlControl);
     }
-    SqlCrudEngine sqlUpdateEngineSubscriber = sqlEngineFactory.getCrudEngine("UPDATE_SUBSCRIBER");
+    SqlCrudEngine sqlUpdateEngineSubscriber = sqlEngineFactory.getCheckedCrudEngine("UPDATE_SUBSCRIBER");
     int count = sqlUpdateEngineSubscriber.update(sqlSessionFactory.getSqlSession(), subscriber);
     if (count > 0) {
     	subscriber.setVersion(subscriber.getVersion() + 1);
@@ -89,7 +89,7 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
     if (logger.isTraceEnabled()) {
       logger.trace("delete subscriber: " + subscriber + " " + sqlControl);
     }
-    SqlCrudEngine sqlDeleteEngineSubscriber = sqlEngineFactory.getCrudEngine("DELETE_SUBSCRIBER");
+    SqlCrudEngine sqlDeleteEngineSubscriber = sqlEngineFactory.getCheckedCrudEngine("DELETE_SUBSCRIBER");
     int count = sqlDeleteEngineSubscriber.delete(sqlSessionFactory.getSqlSession(), subscriber);
     if (count > 0) {
     	subscriber.setVersion(subscriber.getVersion() + 1);
@@ -108,7 +108,7 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
     if (logger.isTraceEnabled()) {
       logger.trace("list subscriber: " + subscriber + " " + sqlControl);
     }
-    SqlQueryEngine sqlEngineSubscriber = sqlEngineFactory.getQueryEngine("SELECT_SUBSCRIBER");
+    SqlQueryEngine sqlEngineSubscriber = sqlEngineFactory.getCheckedQueryEngine("SELECT_SUBSCRIBER");
     sqlControl = getMoreResultClasses(subscriber, sqlControl);
     List<Subscriber> subscriberList = sqlEngineSubscriber.query(sqlSessionFactory.getSqlSession(), Subscriber.class, subscriber, sqlControl);
     if (logger.isTraceEnabled()) {

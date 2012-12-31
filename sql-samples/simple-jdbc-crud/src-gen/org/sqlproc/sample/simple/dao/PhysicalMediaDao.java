@@ -32,7 +32,7 @@ public class PhysicalMediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("insert physicalMedia: " + physicalMedia + " " + sqlControl);
     }
-    SqlCrudEngine sqlInsertPhysicalMedia = sqlEngineFactory.getCrudEngine("INSERT_PHYSICAL_MEDIA");
+    SqlCrudEngine sqlInsertPhysicalMedia = sqlEngineFactory.getCheckedCrudEngine("INSERT_PHYSICAL_MEDIA");
     int count = sqlInsertPhysicalMedia.insert(sqlSessionFactory.getSqlSession(), physicalMedia);
     if (logger.isTraceEnabled()) {
       logger.trace("insert physicalMedia result: " + count + " " + physicalMedia);
@@ -48,7 +48,7 @@ public class PhysicalMediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + physicalMedia + " " + sqlControl);
     }
-    SqlCrudEngine sqlGetEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("GET_PHYSICAL_MEDIA");
+    SqlCrudEngine sqlGetEnginePhysicalMedia = sqlEngineFactory.getCheckedCrudEngine("GET_PHYSICAL_MEDIA");
     sqlControl = getMoreResultClasses(physicalMedia, sqlControl);
     PhysicalMedia physicalMediaGot = sqlGetEnginePhysicalMedia.get(sqlSessionFactory.getSqlSession(), PhysicalMedia.class, physicalMedia, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -65,7 +65,7 @@ public class PhysicalMediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update physicalMedia: " + physicalMedia + " " + sqlControl);
     }
-    SqlCrudEngine sqlUpdateEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("UPDATE_PHYSICAL_MEDIA");
+    SqlCrudEngine sqlUpdateEnginePhysicalMedia = sqlEngineFactory.getCheckedCrudEngine("UPDATE_PHYSICAL_MEDIA");
     int count = sqlUpdateEnginePhysicalMedia.update(sqlSessionFactory.getSqlSession(), physicalMedia);
     if (logger.isTraceEnabled()) {
       logger.trace("update physicalMedia result count: " + count);
@@ -81,7 +81,7 @@ public class PhysicalMediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete physicalMedia: " + physicalMedia + " " + sqlControl);
     }
-    SqlCrudEngine sqlDeleteEnginePhysicalMedia = sqlEngineFactory.getCrudEngine("DELETE_PHYSICAL_MEDIA");
+    SqlCrudEngine sqlDeleteEnginePhysicalMedia = sqlEngineFactory.getCheckedCrudEngine("DELETE_PHYSICAL_MEDIA");
     int count = sqlDeleteEnginePhysicalMedia.delete(sqlSessionFactory.getSqlSession(), physicalMedia);
     if (logger.isTraceEnabled()) {
       logger.trace("delete physicalMedia result count: " + count);
@@ -97,7 +97,7 @@ public class PhysicalMediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("list physicalMedia: " + physicalMedia + " " + sqlControl);
     }
-    SqlQueryEngine sqlEnginePhysicalMedia = sqlEngineFactory.getQueryEngine("SELECT_PHYSICAL_MEDIA");
+    SqlQueryEngine sqlEnginePhysicalMedia = sqlEngineFactory.getCheckedQueryEngine("SELECT_PHYSICAL_MEDIA");
     sqlControl = getMoreResultClasses(physicalMedia, sqlControl);
     List<PhysicalMedia> physicalMediaList = sqlEnginePhysicalMedia.query(sqlSessionFactory.getSqlSession(), PhysicalMedia.class, physicalMedia, sqlControl);
     if (logger.isTraceEnabled()) {

@@ -35,8 +35,8 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     if (logger.isTraceEnabled()) {
       logger.trace("insert movie: " + movie + " " + sqlControl);
     }
-    SqlCrudEngine sqlInsertMovie = sqlEngineFactory.getCrudEngine("INSERT_MOVIE");
-    SqlCrudEngine sqlInsertMedia = sqlEngineFactory.getCrudEngine("INSERT_MEDIA");
+    SqlCrudEngine sqlInsertMovie = sqlEngineFactory.getCheckedCrudEngine("INSERT_MOVIE");
+    SqlCrudEngine sqlInsertMedia = sqlEngineFactory.getCheckedCrudEngine("INSERT_MEDIA");
     int count = sqlInsertMedia.insert(sqlSessionFactory.getSqlSession(), movie);
     if (count > 0) {
       sqlInsertMovie.insert(sqlSessionFactory.getSqlSession(), movie);
@@ -55,7 +55,7 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + movie + " " + sqlControl);
     }
-    SqlCrudEngine sqlGetEngineMovie = sqlEngineFactory.getCrudEngine("GET_MOVIE");
+    SqlCrudEngine sqlGetEngineMovie = sqlEngineFactory.getCheckedCrudEngine("GET_MOVIE");
     //sqlControl = getMoreResultClasses(movie, sqlControl);
     Movie movieGot = sqlGetEngineMovie.get(sqlSessionFactory.getSqlSession(), Movie.class, movie, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -72,8 +72,8 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update movie: " + movie + " " + sqlControl);
     }
-    SqlCrudEngine sqlUpdateEngineMovie = sqlEngineFactory.getCrudEngine("UPDATE_MOVIE");
-    SqlCrudEngine sqlUpdateMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
+    SqlCrudEngine sqlUpdateEngineMovie = sqlEngineFactory.getCheckedCrudEngine("UPDATE_MOVIE");
+    SqlCrudEngine sqlUpdateMedia = sqlEngineFactory.getCheckedCrudEngine("UPDATE_MEDIA");
     int count = sqlUpdateEngineMovie.update(sqlSessionFactory.getSqlSession(), movie);
     if (count > 0) {
     	sqlUpdateMedia.update(sqlSessionFactory.getSqlSession(), movie);
@@ -95,8 +95,8 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete movie: " + movie + " " + sqlControl);
     }
-    SqlCrudEngine sqlDeleteEngineMovie = sqlEngineFactory.getCrudEngine("DELETE_MOVIE");
-    SqlCrudEngine sqlDeleteMedia = sqlEngineFactory.getCrudEngine("DELETE_MEDIA");
+    SqlCrudEngine sqlDeleteEngineMovie = sqlEngineFactory.getCheckedCrudEngine("DELETE_MOVIE");
+    SqlCrudEngine sqlDeleteMedia = sqlEngineFactory.getCheckedCrudEngine("DELETE_MEDIA");
     int count = sqlDeleteEngineMovie.delete(sqlSessionFactory.getSqlSession(), movie);
     if (count > 0) {
     	sqlDeleteMedia.delete(sqlSessionFactory.getSqlSession(), movie);
@@ -118,7 +118,7 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     if (logger.isTraceEnabled()) {
       logger.trace("list movie: " + movie + " " + sqlControl);
     }
-    SqlQueryEngine sqlEngineMovie = sqlEngineFactory.getQueryEngine("SELECT_MOVIE");
+    SqlQueryEngine sqlEngineMovie = sqlEngineFactory.getCheckedQueryEngine("SELECT_MOVIE");
     //sqlControl = getMoreResultClasses(movie, sqlControl);
     List<Movie> movieList = sqlEngineMovie.query(sqlSessionFactory.getSqlSession(), Movie.class, movie, sqlControl);
     if (logger.isTraceEnabled()) {

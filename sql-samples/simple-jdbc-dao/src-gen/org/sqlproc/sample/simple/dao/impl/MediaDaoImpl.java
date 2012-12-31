@@ -35,7 +35,7 @@ public class MediaDaoImpl extends BaseDaoImpl implements BaseDao, MediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("insert media: " + media + " " + sqlControl);
     }
-    SqlCrudEngine sqlInsertMedia = sqlEngineFactory.getCrudEngine("INSERT_MEDIA");
+    SqlCrudEngine sqlInsertMedia = sqlEngineFactory.getCheckedCrudEngine("INSERT_MEDIA");
     int count = sqlInsertMedia.insert(sqlSessionFactory.getSqlSession(), media);
     if (logger.isTraceEnabled()) {
       logger.trace("insert media result: " + count + " " + media);
@@ -51,7 +51,7 @@ public class MediaDaoImpl extends BaseDaoImpl implements BaseDao, MediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + media + " " + sqlControl);
     }
-    SqlCrudEngine sqlGetEngineMedia = sqlEngineFactory.getCrudEngine("GET_MEDIA");
+    SqlCrudEngine sqlGetEngineMedia = sqlEngineFactory.getCheckedCrudEngine("GET_MEDIA");
     //sqlControl = getMoreResultClasses(media, sqlControl);
     Media mediaGot = sqlGetEngineMedia.get(sqlSessionFactory.getSqlSession(), Media.class, media, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -68,7 +68,7 @@ public class MediaDaoImpl extends BaseDaoImpl implements BaseDao, MediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("update media: " + media + " " + sqlControl);
     }
-    SqlCrudEngine sqlUpdateEngineMedia = sqlEngineFactory.getCrudEngine("UPDATE_MEDIA");
+    SqlCrudEngine sqlUpdateEngineMedia = sqlEngineFactory.getCheckedCrudEngine("UPDATE_MEDIA");
     int count = sqlUpdateEngineMedia.update(sqlSessionFactory.getSqlSession(), media);
     if (count > 0) {
     	media.setVersion(media.getVersion() + 1);
@@ -87,7 +87,7 @@ public class MediaDaoImpl extends BaseDaoImpl implements BaseDao, MediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("delete media: " + media + " " + sqlControl);
     }
-    SqlCrudEngine sqlDeleteEngineMedia = sqlEngineFactory.getCrudEngine("DELETE_MEDIA");
+    SqlCrudEngine sqlDeleteEngineMedia = sqlEngineFactory.getCheckedCrudEngine("DELETE_MEDIA");
     int count = sqlDeleteEngineMedia.delete(sqlSessionFactory.getSqlSession(), media);
     if (count > 0) {
     	media.setVersion(media.getVersion() + 1);
@@ -106,7 +106,7 @@ public class MediaDaoImpl extends BaseDaoImpl implements BaseDao, MediaDao {
     if (logger.isTraceEnabled()) {
       logger.trace("list media: " + media + " " + sqlControl);
     }
-    SqlQueryEngine sqlEngineMedia = sqlEngineFactory.getQueryEngine("SELECT_MEDIA");
+    SqlQueryEngine sqlEngineMedia = sqlEngineFactory.getCheckedQueryEngine("SELECT_MEDIA");
     //sqlControl = getMoreResultClasses(media, sqlControl);
     List<Media> mediaList = sqlEngineMedia.query(sqlSessionFactory.getSqlSession(), Media.class, media, sqlControl);
     if (logger.isTraceEnabled()) {

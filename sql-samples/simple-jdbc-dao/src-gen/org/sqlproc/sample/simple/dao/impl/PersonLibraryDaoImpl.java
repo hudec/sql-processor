@@ -35,7 +35,7 @@ public class PersonLibraryDaoImpl extends BaseDaoImpl implements BaseDao, Person
     if (logger.isTraceEnabled()) {
       logger.trace("insert personLibrary: " + personLibrary + " " + sqlControl);
     }
-    SqlCrudEngine sqlInsertPersonLibrary = sqlEngineFactory.getCrudEngine("INSERT_PERSON_LIBRARY");
+    SqlCrudEngine sqlInsertPersonLibrary = sqlEngineFactory.getCheckedCrudEngine("INSERT_PERSON_LIBRARY");
     int count = sqlInsertPersonLibrary.insert(sqlSessionFactory.getSqlSession(), personLibrary);
     if (logger.isTraceEnabled()) {
       logger.trace("insert personLibrary result: " + count + " " + personLibrary);
@@ -51,7 +51,7 @@ public class PersonLibraryDaoImpl extends BaseDaoImpl implements BaseDao, Person
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + personLibrary + " " + sqlControl);
     }
-    SqlCrudEngine sqlGetEnginePersonLibrary = sqlEngineFactory.getCrudEngine("GET_PERSON_LIBRARY");
+    SqlCrudEngine sqlGetEnginePersonLibrary = sqlEngineFactory.getCheckedCrudEngine("GET_PERSON_LIBRARY");
     //sqlControl = getMoreResultClasses(personLibrary, sqlControl);
     PersonLibrary personLibraryGot = sqlGetEnginePersonLibrary.get(sqlSessionFactory.getSqlSession(), PersonLibrary.class, personLibrary, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -68,7 +68,7 @@ public class PersonLibraryDaoImpl extends BaseDaoImpl implements BaseDao, Person
     if (logger.isTraceEnabled()) {
       logger.trace("update personLibrary: " + personLibrary + " " + sqlControl);
     }
-    SqlCrudEngine sqlUpdateEnginePersonLibrary = sqlEngineFactory.getCrudEngine("UPDATE_PERSON_LIBRARY");
+    SqlCrudEngine sqlUpdateEnginePersonLibrary = sqlEngineFactory.getCheckedCrudEngine("UPDATE_PERSON_LIBRARY");
     int count = sqlUpdateEnginePersonLibrary.update(sqlSessionFactory.getSqlSession(), personLibrary);
     if (logger.isTraceEnabled()) {
       logger.trace("update personLibrary result count: " + count);
@@ -84,7 +84,7 @@ public class PersonLibraryDaoImpl extends BaseDaoImpl implements BaseDao, Person
     if (logger.isTraceEnabled()) {
       logger.trace("delete personLibrary: " + personLibrary + " " + sqlControl);
     }
-    SqlCrudEngine sqlDeleteEnginePersonLibrary = sqlEngineFactory.getCrudEngine("DELETE_PERSON_LIBRARY");
+    SqlCrudEngine sqlDeleteEnginePersonLibrary = sqlEngineFactory.getCheckedCrudEngine("DELETE_PERSON_LIBRARY");
     int count = sqlDeleteEnginePersonLibrary.delete(sqlSessionFactory.getSqlSession(), personLibrary);
     if (logger.isTraceEnabled()) {
       logger.trace("delete personLibrary result count: " + count);
@@ -100,7 +100,7 @@ public class PersonLibraryDaoImpl extends BaseDaoImpl implements BaseDao, Person
     if (logger.isTraceEnabled()) {
       logger.trace("list personLibrary: " + personLibrary + " " + sqlControl);
     }
-    SqlQueryEngine sqlEnginePersonLibrary = sqlEngineFactory.getQueryEngine("SELECT_PERSON_LIBRARY");
+    SqlQueryEngine sqlEnginePersonLibrary = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON_LIBRARY");
     //sqlControl = getMoreResultClasses(personLibrary, sqlControl);
     List<PersonLibrary> personLibraryList = sqlEnginePersonLibrary.query(sqlSessionFactory.getSqlSession(), PersonLibrary.class, personLibrary, sqlControl);
     if (logger.isTraceEnabled()) {
