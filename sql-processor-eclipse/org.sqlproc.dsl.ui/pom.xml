@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.sqlproc.dsl</groupId>
 		<artifactId>dsl-parent</artifactId>
-		<version>1.2.0</version>
+		<version>1.2.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>org.sqlproc.dsl.ui</artifactId>
