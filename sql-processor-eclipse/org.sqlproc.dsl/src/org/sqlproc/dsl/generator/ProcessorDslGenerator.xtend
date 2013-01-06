@@ -321,6 +321,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import «d.pojo.completeName»;
@@ -341,6 +342,10 @@ public «IF isAbstract(d)»abstract «ENDIF»class «d.name»«IF d.implPackage 
   private SqlEngineFactory sqlEngineFactory;
   private SqlSessionFactory sqlSessionFactory;
     	
+  public «d.name»«IF d.implPackage != null»Impl«ENDIF»(SqlEngineFactory sqlEngineFactory) {
+    this.sqlEngineFactory = sqlEngineFactory;
+  }
+    	
   public «d.name»«IF d.implPackage != null»Impl«ENDIF»(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
     this.sqlSessionFactory = sqlSessionFactory;
@@ -357,21 +362,29 @@ public «IF isAbstract(d)»abstract «ENDIF»class «d.name»«IF d.implPackage 
 
 def compileInsert(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importManager) '''
 
-    public «e.name» insert(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+    public «e.name» insert(SqlSession sqlSession, «e.name» «e.name.toFirstLower», SqlControl sqlControl) {
       if (logger.isTraceEnabled()) {
         logger.trace("insert «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
       SqlCrudEngine sqlInsert«e.name» = sqlEngineFactory.getCheckedCrudEngine("INSERT_«dbName(e)»");«IF pe != null»
       SqlCrudEngine sqlInsert«pe.name» = sqlEngineFactory.getCheckedCrudEngine("INSERT_«dbName(pe)»");
-      int count = sqlInsert«pe.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      int count = sqlInsert«pe.name».insert(sqlSession, «e.name.toFirstLower»);
       if (count > 0) {
-        sqlInsert«e.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+        sqlInsert«e.name».insert(sqlSession, «e.name.toFirstLower»);
       }«ELSE»
-      int count = sqlInsert«e.name».insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«ENDIF»
+      int count = sqlInsert«e.name».insert(sqlSession, «e.name.toFirstLower»);«ENDIF»
       if (logger.isTraceEnabled()) {
         logger.trace("insert «e.name.toFirstLower» result: " + count + " " + «e.name.toFirstLower»);
       }
       return (count > 0) ? «e.name.toFirstLower» : null;
+    }
+
+    public «e.name» insert(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+    	return insert(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower», sqlControl);
+    }
+
+    public «e.name» insert(SqlSession sqlSession, «e.name» «e.name.toFirstLower») {
+      return insert(sqlSession, «e.name.toFirstLower», null);
     }
 
     public «e.name» insert(«e.name» «e.name.toFirstLower») {
@@ -381,19 +394,27 @@ def compileInsert(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
 
 def compileGet(PojoDao d, PojoEntity e, Map<String, List<PojoMethodArg>> toInits, ImportManager importManager) '''
 
-    public «e.name» get(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+    public «e.name» get(SqlSession sqlSession, «e.name» «e.name.toFirstLower», SqlControl sqlControl) {
       if (logger.isTraceEnabled()) {
         logger.trace("get get: " + «e.name.toFirstLower» + " " + sqlControl);
       }
       SqlCrudEngine sqlGetEngine«e.name» = sqlEngineFactory.getCheckedCrudEngine("GET_«dbName(e)»");
       «IF toInits.empty»//«ENDIF»sqlControl = getMoreResultClasses(«e.name.toFirstLower», sqlControl);
-      «e.name» «e.name.toFirstLower»Got = sqlGetEngine«e.name».get(sqlSessionFactory.getSqlSession(), «e.name».class, «e.name.toFirstLower», sqlControl);
+      «e.name» «e.name.toFirstLower»Got = sqlGetEngine«e.name».get(sqlSession, «e.name».class, «e.name.toFirstLower», sqlControl);
       if (logger.isTraceEnabled()) {
         logger.trace("get «e.name.toFirstLower» result: " + «e.name.toFirstLower»Got);
       }
       return «e.name.toFirstLower»Got;
     }
 	
+    public «e.name» get(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+    	return get(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower», sqlControl);
+    }
+
+    public «e.name» get(SqlSession sqlSession, «e.name» «e.name.toFirstLower») {
+      return get(sqlSession, «e.name.toFirstLower», null);
+    }
+
     public «e.name» get(«e.name» «e.name.toFirstLower») {
       return get(«e.name.toFirstLower», null);
     }
@@ -401,15 +422,15 @@ def compileGet(PojoDao d, PojoEntity e, Map<String, List<PojoMethodArg>> toInits
 
 def compileUpdate(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importManager) '''
 
-    public int update(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+    public int update(SqlSession sqlSession, «e.name» «e.name.toFirstLower», SqlControl sqlControl) {
       if (logger.isTraceEnabled()) {
         logger.trace("update «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
       SqlCrudEngine sqlUpdateEngine«e.name» = sqlEngineFactory.getCheckedCrudEngine("UPDATE_«dbName(e)»");«IF pe != null»
       SqlCrudEngine sqlUpdate«pe.name» = sqlEngineFactory.getCheckedCrudEngine("UPDATE_«dbName(pe)»");«ENDIF»
-      int count = sqlUpdateEngine«e.name».update(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
+      int count = sqlUpdateEngine«e.name».update(sqlSession, «e.name.toFirstLower»);«IF pe != null»
       if (count > 0) {
-      	sqlUpdate«pe.name».update(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      	sqlUpdate«pe.name».update(sqlSession, «e.name.toFirstLower»);
       }«ENDIF»«val f=getOptLock(e)»«IF f != null»
       if (count > 0) {
       	«e.name.toFirstLower».set«f.name.toFirstUpper»(«e.name.toFirstLower».get«f.name.toFirstUpper»() + 1);
@@ -420,6 +441,14 @@ def compileUpdate(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
       return count;
     }
 
+    public int update(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+    	return update(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower», sqlControl);
+    }
+    
+    public int update(SqlSession sqlSession, «e.name» «e.name.toFirstLower») {
+      return update(sqlSession, «e.name.toFirstLower», null);
+    }
+    
     public int update(«e.name» «e.name.toFirstLower») {
       return update(«e.name.toFirstLower», null);
     }
@@ -427,15 +456,15 @@ def compileUpdate(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
 
 def compileDelete(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importManager) '''
 
-    public int delete(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+    public int delete(SqlSession sqlSession, «e.name» «e.name.toFirstLower», SqlControl sqlControl) {
       if (logger.isTraceEnabled()) {
         logger.trace("delete «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
       SqlCrudEngine sqlDeleteEngine«e.name» = sqlEngineFactory.getCheckedCrudEngine("DELETE_«dbName(e)»");«IF pe != null»
       SqlCrudEngine sqlDelete«pe.name» = sqlEngineFactory.getCheckedCrudEngine("DELETE_«dbName(pe)»");«ENDIF»
-      int count = sqlDeleteEngine«e.name».delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);«IF pe != null»
+      int count = sqlDeleteEngine«e.name».delete(sqlSession, «e.name.toFirstLower»);«IF pe != null»
       if (count > 0) {
-      	sqlDelete«pe.name».delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower»);
+      	sqlDelete«pe.name».delete(sqlSession, «e.name.toFirstLower»);
       }«ENDIF»«val f=getOptLock(e)»«IF f != null»
       if (count > 0) {
       	«e.name.toFirstLower».set«f.name.toFirstUpper»(«e.name.toFirstLower».get«f.name.toFirstUpper»() + 1);
@@ -446,6 +475,14 @@ def compileDelete(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
       return count;
     }
 
+    public int delete(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+    	return delete(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower», sqlControl);
+    }
+
+    public int delete(SqlSession sqlSession, «e.name» «e.name.toFirstLower») {
+      return delete(sqlSession, «e.name.toFirstLower», null);
+    }
+
     public int delete(«e.name» «e.name.toFirstLower») {
       return delete(«e.name.toFirstLower», null);
     }
@@ -453,19 +490,27 @@ def compileDelete(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
 
 def compileList(PojoDao d, PojoEntity e, Map<String, List<PojoMethodArg>> toInits, ImportManager importManager) '''
 
-    public List<«e.name»> list(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+    public List<«e.name»> list(SqlSession sqlSession, «e.name» «e.name.toFirstLower», SqlControl sqlControl) {
       if (logger.isTraceEnabled()) {
         logger.trace("list «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
       }
       SqlQueryEngine sqlEngine«e.name» = sqlEngineFactory.getCheckedQueryEngine("SELECT_«dbName(e)»");
       «IF toInits.empty»//«ENDIF»sqlControl = getMoreResultClasses(«e.name.toFirstLower», sqlControl);
-      List<«e.name»> «e.name.toFirstLower»List = sqlEngine«e.name».query(sqlSessionFactory.getSqlSession(), «e.name».class, «e.name.toFirstLower», sqlControl);
+      List<«e.name»> «e.name.toFirstLower»List = sqlEngine«e.name».query(sqlSession, «e.name».class, «e.name.toFirstLower», sqlControl);
       if (logger.isTraceEnabled()) {
         logger.trace("list «e.name.toFirstLower» size: " + ((«e.name.toFirstLower»List != null) ? «e.name.toFirstLower»List.size() : "null"));
       }
       return «e.name.toFirstLower»List;
     }
 
+    public List<«e.name»> list(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+    	return list(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower», sqlControl);
+    }
+    
+    public List<«e.name»> list(SqlSession sqlSession, «e.name» «e.name.toFirstLower») {
+      return list(sqlSession, «e.name.toFirstLower», null);
+    }
+    
     public List<«e.name»> list(«e.name» «e.name.toFirstLower») {
       return list(«e.name.toFirstLower», null);
     }
@@ -501,6 +546,7 @@ def compileIfx(PojoDao d) '''
 «IF d.eContainer != null»package «d.eContainer.fullyQualifiedName»;«ENDIF»
 
 import java.util.List;
+import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlControl;
 import «d.pojo.completeName»;
 
@@ -519,35 +565,55 @@ public interface «d.name» {
 
 def compileInsertIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
 
+    public «e.name» insert(SqlSession sqlSession, «e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
     public «e.name» insert(«e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
+    public «e.name» insert(SqlSession sqlSession, «e.name» «e.name.toFirstLower»);
 
     public «e.name» insert(«e.name» «e.name.toFirstLower»);
 '''
 
 def compileGetIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
 
+    public «e.name» get(SqlSession sqlSession, «e.name» «e.name.toFirstLower», SqlControl sqlControl);
+	
     public «e.name» get(«e.name» «e.name.toFirstLower», SqlControl sqlControl);
+	
+    public «e.name» get(SqlSession sqlSession, «e.name» «e.name.toFirstLower»);
 	
     public «e.name» get(«e.name» «e.name.toFirstLower»);
 '''
 
 def compileUpdateIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
 
+    public int update(SqlSession sqlSession, «e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
     public int update(«e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
+    public int update(SqlSession sqlSession, «e.name» «e.name.toFirstLower»);
 
     public int update(«e.name» «e.name.toFirstLower»);
 '''
 
 def compileDeleteIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
 
+    public int delete(SqlSession sqlSession, «e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
     public int delete(«e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
+    public int delete(SqlSession sqlSession, «e.name» «e.name.toFirstLower»);
 
     public int delete(«e.name» «e.name.toFirstLower»);
 '''
 
 def compileListIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
 
+    public List<«e.name»> list(SqlSession sqlSession, «e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
     public List<«e.name»> list(«e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
+    public List<«e.name»> list(SqlSession sqlSession, «e.name» «e.name.toFirstLower»);
 
     public List<«e.name»> list(«e.name» «e.name.toFirstLower»);
 '''

@@ -15,6 +15,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.sample.simple.model.Subscriber;
@@ -27,51 +28,71 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
   private SqlEngineFactory sqlEngineFactory;
   private SqlSessionFactory sqlSessionFactory;
     	
+  public SubscriberDaoImpl(SqlEngineFactory sqlEngineFactory) {
+    this.sqlEngineFactory = sqlEngineFactory;
+  }
+    	
   public SubscriberDaoImpl(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
     this.sqlSessionFactory = sqlSessionFactory;
   }
   
   
-  public Subscriber insert(Subscriber subscriber, SqlControl sqlControl) {
+  public Subscriber insert(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
       logger.trace("insert subscriber: " + subscriber + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertSubscriber = sqlEngineFactory.getCheckedCrudEngine("INSERT_SUBSCRIBER");
-    int count = sqlInsertSubscriber.insert(sqlSessionFactory.getSqlSession(), subscriber);
+    int count = sqlInsertSubscriber.insert(sqlSession, subscriber);
     if (logger.isTraceEnabled()) {
       logger.trace("insert subscriber result: " + count + " " + subscriber);
     }
     return (count > 0) ? subscriber : null;
   }
   
+  public Subscriber insert(Subscriber subscriber, SqlControl sqlControl) {
+  	return insert(sqlSessionFactory.getSqlSession(), subscriber, sqlControl);
+  }
+  
+  public Subscriber insert(SqlSession sqlSession, Subscriber subscriber) {
+    return insert(sqlSession, subscriber, null);
+  }
+  
   public Subscriber insert(Subscriber subscriber) {
     return insert(subscriber, null);
   }
   
-  public Subscriber get(Subscriber subscriber, SqlControl sqlControl) {
+  public Subscriber get(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
       logger.trace("get get: " + subscriber + " " + sqlControl);
     }
     SqlCrudEngine sqlGetEngineSubscriber = sqlEngineFactory.getCheckedCrudEngine("GET_SUBSCRIBER");
     sqlControl = getMoreResultClasses(subscriber, sqlControl);
-    Subscriber subscriberGot = sqlGetEngineSubscriber.get(sqlSessionFactory.getSqlSession(), Subscriber.class, subscriber, sqlControl);
+    Subscriber subscriberGot = sqlGetEngineSubscriber.get(sqlSession, Subscriber.class, subscriber, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("get subscriber result: " + subscriberGot);
     }
     return subscriberGot;
   }
   	
+  public Subscriber get(Subscriber subscriber, SqlControl sqlControl) {
+  	return get(sqlSessionFactory.getSqlSession(), subscriber, sqlControl);
+  }
+  
+  public Subscriber get(SqlSession sqlSession, Subscriber subscriber) {
+    return get(sqlSession, subscriber, null);
+  }
+  
   public Subscriber get(Subscriber subscriber) {
     return get(subscriber, null);
   }
   
-  public int update(Subscriber subscriber, SqlControl sqlControl) {
+  public int update(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
       logger.trace("update subscriber: " + subscriber + " " + sqlControl);
     }
     SqlCrudEngine sqlUpdateEngineSubscriber = sqlEngineFactory.getCheckedCrudEngine("UPDATE_SUBSCRIBER");
-    int count = sqlUpdateEngineSubscriber.update(sqlSessionFactory.getSqlSession(), subscriber);
+    int count = sqlUpdateEngineSubscriber.update(sqlSession, subscriber);
     if (count > 0) {
     	subscriber.setVersion(subscriber.getVersion() + 1);
     }
@@ -81,16 +102,24 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
     return count;
   }
   
+  public int update(Subscriber subscriber, SqlControl sqlControl) {
+  	return update(sqlSessionFactory.getSqlSession(), subscriber, sqlControl);
+  }
+  
+  public int update(SqlSession sqlSession, Subscriber subscriber) {
+    return update(sqlSession, subscriber, null);
+  }
+  
   public int update(Subscriber subscriber) {
     return update(subscriber, null);
   }
   
-  public int delete(Subscriber subscriber, SqlControl sqlControl) {
+  public int delete(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
       logger.trace("delete subscriber: " + subscriber + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEngineSubscriber = sqlEngineFactory.getCheckedCrudEngine("DELETE_SUBSCRIBER");
-    int count = sqlDeleteEngineSubscriber.delete(sqlSessionFactory.getSqlSession(), subscriber);
+    int count = sqlDeleteEngineSubscriber.delete(sqlSession, subscriber);
     if (count > 0) {
     	subscriber.setVersion(subscriber.getVersion() + 1);
     }
@@ -100,21 +129,37 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
     return count;
   }
   
+  public int delete(Subscriber subscriber, SqlControl sqlControl) {
+  	return delete(sqlSessionFactory.getSqlSession(), subscriber, sqlControl);
+  }
+  
+  public int delete(SqlSession sqlSession, Subscriber subscriber) {
+    return delete(sqlSession, subscriber, null);
+  }
+  
   public int delete(Subscriber subscriber) {
     return delete(subscriber, null);
   }
   
-  public List<Subscriber> list(Subscriber subscriber, SqlControl sqlControl) {
+  public List<Subscriber> list(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
       logger.trace("list subscriber: " + subscriber + " " + sqlControl);
     }
     SqlQueryEngine sqlEngineSubscriber = sqlEngineFactory.getCheckedQueryEngine("SELECT_SUBSCRIBER");
     sqlControl = getMoreResultClasses(subscriber, sqlControl);
-    List<Subscriber> subscriberList = sqlEngineSubscriber.query(sqlSessionFactory.getSqlSession(), Subscriber.class, subscriber, sqlControl);
+    List<Subscriber> subscriberList = sqlEngineSubscriber.query(sqlSession, Subscriber.class, subscriber, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("list subscriber size: " + ((subscriberList != null) ? subscriberList.size() : "null"));
     }
     return subscriberList;
+  }
+  
+  public List<Subscriber> list(Subscriber subscriber, SqlControl sqlControl) {
+  	return list(sqlSessionFactory.getSqlSession(), subscriber, sqlControl);
+  }
+  
+  public List<Subscriber> list(SqlSession sqlSession, Subscriber subscriber) {
+    return list(sqlSession, subscriber, null);
   }
   
   public List<Subscriber> list(Subscriber subscriber) {
