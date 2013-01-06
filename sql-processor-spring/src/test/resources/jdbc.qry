@@ -3,7 +3,7 @@
  */
 LIKE_STRING(OPT)=like;
 WILDCARD_CHARACTER(OPT)=%;
-SURROUND_QUERY_LIKE(BOPT)=true;
+//SURROUND_QUERY_LIKE(BOPT)=true;
 SURROUND_QUERY_MIN_LEN(IOPT)=2;
 /*
  * Default name of identity column
@@ -605,7 +605,7 @@ CONDITIONAL_WHERE_AND_BRACES_MORE_ADV_2(OUT)=
 ;
 
   
-LIKE_BASIC(QRY)=
+LIKE_BASIC(QRY,BOPT=SURROUND_QUERY_LIKE_FULL=true)=
   select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
   p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
   from PERSON p
@@ -623,7 +623,7 @@ LIKE_BASIC(OUT)=
   version$Long$version
 ;
 
-LIKE_BASIC_2(QRY)=
+LIKE_BASIC_2(QRY,BOPT=SURROUND_QUERY_LIKE_FULL=true)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version

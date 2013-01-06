@@ -429,7 +429,7 @@ public class Main {
         person = new Person();
         person.setName("an");
         list = main.listLike(person);
-        Assert.assertEquals(3, list.size());
+        Assert.assertEquals(1, list.size());
 
         // left join
         person = new Person();

@@ -56,10 +56,6 @@ public class TestMoreLike extends TestDatabase {
         assertEquals("Pierce", p.getName().getFirst());
         assertEquals("Brosnan", p.getName().getLast());
 
-        sqlEngine.unsetFeature(SqlFeature.SURROUND_QUERY_LIKE);
-        list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
-        assertEquals(0, list.size());
-
         sqlEngine.setFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL, Boolean.TRUE);
         list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
         assertEquals(1, list.size());
@@ -101,10 +97,6 @@ public class TestMoreLike extends TestDatabase {
         assertNotNull(p.getName());
         assertEquals("Pierce", p.getName().getFirst());
         assertEquals("Brosnan", p.getName().getLast());
-
-        sqlEngine.unsetFeature(SqlFeature.SURROUND_QUERY_LIKE);
-        list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
-        assertEquals(0, list.size());
 
         sqlEngine.setFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL, Boolean.TRUE);
         list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
