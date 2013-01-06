@@ -1,5 +1,3 @@
-SURROUND_QUERY_LIKE_PARTIAL(BOPT)=true;
-
 SEL1(OPT)=call identity(); 
 
 
