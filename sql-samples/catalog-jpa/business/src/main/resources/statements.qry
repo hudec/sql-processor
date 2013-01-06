@@ -1,7 +1,5 @@
-LIKE_STRING(OPT)=like;
-WILDCARD_CHARACTER(OPT)=%;
-SURROUND_QUERY_LIKE(BOPT)=true;
-SURROUND_QUERY_MIN_LEN(IOPT)=2;
+SURROUND_QUERY_LIKE_PARTIAL(BOPT)=false;
+SURROUND_QUERY_LIKE_FULL(BOPT)=true;
 
 ITEMS(QRY)=
   select @itemid, @productid, @name, @description, @imageurl, @imagethumburl,
