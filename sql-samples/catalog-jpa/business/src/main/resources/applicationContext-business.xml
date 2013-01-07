@@ -41,6 +41,10 @@
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" />
 
+    <bean id="sqlSessionFactory" class="org.sqlproc.engine.hibernate.HibernateWebSessionFactory">
+        <constructor-arg ref="sessionFactory" />
+    </bean>
+
     <bean id="TestDataInitializer" class="org.sqlproc.sample.catalog.db.TestDataInitializer">
         <property name="sessionFactory" ref="sessionFactory" />
         <property name="initData" value="${init.data}" />
@@ -48,7 +52,6 @@
     </bean>
 
     <bean id="dao" autowire="byType" abstract="true">
-        <property name="sessionFactory" ref="sessionFactory" />
         <property name="sqlFactory" ref="sqlFactory" />
     </bean>
 
@@ -63,6 +66,9 @@
         <property name="filter" value="${db.type}" />
     </bean>
 
-    <bean id="itemService" class="org.sqlproc.sample.catalog.service.ItemService" />
+    <bean id="itemService" class="org.sqlproc.sample.catalog.service.ItemService" >
+        <property name="sessionFactory" ref="sqlSessionFactory" />
+        <property name="itemDao" ref="itemDao" />
+    </bean>
 
 </beans>

@@ -37,6 +37,10 @@
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" />
 
+    <bean id="sqlSessionFactory" class="org.sqlproc.engine.spring.SpringSessionFactory">
+        <constructor-arg ref="jdbcTemplate" />
+    </bean>
+
     <bean id="TestDataInitializer" class="org.sqlproc.sample.catalog.db.TestDataInitializer">
         <property name="jdbcTemplate" ref="jdbcTemplate" />
         <property name="itemService" ref="itemService" />
@@ -45,7 +49,6 @@
     </bean>
 
     <bean id="dao" autowire="byType" abstract="true">
-        <property name="jdbcTemplate" ref="jdbcTemplate" />
         <property name="sqlFactory" ref="sqlFactory" />
     </bean>
 
@@ -74,6 +77,9 @@
         <property name="monitorFactory" ref="sqlMonitorFactory"/>
     </bean>
 
-    <bean id="itemService" class="org.sqlproc.sample.catalog.service.ItemService" />
+    <bean id="itemService" class="org.sqlproc.sample.catalog.service.ItemService" >
+        <property name="sessionFactory" ref="sqlSessionFactory" />
+        <property name="itemDao" ref="itemDao" />
+    </bean>
 
 </beans>
