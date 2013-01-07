@@ -6,6 +6,7 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -50,6 +51,7 @@ public class TablePojoConverter {
     protected static final String METHOD_IS_DEF = "isDef";
     protected static final String ENUM_IS_DEF = "enumDef";
     protected static final String METHOD_TO_INIT = "toInit";
+    protected static final String METHOD_INDEX = "indexes";
     protected static final String ENUM_TO_INIT = "enumInit";
     protected static final String COLLECTION_LIST = "java.util.List";
 
@@ -90,6 +92,7 @@ public class TablePojoConverter {
     protected Map<String, Set<String>> pojoInheritanceDiscriminator = new HashMap<String, Set<String>>();
     protected Map<String, Set<String>> pojoInheritanceSimple = new HashMap<String, Set<String>>();
     protected Map<String, String> pojoDiscriminators = new HashMap<String, String>();
+    protected Map<String, List<List<PojoAttribute>>> indexes = new TreeMap<String, List<List<PojoAttribute>>>();
 
     public TablePojoConverter() {
     }
@@ -376,15 +379,27 @@ public class TablePojoConverter {
             pojoInheritanceDiscriminator.put(table, new LinkedHashSet<String>());
         }
 
-        int currIndex = 1;
-        for (DbIndex dbIndex : dbIndexes) {
-            if (dbIndex.getColumns().size() != 1)
-                continue;
-            DbIndexDetail dbIndexDetail = dbIndex.getColumns().get(0);
-            PojoAttribute attr = attributes.get(dbIndexDetail.getColname());
-            if (attr == null)
-                continue;
-            attr.setIndex(currIndex++);
+        for (int i = 0, l = dbIndexes.size(); i < l; i++) {
+            DbIndex dbIndex = dbIndexes.get(i);
+            List<List<PojoAttribute>> mainList = indexes.get(table);
+            if (mainList == null) {
+                mainList = new ArrayList<List<PojoAttribute>>();
+                indexes.put(table, mainList);
+            }
+            List<PojoAttribute> list = new ArrayList<PojoAttribute>();
+            mainList.add(list);
+            for (int ii = 0, ll = dbIndex.getColumns().size(); ii < ll; ii++) {
+                DbIndexDetail dbIndexDetail = dbIndex.getColumns().get(ii);
+                PojoAttribute attr = attributes.get(dbIndexDetail.getColname());
+                if (attr == null) {
+                    System.out.println("BUM " + dbIndex);
+                    continue;
+                }
+                list.add(attr);
+                if (ll == 1) {
+                    attr.setIndex(i + 1);
+                }
+            }
         }
     }
 
@@ -641,7 +656,7 @@ public class TablePojoConverter {
                         buffer.append(" primaryKey");
                         pkeys.add(name);
                     }
-                    if (attribute.getIndex() != null) {
+                    if (!generateMethods.contains(METHOD_INDEX) && attribute.getIndex() != null) {
                         buffer.append(" index ").append(attribute.getIndex());
                     }
                 }
@@ -686,6 +701,21 @@ public class TablePojoConverter {
                     buffer.append("\n    ").append(METHOD_TO_STRING).append(" :::");
                     for (String name : toStr) {
                         buffer.append(" ").append(name);
+                    }
+                }
+                if (generateMethods.contains(METHOD_INDEX) && indexes.containsKey(pojo)) {
+                    List<List<PojoAttribute>> mainList = indexes.get(pojo);
+                    for (int i = 0, l = mainList.size(); i < l; i++) {
+                        buffer.append("\n    ").append("index=").append(i + 1).append(" :::");
+                        for (PojoAttribute attr : mainList.get(i)) {
+                            String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(attr.getName())
+                                    : null;
+                            if (name == null)
+                                name = attr.getName();
+                            else
+                                name = columnToCamelCase(name);
+                            buffer.append(" ").append(name);
+                        }
                     }
                 }
                 buffer.append("\n  }\n");

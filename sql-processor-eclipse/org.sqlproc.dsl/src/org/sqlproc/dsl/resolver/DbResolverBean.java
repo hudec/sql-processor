@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -711,7 +712,7 @@ public class DbResolverBean implements DbResolver {
         if (modelDatabaseValues.connection != null) {
             ResultSet result = null;
             try {
-                Map<String, DbIndex> mapOfIndexes = new HashMap<String, DbIndex>();
+                Map<String, DbIndex> mapOfIndexes = new LinkedHashMap<String, DbIndex>();
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
                 result = meta.getIndexInfo(null, modelDatabaseValues.dbSchema, table, false, true);
                 while (result.next()) {
@@ -721,16 +722,20 @@ public class DbResolverBean implements DbResolver {
                         LOGGER.warn("INDEX TYPE " + result.getShort("TYPE") + " for " + name);
                         continue;
                     }
-                    DbIndex dbIndex = (mapOfIndexes.containsKey(name)) ? mapOfIndexes.get(name) : new DbIndex();
-                    dbIndex.setName(name);
+                    DbIndex dbIndex = mapOfIndexes.get(name);
+                    if (dbIndex == null) {
+                        dbIndex = new DbIndex();
+                        dbIndex.setName(name);
+                        mapOfIndexes.put(name, dbIndex);
+                    }
                     DbIndex.DbIndexDetail detail = new DbIndex.DbIndexDetail();
                     detail.setPosition(result.getShort("ORDINAL_POSITION"));
                     detail.setColname(result.getString("COLUMN_NAME"));
                     detail.setDesc("D".equalsIgnoreCase(result.getString("ASC_OR_DESC")));
                     dbIndex.getColumns().add(detail);
-                    // System.out.println("EEE " + table + " " + dbIndex.toString());
-                    indexesForModel.add(dbIndex);
                 }
+                // System.out.println("EEE " + table + " " + mapOfIndexes);
+                indexesForModel.addAll(mapOfIndexes.values());
             } catch (SQLException e) {
                 LOGGER.error("getDbColumns error " + e);
             } finally {

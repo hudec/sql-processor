@@ -29,7 +29,7 @@ pojogen-ignore-one-to-many PERSON ID->PERFORMER->PERSON_ID;
 pojogen-ignore-one-to-many BILLING_DETAILS ID->PAYMENT->BILLING_DETAILS;
 pojogen-create-one-to-many LIBRARY ID->PHYSICAL_MEDIA->LIBRARY;
 // others
-pojogen-generate-methods toString equals hashCode isDef toInit;
+pojogen-generate-methods toString equals hashCode isDef toInit indexes;
 pojogen-implements-interfaces java.io.Serializable;
 pojogen-create-columns PERSON PASSPORT->:java.lang.String;
 pojogen-not-abstract-tables MEDIA;
