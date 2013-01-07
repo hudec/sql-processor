@@ -60,6 +60,12 @@ public class Utils {
         return false;
     }
 
+    public static boolean isAttribute(PojoProperty f) {
+        if (f.getAttrs() == null || f.getAttrs().isEmpty())
+            return true;
+        return false;
+    }
+
     public static String getIndex(PojoProperty f) {
         if (f.getModifiers() == null || f.getModifiers().isEmpty())
             return null;
@@ -201,7 +207,22 @@ public class Utils {
         PojoEntity s = getSuperType(e);
         if (s == null)
             return features;
-        requiredFeatures(s).addAll(features);
+        features.addAll(requiredFeatures(s));
+        return features;
+    }
+
+    public static List<PojoProperty> attributes(PojoEntity e) {
+        List<PojoProperty> features = new ArrayList<PojoProperty>();
+        if (e == null || e.getFeatures() == null)
+            return features;
+        for (PojoProperty f : e.getFeatures()) {
+            if (isAttribute(f))
+                features.add(f);
+        }
+        PojoEntity s = getSuperType(e);
+        if (s == null)
+            return features;
+        features.addAll(attributes(s));
         return features;
     }
 

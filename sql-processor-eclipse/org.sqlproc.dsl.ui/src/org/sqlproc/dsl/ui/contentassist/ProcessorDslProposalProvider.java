@@ -274,7 +274,8 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             }
         } else {
 
-            List<PojoProperty> properties = getProperties(pojoEntity, null);
+            PojoEntity entity = getPojoEntity(pojoEntity, prefix);
+            List<PojoProperty> properties = getProperties(entity, null);
             if (properties.isEmpty()) {
                 return false;
             }
@@ -347,7 +348,8 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             }
         } else {
 
-            List<PojoProperty> properties = getProperties(pojoEntity, null);
+            PojoEntity entity = getPojoEntity(pojoEntity, prefix);
+            List<PojoProperty> properties = getProperties(entity, null);
             if (properties.isEmpty()) {
                 return;
             }
@@ -359,8 +361,43 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         }
     }
 
+    protected PojoEntity getPojoEntity(PojoEntity baseEntity, String property) {
+        if (baseEntity == null || property == null)
+            return baseEntity;
+        int pos1 = property.indexOf('.');
+        if (pos1 == -1)
+            return baseEntity;
+        String checkProperty = property;
+        pos1 = checkProperty.indexOf('=');
+        if (pos1 > 0) {
+            int pos2 = checkProperty.indexOf('.', pos1);
+            if (pos2 > pos1)
+                checkProperty = checkProperty.substring(0, pos1) + checkProperty.substring(pos2);
+        }
+        String innerProperty = null;
+        pos1 = checkProperty.indexOf('.');
+        if (pos1 > 0) {
+            innerProperty = checkProperty.substring(pos1 + 1);
+            checkProperty = checkProperty.substring(0, pos1);
+        }
+        PojoProperty innerPojoProperty = null;
+        for (PojoProperty pojoProperty : Utils.attributes(baseEntity)) {
+            if (pojoProperty.getName().equals(checkProperty)) {
+                innerPojoProperty = pojoProperty;
+                break;
+            }
+        }
+        if (innerPojoProperty == null || (innerPojoProperty.getRef() == null && innerPojoProperty.getGref() == null))
+            return null;
+        PojoEntity innerPojoEntity = (innerPojoProperty.getRef() != null) ? innerPojoProperty.getRef()
+                : innerPojoProperty.getGref();
+        return getPojoEntity(innerPojoEntity, innerProperty);
+    }
+
     List<PojoProperty> getProperties(PojoEntity pojoEntity, List<PojoProperty> inproperties) {
         List<PojoProperty> properties = (inproperties != null) ? inproperties : new ArrayList<PojoProperty>();
+        if (pojoEntity == null)
+            return properties;
 
         for (PojoProperty pojoProperty : pojoEntity.getFeatures()) {
             if (pojoProperty.getNative() != null || pojoProperty.getRef() != null || pojoProperty.getType() != null)
