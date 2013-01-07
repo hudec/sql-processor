@@ -52,6 +52,7 @@ import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MappingUsage;
 import org.sqlproc.dsl.processorDsl.MappingUsageExt;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
+import org.sqlproc.dsl.processorDsl.MetagenProperty;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
@@ -1191,6 +1192,39 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             result.add(table);
         }
         return result;
+    }
+
+    @Override
+    public void completeMetagenProperty_DbTable(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeMetagenProperty_DbTable(model, assignment, context, acceptor);
+            return;
+        }
+        for (String table : dbResolver.getTables(model)) {
+            if (table.indexOf('$') >= 0)
+                continue;
+            String proposal = getValueConverter().toString(table, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+    }
+
+    @Override
+    public void completeMetaTypeAssignement_DbColumn(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof MetagenProperty)) {
+            super.completeMetaTypeAssignement_DbColumn(model, assignment, context, acceptor);
+            return;
+        }
+        MetagenProperty prop = (MetagenProperty) model;
+        if (prop.getDbTable() != null) {
+            for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
+                String proposal = getValueConverter().toString(column, "IDENT");
+                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                acceptor.accept(completionProposal);
+            }
+        }
     }
 
     @Override
