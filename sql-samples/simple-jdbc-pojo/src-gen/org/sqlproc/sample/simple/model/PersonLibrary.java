@@ -68,7 +68,7 @@ public class PersonLibrary implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     PersonLibrary other = (PersonLibrary) obj;
-    if (id != other.id)
+    if (!id.equals(other.id))
       return false;
     return true;
   }  

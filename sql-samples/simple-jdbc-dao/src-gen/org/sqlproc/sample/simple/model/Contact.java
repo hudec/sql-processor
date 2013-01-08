@@ -103,7 +103,7 @@ public class Contact extends BaseModelImpl implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Contact other = (Contact) obj;
-    if (id != other.id)
+    if (!id.equals(other.id))
       return false;
     return true;
   }  

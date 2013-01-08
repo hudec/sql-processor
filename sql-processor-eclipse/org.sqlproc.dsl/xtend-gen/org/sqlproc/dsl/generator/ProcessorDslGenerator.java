@@ -617,13 +617,27 @@ public class ProcessorDslGenerator implements IGenerator {
       EList<PojoProperty> _attrs = f.getAttrs();
       for(final PojoProperty f2 : _attrs) {
         _builder.append("  ");
-        _builder.append("if (");
-        String _name_2 = f2.getName();
-        _builder.append(_name_2, "  ");
-        _builder.append(" != other.");
-        String _name_3 = f2.getName();
-        _builder.append(_name_3, "  ");
-        _builder.append(")");
+        {
+          String _native = f2.getNative();
+          boolean _notEquals = (!Objects.equal(_native, null));
+          if (_notEquals) {
+            _builder.append("if (");
+            String _name_2 = f2.getName();
+            _builder.append(_name_2, "  ");
+            _builder.append(" != other.");
+            String _name_3 = f2.getName();
+            _builder.append(_name_3, "  ");
+            _builder.append(")");
+          } else {
+            _builder.append("if (!");
+            String _name_4 = f2.getName();
+            _builder.append(_name_4, "  ");
+            _builder.append(".equals(other.");
+            String _name_5 = f2.getName();
+            _builder.append(_name_5, "  ");
+            _builder.append("))");
+          }
+        }
         _builder.newLineIfNotEmpty();
         _builder.append("  ");
         _builder.append("  ");

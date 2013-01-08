@@ -76,7 +76,7 @@ public class Performer implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Performer other = (Performer) obj;
-    if (id != other.id)
+    if (!id.equals(other.id))
       return false;
     return true;
   }  

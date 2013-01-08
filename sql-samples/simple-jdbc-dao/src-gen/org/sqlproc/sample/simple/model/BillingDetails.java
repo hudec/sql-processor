@@ -87,7 +87,7 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     if (getClass() != obj.getClass())
       return false;
     BillingDetails other = (BillingDetails) obj;
-    if (id != other.id)
+    if (!id.equals(other.id))
       return false;
     return true;
   }  

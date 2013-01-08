@@ -157,7 +157,7 @@ def compileEquals(PojoProperty f, ImportManager importManager, PojoEntity e) '''
         return false;
       «e.name» other = («e.name») obj;
       «FOR f2:f.attrs»
-      if («f2.name» != other.«f2.name»)
+      «IF f2.native != null»if («f2.name» != other.«f2.name»)«ELSE»if (!«f2.name».equals(other.«f2.name»))«ENDIF»
         return false;
       «ENDFOR»
       return true;

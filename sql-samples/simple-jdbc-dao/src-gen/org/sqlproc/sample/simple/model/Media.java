@@ -86,7 +86,7 @@ public class Media extends BaseModelImpl implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Media other = (Media) obj;
-    if (id != other.id)
+    if (!id.equals(other.id))
       return false;
     return true;
   }  

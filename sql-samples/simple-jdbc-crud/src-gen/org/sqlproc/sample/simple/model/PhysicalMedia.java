@@ -89,7 +89,7 @@ public class PhysicalMedia implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     PhysicalMedia other = (PhysicalMedia) obj;
-    if (id != other.id)
+    if (!id.equals(other.id))
       return false;
     return true;
   }  

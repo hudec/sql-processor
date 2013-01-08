@@ -102,7 +102,7 @@ public class Library extends BaseModelImpl implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Library other = (Library) obj;
-    if (id != other.id)
+    if (!id.equals(other.id))
       return false;
     return true;
   }  
