@@ -1,15 +1,11 @@
 package org.sqlproc.sample.simple;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.jdbc.Work;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,36 +53,8 @@ public class Main {
     }
 
     public void setupDb() throws Exception {
-
-        Session session = null;
-
-        try {
-            session = configuration.buildSessionFactory().openSession();
-            session.doWork(new Work() {
-                @Override
-                public void execute(Connection connection) throws SQLException {
-                    Statement stmt = null;
-                    try {
-                        stmt = connection.createStatement();
-                        for (int i = 0, n = ddls.size(); i < n; i++) {
-                            String ddl = ddls.get(i);
-                            if (ddl == null)
-                                continue;
-                            System.out.println(ddl);
-                            stmt.addBatch(ddl);
-                        }
-                        stmt.executeBatch();
-                    } catch (SQLException ex) {
-                        if (stmt != null)
-                            stmt.close();
-                        throw ex;
-                    }
-                }
-            });
-        } finally {
-            if (session != null)
-                session.close();
-        }
+        SqlSession sqlSession = sessionFactory.getSqlSession();
+        sqlSession.executeBatch(ddls.toArray(new String[0]));
     }
 
     public List<Person> listAll() {

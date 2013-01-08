@@ -1,9 +1,5 @@
 package org.sqlproc.engine.impl;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -165,36 +161,6 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
         session.getConnection().close();
-    }
-
-    private static List<String> loadDDL(String filename) {
-        List<String> sqls = new ArrayList<String>();
-
-        try {
-            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
-            BufferedReader r = new BufferedReader(new InputStreamReader(in));
-            String line = null;
-            String EOL = System.getProperty("line.separator");
-            StringBuilder sql = new StringBuilder();
-
-            while ((line = r.readLine()) != null) {
-                if (!TestUtils.isBlank(line) && !line.startsWith("--")) {
-                    sql.append(line + EOL);
-                } else {
-                    if (sql.length() > 0) {
-                        sqls.add(sql.toString());
-                        sql = new StringBuilder();
-                    }
-                }
-            }
-            if (sql.length() > 0) {
-                sqls.add(sql.toString());
-            }
-            in.close();
-        } catch (IOException e) {
-            return null;
-        }
-        return sqls;
     }
 
     private static class BatchOperation extends DatabaseOperation {

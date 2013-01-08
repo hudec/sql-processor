@@ -3,7 +3,6 @@ package org.sqlproc.sample.simple;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -68,24 +67,8 @@ public class Main {
     }
 
     public void setupDb() throws SQLException {
-
-        Statement stmt = null;
-
-        try {
-            stmt = connection.createStatement();
-            for (int i = 0, n = ddls.size(); i < n; i++) {
-                String ddl = ddls.get(i);
-                if (ddl == null)
-                    continue;
-                System.out.println(ddl);
-                stmt.addBatch(ddl);
-            }
-            stmt.executeBatch();
-
-        } finally {
-            if (stmt != null)
-                stmt.close();
-        }
+        SqlSession sqlSession = sessionFactory.getSqlSession();
+        sqlSession.executeBatch(ddls.toArray(new String[0]));
     }
 
     public List<Person> listAll(SqlSession session) {

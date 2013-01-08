@@ -1,9 +1,7 @@
 package org.sqlproc.sample.simple;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlOrder;
@@ -38,42 +35,20 @@ public class Main {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private JdbcTemplate jdbcTemplate;
     private SqlSessionFactory sessionFactory;
     private SqlEngineFactory sqlFactory;
     private List<String> ddls;
 
     public Main() throws BeansException, IOException {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
         sessionFactory = context.getBean("sessionFactory", SqlSessionFactory.class);
         sqlFactory = context.getBean("sqlFactory", SqlEngineFactory.class);
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
     }
 
     public void setupDb() throws SQLException {
-
-        Connection connection = null;
-        Statement stmt = null;
-
-        try {
-            connection = jdbcTemplate.getDataSource().getConnection();
-            stmt = jdbcTemplate.getDataSource().getConnection().createStatement();
-            for (int i = 0, n = ddls.size(); i < n; i++) {
-                String ddl = ddls.get(i);
-                if (ddl == null)
-                    continue;
-                System.out.println(ddl);
-                stmt.addBatch(ddl);
-            }
-            stmt.executeBatch();
-
-        } finally {
-            if (stmt != null)
-                stmt.close();
-            if (connection != null)
-                connection.close();
-        }
+        SqlSession sqlSession = sessionFactory.getSqlSession();
+        sqlSession.executeBatch(ddls.toArray(new String[0]));
     }
 
     public List<Person> listAll(SqlSession session) {
