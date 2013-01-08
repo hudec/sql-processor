@@ -1,5 +1,8 @@
 package org.sqlproc.engine.hibernate;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +11,14 @@ import java.util.Map;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.jdbc.Work;
 import org.hibernate.type.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.IdentitySetter;
 
 /**
@@ -24,6 +31,11 @@ import org.sqlproc.engine.type.IdentitySetter;
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class HibernateQuery implements SqlQuery {
+
+    /**
+     * The internal slf4j logger.
+     */
+    final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * The Hibernate Session instance.
@@ -248,23 +260,88 @@ public class HibernateQuery implements SqlQuery {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List callList() throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object callUnique() throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int callUpdate() throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object callFunction() throws SqlProcessorException {
         throw new UnsupportedOperationException();
+    }
+
+    static final class BatchResultHolder {
+        int[] result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int[] executeBatch(final String[] statements) throws SqlProcessorException {
+
+        if (statements == null)
+            return null;
+
+        final BatchResultHolder resultHolder = new BatchResultHolder();
+
+        session.doWork(new Work() {
+
+            @Override
+            public void execute(Connection connection) throws SQLException {
+                Statement stmt = null;
+
+                try {
+                    stmt = connection.createStatement();
+                    for (String statement : statements) {
+                        if (statement == null)
+                            continue;
+                        if (logger.isDebugEnabled()) {
+                            logger.debug("executeBatch, add " + statement);
+                        }
+                        stmt.addBatch(statement);
+                    }
+                    resultHolder.result = stmt.executeBatch();
+
+                } catch (SQLException he) {
+                    throw new SqlProcessorException(he);
+                } finally {
+                    if (stmt != null) {
+                        try {
+                            stmt.close();
+                        } catch (SQLException ignore) {
+                        }
+                    }
+                }
+            }
+
+        });
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("executeBatch, result " + SqlUtils.asList(resultHolder.result));
+        }
+        return resultHolder.result;
     }
 }

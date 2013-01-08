@@ -63,6 +63,12 @@ public class HibernateSession implements InvocationHandler {
             return new HibernateQuery(session, session.createSQLQuery(queryString));
         }
 
+        if ("executeBatch".equals(method.getName())) {
+            String[] statements = (String[]) args[0];
+            HibernateQuery hibernateQuery = new HibernateQuery(session, null);
+            return hibernateQuery.executeBatch(statements);
+        }
+
         try {
             return method.invoke(session, args);
         } catch (InvocationTargetException e) {

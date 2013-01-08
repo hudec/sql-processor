@@ -54,4 +54,13 @@ public class HibernateSimpleSession implements SqlSession {
     public SqlQuery createSqlQuery(String queryString) throws SqlProcessorException {
         return new HibernateQuery(session, session.createSQLQuery(queryString));
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int[] executeBatch(String[] statements) throws SqlProcessorException {
+        SqlQuery sqlQuery = createSqlQuery(null);
+        return sqlQuery.executeBatch(statements);
+    }
 }

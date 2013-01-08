@@ -21,6 +21,7 @@ import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.impl.SqlProcessContext;
+import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.jdbc.type.JdbcSqlType;
 import org.sqlproc.engine.plugin.SqlFromToPlugin;
 import org.sqlproc.engine.type.IdentitySetter;
@@ -809,5 +810,44 @@ public class JdbcQuery implements SqlQuery {
                 result.add(oo);
         }
         return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int[] executeBatch(String[] statements) throws SqlProcessorException {
+
+        if (statements == null)
+            return null;
+
+        Statement stmt = null;
+
+        try {
+            stmt = connection.createStatement();
+            for (String statement : statements) {
+                if (statement == null)
+                    continue;
+                if (logger.isDebugEnabled()) {
+                    logger.debug("executeBatch, add " + statement);
+                }
+                stmt.addBatch(statement);
+            }
+            int[] result = stmt.executeBatch();
+            if (logger.isDebugEnabled()) {
+                logger.debug("executeBatch, result " + SqlUtils.asList(result));
+            }
+            return result;
+
+        } catch (SQLException he) {
+            throw new SqlProcessorException(he);
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ignore) {
+                }
+            }
+        }
     }
 }

@@ -31,6 +31,7 @@ import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.impl.SqlProcessContext;
+import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.jdbc.type.JdbcSqlType;
 import org.sqlproc.engine.plugin.SqlFromToPlugin;
 import org.sqlproc.engine.type.IdentitySetter;
@@ -895,5 +896,21 @@ public class SpringQuery implements SqlQuery {
                 result.add(oo);
         }
         return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int[] executeBatch(String[] statements) throws SqlProcessorException {
+        try {
+            int[] result = jdbcTemplate.batchUpdate(statements);
+            if (logger.isDebugEnabled()) {
+                logger.debug("executeBatch, result " + SqlUtils.asList(result));
+            }
+            return result;
+        } catch (DataAccessException dae) {
+            throw new SqlProcessorException(dae);
+        }
     }
 }

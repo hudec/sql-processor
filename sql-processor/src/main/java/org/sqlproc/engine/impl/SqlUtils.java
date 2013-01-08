@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -229,5 +230,14 @@ public class SqlUtils {
     public static String getIdsKey(Object[] resultValues, Integer mainIdentityIndex) {
         String idsKey = "" + mainIdentityIndex + "-" + resultValues[mainIdentityIndex];
         return idsKey;
+    }
+
+    public static List<Integer> asList(int[] array) {
+        List<Integer> list = new ArrayList<Integer>();
+        if (array == null)
+            return list;
+        for (int item : array)
+            list.add(item);
+        return list;
     }
 }

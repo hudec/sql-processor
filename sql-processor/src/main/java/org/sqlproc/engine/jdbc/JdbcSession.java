@@ -63,6 +63,12 @@ public class JdbcSession implements InvocationHandler {
             return new JdbcQuery(connection, queryString);
         }
 
+        if ("executeBatch".equals(method.getName())) {
+            String[] statements = (String[]) args[0];
+            JdbcQuery jdbcQuery = new JdbcQuery(connection, null);
+            return jdbcQuery.executeBatch(statements);
+        }
+
         try {
             return method.invoke(connection, args);
         } catch (InvocationTargetException e) {

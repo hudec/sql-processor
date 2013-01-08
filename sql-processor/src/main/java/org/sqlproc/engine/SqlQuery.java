@@ -208,4 +208,16 @@ public interface SqlQuery {
      *             in the case of any problem in ORM or JDBC stack
      */
     SqlQuery setParameterList(String name, Object[] vals, Object type) throws SqlProcessorException;
+
+    /**
+     * Submits a batch of commands to the database for execution and if all commands execute successfully, returns an
+     * array of update counts.
+     * 
+     * @param statements
+     *            SQL statements to be executed in batch
+     * @return an array of update counts containing one element for each command in the batch
+     * @throws SqlProcessorException
+     *             in the case of any problem in ORM or JDBC stack
+     */
+    int[] executeBatch(String[] statements) throws SqlProcessorException;
 }

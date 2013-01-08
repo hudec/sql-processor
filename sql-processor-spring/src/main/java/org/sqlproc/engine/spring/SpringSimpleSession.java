@@ -55,4 +55,13 @@ public class SpringSimpleSession implements SqlSession {
         return new SpringQuery(jdbcTemplate, queryString);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int[] executeBatch(String[] statements) throws SqlProcessorException {
+        SqlQuery sqlQuery = createSqlQuery(null);
+        return sqlQuery.executeBatch(statements);
+    }
+
 }

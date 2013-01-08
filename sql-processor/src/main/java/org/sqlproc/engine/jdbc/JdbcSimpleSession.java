@@ -56,4 +56,13 @@ public class JdbcSimpleSession implements SqlSession {
     public SqlQuery createSqlQuery(String queryString) throws SqlProcessorException {
         return new JdbcQuery(connection, queryString);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int[] executeBatch(String[] statements) throws SqlProcessorException {
+        SqlQuery sqlQuery = createSqlQuery(null);
+        return sqlQuery.executeBatch(statements);
+    }
 }
