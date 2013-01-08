@@ -272,7 +272,7 @@ public class TableMetaConverter extends TablePojoConverter {
                     header.extendTable.tablePrefix, true, select);
         buffer.append("\n  }");
         if (select) {
-            if (indexes.containsKey(pojo))
+            if (generateMethods.contains(METHOD_INDEX) && indexes.containsKey(pojo))
                 first = index2Columns(buffer, pojo, first, header.statementName, header.table.tablePrefix);
             else
                 first = indexColumns(buffer, pojo, first, header.statementName, header.table.tablePrefix);
