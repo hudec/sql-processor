@@ -9,6 +9,7 @@ import org.apache.commons.beanutils.MethodUtils;
 public class PhysicalMedia implements Serializable {
   
   private static final long serialVersionUID = 1L;
+  public static final int ORDER_BY_ID = 1;
 	
   public PhysicalMedia() {
   }

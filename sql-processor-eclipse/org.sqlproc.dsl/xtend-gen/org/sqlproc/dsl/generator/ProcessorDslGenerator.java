@@ -236,12 +236,35 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.newLineIfNotEmpty();
       }
     }
+    {
+      EList<PojoProperty> _features_1 = e.getFeatures();
+      final Function1<PojoProperty,Boolean> _function_1 = new Function1<PojoProperty,Boolean>() {
+          public Boolean apply(final PojoProperty x) {
+            String _name = x.getName();
+            boolean _startsWith = _name.startsWith("index=");
+            return Boolean.valueOf(_startsWith);
+          }
+        };
+      Iterable<PojoProperty> _filter_1 = IterableExtensions.<PojoProperty>filter(_features_1, _function_1);
+      for(final PojoProperty f_1 : _filter_1) {
+        _builder.append("  ");
+        _builder.append("public static final int ORDER_BY_");
+        String _constName2 = Utils.constName2(f_1);
+        _builder.append(_constName2, "  ");
+        _builder.append(" = ");
+        String _name_1 = f_1.getName();
+        String _substring = _name_1.substring(6);
+        _builder.append(_substring, "  ");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+      }
+    }
     _builder.append("\t");
     _builder.newLine();
     _builder.append("  ");
     _builder.append("public ");
-    String _name_1 = e.getName();
-    _builder.append(_name_1, "  ");
+    String _name_2 = e.getName();
+    _builder.append(_name_2, "  ");
     _builder.append("() {");
     _builder.newLineIfNotEmpty();
     _builder.append("  ");
@@ -256,23 +279,23 @@ public class ProcessorDslGenerator implements IGenerator {
         _builder.newLine();
         _builder.append("  ");
         _builder.append("public ");
-        String _name_2 = e.getName();
-        _builder.append(_name_2, "  ");
+        String _name_3 = e.getName();
+        _builder.append(_name_3, "  ");
         _builder.append("(");
         {
           ArrayList<PojoProperty> _requiredFeatures_1 = this.requiredFeatures(e);
           boolean _hasElements = false;
-          for(final PojoProperty f_1 : _requiredFeatures_1) {
+          for(final PojoProperty f_2 : _requiredFeatures_1) {
             if (!_hasElements) {
               _hasElements = true;
             } else {
               _builder.appendImmediate(", ", "  ");
             }
-            CharSequence _compileType = this.compileType(f_1, importManager);
+            CharSequence _compileType = this.compileType(f_2, importManager);
             _builder.append(_compileType, "  ");
             _builder.append(" ");
-            String _name_3 = f_1.getName();
-            _builder.append(_name_3, "  ");
+            String _name_4 = f_2.getName();
+            _builder.append(_name_4, "  ");
           }
         }
         _builder.append(") {");
@@ -281,15 +304,15 @@ public class ProcessorDslGenerator implements IGenerator {
         {
           ArrayList<PojoProperty> _requiredSuperFeatures = this.requiredSuperFeatures(e);
           boolean _hasElements_1 = false;
-          for(final PojoProperty f_2 : _requiredSuperFeatures) {
+          for(final PojoProperty f_3 : _requiredSuperFeatures) {
             if (!_hasElements_1) {
               _hasElements_1 = true;
               _builder.append("  super(", "  ");
             } else {
               _builder.appendImmediate(", ", "  ");
             }
-            String _name_4 = f_2.getName();
-            _builder.append(_name_4, "  ");
+            String _name_5 = f_3.getName();
+            _builder.append(_name_5, "  ");
           }
           if (_hasElements_1) {
             _builder.append(");", "  ");
@@ -300,18 +323,18 @@ public class ProcessorDslGenerator implements IGenerator {
         {
           List<PojoProperty> _requiredFeatures1 = this.requiredFeatures1(e);
           boolean _hasElements_2 = false;
-          for(final PojoProperty f_3 : _requiredFeatures1) {
+          for(final PojoProperty f_4 : _requiredFeatures1) {
             if (!_hasElements_2) {
               _hasElements_2 = true;
             } else {
               _builder.appendImmediate("\n", "  ");
             }
             _builder.append("  this.");
-            String _name_5 = f_3.getName();
-            _builder.append(_name_5, "  ");
-            _builder.append(" = ");
-            String _name_6 = f_3.getName();
+            String _name_6 = f_4.getName();
             _builder.append(_name_6, "  ");
+            _builder.append(" = ");
+            String _name_7 = f_4.getName();
+            _builder.append(_name_7, "  ");
             _builder.append(";");
           }
         }
@@ -322,86 +345,86 @@ public class ProcessorDslGenerator implements IGenerator {
       }
     }
     {
-      EList<PojoProperty> _features_1 = e.getFeatures();
-      final Function1<PojoProperty,Boolean> _function_1 = new Function1<PojoProperty,Boolean>() {
+      EList<PojoProperty> _features_2 = e.getFeatures();
+      final Function1<PojoProperty,Boolean> _function_2 = new Function1<PojoProperty,Boolean>() {
           public Boolean apply(final PojoProperty x) {
             boolean _isAttribute = ProcessorDslGenerator.this.isAttribute(x);
             return Boolean.valueOf(_isAttribute);
           }
         };
-      Iterable<PojoProperty> _filter_1 = IterableExtensions.<PojoProperty>filter(_features_1, _function_1);
-      for(final PojoProperty f_4 : _filter_1) {
+      Iterable<PojoProperty> _filter_2 = IterableExtensions.<PojoProperty>filter(_features_2, _function_2);
+      for(final PojoProperty f_5 : _filter_2) {
         _builder.append("  ");
-        CharSequence _compile = this.compile(f_4, importManager, e);
+        CharSequence _compile = this.compile(f_5, importManager, e);
         _builder.append(_compile, "  ");
         _builder.newLineIfNotEmpty();
       }
     }
     _builder.append("  ");
     {
-      EList<PojoProperty> _features_2 = e.getFeatures();
-      final Function1<PojoProperty,Boolean> _function_2 = new Function1<PojoProperty,Boolean>() {
+      EList<PojoProperty> _features_3 = e.getFeatures();
+      final Function1<PojoProperty,Boolean> _function_3 = new Function1<PojoProperty,Boolean>() {
           public Boolean apply(final PojoProperty x) {
             boolean _isAttribute = ProcessorDslGenerator.this.isAttribute(x);
             boolean _not = (!_isAttribute);
             return Boolean.valueOf(_not);
           }
         };
-      Iterable<PojoProperty> _filter_2 = IterableExtensions.<PojoProperty>filter(_features_2, _function_2);
-      for(final PojoProperty f_5 : _filter_2) {
+      Iterable<PojoProperty> _filter_3 = IterableExtensions.<PojoProperty>filter(_features_3, _function_3);
+      for(final PojoProperty f_6 : _filter_3) {
         {
-          String _name_7 = f_5.getName();
-          boolean _equalsIgnoreCase = _name_7.equalsIgnoreCase("hashCode");
+          String _name_8 = f_6.getName();
+          boolean _equalsIgnoreCase = _name_8.equalsIgnoreCase("hashCode");
           if (_equalsIgnoreCase) {
-            CharSequence _compileHashCode = this.compileHashCode(f_5, importManager, e);
+            CharSequence _compileHashCode = this.compileHashCode(f_6, importManager, e);
             _builder.append(_compileHashCode, "  ");
             _builder.newLineIfNotEmpty();
             _builder.append("  ");
           } else {
-            String _name_8 = f_5.getName();
-            boolean _equalsIgnoreCase_1 = _name_8.equalsIgnoreCase("equals");
+            String _name_9 = f_6.getName();
+            boolean _equalsIgnoreCase_1 = _name_9.equalsIgnoreCase("equals");
             if (_equalsIgnoreCase_1) {
-              CharSequence _compileEquals = this.compileEquals(f_5, importManager, e);
+              CharSequence _compileEquals = this.compileEquals(f_6, importManager, e);
               _builder.append(_compileEquals, "  ");
               _builder.newLineIfNotEmpty();
               _builder.append("  ");
             } else {
-              String _name_9 = f_5.getName();
-              boolean _equalsIgnoreCase_2 = _name_9.equalsIgnoreCase("toInit");
+              String _name_10 = f_6.getName();
+              boolean _equalsIgnoreCase_2 = _name_10.equalsIgnoreCase("toInit");
               if (_equalsIgnoreCase_2) {
-                CharSequence _compileToInit = this.compileToInit(f_5, importManager, e);
+                CharSequence _compileToInit = this.compileToInit(f_6, importManager, e);
                 _builder.append(_compileToInit, "  ");
                 _builder.newLineIfNotEmpty();
                 _builder.append("  ");
               } else {
-                String _name_10 = f_5.getName();
-                boolean _equalsIgnoreCase_3 = _name_10.equalsIgnoreCase("enumInit");
+                String _name_11 = f_6.getName();
+                boolean _equalsIgnoreCase_3 = _name_11.equalsIgnoreCase("enumInit");
                 if (_equalsIgnoreCase_3) {
-                  CharSequence _compileEnumInit = this.compileEnumInit(f_5, importManager, e);
+                  CharSequence _compileEnumInit = this.compileEnumInit(f_6, importManager, e);
                   _builder.append(_compileEnumInit, "  ");
                   _builder.newLineIfNotEmpty();
                   _builder.append("  ");
                 } else {
-                  String _name_11 = f_5.getName();
-                  boolean _equalsIgnoreCase_4 = _name_11.equalsIgnoreCase("isDef");
+                  String _name_12 = f_6.getName();
+                  boolean _equalsIgnoreCase_4 = _name_12.equalsIgnoreCase("isDef");
                   if (_equalsIgnoreCase_4) {
-                    CharSequence _compileIsDef = this.compileIsDef(f_5, importManager, e);
+                    CharSequence _compileIsDef = this.compileIsDef(f_6, importManager, e);
                     _builder.append(_compileIsDef, "  ");
                     _builder.newLineIfNotEmpty();
                     _builder.append("  ");
                   } else {
-                    String _name_12 = f_5.getName();
-                    boolean _equalsIgnoreCase_5 = _name_12.equalsIgnoreCase("enumDef");
+                    String _name_13 = f_6.getName();
+                    boolean _equalsIgnoreCase_5 = _name_13.equalsIgnoreCase("enumDef");
                     if (_equalsIgnoreCase_5) {
-                      CharSequence _compileEnumDef = this.compileEnumDef(f_5, importManager, e);
+                      CharSequence _compileEnumDef = this.compileEnumDef(f_6, importManager, e);
                       _builder.append(_compileEnumDef, "  ");
                       _builder.newLineIfNotEmpty();
                       _builder.append("  ");
                     } else {
-                      String _name_13 = f_5.getName();
-                      boolean _equalsIgnoreCase_6 = _name_13.equalsIgnoreCase("toString");
+                      String _name_14 = f_6.getName();
+                      boolean _equalsIgnoreCase_6 = _name_14.equalsIgnoreCase("toString");
                       if (_equalsIgnoreCase_6) {
-                        CharSequence _compileToString = this.compileToString(f_5, importManager, e);
+                        CharSequence _compileToString = this.compileToString(f_6, importManager, e);
                         _builder.append(_compileToString, "  ");
                       }
                     }

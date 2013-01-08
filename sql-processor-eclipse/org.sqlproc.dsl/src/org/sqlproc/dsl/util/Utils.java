@@ -362,16 +362,33 @@ public class Utils {
     }
 
     public static String constName(PojoProperty f) {
+        return constName(f.getName());
+    }
+
+    public static String constName2(PojoProperty f) {
+        StringBuilder result = new StringBuilder("");
+        boolean first = true;
+        for (PojoProperty p : f.getAttrs()) {
+            if (first)
+                first = false;
+            else
+                result.append("_");
+            result.append(constName(p.getName()));
+        }
+        return result.toString();
+    }
+
+    public static String constName(String name) {
         String result = "";
         int last = 0;
-        for (int i = 0, l = f.getName().length(); i < l; i++) {
-            if (Character.isUpperCase(f.getName().charAt(i))) {
-                result = result + f.getName().substring(last, i).toUpperCase() + "_";
+        for (int i = 0, l = name.length(); i < l; i++) {
+            if (Character.isUpperCase(name.charAt(i))) {
+                result = result + name.substring(last, i).toUpperCase() + "_";
                 last = i;
             }
         }
-        if (last < f.getName().length())
-            result = result + f.getName().substring(last).toUpperCase();
+        if (last < name.length())
+            result = result + name.substring(last).toUpperCase();
         return result;
     }
 

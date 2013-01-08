@@ -87,6 +87,9 @@ public «IF isAbstract(e)»abstract «ENDIF»class «e.name» «compileExtends(e
   «FOR f:e.features.filter(x| getIndex(x)!=null)»
   public static final int ORDER_BY_«constName(f)» = «getIndex(f)»;
   «ENDFOR»
+  «FOR f:e.features.filter(x| x.name.startsWith("index="))»
+  public static final int ORDER_BY_«constName2(f)» = «f.name.substring(6)»;
+  «ENDFOR»
 	
   public «e.name»() {
   }
