@@ -79,6 +79,8 @@ public class DbResolverBean implements DbResolver {
             .synchronizedMap(new HashMap<String, Map<String, List<DbImport>>>());
     private final Map<String, Map<String, List<DbIndex>>> dbIndexes = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<DbIndex>>>());
+    private final Map<String, List<String>> sequences = Collections
+            .synchronizedMap(new HashMap<String, List<String>>());
 
     private DatabaseValues checkReconnect(EObject model) {
         if (model == null)
@@ -748,6 +750,38 @@ public class DbResolverBean implements DbResolver {
             }
         }
         return indexesForModel;
+    }
+
+    @Override
+    public List<String> getSequences(EObject model) {
+        DatabaseValues modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        List<String> sequencesForModel = sequences.get(modelDatabaseValues.dir);
+        if (sequencesForModel != null)
+            return sequencesForModel;
+        sequencesForModel = Collections.synchronizedList(new ArrayList<String>());
+        sequences.put(modelDatabaseValues.dir, sequencesForModel);
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getTables(null, modelDatabaseValues.dbSchema, null, new String[] { "SEQUENCE" });
+                while (result.next()) {
+                    sequencesForModel.add(result.getString("TABLE_NAME"));
+                }
+            } catch (SQLException e) {
+                LOGGER.error("getSequences error " + e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    LOGGER.error("getSequences error " + e);
+                }
+            }
+        }
+        return sequencesForModel;
     }
 
     @Override

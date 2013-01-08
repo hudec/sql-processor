@@ -27,4 +27,6 @@ public interface DbResolver {
     String getType(EObject model, String table, String column);
 
     List<DbIndex> getDbIndexes(EObject model, String table);
+
+    List<String> getSequences(EObject model);
 }
