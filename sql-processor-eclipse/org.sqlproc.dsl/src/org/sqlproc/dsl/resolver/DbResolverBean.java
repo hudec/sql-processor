@@ -729,10 +729,10 @@ public class DbResolverBean implements DbResolver {
                         mapOfIndexes.put(name, dbIndex);
                     }
                     DbIndex.DbIndexDetail detail = new DbIndex.DbIndexDetail();
-                    detail.setPosition(result.getShort("ORDINAL_POSITION"));
+                    short position = result.getShort("ORDINAL_POSITION");
                     detail.setColname(result.getString("COLUMN_NAME"));
                     detail.setDesc("D".equalsIgnoreCase(result.getString("ASC_OR_DESC")));
-                    dbIndex.getColumns().add(detail);
+                    dbIndex.getColumns().add(position - 1, detail);
                 }
                 // System.out.println("EEE " + table + " " + mapOfIndexes);
                 indexesForModel.addAll(mapOfIndexes.values());

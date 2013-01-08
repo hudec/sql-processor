@@ -7,6 +7,7 @@ public class PojoAttribute {
 
     protected static final String COLLECTION_LIST = "java.util.List";
 
+    private String dbName;
     private boolean primitive;
     private boolean required;
     private boolean primaryKey;
@@ -28,7 +29,12 @@ public class PojoAttribute {
     private String manyToManyColumn;
     private String manyToManyTable;
 
-    public PojoAttribute() {
+    public PojoAttribute(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getDbName() {
+        return dbName;
     }
 
     public boolean isPrimitive() {
@@ -226,12 +232,12 @@ public class PojoAttribute {
 
     @Override
     public String toString() {
-        return "PojoAttribute [primitive=" + primitive + ", required=" + required + ", primaryKey=" + primaryKey
-                + ", version=" + version + ", index=" + index + ", name=" + name + ", className=" + className
-                + ", ref=" + ref + ", dependencyClassName=" + dependencyClassName + ", pkTable=" + pkTable
-                + ", pkColumn=" + pkColumn + ", parentTable=" + parentTable + ", m2mTable=" + m2mTable + ", fkTables="
-                + fkTables + ", m2Tables=" + m2Tables + ", fkColumns=" + fkColumns + ", oneToManyColumn="
-                + oneToManyColumn + ", oneToManyTable=" + oneToManyTable + ", manyToManyColumn=" + manyToManyColumn
-                + ", manyToManyTable=" + manyToManyTable + "]";
+        return "PojoAttribute [dbName=" + dbName + ", primitive=" + primitive + ", required=" + required
+                + ", primaryKey=" + primaryKey + ", version=" + version + ", index=" + index + ", name=" + name
+                + ", className=" + className + ", ref=" + ref + ", dependencyClassName=" + dependencyClassName
+                + ", pkTable=" + pkTable + ", pkColumn=" + pkColumn + ", parentTable=" + parentTable + ", m2mTable="
+                + m2mTable + ", fkTables=" + fkTables + ", m2Tables=" + m2Tables + ", fkColumns=" + fkColumns
+                + ", oneToManyColumn=" + oneToManyColumn + ", oneToManyTable=" + oneToManyTable + ", manyToManyColumn="
+                + manyToManyColumn + ", manyToManyTable=" + manyToManyTable + "]";
     }
 }

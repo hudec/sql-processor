@@ -6,17 +6,8 @@ import java.util.List;
 public class DbIndex {
 
     public static class DbIndexDetail {
-        private short position;
         private String colname;
         private boolean desc;
-
-        public short getPosition() {
-            return position;
-        }
-
-        public void setPosition(short position) {
-            this.position = position;
-        }
 
         public String getColname() {
             return colname;
@@ -36,7 +27,7 @@ public class DbIndex {
 
         @Override
         public String toString() {
-            return "DbIndexDetail [position=" + position + ", colname=" + colname + ", desc=" + desc + "]";
+            return "DbIndexDetail [colname=" + colname + ", desc=" + desc + "]";
         }
     }
 

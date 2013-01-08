@@ -155,6 +155,8 @@ SELECT_CONTACT(QRY,final=,identx=Contact,colx=Contact,dbcol=contact=c,dbcol=pers
   }
   {#1 order by %c.ID }
   {#2 order by %c.PERSON_ID }
+  {#3 order by %c.ADDRESS, %c.PERSON_ID }
+  {#4 order by %c.ADDRESS }
 ;
 
 INSERT_CREDIT_CARD(CRUD,final=,identx=CreditCard,colx=CreditCard,dbcol=billingDetails)=
@@ -516,7 +518,8 @@ SELECT_PERSON(QRY,final=,identx=Person,colx=Person,dbcol=person=p,dbcol=personLi
     {& UPPER(%p.SSN) like :+ssn }
   }
   {#1 order by %p.ID }
-  {#2 order by %p.LAST_NAME }
+  {#2 order by %p.LAST_NAME, %p.FIRST_NAME }
+  {#3 order by %p.LAST_NAME }
 ;
 
 INSERT_PERSON_LIBRARY(CRUD,final=,identx=PersonLibrary,colx=PersonLibrary,dbcol=personLibrary)=

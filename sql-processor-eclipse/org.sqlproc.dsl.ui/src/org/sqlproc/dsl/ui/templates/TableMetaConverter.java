@@ -94,6 +94,7 @@ public class TableMetaConverter extends TablePojoConverter {
                 System.out.println("pojoInheritanceDiscriminator " + this.pojoInheritanceDiscriminator);
                 System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
                 System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
+                System.out.println("indexes " + this.indexes);
             }
 
             StringBuilder buffer = new StringBuilder();
@@ -270,8 +271,12 @@ public class TableMetaConverter extends TablePojoConverter {
             whereColumns(buffer, header.extendTable.tableName, first, header.statementName,
                     header.extendTable.tablePrefix, true, select);
         buffer.append("\n  }");
-        if (select)
-            first = indexColumns(buffer, pojo, first, header.statementName, header.table.tablePrefix);
+        if (select) {
+            if (indexes.containsKey(pojo))
+                first = index2Columns(buffer, pojo, first, header.statementName, header.table.tablePrefix);
+            else
+                first = indexColumns(buffer, pojo, first, header.statementName, header.table.tablePrefix);
+        }
         buffer.append("\n;\n");
         return buffer;
     }
@@ -581,6 +586,29 @@ public class TableMetaConverter extends TablePojoConverter {
             if (prefix != null)
                 buffer.append(prefix).append(".");
             buffer.append(pentry.getKey());
+            buffer.append(" }");
+            first = false;
+        }
+        return first;
+    }
+
+    boolean index2Columns(StringBuilder buffer, String pojo, boolean first, String statementName, String prefix) {
+        List<Map<PojoAttribute, Boolean>> mainList = indexes.get(pojo);
+        for (int i = 0, l = mainList.size(); i < l; i++) {
+            buffer.append("\n  {#").append(i + 1).append(" order by");
+            boolean firstcol = true;
+            for (Entry<PojoAttribute, Boolean> entry : mainList.get(i).entrySet()) {
+                if (firstcol)
+                    firstcol = false;
+                else
+                    buffer.append(",");
+                buffer.append(" %");
+                if (prefix != null)
+                    buffer.append(prefix).append(".");
+                buffer.append(entry.getKey().getDbName());
+                if (entry.getValue())
+                    buffer.append(" DESC");
+            }
             buffer.append(" }");
             first = false;
         }

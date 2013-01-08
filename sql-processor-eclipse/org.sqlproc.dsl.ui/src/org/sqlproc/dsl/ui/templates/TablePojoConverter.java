@@ -51,7 +51,7 @@ public class TablePojoConverter {
     protected static final String METHOD_IS_DEF = "isDef";
     protected static final String ENUM_IS_DEF = "enumDef";
     protected static final String METHOD_TO_INIT = "toInit";
-    protected static final String METHOD_INDEX = "indexes";
+    protected static final String METHOD_INDEX = "index=";
     protected static final String ENUM_TO_INIT = "enumInit";
     protected static final String COLLECTION_LIST = "java.util.List";
 
@@ -92,7 +92,7 @@ public class TablePojoConverter {
     protected Map<String, Set<String>> pojoInheritanceDiscriminator = new HashMap<String, Set<String>>();
     protected Map<String, Set<String>> pojoInheritanceSimple = new HashMap<String, Set<String>>();
     protected Map<String, String> pojoDiscriminators = new HashMap<String, String>();
-    protected Map<String, List<List<PojoAttribute>>> indexes = new TreeMap<String, List<List<PojoAttribute>>>();
+    protected Map<String, List<Map<PojoAttribute, Boolean>>> indexes = new TreeMap<String, List<Map<PojoAttribute, Boolean>>>();
 
     public TablePojoConverter() {
     }
@@ -381,21 +381,25 @@ public class TablePojoConverter {
 
         for (int i = 0, l = dbIndexes.size(); i < l; i++) {
             DbIndex dbIndex = dbIndexes.get(i);
-            List<List<PojoAttribute>> mainList = indexes.get(table);
+            List<Map<PojoAttribute, Boolean>> mainList = indexes.get(table);
             if (mainList == null) {
-                mainList = new ArrayList<List<PojoAttribute>>();
+                mainList = new ArrayList<Map<PojoAttribute, Boolean>>();
                 indexes.put(table, mainList);
             }
-            List<PojoAttribute> list = new ArrayList<PojoAttribute>();
+            Map<PojoAttribute, Boolean> list = new LinkedHashMap<PojoAttribute, Boolean>();
             mainList.add(list);
             for (int ii = 0, ll = dbIndex.getColumns().size(); ii < ll; ii++) {
                 DbIndexDetail dbIndexDetail = dbIndex.getColumns().get(ii);
-                PojoAttribute attr = attributes.get(dbIndexDetail.getColname());
-                if (attr == null) {
-                    System.out.println("BUM " + dbIndex);
+                if (dbIndexDetail == null) {
+                    System.out.println("Missing index in " + dbIndex);
                     continue;
                 }
-                list.add(attr);
+                PojoAttribute attr = attributes.get(dbIndexDetail.getColname());
+                if (attr == null) {
+                    System.out.println("Missing attibute for " + dbIndex);
+                    continue;
+                }
+                list.put(attr, dbIndexDetail.isDesc());
                 if (ll == 1) {
                     attr.setIndex(i + 1);
                 }
@@ -481,7 +485,7 @@ public class TablePojoConverter {
                                 }
                             }
                         }
-                        PojoAttribute attrib = new PojoAttribute();
+                        PojoAttribute attrib = new PojoAttribute(null);
                         attrib.setName(referName);
                         if (attribute.getM2Tables().containsKey(fk.getKey())) {
                             attrib.setManyToManyColumn(entry.getKey());
@@ -538,7 +542,7 @@ public class TablePojoConverter {
                         String referName = pojo.substring(0, 1).toLowerCase();
                         if (className.length() > 1)
                             referName += pojo.substring(1);
-                        PojoAttribute attrib = new PojoAttribute();
+                        PojoAttribute attrib = new PojoAttribute(null);
                         attrib.setName(referName + "s");
                         attrib.setClassName(COLLECTION_LIST + " <:" + pojo + ">");
                         referPojoAttr.put(attrib.getName(), attrib);
@@ -556,6 +560,7 @@ public class TablePojoConverter {
                 System.out.println("pojoInheritanceDiscriminator " + this.pojoInheritanceDiscriminator);
                 System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
                 System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
+                System.out.println("indexes " + this.indexes);
             }
 
             StringBuilder buffer = new StringBuilder();
@@ -704,10 +709,10 @@ public class TablePojoConverter {
                     }
                 }
                 if (generateMethods.contains(METHOD_INDEX) && indexes.containsKey(pojo)) {
-                    List<List<PojoAttribute>> mainList = indexes.get(pojo);
+                    List<Map<PojoAttribute, Boolean>> mainList = indexes.get(pojo);
                     for (int i = 0, l = mainList.size(); i < l; i++) {
-                        buffer.append("\n    ").append("index=").append(i + 1).append(" :::");
-                        for (PojoAttribute attr : mainList.get(i)) {
+                        buffer.append("\n    ").append(METHOD_INDEX).append(i + 1).append(" :::");
+                        for (PojoAttribute attr : mainList.get(i).keySet()) {
                             String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(attr.getName())
                                     : null;
                             if (name == null)
@@ -805,7 +810,7 @@ public class TablePojoConverter {
     }
 
     protected PojoAttribute convertDbColumnDefinition(String dbName, PojoAttrType sqlType) {
-        PojoAttribute attribute = new PojoAttribute();
+        PojoAttribute attribute = new PojoAttribute(dbName);
         attribute.setName(columnToCamelCase(dbName));
         if (sqlType.getNativeType() != null) {
             attribute.setPrimitive(true);
@@ -834,7 +839,7 @@ public class TablePojoConverter {
             sqlType = sqlTypes.get(dbColumn.getType() + dbColumn.getSize());
         if (sqlType == null)
             return null;
-        PojoAttribute attribute = new PojoAttribute();
+        PojoAttribute attribute = new PojoAttribute(dbColumn.getName());
         attribute.setName(columnToCamelCase(dbColumn.getName()));
         attribute.setRequired(!dbColumn.isNullable());
         if (sqlType.getRef() != null) {
@@ -853,7 +858,7 @@ public class TablePojoConverter {
     protected PojoAttribute convertDbColumnDefault(String table, DbColumn dbColumn) {
         if (dbColumn == null)
             return null;
-        PojoAttribute attribute = new PojoAttribute();
+        PojoAttribute attribute = new PojoAttribute(dbColumn.getName());
         attribute.setName(columnToCamelCase(dbColumn.getName()));
         attribute.setRequired(!dbColumn.isNullable());
         switch (dbColumn.getSqlType()) {
