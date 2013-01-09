@@ -139,7 +139,7 @@ def compileHashCode(PojoProperty f, ImportManager importManager, PojoEntity e) '
       final int prime = 31;
       int result = 1;
       «FOR f2:f.attrs»
-      result = prime * result + (int) («f2.name» ^ («f2.name» >>> 32));
+      result = prime * result + «IF f2.native != null»(int) («f2.name» ^ («f2.name» >>> 32))«ELSE»«f2.name».hashCode()«ENDIF»;
       «ENDFOR»
       return result;
     }  

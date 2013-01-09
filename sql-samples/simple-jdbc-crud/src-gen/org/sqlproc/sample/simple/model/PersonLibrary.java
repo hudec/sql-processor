@@ -84,7 +84,7 @@ public class PersonLibrary implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + (int) (id ^ (id >>> 32));
+    result = prime * result + id.hashCode();
     return result;
   }  
   
