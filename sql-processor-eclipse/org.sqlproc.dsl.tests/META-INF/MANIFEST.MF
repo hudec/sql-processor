@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.sqlproc.dsl.tests
 Bundle-Vendor: My Company
-Bundle-Version: 1.2.1
+Bundle-Version: 1.2.2.qualifier
 Bundle-SymbolicName: org.sqlproc.dsl.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.sqlproc.dsl,

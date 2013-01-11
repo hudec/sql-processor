@@ -2,12 +2,12 @@
 
 <project name="sql-processor-version" default="change-version" basedir=".">
 	
-	<property name="version.from" value="1.9.1-SNAPSHOT"/>
-	<property name="version.to" value="1.9.1"/>
-	<property name="version.plugin.from" value="1.2.1-SNAPSHOT"/>
-	<property name="version.plugin.to" value="1.2.1"/>
-	<property name="version.plugin2.from" value="1.2.1.qualifier"/>
-	<property name="version.plugin2.to" value="1.2.1"/>
+	<property name="version.from" value="1.9.1"/>
+	<property name="version.to" value="1.9.2-SNAPSHOT"/>
+	<property name="version.plugin.from" value="1.2.1"/>
+	<property name="version.plugin.to" value="1.2.2-SNAPSHOT"/>
+	<property name="version.plugin2.from" value="1.2.1"/>
+	<property name="version.plugin2.to" value="1.2.2.qualifier"/>
 	
 	<target name="change-version">
 		<replace dir="../sql-samples" token="${version.from}" value="${version.to}">
