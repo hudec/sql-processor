@@ -9,7 +9,7 @@
     <parent>
         <groupId>org.sqlproc.samples</groupId>
         <artifactId>catalog-spring</artifactId>
-        <version>1.9.1-SNAPSHOT</version>
+        <version>1.9.1</version>
         <relativePath>..</relativePath>
     </parent>
 

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<project name="sql-processor-version" default="change-version" basedir=".">
+	
+	<property name="version.from" value="1.9.1-SNAPSHOT"/>
+	<property name="version.to" value="1.9.1"/>
+	<property name="version.plugin.from" value="1.2.1.qualifier"/>
+	<property name="version.plugin.to" value="1.2.1"/>
+	
+	<target name="change-version">
+		<replace dir="../sql-samples" token="${version.from}" value="${version.to}">
+			<include name="**/pom.xml"/>
+		</replace>
+		
+		<replace dir="../sql-processor-archetypes/sqlproc-archetype-simple-jdbc/src" token="${version.from}" value="${version.to}">
+			<include name="**/pom.xml"/>
+		</replace>
+
+		<replace dir="../sql-processor-archetypes/sqlproc-archetype-simple-spring/src" token="${version.from}" value="${version.to}">
+			<include name="**/pom.xml"/>
+		</replace>
+
+		<replace dir="../sql-processor-eclipse" token="${version.from}" value="${version.to}">
+			<include name="**/pom.xml"/>
+		</replace>
+
+		<replace dir="../sql-processor-eclipse" token="${version.plugin.from}" value="${version.plugin.to}">
+			<include name="**/MANIFEST.MF"/>
+		</replace>
+
+		<replace dir="../" token="${version.from}" value="${version.to}">
+			<include name="*/.classpath"/>
+		</replace>
+		
+		<replace dir="../" token="${version.from}" value="${version.to}">
+			<include name="*/.settings/org.eclipse.wst.common.component"/>
+		</replace>
+	</target>
+</project>
