@@ -18,6 +18,7 @@
         <module>../org.sqlproc.dsl.ui</module>
         <module>../org.sqlproc.dsl.tests</module>
         <module>../org.sqlproc.dsl.feature</module>
+        <module>../org.sqlproc.dsl.updatesite</module>
     </modules>
 
     <build>
@@ -52,6 +53,16 @@
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-surefire-plugin</artifactId>
+                <version>${version.tycho}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-p2-repository-plugin</artifactId>
+                <version>${version.tycho}</version>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -91,11 +102,8 @@
             <url>http://download.eclipse.org/releases/juno</url>
             <layout>p2</layout>
         </repository>
-        <!-- repository>
-            <id>p2.eclipse.orbit</id>
-            <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository</url>
-            <layout>p2</layout>
-        </repository-->
+        <!-- repository> <id>p2.eclipse.orbit</id> <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository</url> 
+            <layout>p2</layout> </repository -->
     </repositories>
     <pluginRepositories>
         <pluginRepository>
