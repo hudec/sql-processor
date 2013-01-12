@@ -17,6 +17,7 @@
         <module>../org.sqlproc.dsl</module>
         <module>../org.sqlproc.dsl.ui</module>
         <module>../org.sqlproc.dsl.tests</module>
+        <module>../org.sqlproc.dsl.feature</module>
     </modules>
 
     <build>
