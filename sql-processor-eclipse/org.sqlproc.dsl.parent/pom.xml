@@ -10,11 +10,13 @@
 
     <properties>
         <version.tycho>0.15.0</version.tycho>
+        <version.junit>4.8.1</version.junit>
     </properties>
 
     <modules>
-        <module>org.sqlproc.dsl</module>
-        <module>org.sqlproc.dsl.ui</module>
+        <module>../org.sqlproc.dsl</module>
+        <module>../org.sqlproc.dsl.ui</module>
+        <module>../org.sqlproc.dsl.tests</module>
     </modules>
 
     <build>
@@ -72,20 +74,29 @@
             </plugins>
         </pluginManagement>
     </build>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <repositories>
         <repository>
             <id>p2.eclipse.juno</id>
             <url>http://download.eclipse.org/releases/juno</url>
             <layout>p2</layout>
         </repository>
-        <repository>
+        <!-- repository>
             <id>p2.eclipse.orbit</id>
             <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository</url>
             <layout>p2</layout>
-        </repository>
+        </repository-->
     </repositories>
     <pluginRepositories>
-        <!-- At the moment the Fornax plugin is only available as snapshot -->
         <pluginRepository>
             <id>fornax-releases</id>
             <url>http://www.fornax-platform.org/archiva/repository/releases/</url>

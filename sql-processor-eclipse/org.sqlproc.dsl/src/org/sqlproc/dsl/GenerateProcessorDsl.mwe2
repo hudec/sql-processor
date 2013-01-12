@@ -13,9 +13,10 @@ Workflow {
     bean = StandaloneSetup {
             scanClassPath = true
             platformUri = "${runtimeProject}/.."
-            // The following two lines can be removed, if Xbase is not used.
+            // The following three lines can be removed, if Xbase is not used.
             registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
             registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+            registerGenModelFile = "platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel"
         }
     
         component = DirectoryCleaner {
@@ -24,6 +25,10 @@ Workflow {
     
         component = DirectoryCleaner {
             directory = "${runtimeProject}.ui/src-gen"
+        }
+    
+        component = DirectoryCleaner {
+            directory = "${runtimeProject}.tests/src-gen"
         }
     
         component = Generator {
@@ -41,6 +46,7 @@ Workflow {
     
                 // generates Java API for the generated EPackages
                 fragment = ecore.EcoreGeneratorFragment {
+                	emfRuntimeVersion = "2.5"
                 // referencedGenModels = "
                 //  platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel,
                 //  platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel
@@ -81,7 +87,7 @@ Workflow {
                 fragment = scoping.ImportNamespacesScopingFragment {}
                 fragment = exporting.QualifiedNamesFragment {}
                 fragment = builder.BuilderIntegrationFragment {}
-    
+			
                 // generator API
                 fragment = generator.GeneratorFragment {
                     generateMwe = false

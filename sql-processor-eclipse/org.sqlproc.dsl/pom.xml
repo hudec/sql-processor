@@ -6,7 +6,7 @@
 		<groupId>org.sqlproc.dsl</groupId>
 		<artifactId>dsl-parent</artifactId>
 		<version>1.2.2-SNAPSHOT</version>
-		<relativePath>..</relativePath>
+		<relativePath>../org.sqlproc.dsl.parent</relativePath>
 	</parent>
 	<artifactId>org.sqlproc.dsl</artifactId>
 	<packaging>eclipse-plugin</packaging>

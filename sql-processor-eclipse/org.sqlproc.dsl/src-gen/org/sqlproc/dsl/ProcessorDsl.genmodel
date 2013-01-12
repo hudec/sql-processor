@@ -4,7 +4,7 @@
     editorDirectory="/org.sqlproc.dsl.editor/src" modelPluginID="org.sqlproc.dsl"
     forceOverwrite="true" modelName="ProcessorDsl" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.sqlproc.dsl.edit"
-    editorPluginID="org.sqlproc.dsl.editor" runtimeVersion="2.8" usedGenPackages="../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
+    editorPluginID="org.sqlproc.dsl.editor" runtimeVersion="2.5" usedGenPackages="../../../../../org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
   <genPackages prefix="ProcessorDsl" basePackage="org.sqlproc.dsl" disposableProviderFactory="true"
       ecorePackage="ProcessorDsl.ecore#/">
     <genClasses ecoreClass="ProcessorDsl.ecore#//Artifacts">
