@@ -4,14 +4,16 @@ The minimum installation is the next one:
 - spring-tool-suite-3.0.0.RELEASE-e4.2-linux-gtk-installer.sh
 and the plugins:
     Ecore Tools SDK 1.1.0
-    EMF - Eclipse Modeling Framework SDK 2.8.0
+    EMF - Eclipse Modeling Framework SDK 2.8.1
     MWE 2 language SDK 2.3.0
     MWE 2 runtime SDK 2.3.0
     Xpand SDK 1.2.1
-    Xtext SDK 2.3.0
+    Xtext SDK 2.3.1
 
 To build from the command line the Maven 3 is required plus
 the next command:
+
+ cd ~/git/sql-processor/sql-processor-eclipse/org.sqlproc.dsl.parent
 
  mvn clean install -Dtycho.targetPlatform=/home/hudec/eclipse
 
