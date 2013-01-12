@@ -1,3 +1,5 @@
+The SQL Processor Eclipse Plugin (SQLEP).
+
 To import this plugin into IDE the STS 3.0.0 plus Xtext 2.3 are required.
 
 The minimum installation is the next one:
@@ -10,6 +12,10 @@ and the plugins:
     Xpand SDK 1.2.1
     Xtext SDK 2.3.1
 
+To install SQLEP, the next P2 repos can be used
+ - http://sql-processor.org/plugins/milestones/
+ - http://sql-processor.org/plugins/releases/
+
 To build from the command line the Maven 3 is required plus
 the next command:
 
@@ -21,14 +27,14 @@ or simple (using Eclipse P2 repositories)
 
  mvn clean install
 
-To install this plugin, copy the next jars into eclipse/dropins
+To install this plugin from the build, copy the next jars into eclipse/dropins
 directory:
-./org.sqlproc.dsl/target/org.sqlproc.dsl-1.1.0-SNAPSHOT.jar
-./org.sqlproc.dsl.ui/target/org.sqlproc.dsl.ui-1.1.0-SNAPSHOT.jar
+./org.sqlproc.dsl/target/org.sqlproc.dsl-1.2.2-SNAPSHOT.jar
+./org.sqlproc.dsl.ui/target/org.sqlproc.dsl.ui-1.2.2-SNAPSHOT.jar
 
 For example
-cp ./org.sqlproc.dsl/target/org.sqlproc.dsl-1.1.0-SNAPSHOT.jar ~/springsource/sts-3.0.0.RELEASE/dropins/
-cp ./org.sqlproc.dsl.ui/target/org.sqlproc.dsl.ui-1.1.0-SNAPSHOT.jar ~/springsource/sts-3.0.0.RELEASE/dropins/
+cp ./org.sqlproc.dsl/target/org.sqlproc.dsl-1.2.2-SNAPSHOT.jar ~/springsource/sts-3.1.0.RELEASE/dropins/
+cp ./org.sqlproc.dsl.ui/target/org.sqlproc.dsl.ui-1.2.2-SNAPSHOT.jar ~/springsource/sts-3.1.0.RELEASE/dropins/
 
 
 
