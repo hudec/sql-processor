@@ -170,7 +170,7 @@
     <genClasses ecoreClass="ProcessorDsl.ecore#//MetaStatement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MetaStatement/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MetaStatement/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MetaStatement/filters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MetaStatement/modifiers"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//MetaStatement/statement"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//Sql">
@@ -231,21 +231,18 @@
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//Column">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Column/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Column/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Column/vals"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Column/modifiers"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//Constant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Constant/case"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Constant/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Constant/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Constant/vals"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Constant/modifiers"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//Identifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/mode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/case"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/vals"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/modifiers"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//DatabaseColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseColumn/name"/>
@@ -256,7 +253,7 @@
     <genClasses ecoreClass="ProcessorDsl.ecore#//MappingRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingRule/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingRule/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingRule/filters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingRule/modifiers"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//MappingRule/mapping"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//Mapping">
@@ -264,8 +261,8 @@
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//MappingItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingItem/col"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingItem/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//MappingItem/attr"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingItem/modifiers"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//MappingColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingColumn/name"/>
@@ -274,7 +271,7 @@
     <genClasses ecoreClass="ProcessorDsl.ecore#//OptionalFeature">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//OptionalFeature/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//OptionalFeature/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//OptionalFeature/filters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//OptionalFeature/modifiers"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//OptionalFeature/option"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//PojoType">

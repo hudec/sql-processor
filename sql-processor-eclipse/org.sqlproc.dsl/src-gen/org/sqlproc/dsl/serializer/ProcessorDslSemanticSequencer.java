@@ -589,7 +589,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((name=IDENT | name=IDENT_DOT | name=NUMBER) (type=IDENT? (vals+=IDENT | vals+=NUMBER)*)?)
+	 *     ((name=IDENT | name=IDENT_DOT | name=NUMBER) (modifiers+=IDENT modifiers+=Modifier*)?)
 	 */
 	protected void sequence_Column(EObject context, Column semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -636,7 +636,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((case=PLUS | case=MINUS)? (name=IDENT | name=IDENT_DOT) (type=IDENT? (vals+=IDENT | vals+=NUMBER)*)?)
+	 *     ((case=PLUS | case=MINUS)? (name=IDENT | name=IDENT_DOT) (modifiers+=IDENT modifiers+=Modifier*)?)
 	 */
 	protected void sequence_Constant(EObject context, Constant semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -765,7 +765,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (mode=EQUALS | mode=LESS_THAN | mode=MORE_THAN)? 
 	 *         (case=PLUS | case=MINUS)? 
 	 *         (name=IDENT | name=IDENT_DOT | name=NUMBER) 
-	 *         (type=IDENT? (vals+=IDENT | vals+=NUMBER)*)?
+	 *         (modifiers+=IDENT modifiers+=Modifier*)?
 	 *     )
 	 */
 	protected void sequence_Identifier(EObject context, Identifier semanticObject) {
@@ -919,7 +919,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((col=IDENT | col=NUMBER) (type=IDENT? attr=MappingColumn?)?)
+	 *     ((col=IDENT | col=NUMBER) (attr=MappingColumn (modifiers+=IDENT modifiers+=MappingItemModifier*)?)?)
 	 */
 	protected void sequence_MappingItem(EObject context, MappingItem semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -928,7 +928,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (name=IDENT type=MAPPING_TYPE filters+=IDENT* mapping=Mapping)
+	 *     (name=IDENT type=MAPPING_TYPE modifiers+=MappingRuleModifier* mapping=Mapping)
 	 */
 	protected void sequence_MappingRule(EObject context, MappingRule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1000,7 +1000,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (name=IDENT type=STATEMEN_TYPE filters+=Filter* statement=Sql)
+	 *     (name=IDENT type=STATEMENT_TYPE modifiers+=StatementModifier* statement=Sql)
 	 */
 	protected void sequence_MetaStatement(EObject context, MetaStatement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1035,7 +1035,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (name=IDENT type=OPTION_TYPE filters+=IDENT* option=FeatureValue)
+	 *     (name=IDENT type=OPTION_TYPE modifiers+=OptionalFeatureModifier* option=FeatureValue)
 	 */
 	protected void sequence_OptionalFeature(EObject context, OptionalFeature semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

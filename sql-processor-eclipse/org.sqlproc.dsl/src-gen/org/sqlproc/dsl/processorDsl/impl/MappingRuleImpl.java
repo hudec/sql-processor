@@ -30,7 +30,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MappingRuleImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MappingRuleImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MappingRuleImpl#getFilters <em>Filters</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MappingRuleImpl#getModifiers <em>Modifiers</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MappingRuleImpl#getMapping <em>Mapping</em>}</li>
  * </ul>
  * </p>
@@ -80,14 +80,14 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
   protected String type = TYPE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getFilters() <em>Filters</em>}' attribute list.
+   * The cached value of the '{@link #getModifiers() <em>Modifiers</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFilters()
+   * @see #getModifiers()
    * @generated
    * @ordered
    */
-  protected EList<String> filters;
+  protected EList<String> modifiers;
 
   /**
    * The cached value of the '{@link #getMapping() <em>Mapping</em>}' containment reference.
@@ -171,13 +171,13 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getFilters()
+  public EList<String> getModifiers()
   {
-    if (filters == null)
+    if (modifiers == null)
     {
-      filters = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.MAPPING_RULE__FILTERS);
+      modifiers = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.MAPPING_RULE__MODIFIERS);
     }
-    return filters;
+    return modifiers;
   }
 
   /**
@@ -258,8 +258,8 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
         return getName();
       case ProcessorDslPackage.MAPPING_RULE__TYPE:
         return getType();
-      case ProcessorDslPackage.MAPPING_RULE__FILTERS:
-        return getFilters();
+      case ProcessorDslPackage.MAPPING_RULE__MODIFIERS:
+        return getModifiers();
       case ProcessorDslPackage.MAPPING_RULE__MAPPING:
         return getMapping();
     }
@@ -283,9 +283,9 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
       case ProcessorDslPackage.MAPPING_RULE__TYPE:
         setType((String)newValue);
         return;
-      case ProcessorDslPackage.MAPPING_RULE__FILTERS:
-        getFilters().clear();
-        getFilters().addAll((Collection<? extends String>)newValue);
+      case ProcessorDslPackage.MAPPING_RULE__MODIFIERS:
+        getModifiers().clear();
+        getModifiers().addAll((Collection<? extends String>)newValue);
         return;
       case ProcessorDslPackage.MAPPING_RULE__MAPPING:
         setMapping((Mapping)newValue);
@@ -310,8 +310,8 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
       case ProcessorDslPackage.MAPPING_RULE__TYPE:
         setType(TYPE_EDEFAULT);
         return;
-      case ProcessorDslPackage.MAPPING_RULE__FILTERS:
-        getFilters().clear();
+      case ProcessorDslPackage.MAPPING_RULE__MODIFIERS:
+        getModifiers().clear();
         return;
       case ProcessorDslPackage.MAPPING_RULE__MAPPING:
         setMapping((Mapping)null);
@@ -334,8 +334,8 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.MAPPING_RULE__TYPE:
         return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-      case ProcessorDslPackage.MAPPING_RULE__FILTERS:
-        return filters != null && !filters.isEmpty();
+      case ProcessorDslPackage.MAPPING_RULE__MODIFIERS:
+        return modifiers != null && !modifiers.isEmpty();
       case ProcessorDslPackage.MAPPING_RULE__MAPPING:
         return mapping != null;
     }
@@ -357,8 +357,8 @@ public class MappingRuleImpl extends MinimalEObjectImpl.Container implements Map
     result.append(name);
     result.append(", type: ");
     result.append(type);
-    result.append(", filters: ");
-    result.append(filters);
+    result.append(", modifiers: ");
+    result.append(modifiers);
     result.append(')');
     return result.toString();
   }

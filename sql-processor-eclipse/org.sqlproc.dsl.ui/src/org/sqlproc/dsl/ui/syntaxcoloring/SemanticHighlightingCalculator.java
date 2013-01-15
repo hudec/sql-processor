@@ -46,6 +46,8 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
 
     public static final String CARET = "^";
     public static final String STRING = "$";
+    public static final String LPAREN = "(";
+    public static final String RPAREN = ")";
 
     @Inject
     PojoResolver pojoResolver;
@@ -71,7 +73,7 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                     ICompositeNode node = NodeModelUtils.getNode(current);
                     // Nazev statementu je prvni pole, neni treba vyhledat node
                     acceptor.addPosition(node.getOffset(), statement.getName().length(), HighlightingConfiguration.NAME);
-                    provideHighlightingForFilters(statement.getFilters(), node, acceptor);
+                    provideHighlightingForModifiers(statement.getModifiers(), node, acceptor);
                 }
             } else if (current instanceof MappingRule) {
                 MappingRule rule = (MappingRule) current;
@@ -79,7 +81,7 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                     ICompositeNode node = NodeModelUtils.getNode(current);
                     // Nazev pravidla je prvni pole, neni treba vyhledat node
                     acceptor.addPosition(node.getOffset(), rule.getName().length(), HighlightingConfiguration.NAME);
-                    provideHighlightingForFilters(rule.getFilters(), node, acceptor);
+                    provideHighlightingForModifiers(rule.getModifiers(), node, acceptor);
                 }
             } else if (current instanceof OptionalFeature) {
                 OptionalFeature feature = (OptionalFeature) current;
@@ -87,17 +89,23 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                     ICompositeNode node = NodeModelUtils.getNode(current);
                     // Nazev vlastnosti je prvni pole, neni treba vyhledat node
                     acceptor.addPosition(node.getOffset(), feature.getName().length(), HighlightingConfiguration.NAME);
-                    provideHighlightingForFilters(feature.getFilters(), node, acceptor);
+                    provideHighlightingForModifiers(feature.getModifiers(), node, acceptor);
                 }
             } else if (current instanceof Constant) {
+                Constant constant = (Constant) current;
                 ICompositeNode node = NodeModelUtils.getNode(current);
-                provideHighlightingForFragment(HighlightingConfiguration.CONSTANT, node, acceptor);
+                provideHighlightingForFragment(HighlightingConfiguration.CONSTANT, node, constant.getName(),
+                        constant.getModifiers(), acceptor);
             } else if (current instanceof Identifier) {
+                Identifier identifier = (Identifier) current;
                 ICompositeNode node = NodeModelUtils.getNode(current);
-                provideHighlightingForFragment(HighlightingConfiguration.IDENTIFIER, node, acceptor);
+                provideHighlightingForFragment(HighlightingConfiguration.IDENTIFIER, node, identifier.getName(),
+                        identifier.getModifiers(), acceptor);
             } else if (current instanceof Column) {
+                Column column = (Column) current;
                 ICompositeNode node = NodeModelUtils.getNode(current);
-                provideHighlightingForFragment(HighlightingConfiguration.COLUMN, node, acceptor);
+                provideHighlightingForFragment(HighlightingConfiguration.COLUMN, node, column.getName(),
+                        column.getModifiers(), acceptor);
             } else if (current instanceof MappingColumn) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 acceptor.addPosition(node.getOffset(), node.getLength(), HighlightingConfiguration.COLUMN);
@@ -214,14 +222,15 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
         }
     }
 
-    private void provideHighlightingForFilters(EList<String> filters, ICompositeNode node,
+    private void provideHighlightingForModifiers(EList<String> filters, ICompositeNode node,
             IHighlightedPositionAcceptor acceptor) {
         if (filters != null && !filters.isEmpty()) {
             Iterator<INode> iterator = new NodeTreeIterator(node);
             while (iterator.hasNext()) {
                 INode inode = iterator.next();
                 if (filters.contains(inode.getText())) {
-                    acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.FILTER);
+                    acceptor.addPosition(inode.getOffset(), inode.getLength(),
+                            HighlightingConfiguration.STATEMENT_MODIFIER);
                 }
             }
         }
@@ -353,25 +362,21 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
         }
     }
 
-    private void provideHighlightingForFragment(String defaultColor, ICompositeNode node,
-            IHighlightedPositionAcceptor acceptor) {
+    private void provideHighlightingForFragment(String defaultColor, ICompositeNode node, String name,
+            EList<String> modifiers, IHighlightedPositionAcceptor acceptor) {
         Iterator<INode> iterator = new NodeTreeIterator(node);
-        int index = 0;
+        boolean afterName = false;
         while (iterator.hasNext()) {
             INode inode = iterator.next();
-            if (CARET.equals(inode.getText())) {
-                index++;
-                continue;
-            }
-            switch (index) {
-            case 1:
-                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.META_TYPE);
-                break;
-            case 2:
-                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.META_IDENT);
-                break;
-            default:
-                acceptor.addPosition(inode.getOffset(), inode.getLength(), defaultColor);
+            if (!afterName) {
+                if (name.equals(inode.getText())) {
+                    acceptor.addPosition(inode.getOffset(), inode.getLength(), defaultColor);
+                    afterName = true;
+                }
+            } else {
+                if (modifiers != null && !modifiers.isEmpty() && modifiers.contains(inode.getText())) {
+                    acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.MODIFIER);
+                }
             }
         }
     }
@@ -387,7 +392,7 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
             }
             switch (index) {
             case 1:
-                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.META_TYPE);
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.STATEMENT_MODIFIER);
                 break;
             default:
                 acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.IDENTIFIER);

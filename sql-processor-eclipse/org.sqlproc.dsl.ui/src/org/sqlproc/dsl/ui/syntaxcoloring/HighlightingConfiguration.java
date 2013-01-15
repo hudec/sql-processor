@@ -18,9 +18,8 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
     public static final String COLUMN = "column";
     public static final String DATABASE_COLUMN = "dbcolumn";
     public static final String DATABASE_TABLE = "dbtable";
-    public final static String FILTER = "filter";
-    public final static String META_TYPE = "metatype";
-    public final static String META_IDENT = "metaident";
+    public final static String MODIFIER = "modifier";
+    public final static String STATEMENT_MODIFIER = "statementModifier";
     public final static String PACKAGE_NAME = "packageName";
     public final static String ENTITY_NAME = "entityName";
     public final static String TYPE_NAME = "typeName";
@@ -39,9 +38,8 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
         acceptor.acceptDefaultHighlighting(DATABASE_COLUMN, "Database column", databaseColumnStyle());
         acceptor.acceptDefaultHighlighting(DATABASE_TABLE, "Database table", databaseTableStyle());
         acceptor.acceptDefaultHighlighting(NAME, "Artifact name", nameStyle());
-        acceptor.acceptDefaultHighlighting(FILTER, "Filters", filterStyle());
-        acceptor.acceptDefaultHighlighting(META_TYPE, "Meta type", metaTypeStyle());
-        acceptor.acceptDefaultHighlighting(META_IDENT, "Meta identifier", metaIdentStyle());
+        acceptor.acceptDefaultHighlighting(MODIFIER, "Modifier", metaModifierStyle());
+        acceptor.acceptDefaultHighlighting(STATEMENT_MODIFIER, "Statement modifier", statementModifierStyle());
         acceptor.acceptDefaultHighlighting(PACKAGE_NAME, "Pojo package name", packageNameStyle());
         acceptor.acceptDefaultHighlighting(ENTITY_NAME, "Pojo entity name", entityNameStyle());
         acceptor.acceptDefaultHighlighting(TYPE_NAME, "Type definition name", identifierStyle());
@@ -142,21 +140,18 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
         return textStyle;
     }
 
-    public TextStyle filterStyle() {
-        TextStyle textStyle = defaultStyle();
-        textStyle.setStyle(SWT.ITALIC);
-        return textStyle;
-    }
-
-    public TextStyle metaTypeStyle() {
+    public TextStyle metaModifierStyle() {
         TextStyle textStyle = defaultStyle();
         textStyle.setColor(new RGB(210, 105, 30));
         return textStyle;
     }
 
-    public TextStyle metaIdentStyle() {
+    public TextStyle statementModifierStyle() {
         TextStyle textStyle = defaultStyle();
-        textStyle.setColor(new RGB(34, 139, 34));
+        textStyle.setStyle(SWT.ITALIC);
         return textStyle;
+        // TextStyle textStyle = defaultStyle();
+        // textStyle.setColor(new RGB(34, 139, 34));
+        // return textStyle;
     }
 }

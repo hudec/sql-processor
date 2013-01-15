@@ -125,29 +125,24 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         addProposalList(OPTION_TYPE, "OPTION_TYPE", context, acceptor);
     }
 
-    @Override
-    public void completeColumn_Type(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        addProposalList(TYPES, "IDENT", context, acceptor);
-    }
-
-    @Override
-    public void completeConstant_Type(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        addProposalList(TYPES, "IDENT", context, acceptor);
-    }
-
-    @Override
-    public void completeIdentifier_Type(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        addProposalList(TYPES, "IDENT", context, acceptor);
-    }
-
-    @Override
-    public void completeMappingItem_Type(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        addProposalList(TYPES, "IDENT", context, acceptor);
-    }
+    //
+    // @Override
+    // public void completeColumn_Type(EObject model, Assignment assignment, ContentAssistContext context,
+    // ICompletionProposalAcceptor acceptor) {
+    // addProposalList(TYPES, "IDENT", context, acceptor);
+    // }
+    //
+    // @Override
+    // public void completeConstant_Type(EObject model, Assignment assignment, ContentAssistContext context,
+    // ICompletionProposalAcceptor acceptor) {
+    // addProposalList(TYPES, "IDENT", context, acceptor);
+    // }
+    //
+    // @Override
+    // public void completeIdentifier_Type(EObject model, Assignment assignment, ContentAssistContext context,
+    // ICompletionProposalAcceptor acceptor) {
+    // addProposalList(TYPES, "IDENT", context, acceptor);
+    // }
 
     protected void addProposalList(List<String> values, String lexerRule, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
@@ -166,23 +161,24 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         addProposalList(F_TYPES, "IDENT", context, acceptor);
     }
 
-    @Override
-    public void completeConstant_Vals(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        addProposalList(IDENT_VALS, "IDENT", context, acceptor);
-    }
-
-    @Override
-    public void completeIdentifier_Vals(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        addProposalList(IDENT_VALS, "IDENT", context, acceptor);
-    }
-
-    @Override
-    public void completeColumn_Vals(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        addProposalList(COL_VALS, "IDENT", context, acceptor);
-    }
+    //
+    // @Override
+    // public void completeConstant_Vals(EObject model, Assignment assignment, ContentAssistContext context,
+    // ICompletionProposalAcceptor acceptor) {
+    // addProposalList(IDENT_VALS, "IDENT", context, acceptor);
+    // }
+    //
+    // @Override
+    // public void completeIdentifier_Vals(EObject model, Assignment assignment, ContentAssistContext context,
+    // ICompletionProposalAcceptor acceptor) {
+    // addProposalList(IDENT_VALS, "IDENT", context, acceptor);
+    // }
+    //
+    // @Override
+    // public void completeColumn_Vals(EObject model, Assignment assignment, ContentAssistContext context,
+    // ICompletionProposalAcceptor acceptor) {
+    // addProposalList(COL_VALS, "IDENT", context, acceptor);
+    // }
 
     @Override
     public void completeMappingColumn_Vals(EObject model, Assignment assignment, ContentAssistContext context,
@@ -224,11 +220,11 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
 
-        String entityName = Utils.getTokenFromFilter(metaStatement, usageInFilterExt);
+        String entityName = Utils.getTokenFromModifier(metaStatement, usageInFilterExt);
         PojoEntity pojoEntity = (entityName != null) ? Utils.findEntity(qualifiedNameConverter, artifacts,
                 getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
                 entityName) : null;
-        String pojoName = (pojoEntity != null) ? null : Utils.getTokenFromFilter(metaStatement, usageInFilter);
+        String pojoName = (pojoEntity != null) ? null : Utils.getTokenFromModifier(metaStatement, usageInFilter);
         PojoDefinition pojoDefinition = (pojoName != null) ? Utils.findPojo(qualifiedNameConverter, artifacts,
                 getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
 
@@ -298,11 +294,11 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
 
-        String entityName = Utils.getTokenFromFilter(mappingRule, MAPPING_USAGE_EXTENDED);
+        String entityName = Utils.getTokenFromModifier(mappingRule, MAPPING_USAGE_EXTENDED);
         PojoEntity pojoEntity = (entityName != null) ? Utils.findEntity(qualifiedNameConverter, artifacts,
                 getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
                 entityName) : null;
-        String pojoName = (pojoEntity != null) ? null : Utils.getTokenFromFilter(mappingRule, MAPPING_USAGE);
+        String pojoName = (pojoEntity != null) ? null : Utils.getTokenFromModifier(mappingRule, MAPPING_USAGE);
         PojoDefinition pojoDefinition = (pojoName != null) ? Utils
                 .findPojo(qualifiedNameConverter, artifacts,
                         getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
@@ -583,7 +579,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
 
-        String val = Utils.getTokenFromFilter(metaStatement, TABLE_USAGE, prefix);
+        String val = Utils.getTokenFromModifier(metaStatement, TABLE_USAGE, prefix);
         TableDefinition tableDefinition = (val != null) ? Utils.findTable(qualifiedNameConverter, artifacts,
                 getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES), val) : null;
         if (tableDefinition == null) {
@@ -648,7 +644,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         Artifacts artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
 
         TableDefinition tableDefinition = null;
-        List<String> vals = Utils.getTokensFromFilter(metaStatement, TABLE_USAGE);
+        List<String> vals = Utils.getTokensFromModifier(metaStatement, TABLE_USAGE);
         boolean found = false;
         for (String val : vals) {
             tableDefinition = Utils.findTable(qualifiedNameConverter, artifacts,
@@ -1111,7 +1107,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     }
 
     @Override
-    public void complete_Filter(EObject model, RuleCall ruleCall, ContentAssistContext context,
+    public void complete_StatementModifier(EObject model, RuleCall ruleCall, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
         Artifacts artifacts = null;
         if (model instanceof MetaStatement) {
@@ -1171,7 +1167,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
                 acceptor.accept(completionProposal2);
             }
         } else {
-            super.complete_Filter(model, ruleCall, context, acceptor);
+            super.complete_StatementModifier(model, ruleCall, context, acceptor);
         }
     }
 

@@ -27,7 +27,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.OptionalFeatureImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.OptionalFeatureImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.OptionalFeatureImpl#getFilters <em>Filters</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.OptionalFeatureImpl#getModifiers <em>Modifiers</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.OptionalFeatureImpl#getOption <em>Option</em>}</li>
  * </ul>
  * </p>
@@ -77,14 +77,14 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
   protected String type = TYPE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getFilters() <em>Filters</em>}' attribute list.
+   * The cached value of the '{@link #getModifiers() <em>Modifiers</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFilters()
+   * @see #getModifiers()
    * @generated
    * @ordered
    */
-  protected EList<String> filters;
+  protected EList<String> modifiers;
 
   /**
    * The default value of the '{@link #getOption() <em>Option</em>}' attribute.
@@ -178,13 +178,13 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getFilters()
+  public EList<String> getModifiers()
   {
-    if (filters == null)
+    if (modifiers == null)
     {
-      filters = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.OPTIONAL_FEATURE__FILTERS);
+      modifiers = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.OPTIONAL_FEATURE__MODIFIERS);
     }
-    return filters;
+    return modifiers;
   }
 
   /**
@@ -224,8 +224,8 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
         return getName();
       case ProcessorDslPackage.OPTIONAL_FEATURE__TYPE:
         return getType();
-      case ProcessorDslPackage.OPTIONAL_FEATURE__FILTERS:
-        return getFilters();
+      case ProcessorDslPackage.OPTIONAL_FEATURE__MODIFIERS:
+        return getModifiers();
       case ProcessorDslPackage.OPTIONAL_FEATURE__OPTION:
         return getOption();
     }
@@ -249,9 +249,9 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.OPTIONAL_FEATURE__TYPE:
         setType((String)newValue);
         return;
-      case ProcessorDslPackage.OPTIONAL_FEATURE__FILTERS:
-        getFilters().clear();
-        getFilters().addAll((Collection<? extends String>)newValue);
+      case ProcessorDslPackage.OPTIONAL_FEATURE__MODIFIERS:
+        getModifiers().clear();
+        getModifiers().addAll((Collection<? extends String>)newValue);
         return;
       case ProcessorDslPackage.OPTIONAL_FEATURE__OPTION:
         setOption((String)newValue);
@@ -276,8 +276,8 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.OPTIONAL_FEATURE__TYPE:
         setType(TYPE_EDEFAULT);
         return;
-      case ProcessorDslPackage.OPTIONAL_FEATURE__FILTERS:
-        getFilters().clear();
+      case ProcessorDslPackage.OPTIONAL_FEATURE__MODIFIERS:
+        getModifiers().clear();
         return;
       case ProcessorDslPackage.OPTIONAL_FEATURE__OPTION:
         setOption(OPTION_EDEFAULT);
@@ -300,8 +300,8 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.OPTIONAL_FEATURE__TYPE:
         return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-      case ProcessorDslPackage.OPTIONAL_FEATURE__FILTERS:
-        return filters != null && !filters.isEmpty();
+      case ProcessorDslPackage.OPTIONAL_FEATURE__MODIFIERS:
+        return modifiers != null && !modifiers.isEmpty();
       case ProcessorDslPackage.OPTIONAL_FEATURE__OPTION:
         return OPTION_EDEFAULT == null ? option != null : !OPTION_EDEFAULT.equals(option);
     }
@@ -323,8 +323,8 @@ public class OptionalFeatureImpl extends MinimalEObjectImpl.Container implements
     result.append(name);
     result.append(", type: ");
     result.append(type);
-    result.append(", filters: ");
-    result.append(filters);
+    result.append(", modifiers: ");
+    result.append(modifiers);
     result.append(", option: ");
     result.append(option);
     result.append(')');

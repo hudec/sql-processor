@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetaStatement#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetaStatement#getType <em>Type</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.MetaStatement#getFilters <em>Filters</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.MetaStatement#getModifiers <em>Modifiers</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetaStatement#getStatement <em>Statement</em>}</li>
  * </ul>
  * </p>
@@ -80,20 +80,20 @@ public interface MetaStatement extends EObject
   void setType(String value);
 
   /**
-   * Returns the value of the '<em><b>Filters</b></em>' attribute list.
+   * Returns the value of the '<em><b>Modifiers</b></em>' attribute list.
    * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Filters</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Modifiers</em>' attribute list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Filters</em>' attribute list.
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMetaStatement_Filters()
+   * @return the value of the '<em>Modifiers</em>' attribute list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMetaStatement_Modifiers()
    * @model unique="false"
    * @generated
    */
-  EList<String> getFilters();
+  EList<String> getModifiers();
 
   /**
    * Returns the value of the '<em><b>Statement</b></em>' containment reference.

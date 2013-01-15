@@ -30,7 +30,7 @@ import org.sqlproc.dsl.processorDsl.Sql;
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetaStatementImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetaStatementImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetaStatementImpl#getFilters <em>Filters</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetaStatementImpl#getModifiers <em>Modifiers</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetaStatementImpl#getStatement <em>Statement</em>}</li>
  * </ul>
  * </p>
@@ -80,14 +80,14 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
   protected String type = TYPE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getFilters() <em>Filters</em>}' attribute list.
+   * The cached value of the '{@link #getModifiers() <em>Modifiers</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFilters()
+   * @see #getModifiers()
    * @generated
    * @ordered
    */
-  protected EList<String> filters;
+  protected EList<String> modifiers;
 
   /**
    * The cached value of the '{@link #getStatement() <em>Statement</em>}' containment reference.
@@ -171,13 +171,13 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getFilters()
+  public EList<String> getModifiers()
   {
-    if (filters == null)
+    if (modifiers == null)
     {
-      filters = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.META_STATEMENT__FILTERS);
+      modifiers = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.META_STATEMENT__MODIFIERS);
     }
-    return filters;
+    return modifiers;
   }
 
   /**
@@ -258,8 +258,8 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
         return getName();
       case ProcessorDslPackage.META_STATEMENT__TYPE:
         return getType();
-      case ProcessorDslPackage.META_STATEMENT__FILTERS:
-        return getFilters();
+      case ProcessorDslPackage.META_STATEMENT__MODIFIERS:
+        return getModifiers();
       case ProcessorDslPackage.META_STATEMENT__STATEMENT:
         return getStatement();
     }
@@ -283,9 +283,9 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
       case ProcessorDslPackage.META_STATEMENT__TYPE:
         setType((String)newValue);
         return;
-      case ProcessorDslPackage.META_STATEMENT__FILTERS:
-        getFilters().clear();
-        getFilters().addAll((Collection<? extends String>)newValue);
+      case ProcessorDslPackage.META_STATEMENT__MODIFIERS:
+        getModifiers().clear();
+        getModifiers().addAll((Collection<? extends String>)newValue);
         return;
       case ProcessorDslPackage.META_STATEMENT__STATEMENT:
         setStatement((Sql)newValue);
@@ -310,8 +310,8 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
       case ProcessorDslPackage.META_STATEMENT__TYPE:
         setType(TYPE_EDEFAULT);
         return;
-      case ProcessorDslPackage.META_STATEMENT__FILTERS:
-        getFilters().clear();
+      case ProcessorDslPackage.META_STATEMENT__MODIFIERS:
+        getModifiers().clear();
         return;
       case ProcessorDslPackage.META_STATEMENT__STATEMENT:
         setStatement((Sql)null);
@@ -334,8 +334,8 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ProcessorDslPackage.META_STATEMENT__TYPE:
         return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-      case ProcessorDslPackage.META_STATEMENT__FILTERS:
-        return filters != null && !filters.isEmpty();
+      case ProcessorDslPackage.META_STATEMENT__MODIFIERS:
+        return modifiers != null && !modifiers.isEmpty();
       case ProcessorDslPackage.META_STATEMENT__STATEMENT:
         return statement != null;
     }
@@ -357,8 +357,8 @@ public class MetaStatementImpl extends MinimalEObjectImpl.Container implements M
     result.append(name);
     result.append(", type: ");
     result.append(type);
-    result.append(", filters: ");
-    result.append(filters);
+    result.append(", modifiers: ");
+    result.append(modifiers);
     result.append(')');
     return result.toString();
   }

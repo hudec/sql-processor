@@ -28,8 +28,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl#getMode <em>Mode</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl#getCase <em>Case</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl#getVals <em>Vals</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl#getModifiers <em>Modifiers</em>}</li>
  * </ul>
  * </p>
  *
@@ -98,34 +97,14 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+   * The cached value of the '{@link #getModifiers() <em>Modifiers</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getType()
+   * @see #getModifiers()
    * @generated
    * @ordered
    */
-  protected static final String TYPE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected String type = TYPE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getVals() <em>Vals</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVals()
-   * @generated
-   * @ordered
-   */
-  protected EList<String> vals;
+  protected EList<String> modifiers;
 
   /**
    * <!-- begin-user-doc -->
@@ -222,36 +201,13 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getType()
+  public EList<String> getModifiers()
   {
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setType(String newType)
-  {
-    String oldType = type;
-    type = newType;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.IDENTIFIER__TYPE, oldType, type));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<String> getVals()
-  {
-    if (vals == null)
+    if (modifiers == null)
     {
-      vals = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.IDENTIFIER__VALS);
+      modifiers = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.IDENTIFIER__MODIFIERS);
     }
-    return vals;
+    return modifiers;
   }
 
   /**
@@ -270,10 +226,8 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
         return getCase();
       case ProcessorDslPackage.IDENTIFIER__NAME:
         return getName();
-      case ProcessorDslPackage.IDENTIFIER__TYPE:
-        return getType();
-      case ProcessorDslPackage.IDENTIFIER__VALS:
-        return getVals();
+      case ProcessorDslPackage.IDENTIFIER__MODIFIERS:
+        return getModifiers();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -298,12 +252,9 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
       case ProcessorDslPackage.IDENTIFIER__NAME:
         setName((String)newValue);
         return;
-      case ProcessorDslPackage.IDENTIFIER__TYPE:
-        setType((String)newValue);
-        return;
-      case ProcessorDslPackage.IDENTIFIER__VALS:
-        getVals().clear();
-        getVals().addAll((Collection<? extends String>)newValue);
+      case ProcessorDslPackage.IDENTIFIER__MODIFIERS:
+        getModifiers().clear();
+        getModifiers().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -328,11 +279,8 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
       case ProcessorDslPackage.IDENTIFIER__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case ProcessorDslPackage.IDENTIFIER__TYPE:
-        setType(TYPE_EDEFAULT);
-        return;
-      case ProcessorDslPackage.IDENTIFIER__VALS:
-        getVals().clear();
+      case ProcessorDslPackage.IDENTIFIER__MODIFIERS:
+        getModifiers().clear();
         return;
     }
     super.eUnset(featureID);
@@ -354,10 +302,8 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
         return CASE_EDEFAULT == null ? case_ != null : !CASE_EDEFAULT.equals(case_);
       case ProcessorDslPackage.IDENTIFIER__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ProcessorDslPackage.IDENTIFIER__TYPE:
-        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-      case ProcessorDslPackage.IDENTIFIER__VALS:
-        return vals != null && !vals.isEmpty();
+      case ProcessorDslPackage.IDENTIFIER__MODIFIERS:
+        return modifiers != null && !modifiers.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -379,10 +325,8 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
     result.append(case_);
     result.append(", name: ");
     result.append(name);
-    result.append(", type: ");
-    result.append(type);
-    result.append(", vals: ");
-    result.append(vals);
+    result.append(", modifiers: ");
+    result.append(modifiers);
     result.append(')');
     return result.toString();
   }

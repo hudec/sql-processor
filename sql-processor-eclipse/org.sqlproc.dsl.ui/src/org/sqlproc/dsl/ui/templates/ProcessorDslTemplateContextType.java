@@ -101,7 +101,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
 
         TableDefinition tableDefinition = null;
-        List<String> vals = Utils.getTokensFromFilter(statement, TABLE_USAGE);
+        List<String> vals = Utils.getTokensFromModifier(statement, TABLE_USAGE);
         for (String val : vals) {
             tableDefinition = Utils.findTable(null, artifacts,
                     scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES), val);

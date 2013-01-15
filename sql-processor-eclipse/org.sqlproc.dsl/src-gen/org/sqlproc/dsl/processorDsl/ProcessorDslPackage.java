@@ -1627,13 +1627,13 @@ public interface ProcessorDslPackage extends EPackage
   int META_STATEMENT__TYPE = 1;
 
   /**
-   * The feature id for the '<em><b>Filters</b></em>' attribute list.
+   * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int META_STATEMENT__FILTERS = 2;
+  int META_STATEMENT__MODIFIERS = 2;
 
   /**
    * The feature id for the '<em><b>Statement</b></em>' containment reference.
@@ -2187,22 +2187,13 @@ public interface ProcessorDslPackage extends EPackage
   int COLUMN__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int COLUMN__TYPE = 1;
-
-  /**
-   * The feature id for the '<em><b>Vals</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COLUMN__VALS = 2;
+  int COLUMN__MODIFIERS = 1;
 
   /**
    * The number of structural features of the '<em>Column</em>' class.
@@ -2211,7 +2202,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COLUMN_FEATURE_COUNT = 3;
+  int COLUMN_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ConstantImpl <em>Constant</em>}' class.
@@ -2242,22 +2233,13 @@ public interface ProcessorDslPackage extends EPackage
   int CONSTANT__NAME = 1;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONSTANT__TYPE = 2;
-
-  /**
-   * The feature id for the '<em><b>Vals</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONSTANT__VALS = 3;
+  int CONSTANT__MODIFIERS = 2;
 
   /**
    * The number of structural features of the '<em>Constant</em>' class.
@@ -2266,7 +2248,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONSTANT_FEATURE_COUNT = 4;
+  int CONSTANT_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl <em>Identifier</em>}' class.
@@ -2306,22 +2288,13 @@ public interface ProcessorDslPackage extends EPackage
   int IDENTIFIER__NAME = 2;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int IDENTIFIER__TYPE = 3;
-
-  /**
-   * The feature id for the '<em><b>Vals</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IDENTIFIER__VALS = 4;
+  int IDENTIFIER__MODIFIERS = 3;
 
   /**
    * The number of structural features of the '<em>Identifier</em>' class.
@@ -2330,7 +2303,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int IDENTIFIER_FEATURE_COUNT = 5;
+  int IDENTIFIER_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DatabaseColumnImpl <em>Database Column</em>}' class.
@@ -2417,13 +2390,13 @@ public interface ProcessorDslPackage extends EPackage
   int MAPPING_RULE__TYPE = 1;
 
   /**
-   * The feature id for the '<em><b>Filters</b></em>' attribute list.
+   * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MAPPING_RULE__FILTERS = 2;
+  int MAPPING_RULE__MODIFIERS = 2;
 
   /**
    * The feature id for the '<em><b>Mapping</b></em>' containment reference.
@@ -2491,22 +2464,22 @@ public interface ProcessorDslPackage extends EPackage
   int MAPPING_ITEM__COL = 0;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MAPPING_ITEM__TYPE = 1;
-
-  /**
    * The feature id for the '<em><b>Attr</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MAPPING_ITEM__ATTR = 2;
+  int MAPPING_ITEM__ATTR = 1;
+
+  /**
+   * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MAPPING_ITEM__MODIFIERS = 2;
 
   /**
    * The number of structural features of the '<em>Mapping Item</em>' class.
@@ -2583,13 +2556,13 @@ public interface ProcessorDslPackage extends EPackage
   int OPTIONAL_FEATURE__TYPE = 1;
 
   /**
-   * The feature id for the '<em><b>Filters</b></em>' attribute list.
+   * The feature id for the '<em><b>Modifiers</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPTIONAL_FEATURE__FILTERS = 2;
+  int OPTIONAL_FEATURE__MODIFIERS = 2;
 
   /**
    * The feature id for the '<em><b>Option</b></em>' attribute.
@@ -4797,15 +4770,15 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getMetaStatement_Type();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.MetaStatement#getFilters <em>Filters</em>}'.
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.MetaStatement#getModifiers <em>Modifiers</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Filters</em>'.
-   * @see org.sqlproc.dsl.processorDsl.MetaStatement#getFilters()
+   * @return the meta object for the attribute list '<em>Modifiers</em>'.
+   * @see org.sqlproc.dsl.processorDsl.MetaStatement#getModifiers()
    * @see #getMetaStatement()
    * @generated
    */
-  EAttribute getMetaStatement_Filters();
+  EAttribute getMetaStatement_Modifiers();
 
   /**
    * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.MetaStatement#getStatement <em>Statement</em>}'.
@@ -5336,26 +5309,15 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getColumn_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Column#getType <em>Type</em>}'.
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.Column#getModifiers <em>Modifiers</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Column#getType()
+   * @return the meta object for the attribute list '<em>Modifiers</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Column#getModifiers()
    * @see #getColumn()
    * @generated
    */
-  EAttribute getColumn_Type();
-
-  /**
-   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.Column#getVals <em>Vals</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Vals</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Column#getVals()
-   * @see #getColumn()
-   * @generated
-   */
-  EAttribute getColumn_Vals();
+  EAttribute getColumn_Modifiers();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.Constant <em>Constant</em>}'.
@@ -5390,26 +5352,15 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getConstant_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Constant#getType <em>Type</em>}'.
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.Constant#getModifiers <em>Modifiers</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Constant#getType()
+   * @return the meta object for the attribute list '<em>Modifiers</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Constant#getModifiers()
    * @see #getConstant()
    * @generated
    */
-  EAttribute getConstant_Type();
-
-  /**
-   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.Constant#getVals <em>Vals</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Vals</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Constant#getVals()
-   * @see #getConstant()
-   * @generated
-   */
-  EAttribute getConstant_Vals();
+  EAttribute getConstant_Modifiers();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.Identifier <em>Identifier</em>}'.
@@ -5455,26 +5406,15 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getIdentifier_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.Identifier#getType <em>Type</em>}'.
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.Identifier#getModifiers <em>Modifiers</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Identifier#getType()
+   * @return the meta object for the attribute list '<em>Modifiers</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Identifier#getModifiers()
    * @see #getIdentifier()
    * @generated
    */
-  EAttribute getIdentifier_Type();
-
-  /**
-   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.Identifier#getVals <em>Vals</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Vals</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Identifier#getVals()
-   * @see #getIdentifier()
-   * @generated
-   */
-  EAttribute getIdentifier_Vals();
+  EAttribute getIdentifier_Modifiers();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.DatabaseColumn <em>Database Column</em>}'.
@@ -5551,15 +5491,15 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getMappingRule_Type();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.MappingRule#getFilters <em>Filters</em>}'.
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.MappingRule#getModifiers <em>Modifiers</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Filters</em>'.
-   * @see org.sqlproc.dsl.processorDsl.MappingRule#getFilters()
+   * @return the meta object for the attribute list '<em>Modifiers</em>'.
+   * @see org.sqlproc.dsl.processorDsl.MappingRule#getModifiers()
    * @see #getMappingRule()
    * @generated
    */
-  EAttribute getMappingRule_Filters();
+  EAttribute getMappingRule_Modifiers();
 
   /**
    * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.MappingRule#getMapping <em>Mapping</em>}'.
@@ -5615,17 +5555,6 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getMappingItem_Col();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.MappingItem#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.sqlproc.dsl.processorDsl.MappingItem#getType()
-   * @see #getMappingItem()
-   * @generated
-   */
-  EAttribute getMappingItem_Type();
-
-  /**
    * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.MappingItem#getAttr <em>Attr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5635,6 +5564,17 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EReference getMappingItem_Attr();
+
+  /**
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.MappingItem#getModifiers <em>Modifiers</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Modifiers</em>'.
+   * @see org.sqlproc.dsl.processorDsl.MappingItem#getModifiers()
+   * @see #getMappingItem()
+   * @generated
+   */
+  EAttribute getMappingItem_Modifiers();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.MappingColumn <em>Mapping Column</em>}'.
@@ -5701,15 +5641,15 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getOptionalFeature_Type();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.OptionalFeature#getFilters <em>Filters</em>}'.
+   * Returns the meta object for the attribute list '{@link org.sqlproc.dsl.processorDsl.OptionalFeature#getModifiers <em>Modifiers</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Filters</em>'.
-   * @see org.sqlproc.dsl.processorDsl.OptionalFeature#getFilters()
+   * @return the meta object for the attribute list '<em>Modifiers</em>'.
+   * @see org.sqlproc.dsl.processorDsl.OptionalFeature#getModifiers()
    * @see #getOptionalFeature()
    * @generated
    */
-  EAttribute getOptionalFeature_Filters();
+  EAttribute getOptionalFeature_Modifiers();
 
   /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.OptionalFeature#getOption <em>Option</em>}'.
@@ -7582,12 +7522,12 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute META_STATEMENT__TYPE = eINSTANCE.getMetaStatement_Type();
 
     /**
-     * The meta object literal for the '<em><b>Filters</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Modifiers</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute META_STATEMENT__FILTERS = eINSTANCE.getMetaStatement_Filters();
+    EAttribute META_STATEMENT__MODIFIERS = eINSTANCE.getMetaStatement_Modifiers();
 
     /**
      * The meta object literal for the '<em><b>Statement</b></em>' containment reference feature.
@@ -8004,20 +7944,12 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute COLUMN__NAME = eINSTANCE.getColumn_Name();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Modifiers</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute COLUMN__TYPE = eINSTANCE.getColumn_Type();
-
-    /**
-     * The meta object literal for the '<em><b>Vals</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute COLUMN__VALS = eINSTANCE.getColumn_Vals();
+    EAttribute COLUMN__MODIFIERS = eINSTANCE.getColumn_Modifiers();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ConstantImpl <em>Constant</em>}' class.
@@ -8046,20 +7978,12 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute CONSTANT__NAME = eINSTANCE.getConstant_Name();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Modifiers</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CONSTANT__TYPE = eINSTANCE.getConstant_Type();
-
-    /**
-     * The meta object literal for the '<em><b>Vals</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CONSTANT__VALS = eINSTANCE.getConstant_Vals();
+    EAttribute CONSTANT__MODIFIERS = eINSTANCE.getConstant_Modifiers();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl <em>Identifier</em>}' class.
@@ -8096,20 +8020,12 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute IDENTIFIER__NAME = eINSTANCE.getIdentifier_Name();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Modifiers</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute IDENTIFIER__TYPE = eINSTANCE.getIdentifier_Type();
-
-    /**
-     * The meta object literal for the '<em><b>Vals</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute IDENTIFIER__VALS = eINSTANCE.getIdentifier_Vals();
+    EAttribute IDENTIFIER__MODIFIERS = eINSTANCE.getIdentifier_Modifiers();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.DatabaseColumnImpl <em>Database Column</em>}' class.
@@ -8174,12 +8090,12 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute MAPPING_RULE__TYPE = eINSTANCE.getMappingRule_Type();
 
     /**
-     * The meta object literal for the '<em><b>Filters</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Modifiers</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute MAPPING_RULE__FILTERS = eINSTANCE.getMappingRule_Filters();
+    EAttribute MAPPING_RULE__MODIFIERS = eINSTANCE.getMappingRule_Modifiers();
 
     /**
      * The meta object literal for the '<em><b>Mapping</b></em>' containment reference feature.
@@ -8226,20 +8142,20 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute MAPPING_ITEM__COL = eINSTANCE.getMappingItem_Col();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute MAPPING_ITEM__TYPE = eINSTANCE.getMappingItem_Type();
-
-    /**
      * The meta object literal for the '<em><b>Attr</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference MAPPING_ITEM__ATTR = eINSTANCE.getMappingItem_Attr();
+
+    /**
+     * The meta object literal for the '<em><b>Modifiers</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MAPPING_ITEM__MODIFIERS = eINSTANCE.getMappingItem_Modifiers();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.MappingColumnImpl <em>Mapping Column</em>}' class.
@@ -8294,12 +8210,12 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute OPTIONAL_FEATURE__TYPE = eINSTANCE.getOptionalFeature_Type();
 
     /**
-     * The meta object literal for the '<em><b>Filters</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Modifiers</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute OPTIONAL_FEATURE__FILTERS = eINSTANCE.getOptionalFeature_Filters();
+    EAttribute OPTIONAL_FEATURE__MODIFIERS = eINSTANCE.getOptionalFeature_Modifiers();
 
     /**
      * The meta object literal for the '<em><b>Option</b></em>' attribute feature.

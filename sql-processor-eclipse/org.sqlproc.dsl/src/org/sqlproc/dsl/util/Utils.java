@@ -232,11 +232,11 @@ public class Utils {
         return false;
     }
 
-    public static String getTokenFromFilter(MetaStatement statement, String tokenName) {
-        if (statement.getFilters() == null || statement.getFilters().isEmpty()) {
+    public static String getTokenFromModifier(MetaStatement statement, String tokenName) {
+        if (statement.getModifiers() == null || statement.getModifiers().isEmpty()) {
             return null;
         }
-        for (String filter : statement.getFilters()) {
+        for (String filter : statement.getModifiers()) {
             int ix = filter.indexOf('=');
             if (ix <= 0)
                 continue;
@@ -249,11 +249,11 @@ public class Utils {
         return null;
     }
 
-    public static String getTokenFromFilter(MappingRule rule, String tokenName) {
-        if (rule.getFilters() == null || rule.getFilters().isEmpty()) {
+    public static String getTokenFromModifier(MappingRule rule, String tokenName) {
+        if (rule.getModifiers() == null || rule.getModifiers().isEmpty()) {
             return null;
         }
-        for (String filter : rule.getFilters()) {
+        for (String filter : rule.getModifiers()) {
             int ix = filter.indexOf('=');
             if (ix <= 0)
                 continue;
@@ -266,11 +266,11 @@ public class Utils {
         return null;
     }
 
-    public static String getTokenFromFilter(MetaStatement statement, String tokenName, String tokenSuffix) {
-        if (statement.getFilters() == null || statement.getFilters().isEmpty()) {
+    public static String getTokenFromModifier(MetaStatement statement, String tokenName, String tokenSuffix) {
+        if (statement.getModifiers() == null || statement.getModifiers().isEmpty()) {
             return null;
         }
-        for (String filter : statement.getFilters()) {
+        for (String filter : statement.getModifiers()) {
             int ix = filter.indexOf('=');
             if (ix <= 0)
                 continue;
@@ -291,12 +291,12 @@ public class Utils {
         return null;
     }
 
-    public static List<String> getTokensFromFilter(MetaStatement statement, String tokenName) {
+    public static List<String> getTokensFromModifier(MetaStatement statement, String tokenName) {
         List<String> result = new ArrayList<String>();
-        if (statement.getFilters() == null || statement.getFilters().isEmpty()) {
+        if (statement.getModifiers() == null || statement.getModifiers().isEmpty()) {
             return result;
         }
-        for (String filter : statement.getFilters()) {
+        for (String filter : statement.getModifiers()) {
             int ix = filter.indexOf('=');
             if (ix <= 0)
                 continue;
@@ -432,7 +432,7 @@ public class Utils {
     }
 
     public static boolean isFinal(MetaStatement m) {
-        String finalToken = getTokenFromFilter(m, "final");
+        String finalToken = getTokenFromModifier(m, "final");
         if (finalToken != null)
             return true;
         return false;
