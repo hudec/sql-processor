@@ -613,7 +613,6 @@ LIKE_BASIC(QRY,BOPT=SURROUND_QUERY_LIKE_FULL=true)=
   {& p.id = :id}
   {& UPPER(p.NAME_FIRST) like :+name.first}
   {? :name.last | and UPPER(p.NAME_LAST) like :+name.last}
-  {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
   {#1 order by id}
 ;
 LIKE_BASIC(OUT)= 

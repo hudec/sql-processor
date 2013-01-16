@@ -250,9 +250,9 @@ class ParserUtils {
     }
 
     static void addModifier(Object target, SqlTypeFactory typeFactory, String modifier) {
-        // if (logger.isTraceEnabled()) {
-        logger.info("addModifier " + target + "->" + modifier);
-        // }
+        if (logger.isTraceEnabled()) {
+            logger.trace("addModifier " + target + "->" + modifier);
+        }
         if (modifier != null) {
             String type = (modifier.startsWith("type=")) ? modifier.substring(5) : null;
             if (target instanceof SqlMappingItem) {

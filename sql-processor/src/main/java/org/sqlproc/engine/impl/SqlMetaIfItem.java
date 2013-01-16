@@ -97,7 +97,8 @@ class SqlMetaIfItem implements SqlMetaElement {
                                 .endsWith(SqlProcessContext.getFeature(SqlFeature.LIKE_STRING))) {
                     like = true;
                 } else {
-                    like = false;
+                    if (!like || !(item instanceof SqlMetaText) || !((SqlMetaText) item).isWhite())
+                        like = false;
                 }
                 skipNextText = result.isSkipNextText();
             }

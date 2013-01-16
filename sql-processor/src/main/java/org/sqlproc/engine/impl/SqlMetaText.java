@@ -31,6 +31,17 @@ class SqlMetaText implements SqlMetaSimple {
     }
 
     /**
+     * Returns an indicator that the text fragment is empty.
+     * 
+     * @return an indicator that the text fragment is empty
+     */
+    public boolean isWhite() {
+        if (sql == null || sql.trim().length() == 0)
+            return true;
+        return false;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
