@@ -74,6 +74,11 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMappingItemAccess().getColAlternatives_0_0(), "rule__MappingItem__ColAlternatives_0_0");
 					put(grammarAccess.getMappingColumnAccess().getNameAlternatives_0_0(), "rule__MappingColumn__NameAlternatives_0_0");
 					put(grammarAccess.getMappingColumnAccess().getValsAlternatives_1_1_0(), "rule__MappingColumn__ValsAlternatives_1_1_0");
+					put(grammarAccess.getStatementModifierAccess().getAlternatives(), "rule__StatementModifier__Alternatives");
+					put(grammarAccess.getMappingRuleModifierAccess().getAlternatives(), "rule__MappingRuleModifier__Alternatives");
+					put(grammarAccess.getMappingItemModifierAccess().getAlternatives(), "rule__MappingItemModifier__Alternatives");
+					put(grammarAccess.getOptionalFeatureModifierAccess().getAlternatives(), "rule__OptionalFeatureModifier__Alternatives");
+					put(grammarAccess.getModifierAccess().getAlternatives(), "rule__Modifier__Alternatives");
 					put(grammarAccess.getFeatureValueAccess().getAlternatives(), "rule__FeatureValue__Alternatives");
 					put(grammarAccess.getPojoTypeAccess().getAlternatives_0(), "rule__PojoType__Alternatives_0");
 					put(grammarAccess.getPojoTypeAccess().getNativeAlternatives_0_0_0(), "rule__PojoType__NativeAlternatives_0_0_0");

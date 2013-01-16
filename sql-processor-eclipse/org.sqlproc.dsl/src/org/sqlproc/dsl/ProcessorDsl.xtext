@@ -210,15 +210,15 @@ OrdSqlValue: //~(COLON | STRING | PERCENT | RBRACE)
 
 Column:
     name=(IDENT|IDENT_DOT|NUMBER)
-    (=> LPAREN modifiers+=IDENT (COMMA modifiers+=Modifier)* RPAREN)?;
+    (=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 
 Constant:
     (case=(PLUS|MINUS))? name=(IDENT|IDENT_DOT)
-    (=> LPAREN modifiers+=IDENT (COMMA modifiers+=Modifier)* RPAREN)?;
+    (=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 
 Identifier:
     (mode=(EQUALS|LESS_THAN|MORE_THAN))? (case=(PLUS|MINUS))? name=(IDENT|IDENT_DOT|NUMBER)
-    (=> LPAREN modifiers+=IDENT (COMMA modifiers+=Modifier)* RPAREN)?;
+    (=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 
 DatabaseColumn:
     name=(IDENT|IDENT_DOT);
@@ -233,7 +233,7 @@ Mapping:
 	WS* mappingItems+=MappingItem (WS+ mappingItems+=MappingItem)* WS*;
 
 MappingItem:
-	col=(IDENT|NUMBER) (STRING attr=MappingColumn (=> LPAREN modifiers+=IDENT (COMMA modifiers+=MappingItemModifier)* RPAREN)?)?;
+	col=(IDENT|NUMBER) (STRING attr=MappingColumn (=> LPAREN modifiers+=MappingItemModifier (COMMA modifiers+=MappingItemModifier)* RPAREN)?)?;
 
 MappingColumn:
     name=(IDENT|IDENT_DOT) (CARET vals+=(IDENT|NUMBER))*;
@@ -241,11 +241,11 @@ MappingColumn:
 OptionalFeature:
 	name=IDENT LPAREN type=OPTION_TYPE (COMMA modifiers+=OptionalFeatureModifier)* RPAREN EQUALS option=FeatureValue SEMICOLON;
 
-StatementModifier: IDENT;
-MappingRuleModifier: IDENT;
-MappingItemModifier: IDENT;
-OptionalFeatureModifier: IDENT;
-Modifier: IDENT;
+StatementModifier: (IDENT | NUMBER);
+MappingRuleModifier: (IDENT | NUMBER);
+MappingItemModifier: (IDENT | NUMBER);
+OptionalFeatureModifier: (IDENT | NUMBER);
+Modifier: (IDENT | NUMBER);
 
 terminal ON_OFF: 'ON'|'OFF';
 terminal STATEMENT_TYPE: 'QRY'|'CRUD'|'CALL';

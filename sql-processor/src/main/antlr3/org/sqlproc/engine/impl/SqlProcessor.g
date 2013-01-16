@@ -136,16 +136,16 @@ import org.sqlproc.engine.type.SqlMetaType;
       expr.addElement(new SqlMetaLogOperator(SqlMetaLogOperator.Type.OR));
   }
 
-  void setMetaType(SqlTypeFactory typeFactory, SqlMappingItem item, String sMetaType) {
-    item.setMetaType(typeFactory.getMetaType(sMetaType));
+  void addModifier(SqlTypeFactory typeFactory, SqlMappingItem item, String modifier) {
+    ParserUtils.addModifier(item, typeFactory, modifier);
   }
 
-  void setMetaType(SqlTypeFactory typeFactory, SqlMetaIdent item, String sMetaType) {
-    item.setMetaType(typeFactory.getMetaType(sMetaType));
+  void addModifier(SqlTypeFactory typeFactory, SqlMetaIdent item, String modifier) {
+    ParserUtils.addModifier(item, typeFactory, modifier);
   }
 
-  void setMetaType(SqlTypeFactory typeFactory, SqlMetaConst item, String sMetaType) {
-    item.setMetaType(typeFactory.getMetaType(sMetaType));
+  void addModifier(SqlTypeFactory typeFactory, SqlMetaConst item, String modifier) {
+    ParserUtils.addModifier(item, typeFactory, modifier);
   }
   
   boolean doSkip(Set<String> onlyStatements, String name) {
@@ -205,19 +205,24 @@ scope {StringBuilder text;boolean hasOutputMapping;SqlTypeFactory typeFactory;bo
 	;
 
 sql [SqlMetaStatement metaStatement]	
+                     	:	
+	(sqlFragment[metaStatement])+
+     	;
+
+sqlFragment [SqlMetaStatement metaStatement]	
 @after {if(!$meta::skip) addText(metaStatement, $meta::text);}
 	:	
 	~(COLON | STRING | AT | PERCENT | LBRACE | SEMICOLON)
-		{if(!$meta::skip) add($meta::text);} sql[metaStatement]?
+		{if(!$meta::skip) add($meta::text);}
 	| COLON ident=identifier 
-		{if(!$meta::skip) addIdent(metaStatement, ident, $meta::text);} sql[metaStatement]?
+		{if(!$meta::skip) addIdent(metaStatement, ident, $meta::text);}
      	| STRING cnst=constant 
-     		{if(!$meta::skip) addConstant(metaStatement, cnst, $meta::text);} sql[metaStatement]?
+     		{if(!$meta::skip) addConstant(metaStatement, cnst, $meta::text);}
      	| AT col=column 
-     		{if(!$meta::skip) addColumn(metaStatement, col, $meta::text);$meta::hasOutputMapping=true;} sql[metaStatement]?
-	|  PERCENT (PERCENT dbtab=dbtable {if(!$meta::skip) addDatabaseTable(metaStatement, dbtab, $meta::text);} sql[metaStatement]? 
-	            | dbcol=dbcolumn {if(!$meta::skip) addDatabaseColumn(metaStatement, dbcol, $meta::text);} sql[metaStatement]?)
-     	| LBRACE metaSql[metaStatement] RBRACE sql[metaStatement]?
+     		{if(!$meta::skip) addColumn(metaStatement, col, $meta::text);$meta::hasOutputMapping=true;}
+	|  PERCENT (PERCENT dbtab=dbtable {if(!$meta::skip) addDatabaseTable(metaStatement, dbtab, $meta::text);}
+	            | dbcol=dbcolumn {if(!$meta::skip) addDatabaseColumn(metaStatement, dbcol, $meta::text);})
+     	| LBRACE metaSql[metaStatement] RBRACE
      	;
 
 metaSql [SqlMetaStatement metaStatement]
@@ -241,20 +246,26 @@ metaSql [SqlMetaStatement metaStatement]
 	
 ifSql [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]
 @init {$metaIfItem = (metaIfItemIn !=null) ? metaIfItemIn : new SqlMetaIfItem();}
+	:
+	(ifSqlFragment[metaIfItemIn])+
+	;
+
+ifSqlFragment [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]
 @after {if(!$meta::skip) addText(metaIfItem, $meta::text);}
 	:
 	~(COLON | STRING | AT | PERCENT | LBRACE | BOR | RBRACE)
-		{if(!$meta::skip) add($meta::text);} ifSql[metaIfItem]?
+		{if(!$meta::skip) add($meta::text);}
 	| COLON ident=identifier 
-		{if(!$meta::skip) addIdent(metaIfItem, ident, $meta::text);} ifSql[metaIfItem]?
+		{if(!$meta::skip) addIdent(metaIfItem, ident, $meta::text);}
 	| STRING cnst=constant 
-		{if(!$meta::skip) addConstant(metaIfItem, cnst, $meta::text);} ifSql[metaIfItem]?
+		{if(!$meta::skip) addConstant(metaIfItem, cnst, $meta::text);}
      	| AT col=column 
-     		{if(!$meta::skip) addColumn(metaIfItem, col, $meta::text);$meta::hasOutputMapping=true;} ifSql[metaIfItem]?
-	| PERCENT (PERCENT dbtab=dbtable {if(!$meta::skip) addDatabaseTable(metaIfItem, dbtab, $meta::text);} ifSql[metaIfItem]? 
-	            | dbcol=dbcolumn {if(!$meta::skip) addDatabaseColumn(metaIfItem, dbcol, $meta::text);} ifSql[metaIfItem]?)
-	| LBRACE ifMetaSql[metaIfItem] RBRACE ifSql[metaIfItem]?
+     		{if(!$meta::skip) addColumn(metaIfItem, col, $meta::text);$meta::hasOutputMapping=true;}
+	| PERCENT (PERCENT dbtab=dbtable {if(!$meta::skip) addDatabaseTable(metaIfItem, dbtab, $meta::text);}
+	            | dbcol=dbcolumn {if(!$meta::skip) addDatabaseColumn(metaIfItem, dbcol, $meta::text);})
+	| LBRACE ifMetaSql[metaIfItem] RBRACE
 	;
+     	
      	
 ifMetaSql [SqlMetaIfItem metaIfItem]
 @init {SqlMetaAndOr metaAndOr; SqlMetaIf metaIf; if(!$meta::skip) addText(metaIfItem, $meta::text);}	
@@ -288,24 +299,30 @@ ifSqlBool [SqlMetaLogExpr metaLogExpr]
 	
 ordSql [SqlMetaOrd ord]
 @after {if(!$meta::skip) addText(ord, $meta::text);}
+ 	:
+ 	(ordSqlFragment[ord])+	
+	;	
+	
+ordSqlFragment [SqlMetaOrd ord]
+@after {if(!$meta::skip) addText(ord, $meta::text);}
  	:	
 	~(COLON | STRING | PERCENT | RBRACE)
-		{if(!$meta::skip) add($meta::text);} ordSql[ord]?
+		{if(!$meta::skip) add($meta::text);}
 	| COLON ident=identifier 
-		{if(!$meta::skip) addIdent(ord, ident, $meta::text);} ordSql[ord]?
+		{if(!$meta::skip) addIdent(ord, ident, $meta::text);}
 	| STRING cnst=constant
-		{if(!$meta::skip) addConstant(ord, cnst, $meta::text);} ordSql[ord]?
+		{if(!$meta::skip) addConstant(ord, cnst, $meta::text);}
 	| PERCENT dbcol=dbcolumn
-		{if(!$meta::skip) addDatabaseColumn(ord, dbcol, $meta::text);} ordSql[ord]?
+		{if(!$meta::skip) addDatabaseColumn(ord, dbcol, $meta::text);}
 	;	
 
 column returns[SqlMappingItem result]
 @init {$result = null;}
 	:	
 	(col=IDENT_DOT | col=IDENT | col=NUMBER) {if(!$meta::skip) $result = newColumn(col);}
-	(options {greedy=true;} : CARET (options {greedy=true;} : type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); })?
-	 (options {greedy=true;} : CARET (value=IDENT | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, null); }
-	 )*
+	(options {greedy=true;} : LPAREN value=IDENT { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
+	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { addModifier($meta::typeFactory, $result, $value.text); }
+	 )* RPAREN
 	)?
 	;
 
@@ -313,9 +330,9 @@ constant returns [SqlMetaConst result]
 @init {$result = null;}
 	:	
 	(caseCnst=PLUS | caseCnst=MINUS)? (cnst=IDENT_DOT | cnst=IDENT) {if(!$meta::skip) $result = newConstant(cnst, $caseCnst);}
-	(options {greedy=true;} : CARET (options {greedy=true;} : type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); })?
-	 (options {greedy=true;} : CARET (value=IDENT | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, null); }
-	 )*
+	(options {greedy=true;} : LPAREN value=IDENT { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
+	 (COMMA (value=IDENT | value=NUMBER) { addModifier($meta::typeFactory, $result, $value.text); }
+	 )* RPAREN
 	)?
 	;
 
@@ -323,9 +340,9 @@ identifier returns [SqlMetaIdent result]
 @init {$result = null;}
 	:	
 	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)? (ident=IDENT_DOT | ident=IDENT | ident=NUMBER) {if(!$meta::skip) $result = newIdent($ident, $modeIdent, $caseIdent);}
-	(options {greedy=true;} : CARET (options {greedy=true;} : type=IDENT { if(!$meta::skip) setMetaType($meta::typeFactory, $result, $type.text); })?
-	 (options {greedy=true;} : CARET (value=IDENT | value=NUMBER) { if(!$meta::skip) $result.setValues($value.text, null); }
-	 )*
+	(options {greedy=true;} : LPAREN value=IDENT { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
+	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { addModifier($meta::typeFactory, $result, $value.text); }
+	 )* RPAREN
 	)?
 	;
 
@@ -360,12 +377,12 @@ mappingItem returns[SqlMappingItem result]
 @init {$result = null;}
 	:	
 	(col=IDENT | col=NUMBER) {if(!$mapping::skip) $result = newColumn(col);}
-	 (options {greedy=true;} : STRING (type=IDENT { if(!$mapping::skip) setMetaType($mapping::typeFactory, $result, $type.text); })?
-	  (STRING (col=IDENT_DOT | col=IDENT) { if(!$mapping::skip) addColumnAttr($result, $col); }
-	   (options {greedy=true;} : CARET (value=IDENT | value=NUMBER) { if(!$mapping::skip) $result.setValues($value.text, null); }
-	   )*
-  	  )?
-	 )?
+                       (STRING (col=IDENT_DOT | col=IDENT) { if(!$mapping::skip) addColumnAttr($result, $col); }
+	  (options {greedy=true;} : LPAREN value=IDENT { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
+	   (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { addModifier($meta::typeFactory, $result, $value.text); }
+	  )* RPAREN
+	 )*
+  	)?
 	;
 	
 option [String name] returns [StringBuilder text]

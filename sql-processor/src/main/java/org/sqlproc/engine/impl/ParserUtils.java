@@ -6,6 +6,7 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
  * Parser utilities.
@@ -246,6 +247,33 @@ class ParserUtils {
             return identifier;
         }
         return null;
+    }
+
+    static void addModifier(Object target, SqlTypeFactory typeFactory, String modifier) {
+        // if (logger.isTraceEnabled()) {
+        logger.info("addModifier " + target + "->" + modifier);
+        // }
+        if (modifier != null) {
+            String type = (modifier.startsWith("type=")) ? modifier.substring(5) : null;
+            if (target instanceof SqlMappingItem) {
+                if (type != null)
+                    ((SqlMappingItem) target).setMetaType(typeFactory.getMetaType(type));
+                else
+                    ((SqlMappingItem) target).setValues(type, null);
+            } else if (target instanceof SqlMetaIdent) {
+                if (type != null)
+                    ((SqlMetaIdent) target).setMetaType(typeFactory.getMetaType(type));
+                else
+                    ((SqlMetaIdent) target).setValues(type, null);
+            } else if (target instanceof SqlMetaConst) {
+                if (type != null)
+                    ((SqlMetaConst) target).setMetaType(typeFactory.getMetaType(type));
+                else
+                    ((SqlMetaConst) target).setValues(type, null);
+            } else {
+                throw new RuntimeException("Invalid target for addModifier :" + target);
+            }
+        }
     }
 
     public static ErrorMsg create(String name, RecognitionException ex, String[] tokenNames) {

@@ -5030,7 +5030,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final RuleCall cLPARENTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
 		private final Assignment cModifiersAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cModifiersIDENTTerminalRuleCall_1_1_0 = (RuleCall)cModifiersAssignment_1_1.eContents().get(0);
+		private final RuleCall cModifiersModifierParserRuleCall_1_1_0 = (RuleCall)cModifiersAssignment_1_1.eContents().get(0);
 		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
 		private final RuleCall cCOMMATerminalRuleCall_1_2_0 = (RuleCall)cGroup_1_2.eContents().get(0);
 		private final Assignment cModifiersAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
@@ -5038,10 +5038,10 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRPARENTerminalRuleCall_1_3 = (RuleCall)cGroup_1.eContents().get(3);
 		
 		//Column:
-		//	name=(IDENT | IDENT_DOT | NUMBER) (LPAREN modifiers+=IDENT (COMMA modifiers+=Modifier)* RPAREN)?;
+		//	name=(IDENT | IDENT_DOT | NUMBER) (LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 		public ParserRule getRule() { return rule; }
 
-		//name=(IDENT | IDENT_DOT | NUMBER) (LPAREN modifiers+=IDENT (COMMA modifiers+=Modifier)* RPAREN)?
+		//name=(IDENT | IDENT_DOT | NUMBER) (LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?
 		public Group getGroup() { return cGroup; }
 
 		//name=(IDENT | IDENT_DOT | NUMBER)
@@ -5059,17 +5059,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//NUMBER
 		public RuleCall getNameNUMBERTerminalRuleCall_0_0_2() { return cNameNUMBERTerminalRuleCall_0_0_2; }
 
-		//(=> LPAREN modifiers+=IDENT (COMMA modifiers+=Modifier)* RPAREN)?
+		//(=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//=> LPAREN
 		public RuleCall getLPARENTerminalRuleCall_1_0() { return cLPARENTerminalRuleCall_1_0; }
 
-		//modifiers+=IDENT
+		//modifiers+=Modifier
 		public Assignment getModifiersAssignment_1_1() { return cModifiersAssignment_1_1; }
 
-		//IDENT
-		public RuleCall getModifiersIDENTTerminalRuleCall_1_1_0() { return cModifiersIDENTTerminalRuleCall_1_1_0; }
+		//Modifier
+		public RuleCall getModifiersModifierParserRuleCall_1_1_0() { return cModifiersModifierParserRuleCall_1_1_0; }
 
 		//(COMMA modifiers+=Modifier)*
 		public Group getGroup_1_2() { return cGroup_1_2; }
@@ -5101,7 +5101,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final RuleCall cLPARENTerminalRuleCall_2_0 = (RuleCall)cGroup_2.eContents().get(0);
 		private final Assignment cModifiersAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cModifiersIDENTTerminalRuleCall_2_1_0 = (RuleCall)cModifiersAssignment_2_1.eContents().get(0);
+		private final RuleCall cModifiersModifierParserRuleCall_2_1_0 = (RuleCall)cModifiersAssignment_2_1.eContents().get(0);
 		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
 		private final RuleCall cCOMMATerminalRuleCall_2_2_0 = (RuleCall)cGroup_2_2.eContents().get(0);
 		private final Assignment cModifiersAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
@@ -5109,10 +5109,10 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRPARENTerminalRuleCall_2_3 = (RuleCall)cGroup_2.eContents().get(3);
 		
 		//Constant:
-		//	case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT) (LPAREN modifiers+=IDENT (COMMA modifiers+=Modifier)* RPAREN)?;
+		//	case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT) (LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 		public ParserRule getRule() { return rule; }
 
-		//case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT) (LPAREN modifiers+=IDENT (COMMA modifiers+=Modifier)* RPAREN)?
+		//case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT) (LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?
 		public Group getGroup() { return cGroup; }
 
 		//case=(PLUS | MINUS)?
@@ -5139,17 +5139,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT_DOT
 		public RuleCall getNameIDENT_DOTTerminalRuleCall_1_0_1() { return cNameIDENT_DOTTerminalRuleCall_1_0_1; }
 
-		//(=> LPAREN modifiers+=IDENT (COMMA modifiers+=Modifier)* RPAREN)?
+		//(=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//=> LPAREN
 		public RuleCall getLPARENTerminalRuleCall_2_0() { return cLPARENTerminalRuleCall_2_0; }
 
-		//modifiers+=IDENT
+		//modifiers+=Modifier
 		public Assignment getModifiersAssignment_2_1() { return cModifiersAssignment_2_1; }
 
-		//IDENT
-		public RuleCall getModifiersIDENTTerminalRuleCall_2_1_0() { return cModifiersIDENTTerminalRuleCall_2_1_0; }
+		//Modifier
+		public RuleCall getModifiersModifierParserRuleCall_2_1_0() { return cModifiersModifierParserRuleCall_2_1_0; }
 
 		//(COMMA modifiers+=Modifier)*
 		public Group getGroup_2_2() { return cGroup_2_2; }
@@ -5187,7 +5187,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final RuleCall cLPARENTerminalRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
 		private final Assignment cModifiersAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cModifiersIDENTTerminalRuleCall_3_1_0 = (RuleCall)cModifiersAssignment_3_1.eContents().get(0);
+		private final RuleCall cModifiersModifierParserRuleCall_3_1_0 = (RuleCall)cModifiersAssignment_3_1.eContents().get(0);
 		private final Group cGroup_3_2 = (Group)cGroup_3.eContents().get(2);
 		private final RuleCall cCOMMATerminalRuleCall_3_2_0 = (RuleCall)cGroup_3_2.eContents().get(0);
 		private final Assignment cModifiersAssignment_3_2_1 = (Assignment)cGroup_3_2.eContents().get(1);
@@ -5195,12 +5195,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRPARENTerminalRuleCall_3_3 = (RuleCall)cGroup_3.eContents().get(3);
 		
 		//Identifier:
-		//	mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT | NUMBER) (LPAREN modifiers+=IDENT
-		//	(COMMA modifiers+=Modifier)* RPAREN)?;
+		//	mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT | NUMBER) (LPAREN
+		//	modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 		public ParserRule getRule() { return rule; }
 
-		//mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT | NUMBER) (LPAREN modifiers+=IDENT
-		//(COMMA modifiers+=Modifier)* RPAREN)?
+		//mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT | NUMBER) (LPAREN
+		//modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?
 		public Group getGroup() { return cGroup; }
 
 		//mode=(EQUALS | LESS_THAN | MORE_THAN)?
@@ -5245,17 +5245,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//NUMBER
 		public RuleCall getNameNUMBERTerminalRuleCall_2_0_2() { return cNameNUMBERTerminalRuleCall_2_0_2; }
 
-		//(=> LPAREN modifiers+=IDENT (COMMA modifiers+=Modifier)* RPAREN)?
+		//(=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//=> LPAREN
 		public RuleCall getLPARENTerminalRuleCall_3_0() { return cLPARENTerminalRuleCall_3_0; }
 
-		//modifiers+=IDENT
+		//modifiers+=Modifier
 		public Assignment getModifiersAssignment_3_1() { return cModifiersAssignment_3_1; }
 
-		//IDENT
-		public RuleCall getModifiersIDENTTerminalRuleCall_3_1_0() { return cModifiersIDENTTerminalRuleCall_3_1_0; }
+		//Modifier
+		public RuleCall getModifiersModifierParserRuleCall_3_1_0() { return cModifiersModifierParserRuleCall_3_1_0; }
 
 		//(COMMA modifiers+=Modifier)*
 		public Group getGroup_3_2() { return cGroup_3_2; }
@@ -5447,7 +5447,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
 		private final RuleCall cLPARENTerminalRuleCall_1_2_0 = (RuleCall)cGroup_1_2.eContents().get(0);
 		private final Assignment cModifiersAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
-		private final RuleCall cModifiersIDENTTerminalRuleCall_1_2_1_0 = (RuleCall)cModifiersAssignment_1_2_1.eContents().get(0);
+		private final RuleCall cModifiersMappingItemModifierParserRuleCall_1_2_1_0 = (RuleCall)cModifiersAssignment_1_2_1.eContents().get(0);
 		private final Group cGroup_1_2_2 = (Group)cGroup_1_2.eContents().get(2);
 		private final RuleCall cCOMMATerminalRuleCall_1_2_2_0 = (RuleCall)cGroup_1_2_2.eContents().get(0);
 		private final Assignment cModifiersAssignment_1_2_2_1 = (Assignment)cGroup_1_2_2.eContents().get(1);
@@ -5455,12 +5455,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRPARENTerminalRuleCall_1_2_3 = (RuleCall)cGroup_1_2.eContents().get(3);
 		
 		//MappingItem:
-		//	col=(IDENT | NUMBER) (STRING attr=MappingColumn (LPAREN modifiers+=IDENT (COMMA modifiers+=MappingItemModifier)*
-		//	RPAREN)?)?;
+		//	col=(IDENT | NUMBER) (STRING attr=MappingColumn (LPAREN modifiers+=MappingItemModifier (COMMA
+		//	modifiers+=MappingItemModifier)* RPAREN)?)?;
 		public ParserRule getRule() { return rule; }
 
-		//col=(IDENT | NUMBER) (STRING attr=MappingColumn (LPAREN modifiers+=IDENT (COMMA modifiers+=MappingItemModifier)*
-		//RPAREN)?)?
+		//col=(IDENT | NUMBER) (STRING attr=MappingColumn (LPAREN modifiers+=MappingItemModifier (COMMA
+		//modifiers+=MappingItemModifier)* RPAREN)?)?
 		public Group getGroup() { return cGroup; }
 
 		//col=(IDENT | NUMBER)
@@ -5475,7 +5475,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//NUMBER
 		public RuleCall getColNUMBERTerminalRuleCall_0_0_1() { return cColNUMBERTerminalRuleCall_0_0_1; }
 
-		//(STRING attr=MappingColumn (LPAREN modifiers+=IDENT (COMMA modifiers+=MappingItemModifier)* RPAREN)?)?
+		//(STRING attr=MappingColumn (LPAREN modifiers+=MappingItemModifier (COMMA modifiers+=MappingItemModifier)* RPAREN)?)?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//STRING
@@ -5487,17 +5487,17 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//MappingColumn
 		public RuleCall getAttrMappingColumnParserRuleCall_1_1_0() { return cAttrMappingColumnParserRuleCall_1_1_0; }
 
-		//(=> LPAREN modifiers+=IDENT (COMMA modifiers+=MappingItemModifier)* RPAREN)?
+		//(=> LPAREN modifiers+=MappingItemModifier (COMMA modifiers+=MappingItemModifier)* RPAREN)?
 		public Group getGroup_1_2() { return cGroup_1_2; }
 
 		//=> LPAREN
 		public RuleCall getLPARENTerminalRuleCall_1_2_0() { return cLPARENTerminalRuleCall_1_2_0; }
 
-		//modifiers+=IDENT
+		//modifiers+=MappingItemModifier
 		public Assignment getModifiersAssignment_1_2_1() { return cModifiersAssignment_1_2_1; }
 
-		//IDENT
-		public RuleCall getModifiersIDENTTerminalRuleCall_1_2_1_0() { return cModifiersIDENTTerminalRuleCall_1_2_1_0; }
+		//MappingItemModifier
+		public RuleCall getModifiersMappingItemModifierParserRuleCall_1_2_1_0() { return cModifiersMappingItemModifierParserRuleCall_1_2_1_0; }
 
 		//(COMMA modifiers+=MappingItemModifier)*
 		public Group getGroup_1_2_2() { return cGroup_1_2_2; }
@@ -5639,62 +5639,102 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class StatementModifierElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "StatementModifier");
-		private final RuleCall cIDENTTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cIDENTTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cNUMBERTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//StatementModifier:
-		//	IDENT;
+		//	IDENT | NUMBER;
 		public ParserRule getRule() { return rule; }
 
+		//IDENT | NUMBER
+		public Alternatives getAlternatives() { return cAlternatives; }
+
 		//IDENT
-		public RuleCall getIDENTTerminalRuleCall() { return cIDENTTerminalRuleCall; }
+		public RuleCall getIDENTTerminalRuleCall_0() { return cIDENTTerminalRuleCall_0; }
+
+		//NUMBER
+		public RuleCall getNUMBERTerminalRuleCall_1() { return cNUMBERTerminalRuleCall_1; }
 	}
 
 	public class MappingRuleModifierElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MappingRuleModifier");
-		private final RuleCall cIDENTTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cIDENTTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cNUMBERTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//MappingRuleModifier:
-		//	IDENT;
+		//	IDENT | NUMBER;
 		public ParserRule getRule() { return rule; }
 
+		//IDENT | NUMBER
+		public Alternatives getAlternatives() { return cAlternatives; }
+
 		//IDENT
-		public RuleCall getIDENTTerminalRuleCall() { return cIDENTTerminalRuleCall; }
+		public RuleCall getIDENTTerminalRuleCall_0() { return cIDENTTerminalRuleCall_0; }
+
+		//NUMBER
+		public RuleCall getNUMBERTerminalRuleCall_1() { return cNUMBERTerminalRuleCall_1; }
 	}
 
 	public class MappingItemModifierElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MappingItemModifier");
-		private final RuleCall cIDENTTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cIDENTTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cNUMBERTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//MappingItemModifier:
-		//	IDENT;
+		//	IDENT | NUMBER;
 		public ParserRule getRule() { return rule; }
 
+		//IDENT | NUMBER
+		public Alternatives getAlternatives() { return cAlternatives; }
+
 		//IDENT
-		public RuleCall getIDENTTerminalRuleCall() { return cIDENTTerminalRuleCall; }
+		public RuleCall getIDENTTerminalRuleCall_0() { return cIDENTTerminalRuleCall_0; }
+
+		//NUMBER
+		public RuleCall getNUMBERTerminalRuleCall_1() { return cNUMBERTerminalRuleCall_1; }
 	}
 
 	public class OptionalFeatureModifierElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OptionalFeatureModifier");
-		private final RuleCall cIDENTTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cIDENTTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cNUMBERTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//OptionalFeatureModifier:
-		//	IDENT;
+		//	IDENT | NUMBER;
 		public ParserRule getRule() { return rule; }
 
+		//IDENT | NUMBER
+		public Alternatives getAlternatives() { return cAlternatives; }
+
 		//IDENT
-		public RuleCall getIDENTTerminalRuleCall() { return cIDENTTerminalRuleCall; }
+		public RuleCall getIDENTTerminalRuleCall_0() { return cIDENTTerminalRuleCall_0; }
+
+		//NUMBER
+		public RuleCall getNUMBERTerminalRuleCall_1() { return cNUMBERTerminalRuleCall_1; }
 	}
 
 	public class ModifierElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Modifier");
-		private final RuleCall cIDENTTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cIDENTTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cNUMBERTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//Modifier:
-		//	IDENT;
+		//	IDENT | NUMBER;
 		public ParserRule getRule() { return rule; }
 
+		//IDENT | NUMBER
+		public Alternatives getAlternatives() { return cAlternatives; }
+
 		//IDENT
-		public RuleCall getIDENTTerminalRuleCall() { return cIDENTTerminalRuleCall; }
+		public RuleCall getIDENTTerminalRuleCall_0() { return cIDENTTerminalRuleCall_0; }
+
+		//NUMBER
+		public RuleCall getNUMBERTerminalRuleCall_1() { return cNUMBERTerminalRuleCall_1; }
 	}
 
 	public class FeatureValueElements extends AbstractParserRuleElementFinder {
@@ -7646,7 +7686,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Column:
-	//	name=(IDENT | IDENT_DOT | NUMBER) (LPAREN modifiers+=IDENT (COMMA modifiers+=Modifier)* RPAREN)?;
+	//	name=(IDENT | IDENT_DOT | NUMBER) (LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 	public ColumnElements getColumnAccess() {
 		return (pColumn != null) ? pColumn : (pColumn = new ColumnElements());
 	}
@@ -7656,7 +7696,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Constant:
-	//	case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT) (LPAREN modifiers+=IDENT (COMMA modifiers+=Modifier)* RPAREN)?;
+	//	case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT) (LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 	public ConstantElements getConstantAccess() {
 		return (pConstant != null) ? pConstant : (pConstant = new ConstantElements());
 	}
@@ -7666,8 +7706,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Identifier:
-	//	mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT | NUMBER) (LPAREN modifiers+=IDENT
-	//	(COMMA modifiers+=Modifier)* RPAREN)?;
+	//	mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? name=(IDENT | IDENT_DOT | NUMBER) (LPAREN
+	//	modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 	public IdentifierElements getIdentifierAccess() {
 		return (pIdentifier != null) ? pIdentifier : (pIdentifier = new IdentifierElements());
 	}
@@ -7717,8 +7757,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//MappingItem:
-	//	col=(IDENT | NUMBER) (STRING attr=MappingColumn (LPAREN modifiers+=IDENT (COMMA modifiers+=MappingItemModifier)*
-	//	RPAREN)?)?;
+	//	col=(IDENT | NUMBER) (STRING attr=MappingColumn (LPAREN modifiers+=MappingItemModifier (COMMA
+	//	modifiers+=MappingItemModifier)* RPAREN)?)?;
 	public MappingItemElements getMappingItemAccess() {
 		return (pMappingItem != null) ? pMappingItem : (pMappingItem = new MappingItemElements());
 	}
@@ -7749,7 +7789,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//StatementModifier:
-	//	IDENT;
+	//	IDENT | NUMBER;
 	public StatementModifierElements getStatementModifierAccess() {
 		return (pStatementModifier != null) ? pStatementModifier : (pStatementModifier = new StatementModifierElements());
 	}
@@ -7759,7 +7799,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//MappingRuleModifier:
-	//	IDENT;
+	//	IDENT | NUMBER;
 	public MappingRuleModifierElements getMappingRuleModifierAccess() {
 		return (pMappingRuleModifier != null) ? pMappingRuleModifier : (pMappingRuleModifier = new MappingRuleModifierElements());
 	}
@@ -7769,7 +7809,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//MappingItemModifier:
-	//	IDENT;
+	//	IDENT | NUMBER;
 	public MappingItemModifierElements getMappingItemModifierAccess() {
 		return (pMappingItemModifier != null) ? pMappingItemModifier : (pMappingItemModifier = new MappingItemModifierElements());
 	}
@@ -7779,7 +7819,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OptionalFeatureModifier:
-	//	IDENT;
+	//	IDENT | NUMBER;
 	public OptionalFeatureModifierElements getOptionalFeatureModifierAccess() {
 		return (pOptionalFeatureModifier != null) ? pOptionalFeatureModifier : (pOptionalFeatureModifier = new OptionalFeatureModifierElements());
 	}
@@ -7789,7 +7829,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Modifier:
-	//	IDENT;
+	//	IDENT | NUMBER;
 	public ModifierElements getModifierAccess() {
 		return (pModifier != null) ? pModifier : (pModifier = new ModifierElements());
 	}
