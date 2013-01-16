@@ -377,7 +377,7 @@ mappingItem returns[SqlMappingItem result]
 @init {$result = null;}
 	:	
 	(col=IDENT | col=NUMBER) {if(!$mapping::skip) $result = newColumn(col);}
-     (STRING (col=IDENT_DOT | col=IDENT) { if(!$mapping::skip) addColumnAttr($result, $col); }
+     (STRING (col=IDENT_DOT | col=IDENT | col=NUMBER) { if(!$mapping::skip) addColumnAttr($result, $col); }
 	  (options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$mapping::skip) addModifier($mapping::typeFactory, $result, $value.text); }
 	   (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$mapping::skip) addModifier($mapping::typeFactory, $result, $value.text); }
 	  )* RPAREN

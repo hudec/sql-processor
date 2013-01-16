@@ -4995,6 +4995,12 @@ rule__MappingColumn__NameAlternatives_0_0
 { after(grammarAccess.getMappingColumnAccess().getNameIDENT_DOTTerminalRuleCall_0_0_1()); }
 )
 
+    |(
+{ before(grammarAccess.getMappingColumnAccess().getNameNUMBERTerminalRuleCall_0_0_2()); }
+	RULE_NUMBER
+{ after(grammarAccess.getMappingColumnAccess().getNameNUMBERTerminalRuleCall_0_0_2()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);

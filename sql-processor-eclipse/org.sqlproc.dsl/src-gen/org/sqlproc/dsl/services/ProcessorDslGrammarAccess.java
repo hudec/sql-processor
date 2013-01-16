@@ -5522,6 +5522,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cNameAlternatives_0_0 = (Alternatives)cNameAssignment_0.eContents().get(0);
 		private final RuleCall cNameIDENTTerminalRuleCall_0_0_0 = (RuleCall)cNameAlternatives_0_0.eContents().get(0);
 		private final RuleCall cNameIDENT_DOTTerminalRuleCall_0_0_1 = (RuleCall)cNameAlternatives_0_0.eContents().get(1);
+		private final RuleCall cNameNUMBERTerminalRuleCall_0_0_2 = (RuleCall)cNameAlternatives_0_0.eContents().get(2);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final RuleCall cCARETTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
 		private final Assignment cValsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
@@ -5530,16 +5531,16 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValsNUMBERTerminalRuleCall_1_1_0_1 = (RuleCall)cValsAlternatives_1_1_0.eContents().get(1);
 		
 		//MappingColumn:
-		//	name=(IDENT | IDENT_DOT) (CARET vals+=(IDENT | NUMBER))*;
+		//	name=(IDENT | IDENT_DOT | NUMBER) (CARET vals+=(IDENT | NUMBER))*;
 		public ParserRule getRule() { return rule; }
 
-		//name=(IDENT | IDENT_DOT) (CARET vals+=(IDENT | NUMBER))*
+		//name=(IDENT | IDENT_DOT | NUMBER) (CARET vals+=(IDENT | NUMBER))*
 		public Group getGroup() { return cGroup; }
 
-		//name=(IDENT | IDENT_DOT)
+		//name=(IDENT | IDENT_DOT | NUMBER)
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 
-		//IDENT | IDENT_DOT
+		//IDENT | IDENT_DOT | NUMBER
 		public Alternatives getNameAlternatives_0_0() { return cNameAlternatives_0_0; }
 
 		//IDENT
@@ -5547,6 +5548,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//IDENT_DOT
 		public RuleCall getNameIDENT_DOTTerminalRuleCall_0_0_1() { return cNameIDENT_DOTTerminalRuleCall_0_0_1; }
+
+		//NUMBER
+		public RuleCall getNameNUMBERTerminalRuleCall_0_0_2() { return cNameNUMBERTerminalRuleCall_0_0_2; }
 
 		//(CARET vals+=(IDENT | NUMBER))*
 		public Group getGroup_1() { return cGroup_1; }
@@ -7768,7 +7772,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//MappingColumn:
-	//	name=(IDENT | IDENT_DOT) (CARET vals+=(IDENT | NUMBER))*;
+	//	name=(IDENT | IDENT_DOT | NUMBER) (CARET vals+=(IDENT | NUMBER))*;
 	public MappingColumnElements getMappingColumnAccess() {
 		return (pMappingColumn != null) ? pMappingColumn : (pMappingColumn = new MappingColumnElements());
 	}

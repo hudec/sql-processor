@@ -2104,6 +2104,7 @@
         <terminal xsi:type="xtext:Alternatives">
           <elements xsi:type="xtext:RuleCall" rule="//@rules.65"/>
           <elements xsi:type="xtext:RuleCall" rule="//@rules.64"/>
+          <elements xsi:type="xtext:RuleCall" rule="//@rules.66"/>
         </terminal>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="*">

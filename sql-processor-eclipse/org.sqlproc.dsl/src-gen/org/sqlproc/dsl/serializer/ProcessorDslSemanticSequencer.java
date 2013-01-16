@@ -910,7 +910,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((name=IDENT | name=IDENT_DOT) (vals+=IDENT | vals+=NUMBER)*)
+	 *     ((name=IDENT | name=IDENT_DOT | name=NUMBER) (vals+=IDENT | vals+=NUMBER)*)
 	 */
 	protected void sequence_MappingColumn(EObject context, MappingColumn semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

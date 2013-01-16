@@ -9121,6 +9121,21 @@ ruleMappingColumn returns [EObject current=null]
         		"IDENT_DOT");
 	    }
 
+    |		lv_name_0_3=RULE_NUMBER
+		{
+			newLeafNode(lv_name_0_3, grammarAccess.getMappingColumnAccess().getNameNUMBERTerminalRuleCall_0_0_2()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMappingColumnRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_3, 
+        		"NUMBER");
+	    }
+
 )
 
 )

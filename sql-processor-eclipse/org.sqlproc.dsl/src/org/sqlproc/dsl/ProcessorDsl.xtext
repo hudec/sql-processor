@@ -236,7 +236,7 @@ MappingItem:
 	col=(IDENT|NUMBER) (STRING attr=MappingColumn (=> LPAREN modifiers+=MappingItemModifier (COMMA modifiers+=MappingItemModifier)* RPAREN)?)?;
 
 MappingColumn:
-    name=(IDENT|IDENT_DOT) (CARET vals+=(IDENT|NUMBER))*;
+    name=(IDENT|IDENT_DOT|NUMBER) (CARET vals+=(IDENT|NUMBER))*;
 
 OptionalFeature:
 	name=IDENT LPAREN type=OPTION_TYPE (COMMA modifiers+=OptionalFeatureModifier)* RPAREN EQUALS option=FeatureValue SEMICOLON;

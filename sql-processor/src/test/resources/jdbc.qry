@@ -896,18 +896,18 @@ STANDARD_TYPES(QRY)=
   where id=1
 ;
 STANDARD_TYPES(OUT)=
-  n_int$int t_int$int
-  n_long$long t_long$long
-  n_byte$byte t_byte$byte
-  n_short$short t_short$short
-  n_float$float t_float$float
-  n_double$double t_double$double
-  n_char$char t_char$char
-  t_string$string
-  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
-  n_boolean$boolean t_boolean$boolean
-  t_big_integer$bigint t_big_decimal$bigdec
-  an_byte$bytes at_byte$bytes
+  n_int$n_int(type=int) t_int$t_int(type=int)
+  n_long$n_long(type=long) t_long$t_long(type=long)
+  n_byte$n_byte(type=byte) t_byte$t_byte(type=byte)
+  n_short$n_short(type=short) t_short$t_short(type=short)
+  n_float$n_float(type=float) t_float$t_float(type=float)
+  n_double$n_double(type=double) t_double$t_double(type=double)
+  n_char$n_char(type=char) t_char$t_char(type=char)
+  t_string$t_string(type=string)
+  t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
+  n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
+  t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes)
 ;
  
 STANDARD_TYPES_2(QRY)=
@@ -936,19 +936,19 @@ UNDEFINED_TYPES(QRY)=
   where id=1
 ;
 UNDEFINED_TYPES(OUT)=
-  n_int t_int
-  n_long t_long
-  n_byte t_byte
-  n_short t_short
-  n_float t_float
-  n_double t_double
-  n_char t_char
-  t_string
-  t_time t_date t_datetime t_timestamp
-  n_boolean t_boolean
-  t_big_integer t_big_decimal
-  an_byte at_byte a_text$text
-  a_blob a_clob
+  n_int$n_int(type=int) t_int$t_int(type=int)
+  n_long$n_long(type=long) t_long$t_long(type=long)
+  n_byte$n_byte(type=byte) t_byte$t_byte(type=byte)
+  n_short$n_short(type=short) t_short$t_short(type=short)
+  n_float$n_float(type=float) t_float$t_float(type=float)
+  n_double$n_double(type=double) t_double$t_double(type=double)
+  n_char$n_char(type=char) t_char$t_char(type=char)
+  t_string$t_string(type=string)
+  t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
+  n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
+  t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes) a_text$a_text(type=text)
+  a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 
 UNDEFINED_TYPES_2(QRY)=
@@ -1017,19 +1017,19 @@ UNDEFINED_PARAMETERS(QRY,INFORMIX)=
   {& t_timestamp = :t_timestamp}
 ;
 UNDEFINED_PARAMETERS(OUT)=
-  n_int$int t_int$int
-  n_long$long t_long$long
-  n_byte$byte t_byte$byte
-  n_short$short t_short$short
-  n_float$float t_float$float
-  n_double$double t_double$double
-  n_char$char t_char$char
-  t_string$string
-  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
-  n_boolean$boolean t_boolean$boolean
-  t_big_integer$bigint t_big_decimal$bigdec
-  an_byte$bytes at_byte$bytes a_text$text
-  a_blob$blob a_clob$clob
+  n_int$n_int(type=int) t_int$t_int(type=int)
+  n_long$n_long(type=long) t_long$t_long(type=long)
+  n_byte$n_byte(type=byte) t_byte$t_byte(type=byte)
+  n_short$n_short(type=short) t_short$t_short(type=short)
+  n_float$n_float(type=float) t_float$t_float(type=float)
+  n_double$n_double(type=double) t_double$t_double(type=double)
+  n_char$n_char(type=char) t_char$t_char(type=char)
+  t_string$t_string(type=string)
+  t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
+  n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
+  t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes) a_text$a_text(type=text)
+  a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 
  
@@ -1492,8 +1492,8 @@ ANSI_BASIC_ASTERISK(QRY)=
   order by %p.ID
 ;
 ANSI_BASIC_ASTERISK(OUT)=
-  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
-  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  id$id(type=Long) name_first$name.first(type=string) name_last$name.last(type=string) ssn_number$ssn.number(type=string)
+  ssn_country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
   createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
   version$version(type=Long)
 ;
@@ -1715,7 +1715,7 @@ SIMPLE_FUNCTION(CALL,HSQLDB,INFORMIX)=
   call an_hour_before(:time)
 ;
 SIMPLE_FUNCTION(OUT,HSQLDB,INFORMIX)=
-  1$stamp
+  1$1(type=stamp)
 ;
 SIMPLE_FUNCTION(CALL)=
   :<1(type=stamp) = call an_hour_before(:time)
