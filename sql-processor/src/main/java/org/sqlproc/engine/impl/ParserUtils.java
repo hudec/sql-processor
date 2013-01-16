@@ -259,17 +259,17 @@ class ParserUtils {
                 if (type != null)
                     ((SqlMappingItem) target).setMetaType(typeFactory.getMetaType(type));
                 else
-                    ((SqlMappingItem) target).setValues(type, null);
+                    ((SqlMappingItem) target).setValues(modifier, null);
             } else if (target instanceof SqlMetaIdent) {
                 if (type != null)
                     ((SqlMetaIdent) target).setMetaType(typeFactory.getMetaType(type));
                 else
-                    ((SqlMetaIdent) target).setValues(type, null);
+                    ((SqlMetaIdent) target).setValues(modifier, null);
             } else if (target instanceof SqlMetaConst) {
                 if (type != null)
                     ((SqlMetaConst) target).setMetaType(typeFactory.getMetaType(type));
                 else
-                    ((SqlMetaConst) target).setValues(type, null);
+                    ((SqlMetaConst) target).setValues(modifier, null);
             } else {
                 throw new RuntimeException("Invalid target for addModifier :" + target);
             }

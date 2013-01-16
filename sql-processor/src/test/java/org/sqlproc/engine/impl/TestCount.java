@@ -11,7 +11,7 @@ public class TestCount extends TestDatabase {
 
     @Test
     public void testOrder() {
-        SqlQueryEngine sqlEngine = getSqlEngine("BASIC");
+        SqlQueryEngine sqlEngine = getSqlEngine("BASIC_2");
 
         int rows = sqlEngine.queryCount(session);
         assertTrue(rows > 0);

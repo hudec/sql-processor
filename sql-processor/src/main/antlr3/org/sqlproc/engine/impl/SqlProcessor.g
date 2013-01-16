@@ -247,10 +247,10 @@ metaSql [SqlMetaStatement metaStatement]
 ifSql [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]
 @init {$metaIfItem = (metaIfItemIn !=null) ? metaIfItemIn : new SqlMetaIfItem();}
 	:
-	(ifSqlFragment[metaIfItemIn])+
+	(ifSqlFragment[metaIfItem])+
 	;
 
-ifSqlFragment [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]
+ifSqlFragment [SqlMetaIfItem metaIfItem]
 @after {if(!$meta::skip) addText(metaIfItem, $meta::text);}
 	:
 	~(COLON | STRING | AT | PERCENT | LBRACE | BOR | RBRACE)
@@ -320,8 +320,8 @@ column returns[SqlMappingItem result]
 @init {$result = null;}
 	:	
 	(col=IDENT_DOT | col=IDENT | col=NUMBER) {if(!$meta::skip) $result = newColumn(col);}
-	(options {greedy=true;} : LPAREN value=IDENT { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
-	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { addModifier($meta::typeFactory, $result, $value.text); }
+	(options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
+	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
 	 )* RPAREN
 	)?
 	;
@@ -330,8 +330,8 @@ constant returns [SqlMetaConst result]
 @init {$result = null;}
 	:	
 	(caseCnst=PLUS | caseCnst=MINUS)? (cnst=IDENT_DOT | cnst=IDENT) {if(!$meta::skip) $result = newConstant(cnst, $caseCnst);}
-	(options {greedy=true;} : LPAREN value=IDENT { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
-	 (COMMA (value=IDENT | value=NUMBER) { addModifier($meta::typeFactory, $result, $value.text); }
+	(options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
+	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
 	 )* RPAREN
 	)?
 	;
@@ -340,8 +340,8 @@ identifier returns [SqlMetaIdent result]
 @init {$result = null;}
 	:	
 	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)? (ident=IDENT_DOT | ident=IDENT | ident=NUMBER) {if(!$meta::skip) $result = newIdent($ident, $modeIdent, $caseIdent);}
-	(options {greedy=true;} : LPAREN value=IDENT { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
-	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { addModifier($meta::typeFactory, $result, $value.text); }
+	(options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
+	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
 	 )* RPAREN
 	)?
 	;
@@ -377,9 +377,9 @@ mappingItem returns[SqlMappingItem result]
 @init {$result = null;}
 	:	
 	(col=IDENT | col=NUMBER) {if(!$mapping::skip) $result = newColumn(col);}
-                       (STRING (col=IDENT_DOT | col=IDENT) { if(!$mapping::skip) addColumnAttr($result, $col); }
-	  (options {greedy=true;} : LPAREN value=IDENT { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
-	   (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { addModifier($meta::typeFactory, $result, $value.text); }
+     (STRING (col=IDENT_DOT | col=IDENT) { if(!$mapping::skip) addColumnAttr($result, $col); }
+	  (options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$mapping::skip) addModifier($mapping::typeFactory, $result, $value.text); }
+	   (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$mapping::skip) addModifier($mapping::typeFactory, $result, $value.text); }
 	  )* RPAREN
 	 )*
   	)?
