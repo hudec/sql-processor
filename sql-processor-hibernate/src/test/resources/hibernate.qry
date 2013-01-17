@@ -2,9 +2,9 @@ COLLECTIONS_HIBERNATE(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.LASTUPDATEDBY @lastUpdatedBy
   from PERSON p
   where 1=1
-  {& p.ID in :idSet^h_LONG}
-  {& p.LASTUPDATEDBY in :updatedBySet^h_STRING}
-  {& p.NAME_FIRST in :names.firstList^h_STRING | p.NAME_LAST in :names.lastList^h_STRING}
+  {& p.ID in :idSet(type=h_LONG)}
+  {& p.LASTUPDATEDBY in :updatedBySet(type=h_STRING)}
+  {& p.NAME_FIRST in :names.firstList(type=h_STRING) | p.NAME_LAST in :names.lastList(type=h_STRING)}
   {#1 order by id}
 ;
 
@@ -22,31 +22,31 @@ HIBERNATE_TYPES(QRY)=
   where id=1
 ;
 HIBERNATE_TYPES(OUT)=
-  n_int$h_INTEGER t_int$h_INTEGER
-  n_long$h_LONG t_long$h_LONG
-  n_byte$h_BYTE t_byte$h_BYTE
-  n_short$h_SHORT t_short$h_SHORT
-  n_float$h_FLOAT t_float$h_FLOAT
-  n_double$h_DOUBLE t_double$h_DOUBLE
-  n_char$h_CHARACTER t_char$h_CHARACTER
-  t_string$h_STRING
-  t_time$h_TIME t_date$h_DATE t_datetime$h_TIMESTAMP t_timestamp$h_TIMESTAMP
-  n_boolean$h_BOOLEAN t_boolean$h_BOOLEAN
-  t_big_integer$h_BIG_INTEGER t_big_decimal$h_BIG_DECIMAL
-  an_byte$h_BINARY at_byte$h_WRAPPER_BINARY a_text$h_TEXT
-  a_blob$h_BLOB a_clob$h_CLOB
+  n_int$n_int(type=h_INTEGER) t_int$t_int(type=h_INTEGER)
+  n_long$n_long(type=h_LONG) t_long$t_long(type=h_LONG)
+  n_byte$n_byte(type=h_BYTE) t_byte$t_byte(type=h_BYTE)
+  n_short$n_short(type=h_SHORT) t_short$t_short(type=h_SHORT)
+  n_float$n_float(type=h_FLOAT) t_float$t_float(type=h_FLOAT)
+  n_double$n_double(type=h_DOUBLE) t_double$t_double(type=h_DOUBLE)
+  n_char$n_char(type=h_CHARACTER) t_char$t_char(type=h_CHARACTER)
+  t_string$t_string(type=h_STRING)
+  t_time$t_time(type=h_TIME) t_date$t_date(type=h_DATE) t_datetime$t_datetime(type=h_TIMESTAMP) t_timestamp$t_timestamp(type=h_TIMESTAMP)
+  n_boolean$n_boolean(type=h_BOOLEAN) t_boolean$t_boolean(type=h_BOOLEAN)
+  t_big_integer$t_big_integer(type=h_BIG_INTEGER) t_big_decimal$t_big_decimal(type=h_BIG_DECIMAL)
+  an_byte$an_byte(type=h_BINARY) at_byte$at_byte(type=h_WRAPPER_BINARY) a_text$a_text(type=h_TEXT)
+  a_blob$a_blob(type=h_BLOB) a_clob$a_clob(type=h_CLOB)
 ;
 
 HIBERNATE_TYPES_2(QRY)=
-  select t_int @n_int^h_INTEGER, @t_int^h_INTEGER, t_long @n_long^h_LONG, @t_long^h_LONG,
-  t_byte @n_byte^h_BYTE, @t_byte^h_BYTE, t_short @n_short^h_SHORT, @t_short^h_SHORT,
-  t_float @n_float^h_FLOAT, @t_float^h_FLOAT, t_double @n_double^h_DOUBLE, @t_double^h_DOUBLE,
-  t_char @n_char^h_CHARACTER, @t_char^h_CHARACTER, @t_string^h_STRING,
-  @t_time^h_TIME, @t_date^h_DATE, @t_datetime^h_TIMESTAMP, @t_timestamp^h_TIMESTAMP,
-  t_boolean @n_boolean^h_BOOLEAN, @t_boolean^h_BOOLEAN,
-  @t_big_integer^h_BIG_INTEGER, @t_big_decimal^h_BIG_DECIMAL,
-  a_byte @an_byte^h_BINARY, a_byte @at_byte^h_WRAPPER_BINARY, @a_text^h_TEXT,
-  @a_blob^h_BLOB, @a_clob^h_CLOB
+  select t_int @n_int(type=h_INTEGER), @t_int(type=h_INTEGER), t_long @n_long(type=h_LONG), @t_long(type=h_LONG),
+  t_byte @n_byte(type=h_BYTE), @t_byte(type=h_BYTE), t_short @n_short(type=h_SHORT), @t_short(type=h_SHORT),
+  t_float @n_float(type=h_FLOAT), @t_float(type=h_FLOAT), t_double @n_double(type=h_DOUBLE), @t_double(type=h_DOUBLE),
+  t_char @n_char(type=h_CHARACTER), @t_char(type=h_CHARACTER), @t_string(type=h_STRING),
+  @t_time(type=h_TIME), @t_date(type=h_DATE), @t_datetime(type=h_TIMESTAMP), @t_timestamp(type=h_TIMESTAMP),
+  t_boolean @n_boolean(type=h_BOOLEAN), @t_boolean(type=h_BOOLEAN),
+  @t_big_integer(type=h_BIG_INTEGER), @t_big_decimal(type=h_BIG_DECIMAL),
+  a_byte @an_byte(type=h_BINARY), a_byte @at_byte(type=h_WRAPPER_BINARY), @a_text(type=h_TEXT),
+  @a_blob(type=h_BLOB), @a_clob(type=h_CLOB)
   from TYPES
   where id=1
 ;
@@ -62,20 +62,20 @@ HIBERNATE_PARAMETERS(QRY)=
   t.a_blob, t.a_clob
   from TYPES t
   where 1=1
-  {& t_int = :t_int^h_INTEGER}
-  {& t_long = :t_long^h_LONG}
-  {& t_byte = :t_byte^h_BYTE}
-  {& a_byte = :an_byte^h_BINARY}
-  {& t_short = :t_short^h_SHORT}
-  {& t_float = :t_float^h_FLOAT}
-  {& t_double = :t_double^h_DOUBLE}
-  {& t_char = :t_char^h_CHARACTER}
-  {& t_string = :t_string^h_STRING}
-  {& t_boolean = :t_boolean^h_BOOLEAN}
-  {& t_date = :t_date^h_DATE}
-  {& t_time = :t_time^h_TIME}
-  {& t_datetime = :t_datetime^datetime}
-  {& t_timestamp = :t_timestamp^h_TIMESTAMP}
+  {& t_int = :t_int(type=h_INTEGER)}
+  {& t_long = :t_long(type=h_LONG)}
+  {& t_byte = :t_byte(type=h_BYTE)}
+  {& a_byte = :an_byte(type=h_BINARY)}
+  {& t_short = :t_short(type=h_SHORT)}
+  {& t_float = :t_float(type=h_FLOAT)}
+  {& t_double = :t_double(type=h_DOUBLE)}
+  {& t_char = :t_char(type=h_CHARACTER)}
+  {& t_string = :t_string(type=h_STRING)}
+  {& t_boolean = :t_boolean(type=h_BOOLEAN)}
+  {& t_date = :t_date(type=h_DATE)}
+  {& t_time = :t_time(type=h_TIME)}
+  {& t_datetime = :t_datetime(type=datetime)}
+  {& t_timestamp = :t_timestamp(type=h_TIMESTAMP)}
 ;
 HIBERNATE_PARAMETERS(QRY,INFORMIX)=
   select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
@@ -88,41 +88,41 @@ HIBERNATE_PARAMETERS(QRY,INFORMIX)=
   t.a_blob, t.a_clob
   from TYPES t
   where 1=1
-  {& t_int = :t_int^h_INTEGER}
-  {& t_long = :t_long^h_LONG}
-  {& t_byte = :t_byte^h_BYTE}
-  {& t_short = :t_short^h_SHORT}
-  {& t_float = :t_float^h_FLOAT}
-  {& t_double = :t_double^h_DOUBLE}
-  {& t_char = :t_char^h_CHARACTER}
-  {& t_string = :t_string^h_STRING}
-  {& t_boolean = :t_boolean^h_BOOLEAN}
-  {& t_date = :t_date^h_DATE}
-  {& t_time = :t_time^h_TIME}
-  {& t_datetime = :t_datetime^datetime}
-  {& t_timestamp = :t_timestamp^h_TIMESTAMP}
+  {& t_int = :t_int(type=h_INTEGER)}
+  {& t_long = :t_long(type=h_LONG)}
+  {& t_byte = :t_byte(type=h_BYTE)}
+  {& t_short = :t_short(type=h_SHORT)}
+  {& t_float = :t_float(type=h_FLOAT)}
+  {& t_double = :t_double(type=h_DOUBLE)}
+  {& t_char = :t_char(type=h_CHARACTER)}
+  {& t_string = :t_string(type=h_STRING)}
+  {& t_boolean = :t_boolean(type=h_BOOLEAN)}
+  {& t_date = :t_date(type=h_DATE)}
+  {& t_time = :t_time(type=h_TIME)}
+  {& t_datetime = :t_datetime(type=datetime)}
+  {& t_timestamp = :t_timestamp(type=h_TIMESTAMP)}
 ;
 HIBERNATE_PARAMETERS(OUT)=
-  n_int$h_INTEGER t_int$h_INTEGER
-  n_long$h_LONG t_long$h_LONG
-  n_byte$h_BYTE t_byte$h_BYTE
-  n_short$h_SHORT t_short$h_SHORT
-  n_float$h_FLOAT t_float$h_FLOAT
-  n_double$h_DOUBLE t_double$h_DOUBLE
-  n_char$h_CHARACTER t_char$h_CHARACTER
-  t_string$h_STRING
-  t_time$time t_date$date t_datetime t_timestamp
-  n_boolean$h_BOOLEAN t_boolean$h_BOOLEAN
-  t_big_integer$h_BIG_INTEGER t_big_decimal$h_BIG_DECIMAL
-  an_byte$h_BINARY at_byte$h_WRAPPER_BINARY a_text$h_TEXT
-  a_blob$h_BLOB a_clob$h_CLOB
+  n_int$n_int(type=h_INTEGER) t_int$t_int(type=h_INTEGER)
+  n_long$n_long(type=h_LONG) t_long$t_long(type=h_LONG)
+  n_byte$n_byte(type=h_BYTE) t_byte$t_byte(type=h_BYTE)
+  n_short$n_short(type=h_SHORT) t_short$t_short(type=h_SHORT)
+  n_float$n_float(type=h_FLOAT) t_float$t_float(type=h_FLOAT)
+  n_double$n_double(type=h_DOUBLE) t_double$t_double(type=h_DOUBLE)
+  n_char$n_char(type=h_CHARACTER) t_char$t_char(type=h_CHARACTER)
+  t_string$t_string(type=h_STRING)
+  t_time$t_time(type=h_TIME) t_date$t_date(type=h_DATE) t_datetime$t_datetime(type=h_TIMESTAMP) t_timestamp$t_timestamp(type=h_TIMESTAMP)
+  n_boolean$n_boolean(type=h_BOOLEAN) t_boolean$t_boolean(type=h_BOOLEAN)
+  t_big_integer$t_big_integer(type=h_BIG_INTEGER) t_big_decimal$t_big_decimal(type=h_BIG_DECIMAL)
+  an_byte$an_byte(type=h_BINARY) at_byte$at_byte(type=h_WRAPPER_BINARY) a_text$a_text(type=h_TEXT)
+  a_blob$a_blob(type=h_BLOB) a_clob$a_clob(type=h_CLOB)
 ;
 
 
 INHERITANCE2_BASIC(QRY)=
   select s.ID @id, s.NAME_FIRST @name.first, s.NAME_LAST @name.last, s.LIBRARY @library.id,
-  bd.TYPE @billingDetails==discriminator.type, bd.ID @billingDetails.id, bd.CC_NUMBER @billingDetails.number^long,
-  bd.CC_EXP_MONTH @billingDetails.expMonth^short, bd.CC_EXP_YEAR @billingDetails.expYear^short,
+  bd.TYPE @billingDetails==discriminator.type, bd.ID @billingDetails.id, bd.CC_NUMBER @billingDetails.number(type=long),
+  bd.CC_EXP_MONTH @billingDetails.expMonth(type=short), bd.CC_EXP_YEAR @billingDetails.expYear(type=short),
   bd.BA_ACCOUNT_NUMBER @billingDetails.accountNumber, bd.BA_BANK_NAME @billingDetails.bankName,
   bd.BA_SWIFT @billingDetails.swift
   from SUBSCRIBER s left join BILLING_DETAILS bd on s.ID = bd.SUBSCRIBER

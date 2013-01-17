@@ -43,10 +43,10 @@ ANSI_BASIC(QRY)=
 ;
 // output mapping rule
 ANSI_BASIC(OUT)=
-  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
-  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
-  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  version$Long$version
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
 ;
 
 ANSI_BASIC_2(QRY)=
@@ -57,15 +57,15 @@ ANSI_BASIC_2(QRY)=
   order by %p.ID
 ;
 ANSI_BASIC_2(OUT)=
-  first$$name.first last$$name.last ssn$$ssn.number
-  country$$ssn.country birthDate$date createdDate$date
-  lastUpdated$date
+  first$name.first last$name.last ssn$ssn.number
+  country$ssn.country birthDate$birthDate(type=date) createdDate$createdDate(type=date)
+  lastUpdated$lastUpdated(type=date)
 ;
 
 ANSI_BASIC_3(QRY)=
   select %p.ID @id, %p.NAME_FIRST @name.first, %p.NAME_LAST @name.last, %p.SSN_NUMBER @ssn.number, %p.SSN_COUNTRY @ssn.country,
-  %p.BIRTHDATE @birthDate^date, %p.SEX @sex, %p.CREATEDDATE @createdDate^date, %p.CREATEDBY @createdBy,
-  %p.LASTUPDATED @lastUpdated^date, %p.LASTUPDATEDBY @lastUpdatedBy, %p.VERSION as @version
+  %p.BIRTHDATE @birthDate(type=date), %p.SEX @sex, %p.CREATEDDATE @createdDate(type=date), %p.CREATEDBY @createdBy,
+  %p.LASTUPDATED @lastUpdated(type=date), %p.LASTUPDATEDBY @lastUpdatedBy, %p.VERSION as @version
   from %%PERSON p
   order by %p.ID
 ;
@@ -89,23 +89,23 @@ SQL_EXT_BASIC(QRY,INFORMIX)=
   order by %ID
 ;
 SQL_EXT_BASIC(OUT)=
-  id$Long$id first$string$name.first last$string$name.last
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string)
 ;
 
 SQL_EXT_BASIC_2(QRY)=
-  select %p.ID @id, $-name.first @name.first^string, :+name.last @name.last
+  select %p.ID @id, $-name.first @name.first(type=string), :+name.last @name.last
   from PERSON p
   where 1=1
   order by %p.ID
 ;
 SQL_EXT_BASIC_2(QRY,HSQLDB,DB2)=
-  select p.ID @id, $-name.first @name.first^string, cast(:+name.last as varchar(100)) @name.last
+  select p.ID @id, $-name.first @name.first(type=string), cast(:+name.last as varchar(100)) @name.last
   from PERSON p
   where 1=1
   order by id
 ;
 SQL_EXT_BASIC_2(QRY,INFORMIX)=
-  select p.ID @id, $-name.first @name.first^string, cast(:+name.last as lvarchar(100)) @name.last
+  select p.ID @id, $-name.first @name.first(type=string), cast(:+name.last as lvarchar(100)) @name.last
   from PERSON p
   where 1=1
   order by id
@@ -119,15 +119,15 @@ BASIC(QRY)=
   {#1 order by %ID}
 ;
 BASIC(OUT)=
-  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
-  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
-  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  version$Long$version
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
 ;
 
 BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate(type=date), p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   {#1 order by id}
@@ -147,15 +147,15 @@ FORM_BASIC(QRY)=
   {#1 order by id}
 ;
 FORM_BASIC(OUT)=
-  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
-  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
-  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  version$Long$version
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
 ;
 
 FORM_BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p {= where
    {& p.id = :id}
@@ -181,15 +181,15 @@ FORM_OR_BASIC(QRY)=
   {#1 order by id}
 ;
 FORM_OR_BASIC(OUT)=
-  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
-  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
-  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  version$Long$version
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
 ;
 
 FORM_OR_BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p {= where
    {& p.id = :id}
@@ -215,15 +215,15 @@ CONSTANT_BASIC(QRY)=
   {#1 order by id}
 ;
 CONSTANT_BASIC(OUT)=
-  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
-  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
-  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  version$Long$version
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
 ;
 
 CONSTANT_BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p {= where
    {& p.id = $id}
@@ -249,15 +249,15 @@ CONSTANT_OR_BASIC(QRY)=
   {#1 order by id}
 ;
 CONSTANT_OR_BASIC(OUT)=
-  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
-  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
-  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  version$Long$version
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
 ;
 
 CONSTANT_OR_BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p {= where
    {& p.id = $id}
@@ -280,15 +280,15 @@ CONSTANT_IN_ORDER_BASIC(QRY)=
   {#3 order by NAME_LAST}
 ;
 CONSTANT_IN_ORDER_BASIC(OUT)=
-  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
-  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
-  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  version$Long$version
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
 ;
 
 CONSTANT_IN_ORDER_BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p {= where
    {& p.id in $idSet}
@@ -321,25 +321,25 @@ INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(QRY,INFORMIX)=
   {#1 order by id}
 ;
 INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC(OUT)=
-  id$Long$id first$string$name.first last$string$name.last
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string)
 ;
 
 INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY)=
-  select p.ID @id, $name.first @name.first^string, :name.last @name.last 
+  select p.ID @id, $name.first @name.first(type=string), :name.last @name.last 
   from PERSON p {= where
    {& p.id = :id}
   }
   {#1 order by id}
 ;
 INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,HSQLDB,DB2)=
-  select p.ID @id, $name.first @name.first^string, cast(:name.last as varchar(100)) @name.last
+  select p.ID @id, $name.first @name.first(type=string), cast(:name.last as varchar(100)) @name.last
   from PERSON p {= where
    {& p.id = :id}
   }
   {#1 order by id}
 ;
 INDENT_AND_CONSTANT_OUT_OF_META_SQL_BASIC_2(QRY,INFORMIX)=
-  select p.ID @id, $name.first @name.first^string, cast(:name.last as lvarchar(100)) @name.last
+  select p.ID @id, $name.first @name.first(type=string), cast(:name.last as lvarchar(100)) @name.last
   from PERSON p {= where
    {& p.id = :id}
   }
@@ -363,8 +363,8 @@ SQL_IN_BRACES_BASIC(QRY,INFORMIX)=
   order by id
 ;
 SQL_IN_BRACES_BASIC(OUT)=
-  id$Long$id first$string$name.first last$string$name.last birthDate$date$birthDate
-  ssn$string$ssn.number
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) birthDate$birthDate(type=date)
+  ssn$ssn.number(type=string)
 ;
 
 SQL_IN_BRACES_BASIC_2(QRY)=
@@ -383,7 +383,7 @@ SQL_IN_BRACES_BASIC_2(QRY,INFORMIX)=
   order by id
 ;
 SQL_IN_BRACES_BASIC_2(OUT)=
-  first$string$name.first last$$name.last birthDate$date ssn$$ssn.number
+  first$name.first(type=string) last$name.last birthDate$birthDate(type=date) ssn$ssn.number
 ;
   
   
@@ -403,21 +403,21 @@ SQL_IN_BRACES_ADV(QRY,INFORMIX)=
   order by id
 ;
 SQL_IN_BRACES_ADV(OUT)=
-  first$string$name.first last$$name.last ssn$$ssn.number
+  first$name.first(type=string) last$name.last ssn$ssn.number
 ;
   
 SQL_IN_BRACES_ADV_2(QRY)=
-  select p.ID @id { { , $name.first @name.first^string, p.SSN_NUMBER @ssn.number} { , :+name.last @name.last}, :lastUpdatedBy @lastUpdatedBy}
+  select p.ID @id { { , $name.first @name.first(type=string), p.SSN_NUMBER @ssn.number} { , :+name.last @name.last}, :lastUpdatedBy @lastUpdatedBy}
   from PERSON p
   order by id
 ;
 SQL_IN_BRACES_ADV_2(QRY,HSQLDB,DB2)=
-  select p.ID @id { { , $name.first @name.first^string, p.SSN_NUMBER @ssn.number} { , cast(:+name.last as varchar(100)) @name.last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
+  select p.ID @id { { , $name.first @name.first(type=string), p.SSN_NUMBER @ssn.number} { , cast(:+name.last as varchar(100)) @name.last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
   from PERSON p
   order by id
 ;
 SQL_IN_BRACES_ADV_2(QRY,INFORMIX)=
-  select p.ID @id { { , $name.first @name.first^string, p.SSN_NUMBER @ssn.number} { , cast(:+name.last as lvarchar(100)) @name.last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
+  select p.ID @id { { , $name.first @name.first(type=string), p.SSN_NUMBER @ssn.number} { , cast(:+name.last as lvarchar(100)) @name.last}, cast(:lastUpdatedBy as varchar(50)) @lastUpdatedBy}
   from PERSON p
   order by id
 ;
@@ -434,8 +434,8 @@ CONDITIONAL_JOIN_ADV(QRY)=
   order by id
 ;
 CONDITIONAL_JOIN_ADV(OUT)=
-  id$Long$id first$string$engagement.first last$string$engagement.last
-  title$string$mediaTitle role$string$engagement.role
+  id$id(type=Long) first$engagement.first(type=string) last$engagement.last(type=string)
+  title$mediaTitle(type=string) role$engagement.role(type=string)
 ;
 
 CONDITIONAL_JOIN_ADV_2(QRY)=
@@ -476,8 +476,8 @@ CONDITIONAL_JOIN_2_LEVELS_ADV(QRY)=
   order by l.id, pm.location
 ;
 CONDITIONAL_JOIN_2_LEVELS_ADV(OUT)=
-  id$Long$id location$string$location first$string$media.engagement.first
-  last$string$media.engagement.last title$string$media.mediaTitle role$string$media.engagement.role name$string$name
+  id$id(type=Long) location$location(type=string) first$media.engagement.first(type=string)
+  last$media.engagement.last(type=string) title$media.mediaTitle(type=string) role$media.engagement.role(type=string) name$name(type=string)
 ;
   
 CONDITIONAL_JOIN_2_LEVELS_ADV_2(QRY)=
@@ -505,8 +505,8 @@ CONDITIONAL_JOIN_2_LEVELS_ADV_2(QRY)=
   order by l.id, pm.location
 ;
 CONDITIONAL_JOIN_2_LEVELS_ADV_2(OUT)=
-  first$string$media.engagement.first
-  last$string$media.engagement.last title$string$media.mediaTitle role$string$media.engagement.role
+  first$media.engagement.first(type=string)
+  last$media.engagement.last(type=string) title$media.mediaTitle(type=string) role$media.engagement.role(type=string)
 ;
   
     
@@ -520,8 +520,8 @@ CONDITIONAL_WHERE_ADV(QRY)=
   order by id
 ;
 CONDITIONAL_WHERE_ADV(OUT)=
-  id$Long$id first$string$engagement.first last$string$engagement.last
-  title$string$mediaTitle role$string$engagement.role
+  id$id(type=Long) first$engagement.first(type=string) last$engagement.last(type=string)
+  title$mediaTitle(type=string) role$engagement.role(type=string)
 ;
 
 CONDITIONAL_WHERE_ADV_2(QRY)=
@@ -535,8 +535,8 @@ CONDITIONAL_WHERE_ADV_2(QRY)=
   order by id
 ;
 CONDITIONAL_WHERE_ADV_2(OUT)=
-  first$string$engagement.first last$string$engagement.last
-  title$string$mediaTitle role$string$engagement.role
+  first$engagement.first(type=string) last$engagement.last(type=string)
+  title$mediaTitle(type=string) role$engagement.role(type=string)
 ;
   
     
@@ -552,8 +552,8 @@ CONDITIONAL_WHERE_AND_BRACES_ADV(QRY)=
   order by id
 ;
 CONDITIONAL_WHERE_AND_BRACES_ADV(OUT)=
-  id$Long$id first$string$engagement.first last$string$engagement.last
-  title$string$mediaTitle role$string$engagement.role
+  id$id(type=Long) first$engagement.first(type=string) last$engagement.last(type=string)
+  title$mediaTitle(type=string) role$engagement.role(type=string)
 ;
 
 CONDITIONAL_WHERE_AND_BRACES_ADV_2(QRY)=
@@ -568,8 +568,8 @@ CONDITIONAL_WHERE_AND_BRACES_ADV_2(QRY)=
   order by id
 ;
 CONDITIONAL_WHERE_AND_BRACES_ADV_2(OUT)=
-  first$string$engagement.first last$string$engagement.last
-  title$string$mediaTitle role$string$engagement.role
+  first$engagement.first(type=string) last$engagement.last(type=string)
+  title$mediaTitle(type=string) role$engagement.role(type=string)
 ;
 
 
@@ -584,8 +584,8 @@ CONDITIONAL_WHERE_AND_BRACES_MORE_ADV(QRY)=
   order by id
 ;
 CONDITIONAL_WHERE_AND_BRACES_MORE_ADV(OUT)=
-  id$Long$id first$string$engagement.first last$string$engagement.last
-  title$string$mediaTitle role$string$engagement.role ssn$string$engagement.ssn
+  id$id(type=Long) first$engagement.first(type=string) last$engagement.last(type=string)
+  title$mediaTitle(type=string) role$engagement.role(type=string) ssn$engagement.ssn(type=string)
 ;
 
 CONDITIONAL_WHERE_AND_BRACES_MORE_ADV_2(QRY)=
@@ -600,8 +600,8 @@ CONDITIONAL_WHERE_AND_BRACES_MORE_ADV_2(QRY)=
   order by id
 ;
 CONDITIONAL_WHERE_AND_BRACES_MORE_ADV_2(OUT)=
-  first$string$engagement.first last$string$engagement.last
-  title$string$mediaTitle role$string$engagement.role ssn$string$engagement.ssn
+  first$engagement.first(type=string) last$engagement.last(type=string)
+  title$mediaTitle(type=string) role$engagement.role(type=string) ssn$engagement.ssn(type=string)
 ;
 
   
@@ -613,19 +613,18 @@ LIKE_BASIC(QRY,BOPT=SURROUND_QUERY_LIKE_FULL=true)=
   {& p.id = :id}
   {& UPPER(p.NAME_FIRST) like :+name.first}
   {? :name.last | and UPPER(p.NAME_LAST) like :+name.last}
-  {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
   {#1 order by id}
 ;
-LIKE_BASIC(OUT)=
-  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
-  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
-  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  version$Long$version
+LIKE_BASIC(OUT)= 
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
 ;
 
 LIKE_BASIC_2(QRY,BOPT=SURROUND_QUERY_LIKE_FULL=true)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate(type=date), p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   where 1=1
@@ -648,15 +647,15 @@ LIKE_BASIC_PARTIAL(QRY,BOPT=SURROUND_QUERY_LIKE_PARTIAL=true)=
   {#1 order by id}
 ;
 LIKE_BASIC_PARTIAL(OUT)=
-  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
-  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
-  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  version$Long$version
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
 ;
 
 LIKE_BASIC_2_PARTIAL(QRY,BOPT=SURROUND_QUERY_LIKE_PARTIAL=true)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate(type=date), p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   where 1=1
@@ -666,7 +665,7 @@ LIKE_BASIC_2_PARTIAL(QRY,BOPT=SURROUND_QUERY_LIKE_PARTIAL=true)=
   {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
   {#1 order by id}
 ;
-
+ 
  
 ORDER(QRY)=
   select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
@@ -679,10 +678,10 @@ ORDER(QRY)=
   {#5 country}
 ;
 ORDER(OUT)=
-  id$Long$id first$string$name.first last$string$name.last ssn$string$ssn.number
-  country$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
-  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  version$Long$version
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
 ;
 
 
@@ -690,14 +689,14 @@ ENUM(QRY)=
   select p.ID, p.SSN_NUMBER ssn, p.SSN_COUNTRY country, p.SEX, p.CLOTHES_SIZE clothesSize
   from PERSON p
   where 1=1
-  {& p.SEX = :sex^estring}
-  {& p.SSN_COUNTRY = $ssn.country^estring}
-  {& p.CLOTHES_SIZE = :clothesSize^eint}
+  {& p.SEX = :sex(type=estring)}
+  {& p.SSN_COUNTRY = $ssn.country(type=estring)}
+  {& p.CLOTHES_SIZE = :clothesSize(type=eint)}
   {#1 order by id}
 ;
 ENUM(OUT)=
-  id$Long ssn$string$ssn.number country$estring$ssn.country sex$estring
-  clothesSize$eint
+  id$id(type=Long) ssn$ssn.number(type=string) country$ssn.country(type=estring) sex$sex(type=estring)
+  clothesSize$clothesSize(type=eint)
 ;
 
 ENUM_2(QRY)=
@@ -715,14 +714,14 @@ ENUM_IN(QRY)=
   select p.ID, p.SSN_NUMBER ssn, p.SSN_COUNTRY country, p.SEX, p.CLOTHES_SIZE clothesSize
   from PERSON p
   where 1=1
-  {& p.SEX in :sexs^estring}
-  {& p.SSN_COUNTRY in $ssn.countries^estring}
-  {& p.CLOTHES_SIZE in :clothesSizes^eint}
+  {& p.SEX in :sexs(type=estring)}
+  {& p.SSN_COUNTRY in $ssn.countries(type=estring)}
+  {& p.CLOTHES_SIZE in :clothesSizes(type=eint)}
   {#1 order by id}
 ;
 ENUM_IN(OUT)=
-  id$Long ssn$string$ssn.number country$estring$ssn.country sex$estring
-  clothesSize$eint
+  id$id(type=Long) ssn$ssn.number(type=string) country$ssn.country(type=estring) sex$sex(type=estring)
+  clothesSize$clothesSize(type=eint)
 ;
 
 ENUM_IN_2(QRY)=
@@ -740,23 +739,23 @@ ENUM_CONDITION(QRY)=
   select p.ID, p.SSN_NUMBER ssn, p.SSN_COUNTRY country, p.SEX, p.CLOTHES_SIZE clothesSize
   from PERSON p
   where 1=1
-  {? :sex^estring^MALE | and p.SEX = 'M'}
-  {? $ssn.country^estring^US | and p.SSN_COUNTRY = 'US'}
-  {? :clothesSize^eint^MIDDLE | and p.CLOTHES_SIZE = 1}
+  {? :sex(type=estring,MALE) | and p.SEX = 'M'}
+  {? $ssn.country(type=estring,US) | and p.SSN_COUNTRY = 'US'}
+  {? :clothesSize(type=eint,MIDDLE) | and p.CLOTHES_SIZE = 1}
   {#1 order by id}
 ;
 ENUM_CONDITION(OUT)=
-  id$Long ssn$string$ssn.number country$estring$ssn.country sex$estring
-  clothesSize$eint
+  id$id(type=Long) ssn$ssn.number(type=string) country$ssn.country(type=estring) sex$sex(type=estring)
+  clothesSize$clothesSize(type=eint)
 ;
 
 ENUM_CONDITION_2(QRY)=
   select p.ID @id, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country, p.SEX @sex, p.CLOTHES_SIZE @clothesSize
   from PERSON p
   where 1=1
-  {? :sex^estring^MALE | and p.SEX = 'M'}
-  {? $ssn.country^estring^US | and p.SSN_COUNTRY = 'US'}
-  {? :clothesSize^eint^MIDDLE | and p.CLOTHES_SIZE = 1}
+  {? :sex(type=estring,MALE) | and p.SEX = 'M'}
+  {? $ssn.country(type=estring,US) | and p.SSN_COUNTRY = 'US'}
+  {? :clothesSize(type=eint,MIDDLE) | and p.CLOTHES_SIZE = 1}
   {#1 order by id}
 ;
 
@@ -764,23 +763,23 @@ ENUM_CONDITION_3(QRY)=
   select p.ID @id, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country, p.SEX @sex, p.CLOTHES_SIZE @clothesSize
   from PERSON p
   where 1=1
-  {? :sex^^MALE | and p.SEX = 'M'}
-  {? $ssn.country^^US | and p.SSN_COUNTRY = 'US'}
-  {? :clothesSize^^MIDDLE | and p.CLOTHES_SIZE = 1}
+  {? :sex(MALE) | and p.SEX = 'M'}
+  {? $ssn.country(US) | and p.SSN_COUNTRY = 'US'}
+  {? :clothesSize(MIDDLE) | and p.CLOTHES_SIZE = 1}
   {#1 order by id}
 ;
 
 
 SIMPLE_ESCAPED(QRY)=
   select p.ID @id, p.NAME_LAST @name.last,
-  '\:\$\@}|' @name.first^string
+  '\:\$\@}|' @name.first(type=string)
   from PERSON p
   order by id
 ;
   
 IN_META_ESCAPED(QRY)=
   select p.ID @id,
-  { $-name.last @name.last^string, '\:\$\@\}\|' @name.first^string }
+  { $-name.last @name.last(type=string), '\:\$\@\}\|' @name.first(type=string) }
   from PERSON p
   order by id
 ;
@@ -800,48 +799,48 @@ COLLECTIONS_STANDARD(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.LASTUPDATEDBY @lastUpdatedBy
   from PERSON p
   where 1=1
-  {& p.ID in :idSet^Long}
-  {& p.LASTUPDATEDBY in :updatedBySet^String}
-  {& p.NAME_FIRST in :names.firstList^String | p.NAME_LAST in :names.lastList^String}
+  {& p.ID in :idSet(type=Long)}
+  {& p.LASTUPDATEDBY in :updatedBySet(type=String)}
+  {& p.NAME_FIRST in :names.firstList(type=String) | p.NAME_LAST in :names.lastList(type=String)}
   {#1 order by id}
 ;
   
 PARAMETERS_MORE(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   where 1=1
-  {& p.id = :id^long^null}
-  {& p.NAME_FIRST = :name.first^string^null | p.NAME_LAST = :name.last^string^null | p.SSN_NUMBER = :ssn.number^string^null}
-  {& p.SSN_COUNTRY = :ssn.country^estring^null | p.BIRTHDATE = :birthDate^date^null | p.SEX = :sex^estring^null}
-  {& p.CREATEDDATE = :createdDate^datetime^null | p.LASTUPDATEDBY = :lastUpdatedBy^string^null | p.LASTUPDATED = :lastUpdated^datetime^null}
-  {& p.CREATEDBY = :createdBy^string^null}
-  {& p.VERSION = :version^long^null}
+  {& p.id = :id(type=long,null)}
+  {& p.NAME_FIRST = :name.first(type=string,null) | p.NAME_LAST = :name.last(type=string,null) | p.SSN_NUMBER = :ssn.number(type=string,null)}
+  {& p.SSN_COUNTRY = :ssn.country(type=estring,null) | p.BIRTHDATE = :birthDate(type=date,null) | p.SEX = :sex(type=estring,null)}
+  {& p.CREATEDDATE = :createdDate(type=datetime,null) | p.LASTUPDATEDBY = :lastUpdatedBy(type=string,null) | p.LASTUPDATED = :lastUpdated(type=datetime,null)}
+  {& p.CREATEDBY = :createdBy(type=string,null)}
+  {& p.VERSION = :version(type=long,null)}
   {#1 order by id}
 ;
   
 PARAMETERS_MORE_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   where 1=1
-  {& p.id = :id^^null}
-  {& p.NAME_FIRST = :name.first^^null | p.NAME_LAST = :name.last^^null | p.SSN_NUMBER = :ssn.number^^null}
-  {& p.SSN_COUNTRY = :ssn.country^^null | p.BIRTHDATE = :birthDate^^null | p.SEX = :sex^^null}
-  {& p.CREATEDDATE = :createdDate^^null | p.LASTUPDATEDBY = :lastUpdatedBy^^null | p.LASTUPDATED = :lastUpdated^^null}
-  {& p.CREATEDBY = :createdBy^^null}
-  {& p.VERSION = :version^^null}
+  {& p.id = :id(null)}
+  {& p.NAME_FIRST = :name.first(null) | p.NAME_LAST = :name.last(null) | p.SSN_NUMBER = :ssn.number(null)}
+  {& p.SSN_COUNTRY = :ssn.country(null) | p.BIRTHDATE = :birthDate(null) | p.SEX = :sex(null)}
+  {& p.CREATEDDATE = :createdDate(null) | p.LASTUPDATEDBY = :lastUpdatedBy(null) | p.LASTUPDATED = :lastUpdated(null)}
+  {& p.CREATEDBY = :createdBy(null)}
+  {& p.VERSION = :version(null)}
   {#1 order by id}
 ;
   
 PARAMETERS_TOP(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
-  where p.id = :id^long^any
+  where p.id = :id(type=long,any)
   {? :createdBy | AND p.CREATEDBY=:createdBy | AND p.CREATEDBY is null }
   {#1 order by id}
 ;
@@ -849,25 +848,25 @@ PARAMETERS_TOP(QRY)=
 
 CONDITIONS_MORE(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   where 1=1
-  {? :id^long^null | AND p.ID is null | AND p.ID = :id}
-  {? :version^long^1 | AND (p.VERSION = 1 OR p.VERSION is null)}
-  {? $lastUpdatedBy^string^pes | AND p.LASTUPDATEDBY = 'dbunit' | AND p.LASTUPDATEDBY like '\%'}
+  {? :id(type=long,null) | AND p.ID is null | AND p.ID = :id}
+  {? :version(type=long,1) | AND (p.VERSION = 1 OR p.VERSION is null)}
+  {? $lastUpdatedBy(type=string,pes) | AND p.LASTUPDATEDBY = 'dbunit' | AND p.LASTUPDATEDBY like '\%'}
   {#1 order by id}
 ;
 
 CONDITIONS_MORE_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated^date,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   where 1=1
-  {? :id^^null | AND p.ID is null | AND p.ID = :id}
-  {? :version^^1 | AND (p.VERSION = 1 OR p.VERSION is null)}
-  {? $lastUpdatedBy^^pes | AND p.LASTUPDATEDBY = 'dbunit' | AND p.LASTUPDATEDBY like '\%'}
+  {? :id(null) | AND p.ID is null | AND p.ID = :id}
+  {? :version(1) | AND (p.VERSION = 1 OR p.VERSION is null)}
+  {? $lastUpdatedBy(pes) | AND p.LASTUPDATEDBY = 'dbunit' | AND p.LASTUPDATEDBY like '\%'}
   {#1 order by id}
 ;
   
@@ -896,28 +895,28 @@ STANDARD_TYPES(QRY)=
   where id=1
 ;
 STANDARD_TYPES(OUT)=
-  n_int$int t_int$int
-  n_long$long t_long$long
-  n_byte$byte t_byte$byte
-  n_short$short t_short$short
-  n_float$float t_float$float
-  n_double$double t_double$double
-  n_char$char t_char$char
-  t_string$string
-  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
-  n_boolean$boolean t_boolean$boolean
-  t_big_integer$bigint t_big_decimal$bigdec
-  an_byte$bytes at_byte$bytes
+  n_int$n_int(type=int) t_int$t_int(type=int)
+  n_long$n_long(type=long) t_long$t_long(type=long)
+  n_byte$n_byte(type=byte) t_byte$t_byte(type=byte)
+  n_short$n_short(type=short) t_short$t_short(type=short)
+  n_float$n_float(type=float) t_float$t_float(type=float)
+  n_double$n_double(type=double) t_double$t_double(type=double)
+  n_char$n_char(type=char) t_char$t_char(type=char)
+  t_string$t_string(type=string)
+  t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
+  n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
+  t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes)
 ;
  
 STANDARD_TYPES_2(QRY)=
-  select t_int @n_int^int, @t_int^int, t_long @n_long^long, @t_long^long, t_byte @n_byte^byte, @t_byte^byte,
-  t_short @n_short^short, @t_short^short, t_float @n_float^float, @t_float^float, t_double @n_double^double, @t_double^double,
-  t_char @n_char^char, @t_char^char, @t_string^string,
-  @t_time^time, @t_date^date, @t_datetime^datetime, @t_timestamp^timestamp,
-  t_boolean @n_boolean^boolean, @t_boolean^boolean,
-  @t_big_integer^bigint, @t_big_decimal^bigdec,
-  a_byte @an_byte^bytes, a_byte @at_byte^bytes
+  select t_int @n_int(type=int), @t_int(type=int), t_long @n_long(type=long), @t_long(type=long), t_byte @n_byte(type=byte), @t_byte(type=byte),
+  t_short @n_short(type=short), @t_short(type=short), t_float @n_float(type=float), @t_float(type=float), t_double @n_double(type=double), @t_double(type=double),
+  t_char @n_char(type=char), @t_char(type=char), @t_string(type=string),
+  @t_time(type=time), @t_date(type=date), @t_datetime(type=datetime), @t_timestamp(type=timestamp),
+  t_boolean @n_boolean(type=boolean), @t_boolean(type=boolean),
+  @t_big_integer(type=bigint), @t_big_decimal(type=bigdec),
+  a_byte @an_byte(type=bytes), a_byte @at_byte(type=bytes)
   from TYPES
   where id=1
 ;
@@ -936,19 +935,19 @@ UNDEFINED_TYPES(QRY)=
   where id=1
 ;
 UNDEFINED_TYPES(OUT)=
-  n_int t_int
-  n_long t_long
-  n_byte t_byte
-  n_short t_short
-  n_float t_float
-  n_double t_double
-  n_char t_char
-  t_string
-  t_time t_date t_datetime t_timestamp
-  n_boolean t_boolean
-  t_big_integer t_big_decimal
-  an_byte at_byte a_text$text
-  a_blob a_clob
+  n_int$n_int(type=int) t_int$t_int(type=int)
+  n_long$n_long(type=long) t_long$t_long(type=long)
+  n_byte$n_byte(type=byte) t_byte$t_byte(type=byte)
+  n_short$n_short(type=short) t_short$t_short(type=short)
+  n_float$n_float(type=float) t_float$t_float(type=float)
+  n_double$n_double(type=double) t_double$t_double(type=double)
+  n_char$n_char(type=char) t_char$t_char(type=char)
+  t_string$t_string(type=string)
+  t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
+  n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
+  t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes) a_text$a_text(type=text)
+  a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 
 UNDEFINED_TYPES_2(QRY)=
@@ -958,7 +957,7 @@ UNDEFINED_TYPES_2(QRY)=
   @t_time, @t_date, @t_datetime, @t_timestamp,
   t_boolean @n_boolean, @t_boolean,
   @t_big_integer, @t_big_decimal,
-  a_byte @an_byte, a_byte @at_byte, @a_text^text,
+  a_byte @an_byte, a_byte @at_byte, @a_text(type=text),
   @a_blob, @a_clob
   from TYPES t
   where id=1
@@ -1017,19 +1016,19 @@ UNDEFINED_PARAMETERS(QRY,INFORMIX)=
   {& t_timestamp = :t_timestamp}
 ;
 UNDEFINED_PARAMETERS(OUT)=
-  n_int$int t_int$int
-  n_long$long t_long$long
-  n_byte$byte t_byte$byte
-  n_short$short t_short$short
-  n_float$float t_float$float
-  n_double$double t_double$double
-  n_char$char t_char$char
-  t_string$string
-  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
-  n_boolean$boolean t_boolean$boolean
-  t_big_integer$bigint t_big_decimal$bigdec
-  an_byte$bytes at_byte$bytes a_text$text
-  a_blob$blob a_clob$clob
+  n_int$n_int(type=int) t_int$t_int(type=int)
+  n_long$n_long(type=long) t_long$t_long(type=long)
+  n_byte$n_byte(type=byte) t_byte$t_byte(type=byte)
+  n_short$n_short(type=short) t_short$t_short(type=short)
+  n_float$n_float(type=float) t_float$t_float(type=float)
+  n_double$n_double(type=double) t_double$t_double(type=double)
+  n_char$n_char(type=char) t_char$t_char(type=char)
+  t_string$t_string(type=string)
+  t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
+  n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
+  t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes) a_text$a_text(type=text)
+  a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 
  
@@ -1044,35 +1043,35 @@ STANDARD_PARAMETERS(QRY)=
   t.a_blob, t.a_clob
   from TYPES t
   where 1=1
-  {& t_int = :t_int^int}
-  {& t_long = :t_long^long}
-  {& t_byte = :t_byte^byte}
-  {& a_byte = :an_byte^bytes}
-  {& t_short = :t_short^short}
-  {& t_float = :t_float^float}
-  {& t_double = :t_double^double}
-  {& t_char = :t_char^char}
-  {& t_string = :t_string^string}
-  {& t_boolean = :t_boolean^boolean}
-  {& t_date = :t_date^date}
-  {& t_time = :t_time^time}
-  {& t_datetime = :t_datetime^datetime}
-  {& t_timestamp = :t_timestamp^timestamp}
+  {& t_int = :t_int(type=int)}
+  {& t_long = :t_long(type=long)}
+  {& t_byte = :t_byte(type=byte)}
+  {& a_byte = :an_byte(type=bytes)}
+  {& t_short = :t_short(type=short)}
+  {& t_float = :t_float(type=float)}
+  {& t_double = :t_double(type=double)}
+  {& t_char = :t_char(type=char)}
+  {& t_string = :t_string(type=string)}
+  {& t_boolean = :t_boolean(type=boolean)}
+  {& t_date = :t_date(type=date)}
+  {& t_time = :t_time(type=time)}
+  {& t_datetime = :t_datetime(type=datetime)}
+  {& t_timestamp = :t_timestamp(type=timestamp)}
 ;
 STANDARD_PARAMETERS(OUT)=
-  n_int$int t_int$int
-  n_long$long t_long$long
-  n_byte$byte t_byte$byte
-  n_short$short t_short$short
-  n_float$float t_float$float
-  n_double$double t_double$double
-  n_char$char t_char$char
-  t_string$string
-  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
-  n_boolean$boolean t_boolean$boolean
-  t_big_integer$bigint t_big_decimal$bigdec
-  an_byte$bytes at_byte$bytes a_text$text
-  a_blob$blob a_clob$clob
+  n_int$n_int(type=int) t_int$t_int(type=int)
+  n_long$n_long(type=long) t_long$t_long(type=long)
+  n_byte$n_byte(type=byte) t_byte$t_byte(type=byte)
+  n_short$n_short(type=short) t_short$t_short(type=short)
+  n_float$n_float(type=float) t_float$t_float(type=float)
+  n_double$n_double(type=double) t_double$t_double(type=double)
+  n_char$n_char(type=char) t_char$t_char(type=char)
+  t_string$t_string(type=string)
+  t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
+  n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
+  t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes) a_text$a_text(type=text)
+  a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 STANDARD_PARAMETERS(QRY,INFORMIX)=
   select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
@@ -1085,34 +1084,34 @@ STANDARD_PARAMETERS(QRY,INFORMIX)=
   t.a_blob, t.a_clob
   from TYPES t
   where 1=1
-  {& t_int = :t_int^int}
-  {& t_long = :t_long^long}
-  {& t_byte = :t_byte^byte}
-  {& t_short = :t_short^short}
-  {& t_float = :t_float^float}
-  {& t_double = :t_double^double}
-  {& t_char = :t_char^char}
-  {& t_string = :t_string^string}
-  {& t_boolean = :t_boolean^boolean}
-  {& t_date = :t_date^date}
-  {& t_time = :t_time^time}
-  {& t_datetime = :t_datetime^datetime}
-  {& t_timestamp = :t_timestamp^timestamp}
+  {& t_int = :t_int(type=int)}
+  {& t_long = :t_long(type=long)}
+  {& t_byte = :t_byte(type=byte)}
+  {& t_short = :t_short(type=short)}
+  {& t_float = :t_float(type=float)}
+  {& t_double = :t_double(type=double)}
+  {& t_char = :t_char(type=char)}
+  {& t_string = :t_string(type=string)}
+  {& t_boolean = :t_boolean(type=boolean)}
+  {& t_date = :t_date(type=date)}
+  {& t_time = :t_time(type=time)}
+  {& t_datetime = :t_datetime(type=datetime)}
+  {& t_timestamp = :t_timestamp(type=timestamp)}
 ;
 STANDARD_PARAMETERS(OUT,INFORMIX)=
-  n_int$int t_int$int
-  n_long$long t_long$long
-  n_byte$byte t_byte$byte
-  n_short$short t_short$short
-  n_float$float t_float$float
-  n_double$double t_double$double
-  n_char$char t_char$char
-  t_string$string
-  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
-  n_boolean$boolean t_boolean$boolean
-  t_big_integer$bigint t_big_decimal$bigdec
-  an_byte$bytes at_byte$bytes a_text$text
-  a_blob$blob a_clob$clob
+  n_int$n_int(type=int) t_int$t_int(type=int)
+  n_long$n_long(type=long) t_long$t_long(type=long)
+  n_byte$n_byte(type=byte) t_byte$t_byte(type=byte)
+  n_short$n_short(type=short) t_short$t_short(type=short)
+  n_float$n_float(type=float) t_float$t_float(type=float)
+  n_double$n_double(type=double) t_double$t_double(type=double)
+  n_char$n_char(type=char) t_char$t_char(type=char)
+  t_string$t_string(type=string)
+  t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
+  n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
+  t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes) a_text$a_text(type=text)
+  a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
  
 FROM_TO_PARAMETERS(QRY)=
@@ -1126,74 +1125,74 @@ FROM_TO_PARAMETERS(QRY)=
   t.a_blob, t.a_clob
   from TYPES t
   where 1=1
-  {& t_date >= :t_datetime^fromdate}
-  {& t_date < :t_timestamp^todate}
+  {& t_date >= :t_datetime(type=fromdate)}
+  {& t_date < :t_timestamp(type=todate)}
 ;
 FROM_TO_PARAMETERS(OUT)=
-  n_int$int t_int$int
-  n_long$long t_long$long
-  n_byte$byte t_byte$byte
-  n_short$short t_short$short
-  n_float$float t_float$float
-  n_double$double t_double$double
-  n_char$char t_char$char
-  t_string$string
-  t_time$time t_date$date t_datetime$datetime t_timestamp$timestamp
-  n_boolean$boolean t_boolean$boolean
-  t_big_integer$bigint t_big_decimal$bigdec
-  an_byte$bytes at_byte$bytes a_text$text
-  a_blob$blob a_clob$clob
+  n_int$n_int(type=int) t_int$t_int(type=int)
+  n_long$n_long(type=long) t_long$t_long(type=long)
+  n_byte$n_byte(type=byte) t_byte$t_byte(type=byte)
+  n_short$n_short(type=short) t_short$t_short(type=short)
+  n_float$n_float(type=float) t_float$t_float(type=float)
+  n_double$n_double(type=double) t_double$t_double(type=double)
+  n_char$n_char(type=char) t_char$t_char(type=char)
+  t_string$t_string(type=string)
+  t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
+  n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
+  t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes) a_text$a_text(type=text)
+  a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 
  
 CUSTOM_TYPE_IN_OUT(QRY)=
-  select c.ID @id, c.ADRESS @address, c.PHONE_NUMBER @phone^phone
+  select c.ID @id, c.ADRESS @address, c.PHONE_NUMBER @phone(type=phone)
   from CONTACT c
   {= where c.ID = :id}
-  {= where c.PHONE_NUMBER = :phone^phone}
+  {= where c.PHONE_NUMBER = :phone(type=phone)}
   {#1 order by c.ID}
 ;
   
 CUSTOM_TYPE_INSERT(CRUD)=
   insert into CONTACT (ID, ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
-  {= values (:id^long^seq=SEQ1, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
+  {= values (:id(type=long,seq=SEQ1), :address, :city, :zip, :state, :uuid, :createdDate(type=stamp), :createdBy, :version, :phone(type=phone)) }
 ;
   
 CUSTOM_TYPE_INSERT_2(CRUD)=
   insert into CONTACT (ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
-  {= values (:id^long^idsel, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
+  {= values (:id(type=long,idsel), :address, :city, :zip, :state, :uuid, :createdDate(type=stamp), :createdBy, :version, :phone(type=phone)) }
 ;
 CUSTOM_TYPE_INSERT_2(CRUD,POSTGRESQL)=
   insert into CONTACT (ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
-  {= values (:id^long^idsel=SEL2, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
+  {= values (:id(type=long,idsel=SEL2), :address, :city, :zip, :state, :uuid, :createdDate(type=stamp), :createdBy, :version, :phone(type=phone)) }
 ;
   
 CUSTOM_TYPE_INSERT_3(CRUD)=
   insert into CONTACT (ID, ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
-  {= values (:id^^seq=SEQ1, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
+  {= values (:id(seq=SEQ1), :address, :city, :zip, :state, :uuid, :createdDate(type=stamp), :createdBy, :version, :phone(type=phone)) }
 ;
   
 CUSTOM_TYPE_INSERT_4(CRUD)=
   insert into CONTACT (ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
-  {= values (:id^^idsel, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
+  {= values (:id(idsel), :address, :city, :zip, :state, :uuid, :createdDate(type=stamp), :createdBy, :version, :phone(type=phone)) }
 ;
 CUSTOM_TYPE_INSERT_4(CRUD,POSTGRESQL)=
   insert into CONTACT (ADRESS, CITY, ZIP, STATE, UUID,  CREATEDDATE, CREATEDBY, VERSION, PHONE_NUMBER)
-  {= values (:id^^idsel=SEL2, :address, :city, :zip, :state, :uuid, :createdDate^stamp, :createdBy, :version, :phone^phone) }
+  {= values (:id(idsel=SEL2), :address, :city, :zip, :state, :uuid, :createdDate(type=stamp), :createdBy, :version, :phone(type=phone)) }
 ;
   
 CUSTOM_TYPE_GET(CRUD)=
-  select c.ID @id, c.ADRESS @address, c.PHONE_NUMBER @phone^phone
+  select c.ID @id, c.ADRESS @address, c.PHONE_NUMBER @phone(type=phone)
   from CONTACT c
   {= where c.ID = :id}
-  {= where c.PHONE_NUMBER = :phone^phone}
+  {= where c.PHONE_NUMBER = :phone(type=phone)}
 ;
 
 
 INHERITANCE2_BASIC(QRY)=
   select s.ID @id, s.NAME_FIRST @name.first, s.NAME_LAST @name.last, s.LIBRARY @library.id,
-  bd.TYPE @billingDetails==discriminator.type, bd.ID @billingDetails.id, bd.CC_NUMBER @billingDetails.number^long,
-  bd.CC_EXP_MONTH @billingDetails.expMonth^short, bd.CC_EXP_YEAR @billingDetails.expYear^short,
+  bd.TYPE @billingDetails==discriminator.type, bd.ID @billingDetails.id, bd.CC_NUMBER @billingDetails.number(type=long),
+  bd.CC_EXP_MONTH @billingDetails.expMonth(type=short), bd.CC_EXP_YEAR @billingDetails.expYear(type=short),
   bd.BA_ACCOUNT_NUMBER @billingDetails.accountNumber, bd.BA_BANK_NAME @billingDetails.bankName,
   bd.BA_SWIFT @billingDetails.swift
   from SUBSCRIBER s left join BILLING_DETAILS bd on s.ID = bd.SUBSCRIBER
@@ -1216,25 +1215,25 @@ BASIC_LEFT_JOIN_NO_ID_2(OUT)=
 ;
 
 BASIC_LEFT_JOIN(QRY)=
-  select l.ID @id^long^id, l.NAME as @name, pm.ID @media.id^long^id, pm.LOCATION @media.location
+  select l.ID @id(type=long,id), l.NAME as @name, pm.ID @media.id(type=long,id), pm.LOCATION @media.location
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   {#1 order by l.ID, pm.ID}
 ;
 
 BASIC_LEFT_JOIN_2(QRY)=
-  select l.NAME as @name, l.ID @id^long^id, pm.LOCATION @media.location, pm.ID @media.id^long^id
+  select l.NAME as @name, l.ID @id(type=long,id), pm.LOCATION @media.location, pm.ID @media.id(type=long,id)
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   {#1 order by l.ID, pm.ID}
 ;
 
 BASIC_LEFT_JOIN_3(QRY)=
-  select l.ID @id^^id, l.NAME as @name, pm.ID @media.id^^id, pm.LOCATION @media.location
+  select l.ID @id(id), l.NAME as @name, pm.ID @media.id(id), pm.LOCATION @media.location
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   {#1 order by l.ID, pm.ID}
 ;
 
 BASIC_2_LEFT_JOIN(QRY)=
-  select l.NAME as @name, l.ID @id^long^id, pm.LOCATION @media.location, pm.ID @media.id^long^id
+  select l.NAME as @name, l.ID @id(type=long,id), pm.LOCATION @media.location, pm.ID @media.id(type=long,id)
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
   left join MEDIA m on m.ID = mpm.MEDIA
@@ -1242,8 +1241,8 @@ BASIC_2_LEFT_JOIN(QRY)=
 ;
 
 BASIC_2_LEFT_JOIN_2(QRY)=
-  select l.NAME as @name, l.ID @id^long^id, pm.LOCATION @media.location, pm.ID @media.id^long^id,
-  m.TITLE @media.media==movie.title, m.ID @media.media.id^long^id
+  select l.NAME as @name, l.ID @id(type=long,id), pm.LOCATION @media.location, pm.ID @media.id(type=long,id),
+  m.TITLE @media.media==movie.title, m.ID @media.media.id(type=long,id)
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
   left join MEDIA m on m.ID = mpm.MEDIA
@@ -1251,8 +1250,8 @@ BASIC_2_LEFT_JOIN_2(QRY)=
 ;
 
 BASIC_2_LEFT_JOIN_3(QRY)=
-  select pm.LOCATION @media.location, m.ID @media.media==movie.id^long^id, l.NAME as @name, l.ID @id^long^id,
-  pm.ID @media.id^long^id, m.TITLE @media.media.title
+  select pm.LOCATION @media.location, m.ID @media.media==movie.id(type=long,id), l.NAME as @name, l.ID @id(type=long,id),
+  pm.ID @media.id(type=long,id), m.TITLE @media.media.title
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
   left join MEDIA m on m.ID = mpm.MEDIA
@@ -1268,15 +1267,15 @@ BASIC_2_LEFT_JOIN_4(QRY)=
 ;
 
 BASIC_2_LEFT_JOIN_4(OUT)=
-  location$$media.location mid$$media.media==movie.id name lid$$id
-  pid$$media.id title$$media.media.title
+  location$media.location mid$media.media==movie.id name lid$id
+  pid$media.id title$media.media.title
 ;
 
 BASIC_3_LEFT_JOIN(QRY)=
-  select l.ID @id^long^id, l.NAME as @name, pm.ID @media.id^long^id, pm.LOCATION @media.location,
-  m.ID @media.media==movie.id^long^id, m.TITLE @media.media.title^string,
-  e.ID @media.media.engagements.id^long^id, e.ROLE @media.media.engagements.role,
-  p.ID @media.media.engagements.person.id^long^id, p.NAME_LAST @media.media.engagements.person.name.last,
+  select l.ID @id(type=long,id), l.NAME as @name, pm.ID @media.id(type=long,id), pm.LOCATION @media.location,
+  m.ID @media.media==movie.id(type=long,id), m.TITLE @media.media.title(type=string),
+  e.ID @media.media.engagements.id(type=long,id), e.ROLE @media.media.engagements.role,
+  p.ID @media.media.engagements.person.id(type=long,id), p.NAME_LAST @media.media.engagements.person.name.last,
   p.SEX @media.media.engagements.person.sex, p.CLOTHES_SIZE @media.media.engagements.person.clothesSize
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
@@ -1286,10 +1285,10 @@ BASIC_3_LEFT_JOIN(QRY)=
 ;
 
 BASIC_4_LEFT_JOIN(QRY)=
-  select l.ID @id^long^id, l.NAME as @name, pm.ID @media.id^long^id, pm.LOCATION @media.location,
-  m.ID @media.media==movie.id^long^id, m.TITLE @media.media.title^string,
-  mc.ID @media.media.mediaCharacters.id^long^id, mc.NAME @media.media.mediaCharacters.name,
-  p.ID @media.media.mediaCharacters.playedBy.id^long^id, p.NAME_LAST @media.media.mediaCharacters.playedBy.name.last,
+  select l.ID @id(type=long,id), l.NAME as @name, pm.ID @media.id(type=long,id), pm.LOCATION @media.location,
+  m.ID @media.media==movie.id(type=long,id), m.TITLE @media.media.title(type=string),
+  mc.ID @media.media.mediaCharacters.id(type=long,id), mc.NAME @media.media.mediaCharacters.name,
+  p.ID @media.media.mediaCharacters.playedBy.id(type=long,id), p.NAME_LAST @media.media.mediaCharacters.playedBy.name.last,
   p.SEX @media.media.mediaCharacters.playedBy.sex, p.CLOTHES_SIZE @media.media.mediaCharacters.playedBy.clothesSize
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
@@ -1301,7 +1300,7 @@ BASIC_4_LEFT_JOIN(QRY)=
 
 BASIC_4_LEFT_JOIN_2(QRY)=
   select %l.ID @id, %l.NAME as @name, %pm.ID @media.id, %pm.LOCATION @media.location,
-  %m.ID @media.media==movie.id, %m.TITLE @media.media.title^string,
+  %m.ID @media.media==movie.id, %m.TITLE @media.media.title(type=string),
   %mc.ID @media.media.mediaCharacters.id, %mc.NAME @media.media.mediaCharacters.name,
   %p.ID @media.media.mediaCharacters.playedBy.id, %p.NAME_LAST @media.media.mediaCharacters.playedBy.name.last,
   %p.SEX @media.media.mediaCharacters.playedBy.sex, %p.CLOTHES_SIZE @media.media.mediaCharacters.playedBy.clothesSize
@@ -1314,13 +1313,13 @@ BASIC_4_LEFT_JOIN_2(QRY)=
 ;
 
 BASIC_LEFT_JOIN_LIST(QRY)=
-  select l.ID @id^long^id, l.NAME as @name, pm.ID @mediaList.id^long^id, pm.LOCATION @mediaList.location
+  select l.ID @id(type=long,id), l.NAME as @name, pm.ID @mediaList.id(type=long,id), pm.LOCATION @mediaList.location
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   {#1 order by l.ID, pm.ID}
 ;
 
 BASIC_LEFT_JOIN_LIST_2(QRY)=
-  select l.ID @id^long^id, l.NAME as @name, pm.ID @mediaList=alist.id^long^id, pm.LOCATION @mediaList.location
+  select l.ID @id(type=long,id), l.NAME as @name, pm.ID @mediaList=alist.id(type=long,id), pm.LOCATION @mediaList.location
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   {#1 order by l.ID, pm.ID}
 ;
@@ -1338,7 +1337,7 @@ BASIC_LEFT_JOIN_LIST_4(QRY)=
 ;
 
 BASIC_LEFT_JOIN_LIST_4(OUT)=
-  lid$$id name pid$$mediaList=alist.id location$$mediaList.location
+  lid$id name pid$mediaList=alist.id location$mediaList.location
 ;
 
 BASIC_LEFT_JOIN_LIST_5(CRUD)=
@@ -1348,7 +1347,7 @@ BASIC_LEFT_JOIN_LIST_5(CRUD)=
 ;
 
 BASIC_LEFT_JOIN_LIST_5(OUT)=
-  lid$$id name pid$$mediaList=alist.id location$$mediaList.location
+  lid$id name pid$mediaList=alist.id location$mediaList.location
 ;
 
 BASIC_LEFT_JOIN_LIST_6(CRUD)=
@@ -1358,13 +1357,13 @@ BASIC_LEFT_JOIN_LIST_6(CRUD)=
 ;
 
 BASIC_LEFT_JOIN_SET(QRY)=
-  select l.ID @id^long^id, l.NAME as @name, pm.ID @mediaSet.id^long^id, pm.LOCATION @mediaSet.location
+  select l.ID @id(type=long,id), l.NAME as @name, pm.ID @mediaSet.id(type=long,id), pm.LOCATION @mediaSet.location
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   {#1 order by l.ID, pm.ID}
 ;
 
 BASIC_LEFT_JOIN_SET_2(QRY)=
-  select l.ID @id^long^id, l.NAME as @name, pm.ID @mediaSet=aset.id^long^id, pm.LOCATION @mediaSet.location
+  select l.ID @id(type=long,id), l.NAME as @name, pm.ID @mediaSet=aset.id(type=long,id), pm.LOCATION @mediaSet.location
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   {#1 order by l.ID, pm.ID}
 ;
@@ -1376,10 +1375,10 @@ BASIC_LEFT_JOIN_SET_3(QRY)=
 ;
 
 BASIC_POLY_JOIN(QRY)=
-  select l.ID @id^long^id, l.NAME as @name,
-  pm.ID @media.id^long^id, pm.LOCATION @media.location,
-  mo.MEDIA @media.media==movie.id^long^id, mo.URLIMDB @media.media.urlIMDB, mo.CATEGORY @media.media.category,
-  bk.MEDIA @media.media==book.id^long^id, bk.ISBN @media.media.isbn,
+  select l.ID @id(type=long,id), l.NAME as @name,
+  pm.ID @media.id(type=long,id), pm.LOCATION @media.location,
+  mo.MEDIA @media.media==movie.id(type=long,id), mo.URLIMDB @media.media.urlIMDB, mo.CATEGORY @media.media.category,
+  bk.MEDIA @media.media==book.id(type=long,id), bk.ISBN @media.media.isbn,
   m.TITLE @media.media.title
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
@@ -1406,9 +1405,9 @@ BASIC_POLY_JOIN_2(QRY)=
 ;
 
 BASIC_POLY2_JOIN(QRY)=
-  select pm.ID @id^long^id, pm.LOCATION as @location,
-  mo.MEDIA @media==movie.id^long^id, mo.URLIMDB @media.urlIMDB, mo.CATEGORY @media.category,
-  bk.MEDIA @media==book.id^long^id, bk.ISBN @media.isbn,
+  select pm.ID @id(type=long,id), pm.LOCATION as @location,
+  mo.MEDIA @media==movie.id(type=long,id), mo.URLIMDB @media.urlIMDB, mo.CATEGORY @media.category,
+  bk.MEDIA @media==book.id(type=long,id), bk.ISBN @media.isbn,
   m.TITLE @media.title
   from PHYSICALMEDIA pm
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
@@ -1435,7 +1434,7 @@ BASIC_POLY2_JOIN_2(QRY)=
 
 BASIC_JOIN_ONE_TO_ONE_1(QRY)=
   select p.ID @id, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country, p.NAME_FIRST @name.first, p.NAME_LAST @name.last,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy, p.VERSION as @version,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate(type=date), p.CREATEDBY @createdBy, p.VERSION as @version,
   p.CLOTHES_SIZE @clothesSize,
   c.ID @contact.id, c.ADRESS @contact.address, c.CITY @contact.city, c.ZIP @contact.zip, c.STATE @contact.state, c.UUID @contact.uuid,
   c.CREATEDDATE @contact.createdDate, c.CREATEDBY @contact.createdBy, c.VERSION @contact.version
@@ -1460,10 +1459,10 @@ BASIC_TWO_JOINS(QRY)=
 ;
 
 EXTRA_JOIN(QRY)=
-  select l.ID @id^long^id, l.NAME as @name,
-  pm.ID @media.id^long^id, pm.LOCATION @media.location,
-  mo.MEDIA @media.media==movie.id^long^id, mo.URLIMDB @media.media.urlIMDB,
-  bk.MEDIA @media.media==book.id^long^id, bk.ISBN @media.media.isbn,
+  select l.ID @id(type=long,id), l.NAME as @name,
+  pm.ID @media.id(type=long,id), pm.LOCATION @media.location,
+  mo.MEDIA @media.media==movie.id(type=long,id), mo.URLIMDB @media.media.urlIMDB,
+  bk.MEDIA @media.media==book.id(type=long,id), bk.ISBN @media.media.isbn,
   m.TITLE @media.media.title,
   en.ID @media.media.engagements.id, en.ROLE @media.media.engagements.role,
   p1.ID @media.media.engagements.person.id, p1.NAME_FIRST @media.media.engagements.person.name.first,  
@@ -1492,58 +1491,58 @@ ANSI_BASIC_ASTERISK(QRY)=
   order by %p.ID
 ;
 ANSI_BASIC_ASTERISK(OUT)=
-  id$Long$id NAME_FIRST$string$name.first NAME_LAST$string$name.last SSN_NUMBER$string$ssn.number
-  SSN_COUNTRY$estring$ssn.country birthDate$date$birthDate sex$estring$sex createdDate$date$createdDate
-  createdBy$string$createdBy lastUpdated$date$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  version$Long$version
+  id$id(type=Long) name_first$name.first(type=string) name_last$name.last(type=string) ssn_number$ssn.number(type=string)
+  ssn_country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
 ;
 
 
 INSERT_PERSON(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
-  values (:id, :ssn.number^string^any, :ssn.country, :name.first^string^any, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize)
+  values (:id, :ssn.number(type=string,any), :ssn.country, :name.first(type=string,any), :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize)
 ;
 INSERT_PERSON(CRUD,MSSQL)=
   set identity_insert PERSON on
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
-  values (:id, :ssn.number^string^any, :ssn.country, :name.first^string^any, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize)
+  values (:id, :ssn.number(type=string,any), :ssn.country, :name.first(type=string,any), :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize)
   set identity_insert PERSON off
 ;
 
 INSERT_PERSON_2(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
-  values (:id^long^seq=SEQ1, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp^any, :createdBy, :version, :clothesSize)
+  values (:id(type=long,seq=SEQ1), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp,any), :createdBy, :version, :clothesSize)
 ;
   
 INSERT_PERSON_3(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
-  {= values (:id^long^seq=SEQ1, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize) }
+  {= values (:id(type=long,seq=SEQ1), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
 ;
   
 INSERT_PERSON_4(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
-  {= values (:id^long^seq=SQLPROC_SEQUENCE, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize) }
+  {= values (:id(type=long,seq=SQLPROC_SEQUENCE), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
 ;
   
 INSERT_PERSON_5(CRUD)=
   insert into PERSON (SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
-  {= values (:id^long^idsel, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize) }
+  {= values (:id(type=long,idsel), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
 ;
   
 INSERT_PERSON_6(CRUD)=
   insert into PERSON (SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
-  {= values (:id^long^idsel=SEL1, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize) }
+  {= values (:id(type=long,idsel=SEL1), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
 ;
   
 INSERT_PERSON_7(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
-  {= values (:id^long^seq, :ssn.number, :ssn.country, :name.first, :name.last, :birthDate^date, :sex, :createdDate^stamp, :createdBy, :version, :clothesSize) }
+  {= values (:id(type=long,seq), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
 ;
   
 CRUD_PERSON_SELECT(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy,
-  p.LASTUPDATED @lastUpdated^date, p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate(type=date), p.CREATEDBY @createdBy,
+  p.LASTUPDATED @lastUpdated(type=date), p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   {= where
    {& p.ID = :id}
@@ -1553,33 +1552,33 @@ CRUD_PERSON_SELECT(QRY)=
 
 UPDATE_PERSON(CRUD)=
   update PERSON p
-  SET p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date^any
+  SET p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate(type=date,any)
   {= where p.ID = :id }
 ;
 UPDATE_PERSON(CRUD,POSTGRESQL,INFORMIX,MSSQL)=
   update PERSON
-  SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date^any
+  SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate(type=date,any)
   {= where ID = :id }
 ;
 UPDATE_PERSON(CRUD,DB2)=
   update PERSON
-  SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate^stamp^any
+  SET NAME_FIRST = :name.first, CREATEDDATE = :createdDate(type=stamp,any)
   {= where ID = :id }
 ;
 
 UPDATE_PERSON_2(CRUD)=
   update PERSON p
-  {= set p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate^date}
+  {= set p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate(type=date)}
   {= where p.ID = :id }
 ;
 UPDATE_PERSON_2(CRUD,POSTGRESQL,INFORMIX,MSSQL)=
   update PERSON
-  {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate^date}
+  {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate(type=date)}
   {= where ID = :id }
 ;
 UPDATE_PERSON_2(CRUD,DB2)=
   update PERSON
-  {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate^stamp}
+  {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate(type=stamp)}
   {= where ID = :id }
 ;
 
@@ -1599,7 +1598,7 @@ DELETE_PERSON_2(CRUD)=
 DELETE_PERSON_3(CRUD)=
   delete from PERSON
   {= where
-   {& ID = :id^long^notnull}
+   {& ID = :id(type=long,notnull)}
    {? :lastUpdatedBy | AND LASTUPDATEDBY = :lastUpdatedBy | AND LASTUPDATEDBY is null}
   }
 ;
@@ -1607,118 +1606,118 @@ DELETE_PERSON_3(CRUD)=
 DELETE_PERSON_4(CRUD)=
   delete from PERSON
   {= where
-   {& ID = :id^^notnull}
+   {& ID = :id(notnull)}
    {? :lastUpdatedBy | AND LASTUPDATEDBY = :lastUpdatedBy | AND LASTUPDATEDBY is null}
   }
 ;
 
 GET_PERSON(CRUD)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy,
-  p.LASTUPDATED @lastUpdated^date, p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate(type=date), p.CREATEDBY @createdBy,
+  p.LASTUPDATED @lastUpdated(type=date), p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   {= where p.ID = :id}
 ;
 
 GET_PERSON_2(CRUD)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
-  p.BIRTHDATE @birthDate^date, p.SEX @sex, p.CREATEDDATE @createdDate^date, p.CREATEDBY @createdBy,
-  p.LASTUPDATED @lastUpdated^date, p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate(type=date), p.CREATEDBY @createdBy,
+  p.LASTUPDATED @lastUpdated(type=date), p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p
   {= where p.NAME_FIRST = :name.first AND p.NAME_LAST = :name.last}
 ;
   
   
 INSERT_PERSON_CALL_2(CALL)=
-  call new_person(:<id^long, :birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :=sex^estring)
+  call new_person(:<id(type=long), :birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :=sex(type=estring))
 ;
   
 INSERT_PERSON_CALL(CALL)=
-  call new_person(:<id, :birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :=sex)
+  call new_person(:<id, :birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :=sex)
 ;
 
 
 INSERT_PERSON_CALL_RESULT_SET_2(CALL)=
-  call new_person_ret(:birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+  call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
 INSERT_PERSON_CALL_RESULT_SET_2(OUT)=
   id birthDate lastUpdated lastUpdatedBy
-  createdDate createdBy version contact$$contact.id ssn_number$$ssn.number
-  ssn_country$$ssn.country name_first$$name.first name_last$$name.last sex clothes_size$$clothesSize
+  createdDate createdBy version contact$contact.id ssn_number$ssn.number
+  ssn_country$ssn.country name_first$name.first name_last$name.last sex clothes_size$clothesSize
 ;
 
 INSERT_PERSON_CALL_RESULT_SET(CALL)=
-  call new_person_ret(:birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+  call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
 INSERT_PERSON_CALL_RESULT_SET(OUT)=
-  id$Long$id birthDate$date$birthDate lastUpdated$stamp$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  createdDate$stamp$createdDate createdBy$string$createdBy version$Long$version contact$Long$contact.id ssn_number$string$ssn.number
-  ssn_country$estring$ssn.country name_first$string$name.first name_last$string$name.last sex$estring$sex clothes_size$eint$clothesSize
+  id$id(type=Long) birthDate$birthDate(type=date) lastUpdated$lastUpdated(type=stamp) lastUpdatedBy$lastUpdatedBy(type=string)
+  createdDate$createdDate(type=stamp) createdBy$createdBy(type=string) version$version(type=Long) contact$contact.id(type=Long) ssn_number$ssn.number(type=string)
+  ssn_country$ssn.country(type=estring) name_first$name.first(type=string) name_last$name.last(type=string) sex$sex(type=estring) clothes_size$clothesSize(type=eint)
 ;
 
 
 INSERT_PERSON_CALL_RESULT_SET_2(CALL,POSTGRESQL)=
-  :<1^other = call new_person_ret(:birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+  :<1(other) = call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
 INSERT_PERSON_CALL_RESULT_SET_2(OUT,POSTGRESQL)=
   id birthDate lastUpdated lastUpdatedBy
-  createdDate createdBy version contact$$contact.id ssn_number$$ssn.number
-  ssn_country$$ssn.country name_first$$name.first name_last$$name.last sex clothes_size$$clothesSize
+  createdDate createdBy version contact$contact.id ssn_number$ssn.number
+  ssn_country$ssn.country name_first$name.first name_last$name.last sex clothes_size$clothesSize
 ;
 
 INSERT_PERSON_CALL_RESULT_SET(CALL,POSTGRESQL)=
-  :<1^other = call new_person_ret(:birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+  :<1(other) = call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
 INSERT_PERSON_CALL_RESULT_SET(OUT,POSTGRESQL)=
-  id$Long$id birthDate$date$birthDate lastUpdated$stamp$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  createdDate$stamp$createdDate createdBy$string$createdBy version$Long$version contact$Long$contact.id ssn_number$string$ssn.number
-  ssn_country$estring$ssn.country name_first$string$name.first name_last$string$name.last sex$estring$sex clothes_size$eint$clothesSize
+  id$id(type=Long) birthDate$birthDate(type=date) lastUpdated$lastUpdated(type=stamp) lastUpdatedBy$lastUpdatedBy(type=string)
+  createdDate$createdDate(type=stamp) createdBy$createdBy(type=string) version$version(type=Long) contact$contact.id(type=Long) ssn_number$ssn.number(type=string)
+  ssn_country$ssn.country(type=estring) name_first$name.first(type=string) name_last$name.last(type=string) sex$sex(type=estring) clothes_size$clothesSize(type=eint)
 ;
 
 
 INSERT_PERSON_CALL_RESULT_SET_2(CALL,ORACLE)=
-  :<1^oracle_cursor = call new_person_ret(:birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+  :<1(oracle_cursor) = call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
 INSERT_PERSON_CALL_RESULT_SET_2(OUT,ORACLE)=
   id birthDate lastUpdated lastUpdatedBy
-  createdDate createdBy version contact$$contact.id ssn_number$$ssn.number
-  ssn_country$$ssn.country name_first$$name.first name_last$$name.last sex clothes_size$$clothesSize
+  createdDate createdBy version contact$contact.id ssn_number$ssn.number
+  ssn_country$ssn.country name_first$name.first name_last$name.last sex clothes_size$clothesSize
 ;
 
 INSERT_PERSON_CALL_RESULT_SET(CALL,ORACLE)=
-  :<1^oracle_cursor = call new_person_ret(:birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+  :<1(oracle_cursor) = call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
 INSERT_PERSON_CALL_RESULT_SET(OUT,ORACLE)= 
-  id$Long$id birthDate$date$birthDate lastUpdated$stamp$lastUpdated lastUpdatedBy$string$lastUpdatedBy
-  createdDate$stamp$createdDate createdBy$string$createdBy version$Long$version contact$Long$contact.id ssn_number$string$ssn.number
-  ssn_country$estring$ssn.country name_first$string$name.first name_last$string$name.last sex$estring$sex clothes_size$eint$clothesSize
+  id$id(type=Long) birthDate$birthDate(type=date) lastUpdated$lastUpdated(type=stamp) lastUpdatedBy$lastUpdatedBy(type=string)
+  createdDate$createdDate(type=stamp) createdBy$createdBy(type=string) version$version(type=Long) contact$contact.id(type=Long) ssn_number$ssn.number(type=string)
+  ssn_country$ssn.country(type=estring) name_first$name.first(type=string) name_last$name.last(type=string) sex$sex(type=estring) clothes_size$clothesSize(type=eint)
 ;
 
 
 INSERT_PERSON_CALL_RESULT_SET_PROC(CALL,ORACLE)=
-  call new_person_ret_proc(:<1^oracle_cursor, :birthDate^date, :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+  call new_person_ret_proc(:<1(oracle_cursor), :birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
 INSERT_PERSON_CALL_RESULT_SET_PROC(OUT,ORACLE)=
   id birthDate lastUpdated lastUpdatedBy
-  createdDate createdBy version contact$$contact.id ssn_number$$ssn.number
-  ssn_country$$ssn.country name_first$$name.first name_last$$name.last sex clothes_size$$clothesSize
+  createdDate createdBy version contact$contact.id ssn_number$ssn.number
+  ssn_country$ssn.country name_first$name.first name_last$name.last sex clothes_size$clothesSize
 ;
 
 
 SIMPLE_FUNCTION_QRY(QRY,DB2)=
-  SELECT an_hour_before(CAST(:time^stamp AS timestamp)) FROM SYSIBM.DUAL
+  SELECT an_hour_before(CAST(:time(type=stamp) AS timestamp)) FROM SYSIBM.DUAL
 ;
 SIMPLE_FUNCTION_QRY(OUT,DB2)=
-  1$stamp$time2
+  1$time2(type=stamp)
 ;
 SIMPLE_FUNCTION(CALL,HSQLDB,INFORMIX)=
   call an_hour_before(:time)
 ;
 SIMPLE_FUNCTION(OUT,HSQLDB,INFORMIX)=
-  1$stamp
+  1$1(type=stamp)
 ;
 SIMPLE_FUNCTION(CALL)=
-  :<1^stamp = call an_hour_before(:time)
+  :<1(type=stamp) = call an_hour_before(:time)
 ;
 
 SIMPLE_FUNCTION_TO_IN_FORM(CALL)=
@@ -1730,8 +1729,8 @@ PLUGIN_IS_EMPTY(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last
   from PERSON p
   {= where
-  	p.id = :id^long^any
-  	{& p.CREATED_BY = :createdBy^string^zero}
+  	p.id = :id(type=long,any)
+  	{& p.CREATED_BY = :createdBy(type=string,zero)}
   }
 ;
 
@@ -1739,8 +1738,8 @@ PLUGIN_IS_TRUE(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last
   from PERSON p
   {= where
-    {? :id^long^null | AND p.ID is null | AND p.ID = :id}
-    {? :createdBy^string^zero | AND p.CREATED_BY = :createdBy | AND p.CREATED_BY is null}
+    {? :id(type=long,null) | AND p.ID is null | AND p.ID = :id}
+    {? :createdBy(type=string,zero) | AND p.CREATED_BY = :createdBy | AND p.CREATED_BY is null}
   }
 ;
 
