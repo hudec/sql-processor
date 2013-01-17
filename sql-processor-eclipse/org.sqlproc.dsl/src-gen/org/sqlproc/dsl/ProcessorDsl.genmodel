@@ -266,7 +266,6 @@
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//MappingColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingColumn/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingColumn/vals"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//OptionalFeature">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//OptionalFeature/name"/>

@@ -5517,58 +5517,30 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class MappingColumnElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MappingColumn");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Alternatives cNameAlternatives_0_0 = (Alternatives)cNameAssignment_0.eContents().get(0);
-		private final RuleCall cNameIDENTTerminalRuleCall_0_0_0 = (RuleCall)cNameAlternatives_0_0.eContents().get(0);
-		private final RuleCall cNameIDENT_DOTTerminalRuleCall_0_0_1 = (RuleCall)cNameAlternatives_0_0.eContents().get(1);
-		private final RuleCall cNameNUMBERTerminalRuleCall_0_0_2 = (RuleCall)cNameAlternatives_0_0.eContents().get(2);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final RuleCall cCARETTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
-		private final Assignment cValsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final Alternatives cValsAlternatives_1_1_0 = (Alternatives)cValsAssignment_1_1.eContents().get(0);
-		private final RuleCall cValsIDENTTerminalRuleCall_1_1_0_0 = (RuleCall)cValsAlternatives_1_1_0.eContents().get(0);
-		private final RuleCall cValsNUMBERTerminalRuleCall_1_1_0_1 = (RuleCall)cValsAlternatives_1_1_0.eContents().get(1);
+		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
+		private final Alternatives cNameAlternatives_0 = (Alternatives)cNameAssignment.eContents().get(0);
+		private final RuleCall cNameIDENTTerminalRuleCall_0_0 = (RuleCall)cNameAlternatives_0.eContents().get(0);
+		private final RuleCall cNameIDENT_DOTTerminalRuleCall_0_1 = (RuleCall)cNameAlternatives_0.eContents().get(1);
+		private final RuleCall cNameNUMBERTerminalRuleCall_0_2 = (RuleCall)cNameAlternatives_0.eContents().get(2);
 		
 		//MappingColumn:
-		//	name=(IDENT | IDENT_DOT | NUMBER) (CARET vals+=(IDENT | NUMBER))*;
+		//	name=(IDENT | IDENT_DOT | NUMBER);
 		public ParserRule getRule() { return rule; }
 
-		//name=(IDENT | IDENT_DOT | NUMBER) (CARET vals+=(IDENT | NUMBER))*
-		public Group getGroup() { return cGroup; }
-
 		//name=(IDENT | IDENT_DOT | NUMBER)
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+		public Assignment getNameAssignment() { return cNameAssignment; }
 
 		//IDENT | IDENT_DOT | NUMBER
-		public Alternatives getNameAlternatives_0_0() { return cNameAlternatives_0_0; }
+		public Alternatives getNameAlternatives_0() { return cNameAlternatives_0; }
 
 		//IDENT
-		public RuleCall getNameIDENTTerminalRuleCall_0_0_0() { return cNameIDENTTerminalRuleCall_0_0_0; }
+		public RuleCall getNameIDENTTerminalRuleCall_0_0() { return cNameIDENTTerminalRuleCall_0_0; }
 
 		//IDENT_DOT
-		public RuleCall getNameIDENT_DOTTerminalRuleCall_0_0_1() { return cNameIDENT_DOTTerminalRuleCall_0_0_1; }
+		public RuleCall getNameIDENT_DOTTerminalRuleCall_0_1() { return cNameIDENT_DOTTerminalRuleCall_0_1; }
 
 		//NUMBER
-		public RuleCall getNameNUMBERTerminalRuleCall_0_0_2() { return cNameNUMBERTerminalRuleCall_0_0_2; }
-
-		//(CARET vals+=(IDENT | NUMBER))*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//CARET
-		public RuleCall getCARETTerminalRuleCall_1_0() { return cCARETTerminalRuleCall_1_0; }
-
-		//vals+=(IDENT | NUMBER)
-		public Assignment getValsAssignment_1_1() { return cValsAssignment_1_1; }
-
-		//IDENT | NUMBER
-		public Alternatives getValsAlternatives_1_1_0() { return cValsAlternatives_1_1_0; }
-
-		//IDENT
-		public RuleCall getValsIDENTTerminalRuleCall_1_1_0_0() { return cValsIDENTTerminalRuleCall_1_1_0_0; }
-
-		//NUMBER
-		public RuleCall getValsNUMBERTerminalRuleCall_1_1_0_1() { return cValsNUMBERTerminalRuleCall_1_1_0_1; }
+		public RuleCall getNameNUMBERTerminalRuleCall_0_2() { return cNameNUMBERTerminalRuleCall_0_2; }
 	}
 
 	public class OptionalFeatureElements extends AbstractParserRuleElementFinder {
@@ -7772,7 +7744,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//MappingColumn:
-	//	name=(IDENT | IDENT_DOT | NUMBER) (CARET vals+=(IDENT | NUMBER))*;
+	//	name=(IDENT | IDENT_DOT | NUMBER);
 	public MappingColumnElements getMappingColumnAccess() {
 		return (pMappingColumn != null) ? pMappingColumn : (pMappingColumn = new MappingColumnElements());
 	}

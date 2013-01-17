@@ -110,8 +110,10 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 acceptor.addPosition(node.getOffset(), node.getLength(), HighlightingConfiguration.COLUMN);
             } else if (current instanceof MappingItem) {
+                MappingItem mappingItem = (MappingItem) current;
                 ICompositeNode node = NodeModelUtils.getNode(current);
-                provideHighlightingForMappingItem(node, acceptor);
+                provideHighlightingForFragment(HighlightingConfiguration.IDENTIFIER, node, mappingItem.getAttr(),
+                        mappingItem.getModifiers(), acceptor);
             } else if (current instanceof DatabaseColumn) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 acceptor.addPosition(node.getOffset(), node.getLength(), HighlightingConfiguration.DATABASE_COLUMN);
@@ -381,21 +383,21 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
         }
     }
 
-    private void provideHighlightingForMappingItem(ICompositeNode node, IHighlightedPositionAcceptor acceptor) {
+    private void provideHighlightingForFragment(String defaultColor, ICompositeNode node, MappingColumn column,
+            EList<String> modifiers, IHighlightedPositionAcceptor acceptor) {
         Iterator<INode> iterator = new NodeTreeIterator(node);
-        int index = 0;
+        boolean afterName = false;
         while (iterator.hasNext()) {
             INode inode = iterator.next();
-            if (STRING.equals(inode.getText())) {
-                index++;
-                continue;
-            }
-            switch (index) {
-            case 1:
-                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.STATEMENT_MODIFIER);
-                break;
-            default:
-                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.IDENTIFIER);
+            if (!afterName) {
+                if (column != null && column.getName().equals(inode.getText())) {
+                    acceptor.addPosition(inode.getOffset(), inode.getLength(), defaultColor);
+                    afterName = true;
+                }
+            } else {
+                if (modifiers != null && !modifiers.isEmpty() && modifiers.contains(inode.getText())) {
+                    acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.MODIFIER);
+                }
             }
         }
     }

@@ -9088,12 +9088,12 @@ ruleMappingColumn returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
+(
 (
 (
 		lv_name_0_1=RULE_IDENT
 		{
-			newLeafNode(lv_name_0_1, grammarAccess.getMappingColumnAccess().getNameIDENTTerminalRuleCall_0_0_0()); 
+			newLeafNode(lv_name_0_1, grammarAccess.getMappingColumnAccess().getNameIDENTTerminalRuleCall_0_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -9108,7 +9108,7 @@ ruleMappingColumn returns [EObject current=null]
 
     |		lv_name_0_2=RULE_IDENT_DOT
 		{
-			newLeafNode(lv_name_0_2, grammarAccess.getMappingColumnAccess().getNameIDENT_DOTTerminalRuleCall_0_0_1()); 
+			newLeafNode(lv_name_0_2, grammarAccess.getMappingColumnAccess().getNameIDENT_DOTTerminalRuleCall_0_1()); 
 		}
 		{
 	        if ($current==null) {
@@ -9123,7 +9123,7 @@ ruleMappingColumn returns [EObject current=null]
 
     |		lv_name_0_3=RULE_NUMBER
 		{
-			newLeafNode(lv_name_0_3, grammarAccess.getMappingColumnAccess().getNameNUMBERTerminalRuleCall_0_0_2()); 
+			newLeafNode(lv_name_0_3, grammarAccess.getMappingColumnAccess().getNameNUMBERTerminalRuleCall_0_2()); 
 		}
 		{
 	        if ($current==null) {
@@ -9139,47 +9139,7 @@ ruleMappingColumn returns [EObject current=null]
 )
 
 )
-)(this_CARET_1=RULE_CARET
-    { 
-    newLeafNode(this_CARET_1, grammarAccess.getMappingColumnAccess().getCARETTerminalRuleCall_1_0()); 
-    }
-(
-(
-(
-		lv_vals_2_1=RULE_IDENT
-		{
-			newLeafNode(lv_vals_2_1, grammarAccess.getMappingColumnAccess().getValsIDENTTerminalRuleCall_1_1_0_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getMappingColumnRule());
-	        }
-       		addWithLastConsumed(
-       			$current, 
-       			"vals",
-        		lv_vals_2_1, 
-        		"IDENT");
-	    }
-
-    |		lv_vals_2_2=RULE_NUMBER
-		{
-			newLeafNode(lv_vals_2_2, grammarAccess.getMappingColumnAccess().getValsNUMBERTerminalRuleCall_1_1_0_1()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getMappingColumnRule());
-	        }
-       		addWithLastConsumed(
-       			$current, 
-       			"vals",
-        		lv_vals_2_2, 
-        		"NUMBER");
-	    }
-
 )
-
-)
-))*)
 ;
 
 

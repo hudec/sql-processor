@@ -205,8 +205,6 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 			return getATToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getBORRule())
 			return getBORToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getCARETRule())
-			return getCARETToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getCOLONRule())
 			return getCOLONToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getCOMMARule())
@@ -256,15 +254,6 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 		if (node != null)
 			return getTokenText(node);
 		return "|";
-	}
-	
-	/**
-	 * terminal CARET:    '^';
-	 */
-	protected String getCARETToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "^";
 	}
 	
 	/**

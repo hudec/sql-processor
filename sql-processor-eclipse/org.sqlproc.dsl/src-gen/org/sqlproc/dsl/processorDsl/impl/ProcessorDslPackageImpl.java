@@ -2729,16 +2729,6 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMappingColumn_Vals()
-  {
-    return (EAttribute)mappingColumnEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getOptionalFeature()
   {
     return optionalFeatureEClass;
@@ -3733,7 +3723,6 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     mappingColumnEClass = createEClass(MAPPING_COLUMN);
     createEAttribute(mappingColumnEClass, MAPPING_COLUMN__NAME);
-    createEAttribute(mappingColumnEClass, MAPPING_COLUMN__VALS);
 
     optionalFeatureEClass = createEClass(OPTIONAL_FEATURE);
     createEAttribute(optionalFeatureEClass, OPTIONAL_FEATURE__NAME);
@@ -4132,7 +4121,6 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
 
     initEClass(mappingColumnEClass, MappingColumn.class, "MappingColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMappingColumn_Name(), ecorePackage.getEString(), "name", null, 0, 1, MappingColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getMappingColumn_Vals(), ecorePackage.getEString(), "vals", null, 0, -1, MappingColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(optionalFeatureEClass, OptionalFeature.class, "OptionalFeature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOptionalFeature_Name(), ecorePackage.getEString(), "name", null, 0, 1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

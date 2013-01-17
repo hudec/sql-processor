@@ -2,8 +2,6 @@
  */
 package org.sqlproc.dsl.processorDsl;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -15,7 +13,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.MappingColumn#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.MappingColumn#getVals <em>Vals</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,21 +47,5 @@ public interface MappingColumn extends EObject
    * @generated
    */
   void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Vals</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Vals</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Vals</em>' attribute list.
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMappingColumn_Vals()
-   * @model unique="false"
-   * @generated
-   */
-  EList<String> getVals();
 
 } // MappingColumn
