@@ -1,7 +1,7 @@
 SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity();
 
-ALL_PEOPLE(QRY)=
+ALL_PEOPLE(QRY,ident=person,col=person)=
   select %ID @id, %NAME @name
   from %%PERSON
   {= where
@@ -12,7 +12,7 @@ ALL_PEOPLE(QRY)=
   {#2 order by %NAME}
 ;
 
-LIKE_PEOPLE(QRY)=
+LIKE_PEOPLE(QRY,ident=person,col=person)=
   select %ID @id, %NAME @name
   from %%PERSON
   {= where
@@ -23,39 +23,39 @@ LIKE_PEOPLE(QRY)=
   {#2 order by %NAME}
 ;
 
-INSERT_PERSON(CRUD)=
+INSERT_PERSON(CRUD,ident=person)=
   insert into %%PERSON (%ID, %NAME)
   {= values (:id(type=long,seq=SEQ1), :name) }
 ;
   
-INSERT_PERSON2(CRUD)=
+INSERT_PERSON2(CRUD,ident=person)=
   insert into %%PERSON (%NAME)
   {= values (:id(type=long,id)sel, :name) }
 ;
 
-GET_PERSON(CRUD)=
+GET_PERSON(CRUD,ident=person,col=person)=
   select @id, @name
   from %%PERSON
   {= where %ID = :id}
 ;
 
-UPDATE_PERSON(CRUD)=
+UPDATE_PERSON(CRUD,ident=person,col=person)=
   update %%PERSON
   {= set %NAME = :name}
   {= where {& %ID = :id(type=long,notnull)}}
 ;
   
-DELETE_PERSON(CRUD)=
+DELETE_PERSON(CRUD,ident=person)=
   delete from %%PERSON
   {= where {& %ID = :id(type=long,notnull)}}
 ;
 
-INSERT_CONTACT(CRUD)=
+INSERT_CONTACT(CRUD,ident=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %ADDRESS)
   {= values (:id(type=long,seq=SEQ1), :personId, :address) }
 ;
 
-ALL_PEOPLE_AND_CONTACTS(QRY)=
+ALL_PEOPLE_AND_CONTACTS(QRY,ident=person,col=person)=
   select %p.ID @id(type=long,id), %p.NAME @name, %c.ID @contacts.id(type=long,id), %p.ID @contacts.personId, %c.ADDRESS @contacts.address
   from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
   {= where
@@ -65,7 +65,7 @@ ALL_PEOPLE_AND_CONTACTS(QRY)=
   {#1 order by %p.NAME, %c.ADDRESS}
 ;
 
-ALL_PEOPLE_AND_CONTACTS2(QRY)=
+ALL_PEOPLE_AND_CONTACTS2(QRY,ident=person,col=person)=
   select %p.ID @id(type=long,id), %p.NAME @name, %c.ID @contacts=linked.id(type=long,id), %p.ID @contacts.personId, %c.ADDRESS @contacts.address
   from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
   {= where
@@ -75,27 +75,27 @@ ALL_PEOPLE_AND_CONTACTS2(QRY)=
   {#1 order by %p.NAME, %c.ADDRESS}
 ;
 
-INSERT_MEDIA(CRUD)=
+INSERT_MEDIA(CRUD,ident=media)=
   insert into %%MEDIA (%ID, %TITLE)
   {= values (:id(type=long,seq=SEQ1), :title) }
 ;
 
-INSERT_MOVIE(CRUD)=
+INSERT_MOVIE(CRUD,ident=movie)=
   insert into %%MOVIE (%MEDIA_ID, %URLIMDB, %PLAYLENGTH)
   {= values (:id, :urlIMDB, :playLength) }
 ;
 
-INSERT_BOOK(CRUD)=
+INSERT_BOOK(CRUD,ident=book)=
   insert into %%BOOK (%MEDIA_ID, %ISBN)
   {= values (:id, :isbn) }
 ;
 
-CREATE_LIBRARY(CRUD)=
+CREATE_LIBRARY(CRUD,ident=personLibrary)=
   insert into %%PERSON_LIBRARY (%ID, %PERSON_ID, %MEDIA_ID)
   {= values (:id(type=long,seq=SEQ1), :personId, :mediaId) }
 ;
 
-ALL_PEOPLE_LIBRARY(QRY)=
+ALL_PEOPLE_LIBRARY(QRY,ident=person,col=person)=
   select %p.ID @id(type=long,id), %p.NAME @name, %mo.MEDIA_ID @library==movie.id(type=long,id), %bk.MEDIA_ID @library==book.id(type=long,id),
   %m.TITLE @library.title, %mo.URLIMDB @library.urlIMDB, %mo.PLAYLENGTH @library.playLength, %bk.ISBN @library.isbn
   from %%PERSON p left join %%PERSON_LIBRARY l on %p.ID = %l.PERSON_ID
@@ -109,12 +109,12 @@ ALL_PEOPLE_LIBRARY(QRY)=
   {#1 order by %p.NAME, %m.TITLE}
 ;
 
-INSERT_CONTACT_CUSTOM(CRUD)=
+INSERT_CONTACT_CUSTOM(CRUD,ident=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %ADDRESS, %PHONE_NUMBER)
   {= values (:id(type=long,seq=SEQ1), :personId, :address, :homePhone(type=phone)) }
 ;
 
-ALL_PEOPLE_AND_CONTACTS_CUSTOM(QRY)=
+ALL_PEOPLE_AND_CONTACTS_CUSTOM(QRY,ident=contact,col=person)=
   select %p.ID @id(type=long,id), %p.NAME @name, %c.ID @contacts.id(type=long,id), %p.ID @contacts.personId, %c.ADDRESS @contacts.address,
   %c.PHONE_NUMBER @contacts.homePhone(type=phone)
   from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
@@ -125,27 +125,27 @@ ALL_PEOPLE_AND_CONTACTS_CUSTOM(QRY)=
   {#1 order by %p.NAME, %c.ADDRESS}
 ;
   
-INSERT_LIBRARY(CRUD)=
+INSERT_LIBRARY(CRUD,ident=library)=
   insert into %%LIBRARY (%ID, %NAME)
   {= values (:id(type=long,seq=SEQ1), :name) }
 ;
   
-INSERT_SUBSCRIBER(CRUD)=
+INSERT_SUBSCRIBER(CRUD,ident=subscriber)=
   insert into %%SUBSCRIBER (%ID, %LIBRARY, %NAME)
   {= values (:id(type=long,seq=SEQ1), :library.id, :name) }
 ;
   
-INSERT_CREDIT_CARD(CRUD)=
+INSERT_CREDIT_CARD(CRUD,ident=creditCard)=
   insert into %%BILLING_DETAILS (%ID, %SUBSCRIBER, %TYPE, %CC_NUMBER)
   {= values (:id(type=long,seq=SEQ1), :subscriber.id, 'CC', :number) }
 ;
   
-INSERT_BANK_ACCOUNT(CRUD)=
+INSERT_BANK_ACCOUNT(CRUD,ident=bankAccount)=
   insert into %%BILLING_DETAILS (%ID, %SUBSCRIBER, %TYPE, %BA_ACCOUNT)
   {= values (:id(type=long,seq=SEQ1), :subscriber.id, 'BA', :account) }
 ;
 
-ALL_SUBSCRIBERS_BILLING_DETAILS(QRY)=
+ALL_SUBSCRIBERS_BILLING_DETAILS(QRY,ident=subscriber,col=subscriber)=
   select %s.ID @id(type=long,id), %s.NAME @name, %s.LIBRARY @library.id(type=long,id),
   %bd.TYPE @billingDetails==discriminator.type, %bd.ID @billingDetails.id(type=long,id),
   %bd.CC_NUMBER @billingDetails.number, %bd.BA_ACCOUNT @billingDetails.account
@@ -157,16 +157,16 @@ ALL_SUBSCRIBERS_BILLING_DETAILS(QRY)=
   {#1 order by %s.ID, %bd.ID}
 ;
   
-SIMPLE_FUNCTION(CALL)=
+SIMPLE_FUNCTION(CALL,ident=formSimpleFunction)=
   call an_hour_before(:time)
 ;
 SIMPLE_FUNCTION(OUT)=1$1(type=stamp)
 ;
 
-SIMPLE_FUNCTION_TO_IN_FORM(CALL)=
+SIMPLE_FUNCTION_TO_IN_FORM(CALL,ident=formSimpleFunction)=
   :<time2 = call an_hour_before(:time)
 ;
 
-INSERT_PERSON_CALL(CALL)=
+INSERT_PERSON_CALL(CALL,ident=person)=
   call new_person(:<id, :name)
 ;
