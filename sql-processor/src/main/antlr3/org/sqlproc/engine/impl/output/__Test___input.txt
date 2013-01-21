@@ -1,2 +1,0 @@
-SQL_EXT_BASIC(QRY)= :+name.last as last;
-
