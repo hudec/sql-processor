@@ -238,15 +238,29 @@ class ParserUtils {
             inOutMode = SqlInputValue.Mode.OUT;
         else if ("=".equals(modeIdent))
             inOutMode = SqlInputValue.Mode.INOUT;
-        if (name.length() > 0) {
+        if (name != null && name.length() > 0) {
             SqlMetaIdent identifier = new SqlMetaIdent(caseConv, inOutMode);
             String[] idents = name.split("\\.");
             for (String ident : idents) {
                 identifier.addIdent(ident);
             }
             return identifier;
+        } else {
+            SqlMetaIdent identifier = new SqlMetaIdent(caseConv, inOutMode);
+            return identifier;
         }
-        return null;
+    }
+
+    static void addName(SqlMetaIdent identifier, String name) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("addName " + name);
+        }
+        if (name != null && name.length() > 0) {
+            String[] idents = name.split("\\.");
+            for (String ident : idents) {
+                identifier.addIdent(ident);
+            }
+        }
     }
 
     static void addModifier(Object target, SqlTypeFactory typeFactory, String modifier) {

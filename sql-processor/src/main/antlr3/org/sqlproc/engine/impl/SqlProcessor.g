@@ -117,8 +117,16 @@ import org.sqlproc.engine.type.SqlMetaType;
     ParserUtils.addIdent(target, ident, text);
   }
   
-  SqlMetaIdent newIdent(Token ident, Token modeIdent, Token caseIdent) {
-    return ParserUtils.newIdent(ident.getText(), getText(modeIdent), getText(caseIdent));
+  SqlMetaIdent newIdent(SqlMetaIdent ident, Token name, Token modeIdent, Token caseIdent) {
+    if (ident != null) {
+      ParserUtils.addName(ident, name.getText());
+      return ident;
+    }
+    return ParserUtils.newIdent(name.getText(), getText(modeIdent), getText(caseIdent));
+  }
+  
+  void addName(SqlMetaIdent ident, Token name) {
+    ParserUtils.addName(ident, (name!=null) ? name.getText() : null);
   }
   
   void addConstant(Object target, SqlMetaConst cnst, StringBuilder text) {
@@ -184,7 +192,11 @@ import org.sqlproc.engine.type.SqlMetaType;
   }
 }
 
-parse [SqlTypeFactory _typeFactory, Map<String, Object> defaultFeatures, Set<String> onlyStatements, String[\] filters] returns [SqlProcessor processor]
+parse	:
+        parse2[org.sqlproc.engine.jdbc.type.JdbcTypeFactory.getInstance(), new java.util.HashMap<String, Object>(), new java.util.HashSet<String>(), new String[\] {}]
+	;
+	
+parse2 [SqlTypeFactory _typeFactory, Map<String, Object> defaultFeatures, Set<String> onlyStatements, String[\] filters] returns [SqlProcessor processor]
 @init {$processor = new SqlProcessor(defaultFeatures, onlyStatements); boolean skip; List<String> activeFilters;}
         :  
         WS* (
@@ -335,7 +347,7 @@ constant returns [SqlMetaConst result]
 	 )* RPAREN
 	)?
 	;
-
+/*
 identifier returns [SqlMetaIdent result]
 @init {$result = null;}
 	:	
@@ -345,7 +357,23 @@ identifier returns [SqlMetaIdent result]
 	 )* RPAREN
 	)?
 	;
+*/
+identifier returns [SqlMetaIdent result]
+//@init {SqlMetaIdent ident = null;}
+@after {result = ident;}
+	:	
+	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)?
+	ident=extendedIdentifier[null, modeIdent, caseIdent] (options {greedy=true;} : extendedIdentifier[ident, null, null])*
+	;
 
+extendedIdentifier [SqlMetaIdent ident, Token modeIdent, Token caseIdent] returns [SqlMetaIdent result]
+	:
+	(name=IDENT_DOT | name=IDENT | name=NUMBER) {$result = newIdent($ident, $name, $modeIdent, $caseIdent);}
+	(options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
+	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
+	 )* RPAREN
+	)?
+	;
 
 dbcolumn returns[SqlDatabaseColumn result]
 @init {$result = null;}
@@ -377,7 +405,7 @@ mappingItem returns[SqlMappingItem result]
 @init {$result = null;}
 	:	
 	(col=IDENT | col=NUMBER) {if(!$mapping::skip) $result = newColumn(col);}
-     (STRING (col=IDENT_DOT | col=IDENT | col=NUMBER) { if(!$mapping::skip) addColumnAttr($result, $col); }
+                       (STRING (col=IDENT_DOT | col=IDENT | col=NUMBER) { if(!$mapping::skip) addColumnAttr($result, $col); }
 	  (options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$mapping::skip) addModifier($mapping::typeFactory, $result, $value.text); }
 	   (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$mapping::skip) addModifier($mapping::typeFactory, $result, $value.text); }
 	  )* RPAREN

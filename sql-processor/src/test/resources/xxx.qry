@@ -1,0 +1,3 @@
+SQL_EXT_BASIC(QRY)=
+   select :+name(1).last(aa) as last 
+;

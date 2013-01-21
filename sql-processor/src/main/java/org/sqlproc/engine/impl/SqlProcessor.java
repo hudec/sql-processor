@@ -162,7 +162,7 @@ public class SqlProcessor {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
             try {
-                processor = parser.parse(typeFactory, defaultFeatures, onlyStatements, filters);
+                processor = parser.parse2(typeFactory, defaultFeatures, onlyStatements, filters);
             } catch (RecognitionException ex) {
                 ex.printStackTrace();
             }
