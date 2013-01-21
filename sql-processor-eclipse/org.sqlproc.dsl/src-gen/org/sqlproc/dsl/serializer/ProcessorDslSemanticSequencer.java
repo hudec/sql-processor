@@ -27,6 +27,7 @@ import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
+import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
 import org.sqlproc.dsl.processorDsl.Extends;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
@@ -173,6 +174,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.EXPORT_ASSIGNEMENT:
 				if(context == grammarAccess.getExportAssignementRule()) {
 					sequence_ExportAssignement(context, (ExportAssignement) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.EXTENDED_IDENTIFIER:
+				if(context == grammarAccess.getExtendedIdentifierRule()) {
+					sequence_ExtendedIdentifier(context, (ExtendedIdentifier) semanticObject); 
 					return; 
 				}
 				else break;
@@ -707,6 +714,15 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
+	 *     ((name=IDENT | name=NUMBER | name=IDENT_DOT) (modifiers+=Modifier modifiers+=Modifier*)?)
+	 */
+	protected void sequence_ExtendedIdentifier(EObject context, ExtendedIdentifier semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     extends=[JvmType|QualifiedName]
 	 */
 	protected void sequence_Extends(EObject context, Extends semanticObject) {
@@ -761,12 +777,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         (mode=EQUALS | mode=LESS_THAN | mode=MORE_THAN)? 
-	 *         (case=PLUS | case=MINUS)? 
-	 *         (name=IDENT | name=IDENT_DOT | name=NUMBER) 
-	 *         (modifiers+=Modifier modifiers+=Modifier*)?
-	 *     )
+	 *     ((mode=EQUALS | mode=LESS_THAN | mode=MORE_THAN)? (case=PLUS | case=MINUS)? identifiers+=ExtendedIdentifier identifiers+=ExtendedIdentifier*)
 	 */
 	protected void sequence_Identifier(EObject context, Identifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

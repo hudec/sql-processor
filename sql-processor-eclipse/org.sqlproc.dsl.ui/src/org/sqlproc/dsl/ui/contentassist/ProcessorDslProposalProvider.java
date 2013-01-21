@@ -202,15 +202,16 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             super.completeConstant_Name(model, assignment, context, acceptor);
     }
 
-    @Override
-    public void completeIdentifier_Name(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        if (!completeUsage(model, assignment, context, acceptor,
-                ProcessorDslPackage.Literals.IDENTIFIER_USAGE.getName(),
-                ProcessorDslPackage.Literals.IDENTIFIER_USAGE_EXT.getName(), IDENTIFIER_USAGE,
-                IDENTIFIER_USAGE_EXTENDED))
-            super.completeIdentifier_Name(model, assignment, context, acceptor);
-    }
+    //
+    // @Override
+    // public void completeIdentifier_Name(EObject model, Assignment assignment, ContentAssistContext context,
+    // ICompletionProposalAcceptor acceptor) {
+    // if (!completeUsage(model, assignment, context, acceptor,
+    // ProcessorDslPackage.Literals.IDENTIFIER_USAGE.getName(),
+    // ProcessorDslPackage.Literals.IDENTIFIER_USAGE_EXT.getName(), IDENTIFIER_USAGE,
+    // IDENTIFIER_USAGE_EXTENDED))
+    // super.completeIdentifier_Name(model, assignment, context, acceptor);
+    // }
 
     public boolean completeUsage(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor, String name, String nameExt, String usageInFilter,

@@ -295,6 +295,11 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createIdentifierAdapter();
       }
       @Override
+      public Adapter caseExtendedIdentifier(ExtendedIdentifier object)
+      {
+        return createExtendedIdentifierAdapter();
+      }
+      @Override
       public Adapter caseDatabaseColumn(DatabaseColumn object)
       {
         return createDatabaseColumnAdapter();
@@ -1087,6 +1092,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createIdentifierAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ExtendedIdentifier <em>Extended Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ExtendedIdentifier
+   * @generated
+   */
+  public Adapter createExtendedIdentifierAdapter()
   {
     return null;
   }

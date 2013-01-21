@@ -408,6 +408,13 @@ public class ProcessorDslSwitch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.EXTENDED_IDENTIFIER:
+      {
+        ExtendedIdentifier extendedIdentifier = (ExtendedIdentifier)theEObject;
+        T result = caseExtendedIdentifier(extendedIdentifier);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.DATABASE_COLUMN:
       {
         DatabaseColumn databaseColumn = (DatabaseColumn)theEObject;
@@ -1280,6 +1287,22 @@ public class ProcessorDslSwitch<T>
    * @generated
    */
   public T caseIdentifier(Identifier object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Extended Identifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Extended Identifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseExtendedIdentifier(ExtendedIdentifier object)
   {
     return null;
   }

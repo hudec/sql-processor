@@ -21,6 +21,7 @@ import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.util.Collector;
+import org.sqlproc.dsl.util.Utils;
 
 /**
  * customization of the default outline structure
@@ -60,7 +61,7 @@ public class ProcessorDslOutlineTreeProvider extends DefaultOutlineTreeProvider 
 
                 @Override
                 public int compare(Identifier o1, Identifier o2) {
-                    return o1.getName().compareTo(o2.getName());
+                    return Utils.getName(o1).compareTo(Utils.getName(o2));
                 }
             });
             Set<Constant> constants = new TreeSet<Constant>(new Comparator<Constant>() {

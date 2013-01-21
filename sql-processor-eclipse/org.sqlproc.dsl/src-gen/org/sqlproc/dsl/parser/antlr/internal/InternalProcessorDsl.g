@@ -3908,60 +3908,68 @@ rulePropertyValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleT
     newLeafNode(this_PERCENT_23, grammarAccess.getPropertyValueAccess().getPERCENTTerminalRuleCall_0_23()); 
     }
 
-    |    this_AND_24=RULE_AND    {
-		$current.merge(this_AND_24);
+    |    this_DOT_24=RULE_DOT    {
+		$current.merge(this_DOT_24);
     }
 
     { 
-    newLeafNode(this_AND_24, grammarAccess.getPropertyValueAccess().getANDTerminalRuleCall_0_24()); 
+    newLeafNode(this_DOT_24, grammarAccess.getPropertyValueAccess().getDOTTerminalRuleCall_0_24()); 
     }
 
-    |    this_OR_25=RULE_OR    {
-		$current.merge(this_OR_25);
-    }
-
-    { 
-    newLeafNode(this_OR_25, grammarAccess.getPropertyValueAccess().getORTerminalRuleCall_0_25()); 
-    }
-
-    |    this_ESC_CHAR_26=RULE_ESC_CHAR    {
-		$current.merge(this_ESC_CHAR_26);
+    |    this_AND_25=RULE_AND    {
+		$current.merge(this_AND_25);
     }
 
     { 
-    newLeafNode(this_ESC_CHAR_26, grammarAccess.getPropertyValueAccess().getESC_CHARTerminalRuleCall_0_26()); 
+    newLeafNode(this_AND_25, grammarAccess.getPropertyValueAccess().getANDTerminalRuleCall_0_25()); 
     }
 
-    |    this_ON_OFF_27=RULE_ON_OFF    {
-		$current.merge(this_ON_OFF_27);
-    }
-
-    { 
-    newLeafNode(this_ON_OFF_27, grammarAccess.getPropertyValueAccess().getON_OFFTerminalRuleCall_0_27()); 
-    }
-
-    |    this_STATEMENT_TYPE_28=RULE_STATEMENT_TYPE    {
-		$current.merge(this_STATEMENT_TYPE_28);
+    |    this_OR_26=RULE_OR    {
+		$current.merge(this_OR_26);
     }
 
     { 
-    newLeafNode(this_STATEMENT_TYPE_28, grammarAccess.getPropertyValueAccess().getSTATEMENT_TYPETerminalRuleCall_0_28()); 
+    newLeafNode(this_OR_26, grammarAccess.getPropertyValueAccess().getORTerminalRuleCall_0_26()); 
     }
 
-    |    this_MAPPING_TYPE_29=RULE_MAPPING_TYPE    {
-		$current.merge(this_MAPPING_TYPE_29);
-    }
-
-    { 
-    newLeafNode(this_MAPPING_TYPE_29, grammarAccess.getPropertyValueAccess().getMAPPING_TYPETerminalRuleCall_0_29()); 
-    }
-
-    |    this_OPTION_TYPE_30=RULE_OPTION_TYPE    {
-		$current.merge(this_OPTION_TYPE_30);
+    |    this_ESC_CHAR_27=RULE_ESC_CHAR    {
+		$current.merge(this_ESC_CHAR_27);
     }
 
     { 
-    newLeafNode(this_OPTION_TYPE_30, grammarAccess.getPropertyValueAccess().getOPTION_TYPETerminalRuleCall_0_30()); 
+    newLeafNode(this_ESC_CHAR_27, grammarAccess.getPropertyValueAccess().getESC_CHARTerminalRuleCall_0_27()); 
+    }
+
+    |    this_ON_OFF_28=RULE_ON_OFF    {
+		$current.merge(this_ON_OFF_28);
+    }
+
+    { 
+    newLeafNode(this_ON_OFF_28, grammarAccess.getPropertyValueAccess().getON_OFFTerminalRuleCall_0_28()); 
+    }
+
+    |    this_STATEMENT_TYPE_29=RULE_STATEMENT_TYPE    {
+		$current.merge(this_STATEMENT_TYPE_29);
+    }
+
+    { 
+    newLeafNode(this_STATEMENT_TYPE_29, grammarAccess.getPropertyValueAccess().getSTATEMENT_TYPETerminalRuleCall_0_29()); 
+    }
+
+    |    this_MAPPING_TYPE_30=RULE_MAPPING_TYPE    {
+		$current.merge(this_MAPPING_TYPE_30);
+    }
+
+    { 
+    newLeafNode(this_MAPPING_TYPE_30, grammarAccess.getPropertyValueAccess().getMAPPING_TYPETerminalRuleCall_0_30()); 
+    }
+
+    |    this_OPTION_TYPE_31=RULE_OPTION_TYPE    {
+		$current.merge(this_OPTION_TYPE_31);
+    }
+
+    { 
+    newLeafNode(this_OPTION_TYPE_31, grammarAccess.getPropertyValueAccess().getOPTION_TYPETerminalRuleCall_0_31()); 
     }
 )((( RULE_REST
     | RULE_IDENT_DOT
@@ -3988,266 +3996,275 @@ rulePropertyValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleT
     | RULE_LESS_THAN
     | RULE_MORE_THAN
     | RULE_PERCENT
+    | RULE_DOT
     | RULE_AND
     | RULE_OR
     | RULE_ESC_CHAR
     | RULE_ON_OFF
     | RULE_STATEMENT_TYPE
     | RULE_MAPPING_TYPE
-    | RULE_OPTION_TYPE))=>(    this_REST_31=RULE_REST    {
-		$current.merge(this_REST_31);
+    | RULE_OPTION_TYPE))=>(    this_REST_32=RULE_REST    {
+		$current.merge(this_REST_32);
     }
 
     { 
-    newLeafNode(this_REST_31, grammarAccess.getPropertyValueAccess().getRESTTerminalRuleCall_1_0_0()); 
+    newLeafNode(this_REST_32, grammarAccess.getPropertyValueAccess().getRESTTerminalRuleCall_1_0_0()); 
     }
 
-    |    this_IDENT_DOT_32=RULE_IDENT_DOT    {
-		$current.merge(this_IDENT_DOT_32);
-    }
-
-    { 
-    newLeafNode(this_IDENT_DOT_32, grammarAccess.getPropertyValueAccess().getIDENT_DOTTerminalRuleCall_1_0_1()); 
-    }
-
-    |    this_IDENT_33=RULE_IDENT    {
-		$current.merge(this_IDENT_33);
+    |    this_IDENT_DOT_33=RULE_IDENT_DOT    {
+		$current.merge(this_IDENT_DOT_33);
     }
 
     { 
-    newLeafNode(this_IDENT_33, grammarAccess.getPropertyValueAccess().getIDENTTerminalRuleCall_1_0_2()); 
+    newLeafNode(this_IDENT_DOT_33, grammarAccess.getPropertyValueAccess().getIDENT_DOTTerminalRuleCall_1_0_1()); 
     }
 
-    |    this_NUMBER_34=RULE_NUMBER    {
-		$current.merge(this_NUMBER_34);
-    }
-
-    { 
-    newLeafNode(this_NUMBER_34, grammarAccess.getPropertyValueAccess().getNUMBERTerminalRuleCall_1_0_3()); 
-    }
-
-    |    this_WS_35=RULE_WS    {
-		$current.merge(this_WS_35);
+    |    this_IDENT_34=RULE_IDENT    {
+		$current.merge(this_IDENT_34);
     }
 
     { 
-    newLeafNode(this_WS_35, grammarAccess.getPropertyValueAccess().getWSTerminalRuleCall_1_0_4()); 
+    newLeafNode(this_IDENT_34, grammarAccess.getPropertyValueAccess().getIDENTTerminalRuleCall_1_0_2()); 
     }
 
-    |    this_COLON_36=RULE_COLON    {
-		$current.merge(this_COLON_36);
-    }
-
-    { 
-    newLeafNode(this_COLON_36, grammarAccess.getPropertyValueAccess().getCOLONTerminalRuleCall_1_0_5()); 
-    }
-
-    |    this_STRING_37=RULE_STRING    {
-		$current.merge(this_STRING_37);
+    |    this_NUMBER_35=RULE_NUMBER    {
+		$current.merge(this_NUMBER_35);
     }
 
     { 
-    newLeafNode(this_STRING_37, grammarAccess.getPropertyValueAccess().getSTRINGTerminalRuleCall_1_0_6()); 
+    newLeafNode(this_NUMBER_35, grammarAccess.getPropertyValueAccess().getNUMBERTerminalRuleCall_1_0_3()); 
     }
 
-    |    this_COMMA_38=RULE_COMMA    {
-		$current.merge(this_COMMA_38);
-    }
-
-    { 
-    newLeafNode(this_COMMA_38, grammarAccess.getPropertyValueAccess().getCOMMATerminalRuleCall_1_0_7()); 
-    }
-
-    |    this_MINUS_39=RULE_MINUS    {
-		$current.merge(this_MINUS_39);
+    |    this_WS_36=RULE_WS    {
+		$current.merge(this_WS_36);
     }
 
     { 
-    newLeafNode(this_MINUS_39, grammarAccess.getPropertyValueAccess().getMINUSTerminalRuleCall_1_0_8()); 
+    newLeafNode(this_WS_36, grammarAccess.getPropertyValueAccess().getWSTerminalRuleCall_1_0_4()); 
     }
 
-    |    this_PLUS_40=RULE_PLUS    {
-		$current.merge(this_PLUS_40);
-    }
-
-    { 
-    newLeafNode(this_PLUS_40, grammarAccess.getPropertyValueAccess().getPLUSTerminalRuleCall_1_0_9()); 
-    }
-
-    |    this_LPAREN_41=RULE_LPAREN    {
-		$current.merge(this_LPAREN_41);
+    |    this_COLON_37=RULE_COLON    {
+		$current.merge(this_COLON_37);
     }
 
     { 
-    newLeafNode(this_LPAREN_41, grammarAccess.getPropertyValueAccess().getLPARENTerminalRuleCall_1_0_10()); 
+    newLeafNode(this_COLON_37, grammarAccess.getPropertyValueAccess().getCOLONTerminalRuleCall_1_0_5()); 
     }
 
-    |    this_RPAREN_42=RULE_RPAREN    {
-		$current.merge(this_RPAREN_42);
-    }
-
-    { 
-    newLeafNode(this_RPAREN_42, grammarAccess.getPropertyValueAccess().getRPARENTerminalRuleCall_1_0_11()); 
-    }
-
-    |    this_LBRACE_43=RULE_LBRACE    {
-		$current.merge(this_LBRACE_43);
+    |    this_STRING_38=RULE_STRING    {
+		$current.merge(this_STRING_38);
     }
 
     { 
-    newLeafNode(this_LBRACE_43, grammarAccess.getPropertyValueAccess().getLBRACETerminalRuleCall_1_0_12()); 
+    newLeafNode(this_STRING_38, grammarAccess.getPropertyValueAccess().getSTRINGTerminalRuleCall_1_0_6()); 
     }
 
-    |    this_RBRACE_44=RULE_RBRACE    {
-		$current.merge(this_RBRACE_44);
-    }
-
-    { 
-    newLeafNode(this_RBRACE_44, grammarAccess.getPropertyValueAccess().getRBRACETerminalRuleCall_1_0_13()); 
-    }
-
-    |    this_QUESTI_45=RULE_QUESTI    {
-		$current.merge(this_QUESTI_45);
+    |    this_COMMA_39=RULE_COMMA    {
+		$current.merge(this_COMMA_39);
     }
 
     { 
-    newLeafNode(this_QUESTI_45, grammarAccess.getPropertyValueAccess().getQUESTITerminalRuleCall_1_0_14()); 
+    newLeafNode(this_COMMA_39, grammarAccess.getPropertyValueAccess().getCOMMATerminalRuleCall_1_0_7()); 
     }
 
-    |    this_NOT_46=RULE_NOT    {
-		$current.merge(this_NOT_46);
-    }
-
-    { 
-    newLeafNode(this_NOT_46, grammarAccess.getPropertyValueAccess().getNOTTerminalRuleCall_1_0_15()); 
-    }
-
-    |    this_BAND_47=RULE_BAND    {
-		$current.merge(this_BAND_47);
+    |    this_MINUS_40=RULE_MINUS    {
+		$current.merge(this_MINUS_40);
     }
 
     { 
-    newLeafNode(this_BAND_47, grammarAccess.getPropertyValueAccess().getBANDTerminalRuleCall_1_0_16()); 
+    newLeafNode(this_MINUS_40, grammarAccess.getPropertyValueAccess().getMINUSTerminalRuleCall_1_0_8()); 
     }
 
-    |    this_BOR_48=RULE_BOR    {
-		$current.merge(this_BOR_48);
-    }
-
-    { 
-    newLeafNode(this_BOR_48, grammarAccess.getPropertyValueAccess().getBORTerminalRuleCall_1_0_17()); 
-    }
-
-    |    this_HASH_49=RULE_HASH    {
-		$current.merge(this_HASH_49);
+    |    this_PLUS_41=RULE_PLUS    {
+		$current.merge(this_PLUS_41);
     }
 
     { 
-    newLeafNode(this_HASH_49, grammarAccess.getPropertyValueAccess().getHASHTerminalRuleCall_1_0_18()); 
+    newLeafNode(this_PLUS_41, grammarAccess.getPropertyValueAccess().getPLUSTerminalRuleCall_1_0_9()); 
     }
 
-    |    this_AT_50=RULE_AT    {
-		$current.merge(this_AT_50);
-    }
-
-    { 
-    newLeafNode(this_AT_50, grammarAccess.getPropertyValueAccess().getATTerminalRuleCall_1_0_19()); 
-    }
-
-    |    this_CARET_51=RULE_CARET    {
-		$current.merge(this_CARET_51);
+    |    this_LPAREN_42=RULE_LPAREN    {
+		$current.merge(this_LPAREN_42);
     }
 
     { 
-    newLeafNode(this_CARET_51, grammarAccess.getPropertyValueAccess().getCARETTerminalRuleCall_1_0_20()); 
+    newLeafNode(this_LPAREN_42, grammarAccess.getPropertyValueAccess().getLPARENTerminalRuleCall_1_0_10()); 
     }
 
-    |    this_EQUALS_52=RULE_EQUALS    {
-		$current.merge(this_EQUALS_52);
-    }
-
-    { 
-    newLeafNode(this_EQUALS_52, grammarAccess.getPropertyValueAccess().getEQUALSTerminalRuleCall_1_0_21()); 
-    }
-
-    |    this_LESS_THAN_53=RULE_LESS_THAN    {
-		$current.merge(this_LESS_THAN_53);
+    |    this_RPAREN_43=RULE_RPAREN    {
+		$current.merge(this_RPAREN_43);
     }
 
     { 
-    newLeafNode(this_LESS_THAN_53, grammarAccess.getPropertyValueAccess().getLESS_THANTerminalRuleCall_1_0_22()); 
+    newLeafNode(this_RPAREN_43, grammarAccess.getPropertyValueAccess().getRPARENTerminalRuleCall_1_0_11()); 
     }
 
-    |    this_MORE_THAN_54=RULE_MORE_THAN    {
-		$current.merge(this_MORE_THAN_54);
-    }
-
-    { 
-    newLeafNode(this_MORE_THAN_54, grammarAccess.getPropertyValueAccess().getMORE_THANTerminalRuleCall_1_0_23()); 
-    }
-
-    |    this_PERCENT_55=RULE_PERCENT    {
-		$current.merge(this_PERCENT_55);
+    |    this_LBRACE_44=RULE_LBRACE    {
+		$current.merge(this_LBRACE_44);
     }
 
     { 
-    newLeafNode(this_PERCENT_55, grammarAccess.getPropertyValueAccess().getPERCENTTerminalRuleCall_1_0_24()); 
+    newLeafNode(this_LBRACE_44, grammarAccess.getPropertyValueAccess().getLBRACETerminalRuleCall_1_0_12()); 
     }
 
-    |    this_AND_56=RULE_AND    {
-		$current.merge(this_AND_56);
-    }
-
-    { 
-    newLeafNode(this_AND_56, grammarAccess.getPropertyValueAccess().getANDTerminalRuleCall_1_0_25()); 
-    }
-
-    |    this_OR_57=RULE_OR    {
-		$current.merge(this_OR_57);
+    |    this_RBRACE_45=RULE_RBRACE    {
+		$current.merge(this_RBRACE_45);
     }
 
     { 
-    newLeafNode(this_OR_57, grammarAccess.getPropertyValueAccess().getORTerminalRuleCall_1_0_26()); 
+    newLeafNode(this_RBRACE_45, grammarAccess.getPropertyValueAccess().getRBRACETerminalRuleCall_1_0_13()); 
     }
 
-    |    this_ESC_CHAR_58=RULE_ESC_CHAR    {
-		$current.merge(this_ESC_CHAR_58);
-    }
-
-    { 
-    newLeafNode(this_ESC_CHAR_58, grammarAccess.getPropertyValueAccess().getESC_CHARTerminalRuleCall_1_0_27()); 
-    }
-
-    |    this_ON_OFF_59=RULE_ON_OFF    {
-		$current.merge(this_ON_OFF_59);
+    |    this_QUESTI_46=RULE_QUESTI    {
+		$current.merge(this_QUESTI_46);
     }
 
     { 
-    newLeafNode(this_ON_OFF_59, grammarAccess.getPropertyValueAccess().getON_OFFTerminalRuleCall_1_0_28()); 
+    newLeafNode(this_QUESTI_46, grammarAccess.getPropertyValueAccess().getQUESTITerminalRuleCall_1_0_14()); 
     }
 
-    |    this_STATEMENT_TYPE_60=RULE_STATEMENT_TYPE    {
-		$current.merge(this_STATEMENT_TYPE_60);
-    }
-
-    { 
-    newLeafNode(this_STATEMENT_TYPE_60, grammarAccess.getPropertyValueAccess().getSTATEMENT_TYPETerminalRuleCall_1_0_29()); 
-    }
-
-    |    this_MAPPING_TYPE_61=RULE_MAPPING_TYPE    {
-		$current.merge(this_MAPPING_TYPE_61);
+    |    this_NOT_47=RULE_NOT    {
+		$current.merge(this_NOT_47);
     }
 
     { 
-    newLeafNode(this_MAPPING_TYPE_61, grammarAccess.getPropertyValueAccess().getMAPPING_TYPETerminalRuleCall_1_0_30()); 
+    newLeafNode(this_NOT_47, grammarAccess.getPropertyValueAccess().getNOTTerminalRuleCall_1_0_15()); 
     }
 
-    |    this_OPTION_TYPE_62=RULE_OPTION_TYPE    {
-		$current.merge(this_OPTION_TYPE_62);
+    |    this_BAND_48=RULE_BAND    {
+		$current.merge(this_BAND_48);
     }
 
     { 
-    newLeafNode(this_OPTION_TYPE_62, grammarAccess.getPropertyValueAccess().getOPTION_TYPETerminalRuleCall_1_0_31()); 
+    newLeafNode(this_BAND_48, grammarAccess.getPropertyValueAccess().getBANDTerminalRuleCall_1_0_16()); 
+    }
+
+    |    this_BOR_49=RULE_BOR    {
+		$current.merge(this_BOR_49);
+    }
+
+    { 
+    newLeafNode(this_BOR_49, grammarAccess.getPropertyValueAccess().getBORTerminalRuleCall_1_0_17()); 
+    }
+
+    |    this_HASH_50=RULE_HASH    {
+		$current.merge(this_HASH_50);
+    }
+
+    { 
+    newLeafNode(this_HASH_50, grammarAccess.getPropertyValueAccess().getHASHTerminalRuleCall_1_0_18()); 
+    }
+
+    |    this_AT_51=RULE_AT    {
+		$current.merge(this_AT_51);
+    }
+
+    { 
+    newLeafNode(this_AT_51, grammarAccess.getPropertyValueAccess().getATTerminalRuleCall_1_0_19()); 
+    }
+
+    |    this_CARET_52=RULE_CARET    {
+		$current.merge(this_CARET_52);
+    }
+
+    { 
+    newLeafNode(this_CARET_52, grammarAccess.getPropertyValueAccess().getCARETTerminalRuleCall_1_0_20()); 
+    }
+
+    |    this_EQUALS_53=RULE_EQUALS    {
+		$current.merge(this_EQUALS_53);
+    }
+
+    { 
+    newLeafNode(this_EQUALS_53, grammarAccess.getPropertyValueAccess().getEQUALSTerminalRuleCall_1_0_21()); 
+    }
+
+    |    this_LESS_THAN_54=RULE_LESS_THAN    {
+		$current.merge(this_LESS_THAN_54);
+    }
+
+    { 
+    newLeafNode(this_LESS_THAN_54, grammarAccess.getPropertyValueAccess().getLESS_THANTerminalRuleCall_1_0_22()); 
+    }
+
+    |    this_MORE_THAN_55=RULE_MORE_THAN    {
+		$current.merge(this_MORE_THAN_55);
+    }
+
+    { 
+    newLeafNode(this_MORE_THAN_55, grammarAccess.getPropertyValueAccess().getMORE_THANTerminalRuleCall_1_0_23()); 
+    }
+
+    |    this_PERCENT_56=RULE_PERCENT    {
+		$current.merge(this_PERCENT_56);
+    }
+
+    { 
+    newLeafNode(this_PERCENT_56, grammarAccess.getPropertyValueAccess().getPERCENTTerminalRuleCall_1_0_24()); 
+    }
+
+    |    this_DOT_57=RULE_DOT    {
+		$current.merge(this_DOT_57);
+    }
+
+    { 
+    newLeafNode(this_DOT_57, grammarAccess.getPropertyValueAccess().getDOTTerminalRuleCall_1_0_25()); 
+    }
+
+    |    this_AND_58=RULE_AND    {
+		$current.merge(this_AND_58);
+    }
+
+    { 
+    newLeafNode(this_AND_58, grammarAccess.getPropertyValueAccess().getANDTerminalRuleCall_1_0_26()); 
+    }
+
+    |    this_OR_59=RULE_OR    {
+		$current.merge(this_OR_59);
+    }
+
+    { 
+    newLeafNode(this_OR_59, grammarAccess.getPropertyValueAccess().getORTerminalRuleCall_1_0_27()); 
+    }
+
+    |    this_ESC_CHAR_60=RULE_ESC_CHAR    {
+		$current.merge(this_ESC_CHAR_60);
+    }
+
+    { 
+    newLeafNode(this_ESC_CHAR_60, grammarAccess.getPropertyValueAccess().getESC_CHARTerminalRuleCall_1_0_28()); 
+    }
+
+    |    this_ON_OFF_61=RULE_ON_OFF    {
+		$current.merge(this_ON_OFF_61);
+    }
+
+    { 
+    newLeafNode(this_ON_OFF_61, grammarAccess.getPropertyValueAccess().getON_OFFTerminalRuleCall_1_0_29()); 
+    }
+
+    |    this_STATEMENT_TYPE_62=RULE_STATEMENT_TYPE    {
+		$current.merge(this_STATEMENT_TYPE_62);
+    }
+
+    { 
+    newLeafNode(this_STATEMENT_TYPE_62, grammarAccess.getPropertyValueAccess().getSTATEMENT_TYPETerminalRuleCall_1_0_30()); 
+    }
+
+    |    this_MAPPING_TYPE_63=RULE_MAPPING_TYPE    {
+		$current.merge(this_MAPPING_TYPE_63);
+    }
+
+    { 
+    newLeafNode(this_MAPPING_TYPE_63, grammarAccess.getPropertyValueAccess().getMAPPING_TYPETerminalRuleCall_1_0_31()); 
+    }
+
+    |    this_OPTION_TYPE_64=RULE_OPTION_TYPE    {
+		$current.merge(this_OPTION_TYPE_64);
+    }
+
+    { 
+    newLeafNode(this_OPTION_TYPE_64, grammarAccess.getPropertyValueAccess().getOPTION_TYPETerminalRuleCall_1_0_32()); 
     }
 ))*)
     ;
@@ -5658,60 +5675,68 @@ ruleSqlValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken(
     newLeafNode(this_MORE_THAN_19, grammarAccess.getSqlValueAccess().getMORE_THANTerminalRuleCall_0_19()); 
     }
 
-    |    this_AND_20=RULE_AND    {
-		$current.merge(this_AND_20);
+    |    this_DOT_20=RULE_DOT    {
+		$current.merge(this_DOT_20);
     }
 
     { 
-    newLeafNode(this_AND_20, grammarAccess.getSqlValueAccess().getANDTerminalRuleCall_0_20()); 
+    newLeafNode(this_DOT_20, grammarAccess.getSqlValueAccess().getDOTTerminalRuleCall_0_20()); 
     }
 
-    |    this_OR_21=RULE_OR    {
-		$current.merge(this_OR_21);
-    }
-
-    { 
-    newLeafNode(this_OR_21, grammarAccess.getSqlValueAccess().getORTerminalRuleCall_0_21()); 
-    }
-
-    |    this_ESC_CHAR_22=RULE_ESC_CHAR    {
-		$current.merge(this_ESC_CHAR_22);
+    |    this_AND_21=RULE_AND    {
+		$current.merge(this_AND_21);
     }
 
     { 
-    newLeafNode(this_ESC_CHAR_22, grammarAccess.getSqlValueAccess().getESC_CHARTerminalRuleCall_0_22()); 
+    newLeafNode(this_AND_21, grammarAccess.getSqlValueAccess().getANDTerminalRuleCall_0_21()); 
     }
 
-    |    this_ON_OFF_23=RULE_ON_OFF    {
-		$current.merge(this_ON_OFF_23);
-    }
-
-    { 
-    newLeafNode(this_ON_OFF_23, grammarAccess.getSqlValueAccess().getON_OFFTerminalRuleCall_0_23()); 
-    }
-
-    |    this_STATEMENT_TYPE_24=RULE_STATEMENT_TYPE    {
-		$current.merge(this_STATEMENT_TYPE_24);
+    |    this_OR_22=RULE_OR    {
+		$current.merge(this_OR_22);
     }
 
     { 
-    newLeafNode(this_STATEMENT_TYPE_24, grammarAccess.getSqlValueAccess().getSTATEMENT_TYPETerminalRuleCall_0_24()); 
+    newLeafNode(this_OR_22, grammarAccess.getSqlValueAccess().getORTerminalRuleCall_0_22()); 
     }
 
-    |    this_MAPPING_TYPE_25=RULE_MAPPING_TYPE    {
-		$current.merge(this_MAPPING_TYPE_25);
-    }
-
-    { 
-    newLeafNode(this_MAPPING_TYPE_25, grammarAccess.getSqlValueAccess().getMAPPING_TYPETerminalRuleCall_0_25()); 
-    }
-
-    |    this_OPTION_TYPE_26=RULE_OPTION_TYPE    {
-		$current.merge(this_OPTION_TYPE_26);
+    |    this_ESC_CHAR_23=RULE_ESC_CHAR    {
+		$current.merge(this_ESC_CHAR_23);
     }
 
     { 
-    newLeafNode(this_OPTION_TYPE_26, grammarAccess.getSqlValueAccess().getOPTION_TYPETerminalRuleCall_0_26()); 
+    newLeafNode(this_ESC_CHAR_23, grammarAccess.getSqlValueAccess().getESC_CHARTerminalRuleCall_0_23()); 
+    }
+
+    |    this_ON_OFF_24=RULE_ON_OFF    {
+		$current.merge(this_ON_OFF_24);
+    }
+
+    { 
+    newLeafNode(this_ON_OFF_24, grammarAccess.getSqlValueAccess().getON_OFFTerminalRuleCall_0_24()); 
+    }
+
+    |    this_STATEMENT_TYPE_25=RULE_STATEMENT_TYPE    {
+		$current.merge(this_STATEMENT_TYPE_25);
+    }
+
+    { 
+    newLeafNode(this_STATEMENT_TYPE_25, grammarAccess.getSqlValueAccess().getSTATEMENT_TYPETerminalRuleCall_0_25()); 
+    }
+
+    |    this_MAPPING_TYPE_26=RULE_MAPPING_TYPE    {
+		$current.merge(this_MAPPING_TYPE_26);
+    }
+
+    { 
+    newLeafNode(this_MAPPING_TYPE_26, grammarAccess.getSqlValueAccess().getMAPPING_TYPETerminalRuleCall_0_26()); 
+    }
+
+    |    this_OPTION_TYPE_27=RULE_OPTION_TYPE    {
+		$current.merge(this_OPTION_TYPE_27);
+    }
+
+    { 
+    newLeafNode(this_OPTION_TYPE_27, grammarAccess.getSqlValueAccess().getOPTION_TYPETerminalRuleCall_0_27()); 
     }
 )((( RULE_REST
     | RULE_IDENT_DOT
@@ -5733,226 +5758,235 @@ ruleSqlValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken(
     | RULE_EQUALS
     | RULE_LESS_THAN
     | RULE_MORE_THAN
+    | RULE_DOT
     | RULE_AND
     | RULE_OR
     | RULE_ESC_CHAR
     | RULE_ON_OFF
     | RULE_STATEMENT_TYPE
     | RULE_MAPPING_TYPE
-    | RULE_OPTION_TYPE))=>(    this_REST_27=RULE_REST    {
-		$current.merge(this_REST_27);
+    | RULE_OPTION_TYPE))=>(    this_REST_28=RULE_REST    {
+		$current.merge(this_REST_28);
     }
 
     { 
-    newLeafNode(this_REST_27, grammarAccess.getSqlValueAccess().getRESTTerminalRuleCall_1_0_0()); 
+    newLeafNode(this_REST_28, grammarAccess.getSqlValueAccess().getRESTTerminalRuleCall_1_0_0()); 
     }
 
-    |    this_IDENT_DOT_28=RULE_IDENT_DOT    {
-		$current.merge(this_IDENT_DOT_28);
-    }
-
-    { 
-    newLeafNode(this_IDENT_DOT_28, grammarAccess.getSqlValueAccess().getIDENT_DOTTerminalRuleCall_1_0_1()); 
-    }
-
-    |    this_IDENT_29=RULE_IDENT    {
-		$current.merge(this_IDENT_29);
+    |    this_IDENT_DOT_29=RULE_IDENT_DOT    {
+		$current.merge(this_IDENT_DOT_29);
     }
 
     { 
-    newLeafNode(this_IDENT_29, grammarAccess.getSqlValueAccess().getIDENTTerminalRuleCall_1_0_2()); 
+    newLeafNode(this_IDENT_DOT_29, grammarAccess.getSqlValueAccess().getIDENT_DOTTerminalRuleCall_1_0_1()); 
     }
 
-    |    this_NUMBER_30=RULE_NUMBER    {
-		$current.merge(this_NUMBER_30);
-    }
-
-    { 
-    newLeafNode(this_NUMBER_30, grammarAccess.getSqlValueAccess().getNUMBERTerminalRuleCall_1_0_3()); 
-    }
-
-    |    this_WS_31=RULE_WS    {
-		$current.merge(this_WS_31);
+    |    this_IDENT_30=RULE_IDENT    {
+		$current.merge(this_IDENT_30);
     }
 
     { 
-    newLeafNode(this_WS_31, grammarAccess.getSqlValueAccess().getWSTerminalRuleCall_1_0_4()); 
+    newLeafNode(this_IDENT_30, grammarAccess.getSqlValueAccess().getIDENTTerminalRuleCall_1_0_2()); 
     }
 
-    |    this_COMMA_32=RULE_COMMA    {
-		$current.merge(this_COMMA_32);
-    }
-
-    { 
-    newLeafNode(this_COMMA_32, grammarAccess.getSqlValueAccess().getCOMMATerminalRuleCall_1_0_5()); 
-    }
-
-    |    this_MINUS_33=RULE_MINUS    {
-		$current.merge(this_MINUS_33);
+    |    this_NUMBER_31=RULE_NUMBER    {
+		$current.merge(this_NUMBER_31);
     }
 
     { 
-    newLeafNode(this_MINUS_33, grammarAccess.getSqlValueAccess().getMINUSTerminalRuleCall_1_0_6()); 
+    newLeafNode(this_NUMBER_31, grammarAccess.getSqlValueAccess().getNUMBERTerminalRuleCall_1_0_3()); 
     }
 
-    |    this_PLUS_34=RULE_PLUS    {
-		$current.merge(this_PLUS_34);
-    }
-
-    { 
-    newLeafNode(this_PLUS_34, grammarAccess.getSqlValueAccess().getPLUSTerminalRuleCall_1_0_7()); 
-    }
-
-    |    this_LPAREN_35=RULE_LPAREN    {
-		$current.merge(this_LPAREN_35);
+    |    this_WS_32=RULE_WS    {
+		$current.merge(this_WS_32);
     }
 
     { 
-    newLeafNode(this_LPAREN_35, grammarAccess.getSqlValueAccess().getLPARENTerminalRuleCall_1_0_8()); 
+    newLeafNode(this_WS_32, grammarAccess.getSqlValueAccess().getWSTerminalRuleCall_1_0_4()); 
     }
 
-    |    this_RPAREN_36=RULE_RPAREN    {
-		$current.merge(this_RPAREN_36);
-    }
-
-    { 
-    newLeafNode(this_RPAREN_36, grammarAccess.getSqlValueAccess().getRPARENTerminalRuleCall_1_0_9()); 
-    }
-
-    |    this_RBRACE_37=RULE_RBRACE    {
-		$current.merge(this_RBRACE_37);
+    |    this_COMMA_33=RULE_COMMA    {
+		$current.merge(this_COMMA_33);
     }
 
     { 
-    newLeafNode(this_RBRACE_37, grammarAccess.getSqlValueAccess().getRBRACETerminalRuleCall_1_0_10()); 
+    newLeafNode(this_COMMA_33, grammarAccess.getSqlValueAccess().getCOMMATerminalRuleCall_1_0_5()); 
     }
 
-    |    this_QUESTI_38=RULE_QUESTI    {
-		$current.merge(this_QUESTI_38);
-    }
-
-    { 
-    newLeafNode(this_QUESTI_38, grammarAccess.getSqlValueAccess().getQUESTITerminalRuleCall_1_0_11()); 
-    }
-
-    |    this_NOT_39=RULE_NOT    {
-		$current.merge(this_NOT_39);
+    |    this_MINUS_34=RULE_MINUS    {
+		$current.merge(this_MINUS_34);
     }
 
     { 
-    newLeafNode(this_NOT_39, grammarAccess.getSqlValueAccess().getNOTTerminalRuleCall_1_0_12()); 
+    newLeafNode(this_MINUS_34, grammarAccess.getSqlValueAccess().getMINUSTerminalRuleCall_1_0_6()); 
     }
 
-    |    this_BAND_40=RULE_BAND    {
-		$current.merge(this_BAND_40);
-    }
-
-    { 
-    newLeafNode(this_BAND_40, grammarAccess.getSqlValueAccess().getBANDTerminalRuleCall_1_0_13()); 
-    }
-
-    |    this_BOR_41=RULE_BOR    {
-		$current.merge(this_BOR_41);
+    |    this_PLUS_35=RULE_PLUS    {
+		$current.merge(this_PLUS_35);
     }
 
     { 
-    newLeafNode(this_BOR_41, grammarAccess.getSqlValueAccess().getBORTerminalRuleCall_1_0_14()); 
+    newLeafNode(this_PLUS_35, grammarAccess.getSqlValueAccess().getPLUSTerminalRuleCall_1_0_7()); 
     }
 
-    |    this_HASH_42=RULE_HASH    {
-		$current.merge(this_HASH_42);
-    }
-
-    { 
-    newLeafNode(this_HASH_42, grammarAccess.getSqlValueAccess().getHASHTerminalRuleCall_1_0_15()); 
-    }
-
-    |    this_CARET_43=RULE_CARET    {
-		$current.merge(this_CARET_43);
+    |    this_LPAREN_36=RULE_LPAREN    {
+		$current.merge(this_LPAREN_36);
     }
 
     { 
-    newLeafNode(this_CARET_43, grammarAccess.getSqlValueAccess().getCARETTerminalRuleCall_1_0_16()); 
+    newLeafNode(this_LPAREN_36, grammarAccess.getSqlValueAccess().getLPARENTerminalRuleCall_1_0_8()); 
     }
 
-    |    this_EQUALS_44=RULE_EQUALS    {
-		$current.merge(this_EQUALS_44);
-    }
-
-    { 
-    newLeafNode(this_EQUALS_44, grammarAccess.getSqlValueAccess().getEQUALSTerminalRuleCall_1_0_17()); 
-    }
-
-    |    this_LESS_THAN_45=RULE_LESS_THAN    {
-		$current.merge(this_LESS_THAN_45);
+    |    this_RPAREN_37=RULE_RPAREN    {
+		$current.merge(this_RPAREN_37);
     }
 
     { 
-    newLeafNode(this_LESS_THAN_45, grammarAccess.getSqlValueAccess().getLESS_THANTerminalRuleCall_1_0_18()); 
+    newLeafNode(this_RPAREN_37, grammarAccess.getSqlValueAccess().getRPARENTerminalRuleCall_1_0_9()); 
     }
 
-    |    this_MORE_THAN_46=RULE_MORE_THAN    {
-		$current.merge(this_MORE_THAN_46);
-    }
-
-    { 
-    newLeafNode(this_MORE_THAN_46, grammarAccess.getSqlValueAccess().getMORE_THANTerminalRuleCall_1_0_19()); 
-    }
-
-    |    this_AND_47=RULE_AND    {
-		$current.merge(this_AND_47);
+    |    this_RBRACE_38=RULE_RBRACE    {
+		$current.merge(this_RBRACE_38);
     }
 
     { 
-    newLeafNode(this_AND_47, grammarAccess.getSqlValueAccess().getANDTerminalRuleCall_1_0_20()); 
+    newLeafNode(this_RBRACE_38, grammarAccess.getSqlValueAccess().getRBRACETerminalRuleCall_1_0_10()); 
     }
 
-    |    this_OR_48=RULE_OR    {
-		$current.merge(this_OR_48);
-    }
-
-    { 
-    newLeafNode(this_OR_48, grammarAccess.getSqlValueAccess().getORTerminalRuleCall_1_0_21()); 
-    }
-
-    |    this_ESC_CHAR_49=RULE_ESC_CHAR    {
-		$current.merge(this_ESC_CHAR_49);
+    |    this_QUESTI_39=RULE_QUESTI    {
+		$current.merge(this_QUESTI_39);
     }
 
     { 
-    newLeafNode(this_ESC_CHAR_49, grammarAccess.getSqlValueAccess().getESC_CHARTerminalRuleCall_1_0_22()); 
+    newLeafNode(this_QUESTI_39, grammarAccess.getSqlValueAccess().getQUESTITerminalRuleCall_1_0_11()); 
     }
 
-    |    this_ON_OFF_50=RULE_ON_OFF    {
-		$current.merge(this_ON_OFF_50);
-    }
-
-    { 
-    newLeafNode(this_ON_OFF_50, grammarAccess.getSqlValueAccess().getON_OFFTerminalRuleCall_1_0_23()); 
-    }
-
-    |    this_STATEMENT_TYPE_51=RULE_STATEMENT_TYPE    {
-		$current.merge(this_STATEMENT_TYPE_51);
+    |    this_NOT_40=RULE_NOT    {
+		$current.merge(this_NOT_40);
     }
 
     { 
-    newLeafNode(this_STATEMENT_TYPE_51, grammarAccess.getSqlValueAccess().getSTATEMENT_TYPETerminalRuleCall_1_0_24()); 
+    newLeafNode(this_NOT_40, grammarAccess.getSqlValueAccess().getNOTTerminalRuleCall_1_0_12()); 
     }
 
-    |    this_MAPPING_TYPE_52=RULE_MAPPING_TYPE    {
-		$current.merge(this_MAPPING_TYPE_52);
-    }
-
-    { 
-    newLeafNode(this_MAPPING_TYPE_52, grammarAccess.getSqlValueAccess().getMAPPING_TYPETerminalRuleCall_1_0_25()); 
-    }
-
-    |    this_OPTION_TYPE_53=RULE_OPTION_TYPE    {
-		$current.merge(this_OPTION_TYPE_53);
+    |    this_BAND_41=RULE_BAND    {
+		$current.merge(this_BAND_41);
     }
 
     { 
-    newLeafNode(this_OPTION_TYPE_53, grammarAccess.getSqlValueAccess().getOPTION_TYPETerminalRuleCall_1_0_26()); 
+    newLeafNode(this_BAND_41, grammarAccess.getSqlValueAccess().getBANDTerminalRuleCall_1_0_13()); 
+    }
+
+    |    this_BOR_42=RULE_BOR    {
+		$current.merge(this_BOR_42);
+    }
+
+    { 
+    newLeafNode(this_BOR_42, grammarAccess.getSqlValueAccess().getBORTerminalRuleCall_1_0_14()); 
+    }
+
+    |    this_HASH_43=RULE_HASH    {
+		$current.merge(this_HASH_43);
+    }
+
+    { 
+    newLeafNode(this_HASH_43, grammarAccess.getSqlValueAccess().getHASHTerminalRuleCall_1_0_15()); 
+    }
+
+    |    this_CARET_44=RULE_CARET    {
+		$current.merge(this_CARET_44);
+    }
+
+    { 
+    newLeafNode(this_CARET_44, grammarAccess.getSqlValueAccess().getCARETTerminalRuleCall_1_0_16()); 
+    }
+
+    |    this_EQUALS_45=RULE_EQUALS    {
+		$current.merge(this_EQUALS_45);
+    }
+
+    { 
+    newLeafNode(this_EQUALS_45, grammarAccess.getSqlValueAccess().getEQUALSTerminalRuleCall_1_0_17()); 
+    }
+
+    |    this_LESS_THAN_46=RULE_LESS_THAN    {
+		$current.merge(this_LESS_THAN_46);
+    }
+
+    { 
+    newLeafNode(this_LESS_THAN_46, grammarAccess.getSqlValueAccess().getLESS_THANTerminalRuleCall_1_0_18()); 
+    }
+
+    |    this_MORE_THAN_47=RULE_MORE_THAN    {
+		$current.merge(this_MORE_THAN_47);
+    }
+
+    { 
+    newLeafNode(this_MORE_THAN_47, grammarAccess.getSqlValueAccess().getMORE_THANTerminalRuleCall_1_0_19()); 
+    }
+
+    |    this_DOT_48=RULE_DOT    {
+		$current.merge(this_DOT_48);
+    }
+
+    { 
+    newLeafNode(this_DOT_48, grammarAccess.getSqlValueAccess().getDOTTerminalRuleCall_1_0_20()); 
+    }
+
+    |    this_AND_49=RULE_AND    {
+		$current.merge(this_AND_49);
+    }
+
+    { 
+    newLeafNode(this_AND_49, grammarAccess.getSqlValueAccess().getANDTerminalRuleCall_1_0_21()); 
+    }
+
+    |    this_OR_50=RULE_OR    {
+		$current.merge(this_OR_50);
+    }
+
+    { 
+    newLeafNode(this_OR_50, grammarAccess.getSqlValueAccess().getORTerminalRuleCall_1_0_22()); 
+    }
+
+    |    this_ESC_CHAR_51=RULE_ESC_CHAR    {
+		$current.merge(this_ESC_CHAR_51);
+    }
+
+    { 
+    newLeafNode(this_ESC_CHAR_51, grammarAccess.getSqlValueAccess().getESC_CHARTerminalRuleCall_1_0_23()); 
+    }
+
+    |    this_ON_OFF_52=RULE_ON_OFF    {
+		$current.merge(this_ON_OFF_52);
+    }
+
+    { 
+    newLeafNode(this_ON_OFF_52, grammarAccess.getSqlValueAccess().getON_OFFTerminalRuleCall_1_0_24()); 
+    }
+
+    |    this_STATEMENT_TYPE_53=RULE_STATEMENT_TYPE    {
+		$current.merge(this_STATEMENT_TYPE_53);
+    }
+
+    { 
+    newLeafNode(this_STATEMENT_TYPE_53, grammarAccess.getSqlValueAccess().getSTATEMENT_TYPETerminalRuleCall_1_0_25()); 
+    }
+
+    |    this_MAPPING_TYPE_54=RULE_MAPPING_TYPE    {
+		$current.merge(this_MAPPING_TYPE_54);
+    }
+
+    { 
+    newLeafNode(this_MAPPING_TYPE_54, grammarAccess.getSqlValueAccess().getMAPPING_TYPETerminalRuleCall_1_0_26()); 
+    }
+
+    |    this_OPTION_TYPE_55=RULE_OPTION_TYPE    {
+		$current.merge(this_OPTION_TYPE_55);
+    }
+
+    { 
+    newLeafNode(this_OPTION_TYPE_55, grammarAccess.getSqlValueAccess().getOPTION_TYPETerminalRuleCall_1_0_27()); 
     }
 ))*)
     ;
@@ -6711,60 +6745,68 @@ ruleIfSqlValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToke
     newLeafNode(this_MORE_THAN_18, grammarAccess.getIfSqlValueAccess().getMORE_THANTerminalRuleCall_0_18()); 
     }
 
-    |    this_AND_19=RULE_AND    {
-		$current.merge(this_AND_19);
+    |    this_DOT_19=RULE_DOT    {
+		$current.merge(this_DOT_19);
     }
 
     { 
-    newLeafNode(this_AND_19, grammarAccess.getIfSqlValueAccess().getANDTerminalRuleCall_0_19()); 
+    newLeafNode(this_DOT_19, grammarAccess.getIfSqlValueAccess().getDOTTerminalRuleCall_0_19()); 
     }
 
-    |    this_OR_20=RULE_OR    {
-		$current.merge(this_OR_20);
-    }
-
-    { 
-    newLeafNode(this_OR_20, grammarAccess.getIfSqlValueAccess().getORTerminalRuleCall_0_20()); 
-    }
-
-    |    this_ESC_CHAR_21=RULE_ESC_CHAR    {
-		$current.merge(this_ESC_CHAR_21);
+    |    this_AND_20=RULE_AND    {
+		$current.merge(this_AND_20);
     }
 
     { 
-    newLeafNode(this_ESC_CHAR_21, grammarAccess.getIfSqlValueAccess().getESC_CHARTerminalRuleCall_0_21()); 
+    newLeafNode(this_AND_20, grammarAccess.getIfSqlValueAccess().getANDTerminalRuleCall_0_20()); 
     }
 
-    |    this_ON_OFF_22=RULE_ON_OFF    {
-		$current.merge(this_ON_OFF_22);
-    }
-
-    { 
-    newLeafNode(this_ON_OFF_22, grammarAccess.getIfSqlValueAccess().getON_OFFTerminalRuleCall_0_22()); 
-    }
-
-    |    this_STATEMENT_TYPE_23=RULE_STATEMENT_TYPE    {
-		$current.merge(this_STATEMENT_TYPE_23);
+    |    this_OR_21=RULE_OR    {
+		$current.merge(this_OR_21);
     }
 
     { 
-    newLeafNode(this_STATEMENT_TYPE_23, grammarAccess.getIfSqlValueAccess().getSTATEMENT_TYPETerminalRuleCall_0_23()); 
+    newLeafNode(this_OR_21, grammarAccess.getIfSqlValueAccess().getORTerminalRuleCall_0_21()); 
     }
 
-    |    this_MAPPING_TYPE_24=RULE_MAPPING_TYPE    {
-		$current.merge(this_MAPPING_TYPE_24);
-    }
-
-    { 
-    newLeafNode(this_MAPPING_TYPE_24, grammarAccess.getIfSqlValueAccess().getMAPPING_TYPETerminalRuleCall_0_24()); 
-    }
-
-    |    this_OPTION_TYPE_25=RULE_OPTION_TYPE    {
-		$current.merge(this_OPTION_TYPE_25);
+    |    this_ESC_CHAR_22=RULE_ESC_CHAR    {
+		$current.merge(this_ESC_CHAR_22);
     }
 
     { 
-    newLeafNode(this_OPTION_TYPE_25, grammarAccess.getIfSqlValueAccess().getOPTION_TYPETerminalRuleCall_0_25()); 
+    newLeafNode(this_ESC_CHAR_22, grammarAccess.getIfSqlValueAccess().getESC_CHARTerminalRuleCall_0_22()); 
+    }
+
+    |    this_ON_OFF_23=RULE_ON_OFF    {
+		$current.merge(this_ON_OFF_23);
+    }
+
+    { 
+    newLeafNode(this_ON_OFF_23, grammarAccess.getIfSqlValueAccess().getON_OFFTerminalRuleCall_0_23()); 
+    }
+
+    |    this_STATEMENT_TYPE_24=RULE_STATEMENT_TYPE    {
+		$current.merge(this_STATEMENT_TYPE_24);
+    }
+
+    { 
+    newLeafNode(this_STATEMENT_TYPE_24, grammarAccess.getIfSqlValueAccess().getSTATEMENT_TYPETerminalRuleCall_0_24()); 
+    }
+
+    |    this_MAPPING_TYPE_25=RULE_MAPPING_TYPE    {
+		$current.merge(this_MAPPING_TYPE_25);
+    }
+
+    { 
+    newLeafNode(this_MAPPING_TYPE_25, grammarAccess.getIfSqlValueAccess().getMAPPING_TYPETerminalRuleCall_0_25()); 
+    }
+
+    |    this_OPTION_TYPE_26=RULE_OPTION_TYPE    {
+		$current.merge(this_OPTION_TYPE_26);
+    }
+
+    { 
+    newLeafNode(this_OPTION_TYPE_26, grammarAccess.getIfSqlValueAccess().getOPTION_TYPETerminalRuleCall_0_26()); 
     }
 )((( RULE_REST
     | RULE_IDENT_DOT
@@ -6785,218 +6827,227 @@ ruleIfSqlValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToke
     | RULE_EQUALS
     | RULE_LESS_THAN
     | RULE_MORE_THAN
+    | RULE_DOT
     | RULE_AND
     | RULE_OR
     | RULE_ESC_CHAR
     | RULE_ON_OFF
     | RULE_STATEMENT_TYPE
     | RULE_MAPPING_TYPE
-    | RULE_OPTION_TYPE))=>(    this_REST_26=RULE_REST    {
-		$current.merge(this_REST_26);
+    | RULE_OPTION_TYPE))=>(    this_REST_27=RULE_REST    {
+		$current.merge(this_REST_27);
     }
 
     { 
-    newLeafNode(this_REST_26, grammarAccess.getIfSqlValueAccess().getRESTTerminalRuleCall_1_0_0()); 
+    newLeafNode(this_REST_27, grammarAccess.getIfSqlValueAccess().getRESTTerminalRuleCall_1_0_0()); 
     }
 
-    |    this_IDENT_DOT_27=RULE_IDENT_DOT    {
-		$current.merge(this_IDENT_DOT_27);
-    }
-
-    { 
-    newLeafNode(this_IDENT_DOT_27, grammarAccess.getIfSqlValueAccess().getIDENT_DOTTerminalRuleCall_1_0_1()); 
-    }
-
-    |    this_IDENT_28=RULE_IDENT    {
-		$current.merge(this_IDENT_28);
+    |    this_IDENT_DOT_28=RULE_IDENT_DOT    {
+		$current.merge(this_IDENT_DOT_28);
     }
 
     { 
-    newLeafNode(this_IDENT_28, grammarAccess.getIfSqlValueAccess().getIDENTTerminalRuleCall_1_0_2()); 
+    newLeafNode(this_IDENT_DOT_28, grammarAccess.getIfSqlValueAccess().getIDENT_DOTTerminalRuleCall_1_0_1()); 
     }
 
-    |    this_NUMBER_29=RULE_NUMBER    {
-		$current.merge(this_NUMBER_29);
-    }
-
-    { 
-    newLeafNode(this_NUMBER_29, grammarAccess.getIfSqlValueAccess().getNUMBERTerminalRuleCall_1_0_3()); 
-    }
-
-    |    this_WS_30=RULE_WS    {
-		$current.merge(this_WS_30);
+    |    this_IDENT_29=RULE_IDENT    {
+		$current.merge(this_IDENT_29);
     }
 
     { 
-    newLeafNode(this_WS_30, grammarAccess.getIfSqlValueAccess().getWSTerminalRuleCall_1_0_4()); 
+    newLeafNode(this_IDENT_29, grammarAccess.getIfSqlValueAccess().getIDENTTerminalRuleCall_1_0_2()); 
     }
 
-    |    this_SEMICOLON_31=RULE_SEMICOLON    {
-		$current.merge(this_SEMICOLON_31);
-    }
-
-    { 
-    newLeafNode(this_SEMICOLON_31, grammarAccess.getIfSqlValueAccess().getSEMICOLONTerminalRuleCall_1_0_5()); 
-    }
-
-    |    this_COMMA_32=RULE_COMMA    {
-		$current.merge(this_COMMA_32);
+    |    this_NUMBER_30=RULE_NUMBER    {
+		$current.merge(this_NUMBER_30);
     }
 
     { 
-    newLeafNode(this_COMMA_32, grammarAccess.getIfSqlValueAccess().getCOMMATerminalRuleCall_1_0_6()); 
+    newLeafNode(this_NUMBER_30, grammarAccess.getIfSqlValueAccess().getNUMBERTerminalRuleCall_1_0_3()); 
     }
 
-    |    this_MINUS_33=RULE_MINUS    {
-		$current.merge(this_MINUS_33);
-    }
-
-    { 
-    newLeafNode(this_MINUS_33, grammarAccess.getIfSqlValueAccess().getMINUSTerminalRuleCall_1_0_7()); 
-    }
-
-    |    this_PLUS_34=RULE_PLUS    {
-		$current.merge(this_PLUS_34);
+    |    this_WS_31=RULE_WS    {
+		$current.merge(this_WS_31);
     }
 
     { 
-    newLeafNode(this_PLUS_34, grammarAccess.getIfSqlValueAccess().getPLUSTerminalRuleCall_1_0_8()); 
+    newLeafNode(this_WS_31, grammarAccess.getIfSqlValueAccess().getWSTerminalRuleCall_1_0_4()); 
     }
 
-    |    this_LPAREN_35=RULE_LPAREN    {
-		$current.merge(this_LPAREN_35);
-    }
-
-    { 
-    newLeafNode(this_LPAREN_35, grammarAccess.getIfSqlValueAccess().getLPARENTerminalRuleCall_1_0_9()); 
-    }
-
-    |    this_RPAREN_36=RULE_RPAREN    {
-		$current.merge(this_RPAREN_36);
+    |    this_SEMICOLON_32=RULE_SEMICOLON    {
+		$current.merge(this_SEMICOLON_32);
     }
 
     { 
-    newLeafNode(this_RPAREN_36, grammarAccess.getIfSqlValueAccess().getRPARENTerminalRuleCall_1_0_10()); 
+    newLeafNode(this_SEMICOLON_32, grammarAccess.getIfSqlValueAccess().getSEMICOLONTerminalRuleCall_1_0_5()); 
     }
 
-    |    this_QUESTI_37=RULE_QUESTI    {
-		$current.merge(this_QUESTI_37);
-    }
-
-    { 
-    newLeafNode(this_QUESTI_37, grammarAccess.getIfSqlValueAccess().getQUESTITerminalRuleCall_1_0_11()); 
-    }
-
-    |    this_NOT_38=RULE_NOT    {
-		$current.merge(this_NOT_38);
+    |    this_COMMA_33=RULE_COMMA    {
+		$current.merge(this_COMMA_33);
     }
 
     { 
-    newLeafNode(this_NOT_38, grammarAccess.getIfSqlValueAccess().getNOTTerminalRuleCall_1_0_12()); 
+    newLeafNode(this_COMMA_33, grammarAccess.getIfSqlValueAccess().getCOMMATerminalRuleCall_1_0_6()); 
     }
 
-    |    this_BAND_39=RULE_BAND    {
-		$current.merge(this_BAND_39);
-    }
-
-    { 
-    newLeafNode(this_BAND_39, grammarAccess.getIfSqlValueAccess().getBANDTerminalRuleCall_1_0_13()); 
-    }
-
-    |    this_HASH_40=RULE_HASH    {
-		$current.merge(this_HASH_40);
+    |    this_MINUS_34=RULE_MINUS    {
+		$current.merge(this_MINUS_34);
     }
 
     { 
-    newLeafNode(this_HASH_40, grammarAccess.getIfSqlValueAccess().getHASHTerminalRuleCall_1_0_14()); 
+    newLeafNode(this_MINUS_34, grammarAccess.getIfSqlValueAccess().getMINUSTerminalRuleCall_1_0_7()); 
     }
 
-    |    this_CARET_41=RULE_CARET    {
-		$current.merge(this_CARET_41);
-    }
-
-    { 
-    newLeafNode(this_CARET_41, grammarAccess.getIfSqlValueAccess().getCARETTerminalRuleCall_1_0_15()); 
-    }
-
-    |    this_EQUALS_42=RULE_EQUALS    {
-		$current.merge(this_EQUALS_42);
+    |    this_PLUS_35=RULE_PLUS    {
+		$current.merge(this_PLUS_35);
     }
 
     { 
-    newLeafNode(this_EQUALS_42, grammarAccess.getIfSqlValueAccess().getEQUALSTerminalRuleCall_1_0_16()); 
+    newLeafNode(this_PLUS_35, grammarAccess.getIfSqlValueAccess().getPLUSTerminalRuleCall_1_0_8()); 
     }
 
-    |    this_LESS_THAN_43=RULE_LESS_THAN    {
-		$current.merge(this_LESS_THAN_43);
-    }
-
-    { 
-    newLeafNode(this_LESS_THAN_43, grammarAccess.getIfSqlValueAccess().getLESS_THANTerminalRuleCall_1_0_17()); 
-    }
-
-    |    this_MORE_THAN_44=RULE_MORE_THAN    {
-		$current.merge(this_MORE_THAN_44);
+    |    this_LPAREN_36=RULE_LPAREN    {
+		$current.merge(this_LPAREN_36);
     }
 
     { 
-    newLeafNode(this_MORE_THAN_44, grammarAccess.getIfSqlValueAccess().getMORE_THANTerminalRuleCall_1_0_18()); 
+    newLeafNode(this_LPAREN_36, grammarAccess.getIfSqlValueAccess().getLPARENTerminalRuleCall_1_0_9()); 
     }
 
-    |    this_AND_45=RULE_AND    {
-		$current.merge(this_AND_45);
-    }
-
-    { 
-    newLeafNode(this_AND_45, grammarAccess.getIfSqlValueAccess().getANDTerminalRuleCall_1_0_19()); 
-    }
-
-    |    this_OR_46=RULE_OR    {
-		$current.merge(this_OR_46);
+    |    this_RPAREN_37=RULE_RPAREN    {
+		$current.merge(this_RPAREN_37);
     }
 
     { 
-    newLeafNode(this_OR_46, grammarAccess.getIfSqlValueAccess().getORTerminalRuleCall_1_0_20()); 
+    newLeafNode(this_RPAREN_37, grammarAccess.getIfSqlValueAccess().getRPARENTerminalRuleCall_1_0_10()); 
     }
 
-    |    this_ESC_CHAR_47=RULE_ESC_CHAR    {
-		$current.merge(this_ESC_CHAR_47);
-    }
-
-    { 
-    newLeafNode(this_ESC_CHAR_47, grammarAccess.getIfSqlValueAccess().getESC_CHARTerminalRuleCall_1_0_21()); 
-    }
-
-    |    this_ON_OFF_48=RULE_ON_OFF    {
-		$current.merge(this_ON_OFF_48);
+    |    this_QUESTI_38=RULE_QUESTI    {
+		$current.merge(this_QUESTI_38);
     }
 
     { 
-    newLeafNode(this_ON_OFF_48, grammarAccess.getIfSqlValueAccess().getON_OFFTerminalRuleCall_1_0_22()); 
+    newLeafNode(this_QUESTI_38, grammarAccess.getIfSqlValueAccess().getQUESTITerminalRuleCall_1_0_11()); 
     }
 
-    |    this_STATEMENT_TYPE_49=RULE_STATEMENT_TYPE    {
-		$current.merge(this_STATEMENT_TYPE_49);
-    }
-
-    { 
-    newLeafNode(this_STATEMENT_TYPE_49, grammarAccess.getIfSqlValueAccess().getSTATEMENT_TYPETerminalRuleCall_1_0_23()); 
-    }
-
-    |    this_MAPPING_TYPE_50=RULE_MAPPING_TYPE    {
-		$current.merge(this_MAPPING_TYPE_50);
+    |    this_NOT_39=RULE_NOT    {
+		$current.merge(this_NOT_39);
     }
 
     { 
-    newLeafNode(this_MAPPING_TYPE_50, grammarAccess.getIfSqlValueAccess().getMAPPING_TYPETerminalRuleCall_1_0_24()); 
+    newLeafNode(this_NOT_39, grammarAccess.getIfSqlValueAccess().getNOTTerminalRuleCall_1_0_12()); 
     }
 
-    |    this_OPTION_TYPE_51=RULE_OPTION_TYPE    {
-		$current.merge(this_OPTION_TYPE_51);
+    |    this_BAND_40=RULE_BAND    {
+		$current.merge(this_BAND_40);
     }
 
     { 
-    newLeafNode(this_OPTION_TYPE_51, grammarAccess.getIfSqlValueAccess().getOPTION_TYPETerminalRuleCall_1_0_25()); 
+    newLeafNode(this_BAND_40, grammarAccess.getIfSqlValueAccess().getBANDTerminalRuleCall_1_0_13()); 
+    }
+
+    |    this_HASH_41=RULE_HASH    {
+		$current.merge(this_HASH_41);
+    }
+
+    { 
+    newLeafNode(this_HASH_41, grammarAccess.getIfSqlValueAccess().getHASHTerminalRuleCall_1_0_14()); 
+    }
+
+    |    this_CARET_42=RULE_CARET    {
+		$current.merge(this_CARET_42);
+    }
+
+    { 
+    newLeafNode(this_CARET_42, grammarAccess.getIfSqlValueAccess().getCARETTerminalRuleCall_1_0_15()); 
+    }
+
+    |    this_EQUALS_43=RULE_EQUALS    {
+		$current.merge(this_EQUALS_43);
+    }
+
+    { 
+    newLeafNode(this_EQUALS_43, grammarAccess.getIfSqlValueAccess().getEQUALSTerminalRuleCall_1_0_16()); 
+    }
+
+    |    this_LESS_THAN_44=RULE_LESS_THAN    {
+		$current.merge(this_LESS_THAN_44);
+    }
+
+    { 
+    newLeafNode(this_LESS_THAN_44, grammarAccess.getIfSqlValueAccess().getLESS_THANTerminalRuleCall_1_0_17()); 
+    }
+
+    |    this_MORE_THAN_45=RULE_MORE_THAN    {
+		$current.merge(this_MORE_THAN_45);
+    }
+
+    { 
+    newLeafNode(this_MORE_THAN_45, grammarAccess.getIfSqlValueAccess().getMORE_THANTerminalRuleCall_1_0_18()); 
+    }
+
+    |    this_DOT_46=RULE_DOT    {
+		$current.merge(this_DOT_46);
+    }
+
+    { 
+    newLeafNode(this_DOT_46, grammarAccess.getIfSqlValueAccess().getDOTTerminalRuleCall_1_0_19()); 
+    }
+
+    |    this_AND_47=RULE_AND    {
+		$current.merge(this_AND_47);
+    }
+
+    { 
+    newLeafNode(this_AND_47, grammarAccess.getIfSqlValueAccess().getANDTerminalRuleCall_1_0_20()); 
+    }
+
+    |    this_OR_48=RULE_OR    {
+		$current.merge(this_OR_48);
+    }
+
+    { 
+    newLeafNode(this_OR_48, grammarAccess.getIfSqlValueAccess().getORTerminalRuleCall_1_0_21()); 
+    }
+
+    |    this_ESC_CHAR_49=RULE_ESC_CHAR    {
+		$current.merge(this_ESC_CHAR_49);
+    }
+
+    { 
+    newLeafNode(this_ESC_CHAR_49, grammarAccess.getIfSqlValueAccess().getESC_CHARTerminalRuleCall_1_0_22()); 
+    }
+
+    |    this_ON_OFF_50=RULE_ON_OFF    {
+		$current.merge(this_ON_OFF_50);
+    }
+
+    { 
+    newLeafNode(this_ON_OFF_50, grammarAccess.getIfSqlValueAccess().getON_OFFTerminalRuleCall_1_0_23()); 
+    }
+
+    |    this_STATEMENT_TYPE_51=RULE_STATEMENT_TYPE    {
+		$current.merge(this_STATEMENT_TYPE_51);
+    }
+
+    { 
+    newLeafNode(this_STATEMENT_TYPE_51, grammarAccess.getIfSqlValueAccess().getSTATEMENT_TYPETerminalRuleCall_1_0_24()); 
+    }
+
+    |    this_MAPPING_TYPE_52=RULE_MAPPING_TYPE    {
+		$current.merge(this_MAPPING_TYPE_52);
+    }
+
+    { 
+    newLeafNode(this_MAPPING_TYPE_52, grammarAccess.getIfSqlValueAccess().getMAPPING_TYPETerminalRuleCall_1_0_25()); 
+    }
+
+    |    this_OPTION_TYPE_53=RULE_OPTION_TYPE    {
+		$current.merge(this_OPTION_TYPE_53);
+    }
+
+    { 
+    newLeafNode(this_OPTION_TYPE_53, grammarAccess.getIfSqlValueAccess().getOPTION_TYPETerminalRuleCall_1_0_26()); 
     }
 ))*)
     ;
@@ -7862,60 +7913,68 @@ ruleOrdSqlValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTok
     newLeafNode(this_MORE_THAN_21, grammarAccess.getOrdSqlValueAccess().getMORE_THANTerminalRuleCall_0_21()); 
     }
 
-    |    this_AND_22=RULE_AND    {
-		$current.merge(this_AND_22);
+    |    this_DOT_22=RULE_DOT    {
+		$current.merge(this_DOT_22);
     }
 
     { 
-    newLeafNode(this_AND_22, grammarAccess.getOrdSqlValueAccess().getANDTerminalRuleCall_0_22()); 
+    newLeafNode(this_DOT_22, grammarAccess.getOrdSqlValueAccess().getDOTTerminalRuleCall_0_22()); 
     }
 
-    |    this_OR_23=RULE_OR    {
-		$current.merge(this_OR_23);
-    }
-
-    { 
-    newLeafNode(this_OR_23, grammarAccess.getOrdSqlValueAccess().getORTerminalRuleCall_0_23()); 
-    }
-
-    |    this_ESC_CHAR_24=RULE_ESC_CHAR    {
-		$current.merge(this_ESC_CHAR_24);
+    |    this_AND_23=RULE_AND    {
+		$current.merge(this_AND_23);
     }
 
     { 
-    newLeafNode(this_ESC_CHAR_24, grammarAccess.getOrdSqlValueAccess().getESC_CHARTerminalRuleCall_0_24()); 
+    newLeafNode(this_AND_23, grammarAccess.getOrdSqlValueAccess().getANDTerminalRuleCall_0_23()); 
     }
 
-    |    this_ON_OFF_25=RULE_ON_OFF    {
-		$current.merge(this_ON_OFF_25);
-    }
-
-    { 
-    newLeafNode(this_ON_OFF_25, grammarAccess.getOrdSqlValueAccess().getON_OFFTerminalRuleCall_0_25()); 
-    }
-
-    |    this_STATEMENT_TYPE_26=RULE_STATEMENT_TYPE    {
-		$current.merge(this_STATEMENT_TYPE_26);
+    |    this_OR_24=RULE_OR    {
+		$current.merge(this_OR_24);
     }
 
     { 
-    newLeafNode(this_STATEMENT_TYPE_26, grammarAccess.getOrdSqlValueAccess().getSTATEMENT_TYPETerminalRuleCall_0_26()); 
+    newLeafNode(this_OR_24, grammarAccess.getOrdSqlValueAccess().getORTerminalRuleCall_0_24()); 
     }
 
-    |    this_MAPPING_TYPE_27=RULE_MAPPING_TYPE    {
-		$current.merge(this_MAPPING_TYPE_27);
-    }
-
-    { 
-    newLeafNode(this_MAPPING_TYPE_27, grammarAccess.getOrdSqlValueAccess().getMAPPING_TYPETerminalRuleCall_0_27()); 
-    }
-
-    |    this_OPTION_TYPE_28=RULE_OPTION_TYPE    {
-		$current.merge(this_OPTION_TYPE_28);
+    |    this_ESC_CHAR_25=RULE_ESC_CHAR    {
+		$current.merge(this_ESC_CHAR_25);
     }
 
     { 
-    newLeafNode(this_OPTION_TYPE_28, grammarAccess.getOrdSqlValueAccess().getOPTION_TYPETerminalRuleCall_0_28()); 
+    newLeafNode(this_ESC_CHAR_25, grammarAccess.getOrdSqlValueAccess().getESC_CHARTerminalRuleCall_0_25()); 
+    }
+
+    |    this_ON_OFF_26=RULE_ON_OFF    {
+		$current.merge(this_ON_OFF_26);
+    }
+
+    { 
+    newLeafNode(this_ON_OFF_26, grammarAccess.getOrdSqlValueAccess().getON_OFFTerminalRuleCall_0_26()); 
+    }
+
+    |    this_STATEMENT_TYPE_27=RULE_STATEMENT_TYPE    {
+		$current.merge(this_STATEMENT_TYPE_27);
+    }
+
+    { 
+    newLeafNode(this_STATEMENT_TYPE_27, grammarAccess.getOrdSqlValueAccess().getSTATEMENT_TYPETerminalRuleCall_0_27()); 
+    }
+
+    |    this_MAPPING_TYPE_28=RULE_MAPPING_TYPE    {
+		$current.merge(this_MAPPING_TYPE_28);
+    }
+
+    { 
+    newLeafNode(this_MAPPING_TYPE_28, grammarAccess.getOrdSqlValueAccess().getMAPPING_TYPETerminalRuleCall_0_28()); 
+    }
+
+    |    this_OPTION_TYPE_29=RULE_OPTION_TYPE    {
+		$current.merge(this_OPTION_TYPE_29);
+    }
+
+    { 
+    newLeafNode(this_OPTION_TYPE_29, grammarAccess.getOrdSqlValueAccess().getOPTION_TYPETerminalRuleCall_0_29()); 
     }
 )((( RULE_REST
     | RULE_IDENT_DOT
@@ -7939,242 +7998,251 @@ ruleOrdSqlValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTok
     | RULE_EQUALS
     | RULE_LESS_THAN
     | RULE_MORE_THAN
+    | RULE_DOT
     | RULE_AND
     | RULE_OR
     | RULE_ESC_CHAR
     | RULE_ON_OFF
     | RULE_STATEMENT_TYPE
     | RULE_MAPPING_TYPE
-    | RULE_OPTION_TYPE))=>(    this_REST_29=RULE_REST    {
-		$current.merge(this_REST_29);
+    | RULE_OPTION_TYPE))=>(    this_REST_30=RULE_REST    {
+		$current.merge(this_REST_30);
     }
 
     { 
-    newLeafNode(this_REST_29, grammarAccess.getOrdSqlValueAccess().getRESTTerminalRuleCall_1_0_0()); 
+    newLeafNode(this_REST_30, grammarAccess.getOrdSqlValueAccess().getRESTTerminalRuleCall_1_0_0()); 
     }
 
-    |    this_IDENT_DOT_30=RULE_IDENT_DOT    {
-		$current.merge(this_IDENT_DOT_30);
-    }
-
-    { 
-    newLeafNode(this_IDENT_DOT_30, grammarAccess.getOrdSqlValueAccess().getIDENT_DOTTerminalRuleCall_1_0_1()); 
-    }
-
-    |    this_IDENT_31=RULE_IDENT    {
-		$current.merge(this_IDENT_31);
+    |    this_IDENT_DOT_31=RULE_IDENT_DOT    {
+		$current.merge(this_IDENT_DOT_31);
     }
 
     { 
-    newLeafNode(this_IDENT_31, grammarAccess.getOrdSqlValueAccess().getIDENTTerminalRuleCall_1_0_2()); 
+    newLeafNode(this_IDENT_DOT_31, grammarAccess.getOrdSqlValueAccess().getIDENT_DOTTerminalRuleCall_1_0_1()); 
     }
 
-    |    this_NUMBER_32=RULE_NUMBER    {
-		$current.merge(this_NUMBER_32);
-    }
-
-    { 
-    newLeafNode(this_NUMBER_32, grammarAccess.getOrdSqlValueAccess().getNUMBERTerminalRuleCall_1_0_3()); 
-    }
-
-    |    this_WS_33=RULE_WS    {
-		$current.merge(this_WS_33);
+    |    this_IDENT_32=RULE_IDENT    {
+		$current.merge(this_IDENT_32);
     }
 
     { 
-    newLeafNode(this_WS_33, grammarAccess.getOrdSqlValueAccess().getWSTerminalRuleCall_1_0_4()); 
+    newLeafNode(this_IDENT_32, grammarAccess.getOrdSqlValueAccess().getIDENTTerminalRuleCall_1_0_2()); 
     }
 
-    |    this_SEMICOLON_34=RULE_SEMICOLON    {
-		$current.merge(this_SEMICOLON_34);
-    }
-
-    { 
-    newLeafNode(this_SEMICOLON_34, grammarAccess.getOrdSqlValueAccess().getSEMICOLONTerminalRuleCall_1_0_5()); 
-    }
-
-    |    this_COMMA_35=RULE_COMMA    {
-		$current.merge(this_COMMA_35);
+    |    this_NUMBER_33=RULE_NUMBER    {
+		$current.merge(this_NUMBER_33);
     }
 
     { 
-    newLeafNode(this_COMMA_35, grammarAccess.getOrdSqlValueAccess().getCOMMATerminalRuleCall_1_0_6()); 
+    newLeafNode(this_NUMBER_33, grammarAccess.getOrdSqlValueAccess().getNUMBERTerminalRuleCall_1_0_3()); 
     }
 
-    |    this_MINUS_36=RULE_MINUS    {
-		$current.merge(this_MINUS_36);
-    }
-
-    { 
-    newLeafNode(this_MINUS_36, grammarAccess.getOrdSqlValueAccess().getMINUSTerminalRuleCall_1_0_7()); 
-    }
-
-    |    this_PLUS_37=RULE_PLUS    {
-		$current.merge(this_PLUS_37);
+    |    this_WS_34=RULE_WS    {
+		$current.merge(this_WS_34);
     }
 
     { 
-    newLeafNode(this_PLUS_37, grammarAccess.getOrdSqlValueAccess().getPLUSTerminalRuleCall_1_0_8()); 
+    newLeafNode(this_WS_34, grammarAccess.getOrdSqlValueAccess().getWSTerminalRuleCall_1_0_4()); 
     }
 
-    |    this_LPAREN_38=RULE_LPAREN    {
-		$current.merge(this_LPAREN_38);
-    }
-
-    { 
-    newLeafNode(this_LPAREN_38, grammarAccess.getOrdSqlValueAccess().getLPARENTerminalRuleCall_1_0_9()); 
-    }
-
-    |    this_RPAREN_39=RULE_RPAREN    {
-		$current.merge(this_RPAREN_39);
+    |    this_SEMICOLON_35=RULE_SEMICOLON    {
+		$current.merge(this_SEMICOLON_35);
     }
 
     { 
-    newLeafNode(this_RPAREN_39, grammarAccess.getOrdSqlValueAccess().getRPARENTerminalRuleCall_1_0_10()); 
+    newLeafNode(this_SEMICOLON_35, grammarAccess.getOrdSqlValueAccess().getSEMICOLONTerminalRuleCall_1_0_5()); 
     }
 
-    |    this_LBRACE_40=RULE_LBRACE    {
-		$current.merge(this_LBRACE_40);
-    }
-
-    { 
-    newLeafNode(this_LBRACE_40, grammarAccess.getOrdSqlValueAccess().getLBRACETerminalRuleCall_1_0_11()); 
-    }
-
-    |    this_QUESTI_41=RULE_QUESTI    {
-		$current.merge(this_QUESTI_41);
+    |    this_COMMA_36=RULE_COMMA    {
+		$current.merge(this_COMMA_36);
     }
 
     { 
-    newLeafNode(this_QUESTI_41, grammarAccess.getOrdSqlValueAccess().getQUESTITerminalRuleCall_1_0_12()); 
+    newLeafNode(this_COMMA_36, grammarAccess.getOrdSqlValueAccess().getCOMMATerminalRuleCall_1_0_6()); 
     }
 
-    |    this_NOT_42=RULE_NOT    {
-		$current.merge(this_NOT_42);
-    }
-
-    { 
-    newLeafNode(this_NOT_42, grammarAccess.getOrdSqlValueAccess().getNOTTerminalRuleCall_1_0_13()); 
-    }
-
-    |    this_BAND_43=RULE_BAND    {
-		$current.merge(this_BAND_43);
+    |    this_MINUS_37=RULE_MINUS    {
+		$current.merge(this_MINUS_37);
     }
 
     { 
-    newLeafNode(this_BAND_43, grammarAccess.getOrdSqlValueAccess().getBANDTerminalRuleCall_1_0_14()); 
+    newLeafNode(this_MINUS_37, grammarAccess.getOrdSqlValueAccess().getMINUSTerminalRuleCall_1_0_7()); 
     }
 
-    |    this_BOR_44=RULE_BOR    {
-		$current.merge(this_BOR_44);
-    }
-
-    { 
-    newLeafNode(this_BOR_44, grammarAccess.getOrdSqlValueAccess().getBORTerminalRuleCall_1_0_15()); 
-    }
-
-    |    this_HASH_45=RULE_HASH    {
-		$current.merge(this_HASH_45);
+    |    this_PLUS_38=RULE_PLUS    {
+		$current.merge(this_PLUS_38);
     }
 
     { 
-    newLeafNode(this_HASH_45, grammarAccess.getOrdSqlValueAccess().getHASHTerminalRuleCall_1_0_16()); 
+    newLeafNode(this_PLUS_38, grammarAccess.getOrdSqlValueAccess().getPLUSTerminalRuleCall_1_0_8()); 
     }
 
-    |    this_AT_46=RULE_AT    {
-		$current.merge(this_AT_46);
-    }
-
-    { 
-    newLeafNode(this_AT_46, grammarAccess.getOrdSqlValueAccess().getATTerminalRuleCall_1_0_17()); 
-    }
-
-    |    this_CARET_47=RULE_CARET    {
-		$current.merge(this_CARET_47);
+    |    this_LPAREN_39=RULE_LPAREN    {
+		$current.merge(this_LPAREN_39);
     }
 
     { 
-    newLeafNode(this_CARET_47, grammarAccess.getOrdSqlValueAccess().getCARETTerminalRuleCall_1_0_18()); 
+    newLeafNode(this_LPAREN_39, grammarAccess.getOrdSqlValueAccess().getLPARENTerminalRuleCall_1_0_9()); 
     }
 
-    |    this_EQUALS_48=RULE_EQUALS    {
-		$current.merge(this_EQUALS_48);
-    }
-
-    { 
-    newLeafNode(this_EQUALS_48, grammarAccess.getOrdSqlValueAccess().getEQUALSTerminalRuleCall_1_0_19()); 
-    }
-
-    |    this_LESS_THAN_49=RULE_LESS_THAN    {
-		$current.merge(this_LESS_THAN_49);
+    |    this_RPAREN_40=RULE_RPAREN    {
+		$current.merge(this_RPAREN_40);
     }
 
     { 
-    newLeafNode(this_LESS_THAN_49, grammarAccess.getOrdSqlValueAccess().getLESS_THANTerminalRuleCall_1_0_20()); 
+    newLeafNode(this_RPAREN_40, grammarAccess.getOrdSqlValueAccess().getRPARENTerminalRuleCall_1_0_10()); 
     }
 
-    |    this_MORE_THAN_50=RULE_MORE_THAN    {
-		$current.merge(this_MORE_THAN_50);
-    }
-
-    { 
-    newLeafNode(this_MORE_THAN_50, grammarAccess.getOrdSqlValueAccess().getMORE_THANTerminalRuleCall_1_0_21()); 
-    }
-
-    |    this_AND_51=RULE_AND    {
-		$current.merge(this_AND_51);
+    |    this_LBRACE_41=RULE_LBRACE    {
+		$current.merge(this_LBRACE_41);
     }
 
     { 
-    newLeafNode(this_AND_51, grammarAccess.getOrdSqlValueAccess().getANDTerminalRuleCall_1_0_22()); 
+    newLeafNode(this_LBRACE_41, grammarAccess.getOrdSqlValueAccess().getLBRACETerminalRuleCall_1_0_11()); 
     }
 
-    |    this_OR_52=RULE_OR    {
-		$current.merge(this_OR_52);
-    }
-
-    { 
-    newLeafNode(this_OR_52, grammarAccess.getOrdSqlValueAccess().getORTerminalRuleCall_1_0_23()); 
-    }
-
-    |    this_ESC_CHAR_53=RULE_ESC_CHAR    {
-		$current.merge(this_ESC_CHAR_53);
+    |    this_QUESTI_42=RULE_QUESTI    {
+		$current.merge(this_QUESTI_42);
     }
 
     { 
-    newLeafNode(this_ESC_CHAR_53, grammarAccess.getOrdSqlValueAccess().getESC_CHARTerminalRuleCall_1_0_24()); 
+    newLeafNode(this_QUESTI_42, grammarAccess.getOrdSqlValueAccess().getQUESTITerminalRuleCall_1_0_12()); 
     }
 
-    |    this_ON_OFF_54=RULE_ON_OFF    {
-		$current.merge(this_ON_OFF_54);
-    }
-
-    { 
-    newLeafNode(this_ON_OFF_54, grammarAccess.getOrdSqlValueAccess().getON_OFFTerminalRuleCall_1_0_25()); 
-    }
-
-    |    this_STATEMENT_TYPE_55=RULE_STATEMENT_TYPE    {
-		$current.merge(this_STATEMENT_TYPE_55);
+    |    this_NOT_43=RULE_NOT    {
+		$current.merge(this_NOT_43);
     }
 
     { 
-    newLeafNode(this_STATEMENT_TYPE_55, grammarAccess.getOrdSqlValueAccess().getSTATEMENT_TYPETerminalRuleCall_1_0_26()); 
+    newLeafNode(this_NOT_43, grammarAccess.getOrdSqlValueAccess().getNOTTerminalRuleCall_1_0_13()); 
     }
 
-    |    this_MAPPING_TYPE_56=RULE_MAPPING_TYPE    {
-		$current.merge(this_MAPPING_TYPE_56);
-    }
-
-    { 
-    newLeafNode(this_MAPPING_TYPE_56, grammarAccess.getOrdSqlValueAccess().getMAPPING_TYPETerminalRuleCall_1_0_27()); 
-    }
-
-    |    this_OPTION_TYPE_57=RULE_OPTION_TYPE    {
-		$current.merge(this_OPTION_TYPE_57);
+    |    this_BAND_44=RULE_BAND    {
+		$current.merge(this_BAND_44);
     }
 
     { 
-    newLeafNode(this_OPTION_TYPE_57, grammarAccess.getOrdSqlValueAccess().getOPTION_TYPETerminalRuleCall_1_0_28()); 
+    newLeafNode(this_BAND_44, grammarAccess.getOrdSqlValueAccess().getBANDTerminalRuleCall_1_0_14()); 
+    }
+
+    |    this_BOR_45=RULE_BOR    {
+		$current.merge(this_BOR_45);
+    }
+
+    { 
+    newLeafNode(this_BOR_45, grammarAccess.getOrdSqlValueAccess().getBORTerminalRuleCall_1_0_15()); 
+    }
+
+    |    this_HASH_46=RULE_HASH    {
+		$current.merge(this_HASH_46);
+    }
+
+    { 
+    newLeafNode(this_HASH_46, grammarAccess.getOrdSqlValueAccess().getHASHTerminalRuleCall_1_0_16()); 
+    }
+
+    |    this_AT_47=RULE_AT    {
+		$current.merge(this_AT_47);
+    }
+
+    { 
+    newLeafNode(this_AT_47, grammarAccess.getOrdSqlValueAccess().getATTerminalRuleCall_1_0_17()); 
+    }
+
+    |    this_CARET_48=RULE_CARET    {
+		$current.merge(this_CARET_48);
+    }
+
+    { 
+    newLeafNode(this_CARET_48, grammarAccess.getOrdSqlValueAccess().getCARETTerminalRuleCall_1_0_18()); 
+    }
+
+    |    this_EQUALS_49=RULE_EQUALS    {
+		$current.merge(this_EQUALS_49);
+    }
+
+    { 
+    newLeafNode(this_EQUALS_49, grammarAccess.getOrdSqlValueAccess().getEQUALSTerminalRuleCall_1_0_19()); 
+    }
+
+    |    this_LESS_THAN_50=RULE_LESS_THAN    {
+		$current.merge(this_LESS_THAN_50);
+    }
+
+    { 
+    newLeafNode(this_LESS_THAN_50, grammarAccess.getOrdSqlValueAccess().getLESS_THANTerminalRuleCall_1_0_20()); 
+    }
+
+    |    this_MORE_THAN_51=RULE_MORE_THAN    {
+		$current.merge(this_MORE_THAN_51);
+    }
+
+    { 
+    newLeafNode(this_MORE_THAN_51, grammarAccess.getOrdSqlValueAccess().getMORE_THANTerminalRuleCall_1_0_21()); 
+    }
+
+    |    this_DOT_52=RULE_DOT    {
+		$current.merge(this_DOT_52);
+    }
+
+    { 
+    newLeafNode(this_DOT_52, grammarAccess.getOrdSqlValueAccess().getDOTTerminalRuleCall_1_0_22()); 
+    }
+
+    |    this_AND_53=RULE_AND    {
+		$current.merge(this_AND_53);
+    }
+
+    { 
+    newLeafNode(this_AND_53, grammarAccess.getOrdSqlValueAccess().getANDTerminalRuleCall_1_0_23()); 
+    }
+
+    |    this_OR_54=RULE_OR    {
+		$current.merge(this_OR_54);
+    }
+
+    { 
+    newLeafNode(this_OR_54, grammarAccess.getOrdSqlValueAccess().getORTerminalRuleCall_1_0_24()); 
+    }
+
+    |    this_ESC_CHAR_55=RULE_ESC_CHAR    {
+		$current.merge(this_ESC_CHAR_55);
+    }
+
+    { 
+    newLeafNode(this_ESC_CHAR_55, grammarAccess.getOrdSqlValueAccess().getESC_CHARTerminalRuleCall_1_0_25()); 
+    }
+
+    |    this_ON_OFF_56=RULE_ON_OFF    {
+		$current.merge(this_ON_OFF_56);
+    }
+
+    { 
+    newLeafNode(this_ON_OFF_56, grammarAccess.getOrdSqlValueAccess().getON_OFFTerminalRuleCall_1_0_26()); 
+    }
+
+    |    this_STATEMENT_TYPE_57=RULE_STATEMENT_TYPE    {
+		$current.merge(this_STATEMENT_TYPE_57);
+    }
+
+    { 
+    newLeafNode(this_STATEMENT_TYPE_57, grammarAccess.getOrdSqlValueAccess().getSTATEMENT_TYPETerminalRuleCall_1_0_27()); 
+    }
+
+    |    this_MAPPING_TYPE_58=RULE_MAPPING_TYPE    {
+		$current.merge(this_MAPPING_TYPE_58);
+    }
+
+    { 
+    newLeafNode(this_MAPPING_TYPE_58, grammarAccess.getOrdSqlValueAccess().getMAPPING_TYPETerminalRuleCall_1_0_28()); 
+    }
+
+    |    this_OPTION_TYPE_59=RULE_OPTION_TYPE    {
+		$current.merge(this_OPTION_TYPE_59);
+    }
+
+    { 
+    newLeafNode(this_OPTION_TYPE_59, grammarAccess.getOrdSqlValueAccess().getOPTION_TYPETerminalRuleCall_1_0_29()); 
     }
 ))*)
     ;
@@ -8547,67 +8615,150 @@ ruleIdentifier returns [EObject current=null]
 )
 )?(
 (
-(
-		lv_name_2_1=RULE_IDENT
-		{
-			newLeafNode(lv_name_2_1, grammarAccess.getIdentifierAccess().getNameIDENTTerminalRuleCall_2_0_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getIdentifierRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_2_1, 
-        		"IDENT");
+		{ 
+	        newCompositeNode(grammarAccess.getIdentifierAccess().getIdentifiersExtendedIdentifierParserRuleCall_2_0()); 
 	    }
-
-    |		lv_name_2_2=RULE_IDENT_DOT
-		{
-			newLeafNode(lv_name_2_2, grammarAccess.getIdentifierAccess().getNameIDENT_DOTTerminalRuleCall_2_0_1()); 
-		}
-		{
+		lv_identifiers_2_0=ruleExtendedIdentifier		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getIdentifierRule());
+	            $current = createModelElementForParent(grammarAccess.getIdentifierRule());
 	        }
-       		setWithLastConsumed(
+       		add(
        			$current, 
-       			"name",
-        		lv_name_2_2, 
-        		"IDENT_DOT");
-	    }
-
-    |		lv_name_2_3=RULE_NUMBER
-		{
-			newLeafNode(lv_name_2_3, grammarAccess.getIdentifierAccess().getNameNUMBERTerminalRuleCall_2_0_2()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getIdentifierRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_2_3, 
-        		"NUMBER");
+       			"identifiers",
+        		lv_identifiers_2_0, 
+        		"ExtendedIdentifier");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
-
-)
-)(((	RULE_LPAREN)=>this_LPAREN_3=RULE_LPAREN
+)(((	RULE_DOT)=>this_DOT_3=RULE_DOT
     { 
-    newLeafNode(this_LPAREN_3, grammarAccess.getIdentifierAccess().getLPARENTerminalRuleCall_3_0()); 
+    newLeafNode(this_DOT_3, grammarAccess.getIdentifierAccess().getDOTTerminalRuleCall_3_0()); 
     }
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIdentifierAccess().getModifiersModifierParserRuleCall_3_1_0()); 
+	        newCompositeNode(grammarAccess.getIdentifierAccess().getIdentifiersExtendedIdentifierParserRuleCall_3_1_0()); 
+	    }
+		lv_identifiers_4_0=ruleExtendedIdentifier		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getIdentifierRule());
+	        }
+       		add(
+       			$current, 
+       			"identifiers",
+        		lv_identifiers_4_0, 
+        		"ExtendedIdentifier");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*)
+;
+
+
+
+
+
+// Entry rule entryRuleExtendedIdentifier
+entryRuleExtendedIdentifier returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getExtendedIdentifierRule()); }
+	 iv_ruleExtendedIdentifier=ruleExtendedIdentifier 
+	 { $current=$iv_ruleExtendedIdentifier.current; } 
+	 EOF 
+;
+
+// Rule ExtendedIdentifier
+ruleExtendedIdentifier returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+(
+		lv_name_0_1=RULE_IDENT
+		{
+			newLeafNode(lv_name_0_1, grammarAccess.getExtendedIdentifierAccess().getNameIDENTTerminalRuleCall_0_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getExtendedIdentifierRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_1, 
+        		"IDENT");
+	    }
+
+    |		lv_name_0_2=RULE_NUMBER
+		{
+			newLeafNode(lv_name_0_2, grammarAccess.getExtendedIdentifierAccess().getNameNUMBERTerminalRuleCall_0_0_1()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getExtendedIdentifierRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_2, 
+        		"NUMBER");
+	    }
+
+    |		lv_name_0_3=RULE_IDENT_DOT
+		{
+			newLeafNode(lv_name_0_3, grammarAccess.getExtendedIdentifierAccess().getNameIDENT_DOTTerminalRuleCall_0_0_2()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getExtendedIdentifierRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_3, 
+        		"IDENT_DOT");
+	    }
+
+)
+
+)
+)(((	RULE_LPAREN)=>this_LPAREN_1=RULE_LPAREN
+    { 
+    newLeafNode(this_LPAREN_1, grammarAccess.getExtendedIdentifierAccess().getLPARENTerminalRuleCall_1_0()); 
+    }
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getExtendedIdentifierAccess().getModifiersModifierParserRuleCall_1_1_0()); 
+	    }
+		lv_modifiers_2_0=ruleModifier		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getExtendedIdentifierRule());
+	        }
+       		add(
+       			$current, 
+       			"modifiers",
+        		lv_modifiers_2_0, 
+        		"Modifier");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(this_COMMA_3=RULE_COMMA
+    { 
+    newLeafNode(this_COMMA_3, grammarAccess.getExtendedIdentifierAccess().getCOMMATerminalRuleCall_1_2_0()); 
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getExtendedIdentifierAccess().getModifiersModifierParserRuleCall_1_2_1_0()); 
 	    }
 		lv_modifiers_4_0=ruleModifier		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getIdentifierRule());
+	            $current = createModelElementForParent(grammarAccess.getExtendedIdentifierRule());
 	        }
        		add(
        			$current, 
@@ -8618,31 +8769,9 @@ ruleIdentifier returns [EObject current=null]
 	    }
 
 )
-)(this_COMMA_5=RULE_COMMA
+))*this_RPAREN_5=RULE_RPAREN
     { 
-    newLeafNode(this_COMMA_5, grammarAccess.getIdentifierAccess().getCOMMATerminalRuleCall_3_2_0()); 
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getIdentifierAccess().getModifiersModifierParserRuleCall_3_2_1_0()); 
-	    }
-		lv_modifiers_6_0=ruleModifier		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getIdentifierRule());
-	        }
-       		add(
-       			$current, 
-       			"modifiers",
-        		lv_modifiers_6_0, 
-        		"Modifier");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))*this_RPAREN_7=RULE_RPAREN
-    { 
-    newLeafNode(this_RPAREN_7, grammarAccess.getIdentifierAccess().getRPARENTerminalRuleCall_3_3()); 
+    newLeafNode(this_RPAREN_5, grammarAccess.getExtendedIdentifierAccess().getRPARENTerminalRuleCall_1_3()); 
     }
 )?)
 ;
@@ -11613,13 +11742,13 @@ RULE_MAPPING_TYPE : 'OUT';
 
 RULE_OPTION_TYPE : ('OPT'|'LOPT'|'IOPT'|'SOPT'|'BOPT');
 
-RULE_IDENT_DOT : RULE_IDENT ('.' RULE_IDENT)+;
+RULE_IDENT_DOT : RULE_IDENT (RULE_DOT RULE_IDENT)+;
 
 RULE_IDENT : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'=')*;
 
 RULE_NUMBER : ('0'..'9')+;
 
-RULE_ESC_CHAR : '\\' (RULE_COLON|RULE_SEMICOLON|RULE_STRING|RULE_LBRACE|RULE_RBRACE|RULE_BOR|RULE_HASH|RULE_AT|RULE_PERCENT|'.'|'/');
+RULE_ESC_CHAR : '\\' (RULE_COLON|RULE_SEMICOLON|RULE_STRING|RULE_LBRACE|RULE_RBRACE|RULE_BOR|RULE_HASH|RULE_AT|RULE_PERCENT|RULE_DOT|'/');
 
 RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/';
 
@@ -11672,6 +11801,8 @@ RULE_LESS_THAN : '<';
 RULE_MORE_THAN : '>';
 
 RULE_PERCENT : '%';
+
+RULE_DOT : '.';
 
 RULE_REST : ~(RULE_SEMICOLON);
 

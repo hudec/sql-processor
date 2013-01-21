@@ -15,6 +15,7 @@ import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
+import org.sqlproc.dsl.util.Utils;
 
 import com.google.inject.Inject;
 
@@ -47,7 +48,7 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
     }
 
     public String text(Identifier ele) {
-        return ele.getName();
+        return Utils.getName(ele);
     }
 
     public String text(Constant ele) {

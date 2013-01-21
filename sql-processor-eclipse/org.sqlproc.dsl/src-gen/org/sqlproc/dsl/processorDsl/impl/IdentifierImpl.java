@@ -5,16 +5,20 @@ package org.sqlproc.dsl.processorDsl.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
@@ -27,8 +31,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl#getMode <em>Mode</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl#getCase <em>Case</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl#getModifiers <em>Modifiers</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.IdentifierImpl#getIdentifiers <em>Identifiers</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,34 +80,14 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
   protected String case_ = CASE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getIdentifiers() <em>Identifiers</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getIdentifiers()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getModifiers() <em>Modifiers</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getModifiers()
-   * @generated
-   * @ordered
-   */
-  protected EList<String> modifiers;
+  protected EList<ExtendedIdentifier> identifiers;
 
   /**
    * <!-- begin-user-doc -->
@@ -178,36 +161,29 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public EList<ExtendedIdentifier> getIdentifiers()
   {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.IDENTIFIER__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<String> getModifiers()
-  {
-    if (modifiers == null)
+    if (identifiers == null)
     {
-      modifiers = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.IDENTIFIER__MODIFIERS);
+      identifiers = new EObjectContainmentEList<ExtendedIdentifier>(ExtendedIdentifier.class, this, ProcessorDslPackage.IDENTIFIER__IDENTIFIERS);
     }
-    return modifiers;
+    return identifiers;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ProcessorDslPackage.IDENTIFIER__IDENTIFIERS:
+        return ((InternalEList<?>)getIdentifiers()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -224,10 +200,8 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
         return getMode();
       case ProcessorDslPackage.IDENTIFIER__CASE:
         return getCase();
-      case ProcessorDslPackage.IDENTIFIER__NAME:
-        return getName();
-      case ProcessorDslPackage.IDENTIFIER__MODIFIERS:
-        return getModifiers();
+      case ProcessorDslPackage.IDENTIFIER__IDENTIFIERS:
+        return getIdentifiers();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -249,12 +223,9 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
       case ProcessorDslPackage.IDENTIFIER__CASE:
         setCase((String)newValue);
         return;
-      case ProcessorDslPackage.IDENTIFIER__NAME:
-        setName((String)newValue);
-        return;
-      case ProcessorDslPackage.IDENTIFIER__MODIFIERS:
-        getModifiers().clear();
-        getModifiers().addAll((Collection<? extends String>)newValue);
+      case ProcessorDslPackage.IDENTIFIER__IDENTIFIERS:
+        getIdentifiers().clear();
+        getIdentifiers().addAll((Collection<? extends ExtendedIdentifier>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -276,11 +247,8 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
       case ProcessorDslPackage.IDENTIFIER__CASE:
         setCase(CASE_EDEFAULT);
         return;
-      case ProcessorDslPackage.IDENTIFIER__NAME:
-        setName(NAME_EDEFAULT);
-        return;
-      case ProcessorDslPackage.IDENTIFIER__MODIFIERS:
-        getModifiers().clear();
+      case ProcessorDslPackage.IDENTIFIER__IDENTIFIERS:
+        getIdentifiers().clear();
         return;
     }
     super.eUnset(featureID);
@@ -300,10 +268,8 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
         return MODE_EDEFAULT == null ? mode != null : !MODE_EDEFAULT.equals(mode);
       case ProcessorDslPackage.IDENTIFIER__CASE:
         return CASE_EDEFAULT == null ? case_ != null : !CASE_EDEFAULT.equals(case_);
-      case ProcessorDslPackage.IDENTIFIER__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ProcessorDslPackage.IDENTIFIER__MODIFIERS:
-        return modifiers != null && !modifiers.isEmpty();
+      case ProcessorDslPackage.IDENTIFIER__IDENTIFIERS:
+        return identifiers != null && !identifiers.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -323,10 +289,6 @@ public class IdentifierImpl extends MinimalEObjectImpl.Container implements Iden
     result.append(mode);
     result.append(", case: ");
     result.append(case_);
-    result.append(", name: ");
-    result.append(name);
-    result.append(", modifiers: ");
-    result.append(modifiers);
     result.append(')');
     return result.toString();
   }

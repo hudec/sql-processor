@@ -419,6 +419,15 @@ public interface ProcessorDslFactory extends EFactory
   Identifier createIdentifier();
 
   /**
+   * Returns a new object of class '<em>Extended Identifier</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Extended Identifier</em>'.
+   * @generated
+   */
+  ExtendedIdentifier createExtendedIdentifier();
+
+  /**
    * Returns a new object of class '<em>Database Column</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

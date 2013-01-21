@@ -505,14 +505,15 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             }
         }
         if (entity != null) {
-            switch (checkEntityProperty(entity, identifier.getName())) {
+            String identifierName = Utils.getName(identifier);
+            switch (checkEntityProperty(entity, identifierName)) {
             case WARNING:
-                warning("Problem property : " + identifier.getName() + "[" + entity.getName() + "]",
-                        ProcessorDslPackage.Literals.IDENTIFIER__NAME);
+                warning("Problem property : " + identifierName + "[" + entity.getName() + "]",
+                        ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
                 break;
             case ERROR:
-                error("Cannot find property : " + identifier.getName() + "[" + entity.getName() + "]",
-                        ProcessorDslPackage.Literals.IDENTIFIER__NAME);
+                error("Cannot find property : " + identifierName + "[" + entity.getName() + "]",
+                        ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
                 break;
             }
             return;
@@ -537,14 +538,15 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 }
             }
         }
-        switch (checkClassProperty(identifierUsageClass, identifier.getName())) {
+        String identifierName = Utils.getName(identifier);
+        switch (checkClassProperty(identifierUsageClass, identifierName)) {
         case WARNING:
-            warning("Problem property : " + identifier.getName() + "[" + identifierUsageClass + "]",
-                    ProcessorDslPackage.Literals.IDENTIFIER__NAME);
+            warning("Problem property : " + identifierName + "[" + identifierUsageClass + "]",
+                    ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
             break;
         case ERROR:
-            error("Cannot find property : " + identifier.getName() + "[" + identifierUsageClass + "]",
-                    ProcessorDslPackage.Literals.IDENTIFIER__NAME);
+            error("Cannot find property : " + identifierName + "[" + identifierUsageClass + "]",
+                    ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
             break;
         }
     }

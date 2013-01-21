@@ -209,6 +209,8 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 			return getCOLONToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getCOMMARule())
 			return getCOMMAToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getDOTRule())
+			return getDOTToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getEQUALSRule())
 			return getEQUALSToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getLBRACERule())
@@ -272,6 +274,15 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 		if (node != null)
 			return getTokenText(node);
 		return ",";
+	}
+	
+	/**
+	 * terminal DOT:      '.' ;
+	 */
+	protected String getDOTToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return ".";
 	}
 	
 	/**

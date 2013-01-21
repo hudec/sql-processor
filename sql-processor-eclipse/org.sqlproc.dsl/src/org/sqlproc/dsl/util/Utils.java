@@ -13,6 +13,8 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.sqlproc.dsl.processorDsl.AbstractPojoEntity;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
+import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
@@ -450,4 +452,39 @@ public class Utils {
             return null;
         return getOptLock(s);
     }
+
+    public static String getName(Identifier identifier) {
+        StringBuilder sb = new StringBuilder();
+        boolean first = true;
+        for (ExtendedIdentifier ei : identifier.getIdentifiers()) {
+            if (first)
+                first = false;
+            else
+                sb.append(".");
+            sb.append(ei.getName());
+        }
+        return sb.toString();
+    }
+
+    // public static String getName(Identifier identifier) {
+    // if (null == identifier.getIdentifier())
+    // return "";
+    // StringBuilder sb = new StringBuilder();
+    // String s = identifier.getIdentifier();
+    // int ix1 = s.indexOf('(');
+    // while (ix1 > 0) {
+    // sb.append(s.substring(0, ix1));
+    // int ix2 = s.indexOf(')', ix1 + 1);
+    // if (ix2 >= 0) {
+    // s = s.substring(ix2 + 1);
+    // ix1 = s.indexOf('(');
+    // } else {
+    // s = null;
+    // ix1 = 0;
+    // }
+    // }
+    // if (s != null)
+    // sb.append(s);
+    // return sb.toString();
+    // }
 }

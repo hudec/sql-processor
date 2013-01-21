@@ -108,6 +108,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.COLUMN: return createColumn();
       case ProcessorDslPackage.CONSTANT: return createConstant();
       case ProcessorDslPackage.IDENTIFIER: return createIdentifier();
+      case ProcessorDslPackage.EXTENDED_IDENTIFIER: return createExtendedIdentifier();
       case ProcessorDslPackage.DATABASE_COLUMN: return createDatabaseColumn();
       case ProcessorDslPackage.DATABASE_TABLE: return createDatabaseTable();
       case ProcessorDslPackage.MAPPING_RULE: return createMappingRule();
@@ -618,6 +619,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     IdentifierImpl identifier = new IdentifierImpl();
     return identifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ExtendedIdentifier createExtendedIdentifier()
+  {
+    ExtendedIdentifierImpl extendedIdentifier = new ExtendedIdentifierImpl();
+    return extendedIdentifier;
   }
 
   /**

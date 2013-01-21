@@ -26,6 +26,7 @@ import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
+import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
 import org.sqlproc.dsl.processorDsl.Extends;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
@@ -396,6 +397,13 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * @generated
    */
   private EClass identifierEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass extendedIdentifierEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2539,9 +2547,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getIdentifier_Name()
+  public EReference getIdentifier_Identifiers()
   {
-    return (EAttribute)identifierEClass.getEStructuralFeatures().get(2);
+    return (EReference)identifierEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2549,9 +2557,29 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getIdentifier_Modifiers()
+  public EClass getExtendedIdentifier()
   {
-    return (EAttribute)identifierEClass.getEStructuralFeatures().get(3);
+    return extendedIdentifierEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getExtendedIdentifier_Name()
+  {
+    return (EAttribute)extendedIdentifierEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getExtendedIdentifier_Modifiers()
+  {
+    return (EAttribute)extendedIdentifierEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -3698,8 +3726,11 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     identifierEClass = createEClass(IDENTIFIER);
     createEAttribute(identifierEClass, IDENTIFIER__MODE);
     createEAttribute(identifierEClass, IDENTIFIER__CASE);
-    createEAttribute(identifierEClass, IDENTIFIER__NAME);
-    createEAttribute(identifierEClass, IDENTIFIER__MODIFIERS);
+    createEReference(identifierEClass, IDENTIFIER__IDENTIFIERS);
+
+    extendedIdentifierEClass = createEClass(EXTENDED_IDENTIFIER);
+    createEAttribute(extendedIdentifierEClass, EXTENDED_IDENTIFIER__NAME);
+    createEAttribute(extendedIdentifierEClass, EXTENDED_IDENTIFIER__MODIFIERS);
 
     databaseColumnEClass = createEClass(DATABASE_COLUMN);
     createEAttribute(databaseColumnEClass, DATABASE_COLUMN__NAME);
@@ -4096,8 +4127,11 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEClass(identifierEClass, Identifier.class, "Identifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getIdentifier_Mode(), ecorePackage.getEString(), "mode", null, 0, 1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getIdentifier_Case(), ecorePackage.getEString(), "case", null, 0, 1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getIdentifier_Name(), ecorePackage.getEString(), "name", null, 0, 1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getIdentifier_Modifiers(), ecorePackage.getEString(), "modifiers", null, 0, -1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIdentifier_Identifiers(), this.getExtendedIdentifier(), null, "identifiers", null, 0, -1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(extendedIdentifierEClass, ExtendedIdentifier.class, "ExtendedIdentifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getExtendedIdentifier_Name(), ecorePackage.getEString(), "name", null, 0, 1, ExtendedIdentifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getExtendedIdentifier_Modifiers(), ecorePackage.getEString(), "modifiers", null, 0, -1, ExtendedIdentifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(databaseColumnEClass, DatabaseColumn.class, "DatabaseColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getDatabaseColumn_Name(), ecorePackage.getEString(), "name", null, 0, 1, DatabaseColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -99,8 +99,8 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
             } else if (current instanceof Identifier) {
                 Identifier identifier = (Identifier) current;
                 ICompositeNode node = NodeModelUtils.getNode(current);
-                provideHighlightingForFragment(HighlightingConfiguration.IDENTIFIER, node, identifier.getName(),
-                        identifier.getModifiers(), acceptor);
+                // provideHighlightingForFragment(HighlightingConfiguration.IDENTIFIER, node, identifier.getName(),
+                // identifier.getModifiers(), acceptor);
             } else if (current instanceof Column) {
                 Column column = (Column) current;
                 ICompositeNode node = NodeModelUtils.getNode(current);

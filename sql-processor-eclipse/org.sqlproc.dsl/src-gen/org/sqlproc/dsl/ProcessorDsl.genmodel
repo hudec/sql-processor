@@ -241,8 +241,11 @@
     <genClasses ecoreClass="ProcessorDsl.ecore#//Identifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/mode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/case"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/modifiers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Identifier/identifiers"/>
+    </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//ExtendedIdentifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ExtendedIdentifier/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ExtendedIdentifier/modifiers"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//DatabaseColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseColumn/name"/>
