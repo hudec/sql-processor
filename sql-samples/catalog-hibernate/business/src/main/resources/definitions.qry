@@ -3,12 +3,3 @@ database-is-offline;
 
 pojo item org.sqlproc.sample.catalog.model.Item;
 pojo itemForm org.sqlproc.sample.catalog.form.ItemForm;
-
-ident ITEMS itemForm;
-ident GET_ITEM itemForm;
-ident DELETE_ITEM itemForm;
-ident INSERT_ITEM item;
-ident UPDATE_ITEM item;
-
-col ITEMS item;
-col GET_ITEM item;

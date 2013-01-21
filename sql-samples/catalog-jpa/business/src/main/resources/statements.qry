@@ -1,7 +1,7 @@
 SURROUND_QUERY_LIKE_PARTIAL(BOPT)=false;
 SURROUND_QUERY_LIKE_FULL(BOPT)=true;
 
-ITEMS(QRY)=
+ITEMS(QRY,ident=itemForm,col=item)=
   select @itemid, @productid, @name, @description, @imageurl, @imagethumburl,
          @image, @imagethumb, @price
   from item it

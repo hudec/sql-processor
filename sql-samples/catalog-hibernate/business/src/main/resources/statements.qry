@@ -4,7 +4,7 @@ SURROUND_QUERY_LIKE_FULL(BOPT)=true;
 SEQ1(OPT,HSQLDB)=call next value for HIBERNATE_SEQUENCE;
 SEQ1(OPT,ORACLE)=select HIBERNATE_SEQUENCE.nextval from dual;
 
-ITEMS(QRY)=
+ITEMS(QRY,ident=itemForm,col=item)=
   select @itemid, @productid, @name, @description, @imageurl, @imagethumburl,
          @image, @imagethumb, @price
   from item it
@@ -19,27 +19,27 @@ ITEMS(QRY)=
   {#2 order by price}
 ;
 
-GET_ITEM(CRUD)=
+GET_ITEM(CRUD,ident=itemForm,col=item)=
   select @itemid, @productid, @name, @description, @imageurl, @imagethumburl,
          @image, @imagethumb, @price
   from item it
-  {= where it.itemid=:itemid^long^notnull}
+  {= where it.itemid=:itemid(type=long,notnull)}
 ;
 
-DELETE_ITEM(CRUD)=
+DELETE_ITEM(CRUD,ident=itemForm)=
   delete from item it
-  {= where it.itemid=:itemid^long^notnull}
+  {= where it.itemid=:itemid(type=long,notnull)}
 ;
 
-INSERT_ITEM(CRUD)=
+INSERT_ITEM(CRUD,ident=item)=
   insert into item (itemid, productid, name, description, imageurl, imagethumburl, image, imagethumb, price)
-  {= values (:itemid^long^seq=SEQ1, :productid, :name, :description, :imageurl, :imagethumburl, :image, :imagethumb, :price) }
+  {= values (:itemid(type=long,seq=SEQ1), :productid, :name, :description, :imageurl, :imagethumburl, :image, :imagethumb, :price) }
 ;
 
-UPDATE_ITEM(CRUD)=
+UPDATE_ITEM(CRUD,ident=item)=
   update item it
   {= set it.productid = :productid, it.name = :name, it.description = :description,
       it.imageurl = :imageurl, it.imagethumburl = :imagethumburl, it.image = :image,
       it.imagethumb = :imagethumb, it.price = :price}
-  {= where it.itemid = :itemid^long^notnull}
+  {= where it.itemid = :itemid(type=long,notnull)}
 ;

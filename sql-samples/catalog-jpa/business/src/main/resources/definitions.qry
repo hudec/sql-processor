@@ -3,7 +3,3 @@ database-is-offline;
 
 pojo item org.sqlproc.sample.catalog.model.Item;
 pojo itemForm org.sqlproc.sample.catalog.form.ItemForm;
-
-ident ITEMS itemForm;
-
-col ITEMS item;
