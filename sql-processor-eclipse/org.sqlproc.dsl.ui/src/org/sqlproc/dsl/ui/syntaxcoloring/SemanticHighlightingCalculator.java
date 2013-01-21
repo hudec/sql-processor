@@ -20,7 +20,7 @@ import org.sqlproc.dsl.processorDsl.ConstantUsage;
 import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
-import org.sqlproc.dsl.processorDsl.Identifier;
+import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
 import org.sqlproc.dsl.processorDsl.IdentifierUsage;
 import org.sqlproc.dsl.processorDsl.IdentifierUsageExt;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
@@ -96,11 +96,11 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 provideHighlightingForFragment(HighlightingConfiguration.CONSTANT, node, constant.getName(),
                         constant.getModifiers(), acceptor);
-            } else if (current instanceof Identifier) {
-                Identifier identifier = (Identifier) current;
+            } else if (current instanceof ExtendedIdentifier) {
+                ExtendedIdentifier identifier = (ExtendedIdentifier) current;
                 ICompositeNode node = NodeModelUtils.getNode(current);
-                // provideHighlightingForFragment(HighlightingConfiguration.IDENTIFIER, node, identifier.getName(),
-                // identifier.getModifiers(), acceptor);
+                provideHighlightingForFragment(HighlightingConfiguration.IDENTIFIER, node, identifier.getName(),
+                        identifier.getModifiers(), acceptor);
             } else if (current instanceof Column) {
                 Column column = (Column) current;
                 ICompositeNode node = NodeModelUtils.getNode(current);

@@ -256,9 +256,7 @@ terminal MAPPING_TYPE: 'OUT';
 terminal OPTION_TYPE: 'OPT'|'LOPT'|'IOPT'|'SOPT'|'BOPT';
 
 //terminal IDENT_TYPE: IDENT LPAREN NUMBER (COMMA NUMBER)? RPAREN;
-//terminal IDENT_EXT_DOT: IDENT_EXT (DOT IDENT_EXT)+;
 terminal IDENT_DOT: IDENT (DOT IDENT)+;
-//terminal IDENT_EXT: (IDENT | NUMBER) LPAREN (IDENT | NUMBER) (COMMA (IDENT | NUMBER))* RPAREN;
 terminal IDENT: ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'=')*;
 terminal NUMBER: ('0'..'9')+;
 //terminal NEGATIVE_NUMBER: '-'('0'..'9')+;
