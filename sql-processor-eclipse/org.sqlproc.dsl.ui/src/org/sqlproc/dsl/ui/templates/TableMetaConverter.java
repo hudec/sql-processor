@@ -172,7 +172,7 @@ public class TableMetaConverter extends TablePojoConverter {
                     if (!first)
                         buffer.append("\n         ");
                     if (table.toInit)
-                        buffer.append("{? :").append(table.attrName).append("^^call=toInit | ");
+                        buffer.append("{? :").append(table.attrName).append("(call=toInit) | ");
                     if (table.many2many) {
                         if (header.inherTables.containsKey(entry.getKey())) {
                             for (Table table2 : header.inherTables.get(entry.getKey())) {
@@ -232,7 +232,7 @@ public class TableMetaConverter extends TablePojoConverter {
                     Table table = entry.getValue();
                     buffer.append("\n  ");
                     if (table.toInit)
-                        buffer.append("{? :").append(table.attrName).append("^^call=toInit | ");
+                        buffer.append("{? :").append(table.attrName).append("(call=toInit) | ");
                     buffer.append("left join %%").append(table.realTableName);
                     buffer.append(" ").append(table.tablePrefix);
                     buffer.append(" on %").append(table.oppositePrefix).append(".");
@@ -361,10 +361,10 @@ public class TableMetaConverter extends TablePojoConverter {
                     name = columnToCamelCase(name);
                 buffer.append(":");
                 buffer.append(name);
-                buffer.append("^");
+                buffer.append("(");
                 if (identity.value2 != null)
-                    buffer.append(identity.value2);
-                buffer.append("^idsel=").append(identity.value1);
+                    buffer.append("type=").append(identity.value2).append(",");
+                buffer.append("idsel=").append(identity.value1).append(")");
                 first = false;
                 break;
             }
@@ -388,16 +388,18 @@ public class TableMetaConverter extends TablePojoConverter {
             else
                 buffer.append(":");
             buffer.append(name);
-            if (attr.sequence != null) {
-                buffer.append("^");
-                if (attr.sequence.value2 != null)
-                    buffer.append(attr.sequence.value2);
-                buffer.append("^seq=").append(attr.sequence.value1);
-            }
             if (attr.attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
             }
-            metaTypes(buffer, attr.tableName, attr.attributeName, statementName);
+            if (attr.sequence != null) {
+                buffer.append("(");
+                if (attr.sequence.value2 != null)
+                    buffer.append("type=").append(attr.sequence.value2).append(",");
+                buffer.append("seq=").append(attr.sequence.value1);
+            }
+            if (metaTypes(buffer, attr.tableName, attr.attributeName, statementName, attr.sequence == null)
+                    || attr.sequence != null)
+                buffer.append(")");
             first = false;
         }
         return first;
@@ -462,8 +464,11 @@ public class TableMetaConverter extends TablePojoConverter {
             buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
         }
         if (attr.attribute.isPrimaryKey() || assocTables.containsKey(colname))
-            buffer.append("^^id");
-        metaTypes(buffer, attr.tableName, attr.attributeName, statementName);
+            buffer.append("(id");
+        if (metaTypes(buffer, attr.tableName, attr.attributeName, statementName, !attr.attribute.isPrimaryKey()
+                && !assocTables.containsKey(colname))
+                || attr.attribute.isPrimaryKey() || assocTables.containsKey(colname))
+            buffer.append(")");
         return false;
     }
 
@@ -502,7 +507,8 @@ public class TableMetaConverter extends TablePojoConverter {
             if (attr.attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
             }
-            metaTypes(buffer, attr.tableName, attr.attributeName, statementName);
+            if (metaTypes(buffer, attr.tableName, attr.attributeName, statementName, true))
+                buffer.append(")");
             buffer.append(" }");
             first = false;
         }
@@ -527,9 +533,11 @@ public class TableMetaConverter extends TablePojoConverter {
             if (attr.attribute.getPkTable() != null) {
                 buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
             }
-            if (!metaTypes(buffer, attr.tableName, attr.attributeName, statementName)) {
-                buffer.append("^^notnull");
-            }
+            if (!metaTypes(buffer, attr.tableName, attr.attributeName, statementName, true))
+                buffer.append("(notnull)");
+
+            else
+                buffer.append(")");
             buffer.append(" }");
             first = false;
         }
@@ -564,11 +572,13 @@ public class TableMetaConverter extends TablePojoConverter {
                 if (attr.attribute.getPkTable() != null) {
                     buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
                 }
-                boolean hasMetaType = metaTypes(buffer, attr.tableName, attr.attributeName, statementName);
+                boolean hasMetaType = metaTypes(buffer, attr.tableName, attr.attributeName, statementName, true);
                 if (isDef) {
                     if (!hasMetaType)
-                        buffer.append("^");
-                    buffer.append("^call=isDef");
+                        buffer.append("(");
+                    else
+                        buffer.append(",");
+                    buffer.append("call=isDef)");
                 }
             }
             buffer.append(" }");
@@ -615,25 +625,31 @@ public class TableMetaConverter extends TablePojoConverter {
         return first;
     }
 
-    boolean metaTypes(StringBuilder buffer, String tableName, String attributeName, String statementName) {
+    boolean metaTypes(StringBuilder buffer, String tableName, String attributeName, String statementName, boolean first) {
         if (metaColumnsMetaTypes.containsKey(tableName)
                 && metaColumnsMetaTypes.get(tableName).containsKey(attributeName)) {
             PairValues metaType = metaColumnsMetaTypes.get(tableName).get(attributeName);
-            buffer.append("^");
+            if (first)
+                buffer.append("(");
+            else
+                buffer.append(",");
             if (!"null".equalsIgnoreCase(metaType.value1))
-                buffer.append(metaType.value1);
+                buffer.append("type=").append(metaType.value1);
             if (metaType.value2 != null) {
-                buffer.append("^").append(metaType.value2);
+                buffer.append(",").append(metaType.value2);
             }
             return true;
         } else if (metaStatementsMetaTypes.containsKey(statementName)
                 && metaStatementsMetaTypes.get(statementName).containsKey(attributeName)) {
             PairValues metaType = metaStatementsMetaTypes.get(statementName).get(attributeName);
-            buffer.append("^");
+            if (first)
+                buffer.append("(");
+            else
+                buffer.append(",");
             if (!"null".equalsIgnoreCase(metaType.value1))
-                buffer.append(metaType.value1);
+                buffer.append("type=").append(metaType.value1);
             if (metaType.value2 != null) {
-                buffer.append("^").append(metaType.value2);
+                buffer.append(",").append(metaType.value2);
             }
             return true;
         }
