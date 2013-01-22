@@ -252,6 +252,8 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     public void checkColumn(Column column) {
         if (!isResolvePojo(column))
             return;
+        if (Utils.isNumber(column.getName()))
+            return;
         MetaStatement statement = EcoreUtil2.getContainerOfType(column, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
 
@@ -288,6 +290,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                         ProcessorDslPackage.Literals.COLUMN__NAME);
                 break;
             }
+            return;
         }
 
         if (pojoResolverFactory.getPojoResolver() != null) {
@@ -338,6 +341,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                         ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
                 break;
             }
+            return;
         }
 
         if (pojoResolverFactory.getPojoResolver() != null) {
@@ -386,6 +390,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                         ProcessorDslPackage.Literals.CONSTANT__NAME);
                 break;
             }
+            return;
         }
 
         if (pojoResolverFactory.getPojoResolver() != null) {
@@ -397,6 +402,8 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     @Check
     public void checkMappingColumn(MappingColumn column) {
         if (!isResolvePojo(column))
+            return;
+        if (Utils.isNumber(column.getName()))
             return;
         MappingRule rule = EcoreUtil2.getContainerOfType(column, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(rule, Artifacts.class);
@@ -435,6 +442,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 break;
 
             }
+            return;
         }
 
         if (pojoResolverFactory.getPojoResolver() != null) {

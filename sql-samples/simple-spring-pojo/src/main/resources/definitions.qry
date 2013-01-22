@@ -12,12 +12,12 @@ database-login-password "";
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
 //database-ddl-drop hsqldb_drop.ddl;
 
-table person PERSON;
+table billingDetails BILLING_DETAILS;
+table book BOOK;
 table contact CONTACT;
+table library LIBRARY;
 table media MEDIA;
 table movie MOVIE;
-table book BOOK;
-table person_library PERSON_LIBRARY;
-table library LIBRARY;
+table person PERSON;
+table personLibrary PERSON_LIBRARY;
 table subscriber SUBSCRIBER;
-table billing_details BILLING_DETAILS;

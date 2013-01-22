@@ -39,8 +39,8 @@ pojogen-make-it-final;
 pojogen-version-column VERSION;
 pojogen-version-column VER PERFORMER;
 
-//metagen-global-sequence SEQ1;
-metagen-global-identity SEL1;
+metagen-global-sequence SEQ1;
+//metagen-global-identity SEL1;
 metagen-column-meta-type CONTACT PHONE_NUMBER->phone;
 //metagen-statement-meta-type INSERT_CONTACT PHONE_NUMBER->phone;
 metagen-make-it-final;

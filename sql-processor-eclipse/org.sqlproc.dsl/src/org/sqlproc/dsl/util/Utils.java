@@ -466,25 +466,15 @@ public class Utils {
         return sb.toString();
     }
 
-    // public static String getName(Identifier identifier) {
-    // if (null == identifier.getIdentifier())
-    // return "";
-    // StringBuilder sb = new StringBuilder();
-    // String s = identifier.getIdentifier();
-    // int ix1 = s.indexOf('(');
-    // while (ix1 > 0) {
-    // sb.append(s.substring(0, ix1));
-    // int ix2 = s.indexOf(')', ix1 + 1);
-    // if (ix2 >= 0) {
-    // s = s.substring(ix2 + 1);
-    // ix1 = s.indexOf('(');
-    // } else {
-    // s = null;
-    // ix1 = 0;
-    // }
-    // }
-    // if (s != null)
-    // sb.append(s);
-    // return sb.toString();
-    // }
+    public static boolean isNumber(String s) {
+        if (s == null)
+            return false;
+        s = s.trim();
+        for (int i = 0, l = s.length(); i < l; i++) {
+            char c = s.charAt(i);
+            if (!Character.isDigit(c))
+                return false;
+        }
+        return true;
+    }
 }

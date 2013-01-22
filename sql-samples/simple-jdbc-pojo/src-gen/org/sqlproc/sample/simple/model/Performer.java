@@ -2,19 +2,17 @@ package org.sqlproc.sample.simple.model;
 
 import java.io.Serializable;
 
-public class PersonLibrary implements Serializable {
+public class Performer implements Serializable {
   
   private static final long serialVersionUID = 1L;
   public static final int ORDER_BY_ID = 1;
-  public static final int ORDER_BY_PERSON_ID = 2;
-  public static final int ORDER_BY_MEDIA_ID = 3;
 	
-  public PersonLibrary() {
+  public Performer() {
   }
   
-  public PersonLibrary(Long personId, Long mediaId) {
+  public Performer(Long personId, Integer ver) {
     this.personId = personId;
-    this.mediaId = mediaId;
+    this.ver = ver;
   }
   
   private Long id;
@@ -27,7 +25,7 @@ public class PersonLibrary implements Serializable {
     this.id = id;
   }
     
-  public PersonLibrary _setId(Long id) {
+  public Performer _setId(Long id) {
     this.id = id;
     return this;
   }
@@ -42,23 +40,23 @@ public class PersonLibrary implements Serializable {
     this.personId = personId;
   }
     
-  public PersonLibrary _setPersonId(Long personId) {
+  public Performer _setPersonId(Long personId) {
     this.personId = personId;
     return this;
   }
   
-  private Long mediaId;
+  private Integer ver;
     
-  public Long getMediaId() {
-    return mediaId;
+  public Integer getVer() {
+    return ver;
   }
     
-  public void setMediaId(Long mediaId) {
-    this.mediaId = mediaId;
+  public void setVer(Integer ver) {
+    this.ver = ver;
   }
     
-  public PersonLibrary _setMediaId(Long mediaId) {
-    this.mediaId = mediaId;
+  public Performer _setVer(Integer ver) {
+    this.ver = ver;
     return this;
   }
   
@@ -70,7 +68,7 @@ public class PersonLibrary implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    PersonLibrary other = (PersonLibrary) obj;
+    Performer other = (Performer) obj;
     if (!id.equals(other.id))
       return false;
     return true;
@@ -86,10 +84,10 @@ public class PersonLibrary implements Serializable {
   
   @Override
   public String toString() {
-    return "PersonLibrary [mediaId=" + mediaId + ", id=" + id + ", personId=" + personId + "]";
+    return "Performer [id=" + id + ", personId=" + personId + ", ver=" + ver + "]";
   }
   
   public String toStringFull() {
-    return "PersonLibrary [mediaId=" + mediaId + ", id=" + id + ", personId=" + personId + "]";
+    return "Performer [id=" + id + ", personId=" + personId + ", ver=" + ver + "]";
   }
 }

@@ -22,6 +22,7 @@ import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.property.ModelPropertyBean.PairValues;
 import org.sqlproc.dsl.property.PojoAttribute;
+import org.sqlproc.dsl.util.Constants;
 
 public class TableMetaConverter extends TablePojoConverter {
 
@@ -1039,33 +1040,34 @@ public class TableMetaConverter extends TablePojoConverter {
             buffer.append("(CRUD,");
         if (metaMakeItFinal)
             buffer.append("final=,");
-        buffer.append("identx=").append(tableToCamelCase(header.table.tableName));
-        buffer.append(",colx=").append(tableToCamelCase(header.table.tableName));
-        buffer.append(",dbcol=");
+        buffer.append(Constants.IDENTIFIER_USAGE_EXTENDED).append("=").append(tableToCamelCase(header.table.tableName));
+        buffer.append(",").append(Constants.COLUMN_USAGE_EXTENDED).append("=")
+                .append(tableToCamelCase(header.table.tableName));
+        buffer.append(",").append(Constants.TABLE_USAGE).append("=");
         buffer.append(header.table.getTableName());
 
         if (header.table.tablePrefix != null && (type == StatementType.GET || type == StatementType.SELECT)) {
             buffer.append("=").append(header.table.tablePrefix);
             if (header.extendTable.tableName != null) {
-                buffer.append(",dbcol=");
+                buffer.append(",").append(Constants.TABLE_USAGE).append("=");
                 buffer.append(header.extendTable.getTableName());
                 buffer.append("=").append(header.extendTable.tablePrefix);
             }
             if (!header.assocTables.isEmpty()) {
                 for (Entry<String, Table> entry : header.assocTables.entrySet()) {
                     Table table = entry.getValue();
-                    buffer.append(",dbcol=");
+                    buffer.append(",").append(Constants.TABLE_USAGE).append("=");
                     buffer.append(table.getTableName());
                     buffer.append("=").append(table.tablePrefix);
                     if (header.m2mTables.containsKey(entry.getKey())) {
                         Table table2 = header.m2mTables.get(entry.getKey());
-                        buffer.append(",dbcol=");
+                        buffer.append(",").append(Constants.TABLE_USAGE).append("=");
                         buffer.append(table2.getTableName());
                         buffer.append("=").append(table2.tablePrefix);
                     }
                     if (header.inherTables.containsKey(entry.getKey())) {
                         for (Table table2 : header.inherTables.get(entry.getKey())) {
-                            buffer.append(",dbcol=");
+                            buffer.append(",").append(Constants.TABLE_USAGE).append("=");
                             buffer.append(table2.getTableName());
                             buffer.append("=").append(table2.tablePrefix);
                         }
