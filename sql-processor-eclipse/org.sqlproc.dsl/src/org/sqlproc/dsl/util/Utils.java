@@ -13,6 +13,8 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.sqlproc.dsl.processorDsl.AbstractPojoEntity;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.Column;
+import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.MappingRule;
@@ -457,6 +459,19 @@ public class Utils {
         StringBuilder sb = new StringBuilder();
         boolean first = true;
         for (ExtendedIdentifier ei : identifier.getIdentifiers()) {
+            if (first)
+                first = false;
+            else
+                sb.append(".");
+            sb.append(ei.getName());
+        }
+        return sb.toString();
+    }
+
+    public static String getName(Column column) {
+        StringBuilder sb = new StringBuilder();
+        boolean first = true;
+        for (ExtendedColumn ei : column.getColumns()) {
             if (first)
                 first = false;
             else

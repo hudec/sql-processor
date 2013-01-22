@@ -309,6 +309,13 @@ public class ProcessorDslSwitch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.EXTENDED_COLUMN:
+      {
+        ExtendedColumn extendedColumn = (ExtendedColumn)theEObject;
+        T result = caseExtendedColumn(extendedColumn);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.CONSTANT:
       {
         Constant constant = (Constant)theEObject;
@@ -994,6 +1001,22 @@ public class ProcessorDslSwitch<T>
    * @generated
    */
   public T caseColumn(Column object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Extended Column</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Extended Column</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseExtendedColumn(ExtendedColumn object)
   {
     return null;
   }

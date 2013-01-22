@@ -75,7 +75,7 @@ public class ProcessorDslOutlineTreeProvider extends DefaultOutlineTreeProvider 
 
                 @Override
                 public int compare(Column o1, Column o2) {
-                    return o1.getName().compareTo(o2.getName());
+                    return Utils.getName(o1).compareTo(Utils.getName(o2));
                 }
             });
             Set<DatabaseColumn> databaseColumns = new TreeSet<DatabaseColumn>(new Comparator<DatabaseColumn>() {

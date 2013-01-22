@@ -89,8 +89,16 @@ import org.sqlproc.engine.type.SqlMetaType;
     ParserUtils.addColumn(target, col, text);
   }
   
-  SqlMappingItem newColumn(Token col) {
-    return ParserUtils.newColumn(col.getText());
+  SqlMappingItem newColumn(SqlMappingItem col, Token name) {
+    if (col != null) {
+      ParserUtils.addName(col, name.getText());
+      return col;
+    }
+    return ParserUtils.newColumn(name.getText());
+  }
+  
+  void addName(SqlMappingItem col, Token name) {
+    ParserUtils.addName(col, (name!=null) ? name.getText() : null);
   }
   
   void addColumnAttr(SqlMappingItem item, Token col) {
@@ -328,10 +336,27 @@ ordSqlFragment [SqlMetaOrd ord]
 		{if(!$meta::skip) addDatabaseColumn(ord, dbcol, $meta::text);}
 	;	
 
+/*
 column returns[SqlMappingItem result]
 @init {$result = null;}
 	:	
 	(col=IDENT_DOT | col=IDENT | col=NUMBER) {if(!$meta::skip) $result = newColumn(col);}
+	(options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
+	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
+	 )* RPAREN
+	)?
+	;
+*/
+
+column returns[SqlMappingItem result]
+@after {result = col;}
+	:	
+	col=extendedColumn[null] (options {greedy=true;} : extendedColumn[col])*
+	;
+
+extendedColumn [SqlMappingItem col] returns [SqlMappingItem result]
+	:
+	(name=IDENT_DOT | name=IDENT | name=NUMBER) {$result = newColumn($col, $name);}
 	(options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
 	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
 	 )* RPAREN
@@ -347,6 +372,7 @@ constant returns [SqlMetaConst result]
 	 )* RPAREN
 	)?
 	;
+
 /*
 identifier returns [SqlMetaIdent result]
 @init {$result = null;}
@@ -358,8 +384,8 @@ identifier returns [SqlMetaIdent result]
 	)?
 	;
 */
+
 identifier returns [SqlMetaIdent result]
-//@init {SqlMetaIdent ident = null;}
 @after {result = ident;}
 	:	
 	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)?
@@ -404,8 +430,8 @@ scope {SqlTypeFactory typeFactory;boolean skip;}
 mappingItem returns[SqlMappingItem result]
 @init {$result = null;}
 	:	
-	(col=IDENT | col=NUMBER) {if(!$mapping::skip) $result = newColumn(col);}
-                       (STRING (col=IDENT_DOT | col=IDENT | col=NUMBER) { if(!$mapping::skip) addColumnAttr($result, $col); }
+	(col=IDENT | col=NUMBER) {if(!$mapping::skip) $result = newColumn(null, col);}
+     (STRING (col=IDENT_DOT | col=IDENT | col=NUMBER) { if(!$mapping::skip) addColumnAttr($result, $col); }
 	  (options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$mapping::skip) addModifier($mapping::typeFactory, $result, $value.text); }
 	   (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$mapping::skip) addModifier($mapping::typeFactory, $result, $value.text); }
 	  )* RPAREN

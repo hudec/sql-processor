@@ -175,12 +175,12 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     // addProposalList(COL_VALS, "IDENT", context, acceptor);
     // }
 
-    @Override
-    public void completeColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        if (!completeUsage(model, assignment, context, acceptor, COLUMN_USAGE, COLUMN_USAGE_EXTENDED))
-            super.completeColumn_Name(model, assignment, context, acceptor);
-    }
+    // @Override
+    // public void completeColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
+    // ICompletionProposalAcceptor acceptor) {
+    // if (!completeUsage(model, assignment, context, acceptor, COLUMN_USAGE, COLUMN_USAGE_EXTENDED))
+    // super.completeColumn_Name(model, assignment, context, acceptor);
+    // }
 
     @Override
     public void completeConstant_Name(EObject model, Assignment assignment, ContentAssistContext context,

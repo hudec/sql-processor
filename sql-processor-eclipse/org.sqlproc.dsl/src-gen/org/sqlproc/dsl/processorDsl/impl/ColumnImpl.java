@@ -4,18 +4,20 @@ package org.sqlproc.dsl.processorDsl.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.sqlproc.dsl.processorDsl.Column;
+import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -25,8 +27,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ColumnImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ColumnImpl#getModifiers <em>Modifiers</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ColumnImpl#getColumns <em>Columns</em>}</li>
  * </ul>
  * </p>
  *
@@ -35,34 +36,14 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 public class ColumnImpl extends MinimalEObjectImpl.Container implements Column
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getColumns() <em>Columns</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getColumns()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getModifiers() <em>Modifiers</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getModifiers()
-   * @generated
-   * @ordered
-   */
-  protected EList<String> modifiers;
+  protected EList<ExtendedColumn> columns;
 
   /**
    * <!-- begin-user-doc -->
@@ -90,36 +71,29 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public EList<ExtendedColumn> getColumns()
   {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.COLUMN__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<String> getModifiers()
-  {
-    if (modifiers == null)
+    if (columns == null)
     {
-      modifiers = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.COLUMN__MODIFIERS);
+      columns = new EObjectContainmentEList<ExtendedColumn>(ExtendedColumn.class, this, ProcessorDslPackage.COLUMN__COLUMNS);
     }
-    return modifiers;
+    return columns;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ProcessorDslPackage.COLUMN__COLUMNS:
+        return ((InternalEList<?>)getColumns()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -132,10 +106,8 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.COLUMN__NAME:
-        return getName();
-      case ProcessorDslPackage.COLUMN__MODIFIERS:
-        return getModifiers();
+      case ProcessorDslPackage.COLUMN__COLUMNS:
+        return getColumns();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -151,12 +123,9 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.COLUMN__NAME:
-        setName((String)newValue);
-        return;
-      case ProcessorDslPackage.COLUMN__MODIFIERS:
-        getModifiers().clear();
-        getModifiers().addAll((Collection<? extends String>)newValue);
+      case ProcessorDslPackage.COLUMN__COLUMNS:
+        getColumns().clear();
+        getColumns().addAll((Collection<? extends ExtendedColumn>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -172,11 +141,8 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.COLUMN__NAME:
-        setName(NAME_EDEFAULT);
-        return;
-      case ProcessorDslPackage.COLUMN__MODIFIERS:
-        getModifiers().clear();
+      case ProcessorDslPackage.COLUMN__COLUMNS:
+        getColumns().clear();
         return;
     }
     super.eUnset(featureID);
@@ -192,31 +158,10 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.COLUMN__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ProcessorDslPackage.COLUMN__MODIFIERS:
-        return modifiers != null && !modifiers.isEmpty();
+      case ProcessorDslPackage.COLUMN__COLUMNS:
+        return columns != null && !columns.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", modifiers: ");
-    result.append(modifiers);
-    result.append(')');
-    return result.toString();
   }
 
 } //ColumnImpl

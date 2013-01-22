@@ -95,6 +95,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.ORD_SQL: return createOrdSql();
       case ProcessorDslPackage.ORD_SQL2: return createOrdSql2();
       case ProcessorDslPackage.COLUMN: return createColumn();
+      case ProcessorDslPackage.EXTENDED_COLUMN: return createExtendedColumn();
       case ProcessorDslPackage.CONSTANT: return createConstant();
       case ProcessorDslPackage.IDENTIFIER: return createIdentifier();
       case ProcessorDslPackage.EXTENDED_IDENTIFIER: return createExtendedIdentifier();
@@ -465,6 +466,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     ColumnImpl column = new ColumnImpl();
     return column;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ExtendedColumn createExtendedColumn()
+  {
+    ExtendedColumnImpl extendedColumn = new ExtendedColumnImpl();
+    return extendedColumn;
   }
 
   /**

@@ -302,6 +302,15 @@ public interface ProcessorDslFactory extends EFactory
   Column createColumn();
 
   /**
+   * Returns a new object of class '<em>Extended Column</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Extended Column</em>'.
+   * @generated
+   */
+  ExtendedColumn createExtendedColumn();
+
+  /**
    * Returns a new object of class '<em>Constant</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

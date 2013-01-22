@@ -12,10 +12,10 @@ import org.eclipse.xtext.nodemodel.util.NodeTreeIterator;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
-import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
+import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingItem;
@@ -92,8 +92,8 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 provideHighlightingForFragment(HighlightingConfiguration.IDENTIFIER, node, identifier.getName(),
                         identifier.getModifiers(), acceptor);
-            } else if (current instanceof Column) {
-                Column column = (Column) current;
+            } else if (current instanceof ExtendedColumn) {
+                ExtendedColumn column = (ExtendedColumn) current;
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 provideHighlightingForFragment(HighlightingConfiguration.COLUMN, node, column.getName(),
                         column.getModifiers(), acceptor);

@@ -4537,11 +4537,47 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	public class ColumnElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Column");
 		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cColumnsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cColumnsExtendedColumnParserRuleCall_0_0 = (RuleCall)cColumnsAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final RuleCall cDOTTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
+		private final Assignment cColumnsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cColumnsExtendedColumnParserRuleCall_1_1_0 = (RuleCall)cColumnsAssignment_1_1.eContents().get(0);
+		
+		//Column:
+		//	columns+=ExtendedColumn (DOT columns+=ExtendedColumn)*;
+		public ParserRule getRule() { return rule; }
+
+		//columns+=ExtendedColumn (DOT columns+=ExtendedColumn)*
+		public Group getGroup() { return cGroup; }
+
+		//columns+=ExtendedColumn
+		public Assignment getColumnsAssignment_0() { return cColumnsAssignment_0; }
+
+		//ExtendedColumn
+		public RuleCall getColumnsExtendedColumnParserRuleCall_0_0() { return cColumnsExtendedColumnParserRuleCall_0_0; }
+
+		//(=> DOT columns+=ExtendedColumn)*
+		public Group getGroup_1() { return cGroup_1; }
+
+		//=> DOT
+		public RuleCall getDOTTerminalRuleCall_1_0() { return cDOTTerminalRuleCall_1_0; }
+
+		//columns+=ExtendedColumn
+		public Assignment getColumnsAssignment_1_1() { return cColumnsAssignment_1_1; }
+
+		//ExtendedColumn
+		public RuleCall getColumnsExtendedColumnParserRuleCall_1_1_0() { return cColumnsExtendedColumnParserRuleCall_1_1_0; }
+	}
+
+	public class ExtendedColumnElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ExtendedColumn");
+		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final Alternatives cNameAlternatives_0_0 = (Alternatives)cNameAssignment_0.eContents().get(0);
 		private final RuleCall cNameIDENTTerminalRuleCall_0_0_0 = (RuleCall)cNameAlternatives_0_0.eContents().get(0);
-		private final RuleCall cNameIDENT_DOTTerminalRuleCall_0_0_1 = (RuleCall)cNameAlternatives_0_0.eContents().get(1);
-		private final RuleCall cNameNUMBERTerminalRuleCall_0_0_2 = (RuleCall)cNameAlternatives_0_0.eContents().get(2);
+		private final RuleCall cNameNUMBERTerminalRuleCall_0_0_1 = (RuleCall)cNameAlternatives_0_0.eContents().get(1);
+		private final RuleCall cNameIDENT_DOTTerminalRuleCall_0_0_2 = (RuleCall)cNameAlternatives_0_0.eContents().get(2);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final RuleCall cLPARENTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
 		private final Assignment cModifiersAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
@@ -4552,27 +4588,27 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cModifiersModifierParserRuleCall_1_2_1_0 = (RuleCall)cModifiersAssignment_1_2_1.eContents().get(0);
 		private final RuleCall cRPARENTerminalRuleCall_1_3 = (RuleCall)cGroup_1.eContents().get(3);
 		
-		//Column:
-		//	name=(IDENT | IDENT_DOT | NUMBER) (LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
+		//ExtendedColumn:
+		//	name=(IDENT | NUMBER | IDENT_DOT) (LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 		public ParserRule getRule() { return rule; }
 
-		//name=(IDENT | IDENT_DOT | NUMBER) (LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?
+		//name=(IDENT | NUMBER | IDENT_DOT) (LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?
 		public Group getGroup() { return cGroup; }
 
-		//name=(IDENT | IDENT_DOT | NUMBER)
+		//name=(IDENT | NUMBER | IDENT_DOT)
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 
-		//IDENT | IDENT_DOT | NUMBER
+		//IDENT | NUMBER | IDENT_DOT
 		public Alternatives getNameAlternatives_0_0() { return cNameAlternatives_0_0; }
 
 		//IDENT
 		public RuleCall getNameIDENTTerminalRuleCall_0_0_0() { return cNameIDENTTerminalRuleCall_0_0_0; }
 
-		//IDENT_DOT
-		public RuleCall getNameIDENT_DOTTerminalRuleCall_0_0_1() { return cNameIDENT_DOTTerminalRuleCall_0_0_1; }
-
 		//NUMBER
-		public RuleCall getNameNUMBERTerminalRuleCall_0_0_2() { return cNameNUMBERTerminalRuleCall_0_0_2; }
+		public RuleCall getNameNUMBERTerminalRuleCall_0_0_1() { return cNameNUMBERTerminalRuleCall_0_0_1; }
+
+		//IDENT_DOT
+		public RuleCall getNameIDENT_DOTTerminalRuleCall_0_0_2() { return cNameIDENT_DOTTerminalRuleCall_0_0_2; }
 
 		//(=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?
 		public Group getGroup_1() { return cGroup_1; }
@@ -6596,6 +6632,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	private OrdSql2Elements pOrdSql2;
 	private OrdSqlValueElements pOrdSqlValue;
 	private ColumnElements pColumn;
+	private ExtendedColumnElements pExtendedColumn;
 	private ConstantElements pConstant;
 	private IdentifierElements pIdentifier;
 	private ExtendedIdentifierElements pExtendedIdentifier;
@@ -7093,13 +7130,23 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Column:
-	//	name=(IDENT | IDENT_DOT | NUMBER) (LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
+	//	columns+=ExtendedColumn (DOT columns+=ExtendedColumn)*;
 	public ColumnElements getColumnAccess() {
 		return (pColumn != null) ? pColumn : (pColumn = new ColumnElements());
 	}
 	
 	public ParserRule getColumnRule() {
 		return getColumnAccess().getRule();
+	}
+
+	//ExtendedColumn:
+	//	name=(IDENT | NUMBER | IDENT_DOT) (LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
+	public ExtendedColumnElements getExtendedColumnAccess() {
+		return (pExtendedColumn != null) ? pExtendedColumn : (pExtendedColumn = new ExtendedColumnElements());
+	}
+	
+	public ParserRule getExtendedColumnRule() {
+		return getExtendedColumnAccess().getRule();
 	}
 
 	//Constant:

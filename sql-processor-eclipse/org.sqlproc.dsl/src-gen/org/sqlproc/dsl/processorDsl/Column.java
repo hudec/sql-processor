@@ -14,8 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Column#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Column#getModifiers <em>Modifiers</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Column#getColumns <em>Columns</em>}</li>
  * </ul>
  * </p>
  *
@@ -26,45 +25,19 @@ import org.eclipse.emf.ecore.EObject;
 public interface Column extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Columns</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.ExtendedColumn}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Columns</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getColumn_Name()
-   * @model
+   * @return the value of the '<em>Columns</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getColumn_Columns()
+   * @model containment="true"
    * @generated
    */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Column#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Modifiers</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Modifiers</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Modifiers</em>' attribute list.
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getColumn_Modifiers()
-   * @model unique="false"
-   * @generated
-   */
-  EList<String> getModifiers();
+  EList<ExtendedColumn> getColumns();
 
 } // Column

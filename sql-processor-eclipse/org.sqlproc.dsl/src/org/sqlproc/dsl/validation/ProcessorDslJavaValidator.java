@@ -252,7 +252,8 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     public void checkColumn(Column column) {
         if (!isResolvePojo(column))
             return;
-        if (Utils.isNumber(column.getName()))
+        String columnName = Utils.getName(column);
+        if (Utils.isNumber(columnName))
             return;
         MetaStatement statement = EcoreUtil2.getContainerOfType(column, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
@@ -262,14 +263,14 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), entityName)
                 : null;
         if (entity != null) {
-            switch (checkEntityProperty(entity, column.getName())) {
+            switch (checkEntityProperty(entity, columnName)) {
             case WARNING:
-                warning("Problem property : " + column.getName() + "[" + entity.getName() + "]",
-                        ProcessorDslPackage.Literals.COLUMN__NAME);
+                warning("Problem property : " + columnName + "[" + entity.getName() + "]",
+                        ProcessorDslPackage.Literals.COLUMN__COLUMNS);
                 break;
             case ERROR:
-                error("Cannot find property : " + column.getName() + "[" + entity.getName() + "]",
-                        ProcessorDslPackage.Literals.COLUMN__NAME);
+                error("Cannot find property : " + columnName + "[" + entity.getName() + "]",
+                        ProcessorDslPackage.Literals.COLUMN__COLUMNS);
                 break;
             }
             return;
@@ -280,22 +281,21 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
         String columnUsageClass = (pojo != null) ? pojo.getClass_() : null;
         if (columnUsageClass != null) {
-            switch (checkClassProperty(columnUsageClass, column.getName())) {
+            switch (checkClassProperty(columnUsageClass, columnName)) {
             case WARNING:
-                warning("Problem property : " + column.getName() + "[" + columnUsageClass + "]",
-                        ProcessorDslPackage.Literals.COLUMN__NAME);
+                warning("Problem property : " + columnName + "[" + columnUsageClass + "]",
+                        ProcessorDslPackage.Literals.COLUMN__COLUMNS);
                 break;
             case ERROR:
-                error("Cannot find property : " + column.getName() + "[" + columnUsageClass + "]",
-                        ProcessorDslPackage.Literals.COLUMN__NAME);
+                error("Cannot find property : " + columnName + "[" + columnUsageClass + "]",
+                        ProcessorDslPackage.Literals.COLUMN__COLUMNS);
                 break;
             }
             return;
         }
 
         if (pojoResolverFactory.getPojoResolver() != null) {
-            error("Cannot check result class attribute : " + column.getName(),
-                    ProcessorDslPackage.Literals.COLUMN__NAME);
+            error("Cannot check result class attribute : " + columnName, ProcessorDslPackage.Literals.COLUMN__COLUMNS);
         }
     }
 
@@ -303,6 +303,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     public void checkIdentifier(Identifier identifier) {
         if (!isResolvePojo(identifier))
             return;
+        String identifierName = Utils.getName(identifier);
         MetaStatement statement = EcoreUtil2.getContainerOfType(identifier, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
 
@@ -311,7 +312,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), entityName)
                 : null;
         if (entity != null) {
-            String identifierName = Utils.getName(identifier);
             switch (checkEntityProperty(entity, identifierName)) {
             case WARNING:
                 warning("Problem property : " + identifierName + "[" + entity.getName() + "]",
@@ -329,7 +329,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         PojoDefinition pojo = (pojoName != null) ? Utils.findPojo(qualifiedNameConverter, artifacts,
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
         String identifierUsageClass = (pojo != null) ? pojo.getClass_() : null;
-        String identifierName = Utils.getName(identifier);
         if (identifierUsageClass != null) {
             switch (checkClassProperty(identifierUsageClass, identifierName)) {
             case WARNING:
@@ -416,11 +415,11 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             switch (checkEntityProperty(entity, column.getName())) {
             case WARNING:
                 warning("Problem property : " + column.getName() + "[" + entity.getName() + "]",
-                        ProcessorDslPackage.Literals.COLUMN__NAME);
+                        ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
                 break;
             case ERROR:
                 error("Cannot find property : " + column.getName() + "[" + entity.getName() + "]",
-                        ProcessorDslPackage.Literals.COLUMN__NAME);
+                        ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
                 break;
             }
             return;

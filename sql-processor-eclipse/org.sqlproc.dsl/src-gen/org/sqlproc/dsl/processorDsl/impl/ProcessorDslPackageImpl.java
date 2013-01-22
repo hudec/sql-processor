@@ -22,6 +22,7 @@ import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
+import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
 import org.sqlproc.dsl.processorDsl.Extends;
 import org.sqlproc.dsl.processorDsl.Identifier;
@@ -295,6 +296,13 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * @generated
    */
   private EClass columnEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass extendedColumnEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2099,9 +2107,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getColumn_Name()
+  public EReference getColumn_Columns()
   {
-    return (EAttribute)columnEClass.getEStructuralFeatures().get(0);
+    return (EReference)columnEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2109,9 +2117,29 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getColumn_Modifiers()
+  public EClass getExtendedColumn()
   {
-    return (EAttribute)columnEClass.getEStructuralFeatures().get(1);
+    return extendedColumnEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getExtendedColumn_Name()
+  {
+    return (EAttribute)extendedColumnEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getExtendedColumn_Modifiers()
+  {
+    return (EAttribute)extendedColumnEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -3319,8 +3347,11 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEReference(ordSql2EClass, ORD_SQL2__DBCOL);
 
     columnEClass = createEClass(COLUMN);
-    createEAttribute(columnEClass, COLUMN__NAME);
-    createEAttribute(columnEClass, COLUMN__MODIFIERS);
+    createEReference(columnEClass, COLUMN__COLUMNS);
+
+    extendedColumnEClass = createEClass(EXTENDED_COLUMN);
+    createEAttribute(extendedColumnEClass, EXTENDED_COLUMN__NAME);
+    createEAttribute(extendedColumnEClass, EXTENDED_COLUMN__MODIFIERS);
 
     constantEClass = createEClass(CONSTANT);
     createEAttribute(constantEClass, CONSTANT__CASE);
@@ -3674,8 +3705,11 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEReference(getOrdSql2_Dbcol(), this.getDatabaseColumn(), null, "dbcol", null, 0, 1, OrdSql2.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(columnEClass, Column.class, "Column", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getColumn_Name(), ecorePackage.getEString(), "name", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getColumn_Modifiers(), ecorePackage.getEString(), "modifiers", null, 0, -1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getColumn_Columns(), this.getExtendedColumn(), null, "columns", null, 0, -1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(extendedColumnEClass, ExtendedColumn.class, "ExtendedColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getExtendedColumn_Name(), ecorePackage.getEString(), "name", null, 0, 1, ExtendedColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getExtendedColumn_Modifiers(), ecorePackage.getEString(), "modifiers", null, 0, -1, ExtendedColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(constantEClass, Constant.class, "Constant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getConstant_Case(), ecorePackage.getEString(), "case", null, 0, 1, Constant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

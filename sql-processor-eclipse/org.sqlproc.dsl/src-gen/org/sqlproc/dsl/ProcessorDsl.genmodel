@@ -192,8 +192,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//OrdSql2/dbcol"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//Column">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Column/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Column/modifiers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Column/columns"/>
+    </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//ExtendedColumn">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ExtendedColumn/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ExtendedColumn/modifiers"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//Constant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Constant/case"/>

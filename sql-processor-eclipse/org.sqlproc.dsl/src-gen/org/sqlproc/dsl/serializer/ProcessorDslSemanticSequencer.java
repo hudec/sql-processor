@@ -23,6 +23,7 @@ import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
+import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
 import org.sqlproc.dsl.processorDsl.Extends;
 import org.sqlproc.dsl.processorDsl.Identifier;
@@ -137,6 +138,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.EXPORT_ASSIGNEMENT:
 				if(context == grammarAccess.getExportAssignementRule()) {
 					sequence_ExportAssignement(context, (ExportAssignement) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.EXTENDED_COLUMN:
+				if(context == grammarAccess.getExtendedColumnRule()) {
+					sequence_ExtendedColumn(context, (ExtendedColumn) semanticObject); 
 					return; 
 				}
 				else break;
@@ -484,7 +491,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((name=IDENT | name=IDENT_DOT | name=NUMBER) (modifiers+=Modifier modifiers+=Modifier*)?)
+	 *     (columns+=ExtendedColumn columns+=ExtendedColumn*)
 	 */
 	protected void sequence_Column(EObject context, Column semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -558,6 +565,15 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (dbColumn=IDENT fkTable=IDENT fkColumn=IDENT?)
 	 */
 	protected void sequence_ExportAssignement(EObject context, ExportAssignement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((name=IDENT | name=NUMBER | name=IDENT_DOT) (modifiers+=Modifier modifiers+=Modifier*)?)
+	 */
+	protected void sequence_ExtendedColumn(EObject context, ExtendedColumn semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

@@ -178,8 +178,10 @@ OrdSqlValue: //~(COLON | STRING | PERCENT | RBRACE)
   (=> (REST|IDENT_DOT|IDENT|NUMBER|WS|SEMICOLON|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|DOT|AND|OR|ESC_CHAR|ON_OFF|STATEMENT_TYPE|MAPPING_TYPE|OPTION_TYPE)*);
 
 Column:
-    name=(IDENT|IDENT_DOT|NUMBER)
-    (=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
+    columns += ExtendedColumn (=> DOT columns += ExtendedColumn)*;
+
+ExtendedColumn: 
+	name=(IDENT|NUMBER|IDENT_DOT) (=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 
 Constant:
     (case=(PLUS|MINUS))? name=(IDENT|IDENT_DOT)

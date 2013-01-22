@@ -230,6 +230,11 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createColumnAdapter();
       }
       @Override
+      public Adapter caseExtendedColumn(ExtendedColumn object)
+      {
+        return createExtendedColumnAdapter();
+      }
+      @Override
       public Adapter caseConstant(Constant object)
       {
         return createConstantAdapter();
@@ -842,6 +847,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createColumnAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ExtendedColumn <em>Extended Column</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ExtendedColumn
+   * @generated
+   */
+  public Adapter createExtendedColumnAdapter()
   {
     return null;
   }

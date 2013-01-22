@@ -56,7 +56,7 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
     }
 
     public String text(Column ele) {
-        return ele.getName();
+        return Utils.getName(ele);
     }
 
     public String text(MappingColumn ele) {

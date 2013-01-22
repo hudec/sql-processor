@@ -107,6 +107,22 @@ class SqlMappingItem implements SqlMetaElement {
     }
 
     /**
+     * Injects value to the latest attribute.
+     * 
+     * @param value
+     *            value for the latest attribute
+     */
+    SqlMappingAttribute setAttributeValue(String value) {
+        String[] values = value.split("=");
+        SqlMappingAttribute attr = attributes.get(attributes.size() - 1);
+        if (values.length > 1)
+            attr.setValues(SqlUtils.SUPPVAL_GTYPE, values[1]);
+        else
+            attr.setValues(SqlUtils.SUPPVAL_TYPE, values[0]);
+        return attr;
+    }
+
+    /**
      * Returns the list of all partial attribute names in the result class.
      * 
      * @return the list of all partial attribute names
