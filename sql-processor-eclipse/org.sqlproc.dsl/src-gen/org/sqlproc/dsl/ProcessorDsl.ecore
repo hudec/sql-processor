@@ -3,26 +3,20 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="processorDsl" nsURI="http://www.sqlproc.org/dsl/ProcessorDsl"
     nsPrefix="processorDsl">
   <eClassifiers xsi:type="ecore:EClass" name="Artifacts">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
-        eType="#//OptionalFeature" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="#//Property" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pojos" upperBound="-1"
+        eType="#//PojoDefinition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
+        eType="#//TableDefinition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//MetaStatement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mappings" upperBound="-1"
         eType="#//MappingRule" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="pojos" upperBound="-1"
-        eType="#//PojoDefinition" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="usages" upperBound="-1"
-        eType="#//PojoUsage" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
-        eType="#//Property" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
-        eType="#//TableDefinition" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="tableUsages" upperBound="-1"
-        eType="#//TableUsage" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
+        eType="#//OptionalFeature" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pojoPackages" upperBound="-1"
         eType="#//PackageDeclaration" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="usagesExt" upperBound="-1"
-        eType="#//PojoUsageExt" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SqlTypeAssignement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -158,44 +152,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="class" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PojoUsage">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="pojo" eType="#//PojoDefinition"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ColumnUsage" eSuperTypes="#//PojoUsage">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MetaStatement"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IdentifierUsage" eSuperTypes="#//PojoUsage">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MetaStatement"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConstantUsage" eSuperTypes="#//PojoUsage">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MetaStatement"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MappingUsage" eSuperTypes="#//PojoUsage">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MappingRule"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PojoUsageExt">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="pojo" eType="#//PojoEntity"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ColumnUsageExt" eSuperTypes="#//PojoUsageExt">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MetaStatement"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IdentifierUsageExt" eSuperTypes="#//PojoUsageExt">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MetaStatement"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConstantUsageExt" eSuperTypes="#//PojoUsageExt">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MetaStatement"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MappingUsageExt" eSuperTypes="#//PojoUsageExt">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MappingRule"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TableDefinition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="table" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TableUsage">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//MetaStatement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="table" eType="#//TableDefinition"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetaStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

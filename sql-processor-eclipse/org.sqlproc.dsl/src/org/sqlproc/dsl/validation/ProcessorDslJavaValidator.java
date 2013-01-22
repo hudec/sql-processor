@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -25,28 +24,17 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.validation.Check;
 import org.sqlproc.dsl.processorDsl.AbstractPojoEntity;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
-import org.sqlproc.dsl.processorDsl.ColumnUsage;
-import org.sqlproc.dsl.processorDsl.ColumnUsageExt;
 import org.sqlproc.dsl.processorDsl.Constant;
-import org.sqlproc.dsl.processorDsl.ConstantUsage;
-import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.Identifier;
-import org.sqlproc.dsl.processorDsl.IdentifierUsage;
-import org.sqlproc.dsl.processorDsl.IdentifierUsageExt;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
-import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
-import org.sqlproc.dsl.processorDsl.MappingUsage;
-import org.sqlproc.dsl.processorDsl.MappingUsageExt;
 import org.sqlproc.dsl.processorDsl.MetaSql;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
@@ -55,12 +43,9 @@ import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
-import org.sqlproc.dsl.processorDsl.PojoUsage;
-import org.sqlproc.dsl.processorDsl.PojoUsageExt;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
-import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
@@ -186,138 +171,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         }
     }
 
-    @Check
-    public void checkUniqueColumnUsage(ColumnUsage columnUsage) {
-        Artifacts artifacts;
-        EObject object = EcoreUtil.getRootContainer(columnUsage);
-        if (!(object instanceof Artifacts))
-            return;
-        artifacts = (Artifacts) object;
-        for (PojoUsage usage : artifacts.getUsages()) {
-            if (usage == null || usage == columnUsage || !(usage instanceof ColumnUsage))
-                continue;
-            ColumnUsage column = (ColumnUsage) usage;
-            if (column.getStatement() == null)
-                continue;
-            if (columnUsage.getStatement().getName().equals(column.getStatement().getName())) {
-                error("Duplicate name : " + columnUsage.getStatement().getName() + "[col]",
-                        ProcessorDslPackage.Literals.COLUMN_USAGE__STATEMENT);
-                return;
-            }
-        }
-        for (PojoUsageExt usage : artifacts.getUsagesExt()) {
-            if (usage == null || usage == columnUsage || !(usage instanceof ColumnUsageExt))
-                continue;
-            ColumnUsageExt column = (ColumnUsageExt) usage;
-            if (column.getStatement() == null)
-                continue;
-            if (columnUsage.getStatement().getName().equals(column.getStatement().getName())) {
-                error("Duplicate name : " + columnUsage.getStatement().getName() + "[col]",
-                        ProcessorDslPackage.Literals.COLUMN_USAGE__STATEMENT);
-                return;
-            }
-        }
-    }
-
-    @Check
-    public void checkUniqueIdentifierUsage(IdentifierUsage identifierUsage) {
-        Artifacts artifacts;
-        EObject object = EcoreUtil.getRootContainer(identifierUsage);
-        if (!(object instanceof Artifacts))
-            return;
-        artifacts = (Artifacts) object;
-        for (PojoUsage usage : artifacts.getUsages()) {
-            if (usage == null || usage == identifierUsage || !(usage instanceof IdentifierUsage))
-                continue;
-            IdentifierUsage ident = (IdentifierUsage) usage;
-            if (ident.getStatement() == null)
-                continue;
-            if (identifierUsage.getStatement().getName().equals(ident.getStatement().getName())) {
-                error("Duplicate name : " + identifierUsage.getStatement().getName() + "[ident]",
-                        ProcessorDslPackage.Literals.IDENTIFIER_USAGE__STATEMENT);
-                return;
-            }
-        }
-        for (PojoUsageExt usage : artifacts.getUsagesExt()) {
-            if (usage == null || usage == identifierUsage || !(usage instanceof IdentifierUsageExt))
-                continue;
-            IdentifierUsageExt ident = (IdentifierUsageExt) usage;
-            if (ident.getStatement() == null)
-                continue;
-            if (identifierUsage.getStatement().getName().equals(ident.getStatement().getName())) {
-                error("Duplicate name : " + identifierUsage.getStatement().getName() + "[ident]",
-                        ProcessorDslPackage.Literals.IDENTIFIER_USAGE__STATEMENT);
-                return;
-            }
-        }
-    }
-
-    @Check
-    public void checkUniqueConstantUsage(ConstantUsage constantUsage) {
-        Artifacts artifacts;
-        EObject object = EcoreUtil.getRootContainer(constantUsage);
-        if (!(object instanceof Artifacts))
-            return;
-        artifacts = (Artifacts) object;
-        for (PojoUsage usage : artifacts.getUsages()) {
-            if (usage == null || usage == constantUsage || !(usage instanceof ConstantUsage))
-                continue;
-            ConstantUsage constant = (ConstantUsage) usage;
-            if (constant.getStatement() == null)
-                continue;
-            if (constantUsage.getStatement().getName().equals(constant.getStatement().getName())) {
-                error("Duplicate name : " + constantUsage.getStatement().getName() + "[const]",
-                        ProcessorDslPackage.Literals.CONSTANT_USAGE__STATEMENT);
-                return;
-            }
-        }
-        for (PojoUsageExt usage : artifacts.getUsagesExt()) {
-            if (usage == null || usage == constantUsage || !(usage instanceof ConstantUsageExt))
-                continue;
-            ConstantUsageExt constant = (ConstantUsageExt) usage;
-            if (constant.getStatement() == null)
-                continue;
-            if (constantUsage.getStatement().getName().equals(constant.getStatement().getName())) {
-                error("Duplicate name : " + constantUsage.getStatement().getName() + "[const]",
-                        ProcessorDslPackage.Literals.CONSTANT_USAGE__STATEMENT);
-                return;
-            }
-        }
-    }
-
-    @Check
-    public void checkUniqueMappingUsage(MappingUsage mappingUsage) {
-        Artifacts artifacts;
-        EObject object = EcoreUtil.getRootContainer(mappingUsage);
-        if (!(object instanceof Artifacts))
-            return;
-        artifacts = (Artifacts) object;
-        for (PojoUsage usage : artifacts.getUsages()) {
-            if (usage == null || usage == mappingUsage || !(usage instanceof MappingUsage))
-                continue;
-            MappingUsage mapping = (MappingUsage) usage;
-            if (mapping.getStatement() == null)
-                continue;
-            if (mappingUsage.getStatement().getName().equals(mapping.getStatement().getName())) {
-                error("Duplicate name : " + mappingUsage.getStatement().getName() + "[col]",
-                        ProcessorDslPackage.Literals.MAPPING_USAGE__STATEMENT);
-                return;
-            }
-        }
-        for (PojoUsageExt usage : artifacts.getUsagesExt()) {
-            if (usage == null || usage == mappingUsage || !(usage instanceof MappingUsageExt))
-                continue;
-            MappingUsageExt mapping = (MappingUsageExt) usage;
-            if (mapping.getStatement() == null)
-                continue;
-            if (mappingUsage.getStatement().getName().equals(mapping.getStatement().getName())) {
-                error("Duplicate name : " + mappingUsage.getStatement().getName() + "[col]",
-                        ProcessorDslPackage.Literals.MAPPING_USAGE__STATEMENT);
-                return;
-            }
-        }
-    }
-
     protected boolean equalsStatement(MetaStatement statement1, MetaStatement statement2) {
         if (statement1 == null && statement2 == null)
             return true;
@@ -406,23 +259,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         PojoEntity entity = (entityName != null) ? Utils.findEntity(qualifiedNameConverter, artifacts,
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), entityName)
                 : null;
-        if (entity == null) {
-            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT);
-            Iterable<IEObjectDescription> iterable = scope.getAllElements();
-            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-                IEObjectDescription description = iter.next();
-                if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
-                    PojoUsageExt pojoUsage = (PojoUsageExt) artifacts.eResource().getResourceSet()
-                            .getEObject(description.getEObjectURI(), true);
-                    if (pojoUsage instanceof ColumnUsageExt) {
-                        entity = pojoUsage.getPojo();
-                    }
-                    if (pojoUsage instanceof MappingUsageExt) {
-                        entity = pojoUsage.getPojo();
-                    }
-                }
-            }
-        }
         if (entity != null) {
             switch (checkEntityProperty(entity, column.getName())) {
             case WARNING:
@@ -441,41 +277,22 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         PojoDefinition pojo = (pojoName != null) ? Utils.findPojo(qualifiedNameConverter, artifacts,
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
         String columnUsageClass = (pojo != null) ? pojo.getClass_() : null;
-        MappingUsage mappingUsage = null;
-        if (columnUsageClass == null) {
-            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
-            Iterable<IEObjectDescription> iterable = scope.getAllElements();
-            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-                IEObjectDescription description = iter.next();
-                if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
-                    PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
-                            .getEObject(description.getEObjectURI(), true);
-                    if (pojoUsage instanceof ColumnUsage) {
-                        columnUsageClass = ((ColumnUsage) pojoUsage).getPojo().getClass_();
-                    }
-                    if (pojoUsage instanceof MappingUsage) {
-                        mappingUsage = (MappingUsage) pojoUsage;
-                    }
-                }
+        if (columnUsageClass != null) {
+            switch (checkClassProperty(columnUsageClass, column.getName())) {
+            case WARNING:
+                warning("Problem property : " + column.getName() + "[" + columnUsageClass + "]",
+                        ProcessorDslPackage.Literals.COLUMN__NAME);
+                break;
+            case ERROR:
+                error("Cannot find property : " + column.getName() + "[" + columnUsageClass + "]",
+                        ProcessorDslPackage.Literals.COLUMN__NAME);
+                break;
             }
         }
-        if (mappingUsage != null && mappingUsage.getStatement() != null
-                && mappingUsage.getStatement().getMapping() != null
-                && mappingUsage.getStatement().getMapping().getMappingItems() != null) {
-            for (MappingItem mappingItem : mappingUsage.getStatement().getMapping().getMappingItems()) {
-                if (mappingItem.getCol().equals(column.getName()))
-                    return;
-            }
-        }
-        switch (checkClassProperty(columnUsageClass, column.getName())) {
-        case WARNING:
-            warning("Problem property : " + column.getName() + "[" + columnUsageClass + "]",
+
+        if (pojoResolverFactory.getPojoResolver() != null) {
+            error("Cannot check result class attribute : " + column.getName(),
                     ProcessorDslPackage.Literals.COLUMN__NAME);
-            break;
-        case ERROR:
-            error("Cannot find property : " + column.getName() + "[" + columnUsageClass + "]",
-                    ProcessorDslPackage.Literals.COLUMN__NAME);
-            break;
         }
     }
 
@@ -490,20 +307,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         PojoEntity entity = (entityName != null) ? Utils.findEntity(qualifiedNameConverter, artifacts,
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), entityName)
                 : null;
-        if (entity == null) {
-            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT);
-            Iterable<IEObjectDescription> iterable = scope.getAllElements();
-            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-                IEObjectDescription description = iter.next();
-                if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
-                    PojoUsageExt pojoUsage = (PojoUsageExt) artifacts.eResource().getResourceSet()
-                            .getEObject(description.getEObjectURI(), true);
-                    if (pojoUsage instanceof IdentifierUsageExt) {
-                        entity = pojoUsage.getPojo();
-                    }
-                }
-            }
-        }
         if (entity != null) {
             String identifierName = Utils.getName(identifier);
             switch (checkEntityProperty(entity, identifierName)) {
@@ -523,31 +326,23 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         PojoDefinition pojo = (pojoName != null) ? Utils.findPojo(qualifiedNameConverter, artifacts,
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
         String identifierUsageClass = (pojo != null) ? pojo.getClass_() : null;
-        if (identifierUsageClass == null) {
-            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
-            Iterable<IEObjectDescription> iterable = scope.getAllElements();
-            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-                IEObjectDescription description = iter.next();
-                if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
-                    PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
-                            .getEObject(description.getEObjectURI(), true);
-                    if (pojoUsage instanceof IdentifierUsage) {
-                        identifierUsageClass = ((IdentifierUsage) pojoUsage).getPojo().getClass_();
-                        break;
-                    }
-                }
+        String identifierName = Utils.getName(identifier);
+        if (identifierUsageClass != null) {
+            switch (checkClassProperty(identifierUsageClass, identifierName)) {
+            case WARNING:
+                warning("Problem property : " + identifierName + "[" + identifierUsageClass + "]",
+                        ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
+                break;
+            case ERROR:
+                error("Cannot find property : " + identifierName + "[" + identifierUsageClass + "]",
+                        ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
+                break;
             }
         }
-        String identifierName = Utils.getName(identifier);
-        switch (checkClassProperty(identifierUsageClass, identifierName)) {
-        case WARNING:
-            warning("Problem property : " + identifierName + "[" + identifierUsageClass + "]",
+
+        if (pojoResolverFactory.getPojoResolver() != null) {
+            error("Cannot check input form attribute : " + identifierName,
                     ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
-            break;
-        case ERROR:
-            error("Cannot find property : " + identifierName + "[" + identifierUsageClass + "]",
-                    ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
-            break;
         }
     }
 
@@ -562,20 +357,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         PojoEntity entity = (entityName != null) ? Utils.findEntity(qualifiedNameConverter, artifacts,
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), entityName)
                 : null;
-        if (entity == null) {
-            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT);
-            Iterable<IEObjectDescription> iterable = scope.getAllElements();
-            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-                IEObjectDescription description = iter.next();
-                if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
-                    PojoUsageExt pojoUsage = (PojoUsageExt) artifacts.eResource().getResourceSet()
-                            .getEObject(description.getEObjectURI(), true);
-                    if (pojoUsage instanceof ConstantUsageExt) {
-                        entity = pojoUsage.getPojo();
-                    }
-                }
-            }
-        }
         if (entity != null) {
             switch (checkEntityProperty(entity, constant.getName())) {
             case WARNING:
@@ -594,30 +375,22 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         PojoDefinition pojo = (pojoName != null) ? Utils.findPojo(qualifiedNameConverter, artifacts,
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
         String constantUsageClass = (pojo != null) ? pojo.getClass_() : null;
-        if (constantUsageClass == null) {
-            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
-            Iterable<IEObjectDescription> iterable = scope.getAllElements();
-            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-                IEObjectDescription description = iter.next();
-                if (qualifiedNameConverter.toQualifiedName(statement.getName()).equals(description.getName())) {
-                    PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
-                            .getEObject(description.getEObjectURI(), true);
-                    if (pojoUsage instanceof ConstantUsage) {
-                        constantUsageClass = ((ConstantUsage) pojoUsage).getPojo().getClass_();
-                        break;
-                    }
-                }
+        if (constantUsageClass != null) {
+            switch (checkClassProperty(constantUsageClass, constant.getName())) {
+            case WARNING:
+                warning("Problem property : " + constant.getName() + "[" + constantUsageClass + "]",
+                        ProcessorDslPackage.Literals.CONSTANT__NAME);
+                break;
+            case ERROR:
+                error("Cannot find property : " + constant.getName() + "[" + constantUsageClass + "]",
+                        ProcessorDslPackage.Literals.CONSTANT__NAME);
+                break;
             }
         }
-        switch (checkClassProperty(constantUsageClass, constant.getName())) {
-        case WARNING:
-            warning("Problem property : " + constant.getName() + "[" + constantUsageClass + "]",
+
+        if (pojoResolverFactory.getPojoResolver() != null) {
+            error("Cannot check constant form attribute : " + constant.getName(),
                     ProcessorDslPackage.Literals.CONSTANT__NAME);
-            break;
-        case ERROR:
-            error("Cannot find property : " + constant.getName() + "[" + constantUsageClass + "]",
-                    ProcessorDslPackage.Literals.CONSTANT__NAME);
-            break;
         }
     }
 
@@ -632,20 +405,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         PojoEntity entity = (entityName != null) ? Utils.findEntity(qualifiedNameConverter, artifacts,
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), entityName)
                 : null;
-        if (entity == null) {
-            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES_EXT);
-            Iterable<IEObjectDescription> iterable = scope.getAllElements();
-            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-                IEObjectDescription description = iter.next();
-                if (qualifiedNameConverter.toQualifiedName(rule.getName()).equals(description.getName())) {
-                    PojoUsageExt pojoUsage = (PojoUsageExt) artifacts.eResource().getResourceSet()
-                            .getEObject(description.getEObjectURI(), true);
-                    if (pojoUsage instanceof MappingUsageExt) {
-                        entity = pojoUsage.getPojo();
-                    }
-                }
-            }
-        }
         if (entity != null) {
             switch (checkEntityProperty(entity, column.getName())) {
             case WARNING:
@@ -664,31 +423,23 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         PojoDefinition pojo = (pojoName != null) ? Utils.findPojo(qualifiedNameConverter, artifacts,
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
         String mappingUsageClass = (pojo != null) ? pojo.getClass_() : null;
-        if (mappingUsageClass == null) {
-            IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__USAGES);
-            Iterable<IEObjectDescription> iterable = scope.getAllElements();
-            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-                IEObjectDescription description = iter.next();
-                if (qualifiedNameConverter.toQualifiedName(rule.getName()).equals(description.getName())) {
-                    PojoUsage pojoUsage = (PojoUsage) artifacts.eResource().getResourceSet()
-                            .getEObject(description.getEObjectURI(), true);
-                    if (pojoUsage instanceof MappingUsage) {
-                        mappingUsageClass = ((MappingUsage) pojoUsage).getPojo().getClass_();
-                        break;
-                    }
-                }
+        if (mappingUsageClass != null) {
+            switch (checkClassProperty(mappingUsageClass, column.getName())) {
+            case WARNING:
+                warning("Problem property : " + column.getName() + "[" + mappingUsageClass + "]",
+                        ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
+                break;
+            case ERROR:
+                error("Cannot find property : " + column.getName() + "[" + mappingUsageClass + "]",
+                        ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
+                break;
+
             }
         }
-        switch (checkClassProperty(mappingUsageClass, column.getName())) {
-        case WARNING:
-            warning("Problem property : " + column.getName() + "[" + mappingUsageClass + "]",
-                    ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
-            break;
-        case ERROR:
-            error("Cannot find property : " + column.getName() + "[" + mappingUsageClass + "]",
-                    ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
-            break;
 
+        if (pojoResolverFactory.getPojoResolver() != null) {
+            error("Cannot check result class attribute : " + column.getName(),
+                    ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
         }
     }
 
@@ -832,13 +583,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         return false;
     }
 
-    /**
-     * Validation property of class
-     * 
-     * @param className
-     * @param property
-     * @return validation result
-     */
     protected ValidationResult checkClassProperty(String className, String property) {
         if (property == null || isNumber(property) || pojoResolverFactory.getPojoResolver() == null)
             return ValidationResult.OK;
@@ -990,40 +734,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     }
 
     @Check
-    public void checkTableUsage(TableUsage tableUsage) {
-        Artifacts artifacts;
-        EObject object = EcoreUtil.getRootContainer(tableUsage);
-        if (!(object instanceof Artifacts))
-            return;
-        artifacts = (Artifacts) object;
-        for (TableUsage usage : artifacts.getTableUsages()) {
-            if (usage == null || usage == tableUsage)
-                continue;
-            if (tableUsage.getStatement().getName().equals(usage.getStatement().getName())) {
-                if (tableUsage.getTable().getName().equals(usage.getTable().getName())) {
-                    if (tableUsage.getPrefix() == null && usage.getPrefix() == null) {
-                        error("Duplicate name : " + tableUsage.getStatement().getName() + "["
-                                + tableUsage.getTable().getName() + "][dbcol]",
-                                ProcessorDslPackage.Literals.TABLE_USAGE__TABLE);
-                        return;
-                    }
-                    if (tableUsage.getPrefix() != null && tableUsage.getPrefix().equals(usage.getPrefix())) {
-                        error("Duplicate name : " + tableUsage.getStatement().getName() + "["
-                                + tableUsage.getTable().getName() + ":" + tableUsage.getPrefix() + "][dbcol]",
-                                ProcessorDslPackage.Literals.TABLE_USAGE__TABLE);
-                        return;
-                    }
-                }
-                if (tableUsage.getPrefix() != null && tableUsage.getPrefix().equals(usage.getPrefix())) {
-                    error("Duplicate name : " + tableUsage.getStatement().getName() + "[" + tableUsage.getPrefix()
-                            + "][dbcol]", ProcessorDslPackage.Literals.TABLE_USAGE__PREFIX);
-                    return;
-                }
-            }
-        }
-    }
-
-    @Check
     public void checkDatabaseColumn(DatabaseColumn databaseColumn) {
         if (!isResolveDb(databaseColumn))
             return;
@@ -1043,9 +753,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         String val = Utils.getTokenFromModifier(statement, TABLE_USAGE, prefix);
         TableDefinition tableDefinition = (val != null) ? Utils.findTable(qualifiedNameConverter, artifacts,
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES), val) : null;
-        if (tableDefinition == null) {
-            tableDefinition = getTableDefinition(artifacts, statement, null, prefix);
-        }
         String tableName = tableDefinition != null ? tableDefinition.getTable() : null;
         if (tableName == null || !dbResolver.checkColumn(databaseColumn, tableName, columnName)) {
             error("Cannot find column in DB : " + databaseColumn.getName() + "[" + tableName + "]",
@@ -1069,9 +776,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             if (tableDefinition != null)
                 break;
         }
-        if (tableDefinition == null) {
-            tableDefinition = getTableDefinition(artifacts, statement, tableName, null);
-        }
         if (tableDefinition == null || !dbResolver.checkTable(databaseTable, tableName)) {
             error("Cannot find table in DB : " + tableName, ProcessorDslPackage.Literals.DATABASE_TABLE__NAME);
         }
@@ -1087,50 +791,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
     protected boolean isResolveDb(EObject model) {
         return dbResolver.isResolveDb(model);
-    }
-
-    protected TableDefinition getTableDefinition(Artifacts artifacts, MetaStatement statement, String tableName,
-            String prefix) {
-        TableUsage usage = null;
-        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
-        Iterable<IEObjectDescription> iterable = scope.getAllElements();
-        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-            IEObjectDescription description = iter.next();
-            if (ProcessorDslPackage.Literals.TABLE_USAGE.getName().equals(description.getEClass().getName())) {
-                TableUsage tableUsage = (TableUsage) artifacts.eResource().getResourceSet()
-                        .getEObject(description.getEObjectURI(), true);
-                if (tableUsage.getStatement().getName().equals(statement.getName())) {
-                    if (tableName != null && tableUsage.getTable() != null
-                            && tableName.equals(tableUsage.getTable().getTable())) {
-                        usage = tableUsage;
-                        break;
-                    }
-                    if (prefix == null && tableUsage.getPrefix() == null) {
-                        usage = tableUsage;
-                        break;
-                    }
-                    if (prefix != null && prefix.equals(tableUsage.getPrefix())) {
-                        usage = tableUsage;
-                        break;
-                    }
-                }
-            }
-        }
-        if (usage != null && usage.getTable() != null && usage.getTable().getName() != null) {
-            scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES);
-            iterable = scope.getAllElements();
-            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-                IEObjectDescription description = iter.next();
-                if (ProcessorDslPackage.Literals.TABLE_DEFINITION.getName().equals(description.getEClass().getName())) {
-                    TableDefinition tableDefinition = (TableDefinition) artifacts.eResource().getResourceSet()
-                            .getEObject(description.getEObjectURI(), true);
-                    if (usage.getTable().getName().equals(tableDefinition.getName())) {
-                        return tableDefinition;
-                    }
-                }
-            }
-        }
-        return null;
     }
 
     @Check
@@ -1190,138 +850,6 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                     error("Duplicate name : " + pojoDao.getName(), ProcessorDslPackage.Literals.POJO_DAO__NAME);
                     return;
                 }
-            }
-        }
-    }
-
-    @Check
-    public void checkUniqueColumnUsageExt(ColumnUsageExt columnUsage) {
-        Artifacts artifacts;
-        EObject object = EcoreUtil.getRootContainer(columnUsage);
-        if (!(object instanceof Artifacts))
-            return;
-        artifacts = (Artifacts) object;
-        for (PojoUsage usage : artifacts.getUsages()) {
-            if (usage == null || usage == columnUsage || !(usage instanceof ColumnUsage))
-                continue;
-            ColumnUsage column = (ColumnUsage) usage;
-            if (column.getStatement() == null)
-                continue;
-            if (columnUsage.getStatement().getName().equals(column.getStatement().getName())) {
-                error("Duplicate name : " + columnUsage.getStatement().getName() + "[col]",
-                        ProcessorDslPackage.Literals.COLUMN_USAGE_EXT__STATEMENT);
-                return;
-            }
-        }
-        for (PojoUsageExt usage : artifacts.getUsagesExt()) {
-            if (usage == null || usage == columnUsage || !(usage instanceof ColumnUsageExt))
-                continue;
-            ColumnUsageExt column = (ColumnUsageExt) usage;
-            if (column.getStatement() == null)
-                continue;
-            if (columnUsage.getStatement().getName().equals(column.getStatement().getName())) {
-                error("Duplicate name : " + columnUsage.getStatement().getName() + "[col]",
-                        ProcessorDslPackage.Literals.COLUMN_USAGE_EXT__STATEMENT);
-                return;
-            }
-        }
-    }
-
-    @Check
-    public void checkUniqueIdentifierUsageExt(IdentifierUsageExt identifierUsage) {
-        Artifacts artifacts;
-        EObject object = EcoreUtil.getRootContainer(identifierUsage);
-        if (!(object instanceof Artifacts))
-            return;
-        artifacts = (Artifacts) object;
-        for (PojoUsage usage : artifacts.getUsages()) {
-            if (usage == null || usage == identifierUsage || !(usage instanceof IdentifierUsage))
-                continue;
-            IdentifierUsage ident = (IdentifierUsage) usage;
-            if (ident.getStatement() == null)
-                continue;
-            if (identifierUsage.getStatement().getName().equals(ident.getStatement().getName())) {
-                error("Duplicate name : " + identifierUsage.getStatement().getName() + "[ident]",
-                        ProcessorDslPackage.Literals.IDENTIFIER_USAGE_EXT__STATEMENT);
-                return;
-            }
-        }
-        for (PojoUsageExt usage : artifacts.getUsagesExt()) {
-            if (usage == null || usage == identifierUsage || !(usage instanceof IdentifierUsageExt))
-                continue;
-            IdentifierUsageExt ident = (IdentifierUsageExt) usage;
-            if (ident.getStatement() == null)
-                continue;
-            if (identifierUsage.getStatement().getName().equals(ident.getStatement().getName())) {
-                error("Duplicate name : " + identifierUsage.getStatement().getName() + "[ident]",
-                        ProcessorDslPackage.Literals.IDENTIFIER_USAGE_EXT__STATEMENT);
-                return;
-            }
-        }
-    }
-
-    @Check
-    public void checkUniqueConstantUsageExt(ConstantUsageExt constantUsage) {
-        Artifacts artifacts;
-        EObject object = EcoreUtil.getRootContainer(constantUsage);
-        if (!(object instanceof Artifacts))
-            return;
-        artifacts = (Artifacts) object;
-        for (PojoUsage usage : artifacts.getUsages()) {
-            if (usage == null || usage == constantUsage || !(usage instanceof ConstantUsage))
-                continue;
-            ConstantUsage constant = (ConstantUsage) usage;
-            if (constant.getStatement() == null)
-                continue;
-            if (constantUsage.getStatement().getName().equals(constant.getStatement().getName())) {
-                error("Duplicate name : " + constantUsage.getStatement().getName() + "[const]",
-                        ProcessorDslPackage.Literals.CONSTANT_USAGE__STATEMENT);
-                return;
-            }
-        }
-        for (PojoUsageExt usage : artifacts.getUsagesExt()) {
-            if (usage == null || usage == constantUsage || !(usage instanceof ConstantUsageExt))
-                continue;
-            ConstantUsageExt constant = (ConstantUsageExt) usage;
-            if (constant.getStatement() == null)
-                continue;
-            if (constantUsage.getStatement().getName().equals(constant.getStatement().getName())) {
-                error("Duplicate name : " + constantUsage.getStatement().getName() + "[const]",
-                        ProcessorDslPackage.Literals.CONSTANT_USAGE_EXT__STATEMENT);
-                return;
-            }
-        }
-    }
-
-    @Check
-    public void checkUniqueMappingUsageExt(MappingUsageExt mappingUsage) {
-        Artifacts artifacts;
-        EObject object = EcoreUtil.getRootContainer(mappingUsage);
-        if (!(object instanceof Artifacts))
-            return;
-        artifacts = (Artifacts) object;
-        for (PojoUsage usage : artifacts.getUsages()) {
-            if (usage == null || usage == mappingUsage || !(usage instanceof MappingUsage))
-                continue;
-            MappingUsage mapping = (MappingUsage) usage;
-            if (mapping.getStatement() == null)
-                continue;
-            if (mappingUsage.getStatement().getName().equals(mapping.getStatement().getName())) {
-                error("Duplicate name : " + mappingUsage.getStatement().getName() + "[col]",
-                        ProcessorDslPackage.Literals.MAPPING_USAGE__STATEMENT);
-                return;
-            }
-        }
-        for (PojoUsageExt usage : artifacts.getUsagesExt()) {
-            if (usage == null || usage == mappingUsage || !(usage instanceof MappingUsageExt))
-                continue;
-            MappingUsageExt mapping = (MappingUsageExt) usage;
-            if (mapping.getStatement() == null)
-                continue;
-            if (mappingUsage.getStatement().getName().equals(mapping.getStatement().getName())) {
-                error("Duplicate name : " + mappingUsage.getStatement().getName() + "[col]",
-                        ProcessorDslPackage.Literals.MAPPING_USAGE_EXT__STATEMENT);
-                return;
             }
         }
     }

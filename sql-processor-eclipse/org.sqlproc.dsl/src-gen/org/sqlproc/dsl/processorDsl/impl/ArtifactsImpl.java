@@ -22,12 +22,9 @@ import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
-import org.sqlproc.dsl.processorDsl.PojoUsage;
-import org.sqlproc.dsl.processorDsl.PojoUsageExt;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
-import org.sqlproc.dsl.processorDsl.TableUsage;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,16 +33,13 @@ import org.sqlproc.dsl.processorDsl.TableUsage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getFeatures <em>Features</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getProperties <em>Properties</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getPojos <em>Pojos</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getTables <em>Tables</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getStatements <em>Statements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getMappings <em>Mappings</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getPojos <em>Pojos</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getUsages <em>Usages</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getProperties <em>Properties</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getTables <em>Tables</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getTableUsages <em>Table Usages</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getFeatures <em>Features</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getPojoPackages <em>Pojo Packages</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getUsagesExt <em>Usages Ext</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,14 +48,34 @@ import org.sqlproc.dsl.processorDsl.TableUsage;
 public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artifacts
 {
   /**
-   * The cached value of the '{@link #getFeatures() <em>Features</em>}' containment reference list.
+   * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFeatures()
+   * @see #getProperties()
    * @generated
    * @ordered
    */
-  protected EList<OptionalFeature> features;
+  protected EList<Property> properties;
+
+  /**
+   * The cached value of the '{@link #getPojos() <em>Pojos</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPojos()
+   * @generated
+   * @ordered
+   */
+  protected EList<PojoDefinition> pojos;
+
+  /**
+   * The cached value of the '{@link #getTables() <em>Tables</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTables()
+   * @generated
+   * @ordered
+   */
+  protected EList<TableDefinition> tables;
 
   /**
    * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
@@ -84,54 +98,14 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
   protected EList<MappingRule> mappings;
 
   /**
-   * The cached value of the '{@link #getPojos() <em>Pojos</em>}' containment reference list.
+   * The cached value of the '{@link #getFeatures() <em>Features</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPojos()
+   * @see #getFeatures()
    * @generated
    * @ordered
    */
-  protected EList<PojoDefinition> pojos;
-
-  /**
-   * The cached value of the '{@link #getUsages() <em>Usages</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUsages()
-   * @generated
-   * @ordered
-   */
-  protected EList<PojoUsage> usages;
-
-  /**
-   * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getProperties()
-   * @generated
-   * @ordered
-   */
-  protected EList<Property> properties;
-
-  /**
-   * The cached value of the '{@link #getTables() <em>Tables</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTables()
-   * @generated
-   * @ordered
-   */
-  protected EList<TableDefinition> tables;
-
-  /**
-   * The cached value of the '{@link #getTableUsages() <em>Table Usages</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTableUsages()
-   * @generated
-   * @ordered
-   */
-  protected EList<TableUsage> tableUsages;
+  protected EList<OptionalFeature> features;
 
   /**
    * The cached value of the '{@link #getPojoPackages() <em>Pojo Packages</em>}' containment reference list.
@@ -142,16 +116,6 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
    * @ordered
    */
   protected EList<PackageDeclaration> pojoPackages;
-
-  /**
-   * The cached value of the '{@link #getUsagesExt() <em>Usages Ext</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUsagesExt()
-   * @generated
-   * @ordered
-   */
-  protected EList<PojoUsageExt> usagesExt;
 
   /**
    * <!-- begin-user-doc -->
@@ -179,13 +143,41 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<OptionalFeature> getFeatures()
+  public EList<Property> getProperties()
   {
-    if (features == null)
+    if (properties == null)
     {
-      features = new EObjectContainmentEList<OptionalFeature>(OptionalFeature.class, this, ProcessorDslPackage.ARTIFACTS__FEATURES);
+      properties = new EObjectContainmentEList<Property>(Property.class, this, ProcessorDslPackage.ARTIFACTS__PROPERTIES);
     }
-    return features;
+    return properties;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<PojoDefinition> getPojos()
+  {
+    if (pojos == null)
+    {
+      pojos = new EObjectContainmentEList<PojoDefinition>(PojoDefinition.class, this, ProcessorDslPackage.ARTIFACTS__POJOS);
+    }
+    return pojos;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<TableDefinition> getTables()
+  {
+    if (tables == null)
+    {
+      tables = new EObjectContainmentEList<TableDefinition>(TableDefinition.class, this, ProcessorDslPackage.ARTIFACTS__TABLES);
+    }
+    return tables;
   }
 
   /**
@@ -221,69 +213,13 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<PojoDefinition> getPojos()
+  public EList<OptionalFeature> getFeatures()
   {
-    if (pojos == null)
+    if (features == null)
     {
-      pojos = new EObjectContainmentEList<PojoDefinition>(PojoDefinition.class, this, ProcessorDslPackage.ARTIFACTS__POJOS);
+      features = new EObjectContainmentEList<OptionalFeature>(OptionalFeature.class, this, ProcessorDslPackage.ARTIFACTS__FEATURES);
     }
-    return pojos;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<PojoUsage> getUsages()
-  {
-    if (usages == null)
-    {
-      usages = new EObjectContainmentEList<PojoUsage>(PojoUsage.class, this, ProcessorDslPackage.ARTIFACTS__USAGES);
-    }
-    return usages;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Property> getProperties()
-  {
-    if (properties == null)
-    {
-      properties = new EObjectContainmentEList<Property>(Property.class, this, ProcessorDslPackage.ARTIFACTS__PROPERTIES);
-    }
-    return properties;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<TableDefinition> getTables()
-  {
-    if (tables == null)
-    {
-      tables = new EObjectContainmentEList<TableDefinition>(TableDefinition.class, this, ProcessorDslPackage.ARTIFACTS__TABLES);
-    }
-    return tables;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<TableUsage> getTableUsages()
-  {
-    if (tableUsages == null)
-    {
-      tableUsages = new EObjectContainmentEList<TableUsage>(TableUsage.class, this, ProcessorDslPackage.ARTIFACTS__TABLE_USAGES);
-    }
-    return tableUsages;
+    return features;
   }
 
   /**
@@ -305,45 +241,25 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<PojoUsageExt> getUsagesExt()
-  {
-    if (usagesExt == null)
-    {
-      usagesExt = new EObjectContainmentEList<PojoUsageExt>(PojoUsageExt.class, this, ProcessorDslPackage.ARTIFACTS__USAGES_EXT);
-    }
-    return usagesExt;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.ARTIFACTS__FEATURES:
-        return ((InternalEList<?>)getFeatures()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
+        return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.ARTIFACTS__POJOS:
+        return ((InternalEList<?>)getPojos()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.ARTIFACTS__TABLES:
+        return ((InternalEList<?>)getTables()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.ARTIFACTS__STATEMENTS:
         return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.ARTIFACTS__MAPPINGS:
         return ((InternalEList<?>)getMappings()).basicRemove(otherEnd, msgs);
-      case ProcessorDslPackage.ARTIFACTS__POJOS:
-        return ((InternalEList<?>)getPojos()).basicRemove(otherEnd, msgs);
-      case ProcessorDslPackage.ARTIFACTS__USAGES:
-        return ((InternalEList<?>)getUsages()).basicRemove(otherEnd, msgs);
-      case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
-        return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
-      case ProcessorDslPackage.ARTIFACTS__TABLES:
-        return ((InternalEList<?>)getTables()).basicRemove(otherEnd, msgs);
-      case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
-        return ((InternalEList<?>)getTableUsages()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.ARTIFACTS__FEATURES:
+        return ((InternalEList<?>)getFeatures()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.ARTIFACTS__POJO_PACKAGES:
         return ((InternalEList<?>)getPojoPackages()).basicRemove(otherEnd, msgs);
-      case ProcessorDslPackage.ARTIFACTS__USAGES_EXT:
-        return ((InternalEList<?>)getUsagesExt()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -358,26 +274,20 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.ARTIFACTS__FEATURES:
-        return getFeatures();
+      case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
+        return getProperties();
+      case ProcessorDslPackage.ARTIFACTS__POJOS:
+        return getPojos();
+      case ProcessorDslPackage.ARTIFACTS__TABLES:
+        return getTables();
       case ProcessorDslPackage.ARTIFACTS__STATEMENTS:
         return getStatements();
       case ProcessorDslPackage.ARTIFACTS__MAPPINGS:
         return getMappings();
-      case ProcessorDslPackage.ARTIFACTS__POJOS:
-        return getPojos();
-      case ProcessorDslPackage.ARTIFACTS__USAGES:
-        return getUsages();
-      case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
-        return getProperties();
-      case ProcessorDslPackage.ARTIFACTS__TABLES:
-        return getTables();
-      case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
-        return getTableUsages();
+      case ProcessorDslPackage.ARTIFACTS__FEATURES:
+        return getFeatures();
       case ProcessorDslPackage.ARTIFACTS__POJO_PACKAGES:
         return getPojoPackages();
-      case ProcessorDslPackage.ARTIFACTS__USAGES_EXT:
-        return getUsagesExt();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -393,9 +303,17 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.ARTIFACTS__FEATURES:
-        getFeatures().clear();
-        getFeatures().addAll((Collection<? extends OptionalFeature>)newValue);
+      case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
+        getProperties().clear();
+        getProperties().addAll((Collection<? extends Property>)newValue);
+        return;
+      case ProcessorDslPackage.ARTIFACTS__POJOS:
+        getPojos().clear();
+        getPojos().addAll((Collection<? extends PojoDefinition>)newValue);
+        return;
+      case ProcessorDslPackage.ARTIFACTS__TABLES:
+        getTables().clear();
+        getTables().addAll((Collection<? extends TableDefinition>)newValue);
         return;
       case ProcessorDslPackage.ARTIFACTS__STATEMENTS:
         getStatements().clear();
@@ -405,33 +323,13 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         getMappings().clear();
         getMappings().addAll((Collection<? extends MappingRule>)newValue);
         return;
-      case ProcessorDslPackage.ARTIFACTS__POJOS:
-        getPojos().clear();
-        getPojos().addAll((Collection<? extends PojoDefinition>)newValue);
-        return;
-      case ProcessorDslPackage.ARTIFACTS__USAGES:
-        getUsages().clear();
-        getUsages().addAll((Collection<? extends PojoUsage>)newValue);
-        return;
-      case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
-        getProperties().clear();
-        getProperties().addAll((Collection<? extends Property>)newValue);
-        return;
-      case ProcessorDslPackage.ARTIFACTS__TABLES:
-        getTables().clear();
-        getTables().addAll((Collection<? extends TableDefinition>)newValue);
-        return;
-      case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
-        getTableUsages().clear();
-        getTableUsages().addAll((Collection<? extends TableUsage>)newValue);
+      case ProcessorDslPackage.ARTIFACTS__FEATURES:
+        getFeatures().clear();
+        getFeatures().addAll((Collection<? extends OptionalFeature>)newValue);
         return;
       case ProcessorDslPackage.ARTIFACTS__POJO_PACKAGES:
         getPojoPackages().clear();
         getPojoPackages().addAll((Collection<? extends PackageDeclaration>)newValue);
-        return;
-      case ProcessorDslPackage.ARTIFACTS__USAGES_EXT:
-        getUsagesExt().clear();
-        getUsagesExt().addAll((Collection<? extends PojoUsageExt>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -447,8 +345,14 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.ARTIFACTS__FEATURES:
-        getFeatures().clear();
+      case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
+        getProperties().clear();
+        return;
+      case ProcessorDslPackage.ARTIFACTS__POJOS:
+        getPojos().clear();
+        return;
+      case ProcessorDslPackage.ARTIFACTS__TABLES:
+        getTables().clear();
         return;
       case ProcessorDslPackage.ARTIFACTS__STATEMENTS:
         getStatements().clear();
@@ -456,26 +360,11 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
       case ProcessorDslPackage.ARTIFACTS__MAPPINGS:
         getMappings().clear();
         return;
-      case ProcessorDslPackage.ARTIFACTS__POJOS:
-        getPojos().clear();
-        return;
-      case ProcessorDslPackage.ARTIFACTS__USAGES:
-        getUsages().clear();
-        return;
-      case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
-        getProperties().clear();
-        return;
-      case ProcessorDslPackage.ARTIFACTS__TABLES:
-        getTables().clear();
-        return;
-      case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
-        getTableUsages().clear();
+      case ProcessorDslPackage.ARTIFACTS__FEATURES:
+        getFeatures().clear();
         return;
       case ProcessorDslPackage.ARTIFACTS__POJO_PACKAGES:
         getPojoPackages().clear();
-        return;
-      case ProcessorDslPackage.ARTIFACTS__USAGES_EXT:
-        getUsagesExt().clear();
         return;
     }
     super.eUnset(featureID);
@@ -491,26 +380,20 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.ARTIFACTS__FEATURES:
-        return features != null && !features.isEmpty();
+      case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
+        return properties != null && !properties.isEmpty();
+      case ProcessorDslPackage.ARTIFACTS__POJOS:
+        return pojos != null && !pojos.isEmpty();
+      case ProcessorDslPackage.ARTIFACTS__TABLES:
+        return tables != null && !tables.isEmpty();
       case ProcessorDslPackage.ARTIFACTS__STATEMENTS:
         return statements != null && !statements.isEmpty();
       case ProcessorDslPackage.ARTIFACTS__MAPPINGS:
         return mappings != null && !mappings.isEmpty();
-      case ProcessorDslPackage.ARTIFACTS__POJOS:
-        return pojos != null && !pojos.isEmpty();
-      case ProcessorDslPackage.ARTIFACTS__USAGES:
-        return usages != null && !usages.isEmpty();
-      case ProcessorDslPackage.ARTIFACTS__PROPERTIES:
-        return properties != null && !properties.isEmpty();
-      case ProcessorDslPackage.ARTIFACTS__TABLES:
-        return tables != null && !tables.isEmpty();
-      case ProcessorDslPackage.ARTIFACTS__TABLE_USAGES:
-        return tableUsages != null && !tableUsages.isEmpty();
+      case ProcessorDslPackage.ARTIFACTS__FEATURES:
+        return features != null && !features.isEmpty();
       case ProcessorDslPackage.ARTIFACTS__POJO_PACKAGES:
         return pojoPackages != null && !pojoPackages.isEmpty();
-      case ProcessorDslPackage.ARTIFACTS__USAGES_EXT:
-        return usagesExt != null && !usagesExt.isEmpty();
     }
     return super.eIsSet(featureID);
   }

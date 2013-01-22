@@ -27,16 +27,7 @@ public class ProcessorDslFormatter extends AbstractDeclarativeFormatter {
         c.setLinewrap(1, 1, 2).after(grammarAccess.getArtifactsRule());
         c.setLinewrap(1, 1, 2).after(grammarAccess.getPropertyRule());
         c.setLinewrap(1, 1, 2).after(grammarAccess.getPojoDefinitionRule());
-        c.setLinewrap(1, 1, 2).after(grammarAccess.getIdentifierUsageRule());
-        c.setLinewrap(1, 1, 2).after(grammarAccess.getColumnUsageRule());
-        c.setLinewrap(1, 1, 2).after(grammarAccess.getConstantUsageRule());
-        c.setLinewrap(1, 1, 2).after(grammarAccess.getMappingUsageRule());
-        c.setLinewrap(1, 1, 2).after(grammarAccess.getIdentifierUsageExtRule());
-        c.setLinewrap(1, 1, 2).after(grammarAccess.getColumnUsageExtRule());
-        c.setLinewrap(1, 1, 2).after(grammarAccess.getConstantUsageExtRule());
-        c.setLinewrap(1, 1, 2).after(grammarAccess.getMappingUsageExtRule());
         c.setLinewrap(1, 1, 2).after(grammarAccess.getTableDefinitionRule());
-        c.setLinewrap(1, 1, 2).after(grammarAccess.getTableUsageRule());
         c.setLinewrap(1, 1, 2).after(grammarAccess.getMetaStatementRule());
         c.setLinewrap(1, 1, 2).after(grammarAccess.getOptionalFeatureRule());
 
@@ -48,7 +39,6 @@ public class ProcessorDslFormatter extends AbstractDeclarativeFormatter {
         c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_4_1());
         c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_5_1());
         c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_6_1());
-        c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_7_1());
 
         // c.setNoSpace().around(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_0_1());
         // c.setNoSpace().around(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_1_1());

@@ -6,9 +6,9 @@ import "http://www.eclipse.org/xtext/common/JavaVMTypes" as jvmTypes
 generate processorDsl "http://www.sqlproc.org/dsl/ProcessorDsl"
 
 Artifacts:
-    WS* (features+=OptionalFeature WS*|statements+=MetaStatement WS*|mappings+=MappingRule WS*
-    	|pojos+=PojoDefinition WS*|usages+=PojoUsage WS*|properties+=Property WS*|tables+=TableDefinition WS*
-    	|tableUsages+=TableUsage WS*|pojoPackages+=PackageDeclaration WS*|usagesExt+=PojoUsageExt WS*
+    WS* (properties+=Property WS*|pojos+=PojoDefinition WS*|tables+=TableDefinition WS*
+    	|statements+=MetaStatement WS*|mappings+=MappingRule WS*|features+=OptionalFeature WS*
+    	|pojoPackages+=PackageDeclaration WS*
     )+;
 
 SqlTypeAssignement: typeName=IDENT (LPAREN size=NUMBER RPAREN)? '->' type=PojoType;
@@ -102,39 +102,8 @@ PropertyValue:
 PojoDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
 	'pojo' name=IDENT class=(IDENT|IDENT_DOT) SEMICOLON;
 
-PojoUsage: ColumnUsage | IdentifierUsage | ConstantUsage | MappingUsage;
-
-ColumnUsage hidden(ML_COMMENT, SL_COMMENT, WS):
-	'col' statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
-
-IdentifierUsage hidden(ML_COMMENT, SL_COMMENT, WS):
-	'ident' statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
-
-ConstantUsage hidden(ML_COMMENT, SL_COMMENT, WS):
-	'const' statement=[MetaStatement|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
-
-MappingUsage hidden(ML_COMMENT, SL_COMMENT, WS):
-	'out' statement=[MappingRule|IDENT] pojo=[PojoDefinition|IDENT] SEMICOLON;
-
-PojoUsageExt: ColumnUsageExt | IdentifierUsageExt | ConstantUsageExt | MappingUsageExt;
-
-ColumnUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
-	'colx' statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
-
-IdentifierUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
-	'identx' statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
-
-ConstantUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
-	'constx' statement=[MetaStatement|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
-
-MappingUsageExt hidden(ML_COMMENT, SL_COMMENT, WS):
-	'outx' statement=[MappingRule|IDENT] pojo=[PojoEntity|IDENT] SEMICOLON;
-
 TableDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
 	'table' name=IDENT table=IDENT SEMICOLON;
-
-TableUsage hidden(ML_COMMENT, SL_COMMENT, WS):
-	'dbcol' statement=[MetaStatement|IDENT] table=[TableDefinition|IDENT] ('prefix' prefix=IDENT)? SEMICOLON;
 
 MetaStatement:
 	name=IDENT LPAREN type=STATEMENT_TYPE (COMMA modifiers+=StatementModifier)* RPAREN EQUALS statement=Sql SEMICOLON;

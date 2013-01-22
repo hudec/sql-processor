@@ -13,21 +13,13 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 import org.sqlproc.dsl.processorDsl.Column;
-import org.sqlproc.dsl.processorDsl.ColumnUsage;
-import org.sqlproc.dsl.processorDsl.ColumnUsageExt;
 import org.sqlproc.dsl.processorDsl.Constant;
-import org.sqlproc.dsl.processorDsl.ConstantUsage;
-import org.sqlproc.dsl.processorDsl.ConstantUsageExt;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
-import org.sqlproc.dsl.processorDsl.IdentifierUsage;
-import org.sqlproc.dsl.processorDsl.IdentifierUsageExt;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
-import org.sqlproc.dsl.processorDsl.MappingUsage;
-import org.sqlproc.dsl.processorDsl.MappingUsageExt;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
@@ -36,7 +28,6 @@ import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
-import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.resolver.PojoResolver;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
 
@@ -124,77 +115,10 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 PojoDefinition pojo = (PojoDefinition) current;
                 provideHighlightingForPojo(null, pojo.getName(), node, acceptor);
-            } else if (current instanceof ColumnUsage) {
-                ICompositeNode node = NodeModelUtils.getNode(current);
-                ColumnUsage usage = (ColumnUsage) current;
-                MetaStatement statement = usage.getStatement();
-                PojoDefinition pojo = usage.getPojo();
-                if (statement != null && pojo != null)
-                    provideHighlightingForPojo(statement.getName(), pojo.getName(), node, acceptor);
-            } else if (current instanceof IdentifierUsage) {
-                ICompositeNode node = NodeModelUtils.getNode(current);
-                IdentifierUsage usage = (IdentifierUsage) current;
-                MetaStatement statement = usage.getStatement();
-                PojoDefinition pojo = usage.getPojo();
-                if (statement != null && pojo != null)
-                    provideHighlightingForPojo(statement.getName(), pojo.getName(), node, acceptor);
-            } else if (current instanceof ConstantUsage) {
-                ICompositeNode node = NodeModelUtils.getNode(current);
-                ConstantUsage usage = (ConstantUsage) current;
-                MetaStatement statement = usage.getStatement();
-                PojoDefinition pojo = usage.getPojo();
-                if (statement != null && pojo != null)
-                    provideHighlightingForPojo(statement.getName(), pojo.getName(), node, acceptor);
-            } else if (current instanceof MappingUsage) {
-                ICompositeNode node = NodeModelUtils.getNode(current);
-                MappingUsage usage = (MappingUsage) current;
-                MappingRule rule = usage.getStatement();
-                PojoDefinition pojo = usage.getPojo();
-                if (rule != null && pojo != null)
-                    provideHighlightingForPojo(rule.getName(), pojo.getName(), node, acceptor);
-            } else if (current instanceof ColumnUsageExt) {
-                ICompositeNode node = NodeModelUtils.getNode(current);
-                ColumnUsageExt usage = (ColumnUsageExt) current;
-                MetaStatement statement = usage.getStatement();
-                PojoEntity pojo = usage.getPojo();
-                if (statement != null && pojo != null)
-                    provideHighlightingForPojoExt(statement.getName(), pojo.getName(), node, acceptor);
-            } else if (current instanceof IdentifierUsageExt) {
-                ICompositeNode node = NodeModelUtils.getNode(current);
-                IdentifierUsageExt usage = (IdentifierUsageExt) current;
-                MetaStatement statement = usage.getStatement();
-                PojoEntity pojo = usage.getPojo();
-                if (statement != null && pojo != null)
-                    provideHighlightingForPojoExt(statement.getName(), pojo.getName(), node, acceptor);
-            } else if (current instanceof ConstantUsageExt) {
-                ICompositeNode node = NodeModelUtils.getNode(current);
-                ConstantUsageExt usage = (ConstantUsageExt) current;
-                MetaStatement statement = usage.getStatement();
-                PojoEntity pojo = usage.getPojo();
-                if (statement != null && pojo != null)
-                    provideHighlightingForPojoExt(statement.getName(), pojo.getName(), node, acceptor);
-            } else if (current instanceof MappingUsageExt) {
-                ICompositeNode node = NodeModelUtils.getNode(current);
-                MappingUsageExt usage = (MappingUsageExt) current;
-                MappingRule rule = usage.getStatement();
-                PojoEntity pojo = usage.getPojo();
-                if (rule != null && pojo != null)
-                    provideHighlightingForPojoExt(rule.getName(), pojo.getName(), node, acceptor);
             } else if (current instanceof TableDefinition) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 TableDefinition table = (TableDefinition) current;
                 provideHighlightingForTable(null, table.getName(), node, acceptor);
-            } else if (current instanceof TableUsage) {
-                ICompositeNode node = NodeModelUtils.getNode(current);
-                TableUsage usage = (TableUsage) current;
-                MetaStatement statement = usage.getStatement();
-                TableDefinition table = usage.getTable();
-                if (statement != null && table != null)
-                    provideHighlightingForTable(statement.getName(), table.getName(), node, acceptor);
-                // } else if (current instanceof TypeDefinition) {
-                // ICompositeNode node = NodeModelUtils.getNode(current);
-                // TypeDefinition definition = (TypeDefinition) current;
-                // provideHighlightingForTypeDefinition(definition.getName(), node, acceptor);
             } else if (current instanceof PackageDeclaration) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 PackageDeclaration pkg = (PackageDeclaration) current;
@@ -252,39 +176,6 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
             }
             if (pojo != null && pojo.contains(inode.getText())) {
                 acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.IDENTIFIER);
-                return;
-            }
-        }
-    }
-
-    private void provideHighlightingForPojoExt(String name, String pojo, ICompositeNode node,
-            IHighlightedPositionAcceptor acceptor) {
-        if (name == null && pojo == null)
-            return;
-        Iterator<INode> iterator = new NodeTreeIterator(node);
-        while (iterator.hasNext()) {
-            INode inode = iterator.next();
-            if (name != null && name.contains(inode.getText())) {
-                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.NAME);
-                if (pojo == null)
-                    return;
-            }
-            if (pojo != null && pojo.contains(inode.getText())) {
-                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.ENTITY_NAME);
-                return;
-            }
-        }
-    }
-
-    private void provideHighlightingForTypeDefinition(String definition, ICompositeNode node,
-            IHighlightedPositionAcceptor acceptor) {
-        if (definition == null)
-            return;
-        Iterator<INode> iterator = new NodeTreeIterator(node);
-        while (iterator.hasNext()) {
-            INode inode = iterator.next();
-            if (definition != null && definition.contains(inode.getText())) {
-                acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.TYPE_NAME);
                 return;
             }
         }

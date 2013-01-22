@@ -82,18 +82,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.METAGEN_PROPERTY: return createMetagenProperty();
       case ProcessorDslPackage.DAOGEN_PROPERTY: return createDaogenProperty();
       case ProcessorDslPackage.POJO_DEFINITION: return createPojoDefinition();
-      case ProcessorDslPackage.POJO_USAGE: return createPojoUsage();
-      case ProcessorDslPackage.COLUMN_USAGE: return createColumnUsage();
-      case ProcessorDslPackage.IDENTIFIER_USAGE: return createIdentifierUsage();
-      case ProcessorDslPackage.CONSTANT_USAGE: return createConstantUsage();
-      case ProcessorDslPackage.MAPPING_USAGE: return createMappingUsage();
-      case ProcessorDslPackage.POJO_USAGE_EXT: return createPojoUsageExt();
-      case ProcessorDslPackage.COLUMN_USAGE_EXT: return createColumnUsageExt();
-      case ProcessorDslPackage.IDENTIFIER_USAGE_EXT: return createIdentifierUsageExt();
-      case ProcessorDslPackage.CONSTANT_USAGE_EXT: return createConstantUsageExt();
-      case ProcessorDslPackage.MAPPING_USAGE_EXT: return createMappingUsageExt();
       case ProcessorDslPackage.TABLE_DEFINITION: return createTableDefinition();
-      case ProcessorDslPackage.TABLE_USAGE: return createTableUsage();
       case ProcessorDslPackage.META_STATEMENT: return createMetaStatement();
       case ProcessorDslPackage.SQL: return createSql();
       case ProcessorDslPackage.SQL_FRAGMENT: return createSqlFragment();
@@ -340,131 +329,10 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public PojoUsage createPojoUsage()
-  {
-    PojoUsageImpl pojoUsage = new PojoUsageImpl();
-    return pojoUsage;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ColumnUsage createColumnUsage()
-  {
-    ColumnUsageImpl columnUsage = new ColumnUsageImpl();
-    return columnUsage;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public IdentifierUsage createIdentifierUsage()
-  {
-    IdentifierUsageImpl identifierUsage = new IdentifierUsageImpl();
-    return identifierUsage;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ConstantUsage createConstantUsage()
-  {
-    ConstantUsageImpl constantUsage = new ConstantUsageImpl();
-    return constantUsage;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public MappingUsage createMappingUsage()
-  {
-    MappingUsageImpl mappingUsage = new MappingUsageImpl();
-    return mappingUsage;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PojoUsageExt createPojoUsageExt()
-  {
-    PojoUsageExtImpl pojoUsageExt = new PojoUsageExtImpl();
-    return pojoUsageExt;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ColumnUsageExt createColumnUsageExt()
-  {
-    ColumnUsageExtImpl columnUsageExt = new ColumnUsageExtImpl();
-    return columnUsageExt;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public IdentifierUsageExt createIdentifierUsageExt()
-  {
-    IdentifierUsageExtImpl identifierUsageExt = new IdentifierUsageExtImpl();
-    return identifierUsageExt;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ConstantUsageExt createConstantUsageExt()
-  {
-    ConstantUsageExtImpl constantUsageExt = new ConstantUsageExtImpl();
-    return constantUsageExt;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public MappingUsageExt createMappingUsageExt()
-  {
-    MappingUsageExtImpl mappingUsageExt = new MappingUsageExtImpl();
-    return mappingUsageExt;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public TableDefinition createTableDefinition()
   {
     TableDefinitionImpl tableDefinition = new TableDefinitionImpl();
     return tableDefinition;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public TableUsage createTableUsage()
-  {
-    TableUsageImpl tableUsage = new TableUsageImpl();
-    return tableUsage;
   }
 
   /**

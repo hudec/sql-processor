@@ -67,31 +67,13 @@ public interface ProcessorDslPackage extends EPackage
   int ARTIFACTS = 0;
 
   /**
-   * The feature id for the '<em><b>Features</b></em>' containment reference list.
+   * The feature id for the '<em><b>Properties</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ARTIFACTS__FEATURES = 0;
-
-  /**
-   * The feature id for the '<em><b>Statements</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARTIFACTS__STATEMENTS = 1;
-
-  /**
-   * The feature id for the '<em><b>Mappings</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARTIFACTS__MAPPINGS = 2;
+  int ARTIFACTS__PROPERTIES = 0;
 
   /**
    * The feature id for the '<em><b>Pojos</b></em>' containment reference list.
@@ -100,25 +82,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ARTIFACTS__POJOS = 3;
-
-  /**
-   * The feature id for the '<em><b>Usages</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARTIFACTS__USAGES = 4;
-
-  /**
-   * The feature id for the '<em><b>Properties</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARTIFACTS__PROPERTIES = 5;
+  int ARTIFACTS__POJOS = 1;
 
   /**
    * The feature id for the '<em><b>Tables</b></em>' containment reference list.
@@ -127,16 +91,34 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ARTIFACTS__TABLES = 6;
+  int ARTIFACTS__TABLES = 2;
 
   /**
-   * The feature id for the '<em><b>Table Usages</b></em>' containment reference list.
+   * The feature id for the '<em><b>Statements</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ARTIFACTS__TABLE_USAGES = 7;
+  int ARTIFACTS__STATEMENTS = 3;
+
+  /**
+   * The feature id for the '<em><b>Mappings</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARTIFACTS__MAPPINGS = 4;
+
+  /**
+   * The feature id for the '<em><b>Features</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARTIFACTS__FEATURES = 5;
 
   /**
    * The feature id for the '<em><b>Pojo Packages</b></em>' containment reference list.
@@ -145,16 +127,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ARTIFACTS__POJO_PACKAGES = 8;
-
-  /**
-   * The feature id for the '<em><b>Usages Ext</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARTIFACTS__USAGES_EXT = 9;
+  int ARTIFACTS__POJO_PACKAGES = 6;
 
   /**
    * The number of structural features of the '<em>Artifacts</em>' class.
@@ -163,7 +136,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ARTIFACTS_FEATURE_COUNT = 10;
+  int ARTIFACTS_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.SqlTypeAssignementImpl <em>Sql Type Assignement</em>}' class.
@@ -1164,358 +1137,6 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_DEFINITION_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoUsageImpl <em>Pojo Usage</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.PojoUsageImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoUsage()
-   * @generated
-   */
-  int POJO_USAGE = 18;
-
-  /**
-   * The feature id for the '<em><b>Pojo</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int POJO_USAGE__POJO = 0;
-
-  /**
-   * The number of structural features of the '<em>Pojo Usage</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int POJO_USAGE_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ColumnUsageImpl <em>Column Usage</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.ColumnUsageImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getColumnUsage()
-   * @generated
-   */
-  int COLUMN_USAGE = 19;
-
-  /**
-   * The feature id for the '<em><b>Pojo</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COLUMN_USAGE__POJO = POJO_USAGE__POJO;
-
-  /**
-   * The feature id for the '<em><b>Statement</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COLUMN_USAGE__STATEMENT = POJO_USAGE_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Column Usage</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COLUMN_USAGE_FEATURE_COUNT = POJO_USAGE_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.IdentifierUsageImpl <em>Identifier Usage</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.IdentifierUsageImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIdentifierUsage()
-   * @generated
-   */
-  int IDENTIFIER_USAGE = 20;
-
-  /**
-   * The feature id for the '<em><b>Pojo</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IDENTIFIER_USAGE__POJO = POJO_USAGE__POJO;
-
-  /**
-   * The feature id for the '<em><b>Statement</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IDENTIFIER_USAGE__STATEMENT = POJO_USAGE_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Identifier Usage</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IDENTIFIER_USAGE_FEATURE_COUNT = POJO_USAGE_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ConstantUsageImpl <em>Constant Usage</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.ConstantUsageImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getConstantUsage()
-   * @generated
-   */
-  int CONSTANT_USAGE = 21;
-
-  /**
-   * The feature id for the '<em><b>Pojo</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONSTANT_USAGE__POJO = POJO_USAGE__POJO;
-
-  /**
-   * The feature id for the '<em><b>Statement</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONSTANT_USAGE__STATEMENT = POJO_USAGE_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Constant Usage</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONSTANT_USAGE_FEATURE_COUNT = POJO_USAGE_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.MappingUsageImpl <em>Mapping Usage</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.MappingUsageImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingUsage()
-   * @generated
-   */
-  int MAPPING_USAGE = 22;
-
-  /**
-   * The feature id for the '<em><b>Pojo</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MAPPING_USAGE__POJO = POJO_USAGE__POJO;
-
-  /**
-   * The feature id for the '<em><b>Statement</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MAPPING_USAGE__STATEMENT = POJO_USAGE_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Mapping Usage</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MAPPING_USAGE_FEATURE_COUNT = POJO_USAGE_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoUsageExtImpl <em>Pojo Usage Ext</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.PojoUsageExtImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoUsageExt()
-   * @generated
-   */
-  int POJO_USAGE_EXT = 23;
-
-  /**
-   * The feature id for the '<em><b>Pojo</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int POJO_USAGE_EXT__POJO = 0;
-
-  /**
-   * The number of structural features of the '<em>Pojo Usage Ext</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int POJO_USAGE_EXT_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ColumnUsageExtImpl <em>Column Usage Ext</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.ColumnUsageExtImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getColumnUsageExt()
-   * @generated
-   */
-  int COLUMN_USAGE_EXT = 24;
-
-  /**
-   * The feature id for the '<em><b>Pojo</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COLUMN_USAGE_EXT__POJO = POJO_USAGE_EXT__POJO;
-
-  /**
-   * The feature id for the '<em><b>Statement</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COLUMN_USAGE_EXT__STATEMENT = POJO_USAGE_EXT_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Column Usage Ext</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COLUMN_USAGE_EXT_FEATURE_COUNT = POJO_USAGE_EXT_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.IdentifierUsageExtImpl <em>Identifier Usage Ext</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.IdentifierUsageExtImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIdentifierUsageExt()
-   * @generated
-   */
-  int IDENTIFIER_USAGE_EXT = 25;
-
-  /**
-   * The feature id for the '<em><b>Pojo</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IDENTIFIER_USAGE_EXT__POJO = POJO_USAGE_EXT__POJO;
-
-  /**
-   * The feature id for the '<em><b>Statement</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IDENTIFIER_USAGE_EXT__STATEMENT = POJO_USAGE_EXT_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Identifier Usage Ext</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IDENTIFIER_USAGE_EXT_FEATURE_COUNT = POJO_USAGE_EXT_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.ConstantUsageExtImpl <em>Constant Usage Ext</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.ConstantUsageExtImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getConstantUsageExt()
-   * @generated
-   */
-  int CONSTANT_USAGE_EXT = 26;
-
-  /**
-   * The feature id for the '<em><b>Pojo</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONSTANT_USAGE_EXT__POJO = POJO_USAGE_EXT__POJO;
-
-  /**
-   * The feature id for the '<em><b>Statement</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONSTANT_USAGE_EXT__STATEMENT = POJO_USAGE_EXT_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Constant Usage Ext</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONSTANT_USAGE_EXT_FEATURE_COUNT = POJO_USAGE_EXT_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.MappingUsageExtImpl <em>Mapping Usage Ext</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.MappingUsageExtImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingUsageExt()
-   * @generated
-   */
-  int MAPPING_USAGE_EXT = 27;
-
-  /**
-   * The feature id for the '<em><b>Pojo</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MAPPING_USAGE_EXT__POJO = POJO_USAGE_EXT__POJO;
-
-  /**
-   * The feature id for the '<em><b>Statement</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MAPPING_USAGE_EXT__STATEMENT = POJO_USAGE_EXT_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Mapping Usage Ext</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MAPPING_USAGE_EXT_FEATURE_COUNT = POJO_USAGE_EXT_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.TableDefinitionImpl <em>Table Definition</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1523,7 +1144,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getTableDefinition()
    * @generated
    */
-  int TABLE_DEFINITION = 28;
+  int TABLE_DEFINITION = 18;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1553,52 +1174,6 @@ public interface ProcessorDslPackage extends EPackage
   int TABLE_DEFINITION_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.TableUsageImpl <em>Table Usage</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.TableUsageImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getTableUsage()
-   * @generated
-   */
-  int TABLE_USAGE = 29;
-
-  /**
-   * The feature id for the '<em><b>Statement</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TABLE_USAGE__STATEMENT = 0;
-
-  /**
-   * The feature id for the '<em><b>Table</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TABLE_USAGE__TABLE = 1;
-
-  /**
-   * The feature id for the '<em><b>Prefix</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TABLE_USAGE__PREFIX = 2;
-
-  /**
-   * The number of structural features of the '<em>Table Usage</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TABLE_USAGE_FEATURE_COUNT = 3;
-
-  /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaStatementImpl <em>Meta Statement</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1606,7 +1181,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMetaStatement()
    * @generated
    */
-  int META_STATEMENT = 30;
+  int META_STATEMENT = 19;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1661,7 +1236,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getSql()
    * @generated
    */
-  int SQL = 31;
+  int SQL = 20;
 
   /**
    * The feature id for the '<em><b>Sqls</b></em>' containment reference list.
@@ -1689,7 +1264,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getSqlFragment()
    * @generated
    */
-  int SQL_FRAGMENT = 32;
+  int SQL_FRAGMENT = 21;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1771,7 +1346,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMetaSql()
    * @generated
    */
-  int META_SQL = 33;
+  int META_SQL = 22;
 
   /**
    * The feature id for the '<em><b>Ifs</b></em>' containment reference list.
@@ -1835,7 +1410,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIfSql()
    * @generated
    */
-  int IF_SQL = 34;
+  int IF_SQL = 23;
 
   /**
    * The feature id for the '<em><b>Sqls</b></em>' containment reference list.
@@ -1863,7 +1438,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIfSqlFragment()
    * @generated
    */
-  int IF_SQL_FRAGMENT = 35;
+  int IF_SQL_FRAGMENT = 24;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1945,7 +1520,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIfMetaSql()
    * @generated
    */
-  int IF_META_SQL = 36;
+  int IF_META_SQL = 25;
 
   /**
    * The feature id for the '<em><b>Ifs</b></em>' containment reference list.
@@ -1991,7 +1566,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIfSqlCond()
    * @generated
    */
-  int IF_SQL_COND = 37;
+  int IF_SQL_COND = 26;
 
   /**
    * The feature id for the '<em><b>Bool1</b></em>' containment reference.
@@ -2037,7 +1612,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIfSqlBool()
    * @generated
    */
-  int IF_SQL_BOOL = 38;
+  int IF_SQL_BOOL = 27;
 
   /**
    * The feature id for the '<em><b>Not</b></em>' attribute.
@@ -2092,7 +1667,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getOrdSql()
    * @generated
    */
-  int ORD_SQL = 39;
+  int ORD_SQL = 28;
 
   /**
    * The feature id for the '<em><b>Sqls</b></em>' containment reference list.
@@ -2120,7 +1695,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getOrdSql2()
    * @generated
    */
-  int ORD_SQL2 = 40;
+  int ORD_SQL2 = 29;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2175,7 +1750,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getColumn()
    * @generated
    */
-  int COLUMN = 41;
+  int COLUMN = 30;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2212,7 +1787,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getConstant()
    * @generated
    */
-  int CONSTANT = 42;
+  int CONSTANT = 31;
 
   /**
    * The feature id for the '<em><b>Case</b></em>' attribute.
@@ -2258,7 +1833,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIdentifier()
    * @generated
    */
-  int IDENTIFIER = 43;
+  int IDENTIFIER = 32;
 
   /**
    * The feature id for the '<em><b>Mode</b></em>' attribute.
@@ -2304,7 +1879,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExtendedIdentifier()
    * @generated
    */
-  int EXTENDED_IDENTIFIER = 44;
+  int EXTENDED_IDENTIFIER = 33;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2341,7 +1916,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseColumn()
    * @generated
    */
-  int DATABASE_COLUMN = 45;
+  int DATABASE_COLUMN = 34;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2369,7 +1944,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseTable()
    * @generated
    */
-  int DATABASE_TABLE = 46;
+  int DATABASE_TABLE = 35;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2397,7 +1972,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingRule()
    * @generated
    */
-  int MAPPING_RULE = 47;
+  int MAPPING_RULE = 36;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2452,7 +2027,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMapping()
    * @generated
    */
-  int MAPPING = 48;
+  int MAPPING = 37;
 
   /**
    * The feature id for the '<em><b>Mapping Items</b></em>' containment reference list.
@@ -2480,7 +2055,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingItem()
    * @generated
    */
-  int MAPPING_ITEM = 49;
+  int MAPPING_ITEM = 38;
 
   /**
    * The feature id for the '<em><b>Col</b></em>' attribute.
@@ -2526,7 +2101,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingColumn()
    * @generated
    */
-  int MAPPING_COLUMN = 50;
+  int MAPPING_COLUMN = 39;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2554,7 +2129,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getOptionalFeature()
    * @generated
    */
-  int OPTIONAL_FEATURE = 51;
+  int OPTIONAL_FEATURE = 40;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2609,7 +2184,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoType()
    * @generated
    */
-  int POJO_TYPE = 52;
+  int POJO_TYPE = 41;
 
   /**
    * The feature id for the '<em><b>Native</b></em>' attribute.
@@ -2682,7 +2257,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getAbstractPojoEntity()
    * @generated
    */
-  int ABSTRACT_POJO_ENTITY = 54;
+  int ABSTRACT_POJO_ENTITY = 43;
 
   /**
    * The number of structural features of the '<em>Abstract Pojo Entity</em>' class.
@@ -2701,7 +2276,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPackageDeclaration()
    * @generated
    */
-  int PACKAGE_DECLARATION = 53;
+  int PACKAGE_DECLARATION = 42;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2747,7 +2322,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImport()
    * @generated
    */
-  int IMPORT = 55;
+  int IMPORT = 44;
 
   /**
    * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
@@ -2775,7 +2350,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImplements()
    * @generated
    */
-  int IMPLEMENTS = 56;
+  int IMPLEMENTS = 45;
 
   /**
    * The feature id for the '<em><b>Implements</b></em>' reference.
@@ -2803,7 +2378,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExtends()
    * @generated
    */
-  int EXTENDS = 57;
+  int EXTENDS = 46;
 
   /**
    * The feature id for the '<em><b>Extends</b></em>' reference.
@@ -2831,7 +2406,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImplPackage()
    * @generated
    */
-  int IMPL_PACKAGE = 58;
+  int IMPL_PACKAGE = 47;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2859,7 +2434,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntityModifier1()
    * @generated
    */
-  int POJO_ENTITY_MODIFIER1 = 59;
+  int POJO_ENTITY_MODIFIER1 = 48;
 
   /**
    * The feature id for the '<em><b>Final</b></em>' attribute.
@@ -2896,7 +2471,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntityModifier2()
    * @generated
    */
-  int POJO_ENTITY_MODIFIER2 = 60;
+  int POJO_ENTITY_MODIFIER2 = 49;
 
   /**
    * The feature id for the '<em><b>Super Type</b></em>' reference.
@@ -2942,7 +2517,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntity()
    * @generated
    */
-  int POJO_ENTITY = 61;
+  int POJO_ENTITY = 50;
 
   /**
    * The feature id for the '<em><b>Modifiers1</b></em>' containment reference list.
@@ -2997,7 +2572,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoPropertyModifier()
    * @generated
    */
-  int POJO_PROPERTY_MODIFIER = 62;
+  int POJO_PROPERTY_MODIFIER = 51;
 
   /**
    * The feature id for the '<em><b>Required</b></em>' attribute.
@@ -3061,7 +2636,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntityModifier3()
    * @generated
    */
-  int POJO_ENTITY_MODIFIER3 = 63;
+  int POJO_ENTITY_MODIFIER3 = 52;
 
   /**
    * The feature id for the '<em><b>Super Type</b></em>' reference.
@@ -3098,7 +2673,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoProperty()
    * @generated
    */
-  int POJO_PROPERTY = 64;
+  int POJO_PROPERTY = 53;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3198,7 +2773,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoDao()
    * @generated
    */
-  int POJO_DAO = 65;
+  int POJO_DAO = 54;
 
   /**
    * The feature id for the '<em><b>Modifiers1</b></em>' containment reference list.
@@ -3262,7 +2837,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoMethod()
    * @generated
    */
-  int POJO_METHOD = 66;
+  int POJO_METHOD = 55;
 
   /**
    * The feature id for the '<em><b>Scaffold</b></em>' attribute.
@@ -3308,7 +2883,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoMethodArg()
    * @generated
    */
-  int POJO_METHOD_ARG = 67;
+  int POJO_METHOD_ARG = 56;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3367,15 +2942,37 @@ public interface ProcessorDslPackage extends EPackage
   EClass getArtifacts();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getFeatures <em>Features</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getProperties <em>Properties</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Features</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Artifacts#getFeatures()
+   * @return the meta object for the containment reference list '<em>Properties</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Artifacts#getProperties()
    * @see #getArtifacts()
    * @generated
    */
-  EReference getArtifacts_Features();
+  EReference getArtifacts_Properties();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getPojos <em>Pojos</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Pojos</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Artifacts#getPojos()
+   * @see #getArtifacts()
+   * @generated
+   */
+  EReference getArtifacts_Pojos();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getTables <em>Tables</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Tables</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Artifacts#getTables()
+   * @see #getArtifacts()
+   * @generated
+   */
+  EReference getArtifacts_Tables();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getStatements <em>Statements</em>}'.
@@ -3400,59 +2997,15 @@ public interface ProcessorDslPackage extends EPackage
   EReference getArtifacts_Mappings();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getPojos <em>Pojos</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getFeatures <em>Features</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Pojos</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Artifacts#getPojos()
+   * @return the meta object for the containment reference list '<em>Features</em>'.
+   * @see org.sqlproc.dsl.processorDsl.Artifacts#getFeatures()
    * @see #getArtifacts()
    * @generated
    */
-  EReference getArtifacts_Pojos();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getUsages <em>Usages</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Usages</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Artifacts#getUsages()
-   * @see #getArtifacts()
-   * @generated
-   */
-  EReference getArtifacts_Usages();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getProperties <em>Properties</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Properties</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Artifacts#getProperties()
-   * @see #getArtifacts()
-   * @generated
-   */
-  EReference getArtifacts_Properties();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getTables <em>Tables</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Tables</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Artifacts#getTables()
-   * @see #getArtifacts()
-   * @generated
-   */
-  EReference getArtifacts_Tables();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getTableUsages <em>Table Usages</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Table Usages</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Artifacts#getTableUsages()
-   * @see #getArtifacts()
-   * @generated
-   */
-  EReference getArtifacts_TableUsages();
+  EReference getArtifacts_Features();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getPojoPackages <em>Pojo Packages</em>}'.
@@ -3464,17 +3017,6 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EReference getArtifacts_PojoPackages();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.Artifacts#getUsagesExt <em>Usages Ext</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Usages Ext</em>'.
-   * @see org.sqlproc.dsl.processorDsl.Artifacts#getUsagesExt()
-   * @see #getArtifacts()
-   * @generated
-   */
-  EReference getArtifacts_UsagesExt();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.SqlTypeAssignement <em>Sql Type Assignement</em>}'.
@@ -4472,216 +4014,6 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getPojoDefinition_Class();
 
   /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoUsage <em>Pojo Usage</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Pojo Usage</em>'.
-   * @see org.sqlproc.dsl.processorDsl.PojoUsage
-   * @generated
-   */
-  EClass getPojoUsage();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoUsage#getPojo <em>Pojo</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Pojo</em>'.
-   * @see org.sqlproc.dsl.processorDsl.PojoUsage#getPojo()
-   * @see #getPojoUsage()
-   * @generated
-   */
-  EReference getPojoUsage_Pojo();
-
-  /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.ColumnUsage <em>Column Usage</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Column Usage</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ColumnUsage
-   * @generated
-   */
-  EClass getColumnUsage();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.ColumnUsage#getStatement <em>Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Statement</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ColumnUsage#getStatement()
-   * @see #getColumnUsage()
-   * @generated
-   */
-  EReference getColumnUsage_Statement();
-
-  /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.IdentifierUsage <em>Identifier Usage</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Identifier Usage</em>'.
-   * @see org.sqlproc.dsl.processorDsl.IdentifierUsage
-   * @generated
-   */
-  EClass getIdentifierUsage();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.IdentifierUsage#getStatement <em>Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Statement</em>'.
-   * @see org.sqlproc.dsl.processorDsl.IdentifierUsage#getStatement()
-   * @see #getIdentifierUsage()
-   * @generated
-   */
-  EReference getIdentifierUsage_Statement();
-
-  /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.ConstantUsage <em>Constant Usage</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Constant Usage</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ConstantUsage
-   * @generated
-   */
-  EClass getConstantUsage();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.ConstantUsage#getStatement <em>Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Statement</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ConstantUsage#getStatement()
-   * @see #getConstantUsage()
-   * @generated
-   */
-  EReference getConstantUsage_Statement();
-
-  /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.MappingUsage <em>Mapping Usage</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Mapping Usage</em>'.
-   * @see org.sqlproc.dsl.processorDsl.MappingUsage
-   * @generated
-   */
-  EClass getMappingUsage();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.MappingUsage#getStatement <em>Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Statement</em>'.
-   * @see org.sqlproc.dsl.processorDsl.MappingUsage#getStatement()
-   * @see #getMappingUsage()
-   * @generated
-   */
-  EReference getMappingUsage_Statement();
-
-  /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoUsageExt <em>Pojo Usage Ext</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Pojo Usage Ext</em>'.
-   * @see org.sqlproc.dsl.processorDsl.PojoUsageExt
-   * @generated
-   */
-  EClass getPojoUsageExt();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.PojoUsageExt#getPojo <em>Pojo</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Pojo</em>'.
-   * @see org.sqlproc.dsl.processorDsl.PojoUsageExt#getPojo()
-   * @see #getPojoUsageExt()
-   * @generated
-   */
-  EReference getPojoUsageExt_Pojo();
-
-  /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.ColumnUsageExt <em>Column Usage Ext</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Column Usage Ext</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ColumnUsageExt
-   * @generated
-   */
-  EClass getColumnUsageExt();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.ColumnUsageExt#getStatement <em>Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Statement</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ColumnUsageExt#getStatement()
-   * @see #getColumnUsageExt()
-   * @generated
-   */
-  EReference getColumnUsageExt_Statement();
-
-  /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.IdentifierUsageExt <em>Identifier Usage Ext</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Identifier Usage Ext</em>'.
-   * @see org.sqlproc.dsl.processorDsl.IdentifierUsageExt
-   * @generated
-   */
-  EClass getIdentifierUsageExt();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.IdentifierUsageExt#getStatement <em>Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Statement</em>'.
-   * @see org.sqlproc.dsl.processorDsl.IdentifierUsageExt#getStatement()
-   * @see #getIdentifierUsageExt()
-   * @generated
-   */
-  EReference getIdentifierUsageExt_Statement();
-
-  /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.ConstantUsageExt <em>Constant Usage Ext</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Constant Usage Ext</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ConstantUsageExt
-   * @generated
-   */
-  EClass getConstantUsageExt();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.ConstantUsageExt#getStatement <em>Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Statement</em>'.
-   * @see org.sqlproc.dsl.processorDsl.ConstantUsageExt#getStatement()
-   * @see #getConstantUsageExt()
-   * @generated
-   */
-  EReference getConstantUsageExt_Statement();
-
-  /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.MappingUsageExt <em>Mapping Usage Ext</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Mapping Usage Ext</em>'.
-   * @see org.sqlproc.dsl.processorDsl.MappingUsageExt
-   * @generated
-   */
-  EClass getMappingUsageExt();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.MappingUsageExt#getStatement <em>Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Statement</em>'.
-   * @see org.sqlproc.dsl.processorDsl.MappingUsageExt#getStatement()
-   * @see #getMappingUsageExt()
-   * @generated
-   */
-  EReference getMappingUsageExt_Statement();
-
-  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.TableDefinition <em>Table Definition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4712,49 +4044,6 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EAttribute getTableDefinition_Table();
-
-  /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.TableUsage <em>Table Usage</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Table Usage</em>'.
-   * @see org.sqlproc.dsl.processorDsl.TableUsage
-   * @generated
-   */
-  EClass getTableUsage();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.TableUsage#getStatement <em>Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Statement</em>'.
-   * @see org.sqlproc.dsl.processorDsl.TableUsage#getStatement()
-   * @see #getTableUsage()
-   * @generated
-   */
-  EReference getTableUsage_Statement();
-
-  /**
-   * Returns the meta object for the reference '{@link org.sqlproc.dsl.processorDsl.TableUsage#getTable <em>Table</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Table</em>'.
-   * @see org.sqlproc.dsl.processorDsl.TableUsage#getTable()
-   * @see #getTableUsage()
-   * @generated
-   */
-  EReference getTableUsage_Table();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.TableUsage#getPrefix <em>Prefix</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Prefix</em>'.
-   * @see org.sqlproc.dsl.processorDsl.TableUsage#getPrefix()
-   * @see #getTableUsage()
-   * @generated
-   */
-  EAttribute getTableUsage_Prefix();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.MetaStatement <em>Meta Statement</em>}'.
@@ -6435,12 +5724,28 @@ public interface ProcessorDslPackage extends EPackage
     EClass ARTIFACTS = eINSTANCE.getArtifacts();
 
     /**
-     * The meta object literal for the '<em><b>Features</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ARTIFACTS__FEATURES = eINSTANCE.getArtifacts_Features();
+    EReference ARTIFACTS__PROPERTIES = eINSTANCE.getArtifacts_Properties();
+
+    /**
+     * The meta object literal for the '<em><b>Pojos</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ARTIFACTS__POJOS = eINSTANCE.getArtifacts_Pojos();
+
+    /**
+     * The meta object literal for the '<em><b>Tables</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ARTIFACTS__TABLES = eINSTANCE.getArtifacts_Tables();
 
     /**
      * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
@@ -6459,44 +5764,12 @@ public interface ProcessorDslPackage extends EPackage
     EReference ARTIFACTS__MAPPINGS = eINSTANCE.getArtifacts_Mappings();
 
     /**
-     * The meta object literal for the '<em><b>Pojos</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Features</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ARTIFACTS__POJOS = eINSTANCE.getArtifacts_Pojos();
-
-    /**
-     * The meta object literal for the '<em><b>Usages</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ARTIFACTS__USAGES = eINSTANCE.getArtifacts_Usages();
-
-    /**
-     * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ARTIFACTS__PROPERTIES = eINSTANCE.getArtifacts_Properties();
-
-    /**
-     * The meta object literal for the '<em><b>Tables</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ARTIFACTS__TABLES = eINSTANCE.getArtifacts_Tables();
-
-    /**
-     * The meta object literal for the '<em><b>Table Usages</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ARTIFACTS__TABLE_USAGES = eINSTANCE.getArtifacts_TableUsages();
+    EReference ARTIFACTS__FEATURES = eINSTANCE.getArtifacts_Features();
 
     /**
      * The meta object literal for the '<em><b>Pojo Packages</b></em>' containment reference list feature.
@@ -6505,14 +5778,6 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EReference ARTIFACTS__POJO_PACKAGES = eINSTANCE.getArtifacts_PojoPackages();
-
-    /**
-     * The meta object literal for the '<em><b>Usages Ext</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ARTIFACTS__USAGES_EXT = eINSTANCE.getArtifacts_UsagesExt();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.SqlTypeAssignementImpl <em>Sql Type Assignement</em>}' class.
@@ -7285,186 +6550,6 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute POJO_DEFINITION__CLASS = eINSTANCE.getPojoDefinition_Class();
 
     /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoUsageImpl <em>Pojo Usage</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.PojoUsageImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoUsage()
-     * @generated
-     */
-    EClass POJO_USAGE = eINSTANCE.getPojoUsage();
-
-    /**
-     * The meta object literal for the '<em><b>Pojo</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference POJO_USAGE__POJO = eINSTANCE.getPojoUsage_Pojo();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ColumnUsageImpl <em>Column Usage</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.ColumnUsageImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getColumnUsage()
-     * @generated
-     */
-    EClass COLUMN_USAGE = eINSTANCE.getColumnUsage();
-
-    /**
-     * The meta object literal for the '<em><b>Statement</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COLUMN_USAGE__STATEMENT = eINSTANCE.getColumnUsage_Statement();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.IdentifierUsageImpl <em>Identifier Usage</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.IdentifierUsageImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIdentifierUsage()
-     * @generated
-     */
-    EClass IDENTIFIER_USAGE = eINSTANCE.getIdentifierUsage();
-
-    /**
-     * The meta object literal for the '<em><b>Statement</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference IDENTIFIER_USAGE__STATEMENT = eINSTANCE.getIdentifierUsage_Statement();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ConstantUsageImpl <em>Constant Usage</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.ConstantUsageImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getConstantUsage()
-     * @generated
-     */
-    EClass CONSTANT_USAGE = eINSTANCE.getConstantUsage();
-
-    /**
-     * The meta object literal for the '<em><b>Statement</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONSTANT_USAGE__STATEMENT = eINSTANCE.getConstantUsage_Statement();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.MappingUsageImpl <em>Mapping Usage</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.MappingUsageImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingUsage()
-     * @generated
-     */
-    EClass MAPPING_USAGE = eINSTANCE.getMappingUsage();
-
-    /**
-     * The meta object literal for the '<em><b>Statement</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MAPPING_USAGE__STATEMENT = eINSTANCE.getMappingUsage_Statement();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoUsageExtImpl <em>Pojo Usage Ext</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.PojoUsageExtImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoUsageExt()
-     * @generated
-     */
-    EClass POJO_USAGE_EXT = eINSTANCE.getPojoUsageExt();
-
-    /**
-     * The meta object literal for the '<em><b>Pojo</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference POJO_USAGE_EXT__POJO = eINSTANCE.getPojoUsageExt_Pojo();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ColumnUsageExtImpl <em>Column Usage Ext</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.ColumnUsageExtImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getColumnUsageExt()
-     * @generated
-     */
-    EClass COLUMN_USAGE_EXT = eINSTANCE.getColumnUsageExt();
-
-    /**
-     * The meta object literal for the '<em><b>Statement</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COLUMN_USAGE_EXT__STATEMENT = eINSTANCE.getColumnUsageExt_Statement();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.IdentifierUsageExtImpl <em>Identifier Usage Ext</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.IdentifierUsageExtImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIdentifierUsageExt()
-     * @generated
-     */
-    EClass IDENTIFIER_USAGE_EXT = eINSTANCE.getIdentifierUsageExt();
-
-    /**
-     * The meta object literal for the '<em><b>Statement</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference IDENTIFIER_USAGE_EXT__STATEMENT = eINSTANCE.getIdentifierUsageExt_Statement();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.ConstantUsageExtImpl <em>Constant Usage Ext</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.ConstantUsageExtImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getConstantUsageExt()
-     * @generated
-     */
-    EClass CONSTANT_USAGE_EXT = eINSTANCE.getConstantUsageExt();
-
-    /**
-     * The meta object literal for the '<em><b>Statement</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONSTANT_USAGE_EXT__STATEMENT = eINSTANCE.getConstantUsageExt_Statement();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.MappingUsageExtImpl <em>Mapping Usage Ext</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.MappingUsageExtImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingUsageExt()
-     * @generated
-     */
-    EClass MAPPING_USAGE_EXT = eINSTANCE.getMappingUsageExt();
-
-    /**
-     * The meta object literal for the '<em><b>Statement</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MAPPING_USAGE_EXT__STATEMENT = eINSTANCE.getMappingUsageExt_Statement();
-
-    /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.TableDefinitionImpl <em>Table Definition</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7489,40 +6574,6 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute TABLE_DEFINITION__TABLE = eINSTANCE.getTableDefinition_Table();
-
-    /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.TableUsageImpl <em>Table Usage</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.TableUsageImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getTableUsage()
-     * @generated
-     */
-    EClass TABLE_USAGE = eINSTANCE.getTableUsage();
-
-    /**
-     * The meta object literal for the '<em><b>Statement</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference TABLE_USAGE__STATEMENT = eINSTANCE.getTableUsage_Statement();
-
-    /**
-     * The meta object literal for the '<em><b>Table</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference TABLE_USAGE__TABLE = eINSTANCE.getTableUsage_Table();
-
-    /**
-     * The meta object literal for the '<em><b>Prefix</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute TABLE_USAGE__PREFIX = eINSTANCE.getTableUsage_Prefix();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaStatementImpl <em>Meta Statement</em>}' class.

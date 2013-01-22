@@ -4,7 +4,6 @@ import static org.sqlproc.dsl.util.Constants.TABLE_USAGE;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -14,8 +13,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.templates.SimpleTemplateVariableResolver;
 import org.eclipse.jface.text.templates.TemplateContext;
 import org.eclipse.xtext.EcoreUtil2;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.ui.editor.templates.XtextTemplateContext;
 import org.eclipse.xtext.ui.editor.templates.XtextTemplateContextType;
@@ -27,7 +24,6 @@ import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
-import org.sqlproc.dsl.processorDsl.TableUsage;
 import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.resolver.DbColumn;
 import org.sqlproc.dsl.resolver.DbExport;
@@ -109,34 +105,6 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 return tableDefinition;
         }
 
-        TableUsage usage = null;
-        IScope scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLE_USAGES);
-        Iterable<IEObjectDescription> iterable = scope.getAllElements();
-        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-            IEObjectDescription description = iter.next();
-            if (ProcessorDslPackage.Literals.TABLE_USAGE.getName().equals(description.getEClass().getName())) {
-                TableUsage tableUsage = (TableUsage) artifacts.eResource().getResourceSet()
-                        .getEObject(description.getEObjectURI(), true);
-                if (tableUsage.getStatement().getName().equals(statement.getName())) {
-                    usage = tableUsage;
-                    break;
-                }
-            }
-        }
-        if (usage != null && usage.getTable() != null && usage.getTable().getName() != null) {
-            scope = scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES);
-            iterable = scope.getAllElements();
-            for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
-                IEObjectDescription description = iter.next();
-                if (ProcessorDslPackage.Literals.TABLE_DEFINITION.getName().equals(description.getEClass().getName())) {
-                    tableDefinition = (TableDefinition) artifacts.eResource().getResourceSet()
-                            .getEObject(description.getEObjectURI(), true);
-                    if (usage.getTable().getName().equals(tableDefinition.getName())) {
-                        return tableDefinition;
-                    }
-                }
-            }
-        }
         return null;
     }
 

@@ -22,7 +22,6 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
     public final static String STATEMENT_MODIFIER = "statementModifier";
     public final static String PACKAGE_NAME = "packageName";
     public final static String ENTITY_NAME = "entityName";
-    public final static String TYPE_NAME = "typeName";
     public final static String PROPERTY_NAME = "propertyName";
     public final static String DAO_NAME = "daoName";
 
@@ -42,7 +41,6 @@ public class HighlightingConfiguration extends DefaultHighlightingConfiguration 
         acceptor.acceptDefaultHighlighting(STATEMENT_MODIFIER, "Statement modifier", statementModifierStyle());
         acceptor.acceptDefaultHighlighting(PACKAGE_NAME, "Pojo package name", packageNameStyle());
         acceptor.acceptDefaultHighlighting(ENTITY_NAME, "Pojo entity name", entityNameStyle());
-        acceptor.acceptDefaultHighlighting(TYPE_NAME, "Type definition name", identifierStyle());
         acceptor.acceptDefaultHighlighting(PROPERTY_NAME, "Pojo property name", propertyNameStyle());
         acceptor.acceptDefaultHighlighting(DAO_NAME, "Pojo DAO name", daoNameStyle());
     }
