@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
@@ -56,24 +57,8 @@ public class Main {
     }
 
     public void setupDb() throws SQLException {
-
-        Statement stmt = null;
-
-        try {
-            stmt = connection.createStatement();
-            for (int i = 0, n = ddls.size(); i < n; i++) {
-                String ddl = ddls.get(i);
-                if (ddl == null)
-                    continue;
-                logger.info(ddl);
-                stmt.addBatch(ddl);
-            }
-            stmt.executeBatch();
-
-        } finally {
-            if (stmt != null)
-                stmt.close();
-        }
+        SqlSession sqlSession = sessionFactory.getSqlSession();
+        sqlSession.executeBatch(ddls.toArray(new String[0]));
     }
 
     private ContactDao contactDao;

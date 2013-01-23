@@ -17,7 +17,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.sqlproc.engine.SqlSession;
+import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.util.DDLLoader;
 import ${package}.model.Contact;
@@ -27,14 +28,14 @@ public class Main {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private JdbcTemplate jdbcTemplate;
+    private SqlSessionFactory sessionFactory;
     private List<String> ddls;
     private ContactDao contactDao;
     private PersonDao personDao;
 
     public Main() throws BeansException, IOException {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
+        sessionFactory = context.getBean("sessionFactory", SqlSessionFactory.class);
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
 
         contactDao = context.getBean("contactDao", ContactDao.class);
@@ -42,28 +43,8 @@ public class Main {
     }
 
     public void setupDb() throws SQLException {
-
-        Connection connection = null;
-        Statement stmt = null;
-
-        try {
-            connection = jdbcTemplate.getDataSource().getConnection();
-            stmt = jdbcTemplate.getDataSource().getConnection().createStatement();
-            for (int i = 0, n = ddls.size(); i < n; i++) {
-                String ddl = ddls.get(i);
-                if (ddl == null)
-                    continue;
-                logger.info(ddl);
-                stmt.addBatch(ddl);
-            }
-            stmt.executeBatch();
-
-        } finally {
-            if (stmt != null)
-                stmt.close();
-            if (connection != null)
-                connection.close();
-        }
+        SqlSession sqlSession = sessionFactory.getSqlSession();
+        sqlSession.executeBatch(ddls.toArray(new String[0]));
     }
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
