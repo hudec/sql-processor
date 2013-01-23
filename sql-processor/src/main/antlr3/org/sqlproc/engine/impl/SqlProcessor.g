@@ -401,6 +401,7 @@ scope {SqlTypeFactory typeFactory;boolean skip;}
 )
 ;
 
+/*
 mappingItem returns[SqlMappingItem result]
 @init {$result = null;}
 	:	
@@ -412,7 +413,27 @@ mappingItem returns[SqlMappingItem result]
 	 )*
   	)?
 	;
+*/
 	
+mappingItem returns[SqlMappingItem result]
+@init {String sname; Map<String, List<String>> modifiers = new HashMap<String, List<String>>(); }
+@after {if(!$mapping::skip) for (String n : modifiers.keySet()) for (String m : modifiers.get(n)) addModifier($mapping::typeFactory, result, m, n); }
+	:	
+	(col=IDENT | col=NUMBER) {if(!$mapping::skip) $result = newColumn($col.text); }
+    (STRING (name=IDENT_DOT | name=IDENT | name=NUMBER) { if(!$mapping::skip) addColumnAttr($result, $name); sname =  $name.text; }
+	 (options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { modifiers.put(sname, new ArrayList<String>()); modifiers.get(sname).add($value.text); }
+	  (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { modifiers.get(sname).add($value.text); }
+	  )* RPAREN
+	 )*
+     ((name=IDENT_DOT | name=IDENT | name=NUMBER) { if(!$mapping::skip) addColumnAttr($result, $name); sname = sname + "." + $name.text; }
+	  (options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { modifiers.put(sname, new ArrayList<String>()); modifiers.get(sname).add($value.text); }
+	   (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { modifiers.get(sname).add($value.text); }
+	   )* RPAREN
+	  )*
+  	 )*
+  	)?
+	;
+
 option [String name] returns [StringBuilder text]
 @init {artifactName.push(name); text = new StringBuilder();}
 @after { artifactName.pop();}
