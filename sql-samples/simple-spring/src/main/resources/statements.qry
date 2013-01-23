@@ -86,7 +86,7 @@ CREATE_LIBRARY(CRUD,in=personLibrary)=
 ;
 
 ALL_PEOPLE_LIBRARY(QRY,in=library,out=person)=
-  select p.ID @id(type=long,id), p.NAME @name, mo.MEDIA_ID @library==movie.id(type=long,id), bk.MEDIA_ID @library==book.id(type=long,id),
+  select p.ID @id(type=long,id), p.NAME @name, mo.MEDIA_ID @library(gtype=movie)id(type=long,id), bk.MEDIA_ID @library(gtype=book)id(type=long,id),
   m.TITLE @library.title, mo.URLIMDB @library.urlIMDB, mo.PLAYLENGTH @library.playLength, bk.ISBN @library.isbn
   from PERSON p left join PERSON_LIBRARY l on p.ID = l.PERSON_ID
   left join MEDIA m on m.ID = l.MEDIA_ID
@@ -137,7 +137,7 @@ INSERT_BANK_ACCOUNT(CRUD,in=bankAccount)=
 
 ALL_SUBSCRIBERS_BILLING_DETAILS(QRY,in=subscriber,out=subscriber)=
   select s.ID @id(type=long,id), s.NAME @name, s.LIBRARY @library.id(type=long,id),
-  bd.TYPE @billingDetails==discriminator.type, bd.ID @billingDetails.id(type=long,id),
+  bd.TYPE @billingDetails(discr)type, bd.ID @billingDetails.id(type=long,id),
   bd.CC_NUMBER @billingDetails.number, bd.BA_ACCOUNT @billingDetails.account
   from SUBSCRIBER s left join BILLING_DETAILS bd on s.ID = bd.SUBSCRIBER
   {= where
