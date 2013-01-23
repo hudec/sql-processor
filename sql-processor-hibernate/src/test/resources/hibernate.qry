@@ -121,7 +121,7 @@ HIBERNATE_PARAMETERS(OUT)=
 
 INHERITANCE2_BASIC(QRY)=
   select s.ID @id, s.NAME_FIRST @name.first, s.NAME_LAST @name.last, s.LIBRARY @library.id,
-  bd.TYPE @billingDetails==discriminator.type, bd.ID @billingDetails.id, bd.CC_NUMBER @billingDetails.number(type=long),
+  bd.TYPE @billingDetails(discr)type, bd.ID @billingDetails.id, bd.CC_NUMBER @billingDetails.number(type=long),
   bd.CC_EXP_MONTH @billingDetails.expMonth(type=short), bd.CC_EXP_YEAR @billingDetails.expYear(type=short),
   bd.BA_ACCOUNT_NUMBER @billingDetails.accountNumber, bd.BA_BANK_NAME @billingDetails.bankName,
   bd.BA_SWIFT @billingDetails.swift

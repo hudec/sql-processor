@@ -1742,4 +1742,3 @@ PLUGIN_IS_TRUE(QRY)=
     {? :createdBy(type=string,zero) | AND p.CREATED_BY = :createdBy | AND p.CREATED_BY is null}
   }
 ;
-
