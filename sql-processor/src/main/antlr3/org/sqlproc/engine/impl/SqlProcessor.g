@@ -118,16 +118,8 @@ import org.sqlproc.engine.type.SqlMetaType;
     ParserUtils.addIdent(target, ident, text);
   }
   
-  SqlMetaIdent newIdent(SqlMetaIdent ident, Token name, Token modeIdent, Token caseIdent) {
-    if (ident != null) {
-      ParserUtils.addName(ident, name.getText());
-      return ident;
-    }
-    return ParserUtils.newIdent(name.getText(), getText(modeIdent), getText(caseIdent));
-  }
-  
-  void addName(SqlMetaIdent ident, Token name) {
-    ParserUtils.addName(ident, (name!=null) ? name.getText() : null);
+  SqlMetaIdent newIdent(Token ident, Token modeIdent, Token caseIdent) {
+    return ParserUtils.newIdent(ident.getText(), getText(modeIdent), getText(caseIdent));
   }
   
   void addConstant(Object target, SqlMetaConst cnst, StringBuilder text) {
@@ -373,28 +365,10 @@ constant returns [SqlMetaConst result]
 	)?
 	;
 
-/*
 identifier returns [SqlMetaIdent result]
 @init {$result = null;}
 	:	
 	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)? (ident=IDENT_DOT | ident=IDENT | ident=NUMBER) {if(!$meta::skip) $result = newIdent($ident, $modeIdent, $caseIdent);}
-	(options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
-	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
-	 )* RPAREN
-	)?
-	;
-*/
-
-identifier returns [SqlMetaIdent result]
-@after {result = ident;}
-	:	
-	(modeIdent=EQUALS | modeIdent=LESS_THAN | modeIdent=MORE_THAN)? (caseIdent=PLUS | caseIdent=MINUS)?
-	ident=extendedIdentifier[null, modeIdent, caseIdent] (options {greedy=true;} : extendedIdentifier[ident, null, null])*
-	;
-
-extendedIdentifier [SqlMetaIdent ident, Token modeIdent, Token caseIdent] returns [SqlMetaIdent result]
-	:
-	(name=IDENT_DOT | name=IDENT | name=NUMBER) {$result = newIdent($ident, $name, $modeIdent, $caseIdent);}
 	(options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
 	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
 	 )* RPAREN
