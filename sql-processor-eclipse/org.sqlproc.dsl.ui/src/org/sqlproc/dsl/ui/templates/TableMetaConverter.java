@@ -454,11 +454,11 @@ public class TableMetaConverter extends TablePojoConverter {
             buffer.append(pojoPrefix);
         if (discriminator != null) {
             if (inheritance != null)
-                buffer.append("==").append(inheritance);
+                buffer.append("(gtype=").append(inheritance).append(")");
             else
-                buffer.append("==discriminator");
+                buffer.append("(discr)");
         }
-        if (pojoPrefix != null)
+        if (pojoPrefix != null && discriminator == null)
             buffer.append(".");
         buffer.append(name);
         if (attr.attribute.getPkTable() != null) {

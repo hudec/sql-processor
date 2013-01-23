@@ -370,7 +370,7 @@ INSERT_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,col=payment)=
 
 GET_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,col=payment=p,col=billingDetails=b)=
   select %p.ID @id(id), %p.PAID @paid
-         {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails==discriminator.type, %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
+         {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails(discr)type, %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
   from %%PAYMENT p
   {? :billingDetails(call=toInit) | left join %%BILLING_DETAILS b on %p.BILLING_DETAILS = %b.ID }
   {= where
@@ -400,7 +400,7 @@ DELETE_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,col=payment)=
 
 SELECT_PAYMENT(QRY,final=,inx=Payment,outx=Payment,col=payment=p,col=billingDetails=b)=
   select %p.ID @id(id), %p.PAID @paid
-         {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails==discriminator.type, %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
+         {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails(discr)type, %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
   from %%PAYMENT p
   {? :billingDetails(call=toInit) | left join %%BILLING_DETAILS b on %p.BILLING_DETAILS = %b.ID }
   {= where
@@ -420,7 +420,7 @@ INSERT_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,col=performer)=
 GET_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,col=performer=p,col=person=p1,col=media=m,col=movie=m1,col=book=b)=
   select %p.ID @id(id), %p.PERSON_ID @person.id(id)
          {? :person(call=toInit) | , %p1.FIRST_NAME @person.firstName, %p1.LAST_NAME @person.lastName, %p1.DATE_OF_BIRTH @person.dateOfBirth, %p1.SSN @person.ssn }
-         {? :work(call=toInit) | , %m1.MEDIA_ID @work==movie.id(id), %m1.URLIMDB @work.urlimdb, %m1.PLAYLENGTH @work.playlength, %b.MEDIA_ID @work==book.id(id), %b.ISBN @work.newIsbn, %m.ID @work.id(id), %m.TITLE @work.title, %m.AUTHOR @work.author.id }
+         {? :work(call=toInit) | , %m1.MEDIA_ID @work(gtype=movie)id(id), %m1.URLIMDB @work.urlimdb, %m1.PLAYLENGTH @work.playlength, %b.MEDIA_ID @work(gtype=book)id(id), %b.ISBN @work.newIsbn, %m.ID @work.id(id), %m.TITLE @work.title, %m.AUTHOR @work.author.id }
   from %%PERFORMER p
   {? :person(call=toInit) | left join %%PERSON p1 on %p.PERSON_ID = %p1.ID }
   {? :work(call=toInit) | left join %%MEDIA m on %p.ID = %m.AUTHOR left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
@@ -450,7 +450,7 @@ DELETE_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,col=performer)=
 SELECT_PERFORMER(QRY,final=,inx=Performer,outx=Performer,col=performer=p,col=person=p1,col=media=m,col=movie=m1,col=book=b)=
   select %p.ID @id(id), %p.PERSON_ID @person.id(id)
          {? :person(call=toInit) | , %p1.FIRST_NAME @person.firstName, %p1.LAST_NAME @person.lastName, %p1.DATE_OF_BIRTH @person.dateOfBirth, %p1.SSN @person.ssn }
-         {? :work(call=toInit) | , %m1.MEDIA_ID @work==movie.id(id), %m1.URLIMDB @work.urlimdb, %m1.PLAYLENGTH @work.playlength, %b.MEDIA_ID @work==book.id(id), %b.ISBN @work.newIsbn, %m.ID @work.id(id), %m.TITLE @work.title, %m.AUTHOR @work.author.id }
+         {? :work(call=toInit) | , %m1.MEDIA_ID @work(gtype=movie)id(id), %m1.URLIMDB @work.urlimdb, %m1.PLAYLENGTH @work.playlength, %b.MEDIA_ID @work(gtype=book)id(id), %b.ISBN @work.newIsbn, %m.ID @work.id(id), %m.TITLE @work.title, %m.AUTHOR @work.author.id }
   from %%PERFORMER p
   {? :person(call=toInit) | left join %%PERSON p1 on %p.PERSON_ID = %p1.ID }
   {? :work(call=toInit) | left join %%MEDIA m on %p.ID = %m.AUTHOR left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
@@ -469,7 +469,7 @@ INSERT_PERSON(CRUD,final=,inx=Person,outx=Person,col=person)=
 
 GET_PERSON(CRUD,final=,inx=Person,outx=Person,col=person=p,col=personLibrary=p1,col=media=m,col=movie=m1,col=book=b,col=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
-         {? :library(call=toInit) | , %m1.MEDIA_ID @library==movie.id(id), %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library==book.id(id), %b.ISBN @library.newIsbn, %m.ID @library.id(id), %m.TITLE @library.title, %m.AUTHOR @library.author.id }
+         {? :library(call=toInit) | , %m1.MEDIA_ID @library(gtype=movie)id(id), %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library(gtype=book)id(id), %b.ISBN @library.newIsbn, %m.ID @library.id(id), %m.TITLE @library.title, %m.AUTHOR @library.author.id }
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber(type=phone) }
   from %%PERSON p
   {? :library(call=toInit) | left join %%PERSON_LIBRARY p1 on %p.ID = %p1.PERSON_ID left join %%MEDIA m on %p1.MEDIA_ID = %m.ID left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
@@ -505,7 +505,7 @@ DELETE_PERSON(CRUD,final=,inx=Person,outx=Person,col=person)=
 
 SELECT_PERSON(QRY,final=,inx=Person,outx=Person,col=person=p,col=personLibrary=p1,col=media=m,col=movie=m1,col=book=b,col=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
-         {? :library(call=toInit) | , %m1.MEDIA_ID @library==movie.id(id), %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library==book.id(id), %b.ISBN @library.newIsbn, %m.ID @library.id(id), %m.TITLE @library.title, %m.AUTHOR @library.author.id }
+         {? :library(call=toInit) | , %m1.MEDIA_ID @library(gtype=movie)id(id), %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library(gtype=book)id(id), %b.ISBN @library.newIsbn, %m.ID @library.id(id), %m.TITLE @library.title, %m.AUTHOR @library.author.id }
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber(type=phone) }
   from %%PERSON p
   {? :library(call=toInit) | left join %%PERSON_LIBRARY p1 on %p.ID = %p1.PERSON_ID left join %%MEDIA m on %p1.MEDIA_ID = %m.ID left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
@@ -576,7 +576,7 @@ INSERT_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,col=physi
 GET_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,col=physicalMedia=p,col=library=l,col=media=m,col=movie=m1,col=book=b)=
   select %p.ID @id(id), %p.LOCATION @location, %p.LIBRARY @library.id(id)
          {? :library(call=toInit) | , %l.NAME @library.name }
-         {? :media(call=toInit) | , %m1.MEDIA_ID @media==movie.id(id), %m1.URLIMDB @media.urlimdb, %m1.PLAYLENGTH @media.playlength, %b.MEDIA_ID @media==book.id(id), %b.ISBN @media.newIsbn, %m.TITLE @media.title, %m.AUTHOR @media.author.id }
+         {? :media(call=toInit) | , %m1.MEDIA_ID @media(gtype=movie)id(id), %m1.URLIMDB @media.urlimdb, %m1.PLAYLENGTH @media.playlength, %b.MEDIA_ID @media(gtype=book)id(id), %b.ISBN @media.newIsbn, %m.TITLE @media.title, %m.AUTHOR @media.author.id }
   from %%PHYSICAL_MEDIA p
   {? :library(call=toInit) | left join %%LIBRARY l on %p.LIBRARY = %l.ID }
   {? :media(call=toInit) | left join %%MEDIA m on %p.MEDIA = %m.ID left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
@@ -610,7 +610,7 @@ DELETE_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,col=physi
 SELECT_PHYSICAL_MEDIA(QRY,final=,inx=PhysicalMedia,outx=PhysicalMedia,col=physicalMedia=p,col=library=l,col=media=m,col=movie=m1,col=book=b)=
   select %p.ID @id(id), %p.LOCATION @location, %p.LIBRARY @library.id(id)
          {? :library(call=toInit) | , %l.NAME @library.name }
-         {? :media(call=toInit) | , %m1.MEDIA_ID @media==movie.id(id), %m1.URLIMDB @media.urlimdb, %m1.PLAYLENGTH @media.playlength, %b.MEDIA_ID @media==book.id(id), %b.ISBN @media.newIsbn, %m.TITLE @media.title, %m.AUTHOR @media.author.id }
+         {? :media(call=toInit) | , %m1.MEDIA_ID @media(gtype=movie)id(id), %m1.URLIMDB @media.urlimdb, %m1.PLAYLENGTH @media.playlength, %b.MEDIA_ID @media(gtype=book)id(id), %b.ISBN @media.newIsbn, %m.TITLE @media.title, %m.AUTHOR @media.author.id }
   from %%PHYSICAL_MEDIA p
   {? :library(call=toInit) | left join %%LIBRARY l on %p.LIBRARY = %l.ID }
   {? :media(call=toInit) | left join %%MEDIA m on %p.MEDIA = %m.ID left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
@@ -631,7 +631,7 @@ INSERT_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,col=subscriber)=
 GET_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,col=subscriber=s,col=library=l,col=billingDetails=b,col=contact=c)=
   select %s.ID @id(id), %s.LIBRARY @library.id(id), %s.CONTACT @contact.id(id), %s.NAME @name
          {? :library(call=toInit) | , %l.NAME @library.name }
-         {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails==discriminator.type, %b.ID @billingDetails.id(id), %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
+         {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails(discr)type, %b.ID @billingDetails.id(id), %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
          {? :contact(call=toInit) | , %c.PERSON_ID @contact.person.id, %c.ADDRESS @contact.address, %c.PHONE_NUMBER @contact.phoneNumber(type=phone) }
   from %%SUBSCRIBER s
   {? :library(call=toInit) | left join %%LIBRARY l on %s.LIBRARY = %l.ID }
@@ -667,7 +667,7 @@ DELETE_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,col=subscriber)=
 SELECT_SUBSCRIBER(QRY,final=,inx=Subscriber,outx=Subscriber,col=subscriber=s,col=library=l,col=billingDetails=b,col=contact=c)=
   select %s.ID @id(id), %s.LIBRARY @library.id(id), %s.CONTACT @contact.id(id), %s.NAME @name
          {? :library(call=toInit) | , %l.NAME @library.name }
-         {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails==discriminator.type, %b.ID @billingDetails.id(id), %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
+         {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails(discr)type, %b.ID @billingDetails.id(id), %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
          {? :contact(call=toInit) | , %c.PERSON_ID @contact.person.id, %c.ADDRESS @contact.address, %c.PHONE_NUMBER @contact.phoneNumber(type=phone) }
   from %%SUBSCRIBER s
   {? :library(call=toInit) | left join %%LIBRARY l on %s.LIBRARY = %l.ID }
