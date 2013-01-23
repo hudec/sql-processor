@@ -16,7 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Identifier#getMode <em>Mode</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Identifier#getCase <em>Case</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.Identifier#getIdentifiers <em>Identifiers</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Identifier#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Identifier#getModifiers <em>Modifiers</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,19 +80,45 @@ public interface Identifier extends EObject
   void setCase(String value);
 
   /**
-   * Returns the value of the '<em><b>Identifiers</b></em>' containment reference list.
-   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.ExtendedIdentifier}.
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Identifiers</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Identifiers</em>' containment reference list.
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getIdentifier_Identifiers()
-   * @model containment="true"
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getIdentifier_Name()
+   * @model
    * @generated
    */
-  EList<ExtendedIdentifier> getIdentifiers();
+  String getName();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.Identifier#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Modifiers</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Modifiers</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Modifiers</em>' attribute list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getIdentifier_Modifiers()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getModifiers();
 
 } // Identifier

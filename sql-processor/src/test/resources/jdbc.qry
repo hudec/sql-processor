@@ -1267,7 +1267,7 @@ BASIC_2_LEFT_JOIN_4(QRY)=
 ;
 
 BASIC_2_LEFT_JOIN_4(OUT)=
-  location$media.location mid$media.media==movie.id name lid$id
+  location$media.location mid$media.media(gtype=movie)id name lid$id
   pid$media.id title$media.media.title
 ;
 
@@ -1337,7 +1337,7 @@ BASIC_LEFT_JOIN_LIST_4(QRY)=
 ;
 
 BASIC_LEFT_JOIN_LIST_4(OUT)=
-  lid$id name pid$mediaList=alist.id location$mediaList.location
+  lid$id name pid$mediaList(dtype=alist)id location$mediaList.location
 ;
 
 BASIC_LEFT_JOIN_LIST_5(CRUD)=
@@ -1347,7 +1347,7 @@ BASIC_LEFT_JOIN_LIST_5(CRUD)=
 ;
 
 BASIC_LEFT_JOIN_LIST_5(OUT)=
-  lid$id name pid$mediaList=alist.id location$mediaList.location
+  lid$id name pid$mediaList(dtype=alist)id location$mediaList.location
 ;
 
 BASIC_LEFT_JOIN_LIST_6(CRUD)=

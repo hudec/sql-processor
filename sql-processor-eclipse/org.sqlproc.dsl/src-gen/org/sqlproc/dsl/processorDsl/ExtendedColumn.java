@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.ExtendedColumn#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.ExtendedColumn#getCol <em>Col</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.ExtendedColumn#getModifiers <em>Modifiers</em>}</li>
  * </ul>
  * </p>
@@ -26,30 +26,30 @@ import org.eclipse.emf.ecore.EObject;
 public interface ExtendedColumn extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Col</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Col</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getExtendedColumn_Name()
-   * @model
+   * @return the value of the '<em>Col</em>' containment reference.
+   * @see #setCol(ExtendedColumnName)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getExtendedColumn_Col()
+   * @model containment="true"
    * @generated
    */
-  String getName();
+  ExtendedColumnName getCol();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.ExtendedColumn#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.ExtendedColumn#getCol <em>Col</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
+   * @param value the new value of the '<em>Col</em>' containment reference.
+   * @see #getCol()
    * @generated
    */
-  void setName(String value);
+  void setCol(ExtendedColumnName value);
 
   /**
    * Returns the value of the '<em><b>Modifiers</b></em>' attribute list.

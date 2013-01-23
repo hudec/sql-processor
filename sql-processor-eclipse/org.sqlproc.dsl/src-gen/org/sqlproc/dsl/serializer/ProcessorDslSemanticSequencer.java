@@ -24,7 +24,8 @@ import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ExtendedColumn;
-import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
+import org.sqlproc.dsl.processorDsl.ExtendedColumnName;
+import org.sqlproc.dsl.processorDsl.ExtendedMappingItem;
 import org.sqlproc.dsl.processorDsl.Extends;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IfMetaSql;
@@ -41,6 +42,7 @@ import org.sqlproc.dsl.processorDsl.JoinTableAssignement;
 import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.Mapping;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
+import org.sqlproc.dsl.processorDsl.MappingColumnName;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaSql;
@@ -147,9 +149,15 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
-			case ProcessorDslPackage.EXTENDED_IDENTIFIER:
-				if(context == grammarAccess.getExtendedIdentifierRule()) {
-					sequence_ExtendedIdentifier(context, (ExtendedIdentifier) semanticObject); 
+			case ProcessorDslPackage.EXTENDED_COLUMN_NAME:
+				if(context == grammarAccess.getExtendedColumnNameRule()) {
+					sequence_ExtendedColumnName(context, (ExtendedColumnName) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.EXTENDED_MAPPING_ITEM:
+				if(context == grammarAccess.getExtendedMappingItemRule()) {
+					sequence_ExtendedMappingItem(context, (ExtendedMappingItem) semanticObject); 
 					return; 
 				}
 				else break;
@@ -250,6 +258,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.MAPPING_COLUMN:
 				if(context == grammarAccess.getMappingColumnRule()) {
 					sequence_MappingColumn(context, (MappingColumn) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.MAPPING_COLUMN_NAME:
+				if(context == grammarAccess.getMappingColumnNameRule()) {
+					sequence_MappingColumnName(context, (MappingColumnName) semanticObject); 
 					return; 
 				}
 				else break;
@@ -571,7 +585,16 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((name=IDENT | name=NUMBER | name=IDENT_DOT) (modifiers+=Modifier modifiers+=Modifier*)?)
+	 *     (name=IDENT | name=NUMBER | name=IDENT_DOT)
+	 */
+	protected void sequence_ExtendedColumnName(EObject context, ExtendedColumnName semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (col=ExtendedColumnName (modifiers+=Modifier modifiers+=Modifier*)?)
 	 */
 	protected void sequence_ExtendedColumn(EObject context, ExtendedColumn semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -580,9 +603,9 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((name=IDENT | name=NUMBER | name=IDENT_DOT) (modifiers+=Modifier modifiers+=Modifier*)?)
+	 *     (attr=MappingColumnName (modifiers+=MappingItemModifier modifiers+=MappingItemModifier*)?)
 	 */
-	protected void sequence_ExtendedIdentifier(EObject context, ExtendedIdentifier semanticObject) {
+	protected void sequence_ExtendedMappingItem(EObject context, ExtendedMappingItem semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -605,7 +628,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((mode=EQUALS | mode=LESS_THAN | mode=MORE_THAN)? (case=PLUS | case=MINUS)? identifiers+=ExtendedIdentifier identifiers+=ExtendedIdentifier*)
+	 *     (
+	 *         (mode=EQUALS | mode=LESS_THAN | mode=MORE_THAN)? 
+	 *         (case=PLUS | case=MINUS)? 
+	 *         (name=IDENT | name=NUMBER | name=IDENT_DOT) 
+	 *         (modifiers+=Modifier modifiers+=Modifier*)?
+	 *     )
 	 */
 	protected void sequence_Identifier(EObject context, Identifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -751,6 +779,15 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 * Constraint:
 	 *     (name=IDENT | name=IDENT_DOT | name=NUMBER)
 	 */
+	protected void sequence_MappingColumnName(EObject context, MappingColumnName semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (items+=ExtendedMappingItem items+=ExtendedMappingItem*)
+	 */
 	protected void sequence_MappingColumn(EObject context, MappingColumn semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
@@ -758,7 +795,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     ((col=IDENT | col=NUMBER) (attr=MappingColumn (modifiers+=MappingItemModifier modifiers+=MappingItemModifier*)?)?)
+	 *     ((name=IDENT | name=NUMBER) attr=MappingColumn?)
 	 */
 	protected void sequence_MappingItem(EObject context, MappingItem semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

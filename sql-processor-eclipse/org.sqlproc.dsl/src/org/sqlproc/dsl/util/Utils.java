@@ -15,8 +15,8 @@ import org.sqlproc.dsl.processorDsl.AbstractPojoEntity;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.ExtendedColumn;
-import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
-import org.sqlproc.dsl.processorDsl.Identifier;
+import org.sqlproc.dsl.processorDsl.ExtendedMappingItem;
+import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
@@ -455,18 +455,18 @@ public class Utils {
         return getOptLock(s);
     }
 
-    public static String getName(Identifier identifier) {
-        StringBuilder sb = new StringBuilder();
-        boolean first = true;
-        for (ExtendedIdentifier ei : identifier.getIdentifiers()) {
-            if (first)
-                first = false;
-            else
-                sb.append(".");
-            sb.append(ei.getName());
-        }
-        return sb.toString();
-    }
+    // public static String getName(Identifier identifier) {
+    // StringBuilder sb = new StringBuilder();
+    // boolean first = true;
+    // for (ExtendedIdentifier ei : identifier.getIdentifiers()) {
+    // if (first)
+    // first = false;
+    // else
+    // sb.append(".");
+    // sb.append(ei.getName());
+    // }
+    // return sb.toString();
+    // }
 
     public static String getName(Column column) {
         StringBuilder sb = new StringBuilder();
@@ -476,7 +476,20 @@ public class Utils {
                 first = false;
             else
                 sb.append(".");
-            sb.append(ei.getName());
+            sb.append(ei.getCol().getName());
+        }
+        return sb.toString();
+    }
+
+    public static String getName(MappingColumn column) {
+        StringBuilder sb = new StringBuilder();
+        boolean first = true;
+        for (ExtendedMappingItem ei : column.getItems()) {
+            if (first)
+                first = false;
+            else
+                sb.append(".");
+            sb.append(ei.getAttr().getName());
         }
         return sb.toString();
     }

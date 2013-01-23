@@ -181,18 +181,18 @@ Column:
     columns += ExtendedColumn (=> columns += ExtendedColumn)*;
 
 ExtendedColumn: 
-	name=(IDENT|NUMBER|IDENT_DOT) (=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
+	col=ExtendedColumnName (=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
+
+ExtendedColumnName: 
+	name=(IDENT|NUMBER|IDENT_DOT);
 
 Constant:
     (case=(PLUS|MINUS))? name=(IDENT|IDENT_DOT)
     (=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 
 Identifier:
-    (mode=(EQUALS|LESS_THAN|MORE_THAN))? (case=(PLUS|MINUS))?
-    identifiers += ExtendedIdentifier (=> identifiers += ExtendedIdentifier)*;
-
-ExtendedIdentifier: 
-	name=(IDENT|NUMBER|IDENT_DOT) (=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
+    (mode=(EQUALS|LESS_THAN|MORE_THAN))? (case=(PLUS|MINUS))? name=(IDENT|NUMBER|IDENT_DOT)
+    (=> LPAREN modifiers+=Modifier (COMMA modifiers+=Modifier)* RPAREN)?;
 
 DatabaseColumn:
     name=(IDENT|IDENT_DOT);
@@ -207,9 +207,15 @@ Mapping:
 	WS* mappingItems+=MappingItem (WS+ mappingItems+=MappingItem)* WS*;
 
 MappingItem:
-	col=(IDENT|NUMBER) (STRING attr=MappingColumn (=> LPAREN modifiers+=MappingItemModifier (COMMA modifiers+=MappingItemModifier)* RPAREN)?)?;
+	name=(IDENT|NUMBER) (STRING attr = MappingColumn)?;
 
 MappingColumn:
+	items += ExtendedMappingItem (=> items += ExtendedMappingItem)*;
+	
+ExtendedMappingItem:
+	attr=MappingColumnName (=> LPAREN modifiers+=MappingItemModifier (COMMA modifiers+=MappingItemModifier)* RPAREN)?;
+
+MappingColumnName:
     name=(IDENT|IDENT_DOT|NUMBER);
 
 OptionalFeature:

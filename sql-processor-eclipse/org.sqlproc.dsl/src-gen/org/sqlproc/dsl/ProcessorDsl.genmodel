@@ -195,8 +195,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Column/columns"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//ExtendedColumn">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ExtendedColumn/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//ExtendedColumn/col"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ExtendedColumn/modifiers"/>
+    </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//ExtendedColumnName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ExtendedColumnName/name"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//Constant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Constant/case"/>
@@ -206,11 +209,8 @@
     <genClasses ecoreClass="ProcessorDsl.ecore#//Identifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/mode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/case"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Identifier/identifiers"/>
-    </genClasses>
-    <genClasses ecoreClass="ProcessorDsl.ecore#//ExtendedIdentifier">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ExtendedIdentifier/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ExtendedIdentifier/modifiers"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//Identifier/modifiers"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//DatabaseColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseColumn/name"/>
@@ -228,12 +228,18 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Mapping/mappingItems"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//MappingItem">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingItem/col"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingItem/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//MappingItem/attr"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingItem/modifiers"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//MappingColumn">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingColumn/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//MappingColumn/items"/>
+    </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//ExtendedMappingItem">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//ExtendedMappingItem/attr"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//ExtendedMappingItem/modifiers"/>
+    </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//MappingColumnName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//MappingColumnName/name"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//OptionalFeature">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//OptionalFeature/name"/>

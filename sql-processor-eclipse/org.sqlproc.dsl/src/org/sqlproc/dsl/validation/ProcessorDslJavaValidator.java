@@ -303,7 +303,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     public void checkIdentifier(Identifier identifier) {
         if (!isResolvePojo(identifier))
             return;
-        String identifierName = Utils.getName(identifier);
+        String identifierName = identifier.getName();
         MetaStatement statement = EcoreUtil2.getContainerOfType(identifier, MetaStatement.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(statement, Artifacts.class);
 
@@ -315,11 +315,11 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             switch (checkEntityProperty(entity, identifierName)) {
             case WARNING:
                 warning("Problem property : " + identifierName + "[" + entity.getName() + "]",
-                        ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
+                        ProcessorDslPackage.Literals.IDENTIFIER__NAME);
                 break;
             case ERROR:
                 error("Cannot find property : " + identifierName + "[" + entity.getName() + "]",
-                        ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
+                        ProcessorDslPackage.Literals.IDENTIFIER__NAME);
                 break;
             }
             return;
@@ -333,11 +333,11 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
             switch (checkClassProperty(identifierUsageClass, identifierName)) {
             case WARNING:
                 warning("Problem property : " + identifierName + "[" + identifierUsageClass + "]",
-                        ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
+                        ProcessorDslPackage.Literals.IDENTIFIER__NAME);
                 break;
             case ERROR:
                 error("Cannot find property : " + identifierName + "[" + identifierUsageClass + "]",
-                        ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
+                        ProcessorDslPackage.Literals.IDENTIFIER__NAME);
                 break;
             }
             return;
@@ -345,7 +345,7 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
 
         if (pojoResolverFactory.getPojoResolver() != null) {
             error("Cannot check input form attribute : " + identifierName,
-                    ProcessorDslPackage.Literals.IDENTIFIER__IDENTIFIERS);
+                    ProcessorDslPackage.Literals.IDENTIFIER__NAME);
         }
     }
 
@@ -402,7 +402,8 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
     public void checkMappingColumn(MappingColumn column) {
         if (!isResolvePojo(column))
             return;
-        if (Utils.isNumber(column.getName()))
+        String columnName = Utils.getName(column);
+        if (Utils.isNumber(columnName))
             return;
         MappingRule rule = EcoreUtil2.getContainerOfType(column, MappingRule.class);
         Artifacts artifacts = EcoreUtil2.getContainerOfType(rule, Artifacts.class);
@@ -412,14 +413,14 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES), entityName)
                 : null;
         if (entity != null) {
-            switch (checkEntityProperty(entity, column.getName())) {
+            switch (checkEntityProperty(entity, columnName)) {
             case WARNING:
-                warning("Problem property : " + column.getName() + "[" + entity.getName() + "]",
-                        ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
+                warning("Problem property : " + columnName + "[" + entity.getName() + "]",
+                        ProcessorDslPackage.Literals.MAPPING_COLUMN__ITEMS);
                 break;
             case ERROR:
-                error("Cannot find property : " + column.getName() + "[" + entity.getName() + "]",
-                        ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
+                error("Cannot find property : " + columnName + "[" + entity.getName() + "]",
+                        ProcessorDslPackage.Literals.MAPPING_COLUMN__ITEMS);
                 break;
             }
             return;
@@ -430,14 +431,14 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS), pojoName) : null;
         String mappingUsageClass = (pojo != null) ? pojo.getClass_() : null;
         if (mappingUsageClass != null) {
-            switch (checkClassProperty(mappingUsageClass, column.getName())) {
+            switch (checkClassProperty(mappingUsageClass, columnName)) {
             case WARNING:
-                warning("Problem property : " + column.getName() + "[" + mappingUsageClass + "]",
-                        ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
+                warning("Problem property : " + columnName + "[" + mappingUsageClass + "]",
+                        ProcessorDslPackage.Literals.MAPPING_COLUMN__ITEMS);
                 break;
             case ERROR:
-                error("Cannot find property : " + column.getName() + "[" + mappingUsageClass + "]",
-                        ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
+                error("Cannot find property : " + columnName + "[" + mappingUsageClass + "]",
+                        ProcessorDslPackage.Literals.MAPPING_COLUMN__ITEMS);
                 break;
 
             }
@@ -445,8 +446,8 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         }
 
         if (pojoResolverFactory.getPojoResolver() != null) {
-            error("Cannot check result class attribute : " + column.getName(),
-                    ProcessorDslPackage.Literals.MAPPING_COLUMN__NAME);
+            error("Cannot check result class attribute : " + columnName,
+                    ProcessorDslPackage.Literals.MAPPING_COLUMN__ITEMS);
         }
     }
 

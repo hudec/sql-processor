@@ -5,10 +5,12 @@ package org.sqlproc.dsl.processorDsl.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
@@ -16,6 +18,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 
 import org.sqlproc.dsl.processorDsl.ExtendedColumn;
+import org.sqlproc.dsl.processorDsl.ExtendedColumnName;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -25,7 +28,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ExtendedColumnImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ExtendedColumnImpl#getCol <em>Col</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ExtendedColumnImpl#getModifiers <em>Modifiers</em>}</li>
  * </ul>
  * </p>
@@ -35,24 +38,14 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 public class ExtendedColumnImpl extends MinimalEObjectImpl.Container implements ExtendedColumn
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getCol() <em>Col</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getCol()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
+  protected ExtendedColumnName col;
 
   /**
    * The cached value of the '{@link #getModifiers() <em>Modifiers</em>}' attribute list.
@@ -90,9 +83,9 @@ public class ExtendedColumnImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public ExtendedColumnName getCol()
   {
-    return name;
+    return col;
   }
 
   /**
@@ -100,12 +93,37 @@ public class ExtendedColumnImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  public NotificationChain basicSetCol(ExtendedColumnName newCol, NotificationChain msgs)
   {
-    String oldName = name;
-    name = newName;
+    ExtendedColumnName oldCol = col;
+    col = newCol;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.EXTENDED_COLUMN__NAME, oldName, name));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.EXTENDED_COLUMN__COL, oldCol, newCol);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCol(ExtendedColumnName newCol)
+  {
+    if (newCol != col)
+    {
+      NotificationChain msgs = null;
+      if (col != null)
+        msgs = ((InternalEObject)col).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.EXTENDED_COLUMN__COL, null, msgs);
+      if (newCol != null)
+        msgs = ((InternalEObject)newCol).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.EXTENDED_COLUMN__COL, null, msgs);
+      msgs = basicSetCol(newCol, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.EXTENDED_COLUMN__COL, newCol, newCol));
   }
 
   /**
@@ -128,12 +146,28 @@ public class ExtendedColumnImpl extends MinimalEObjectImpl.Container implements 
    * @generated
    */
   @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ProcessorDslPackage.EXTENDED_COLUMN__COL:
+        return basicSetCol(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.EXTENDED_COLUMN__NAME:
-        return getName();
+      case ProcessorDslPackage.EXTENDED_COLUMN__COL:
+        return getCol();
       case ProcessorDslPackage.EXTENDED_COLUMN__MODIFIERS:
         return getModifiers();
     }
@@ -151,8 +185,8 @@ public class ExtendedColumnImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.EXTENDED_COLUMN__NAME:
-        setName((String)newValue);
+      case ProcessorDslPackage.EXTENDED_COLUMN__COL:
+        setCol((ExtendedColumnName)newValue);
         return;
       case ProcessorDslPackage.EXTENDED_COLUMN__MODIFIERS:
         getModifiers().clear();
@@ -172,8 +206,8 @@ public class ExtendedColumnImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.EXTENDED_COLUMN__NAME:
-        setName(NAME_EDEFAULT);
+      case ProcessorDslPackage.EXTENDED_COLUMN__COL:
+        setCol((ExtendedColumnName)null);
         return;
       case ProcessorDslPackage.EXTENDED_COLUMN__MODIFIERS:
         getModifiers().clear();
@@ -192,8 +226,8 @@ public class ExtendedColumnImpl extends MinimalEObjectImpl.Container implements 
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.EXTENDED_COLUMN__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case ProcessorDslPackage.EXTENDED_COLUMN__COL:
+        return col != null;
       case ProcessorDslPackage.EXTENDED_COLUMN__MODIFIERS:
         return modifiers != null && !modifiers.isEmpty();
     }
@@ -211,9 +245,7 @@ public class ExtendedColumnImpl extends MinimalEObjectImpl.Container implements 
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", modifiers: ");
+    result.append(" (modifiers: ");
     result.append(modifiers);
     result.append(')');
     return result.toString();

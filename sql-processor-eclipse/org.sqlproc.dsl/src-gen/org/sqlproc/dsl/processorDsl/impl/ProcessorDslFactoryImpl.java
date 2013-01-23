@@ -96,15 +96,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.ORD_SQL2: return createOrdSql2();
       case ProcessorDslPackage.COLUMN: return createColumn();
       case ProcessorDslPackage.EXTENDED_COLUMN: return createExtendedColumn();
+      case ProcessorDslPackage.EXTENDED_COLUMN_NAME: return createExtendedColumnName();
       case ProcessorDslPackage.CONSTANT: return createConstant();
       case ProcessorDslPackage.IDENTIFIER: return createIdentifier();
-      case ProcessorDslPackage.EXTENDED_IDENTIFIER: return createExtendedIdentifier();
       case ProcessorDslPackage.DATABASE_COLUMN: return createDatabaseColumn();
       case ProcessorDslPackage.DATABASE_TABLE: return createDatabaseTable();
       case ProcessorDslPackage.MAPPING_RULE: return createMappingRule();
       case ProcessorDslPackage.MAPPING: return createMapping();
       case ProcessorDslPackage.MAPPING_ITEM: return createMappingItem();
       case ProcessorDslPackage.MAPPING_COLUMN: return createMappingColumn();
+      case ProcessorDslPackage.EXTENDED_MAPPING_ITEM: return createExtendedMappingItem();
+      case ProcessorDslPackage.MAPPING_COLUMN_NAME: return createMappingColumnName();
       case ProcessorDslPackage.OPTIONAL_FEATURE: return createOptionalFeature();
       case ProcessorDslPackage.POJO_TYPE: return createPojoType();
       case ProcessorDslPackage.PACKAGE_DECLARATION: return createPackageDeclaration();
@@ -484,6 +486,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public ExtendedColumnName createExtendedColumnName()
+  {
+    ExtendedColumnNameImpl extendedColumnName = new ExtendedColumnNameImpl();
+    return extendedColumnName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Constant createConstant()
   {
     ConstantImpl constant = new ConstantImpl();
@@ -499,17 +512,6 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     IdentifierImpl identifier = new IdentifierImpl();
     return identifier;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ExtendedIdentifier createExtendedIdentifier()
-  {
-    ExtendedIdentifierImpl extendedIdentifier = new ExtendedIdentifierImpl();
-    return extendedIdentifier;
   }
 
   /**
@@ -576,6 +578,28 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     MappingColumnImpl mappingColumn = new MappingColumnImpl();
     return mappingColumn;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ExtendedMappingItem createExtendedMappingItem()
+  {
+    ExtendedMappingItemImpl extendedMappingItem = new ExtendedMappingItemImpl();
+    return extendedMappingItem;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public MappingColumnName createMappingColumnName()
+  {
+    MappingColumnNameImpl mappingColumnName = new MappingColumnNameImpl();
+    return mappingColumnName;
   }
 
   /**

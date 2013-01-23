@@ -311,6 +311,15 @@ public interface ProcessorDslFactory extends EFactory
   ExtendedColumn createExtendedColumn();
 
   /**
+   * Returns a new object of class '<em>Extended Column Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Extended Column Name</em>'.
+   * @generated
+   */
+  ExtendedColumnName createExtendedColumnName();
+
+  /**
    * Returns a new object of class '<em>Constant</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -327,15 +336,6 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   Identifier createIdentifier();
-
-  /**
-   * Returns a new object of class '<em>Extended Identifier</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Extended Identifier</em>'.
-   * @generated
-   */
-  ExtendedIdentifier createExtendedIdentifier();
 
   /**
    * Returns a new object of class '<em>Database Column</em>'.
@@ -390,6 +390,24 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   MappingColumn createMappingColumn();
+
+  /**
+   * Returns a new object of class '<em>Extended Mapping Item</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Extended Mapping Item</em>'.
+   * @generated
+   */
+  ExtendedMappingItem createExtendedMappingItem();
+
+  /**
+   * Returns a new object of class '<em>Mapping Column Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Mapping Column Name</em>'.
+   * @generated
+   */
+  MappingColumnName createMappingColumnName();
 
   /**
    * Returns a new object of class '<em>Optional Feature</em>'.

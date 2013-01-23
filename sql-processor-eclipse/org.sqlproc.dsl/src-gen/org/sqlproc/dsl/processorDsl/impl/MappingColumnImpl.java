@@ -2,13 +2,21 @@
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.sqlproc.dsl.processorDsl.ExtendedMappingItem;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
@@ -19,7 +27,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MappingColumnImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MappingColumnImpl#getItems <em>Items</em>}</li>
  * </ul>
  * </p>
  *
@@ -28,24 +36,14 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 public class MappingColumnImpl extends MinimalEObjectImpl.Container implements MappingColumn
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getItems() <em>Items</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getItems()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
+  protected EList<ExtendedMappingItem> items;
 
   /**
    * <!-- begin-user-doc -->
@@ -73,9 +71,13 @@ public class MappingColumnImpl extends MinimalEObjectImpl.Container implements M
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public EList<ExtendedMappingItem> getItems()
   {
-    return name;
+    if (items == null)
+    {
+      items = new EObjectContainmentEList<ExtendedMappingItem>(ExtendedMappingItem.class, this, ProcessorDslPackage.MAPPING_COLUMN__ITEMS);
+    }
+    return items;
   }
 
   /**
@@ -83,12 +85,15 @@ public class MappingColumnImpl extends MinimalEObjectImpl.Container implements M
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.MAPPING_COLUMN__NAME, oldName, name));
+    switch (featureID)
+    {
+      case ProcessorDslPackage.MAPPING_COLUMN__ITEMS:
+        return ((InternalEList<?>)getItems()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -101,8 +106,8 @@ public class MappingColumnImpl extends MinimalEObjectImpl.Container implements M
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.MAPPING_COLUMN__NAME:
-        return getName();
+      case ProcessorDslPackage.MAPPING_COLUMN__ITEMS:
+        return getItems();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -112,13 +117,15 @@ public class MappingColumnImpl extends MinimalEObjectImpl.Container implements M
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.MAPPING_COLUMN__NAME:
-        setName((String)newValue);
+      case ProcessorDslPackage.MAPPING_COLUMN__ITEMS:
+        getItems().clear();
+        getItems().addAll((Collection<? extends ExtendedMappingItem>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -134,8 +141,8 @@ public class MappingColumnImpl extends MinimalEObjectImpl.Container implements M
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.MAPPING_COLUMN__NAME:
-        setName(NAME_EDEFAULT);
+      case ProcessorDslPackage.MAPPING_COLUMN__ITEMS:
+        getItems().clear();
         return;
     }
     super.eUnset(featureID);
@@ -151,27 +158,10 @@ public class MappingColumnImpl extends MinimalEObjectImpl.Container implements M
   {
     switch (featureID)
     {
-      case ProcessorDslPackage.MAPPING_COLUMN__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case ProcessorDslPackage.MAPPING_COLUMN__ITEMS:
+        return items != null && !items.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //MappingColumnImpl

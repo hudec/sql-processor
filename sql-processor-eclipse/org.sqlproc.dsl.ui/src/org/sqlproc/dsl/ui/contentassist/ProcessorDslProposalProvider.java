@@ -189,16 +189,12 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             super.completeConstant_Name(model, assignment, context, acceptor);
     }
 
-    //
-    // @Override
-    // public void completeIdentifier_Name(EObject model, Assignment assignment, ContentAssistContext context,
-    // ICompletionProposalAcceptor acceptor) {
-    // if (!completeUsage(model, assignment, context, acceptor,
-    // ProcessorDslPackage.Literals.IDENTIFIER_USAGE.getName(),
-    // ProcessorDslPackage.Literals.IDENTIFIER_USAGE_EXT.getName(), IDENTIFIER_USAGE,
-    // IDENTIFIER_USAGE_EXTENDED))
-    // super.completeIdentifier_Name(model, assignment, context, acceptor);
-    // }
+    @Override
+    public void completeIdentifier_Name(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!completeUsage(model, assignment, context, acceptor, IDENTIFIER_USAGE, IDENTIFIER_USAGE_EXTENDED))
+            super.completeIdentifier_Name(model, assignment, context, acceptor);
+    }
 
     public boolean completeUsage(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor, String usageInFilter, String usageInFilterExt) {
@@ -263,70 +259,70 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         }
     }
 
-    @Override
-    public void completeMappingColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        if (!isResolvePojo(model)) {
-            super.completeMappingColumn_Name(model, assignment, context, acceptor);
-            return;
-        }
-        MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
-        Artifacts artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
-
-        String entityName = Utils.getTokenFromModifier(mappingRule, MAPPING_USAGE_EXTENDED);
-        PojoEntity pojoEntity = (entityName != null) ? Utils.findEntity(qualifiedNameConverter, artifacts,
-                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
-                entityName) : null;
-        String pojoName = (pojoEntity != null) ? null : Utils.getTokenFromModifier(mappingRule, MAPPING_USAGE);
-        PojoDefinition pojoDefinition = (pojoName != null) ? Utils
-                .findPojo(qualifiedNameConverter, artifacts,
-                        getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
-                        pojoName) : null;
-
-        if (pojoDefinition == null && pojoEntity == null) {
-            String proposal = getValueConverter().toString("Error: I can't load pojo for " + model, "IDENT");
-            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
-            acceptor.accept(completionProposal);
-        }
-
-        String prefix = context.getPrefix();
-        int pos = prefix.lastIndexOf('.');
-        if (pos > 0) {
-            prefix = prefix.substring(0, pos + 1);
-        } else {
-            prefix = "";
-        }
-
-        if (pojoDefinition != null) {
-            String clazz = getClassName(pojoDefinition.getClass_(), prefix);
-            if (clazz == null)
-                return;
-            PropertyDescriptor[] descriptors = pojoResolver.getPropertyDescriptors(clazz);
-            if (descriptors == null) {
-                super.completeMappingColumn_Name(model, assignment, context, acceptor);
-            } else {
-                for (PropertyDescriptor descriptor : descriptors) {
-                    if ("class".equals(descriptor.getName()))
-                        continue;
-                    String proposal = getValueConverter().toString(descriptor.getName(), "IDENT");
-                    ICompletionProposal completionProposal = createCompletionProposal(prefix + proposal, context);
-                    acceptor.accept(completionProposal);
-                }
-            }
-        } else {
-
-            PojoEntity entity = getPojoEntity(pojoEntity, prefix);
-            List<PojoProperty> properties = getProperties(entity, null);
-            if (properties.isEmpty()) {
-                return;
-            }
-            for (PojoProperty pojoProperty : properties) {
-                String proposal = getValueConverter().toString(pojoProperty.getName(), "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal(prefix + proposal, context);
-                acceptor.accept(completionProposal);
-            }
-        }
-    }
+    // @Override
+    // public void completeMappingColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
+    // ICompletionProposalAcceptor acceptor) {
+    // if (!isResolvePojo(model)) {
+    // super.completeMappingColumn_Name(model, assignment, context, acceptor);
+    // return;
+    // }
+    // MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
+    // Artifacts artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
+    //
+    // String entityName = Utils.getTokenFromModifier(mappingRule, MAPPING_USAGE_EXTENDED);
+    // PojoEntity pojoEntity = (entityName != null) ? Utils.findEntity(qualifiedNameConverter, artifacts,
+    // getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
+    // entityName) : null;
+    // String pojoName = (pojoEntity != null) ? null : Utils.getTokenFromModifier(mappingRule, MAPPING_USAGE);
+    // PojoDefinition pojoDefinition = (pojoName != null) ? Utils
+    // .findPojo(qualifiedNameConverter, artifacts,
+    // getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES),
+    // pojoName) : null;
+    //
+    // if (pojoDefinition == null && pojoEntity == null) {
+    // String proposal = getValueConverter().toString("Error: I can't load pojo for " + model, "IDENT");
+    // ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+    // acceptor.accept(completionProposal);
+    // }
+    //
+    // String prefix = context.getPrefix();
+    // int pos = prefix.lastIndexOf('.');
+    // if (pos > 0) {
+    // prefix = prefix.substring(0, pos + 1);
+    // } else {
+    // prefix = "";
+    // }
+    //
+    // if (pojoDefinition != null) {
+    // String clazz = getClassName(pojoDefinition.getClass_(), prefix);
+    // if (clazz == null)
+    // return;
+    // PropertyDescriptor[] descriptors = pojoResolver.getPropertyDescriptors(clazz);
+    // if (descriptors == null) {
+    // super.completeMappingColumn_Name(model, assignment, context, acceptor);
+    // } else {
+    // for (PropertyDescriptor descriptor : descriptors) {
+    // if ("class".equals(descriptor.getName()))
+    // continue;
+    // String proposal = getValueConverter().toString(descriptor.getName(), "IDENT");
+    // ICompletionProposal completionProposal = createCompletionProposal(prefix + proposal, context);
+    // acceptor.accept(completionProposal);
+    // }
+    // }
+    // } else {
+    //
+    // PojoEntity entity = getPojoEntity(pojoEntity, prefix);
+    // List<PojoProperty> properties = getProperties(entity, null);
+    // if (properties.isEmpty()) {
+    // return;
+    // }
+    // for (PojoProperty pojoProperty : properties) {
+    // String proposal = getValueConverter().toString(pojoProperty.getName(), "IDENT");
+    // ICompletionProposal completionProposal = createCompletionProposal(prefix + proposal, context);
+    // acceptor.accept(completionProposal);
+    // }
+    // }
+    // }
 
     protected PojoEntity getPojoEntity(PojoEntity baseEntity, String property) {
         if (baseEntity == null || property == null)

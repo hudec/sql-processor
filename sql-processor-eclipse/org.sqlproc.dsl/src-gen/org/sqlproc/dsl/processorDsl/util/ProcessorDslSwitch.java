@@ -316,6 +316,13 @@ public class ProcessorDslSwitch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.EXTENDED_COLUMN_NAME:
+      {
+        ExtendedColumnName extendedColumnName = (ExtendedColumnName)theEObject;
+        T result = caseExtendedColumnName(extendedColumnName);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.CONSTANT:
       {
         Constant constant = (Constant)theEObject;
@@ -327,13 +334,6 @@ public class ProcessorDslSwitch<T>
       {
         Identifier identifier = (Identifier)theEObject;
         T result = caseIdentifier(identifier);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ProcessorDslPackage.EXTENDED_IDENTIFIER:
-      {
-        ExtendedIdentifier extendedIdentifier = (ExtendedIdentifier)theEObject;
-        T result = caseExtendedIdentifier(extendedIdentifier);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -376,6 +376,20 @@ public class ProcessorDslSwitch<T>
       {
         MappingColumn mappingColumn = (MappingColumn)theEObject;
         T result = caseMappingColumn(mappingColumn);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.EXTENDED_MAPPING_ITEM:
+      {
+        ExtendedMappingItem extendedMappingItem = (ExtendedMappingItem)theEObject;
+        T result = caseExtendedMappingItem(extendedMappingItem);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.MAPPING_COLUMN_NAME:
+      {
+        MappingColumnName mappingColumnName = (MappingColumnName)theEObject;
+        T result = caseMappingColumnName(mappingColumnName);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1022,6 +1036,22 @@ public class ProcessorDslSwitch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Extended Column Name</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Extended Column Name</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseExtendedColumnName(ExtendedColumnName object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Constant</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1049,22 +1079,6 @@ public class ProcessorDslSwitch<T>
    * @generated
    */
   public T caseIdentifier(Identifier object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Extended Identifier</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Extended Identifier</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseExtendedIdentifier(ExtendedIdentifier object)
   {
     return null;
   }
@@ -1161,6 +1175,38 @@ public class ProcessorDslSwitch<T>
    * @generated
    */
   public T caseMappingColumn(MappingColumn object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Extended Mapping Item</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Extended Mapping Item</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseExtendedMappingItem(ExtendedMappingItem object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Mapping Column Name</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Mapping Column Name</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseMappingColumnName(MappingColumnName object)
   {
     return null;
   }

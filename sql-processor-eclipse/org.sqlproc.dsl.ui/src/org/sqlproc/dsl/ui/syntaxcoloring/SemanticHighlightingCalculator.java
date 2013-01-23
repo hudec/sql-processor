@@ -16,8 +16,8 @@ import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.ExtendedColumn;
-import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
-import org.sqlproc.dsl.processorDsl.MappingColumn;
+import org.sqlproc.dsl.processorDsl.ExtendedMappingItem;
+import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
@@ -87,23 +87,27 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 provideHighlightingForFragment(HighlightingConfiguration.CONSTANT, node, constant.getName(),
                         constant.getModifiers(), acceptor);
-            } else if (current instanceof ExtendedIdentifier) {
-                ExtendedIdentifier identifier = (ExtendedIdentifier) current;
+            } else if (current instanceof Identifier) {
+                Identifier identifier = (Identifier) current;
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 provideHighlightingForFragment(HighlightingConfiguration.IDENTIFIER, node, identifier.getName(),
                         identifier.getModifiers(), acceptor);
             } else if (current instanceof ExtendedColumn) {
                 ExtendedColumn column = (ExtendedColumn) current;
                 ICompositeNode node = NodeModelUtils.getNode(current);
-                provideHighlightingForFragment(HighlightingConfiguration.COLUMN, node, column.getName(),
+                provideHighlightingForFragment(HighlightingConfiguration.COLUMN, node, column.getCol().getName(),
                         column.getModifiers(), acceptor);
-            } else if (current instanceof MappingColumn) {
-                ICompositeNode node = NodeModelUtils.getNode(current);
-                acceptor.addPosition(node.getOffset(), node.getLength(), HighlightingConfiguration.COLUMN);
             } else if (current instanceof MappingItem) {
-                MappingItem mappingItem = (MappingItem) current;
+                MappingItem item = (MappingItem) current;
+                if (item.getName() != null) {
+                    ICompositeNode node = NodeModelUtils.getNode(current);
+                    // Nazev vlastnosti je prvni pole, neni treba vyhledat node
+                    acceptor.addPosition(node.getOffset(), item.getName().length(), HighlightingConfiguration.COLUMN);
+                }
+            } else if (current instanceof ExtendedMappingItem) {
+                ExtendedMappingItem mappingItem = (ExtendedMappingItem) current;
                 ICompositeNode node = NodeModelUtils.getNode(current);
-                provideHighlightingForFragment(HighlightingConfiguration.IDENTIFIER, node, mappingItem.getAttr(),
+                provideHighlightingForFragment(HighlightingConfiguration.COLUMN, node, mappingItem.getAttr().getName(),
                         mappingItem.getModifiers(), acceptor);
             } else if (current instanceof DatabaseColumn) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
@@ -273,23 +277,23 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
             }
         }
     }
-
-    private void provideHighlightingForFragment(String defaultColor, ICompositeNode node, MappingColumn column,
-            EList<String> modifiers, IHighlightedPositionAcceptor acceptor) {
-        Iterator<INode> iterator = new NodeTreeIterator(node);
-        boolean afterName = false;
-        while (iterator.hasNext()) {
-            INode inode = iterator.next();
-            if (!afterName) {
-                if (column != null && column.getName().equals(inode.getText())) {
-                    acceptor.addPosition(inode.getOffset(), inode.getLength(), defaultColor);
-                    afterName = true;
-                }
-            } else {
-                if (modifiers != null && !modifiers.isEmpty() && modifiers.contains(inode.getText())) {
-                    acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.MODIFIER);
-                }
-            }
-        }
-    }
+    //
+    // private void provideHighlightingForFragment(String defaultColor, ICompositeNode node, MappingColumn column,
+    // EList<String> modifiers, IHighlightedPositionAcceptor acceptor) {
+    // Iterator<INode> iterator = new NodeTreeIterator(node);
+    // boolean afterName = false;
+    // while (iterator.hasNext()) {
+    // INode inode = iterator.next();
+    // if (!afterName) {
+    // if (column != null && column.getName().equals(inode.getText())) {
+    // acceptor.addPosition(inode.getOffset(), inode.getLength(), defaultColor);
+    // afterName = true;
+    // }
+    // } else {
+    // if (modifiers != null && !modifiers.isEmpty() && modifiers.contains(inode.getText())) {
+    // acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.MODIFIER);
+    // }
+    // }
+    // }
+    // }
 }

@@ -235,6 +235,11 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createExtendedColumnAdapter();
       }
       @Override
+      public Adapter caseExtendedColumnName(ExtendedColumnName object)
+      {
+        return createExtendedColumnNameAdapter();
+      }
+      @Override
       public Adapter caseConstant(Constant object)
       {
         return createConstantAdapter();
@@ -243,11 +248,6 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseIdentifier(Identifier object)
       {
         return createIdentifierAdapter();
-      }
-      @Override
-      public Adapter caseExtendedIdentifier(ExtendedIdentifier object)
-      {
-        return createExtendedIdentifierAdapter();
       }
       @Override
       public Adapter caseDatabaseColumn(DatabaseColumn object)
@@ -278,6 +278,16 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseMappingColumn(MappingColumn object)
       {
         return createMappingColumnAdapter();
+      }
+      @Override
+      public Adapter caseExtendedMappingItem(ExtendedMappingItem object)
+      {
+        return createExtendedMappingItemAdapter();
+      }
+      @Override
+      public Adapter caseMappingColumnName(MappingColumnName object)
+      {
+        return createMappingColumnNameAdapter();
       }
       @Override
       public Adapter caseOptionalFeature(OptionalFeature object)
@@ -867,6 +877,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ExtendedColumnName <em>Extended Column Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ExtendedColumnName
+   * @generated
+   */
+  public Adapter createExtendedColumnNameAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.Constant <em>Constant</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -892,21 +917,6 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createIdentifierAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ExtendedIdentifier <em>Extended Identifier</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.sqlproc.dsl.processorDsl.ExtendedIdentifier
-   * @generated
-   */
-  public Adapter createExtendedIdentifierAdapter()
   {
     return null;
   }
@@ -997,6 +1007,36 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createMappingColumnAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ExtendedMappingItem <em>Extended Mapping Item</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ExtendedMappingItem
+   * @generated
+   */
+  public Adapter createExtendedMappingItemAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.MappingColumnName <em>Mapping Column Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.MappingColumnName
+   * @generated
+   */
+  public Adapter createMappingColumnNameAdapter()
   {
     return null;
   }

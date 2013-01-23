@@ -61,7 +61,7 @@ public class ProcessorDslOutlineTreeProvider extends DefaultOutlineTreeProvider 
 
                 @Override
                 public int compare(Identifier o1, Identifier o2) {
-                    return Utils.getName(o1).compareTo(Utils.getName(o2));
+                    return o1.getName().compareTo(o2.getName());
                 }
             });
             Set<Constant> constants = new TreeSet<Constant>(new Comparator<Constant>() {
@@ -111,7 +111,7 @@ public class ProcessorDslOutlineTreeProvider extends DefaultOutlineTreeProvider 
 
                 @Override
                 public int compare(MappingColumn o1, MappingColumn o2) {
-                    return o1.getName().compareTo(o2.getName());
+                    return Utils.getName(o1).compareTo(Utils.getName(o2));
                 }
             });
             Collector.allVariables((MappingRule) modelElement, columns);

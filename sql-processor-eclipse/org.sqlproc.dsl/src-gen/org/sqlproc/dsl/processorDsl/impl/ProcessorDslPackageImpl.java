@@ -23,7 +23,8 @@ import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ExtendedColumn;
-import org.sqlproc.dsl.processorDsl.ExtendedIdentifier;
+import org.sqlproc.dsl.processorDsl.ExtendedColumnName;
+import org.sqlproc.dsl.processorDsl.ExtendedMappingItem;
 import org.sqlproc.dsl.processorDsl.Extends;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IfMetaSql;
@@ -40,6 +41,7 @@ import org.sqlproc.dsl.processorDsl.JoinTableAssignement;
 import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.Mapping;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
+import org.sqlproc.dsl.processorDsl.MappingColumnName;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaSql;
@@ -309,6 +311,13 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass extendedColumnNameEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass constantEClass = null;
 
   /**
@@ -317,13 +326,6 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * @generated
    */
   private EClass identifierEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass extendedIdentifierEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -366,6 +368,20 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * @generated
    */
   private EClass mappingColumnEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass extendedMappingItemEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass mappingColumnNameEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2127,9 +2143,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getExtendedColumn_Name()
+  public EReference getExtendedColumn_Col()
   {
-    return (EAttribute)extendedColumnEClass.getEStructuralFeatures().get(0);
+    return (EReference)extendedColumnEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2140,6 +2156,26 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
   public EAttribute getExtendedColumn_Modifiers()
   {
     return (EAttribute)extendedColumnEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getExtendedColumnName()
+  {
+    return extendedColumnNameEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getExtendedColumnName_Name()
+  {
+    return (EAttribute)extendedColumnNameEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2217,9 +2253,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getIdentifier_Identifiers()
+  public EAttribute getIdentifier_Name()
   {
-    return (EReference)identifierEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)identifierEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2227,29 +2263,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getExtendedIdentifier()
+  public EAttribute getIdentifier_Modifiers()
   {
-    return extendedIdentifierEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getExtendedIdentifier_Name()
-  {
-    return (EAttribute)extendedIdentifierEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getExtendedIdentifier_Modifiers()
-  {
-    return (EAttribute)extendedIdentifierEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)identifierEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -2377,7 +2393,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMappingItem_Col()
+  public EAttribute getMappingItem_Name()
   {
     return (EAttribute)mappingItemEClass.getEStructuralFeatures().get(0);
   }
@@ -2397,16 +2413,6 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMappingItem_Modifiers()
-  {
-    return (EAttribute)mappingItemEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getMappingColumn()
   {
     return mappingColumnEClass;
@@ -2417,9 +2423,59 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getMappingColumn_Name()
+  public EReference getMappingColumn_Items()
   {
-    return (EAttribute)mappingColumnEClass.getEStructuralFeatures().get(0);
+    return (EReference)mappingColumnEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getExtendedMappingItem()
+  {
+    return extendedMappingItemEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExtendedMappingItem_Attr()
+  {
+    return (EReference)extendedMappingItemEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getExtendedMappingItem_Modifiers()
+  {
+    return (EAttribute)extendedMappingItemEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getMappingColumnName()
+  {
+    return mappingColumnNameEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getMappingColumnName_Name()
+  {
+    return (EAttribute)mappingColumnNameEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -3350,8 +3406,11 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEReference(columnEClass, COLUMN__COLUMNS);
 
     extendedColumnEClass = createEClass(EXTENDED_COLUMN);
-    createEAttribute(extendedColumnEClass, EXTENDED_COLUMN__NAME);
+    createEReference(extendedColumnEClass, EXTENDED_COLUMN__COL);
     createEAttribute(extendedColumnEClass, EXTENDED_COLUMN__MODIFIERS);
+
+    extendedColumnNameEClass = createEClass(EXTENDED_COLUMN_NAME);
+    createEAttribute(extendedColumnNameEClass, EXTENDED_COLUMN_NAME__NAME);
 
     constantEClass = createEClass(CONSTANT);
     createEAttribute(constantEClass, CONSTANT__CASE);
@@ -3361,11 +3420,8 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     identifierEClass = createEClass(IDENTIFIER);
     createEAttribute(identifierEClass, IDENTIFIER__MODE);
     createEAttribute(identifierEClass, IDENTIFIER__CASE);
-    createEReference(identifierEClass, IDENTIFIER__IDENTIFIERS);
-
-    extendedIdentifierEClass = createEClass(EXTENDED_IDENTIFIER);
-    createEAttribute(extendedIdentifierEClass, EXTENDED_IDENTIFIER__NAME);
-    createEAttribute(extendedIdentifierEClass, EXTENDED_IDENTIFIER__MODIFIERS);
+    createEAttribute(identifierEClass, IDENTIFIER__NAME);
+    createEAttribute(identifierEClass, IDENTIFIER__MODIFIERS);
 
     databaseColumnEClass = createEClass(DATABASE_COLUMN);
     createEAttribute(databaseColumnEClass, DATABASE_COLUMN__NAME);
@@ -3383,12 +3439,18 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEReference(mappingEClass, MAPPING__MAPPING_ITEMS);
 
     mappingItemEClass = createEClass(MAPPING_ITEM);
-    createEAttribute(mappingItemEClass, MAPPING_ITEM__COL);
+    createEAttribute(mappingItemEClass, MAPPING_ITEM__NAME);
     createEReference(mappingItemEClass, MAPPING_ITEM__ATTR);
-    createEAttribute(mappingItemEClass, MAPPING_ITEM__MODIFIERS);
 
     mappingColumnEClass = createEClass(MAPPING_COLUMN);
-    createEAttribute(mappingColumnEClass, MAPPING_COLUMN__NAME);
+    createEReference(mappingColumnEClass, MAPPING_COLUMN__ITEMS);
+
+    extendedMappingItemEClass = createEClass(EXTENDED_MAPPING_ITEM);
+    createEReference(extendedMappingItemEClass, EXTENDED_MAPPING_ITEM__ATTR);
+    createEAttribute(extendedMappingItemEClass, EXTENDED_MAPPING_ITEM__MODIFIERS);
+
+    mappingColumnNameEClass = createEClass(MAPPING_COLUMN_NAME);
+    createEAttribute(mappingColumnNameEClass, MAPPING_COLUMN_NAME__NAME);
 
     optionalFeatureEClass = createEClass(OPTIONAL_FEATURE);
     createEAttribute(optionalFeatureEClass, OPTIONAL_FEATURE__NAME);
@@ -3708,8 +3770,11 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEReference(getColumn_Columns(), this.getExtendedColumn(), null, "columns", null, 0, -1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(extendedColumnEClass, ExtendedColumn.class, "ExtendedColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getExtendedColumn_Name(), ecorePackage.getEString(), "name", null, 0, 1, ExtendedColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExtendedColumn_Col(), this.getExtendedColumnName(), null, "col", null, 0, 1, ExtendedColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getExtendedColumn_Modifiers(), ecorePackage.getEString(), "modifiers", null, 0, -1, ExtendedColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(extendedColumnNameEClass, ExtendedColumnName.class, "ExtendedColumnName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getExtendedColumnName_Name(), ecorePackage.getEString(), "name", null, 0, 1, ExtendedColumnName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(constantEClass, Constant.class, "Constant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getConstant_Case(), ecorePackage.getEString(), "case", null, 0, 1, Constant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3719,11 +3784,8 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEClass(identifierEClass, Identifier.class, "Identifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getIdentifier_Mode(), ecorePackage.getEString(), "mode", null, 0, 1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getIdentifier_Case(), ecorePackage.getEString(), "case", null, 0, 1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getIdentifier_Identifiers(), this.getExtendedIdentifier(), null, "identifiers", null, 0, -1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(extendedIdentifierEClass, ExtendedIdentifier.class, "ExtendedIdentifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getExtendedIdentifier_Name(), ecorePackage.getEString(), "name", null, 0, 1, ExtendedIdentifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getExtendedIdentifier_Modifiers(), ecorePackage.getEString(), "modifiers", null, 0, -1, ExtendedIdentifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getIdentifier_Name(), ecorePackage.getEString(), "name", null, 0, 1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getIdentifier_Modifiers(), ecorePackage.getEString(), "modifiers", null, 0, -1, Identifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(databaseColumnEClass, DatabaseColumn.class, "DatabaseColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getDatabaseColumn_Name(), ecorePackage.getEString(), "name", null, 0, 1, DatabaseColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3741,12 +3803,18 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEReference(getMapping_MappingItems(), this.getMappingItem(), null, "mappingItems", null, 0, -1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mappingItemEClass, MappingItem.class, "MappingItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getMappingItem_Col(), ecorePackage.getEString(), "col", null, 0, 1, MappingItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMappingItem_Name(), ecorePackage.getEString(), "name", null, 0, 1, MappingItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMappingItem_Attr(), this.getMappingColumn(), null, "attr", null, 0, 1, MappingItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getMappingItem_Modifiers(), ecorePackage.getEString(), "modifiers", null, 0, -1, MappingItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mappingColumnEClass, MappingColumn.class, "MappingColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getMappingColumn_Name(), ecorePackage.getEString(), "name", null, 0, 1, MappingColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMappingColumn_Items(), this.getExtendedMappingItem(), null, "items", null, 0, -1, MappingColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(extendedMappingItemEClass, ExtendedMappingItem.class, "ExtendedMappingItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getExtendedMappingItem_Attr(), this.getMappingColumnName(), null, "attr", null, 0, 1, ExtendedMappingItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getExtendedMappingItem_Modifiers(), ecorePackage.getEString(), "modifiers", null, 0, -1, ExtendedMappingItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(mappingColumnNameEClass, MappingColumnName.class, "MappingColumnName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getMappingColumnName_Name(), ecorePackage.getEString(), "name", null, 0, 1, MappingColumnName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(optionalFeatureEClass, OptionalFeature.class, "OptionalFeature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOptionalFeature_Name(), ecorePackage.getEString(), "name", null, 0, 1, OptionalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

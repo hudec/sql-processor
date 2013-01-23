@@ -48,7 +48,7 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
     }
 
     public String text(Identifier ele) {
-        return Utils.getName(ele);
+        return ele.getName();
     }
 
     public String text(Constant ele) {
@@ -60,7 +60,7 @@ public class ProcessorDslLabelProvider extends DefaultEObjectLabelProvider {
     }
 
     public String text(MappingColumn ele) {
-        return ele.getName();
+        return Utils.getName(ele);
     }
 
     public String text(DatabaseColumn ele) {
