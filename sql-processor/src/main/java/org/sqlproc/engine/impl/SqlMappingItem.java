@@ -43,6 +43,10 @@ class SqlMappingItem implements SqlMetaElement {
      */
     private List<SqlMappingAttribute> attributes;
     /**
+     * The map of all partial attribute names in the result class.
+     */
+    private Map<String, SqlMappingAttribute> attributesMap;
+    /**
      * The name of a database query output. It can be the column name or the alias name.
      */
     private String dbName;
@@ -72,6 +76,7 @@ class SqlMappingItem implements SqlMetaElement {
      */
     SqlMappingItem(String dbName) {
         this.attributes = new ArrayList<SqlMappingAttribute>();
+        this.attributesMap = new HashMap<String, SqlMappingAttribute>();
         this.sqlType = new SqlType();
         this.dbName = dbName;
         this.fullName = new StringBuilder();
@@ -103,18 +108,21 @@ class SqlMappingItem implements SqlMetaElement {
         if (names.length > 2)
             attr.setValues(SqlUtils.SUPPVAL_GTYPE, names[2]);
         attributes.add(attr);
+        attributesMap.put(fullName.toString(), attr);
         return attr;
     }
 
     /**
-     * Injects value to the latest attribute.
+     * Injects value to the named attribute.
      * 
+     * @param attrName
+     *            the attribute name
      * @param value
-     *            value for the latest attribute
+     *            value for the named attribute
      */
-    SqlMappingAttribute setAttributeValue(String value) {
+    SqlMappingAttribute setAttributeValue(String attrName, String value) {
         String[] values = value.split("=");
-        SqlMappingAttribute attr = attributes.get(attributes.size() - 1);
+        SqlMappingAttribute attr = attributesMap.get(attrName);
         if (values.length > 1)
             attr.setValues(SqlUtils.SUPPVAL_GTYPE, values[1]);
         else
@@ -135,10 +143,20 @@ class SqlMappingItem implements SqlMetaElement {
      * Sets the list of all partial attribute names in the result class.
      * 
      * @param attributes
-     *            te list of all partial attribute names
+     *            the list of all partial attribute names
      */
     void setAttributes(List<SqlMappingAttribute> attributes) {
         this.attributes = attributes;
+    }
+
+    /**
+     * Sets the map of all partial attribute names in the result class.
+     * 
+     * @param attributesMap
+     *            the map of all partial attribute names
+     */
+    void setAttributesMap(Map<String, SqlMappingAttribute> attributesMap) {
+        this.attributesMap = attributesMap;
     }
 
     /**
@@ -531,11 +549,13 @@ class SqlMappingItem implements SqlMetaElement {
         SqlMappingItem resultMappingItem = new SqlMappingItem(dbName);
         if (attributes != null && attributes.size() > 0) {
             resultMappingItem.setAttributes(attributes);
+            resultMappingItem.setAttributesMap(attributesMap);
             resultMappingItem.fullName = fullName;
             resultMappingItem.identity = identity;
             resultMappingItem.values = values;
         } else {
             resultMappingItem.setAttributes(outputMapping.getAttributes());
+            resultMappingItem.setAttributesMap(attributesMap);
             resultMappingItem.fullName = outputMapping.fullName;
             resultMappingItem.identity = outputMapping.identity;
             resultMappingItem.values = outputMapping.values;

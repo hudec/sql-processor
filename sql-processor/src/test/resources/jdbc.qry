@@ -1191,7 +1191,7 @@ CUSTOM_TYPE_GET(CRUD)=
 
 INHERITANCE2_BASIC(QRY)=
   select s.ID @id, s.NAME_FIRST @name.first, s.NAME_LAST @name.last, s.LIBRARY @library.id,
-  bd.TYPE @billingDetails(discr).type, bd.ID @billingDetails.id, bd.CC_NUMBER @billingDetails.number(type=long),
+  bd.TYPE @billingDetails(discr)type, bd.ID @billingDetails.id, bd.CC_NUMBER @billingDetails.number(type=long),
   bd.CC_EXP_MONTH @billingDetails.expMonth(type=short), bd.CC_EXP_YEAR @billingDetails.expYear(type=short),
   bd.BA_ACCOUNT_NUMBER @billingDetails.accountNumber, bd.BA_BANK_NAME @billingDetails.bankName,
   bd.BA_SWIFT @billingDetails.swift
@@ -1242,7 +1242,7 @@ BASIC_2_LEFT_JOIN(QRY)=
 
 BASIC_2_LEFT_JOIN_2(QRY)=
   select l.NAME as @name, l.ID @id(type=long,id), pm.LOCATION @media.location, pm.ID @media.id(type=long,id),
-  m.TITLE @media.media(gtype=movie).title, m.ID @media.media.id(type=long,id)
+  m.TITLE @media.media(gtype=movie)title, m.ID @media.media.id(type=long,id)
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
   left join MEDIA m on m.ID = mpm.MEDIA
@@ -1250,7 +1250,7 @@ BASIC_2_LEFT_JOIN_2(QRY)=
 ;
 
 BASIC_2_LEFT_JOIN_3(QRY)=
-  select pm.LOCATION @media.location, m.ID @media.media(gtype=movie).id(type=long,id), l.NAME as @name, l.ID @id(type=long,id),
+  select pm.LOCATION @media.location, m.ID @media.media(gtype=movie)id(type=long,id), l.NAME as @name, l.ID @id(type=long,id),
   pm.ID @media.id(type=long,id), m.TITLE @media.media.title
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
@@ -1273,7 +1273,7 @@ BASIC_2_LEFT_JOIN_4(OUT)=
 
 BASIC_3_LEFT_JOIN(QRY)=
   select l.ID @id(type=long,id), l.NAME as @name, pm.ID @media.id(type=long,id), pm.LOCATION @media.location,
-  m.ID @media.media(gtype=movie).id(type=long,id), m.TITLE @media.media.title(type=string),
+  m.ID @media.media(gtype=movie)id(type=long,id), m.TITLE @media.media.title(type=string),
   e.ID @media.media.engagements.id(type=long,id), e.ROLE @media.media.engagements.role,
   p.ID @media.media.engagements.person.id(type=long,id), p.NAME_LAST @media.media.engagements.person.name.last,
   p.SEX @media.media.engagements.person.sex, p.CLOTHES_SIZE @media.media.engagements.person.clothesSize
@@ -1286,7 +1286,7 @@ BASIC_3_LEFT_JOIN(QRY)=
 
 BASIC_4_LEFT_JOIN(QRY)=
   select l.ID @id(type=long,id), l.NAME as @name, pm.ID @media.id(type=long,id), pm.LOCATION @media.location,
-  m.ID @media.media(gtype=movie).id(type=long,id), m.TITLE @media.media.title(type=string),
+  m.ID @media.media(gtype=movie)id(type=long,id), m.TITLE @media.media.title(type=string),
   mc.ID @media.media.mediaCharacters.id(type=long,id), mc.NAME @media.media.mediaCharacters.name,
   p.ID @media.media.mediaCharacters.playedBy.id(type=long,id), p.NAME_LAST @media.media.mediaCharacters.playedBy.name.last,
   p.SEX @media.media.mediaCharacters.playedBy.sex, p.CLOTHES_SIZE @media.media.mediaCharacters.playedBy.clothesSize
@@ -1300,7 +1300,7 @@ BASIC_4_LEFT_JOIN(QRY)=
 
 BASIC_4_LEFT_JOIN_2(QRY)=
   select %l.ID @id, %l.NAME as @name, %pm.ID @media.id, %pm.LOCATION @media.location,
-  %m.ID @media.media(gtype=movie).id, %m.TITLE @media.media.title(type=string),
+  %m.ID @media.media(gtype=movie)id, %m.TITLE @media.media.title(type=string),
   %mc.ID @media.media.mediaCharacters.id, %mc.NAME @media.media.mediaCharacters.name,
   %p.ID @media.media.mediaCharacters.playedBy.id, %p.NAME_LAST @media.media.mediaCharacters.playedBy.name.last,
   %p.SEX @media.media.mediaCharacters.playedBy.sex, %p.CLOTHES_SIZE @media.media.mediaCharacters.playedBy.clothesSize
@@ -1319,13 +1319,13 @@ BASIC_LEFT_JOIN_LIST(QRY)=
 ;
 
 BASIC_LEFT_JOIN_LIST_2(QRY)=
-  select l.ID @id(type=long,id), l.NAME as @name, pm.ID @mediaList(dtype=alist).id(type=long,id), pm.LOCATION @mediaList.location
+  select l.ID @id(type=long,id), l.NAME as @name, pm.ID @mediaList(dtype=alist)id(type=long,id), pm.LOCATION @mediaList.location
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   {#1 order by l.ID, pm.ID}
 ;
 
 BASIC_LEFT_JOIN_LIST_3(QRY)=
-  select l.ID @id, l.NAME as @name, pm.ID @mediaList(dtype=alist).id, pm.LOCATION @mediaList.location
+  select l.ID @id, l.NAME as @name, pm.ID @mediaList(dtype=alist)id, pm.LOCATION @mediaList.location
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   {#1 order by l.ID, pm.ID}
 ;
@@ -1351,7 +1351,7 @@ BASIC_LEFT_JOIN_LIST_5(OUT)=
 ;
 
 BASIC_LEFT_JOIN_LIST_6(CRUD)=
-  select l.ID @id, l.NAME as @name, pm.ID @mediaList(dtype=alist).id, pm.LOCATION @mediaList.location
+  select l.ID @id, l.NAME as @name, pm.ID @mediaList(dtype=alist)id, pm.LOCATION @mediaList.location
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   {= where l.ID = :id}
 ;
@@ -1377,8 +1377,8 @@ BASIC_LEFT_JOIN_SET_3(QRY)=
 BASIC_POLY_JOIN(QRY)=
   select l.ID @id(type=long,id), l.NAME as @name,
   pm.ID @media.id(type=long,id), pm.LOCATION @media.location,
-  mo.MEDIA @media.media(gtype=movie).id(type=long,id), mo.URLIMDB @media.media.urlIMDB, mo.CATEGORY @media.media.category,
-  bk.MEDIA @media.media(gtype=book).id(type=long,id), bk.ISBN @media.media.isbn,
+  mo.MEDIA @media.media(gtype=movie)id(type=long,id), mo.URLIMDB @media.media.urlIMDB, mo.CATEGORY @media.media.category,
+  bk.MEDIA @media.media(gtype=book)id(type=long,id), bk.ISBN @media.media.isbn,
   m.TITLE @media.media.title
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
@@ -1392,8 +1392,8 @@ BASIC_POLY_JOIN(QRY)=
 BASIC_POLY_JOIN_2(QRY)=
   select l.ID @id, l.NAME as @name,
   pm.ID @media.id, pm.LOCATION @media.location,
-  mo.MEDIA @media.media(gtype=movie).id, mo.URLIMDB @media.media.urlIMDB, mo.CATEGORY @media.media.category,
-  bk.MEDIA @media.media(gtype=book).id, bk.ISBN @media.media.isbn,
+  mo.MEDIA @media.media(gtype=movie)id, mo.URLIMDB @media.media.urlIMDB, mo.CATEGORY @media.media.category,
+  bk.MEDIA @media.media(gtype=book)id, bk.ISBN @media.media.isbn,
   m.TITLE @media.media.title
   from LIBRARY l left join PHYSICALMEDIA pm on l.ID = pm.LIBRARY
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
@@ -1406,8 +1406,8 @@ BASIC_POLY_JOIN_2(QRY)=
 
 BASIC_POLY2_JOIN(QRY)=
   select pm.ID @id(type=long,id), pm.LOCATION as @location,
-  mo.MEDIA @media(gtype=movie).id(type=long,id), mo.URLIMDB @media.urlIMDB, mo.CATEGORY @media.category,
-  bk.MEDIA @media(gtype=book).id(type=long,id), bk.ISBN @media.isbn,
+  mo.MEDIA @media(gtype=movie)id(type=long,id), mo.URLIMDB @media.urlIMDB, mo.CATEGORY @media.category,
+  bk.MEDIA @media(gtype=book)id(type=long,id), bk.ISBN @media.isbn,
   m.TITLE @media.title
   from PHYSICALMEDIA pm
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
@@ -1420,8 +1420,8 @@ BASIC_POLY2_JOIN(QRY)=
 
 BASIC_POLY2_JOIN_2(QRY)=
   select pm.ID @id, pm.LOCATION as @location,
-  mo.MEDIA @media(gtype=movie).id, mo.URLIMDB @media.urlIMDB, mo.CATEGORY @media.category,
-  bk.MEDIA @media(gtype=book).id, bk.ISBN @media.isbn,
+  mo.MEDIA @media(gtype=movie)id, mo.URLIMDB @media.urlIMDB, mo.CATEGORY @media.category,
+  bk.MEDIA @media(gtype=book)id, bk.ISBN @media.isbn,
   m.TITLE @media.title
   from PHYSICALMEDIA pm
   left join MEDIA_PHYSICALMEDIA mpm on mpm.PHYSICALMEDIA = pm.ID
@@ -1461,8 +1461,8 @@ BASIC_TWO_JOINS(QRY)=
 EXTRA_JOIN(QRY)=
   select l.ID @id(type=long,id), l.NAME as @name,
   pm.ID @media.id(type=long,id), pm.LOCATION @media.location,
-  mo.MEDIA @media.media(gtype=movie).id(type=long,id), mo.URLIMDB @media.media.urlIMDB,
-  bk.MEDIA @media.media(gtype=book).id(type=long,id), bk.ISBN @media.media.isbn,
+  mo.MEDIA @media.media(gtype=movie)id(type=long,id), mo.URLIMDB @media.media.urlIMDB,
+  bk.MEDIA @media.media(gtype=book)id(type=long,id), bk.ISBN @media.media.isbn,
   m.TITLE @media.media.title,
   en.ID @media.media.engagements.id, en.ROLE @media.media.engagements.role,
   p1.ID @media.media.engagements.person.id, p1.NAME_FIRST @media.media.engagements.person.name.first,  

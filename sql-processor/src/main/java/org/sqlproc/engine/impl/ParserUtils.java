@@ -126,29 +126,16 @@ class ParserUtils {
         return null;
     }
 
-    static void addName(SqlMappingItem col, String name) {
-        if (logger.isTraceEnabled()) {
-            logger.trace("addName " + name);
-        }
-        if (name != null && name.length() > 0) {
-            String[] idents = name.split("\\.");
-            for (String ident : idents) {
-                col.addAttributeName(ident);
-            }
-        }
-    }
-
-    static SqlMappingAttribute addColumnAttr(SqlMappingItem col, String name) {
+    static SqlMappingItem addColumnAttr(SqlMappingItem col, String name) {
         if (logger.isTraceEnabled()) {
             logger.trace("addColumnAttr " + name);
         }
         if (name.length() > 0) {
-            SqlMappingAttribute attr = null;
             String[] javaNames = name.split("\\.");
             for (String javaName : javaNames) {
-                attr = col.addAttributeName(javaName);
+                col.addAttributeName(javaName);
             }
-            return attr;
+            return col;
         }
         return null;
     }
@@ -279,11 +266,11 @@ class ParserUtils {
     static final String SUPPVAL_GTYPE_ = SqlUtils.SUPPVAL_GTYPE + "=";
     static final String SUPPVAL_TYPE_ = SqlUtils.SUPPVAL_TYPE + "=";
     static final String SUPPVAL_DTYPE_ = "d" + SqlUtils.SUPPVAL_TYPE + "=";
-    static final String SUPPVAL_DISCRIMINATOR_ = "discriminator";
+    static final String SUPPVAL_DISCRIMINATOR_ = SqlUtils.SUPPVAL_DISCRIMINATOR;
 
-    static void addModifier(Object target, SqlTypeFactory typeFactory, String modifier) {
+    static void addModifier(Object target, SqlTypeFactory typeFactory, String modifier, String attrName) {
         if (logger.isTraceEnabled()) {
-            logger.trace("addModifier " + target + "->" + modifier);
+            logger.trace("addModifier " + target + "->" + modifier + " and " + attrName);
         }
         if (modifier != null) {
             String type = (modifier.startsWith(SUPPVAL_TYPE_)) ? modifier.substring(SUPPVAL_TYPE_.length()) : null;
@@ -297,11 +284,41 @@ class ParserUtils {
                 if (type != null) {
                     ((SqlMappingItem) target).setMetaType(typeFactory.getMetaType(type));
                 } else if (dtype != null) {
-                    ((SqlMappingItem) target).setAttributeValue(dtype);
+                    ((SqlMappingItem) target).setAttributeValue(attrName, dtype);
                 } else if (gtype != null) {
-                    ((SqlMappingItem) target).setAttributeValue("=" + gtype);
+                    ((SqlMappingItem) target).setAttributeValue(attrName, "=" + gtype);
                 } else if (isDisriminator) {
-                    ((SqlMappingItem) target).setAttributeValue("=" + SqlUtils.SUPPVAL_DISCRIMINATOR);
+                    ((SqlMappingItem) target).setAttributeValue(attrName, "=" + SqlUtils.SUPPVAL_DISCRIMINATOR);
+                } else {
+                    ((SqlMappingItem) target).setValues(modifier, null);
+                }
+            } else if (target instanceof SqlMetaIdent) {
+                if (type != null) {
+                    ((SqlMetaIdent) target).setMetaType(typeFactory.getMetaType(type));
+                } else {
+                    ((SqlMetaIdent) target).setValues(modifier, null);
+                }
+            } else if (target instanceof SqlMetaConst) {
+                if (type != null) {
+                    ((SqlMetaConst) target).setMetaType(typeFactory.getMetaType(type));
+                } else {
+                    ((SqlMetaConst) target).setValues(modifier, null);
+                }
+            } else {
+                throw new RuntimeException("Invalid target for addModifier :" + target);
+            }
+        }
+    }
+
+    static void addModifier(Object target, SqlTypeFactory typeFactory, String modifier) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("addModifier " + target + "->" + modifier);
+        }
+        if (modifier != null) {
+            String type = (modifier.startsWith(SUPPVAL_TYPE_)) ? modifier.substring(SUPPVAL_TYPE_.length()) : null;
+            if (target instanceof SqlMappingItem) {
+                if (type != null) {
+                    ((SqlMappingItem) target).setMetaType(typeFactory.getMetaType(type));
                 } else {
                     ((SqlMappingItem) target).setValues(modifier, null);
                 }

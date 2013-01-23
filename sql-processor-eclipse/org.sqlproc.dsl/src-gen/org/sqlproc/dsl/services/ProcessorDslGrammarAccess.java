@@ -4539,16 +4539,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cColumnsAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cColumnsExtendedColumnParserRuleCall_0_0 = (RuleCall)cColumnsAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final RuleCall cDOTTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
-		private final Assignment cColumnsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cColumnsExtendedColumnParserRuleCall_1_1_0 = (RuleCall)cColumnsAssignment_1_1.eContents().get(0);
+		private final Assignment cColumnsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cColumnsExtendedColumnParserRuleCall_1_0 = (RuleCall)cColumnsAssignment_1.eContents().get(0);
 		
 		//Column:
-		//	columns+=ExtendedColumn (DOT columns+=ExtendedColumn)*;
+		//	columns+=ExtendedColumn => columns+=ExtendedColumn*;
 		public ParserRule getRule() { return rule; }
 
-		//columns+=ExtendedColumn (DOT columns+=ExtendedColumn)*
+		//columns+=ExtendedColumn => columns+=ExtendedColumn*
 		public Group getGroup() { return cGroup; }
 
 		//columns+=ExtendedColumn
@@ -4557,17 +4555,11 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ExtendedColumn
 		public RuleCall getColumnsExtendedColumnParserRuleCall_0_0() { return cColumnsExtendedColumnParserRuleCall_0_0; }
 
-		//(=> DOT columns+=ExtendedColumn)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//=> DOT
-		public RuleCall getDOTTerminalRuleCall_1_0() { return cDOTTerminalRuleCall_1_0; }
-
-		//columns+=ExtendedColumn
-		public Assignment getColumnsAssignment_1_1() { return cColumnsAssignment_1_1; }
+		//=> columns+=ExtendedColumn*
+		public Assignment getColumnsAssignment_1() { return cColumnsAssignment_1; }
 
 		//ExtendedColumn
-		public RuleCall getColumnsExtendedColumnParserRuleCall_1_1_0() { return cColumnsExtendedColumnParserRuleCall_1_1_0; }
+		public RuleCall getColumnsExtendedColumnParserRuleCall_1_0() { return cColumnsExtendedColumnParserRuleCall_1_0; }
 	}
 
 	public class ExtendedColumnElements extends AbstractParserRuleElementFinder {
@@ -4732,18 +4724,16 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cCaseMINUSTerminalRuleCall_1_0_1 = (RuleCall)cCaseAlternatives_1_0.eContents().get(1);
 		private final Assignment cIdentifiersAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cIdentifiersExtendedIdentifierParserRuleCall_2_0 = (RuleCall)cIdentifiersAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final RuleCall cDOTTerminalRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
-		private final Assignment cIdentifiersAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cIdentifiersExtendedIdentifierParserRuleCall_3_1_0 = (RuleCall)cIdentifiersAssignment_3_1.eContents().get(0);
+		private final Assignment cIdentifiersAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cIdentifiersExtendedIdentifierParserRuleCall_3_0 = (RuleCall)cIdentifiersAssignment_3.eContents().get(0);
 		
 		//Identifier:
-		//	mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? identifiers+=ExtendedIdentifier (DOT
-		//	identifiers+=ExtendedIdentifier)*;
+		//	mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? identifiers+=ExtendedIdentifier =>
+		//	identifiers+=ExtendedIdentifier*;
 		public ParserRule getRule() { return rule; }
 
-		//mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? identifiers+=ExtendedIdentifier (DOT
-		//identifiers+=ExtendedIdentifier)*
+		//mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? identifiers+=ExtendedIdentifier =>
+		//identifiers+=ExtendedIdentifier*
 		public Group getGroup() { return cGroup; }
 
 		//mode=(EQUALS | LESS_THAN | MORE_THAN)?
@@ -4779,17 +4769,11 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//ExtendedIdentifier
 		public RuleCall getIdentifiersExtendedIdentifierParserRuleCall_2_0() { return cIdentifiersExtendedIdentifierParserRuleCall_2_0; }
 
-		//(=> DOT identifiers+=ExtendedIdentifier)*
-		public Group getGroup_3() { return cGroup_3; }
-
-		//=> DOT
-		public RuleCall getDOTTerminalRuleCall_3_0() { return cDOTTerminalRuleCall_3_0; }
-
-		//identifiers+=ExtendedIdentifier
-		public Assignment getIdentifiersAssignment_3_1() { return cIdentifiersAssignment_3_1; }
+		//=> identifiers+=ExtendedIdentifier*
+		public Assignment getIdentifiersAssignment_3() { return cIdentifiersAssignment_3; }
 
 		//ExtendedIdentifier
-		public RuleCall getIdentifiersExtendedIdentifierParserRuleCall_3_1_0() { return cIdentifiersExtendedIdentifierParserRuleCall_3_1_0; }
+		public RuleCall getIdentifiersExtendedIdentifierParserRuleCall_3_0() { return cIdentifiersExtendedIdentifierParserRuleCall_3_0; }
 	}
 
 	public class ExtendedIdentifierElements extends AbstractParserRuleElementFinder {
@@ -7130,7 +7114,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Column:
-	//	columns+=ExtendedColumn (DOT columns+=ExtendedColumn)*;
+	//	columns+=ExtendedColumn => columns+=ExtendedColumn*;
 	public ColumnElements getColumnAccess() {
 		return (pColumn != null) ? pColumn : (pColumn = new ColumnElements());
 	}
@@ -7160,8 +7144,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Identifier:
-	//	mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? identifiers+=ExtendedIdentifier (DOT
-	//	identifiers+=ExtendedIdentifier)*;
+	//	mode=(EQUALS | LESS_THAN | MORE_THAN)? case=(PLUS | MINUS)? identifiers+=ExtendedIdentifier =>
+	//	identifiers+=ExtendedIdentifier*;
 	public IdentifierElements getIdentifierAccess() {
 		return (pIdentifier != null) ? pIdentifier : (pIdentifier = new IdentifierElements());
 	}

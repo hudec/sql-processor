@@ -7487,29 +7487,29 @@ ruleColumn returns [EObject current=null]
 	    }
 
 )
-)(((	RULE_DOT)=>this_DOT_1=RULE_DOT
-    { 
-    newLeafNode(this_DOT_1, grammarAccess.getColumnAccess().getDOTTerminalRuleCall_1_0()); 
-    }
-)(
+)((
+(
+ruleExtendedColumn
+)
+)=>
 (
 		{ 
-	        newCompositeNode(grammarAccess.getColumnAccess().getColumnsExtendedColumnParserRuleCall_1_1_0()); 
+	        newCompositeNode(grammarAccess.getColumnAccess().getColumnsExtendedColumnParserRuleCall_1_0()); 
 	    }
-		lv_columns_2_0=ruleExtendedColumn		{
+		lv_columns_1_0=ruleExtendedColumn		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getColumnRule());
 	        }
        		add(
        			$current, 
        			"columns",
-        		lv_columns_2_0, 
+        		lv_columns_1_0, 
         		"ExtendedColumn");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*)
+)*)
 ;
 
 
@@ -7896,29 +7896,29 @@ ruleIdentifier returns [EObject current=null]
 	    }
 
 )
-)(((	RULE_DOT)=>this_DOT_3=RULE_DOT
-    { 
-    newLeafNode(this_DOT_3, grammarAccess.getIdentifierAccess().getDOTTerminalRuleCall_3_0()); 
-    }
-)(
+)((
+(
+ruleExtendedIdentifier
+)
+)=>
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIdentifierAccess().getIdentifiersExtendedIdentifierParserRuleCall_3_1_0()); 
+	        newCompositeNode(grammarAccess.getIdentifierAccess().getIdentifiersExtendedIdentifierParserRuleCall_3_0()); 
 	    }
-		lv_identifiers_4_0=ruleExtendedIdentifier		{
+		lv_identifiers_3_0=ruleExtendedIdentifier		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getIdentifierRule());
 	        }
        		add(
        			$current, 
        			"identifiers",
-        		lv_identifiers_4_0, 
+        		lv_identifiers_3_0, 
         		"ExtendedIdentifier");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*)
+)*)
 ;
 
 

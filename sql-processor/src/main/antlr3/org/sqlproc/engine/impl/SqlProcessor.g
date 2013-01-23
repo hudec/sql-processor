@@ -12,6 +12,7 @@ package org.sqlproc.engine.impl;
 package org.sqlproc.engine.impl;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
 import org.sqlproc.engine.type.SqlTypeFactory;
 import org.sqlproc.engine.type.SqlMetaType;
@@ -89,16 +90,8 @@ import org.sqlproc.engine.type.SqlMetaType;
     ParserUtils.addColumn(target, col, text);
   }
   
-  SqlMappingItem newColumn(SqlMappingItem col, Token name) {
-    if (col != null) {
-      ParserUtils.addName(col, name.getText());
-      return col;
-    }
-    return ParserUtils.newColumn(name.getText());
-  }
-  
-  void addName(SqlMappingItem col, Token name) {
-    ParserUtils.addName(col, (name!=null) ? name.getText() : null);
+  SqlMappingItem newColumn(String col) {
+    return ParserUtils.newColumn(col);
   }
   
   void addColumnAttr(SqlMappingItem item, Token col) {
@@ -154,6 +147,10 @@ import org.sqlproc.engine.type.SqlMetaType;
 
   void addModifier(SqlTypeFactory typeFactory, SqlMappingItem item, String modifier) {
     ParserUtils.addModifier(item, typeFactory, modifier);
+  }
+
+  void addModifier(SqlTypeFactory typeFactory, SqlMappingItem item, String modifier, String attrName) {
+    ParserUtils.addModifier(item, typeFactory, modifier, attrName);
   }
 
   void addModifier(SqlTypeFactory typeFactory, SqlMetaIdent item, String modifier) {
@@ -348,19 +345,22 @@ column returns[SqlMappingItem result]
 	;
 */
 
-column returns[SqlMappingItem result]
-@after {result = col;}
-	:	
-	col=extendedColumn[null] (options {greedy=true;} : extendedColumn[col])*
-	;
-
-extendedColumn [SqlMappingItem col] returns [SqlMappingItem result]
+column returns [SqlMappingItem result]
+@init {$result = null; String sname; Map<String, List<String>> modifiers = new HashMap<String, List<String>>(); }
+@after {if(!$meta::skip) $result = newColumn(sname); if(!$meta::skip) for (String n : modifiers.keySet()) for (String m : modifiers.get(n)) addModifier($meta::typeFactory, result, m, n); }
 	:
-	(name=IDENT_DOT | name=IDENT | name=NUMBER) {$result = newColumn($col, $name);}
-	(options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
-	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$meta::skip) addModifier($meta::typeFactory, $result, $value.text); }
+	(name=IDENT_DOT | name=IDENT | name=NUMBER) {sname =  $name.text; }
+	(options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { modifiers.put(sname, new ArrayList<String>()); modifiers.get(sname).add($value.text); }
+	 (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { modifiers.get(sname).add($value.text); }
 	 )* RPAREN
 	)?
+	(options {greedy=true;} : 
+ 	 (name=IDENT_DOT | name=IDENT | name=NUMBER) {sname = sname + "." + $name.text; }
+	 (options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { modifiers.put(sname, new ArrayList<String>()); modifiers.get(sname).add($value.text); }
+	  (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { modifiers.get(sname).add($value.text); }
+	  )* RPAREN
+	 )?
+	)*
 	;
 
 constant returns [SqlMetaConst result]
@@ -430,7 +430,7 @@ scope {SqlTypeFactory typeFactory;boolean skip;}
 mappingItem returns[SqlMappingItem result]
 @init {$result = null;}
 	:	
-	(col=IDENT | col=NUMBER) {if(!$mapping::skip) $result = newColumn(null, col);}
+	(col=IDENT | col=NUMBER) {if(!$mapping::skip) $result = newColumn($col.text);}
      (STRING (col=IDENT_DOT | col=IDENT | col=NUMBER) { if(!$mapping::skip) addColumnAttr($result, $col); }
 	  (options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { if(!$mapping::skip) addModifier($mapping::typeFactory, $result, $value.text); }
 	   (options {greedy=true;} : COMMA (value=IDENT | value=NUMBER) { if(!$mapping::skip) addModifier($mapping::typeFactory, $result, $value.text); }

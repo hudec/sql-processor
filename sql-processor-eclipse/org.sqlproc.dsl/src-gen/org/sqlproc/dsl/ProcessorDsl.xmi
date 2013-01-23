@@ -1643,11 +1643,8 @@
       <elements xsi:type="xtext:Assignment" feature="columns" operator="+=">
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.35"/>
       </elements>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.85"/>
-        <elements xsi:type="xtext:Assignment" feature="columns" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.35"/>
-        </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="*" predicated="true" feature="columns" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.35"/>
       </elements>
     </alternatives>
   </rules>
@@ -1731,11 +1728,8 @@
       <elements xsi:type="xtext:Assignment" feature="identifiers" operator="+=">
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.38"/>
       </elements>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.85"/>
-        <elements xsi:type="xtext:Assignment" feature="identifiers" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.38"/>
-        </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="*" predicated="true" feature="identifiers" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.38"/>
       </elements>
     </alternatives>
   </rules>
