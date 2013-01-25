@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class PhysicalMedia {
 
     private Long id;

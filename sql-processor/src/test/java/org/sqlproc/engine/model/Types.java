@@ -7,6 +7,9 @@ import java.sql.Clob;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class Types {
 
     Integer t_int;

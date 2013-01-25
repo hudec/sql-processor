@@ -4,6 +4,9 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class Subscriber {
 
     private Long id;

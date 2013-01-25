@@ -2,6 +2,9 @@ package org.sqlproc.engine.model;
 
 import java.util.Calendar;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class Person extends PersonBase {
     public Person() {
     }
