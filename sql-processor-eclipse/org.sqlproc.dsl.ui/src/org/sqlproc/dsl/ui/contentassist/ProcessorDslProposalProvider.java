@@ -38,7 +38,9 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.sqlproc.dsl.processorDsl.AbstractPojoEntity;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
+import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
 import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
@@ -175,29 +177,52 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     // addProposalList(COL_VALS, "IDENT", context, acceptor);
     // }
 
-    // @Override
-    // public void completeColumn_Name(EObject model, Assignment assignment, ContentAssistContext context,
-    // ICompletionProposalAcceptor acceptor) {
-    // if (!completeUsage(model, assignment, context, acceptor, COLUMN_USAGE, COLUMN_USAGE_EXTENDED))
-    // super.completeColumn_Name(model, assignment, context, acceptor);
-    // }
+    @Override
+    public void completeExtendedColumnName_Name(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        Column column = EcoreUtil2.getContainerOfType(model, Column.class);
+        StringBuilder partialName = new StringBuilder("");
+        if (column != null) {
+            for (ExtendedColumn xcolumn : column.getColumns()) {
+                // System.out.println("AAA " + xcolumn + " " + xcolumn.getCol() + " " + model);
+                if (partialName.length() > 0)
+                    partialName.append(".");
+                partialName.append(xcolumn.getCol().getName());
+                if (context.getPreviousModel() != null && xcolumn == context.getPreviousModel()) {
+                    // System.out.println("BINGO " + xcolumn.getCol().getName());
+                    break;
+                }
+            }
+        }
+        // System.out.println("BBB " + partialName);
+        if (partialName.length() > 0)
+            partialName.append(".");
+        String prefix = partialName.toString() + context.getPrefix();
+        if (!completeUsage(model, assignment, context, acceptor, COLUMN_USAGE, COLUMN_USAGE_EXTENDED, prefix, true))
+            super.completeExtendedColumnName_Name(model, assignment, context, acceptor);
+    }
 
     @Override
     public void completeConstant_Name(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        if (!completeUsage(model, assignment, context, acceptor, CONSTANT_USAGE, CONSTANT_USAGE_EXTENDED))
+        String prefix = context.getPrefix();
+        if (!completeUsage(model, assignment, context, acceptor, CONSTANT_USAGE, CONSTANT_USAGE_EXTENDED, prefix, false))
             super.completeConstant_Name(model, assignment, context, acceptor);
     }
 
     @Override
     public void completeIdentifier_Name(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        if (!completeUsage(model, assignment, context, acceptor, IDENTIFIER_USAGE, IDENTIFIER_USAGE_EXTENDED))
+        String prefix = context.getPrefix();
+        if (!completeUsage(model, assignment, context, acceptor, IDENTIFIER_USAGE, IDENTIFIER_USAGE_EXTENDED, prefix,
+                false))
             super.completeIdentifier_Name(model, assignment, context, acceptor);
     }
 
     public boolean completeUsage(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor, String usageInFilter, String usageInFilterExt) {
+            ICompletionProposalAcceptor acceptor, String usageInFilter, String usageInFilterExt, String prefix,
+            boolean cutPrefix) {
+        // System.out.println("XXX " + prefix);
         if (!isResolvePojo(model))
             return false;
         MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
@@ -218,7 +243,6 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             return true;
         }
 
-        String prefix = context.getPrefix();
         int pos = prefix.lastIndexOf('.');
         if (pos > 0) {
             prefix = prefix.substring(0, pos + 1);
@@ -238,7 +262,8 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
                     if ("class".equals(descriptor.getName()))
                         continue;
                     String proposal = getValueConverter().toString(descriptor.getName(), "IDENT");
-                    ICompletionProposal completionProposal = createCompletionProposal(prefix + proposal, context);
+                    ICompletionProposal completionProposal = createCompletionProposal((cutPrefix) ? proposal : prefix
+                            + proposal, context);
                     acceptor.accept(completionProposal);
                 }
                 return true;
@@ -252,7 +277,8 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             }
             for (PojoProperty pojoProperty : properties) {
                 String proposal = getValueConverter().toString(pojoProperty.getName(), "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal(prefix + proposal, context);
+                ICompletionProposal completionProposal = createCompletionProposal((cutPrefix) ? proposal : prefix
+                        + proposal, context);
                 acceptor.accept(completionProposal);
             }
             return true;
@@ -1018,6 +1044,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
                 String proposal = getValueConverter().toString(entity.getName(), "IDENT");
                 ICompletionProposal completionProposal2 = createCompletionProposal(MAPPING_USAGE_EXTENDED + "="
                         + proposal, context);
+                acceptor.accept(completionProposal2);
             }
             Set<PojoDefinition> pojos = listPojos(artifacts.eResource().getResourceSet(),
                     getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS));
