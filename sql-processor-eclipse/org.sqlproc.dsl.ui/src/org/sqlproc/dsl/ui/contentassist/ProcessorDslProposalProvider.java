@@ -1053,66 +1053,66 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     public void complete_StatementModifier(EObject model, RuleCall ruleCall, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
         Artifacts artifacts = null;
-        if (model instanceof MetaStatement) {
-            MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
-            artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
-            Set<PojoEntity> entities = listEntities(artifacts.eResource().getResourceSet(), getScopeProvider()
-                    .getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES));
-            for (PojoEntity entity : entities) {
-                String proposal = getValueConverter().toString(entity.getName(), "IDENT");
-                ICompletionProposal completionProposal2 = createCompletionProposal(CONSTANT_USAGE_EXTENDED + "="
-                        + proposal, context);
-                acceptor.accept(completionProposal2);
-                ICompletionProposal completionProposal = createCompletionProposal(IDENTIFIER_USAGE_EXTENDED + "="
-                        + proposal, context);
-                acceptor.accept(completionProposal);
-                ICompletionProposal completionProposal3 = createCompletionProposal(COLUMN_USAGE_EXTENDED + "="
-                        + proposal, context);
-                acceptor.accept(completionProposal3);
-            }
-            Set<PojoDefinition> pojos = listPojos(artifacts.eResource().getResourceSet(),
-                    getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS));
-            for (PojoDefinition pojo : pojos) {
-                String proposal = getValueConverter().toString(pojo.getName(), "IDENT");
-                ICompletionProposal completionProposal2 = createCompletionProposal(CONSTANT_USAGE + "=" + proposal,
-                        context);
-                acceptor.accept(completionProposal2);
-                ICompletionProposal completionProposal = createCompletionProposal(IDENTIFIER_USAGE + "=" + proposal,
-                        context);
-                acceptor.accept(completionProposal);
-                ICompletionProposal completionProposal3 = createCompletionProposal(COLUMN_USAGE + "=" + proposal,
-                        context);
-                acceptor.accept(completionProposal3);
-            }
-            Set<TableDefinition> tables = listTables(artifacts.eResource().getResourceSet(), getScopeProvider()
-                    .getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
-            for (TableDefinition table : tables) {
-                String proposal = getValueConverter().toString(table.getName(), "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal(TABLE_USAGE + "=" + proposal, context);
-                acceptor.accept(completionProposal);
-            }
-        } else if (model instanceof MappingRule) {
-            MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
-            artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
-            Set<PojoEntity> entities = listEntities(artifacts.eResource().getResourceSet(), getScopeProvider()
-                    .getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES));
-            for (PojoEntity entity : entities) {
-                String proposal = getValueConverter().toString(entity.getName(), "IDENT");
-                ICompletionProposal completionProposal2 = createCompletionProposal(MAPPING_USAGE_EXTENDED + "="
-                        + proposal, context);
-                acceptor.accept(completionProposal2);
-            }
-            Set<PojoDefinition> pojos = listPojos(artifacts.eResource().getResourceSet(),
-                    getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS));
-            for (PojoDefinition pojo : pojos) {
-                String proposal = getValueConverter().toString(pojo.getName(), "IDENT");
-                ICompletionProposal completionProposal2 = createCompletionProposal(MAPPING_USAGE + "=" + proposal,
-                        context);
-                acceptor.accept(completionProposal2);
-            }
-        } else {
-            super.complete_StatementModifier(model, ruleCall, context, acceptor);
+        MetaStatement metaStatement = EcoreUtil2.getContainerOfType(model, MetaStatement.class);
+        artifacts = EcoreUtil2.getContainerOfType(metaStatement, Artifacts.class);
+        Set<PojoEntity> entities = listEntities(artifacts.eResource().getResourceSet(),
+                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES));
+        for (PojoEntity entity : entities) {
+            String proposal = getValueConverter().toString(entity.getName(), "IDENT");
+            ICompletionProposal completionProposal2 = createCompletionProposal(
+                    CONSTANT_USAGE_EXTENDED + "=" + proposal, context);
+            acceptor.accept(completionProposal2);
+            ICompletionProposal completionProposal = createCompletionProposal(IDENTIFIER_USAGE_EXTENDED + "="
+                    + proposal, context);
+            acceptor.accept(completionProposal);
+            ICompletionProposal completionProposal3 = createCompletionProposal(COLUMN_USAGE_EXTENDED + "=" + proposal,
+                    context);
+            acceptor.accept(completionProposal3);
         }
+        Set<PojoDefinition> pojos = listPojos(artifacts.eResource().getResourceSet(),
+                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS));
+        for (PojoDefinition pojo : pojos) {
+            String proposal = getValueConverter().toString(pojo.getName(), "IDENT");
+            ICompletionProposal completionProposal2 = createCompletionProposal(CONSTANT_USAGE + "=" + proposal, context);
+            acceptor.accept(completionProposal2);
+            ICompletionProposal completionProposal = createCompletionProposal(IDENTIFIER_USAGE + "=" + proposal,
+                    context);
+            acceptor.accept(completionProposal);
+            ICompletionProposal completionProposal3 = createCompletionProposal(COLUMN_USAGE + "=" + proposal, context);
+            acceptor.accept(completionProposal3);
+        }
+        Set<TableDefinition> tables = listTables(artifacts.eResource().getResourceSet(),
+                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
+        for (TableDefinition table : tables) {
+            String proposal = getValueConverter().toString(table.getName(), "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(TABLE_USAGE + "=" + proposal, context);
+            acceptor.accept(completionProposal);
+        }
+        // super.complete_StatementModifier(model, ruleCall, context, acceptor);
+    }
+
+    @Override
+    public void complete_MappingRuleModifier(EObject model, RuleCall ruleCall, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        Artifacts artifacts = null;
+        MappingRule mappingRule = EcoreUtil2.getContainerOfType(model, MappingRule.class);
+        artifacts = EcoreUtil2.getContainerOfType(mappingRule, Artifacts.class);
+        Set<PojoEntity> entities = listEntities(artifacts.eResource().getResourceSet(),
+                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJO_PACKAGES));
+        for (PojoEntity entity : entities) {
+            String proposal = getValueConverter().toString(entity.getName(), "IDENT");
+            ICompletionProposal completionProposal2 = createCompletionProposal(MAPPING_USAGE_EXTENDED + "=" + proposal,
+                    context);
+            acceptor.accept(completionProposal2);
+        }
+        Set<PojoDefinition> pojos = listPojos(artifacts.eResource().getResourceSet(),
+                getScopeProvider().getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__POJOS));
+        for (PojoDefinition pojo : pojos) {
+            String proposal = getValueConverter().toString(pojo.getName(), "IDENT");
+            ICompletionProposal completionProposal2 = createCompletionProposal(MAPPING_USAGE + "=" + proposal, context);
+            acceptor.accept(completionProposal2);
+        }
+        // super.complete_MappingRuleModifier(model, ruleCall, context, acceptor);
     }
 
     protected Set<PojoEntity> listEntities(ResourceSet resourceSet, IScope scope) {
