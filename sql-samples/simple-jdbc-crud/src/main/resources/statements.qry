@@ -2,12 +2,12 @@ SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity();
 
 
-INSERT_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,col=billingDetails)=
+INSERT_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,tab=billingDetails)=
   insert into %%BILLING_DETAILS (%BA_ACCOUNT, %SUBSCRIBER, %TYPE)
   {= values (:id(idsel=SEL1), :baAccount, :subscriber.id, :type) }
 ;
 
-GET_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,col=billingDetails=b,col=subscriber=s)=
+GET_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,tab=billingDetails=b,tab=subscriber=s)=
   select %b.BA_ACCOUNT @baAccount, %b.ID @id(id), %b.SUBSCRIBER @subscriber.id(id), %b.TYPE @type
          {? :subscriber(call=toInit) | , %s.LIBRARY @subscriber.library.id, %s.CONTACT @subscriber.contact.id, %s.NAME @subscriber.name }
   from %%BILLING_DETAILS b
@@ -20,7 +20,7 @@ GET_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,col=billingDetails
   }
 ;
 
-UPDATE_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,col=billingDetails)=
+UPDATE_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,tab=billingDetails)=
   update %%BILLING_DETAILS
   {= set
     { ,%BA_ACCOUNT = :baAccount(call=isDef) }
@@ -32,14 +32,14 @@ UPDATE_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,col=billingDeta
   }
 ;
 
-DELETE_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,col=billingDetails)=
+DELETE_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,tab=billingDetails)=
   delete from %%BILLING_DETAILS
   {= where
     {& %ID = :id(notnull) }
   }
 ;
 
-SELECT_BANK_ACCOUNT(QRY,final=,inx=BankAccount,outx=BankAccount,col=billingDetails=b,col=subscriber=s)=
+SELECT_BANK_ACCOUNT(QRY,final=,inx=BankAccount,outx=BankAccount,tab=billingDetails=b,tab=subscriber=s)=
   select %b.BA_ACCOUNT @baAccount, %b.ID @id(id), %b.SUBSCRIBER @subscriber.id(id), %b.TYPE @type
          {? :subscriber(call=toInit) | , %s.LIBRARY @subscriber.library.id, %s.CONTACT @subscriber.contact.id, %s.NAME @subscriber.name }
   from %%BILLING_DETAILS b
@@ -52,12 +52,12 @@ SELECT_BANK_ACCOUNT(QRY,final=,inx=BankAccount,outx=BankAccount,col=billingDetai
   }
 ;
 
-INSERT_NEW_BOOK(CRUD,final=,inx=NewBook,outx=NewBook,col=book)=
+INSERT_NEW_BOOK(CRUD,final=,inx=NewBook,outx=NewBook,tab=book)=
   insert into %%BOOK (%MEDIA_ID, %ISBN)
   {= values (:id, :newIsbn) }
 ;
 
-GET_NEW_BOOK(CRUD,final=,inx=NewBook,outx=NewBook,col=book=b,col=media=m,col=performer=p)=
+GET_NEW_BOOK(CRUD,final=,inx=NewBook,outx=NewBook,tab=book=b,tab=media=m,tab=performer=p)=
   select %b.MEDIA_ID @id(id), %b.ISBN @newIsbn
          , %m.TITLE @title, %m.AUTHOR @author.id(id)
          {? :author(call=toInit) | , %p.PERSON_ID @author.person.id }
@@ -72,7 +72,7 @@ GET_NEW_BOOK(CRUD,final=,inx=NewBook,outx=NewBook,col=book=b,col=media=m,col=per
   }
 ;
 
-UPDATE_NEW_BOOK(CRUD,final=,inx=NewBook,outx=NewBook,col=book)=
+UPDATE_NEW_BOOK(CRUD,final=,inx=NewBook,outx=NewBook,tab=book)=
   update %%BOOK
   {= set
     { ,%ISBN = :newIsbn }
@@ -82,14 +82,14 @@ UPDATE_NEW_BOOK(CRUD,final=,inx=NewBook,outx=NewBook,col=book)=
   }
 ;
 
-DELETE_NEW_BOOK(CRUD,final=,inx=NewBook,outx=NewBook,col=book)=
+DELETE_NEW_BOOK(CRUD,final=,inx=NewBook,outx=NewBook,tab=book)=
   delete from %%BOOK
   {= where
     {& %MEDIA_ID = :id(notnull) }
   }
 ;
 
-SELECT_NEW_BOOK(QRY,final=,inx=NewBook,outx=NewBook,col=book=b,col=media=m,col=performer=p)=
+SELECT_NEW_BOOK(QRY,final=,inx=NewBook,outx=NewBook,tab=book=b,tab=media=m,tab=performer=p)=
   select %b.MEDIA_ID @id(id), %b.ISBN @newIsbn
          , %m.TITLE @title, %m.AUTHOR @author.id(id)
          {? :author(call=toInit) | , %p.PERSON_ID @author.person.id }
@@ -105,12 +105,12 @@ SELECT_NEW_BOOK(QRY,final=,inx=NewBook,outx=NewBook,col=book=b,col=media=m,col=p
   {#1 order by %b.MEDIA_ID }
 ;
 
-INSERT_CONTACT(CRUD,final=,inx=Contact,outx=Contact,col=contact)=
+INSERT_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
   insert into %%CONTACT (%PERSON_ID, %ADDRESS, %PHONE_NUMBER)
   {= values (:id(idsel=SEL1), :person.id, :address, :phoneNumber(type=phone)) }
 ;
 
-GET_CONTACT(CRUD,final=,inx=Contact,outx=Contact,col=contact=c,col=person=p)=
+GET_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
   select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber(type=phone)
          {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.SSN @person.ssn }
   from %%CONTACT c
@@ -123,7 +123,7 @@ GET_CONTACT(CRUD,final=,inx=Contact,outx=Contact,col=contact=c,col=person=p)=
   }
 ;
 
-UPDATE_CONTACT(CRUD,final=,inx=Contact,outx=Contact,col=contact)=
+UPDATE_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
   update %%CONTACT
   {= set
     { ,%PERSON_ID = :person.id(call=isDef) }
@@ -135,14 +135,14 @@ UPDATE_CONTACT(CRUD,final=,inx=Contact,outx=Contact,col=contact)=
   }
 ;
 
-DELETE_CONTACT(CRUD,final=,inx=Contact,outx=Contact,col=contact)=
+DELETE_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
   delete from %%CONTACT
   {= where
     {& %ID = :id(notnull) }
   }
 ;
 
-SELECT_CONTACT(QRY,final=,inx=Contact,outx=Contact,col=contact=c,col=person=p)=
+SELECT_CONTACT(QRY,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
   select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber(type=phone)
          {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.SSN @person.ssn }
   from %%CONTACT c
@@ -159,12 +159,12 @@ SELECT_CONTACT(QRY,final=,inx=Contact,outx=Contact,col=contact=c,col=person=p)=
   {#4 order by %c.ADDRESS }
 ;
 
-INSERT_CREDIT_CARD(CRUD,final=,inx=CreditCard,outx=CreditCard,col=billingDetails)=
+INSERT_CREDIT_CARD(CRUD,final=,inx=CreditCard,outx=CreditCard,tab=billingDetails)=
   insert into %%BILLING_DETAILS (%CC_NUMBER, %SUBSCRIBER, %TYPE)
   {= values (:id(idsel=SEL1), :ccNumber, :subscriber.id, :type) }
 ;
 
-GET_CREDIT_CARD(CRUD,final=,inx=CreditCard,outx=CreditCard,col=billingDetails=b,col=subscriber=s)=
+GET_CREDIT_CARD(CRUD,final=,inx=CreditCard,outx=CreditCard,tab=billingDetails=b,tab=subscriber=s)=
   select %b.CC_NUMBER @ccNumber, %b.ID @id(id), %b.SUBSCRIBER @subscriber.id(id), %b.TYPE @type
          {? :subscriber(call=toInit) | , %s.LIBRARY @subscriber.library.id, %s.CONTACT @subscriber.contact.id, %s.NAME @subscriber.name }
   from %%BILLING_DETAILS b
@@ -177,7 +177,7 @@ GET_CREDIT_CARD(CRUD,final=,inx=CreditCard,outx=CreditCard,col=billingDetails=b,
   }
 ;
 
-UPDATE_CREDIT_CARD(CRUD,final=,inx=CreditCard,outx=CreditCard,col=billingDetails)=
+UPDATE_CREDIT_CARD(CRUD,final=,inx=CreditCard,outx=CreditCard,tab=billingDetails)=
   update %%BILLING_DETAILS
   {= set
     { ,%CC_NUMBER = :ccNumber(call=isDef) }
@@ -189,14 +189,14 @@ UPDATE_CREDIT_CARD(CRUD,final=,inx=CreditCard,outx=CreditCard,col=billingDetails
   }
 ;
 
-DELETE_CREDIT_CARD(CRUD,final=,inx=CreditCard,outx=CreditCard,col=billingDetails)=
+DELETE_CREDIT_CARD(CRUD,final=,inx=CreditCard,outx=CreditCard,tab=billingDetails)=
   delete from %%BILLING_DETAILS
   {= where
     {& %ID = :id(notnull) }
   }
 ;
 
-SELECT_CREDIT_CARD(QRY,final=,inx=CreditCard,outx=CreditCard,col=billingDetails=b,col=subscriber=s)=
+SELECT_CREDIT_CARD(QRY,final=,inx=CreditCard,outx=CreditCard,tab=billingDetails=b,tab=subscriber=s)=
   select %b.CC_NUMBER @ccNumber, %b.ID @id(id), %b.SUBSCRIBER @subscriber.id(id), %b.TYPE @type
          {? :subscriber(call=toInit) | , %s.LIBRARY @subscriber.library.id, %s.CONTACT @subscriber.contact.id, %s.NAME @subscriber.name }
   from %%BILLING_DETAILS b
@@ -209,12 +209,12 @@ SELECT_CREDIT_CARD(QRY,final=,inx=CreditCard,outx=CreditCard,col=billingDetails=
   }
 ;
 
-INSERT_LIBRARY(CRUD,final=,inx=Library,outx=Library,col=library)=
+INSERT_LIBRARY(CRUD,final=,inx=Library,outx=Library,tab=library)=
   insert into %%LIBRARY (%NAME)
   {= values (:id(idsel=SEL1), :name) }
 ;
 
-GET_LIBRARY(CRUD,final=,inx=Library,outx=Library,col=library=l,col=subscriber=s,col=physicalMedia=p)=
+GET_LIBRARY(CRUD,final=,inx=Library,outx=Library,tab=library=l,tab=subscriber=s,tab=physicalMedia=p)=
   select %l.ID @id(id), %l.NAME @name
          {? :subscribers(call=toInit) | , %s.ID @subscribers.id(id), %s.LIBRARY @subscribers.library.id, %s.CONTACT @subscribers.contact.id, %s.NAME @subscribers.name }
          {? :catalog(call=toInit) | , %p.ID @catalog.id(id), %p.LOCATION @catalog.location, %p.MEDIA @catalog.media.id, %p.LIBRARY @catalog.library.id }
@@ -227,7 +227,7 @@ GET_LIBRARY(CRUD,final=,inx=Library,outx=Library,col=library=l,col=subscriber=s,
   }
 ;
 
-UPDATE_LIBRARY(CRUD,final=,inx=Library,outx=Library,col=library)=
+UPDATE_LIBRARY(CRUD,final=,inx=Library,outx=Library,tab=library)=
   update %%LIBRARY
   {= set
     { ,%NAME = :name }
@@ -237,14 +237,14 @@ UPDATE_LIBRARY(CRUD,final=,inx=Library,outx=Library,col=library)=
   }
 ;
 
-DELETE_LIBRARY(CRUD,final=,inx=Library,outx=Library,col=library)=
+DELETE_LIBRARY(CRUD,final=,inx=Library,outx=Library,tab=library)=
   delete from %%LIBRARY
   {= where
     {& %ID = :id(notnull) }
   }
 ;
 
-SELECT_LIBRARY(QRY,final=,inx=Library,outx=Library,col=library=l,col=subscriber=s,col=physicalMedia=p)=
+SELECT_LIBRARY(QRY,final=,inx=Library,outx=Library,tab=library=l,tab=subscriber=s,tab=physicalMedia=p)=
   select %l.ID @id(id), %l.NAME @name
          {? :subscribers(call=toInit) | , %s.ID @subscribers.id(id), %s.LIBRARY @subscribers.library.id, %s.CONTACT @subscribers.contact.id, %s.NAME @subscribers.name }
          {? :catalog(call=toInit) | , %p.ID @catalog.id(id), %p.LOCATION @catalog.location, %p.MEDIA @catalog.media.id, %p.LIBRARY @catalog.library.id }
@@ -258,12 +258,12 @@ SELECT_LIBRARY(QRY,final=,inx=Library,outx=Library,col=library=l,col=subscriber=
   {#1 order by %l.ID }
 ;
 
-INSERT_MEDIA(CRUD,final=,inx=Media,outx=Media,col=media)=
+INSERT_MEDIA(CRUD,final=,inx=Media,outx=Media,tab=media)=
   insert into %%MEDIA (%TITLE, %AUTHOR)
   {= values (:id(idsel=SEL1), :title, :author.id) }
 ;
 
-GET_MEDIA(CRUD,final=,inx=Media,outx=Media,col=media=m,col=performer=p)=
+GET_MEDIA(CRUD,final=,inx=Media,outx=Media,tab=media=m,tab=performer=p)=
   select %m.ID @id(id), %m.TITLE @title, %m.AUTHOR @author.id(id)
          {? :author(call=toInit) | , %p.PERSON_ID @author.person.id }
   from %%MEDIA m
@@ -275,7 +275,7 @@ GET_MEDIA(CRUD,final=,inx=Media,outx=Media,col=media=m,col=performer=p)=
   }
 ;
 
-UPDATE_MEDIA(CRUD,final=,inx=Media,outx=Media,col=media)=
+UPDATE_MEDIA(CRUD,final=,inx=Media,outx=Media,tab=media)=
   update %%MEDIA
   {= set
     { ,%TITLE = :title(call=isDef) }
@@ -286,14 +286,14 @@ UPDATE_MEDIA(CRUD,final=,inx=Media,outx=Media,col=media)=
   }
 ;
 
-DELETE_MEDIA(CRUD,final=,inx=Media,outx=Media,col=media)=
+DELETE_MEDIA(CRUD,final=,inx=Media,outx=Media,tab=media)=
   delete from %%MEDIA
   {= where
     {& %ID = :id(notnull) }
   }
 ;
 
-SELECT_MEDIA(QRY,final=,inx=Media,outx=Media,col=media=m,col=performer=p)=
+SELECT_MEDIA(QRY,final=,inx=Media,outx=Media,tab=media=m,tab=performer=p)=
   select %m.ID @id(id), %m.TITLE @title, %m.AUTHOR @author.id(id)
          {? :author(call=toInit) | , %p.PERSON_ID @author.person.id }
   from %%MEDIA m
@@ -307,12 +307,12 @@ SELECT_MEDIA(QRY,final=,inx=Media,outx=Media,col=media=m,col=performer=p)=
   {#2 order by %m.AUTHOR }
 ;
 
-INSERT_MOVIE(CRUD,final=,inx=Movie,outx=Movie,col=movie)=
+INSERT_MOVIE(CRUD,final=,inx=Movie,outx=Movie,tab=movie)=
   insert into %%MOVIE (%MEDIA_ID, %URLIMDB, %PLAYLENGTH)
   {= values (:id, :urlimdb, :playlength) }
 ;
 
-GET_MOVIE(CRUD,final=,inx=Movie,outx=Movie,col=movie=m,col=media=m1,col=performer=p)=
+GET_MOVIE(CRUD,final=,inx=Movie,outx=Movie,tab=movie=m,tab=media=m1,tab=performer=p)=
   select %m.MEDIA_ID @id(id), %m.URLIMDB @urlimdb, %m.PLAYLENGTH @playlength
          , %m1.TITLE @title, %m1.AUTHOR @author.id(id)
          {? :author(call=toInit) | , %p.PERSON_ID @author.person.id }
@@ -328,7 +328,7 @@ GET_MOVIE(CRUD,final=,inx=Movie,outx=Movie,col=movie=m,col=media=m1,col=performe
   }
 ;
 
-UPDATE_MOVIE(CRUD,final=,inx=Movie,outx=Movie,col=movie)=
+UPDATE_MOVIE(CRUD,final=,inx=Movie,outx=Movie,tab=movie)=
   update %%MOVIE
   {= set
     { ,%URLIMDB = :urlimdb }
@@ -339,14 +339,14 @@ UPDATE_MOVIE(CRUD,final=,inx=Movie,outx=Movie,col=movie)=
   }
 ;
 
-DELETE_MOVIE(CRUD,final=,inx=Movie,outx=Movie,col=movie)=
+DELETE_MOVIE(CRUD,final=,inx=Movie,outx=Movie,tab=movie)=
   delete from %%MOVIE
   {= where
     {& %MEDIA_ID = :id(notnull) }
   }
 ;
 
-SELECT_MOVIE(QRY,final=,inx=Movie,outx=Movie,col=movie=m,col=media=m1,col=performer=p)=
+SELECT_MOVIE(QRY,final=,inx=Movie,outx=Movie,tab=movie=m,tab=media=m1,tab=performer=p)=
   select %m.MEDIA_ID @id(id), %m.URLIMDB @urlimdb, %m.PLAYLENGTH @playlength
          , %m1.TITLE @title, %m1.AUTHOR @author.id(id)
          {? :author(call=toInit) | , %p.PERSON_ID @author.person.id }
@@ -363,12 +363,12 @@ SELECT_MOVIE(QRY,final=,inx=Movie,outx=Movie,col=movie=m,col=media=m1,col=perfor
   {#1 order by %m.MEDIA_ID }
 ;
 
-INSERT_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,col=payment)=
+INSERT_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,tab=payment)=
   insert into %%PAYMENT (%BILLING_DETAILS, %PAID)
   {= values (:id(idsel=SEL1), :billingDetails.id, :paid) }
 ;
 
-GET_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,col=payment=p,col=billingDetails=b)=
+GET_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,tab=payment=p,tab=billingDetails=b)=
   select %p.ID @id(id), %p.PAID @paid
          {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails(discr)type, %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
   from %%PAYMENT p
@@ -380,7 +380,7 @@ GET_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,col=payment=p,col=billingDetail
   }
 ;
 
-UPDATE_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,col=payment)=
+UPDATE_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,tab=payment)=
   update %%PAYMENT
   {= set
     { ,%BILLING_DETAILS = :billingDetails.id }
@@ -391,14 +391,14 @@ UPDATE_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,col=payment)=
   }
 ;
 
-DELETE_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,col=payment)=
+DELETE_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,tab=payment)=
   delete from %%PAYMENT
   {= where
     {& %ID = :id(notnull) }
   }
 ;
 
-SELECT_PAYMENT(QRY,final=,inx=Payment,outx=Payment,col=payment=p,col=billingDetails=b)=
+SELECT_PAYMENT(QRY,final=,inx=Payment,outx=Payment,tab=payment=p,tab=billingDetails=b)=
   select %p.ID @id(id), %p.PAID @paid
          {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails(discr)type, %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
   from %%PAYMENT p
@@ -412,12 +412,12 @@ SELECT_PAYMENT(QRY,final=,inx=Payment,outx=Payment,col=payment=p,col=billingDeta
   {#2 order by %p.BILLING_DETAILS }
 ;
 
-INSERT_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,col=performer)=
+INSERT_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,tab=performer)=
   insert into %%PERFORMER (%PERSON_ID)
   {= values (:id(idsel=SEL1), :person.id) }
 ;
 
-GET_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,col=performer=p,col=person=p1,col=media=m,col=movie=m1,col=book=b)=
+GET_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,tab=performer=p,tab=person=p1,tab=media=m,tab=movie=m1,tab=book=b)=
   select %p.ID @id(id), %p.PERSON_ID @person.id(id)
          {? :person(call=toInit) | , %p1.FIRST_NAME @person.firstName, %p1.LAST_NAME @person.lastName, %p1.DATE_OF_BIRTH @person.dateOfBirth, %p1.SSN @person.ssn }
          {? :work(call=toInit) | , %m1.MEDIA_ID @work(gtype=movie)id(id), %m1.URLIMDB @work.urlimdb, %m1.PLAYLENGTH @work.playlength, %b.MEDIA_ID @work(gtype=book)id(id), %b.ISBN @work.newIsbn, %m.ID @work.id(id), %m.TITLE @work.title, %m.AUTHOR @work.author.id }
@@ -430,7 +430,7 @@ GET_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,col=performer=p,col=perso
   }
 ;
 
-UPDATE_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,col=performer)=
+UPDATE_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,tab=performer)=
   update %%PERFORMER
   {= set
     { ,%PERSON_ID = :person.id }
@@ -440,14 +440,14 @@ UPDATE_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,col=performer)=
   }
 ;
 
-DELETE_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,col=performer)=
+DELETE_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,tab=performer)=
   delete from %%PERFORMER
   {= where
     {& %ID = :id(notnull) }
   }
 ;
 
-SELECT_PERFORMER(QRY,final=,inx=Performer,outx=Performer,col=performer=p,col=person=p1,col=media=m,col=movie=m1,col=book=b)=
+SELECT_PERFORMER(QRY,final=,inx=Performer,outx=Performer,tab=performer=p,tab=person=p1,tab=media=m,tab=movie=m1,tab=book=b)=
   select %p.ID @id(id), %p.PERSON_ID @person.id(id)
          {? :person(call=toInit) | , %p1.FIRST_NAME @person.firstName, %p1.LAST_NAME @person.lastName, %p1.DATE_OF_BIRTH @person.dateOfBirth, %p1.SSN @person.ssn }
          {? :work(call=toInit) | , %m1.MEDIA_ID @work(gtype=movie)id(id), %m1.URLIMDB @work.urlimdb, %m1.PLAYLENGTH @work.playlength, %b.MEDIA_ID @work(gtype=book)id(id), %b.ISBN @work.newIsbn, %m.ID @work.id(id), %m.TITLE @work.title, %m.AUTHOR @work.author.id }
@@ -462,12 +462,12 @@ SELECT_PERFORMER(QRY,final=,inx=Performer,outx=Performer,col=performer=p,col=per
   {#2 order by %p.PERSON_ID }
 ;
 
-INSERT_PERSON(CRUD,final=,inx=Person,outx=Person,col=person)=
+INSERT_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person)=
   insert into %%PERSON (%FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %SSN)
   {= values (:id(idsel=SEL1), :firstName, :lastName, :dateOfBirth, :ssn) }
 ;
 
-GET_PERSON(CRUD,final=,inx=Person,outx=Person,col=person=p,col=personLibrary=p1,col=media=m,col=movie=m1,col=book=b,col=contact=c)=
+GET_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person=p,tab=personLibrary=p1,tab=media=m,tab=movie=m1,tab=book=b,tab=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
          {? :library(call=toInit) | , %m1.MEDIA_ID @library(gtype=movie)id(id), %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library(gtype=book)id(id), %b.ISBN @library.newIsbn, %m.ID @library.id(id), %m.TITLE @library.title, %m.AUTHOR @library.author.id }
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber(type=phone) }
@@ -483,7 +483,7 @@ GET_PERSON(CRUD,final=,inx=Person,outx=Person,col=person=p,col=personLibrary=p1,
   }
 ;
 
-UPDATE_PERSON(CRUD,final=,inx=Person,outx=Person,col=person)=
+UPDATE_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person)=
   update %%PERSON
   {= set
     { ,%FIRST_NAME = :firstName(call=isDef) }
@@ -496,14 +496,14 @@ UPDATE_PERSON(CRUD,final=,inx=Person,outx=Person,col=person)=
   }
 ;
 
-DELETE_PERSON(CRUD,final=,inx=Person,outx=Person,col=person)=
+DELETE_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person)=
   delete from %%PERSON
   {= where
     {& %ID = :id(notnull) }
   }
 ;
 
-SELECT_PERSON(QRY,final=,inx=Person,outx=Person,col=person=p,col=personLibrary=p1,col=media=m,col=movie=m1,col=book=b,col=contact=c)=
+SELECT_PERSON(QRY,final=,inx=Person,outx=Person,tab=person=p,tab=personLibrary=p1,tab=media=m,tab=movie=m1,tab=book=b,tab=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn
          {? :library(call=toInit) | , %m1.MEDIA_ID @library(gtype=movie)id(id), %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library(gtype=book)id(id), %b.ISBN @library.newIsbn, %m.ID @library.id(id), %m.TITLE @library.title, %m.AUTHOR @library.author.id }
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber(type=phone) }
@@ -522,12 +522,12 @@ SELECT_PERSON(QRY,final=,inx=Person,outx=Person,col=person=p,col=personLibrary=p
   {#3 order by %p.LAST_NAME }
 ;
 
-INSERT_PERSON_LIBRARY(CRUD,final=,inx=PersonLibrary,outx=PersonLibrary,col=personLibrary)=
+INSERT_PERSON_LIBRARY(CRUD,final=,inx=PersonLibrary,outx=PersonLibrary,tab=personLibrary)=
   insert into %%PERSON_LIBRARY (%PERSON_ID, %MEDIA_ID)
   {= values (:id(idsel=SEL1), :personId, :mediaId) }
 ;
 
-GET_PERSON_LIBRARY(CRUD,final=,inx=PersonLibrary,outx=PersonLibrary,col=personLibrary)=
+GET_PERSON_LIBRARY(CRUD,final=,inx=PersonLibrary,outx=PersonLibrary,tab=personLibrary)=
   select %ID @id(id), %PERSON_ID @personId, %MEDIA_ID @mediaId
   from %%PERSON_LIBRARY
   {= where
@@ -537,7 +537,7 @@ GET_PERSON_LIBRARY(CRUD,final=,inx=PersonLibrary,outx=PersonLibrary,col=personLi
   }
 ;
 
-UPDATE_PERSON_LIBRARY(CRUD,final=,inx=PersonLibrary,outx=PersonLibrary,col=personLibrary)=
+UPDATE_PERSON_LIBRARY(CRUD,final=,inx=PersonLibrary,outx=PersonLibrary,tab=personLibrary)=
   update %%PERSON_LIBRARY
   {= set
     { ,%PERSON_ID = :personId }
@@ -548,14 +548,14 @@ UPDATE_PERSON_LIBRARY(CRUD,final=,inx=PersonLibrary,outx=PersonLibrary,col=perso
   }
 ;
 
-DELETE_PERSON_LIBRARY(CRUD,final=,inx=PersonLibrary,outx=PersonLibrary,col=personLibrary)=
+DELETE_PERSON_LIBRARY(CRUD,final=,inx=PersonLibrary,outx=PersonLibrary,tab=personLibrary)=
   delete from %%PERSON_LIBRARY
   {= where
     {& %ID = :id(notnull) }
   }
 ;
 
-SELECT_PERSON_LIBRARY(QRY,final=,inx=PersonLibrary,outx=PersonLibrary,col=personLibrary)=
+SELECT_PERSON_LIBRARY(QRY,final=,inx=PersonLibrary,outx=PersonLibrary,tab=personLibrary)=
   select %ID @id(id), %PERSON_ID @personId, %MEDIA_ID @mediaId
   from %%PERSON_LIBRARY
   {= where
@@ -568,12 +568,12 @@ SELECT_PERSON_LIBRARY(QRY,final=,inx=PersonLibrary,outx=PersonLibrary,col=person
   {#3 order by %MEDIA_ID }
 ;
 
-INSERT_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,col=physicalMedia)=
+INSERT_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,tab=physicalMedia)=
   insert into %%PHYSICAL_MEDIA (%LOCATION, %MEDIA, %LIBRARY)
   {= values (:id(idsel=SEL1), :location, :media.id, :library.id) }
 ;
 
-GET_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,col=physicalMedia=p,col=library=l,col=media=m,col=movie=m1,col=book=b)=
+GET_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,tab=physicalMedia=p,tab=library=l,tab=media=m,tab=movie=m1,tab=book=b)=
   select %p.ID @id(id), %p.LOCATION @location, %p.LIBRARY @library.id(id)
          {? :library(call=toInit) | , %l.NAME @library.name }
          {? :media(call=toInit) | , %m1.MEDIA_ID @media(gtype=movie)id(id), %m1.URLIMDB @media.urlimdb, %m1.PLAYLENGTH @media.playlength, %b.MEDIA_ID @media(gtype=book)id(id), %b.ISBN @media.newIsbn, %m.TITLE @media.title, %m.AUTHOR @media.author.id }
@@ -588,7 +588,7 @@ GET_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,col=physical
   }
 ;
 
-UPDATE_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,col=physicalMedia)=
+UPDATE_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,tab=physicalMedia)=
   update %%PHYSICAL_MEDIA
   {= set
     { ,%LOCATION = :location }
@@ -600,14 +600,14 @@ UPDATE_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,col=physi
   }
 ;
 
-DELETE_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,col=physicalMedia)=
+DELETE_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,tab=physicalMedia)=
   delete from %%PHYSICAL_MEDIA
   {= where
     {& %ID = :id(notnull) }
   }
 ;
 
-SELECT_PHYSICAL_MEDIA(QRY,final=,inx=PhysicalMedia,outx=PhysicalMedia,col=physicalMedia=p,col=library=l,col=media=m,col=movie=m1,col=book=b)=
+SELECT_PHYSICAL_MEDIA(QRY,final=,inx=PhysicalMedia,outx=PhysicalMedia,tab=physicalMedia=p,tab=library=l,tab=media=m,tab=movie=m1,tab=book=b)=
   select %p.ID @id(id), %p.LOCATION @location, %p.LIBRARY @library.id(id)
          {? :library(call=toInit) | , %l.NAME @library.name }
          {? :media(call=toInit) | , %m1.MEDIA_ID @media(gtype=movie)id(id), %m1.URLIMDB @media.urlimdb, %m1.PLAYLENGTH @media.playlength, %b.MEDIA_ID @media(gtype=book)id(id), %b.ISBN @media.newIsbn, %m.TITLE @media.title, %m.AUTHOR @media.author.id }
@@ -623,12 +623,12 @@ SELECT_PHYSICAL_MEDIA(QRY,final=,inx=PhysicalMedia,outx=PhysicalMedia,col=physic
   {#1 order by %p.ID }
 ;
 
-INSERT_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,col=subscriber)=
+INSERT_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,tab=subscriber)=
   insert into %%SUBSCRIBER (%LIBRARY, %CONTACT, %NAME)
   {= values (:id(idsel=SEL1), :library.id, :contact.id, :name) }
 ;
 
-GET_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,col=subscriber=s,col=library=l,col=billingDetails=b,col=contact=c)=
+GET_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,tab=subscriber=s,tab=library=l,tab=billingDetails=b,tab=contact=c)=
   select %s.ID @id(id), %s.LIBRARY @library.id(id), %s.CONTACT @contact.id(id), %s.NAME @name
          {? :library(call=toInit) | , %l.NAME @library.name }
          {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails(discr)type, %b.ID @billingDetails.id(id), %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
@@ -645,7 +645,7 @@ GET_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,col=subscriber=s,col=l
   }
 ;
 
-UPDATE_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,col=subscriber)=
+UPDATE_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,tab=subscriber)=
   update %%SUBSCRIBER
   {= set
     { ,%LIBRARY = :library.id(call=isDef) }
@@ -657,14 +657,14 @@ UPDATE_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,col=subscriber)=
   }
 ;
 
-DELETE_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,col=subscriber)=
+DELETE_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,tab=subscriber)=
   delete from %%SUBSCRIBER
   {= where
     {& %ID = :id(notnull) }
   }
 ;
 
-SELECT_SUBSCRIBER(QRY,final=,inx=Subscriber,outx=Subscriber,col=subscriber=s,col=library=l,col=billingDetails=b,col=contact=c)=
+SELECT_SUBSCRIBER(QRY,final=,inx=Subscriber,outx=Subscriber,tab=subscriber=s,tab=library=l,tab=billingDetails=b,tab=contact=c)=
   select %s.ID @id(id), %s.LIBRARY @library.id(id), %s.CONTACT @contact.id(id), %s.NAME @name
          {? :library(call=toInit) | , %l.NAME @library.name }
          {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails(discr)type, %b.ID @billingDetails.id(id), %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
