@@ -18,7 +18,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -79,70 +78,45 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     @Inject
     IQualifiedNameConverter qualifiedNameConverter;
 
-    private static final List<String> ON_OFF = Collections
-            .unmodifiableList(Arrays.asList(new String[] { "ON", "OFF" }));
-    private static final List<String> STATEMEN_TYPE = Collections.unmodifiableList(Arrays.asList(new String[] { "QRY",
-            "CRUD", "CALL" }));
-    private static final List<String> MAPPING_TYPE = Collections
-            .unmodifiableList(Arrays.asList(new String[] { "OUT" }));
-    private static final List<String> OPTION_TYPE = Collections.unmodifiableList(Arrays.asList(new String[] { "OPT",
-            "LOPT", "IOPT", "SOPT", "BOPT" }));
-    private static final List<String> TYPES = Collections.unmodifiableList(Arrays.asList(new String[] { "int",
-            "integer", "long", "byte", "short", "float", "double", "character", "char", "string", "str", "time",
-            "date", "datetime", "timestamp", "stamp", "bool", "boolean", "bigint", "biginteger", "bigdec",
-            "bigdecimal", "bytearr", "bytearray", "bytes", "text", "blob", "clob", "einteger", "eint", "enumstring",
-            "estring", "fromdate", "todate", "h_big_decimal", "h_big_integer", "h_blob", "h_boolean", "h_binary",
-            "h_byte", "h_clob", "h_timestamp", "h_date", "h_double", "h_float", "h_date", "h_character", "h_integer",
-            "h_long", "h_short", "h_string", "h_text", "h_timestamp", "h_time" }));
-    private static final List<String> F_TYPES = Collections.unmodifiableList(Arrays.asList(new String[] { "set",
-            "update", "values", "where" }));
-    private static final List<String> IDENT_VALS = Collections.unmodifiableList(Arrays.asList(new String[] { "any",
-            "null", "notnull", "seq", "seq=", "idsel", "idsel=" }));
-    private static final List<String> COL_VALS = Collections.unmodifiableList(Arrays.asList(new String[] { "id" }));
+    private static final List<String> STATEMENT_TYPE = Arrays.asList(new String[] { "QRY", "CRUD", "CALL" });
+    private static final List<String> MAPPING_TYPE = Arrays.asList(new String[] { "OUT" });
+    private static final List<String> OPTION_TYPE = Arrays
+            .asList(new String[] { "OPT", "LOPT", "IOPT", "SOPT", "BOPT" });
+    private static final List<String> TYPES = Arrays.asList(new String[] { "int", "integer", "long", "byte", "short",
+            "float", "double", "character", "char", "string", "str", "time", "date", "datetime", "timestamp", "stamp",
+            "bool", "boolean", "bigint", "biginteger", "bigdec", "bigdecimal", "bytearr", "bytearray", "bytes", "text",
+            "blob", "clob", "einteger", "eint", "enumstring", "estring", "fromdate", "todate", "h_big_decimal",
+            "h_big_integer", "h_blob", "h_boolean", "h_binary", "h_byte", "h_clob", "h_timestamp", "h_date",
+            "h_double", "h_float", "h_date", "h_character", "h_integer", "h_long", "h_short", "h_string", "h_text",
+            "h_timestamp", "h_time" });
+    private static final List<String> MODIFIERS = Arrays.asList(new String[] { "any", "null", "notnull", "seq", "seq=",
+            "idsel", "idsel=", "id", "isDef=", "isCall=", "dtype=", "gtype=", "discr" });
+    private static final List<String> F_TYPES = Arrays.asList(new String[] { "set", "update", "values", "where" });
 
     @Override
     public void completeMetaStatement_Type(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        addProposalList(STATEMEN_TYPE, "STATEMEN_TYPE", context, acceptor);
+        addProposalList(STATEMENT_TYPE, "STATEMENT_TYPE", context, acceptor, null);
     }
 
     @Override
     public void completeMappingRule_Type(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        addProposalList(MAPPING_TYPE, "MAPPING_TYPE", context, acceptor);
+        addProposalList(MAPPING_TYPE, "MAPPING_TYPE", context, acceptor, null);
     }
 
     @Override
     public void completeOptionalFeature_Type(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        addProposalList(OPTION_TYPE, "OPTION_TYPE", context, acceptor);
+        addProposalList(OPTION_TYPE, "OPTION_TYPE", context, acceptor, null);
     }
 
-    //
-    // @Override
-    // public void completeColumn_Type(EObject model, Assignment assignment, ContentAssistContext context,
-    // ICompletionProposalAcceptor acceptor) {
-    // addProposalList(TYPES, "IDENT", context, acceptor);
-    // }
-    //
-    // @Override
-    // public void completeConstant_Type(EObject model, Assignment assignment, ContentAssistContext context,
-    // ICompletionProposalAcceptor acceptor) {
-    // addProposalList(TYPES, "IDENT", context, acceptor);
-    // }
-    //
-    // @Override
-    // public void completeIdentifier_Type(EObject model, Assignment assignment, ContentAssistContext context,
-    // ICompletionProposalAcceptor acceptor) {
-    // addProposalList(TYPES, "IDENT", context, acceptor);
-    // }
-
     protected void addProposalList(List<String> values, String lexerRule, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
+            ICompletionProposalAcceptor acceptor, String prefix) {
         if (values == null)
             return;
         for (String value : values) {
-            String proposal = getValueConverter().toString(value, lexerRule);
+            String proposal = getValueConverter().toString((prefix != null) ? prefix + value : value, lexerRule);
             ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
             acceptor.accept(completionProposal);
         }
@@ -151,33 +125,8 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     @Override
     public void completeMetaSql_Ftype(EObject model, Assignment assignment, ContentAssistContext context,
             ICompletionProposalAcceptor acceptor) {
-        addProposalList(F_TYPES, "IDENT", context, acceptor);
+        addProposalList(F_TYPES, "IDENT", context, acceptor, null);
     }
-
-    //
-    // @Override
-    // public void completeConstant_Vals(EObject model, Assignment assignment, ContentAssistContext context,
-    // ICompletionProposalAcceptor acceptor) {
-    // addProposalList(IDENT_VALS, "IDENT", context, acceptor);
-    // }
-    //
-    // @Override
-    // public void completeIdentifier_Vals(EObject model, Assignment assignment, ContentAssistContext context,
-    // ICompletionProposalAcceptor acceptor) {
-    // addProposalList(IDENT_VALS, "IDENT", context, acceptor);
-    // }
-    //
-    // @Override
-    // public void completeColumn_Vals(EObject model, Assignment assignment, ContentAssistContext context,
-    // ICompletionProposalAcceptor acceptor) {
-    // addProposalList(COL_VALS, "IDENT", context, acceptor);
-    // }
-
-    // @Override
-    // public void completeMappingColumn_Vals(EObject model, Assignment assignment, ContentAssistContext context,
-    // ICompletionProposalAcceptor acceptor) {
-    // addProposalList(COL_VALS, "IDENT", context, acceptor);
-    // }
 
     @Override
     public void completeExtendedColumnName_Name(EObject model, Assignment assignment, ContentAssistContext context,
@@ -284,34 +233,6 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             }
             return true;
         }
-    }
-
-    @Override
-    public void completeMappingItem_Attr(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        System.out.println("11111 " + model);
-        super.completeMappingItem_Attr(model, assignment, context, acceptor);
-    }
-
-    @Override
-    public void completeMappingColumn_Items(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        System.out.println("22222 " + model);
-        super.completeMappingColumn_Items(model, assignment, context, acceptor);
-    }
-
-    @Override
-    public void completeExtendedMappingItem_Attr(EObject model, Assignment assignment, ContentAssistContext context,
-            ICompletionProposalAcceptor acceptor) {
-        System.out.println("33333 " + model);
-        super.completeExtendedMappingItem_Attr(model, assignment, context, acceptor);
-    }
-
-    @Override
-    public void completeExtendedMappingItem_Modifiers(EObject model, Assignment assignment,
-            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-        System.out.println("44444 " + model);
-        super.completeExtendedMappingItem_Modifiers(model, assignment, context, acceptor);
     }
 
     @Override
@@ -954,7 +875,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             super.completeInheritanceAssignement_DbColumns(model, assignment, context, acceptor);
             return;
         }
-        InheritanceAssignement prop = (InheritanceAssignement) model;
+        // InheritanceAssignement prop = (InheritanceAssignement) model;
         PojogenProperty pojogenProperty = EcoreUtil2.getContainerOfType(model, PojogenProperty.class);
         if (pojogenProperty.getDbTable() != null) {
             for (String column : dbResolver.getColumns(model, pojogenProperty.getDbTable())) {
@@ -975,7 +896,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             super.completePojogenProperty_Methods(model, assignment, context, acceptor);
             return;
         }
-        PojogenProperty prop = (PojogenProperty) model;
+        // PojogenProperty prop = (PojogenProperty) model;
         for (String method : methods) {
             String proposal = getValueConverter().toString(method, "IDENT");
             ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
@@ -1113,6 +1034,18 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             acceptor.accept(completionProposal2);
         }
         // super.complete_MappingRuleModifier(model, ruleCall, context, acceptor);
+    }
+
+    public void complete_Modifier(EObject model, RuleCall ruleCall, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        addProposalList(TYPES, "IDENT", context, acceptor, "type=");
+        addProposalList(MODIFIERS, "IDENT", context, acceptor, null);
+    }
+
+    public void complete_MappingItemModifier(EObject model, RuleCall ruleCall, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        addProposalList(TYPES, "IDENT", context, acceptor, "type=");
+        addProposalList(MODIFIERS, "IDENT", context, acceptor, null);
     }
 
     protected Set<PojoEntity> listEntities(ResourceSet resourceSet, IScope scope) {
