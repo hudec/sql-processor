@@ -1657,7 +1657,7 @@ INSERT_PERSON_CALL_RESULT_SET(OUT)=
 
 
 INSERT_PERSON_CALL_RESULT_SET_2(CALL,POSTGRESQL)=
-  :<1(other) = call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+  :<1(type=other) = call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
 INSERT_PERSON_CALL_RESULT_SET_2(OUT,POSTGRESQL)=
   id birthDate lastUpdated lastUpdatedBy
@@ -1666,7 +1666,7 @@ INSERT_PERSON_CALL_RESULT_SET_2(OUT,POSTGRESQL)=
 ;
 
 INSERT_PERSON_CALL_RESULT_SET(CALL,POSTGRESQL)=
-  :<1(other) = call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+  :<1(type=other) = call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
 INSERT_PERSON_CALL_RESULT_SET(OUT,POSTGRESQL)=
   id$id(type=Long) birthDate$birthDate(type=date) lastUpdated$lastUpdated(type=stamp) lastUpdatedBy$lastUpdatedBy(type=string)
@@ -1676,7 +1676,7 @@ INSERT_PERSON_CALL_RESULT_SET(OUT,POSTGRESQL)=
 
 
 INSERT_PERSON_CALL_RESULT_SET_2(CALL,ORACLE)=
-  :<1(oracle_cursor) = call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+  :<1(type=oracle_cursor) = call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
 INSERT_PERSON_CALL_RESULT_SET_2(OUT,ORACLE)=
   id birthDate lastUpdated lastUpdatedBy
@@ -1685,7 +1685,7 @@ INSERT_PERSON_CALL_RESULT_SET_2(OUT,ORACLE)=
 ;
 
 INSERT_PERSON_CALL_RESULT_SET(CALL,ORACLE)=
-  :<1(oracle_cursor) = call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+  :<1(type=oracle_cursor) = call new_person_ret(:birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
 INSERT_PERSON_CALL_RESULT_SET(OUT,ORACLE)= 
   id$id(type=Long) birthDate$birthDate(type=date) lastUpdated$lastUpdated(type=stamp) lastUpdatedBy$lastUpdatedBy(type=string)
@@ -1695,7 +1695,7 @@ INSERT_PERSON_CALL_RESULT_SET(OUT,ORACLE)=
 
 
 INSERT_PERSON_CALL_RESULT_SET_PROC(CALL,ORACLE)=
-  call new_person_ret_proc(:<1(oracle_cursor), :birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
+  call new_person_ret_proc(:<1(type=oracle_cursor), :birthDate(type=date), :ssn.number, :ssn.country, :name.first, :name.last, :sex)
 ;
 INSERT_PERSON_CALL_RESULT_SET_PROC(OUT,ORACLE)=
   id birthDate lastUpdated lastUpdatedBy
