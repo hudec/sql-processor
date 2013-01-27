@@ -85,10 +85,11 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     private static final List<String> TYPES = Arrays.asList(new String[] { "int", "integer", "long", "byte", "short",
             "float", "double", "character", "char", "string", "str", "time", "date", "datetime", "timestamp", "stamp",
             "bool", "boolean", "bigint", "biginteger", "bigdec", "bigdecimal", "bytearr", "bytearray", "bytes", "text",
-            "blob", "clob", "einteger", "eint", "enumstring", "estring", "fromdate", "todate", "h_big_decimal",
-            "h_big_integer", "h_blob", "h_boolean", "h_binary", "h_byte", "h_clob", "h_timestamp", "h_date",
-            "h_double", "h_float", "h_date", "h_character", "h_integer", "h_long", "h_short", "h_string", "h_text",
-            "h_timestamp", "h_time" });
+            "blob", "clob", "einteger", "eint", "enumstring", "estring", "fromdate", "todate", "cursor", "other" });
+    // , "h_big_decimal",
+    // "h_big_integer", "h_blob", "h_boolean", "h_binary", "h_byte", "h_clob", "h_timestamp", "h_date",
+    // "h_double", "h_float", "h_date", "h_character", "h_integer", "h_long", "h_short", "h_string", "h_text",
+    // "h_timestamp", "h_time" });
     private static final List<String> MODIFIERS = Arrays.asList(new String[] { "any", "null", "notnull", "seq", "seq=",
             "idsel", "idsel=", "id", "isDef=", "isCall=", "dtype=", "gtype=", "discr" });
     private static final List<String> F_TYPES = Arrays.asList(new String[] { "set", "update", "values", "where" });

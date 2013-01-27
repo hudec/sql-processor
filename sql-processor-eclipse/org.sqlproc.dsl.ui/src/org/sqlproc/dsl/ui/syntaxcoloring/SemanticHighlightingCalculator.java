@@ -263,6 +263,7 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
             EList<String> modifiers, IHighlightedPositionAcceptor acceptor) {
         Iterator<INode> iterator = new NodeTreeIterator(node);
         boolean afterName = false;
+        boolean inParenthesis = false;
         while (iterator.hasNext()) {
             INode inode = iterator.next();
             if (!afterName) {
@@ -270,30 +271,17 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                     acceptor.addPosition(inode.getOffset(), inode.getLength(), defaultColor);
                     afterName = true;
                 }
-            } else {
+            } else if (!inParenthesis && inode.getText().equals("(")) {
+                inParenthesis = true;
+            } else if (inParenthesis && inode.getText().equals(")")) {
+                inParenthesis = false;
+            } else if (inParenthesis) {
                 if (modifiers != null && !modifiers.isEmpty() && modifiers.contains(inode.getText())) {
                     acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.MODIFIER);
                 }
+            } else {
+                acceptor.addPosition(inode.getOffset(), inode.getLength(), defaultColor);
             }
         }
     }
-    //
-    // private void provideHighlightingForFragment(String defaultColor, ICompositeNode node, MappingColumn column,
-    // EList<String> modifiers, IHighlightedPositionAcceptor acceptor) {
-    // Iterator<INode> iterator = new NodeTreeIterator(node);
-    // boolean afterName = false;
-    // while (iterator.hasNext()) {
-    // INode inode = iterator.next();
-    // if (!afterName) {
-    // if (column != null && column.getName().equals(inode.getText())) {
-    // acceptor.addPosition(inode.getOffset(), inode.getLength(), defaultColor);
-    // afterName = true;
-    // }
-    // } else {
-    // if (modifiers != null && !modifiers.isEmpty() && modifiers.contains(inode.getText())) {
-    // acceptor.addPosition(inode.getOffset(), inode.getLength(), HighlightingConfiguration.MODIFIER);
-    // }
-    // }
-    // }
-    // }
 }
