@@ -19,20 +19,20 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         SqlSequencePlugin, SqlIdentityPlugin {
 
     /**
-     * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
+     * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
      */
     public static final String SUPPVAL_NOTNULL = "notnull";
     /**
-     * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
+     * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
      */
     public static final String SUPPVAL_ANY = "any";
     /**
-     * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
+     * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
      */
     public static final String SUPPVAL_NULL = "null";
     /**
-     * The supplement value used to detect the method call invoked on the parent object. For the usage please see the
-     * Wiki Tutorials.
+     * The modifier used to detect the method call invoked on the parent object. For the usage please see the Wiki
+     * Tutorials.
      */
     public static final String SUPPVAL_CALL = "call";
 

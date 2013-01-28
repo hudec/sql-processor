@@ -37,8 +37,7 @@ public interface IsEmptyPlugin {
      * @param sqlMetaType
      *            the internal type (= META type) devoted for the special processing of the input values
      * @param sqlMetaTypeExt
-     *            the META type extension (=the internal type supplement value) devoted to extend the special processing
-     *            of the input values
+     *            the META type extension (=the modifier) devoted to extend the special processing of the input values
      * @param inSqlSetOrInsert
      *            an indicator the input value is evaluated in the CRUD statement (INSERT or SET)
      * @param values

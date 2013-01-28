@@ -10,7 +10,8 @@
  * 
  * // for the case it runs on the top of the JDBC stack
  * Connection connection = DriverManager.getConnection(&quot;jdbc:hsqldb:mem:sqlproc&quot;, &quot;sa&quot;, &quot;&quot;);
- * SqlSession session = new JdbcSimpleSession(connection);
+ * SqlSessionFactory sessionFactory = new JdbcSessionFactory(connection);
+ * SqlSession session = sessionFactory.getSqlSession();
  * 
  * List&lt;Person&gt; list = sqlEngine.query(session, Person.class, null, SqlQueryEngine.ASC_ORDER);
  * </pre>
@@ -21,3 +22,4 @@
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 package org.sqlproc.engine.jdbc;
+

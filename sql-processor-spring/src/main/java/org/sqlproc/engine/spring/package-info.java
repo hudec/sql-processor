@@ -10,8 +10,8 @@
  * 
  * // for the case it runs on the top of the Spring stack
  * ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
- * JdbcTemplate jdbcTemplate = context.getBean(&quot;jdbcTemplate&quot;, JdbcTemplate.class);
- * SqlSession session = new SpringSimpleSession(jdbcTemplate);
+ * SqlSessionFactory sessionFactory = context.getBean("sessionFactory", SqlSessionFactory.class);
+ * SqlSession session = sessionFactory.getSqlSession();
  * 
  * List&lt;Person&gt; list = sqlEngine.query(session, Person.class, null, SqlQueryEngine.ASC_ORDER);
  * </pre>
@@ -22,4 +22,5 @@
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 package org.sqlproc.engine.spring;
+
 

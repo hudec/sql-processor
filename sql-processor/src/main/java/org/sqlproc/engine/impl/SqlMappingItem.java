@@ -225,7 +225,7 @@ class SqlMappingItem implements SqlMetaElement {
     }
 
     /**
-     * Sets the supplement values. They are used to identify an identity column or the partial attribute type.
+     * Sets the modifiers. They are used to identify an identity column or the partial attribute type.
      * 
      * @param value
      *            the value for a special treatment, might be an identifier of value2
@@ -237,10 +237,10 @@ class SqlMappingItem implements SqlMetaElement {
     }
 
     /**
-     * Sets the supplement values. They are used to identify an identity column or the partial attribute type.
+     * Sets the modifiers. They are used to identify an identity column or the partial attribute type.
      * 
      * @param name
-     *            the partial name in the case this supplement value is related to it
+     *            the partial name in the case this modifier is related to it
      * @param value
      *            the value for a special treatment, might be an identifier of value2
      * @param value2

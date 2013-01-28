@@ -10,8 +10,8 @@
  * 
  * // for the case it runs on the top of the Hibernate stack
  * Configuration configuration = new Configuration().configure(&quot;hibernate.cfg.xml&quot;);
- * SessionFactory sessionFactory = configuration.buildSessionFactory();
- * SqlSession session = HibernateSession.generateProxy(sessionFactory.openSession());
+ * SqlSessionFactory sessionFactory = new HibernateSessionFactory(configuration.buildSessionFactory());
+ * SqlSession session = sessionFactory.getSqlSession();
  * 
  * List&lt;Person&gt; list = sqlEngine.query(session, Person.class, null, SqlQueryEngine.ASC_ORDER);
  * </pre>

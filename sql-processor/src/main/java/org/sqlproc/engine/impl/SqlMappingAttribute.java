@@ -2,8 +2,7 @@ package org.sqlproc.engine.impl;
 
 /**
  * The mapping rule sub-element for one output attribute. It's related to a partial attribute name in the sequence of
- * the attribute names. It can also encompass the supplement values to identify an identity or the partial attribute
- * META type.
+ * the attribute names. It can also encompass the modifiers to identify an identity or the partial attribute META type.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
@@ -39,7 +38,7 @@ class SqlMappingAttribute {
     }
 
     /**
-     * Sets the supplement values. They are used to identify an identity column or the partial attribute type.
+     * Sets the modifiers. They are used to identify an identity column or the partial attribute type.
      * 
      * @param value
      *            the value for a special treatment, might be an identifier of value2
