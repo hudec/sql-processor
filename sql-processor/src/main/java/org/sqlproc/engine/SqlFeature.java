@@ -15,7 +15,7 @@ package org.sqlproc.engine;
  * <pre>
  * LIKE_STRING(OPT)=like;
  * WILDCARD_CHARACTER(OPT)=%;
- * SURROUND_QUERY_LIKE(BOPT)=true;
+ * SURROUND_QUERY_LIKE_FULL(BOPT)=true;
  * SURROUND_QUERY_MIN_LEN(IOPT)=2;
  * 
  * LIKE_PEOPLE(QRY)=
@@ -57,6 +57,8 @@ package org.sqlproc.engine;
  * invocation
  * 
  * <pre>
+ * Person person = new Person();
+ * person.setName(&quot;jan&quot;);
  * List&lt;Person&gt; list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(2));
  * </pre>
  * 
@@ -66,7 +68,7 @@ package org.sqlproc.engine;
  * select p.ID id, p.NAME name from PERSON p where UPPER(name) like ? order by NAME DESC
  * </pre>
  * 
- * In the result list there are all table rows with name, which contains the text fragment <code>an</code>.
+ * In the result list there are all table rows with name, which contains the text fragment <code>jan</code>.
  * 
  * <p>
  * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.

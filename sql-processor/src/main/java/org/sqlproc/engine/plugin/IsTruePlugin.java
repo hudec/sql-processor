@@ -44,8 +44,8 @@ public interface IsTruePlugin {
      *            the parent of the input value
      * @param sqlMetaType
      *            the internal type (= META type) devoted for the special processing of the input values
-     * @param sqlMetaTypeExt
-     *            the META type extension (=the modifier) devoted to extend the special processing of the input values
+     * @param inOutModifier
+     *            the input/output value modifier devoted to extend the processing of the input/output values
      * @param values
      *            values for a special identifier handling, for example a sequence for an identity
      * @param features
@@ -53,5 +53,5 @@ public interface IsTruePlugin {
      * @return the boolean value of the logical expression
      */
     public boolean isTrue(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String sqlMetaTypeExt, Map<String, String> values, Map<String, Object> features);
+            String inOutModifier, Map<String, String> values, Map<String, Object> features);
 }

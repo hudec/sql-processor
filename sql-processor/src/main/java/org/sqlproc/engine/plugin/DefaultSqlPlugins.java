@@ -21,27 +21,27 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     /**
      * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
      */
-    public static final String SUPPVAL_NOTNULL = "notnull";
+    public static final String MODIFIER_NOTNULL = "notnull";
     /**
      * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
      */
-    public static final String SUPPVAL_ANY = "any";
+    public static final String MODIFIER_ANY = "any";
     /**
      * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
      */
-    public static final String SUPPVAL_NULL = "null";
+    public static final String MODIFIER_NULL = "null";
     /**
      * The modifier used to detect the method call invoked on the parent object. For the usage please see the Wiki
      * Tutorials.
      */
-    public static final String SUPPVAL_CALL = "call";
+    public static final String MODIFIER_CALL = "call";
 
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean isNotEmpty(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String sqlMetaTypeExt, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
+            String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
             throws IllegalArgumentException {
 
         Boolean delegatedResult = callMethod(attributeName, parentObj, values);
@@ -49,11 +49,11 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             return delegatedResult;
         }
 
-        String value = (sqlMetaTypeExt != null) ? sqlMetaTypeExt.toLowerCase() : null;
+        String value = (inOutModifier != null) ? inOutModifier.toLowerCase() : null;
 
-        if (SUPPVAL_NOTNULL.equalsIgnoreCase(value)) {
+        if (MODIFIER_NOTNULL.equalsIgnoreCase(value)) {
             if (obj == null)
-                throw new IllegalArgumentException(SUPPVAL_NOTNULL);
+                throw new IllegalArgumentException(MODIFIER_NOTNULL);
         }
 
         if (inSqlSetOrInsert) {
@@ -88,9 +88,9 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             }
         }
 
-        if (SUPPVAL_ANY.equalsIgnoreCase(value)) {
+        if (MODIFIER_ANY.equalsIgnoreCase(value)) {
             return true;
-        } else if (SUPPVAL_NULL.equalsIgnoreCase(value)) {
+        } else if (MODIFIER_NULL.equalsIgnoreCase(value)) {
             if (obj == null)
                 return true;
             else
@@ -113,14 +113,14 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      */
     @Override
     public boolean isTrue(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String sqlMetaTypeExt, Map<String, String> values, Map<String, Object> features) {
+            String inOutModifier, Map<String, String> values, Map<String, Object> features) {
 
         Boolean delegatedResult = callMethod(attributeName, parentObj, values);
         if (delegatedResult != null) {
             return delegatedResult;
         }
 
-        if (sqlMetaTypeExt == null) {
+        if (inOutModifier == null) {
             if (obj != null) {
                 if (obj instanceof Boolean) {
                     return ((Boolean) obj).booleanValue();
@@ -138,26 +138,26 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             return false;
         } else {
             if (obj == null) {
-                if (sqlMetaTypeExt.toLowerCase().equalsIgnoreCase(SUPPVAL_NULL))
+                if (inOutModifier.toLowerCase().equalsIgnoreCase(MODIFIER_NULL))
                     return true;
                 else
                     return false;
             } else {
                 if (obj.getClass().isEnum()) {
-                    if (obj.toString().equals(sqlMetaTypeExt)) {
+                    if (obj.toString().equals(inOutModifier)) {
                         return true;
                     } else if (sqlMetaType == SqlProcessContext.getTypeFactory().getEnumStringType()) {
-                        return sqlMetaTypeExt.equals(SqlUtils.getEnumToValue(obj));
+                        return inOutModifier.equals(SqlUtils.getEnumToValue(obj));
                     } else if (sqlMetaType == SqlProcessContext.getTypeFactory().getEnumIntegerType()) {
-                        return sqlMetaTypeExt.equals(SqlUtils.getEnumToValue(obj).toString());
+                        return inOutModifier.equals(SqlUtils.getEnumToValue(obj).toString());
                     } else {
                         Object enumVal = SqlUtils.getEnumToValue(obj);
-                        if (enumVal.toString().equals(sqlMetaTypeExt))
+                        if (enumVal.toString().equals(inOutModifier))
                             return true;
                         return false;
                     }
                 } else {
-                    if (obj.toString().equals(sqlMetaTypeExt))
+                    if (obj.toString().equals(inOutModifier))
                         return true;
                     else
                         return false;
@@ -216,7 +216,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     private Boolean callMethod(String attributeName, Object parentObj, Map<String, String> values) {
         if (attributeName == null || parentObj == null || values == null)
             return null;
-        String methodName = values.get(SUPPVAL_CALL);
+        String methodName = values.get(MODIFIER_CALL);
         if (methodName == null)
             return null;
         Object result = null;

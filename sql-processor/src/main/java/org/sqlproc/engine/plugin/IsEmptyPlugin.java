@@ -36,8 +36,8 @@ public interface IsEmptyPlugin {
      *            the parent of the input value
      * @param sqlMetaType
      *            the internal type (= META type) devoted for the special processing of the input values
-     * @param sqlMetaTypeExt
-     *            the META type extension (=the modifier) devoted to extend the special processing of the input values
+     * @param inOutModifier
+     *            the input/output value modifier devoted to extend the processing of the input/output values
      * @param inSqlSetOrInsert
      *            an indicator the input value is evaluated in the CRUD statement (INSERT or SET)
      * @param values
@@ -47,6 +47,6 @@ public interface IsEmptyPlugin {
      * @return the non-emptiness of the input value
      */
     public boolean isNotEmpty(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String sqlMetaTypeExt, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
+            String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
             throws IllegalArgumentException;
 }
