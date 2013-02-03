@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: SQL Processor DSL Grammar
 Bundle-Vendor: SQL Processor Team
-Bundle-Version: 1.3.0
+Bundle-Version: 1.3.1.qualifier
 Bundle-SymbolicName: org.sqlproc.dsl; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;visibility:=reexport,
