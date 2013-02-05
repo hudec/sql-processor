@@ -729,18 +729,26 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWSTerminalRuleCall_8_1 = (RuleCall)cGroup_8.eContents().get(1);
 		private final Assignment cDbExecuteAfterAssignment_8_2 = (Assignment)cGroup_8.eContents().get(2);
 		private final RuleCall cDbExecuteAfterPropertyValueParserRuleCall_8_2_0 = (RuleCall)cDbExecuteAfterAssignment_8_2.eContents().get(0);
+		private final Group cGroup_9 = (Group)cAlternatives.eContents().get(9);
+		private final Assignment cNameAssignment_9_0 = (Assignment)cGroup_9.eContents().get(0);
+		private final Keyword cNameIndexTypesKeyword_9_0_0 = (Keyword)cNameAssignment_9_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_9_1 = (RuleCall)cGroup_9.eContents().get(1);
+		private final Assignment cDbIndexTypesAssignment_9_2 = (Assignment)cGroup_9.eContents().get(2);
+		private final RuleCall cDbIndexTypesPropertyValueParserRuleCall_9_2_0 = (RuleCall)cDbIndexTypesAssignment_9_2.eContents().get(0);
 		
 		//DatabaseProperty:
 		//	name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 		//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 		//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
-		//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue;
+		//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
+		//	dbIndexTypes=PropertyValue;
 		public ParserRule getRule() { return rule; }
 
 		//name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 		//dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 		//dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
-		//dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue
+		//dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
+		//dbIndexTypes=PropertyValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="is-online"
@@ -880,6 +888,24 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//PropertyValue
 		public RuleCall getDbExecuteAfterPropertyValueParserRuleCall_8_2_0() { return cDbExecuteAfterPropertyValueParserRuleCall_8_2_0; }
+
+		//name="index-types" WS+ dbIndexTypes=PropertyValue
+		public Group getGroup_9() { return cGroup_9; }
+
+		//name="index-types"
+		public Assignment getNameAssignment_9_0() { return cNameAssignment_9_0; }
+
+		//"index-types"
+		public Keyword getNameIndexTypesKeyword_9_0_0() { return cNameIndexTypesKeyword_9_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_9_1() { return cWSTerminalRuleCall_9_1; }
+
+		//dbIndexTypes=PropertyValue
+		public Assignment getDbIndexTypesAssignment_9_2() { return cDbIndexTypesAssignment_9_2; }
+
+		//PropertyValue
+		public RuleCall getDbIndexTypesPropertyValueParserRuleCall_9_2_0() { return cDbIndexTypesPropertyValueParserRuleCall_9_2_0; }
 	}
 
 	public class PojogenPropertyElements extends AbstractParserRuleElementFinder {
@@ -6880,7 +6906,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 	//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 	//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
-	//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue;
+	//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
+	//	dbIndexTypes=PropertyValue;
 	public DatabasePropertyElements getDatabasePropertyAccess() {
 		return (pDatabaseProperty != null) ? pDatabaseProperty : (pDatabaseProperty = new DatabasePropertyElements());
 	}

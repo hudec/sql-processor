@@ -27,6 +27,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbDriver <em>Db Driver</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbExecuteBefore <em>Db Execute Before</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbExecuteAfter <em>Db Execute After</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbIndexTypes <em>Db Index Types</em>}</li>
  * </ul>
  * </p>
  *
@@ -193,6 +194,26 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected String dbExecuteAfter = DB_EXECUTE_AFTER_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDbIndexTypes() <em>Db Index Types</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbIndexTypes()
+   * @generated
+   * @ordered
+   */
+  protected static final String DB_INDEX_TYPES_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDbIndexTypes() <em>Db Index Types</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbIndexTypes()
+   * @generated
+   * @ordered
+   */
+  protected String dbIndexTypes = DB_INDEX_TYPES_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -404,6 +425,29 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDbIndexTypes()
+  {
+    return dbIndexTypes;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbIndexTypes(String newDbIndexTypes)
+  {
+    String oldDbIndexTypes = dbIndexTypes;
+    dbIndexTypes = newDbIndexTypes;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_INDEX_TYPES, oldDbIndexTypes, dbIndexTypes));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -425,6 +469,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return getDbExecuteBefore();
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_AFTER:
         return getDbExecuteAfter();
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_INDEX_TYPES:
+        return getDbIndexTypes();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -462,6 +508,9 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_AFTER:
         setDbExecuteAfter((String)newValue);
+        return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_INDEX_TYPES:
+        setDbIndexTypes((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -501,6 +550,9 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_AFTER:
         setDbExecuteAfter(DB_EXECUTE_AFTER_EDEFAULT);
         return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_INDEX_TYPES:
+        setDbIndexTypes(DB_INDEX_TYPES_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -531,6 +583,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return DB_EXECUTE_BEFORE_EDEFAULT == null ? dbExecuteBefore != null : !DB_EXECUTE_BEFORE_EDEFAULT.equals(dbExecuteBefore);
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_AFTER:
         return DB_EXECUTE_AFTER_EDEFAULT == null ? dbExecuteAfter != null : !DB_EXECUTE_AFTER_EDEFAULT.equals(dbExecuteAfter);
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_INDEX_TYPES:
+        return DB_INDEX_TYPES_EDEFAULT == null ? dbIndexTypes != null : !DB_INDEX_TYPES_EDEFAULT.equals(dbIndexTypes);
     }
     return super.eIsSet(featureID);
   }
@@ -562,6 +616,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
     result.append(dbExecuteBefore);
     result.append(", dbExecuteAfter: ");
     result.append(dbExecuteAfter);
+    result.append(", dbIndexTypes: ");
+    result.append(dbIndexTypes);
     result.append(')');
     return result.toString();
   }

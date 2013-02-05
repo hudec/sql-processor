@@ -1153,6 +1153,16 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getDatabaseProperty_DbIndexTypes()
+  {
+    return (EAttribute)databasePropertyEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPojogenProperty()
   {
     return pojogenPropertyEClass;
@@ -3288,6 +3298,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEAttribute(databasePropertyEClass, DATABASE_PROPERTY__DB_DRIVER);
     createEAttribute(databasePropertyEClass, DATABASE_PROPERTY__DB_EXECUTE_BEFORE);
     createEAttribute(databasePropertyEClass, DATABASE_PROPERTY__DB_EXECUTE_AFTER);
+    createEAttribute(databasePropertyEClass, DATABASE_PROPERTY__DB_INDEX_TYPES);
 
     pojogenPropertyEClass = createEClass(POJOGEN_PROPERTY);
     createEAttribute(pojogenPropertyEClass, POJOGEN_PROPERTY__NAME);
@@ -3652,6 +3663,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEAttribute(getDatabaseProperty_DbDriver(), ecorePackage.getEString(), "dbDriver", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDatabaseProperty_DbExecuteBefore(), ecorePackage.getEString(), "dbExecuteBefore", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDatabaseProperty_DbExecuteAfter(), ecorePackage.getEString(), "dbExecuteAfter", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDatabaseProperty_DbIndexTypes(), ecorePackage.getEString(), "dbIndexTypes", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pojogenPropertyEClass, PojogenProperty.class, "PojogenProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPojogenProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, PojogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

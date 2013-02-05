@@ -50,6 +50,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_LOGIN_NPASSWORD = "login-password";
     public static final String DATABASE_ACTIVE_SCHEMA = "active-schema";
     public static final String DATABASE_JDBC_DRIVER = "jdbc-driver";
+    public static final String DATABASE_INDEX_TYPES = "index-types";
     public static final String POJOGEN = "pojogen";
     public static final String POJOGEN_TYPE_SQLTYPES = "types-sqltypes";
     public static final String POJOGEN_TYPE_IN_TABLE = "types-in-table";
@@ -114,6 +115,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public String dbSchema;
         public String dbSqlsBefore;
         public String dbSqlsAfter;
+        public String dbIndexTypes;
         public String dir;
         public Map<String, PojoAttrType> sqlTypes;
         public Map<String, Map<String, PojoAttrType>> tableTypes;
@@ -357,6 +359,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.dbSqlsBefore = getPropertyValue(property.getDbExecuteBefore());
         } else if (DATABASE_EXECUTE_AFTER.equals(property.getName())) {
             modelValues.dbSqlsAfter = getPropertyValue(property.getDbExecuteAfter());
+        } else if (DATABASE_INDEX_TYPES.equals(property.getName())) {
+            modelValues.dbIndexTypes = getPropertyValue(property.getDbIndexTypes());
         }
     }
 

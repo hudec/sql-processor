@@ -700,13 +700,22 @@ public interface ProcessorDslPackage extends EPackage
   int DATABASE_PROPERTY__DB_EXECUTE_AFTER = 7;
 
   /**
+   * The feature id for the '<em><b>Db Index Types</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_PROPERTY__DB_INDEX_TYPES = 8;
+
+  /**
    * The number of structural features of the '<em>Database Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATABASE_PROPERTY_FEATURE_COUNT = 8;
+  int DATABASE_PROPERTY_FEATURE_COUNT = 9;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl <em>Pojogen Property</em>}' class.
@@ -3641,6 +3650,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getDatabaseProperty_DbExecuteAfter();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbIndexTypes <em>Db Index Types</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Index Types</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbIndexTypes()
+   * @see #getDatabaseProperty()
+   * @generated
+   */
+  EAttribute getDatabaseProperty_DbIndexTypes();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojogenProperty <em>Pojogen Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6349,6 +6369,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute DATABASE_PROPERTY__DB_EXECUTE_AFTER = eINSTANCE.getDatabaseProperty_DbExecuteAfter();
+
+    /**
+     * The meta object literal for the '<em><b>Db Index Types</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DATABASE_PROPERTY__DB_INDEX_TYPES = eINSTANCE.getDatabaseProperty_DbIndexTypes();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl <em>Pojogen Property</em>}' class.

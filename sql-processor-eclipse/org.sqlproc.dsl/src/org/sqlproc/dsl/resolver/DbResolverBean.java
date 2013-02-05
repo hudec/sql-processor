@@ -13,10 +13,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
@@ -37,18 +39,21 @@ public class DbResolverBean implements DbResolver {
         public String dbSchema;
         public String dbSqlsBefore;
         public String dbSqlsAfter;
+        public String dbIndexTypes;
         public String dir;
         public Connection connection;
         boolean doReconnect;
         public List<String> ddlsBefore0;
         public List<String> ddlsBefore1;
         public List<String> ddlsAfter;
+        public Set<Short> indexTypes;
 
         @Override
         public String toString() {
             return "DatabaseValues [dbDriver=" + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername
                     + ", dbPassword=" + dbPassword + ", dbSchema=" + dbSchema + ", dbSqlsBefore=" + dbSqlsBefore
-                    + ", dbSqlsAfter=" + dbSqlsAfter + ", connection=" + connection + "]";
+                    + ", dbSqlsAfter=" + dbSqlsAfter + ", connection=" + connection + ", dbIndexTypes=" + dbIndexTypes
+                    + "]";
         }
 
     }
@@ -159,6 +164,23 @@ public class DbResolverBean implements DbResolver {
             }
         } else
             modelDatabaseValues.dbSqlsAfter = null;
+        if (modelModelValues.dbIndexTypes != null) {
+            if (!modelModelValues.dbIndexTypes.equals(modelDatabaseValues.dbIndexTypes)) {
+                modelDatabaseValues.dbIndexTypes = modelModelValues.dbIndexTypes;
+                String[] ss = modelModelValues.dbIndexTypes.split(",");
+                modelDatabaseValues.indexTypes = new HashSet<Short>();
+                for (String s : ss) {
+                    if (s.trim().length() > 0) {
+                        try {
+                            Short type = Short.parseShort(s.trim());
+                            modelDatabaseValues.indexTypes.add(type);
+                        } catch (NumberFormatException ignore) {
+                        }
+                    }
+                }
+            }
+        } else
+            modelDatabaseValues.dbIndexTypes = null;
 
         return modelDatabaseValues;
     }
@@ -694,7 +716,8 @@ public class DbResolverBean implements DbResolver {
         if (table == null)
             return Collections.emptyList();
         DatabaseValues modelDatabaseValues = getConnection(model);
-        if (modelDatabaseValues == null)
+        if (modelDatabaseValues == null || modelDatabaseValues.indexTypes == null
+                || modelDatabaseValues.indexTypes.isEmpty())
             return Collections.emptyList();
         boolean doInit = false;
         Map<String, List<DbIndex>> allIndexesForModel = dbIndexes.get(modelDatabaseValues.dir);
@@ -719,8 +742,8 @@ public class DbResolverBean implements DbResolver {
                 result = meta.getIndexInfo(null, modelDatabaseValues.dbSchema, table, false, true);
                 while (result.next()) {
                     String name = result.getString("INDEX_NAME");
-                    if (result.getShort("TYPE") != 3) {
-                        System.out.println("INDEX TYPE " + result.getShort("TYPE") + " for " + name);
+                    if (!modelDatabaseValues.indexTypes.contains(result.getShort("TYPE"))) {
+                        // System.out.println("INDEX TYPE " + result.getShort("TYPE") + " for " + name);
                         LOGGER.warn("INDEX TYPE " + result.getShort("TYPE") + " for " + name);
                         continue;
                     }

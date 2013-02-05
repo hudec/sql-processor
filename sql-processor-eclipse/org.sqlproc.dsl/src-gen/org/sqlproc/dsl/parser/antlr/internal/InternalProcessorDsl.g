@@ -1475,6 +1475,44 @@ ruleDatabaseProperty returns [EObject current=null]
 	    }
 
 )
+))
+    |((
+(
+		lv_name_23_0=	'index-types' 
+    {
+        newLeafNode(lv_name_23_0, grammarAccess.getDatabasePropertyAccess().getNameIndexTypesKeyword_9_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_23_0, "index-types");
+	    }
+
+)
+)(this_WS_24=RULE_WS
+    { 
+    newLeafNode(this_WS_24, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_9_1()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDatabasePropertyAccess().getDbIndexTypesPropertyValueParserRuleCall_9_2_0()); 
+	    }
+		lv_dbIndexTypes_25_0=rulePropertyValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDatabasePropertyRule());
+	        }
+       		set(
+       			$current, 
+       			"dbIndexTypes",
+        		lv_dbIndexTypes_25_0, 
+        		"PropertyValue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 )))
 ;
 

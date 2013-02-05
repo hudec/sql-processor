@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbDriver <em>Db Driver</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteBefore <em>Db Execute Before</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteAfter <em>Db Execute After</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbIndexTypes <em>Db Index Types</em>}</li>
  * </ul>
  * </p>
  *
@@ -236,5 +237,31 @@ public interface DatabaseProperty extends EObject
    * @generated
    */
   void setDbExecuteAfter(String value);
+
+  /**
+   * Returns the value of the '<em><b>Db Index Types</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Index Types</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Index Types</em>' attribute.
+   * @see #setDbIndexTypes(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbIndexTypes()
+   * @model
+   * @generated
+   */
+  String getDbIndexTypes();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbIndexTypes <em>Db Index Types</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Index Types</em>' attribute.
+   * @see #getDbIndexTypes()
+   * @generated
+   */
+  void setDbIndexTypes(String value);
 
 } // DatabaseProperty

@@ -41,6 +41,7 @@ DatabaseProperty:
 	|name='jdbc-driver' WS+ dbDriver=PropertyValue
 	|name='ddl-create' WS+ dbExecuteBefore=PropertyValue
 	|name='ddl-drop' WS+ dbExecuteAfter=PropertyValue
+	|name='index-types' WS+ dbIndexTypes=PropertyValue
 	);
 
 PojogenProperty:
