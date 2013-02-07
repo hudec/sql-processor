@@ -42,6 +42,7 @@ DatabaseProperty:
 	|name='ddl-create' WS+ dbExecuteBefore=PropertyValue
 	|name='ddl-drop' WS+ dbExecuteAfter=PropertyValue
 	|name='index-types' WS+ dbIndexTypes=PropertyValue
+	|name='skip-indexes'
 	);
 
 PojogenProperty:

@@ -40,6 +40,7 @@ public class DbResolverBean implements DbResolver {
         public String dbSqlsBefore;
         public String dbSqlsAfter;
         public String dbIndexTypes;
+        public boolean dbSkipIndexes;
         public String dir;
         public Connection connection;
         boolean doReconnect;
@@ -53,7 +54,7 @@ public class DbResolverBean implements DbResolver {
             return "DatabaseValues [dbDriver=" + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername
                     + ", dbPassword=" + dbPassword + ", dbSchema=" + dbSchema + ", dbSqlsBefore=" + dbSqlsBefore
                     + ", dbSqlsAfter=" + dbSqlsAfter + ", connection=" + connection + ", dbIndexTypes=" + dbIndexTypes
-                    + "]";
+                    + ", dbSkipIndexes=" + dbSkipIndexes + "]";
         }
 
     }
@@ -179,8 +180,15 @@ public class DbResolverBean implements DbResolver {
                     }
                 }
             }
-        } else
+        } else {
             modelDatabaseValues.dbIndexTypes = null;
+            modelDatabaseValues.indexTypes = new HashSet<Short>();
+            modelDatabaseValues.indexTypes.add((short) 1);
+            modelDatabaseValues.indexTypes.add((short) 3);
+        }
+        if (modelModelValues.dbSkipIndexes != modelDatabaseValues.dbSkipIndexes) {
+            modelDatabaseValues.dbSkipIndexes = modelModelValues.dbSkipIndexes;
+        }
 
         return modelDatabaseValues;
     }
@@ -717,7 +725,7 @@ public class DbResolverBean implements DbResolver {
             return Collections.emptyList();
         DatabaseValues modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null || modelDatabaseValues.indexTypes == null
-                || modelDatabaseValues.indexTypes.isEmpty())
+                || modelDatabaseValues.indexTypes.isEmpty() || modelDatabaseValues.dbSkipIndexes)
             return Collections.emptyList();
         boolean doInit = false;
         Map<String, List<DbIndex>> allIndexesForModel = dbIndexes.get(modelDatabaseValues.dir);

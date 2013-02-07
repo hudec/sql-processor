@@ -1513,7 +1513,23 @@ ruleDatabaseProperty returns [EObject current=null]
 	    }
 
 )
-)))
+))
+    |(
+(
+		lv_name_26_0=	'skip-indexes' 
+    {
+        newLeafNode(lv_name_26_0, grammarAccess.getDatabasePropertyAccess().getNameSkipIndexesKeyword_10_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_26_0, "skip-indexes");
+	    }
+
+)
+))
 ;
 
 

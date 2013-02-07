@@ -735,20 +735,22 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWSTerminalRuleCall_9_1 = (RuleCall)cGroup_9.eContents().get(1);
 		private final Assignment cDbIndexTypesAssignment_9_2 = (Assignment)cGroup_9.eContents().get(2);
 		private final RuleCall cDbIndexTypesPropertyValueParserRuleCall_9_2_0 = (RuleCall)cDbIndexTypesAssignment_9_2.eContents().get(0);
+		private final Assignment cNameAssignment_10 = (Assignment)cAlternatives.eContents().get(10);
+		private final Keyword cNameSkipIndexesKeyword_10_0 = (Keyword)cNameAssignment_10.eContents().get(0);
 		
 		//DatabaseProperty:
 		//	name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 		//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 		//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
 		//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-		//	dbIndexTypes=PropertyValue;
+		//	dbIndexTypes=PropertyValue | name="skip-indexes";
 		public ParserRule getRule() { return rule; }
 
 		//name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 		//dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 		//dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
 		//dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-		//dbIndexTypes=PropertyValue
+		//dbIndexTypes=PropertyValue | name="skip-indexes"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="is-online"
@@ -906,6 +908,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//PropertyValue
 		public RuleCall getDbIndexTypesPropertyValueParserRuleCall_9_2_0() { return cDbIndexTypesPropertyValueParserRuleCall_9_2_0; }
+
+		//name="skip-indexes"
+		public Assignment getNameAssignment_10() { return cNameAssignment_10; }
+
+		//"skip-indexes"
+		public Keyword getNameSkipIndexesKeyword_10_0() { return cNameSkipIndexesKeyword_10_0; }
 	}
 
 	public class PojogenPropertyElements extends AbstractParserRuleElementFinder {
@@ -6907,7 +6915,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 	//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
 	//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-	//	dbIndexTypes=PropertyValue;
+	//	dbIndexTypes=PropertyValue | name="skip-indexes";
 	public DatabasePropertyElements getDatabasePropertyAccess() {
 		return (pDatabaseProperty != null) ? pDatabaseProperty : (pDatabaseProperty = new DatabasePropertyElements());
 	}

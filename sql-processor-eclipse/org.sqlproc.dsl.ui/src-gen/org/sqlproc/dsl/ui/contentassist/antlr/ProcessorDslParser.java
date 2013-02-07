@@ -372,6 +372,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDatabasePropertyAccess().getDbExecuteAfterAssignment_8_2(), "rule__DatabaseProperty__DbExecuteAfterAssignment_8_2");
 					put(grammarAccess.getDatabasePropertyAccess().getNameAssignment_9_0(), "rule__DatabaseProperty__NameAssignment_9_0");
 					put(grammarAccess.getDatabasePropertyAccess().getDbIndexTypesAssignment_9_2(), "rule__DatabaseProperty__DbIndexTypesAssignment_9_2");
+					put(grammarAccess.getDatabasePropertyAccess().getNameAssignment_10(), "rule__DatabaseProperty__NameAssignment_10");
 					put(grammarAccess.getPojogenPropertyAccess().getNameAssignment_0_0(), "rule__PojogenProperty__NameAssignment_0_0");
 					put(grammarAccess.getPojogenPropertyAccess().getSqlTypesAssignment_0_1_1(), "rule__PojogenProperty__SqlTypesAssignment_0_1_1");
 					put(grammarAccess.getPojogenPropertyAccess().getNameAssignment_1_0(), "rule__PojogenProperty__NameAssignment_1_0");

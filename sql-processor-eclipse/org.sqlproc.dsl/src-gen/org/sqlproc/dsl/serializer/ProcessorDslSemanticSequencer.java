@@ -558,7 +558,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='jdbc-driver' dbDriver=PropertyValue) | 
 	 *         (name='ddl-create' dbExecuteBefore=PropertyValue) | 
 	 *         (name='ddl-drop' dbExecuteAfter=PropertyValue) | 
-	 *         (name='index-types' dbIndexTypes=PropertyValue)
+	 *         (name='index-types' dbIndexTypes=PropertyValue) | 
+	 *         name='skip-indexes'
 	 *     )
 	 */
 	protected void sequence_DatabaseProperty(EObject context, DatabaseProperty semanticObject) {

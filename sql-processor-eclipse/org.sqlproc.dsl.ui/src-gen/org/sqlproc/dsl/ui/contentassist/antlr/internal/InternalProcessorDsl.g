@@ -2369,6 +2369,12 @@ rule__DatabaseProperty__Alternatives
 { after(grammarAccess.getDatabasePropertyAccess().getGroup_9()); }
 )
 
+    |(
+{ before(grammarAccess.getDatabasePropertyAccess().getNameAssignment_10()); }
+(rule__DatabaseProperty__NameAssignment_10)
+{ after(grammarAccess.getDatabasePropertyAccess().getNameAssignment_10()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -25423,6 +25429,29 @@ rule__DatabaseProperty__DbIndexTypesAssignment_9_2
 (
 { before(grammarAccess.getDatabasePropertyAccess().getDbIndexTypesPropertyValueParserRuleCall_9_2_0()); }
 	rulePropertyValue{ after(grammarAccess.getDatabasePropertyAccess().getDbIndexTypesPropertyValueParserRuleCall_9_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__DatabaseProperty__NameAssignment_10
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getDatabasePropertyAccess().getNameSkipIndexesKeyword_10_0()); }
+(
+{ before(grammarAccess.getDatabasePropertyAccess().getNameSkipIndexesKeyword_10_0()); }
+
+	'skip-indexes' 
+
+{ after(grammarAccess.getDatabasePropertyAccess().getNameSkipIndexesKeyword_10_0()); }
+)
+
+{ after(grammarAccess.getDatabasePropertyAccess().getNameSkipIndexesKeyword_10_0()); }
 )
 
 ;
