@@ -339,7 +339,9 @@ public class TablePojoConverter {
             } else {
                 PojoAttribute attribute = attributes.get(dbExport.getPkColumn());
                 attribute.getFkTables().put(dbExport.getFkTable(), null);
-                attribute.getFkColumns().put(dbExport.getFkTable(), dbExport.getFkColumn());
+                if (!attribute.getFkColumns().containsKey(dbExport.getFkTable()))
+                    attribute.getFkColumns().put(dbExport.getFkTable(), new ArrayList<String>());
+                attribute.getFkColumns().get(dbExport.getFkTable()).add(dbExport.getFkColumn());
             }
         }
         if (createExports.containsKey(table)) {
@@ -347,7 +349,9 @@ public class TablePojoConverter {
                 PojoAttribute attribute = attributes.get(pentry.getKey());
                 for (Map.Entry<String, String> fk : pentry.getValue().entrySet()) {
                     attribute.getFkTables().put(fk.getKey(), null);
-                    attribute.getFkColumns().put(fk.getKey(), fk.getValue());
+                    if (!attribute.getFkColumns().containsKey(fk.getKey()))
+                        attribute.getFkColumns().put(fk.getKey(), new ArrayList<String>());
+                    attribute.getFkColumns().get(fk.getKey()).add(fk.getValue());
                 }
             }
         }
@@ -471,19 +475,28 @@ public class TablePojoConverter {
                 }
                 for (Map.Entry<String, String> fk : attribute.getFkTables().entrySet()) {
                     if (pojos.containsKey(fk.getKey())) {
+                        if (attribute.getFkColumns().containsKey(fk.getKey())
+                                && attribute.getFkColumns().get(fk.getKey()).size() > 1) {
+                            for (String fkColumn : attribute.getFkColumns().get(fk.getKey())) {
+                                PojoAttribute attrib = new PojoAttribute(null);
+                                attrib.setName(collectionName(fk.getKey(), fkColumn));
+                                attrib.setOneToManyColumn(entry.getKey());
+                                attrib.setOneToManyOppositeColumn(fkColumn);
+                                attrib.setOneToManyTable(fk.getKey());
+                                attrib.setClassName(COLLECTION_LIST + " <:" + tableToCamelCase(fk.getKey()) + ">");
+                                attrib.setRef(fk.getKey());
+                                String dbColumnName = columnToDbConv(attrib.getName());
+                                newAttributes.put(dbColumnName, attrib);
+                            }
+                        }
                         String referName = null;
                         if (fk.getValue() != null) {
                             referName = columnToCamelCase(fk.getValue());
+                        } else if (attribute.getFkColumns().containsKey(fk.getKey())
+                                && attribute.getFkColumns().get(fk.getKey()).size() > 1) {
+                            continue;
                         } else {
-                            referName = lowerFirstChar(tableToCamelCase(fk.getKey()));
-                            if (!referName.endsWith("s")) {
-                                if (referName.endsWith("y")) {
-                                    referName = referName.substring(0, referName.length() - 1);
-                                    referName += "ies";
-                                } else {
-                                    referName += "s";
-                                }
-                            }
+                            referName = collectionName(fk.getKey(), null);
                         }
                         PojoAttribute attrib = new PojoAttribute(null);
                         attrib.setName(referName);
@@ -492,6 +505,7 @@ public class TablePojoConverter {
                             attrib.setManyToManyTable(fk.getKey());
                         } else if (attribute.getFkColumns().containsKey(fk.getKey())) {
                             attrib.setOneToManyColumn(entry.getKey());
+                            attrib.setOneToManyOppositeColumn(attribute.getFkColumns().get(fk.getKey()).get(0));
                             attrib.setOneToManyTable(fk.getKey());
                         }
                         attrib.setClassName(COLLECTION_LIST + " <:" + tableToCamelCase(fk.getKey()) + ">");
@@ -511,6 +525,22 @@ public class TablePojoConverter {
                 pojoInheritanceSimple.get(entry.getValue()).add(entry.getKey());
             }
         }
+    }
+
+    protected String collectionName(String fkTable, String fkColumn) {
+        String referName = (fkColumn == null) ? lowerFirstChar(tableToCamelCase(fkTable)) : tableToCamelCase(fkTable);
+        if (!referName.endsWith("s")) {
+            if (referName.endsWith("y")) {
+                referName = referName.substring(0, referName.length() - 1);
+                referName += "ies";
+            } else {
+                referName += "s";
+            }
+        }
+        if (fkColumn != null) {
+            referName = lowerFirstChar(tableToCamelCase(fkColumn)) + referName;
+        }
+        return referName;
     }
 
     protected String lowerFirstChar(String s) {

@@ -1,6 +1,7 @@
 package org.sqlproc.dsl.property;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PojoAttribute {
@@ -23,8 +24,9 @@ public class PojoAttribute {
     private String m2mTable;
     private Map<String, String> fkTables = new LinkedHashMap<String, String>();
     private Map<String, String> m2Tables = new LinkedHashMap<String, String>();
-    private Map<String, String> fkColumns = new LinkedHashMap<String, String>();
+    private Map<String, List<String>> fkColumns = new LinkedHashMap<String, List<String>>();
     private String oneToManyColumn;
+    private String oneToManyOppositeColumn;
     private String oneToManyTable;
     private String manyToManyColumn;
     private String manyToManyTable;
@@ -157,11 +159,11 @@ public class PojoAttribute {
         this.m2Tables = m2Tables;
     }
 
-    public Map<String, String> getFkColumns() {
+    public Map<String, List<String>> getFkColumns() {
         return fkColumns;
     }
 
-    public void setFkColumns(Map<String, String> fkColumns) {
+    public void setFkColumns(Map<String, List<String>> fkColumns) {
         this.fkColumns = fkColumns;
     }
 
@@ -171,6 +173,14 @@ public class PojoAttribute {
 
     public void setOneToManyColumn(String oneToManyColumn) {
         this.oneToManyColumn = oneToManyColumn;
+    }
+
+    public String getOneToManyOppositeColumn() {
+        return oneToManyOppositeColumn;
+    }
+
+    public void setOneToManyOppositeColumn(String oneToManyOppositeColumn) {
+        this.oneToManyOppositeColumn = oneToManyOppositeColumn;
     }
 
     public String getOneToManyTable() {
@@ -237,7 +247,8 @@ public class PojoAttribute {
                 + ", className=" + className + ", ref=" + ref + ", dependencyClassName=" + dependencyClassName
                 + ", pkTable=" + pkTable + ", pkColumn=" + pkColumn + ", parentTable=" + parentTable + ", m2mTable="
                 + m2mTable + ", fkTables=" + fkTables + ", m2Tables=" + m2Tables + ", fkColumns=" + fkColumns
-                + ", oneToManyColumn=" + oneToManyColumn + ", oneToManyTable=" + oneToManyTable + ", manyToManyColumn="
-                + manyToManyColumn + ", manyToManyTable=" + manyToManyTable + "]";
+                + ", oneToManyColumn=" + oneToManyColumn + ", oneToManyOppositeColumn=" + oneToManyOppositeColumn
+                + ", oneToManyTable=" + oneToManyTable + ", manyToManyColumn=" + manyToManyColumn
+                + ", manyToManyTable=" + manyToManyTable + "]";
     }
 }

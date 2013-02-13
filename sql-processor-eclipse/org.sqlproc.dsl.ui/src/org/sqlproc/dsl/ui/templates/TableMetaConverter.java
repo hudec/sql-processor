@@ -788,7 +788,8 @@ public class TableMetaConverter extends TablePojoConverter {
                     Table table = new Table();
                     table.setNames(attr.getOneToManyTable());
                     table.primaryKey = attr.getOneToManyColumn();
-                    table.tableKey = attr1.getFkColumns().get(attr.getOneToManyTable());
+                    // table.tableKey = null; // attr1.getFkColumns().get(attr.getOneToManyTable()); TODO
+                    table.tableKey = attr.getOneToManyOppositeColumn();
                     table.tablePrefix = newPrefix(prefixes, table);
                     table.attrName = attrName(pojo, pentry.getKey(), attr);
                     table.oppositePrefix = header.table.tablePrefix;
@@ -926,7 +927,8 @@ public class TableMetaConverter extends TablePojoConverter {
                         Table table = new Table();
                         table.setNames(attr.getOneToManyTable());
                         table.primaryKey = attr.getOneToManyColumn();
-                        table.tableKey = attr1.getFkColumns().get(attr.getOneToManyTable());
+                        // table.tableKey = null; // attr1.getFkColumns().get(attr.getOneToManyTable()); TODO
+                        table.tableKey = attr.getOneToManyOppositeColumn();
                         table.tablePrefix = newPrefix(prefixes, table);
                         table.attrName = attrName(pojo, pentry.getKey(), attr);
                         table.oppositePrefix = header.extendTable.tablePrefix;
