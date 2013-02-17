@@ -80,20 +80,20 @@ public class Main {
         main.setupDb();
 
         // insert
-        Person jan = main.insertPersonContacts(new Person("Jan", "Jánský"), new Contact()._setAddress("Jan address 1")
+        Person jan = main.insertPersonContacts(new Person("Jan", "Jansky"), new Contact()._setAddress("Jan address 1")
                 ._setPhoneNumber("111-222-3333"));
-        Person janik = main.insertPersonContacts(new Person("Janík", "Janíček"),
+        Person janik = main.insertPersonContacts(new Person("Janik", "Janicek"),
                 new Contact()._setAddress("Janik address 1"));
-        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovský"),
+        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky"),
                 new Contact()._setAddress("Honza address 1"), new Contact()._setAddress("Honza address 2"));
-        Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzíček"));
-        Person andrej = main.insertPersonContacts(new Person("Andrej", "Andrejček")._setSsn("123456789"), new Contact()
+        Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek"));
+        Person andrej = main.insertPersonContacts(new Person("Andrej", "Andrejcek")._setSsn("123456789"), new Contact()
                 ._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666"));
 
         // update
         person = new Person();
         person.setId(andrej.getId());
-        person.setFirstName("Andrejík");
+        person.setFirstName("Andrejik");
         count = main.getPersonDao().update(person);
         Assert.assertEquals(1, count);
 
@@ -102,14 +102,14 @@ public class Main {
         person.setId(andrej.getId());
         p = main.getPersonDao().get(person);
         Assert.assertNotNull(p);
-        Assert.assertEquals("Andrejík", p.getFirstName());
-        Assert.assertEquals("Andrejček", p.getLastName());
+        Assert.assertEquals("Andrejik", p.getFirstName());
+        Assert.assertEquals("Andrejcek", p.getLastName());
         Assert.assertEquals("123456789", p.getSsn());
         Assert.assertTrue(p.getContacts().size() == 0);
 
         person = new Person();
         person.setId(andrej.getId());
-        person.setFirstName("Andrioša");
+        person.setFirstName("Andriosa");
         person.setNull(Person.Attribute.ssn);
         count = main.getPersonDao().update(person);
         Assert.assertEquals(1, count);
@@ -120,8 +120,8 @@ public class Main {
         person.setInit(Person.Association.contacts.name());
         p = main.getPersonDao().get(person);
         Assert.assertNotNull(p);
-        Assert.assertEquals("Andrioša", p.getFirstName());
-        Assert.assertEquals("Andrejček", p.getLastName());
+        Assert.assertEquals("Andriosa", p.getFirstName());
+        Assert.assertEquals("Andrejcek", p.getLastName());
         Assert.assertNull(p.getSsn());
         Assert.assertEquals(1, p.getContacts().size());
         Assert.assertEquals("Andrej address 1", p.getContacts().get(0).getAddress());
@@ -141,10 +141,10 @@ public class Main {
         person.setInit(Person.Association.contacts.name());
         list = main.getPersonDao().list(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID));
         Assert.assertEquals(5, list.size());
-        Assert.assertEquals("Honzíček", list.get(1).getLastName());
+        Assert.assertEquals("Honzicek", list.get(1).getLastName());
         list = main.getPersonDao().list(person, new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME));
         Assert.assertEquals(5, list.size());
-        Assert.assertEquals("Honzovský", list.get(1).getLastName());
+        Assert.assertEquals("Honzovsky", list.get(2).getLastName());
         person = new Person();
         list = main.getPersonDao().list(person,
                 new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME).setMaxResults(2));
