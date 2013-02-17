@@ -55,7 +55,7 @@ public class Main {
 
     public void setupDb() throws SQLException {
         SqlSession sqlSession = sessionFactory.getSqlSession();
-        sqlSession.executeBatch(new String[] { "delete from contact", "delete from person" });
+        sqlSession.executeBatch(new String[] { "delete from CONTACT", "delete from PERSON" });
     }
 
     private ContactDao contactDao;
@@ -77,7 +77,7 @@ public class Main {
 
         List<Person> list;
         Main main = new Main();
-        // main.setupDb();
+        main.setupDb();
 
         // insert
         Person jan = main.insertPersonContacts(new Person("Jan", "Jánský"), new Contact()._setAddress("Jan address 1")
