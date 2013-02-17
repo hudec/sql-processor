@@ -1,0 +1,28 @@
+resolve-pojo-on;
+database-is-online;
+database-jdbc-driver oracle.jdbc.OracleDriver;
+database-has-url jdbc:oracle:thin:@127.0.0.1:1521:xe;
+database-login-username simple;
+database-login-password simple;
+database-active-schema SIMPLE;
+database-ddl-create oracle.ddl; // should be located in the same directory as definitions.qry
+
+// native types
+pojogen-generate-wrappers;
+// POJO helpers' methods
+pojogen-generate-methods toString equals hashCode isDef toInit;
+// POJO are serializable
+pojogen-implements-interfaces java.io.Serializable;
+// can't overwrite existing POJO 
+pojogen-make-it-final;
+
+// use indetity for primary keys
+metagen-global-sequence SEQ1;
+// can't overwrite existing META SQL 
+metagen-make-it-final;
+
+// can't overwrite existing DAO 
+daogen-make-it-final;
+
+table contact CONTACT;
+table person PERSON;

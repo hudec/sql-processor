@@ -1,0 +1,29 @@
+package org.sample.model {
+
+
+  final pojo Contact serializable 1  {
+    id : java.lang.Long primaryKey index 1
+    person :: Person required
+    address : java.lang.String
+    phoneNumber : java.lang.String
+    equals ::: id
+    hashCode ::: id
+    toInit ::: person
+    isDef ::: phoneNumber address
+    toString ::: id person phoneNumber address
+  }
+
+  final pojo Person serializable 1  {
+    id : java.lang.Long primaryKey index 1
+    firstName : java.lang.String required
+    lastName : java.lang.String required index 2
+    dateOfBirth : java.sql.Timestamp
+    ssn : java.lang.String
+    contacts : java.util.List <:Contact>
+    equals ::: id
+    hashCode ::: id
+    toInit ::: contacts
+    isDef ::: dateOfBirth ssn
+    toString ::: dateOfBirth id lastName ssn firstName
+  }
+}

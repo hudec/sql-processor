@@ -1,0 +1,10 @@
+package org.sample.dao {
+
+  final dao ContactDao :: Contact {
+    scaffold
+  }
+
+  final dao PersonDao :: Person {
+    scaffold
+  }
+}
