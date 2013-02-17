@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.sqlproc.dsl.feature_1.3.1.jar" id="org.sqlproc.dsl.feature" version="1.3.1">
+   <feature url="features/org.sqlproc.dsl.feature_1.3.2.qualifier.jar" id="org.sqlproc.dsl.feature" version="1.3.2.qualifier">
       <category name="sqlproc"/>
    </feature>
    <category-def name="sqlproc" label="SQL Processor Eclipse Plugin"/>
