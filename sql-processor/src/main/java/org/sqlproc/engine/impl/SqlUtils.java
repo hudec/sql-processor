@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -80,6 +81,22 @@ public class SqlUtils {
         if (resultValue == null || !(resultValue instanceof BigDecimal))
             return resultValue;
         BigDecimal result = (BigDecimal) resultValue;
+        if (attributeType == Byte.class || attributeType == byte.class) {
+            return result.byteValue();
+        } else if (attributeType == Integer.class || attributeType == int.class) {
+            return result.intValue();
+        } else if (attributeType == Long.class || attributeType == long.class) {
+            return result.longValue();
+        } else if (attributeType == Short.class || attributeType == short.class) {
+            return result.shortValue();
+        }
+        return result;
+    }
+
+    public static Object convertBigInteger(Class<?> attributeType, Object resultValue) {
+        if (resultValue == null || !(resultValue instanceof BigInteger))
+            return resultValue;
+        BigInteger result = (BigInteger) resultValue;
         if (attributeType == Byte.class || attributeType == byte.class) {
             return result.byteValue();
         } else if (attributeType == Integer.class || attributeType == int.class) {

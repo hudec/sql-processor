@@ -1,5 +1,7 @@
 package org.sqlproc.engine.impl;
 
+import java.math.BigDecimal;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
@@ -212,8 +214,12 @@ class SqlInputValue {
             SqlProcessContext.getTypeFactory().getIdentityType().setParameter(query, paramName, new IdentitySetter() {
                 @Override
                 public void setIdentity(Object identity) {
-                    SqlInputValue.this.identity = SqlUtils.convertBigDecimal(SqlInputValue.this.inputValueType,
-                            identity);
+                    if (identity != null && identity instanceof BigDecimal)
+                        SqlInputValue.this.identity = SqlUtils.convertBigDecimal(SqlInputValue.this.inputValueType,
+                                identity);
+                    else
+                        SqlInputValue.this.identity = SqlUtils.convertBigInteger(SqlInputValue.this.inputValueType,
+                                identity);
                 }
 
                 @Override

@@ -17,9 +17,9 @@ pojogen-implements-interfaces java.io.Serializable;
 pojogen-make-it-final;
 
 // use indetity for primary keys
-//metagen-global-identity SEL1;
-metagen-table-sequence CONTACT SEQ_CONTACT;
-metagen-table-sequence PERSON SEQ_PERSON;
+metagen-global-identity SEL1;
+//metagen-table-sequence CONTACT SEQ_CONTACT;
+//metagen-table-sequence PERSON SEQ_PERSON;
 // can't overwrite existing META SQL 
 metagen-make-it-final;
 

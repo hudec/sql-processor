@@ -281,6 +281,8 @@ public class HibernateDefaultType extends SqlMetaType {
             if (m != null) {
                 if (resultValue != null && resultValue instanceof BigDecimal)
                     resultValue = (Integer) ((BigDecimal) resultValue).intValue();
+                else if (resultValue != null && resultValue instanceof BigInteger)
+                    resultValue = (Integer) ((BigInteger) resultValue).intValue();
                 Object enumInstance = SqlUtils.getValueToEnum(attributeType, resultValue);
                 BeanUtils.simpleInvokeMethod(m, resultInstance, enumInstance);
             } else if (ingoreError) {
@@ -292,8 +294,12 @@ public class HibernateDefaultType extends SqlMetaType {
             }
         } else {
             Method m = BeanUtils.getSetter(resultInstance, attributeName, attributeType);
-            if (resultValue != null && resultValue instanceof BigDecimal)
-                resultValue = handleBigDecimal(attributeType, resultValue);
+            if (resultValue != null) {
+                if (resultValue instanceof BigDecimal)
+                    resultValue = SqlUtils.convertBigDecimal(attributeType, resultValue);
+                else if (resultValue instanceof BigInteger)
+                    resultValue = SqlUtils.convertBigInteger(attributeType, resultValue);
+            }
             if (m != null) {
                 BeanUtils.simpleInvokeMethod(m, resultInstance, resultValue);
             } else if (ingoreError) {
