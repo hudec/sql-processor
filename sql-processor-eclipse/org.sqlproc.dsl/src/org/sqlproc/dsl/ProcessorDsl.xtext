@@ -43,7 +43,7 @@ DatabaseProperty:
 	|name='ddl-drop' WS+ dbExecuteAfter=PropertyValue
 	|name='index-types' WS+ dbIndexTypes=PropertyValue
 	|name='skip-indexes'
-	|name='of-type' WS+ dbType=('Oracle' | 'MySQL' | 'HSQLDB' | 'PostgreSQL' | 'Informix' | 'DB2' | 'MS SQL')
+	|name='of-type' WS+ dbType=IDENT
 	);
 
 PojogenProperty:

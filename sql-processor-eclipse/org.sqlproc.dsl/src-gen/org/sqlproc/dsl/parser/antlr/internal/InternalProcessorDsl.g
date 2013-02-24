@@ -1551,92 +1551,20 @@ ruleDatabaseProperty returns [EObject current=null]
     }
 )+(
 (
-(
-		lv_dbType_29_1=	'Oracle' 
-    {
-        newLeafNode(lv_dbType_29_1, grammarAccess.getDatabasePropertyAccess().getDbTypeOracleKeyword_11_2_0_0());
-    }
- 
-	    {
+		lv_dbType_29_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbType_29_0, grammarAccess.getDatabasePropertyAccess().getDbTypeIDENTTerminalRuleCall_11_2_0()); 
+		}
+		{
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
 	        }
-       		setWithLastConsumed($current, "dbType", lv_dbType_29_1, null);
+       		setWithLastConsumed(
+       			$current, 
+       			"dbType",
+        		lv_dbType_29_0, 
+        		"IDENT");
 	    }
-
-    |		lv_dbType_29_2=	'MySQL' 
-    {
-        newLeafNode(lv_dbType_29_2, grammarAccess.getDatabasePropertyAccess().getDbTypeMySQLKeyword_11_2_0_1());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
-	        }
-       		setWithLastConsumed($current, "dbType", lv_dbType_29_2, null);
-	    }
-
-    |		lv_dbType_29_3=	'HSQLDB' 
-    {
-        newLeafNode(lv_dbType_29_3, grammarAccess.getDatabasePropertyAccess().getDbTypeHSQLDBKeyword_11_2_0_2());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
-	        }
-       		setWithLastConsumed($current, "dbType", lv_dbType_29_3, null);
-	    }
-
-    |		lv_dbType_29_4=	'PostgreSQL' 
-    {
-        newLeafNode(lv_dbType_29_4, grammarAccess.getDatabasePropertyAccess().getDbTypePostgreSQLKeyword_11_2_0_3());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
-	        }
-       		setWithLastConsumed($current, "dbType", lv_dbType_29_4, null);
-	    }
-
-    |		lv_dbType_29_5=	'Informix' 
-    {
-        newLeafNode(lv_dbType_29_5, grammarAccess.getDatabasePropertyAccess().getDbTypeInformixKeyword_11_2_0_4());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
-	        }
-       		setWithLastConsumed($current, "dbType", lv_dbType_29_5, null);
-	    }
-
-    |		lv_dbType_29_6=	'DB2' 
-    {
-        newLeafNode(lv_dbType_29_6, grammarAccess.getDatabasePropertyAccess().getDbTypeDB2Keyword_11_2_0_5());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
-	        }
-       		setWithLastConsumed($current, "dbType", lv_dbType_29_6, null);
-	    }
-
-    |		lv_dbType_29_7=	'MS SQL' 
-    {
-        newLeafNode(lv_dbType_29_7, grammarAccess.getDatabasePropertyAccess().getDbTypeMSSQLKeyword_11_2_0_6());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
-	        }
-       		setWithLastConsumed($current, "dbType", lv_dbType_29_7, null);
-	    }
-
-)
 
 )
 )))

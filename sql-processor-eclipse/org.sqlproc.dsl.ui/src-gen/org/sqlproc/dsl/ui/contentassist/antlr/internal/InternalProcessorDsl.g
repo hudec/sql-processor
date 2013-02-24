@@ -2386,72 +2386,6 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__DatabaseProperty__DbTypeAlternatives_11_2_0
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getDatabasePropertyAccess().getDbTypeOracleKeyword_11_2_0_0()); }
-
-	'Oracle' 
-
-{ after(grammarAccess.getDatabasePropertyAccess().getDbTypeOracleKeyword_11_2_0_0()); }
-)
-
-    |(
-{ before(grammarAccess.getDatabasePropertyAccess().getDbTypeMySQLKeyword_11_2_0_1()); }
-
-	'MySQL' 
-
-{ after(grammarAccess.getDatabasePropertyAccess().getDbTypeMySQLKeyword_11_2_0_1()); }
-)
-
-    |(
-{ before(grammarAccess.getDatabasePropertyAccess().getDbTypeHSQLDBKeyword_11_2_0_2()); }
-
-	'HSQLDB' 
-
-{ after(grammarAccess.getDatabasePropertyAccess().getDbTypeHSQLDBKeyword_11_2_0_2()); }
-)
-
-    |(
-{ before(grammarAccess.getDatabasePropertyAccess().getDbTypePostgreSQLKeyword_11_2_0_3()); }
-
-	'PostgreSQL' 
-
-{ after(grammarAccess.getDatabasePropertyAccess().getDbTypePostgreSQLKeyword_11_2_0_3()); }
-)
-
-    |(
-{ before(grammarAccess.getDatabasePropertyAccess().getDbTypeInformixKeyword_11_2_0_4()); }
-
-	'Informix' 
-
-{ after(grammarAccess.getDatabasePropertyAccess().getDbTypeInformixKeyword_11_2_0_4()); }
-)
-
-    |(
-{ before(grammarAccess.getDatabasePropertyAccess().getDbTypeDB2Keyword_11_2_0_5()); }
-
-	'DB2' 
-
-{ after(grammarAccess.getDatabasePropertyAccess().getDbTypeDB2Keyword_11_2_0_5()); }
-)
-
-    |(
-{ before(grammarAccess.getDatabasePropertyAccess().getDbTypeMSSQLKeyword_11_2_0_6()); }
-
-	'MS SQL' 
-
-{ after(grammarAccess.getDatabasePropertyAccess().getDbTypeMSSQLKeyword_11_2_0_6()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
 rule__PojogenProperty__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -25659,9 +25593,8 @@ rule__DatabaseProperty__DbTypeAssignment_11_2
     }
 :
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getDbTypeAlternatives_11_2_0()); }
-(rule__DatabaseProperty__DbTypeAlternatives_11_2_0)
-{ after(grammarAccess.getDatabasePropertyAccess().getDbTypeAlternatives_11_2_0()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getDbTypeIDENTTerminalRuleCall_11_2_0()); }
+	RULE_IDENT{ after(grammarAccess.getDatabasePropertyAccess().getDbTypeIDENTTerminalRuleCall_11_2_0()); }
 )
 
 ;

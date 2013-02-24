@@ -742,30 +742,21 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cNameOfTypeKeyword_11_0_0 = (Keyword)cNameAssignment_11_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_11_1 = (RuleCall)cGroup_11.eContents().get(1);
 		private final Assignment cDbTypeAssignment_11_2 = (Assignment)cGroup_11.eContents().get(2);
-		private final Alternatives cDbTypeAlternatives_11_2_0 = (Alternatives)cDbTypeAssignment_11_2.eContents().get(0);
-		private final Keyword cDbTypeOracleKeyword_11_2_0_0 = (Keyword)cDbTypeAlternatives_11_2_0.eContents().get(0);
-		private final Keyword cDbTypeMySQLKeyword_11_2_0_1 = (Keyword)cDbTypeAlternatives_11_2_0.eContents().get(1);
-		private final Keyword cDbTypeHSQLDBKeyword_11_2_0_2 = (Keyword)cDbTypeAlternatives_11_2_0.eContents().get(2);
-		private final Keyword cDbTypePostgreSQLKeyword_11_2_0_3 = (Keyword)cDbTypeAlternatives_11_2_0.eContents().get(3);
-		private final Keyword cDbTypeInformixKeyword_11_2_0_4 = (Keyword)cDbTypeAlternatives_11_2_0.eContents().get(4);
-		private final Keyword cDbTypeDB2Keyword_11_2_0_5 = (Keyword)cDbTypeAlternatives_11_2_0.eContents().get(5);
-		private final Keyword cDbTypeMSSQLKeyword_11_2_0_6 = (Keyword)cDbTypeAlternatives_11_2_0.eContents().get(6);
+		private final RuleCall cDbTypeIDENTTerminalRuleCall_11_2_0 = (RuleCall)cDbTypeAssignment_11_2.eContents().get(0);
 		
 		//DatabaseProperty:
 		//	name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 		//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 		//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
 		//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-		//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=("Oracle" | "MySQL" | "HSQLDB" |
-		//	"PostgreSQL" | "Informix" | "DB2" | "MS SQL");
+		//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=IDENT;
 		public ParserRule getRule() { return rule; }
 
 		//name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 		//dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 		//dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
 		//dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-		//dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=("Oracle" | "MySQL" | "HSQLDB" |
-		//"PostgreSQL" | "Informix" | "DB2" | "MS SQL")
+		//dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=IDENT
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="is-online"
@@ -930,7 +921,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"skip-indexes"
 		public Keyword getNameSkipIndexesKeyword_10_0() { return cNameSkipIndexesKeyword_10_0; }
 
-		//name="of-type" WS+ dbType=("Oracle" | "MySQL" | "HSQLDB" | "PostgreSQL" | "Informix" | "DB2" | "MS SQL")
+		//name="of-type" WS+ dbType=IDENT
 		public Group getGroup_11() { return cGroup_11; }
 
 		//name="of-type"
@@ -942,32 +933,11 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//WS+
 		public RuleCall getWSTerminalRuleCall_11_1() { return cWSTerminalRuleCall_11_1; }
 
-		//dbType=("Oracle" | "MySQL" | "HSQLDB" | "PostgreSQL" | "Informix" | "DB2" | "MS SQL")
+		//dbType=IDENT
 		public Assignment getDbTypeAssignment_11_2() { return cDbTypeAssignment_11_2; }
 
-		//"Oracle" | "MySQL" | "HSQLDB" | "PostgreSQL" | "Informix" | "DB2" | "MS SQL"
-		public Alternatives getDbTypeAlternatives_11_2_0() { return cDbTypeAlternatives_11_2_0; }
-
-		//"Oracle"
-		public Keyword getDbTypeOracleKeyword_11_2_0_0() { return cDbTypeOracleKeyword_11_2_0_0; }
-
-		//"MySQL"
-		public Keyword getDbTypeMySQLKeyword_11_2_0_1() { return cDbTypeMySQLKeyword_11_2_0_1; }
-
-		//"HSQLDB"
-		public Keyword getDbTypeHSQLDBKeyword_11_2_0_2() { return cDbTypeHSQLDBKeyword_11_2_0_2; }
-
-		//"PostgreSQL"
-		public Keyword getDbTypePostgreSQLKeyword_11_2_0_3() { return cDbTypePostgreSQLKeyword_11_2_0_3; }
-
-		//"Informix"
-		public Keyword getDbTypeInformixKeyword_11_2_0_4() { return cDbTypeInformixKeyword_11_2_0_4; }
-
-		//"DB2"
-		public Keyword getDbTypeDB2Keyword_11_2_0_5() { return cDbTypeDB2Keyword_11_2_0_5; }
-
-		//"MS SQL"
-		public Keyword getDbTypeMSSQLKeyword_11_2_0_6() { return cDbTypeMSSQLKeyword_11_2_0_6; }
+		//IDENT
+		public RuleCall getDbTypeIDENTTerminalRuleCall_11_2_0() { return cDbTypeIDENTTerminalRuleCall_11_2_0; }
 	}
 
 	public class PojogenPropertyElements extends AbstractParserRuleElementFinder {
@@ -6969,8 +6939,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 	//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
 	//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-	//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=("Oracle" | "MySQL" | "HSQLDB" |
-	//	"PostgreSQL" | "Informix" | "DB2" | "MS SQL");
+	//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=IDENT;
 	public DatabasePropertyElements getDatabasePropertyAccess() {
 		return (pDatabaseProperty != null) ? pDatabaseProperty : (pDatabaseProperty = new DatabasePropertyElements());
 	}
