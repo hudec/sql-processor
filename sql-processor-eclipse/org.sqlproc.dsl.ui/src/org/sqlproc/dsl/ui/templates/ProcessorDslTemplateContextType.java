@@ -591,7 +591,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // }
 
                 List<String> tables = dbResolver.getTables(artifacts);
-                List<String> dbSequences = dbResolver.getDbSequences(artifacts);
+                List<String> dbSequences = dbResolver.getSequences(artifacts);
                 if (tables != null) {
                     TablePojoConverter converter = new TablePojoConverter(modelProperty, artifacts, suffix,
                             finalEntities, dbSequences);
@@ -648,7 +648,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // }
 
                 List<String> tables = dbResolver.getTables(artifacts);
-                List<String> dbSequences = dbResolver.getDbSequences(artifacts);
+                List<String> dbSequences = dbResolver.getSequences(artifacts);
                 if (tables != null) {
                     TableMetaConverter converter = new TableMetaConverter(modelProperty, artifacts, scopeProvider,
                             finalMetas, dbSequences);
@@ -714,7 +714,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // }
 
                 List<String> tables = dbResolver.getTables(artifacts);
-                List<String> dbSequences = dbResolver.getDbSequences(artifacts);
+                List<String> dbSequences = dbResolver.getSequences(artifacts);
                 if (tables != null) {
                     TableDaoConverter converter = new TableDaoConverter(modelProperty, artifacts, suffix,
                             scopeProvider, finalDaos, dbSequences);

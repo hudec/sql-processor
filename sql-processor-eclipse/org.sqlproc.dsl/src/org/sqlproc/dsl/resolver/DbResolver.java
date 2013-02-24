@@ -62,5 +62,5 @@ public interface DbResolver {
 
     List<DbIndex> getDbIndexes(EObject model, String table);
 
-    List<String> getDbSequences(EObject model);
+    List<String> getSequences(EObject model);
 }

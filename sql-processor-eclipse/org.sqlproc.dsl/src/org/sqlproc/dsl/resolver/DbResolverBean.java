@@ -197,7 +197,6 @@ public class DbResolverBean implements DbResolver {
             }
         } else {
             modelDatabaseValues.dbType = null;
-            return null;
         }
         return modelDatabaseValues;
     }
@@ -798,7 +797,7 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
-    public List<String> getDbSequences(EObject model) {
+    public List<String> getSequences(EObject model) {
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptyList();

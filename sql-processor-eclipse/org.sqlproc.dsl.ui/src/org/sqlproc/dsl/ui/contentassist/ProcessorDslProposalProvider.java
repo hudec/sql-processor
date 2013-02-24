@@ -1122,6 +1122,22 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     }
 
     @Override
+    public void completeMetagenProperty_Sequence(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeMetagenProperty_Sequence(model, assignment, context, acceptor);
+            return;
+        }
+        for (String table : dbResolver.getSequences(model)) {
+            if (table.indexOf('$') >= 0)
+                continue;
+            String proposal = getValueConverter().toString(table, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+    }
+
+    @Override
     public void completeMetaTypeAssignement_DbColumn(EObject model, Assignment assignment,
             ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         if (!isResolveDb(model) && !(model instanceof MetagenProperty)) {
