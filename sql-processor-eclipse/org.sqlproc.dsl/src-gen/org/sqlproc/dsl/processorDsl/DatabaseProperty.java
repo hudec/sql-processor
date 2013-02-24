@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteBefore <em>Db Execute Before</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteAfter <em>Db Execute After</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbIndexTypes <em>Db Index Types</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbType <em>Db Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -263,5 +264,31 @@ public interface DatabaseProperty extends EObject
    * @generated
    */
   void setDbIndexTypes(String value);
+
+  /**
+   * Returns the value of the '<em><b>Db Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Type</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Type</em>' attribute.
+   * @see #setDbType(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbType()
+   * @model
+   * @generated
+   */
+  String getDbType();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbType <em>Db Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Type</em>' attribute.
+   * @see #getDbType()
+   * @generated
+   */
+  void setDbType(String value);
 
 } // DatabaseProperty

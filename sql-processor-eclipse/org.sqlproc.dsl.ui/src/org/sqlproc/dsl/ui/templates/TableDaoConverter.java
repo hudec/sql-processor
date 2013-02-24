@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -34,8 +35,8 @@ public class TableDaoConverter extends TableMetaConverter {
     }
 
     public TableDaoConverter(ModelProperty modelProperty, Artifacts artifacts, String suffix,
-            IScopeProvider scopeProvider, Set<String> finalDaos) {
-        super(modelProperty, artifacts, null, Collections.<String> emptySet());
+            IScopeProvider scopeProvider, Set<String> finalDaos, List<String> dbSequences) {
+        super(modelProperty, artifacts, null, Collections.<String> emptySet(), dbSequences);
 
         this.suffix = (suffix != null) ? suffix : "";
         this.finalDaos = finalDaos;
@@ -74,6 +75,7 @@ public class TableDaoConverter extends TableMetaConverter {
                 System.out.println("pojoInheritanceDiscriminator " + this.pojoInheritanceDiscriminator);
                 System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
                 System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
+                System.out.println("indexes " + this.indexes);
             }
 
             StringBuilder buffer = new StringBuilder();

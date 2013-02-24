@@ -559,7 +559,19 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='ddl-create' dbExecuteBefore=PropertyValue) | 
 	 *         (name='ddl-drop' dbExecuteAfter=PropertyValue) | 
 	 *         (name='index-types' dbIndexTypes=PropertyValue) | 
-	 *         name='skip-indexes'
+	 *         name='skip-indexes' | 
+	 *         (
+	 *             name='of-type' 
+	 *             (
+	 *                 dbType='Oracle' | 
+	 *                 dbType='MySQL' | 
+	 *                 dbType='HSQLDB' | 
+	 *                 dbType='PostgreSQL' | 
+	 *                 dbType='Informix' | 
+	 *                 dbType='DB2' | 
+	 *                 dbType='MS SQL'
+	 *             )
+	 *         )
 	 *     )
 	 */
 	protected void sequence_DatabaseProperty(EObject context, DatabaseProperty semanticObject) {

@@ -709,13 +709,22 @@ public interface ProcessorDslPackage extends EPackage
   int DATABASE_PROPERTY__DB_INDEX_TYPES = 8;
 
   /**
+   * The feature id for the '<em><b>Db Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_PROPERTY__DB_TYPE = 9;
+
+  /**
    * The number of structural features of the '<em>Database Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATABASE_PROPERTY_FEATURE_COUNT = 9;
+  int DATABASE_PROPERTY_FEATURE_COUNT = 10;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl <em>Pojogen Property</em>}' class.
@@ -3661,6 +3670,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getDatabaseProperty_DbIndexTypes();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbType <em>Db Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Type</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbType()
+   * @see #getDatabaseProperty()
+   * @generated
+   */
+  EAttribute getDatabaseProperty_DbType();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojogenProperty <em>Pojogen Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6377,6 +6397,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute DATABASE_PROPERTY__DB_INDEX_TYPES = eINSTANCE.getDatabaseProperty_DbIndexTypes();
+
+    /**
+     * The meta object literal for the '<em><b>Db Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DATABASE_PROPERTY__DB_TYPE = eINSTANCE.getDatabaseProperty_DbType();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl <em>Pojogen Property</em>}' class.

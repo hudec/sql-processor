@@ -40,6 +40,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getArtifactsAccess().getAlternatives_1(), "rule__Artifacts__Alternatives_1");
 					put(grammarAccess.getPropertyAccess().getAlternatives_0(), "rule__Property__Alternatives_0");
 					put(grammarAccess.getDatabasePropertyAccess().getAlternatives(), "rule__DatabaseProperty__Alternatives");
+					put(grammarAccess.getDatabasePropertyAccess().getDbTypeAlternatives_11_2_0(), "rule__DatabaseProperty__DbTypeAlternatives_11_2_0");
 					put(grammarAccess.getPojogenPropertyAccess().getAlternatives(), "rule__PojogenProperty__Alternatives");
 					put(grammarAccess.getMetagenPropertyAccess().getAlternatives(), "rule__MetagenProperty__Alternatives");
 					put(grammarAccess.getDaogenPropertyAccess().getAlternatives(), "rule__DaogenProperty__Alternatives");
@@ -137,6 +138,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDatabasePropertyAccess().getGroup_7(), "rule__DatabaseProperty__Group_7__0");
 					put(grammarAccess.getDatabasePropertyAccess().getGroup_8(), "rule__DatabaseProperty__Group_8__0");
 					put(grammarAccess.getDatabasePropertyAccess().getGroup_9(), "rule__DatabaseProperty__Group_9__0");
+					put(grammarAccess.getDatabasePropertyAccess().getGroup_11(), "rule__DatabaseProperty__Group_11__0");
 					put(grammarAccess.getPojogenPropertyAccess().getGroup_0(), "rule__PojogenProperty__Group_0__0");
 					put(grammarAccess.getPojogenPropertyAccess().getGroup_0_1(), "rule__PojogenProperty__Group_0_1__0");
 					put(grammarAccess.getPojogenPropertyAccess().getGroup_1(), "rule__PojogenProperty__Group_1__0");
@@ -373,6 +375,8 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDatabasePropertyAccess().getNameAssignment_9_0(), "rule__DatabaseProperty__NameAssignment_9_0");
 					put(grammarAccess.getDatabasePropertyAccess().getDbIndexTypesAssignment_9_2(), "rule__DatabaseProperty__DbIndexTypesAssignment_9_2");
 					put(grammarAccess.getDatabasePropertyAccess().getNameAssignment_10(), "rule__DatabaseProperty__NameAssignment_10");
+					put(grammarAccess.getDatabasePropertyAccess().getNameAssignment_11_0(), "rule__DatabaseProperty__NameAssignment_11_0");
+					put(grammarAccess.getDatabasePropertyAccess().getDbTypeAssignment_11_2(), "rule__DatabaseProperty__DbTypeAssignment_11_2");
 					put(grammarAccess.getPojogenPropertyAccess().getNameAssignment_0_0(), "rule__PojogenProperty__NameAssignment_0_0");
 					put(grammarAccess.getPojogenPropertyAccess().getSqlTypesAssignment_0_1_1(), "rule__PojogenProperty__SqlTypesAssignment_0_1_1");
 					put(grammarAccess.getPojogenPropertyAccess().getNameAssignment_1_0(), "rule__PojogenProperty__NameAssignment_1_0");

@@ -49,8 +49,8 @@ public class TableMetaConverter extends TablePojoConverter {
     }
 
     public TableMetaConverter(ModelProperty modelProperty, Artifacts artifacts, IScopeProvider scopeProvider,
-            Set<String> finalMetas) {
-        super(modelProperty, artifacts, null, Collections.<String> emptySet());
+            Set<String> finalMetas, List<String> dbSequences) {
+        super(modelProperty, artifacts, null, Collections.<String> emptySet(), dbSequences);
         this.scopeProvider = scopeProvider;
         this.artifacts = artifacts;
         this.finalMetas = finalMetas;
@@ -99,6 +99,9 @@ public class TableMetaConverter extends TablePojoConverter {
             }
 
             StringBuilder buffer = new StringBuilder();
+            for (String sequence : sequences) {
+
+            }
             for (String pojo : pojos.keySet()) {
                 if (!onlyTables.isEmpty() && !onlyTables.contains(pojo))
                     continue;
@@ -120,6 +123,11 @@ public class TableMetaConverter extends TablePojoConverter {
             String s = writer.toString();
             return s;
         }
+    }
+
+    StringBuilder metaSequenceDefinition(String sequence) {
+        StringBuilder buffer = new StringBuilder();
+        return buffer;
     }
 
     StringBuilder metaInsertDefinition(String pojo) {

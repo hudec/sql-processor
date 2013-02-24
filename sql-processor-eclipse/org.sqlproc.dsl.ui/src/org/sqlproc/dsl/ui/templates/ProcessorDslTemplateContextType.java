@@ -591,9 +591,10 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // }
 
                 List<String> tables = dbResolver.getTables(artifacts);
+                List<String> dbSequences = dbResolver.getDbSequences(artifacts);
                 if (tables != null) {
                     TablePojoConverter converter = new TablePojoConverter(modelProperty, artifacts, suffix,
-                            finalEntities);
+                            finalEntities, dbSequences);
                     for (String table : tables) {
                         if (table.toUpperCase().startsWith("BIN$"))
                             continue;
@@ -647,9 +648,10 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // }
 
                 List<String> tables = dbResolver.getTables(artifacts);
+                List<String> dbSequences = dbResolver.getDbSequences(artifacts);
                 if (tables != null) {
                     TableMetaConverter converter = new TableMetaConverter(modelProperty, artifacts, scopeProvider,
-                            finalMetas);
+                            finalMetas, dbSequences);
                     for (String table : tables) {
                         if (table.toUpperCase().startsWith("BIN$"))
                             continue;
@@ -712,9 +714,10 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // }
 
                 List<String> tables = dbResolver.getTables(artifacts);
+                List<String> dbSequences = dbResolver.getDbSequences(artifacts);
                 if (tables != null) {
                     TableDaoConverter converter = new TableDaoConverter(modelProperty, artifacts, suffix,
-                            scopeProvider, finalDaos);
+                            scopeProvider, finalDaos, dbSequences);
                     for (String table : tables) {
                         if (table.toUpperCase().startsWith("BIN$"))
                             continue;

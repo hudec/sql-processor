@@ -17,6 +17,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.eclipse.xtext.common.types.JvmType;
 import org.sqlproc.dsl.processorDsl.Artifacts;
@@ -93,11 +94,13 @@ public class TablePojoConverter {
     protected Map<String, Set<String>> pojoInheritanceSimple = new HashMap<String, Set<String>>();
     protected Map<String, String> pojoDiscriminators = new HashMap<String, String>();
     protected Map<String, List<Map<PojoAttribute, Boolean>>> indexes = new TreeMap<String, List<Map<PojoAttribute, Boolean>>>();
+    protected Set<String> sequences = new TreeSet<String>();
 
     public TablePojoConverter() {
     }
 
-    public TablePojoConverter(ModelProperty modelProperty, Artifacts artifacts, String suffix, Set<String> finalEntities) {
+    public TablePojoConverter(ModelProperty modelProperty, Artifacts artifacts, String suffix,
+            Set<String> finalEntities, List<String> dbSequences) {
 
         this.suffix = (suffix != null) ? suffix : "";
         this.finalEntities = finalEntities;
@@ -218,6 +221,7 @@ public class TablePojoConverter {
                 }
             }
         }
+        this.sequences.addAll(dbSequences);
 
         if (debug) {
             System.out.println("finalEntities " + this.finalEntities);
@@ -247,6 +251,7 @@ public class TablePojoConverter {
             System.out.println("makeItFinal " + this.makeItFinal);
             System.out.println("versionColumn " + this.versionColumn);
             System.out.println("versionColumns " + this.versionColumns);
+            System.out.println("sequences " + this.sequences);
         }
     }
 

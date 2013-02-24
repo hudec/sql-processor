@@ -28,6 +28,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbExecuteBefore <em>Db Execute Before</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbExecuteAfter <em>Db Execute After</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbIndexTypes <em>Db Index Types</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbType <em>Db Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -214,6 +215,26 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected String dbIndexTypes = DB_INDEX_TYPES_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDbType() <em>Db Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbType()
+   * @generated
+   * @ordered
+   */
+  protected static final String DB_TYPE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDbType() <em>Db Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbType()
+   * @generated
+   * @ordered
+   */
+  protected String dbType = DB_TYPE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -448,6 +469,29 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDbType()
+  {
+    return dbType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbType(String newDbType)
+  {
+    String oldDbType = dbType;
+    dbType = newDbType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_TYPE, oldDbType, dbType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -471,6 +515,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return getDbExecuteAfter();
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_INDEX_TYPES:
         return getDbIndexTypes();
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_TYPE:
+        return getDbType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -511,6 +557,9 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_INDEX_TYPES:
         setDbIndexTypes((String)newValue);
+        return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_TYPE:
+        setDbType((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -553,6 +602,9 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_INDEX_TYPES:
         setDbIndexTypes(DB_INDEX_TYPES_EDEFAULT);
         return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_TYPE:
+        setDbType(DB_TYPE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -585,6 +637,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return DB_EXECUTE_AFTER_EDEFAULT == null ? dbExecuteAfter != null : !DB_EXECUTE_AFTER_EDEFAULT.equals(dbExecuteAfter);
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_INDEX_TYPES:
         return DB_INDEX_TYPES_EDEFAULT == null ? dbIndexTypes != null : !DB_INDEX_TYPES_EDEFAULT.equals(dbIndexTypes);
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_TYPE:
+        return DB_TYPE_EDEFAULT == null ? dbType != null : !DB_TYPE_EDEFAULT.equals(dbType);
     }
     return super.eIsSet(featureID);
   }
@@ -618,6 +672,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
     result.append(dbExecuteAfter);
     result.append(", dbIndexTypes: ");
     result.append(dbIndexTypes);
+    result.append(", dbType: ");
+    result.append(dbType);
     result.append(')');
     return result.toString();
   }

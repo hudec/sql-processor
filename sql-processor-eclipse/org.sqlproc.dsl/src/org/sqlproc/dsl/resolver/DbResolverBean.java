@@ -31,7 +31,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class DbResolverBean implements DbResolver {
 
-    public static class DatabaseValues {
+    public static class DatabaseDirectives {
         public String dbDriver;
         public String dbUrl;
         public String dbUsername;
@@ -41,6 +41,7 @@ public class DbResolverBean implements DbResolver {
         public String dbSqlsAfter;
         public String dbIndexTypes;
         public boolean dbSkipIndexes;
+        public DbType dbType;
         public String dir;
         public Connection connection;
         boolean doReconnect;
@@ -54,7 +55,7 @@ public class DbResolverBean implements DbResolver {
             return "DatabaseValues [dbDriver=" + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername
                     + ", dbPassword=" + dbPassword + ", dbSchema=" + dbSchema + ", dbSqlsBefore=" + dbSqlsBefore
                     + ", dbSqlsAfter=" + dbSqlsAfter + ", connection=" + connection + ", dbIndexTypes=" + dbIndexTypes
-                    + ", dbSkipIndexes=" + dbSkipIndexes + "]";
+                    + ", dbSkipIndexes=" + dbSkipIndexes + ", dbType=" + dbType + "]";
         }
 
     }
@@ -69,8 +70,8 @@ public class DbResolverBean implements DbResolver {
 
     private final Object sync = new Object();
 
-    private final Map<String, DatabaseValues> connections = Collections
-            .synchronizedMap(new HashMap<String, DatabaseValues>());
+    private final Map<String, DatabaseDirectives> connections = Collections
+            .synchronizedMap(new HashMap<String, DatabaseDirectives>());
 
     private final Map<String, List<String>> tables = Collections.synchronizedMap(new HashMap<String, List<String>>());
     private final Map<String, Map<String, List<String>>> columns = Collections
@@ -85,16 +86,16 @@ public class DbResolverBean implements DbResolver {
             .synchronizedMap(new HashMap<String, Map<String, List<DbImport>>>());
     private final Map<String, Map<String, List<DbIndex>>> dbIndexes = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<DbIndex>>>());
-    private final Map<String, List<String>> sequences = Collections
+    private final Map<String, List<String>> dbSequences = Collections
             .synchronizedMap(new HashMap<String, List<String>>());
 
-    private DatabaseValues checkReconnect(EObject model) {
+    private DatabaseDirectives checkReconnect(EObject model) {
         if (model == null)
             return null;
         ModelPropertyBean.ModelValues modelModelValues = modelProperty.getModelValues(model);
-        DatabaseValues modelDatabaseValues = connections.get(modelModelValues.dir);
+        DatabaseDirectives modelDatabaseValues = connections.get(modelModelValues.dir);
         if (modelDatabaseValues == null) {
-            modelDatabaseValues = new DatabaseValues();
+            modelDatabaseValues = new DatabaseDirectives();
             modelDatabaseValues.dir = modelModelValues.dir;
             connections.put(modelModelValues.dir, modelDatabaseValues);
         }
@@ -189,12 +190,20 @@ public class DbResolverBean implements DbResolver {
         if (modelModelValues.dbSkipIndexes != modelDatabaseValues.dbSkipIndexes) {
             modelDatabaseValues.dbSkipIndexes = modelModelValues.dbSkipIndexes;
         }
-
+        if (modelModelValues.dbType != null) {
+            if (modelDatabaseValues.dbType == null
+                    || !modelModelValues.dbType.equals(modelDatabaseValues.dbType.getValue())) {
+                modelDatabaseValues.dbType = DbType.fromValue(modelModelValues.dbType);
+            }
+        } else {
+            modelDatabaseValues.dbType = null;
+            return null;
+        }
         return modelDatabaseValues;
     }
 
-    private DatabaseValues getConnection(EObject model) {
-        DatabaseValues modelDatabaseValues = checkReconnect(model);
+    private DatabaseDirectives getConnection(EObject model) {
+        DatabaseDirectives modelDatabaseValues = checkReconnect(model);
         if (modelDatabaseValues == null)
             return null;
         if (!modelDatabaseValues.doReconnect)
@@ -255,7 +264,7 @@ public class DbResolverBean implements DbResolver {
         }
     }
 
-    private void closeConnection(DatabaseValues modelDatabaseValues) {
+    private void closeConnection(DatabaseDirectives modelDatabaseValues) {
         synchronized (sync) {
             try {
                 if (modelDatabaseValues.connection != null) {
@@ -368,8 +377,13 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
+    public DatabaseDirectives getDatabaseDirectives(EObject model) {
+        return getConnection(model);
+    }
+
+    @Override
     public List<String> getTables(EObject model) {
-        DatabaseValues modelDatabaseValues = getConnection(model);
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptyList();
         List<String> tablesForModel = tables.get(modelDatabaseValues.dir);
@@ -410,7 +424,7 @@ public class DbResolverBean implements DbResolver {
     public List<String> getColumns(EObject model, String table) {
         if (table == null)
             return Collections.emptyList();
-        DatabaseValues modelDatabaseValues = getConnection(model);
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptyList();
         boolean doInit = false;
@@ -461,7 +475,7 @@ public class DbResolverBean implements DbResolver {
     public List<DbColumn> getDbColumns(EObject model, String table) {
         if (table == null)
             return Collections.emptyList();
-        DatabaseValues modelDatabaseValues = getConnection(model);
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptyList();
         boolean doInit = false;
@@ -528,7 +542,7 @@ public class DbResolverBean implements DbResolver {
     public List<String> getDbPrimaryKeys(EObject model, String table) {
         if (table == null)
             return Collections.emptyList();
-        DatabaseValues modelDatabaseValues = getConnection(model);
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptyList();
         boolean doInit = false;
@@ -572,7 +586,7 @@ public class DbResolverBean implements DbResolver {
     public List<DbExport> getDbExports(EObject model, String table) {
         if (table == null)
             return Collections.emptyList();
-        DatabaseValues modelDatabaseValues = getConnection(model);
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptyList();
         boolean doInit = false;
@@ -624,7 +638,7 @@ public class DbResolverBean implements DbResolver {
     public List<DbImport> getDbImports(EObject model, String table) {
         if (table == null)
             return Collections.emptyList();
-        DatabaseValues modelDatabaseValues = getConnection(model);
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptyList();
         boolean doInit = false;
@@ -676,7 +690,7 @@ public class DbResolverBean implements DbResolver {
     public String getType(EObject model, String table, String column) {
         if (table == null || column == null)
             return "";
-        DatabaseValues modelDatabaseValues = getConnection(model);
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return "";
         ResultSet result = null;
@@ -723,7 +737,7 @@ public class DbResolverBean implements DbResolver {
     public List<DbIndex> getDbIndexes(EObject model, String table) {
         if (table == null)
             return Collections.emptyList();
-        DatabaseValues modelDatabaseValues = getConnection(model);
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null || modelDatabaseValues.indexTypes == null
                 || modelDatabaseValues.indexTypes.isEmpty() || modelDatabaseValues.dbSkipIndexes)
             return Collections.emptyList();
@@ -784,15 +798,15 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
-    public List<String> getSequences(EObject model) {
-        DatabaseValues modelDatabaseValues = getConnection(model);
+    public List<String> getDbSequences(EObject model) {
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptyList();
-        List<String> sequencesForModel = sequences.get(modelDatabaseValues.dir);
+        List<String> sequencesForModel = dbSequences.get(modelDatabaseValues.dir);
         if (sequencesForModel != null)
             return sequencesForModel;
         sequencesForModel = Collections.synchronizedList(new ArrayList<String>());
-        sequences.put(modelDatabaseValues.dir, sequencesForModel);
+        dbSequences.put(modelDatabaseValues.dir, sequencesForModel);
         if (modelDatabaseValues.connection != null) {
             ResultSet result = null;
             try {
