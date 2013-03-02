@@ -5,11 +5,11 @@ import "http://www.eclipse.org/xtext/common/JavaVMTypes" as jvmTypes
 
 generate processorDsl "http://www.sqlproc.org/dsl/ProcessorDsl"
 
-Artifacts:
+Artifacts: {Artifacts}
     WS* (properties+=Property WS*|pojos+=PojoDefinition WS*|tables+=TableDefinition WS*
     	|statements+=MetaStatement WS*|mappings+=MappingRule WS*|features+=OptionalFeature WS*
     	|pojoPackages+=PackageDeclaration WS*
-    )+;
+    )*;
 
 SqlTypeAssignement: typeName=IDENT (LPAREN size=NUMBER RPAREN)? '->' type=PojoType;
 ColumnTypeAssignement: dbColumn=IDENT '->' type=PojoType;

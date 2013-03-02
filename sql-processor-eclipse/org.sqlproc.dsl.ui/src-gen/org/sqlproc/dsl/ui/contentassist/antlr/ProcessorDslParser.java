@@ -37,7 +37,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getArtifactsAccess().getAlternatives_1(), "rule__Artifacts__Alternatives_1");
+					put(grammarAccess.getArtifactsAccess().getAlternatives_2(), "rule__Artifacts__Alternatives_2");
 					put(grammarAccess.getPropertyAccess().getAlternatives_0(), "rule__Property__Alternatives_0");
 					put(grammarAccess.getDatabasePropertyAccess().getAlternatives(), "rule__DatabaseProperty__Alternatives");
 					put(grammarAccess.getPojogenPropertyAccess().getAlternatives(), "rule__PojogenProperty__Alternatives");
@@ -101,13 +101,13 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPojoMethodArgAccess().getAlternatives_1_1(), "rule__PojoMethodArg__Alternatives_1_1");
 					put(grammarAccess.getQualifiedNameAccess().getAlternatives(), "rule__QualifiedName__Alternatives");
 					put(grammarAccess.getArtifactsAccess().getGroup(), "rule__Artifacts__Group__0");
-					put(grammarAccess.getArtifactsAccess().getGroup_1_0(), "rule__Artifacts__Group_1_0__0");
-					put(grammarAccess.getArtifactsAccess().getGroup_1_1(), "rule__Artifacts__Group_1_1__0");
-					put(grammarAccess.getArtifactsAccess().getGroup_1_2(), "rule__Artifacts__Group_1_2__0");
-					put(grammarAccess.getArtifactsAccess().getGroup_1_3(), "rule__Artifacts__Group_1_3__0");
-					put(grammarAccess.getArtifactsAccess().getGroup_1_4(), "rule__Artifacts__Group_1_4__0");
-					put(grammarAccess.getArtifactsAccess().getGroup_1_5(), "rule__Artifacts__Group_1_5__0");
-					put(grammarAccess.getArtifactsAccess().getGroup_1_6(), "rule__Artifacts__Group_1_6__0");
+					put(grammarAccess.getArtifactsAccess().getGroup_2_0(), "rule__Artifacts__Group_2_0__0");
+					put(grammarAccess.getArtifactsAccess().getGroup_2_1(), "rule__Artifacts__Group_2_1__0");
+					put(grammarAccess.getArtifactsAccess().getGroup_2_2(), "rule__Artifacts__Group_2_2__0");
+					put(grammarAccess.getArtifactsAccess().getGroup_2_3(), "rule__Artifacts__Group_2_3__0");
+					put(grammarAccess.getArtifactsAccess().getGroup_2_4(), "rule__Artifacts__Group_2_4__0");
+					put(grammarAccess.getArtifactsAccess().getGroup_2_5(), "rule__Artifacts__Group_2_5__0");
+					put(grammarAccess.getArtifactsAccess().getGroup_2_6(), "rule__Artifacts__Group_2_6__0");
 					put(grammarAccess.getSqlTypeAssignementAccess().getGroup(), "rule__SqlTypeAssignement__Group__0");
 					put(grammarAccess.getSqlTypeAssignementAccess().getGroup_1(), "rule__SqlTypeAssignement__Group_1__0");
 					put(grammarAccess.getColumnTypeAssignementAccess().getGroup(), "rule__ColumnTypeAssignement__Group__0");
@@ -313,13 +313,13 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPojoMethodArgAccess().getGroup_1_1_0(), "rule__PojoMethodArg__Group_1_1_0__0");
 					put(grammarAccess.getPojoMethodArgAccess().getGroup_1_1_0_1(), "rule__PojoMethodArg__Group_1_1_0_1__0");
 					put(grammarAccess.getQualifiedNameWithWildcardAccess().getGroup(), "rule__QualifiedNameWithWildcard__Group__0");
-					put(grammarAccess.getArtifactsAccess().getPropertiesAssignment_1_0_0(), "rule__Artifacts__PropertiesAssignment_1_0_0");
-					put(grammarAccess.getArtifactsAccess().getPojosAssignment_1_1_0(), "rule__Artifacts__PojosAssignment_1_1_0");
-					put(grammarAccess.getArtifactsAccess().getTablesAssignment_1_2_0(), "rule__Artifacts__TablesAssignment_1_2_0");
-					put(grammarAccess.getArtifactsAccess().getStatementsAssignment_1_3_0(), "rule__Artifacts__StatementsAssignment_1_3_0");
-					put(grammarAccess.getArtifactsAccess().getMappingsAssignment_1_4_0(), "rule__Artifacts__MappingsAssignment_1_4_0");
-					put(grammarAccess.getArtifactsAccess().getFeaturesAssignment_1_5_0(), "rule__Artifacts__FeaturesAssignment_1_5_0");
-					put(grammarAccess.getArtifactsAccess().getPojoPackagesAssignment_1_6_0(), "rule__Artifacts__PojoPackagesAssignment_1_6_0");
+					put(grammarAccess.getArtifactsAccess().getPropertiesAssignment_2_0_0(), "rule__Artifacts__PropertiesAssignment_2_0_0");
+					put(grammarAccess.getArtifactsAccess().getPojosAssignment_2_1_0(), "rule__Artifacts__PojosAssignment_2_1_0");
+					put(grammarAccess.getArtifactsAccess().getTablesAssignment_2_2_0(), "rule__Artifacts__TablesAssignment_2_2_0");
+					put(grammarAccess.getArtifactsAccess().getStatementsAssignment_2_3_0(), "rule__Artifacts__StatementsAssignment_2_3_0");
+					put(grammarAccess.getArtifactsAccess().getMappingsAssignment_2_4_0(), "rule__Artifacts__MappingsAssignment_2_4_0");
+					put(grammarAccess.getArtifactsAccess().getFeaturesAssignment_2_5_0(), "rule__Artifacts__FeaturesAssignment_2_5_0");
+					put(grammarAccess.getArtifactsAccess().getPojoPackagesAssignment_2_6_0(), "rule__Artifacts__PojoPackagesAssignment_2_6_0");
 					put(grammarAccess.getSqlTypeAssignementAccess().getTypeNameAssignment_0(), "rule__SqlTypeAssignement__TypeNameAssignment_0");
 					put(grammarAccess.getSqlTypeAssignementAccess().getSizeAssignment_1_1(), "rule__SqlTypeAssignement__SizeAssignment_1_1");
 					put(grammarAccess.getSqlTypeAssignementAccess().getTypeAssignment_3(), "rule__SqlTypeAssignement__TypeAssignment_3");

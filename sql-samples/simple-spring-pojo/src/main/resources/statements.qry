@@ -1,5 +1,5 @@
 SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
-SEL1(OPT)=call identity();
+SEL1(OPT)=call identity(); 
 
 ALL_PEOPLE(QRY,inx=Person,outx=Person,tab=person)=
   select %ID @id, %NAME @name

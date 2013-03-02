@@ -451,14 +451,16 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	/**
 	 * Constraint:
 	 *     (
-	 *         properties+=Property | 
-	 *         pojos+=PojoDefinition | 
-	 *         tables+=TableDefinition | 
-	 *         statements+=MetaStatement | 
-	 *         mappings+=MappingRule | 
-	 *         features+=OptionalFeature | 
-	 *         pojoPackages+=PackageDeclaration
-	 *     )+
+	 *         (
+	 *             properties+=Property | 
+	 *             pojos+=PojoDefinition | 
+	 *             tables+=TableDefinition | 
+	 *             statements+=MetaStatement | 
+	 *             mappings+=MappingRule | 
+	 *             features+=OptionalFeature | 
+	 *             pojoPackages+=PackageDeclaration
+	 *         )*
+	 *     )
 	 */
 	protected void sequence_Artifacts(EObject context, Artifacts semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

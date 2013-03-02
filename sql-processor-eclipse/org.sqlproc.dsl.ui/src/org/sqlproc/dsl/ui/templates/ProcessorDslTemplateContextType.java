@@ -72,6 +72,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         if (xtextTemplateContext == null)
             return null;
         EObject object = xtextTemplateContext.getContentAssistContext().getCurrentModel();
+        if (object == null)
+            return null;
         return EcoreUtil2.getContainerOfType(object, Artifacts.class);
     }
 

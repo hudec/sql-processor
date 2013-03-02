@@ -31,14 +31,14 @@ public class ProcessorDslFormatter extends AbstractDeclarativeFormatter {
         c.setLinewrap(1, 1, 2).after(grammarAccess.getMetaStatementRule());
         c.setLinewrap(1, 1, 2).after(grammarAccess.getOptionalFeatureRule());
 
-        c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_0());
-        c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_0_1());
-        c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_1_1());
-        c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_2_1());
-        c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_3_1());
-        c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_4_1());
-        c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_5_1());
-        c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_6_1());
+        // c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_0());
+        // c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_0_1());
+        // c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_1_1());
+        // c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_2_1());
+        // c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_3_1());
+        // c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_4_1());
+        // c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_5_1());
+        // c.setNoSpace().around(grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_6_1());
 
         // c.setNoSpace().around(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_0_1());
         // c.setNoSpace().around(grammarAccess.getPropertyAccess().getWSTerminalRuleCall_0_1_1());

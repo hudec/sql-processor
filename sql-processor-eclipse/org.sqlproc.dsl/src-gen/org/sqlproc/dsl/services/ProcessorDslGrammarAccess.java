@@ -21,136 +21,142 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	public class ArtifactsElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Artifacts");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cWSTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
-		private final Assignment cPropertiesAssignment_1_0_0 = (Assignment)cGroup_1_0.eContents().get(0);
-		private final RuleCall cPropertiesPropertyParserRuleCall_1_0_0_0 = (RuleCall)cPropertiesAssignment_1_0_0.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_1_0_1 = (RuleCall)cGroup_1_0.eContents().get(1);
-		private final Group cGroup_1_1 = (Group)cAlternatives_1.eContents().get(1);
-		private final Assignment cPojosAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
-		private final RuleCall cPojosPojoDefinitionParserRuleCall_1_1_0_0 = (RuleCall)cPojosAssignment_1_1_0.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_1_1_1 = (RuleCall)cGroup_1_1.eContents().get(1);
-		private final Group cGroup_1_2 = (Group)cAlternatives_1.eContents().get(2);
-		private final Assignment cTablesAssignment_1_2_0 = (Assignment)cGroup_1_2.eContents().get(0);
-		private final RuleCall cTablesTableDefinitionParserRuleCall_1_2_0_0 = (RuleCall)cTablesAssignment_1_2_0.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_1_2_1 = (RuleCall)cGroup_1_2.eContents().get(1);
-		private final Group cGroup_1_3 = (Group)cAlternatives_1.eContents().get(3);
-		private final Assignment cStatementsAssignment_1_3_0 = (Assignment)cGroup_1_3.eContents().get(0);
-		private final RuleCall cStatementsMetaStatementParserRuleCall_1_3_0_0 = (RuleCall)cStatementsAssignment_1_3_0.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_1_3_1 = (RuleCall)cGroup_1_3.eContents().get(1);
-		private final Group cGroup_1_4 = (Group)cAlternatives_1.eContents().get(4);
-		private final Assignment cMappingsAssignment_1_4_0 = (Assignment)cGroup_1_4.eContents().get(0);
-		private final RuleCall cMappingsMappingRuleParserRuleCall_1_4_0_0 = (RuleCall)cMappingsAssignment_1_4_0.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_1_4_1 = (RuleCall)cGroup_1_4.eContents().get(1);
-		private final Group cGroup_1_5 = (Group)cAlternatives_1.eContents().get(5);
-		private final Assignment cFeaturesAssignment_1_5_0 = (Assignment)cGroup_1_5.eContents().get(0);
-		private final RuleCall cFeaturesOptionalFeatureParserRuleCall_1_5_0_0 = (RuleCall)cFeaturesAssignment_1_5_0.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_1_5_1 = (RuleCall)cGroup_1_5.eContents().get(1);
-		private final Group cGroup_1_6 = (Group)cAlternatives_1.eContents().get(6);
-		private final Assignment cPojoPackagesAssignment_1_6_0 = (Assignment)cGroup_1_6.eContents().get(0);
-		private final RuleCall cPojoPackagesPackageDeclarationParserRuleCall_1_6_0_0 = (RuleCall)cPojoPackagesAssignment_1_6_0.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_1_6_1 = (RuleCall)cGroup_1_6.eContents().get(1);
+		private final Action cArtifactsAction_0 = (Action)cGroup.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
+		private final Assignment cPropertiesAssignment_2_0_0 = (Assignment)cGroup_2_0.eContents().get(0);
+		private final RuleCall cPropertiesPropertyParserRuleCall_2_0_0_0 = (RuleCall)cPropertiesAssignment_2_0_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_2_0_1 = (RuleCall)cGroup_2_0.eContents().get(1);
+		private final Group cGroup_2_1 = (Group)cAlternatives_2.eContents().get(1);
+		private final Assignment cPojosAssignment_2_1_0 = (Assignment)cGroup_2_1.eContents().get(0);
+		private final RuleCall cPojosPojoDefinitionParserRuleCall_2_1_0_0 = (RuleCall)cPojosAssignment_2_1_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_2_1_1 = (RuleCall)cGroup_2_1.eContents().get(1);
+		private final Group cGroup_2_2 = (Group)cAlternatives_2.eContents().get(2);
+		private final Assignment cTablesAssignment_2_2_0 = (Assignment)cGroup_2_2.eContents().get(0);
+		private final RuleCall cTablesTableDefinitionParserRuleCall_2_2_0_0 = (RuleCall)cTablesAssignment_2_2_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_2_2_1 = (RuleCall)cGroup_2_2.eContents().get(1);
+		private final Group cGroup_2_3 = (Group)cAlternatives_2.eContents().get(3);
+		private final Assignment cStatementsAssignment_2_3_0 = (Assignment)cGroup_2_3.eContents().get(0);
+		private final RuleCall cStatementsMetaStatementParserRuleCall_2_3_0_0 = (RuleCall)cStatementsAssignment_2_3_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_2_3_1 = (RuleCall)cGroup_2_3.eContents().get(1);
+		private final Group cGroup_2_4 = (Group)cAlternatives_2.eContents().get(4);
+		private final Assignment cMappingsAssignment_2_4_0 = (Assignment)cGroup_2_4.eContents().get(0);
+		private final RuleCall cMappingsMappingRuleParserRuleCall_2_4_0_0 = (RuleCall)cMappingsAssignment_2_4_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_2_4_1 = (RuleCall)cGroup_2_4.eContents().get(1);
+		private final Group cGroup_2_5 = (Group)cAlternatives_2.eContents().get(5);
+		private final Assignment cFeaturesAssignment_2_5_0 = (Assignment)cGroup_2_5.eContents().get(0);
+		private final RuleCall cFeaturesOptionalFeatureParserRuleCall_2_5_0_0 = (RuleCall)cFeaturesAssignment_2_5_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_2_5_1 = (RuleCall)cGroup_2_5.eContents().get(1);
+		private final Group cGroup_2_6 = (Group)cAlternatives_2.eContents().get(6);
+		private final Assignment cPojoPackagesAssignment_2_6_0 = (Assignment)cGroup_2_6.eContents().get(0);
+		private final RuleCall cPojoPackagesPackageDeclarationParserRuleCall_2_6_0_0 = (RuleCall)cPojoPackagesAssignment_2_6_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_2_6_1 = (RuleCall)cGroup_2_6.eContents().get(1);
 		
 		//Artifacts:
-		//	WS* (properties+=Property WS* | pojos+=PojoDefinition WS* | tables+=TableDefinition WS* | statements+=MetaStatement
-		//	WS* | mappings+=MappingRule WS* | features+=OptionalFeature WS* | pojoPackages+=PackageDeclaration WS*)+;
+		//	{Artifacts} WS* (properties+=Property WS* | pojos+=PojoDefinition WS* | tables+=TableDefinition WS* |
+		//	statements+=MetaStatement WS* | mappings+=MappingRule WS* | features+=OptionalFeature WS* |
+		//	pojoPackages+=PackageDeclaration WS*)*;
 		public ParserRule getRule() { return rule; }
 
-		//WS* (properties+=Property WS* | pojos+=PojoDefinition WS* | tables+=TableDefinition WS* | statements+=MetaStatement WS*
-		//| mappings+=MappingRule WS* | features+=OptionalFeature WS* | pojoPackages+=PackageDeclaration WS*)+
+		//{Artifacts} WS* (properties+=Property WS* | pojos+=PojoDefinition WS* | tables+=TableDefinition WS* |
+		//statements+=MetaStatement WS* | mappings+=MappingRule WS* | features+=OptionalFeature WS* |
+		//pojoPackages+=PackageDeclaration WS*)*
 		public Group getGroup() { return cGroup; }
 
+		//{Artifacts}
+		public Action getArtifactsAction_0() { return cArtifactsAction_0; }
+
 		//WS*
-		public RuleCall getWSTerminalRuleCall_0() { return cWSTerminalRuleCall_0; }
+		public RuleCall getWSTerminalRuleCall_1() { return cWSTerminalRuleCall_1; }
 
 		//(properties+=Property WS* | pojos+=PojoDefinition WS* | tables+=TableDefinition WS* | statements+=MetaStatement WS* |
-		//mappings+=MappingRule WS* | features+=OptionalFeature WS* | pojoPackages+=PackageDeclaration WS*)+
-		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+		//mappings+=MappingRule WS* | features+=OptionalFeature WS* | pojoPackages+=PackageDeclaration WS*)*
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
 		//properties+=Property WS*
-		public Group getGroup_1_0() { return cGroup_1_0; }
+		public Group getGroup_2_0() { return cGroup_2_0; }
 
 		//properties+=Property
-		public Assignment getPropertiesAssignment_1_0_0() { return cPropertiesAssignment_1_0_0; }
+		public Assignment getPropertiesAssignment_2_0_0() { return cPropertiesAssignment_2_0_0; }
 
 		//Property
-		public RuleCall getPropertiesPropertyParserRuleCall_1_0_0_0() { return cPropertiesPropertyParserRuleCall_1_0_0_0; }
+		public RuleCall getPropertiesPropertyParserRuleCall_2_0_0_0() { return cPropertiesPropertyParserRuleCall_2_0_0_0; }
 
 		//WS*
-		public RuleCall getWSTerminalRuleCall_1_0_1() { return cWSTerminalRuleCall_1_0_1; }
+		public RuleCall getWSTerminalRuleCall_2_0_1() { return cWSTerminalRuleCall_2_0_1; }
 
 		//pojos+=PojoDefinition WS*
-		public Group getGroup_1_1() { return cGroup_1_1; }
+		public Group getGroup_2_1() { return cGroup_2_1; }
 
 		//pojos+=PojoDefinition
-		public Assignment getPojosAssignment_1_1_0() { return cPojosAssignment_1_1_0; }
+		public Assignment getPojosAssignment_2_1_0() { return cPojosAssignment_2_1_0; }
 
 		//PojoDefinition
-		public RuleCall getPojosPojoDefinitionParserRuleCall_1_1_0_0() { return cPojosPojoDefinitionParserRuleCall_1_1_0_0; }
+		public RuleCall getPojosPojoDefinitionParserRuleCall_2_1_0_0() { return cPojosPojoDefinitionParserRuleCall_2_1_0_0; }
 
 		//WS*
-		public RuleCall getWSTerminalRuleCall_1_1_1() { return cWSTerminalRuleCall_1_1_1; }
+		public RuleCall getWSTerminalRuleCall_2_1_1() { return cWSTerminalRuleCall_2_1_1; }
 
 		//tables+=TableDefinition WS*
-		public Group getGroup_1_2() { return cGroup_1_2; }
+		public Group getGroup_2_2() { return cGroup_2_2; }
 
 		//tables+=TableDefinition
-		public Assignment getTablesAssignment_1_2_0() { return cTablesAssignment_1_2_0; }
+		public Assignment getTablesAssignment_2_2_0() { return cTablesAssignment_2_2_0; }
 
 		//TableDefinition
-		public RuleCall getTablesTableDefinitionParserRuleCall_1_2_0_0() { return cTablesTableDefinitionParserRuleCall_1_2_0_0; }
+		public RuleCall getTablesTableDefinitionParserRuleCall_2_2_0_0() { return cTablesTableDefinitionParserRuleCall_2_2_0_0; }
 
 		//WS*
-		public RuleCall getWSTerminalRuleCall_1_2_1() { return cWSTerminalRuleCall_1_2_1; }
+		public RuleCall getWSTerminalRuleCall_2_2_1() { return cWSTerminalRuleCall_2_2_1; }
 
 		//statements+=MetaStatement WS*
-		public Group getGroup_1_3() { return cGroup_1_3; }
+		public Group getGroup_2_3() { return cGroup_2_3; }
 
 		//statements+=MetaStatement
-		public Assignment getStatementsAssignment_1_3_0() { return cStatementsAssignment_1_3_0; }
+		public Assignment getStatementsAssignment_2_3_0() { return cStatementsAssignment_2_3_0; }
 
 		//MetaStatement
-		public RuleCall getStatementsMetaStatementParserRuleCall_1_3_0_0() { return cStatementsMetaStatementParserRuleCall_1_3_0_0; }
+		public RuleCall getStatementsMetaStatementParserRuleCall_2_3_0_0() { return cStatementsMetaStatementParserRuleCall_2_3_0_0; }
 
 		//WS*
-		public RuleCall getWSTerminalRuleCall_1_3_1() { return cWSTerminalRuleCall_1_3_1; }
+		public RuleCall getWSTerminalRuleCall_2_3_1() { return cWSTerminalRuleCall_2_3_1; }
 
 		//mappings+=MappingRule WS*
-		public Group getGroup_1_4() { return cGroup_1_4; }
+		public Group getGroup_2_4() { return cGroup_2_4; }
 
 		//mappings+=MappingRule
-		public Assignment getMappingsAssignment_1_4_0() { return cMappingsAssignment_1_4_0; }
+		public Assignment getMappingsAssignment_2_4_0() { return cMappingsAssignment_2_4_0; }
 
 		//MappingRule
-		public RuleCall getMappingsMappingRuleParserRuleCall_1_4_0_0() { return cMappingsMappingRuleParserRuleCall_1_4_0_0; }
+		public RuleCall getMappingsMappingRuleParserRuleCall_2_4_0_0() { return cMappingsMappingRuleParserRuleCall_2_4_0_0; }
 
 		//WS*
-		public RuleCall getWSTerminalRuleCall_1_4_1() { return cWSTerminalRuleCall_1_4_1; }
+		public RuleCall getWSTerminalRuleCall_2_4_1() { return cWSTerminalRuleCall_2_4_1; }
 
 		//features+=OptionalFeature WS*
-		public Group getGroup_1_5() { return cGroup_1_5; }
+		public Group getGroup_2_5() { return cGroup_2_5; }
 
 		//features+=OptionalFeature
-		public Assignment getFeaturesAssignment_1_5_0() { return cFeaturesAssignment_1_5_0; }
+		public Assignment getFeaturesAssignment_2_5_0() { return cFeaturesAssignment_2_5_0; }
 
 		//OptionalFeature
-		public RuleCall getFeaturesOptionalFeatureParserRuleCall_1_5_0_0() { return cFeaturesOptionalFeatureParserRuleCall_1_5_0_0; }
+		public RuleCall getFeaturesOptionalFeatureParserRuleCall_2_5_0_0() { return cFeaturesOptionalFeatureParserRuleCall_2_5_0_0; }
 
 		//WS*
-		public RuleCall getWSTerminalRuleCall_1_5_1() { return cWSTerminalRuleCall_1_5_1; }
+		public RuleCall getWSTerminalRuleCall_2_5_1() { return cWSTerminalRuleCall_2_5_1; }
 
 		//pojoPackages+=PackageDeclaration WS*
-		public Group getGroup_1_6() { return cGroup_1_6; }
+		public Group getGroup_2_6() { return cGroup_2_6; }
 
 		//pojoPackages+=PackageDeclaration
-		public Assignment getPojoPackagesAssignment_1_6_0() { return cPojoPackagesAssignment_1_6_0; }
+		public Assignment getPojoPackagesAssignment_2_6_0() { return cPojoPackagesAssignment_2_6_0; }
 
 		//PackageDeclaration
-		public RuleCall getPojoPackagesPackageDeclarationParserRuleCall_1_6_0_0() { return cPojoPackagesPackageDeclarationParserRuleCall_1_6_0_0; }
+		public RuleCall getPojoPackagesPackageDeclarationParserRuleCall_2_6_0_0() { return cPojoPackagesPackageDeclarationParserRuleCall_2_6_0_0; }
 
 		//WS*
-		public RuleCall getWSTerminalRuleCall_1_6_1() { return cWSTerminalRuleCall_1_6_1; }
+		public RuleCall getWSTerminalRuleCall_2_6_1() { return cWSTerminalRuleCall_2_6_1; }
 	}
 
 	public class SqlTypeAssignementElements extends AbstractParserRuleElementFinder {
@@ -6813,8 +6819,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//Artifacts:
-	//	WS* (properties+=Property WS* | pojos+=PojoDefinition WS* | tables+=TableDefinition WS* | statements+=MetaStatement
-	//	WS* | mappings+=MappingRule WS* | features+=OptionalFeature WS* | pojoPackages+=PackageDeclaration WS*)+;
+	//	{Artifacts} WS* (properties+=Property WS* | pojos+=PojoDefinition WS* | tables+=TableDefinition WS* |
+	//	statements+=MetaStatement WS* | mappings+=MappingRule WS* | features+=OptionalFeature WS* |
+	//	pojoPackages+=PackageDeclaration WS*)*;
 	public ArtifactsElements getArtifactsAccess() {
 		return (pArtifacts != null) ? pArtifacts : (pArtifacts = new ArtifactsElements());
 	}

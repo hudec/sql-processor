@@ -77,171 +77,177 @@ ruleArtifacts returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((this_WS_0=RULE_WS
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getArtifactsAccess().getArtifactsAction_0(),
+            $current);
+    }
+)(this_WS_1=RULE_WS
     { 
-    newLeafNode(this_WS_0, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_0()); 
+    newLeafNode(this_WS_1, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1()); 
     }
 )*(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArtifactsAccess().getPropertiesPropertyParserRuleCall_1_0_0_0()); 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getPropertiesPropertyParserRuleCall_2_0_0_0()); 
 	    }
-		lv_properties_1_0=ruleProperty		{
+		lv_properties_2_0=ruleProperty		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
 	        }
        		add(
        			$current, 
        			"properties",
-        		lv_properties_1_0, 
+        		lv_properties_2_0, 
         		"Property");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(this_WS_2=RULE_WS
+)(this_WS_3=RULE_WS
     { 
-    newLeafNode(this_WS_2, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_0_1()); 
+    newLeafNode(this_WS_3, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_2_0_1()); 
     }
 )*)
     |((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArtifactsAccess().getPojosPojoDefinitionParserRuleCall_1_1_0_0()); 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getPojosPojoDefinitionParserRuleCall_2_1_0_0()); 
 	    }
-		lv_pojos_3_0=rulePojoDefinition		{
+		lv_pojos_4_0=rulePojoDefinition		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
 	        }
        		add(
        			$current, 
        			"pojos",
-        		lv_pojos_3_0, 
+        		lv_pojos_4_0, 
         		"PojoDefinition");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(this_WS_4=RULE_WS
+)(this_WS_5=RULE_WS
     { 
-    newLeafNode(this_WS_4, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_1_1()); 
+    newLeafNode(this_WS_5, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_2_1_1()); 
     }
 )*)
     |((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArtifactsAccess().getTablesTableDefinitionParserRuleCall_1_2_0_0()); 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getTablesTableDefinitionParserRuleCall_2_2_0_0()); 
 	    }
-		lv_tables_5_0=ruleTableDefinition		{
+		lv_tables_6_0=ruleTableDefinition		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
 	        }
        		add(
        			$current, 
        			"tables",
-        		lv_tables_5_0, 
+        		lv_tables_6_0, 
         		"TableDefinition");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(this_WS_6=RULE_WS
+)(this_WS_7=RULE_WS
     { 
-    newLeafNode(this_WS_6, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_2_1()); 
+    newLeafNode(this_WS_7, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_2_2_1()); 
     }
 )*)
     |((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArtifactsAccess().getStatementsMetaStatementParserRuleCall_1_3_0_0()); 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getStatementsMetaStatementParserRuleCall_2_3_0_0()); 
 	    }
-		lv_statements_7_0=ruleMetaStatement		{
+		lv_statements_8_0=ruleMetaStatement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
 	        }
        		add(
        			$current, 
        			"statements",
-        		lv_statements_7_0, 
+        		lv_statements_8_0, 
         		"MetaStatement");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(this_WS_8=RULE_WS
+)(this_WS_9=RULE_WS
     { 
-    newLeafNode(this_WS_8, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_3_1()); 
+    newLeafNode(this_WS_9, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_2_3_1()); 
     }
 )*)
     |((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArtifactsAccess().getMappingsMappingRuleParserRuleCall_1_4_0_0()); 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getMappingsMappingRuleParserRuleCall_2_4_0_0()); 
 	    }
-		lv_mappings_9_0=ruleMappingRule		{
+		lv_mappings_10_0=ruleMappingRule		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
 	        }
        		add(
        			$current, 
        			"mappings",
-        		lv_mappings_9_0, 
+        		lv_mappings_10_0, 
         		"MappingRule");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(this_WS_10=RULE_WS
+)(this_WS_11=RULE_WS
     { 
-    newLeafNode(this_WS_10, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_4_1()); 
+    newLeafNode(this_WS_11, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_2_4_1()); 
     }
 )*)
     |((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArtifactsAccess().getFeaturesOptionalFeatureParserRuleCall_1_5_0_0()); 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getFeaturesOptionalFeatureParserRuleCall_2_5_0_0()); 
 	    }
-		lv_features_11_0=ruleOptionalFeature		{
+		lv_features_12_0=ruleOptionalFeature		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
 	        }
        		add(
        			$current, 
        			"features",
-        		lv_features_11_0, 
+        		lv_features_12_0, 
         		"OptionalFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(this_WS_12=RULE_WS
+)(this_WS_13=RULE_WS
     { 
-    newLeafNode(this_WS_12, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_5_1()); 
+    newLeafNode(this_WS_13, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_2_5_1()); 
     }
 )*)
     |((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getArtifactsAccess().getPojoPackagesPackageDeclarationParserRuleCall_1_6_0_0()); 
+	        newCompositeNode(grammarAccess.getArtifactsAccess().getPojoPackagesPackageDeclarationParserRuleCall_2_6_0_0()); 
 	    }
-		lv_pojoPackages_13_0=rulePackageDeclaration		{
+		lv_pojoPackages_14_0=rulePackageDeclaration		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getArtifactsRule());
 	        }
        		add(
        			$current, 
        			"pojoPackages",
-        		lv_pojoPackages_13_0, 
+        		lv_pojoPackages_14_0, 
         		"PackageDeclaration");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(this_WS_14=RULE_WS
+)(this_WS_15=RULE_WS
     { 
-    newLeafNode(this_WS_14, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_1_6_1()); 
+    newLeafNode(this_WS_15, grammarAccess.getArtifactsAccess().getWSTerminalRuleCall_2_6_1()); 
     }
-)*))+)
+)*))*)
 ;
 
 
