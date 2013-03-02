@@ -1289,10 +1289,10 @@ public class ProcessorDslGenerator implements IGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("  ");
-    _builder.append("private SqlEngineFactory sqlEngineFactory;");
+    _builder.append("protected SqlEngineFactory sqlEngineFactory;");
     _builder.newLine();
     _builder.append("  ");
-    _builder.append("private SqlSessionFactory sqlSessionFactory;");
+    _builder.append("protected SqlSessionFactory sqlSessionFactory;");
     _builder.newLine();
     _builder.append("    \t");
     _builder.newLine();

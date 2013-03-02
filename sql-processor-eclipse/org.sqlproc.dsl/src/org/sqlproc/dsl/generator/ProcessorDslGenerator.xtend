@@ -342,8 +342,8 @@ public «IF isAbstract(d)»abstract «ENDIF»class «d.name»«IF d.implPackage 
   «ENDIF»
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-  private SqlEngineFactory sqlEngineFactory;
-  private SqlSessionFactory sqlSessionFactory;
+  protected SqlEngineFactory sqlEngineFactory;
+  protected SqlSessionFactory sqlSessionFactory;
     	
   public «d.name»«IF d.implPackage != null»Impl«ENDIF»(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
