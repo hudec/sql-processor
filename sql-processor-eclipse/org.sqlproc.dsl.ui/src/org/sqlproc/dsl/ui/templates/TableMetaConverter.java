@@ -1042,7 +1042,7 @@ public class TableMetaConverter extends TablePojoConverter {
             header.statementName = "DELETE_";
         else if (type == StatementType.SELECT)
             header.statementName = "SELECT_";
-        header.statementName = header.statementName + header.table.tableName;
+        header.statementName = header.statementName + header.table.tableName.toUpperCase();
         if (suffix != null) {
             header.statementName = header.statementName + "_" + suffix;
         }

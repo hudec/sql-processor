@@ -1,10 +1,10 @@
 
-INSERT_contact(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
+INSERT_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
   insert into %%contact (%id, %person_id, %address, %phone_number)
-  {= values (:id, :person.id, :address, :phoneNumber) }
+  {= values (:id(seq=contact_id_seq), :person.id, :address, :phoneNumber) }
 ;
 
-GET_contact(CRUD,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
+GET_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
   select %c.id @id(id), %c.person_id @person.id(id), %c.address @address, %c.phone_number @phoneNumber
          {? :person(call=toInit) | , %p.first_name @person.firstName, %p.last_name @person.lastName, %p.date_of_birth @person.dateOfBirth, %p.ssn @person.ssn }
   from %%contact c
@@ -17,7 +17,7 @@ GET_contact(CRUD,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
   }
 ;
 
-UPDATE_contact(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
+UPDATE_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
   update %%contact
   {= set
     { ,%person_id = :person.id(call=isDef) }
@@ -29,14 +29,14 @@ UPDATE_contact(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
   }
 ;
 
-DELETE_contact(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
+DELETE_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
   delete from %%contact
   {= where
     {& %id = :id(notnull) }
   }
 ;
 
-SELECT_contact(QRY,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
+SELECT_CONTACT(QRY,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
   select %c.id @id(id), %c.person_id @person.id(id), %c.address @address, %c.phone_number @phoneNumber
          {? :person(call=toInit) | , %p.first_name @person.firstName, %p.last_name @person.lastName, %p.date_of_birth @person.dateOfBirth, %p.ssn @person.ssn }
   from %%contact c
@@ -50,12 +50,12 @@ SELECT_contact(QRY,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
   {#1 order by %c.id }
 ;
 
-INSERT_person(CRUD,final=,inx=Person,outx=Person,tab=person)=
+INSERT_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person)=
   insert into %%person (%id, %first_name, %last_name, %date_of_birth, %ssn)
-  {= values (:id, :firstName, :lastName, :dateOfBirth, :ssn) }
+  {= values (:id(seq=person_id_seq), :firstName, :lastName, :dateOfBirth, :ssn) }
 ;
 
-GET_person(CRUD,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
+GET_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   select %p.id @id(id), %p.first_name @firstName, %p.last_name @lastName, %p.date_of_birth @dateOfBirth, %p.ssn @ssn
          {? :contacts(call=toInit) | , %c.id @contacts.id(id), %c.person_id @contacts.person.id, %c.address @contacts.address, %c.phone_number @contacts.phoneNumber }
   from %%person p
@@ -69,7 +69,7 @@ GET_person(CRUD,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   }
 ;
 
-UPDATE_person(CRUD,final=,inx=Person,outx=Person,tab=person)=
+UPDATE_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person)=
   update %%person
   {= set
     { ,%first_name = :firstName(call=isDef) }
@@ -82,14 +82,14 @@ UPDATE_person(CRUD,final=,inx=Person,outx=Person,tab=person)=
   }
 ;
 
-DELETE_person(CRUD,final=,inx=Person,outx=Person,tab=person)=
+DELETE_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person)=
   delete from %%person
   {= where
     {& %id = :id(notnull) }
   }
 ;
 
-SELECT_person(QRY,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
+SELECT_PERSON(QRY,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   select %p.id @id(id), %p.first_name @firstName, %p.last_name @lastName, %p.date_of_birth @dateOfBirth, %p.ssn @ssn
          {? :contacts(call=toInit) | , %c.id @contacts.id(id), %c.person_id @contacts.person.id, %c.address @contacts.address, %c.phone_number @contacts.phoneNumber }
   from %%person p
