@@ -3242,15 +3242,15 @@ ruleMetagenProperty returns [EObject current=null]
 	    }
 
 )
-)(this_WS_13=RULE_WS
+)((this_WS_13=RULE_WS
     { 
-    newLeafNode(this_WS_13, grammarAccess.getMetagenPropertyAccess().getWSTerminalRuleCall_2_1()); 
+    newLeafNode(this_WS_13, grammarAccess.getMetagenPropertyAccess().getWSTerminalRuleCall_2_1_0()); 
     }
 )+(
 (
 		lv_identity_14_0=RULE_IDENT
 		{
-			newLeafNode(lv_identity_14_0, grammarAccess.getMetagenPropertyAccess().getIdentityIDENTTerminalRuleCall_2_2_0()); 
+			newLeafNode(lv_identity_14_0, grammarAccess.getMetagenPropertyAccess().getIdentityIDENTTerminalRuleCall_2_1_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -3266,13 +3266,13 @@ ruleMetagenProperty returns [EObject current=null]
 )
 )((this_WS_15=RULE_WS
     { 
-    newLeafNode(this_WS_15, grammarAccess.getMetagenPropertyAccess().getWSTerminalRuleCall_2_3_0()); 
+    newLeafNode(this_WS_15, grammarAccess.getMetagenPropertyAccess().getWSTerminalRuleCall_2_1_2_0()); 
     }
 )+(
 (
 		lv_type_16_0=RULE_IDENT
 		{
-			newLeafNode(lv_type_16_0, grammarAccess.getMetagenPropertyAccess().getTypeIDENTTerminalRuleCall_2_3_1_0()); 
+			newLeafNode(lv_type_16_0, grammarAccess.getMetagenPropertyAccess().getTypeIDENTTerminalRuleCall_2_1_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -3286,7 +3286,7 @@ ruleMetagenProperty returns [EObject current=null]
 	    }
 
 )
-))?)
+))?)?)
     |((
 (
 		lv_name_17_0=	'table-identity' 

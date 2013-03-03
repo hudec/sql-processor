@@ -2017,13 +2017,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
 		private final Assignment cNameAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
 		private final Keyword cNameGlobalIdentityKeyword_2_0_0 = (Keyword)cNameAssignment_2_0.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
-		private final Assignment cIdentityAssignment_2_2 = (Assignment)cGroup_2.eContents().get(2);
-		private final RuleCall cIdentityIDENTTerminalRuleCall_2_2_0 = (RuleCall)cIdentityAssignment_2_2.eContents().get(0);
-		private final Group cGroup_2_3 = (Group)cGroup_2.eContents().get(3);
-		private final RuleCall cWSTerminalRuleCall_2_3_0 = (RuleCall)cGroup_2_3.eContents().get(0);
-		private final Assignment cTypeAssignment_2_3_1 = (Assignment)cGroup_2_3.eContents().get(1);
-		private final RuleCall cTypeIDENTTerminalRuleCall_2_3_1_0 = (RuleCall)cTypeAssignment_2_3_1.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final RuleCall cWSTerminalRuleCall_2_1_0 = (RuleCall)cGroup_2_1.eContents().get(0);
+		private final Assignment cIdentityAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cIdentityIDENTTerminalRuleCall_2_1_1_0 = (RuleCall)cIdentityAssignment_2_1_1.eContents().get(0);
+		private final Group cGroup_2_1_2 = (Group)cGroup_2_1.eContents().get(2);
+		private final RuleCall cWSTerminalRuleCall_2_1_2_0 = (RuleCall)cGroup_2_1_2.eContents().get(0);
+		private final Assignment cTypeAssignment_2_1_2_1 = (Assignment)cGroup_2_1_2.eContents().get(1);
+		private final RuleCall cTypeIDENTTerminalRuleCall_2_1_2_1_0 = (RuleCall)cTypeAssignment_2_1_2_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
 		private final Assignment cNameAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
 		private final Keyword cNameTableIdentityKeyword_3_0_0 = (Keyword)cNameAssignment_3_0.eContents().get(0);
@@ -2062,14 +2063,14 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//MetagenProperty:
 		//	name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+
-		//	sequence=IDENT (WS+ type=IDENT)? | name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)? | name="table-identity"
-		//	WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+ dbTable=IDENT (WS+
-		//	metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
+		//	sequence=IDENT (WS+ type=IDENT)? | name="global-identity" (WS+ identity=IDENT (WS+ type=IDENT)?)? |
+		//	name="table-identity" WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+
+		//	dbTable=IDENT (WS+ metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
 		//	metaTypes+=MetaTypeAssignement)+ | name="make-it-final";
 		public ParserRule getRule() { return rule; }
 
 		//name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+ sequence=IDENT
-		//(WS+ type=IDENT)? | name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)? | name="table-identity" WS+
+		//(WS+ type=IDENT)? | name="global-identity" (WS+ identity=IDENT (WS+ type=IDENT)?)? | name="table-identity" WS+
 		//dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+ dbTable=IDENT (WS+
 		//metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
 		//metaTypes+=MetaTypeAssignement)+ | name="make-it-final"
@@ -2144,7 +2145,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//IDENT
 		public RuleCall getTypeIDENTTerminalRuleCall_1_5_1_0() { return cTypeIDENTTerminalRuleCall_1_5_1_0; }
 
-		//name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)?
+		//name="global-identity" (WS+ identity=IDENT (WS+ type=IDENT)?)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//name="global-identity"
@@ -2153,26 +2154,29 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"global-identity"
 		public Keyword getNameGlobalIdentityKeyword_2_0_0() { return cNameGlobalIdentityKeyword_2_0_0; }
 
+		//(WS+ identity=IDENT (WS+ type=IDENT)?)?
+		public Group getGroup_2_1() { return cGroup_2_1; }
+
 		//WS+
-		public RuleCall getWSTerminalRuleCall_2_1() { return cWSTerminalRuleCall_2_1; }
+		public RuleCall getWSTerminalRuleCall_2_1_0() { return cWSTerminalRuleCall_2_1_0; }
 
 		//identity=IDENT
-		public Assignment getIdentityAssignment_2_2() { return cIdentityAssignment_2_2; }
+		public Assignment getIdentityAssignment_2_1_1() { return cIdentityAssignment_2_1_1; }
 
 		//IDENT
-		public RuleCall getIdentityIDENTTerminalRuleCall_2_2_0() { return cIdentityIDENTTerminalRuleCall_2_2_0; }
+		public RuleCall getIdentityIDENTTerminalRuleCall_2_1_1_0() { return cIdentityIDENTTerminalRuleCall_2_1_1_0; }
 
 		//(WS+ type=IDENT)?
-		public Group getGroup_2_3() { return cGroup_2_3; }
+		public Group getGroup_2_1_2() { return cGroup_2_1_2; }
 
 		//WS+
-		public RuleCall getWSTerminalRuleCall_2_3_0() { return cWSTerminalRuleCall_2_3_0; }
+		public RuleCall getWSTerminalRuleCall_2_1_2_0() { return cWSTerminalRuleCall_2_1_2_0; }
 
 		//type=IDENT
-		public Assignment getTypeAssignment_2_3_1() { return cTypeAssignment_2_3_1; }
+		public Assignment getTypeAssignment_2_1_2_1() { return cTypeAssignment_2_1_2_1; }
 
 		//IDENT
-		public RuleCall getTypeIDENTTerminalRuleCall_2_3_1_0() { return cTypeIDENTTerminalRuleCall_2_3_1_0; }
+		public RuleCall getTypeIDENTTerminalRuleCall_2_1_2_1_0() { return cTypeIDENTTerminalRuleCall_2_1_2_1_0; }
 
 		//name="table-identity" WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -6996,9 +7000,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//MetagenProperty:
 	//	name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+
-	//	sequence=IDENT (WS+ type=IDENT)? | name="global-identity" WS+ identity=IDENT (WS+ type=IDENT)? | name="table-identity"
-	//	WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+ dbTable=IDENT (WS+
-	//	metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
+	//	sequence=IDENT (WS+ type=IDENT)? | name="global-identity" (WS+ identity=IDENT (WS+ type=IDENT)?)? |
+	//	name="table-identity" WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+
+	//	dbTable=IDENT (WS+ metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
 	//	metaTypes+=MetaTypeAssignement)+ | name="make-it-final";
 	public MetagenPropertyElements getMetagenPropertyAccess() {
 		return (pMetagenProperty != null) ? pMetagenProperty : (pMetagenProperty = new MetagenPropertyElements());

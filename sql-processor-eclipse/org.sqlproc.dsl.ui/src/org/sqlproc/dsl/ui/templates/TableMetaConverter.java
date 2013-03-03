@@ -373,7 +373,10 @@ public class TableMetaConverter extends TablePojoConverter {
                 buffer.append("(");
                 if (identity.value2 != null)
                     buffer.append("type=").append(identity.value2).append(",");
-                buffer.append("idsel=").append(identity.value1).append(")");
+                buffer.append("idsel");
+                if (identity.value1 != null)
+                    buffer.append("=").append(identity.value1);
+                buffer.append(")");
                 first = false;
                 break;
             }
@@ -404,7 +407,9 @@ public class TableMetaConverter extends TablePojoConverter {
                 buffer.append("(");
                 if (attr.sequence.value2 != null)
                     buffer.append("type=").append(attr.sequence.value2).append(",");
-                buffer.append("seq=").append(attr.sequence.value1);
+                buffer.append("seq");
+                if (attr.sequence.value1 != null)
+                    buffer.append("=").append(attr.sequence.value1);
             }
             if (metaTypes(buffer, attr.tableName, attr.attributeName, statementName, attr.sequence == null)
                     || attr.sequence != null)

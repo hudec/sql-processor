@@ -1,11 +1,7 @@
-SEL1(OPT)=select last_insert_id();
-SEQ_CONTACT(OPT)=SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'simple' AND TABLE_NAME = 'CONTACT';
-SEQ_PERSON(OPT)=SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'simple' AND TABLE_NAME = 'PERSON';
-
 
 INSERT_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
   insert into %%CONTACT (%PERSON_ID, %ADDRESS, %PHONE_NUMBER)
-  {= values (:id(idsel=SEL1), :person.id, :address, :phoneNumber) }
+  {= values (:id(idsel), :person.id, :address, :phoneNumber) }
 ;
 
 GET_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
@@ -57,7 +53,7 @@ SELECT_CONTACT(QRY,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
 
 INSERT_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person)=
   insert into %%PERSON (%FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %SSN)
-  {= values (:id(idsel=SEL1), :firstName, :lastName, :dateOfBirth, :ssn) }
+  {= values (:id(idsel), :firstName, :lastName, :dateOfBirth, :ssn) }
 ;
 
 GET_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=

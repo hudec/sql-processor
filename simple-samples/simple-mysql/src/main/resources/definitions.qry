@@ -16,8 +16,8 @@ pojogen-implements-interfaces java.io.Serializable;
 // can't overwrite existing POJO 
 pojogen-make-it-final;
 
-// use indetity for primary keys
-metagen-global-identity SEL1;
+// use identity for primary keys
+metagen-global-identity;
 //metagen-table-sequence CONTACT SEQ_CONTACT;
 //metagen-table-sequence PERSON SEQ_PERSON;
 // can't overwrite existing META SQL 
@@ -28,3 +28,6 @@ daogen-make-it-final;
 
 table contact CONTACT;
 table person PERSON;
+
+//SEQ_CONTACT(OPT)=SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'simple' AND TABLE_NAME = 'CONTACT';
+//SEQ_PERSON(OPT)=SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'simple' AND TABLE_NAME = 'PERSON';

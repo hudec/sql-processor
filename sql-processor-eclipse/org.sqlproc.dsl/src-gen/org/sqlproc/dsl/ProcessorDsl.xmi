@@ -818,14 +818,16 @@
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
           <terminal xsi:type="xtext:Keyword" value="global-identity"/>
         </elements>
-        <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.63"/>
-        <elements xsi:type="xtext:Assignment" feature="identity" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.58"/>
-        </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.63"/>
-          <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="identity" operator="=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.58"/>
+          </elements>
+          <elements xsi:type="xtext:Group" cardinality="?">
+            <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.63"/>
+            <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.58"/>
+            </elements>
           </elements>
         </elements>
       </elements>

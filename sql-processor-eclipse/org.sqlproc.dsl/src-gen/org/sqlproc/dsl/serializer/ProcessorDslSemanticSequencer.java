@@ -864,7 +864,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (
 	 *         (name='global-sequence' sequence=IDENT type=IDENT?) | 
 	 *         (name='table-sequence' dbTable=IDENT sequence=IDENT type=IDENT?) | 
-	 *         (name='global-identity' identity=IDENT type=IDENT?) | 
+	 *         (name='global-identity' (identity=IDENT type=IDENT?)?) | 
 	 *         (name='table-identity' dbTable=IDENT identity=IDENT type=IDENT?) | 
 	 *         (name='column-meta-type' dbTable=IDENT metaTypes+=MetaTypeAssignement+) | 
 	 *         (name='statement-meta-type' dbStatement=IDENT metaTypes+=MetaTypeAssignement+) | 
