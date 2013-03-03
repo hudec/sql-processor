@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getIdentity <em>Identity</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getMetaTypes <em>Meta Types</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDbStatement <em>Db Statement</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDbColumns <em>Db Columns</em>}</li>
  * </ul>
  * </p>
  *
@@ -201,5 +202,21 @@ public interface MetagenProperty extends EObject
    * @generated
    */
   void setDbStatement(String value);
+
+  /**
+   * Returns the value of the '<em><b>Db Columns</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Columns</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Columns</em>' attribute list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMetagenProperty_DbColumns()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getDbColumns();
 
 } // MetagenProperty

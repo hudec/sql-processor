@@ -39,6 +39,7 @@ public class TableMetaConverter extends TablePojoConverter {
     protected Map<String, Map<String, PairValues>> metaColumnsMetaTypes = new HashMap<String, Map<String, PairValues>>();
     protected Map<String, Map<String, PairValues>> metaStatementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
     protected boolean metaMakeItFinal;
+    protected Map<String, Set<String>> metaLikeColumns = new HashMap<String, Set<String>>();
 
     enum StatementType {
         INSERT, GET, UPDATE, DELETE, SELECT
@@ -74,6 +75,10 @@ public class TableMetaConverter extends TablePojoConverter {
             this.metaStatementsMetaTypes.putAll(statementsMetaTypes);
         }
         this.metaMakeItFinal = modelProperty.isMetaMakeItFinal(artifacts);
+        Map<String, Set<String>> metaLikeColumns = modelProperty.getMetaLikeColumns(artifacts);
+        if (metaLikeColumns != null) {
+            this.metaLikeColumns.putAll(metaLikeColumns);
+        }
 
         if (debug) {
             System.out.println("finalMetas " + this.finalMetas);
@@ -84,6 +89,7 @@ public class TableMetaConverter extends TablePojoConverter {
             System.out.println("metaColumnsMetaTypes " + this.metaColumnsMetaTypes);
             System.out.println("metaStatementsMetaTypes " + this.metaStatementsMetaTypes);
             System.out.println("metaMakeItFinal " + this.metaMakeItFinal);
+            System.out.println("metaLikeColumns " + this.metaLikeColumns);
         }
     }
 
@@ -496,8 +502,9 @@ public class TableMetaConverter extends TablePojoConverter {
                 continue;
             if (attr.attribute.isVersion())
                 continue;
-            boolean useLike = select && attr.attribute.getClassName() != null
-                    && attr.attribute.getClassName().endsWith("String");
+            boolean useLike = select
+                    && ((attr.attribute.getClassName() != null && attr.attribute.getClassName().endsWith("String")) || (metaLikeColumns
+                            .containsKey(pojo) && metaLikeColumns.get(pojo).contains(attr.attribute.getDbName())));
             String name = (columnNames.containsKey(attr.tableName)) ? columnNames.get(attr.tableName).get(
                     attr.attributeName) : null;
             if (name == null)

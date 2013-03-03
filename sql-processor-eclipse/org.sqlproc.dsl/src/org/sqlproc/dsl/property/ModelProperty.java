@@ -101,4 +101,6 @@ public interface ModelProperty extends Adapter {
     Map<String, String> getVersionColumns(EObject model);
 
     String getVersionColumn(EObject model);
+
+    Map<String, Set<String>> getMetaLikeColumns(EObject model);
 }

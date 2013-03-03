@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -36,6 +37,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getIdentity <em>Identity</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getMetaTypes <em>Meta Types</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getDbStatement <em>Db Statement</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getDbColumns <em>Db Columns</em>}</li>
  * </ul>
  * </p>
  *
@@ -172,6 +174,16 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected String dbStatement = DB_STATEMENT_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getDbColumns() <em>Db Columns</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbColumns()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> dbColumns;
 
   /**
    * <!-- begin-user-doc -->
@@ -351,6 +363,20 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<String> getDbColumns()
+  {
+    if (dbColumns == null)
+    {
+      dbColumns = new EDataTypeEList<String>(String.class, this, ProcessorDslPackage.METAGEN_PROPERTY__DB_COLUMNS);
+    }
+    return dbColumns;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -386,6 +412,8 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
         return getMetaTypes();
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_STATEMENT:
         return getDbStatement();
+      case ProcessorDslPackage.METAGEN_PROPERTY__DB_COLUMNS:
+        return getDbColumns();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -423,6 +451,10 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_STATEMENT:
         setDbStatement((String)newValue);
         return;
+      case ProcessorDslPackage.METAGEN_PROPERTY__DB_COLUMNS:
+        getDbColumns().clear();
+        getDbColumns().addAll((Collection<? extends String>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -458,6 +490,9 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_STATEMENT:
         setDbStatement(DB_STATEMENT_EDEFAULT);
         return;
+      case ProcessorDslPackage.METAGEN_PROPERTY__DB_COLUMNS:
+        getDbColumns().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -486,6 +521,8 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
         return metaTypes != null && !metaTypes.isEmpty();
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_STATEMENT:
         return DB_STATEMENT_EDEFAULT == null ? dbStatement != null : !DB_STATEMENT_EDEFAULT.equals(dbStatement);
+      case ProcessorDslPackage.METAGEN_PROPERTY__DB_COLUMNS:
+        return dbColumns != null && !dbColumns.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -513,6 +550,8 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
     result.append(identity);
     result.append(", dbStatement: ");
     result.append(dbStatement);
+    result.append(", dbColumns: ");
+    result.append(dbColumns);
     result.append(')');
     return result.toString();
   }

@@ -2060,20 +2060,31 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMetaTypesMetaTypeAssignementParserRuleCall_5_3_1_0 = (RuleCall)cMetaTypesAssignment_5_3_1.eContents().get(0);
 		private final Assignment cNameAssignment_6 = (Assignment)cAlternatives.eContents().get(6);
 		private final Keyword cNameMakeItFinalKeyword_6_0 = (Keyword)cNameAssignment_6.eContents().get(0);
+		private final Group cGroup_7 = (Group)cAlternatives.eContents().get(7);
+		private final Assignment cNameAssignment_7_0 = (Assignment)cGroup_7.eContents().get(0);
+		private final Keyword cNameLikeColumnsKeyword_7_0_0 = (Keyword)cNameAssignment_7_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_7_1 = (RuleCall)cGroup_7.eContents().get(1);
+		private final Assignment cDbTableAssignment_7_2 = (Assignment)cGroup_7.eContents().get(2);
+		private final RuleCall cDbTableIDENTTerminalRuleCall_7_2_0 = (RuleCall)cDbTableAssignment_7_2.eContents().get(0);
+		private final Group cGroup_7_3 = (Group)cGroup_7.eContents().get(3);
+		private final RuleCall cWSTerminalRuleCall_7_3_0 = (RuleCall)cGroup_7_3.eContents().get(0);
+		private final Assignment cDbColumnsAssignment_7_3_1 = (Assignment)cGroup_7_3.eContents().get(1);
+		private final RuleCall cDbColumnsIDENTTerminalRuleCall_7_3_1_0 = (RuleCall)cDbColumnsAssignment_7_3_1.eContents().get(0);
 		
 		//MetagenProperty:
 		//	name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+
 		//	sequence=IDENT (WS+ type=IDENT)? | name="global-identity" (WS+ identity=IDENT (WS+ type=IDENT)?)? |
 		//	name="table-identity" WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+
 		//	dbTable=IDENT (WS+ metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
-		//	metaTypes+=MetaTypeAssignement)+ | name="make-it-final";
+		//	metaTypes+=MetaTypeAssignement)+ | name="make-it-final" | name="like-columns" WS+ dbTable=IDENT (WS+
+		//	dbColumns+=IDENT)+;
 		public ParserRule getRule() { return rule; }
 
 		//name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+ sequence=IDENT
 		//(WS+ type=IDENT)? | name="global-identity" (WS+ identity=IDENT (WS+ type=IDENT)?)? | name="table-identity" WS+
 		//dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+ dbTable=IDENT (WS+
 		//metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
-		//metaTypes+=MetaTypeAssignement)+ | name="make-it-final"
+		//metaTypes+=MetaTypeAssignement)+ | name="make-it-final" | name="like-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)?
@@ -2282,6 +2293,36 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"make-it-final"
 		public Keyword getNameMakeItFinalKeyword_6_0() { return cNameMakeItFinalKeyword_6_0; }
+
+		//name="like-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
+		public Group getGroup_7() { return cGroup_7; }
+
+		//name="like-columns"
+		public Assignment getNameAssignment_7_0() { return cNameAssignment_7_0; }
+
+		//"like-columns"
+		public Keyword getNameLikeColumnsKeyword_7_0_0() { return cNameLikeColumnsKeyword_7_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_7_1() { return cWSTerminalRuleCall_7_1; }
+
+		//dbTable=IDENT
+		public Assignment getDbTableAssignment_7_2() { return cDbTableAssignment_7_2; }
+
+		//IDENT
+		public RuleCall getDbTableIDENTTerminalRuleCall_7_2_0() { return cDbTableIDENTTerminalRuleCall_7_2_0; }
+
+		//(WS+ dbColumns+=IDENT)+
+		public Group getGroup_7_3() { return cGroup_7_3; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_7_3_0() { return cWSTerminalRuleCall_7_3_0; }
+
+		//dbColumns+=IDENT
+		public Assignment getDbColumnsAssignment_7_3_1() { return cDbColumnsAssignment_7_3_1; }
+
+		//IDENT
+		public RuleCall getDbColumnsIDENTTerminalRuleCall_7_3_1_0() { return cDbColumnsIDENTTerminalRuleCall_7_3_1_0; }
 	}
 
 	public class DaogenPropertyElements extends AbstractParserRuleElementFinder {
@@ -7003,7 +7044,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	sequence=IDENT (WS+ type=IDENT)? | name="global-identity" (WS+ identity=IDENT (WS+ type=IDENT)?)? |
 	//	name="table-identity" WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+
 	//	dbTable=IDENT (WS+ metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
-	//	metaTypes+=MetaTypeAssignement)+ | name="make-it-final";
+	//	metaTypes+=MetaTypeAssignement)+ | name="make-it-final" | name="like-columns" WS+ dbTable=IDENT (WS+
+	//	dbColumns+=IDENT)+;
 	public MetagenPropertyElements getMetagenPropertyAccess() {
 		return (pMetagenProperty != null) ? pMetagenProperty : (pMetagenProperty = new MetagenPropertyElements());
 	}

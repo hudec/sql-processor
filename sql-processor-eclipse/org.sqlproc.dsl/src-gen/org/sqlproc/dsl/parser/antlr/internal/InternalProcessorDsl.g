@@ -3504,7 +3504,67 @@ ruleMetagenProperty returns [EObject current=null]
 	    }
 
 )
-))
+)
+    |((
+(
+		lv_name_35_0=	'like-columns' 
+    {
+        newLeafNode(lv_name_35_0, grammarAccess.getMetagenPropertyAccess().getNameLikeColumnsKeyword_7_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_35_0, "like-columns");
+	    }
+
+)
+)(this_WS_36=RULE_WS
+    { 
+    newLeafNode(this_WS_36, grammarAccess.getMetagenPropertyAccess().getWSTerminalRuleCall_7_1()); 
+    }
+)+(
+(
+		lv_dbTable_37_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbTable_37_0, grammarAccess.getMetagenPropertyAccess().getDbTableIDENTTerminalRuleCall_7_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbTable",
+        		lv_dbTable_37_0, 
+        		"IDENT");
+	    }
+
+)
+)((this_WS_38=RULE_WS
+    { 
+    newLeafNode(this_WS_38, grammarAccess.getMetagenPropertyAccess().getWSTerminalRuleCall_7_3_0()); 
+    }
+)+(
+(
+		lv_dbColumns_39_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbColumns_39_0, grammarAccess.getMetagenPropertyAccess().getDbColumnsIDENTTerminalRuleCall_7_3_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
+	        }
+       		addWithLastConsumed(
+       			$current, 
+       			"dbColumns",
+        		lv_dbColumns_39_0, 
+        		"IDENT");
+	    }
+
+)
+))+))
 ;
 
 

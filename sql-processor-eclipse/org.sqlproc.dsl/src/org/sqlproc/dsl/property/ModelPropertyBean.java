@@ -89,6 +89,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String METAGEN_COLUMN_META_TYPE = "column-meta-type";
     public static final String METAGEN_STATEMENT_META_TYPE = "statement-meta-type";
     public static final String METAGEN_MAKE_IT_FINAL = "make-it-final";
+    public static final String METAGEN_LIKE_COLUMNS = "like-columns";
     public static final String DAOGEN = "daogen";
     public static final String DAOGEN_IGNORE_TABLES = "ignore-tables";
     public static final String DAOGEN_ONLY_TABLES = "only-tables";
@@ -158,6 +159,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Map<String, PairValues>> metaColumnsMetaTypes;
         public Map<String, Map<String, PairValues>> metaStatementsMetaTypes;
         public boolean metaMakeItFinal;
+        public Map<String, Set<String>> metaLikeColumns;
 
         public Set<String> daoIgnoreTables;
         public Set<String> daoOnlyTables;
@@ -345,6 +347,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.metaColumnsMetaTypes = new HashMap<String, Map<String, PairValues>>();
         modelValues.metaStatementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
         modelValues.metaMakeItFinal = false;
+        modelValues.metaLikeColumns = new HashMap<String, Set<String>>();
     }
 
     private void initDaogenModel(ModelValues modelValues) {
@@ -668,6 +671,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             }
         } else if (METAGEN_MAKE_IT_FINAL.equals(property.getName())) {
             modelValues.metaMakeItFinal = true;
+        } else if (METAGEN_LIKE_COLUMNS.equals(property.getName())) {
+            if (!modelValues.metaLikeColumns.containsKey(property.getDbTable()))
+                modelValues.metaLikeColumns.put(property.getDbTable(), new HashSet<String>());
+            for (int i = 0, m = property.getDbColumns().size(); i < m; i++) {
+                modelValues.metaLikeColumns.get(property.getDbTable()).add(property.getDbColumns().get(i));
+            }
         }
     }
 
@@ -934,6 +943,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public boolean isMetaMakeItFinal(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.metaMakeItFinal : false;
+    }
+
+    @Override
+    public Map<String, Set<String>> getMetaLikeColumns(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.metaLikeColumns : Collections.<String, Set<String>> emptyMap();
     }
 
     @Override
