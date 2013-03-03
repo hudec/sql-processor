@@ -93,6 +93,11 @@ public interface SqlFeature {
      */
     public static final String MYSQL = "MYSQL";
     /**
+     * The filter for PostgreSQL devoted optional features. It can be used for the construction of
+     * {@link SqlProcessorLoader} .
+     */
+    public static final String POSTGRESQL = "POSTGRESQL";
+    /**
      * The filter for Informix devoted optional features. It can be used for the construction of
      * {@link SqlProcessorLoader} .
      */
@@ -102,6 +107,11 @@ public interface SqlFeature {
      * {@link SqlProcessorLoader}.
      */
     public static final String MSSQL = "MSSQL";
+    /**
+     * The filter for DB2 Server devoted optional features. It can be used for the construction of
+     * {@link SqlProcessorLoader}.
+     */
+    public static final String DB2 = "DB2";
     /**
      * <code>WILDCARD_CHARACTER</code> is the key for the wildcard character for the SQL <code>like</code> command.
      */

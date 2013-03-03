@@ -1,0 +1,29 @@
+resolve-pojo-on;
+database-is-online;
+database-jdbc-driver org.postgresql.Driver;
+database-has-url jdbc:postgresql:\//127.0.0.1:5432/simple;
+database-login-username simple;
+database-login-password simple;
+//database-active-schema SIMPLE;
+database-ddl-create postgresql.ddl; // should be located in the same directory as definitions.qry
+
+// native types
+pojogen-generate-wrappers;
+// POJO helpers' methods
+pojogen-generate-methods toString equals hashCode isDef toInit;
+// POJO are serializable
+pojogen-implements-interfaces java.io.Serializable;
+// can't overwrite existing POJO 
+pojogen-make-it-final;
+
+// use identity for primary keys
+metagen-table-sequence CONTACT contact_id_seq;
+metagen-table-sequence PERSON person_id_seq;
+// can't overwrite existing META SQL 
+metagen-make-it-final;
+
+// can't overwrite existing DAO 
+daogen-make-it-final;
+
+table contact contact;
+table person person;

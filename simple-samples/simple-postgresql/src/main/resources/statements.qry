@@ -1,0 +1,106 @@
+
+INSERT_contact(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
+  insert into %%contact (%id, %person_id, %address, %phone_number)
+  {= values (:id, :person.id, :address, :phoneNumber) }
+;
+
+GET_contact(CRUD,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
+  select %c.id @id(id), %c.person_id @person.id(id), %c.address @address, %c.phone_number @phoneNumber
+         {? :person(call=toInit) | , %p.first_name @person.firstName, %p.last_name @person.lastName, %p.date_of_birth @person.dateOfBirth, %p.ssn @person.ssn }
+  from %%contact c
+  {? :person(call=toInit) | left join %%person p on %c.person_id = %p.id }
+  {= where
+    {& %c.id = :id }
+    {& %c.person_id = :person.id }
+    {& %c.address = :address }
+    {& %c.phone_number = :phoneNumber }
+  }
+;
+
+UPDATE_contact(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
+  update %%contact
+  {= set
+    { ,%person_id = :person.id(call=isDef) }
+    { ,%address = :address(call=isDef) }
+    { ,%phone_number = :phoneNumber(call=isDef) }
+  }
+  {= where
+    {& %id = :id(notnull) }
+  }
+;
+
+DELETE_contact(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
+  delete from %%contact
+  {= where
+    {& %id = :id(notnull) }
+  }
+;
+
+SELECT_contact(QRY,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
+  select %c.id @id(id), %c.person_id @person.id(id), %c.address @address, %c.phone_number @phoneNumber
+         {? :person(call=toInit) | , %p.first_name @person.firstName, %p.last_name @person.lastName, %p.date_of_birth @person.dateOfBirth, %p.ssn @person.ssn }
+  from %%contact c
+  {? :person(call=toInit) | left join %%person p on %c.person_id = %p.id }
+  {= where
+    {& %c.id = :id }
+    {& %c.person_id = :person.id }
+    {& UPPER(%c.address) like :+address }
+    {& UPPER(%c.phone_number) like :+phoneNumber }
+  }
+  {#1 order by %c.id }
+;
+
+INSERT_person(CRUD,final=,inx=Person,outx=Person,tab=person)=
+  insert into %%person (%id, %first_name, %last_name, %date_of_birth, %ssn)
+  {= values (:id, :firstName, :lastName, :dateOfBirth, :ssn) }
+;
+
+GET_person(CRUD,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
+  select %p.id @id(id), %p.first_name @firstName, %p.last_name @lastName, %p.date_of_birth @dateOfBirth, %p.ssn @ssn
+         {? :contacts(call=toInit) | , %c.id @contacts.id(id), %c.person_id @contacts.person.id, %c.address @contacts.address, %c.phone_number @contacts.phoneNumber }
+  from %%person p
+  {? :contacts(call=toInit) | left join %%contact c on %p.id = %c.person_id }
+  {= where
+    {& %p.id = :id }
+    {& %p.first_name = :firstName }
+    {& %p.last_name = :lastName }
+    {& %p.date_of_birth = :dateOfBirth }
+    {& %p.ssn = :ssn }
+  }
+;
+
+UPDATE_person(CRUD,final=,inx=Person,outx=Person,tab=person)=
+  update %%person
+  {= set
+    { ,%first_name = :firstName(call=isDef) }
+    { ,%last_name = :lastName(call=isDef) }
+    { ,%date_of_birth = :dateOfBirth(call=isDef) }
+    { ,%ssn = :ssn(call=isDef) }
+  }
+  {= where
+    {& %id = :id(notnull) }
+  }
+;
+
+DELETE_person(CRUD,final=,inx=Person,outx=Person,tab=person)=
+  delete from %%person
+  {= where
+    {& %id = :id(notnull) }
+  }
+;
+
+SELECT_person(QRY,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
+  select %p.id @id(id), %p.first_name @firstName, %p.last_name @lastName, %p.date_of_birth @dateOfBirth, %p.ssn @ssn
+         {? :contacts(call=toInit) | , %c.id @contacts.id(id), %c.person_id @contacts.person.id, %c.address @contacts.address, %c.phone_number @contacts.phoneNumber }
+  from %%person p
+  {? :contacts(call=toInit) | left join %%contact c on %p.id = %c.person_id }
+  {= where
+    {& %p.id = :id }
+    {& UPPER(%p.first_name) like :+firstName }
+    {& UPPER(%p.last_name) like :+lastName }
+    {& %p.date_of_birth = :dateOfBirth }
+    {& UPPER(%p.ssn) like :+ssn }
+  }
+  {#1 order by %p.id }
+  {#2 order by %p.last_name }
+;
