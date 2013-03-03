@@ -88,6 +88,7 @@ MetagenProperty:
 	|name='statement-meta-type' WS+ dbStatement=IDENT (WS+ metaTypes+=MetaTypeAssignement)+
 	|name='make-it-final'
 	|name='like-columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
+	|name='not-like-columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
 	);
 
 DaogenProperty:

@@ -40,6 +40,7 @@ public class TableMetaConverter extends TablePojoConverter {
     protected Map<String, Map<String, PairValues>> metaStatementsMetaTypes = new HashMap<String, Map<String, PairValues>>();
     protected boolean metaMakeItFinal;
     protected Map<String, Set<String>> metaLikeColumns = new HashMap<String, Set<String>>();
+    protected Map<String, Set<String>> metaNotLikeColumns = new HashMap<String, Set<String>>();
 
     enum StatementType {
         INSERT, GET, UPDATE, DELETE, SELECT
@@ -79,6 +80,10 @@ public class TableMetaConverter extends TablePojoConverter {
         if (metaLikeColumns != null) {
             this.metaLikeColumns.putAll(metaLikeColumns);
         }
+        Map<String, Set<String>> metaNotLikeColumns = modelProperty.getMetaNotLikeColumns(artifacts);
+        if (metaNotLikeColumns != null) {
+            this.metaNotLikeColumns.putAll(metaNotLikeColumns);
+        }
 
         if (debug) {
             System.out.println("finalMetas " + this.finalMetas);
@@ -90,6 +95,7 @@ public class TableMetaConverter extends TablePojoConverter {
             System.out.println("metaStatementsMetaTypes " + this.metaStatementsMetaTypes);
             System.out.println("metaMakeItFinal " + this.metaMakeItFinal);
             System.out.println("metaLikeColumns " + this.metaLikeColumns);
+            System.out.println("metaNotLikeColumns " + this.metaNotLikeColumns);
         }
     }
 
@@ -505,6 +511,9 @@ public class TableMetaConverter extends TablePojoConverter {
             boolean useLike = select
                     && ((attr.attribute.getClassName() != null && attr.attribute.getClassName().endsWith("String")) || (metaLikeColumns
                             .containsKey(pojo) && metaLikeColumns.get(pojo).contains(attr.attribute.getDbName())));
+            if (select && metaNotLikeColumns.containsKey(pojo)
+                    && metaNotLikeColumns.get(pojo).contains(attr.attribute.getDbName()))
+                useLike = false;
             String name = (columnNames.containsKey(attr.tableName)) ? columnNames.get(attr.tableName).get(
                     attr.attributeName) : null;
             if (name == null)

@@ -204,6 +204,8 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetagenPropertyAccess().getGroup_5_3(), "rule__MetagenProperty__Group_5_3__0");
 					put(grammarAccess.getMetagenPropertyAccess().getGroup_7(), "rule__MetagenProperty__Group_7__0");
 					put(grammarAccess.getMetagenPropertyAccess().getGroup_7_3(), "rule__MetagenProperty__Group_7_3__0");
+					put(grammarAccess.getMetagenPropertyAccess().getGroup_8(), "rule__MetagenProperty__Group_8__0");
+					put(grammarAccess.getMetagenPropertyAccess().getGroup_8_3(), "rule__MetagenProperty__Group_8_3__0");
 					put(grammarAccess.getDaogenPropertyAccess().getGroup_0(), "rule__DaogenProperty__Group_0__0");
 					put(grammarAccess.getDaogenPropertyAccess().getGroup_0_1(), "rule__DaogenProperty__Group_0_1__0");
 					put(grammarAccess.getDaogenPropertyAccess().getGroup_1(), "rule__DaogenProperty__Group_1__0");
@@ -477,6 +479,9 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetagenPropertyAccess().getNameAssignment_7_0(), "rule__MetagenProperty__NameAssignment_7_0");
 					put(grammarAccess.getMetagenPropertyAccess().getDbTableAssignment_7_2(), "rule__MetagenProperty__DbTableAssignment_7_2");
 					put(grammarAccess.getMetagenPropertyAccess().getDbColumnsAssignment_7_3_1(), "rule__MetagenProperty__DbColumnsAssignment_7_3_1");
+					put(grammarAccess.getMetagenPropertyAccess().getNameAssignment_8_0(), "rule__MetagenProperty__NameAssignment_8_0");
+					put(grammarAccess.getMetagenPropertyAccess().getDbTableAssignment_8_2(), "rule__MetagenProperty__DbTableAssignment_8_2");
+					put(grammarAccess.getMetagenPropertyAccess().getDbColumnsAssignment_8_3_1(), "rule__MetagenProperty__DbColumnsAssignment_8_3_1");
 					put(grammarAccess.getDaogenPropertyAccess().getNameAssignment_0_0(), "rule__DaogenProperty__NameAssignment_0_0");
 					put(grammarAccess.getDaogenPropertyAccess().getDbTablesAssignment_0_1_1(), "rule__DaogenProperty__DbTablesAssignment_0_1_1");
 					put(grammarAccess.getDaogenPropertyAccess().getNameAssignment_1_0(), "rule__DaogenProperty__NameAssignment_1_0");
