@@ -20,7 +20,6 @@
         <module>sql-processor-hibernate</module>
         <module>sql-processor-spring</module>
         <module>sql-processor-archetypes</module>
-    <module>simple</module>
   </modules>
 
     <properties>
