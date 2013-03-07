@@ -23,8 +23,8 @@ import ${package}.model.Person;
 public class PersonDaoImpl implements PersonDao {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-  private SqlEngineFactory sqlEngineFactory;
-  private SqlSessionFactory sqlSessionFactory;
+  protected SqlEngineFactory sqlEngineFactory;
+  protected SqlSessionFactory sqlSessionFactory;
     	
   public PersonDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc</groupId>
@@ -19,7 +20,8 @@
         <module>sql-processor-hibernate</module>
         <module>sql-processor-spring</module>
         <module>sql-processor-archetypes</module>
-    </modules>
+    <module>simple</module>
+  </modules>
 
     <properties>
         <version.antlr>3.4</version.antlr>
@@ -44,10 +46,10 @@
         <db.driver>org.hsqldb.jdbcDriver</db.driver>
         <db.url>jdbc:hsqldb:mem:sqlproc</db.url>
         <db.username>sa</db.username>
-        <db.password />
+        <db.password/>
         <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
         <DDL_CREATE_DB>ddl/hsqldb.ddl</DDL_CREATE_DB>
-        <DDL_DROP_DB />
+        <DDL_DROP_DB/>
         <DB_TYPE>HSQLDB</DB_TYPE>
         <DATATYPE_FACTORY>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</DATATYPE_FACTORY>
     </properties>
@@ -234,8 +236,8 @@
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
-                <DDL_DROP_DB />
+                <DDL_CREATE_DB/>
+                <DDL_DROP_DB/>
                 <DB_TYPE>ORACLE</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.oracle.Oracle10DataTypeFactory</DATATYPE_FACTORY>
             </properties>
@@ -257,8 +259,8 @@
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
-                <DDL_DROP_DB />
+                <DDL_CREATE_DB/>
+                <DDL_DROP_DB/>
                 <DB_TYPE>ORACLE</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.oracle.Oracle10DataTypeFactory</DATATYPE_FACTORY>
             </properties>
@@ -280,8 +282,8 @@
                 <db.username>sqlproc</db.username>
                 <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
-                <DDL_DROP_DB />
+                <DDL_CREATE_DB/>
+                <DDL_DROP_DB/>
                 <DB_TYPE>MYSQL</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.mysql.MySqlDataTypeFactory</DATATYPE_FACTORY>
             </properties>
@@ -303,8 +305,8 @@
                 <db.username>sqlproc</db.username>
                 <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
-                <DDL_DROP_DB />
+                <DDL_CREATE_DB/>
+                <DDL_DROP_DB/>
                 <DB_TYPE>MYSQL</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.mysql.MySqlDataTypeFactory</DATATYPE_FACTORY>
             </properties>
@@ -326,8 +328,8 @@
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
-                <DDL_DROP_DB />
+                <DDL_CREATE_DB/>
+                <DDL_DROP_DB/>
                 <DB_TYPE>POSTGRESQL</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.postgresql.PostgresqlDataTypeFactory</DATATYPE_FACTORY>
             </properties>
@@ -349,8 +351,8 @@
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
-                <DDL_DROP_DB />
+                <DDL_CREATE_DB/>
+                <DDL_DROP_DB/>
                 <DB_TYPE>POSTGRESQL</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.postgresql.PostgresqlDataTypeFactory</DATATYPE_FACTORY>
             </properties>
@@ -372,8 +374,8 @@
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
-                <DDL_DROP_DB />
+                <DDL_CREATE_DB/>
+                <DDL_DROP_DB/>
                 <DB_TYPE>INFORMIX</DB_TYPE>
                 <DATATYPE_FACTORY>org.sqlproc.engine.type.InformixDbUnitDataTypeFactory</DATATYPE_FACTORY>
             </properties>
@@ -401,8 +403,8 @@
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
-                <DDL_DROP_DB />
+                <DDL_CREATE_DB/>
+                <DDL_DROP_DB/>
                 <DB_TYPE>INFORMIX</DB_TYPE>
                 <DATATYPE_FACTORY>org.sqlproc.engine.type.InformixDbUnitDataTypeFactory</DATATYPE_FACTORY>
             </properties>
@@ -430,8 +432,8 @@
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
-                <DDL_DROP_DB />
+                <DDL_CREATE_DB/>
+                <DDL_DROP_DB/>
                 <DB_TYPE>MSSQL</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.mssql.MsSqlDataTypeFactory</DATATYPE_FACTORY>
             </properties>
@@ -453,8 +455,8 @@
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
-                <DDL_DROP_DB />
+                <DDL_CREATE_DB/>
+                <DDL_DROP_DB/>
                 <DB_TYPE>MSSQL</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.mssql.MsSqlDataTypeFactory</DATATYPE_FACTORY>
             </properties>
@@ -476,8 +478,8 @@
                 <db.username>db2test</db.username>
                 <db.password>db21234</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
-                <DDL_DROP_DB />
+                <DDL_CREATE_DB/>
+                <DDL_DROP_DB/>
                 <DB_TYPE>DB2</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.db2.Db2DataTypeFactory</DATATYPE_FACTORY>
             </properties>
@@ -499,8 +501,8 @@
                 <db.username>dasusr1</db.username>
                 <db.password>dasusr1</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
-                <DDL_DROP_DB />
+                <DDL_CREATE_DB/>
+                <DDL_DROP_DB/>
                 <DB_TYPE>DB2</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.db2.Db2DataTypeFactory</DATATYPE_FACTORY>
             </properties>
