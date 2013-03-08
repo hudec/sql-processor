@@ -18,8 +18,8 @@ import org.sqlproc.sample.simple.model.PersonLibrary;
 public class PersonLibraryDao {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-  private SqlEngineFactory sqlEngineFactory;
-  private SqlSessionFactory sqlSessionFactory;
+  protected SqlEngineFactory sqlEngineFactory;
+  protected SqlSessionFactory sqlSessionFactory;
     	
   public PersonLibraryDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;

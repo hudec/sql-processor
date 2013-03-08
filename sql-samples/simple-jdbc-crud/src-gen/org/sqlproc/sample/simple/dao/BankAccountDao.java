@@ -18,8 +18,8 @@ import org.sqlproc.sample.simple.model.BankAccount;
 public class BankAccountDao {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-  private SqlEngineFactory sqlEngineFactory;
-  private SqlSessionFactory sqlSessionFactory;
+  protected SqlEngineFactory sqlEngineFactory;
+  protected SqlSessionFactory sqlSessionFactory;
     	
   public BankAccountDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;

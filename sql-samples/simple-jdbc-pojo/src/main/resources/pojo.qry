@@ -71,25 +71,6 @@ package org.sqlproc.sample.simple.model {
     toString ::: playlength urlimdb
   }
 
-  pojo Payment serializable 1  {
-    id : java.lang.Long primaryKey index 1
-    billingDetails : java.lang.Long required
-    paid : java.sql.Timestamp required
-    version : java.lang.Integer required
-    equals ::: id
-    hashCode ::: id
-    toString ::: id paid billingDetails version
-  }
-
-  pojo Performer serializable 1  {
-    id : java.lang.Long primaryKey index 1
-    personId : java.lang.Long required
-    ver : java.lang.Integer required
-    equals ::: id
-    hashCode ::: id
-    toString ::: id personId ver
-  }
-
   pojo Person serializable 1  {
     id : java.lang.Long primaryKey index 1
     name : java.lang.String required
@@ -107,17 +88,6 @@ package org.sqlproc.sample.simple.model {
     equals ::: id
     hashCode ::: id
     toString ::: mediaId id personId
-  }
-
-  pojo PhysicalMedia serializable 1  {
-    id : java.lang.Long primaryKey index 1
-    location : java.lang.String required
-    media : java.lang.Long required
-    library : java.lang.Long required
-    version : java.lang.Integer required
-    equals ::: id
-    hashCode ::: id
-    toString ::: id location library media version
   }
 
   pojo Subscriber serializable 1  {

@@ -23,8 +23,8 @@ import org.sqlproc.sample.simple.model.PersonLibrary;
 public class PersonLibraryDaoImpl extends BaseDaoImpl implements BaseDao, PersonLibraryDao {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-  private SqlEngineFactory sqlEngineFactory;
-  private SqlSessionFactory sqlSessionFactory;
+  protected SqlEngineFactory sqlEngineFactory;
+  protected SqlSessionFactory sqlSessionFactory;
     	
   public PersonLibraryDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;

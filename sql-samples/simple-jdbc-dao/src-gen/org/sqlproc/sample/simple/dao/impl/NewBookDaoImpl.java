@@ -23,8 +23,8 @@ import org.sqlproc.sample.simple.model.NewBook;
 public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-  private SqlEngineFactory sqlEngineFactory;
-  private SqlSessionFactory sqlSessionFactory;
+  protected SqlEngineFactory sqlEngineFactory;
+  protected SqlSessionFactory sqlSessionFactory;
     	
   public NewBookDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;

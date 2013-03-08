@@ -1,9 +1,10 @@
 resolve-pojo-on;
 database-is-online;
 database-jdbc-driver org.hsqldb.jdbcDriver;
-database-has-url jdbc:hsqldb:mem:sqlproc;
+database-has-url jdbc:hsqldb:mem:jdbcdao;
 database-login-username sa;
 database-login-password "";
+//database-active-schema simplejdbcdao;
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
 
 pojogen-generate-wrappers;
@@ -39,7 +40,7 @@ pojogen-make-it-final;
 pojogen-version-column VERSION;
 pojogen-version-column VER PERFORMER;
 
-metagen-global-sequence SEQ1;
+metagen-global-sequence SIMPLE_SEQUENCE; // SEQ1
 //metagen-global-identity SEL1;
 metagen-column-meta-type CONTACT PHONE_NUMBER->phone;
 //metagen-statement-meta-type INSERT_CONTACT PHONE_NUMBER->phone;

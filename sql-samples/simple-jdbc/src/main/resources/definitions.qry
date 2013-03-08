@@ -6,10 +6,11 @@ database-is-online;
 //database-login-password sqlsample;
 //database-active-schema SQLSAMPLE;
 database-jdbc-driver org.hsqldb.jdbcDriver;
-database-has-url jdbc:hsqldb:mem:sqlproc;
+database-has-url jdbc:hsqldb:mem:jdbc;
 database-login-username sa;
 database-login-password "";
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
+//database-active-schema simplejdbc;
 //database-ddl-drop hsqldb_drop.ddl;
 
 pojo bankAccount org.sqlproc.sample.simple.model.BankAccount;

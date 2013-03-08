@@ -25,8 +25,8 @@ import org.sqlproc.sample.simple.model.CreditCard;
 public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, SubscriberDao {
   protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-  private SqlEngineFactory sqlEngineFactory;
-  private SqlSessionFactory sqlSessionFactory;
+  protected SqlEngineFactory sqlEngineFactory;
+  protected SqlSessionFactory sqlSessionFactory;
     	
   public SubscriberDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;

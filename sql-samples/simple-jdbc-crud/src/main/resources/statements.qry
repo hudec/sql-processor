@@ -1,10 +1,9 @@
-SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
-SEL1(OPT)=call identity();
-
+//SEQ1(OPT)=call NEXT VALUE FOR SIMPLE_SEQUENCE;
+//SEL1(OPT)=call identity();
 
 INSERT_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,tab=billingDetails)=
   insert into %%BILLING_DETAILS (%BA_ACCOUNT, %SUBSCRIBER, %TYPE)
-  {= values (:id(idsel=SEL1), :baAccount, :subscriber.id, :type) }
+  {= values (:id(idsel), :baAccount, :subscriber.id, :type) }
 ;
 
 GET_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,tab=billingDetails=b,tab=subscriber=s)=
@@ -107,7 +106,7 @@ SELECT_NEW_BOOK(QRY,final=,inx=NewBook,outx=NewBook,tab=book=b,tab=media=m,tab=p
 
 INSERT_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
   insert into %%CONTACT (%PERSON_ID, %ADDRESS, %PHONE_NUMBER)
-  {= values (:id(idsel=SEL1), :person.id, :address, :phoneNumber(type=phone)) }
+  {= values (:id(idsel), :person.id, :address, :phoneNumber(type=phone)) }
 ;
 
 GET_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
@@ -161,7 +160,7 @@ SELECT_CONTACT(QRY,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
 
 INSERT_CREDIT_CARD(CRUD,final=,inx=CreditCard,outx=CreditCard,tab=billingDetails)=
   insert into %%BILLING_DETAILS (%CC_NUMBER, %SUBSCRIBER, %TYPE)
-  {= values (:id(idsel=SEL1), :ccNumber, :subscriber.id, :type) }
+  {= values (:id(idsel), :ccNumber, :subscriber.id, :type) }
 ;
 
 GET_CREDIT_CARD(CRUD,final=,inx=CreditCard,outx=CreditCard,tab=billingDetails=b,tab=subscriber=s)=
@@ -211,7 +210,7 @@ SELECT_CREDIT_CARD(QRY,final=,inx=CreditCard,outx=CreditCard,tab=billingDetails=
 
 INSERT_LIBRARY(CRUD,final=,inx=Library,outx=Library,tab=library)=
   insert into %%LIBRARY (%NAME)
-  {= values (:id(idsel=SEL1), :name) }
+  {= values (:id(idsel), :name) }
 ;
 
 GET_LIBRARY(CRUD,final=,inx=Library,outx=Library,tab=library=l,tab=subscriber=s,tab=physicalMedia=p)=
@@ -260,7 +259,7 @@ SELECT_LIBRARY(QRY,final=,inx=Library,outx=Library,tab=library=l,tab=subscriber=
 
 INSERT_MEDIA(CRUD,final=,inx=Media,outx=Media,tab=media)=
   insert into %%MEDIA (%TITLE, %AUTHOR)
-  {= values (:id(idsel=SEL1), :title, :author.id) }
+  {= values (:id(idsel), :title, :author.id) }
 ;
 
 GET_MEDIA(CRUD,final=,inx=Media,outx=Media,tab=media=m,tab=performer=p)=
@@ -365,7 +364,7 @@ SELECT_MOVIE(QRY,final=,inx=Movie,outx=Movie,tab=movie=m,tab=media=m1,tab=perfor
 
 INSERT_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,tab=payment)=
   insert into %%PAYMENT (%BILLING_DETAILS, %PAID)
-  {= values (:id(idsel=SEL1), :billingDetails.id, :paid) }
+  {= values (:id(idsel), :billingDetails.id, :paid) }
 ;
 
 GET_PAYMENT(CRUD,final=,inx=Payment,outx=Payment,tab=payment=p,tab=billingDetails=b)=
@@ -414,7 +413,7 @@ SELECT_PAYMENT(QRY,final=,inx=Payment,outx=Payment,tab=payment=p,tab=billingDeta
 
 INSERT_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,tab=performer)=
   insert into %%PERFORMER (%PERSON_ID)
-  {= values (:id(idsel=SEL1), :person.id) }
+  {= values (:id(idsel), :person.id) }
 ;
 
 GET_PERFORMER(CRUD,final=,inx=Performer,outx=Performer,tab=performer=p,tab=person=p1,tab=media=m,tab=movie=m1,tab=book=b)=
@@ -464,7 +463,7 @@ SELECT_PERFORMER(QRY,final=,inx=Performer,outx=Performer,tab=performer=p,tab=per
 
 INSERT_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person)=
   insert into %%PERSON (%FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %SSN)
-  {= values (:id(idsel=SEL1), :firstName, :lastName, :dateOfBirth, :ssn) }
+  {= values (:id(idsel), :firstName, :lastName, :dateOfBirth, :ssn) }
 ;
 
 GET_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person=p,tab=personLibrary=p1,tab=media=m,tab=movie=m1,tab=book=b,tab=contact=c)=
@@ -524,7 +523,7 @@ SELECT_PERSON(QRY,final=,inx=Person,outx=Person,tab=person=p,tab=personLibrary=p
 
 INSERT_PERSON_LIBRARY(CRUD,final=,inx=PersonLibrary,outx=PersonLibrary,tab=personLibrary)=
   insert into %%PERSON_LIBRARY (%PERSON_ID, %MEDIA_ID)
-  {= values (:id(idsel=SEL1), :personId, :mediaId) }
+  {= values (:id(idsel), :personId, :mediaId) }
 ;
 
 GET_PERSON_LIBRARY(CRUD,final=,inx=PersonLibrary,outx=PersonLibrary,tab=personLibrary)=
@@ -570,7 +569,7 @@ SELECT_PERSON_LIBRARY(QRY,final=,inx=PersonLibrary,outx=PersonLibrary,tab=person
 
 INSERT_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,tab=physicalMedia)=
   insert into %%PHYSICAL_MEDIA (%LOCATION, %MEDIA, %LIBRARY)
-  {= values (:id(idsel=SEL1), :location, :media.id, :library.id) }
+  {= values (:id(idsel), :location, :media.id, :library.id) }
 ;
 
 GET_PHYSICAL_MEDIA(CRUD,final=,inx=PhysicalMedia,outx=PhysicalMedia,tab=physicalMedia=p,tab=library=l,tab=media=m,tab=movie=m1,tab=book=b)=
@@ -625,7 +624,7 @@ SELECT_PHYSICAL_MEDIA(QRY,final=,inx=PhysicalMedia,outx=PhysicalMedia,tab=physic
 
 INSERT_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,tab=subscriber)=
   insert into %%SUBSCRIBER (%LIBRARY, %CONTACT, %NAME)
-  {= values (:id(idsel=SEL1), :library.id, :contact.id, :name) }
+  {= values (:id(idsel), :library.id, :contact.id, :name) }
 ;
 
 GET_SUBSCRIBER(CRUD,final=,inx=Subscriber,outx=Subscriber,tab=subscriber=s,tab=library=l,tab=billingDetails=b,tab=contact=c)=

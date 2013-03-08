@@ -1,4 +1,4 @@
-SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
+SEQ1(OPT)=call NEXT VALUE FOR SIMPLE_SEQUENCE;
 SEL1(OPT)=call identity();
 
 ALL_PEOPLE(QRY,in=person,out=person)=

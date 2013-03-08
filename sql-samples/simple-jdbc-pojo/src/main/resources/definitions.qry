@@ -6,9 +6,10 @@ database-is-online;
 //database-login-password sqlsample;
 //database-active-schema SQLSAMPLE;
 database-jdbc-driver org.hsqldb.jdbcDriver;
-database-has-url jdbc:hsqldb:mem:sqlproc;
+database-has-url jdbc:hsqldb:mem:jdbcpojo;
 database-login-username sa;
 database-login-password "";
+//database-active-schema simplejdbcpojo;
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
 //database-ddl-drop hsqldb_drop.ddl;
 
@@ -18,9 +19,6 @@ table contact CONTACT;
 table library LIBRARY;
 table media MEDIA;
 table movie MOVIE;
-table payment PAYMENT;
-table performer PERFORMER;
 table person PERSON;
 table personLibrary PERSON_LIBRARY;
-table physicalMedia PHYSICAL_MEDIA;
 table subscriber SUBSCRIBER;
