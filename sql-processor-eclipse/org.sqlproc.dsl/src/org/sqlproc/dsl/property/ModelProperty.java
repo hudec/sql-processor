@@ -105,4 +105,8 @@ public interface ModelProperty extends Adapter {
     Map<String, Set<String>> getMetaLikeColumns(EObject model);
 
     Map<String, Set<String>> getMetaNotLikeColumns(EObject model);
+
+    boolean isMetaGenerateIdentities(EObject model);
+
+    boolean isMetaGenerateSequences(EObject model);
 }

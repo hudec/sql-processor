@@ -3624,7 +3624,39 @@ ruleMetagenProperty returns [EObject current=null]
 	    }
 
 )
-))+))
+))+)
+    |(
+(
+		lv_name_45_0=	'generate-sequences' 
+    {
+        newLeafNode(lv_name_45_0, grammarAccess.getMetagenPropertyAccess().getNameGenerateSequencesKeyword_9_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_45_0, "generate-sequences");
+	    }
+
+)
+)
+    |(
+(
+		lv_name_46_0=	'generate-identities' 
+    {
+        newLeafNode(lv_name_46_0, grammarAccess.getMetagenPropertyAccess().getNameGenerateIdentitiesKeyword_10_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_46_0, "generate-identities");
+	    }
+
+)
+))
 ;
 
 

@@ -89,6 +89,8 @@ MetagenProperty:
 	|name='make-it-final'
 	|name='like-columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
 	|name='not-like-columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
+	|name='generate-sequences'
+	|name='generate-identities'
 	);
 
 DaogenProperty:

@@ -2623,6 +2623,18 @@ rule__MetagenProperty__Alternatives
 { after(grammarAccess.getMetagenPropertyAccess().getGroup_8()); }
 )
 
+    |(
+{ before(grammarAccess.getMetagenPropertyAccess().getNameAssignment_9()); }
+(rule__MetagenProperty__NameAssignment_9)
+{ after(grammarAccess.getMetagenPropertyAccess().getNameAssignment_9()); }
+)
+
+    |(
+{ before(grammarAccess.getMetagenPropertyAccess().getNameAssignment_10()); }
+(rule__MetagenProperty__NameAssignment_10)
+{ after(grammarAccess.getMetagenPropertyAccess().getNameAssignment_10()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -27892,6 +27904,52 @@ rule__MetagenProperty__DbColumnsAssignment_8_3_1
 (
 { before(grammarAccess.getMetagenPropertyAccess().getDbColumnsIDENTTerminalRuleCall_8_3_1_0()); }
 	RULE_IDENT{ after(grammarAccess.getMetagenPropertyAccess().getDbColumnsIDENTTerminalRuleCall_8_3_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__MetagenProperty__NameAssignment_9
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getMetagenPropertyAccess().getNameGenerateSequencesKeyword_9_0()); }
+(
+{ before(grammarAccess.getMetagenPropertyAccess().getNameGenerateSequencesKeyword_9_0()); }
+
+	'generate-sequences' 
+
+{ after(grammarAccess.getMetagenPropertyAccess().getNameGenerateSequencesKeyword_9_0()); }
+)
+
+{ after(grammarAccess.getMetagenPropertyAccess().getNameGenerateSequencesKeyword_9_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__MetagenProperty__NameAssignment_10
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getMetagenPropertyAccess().getNameGenerateIdentitiesKeyword_10_0()); }
+(
+{ before(grammarAccess.getMetagenPropertyAccess().getNameGenerateIdentitiesKeyword_10_0()); }
+
+	'generate-identities' 
+
+{ after(grammarAccess.getMetagenPropertyAccess().getNameGenerateIdentitiesKeyword_10_0()); }
+)
+
+{ after(grammarAccess.getMetagenPropertyAccess().getNameGenerateIdentitiesKeyword_10_0()); }
 )
 
 ;

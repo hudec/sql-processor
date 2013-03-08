@@ -41,6 +41,8 @@ public class TableMetaConverter extends TablePojoConverter {
     protected boolean metaMakeItFinal;
     protected Map<String, Set<String>> metaLikeColumns = new HashMap<String, Set<String>>();
     protected Map<String, Set<String>> metaNotLikeColumns = new HashMap<String, Set<String>>();
+    protected boolean metaGenerateSequences;
+    protected boolean metaGenerateIdentities;
 
     enum StatementType {
         INSERT, GET, UPDATE, DELETE, SELECT
@@ -84,6 +86,8 @@ public class TableMetaConverter extends TablePojoConverter {
         if (metaNotLikeColumns != null) {
             this.metaNotLikeColumns.putAll(metaNotLikeColumns);
         }
+        this.metaGenerateSequences = modelProperty.isMetaGenerateSequences(artifacts);
+        this.metaGenerateIdentities = modelProperty.isMetaGenerateIdentities(artifacts);
 
         if (debug) {
             System.out.println("finalMetas " + this.finalMetas);
@@ -96,6 +100,8 @@ public class TableMetaConverter extends TablePojoConverter {
             System.out.println("metaMakeItFinal " + this.metaMakeItFinal);
             System.out.println("metaLikeColumns " + this.metaLikeColumns);
             System.out.println("metaNotLikeColumns " + this.metaNotLikeColumns);
+            System.out.println("metaGenerateSequences " + this.metaGenerateSequences);
+            System.out.println("metaGenerateIdentities " + this.metaGenerateIdentities);
         }
     }
 

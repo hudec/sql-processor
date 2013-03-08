@@ -2080,6 +2080,10 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWSTerminalRuleCall_8_3_0 = (RuleCall)cGroup_8_3.eContents().get(0);
 		private final Assignment cDbColumnsAssignment_8_3_1 = (Assignment)cGroup_8_3.eContents().get(1);
 		private final RuleCall cDbColumnsIDENTTerminalRuleCall_8_3_1_0 = (RuleCall)cDbColumnsAssignment_8_3_1.eContents().get(0);
+		private final Assignment cNameAssignment_9 = (Assignment)cAlternatives.eContents().get(9);
+		private final Keyword cNameGenerateSequencesKeyword_9_0 = (Keyword)cNameAssignment_9.eContents().get(0);
+		private final Assignment cNameAssignment_10 = (Assignment)cAlternatives.eContents().get(10);
+		private final Keyword cNameGenerateIdentitiesKeyword_10_0 = (Keyword)cNameAssignment_10.eContents().get(0);
 		
 		//MetagenProperty:
 		//	name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+
@@ -2087,7 +2091,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//	name="table-identity" WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+
 		//	dbTable=IDENT (WS+ metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
 		//	metaTypes+=MetaTypeAssignement)+ | name="make-it-final" | name="like-columns" WS+ dbTable=IDENT (WS+
-		//	dbColumns+=IDENT)+ | name="not-like-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+;
+		//	dbColumns+=IDENT)+ | name="not-like-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="generate-sequences" |
+		//	name="generate-identities";
 		public ParserRule getRule() { return rule; }
 
 		//name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)? | name="table-sequence" WS+ dbTable=IDENT WS+ sequence=IDENT
@@ -2095,7 +2100,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+ dbTable=IDENT (WS+
 		//metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
 		//metaTypes+=MetaTypeAssignement)+ | name="make-it-final" | name="like-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
-		//| name="not-like-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
+		//| name="not-like-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="generate-sequences" |
+		//name="generate-identities"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="global-sequence" WS+ sequence=IDENT (WS+ type=IDENT)?
@@ -2364,6 +2370,18 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//IDENT
 		public RuleCall getDbColumnsIDENTTerminalRuleCall_8_3_1_0() { return cDbColumnsIDENTTerminalRuleCall_8_3_1_0; }
+
+		//name="generate-sequences"
+		public Assignment getNameAssignment_9() { return cNameAssignment_9; }
+
+		//"generate-sequences"
+		public Keyword getNameGenerateSequencesKeyword_9_0() { return cNameGenerateSequencesKeyword_9_0; }
+
+		//name="generate-identities"
+		public Assignment getNameAssignment_10() { return cNameAssignment_10; }
+
+		//"generate-identities"
+		public Keyword getNameGenerateIdentitiesKeyword_10_0() { return cNameGenerateIdentitiesKeyword_10_0; }
 	}
 
 	public class DaogenPropertyElements extends AbstractParserRuleElementFinder {
@@ -7086,7 +7104,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	name="table-identity" WS+ dbTable=IDENT WS+ identity=IDENT (WS+ type=IDENT)? | name="column-meta-type" WS+
 	//	dbTable=IDENT (WS+ metaTypes+=MetaTypeAssignement)+ | name="statement-meta-type" WS+ dbStatement=IDENT (WS+
 	//	metaTypes+=MetaTypeAssignement)+ | name="make-it-final" | name="like-columns" WS+ dbTable=IDENT (WS+
-	//	dbColumns+=IDENT)+ | name="not-like-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+;
+	//	dbColumns+=IDENT)+ | name="not-like-columns" WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+ | name="generate-sequences" |
+	//	name="generate-identities";
 	public MetagenPropertyElements getMetagenPropertyAccess() {
 		return (pMetagenProperty != null) ? pMetagenProperty : (pMetagenProperty = new MetagenPropertyElements());
 	}

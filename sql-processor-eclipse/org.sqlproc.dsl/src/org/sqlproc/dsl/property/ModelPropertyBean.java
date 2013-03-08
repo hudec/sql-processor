@@ -91,6 +91,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String METAGEN_MAKE_IT_FINAL = "make-it-final";
     public static final String METAGEN_LIKE_COLUMNS = "like-columns";
     public static final String METAGEN_NOT_LIKE_COLUMNS = "not-like-columns";
+    public static final String METAGEN_GENERATE_SEQUENCES = "generate-sequences";
+    public static final String METAGEN_GENERATE_IDENTITIES = "generate-identities";
     public static final String DAOGEN = "daogen";
     public static final String DAOGEN_IGNORE_TABLES = "ignore-tables";
     public static final String DAOGEN_ONLY_TABLES = "only-tables";
@@ -162,6 +164,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public boolean metaMakeItFinal;
         public Map<String, Set<String>> metaLikeColumns;
         public Map<String, Set<String>> metaNotLikeColumns;
+        public boolean metaGenerateSequences;
+        public boolean metaGenerateIdentities;
 
         public Set<String> daoIgnoreTables;
         public Set<String> daoOnlyTables;
@@ -351,6 +355,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.metaMakeItFinal = false;
         modelValues.metaLikeColumns = new HashMap<String, Set<String>>();
         modelValues.metaNotLikeColumns = new HashMap<String, Set<String>>();
+        modelValues.metaGenerateSequences = false;
+        modelValues.metaGenerateIdentities = false;
     }
 
     private void initDaogenModel(ModelValues modelValues) {
@@ -686,6 +692,10 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             for (int i = 0, m = property.getDbColumns().size(); i < m; i++) {
                 modelValues.metaNotLikeColumns.get(property.getDbTable()).add(property.getDbColumns().get(i));
             }
+        } else if (METAGEN_GENERATE_SEQUENCES.equals(property.getName())) {
+            modelValues.metaGenerateSequences = true;
+        } else if (METAGEN_GENERATE_IDENTITIES.equals(property.getName())) {
+            modelValues.metaGenerateIdentities = true;
         }
     }
 
@@ -964,6 +974,18 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Map<String, Set<String>> getMetaNotLikeColumns(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.metaNotLikeColumns : Collections.<String, Set<String>> emptyMap();
+    }
+
+    @Override
+    public boolean isMetaGenerateSequences(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.metaGenerateSequences : false;
+    }
+
+    @Override
+    public boolean isMetaGenerateIdentities(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.metaGenerateIdentities : false;
     }
 
     @Override

@@ -482,6 +482,8 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMetagenPropertyAccess().getNameAssignment_8_0(), "rule__MetagenProperty__NameAssignment_8_0");
 					put(grammarAccess.getMetagenPropertyAccess().getDbTableAssignment_8_2(), "rule__MetagenProperty__DbTableAssignment_8_2");
 					put(grammarAccess.getMetagenPropertyAccess().getDbColumnsAssignment_8_3_1(), "rule__MetagenProperty__DbColumnsAssignment_8_3_1");
+					put(grammarAccess.getMetagenPropertyAccess().getNameAssignment_9(), "rule__MetagenProperty__NameAssignment_9");
+					put(grammarAccess.getMetagenPropertyAccess().getNameAssignment_10(), "rule__MetagenProperty__NameAssignment_10");
 					put(grammarAccess.getDaogenPropertyAccess().getNameAssignment_0_0(), "rule__DaogenProperty__NameAssignment_0_0");
 					put(grammarAccess.getDaogenPropertyAccess().getDbTablesAssignment_0_1_1(), "rule__DaogenProperty__DbTablesAssignment_0_1_1");
 					put(grammarAccess.getDaogenPropertyAccess().getNameAssignment_1_0(), "rule__DaogenProperty__NameAssignment_1_0");
