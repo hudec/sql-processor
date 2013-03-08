@@ -1,7 +1,7 @@
 resolve-pojo-on;
 database-is-online;
 database-jdbc-driver org.hsqldb.jdbcDriver;
-database-has-url jdbc:hsqldb:mem:sqlproc;
+database-has-url jdbc:hsqldb:mem:genjdbc;
 database-login-username sa;
 database-login-password "";
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
