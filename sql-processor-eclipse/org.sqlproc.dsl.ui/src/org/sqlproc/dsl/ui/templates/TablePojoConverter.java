@@ -29,6 +29,7 @@ import org.sqlproc.dsl.resolver.DbExport;
 import org.sqlproc.dsl.resolver.DbImport;
 import org.sqlproc.dsl.resolver.DbIndex;
 import org.sqlproc.dsl.resolver.DbIndex.DbIndexDetail;
+import org.sqlproc.dsl.resolver.DbResolver.DbType;
 
 public class TablePojoConverter {
 
@@ -95,12 +96,13 @@ public class TablePojoConverter {
     protected Map<String, String> pojoDiscriminators = new HashMap<String, String>();
     protected Map<String, List<Map<PojoAttribute, Boolean>>> indexes = new TreeMap<String, List<Map<PojoAttribute, Boolean>>>();
     protected Set<String> sequences = new TreeSet<String>();
+    protected DbType dbType = null;
 
     public TablePojoConverter() {
     }
 
     public TablePojoConverter(ModelProperty modelProperty, Artifacts artifacts, String suffix,
-            Set<String> finalEntities, List<String> dbSequences) {
+            Set<String> finalEntities, List<String> dbSequences, DbType dbType) {
 
         this.suffix = (suffix != null) ? suffix : "";
         this.finalEntities = finalEntities;
@@ -222,6 +224,7 @@ public class TablePojoConverter {
             }
         }
         this.sequences.addAll(dbSequences);
+        this.dbType = dbType;
 
         if (debug) {
             System.out.println("finalEntities " + this.finalEntities);
@@ -252,6 +255,7 @@ public class TablePojoConverter {
             System.out.println("versionColumn " + this.versionColumn);
             System.out.println("versionColumns " + this.versionColumns);
             System.out.println("sequences " + this.sequences);
+            System.out.println("dbType " + this.dbType);
         }
     }
 

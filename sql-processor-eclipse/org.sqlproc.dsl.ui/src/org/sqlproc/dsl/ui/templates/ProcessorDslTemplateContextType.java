@@ -30,6 +30,7 @@ import org.sqlproc.dsl.resolver.DbExport;
 import org.sqlproc.dsl.resolver.DbImport;
 import org.sqlproc.dsl.resolver.DbIndex;
 import org.sqlproc.dsl.resolver.DbResolver;
+import org.sqlproc.dsl.resolver.DbResolver.DbType;
 import org.sqlproc.dsl.resolver.PojoResolver;
 import org.sqlproc.dsl.util.Utils;
 
@@ -556,6 +557,16 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         }
     }
 
+    private DbType getDbType(Artifacts artifacts) {
+        DbType dbType = dbResolver.getDatabaseDirectives(artifacts).dbType;
+        if (dbType == null) {
+            DbType[] dbTypes = DbType.fromDbMetaInfo(dbResolver.getDbMetaInfo(artifacts));
+            if (dbTypes != null && dbTypes.length > 0)
+                dbType = dbTypes[0];
+        }
+        return dbType;
+    }
+
     public class PojoGeneratorResolver extends SimpleTemplateVariableResolver {
 
         public static final String NAME = "pojoGenerator";
@@ -594,9 +605,10 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
 
                 List<String> tables = dbResolver.getTables(artifacts);
                 List<String> dbSequences = dbResolver.getSequences(artifacts);
+                DbType dbType = getDbType(artifacts);
                 if (tables != null) {
                     TablePojoConverter converter = new TablePojoConverter(modelProperty, artifacts, suffix,
-                            finalEntities, dbSequences);
+                            finalEntities, dbSequences, dbType);
                     for (String table : tables) {
                         if (table.toUpperCase().startsWith("BIN$"))
                             continue;
@@ -651,9 +663,10 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
 
                 List<String> tables = dbResolver.getTables(artifacts);
                 List<String> dbSequences = dbResolver.getSequences(artifacts);
+                DbType dbType = getDbType(artifacts);
                 if (tables != null) {
                     TableMetaConverter converter = new TableMetaConverter(modelProperty, artifacts, scopeProvider,
-                            finalMetas, dbSequences);
+                            finalMetas, dbSequences, dbType);
                     for (String table : tables) {
                         if (table.toUpperCase().startsWith("BIN$"))
                             continue;
@@ -717,9 +730,10 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
 
                 List<String> tables = dbResolver.getTables(artifacts);
                 List<String> dbSequences = dbResolver.getSequences(artifacts);
+                DbType dbType = getDbType(artifacts);
                 if (tables != null) {
                     TableDaoConverter converter = new TableDaoConverter(modelProperty, artifacts, suffix,
-                            scopeProvider, finalDaos, dbSequences);
+                            scopeProvider, finalDaos, dbSequences, dbType);
                     for (String table : tables) {
                         if (table.toUpperCase().startsWith("BIN$"))
                             continue;

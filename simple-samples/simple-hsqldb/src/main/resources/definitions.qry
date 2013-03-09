@@ -26,7 +26,7 @@ metagen-global-sequence SIMPLE_SEQUENCE;
 metagen-make-it-final;
 
 // can't overwrite existing DAO 
-daogen-make-it-final;
+daogen-make-it-final; 
 
 table contact CONTACT;
 table person PERSON;

@@ -22,6 +22,7 @@ import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.property.ModelPropertyBean.PairValues;
 import org.sqlproc.dsl.property.PojoAttribute;
+import org.sqlproc.dsl.resolver.DbResolver.DbType;
 import org.sqlproc.dsl.util.Constants;
 
 public class TableMetaConverter extends TablePojoConverter {
@@ -53,8 +54,8 @@ public class TableMetaConverter extends TablePojoConverter {
     }
 
     public TableMetaConverter(ModelProperty modelProperty, Artifacts artifacts, IScopeProvider scopeProvider,
-            Set<String> finalMetas, List<String> dbSequences) {
-        super(modelProperty, artifacts, null, Collections.<String> emptySet(), dbSequences);
+            Set<String> finalMetas, List<String> dbSequences, DbType dbType) {
+        super(modelProperty, artifacts, null, Collections.<String> emptySet(), dbSequences, dbType);
         this.scopeProvider = scopeProvider;
         this.artifacts = artifacts;
         this.finalMetas = finalMetas;

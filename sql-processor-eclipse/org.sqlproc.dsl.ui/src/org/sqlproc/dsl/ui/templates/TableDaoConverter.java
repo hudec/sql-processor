@@ -17,6 +17,7 @@ import org.eclipse.xtext.scoping.IScopeProvider;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.property.PojoAttribute;
+import org.sqlproc.dsl.resolver.DbResolver.DbType;
 
 public class TableDaoConverter extends TableMetaConverter {
 
@@ -35,8 +36,8 @@ public class TableDaoConverter extends TableMetaConverter {
     }
 
     public TableDaoConverter(ModelProperty modelProperty, Artifacts artifacts, String suffix,
-            IScopeProvider scopeProvider, Set<String> finalDaos, List<String> dbSequences) {
-        super(modelProperty, artifacts, null, Collections.<String> emptySet(), dbSequences);
+            IScopeProvider scopeProvider, Set<String> finalDaos, List<String> dbSequences, DbType dbType) {
+        super(modelProperty, artifacts, null, Collections.<String> emptySet(), dbSequences, dbType);
 
         this.suffix = (suffix != null) ? suffix : "";
         this.finalDaos = finalDaos;
