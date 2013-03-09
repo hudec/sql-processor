@@ -20,8 +20,10 @@ import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.DaogenProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
+import org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
+import org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ExtendedColumnName;
@@ -125,6 +127,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.DATABASE_META_INFO_ASSIGNEMENT:
+				if(context == grammarAccess.getDatabaseMetaInfoAssignementRule()) {
+					sequence_DatabaseMetaInfoAssignement(context, (DatabaseMetaInfoAssignement) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.DATABASE_PROPERTY:
 				if(context == grammarAccess.getDatabasePropertyRule()) {
 					sequence_DatabaseProperty(context, (DatabaseProperty) semanticObject); 
@@ -134,6 +142,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.DATABASE_TABLE:
 				if(context == grammarAccess.getDatabaseTableRule()) {
 					sequence_DatabaseTable(context, (DatabaseTable) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.DRIVER_META_INFO_ASSIGNEMENT:
+				if(context == grammarAccess.getDriverMetaInfoAssignementRule()) {
+					sequence_DriverMetaInfoAssignement(context, (DriverMetaInfoAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -550,6 +564,22 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
+	 *     dbMetaInfo=PropertyValue
+	 */
+	protected void sequence_DatabaseMetaInfoAssignement(EObject context, DatabaseMetaInfoAssignement semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.DATABASE_META_INFO_ASSIGNEMENT__DB_META_INFO) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.DATABASE_META_INFO_ASSIGNEMENT__DB_META_INFO));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getDatabaseMetaInfoAssignementAccess().getDbMetaInfoPropertyValueParserRuleCall_0(), semanticObject.getDbMetaInfo());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         name='is-online' | 
 	 *         name='is-offline' | 
@@ -562,7 +592,9 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='ddl-drop' dbExecuteAfter=PropertyValue) | 
 	 *         (name='index-types' dbIndexTypes=PropertyValue) | 
 	 *         name='skip-indexes' | 
-	 *         (name='of-type' dbType=IDENT)
+	 *         (name='of-type' dbType=IDENT) | 
+	 *         (name='show-meta-info' dbMetaInfo=DatabaseMetaInfoAssignement) | 
+	 *         (name='show-driver-info' dbDriverInfo=DriverMetaInfoAssignement)
 	 *     )
 	 */
 	protected void sequence_DatabaseProperty(EObject context, DatabaseProperty semanticObject) {
@@ -576,6 +608,22 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 */
 	protected void sequence_DatabaseTable(EObject context, DatabaseTable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     dbDriverInfo=PropertyValue
+	 */
+	protected void sequence_DriverMetaInfoAssignement(EObject context, DriverMetaInfoAssignement semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.DRIVER_META_INFO_ASSIGNEMENT__DB_DRIVER_INFO) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.DRIVER_META_INFO_ASSIGNEMENT__DB_DRIVER_INFO));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getDriverMetaInfoAssignementAccess().getDbDriverInfoPropertyValueParserRuleCall_0(), semanticObject.getDbDriverInfo());
+		feeder.finish();
 	}
 	
 	

@@ -159,6 +159,38 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getWSTerminalRuleCall_2_6_1() { return cWSTerminalRuleCall_2_6_1; }
 	}
 
+	public class DatabaseMetaInfoAssignementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DatabaseMetaInfoAssignement");
+		private final Assignment cDbMetaInfoAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cDbMetaInfoPropertyValueParserRuleCall_0 = (RuleCall)cDbMetaInfoAssignment.eContents().get(0);
+		
+		//DatabaseMetaInfoAssignement:
+		//	dbMetaInfo=PropertyValue;
+		public ParserRule getRule() { return rule; }
+
+		//dbMetaInfo=PropertyValue
+		public Assignment getDbMetaInfoAssignment() { return cDbMetaInfoAssignment; }
+
+		//PropertyValue
+		public RuleCall getDbMetaInfoPropertyValueParserRuleCall_0() { return cDbMetaInfoPropertyValueParserRuleCall_0; }
+	}
+
+	public class DriverMetaInfoAssignementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DriverMetaInfoAssignement");
+		private final Assignment cDbDriverInfoAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cDbDriverInfoPropertyValueParserRuleCall_0 = (RuleCall)cDbDriverInfoAssignment.eContents().get(0);
+		
+		//DriverMetaInfoAssignement:
+		//	dbDriverInfo=PropertyValue;
+		public ParserRule getRule() { return rule; }
+
+		//dbDriverInfo=PropertyValue
+		public Assignment getDbDriverInfoAssignment() { return cDbDriverInfoAssignment; }
+
+		//PropertyValue
+		public RuleCall getDbDriverInfoPropertyValueParserRuleCall_0() { return cDbDriverInfoPropertyValueParserRuleCall_0; }
+	}
+
 	public class SqlTypeAssignementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SqlTypeAssignement");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -749,20 +781,34 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWSTerminalRuleCall_11_1 = (RuleCall)cGroup_11.eContents().get(1);
 		private final Assignment cDbTypeAssignment_11_2 = (Assignment)cGroup_11.eContents().get(2);
 		private final RuleCall cDbTypeIDENTTerminalRuleCall_11_2_0 = (RuleCall)cDbTypeAssignment_11_2.eContents().get(0);
+		private final Group cGroup_12 = (Group)cAlternatives.eContents().get(12);
+		private final Assignment cNameAssignment_12_0 = (Assignment)cGroup_12.eContents().get(0);
+		private final Keyword cNameShowMetaInfoKeyword_12_0_0 = (Keyword)cNameAssignment_12_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_12_1 = (RuleCall)cGroup_12.eContents().get(1);
+		private final Assignment cDbMetaInfoAssignment_12_2 = (Assignment)cGroup_12.eContents().get(2);
+		private final RuleCall cDbMetaInfoDatabaseMetaInfoAssignementParserRuleCall_12_2_0 = (RuleCall)cDbMetaInfoAssignment_12_2.eContents().get(0);
+		private final Group cGroup_13 = (Group)cAlternatives.eContents().get(13);
+		private final Assignment cNameAssignment_13_0 = (Assignment)cGroup_13.eContents().get(0);
+		private final Keyword cNameShowDriverInfoKeyword_13_0_0 = (Keyword)cNameAssignment_13_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_13_1 = (RuleCall)cGroup_13.eContents().get(1);
+		private final Assignment cDbDriverInfoAssignment_13_2 = (Assignment)cGroup_13.eContents().get(2);
+		private final RuleCall cDbDriverInfoDriverMetaInfoAssignementParserRuleCall_13_2_0 = (RuleCall)cDbDriverInfoAssignment_13_2.eContents().get(0);
 		
 		//DatabaseProperty:
 		//	name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 		//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 		//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
 		//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-		//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=IDENT;
+		//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=IDENT | name="show-meta-info" WS+
+		//	dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+ dbDriverInfo=DriverMetaInfoAssignement;
 		public ParserRule getRule() { return rule; }
 
 		//name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 		//dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 		//dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
 		//dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-		//dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=IDENT
+		//dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=IDENT | name="show-meta-info" WS+
+		//dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+ dbDriverInfo=DriverMetaInfoAssignement
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="is-online"
@@ -944,6 +990,42 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//IDENT
 		public RuleCall getDbTypeIDENTTerminalRuleCall_11_2_0() { return cDbTypeIDENTTerminalRuleCall_11_2_0; }
+
+		//name="show-meta-info" WS+ dbMetaInfo=DatabaseMetaInfoAssignement
+		public Group getGroup_12() { return cGroup_12; }
+
+		//name="show-meta-info"
+		public Assignment getNameAssignment_12_0() { return cNameAssignment_12_0; }
+
+		//"show-meta-info"
+		public Keyword getNameShowMetaInfoKeyword_12_0_0() { return cNameShowMetaInfoKeyword_12_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_12_1() { return cWSTerminalRuleCall_12_1; }
+
+		//dbMetaInfo=DatabaseMetaInfoAssignement
+		public Assignment getDbMetaInfoAssignment_12_2() { return cDbMetaInfoAssignment_12_2; }
+
+		//DatabaseMetaInfoAssignement
+		public RuleCall getDbMetaInfoDatabaseMetaInfoAssignementParserRuleCall_12_2_0() { return cDbMetaInfoDatabaseMetaInfoAssignementParserRuleCall_12_2_0; }
+
+		//name="show-driver-info" WS+ dbDriverInfo=DriverMetaInfoAssignement
+		public Group getGroup_13() { return cGroup_13; }
+
+		//name="show-driver-info"
+		public Assignment getNameAssignment_13_0() { return cNameAssignment_13_0; }
+
+		//"show-driver-info"
+		public Keyword getNameShowDriverInfoKeyword_13_0_0() { return cNameShowDriverInfoKeyword_13_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_13_1() { return cWSTerminalRuleCall_13_1; }
+
+		//dbDriverInfo=DriverMetaInfoAssignement
+		public Assignment getDbDriverInfoAssignment_13_2() { return cDbDriverInfoAssignment_13_2; }
+
+		//DriverMetaInfoAssignement
+		public RuleCall getDbDriverInfoDriverMetaInfoAssignementParserRuleCall_13_2_0() { return cDbDriverInfoDriverMetaInfoAssignementParserRuleCall_13_2_0; }
 	}
 
 	public class PojogenPropertyElements extends AbstractParserRuleElementFinder {
@@ -6784,6 +6866,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
 	private ArtifactsElements pArtifacts;
+	private DatabaseMetaInfoAssignementElements pDatabaseMetaInfoAssignement;
+	private DriverMetaInfoAssignementElements pDriverMetaInfoAssignement;
 	private SqlTypeAssignementElements pSqlTypeAssignement;
 	private ColumnTypeAssignementElements pColumnTypeAssignement;
 	private ShowColumnTypeAssignementElements pShowColumnTypeAssignement;
@@ -6934,6 +7018,26 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getArtifactsAccess().getRule();
 	}
 
+	//DatabaseMetaInfoAssignement:
+	//	dbMetaInfo=PropertyValue;
+	public DatabaseMetaInfoAssignementElements getDatabaseMetaInfoAssignementAccess() {
+		return (pDatabaseMetaInfoAssignement != null) ? pDatabaseMetaInfoAssignement : (pDatabaseMetaInfoAssignement = new DatabaseMetaInfoAssignementElements());
+	}
+	
+	public ParserRule getDatabaseMetaInfoAssignementRule() {
+		return getDatabaseMetaInfoAssignementAccess().getRule();
+	}
+
+	//DriverMetaInfoAssignement:
+	//	dbDriverInfo=PropertyValue;
+	public DriverMetaInfoAssignementElements getDriverMetaInfoAssignementAccess() {
+		return (pDriverMetaInfoAssignement != null) ? pDriverMetaInfoAssignement : (pDriverMetaInfoAssignement = new DriverMetaInfoAssignementElements());
+	}
+	
+	public ParserRule getDriverMetaInfoAssignementRule() {
+		return getDriverMetaInfoAssignementAccess().getRule();
+	}
+
 	//SqlTypeAssignement:
 	//	typeName=IDENT (LPAREN size=NUMBER RPAREN)? "->" type=PojoType;
 	public SqlTypeAssignementElements getSqlTypeAssignementAccess() {
@@ -7050,7 +7154,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 	//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
 	//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-	//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=IDENT;
+	//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=IDENT | name="show-meta-info" WS+
+	//	dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+ dbDriverInfo=DriverMetaInfoAssignement;
 	public DatabasePropertyElements getDatabasePropertyAccess() {
 		return (pDatabaseProperty != null) ? pDatabaseProperty : (pDatabaseProperty = new DatabasePropertyElements());
 	}

@@ -829,6 +829,42 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
+    public String getDbMetaInfo(EObject model) {
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return "";
+        StringBuilder sb = new StringBuilder();
+        try {
+            DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+            sb.append(meta.getDatabaseProductName());
+            sb.append(",").append(meta.getDatabaseProductVersion());
+            sb.append(",").append(meta.getDatabaseMajorVersion());
+            sb.append(",").append(meta.getDatabaseMinorVersion());
+        } catch (SQLException e) {
+            LOGGER.error("getDbMetaInfo error " + e);
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public String getDbDriverInfo(EObject model) {
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return "";
+        StringBuilder sb = new StringBuilder();
+        try {
+            DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+            sb.append(meta.getDriverName());
+            sb.append(",").append(meta.getDriverVersion());
+            sb.append(",").append(meta.getDriverMajorVersion());
+            sb.append(",").append(meta.getDriverMinorVersion());
+        } catch (SQLException e) {
+            LOGGER.error("getDbDriverInfo error " + e);
+        }
+        return sb.toString();
+    }
+
+    @Override
     protected void finalize() throws Throwable {
         // TODO - how to close connection in the process of the IDE shutdown?
         // for (Entry<String, DatabaseValues> modelDatabaseValues : connections.entrySet()) {

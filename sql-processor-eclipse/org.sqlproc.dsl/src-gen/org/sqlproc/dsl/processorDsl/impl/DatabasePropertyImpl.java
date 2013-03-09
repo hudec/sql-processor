@@ -3,13 +3,17 @@
 package org.sqlproc.dsl.processorDsl.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
+import org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -29,6 +33,8 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbExecuteAfter <em>Db Execute After</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbIndexTypes <em>Db Index Types</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbType <em>Db Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbMetaInfo <em>Db Meta Info</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbDriverInfo <em>Db Driver Info</em>}</li>
  * </ul>
  * </p>
  *
@@ -235,6 +241,26 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected String dbType = DB_TYPE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getDbMetaInfo() <em>Db Meta Info</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbMetaInfo()
+   * @generated
+   * @ordered
+   */
+  protected DatabaseMetaInfoAssignement dbMetaInfo;
+
+  /**
+   * The cached value of the '{@link #getDbDriverInfo() <em>Db Driver Info</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbDriverInfo()
+   * @generated
+   * @ordered
+   */
+  protected DriverMetaInfoAssignement dbDriverInfo;
 
   /**
    * <!-- begin-user-doc -->
@@ -492,6 +518,120 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  public DatabaseMetaInfoAssignement getDbMetaInfo()
+  {
+    return dbMetaInfo;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDbMetaInfo(DatabaseMetaInfoAssignement newDbMetaInfo, NotificationChain msgs)
+  {
+    DatabaseMetaInfoAssignement oldDbMetaInfo = dbMetaInfo;
+    dbMetaInfo = newDbMetaInfo;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_META_INFO, oldDbMetaInfo, newDbMetaInfo);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbMetaInfo(DatabaseMetaInfoAssignement newDbMetaInfo)
+  {
+    if (newDbMetaInfo != dbMetaInfo)
+    {
+      NotificationChain msgs = null;
+      if (dbMetaInfo != null)
+        msgs = ((InternalEObject)dbMetaInfo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.DATABASE_PROPERTY__DB_META_INFO, null, msgs);
+      if (newDbMetaInfo != null)
+        msgs = ((InternalEObject)newDbMetaInfo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.DATABASE_PROPERTY__DB_META_INFO, null, msgs);
+      msgs = basicSetDbMetaInfo(newDbMetaInfo, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_META_INFO, newDbMetaInfo, newDbMetaInfo));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DriverMetaInfoAssignement getDbDriverInfo()
+  {
+    return dbDriverInfo;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDbDriverInfo(DriverMetaInfoAssignement newDbDriverInfo, NotificationChain msgs)
+  {
+    DriverMetaInfoAssignement oldDbDriverInfo = dbDriverInfo;
+    dbDriverInfo = newDbDriverInfo;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO, oldDbDriverInfo, newDbDriverInfo);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbDriverInfo(DriverMetaInfoAssignement newDbDriverInfo)
+  {
+    if (newDbDriverInfo != dbDriverInfo)
+    {
+      NotificationChain msgs = null;
+      if (dbDriverInfo != null)
+        msgs = ((InternalEObject)dbDriverInfo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO, null, msgs);
+      if (newDbDriverInfo != null)
+        msgs = ((InternalEObject)newDbDriverInfo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO, null, msgs);
+      msgs = basicSetDbDriverInfo(newDbDriverInfo, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO, newDbDriverInfo, newDbDriverInfo));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_META_INFO:
+        return basicSetDbMetaInfo(null, msgs);
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO:
+        return basicSetDbDriverInfo(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -517,6 +657,10 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return getDbIndexTypes();
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_TYPE:
         return getDbType();
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_META_INFO:
+        return getDbMetaInfo();
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO:
+        return getDbDriverInfo();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -560,6 +704,12 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_TYPE:
         setDbType((String)newValue);
+        return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_META_INFO:
+        setDbMetaInfo((DatabaseMetaInfoAssignement)newValue);
+        return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO:
+        setDbDriverInfo((DriverMetaInfoAssignement)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -605,6 +755,12 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_TYPE:
         setDbType(DB_TYPE_EDEFAULT);
         return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_META_INFO:
+        setDbMetaInfo((DatabaseMetaInfoAssignement)null);
+        return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO:
+        setDbDriverInfo((DriverMetaInfoAssignement)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -639,6 +795,10 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return DB_INDEX_TYPES_EDEFAULT == null ? dbIndexTypes != null : !DB_INDEX_TYPES_EDEFAULT.equals(dbIndexTypes);
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_TYPE:
         return DB_TYPE_EDEFAULT == null ? dbType != null : !DB_TYPE_EDEFAULT.equals(dbType);
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_META_INFO:
+        return dbMetaInfo != null;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO:
+        return dbDriverInfo != null;
     }
     return super.eIsSet(featureID);
   }

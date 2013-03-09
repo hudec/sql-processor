@@ -63,4 +63,8 @@ public interface DbResolver {
     List<DbIndex> getDbIndexes(EObject model, String table);
 
     List<String> getSequences(EObject model);
+
+    String getDbMetaInfo(EObject model);
+
+    String getDbDriverInfo(EObject model);
 }

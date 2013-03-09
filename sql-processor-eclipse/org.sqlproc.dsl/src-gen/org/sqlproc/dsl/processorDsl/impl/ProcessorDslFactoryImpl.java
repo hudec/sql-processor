@@ -65,6 +65,8 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
     switch (eClass.getClassifierID())
     {
       case ProcessorDslPackage.ARTIFACTS: return createArtifacts();
+      case ProcessorDslPackage.DATABASE_META_INFO_ASSIGNEMENT: return createDatabaseMetaInfoAssignement();
+      case ProcessorDslPackage.DRIVER_META_INFO_ASSIGNEMENT: return createDriverMetaInfoAssignement();
       case ProcessorDslPackage.SQL_TYPE_ASSIGNEMENT: return createSqlTypeAssignement();
       case ProcessorDslPackage.COLUMN_TYPE_ASSIGNEMENT: return createColumnTypeAssignement();
       case ProcessorDslPackage.SHOW_COLUMN_TYPE_ASSIGNEMENT: return createShowColumnTypeAssignement();
@@ -138,6 +140,28 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     ArtifactsImpl artifacts = new ArtifactsImpl();
     return artifacts;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DatabaseMetaInfoAssignement createDatabaseMetaInfoAssignement()
+  {
+    DatabaseMetaInfoAssignementImpl databaseMetaInfoAssignement = new DatabaseMetaInfoAssignementImpl();
+    return databaseMetaInfoAssignement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DriverMetaInfoAssignement createDriverMetaInfoAssignement()
+  {
+    DriverMetaInfoAssignementImpl driverMetaInfoAssignement = new DriverMetaInfoAssignementImpl();
+    return driverMetaInfoAssignement;
   }
 
   /**

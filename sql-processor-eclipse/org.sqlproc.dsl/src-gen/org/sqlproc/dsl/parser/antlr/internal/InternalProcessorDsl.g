@@ -254,6 +254,84 @@ ruleArtifacts returns [EObject current=null]
 
 
 
+// Entry rule entryRuleDatabaseMetaInfoAssignement
+entryRuleDatabaseMetaInfoAssignement returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getDatabaseMetaInfoAssignementRule()); }
+	 iv_ruleDatabaseMetaInfoAssignement=ruleDatabaseMetaInfoAssignement 
+	 { $current=$iv_ruleDatabaseMetaInfoAssignement.current; } 
+	 EOF 
+;
+
+// Rule DatabaseMetaInfoAssignement
+ruleDatabaseMetaInfoAssignement returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDatabaseMetaInfoAssignementAccess().getDbMetaInfoPropertyValueParserRuleCall_0()); 
+	    }
+		lv_dbMetaInfo_0_0=rulePropertyValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDatabaseMetaInfoAssignementRule());
+	        }
+       		set(
+       			$current, 
+       			"dbMetaInfo",
+        		lv_dbMetaInfo_0_0, 
+        		"PropertyValue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleDriverMetaInfoAssignement
+entryRuleDriverMetaInfoAssignement returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getDriverMetaInfoAssignementRule()); }
+	 iv_ruleDriverMetaInfoAssignement=ruleDriverMetaInfoAssignement 
+	 { $current=$iv_ruleDriverMetaInfoAssignement.current; } 
+	 EOF 
+;
+
+// Rule DriverMetaInfoAssignement
+ruleDriverMetaInfoAssignement returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDriverMetaInfoAssignementAccess().getDbDriverInfoPropertyValueParserRuleCall_0()); 
+	    }
+		lv_dbDriverInfo_0_0=rulePropertyValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDriverMetaInfoAssignementRule());
+	        }
+       		set(
+       			$current, 
+       			"dbDriverInfo",
+        		lv_dbDriverInfo_0_0, 
+        		"PropertyValue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+;
+
+
+
+
+
 // Entry rule entryRuleSqlTypeAssignement
 entryRuleSqlTypeAssignement returns [EObject current=null] 
 	:
@@ -1570,6 +1648,82 @@ ruleDatabaseProperty returns [EObject current=null]
        			"dbType",
         		lv_dbType_29_0, 
         		"IDENT");
+	    }
+
+)
+))
+    |((
+(
+		lv_name_30_0=	'show-meta-info' 
+    {
+        newLeafNode(lv_name_30_0, grammarAccess.getDatabasePropertyAccess().getNameShowMetaInfoKeyword_12_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_30_0, "show-meta-info");
+	    }
+
+)
+)(this_WS_31=RULE_WS
+    { 
+    newLeafNode(this_WS_31, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_12_1()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDatabasePropertyAccess().getDbMetaInfoDatabaseMetaInfoAssignementParserRuleCall_12_2_0()); 
+	    }
+		lv_dbMetaInfo_32_0=ruleDatabaseMetaInfoAssignement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDatabasePropertyRule());
+	        }
+       		set(
+       			$current, 
+       			"dbMetaInfo",
+        		lv_dbMetaInfo_32_0, 
+        		"DatabaseMetaInfoAssignement");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+    |((
+(
+		lv_name_33_0=	'show-driver-info' 
+    {
+        newLeafNode(lv_name_33_0, grammarAccess.getDatabasePropertyAccess().getNameShowDriverInfoKeyword_13_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_33_0, "show-driver-info");
+	    }
+
+)
+)(this_WS_34=RULE_WS
+    { 
+    newLeafNode(this_WS_34, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_13_1()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDatabasePropertyAccess().getDbDriverInfoDriverMetaInfoAssignementParserRuleCall_13_2_0()); 
+	    }
+		lv_dbDriverInfo_35_0=ruleDriverMetaInfoAssignement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDatabasePropertyRule());
+	        }
+       		set(
+       			$current, 
+       			"dbDriverInfo",
+        		lv_dbDriverInfo_35_0, 
+        		"DriverMetaInfoAssignement");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )

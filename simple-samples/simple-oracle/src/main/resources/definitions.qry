@@ -6,6 +6,8 @@ database-login-username simple;
 database-login-password simple;
 database-active-schema SIMPLE;
 database-ddl-create oracle.ddl; // should be located in the same directory as definitions.qry
+database-show-meta-info Oracle,Oracle Database 10g Express Edition Release 10.2.0.1.0 - Production,10,2;
+database-show-driver-info Oracle JDBC driver,11.2.0.3.0,11,2;
 
 // native types
 pojogen-generate-wrappers;

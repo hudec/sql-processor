@@ -80,6 +80,16 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createArtifactsAdapter();
       }
       @Override
+      public Adapter caseDatabaseMetaInfoAssignement(DatabaseMetaInfoAssignement object)
+      {
+        return createDatabaseMetaInfoAssignementAdapter();
+      }
+      @Override
+      public Adapter caseDriverMetaInfoAssignement(DriverMetaInfoAssignement object)
+      {
+        return createDriverMetaInfoAssignementAdapter();
+      }
+      @Override
       public Adapter caseSqlTypeAssignement(SqlTypeAssignement object)
       {
         return createSqlTypeAssignementAdapter();
@@ -407,6 +417,36 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createArtifactsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement <em>Database Meta Info Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement
+   * @generated
+   */
+  public Adapter createDatabaseMetaInfoAssignementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement <em>Driver Meta Info Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement
+   * @generated
+   */
+  public Adapter createDriverMetaInfoAssignementAdapter()
   {
     return null;
   }

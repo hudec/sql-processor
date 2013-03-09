@@ -32,6 +32,24 @@ public interface ProcessorDslFactory extends EFactory
   Artifacts createArtifacts();
 
   /**
+   * Returns a new object of class '<em>Database Meta Info Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Database Meta Info Assignement</em>'.
+   * @generated
+   */
+  DatabaseMetaInfoAssignement createDatabaseMetaInfoAssignement();
+
+  /**
+   * Returns a new object of class '<em>Driver Meta Info Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Driver Meta Info Assignement</em>'.
+   * @generated
+   */
+  DriverMetaInfoAssignement createDriverMetaInfoAssignement();
+
+  /**
    * Returns a new object of class '<em>Sql Type Assignement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

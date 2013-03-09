@@ -1186,4 +1186,30 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             }
         }
     }
+
+    @Override
+    public void completeDatabaseMetaInfoAssignement_DbMetaInfo(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeDatabaseMetaInfoAssignement_DbMetaInfo(model, assignment, context, acceptor);
+            return;
+        }
+        String dbMetaInfo = dbResolver.getDbMetaInfo(model);
+        String proposal = getValueConverter().toString(dbMetaInfo, "PropertyValue");
+        ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+        acceptor.accept(completionProposal);
+    }
+
+    @Override
+    public void completeDriverMetaInfoAssignement_DbDriverInfo(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeDriverMetaInfoAssignement_DbDriverInfo(model, assignment, context, acceptor);
+            return;
+        }
+        String dbDriverInfo = dbResolver.getDbDriverInfo(model);
+        String proposal = getValueConverter().toString(dbDriverInfo, "PropertyValue");
+        ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+        acceptor.accept(completionProposal);
+    }
 }

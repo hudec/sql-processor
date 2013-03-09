@@ -139,6 +139,62 @@ public interface ProcessorDslPackage extends EPackage
   int ARTIFACTS_FEATURE_COUNT = 7;
 
   /**
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DatabaseMetaInfoAssignementImpl <em>Database Meta Info Assignement</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.sqlproc.dsl.processorDsl.impl.DatabaseMetaInfoAssignementImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseMetaInfoAssignement()
+   * @generated
+   */
+  int DATABASE_META_INFO_ASSIGNEMENT = 1;
+
+  /**
+   * The feature id for the '<em><b>Db Meta Info</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_META_INFO_ASSIGNEMENT__DB_META_INFO = 0;
+
+  /**
+   * The number of structural features of the '<em>Database Meta Info Assignement</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_META_INFO_ASSIGNEMENT_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DriverMetaInfoAssignementImpl <em>Driver Meta Info Assignement</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.sqlproc.dsl.processorDsl.impl.DriverMetaInfoAssignementImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDriverMetaInfoAssignement()
+   * @generated
+   */
+  int DRIVER_META_INFO_ASSIGNEMENT = 2;
+
+  /**
+   * The feature id for the '<em><b>Db Driver Info</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DRIVER_META_INFO_ASSIGNEMENT__DB_DRIVER_INFO = 0;
+
+  /**
+   * The number of structural features of the '<em>Driver Meta Info Assignement</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DRIVER_META_INFO_ASSIGNEMENT_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.SqlTypeAssignementImpl <em>Sql Type Assignement</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -146,7 +202,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getSqlTypeAssignement()
    * @generated
    */
-  int SQL_TYPE_ASSIGNEMENT = 1;
+  int SQL_TYPE_ASSIGNEMENT = 3;
 
   /**
    * The feature id for the '<em><b>Type Name</b></em>' attribute.
@@ -192,7 +248,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getColumnTypeAssignement()
    * @generated
    */
-  int COLUMN_TYPE_ASSIGNEMENT = 2;
+  int COLUMN_TYPE_ASSIGNEMENT = 4;
 
   /**
    * The feature id for the '<em><b>Db Column</b></em>' attribute.
@@ -229,7 +285,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getShowColumnTypeAssignement()
    * @generated
    */
-  int SHOW_COLUMN_TYPE_ASSIGNEMENT = 3;
+  int SHOW_COLUMN_TYPE_ASSIGNEMENT = 5;
 
   /**
    * The feature id for the '<em><b>Db Column</b></em>' attribute.
@@ -266,7 +322,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getTableAssignement()
    * @generated
    */
-  int TABLE_ASSIGNEMENT = 4;
+  int TABLE_ASSIGNEMENT = 6;
 
   /**
    * The feature id for the '<em><b>Db Table</b></em>' attribute.
@@ -303,7 +359,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getJoinTableAssignement()
    * @generated
    */
-  int JOIN_TABLE_ASSIGNEMENT = 5;
+  int JOIN_TABLE_ASSIGNEMENT = 7;
 
   /**
    * The feature id for the '<em><b>Db Table</b></em>' attribute.
@@ -340,7 +396,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getColumnAssignement()
    * @generated
    */
-  int COLUMN_ASSIGNEMENT = 6;
+  int COLUMN_ASSIGNEMENT = 8;
 
   /**
    * The feature id for the '<em><b>Db Column</b></em>' attribute.
@@ -377,7 +433,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImportAssignement()
    * @generated
    */
-  int IMPORT_ASSIGNEMENT = 7;
+  int IMPORT_ASSIGNEMENT = 9;
 
   /**
    * The feature id for the '<em><b>Db Column</b></em>' attribute.
@@ -423,7 +479,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExportAssignement()
    * @generated
    */
-  int EXPORT_ASSIGNEMENT = 8;
+  int EXPORT_ASSIGNEMENT = 10;
 
   /**
    * The feature id for the '<em><b>Db Column</b></em>' attribute.
@@ -469,7 +525,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getInheritanceAssignement()
    * @generated
    */
-  int INHERITANCE_ASSIGNEMENT = 9;
+  int INHERITANCE_ASSIGNEMENT = 11;
 
   /**
    * The feature id for the '<em><b>Discriminator</b></em>' attribute.
@@ -515,7 +571,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getManyToManyAssignement()
    * @generated
    */
-  int MANY_TO_MANY_ASSIGNEMENT = 10;
+  int MANY_TO_MANY_ASSIGNEMENT = 12;
 
   /**
    * The feature id for the '<em><b>Pk Column</b></em>' attribute.
@@ -561,7 +617,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getProperty()
    * @generated
    */
-  int PROPERTY = 11;
+  int PROPERTY = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -625,7 +681,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseProperty()
    * @generated
    */
-  int DATABASE_PROPERTY = 12;
+  int DATABASE_PROPERTY = 14;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -718,13 +774,31 @@ public interface ProcessorDslPackage extends EPackage
   int DATABASE_PROPERTY__DB_TYPE = 9;
 
   /**
+   * The feature id for the '<em><b>Db Meta Info</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_PROPERTY__DB_META_INFO = 10;
+
+  /**
+   * The feature id for the '<em><b>Db Driver Info</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_PROPERTY__DB_DRIVER_INFO = 11;
+
+  /**
    * The number of structural features of the '<em>Database Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATABASE_PROPERTY_FEATURE_COUNT = 10;
+  int DATABASE_PROPERTY_FEATURE_COUNT = 12;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl <em>Pojogen Property</em>}' class.
@@ -734,7 +808,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojogenProperty()
    * @generated
    */
-  int POJOGEN_PROPERTY = 13;
+  int POJOGEN_PROPERTY = 15;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -933,7 +1007,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMetaTypeAssignement()
    * @generated
    */
-  int META_TYPE_ASSIGNEMENT = 14;
+  int META_TYPE_ASSIGNEMENT = 16;
 
   /**
    * The feature id for the '<em><b>Db Column</b></em>' attribute.
@@ -979,7 +1053,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMetagenProperty()
    * @generated
    */
-  int METAGEN_PROPERTY = 15;
+  int METAGEN_PROPERTY = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1070,7 +1144,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDaogenProperty()
    * @generated
    */
-  int DAOGEN_PROPERTY = 16;
+  int DAOGEN_PROPERTY = 18;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1134,7 +1208,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoDefinition()
    * @generated
    */
-  int POJO_DEFINITION = 17;
+  int POJO_DEFINITION = 19;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1171,7 +1245,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getTableDefinition()
    * @generated
    */
-  int TABLE_DEFINITION = 18;
+  int TABLE_DEFINITION = 20;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1208,7 +1282,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMetaStatement()
    * @generated
    */
-  int META_STATEMENT = 19;
+  int META_STATEMENT = 21;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1263,7 +1337,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getSql()
    * @generated
    */
-  int SQL = 20;
+  int SQL = 22;
 
   /**
    * The feature id for the '<em><b>Sqls</b></em>' containment reference list.
@@ -1291,7 +1365,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getSqlFragment()
    * @generated
    */
-  int SQL_FRAGMENT = 21;
+  int SQL_FRAGMENT = 23;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1373,7 +1447,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMetaSql()
    * @generated
    */
-  int META_SQL = 22;
+  int META_SQL = 24;
 
   /**
    * The feature id for the '<em><b>Ifs</b></em>' containment reference list.
@@ -1437,7 +1511,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIfSql()
    * @generated
    */
-  int IF_SQL = 23;
+  int IF_SQL = 25;
 
   /**
    * The feature id for the '<em><b>Sqls</b></em>' containment reference list.
@@ -1465,7 +1539,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIfSqlFragment()
    * @generated
    */
-  int IF_SQL_FRAGMENT = 24;
+  int IF_SQL_FRAGMENT = 26;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1547,7 +1621,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIfMetaSql()
    * @generated
    */
-  int IF_META_SQL = 25;
+  int IF_META_SQL = 27;
 
   /**
    * The feature id for the '<em><b>Ifs</b></em>' containment reference list.
@@ -1593,7 +1667,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIfSqlCond()
    * @generated
    */
-  int IF_SQL_COND = 26;
+  int IF_SQL_COND = 28;
 
   /**
    * The feature id for the '<em><b>Bool1</b></em>' containment reference.
@@ -1639,7 +1713,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIfSqlBool()
    * @generated
    */
-  int IF_SQL_BOOL = 27;
+  int IF_SQL_BOOL = 29;
 
   /**
    * The feature id for the '<em><b>Not</b></em>' attribute.
@@ -1694,7 +1768,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getOrdSql()
    * @generated
    */
-  int ORD_SQL = 28;
+  int ORD_SQL = 30;
 
   /**
    * The feature id for the '<em><b>Sqls</b></em>' containment reference list.
@@ -1722,7 +1796,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getOrdSql2()
    * @generated
    */
-  int ORD_SQL2 = 29;
+  int ORD_SQL2 = 31;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1777,7 +1851,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getColumn()
    * @generated
    */
-  int COLUMN = 30;
+  int COLUMN = 32;
 
   /**
    * The feature id for the '<em><b>Columns</b></em>' containment reference list.
@@ -1805,7 +1879,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExtendedColumn()
    * @generated
    */
-  int EXTENDED_COLUMN = 31;
+  int EXTENDED_COLUMN = 33;
 
   /**
    * The feature id for the '<em><b>Col</b></em>' containment reference.
@@ -1842,7 +1916,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExtendedColumnName()
    * @generated
    */
-  int EXTENDED_COLUMN_NAME = 32;
+  int EXTENDED_COLUMN_NAME = 34;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1870,7 +1944,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getConstant()
    * @generated
    */
-  int CONSTANT = 33;
+  int CONSTANT = 35;
 
   /**
    * The feature id for the '<em><b>Case</b></em>' attribute.
@@ -1916,7 +1990,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getIdentifier()
    * @generated
    */
-  int IDENTIFIER = 34;
+  int IDENTIFIER = 36;
 
   /**
    * The feature id for the '<em><b>Mode</b></em>' attribute.
@@ -1971,7 +2045,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseColumn()
    * @generated
    */
-  int DATABASE_COLUMN = 35;
+  int DATABASE_COLUMN = 37;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1999,7 +2073,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseTable()
    * @generated
    */
-  int DATABASE_TABLE = 36;
+  int DATABASE_TABLE = 38;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2027,7 +2101,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingRule()
    * @generated
    */
-  int MAPPING_RULE = 37;
+  int MAPPING_RULE = 39;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2082,7 +2156,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMapping()
    * @generated
    */
-  int MAPPING = 38;
+  int MAPPING = 40;
 
   /**
    * The feature id for the '<em><b>Mapping Items</b></em>' containment reference list.
@@ -2110,7 +2184,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingItem()
    * @generated
    */
-  int MAPPING_ITEM = 39;
+  int MAPPING_ITEM = 41;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2147,7 +2221,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingColumn()
    * @generated
    */
-  int MAPPING_COLUMN = 40;
+  int MAPPING_COLUMN = 42;
 
   /**
    * The feature id for the '<em><b>Items</b></em>' containment reference list.
@@ -2175,7 +2249,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExtendedMappingItem()
    * @generated
    */
-  int EXTENDED_MAPPING_ITEM = 41;
+  int EXTENDED_MAPPING_ITEM = 43;
 
   /**
    * The feature id for the '<em><b>Attr</b></em>' containment reference.
@@ -2212,7 +2286,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getMappingColumnName()
    * @generated
    */
-  int MAPPING_COLUMN_NAME = 42;
+  int MAPPING_COLUMN_NAME = 44;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2240,7 +2314,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getOptionalFeature()
    * @generated
    */
-  int OPTIONAL_FEATURE = 43;
+  int OPTIONAL_FEATURE = 45;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2295,7 +2369,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoType()
    * @generated
    */
-  int POJO_TYPE = 44;
+  int POJO_TYPE = 46;
 
   /**
    * The feature id for the '<em><b>Native</b></em>' attribute.
@@ -2368,7 +2442,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getAbstractPojoEntity()
    * @generated
    */
-  int ABSTRACT_POJO_ENTITY = 46;
+  int ABSTRACT_POJO_ENTITY = 48;
 
   /**
    * The number of structural features of the '<em>Abstract Pojo Entity</em>' class.
@@ -2387,7 +2461,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPackageDeclaration()
    * @generated
    */
-  int PACKAGE_DECLARATION = 45;
+  int PACKAGE_DECLARATION = 47;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2433,7 +2507,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImport()
    * @generated
    */
-  int IMPORT = 47;
+  int IMPORT = 49;
 
   /**
    * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
@@ -2461,7 +2535,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImplements()
    * @generated
    */
-  int IMPLEMENTS = 48;
+  int IMPLEMENTS = 50;
 
   /**
    * The feature id for the '<em><b>Implements</b></em>' reference.
@@ -2489,7 +2563,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getExtends()
    * @generated
    */
-  int EXTENDS = 49;
+  int EXTENDS = 51;
 
   /**
    * The feature id for the '<em><b>Extends</b></em>' reference.
@@ -2517,7 +2591,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getImplPackage()
    * @generated
    */
-  int IMPL_PACKAGE = 50;
+  int IMPL_PACKAGE = 52;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2545,7 +2619,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntityModifier1()
    * @generated
    */
-  int POJO_ENTITY_MODIFIER1 = 51;
+  int POJO_ENTITY_MODIFIER1 = 53;
 
   /**
    * The feature id for the '<em><b>Final</b></em>' attribute.
@@ -2582,7 +2656,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntityModifier2()
    * @generated
    */
-  int POJO_ENTITY_MODIFIER2 = 52;
+  int POJO_ENTITY_MODIFIER2 = 54;
 
   /**
    * The feature id for the '<em><b>Super Type</b></em>' reference.
@@ -2628,7 +2702,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntity()
    * @generated
    */
-  int POJO_ENTITY = 53;
+  int POJO_ENTITY = 55;
 
   /**
    * The feature id for the '<em><b>Modifiers1</b></em>' containment reference list.
@@ -2683,7 +2757,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoPropertyModifier()
    * @generated
    */
-  int POJO_PROPERTY_MODIFIER = 54;
+  int POJO_PROPERTY_MODIFIER = 56;
 
   /**
    * The feature id for the '<em><b>Required</b></em>' attribute.
@@ -2747,7 +2821,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoEntityModifier3()
    * @generated
    */
-  int POJO_ENTITY_MODIFIER3 = 55;
+  int POJO_ENTITY_MODIFIER3 = 57;
 
   /**
    * The feature id for the '<em><b>Super Type</b></em>' reference.
@@ -2784,7 +2858,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoProperty()
    * @generated
    */
-  int POJO_PROPERTY = 56;
+  int POJO_PROPERTY = 58;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2884,7 +2958,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoDao()
    * @generated
    */
-  int POJO_DAO = 57;
+  int POJO_DAO = 59;
 
   /**
    * The feature id for the '<em><b>Modifiers1</b></em>' containment reference list.
@@ -2948,7 +3022,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoMethod()
    * @generated
    */
-  int POJO_METHOD = 58;
+  int POJO_METHOD = 60;
 
   /**
    * The feature id for the '<em><b>Scaffold</b></em>' attribute.
@@ -2994,7 +3068,7 @@ public interface ProcessorDslPackage extends EPackage
    * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getPojoMethodArg()
    * @generated
    */
-  int POJO_METHOD_ARG = 59;
+  int POJO_METHOD_ARG = 61;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3128,6 +3202,48 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EReference getArtifacts_PojoPackages();
+
+  /**
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement <em>Database Meta Info Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Database Meta Info Assignement</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement
+   * @generated
+   */
+  EClass getDatabaseMetaInfoAssignement();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement#getDbMetaInfo <em>Db Meta Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Meta Info</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement#getDbMetaInfo()
+   * @see #getDatabaseMetaInfoAssignement()
+   * @generated
+   */
+  EAttribute getDatabaseMetaInfoAssignement_DbMetaInfo();
+
+  /**
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement <em>Driver Meta Info Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Driver Meta Info Assignement</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement
+   * @generated
+   */
+  EClass getDriverMetaInfoAssignement();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement#getDbDriverInfo <em>Db Driver Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Driver Info</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement#getDbDriverInfo()
+   * @see #getDriverMetaInfoAssignement()
+   * @generated
+   */
+  EAttribute getDriverMetaInfoAssignement_DbDriverInfo();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.SqlTypeAssignement <em>Sql Type Assignement</em>}'.
@@ -3688,6 +3804,28 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EAttribute getDatabaseProperty_DbType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbMetaInfo <em>Db Meta Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Db Meta Info</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbMetaInfo()
+   * @see #getDatabaseProperty()
+   * @generated
+   */
+  EReference getDatabaseProperty_DbMetaInfo();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbDriverInfo <em>Db Driver Info</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Db Driver Info</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbDriverInfo()
+   * @see #getDatabaseProperty()
+   * @generated
+   */
+  EReference getDatabaseProperty_DbDriverInfo();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojogenProperty <em>Pojogen Property</em>}'.
@@ -5987,6 +6125,42 @@ public interface ProcessorDslPackage extends EPackage
     EReference ARTIFACTS__POJO_PACKAGES = eINSTANCE.getArtifacts_PojoPackages();
 
     /**
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.DatabaseMetaInfoAssignementImpl <em>Database Meta Info Assignement</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.sqlproc.dsl.processorDsl.impl.DatabaseMetaInfoAssignementImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDatabaseMetaInfoAssignement()
+     * @generated
+     */
+    EClass DATABASE_META_INFO_ASSIGNEMENT = eINSTANCE.getDatabaseMetaInfoAssignement();
+
+    /**
+     * The meta object literal for the '<em><b>Db Meta Info</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DATABASE_META_INFO_ASSIGNEMENT__DB_META_INFO = eINSTANCE.getDatabaseMetaInfoAssignement_DbMetaInfo();
+
+    /**
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.DriverMetaInfoAssignementImpl <em>Driver Meta Info Assignement</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.sqlproc.dsl.processorDsl.impl.DriverMetaInfoAssignementImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDriverMetaInfoAssignement()
+     * @generated
+     */
+    EClass DRIVER_META_INFO_ASSIGNEMENT = eINSTANCE.getDriverMetaInfoAssignement();
+
+    /**
+     * The meta object literal for the '<em><b>Db Driver Info</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DRIVER_META_INFO_ASSIGNEMENT__DB_DRIVER_INFO = eINSTANCE.getDriverMetaInfoAssignement_DbDriverInfo();
+
+    /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.SqlTypeAssignementImpl <em>Sql Type Assignement</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6425,6 +6599,22 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute DATABASE_PROPERTY__DB_TYPE = eINSTANCE.getDatabaseProperty_DbType();
+
+    /**
+     * The meta object literal for the '<em><b>Db Meta Info</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DATABASE_PROPERTY__DB_META_INFO = eINSTANCE.getDatabaseProperty_DbMetaInfo();
+
+    /**
+     * The meta object literal for the '<em><b>Db Driver Info</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DATABASE_PROPERTY__DB_DRIVER_INFO = eINSTANCE.getDatabaseProperty_DbDriverInfo();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl <em>Pojogen Property</em>}' class.

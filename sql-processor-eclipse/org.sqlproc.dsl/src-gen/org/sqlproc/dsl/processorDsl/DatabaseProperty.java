@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteAfter <em>Db Execute After</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbIndexTypes <em>Db Index Types</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbType <em>Db Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbMetaInfo <em>Db Meta Info</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbDriverInfo <em>Db Driver Info</em>}</li>
  * </ul>
  * </p>
  *
@@ -290,5 +292,57 @@ public interface DatabaseProperty extends EObject
    * @generated
    */
   void setDbType(String value);
+
+  /**
+   * Returns the value of the '<em><b>Db Meta Info</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Meta Info</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Meta Info</em>' containment reference.
+   * @see #setDbMetaInfo(DatabaseMetaInfoAssignement)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbMetaInfo()
+   * @model containment="true"
+   * @generated
+   */
+  DatabaseMetaInfoAssignement getDbMetaInfo();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbMetaInfo <em>Db Meta Info</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Meta Info</em>' containment reference.
+   * @see #getDbMetaInfo()
+   * @generated
+   */
+  void setDbMetaInfo(DatabaseMetaInfoAssignement value);
+
+  /**
+   * Returns the value of the '<em><b>Db Driver Info</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Driver Info</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Driver Info</em>' containment reference.
+   * @see #setDbDriverInfo(DriverMetaInfoAssignement)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbDriverInfo()
+   * @model containment="true"
+   * @generated
+   */
+  DriverMetaInfoAssignement getDbDriverInfo();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbDriverInfo <em>Db Driver Info</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Driver Info</em>' containment reference.
+   * @see #getDbDriverInfo()
+   * @generated
+   */
+  void setDbDriverInfo(DriverMetaInfoAssignement value);
 
 } // DatabaseProperty

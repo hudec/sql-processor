@@ -11,6 +11,8 @@ Artifacts: {Artifacts}
     	|pojoPackages+=PackageDeclaration WS*
     )*;
 
+DatabaseMetaInfoAssignement: dbMetaInfo=PropertyValue;
+DriverMetaInfoAssignement: dbDriverInfo=PropertyValue;
 SqlTypeAssignement: typeName=IDENT (LPAREN size=NUMBER RPAREN)? '->' type=PojoType;
 ColumnTypeAssignement: dbColumn=IDENT '->' type=PojoType;
 ShowColumnTypeAssignement: dbColumn=IDENT '->' type=PropertyValue;
@@ -44,6 +46,8 @@ DatabaseProperty:
 	|name='index-types' WS+ dbIndexTypes=PropertyValue
 	|name='skip-indexes'
 	|name='of-type' WS+ dbType=IDENT
+	|name='show-meta-info' WS+ dbMetaInfo=DatabaseMetaInfoAssignement
+	|name='show-driver-info' WS+ dbDriverInfo=DriverMetaInfoAssignement
 	);
 
 PojogenProperty:

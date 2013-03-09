@@ -19,8 +19,10 @@ import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.DaogenProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
+import org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
+import org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ExtendedColumnName;
@@ -88,6 +90,20 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * @generated
    */
   private EClass artifactsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass databaseMetaInfoAssignementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass driverMetaInfoAssignementEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -653,6 +669,46 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getDatabaseMetaInfoAssignement()
+  {
+    return databaseMetaInfoAssignementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDatabaseMetaInfoAssignement_DbMetaInfo()
+  {
+    return (EAttribute)databaseMetaInfoAssignementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDriverMetaInfoAssignement()
+  {
+    return driverMetaInfoAssignementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDriverMetaInfoAssignement_DbDriverInfo()
+  {
+    return (EAttribute)driverMetaInfoAssignementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getSqlTypeAssignement()
   {
     return sqlTypeAssignementEClass;
@@ -1166,6 +1222,26 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
   public EAttribute getDatabaseProperty_DbType()
   {
     return (EAttribute)databasePropertyEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDatabaseProperty_DbMetaInfo()
+  {
+    return (EReference)databasePropertyEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDatabaseProperty_DbDriverInfo()
+  {
+    return (EReference)databasePropertyEClass.getEStructuralFeatures().get(11);
   }
 
   /**
@@ -3257,6 +3333,12 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEReference(artifactsEClass, ARTIFACTS__FEATURES);
     createEReference(artifactsEClass, ARTIFACTS__POJO_PACKAGES);
 
+    databaseMetaInfoAssignementEClass = createEClass(DATABASE_META_INFO_ASSIGNEMENT);
+    createEAttribute(databaseMetaInfoAssignementEClass, DATABASE_META_INFO_ASSIGNEMENT__DB_META_INFO);
+
+    driverMetaInfoAssignementEClass = createEClass(DRIVER_META_INFO_ASSIGNEMENT);
+    createEAttribute(driverMetaInfoAssignementEClass, DRIVER_META_INFO_ASSIGNEMENT__DB_DRIVER_INFO);
+
     sqlTypeAssignementEClass = createEClass(SQL_TYPE_ASSIGNEMENT);
     createEAttribute(sqlTypeAssignementEClass, SQL_TYPE_ASSIGNEMENT__TYPE_NAME);
     createEAttribute(sqlTypeAssignementEClass, SQL_TYPE_ASSIGNEMENT__SIZE);
@@ -3320,6 +3402,8 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEAttribute(databasePropertyEClass, DATABASE_PROPERTY__DB_EXECUTE_AFTER);
     createEAttribute(databasePropertyEClass, DATABASE_PROPERTY__DB_INDEX_TYPES);
     createEAttribute(databasePropertyEClass, DATABASE_PROPERTY__DB_TYPE);
+    createEReference(databasePropertyEClass, DATABASE_PROPERTY__DB_META_INFO);
+    createEReference(databasePropertyEClass, DATABASE_PROPERTY__DB_DRIVER_INFO);
 
     pojogenPropertyEClass = createEClass(POJOGEN_PROPERTY);
     createEAttribute(pojogenPropertyEClass, POJOGEN_PROPERTY__NAME);
@@ -3624,6 +3708,12 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEReference(getArtifacts_Features(), this.getOptionalFeature(), null, "features", null, 0, -1, Artifacts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getArtifacts_PojoPackages(), this.getPackageDeclaration(), null, "pojoPackages", null, 0, -1, Artifacts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(databaseMetaInfoAssignementEClass, DatabaseMetaInfoAssignement.class, "DatabaseMetaInfoAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDatabaseMetaInfoAssignement_DbMetaInfo(), ecorePackage.getEString(), "dbMetaInfo", null, 0, 1, DatabaseMetaInfoAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(driverMetaInfoAssignementEClass, DriverMetaInfoAssignement.class, "DriverMetaInfoAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDriverMetaInfoAssignement_DbDriverInfo(), ecorePackage.getEString(), "dbDriverInfo", null, 0, 1, DriverMetaInfoAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(sqlTypeAssignementEClass, SqlTypeAssignement.class, "SqlTypeAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSqlTypeAssignement_TypeName(), ecorePackage.getEString(), "typeName", null, 0, 1, SqlTypeAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSqlTypeAssignement_Size(), ecorePackage.getEString(), "size", null, 0, 1, SqlTypeAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3687,6 +3777,8 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEAttribute(getDatabaseProperty_DbExecuteAfter(), ecorePackage.getEString(), "dbExecuteAfter", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDatabaseProperty_DbIndexTypes(), ecorePackage.getEString(), "dbIndexTypes", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDatabaseProperty_DbType(), ecorePackage.getEString(), "dbType", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDatabaseProperty_DbMetaInfo(), this.getDatabaseMetaInfoAssignement(), null, "dbMetaInfo", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDatabaseProperty_DbDriverInfo(), this.getDriverMetaInfoAssignement(), null, "dbDriverInfo", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pojogenPropertyEClass, PojogenProperty.class, "PojogenProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPojogenProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, PojogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

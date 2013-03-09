@@ -99,6 +99,20 @@ public class ProcessorDslSwitch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.DATABASE_META_INFO_ASSIGNEMENT:
+      {
+        DatabaseMetaInfoAssignement databaseMetaInfoAssignement = (DatabaseMetaInfoAssignement)theEObject;
+        T result = caseDatabaseMetaInfoAssignement(databaseMetaInfoAssignement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.DRIVER_META_INFO_ASSIGNEMENT:
+      {
+        DriverMetaInfoAssignement driverMetaInfoAssignement = (DriverMetaInfoAssignement)theEObject;
+        T result = caseDriverMetaInfoAssignement(driverMetaInfoAssignement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.SQL_TYPE_ASSIGNEMENT:
       {
         SqlTypeAssignement sqlTypeAssignement = (SqlTypeAssignement)theEObject;
@@ -535,6 +549,38 @@ public class ProcessorDslSwitch<T>
    * @generated
    */
   public T caseArtifacts(Artifacts object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Database Meta Info Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Database Meta Info Assignement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDatabaseMetaInfoAssignement(DatabaseMetaInfoAssignement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Driver Meta Info Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Driver Meta Info Assignement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDriverMetaInfoAssignement(DriverMetaInfoAssignement object)
   {
     return null;
   }
