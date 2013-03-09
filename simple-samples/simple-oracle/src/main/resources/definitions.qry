@@ -9,7 +9,7 @@ database-ddl-create oracle.ddl; // should be located in the same directory as de
 database-show-meta-info Oracle,Oracle Database 10g Express Edition Release 10.2.0.1.0 - Production,10,2;
 database-show-driver-info Oracle JDBC driver,11.2.0.3.0,11,2;
 database-show-jdbc-info 4,0;
-database-is-of-type Oracle;
+//database-is-of-type Oracle;
 
 // native types
 pojogen-generate-wrappers;
@@ -21,9 +21,10 @@ pojogen-implements-interfaces java.io.Serializable;
 pojogen-make-it-final;
 
 // use indetity for primary keys
-metagen-global-sequence SIMPLE_SEQUENCE;
+//metagen-global-sequence SIMPLE_SEQUENCE;
 // can't overwrite existing META SQL 
 metagen-make-it-final;
+metagen-generate-sequences;
 
 // can't overwrite existing DAO 
 daogen-make-it-final;

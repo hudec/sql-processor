@@ -118,8 +118,32 @@ public class TableMetaConverter extends TablePojoConverter {
             }
 
             StringBuilder buffer = new StringBuilder();
-            for (String sequence : sequences) {
-
+            if (metaGenerateSequences && dbType != null) {
+                Set<String> sequencesNames = new HashSet<String>();
+                for (String sequence : sequences) {
+                    buffer.append(metaSequenceDefinition(sequence, sequencesNames));
+                }
+                if (metaGlobalSequence != null) {
+                    buffer.append(metaSequenceDefinition(metaGlobalSequence.value1, sequencesNames));
+                }
+                for (PairValues metaTableSequence : metaTablesSequence.values()) {
+                    buffer.append(metaSequenceDefinition(metaTableSequence.value1, sequencesNames));
+                }
+                if (sequencesNames.isEmpty()) {
+                    buffer.append(metaSequenceDefinition(null, sequencesNames));
+                }
+            }
+            if (metaGenerateIdentities && dbType != null) {
+                Set<String> idenititesNames = new HashSet<String>();
+                if (metaGlobalIdentity != null) {
+                    buffer.append(metaIdentityDefinition(metaGlobalIdentity.value1, idenititesNames));
+                }
+                for (PairValues metaTableIdentity : metaTablesIdentity.values()) {
+                    buffer.append(metaIdentityDefinition(metaTableIdentity.value1, idenititesNames));
+                }
+                if (idenititesNames.isEmpty()) {
+                    buffer.append(metaIdentityDefinition(null, idenititesNames));
+                }
             }
             for (String pojo : pojos.keySet()) {
                 if (!onlyTables.isEmpty() && !onlyTables.contains(pojo))
@@ -142,11 +166,6 @@ public class TableMetaConverter extends TablePojoConverter {
             String s = writer.toString();
             return s;
         }
-    }
-
-    StringBuilder metaSequenceDefinition(String sequence) {
-        StringBuilder buffer = new StringBuilder();
-        return buffer;
     }
 
     StringBuilder metaInsertDefinition(String pojo) {
@@ -1255,5 +1274,61 @@ public class TableMetaConverter extends TablePojoConverter {
             }
         }
         return null;
+    }
+
+    StringBuilder metaSequenceDefinition(String sequenceName, Set<String> sequencesNames) {
+        StringBuilder buffer = new StringBuilder();
+        String sequence = null;
+        if (dbType == DbType.HSQLDB) {
+            sequence = substituteName(SqlFeature.HSQLDB_DEFAULT_SEQ, sequenceName);
+        } else if (dbType == DbType.ORACLE) {
+            sequence = substituteName(SqlFeature.ORACLE_DEFAULT_SEQ, sequenceName);
+        } else if (dbType == DbType.POSTGRESQL) {
+            sequence = substituteName(SqlFeature.POSTGRESQL_DEFAULT_SEQ, sequenceName);
+        } else if (dbType == DbType.INFORMIX) {
+            sequence = substituteName(SqlFeature.INFORMIX_DEFAULT_SEQ, sequenceName);
+        } else if (dbType == DbType.DB2) {
+            sequence = substituteName(SqlFeature.DB2_DEFAULT_SEQ, sequenceName);
+        }
+        if (sequence != null) {
+            String name = (sequenceName != null) ? sequenceName : SqlFeature.DEFAULT_SEQ_NAME;
+            if (!sequencesNames.contains(name)) {
+                buffer.append(name).append("(OPT)=").append(sequence).append(";\n");
+                sequencesNames.add(name);
+            }
+        }
+        return buffer;
+    }
+
+    StringBuilder metaIdentityDefinition(String identityName, Set<String> identitiesNames) {
+        StringBuilder buffer = new StringBuilder();
+        String identity = null;
+        if (dbType == DbType.HSQLDB) {
+            identity = substituteName(SqlFeature.HSQLDB_DEFAULT_IDSEL, identityName);
+        } else if (dbType == DbType.MY_SQL) {
+            identity = substituteName(SqlFeature.MYSQL_DEFAULT_IDSEL, identityName);
+        } else if (dbType == DbType.INFORMIX) {
+            identity = substituteName(SqlFeature.INFORMIX_DEFAULT_SEQ, identityName);
+        } else if (dbType == DbType.DB2) {
+            identity = substituteName(SqlFeature.DB2_DEFAULT_SEQ, identityName);
+        }
+        if (identity != null) {
+            String name = (identityName != null) ? identityName : SqlFeature.IDSEL;
+            if (!identitiesNames.contains(name)) {
+                buffer.append(name).append("(OPT)=").append(identity).append(";\n");
+                identitiesNames.add(name);
+            }
+        }
+        return buffer;
+    }
+
+    private String substituteName(String pattern, String name) {
+        int ix = pattern.indexOf("$n");
+        if (ix < 0)
+            return pattern;
+        if (name == null)
+            return pattern.substring(0, ix) + SqlFeature.DEFAULT_SEQ_NAME + pattern.substring(ix + 2);
+        else
+            return pattern.substring(0, ix) + name + pattern.substring(ix + 2);
     }
 }
