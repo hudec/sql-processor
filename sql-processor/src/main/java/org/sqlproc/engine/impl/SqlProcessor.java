@@ -438,14 +438,15 @@ public class SqlProcessor {
             this.errors.addAll(errors);
             return false;
         }
-        FilterStatus status = filtersControl(filters, activeFilters);
+        List<String> filteredActiveFilters = filterActiveFilters(activeFilters);
+        FilterStatus status = filtersControl(filters, filteredActiveFilters);
         if (status == FilterStatus.NOK) {
             return false;
         }
         if (status == FilterStatus.OK_LOWER) {
             if (getFeatures().containsKey(name)) {
                 if (!defaultFeatures.containsKey(name)) {
-                    warnings.add("The artifact " + uniqueArtifactName(type, name, activeFilters)
+                    warnings.add("The artifact " + uniqueArtifactName(type, name, filteredActiveFilters)
                             + " is already defined, the first definition is used.");
                     return false;
                 } else {
@@ -458,7 +459,7 @@ public class SqlProcessor {
                 return true;
             }
         } else {
-            duplicityControl(type, name, activeFilters);
+            duplicityControl(type, name, filteredActiveFilters);
             getFeatures().put(name, getFeature(type, feature));
             return true;
         }

@@ -8,7 +8,7 @@ database-ddl-create hsqldb.ddl; // should be located in the same directory as de
 database-show-meta-info HSQL Database Engine,2.2.9,2,2;
 database-show-driver-info HSQL Database Engine Driver,2.2.9,2,2;
 database-show-jdbc-info 4,0;
-database-is-of-type HSQLDB;
+//database-is-of-type HSQLDB;
 
 // native types
 pojogen-generate-wrappers;
@@ -20,7 +20,6 @@ pojogen-implements-interfaces java.io.Serializable;
 pojogen-make-it-final;
 
 // use indetity for primary keys
-//metagen-global-identity SEL1;
 metagen-global-sequence SIMPLE_SEQUENCE;
 // can't overwrite existing META SQL 
 metagen-make-it-final;

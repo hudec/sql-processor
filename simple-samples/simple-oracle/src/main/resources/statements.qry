@@ -1,8 +1,7 @@
-SIMPLE_SEQUENCE(OPT)=select SIMPLE_SEQUENCE.nextval from dual;
 
 INSERT_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %ADDRESS, %PHONE_NUMBER)
-  {= values (:id, :person.id, :address, :phoneNumber) }
+  {= values (:id(seq=SIMPLE_SEQUENCE), :person.id, :address, :phoneNumber) }
 ;
 
 GET_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
@@ -53,7 +52,7 @@ SELECT_CONTACT(QRY,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
 
 INSERT_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person)=
   insert into %%PERSON (%ID, %FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %SSN)
-  {= values (:id, :firstName, :lastName, :dateOfBirth, :ssn) }
+  {= values (:id(seq=SIMPLE_SEQUENCE), :firstName, :lastName, :dateOfBirth, :ssn) }
 ;
 
 GET_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=

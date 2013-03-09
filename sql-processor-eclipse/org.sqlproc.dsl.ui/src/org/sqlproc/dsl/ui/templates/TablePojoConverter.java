@@ -95,7 +95,7 @@ public class TablePojoConverter {
     protected Map<String, Set<String>> pojoInheritanceSimple = new HashMap<String, Set<String>>();
     protected Map<String, String> pojoDiscriminators = new HashMap<String, String>();
     protected Map<String, List<Map<PojoAttribute, Boolean>>> indexes = new TreeMap<String, List<Map<PojoAttribute, Boolean>>>();
-    protected Set<String> sequences = new TreeSet<String>();
+    protected Set<String> dbSequences = new TreeSet<String>();
     protected DbType dbType = null;
 
     public TablePojoConverter() {
@@ -223,7 +223,7 @@ public class TablePojoConverter {
                 }
             }
         }
-        this.sequences.addAll(dbSequences);
+        this.dbSequences.addAll(dbSequences);
         this.dbType = dbType;
 
         if (debug) {
@@ -254,7 +254,7 @@ public class TablePojoConverter {
             System.out.println("makeItFinal " + this.makeItFinal);
             System.out.println("versionColumn " + this.versionColumn);
             System.out.println("versionColumns " + this.versionColumns);
-            System.out.println("sequences " + this.sequences);
+            System.out.println("sequences " + this.dbSequences);
             System.out.println("dbType " + this.dbType);
         }
     }

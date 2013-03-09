@@ -44,6 +44,8 @@ public class TableMetaConverter extends TablePojoConverter {
     protected Map<String, Set<String>> metaNotLikeColumns = new HashMap<String, Set<String>>();
     protected boolean metaGenerateSequences;
     protected boolean metaGenerateIdentities;
+    protected Map<String, StringBuilder> sequences = null;
+    protected Map<String, StringBuilder> identities = null;
 
     enum StatementType {
         INSERT, GET, UPDATE, DELETE, SELECT
@@ -89,6 +91,33 @@ public class TableMetaConverter extends TablePojoConverter {
         }
         this.metaGenerateSequences = modelProperty.isMetaGenerateSequences(artifacts);
         this.metaGenerateIdentities = modelProperty.isMetaGenerateIdentities(artifacts);
+        if (metaGenerateSequences && dbType != null) {
+            sequences = new HashMap<String, StringBuilder>();
+            for (String sequence : dbSequences) {
+                metaSequenceDefinition(sequence, sequences);
+            }
+            if (metaGlobalSequence != null) {
+                metaSequenceDefinition(metaGlobalSequence.value1, sequences);
+            }
+            for (PairValues metaTableSequence : metaTablesSequence.values()) {
+                metaSequenceDefinition(metaTableSequence.value1, sequences);
+            }
+            if (sequences.isEmpty()) {
+                metaSequenceDefinition(null, sequences);
+            }
+        }
+        if (metaGenerateIdentities && dbType != null) {
+            identities = new HashMap<String, StringBuilder>();
+            if (metaGlobalIdentity != null) {
+                metaIdentityDefinition(metaGlobalIdentity.value1, identities);
+            }
+            for (PairValues metaTableIdentity : metaTablesIdentity.values()) {
+                metaIdentityDefinition(metaTableIdentity.value1, identities);
+            }
+            if (identities.isEmpty()) {
+                metaIdentityDefinition(null, identities);
+            }
+        }
 
         if (debug) {
             System.out.println("finalMetas " + this.finalMetas);
@@ -118,31 +147,14 @@ public class TableMetaConverter extends TablePojoConverter {
             }
 
             StringBuilder buffer = new StringBuilder();
-            if (metaGenerateSequences && dbType != null) {
-                Set<String> sequencesNames = new HashSet<String>();
-                for (String sequence : sequences) {
-                    buffer.append(metaSequenceDefinition(sequence, sequencesNames));
-                }
-                if (metaGlobalSequence != null) {
-                    buffer.append(metaSequenceDefinition(metaGlobalSequence.value1, sequencesNames));
-                }
-                for (PairValues metaTableSequence : metaTablesSequence.values()) {
-                    buffer.append(metaSequenceDefinition(metaTableSequence.value1, sequencesNames));
-                }
-                if (sequencesNames.isEmpty()) {
-                    buffer.append(metaSequenceDefinition(null, sequencesNames));
+            if (sequences != null) {
+                for (StringBuilder sequence : sequences.values()) {
+                    buffer.append(sequence);
                 }
             }
-            if (metaGenerateIdentities && dbType != null) {
-                Set<String> idenititesNames = new HashSet<String>();
-                if (metaGlobalIdentity != null) {
-                    buffer.append(metaIdentityDefinition(metaGlobalIdentity.value1, idenititesNames));
-                }
-                for (PairValues metaTableIdentity : metaTablesIdentity.values()) {
-                    buffer.append(metaIdentityDefinition(metaTableIdentity.value1, idenititesNames));
-                }
-                if (idenititesNames.isEmpty()) {
-                    buffer.append(metaIdentityDefinition(null, idenititesNames));
+            if (identities != null) {
+                for (StringBuilder identity : identities.values()) {
+                    buffer.append(identity);
                 }
             }
             for (String pojo : pojos.keySet()) {
@@ -1252,10 +1264,24 @@ public class TableMetaConverter extends TablePojoConverter {
 
     PairValues getSequence(String pojo, PojoAttribute attribute) {
         if (attribute.isPrimaryKey()) {
-            if (metaTablesSequence.containsKey(pojo))
+            if (metaTablesSequence.containsKey(pojo)) {
                 return metaTablesSequence.get(pojo);
-            else if (metaGlobalSequence != null)
+            } else if (metaGlobalSequence != null) {
                 return metaGlobalSequence;
+            } else if (sequences != null) {
+                PairValues result = null;
+                for (Entry<String, StringBuilder> entry : sequences.entrySet()) {
+                    if (entry.getKey().toUpperCase().indexOf(pojo.toUpperCase()) >= 0) {
+                        if (result == null || result.value1.length() > entry.getKey().length())
+                            result = new PairValues(entry.getKey(), null);
+                    }
+                }
+                if (result != null)
+                    return result;
+                for (Entry<String, StringBuilder> entry : sequences.entrySet()) {
+                    return new PairValues(entry.getKey(), null);
+                }
+            }
         }
         return null;
     }
@@ -1276,7 +1302,7 @@ public class TableMetaConverter extends TablePojoConverter {
         return null;
     }
 
-    StringBuilder metaSequenceDefinition(String sequenceName, Set<String> sequencesNames) {
+    StringBuilder metaSequenceDefinition(String sequenceName, Map<String, StringBuilder> sequences) {
         StringBuilder buffer = new StringBuilder();
         String sequence = null;
         if (dbType == DbType.HSQLDB) {
@@ -1292,15 +1318,18 @@ public class TableMetaConverter extends TablePojoConverter {
         }
         if (sequence != null) {
             String name = (sequenceName != null) ? sequenceName : SqlFeature.DEFAULT_SEQ_NAME;
-            if (!sequencesNames.contains(name)) {
-                buffer.append(name).append("(OPT)=").append(sequence).append(";\n");
-                sequencesNames.add(name);
+            if (!sequences.containsKey(name)) {
+                buffer.append(name).append("(OPT");
+                if (metaMakeItFinal)
+                    buffer.append(",final=");
+                buffer.append(")=").append(sequence).append(";\n");
+                sequences.put(name, buffer);
             }
         }
         return buffer;
     }
 
-    StringBuilder metaIdentityDefinition(String identityName, Set<String> identitiesNames) {
+    StringBuilder metaIdentityDefinition(String identityName, Map<String, StringBuilder> identities) {
         StringBuilder buffer = new StringBuilder();
         String identity = null;
         if (dbType == DbType.HSQLDB) {
@@ -1314,9 +1343,12 @@ public class TableMetaConverter extends TablePojoConverter {
         }
         if (identity != null) {
             String name = (identityName != null) ? identityName : SqlFeature.IDSEL;
-            if (!identitiesNames.contains(name)) {
-                buffer.append(name).append("(OPT)=").append(identity).append(";\n");
-                identitiesNames.add(name);
+            if (!identities.containsKey(name)) {
+                buffer.append(name).append("(OPT");
+                if (metaMakeItFinal)
+                    buffer.append(",final=");
+                buffer.append(")=").append(identity).append(";\n");
+                identities.put(name, buffer);
             }
         }
         return buffer;
