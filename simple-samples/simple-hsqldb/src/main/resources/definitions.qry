@@ -23,6 +23,7 @@ pojogen-make-it-final;
 metagen-global-sequence SIMPLE_SEQUENCE;
 // can't overwrite existing META SQL 
 metagen-make-it-final;
+//metagen-generate-sequences;
 
 // can't overwrite existing DAO 
 daogen-make-it-final; 

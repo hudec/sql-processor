@@ -25,6 +25,7 @@ metagen-table-sequence contact contact_id_seq;
 metagen-table-sequence person person_id_seq;
 // can't overwrite existing META SQL 
 metagen-make-it-final;
+//metagen-generate-sequences;
 
 // can't overwrite existing DAO 
 daogen-make-it-final;

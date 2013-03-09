@@ -146,6 +146,13 @@ public class TableMetaConverter extends TablePojoConverter {
                 System.out.println("indexes " + this.indexes);
             }
 
+            if (metaGenerateSequences && dbType == DbType.MY_SQL) {
+                for (String pojo : pojos.keySet()) {
+                    System.out.println("xxx " + pojo + " " + sequences);
+                    metaSequenceDefinition(pojo, null, sequences);
+                }
+            }
+
             StringBuilder buffer = new StringBuilder();
             if (sequences != null) {
                 for (StringBuilder sequence : sequences.values()) {
@@ -1354,6 +1361,25 @@ public class TableMetaConverter extends TablePojoConverter {
         return buffer;
     }
 
+    StringBuilder metaSequenceDefinition(String table, String column, Map<String, StringBuilder> sequences) {
+        StringBuilder buffer = new StringBuilder();
+        String sequence = null;
+        if (dbType == DbType.MY_SQL) {
+            sequence = substituteName(SqlFeature.MYSQL_DEFAULT_SEQ, table, column);
+        }
+        if (sequence != null) {
+            String name = "SEQ_" + table.toUpperCase();
+            if (!sequences.containsKey(name)) {
+                buffer.append(name).append("(OPT");
+                if (metaMakeItFinal)
+                    buffer.append(",final=");
+                buffer.append(")=").append(sequence).append(";\n");
+                sequences.put(name, buffer);
+            }
+        }
+        return buffer;
+    }
+
     private String substituteName(String pattern, String name) {
         int ix = pattern.indexOf("$n");
         if (ix < 0)
@@ -1362,5 +1388,12 @@ public class TableMetaConverter extends TablePojoConverter {
             return pattern.substring(0, ix) + SqlFeature.DEFAULT_SEQ_NAME + pattern.substring(ix + 2);
         else
             return pattern.substring(0, ix) + name + pattern.substring(ix + 2);
+    }
+
+    private String substituteName(String pattern, String table, String column) {
+        int ix = pattern.indexOf("$t");
+        if (ix < 0)
+            return pattern;
+        return pattern.substring(0, ix) + table + pattern.substring(ix + 2);
     }
 }
