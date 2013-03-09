@@ -18,11 +18,17 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="pojoPackages" upperBound="-1"
         eType="#//PackageDeclaration" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DatabaseTypeAssignement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DatabaseMetaInfoAssignement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbMetaInfo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DriverMetaInfoAssignement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbDriverInfo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JdbcMetaInfoAssignement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbJdbcInfo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SqlTypeAssignement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -94,10 +100,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbExecuteBefore" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbExecuteAfter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbIndexTypes" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dbType" eType="#//DatabaseTypeAssignement"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dbMetaInfo" eType="#//DatabaseMetaInfoAssignement"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dbDriverInfo" eType="#//DriverMetaInfoAssignement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dbJdbcInfo" eType="#//JdbcMetaInfoAssignement"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PojogenProperty">

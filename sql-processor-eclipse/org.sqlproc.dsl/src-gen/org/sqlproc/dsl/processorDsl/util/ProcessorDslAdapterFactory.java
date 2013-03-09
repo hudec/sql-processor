@@ -80,6 +80,11 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createArtifactsAdapter();
       }
       @Override
+      public Adapter caseDatabaseTypeAssignement(DatabaseTypeAssignement object)
+      {
+        return createDatabaseTypeAssignementAdapter();
+      }
+      @Override
       public Adapter caseDatabaseMetaInfoAssignement(DatabaseMetaInfoAssignement object)
       {
         return createDatabaseMetaInfoAssignementAdapter();
@@ -88,6 +93,11 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseDriverMetaInfoAssignement(DriverMetaInfoAssignement object)
       {
         return createDriverMetaInfoAssignementAdapter();
+      }
+      @Override
+      public Adapter caseJdbcMetaInfoAssignement(JdbcMetaInfoAssignement object)
+      {
+        return createJdbcMetaInfoAssignementAdapter();
       }
       @Override
       public Adapter caseSqlTypeAssignement(SqlTypeAssignement object)
@@ -422,6 +432,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DatabaseTypeAssignement <em>Database Type Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseTypeAssignement
+   * @generated
+   */
+  public Adapter createDatabaseTypeAssignementAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement <em>Database Meta Info Assignement</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -447,6 +472,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDriverMetaInfoAssignementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.JdbcMetaInfoAssignement <em>Jdbc Meta Info Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.JdbcMetaInfoAssignement
+   * @generated
+   */
+  public Adapter createJdbcMetaInfoAssignementAdapter()
   {
     return null;
   }

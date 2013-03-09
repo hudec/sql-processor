@@ -254,6 +254,45 @@ ruleArtifacts returns [EObject current=null]
 
 
 
+// Entry rule entryRuleDatabaseTypeAssignement
+entryRuleDatabaseTypeAssignement returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getDatabaseTypeAssignementRule()); }
+	 iv_ruleDatabaseTypeAssignement=ruleDatabaseTypeAssignement 
+	 { $current=$iv_ruleDatabaseTypeAssignement.current; } 
+	 EOF 
+;
+
+// Rule DatabaseTypeAssignement
+ruleDatabaseTypeAssignement returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		lv_dbType_0_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbType_0_0, grammarAccess.getDatabaseTypeAssignementAccess().getDbTypeIDENTTerminalRuleCall_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabaseTypeAssignementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbType",
+        		lv_dbType_0_0, 
+        		"IDENT");
+	    }
+
+)
+)
+;
+
+
+
+
+
 // Entry rule entryRuleDatabaseMetaInfoAssignement
 entryRuleDatabaseMetaInfoAssignement returns [EObject current=null] 
 	:
@@ -320,6 +359,45 @@ ruleDriverMetaInfoAssignement returns [EObject current=null]
        			$current, 
        			"dbDriverInfo",
         		lv_dbDriverInfo_0_0, 
+        		"PropertyValue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleJdbcMetaInfoAssignement
+entryRuleJdbcMetaInfoAssignement returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getJdbcMetaInfoAssignementRule()); }
+	 iv_ruleJdbcMetaInfoAssignement=ruleJdbcMetaInfoAssignement 
+	 { $current=$iv_ruleJdbcMetaInfoAssignement.current; } 
+	 EOF 
+;
+
+// Rule JdbcMetaInfoAssignement
+ruleJdbcMetaInfoAssignement returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getJdbcMetaInfoAssignementAccess().getDbJdbcInfoPropertyValueParserRuleCall_0()); 
+	    }
+		lv_dbJdbcInfo_0_0=rulePropertyValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getJdbcMetaInfoAssignementRule());
+	        }
+       		set(
+       			$current, 
+       			"dbJdbcInfo",
+        		lv_dbJdbcInfo_0_0, 
         		"PropertyValue");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1616,16 +1694,16 @@ ruleDatabaseProperty returns [EObject current=null]
 )
     |((
 (
-		lv_name_27_0=	'of-type' 
+		lv_name_27_0=	'is-of-type' 
     {
-        newLeafNode(lv_name_27_0, grammarAccess.getDatabasePropertyAccess().getNameOfTypeKeyword_11_0_0());
+        newLeafNode(lv_name_27_0, grammarAccess.getDatabasePropertyAccess().getNameIsOfTypeKeyword_11_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
 	        }
-       		setWithLastConsumed($current, "name", lv_name_27_0, "of-type");
+       		setWithLastConsumed($current, "name", lv_name_27_0, "is-of-type");
 	    }
 
 )
@@ -1635,19 +1713,19 @@ ruleDatabaseProperty returns [EObject current=null]
     }
 )+(
 (
-		lv_dbType_29_0=RULE_IDENT
-		{
-			newLeafNode(lv_dbType_29_0, grammarAccess.getDatabasePropertyAccess().getDbTypeIDENTTerminalRuleCall_11_2_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getDatabasePropertyAccess().getDbTypeDatabaseTypeAssignementParserRuleCall_11_2_0()); 
+	    }
+		lv_dbType_29_0=ruleDatabaseTypeAssignement		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
+	            $current = createModelElementForParent(grammarAccess.getDatabasePropertyRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"dbType",
         		lv_dbType_29_0, 
-        		"IDENT");
+        		"DatabaseTypeAssignement");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
@@ -1723,6 +1801,44 @@ ruleDatabaseProperty returns [EObject current=null]
        			"dbDriverInfo",
         		lv_dbDriverInfo_35_0, 
         		"DriverMetaInfoAssignement");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+    |((
+(
+		lv_name_36_0=	'show-jdbc-info' 
+    {
+        newLeafNode(lv_name_36_0, grammarAccess.getDatabasePropertyAccess().getNameShowJdbcInfoKeyword_14_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_36_0, "show-jdbc-info");
+	    }
+
+)
+)(this_WS_37=RULE_WS
+    { 
+    newLeafNode(this_WS_37, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_14_1()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDatabasePropertyAccess().getDbJdbcInfoJdbcMetaInfoAssignementParserRuleCall_14_2_0()); 
+	    }
+		lv_dbJdbcInfo_38_0=ruleJdbcMetaInfoAssignement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDatabasePropertyRule());
+	        }
+       		set(
+       			$current, 
+       			"dbJdbcInfo",
+        		lv_dbJdbcInfo_38_0, 
+        		"JdbcMetaInfoAssignement");
 	        afterParserOrEnumRuleCall();
 	    }
 

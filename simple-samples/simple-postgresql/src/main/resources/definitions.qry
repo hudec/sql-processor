@@ -8,6 +8,8 @@ database-login-password simple;
 database-ddl-create postgresql.ddl; // should be located in the same directory as definitions.qry
 database-show-meta-info PostgreSQL,9.1.8,9,1;
 database-show-driver-info PostgreSQL Native Driver,PostgreSQL 9.0 JDBC4 (build 801),9,0;
+database-show-jdbc-info 4,0;
+database-is-of-type PostgreSQL;
 
 // native types
 pojogen-generate-wrappers;

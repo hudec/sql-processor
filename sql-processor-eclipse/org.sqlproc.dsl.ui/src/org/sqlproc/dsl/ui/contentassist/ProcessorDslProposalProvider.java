@@ -59,6 +59,7 @@ import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.resolver.DbExport;
 import org.sqlproc.dsl.resolver.DbImport;
 import org.sqlproc.dsl.resolver.DbResolver;
+import org.sqlproc.dsl.resolver.DbResolver.DbType;
 import org.sqlproc.dsl.resolver.PojoResolver;
 import org.sqlproc.dsl.util.Utils;
 
@@ -1211,5 +1212,34 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         String proposal = getValueConverter().toString(dbDriverInfo, "PropertyValue");
         ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
         acceptor.accept(completionProposal);
+    }
+
+    @Override
+    public void completeJdbcMetaInfoAssignement_DbJdbcInfo(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeJdbcMetaInfoAssignement_DbJdbcInfo(model, assignment, context, acceptor);
+            return;
+        }
+        String dbJdbcInfo = dbResolver.getDbJdbcInfo(model);
+        String proposal = getValueConverter().toString(dbJdbcInfo, "PropertyValue");
+        ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+        acceptor.accept(completionProposal);
+    }
+
+    @Override
+    public void completeDatabaseTypeAssignement_DbType(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeJdbcMetaInfoAssignement_DbJdbcInfo(model, assignment, context, acceptor);
+            return;
+        }
+        String dbMetaInfo = dbResolver.getDbMetaInfo(model);
+        DbType[] dbTypes = DbType.fromDbMetaInfo(dbMetaInfo);
+        for (DbType dbType : dbTypes) {
+            String proposal = getValueConverter().toString(dbType.getValue(), "PropertyValue");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
     }
 }

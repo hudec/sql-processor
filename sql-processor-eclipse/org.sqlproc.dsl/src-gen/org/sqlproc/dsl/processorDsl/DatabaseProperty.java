@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbType <em>Db Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbMetaInfo <em>Db Meta Info</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbDriverInfo <em>Db Driver Info</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbJdbcInfo <em>Db Jdbc Info</em>}</li>
  * </ul>
  * </p>
  *
@@ -268,30 +269,30 @@ public interface DatabaseProperty extends EObject
   void setDbIndexTypes(String value);
 
   /**
-   * Returns the value of the '<em><b>Db Type</b></em>' attribute.
+   * Returns the value of the '<em><b>Db Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Db Type</em>' attribute isn't clear,
+   * If the meaning of the '<em>Db Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Db Type</em>' attribute.
-   * @see #setDbType(String)
+   * @return the value of the '<em>Db Type</em>' containment reference.
+   * @see #setDbType(DatabaseTypeAssignement)
    * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbType()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getDbType();
+  DatabaseTypeAssignement getDbType();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbType <em>Db Type</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbType <em>Db Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Db Type</em>' attribute.
+   * @param value the new value of the '<em>Db Type</em>' containment reference.
    * @see #getDbType()
    * @generated
    */
-  void setDbType(String value);
+  void setDbType(DatabaseTypeAssignement value);
 
   /**
    * Returns the value of the '<em><b>Db Meta Info</b></em>' containment reference.
@@ -344,5 +345,31 @@ public interface DatabaseProperty extends EObject
    * @generated
    */
   void setDbDriverInfo(DriverMetaInfoAssignement value);
+
+  /**
+   * Returns the value of the '<em><b>Db Jdbc Info</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Jdbc Info</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Jdbc Info</em>' containment reference.
+   * @see #setDbJdbcInfo(JdbcMetaInfoAssignement)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbJdbcInfo()
+   * @model containment="true"
+   * @generated
+   */
+  JdbcMetaInfoAssignement getDbJdbcInfo();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbJdbcInfo <em>Db Jdbc Info</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Jdbc Info</em>' containment reference.
+   * @see #getDbJdbcInfo()
+   * @generated
+   */
+  void setDbJdbcInfo(JdbcMetaInfoAssignement value);
 
 } // DatabaseProperty

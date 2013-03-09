@@ -99,6 +99,13 @@ public class ProcessorDslSwitch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.DATABASE_TYPE_ASSIGNEMENT:
+      {
+        DatabaseTypeAssignement databaseTypeAssignement = (DatabaseTypeAssignement)theEObject;
+        T result = caseDatabaseTypeAssignement(databaseTypeAssignement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.DATABASE_META_INFO_ASSIGNEMENT:
       {
         DatabaseMetaInfoAssignement databaseMetaInfoAssignement = (DatabaseMetaInfoAssignement)theEObject;
@@ -110,6 +117,13 @@ public class ProcessorDslSwitch<T>
       {
         DriverMetaInfoAssignement driverMetaInfoAssignement = (DriverMetaInfoAssignement)theEObject;
         T result = caseDriverMetaInfoAssignement(driverMetaInfoAssignement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.JDBC_META_INFO_ASSIGNEMENT:
+      {
+        JdbcMetaInfoAssignement jdbcMetaInfoAssignement = (JdbcMetaInfoAssignement)theEObject;
+        T result = caseJdbcMetaInfoAssignement(jdbcMetaInfoAssignement);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -554,6 +568,22 @@ public class ProcessorDslSwitch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Database Type Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Database Type Assignement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDatabaseTypeAssignement(DatabaseTypeAssignement object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Database Meta Info Assignement</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -581,6 +611,22 @@ public class ProcessorDslSwitch<T>
    * @generated
    */
   public T caseDriverMetaInfoAssignement(DriverMetaInfoAssignement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Jdbc Meta Info Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Jdbc Meta Info Assignement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseJdbcMetaInfoAssignement(JdbcMetaInfoAssignement object)
   {
     return null;
   }

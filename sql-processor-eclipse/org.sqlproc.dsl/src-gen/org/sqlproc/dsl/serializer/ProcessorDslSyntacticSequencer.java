@@ -33,6 +33,7 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_DatabaseProperty_WSTerminalRuleCall_11_1_p;
 	protected AbstractElementAlias match_DatabaseProperty_WSTerminalRuleCall_12_1_p;
 	protected AbstractElementAlias match_DatabaseProperty_WSTerminalRuleCall_13_1_p;
+	protected AbstractElementAlias match_DatabaseProperty_WSTerminalRuleCall_14_1_p;
 	protected AbstractElementAlias match_DatabaseProperty_WSTerminalRuleCall_2_1_p;
 	protected AbstractElementAlias match_DatabaseProperty_WSTerminalRuleCall_3_1_p;
 	protected AbstractElementAlias match_DatabaseProperty_WSTerminalRuleCall_4_1_p;
@@ -130,6 +131,7 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_DatabaseProperty_WSTerminalRuleCall_11_1_p = new TokenAlias(true, false, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_11_1());
 		match_DatabaseProperty_WSTerminalRuleCall_12_1_p = new TokenAlias(true, false, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_12_1());
 		match_DatabaseProperty_WSTerminalRuleCall_13_1_p = new TokenAlias(true, false, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_13_1());
+		match_DatabaseProperty_WSTerminalRuleCall_14_1_p = new TokenAlias(true, false, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_14_1());
 		match_DatabaseProperty_WSTerminalRuleCall_2_1_p = new TokenAlias(true, false, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_2_1());
 		match_DatabaseProperty_WSTerminalRuleCall_3_1_p = new TokenAlias(true, false, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_3_1());
 		match_DatabaseProperty_WSTerminalRuleCall_4_1_p = new TokenAlias(true, false, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_4_1());
@@ -439,6 +441,8 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_DatabaseProperty_WSTerminalRuleCall_12_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_DatabaseProperty_WSTerminalRuleCall_13_1_p.equals(syntax))
 				emit_DatabaseProperty_WSTerminalRuleCall_13_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_DatabaseProperty_WSTerminalRuleCall_14_1_p.equals(syntax))
+				emit_DatabaseProperty_WSTerminalRuleCall_14_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_DatabaseProperty_WSTerminalRuleCall_2_1_p.equals(syntax))
 				emit_DatabaseProperty_WSTerminalRuleCall_2_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_DatabaseProperty_WSTerminalRuleCall_3_1_p.equals(syntax))
@@ -722,6 +726,14 @@ public class ProcessorDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     WS+
 	 */
 	protected void emit_DatabaseProperty_WSTerminalRuleCall_13_1_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     WS+
+	 */
+	protected void emit_DatabaseProperty_WSTerminalRuleCall_14_1_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

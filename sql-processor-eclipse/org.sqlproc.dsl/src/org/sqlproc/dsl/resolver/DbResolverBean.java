@@ -865,6 +865,22 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
+    public String getDbJdbcInfo(EObject model) {
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return "";
+        StringBuilder sb = new StringBuilder();
+        try {
+            DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+            sb.append(meta.getJDBCMajorVersion());
+            sb.append(",").append(meta.getJDBCMinorVersion());
+        } catch (SQLException e) {
+            LOGGER.error("getDbJdbcInfo error " + e);
+        }
+        return sb.toString();
+    }
+
+    @Override
     protected void finalize() throws Throwable {
         // TODO - how to close connection in the process of the IDE shutdown?
         // for (Entry<String, DatabaseValues> modelDatabaseValues : connections.entrySet()) {

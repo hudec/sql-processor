@@ -16,11 +16,17 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Artifacts/features"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//Artifacts/pojoPackages"/>
     </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//DatabaseTypeAssignement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseTypeAssignement/dbType"/>
+    </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//DatabaseMetaInfoAssignement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseMetaInfoAssignement/dbMetaInfo"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//DriverMetaInfoAssignement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DriverMetaInfoAssignement/dbDriverInfo"/>
+    </genClasses>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//JdbcMetaInfoAssignement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//JdbcMetaInfoAssignement/dbJdbcInfo"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//SqlTypeAssignement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//SqlTypeAssignement/typeName"/>
@@ -84,9 +90,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/dbExecuteBefore"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/dbExecuteAfter"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/dbIndexTypes"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DatabaseProperty/dbType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseProperty/dbType"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseProperty/dbMetaInfo"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseProperty/dbDriverInfo"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseProperty/dbJdbcInfo"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//PojogenProperty">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojogenProperty/name"/>

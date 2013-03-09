@@ -7,6 +7,8 @@ database-login-password "";
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
 database-show-meta-info HSQL Database Engine,2.2.9,2,2;
 database-show-driver-info HSQL Database Engine Driver,2.2.9,2,2;
+database-show-jdbc-info 4,0;
+database-is-of-type HSQLDB;
 
 // native types
 pojogen-generate-wrappers;

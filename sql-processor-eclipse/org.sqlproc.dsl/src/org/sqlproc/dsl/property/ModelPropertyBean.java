@@ -52,7 +52,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_JDBC_DRIVER = "jdbc-driver";
     public static final String DATABASE_INDEX_TYPES = "index-types";
     public static final String DATABASE_SKIP_INDEXES = "skip-indexes";
-    public static final String DATABASE_OF_TYPE = "of-type";
+    public static final String DATABASE_OF_TYPE = "is-of-type";
     public static final String POJOGEN = "pojogen";
     public static final String POJOGEN_TYPE_SQLTYPES = "types-sqltypes";
     public static final String POJOGEN_TYPE_IN_TABLE = "types-in-table";
@@ -404,7 +404,10 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         } else if (DATABASE_SKIP_INDEXES.equals(property.getName())) {
             modelValues.dbSkipIndexes = true;
         } else if (DATABASE_OF_TYPE.equals(property.getName())) {
-            modelValues.dbType = getPropertyValue(property.getDbType());
+            if (property.getDbType() != null)
+                modelValues.dbType = getPropertyValue(property.getDbType().getDbType());
+            else
+                modelValues.dbType = null;
         }
     }
 

@@ -159,6 +159,22 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getWSTerminalRuleCall_2_6_1() { return cWSTerminalRuleCall_2_6_1; }
 	}
 
+	public class DatabaseTypeAssignementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DatabaseTypeAssignement");
+		private final Assignment cDbTypeAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cDbTypeIDENTTerminalRuleCall_0 = (RuleCall)cDbTypeAssignment.eContents().get(0);
+		
+		//DatabaseTypeAssignement:
+		//	dbType=IDENT;
+		public ParserRule getRule() { return rule; }
+
+		//dbType=IDENT
+		public Assignment getDbTypeAssignment() { return cDbTypeAssignment; }
+
+		//IDENT
+		public RuleCall getDbTypeIDENTTerminalRuleCall_0() { return cDbTypeIDENTTerminalRuleCall_0; }
+	}
+
 	public class DatabaseMetaInfoAssignementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DatabaseMetaInfoAssignement");
 		private final Assignment cDbMetaInfoAssignment = (Assignment)rule.eContents().get(1);
@@ -189,6 +205,22 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//PropertyValue
 		public RuleCall getDbDriverInfoPropertyValueParserRuleCall_0() { return cDbDriverInfoPropertyValueParserRuleCall_0; }
+	}
+
+	public class JdbcMetaInfoAssignementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "JdbcMetaInfoAssignement");
+		private final Assignment cDbJdbcInfoAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cDbJdbcInfoPropertyValueParserRuleCall_0 = (RuleCall)cDbJdbcInfoAssignment.eContents().get(0);
+		
+		//JdbcMetaInfoAssignement:
+		//	dbJdbcInfo=PropertyValue;
+		public ParserRule getRule() { return rule; }
+
+		//dbJdbcInfo=PropertyValue
+		public Assignment getDbJdbcInfoAssignment() { return cDbJdbcInfoAssignment; }
+
+		//PropertyValue
+		public RuleCall getDbJdbcInfoPropertyValueParserRuleCall_0() { return cDbJdbcInfoPropertyValueParserRuleCall_0; }
 	}
 
 	public class SqlTypeAssignementElements extends AbstractParserRuleElementFinder {
@@ -777,10 +809,10 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cNameSkipIndexesKeyword_10_0 = (Keyword)cNameAssignment_10.eContents().get(0);
 		private final Group cGroup_11 = (Group)cAlternatives.eContents().get(11);
 		private final Assignment cNameAssignment_11_0 = (Assignment)cGroup_11.eContents().get(0);
-		private final Keyword cNameOfTypeKeyword_11_0_0 = (Keyword)cNameAssignment_11_0.eContents().get(0);
+		private final Keyword cNameIsOfTypeKeyword_11_0_0 = (Keyword)cNameAssignment_11_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_11_1 = (RuleCall)cGroup_11.eContents().get(1);
 		private final Assignment cDbTypeAssignment_11_2 = (Assignment)cGroup_11.eContents().get(2);
-		private final RuleCall cDbTypeIDENTTerminalRuleCall_11_2_0 = (RuleCall)cDbTypeAssignment_11_2.eContents().get(0);
+		private final RuleCall cDbTypeDatabaseTypeAssignementParserRuleCall_11_2_0 = (RuleCall)cDbTypeAssignment_11_2.eContents().get(0);
 		private final Group cGroup_12 = (Group)cAlternatives.eContents().get(12);
 		private final Assignment cNameAssignment_12_0 = (Assignment)cGroup_12.eContents().get(0);
 		private final Keyword cNameShowMetaInfoKeyword_12_0_0 = (Keyword)cNameAssignment_12_0.eContents().get(0);
@@ -793,22 +825,30 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWSTerminalRuleCall_13_1 = (RuleCall)cGroup_13.eContents().get(1);
 		private final Assignment cDbDriverInfoAssignment_13_2 = (Assignment)cGroup_13.eContents().get(2);
 		private final RuleCall cDbDriverInfoDriverMetaInfoAssignementParserRuleCall_13_2_0 = (RuleCall)cDbDriverInfoAssignment_13_2.eContents().get(0);
+		private final Group cGroup_14 = (Group)cAlternatives.eContents().get(14);
+		private final Assignment cNameAssignment_14_0 = (Assignment)cGroup_14.eContents().get(0);
+		private final Keyword cNameShowJdbcInfoKeyword_14_0_0 = (Keyword)cNameAssignment_14_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_14_1 = (RuleCall)cGroup_14.eContents().get(1);
+		private final Assignment cDbJdbcInfoAssignment_14_2 = (Assignment)cGroup_14.eContents().get(2);
+		private final RuleCall cDbJdbcInfoJdbcMetaInfoAssignementParserRuleCall_14_2_0 = (RuleCall)cDbJdbcInfoAssignment_14_2.eContents().get(0);
 		
 		//DatabaseProperty:
 		//	name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 		//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 		//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
 		//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-		//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=IDENT | name="show-meta-info" WS+
-		//	dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+ dbDriverInfo=DriverMetaInfoAssignement;
+		//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="is-of-type" WS+ dbType=DatabaseTypeAssignement |
+		//	name="show-meta-info" WS+ dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+
+		//	dbDriverInfo=DriverMetaInfoAssignement | name="show-jdbc-info" WS+ dbJdbcInfo=JdbcMetaInfoAssignement;
 		public ParserRule getRule() { return rule; }
 
 		//name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
 		//dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 		//dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
 		//dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-		//dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=IDENT | name="show-meta-info" WS+
-		//dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+ dbDriverInfo=DriverMetaInfoAssignement
+		//dbIndexTypes=PropertyValue | name="skip-indexes" | name="is-of-type" WS+ dbType=DatabaseTypeAssignement |
+		//name="show-meta-info" WS+ dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+
+		//dbDriverInfo=DriverMetaInfoAssignement | name="show-jdbc-info" WS+ dbJdbcInfo=JdbcMetaInfoAssignement
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="is-online"
@@ -973,23 +1013,23 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"skip-indexes"
 		public Keyword getNameSkipIndexesKeyword_10_0() { return cNameSkipIndexesKeyword_10_0; }
 
-		//name="of-type" WS+ dbType=IDENT
+		//name="is-of-type" WS+ dbType=DatabaseTypeAssignement
 		public Group getGroup_11() { return cGroup_11; }
 
-		//name="of-type"
+		//name="is-of-type"
 		public Assignment getNameAssignment_11_0() { return cNameAssignment_11_0; }
 
-		//"of-type"
-		public Keyword getNameOfTypeKeyword_11_0_0() { return cNameOfTypeKeyword_11_0_0; }
+		//"is-of-type"
+		public Keyword getNameIsOfTypeKeyword_11_0_0() { return cNameIsOfTypeKeyword_11_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_11_1() { return cWSTerminalRuleCall_11_1; }
 
-		//dbType=IDENT
+		//dbType=DatabaseTypeAssignement
 		public Assignment getDbTypeAssignment_11_2() { return cDbTypeAssignment_11_2; }
 
-		//IDENT
-		public RuleCall getDbTypeIDENTTerminalRuleCall_11_2_0() { return cDbTypeIDENTTerminalRuleCall_11_2_0; }
+		//DatabaseTypeAssignement
+		public RuleCall getDbTypeDatabaseTypeAssignementParserRuleCall_11_2_0() { return cDbTypeDatabaseTypeAssignementParserRuleCall_11_2_0; }
 
 		//name="show-meta-info" WS+ dbMetaInfo=DatabaseMetaInfoAssignement
 		public Group getGroup_12() { return cGroup_12; }
@@ -1026,6 +1066,24 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//DriverMetaInfoAssignement
 		public RuleCall getDbDriverInfoDriverMetaInfoAssignementParserRuleCall_13_2_0() { return cDbDriverInfoDriverMetaInfoAssignementParserRuleCall_13_2_0; }
+
+		//name="show-jdbc-info" WS+ dbJdbcInfo=JdbcMetaInfoAssignement
+		public Group getGroup_14() { return cGroup_14; }
+
+		//name="show-jdbc-info"
+		public Assignment getNameAssignment_14_0() { return cNameAssignment_14_0; }
+
+		//"show-jdbc-info"
+		public Keyword getNameShowJdbcInfoKeyword_14_0_0() { return cNameShowJdbcInfoKeyword_14_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_14_1() { return cWSTerminalRuleCall_14_1; }
+
+		//dbJdbcInfo=JdbcMetaInfoAssignement
+		public Assignment getDbJdbcInfoAssignment_14_2() { return cDbJdbcInfoAssignment_14_2; }
+
+		//JdbcMetaInfoAssignement
+		public RuleCall getDbJdbcInfoJdbcMetaInfoAssignementParserRuleCall_14_2_0() { return cDbJdbcInfoJdbcMetaInfoAssignementParserRuleCall_14_2_0; }
 	}
 
 	public class PojogenPropertyElements extends AbstractParserRuleElementFinder {
@@ -6866,8 +6924,10 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
 	private ArtifactsElements pArtifacts;
+	private DatabaseTypeAssignementElements pDatabaseTypeAssignement;
 	private DatabaseMetaInfoAssignementElements pDatabaseMetaInfoAssignement;
 	private DriverMetaInfoAssignementElements pDriverMetaInfoAssignement;
+	private JdbcMetaInfoAssignementElements pJdbcMetaInfoAssignement;
 	private SqlTypeAssignementElements pSqlTypeAssignement;
 	private ColumnTypeAssignementElements pColumnTypeAssignement;
 	private ShowColumnTypeAssignementElements pShowColumnTypeAssignement;
@@ -7018,6 +7078,16 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getArtifactsAccess().getRule();
 	}
 
+	//DatabaseTypeAssignement:
+	//	dbType=IDENT;
+	public DatabaseTypeAssignementElements getDatabaseTypeAssignementAccess() {
+		return (pDatabaseTypeAssignement != null) ? pDatabaseTypeAssignement : (pDatabaseTypeAssignement = new DatabaseTypeAssignementElements());
+	}
+	
+	public ParserRule getDatabaseTypeAssignementRule() {
+		return getDatabaseTypeAssignementAccess().getRule();
+	}
+
 	//DatabaseMetaInfoAssignement:
 	//	dbMetaInfo=PropertyValue;
 	public DatabaseMetaInfoAssignementElements getDatabaseMetaInfoAssignementAccess() {
@@ -7036,6 +7106,16 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getDriverMetaInfoAssignementRule() {
 		return getDriverMetaInfoAssignementAccess().getRule();
+	}
+
+	//JdbcMetaInfoAssignement:
+	//	dbJdbcInfo=PropertyValue;
+	public JdbcMetaInfoAssignementElements getJdbcMetaInfoAssignementAccess() {
+		return (pJdbcMetaInfoAssignement != null) ? pJdbcMetaInfoAssignement : (pJdbcMetaInfoAssignement = new JdbcMetaInfoAssignementElements());
+	}
+	
+	public ParserRule getJdbcMetaInfoAssignementRule() {
+		return getJdbcMetaInfoAssignementAccess().getRule();
 	}
 
 	//SqlTypeAssignement:
@@ -7154,8 +7234,9 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
 	//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
 	//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-	//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="of-type" WS+ dbType=IDENT | name="show-meta-info" WS+
-	//	dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+ dbDriverInfo=DriverMetaInfoAssignement;
+	//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="is-of-type" WS+ dbType=DatabaseTypeAssignement |
+	//	name="show-meta-info" WS+ dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+
+	//	dbDriverInfo=DriverMetaInfoAssignement | name="show-jdbc-info" WS+ dbJdbcInfo=JdbcMetaInfoAssignement;
 	public DatabasePropertyElements getDatabasePropertyAccess() {
 		return (pDatabaseProperty != null) ? pDatabaseProperty : (pDatabaseProperty = new DatabasePropertyElements());
 	}

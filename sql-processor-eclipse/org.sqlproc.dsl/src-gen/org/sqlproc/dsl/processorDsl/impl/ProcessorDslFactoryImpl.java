@@ -65,8 +65,10 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
     switch (eClass.getClassifierID())
     {
       case ProcessorDslPackage.ARTIFACTS: return createArtifacts();
+      case ProcessorDslPackage.DATABASE_TYPE_ASSIGNEMENT: return createDatabaseTypeAssignement();
       case ProcessorDslPackage.DATABASE_META_INFO_ASSIGNEMENT: return createDatabaseMetaInfoAssignement();
       case ProcessorDslPackage.DRIVER_META_INFO_ASSIGNEMENT: return createDriverMetaInfoAssignement();
+      case ProcessorDslPackage.JDBC_META_INFO_ASSIGNEMENT: return createJdbcMetaInfoAssignement();
       case ProcessorDslPackage.SQL_TYPE_ASSIGNEMENT: return createSqlTypeAssignement();
       case ProcessorDslPackage.COLUMN_TYPE_ASSIGNEMENT: return createColumnTypeAssignement();
       case ProcessorDslPackage.SHOW_COLUMN_TYPE_ASSIGNEMENT: return createShowColumnTypeAssignement();
@@ -147,6 +149,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public DatabaseTypeAssignement createDatabaseTypeAssignement()
+  {
+    DatabaseTypeAssignementImpl databaseTypeAssignement = new DatabaseTypeAssignementImpl();
+    return databaseTypeAssignement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public DatabaseMetaInfoAssignement createDatabaseMetaInfoAssignement()
   {
     DatabaseMetaInfoAssignementImpl databaseMetaInfoAssignement = new DatabaseMetaInfoAssignementImpl();
@@ -162,6 +175,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     DriverMetaInfoAssignementImpl driverMetaInfoAssignement = new DriverMetaInfoAssignementImpl();
     return driverMetaInfoAssignement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public JdbcMetaInfoAssignement createJdbcMetaInfoAssignement()
+  {
+    JdbcMetaInfoAssignementImpl jdbcMetaInfoAssignement = new JdbcMetaInfoAssignementImpl();
+    return jdbcMetaInfoAssignement;
   }
 
   /**

@@ -8,6 +8,8 @@ database-active-schema SIMPLE;
 database-ddl-create mysql.ddl; // should be located in the same directory as definitions.qry
 database-show-meta-info MySQL,5.5.29-0ubuntu\0.12.10.1,5,5;
 database-show-driver-info MySQL-AB JDBC Driver,mysql-connector-java-5.1.18 ( Revision: tonci.grgin@oracle.com-20110930151701-jfj14ddfq48ifkfq ),5,1;
+database-show-jdbc-info 4,0;
+database-is-of-type MySQL;
 
 // native types
 pojogen-generate-wrappers;

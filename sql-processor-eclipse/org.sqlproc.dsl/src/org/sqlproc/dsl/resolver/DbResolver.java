@@ -1,5 +1,6 @@
 package org.sqlproc.dsl.resolver;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,24 @@ public interface DbResolver {
                 throw new IllegalArgumentException("No DbType for value: " + value);
             }
             return result;
+        }
+
+        public static DbType[] fromDbMetaInfo(String dbMetaInfo) {
+            if (dbMetaInfo == null)
+                return values();
+            List<DbType> result = new ArrayList<DbType>();
+            String info = dbMetaInfo.toUpperCase();
+            for (DbType dbType : values()) {
+                if (info.indexOf(dbType.toString().toUpperCase()) >= 0
+                        || info.indexOf(dbType.getValue().toUpperCase()) >= 0)
+                    result.add(dbType);
+                else if (dbType == DbType.HSQLDB && info.indexOf("HSQL") >= 0)
+                    result.add(dbType);
+            }
+            if (!result.isEmpty())
+                return result.toArray(new DbType[0]);
+            else
+                return values();
         }
 
         public String getValue() {
@@ -67,4 +86,6 @@ public interface DbResolver {
     String getDbMetaInfo(EObject model);
 
     String getDbDriverInfo(EObject model);
+
+    String getDbJdbcInfo(EObject model);
 }
