@@ -349,6 +349,13 @@ public interface SqlFeature {
      */
     public static final String HSQLDB_DEFAULT_SEQ = "call next value for $n";
     /**
+     * <code>MYSQL_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the filter
+     * value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
+     */
+    // TODO $t - table name
+    // public static final String MYSQL_DEFAULT_SEQ =
+    // "select auto_increment from information_schema.tables where table_name = '$t'";
+    /**
      * <code>ORACLE_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the filter
      * value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance creation.
      */

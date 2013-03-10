@@ -148,8 +148,23 @@ public class TableMetaConverter extends TablePojoConverter {
 
             if (metaGenerateSequences && dbType == DbType.MY_SQL) {
                 for (String pojo : pojos.keySet()) {
-                    System.out.println("xxx " + pojo + " " + sequences);
                     metaSequenceDefinition(pojo, null, sequences);
+                }
+            }
+            if (metaGenerateIdentities && dbType == DbType.POSTGRESQL) {
+                for (String pojo : pojos.keySet()) {
+                    String primaryKey = null;
+                    for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
+                        PojoAttribute attr = pentry.getValue();
+                        if (attr == null)
+                            continue;
+                        if (attr.isPrimaryKey()) {
+                            primaryKey = attr.getDbName();
+                            break;
+                        }
+                    }
+                    if (primaryKey != null)
+                        metaIdentityDefinition(pojo, primaryKey, identities);
                 }
             }
 
@@ -1261,10 +1276,24 @@ public class TableMetaConverter extends TablePojoConverter {
 
     PairValues getIdentity(String pojo, PojoAttribute attribute) {
         if (attribute.isPrimaryKey()) {
-            if (metaTablesIdentity.containsKey(pojo))
+            if (metaTablesIdentity.containsKey(pojo)) {
                 return metaTablesIdentity.get(pojo);
-            else if (metaGlobalIdentity != null)
+            } else if (metaGlobalIdentity != null) {
                 return metaGlobalIdentity;
+            } else if (identities != null) {
+                PairValues result = null;
+                for (Entry<String, StringBuilder> entry : identities.entrySet()) {
+                    if (entry.getKey().toUpperCase().indexOf(pojo.toUpperCase()) >= 0) {
+                        if (result == null || result.value1.length() > entry.getKey().length())
+                            result = new PairValues(entry.getKey(), null);
+                    }
+                }
+                if (result != null)
+                    return result;
+                for (Entry<String, StringBuilder> entry : identities.entrySet()) {
+                    return new PairValues(entry.getKey(), null);
+                }
+            }
         }
         return null;
     }
@@ -1380,6 +1409,25 @@ public class TableMetaConverter extends TablePojoConverter {
         return buffer;
     }
 
+    StringBuilder metaIdentityDefinition(String table, String column, Map<String, StringBuilder> identities) {
+        StringBuilder buffer = new StringBuilder();
+        String identity = null;
+        if (dbType == DbType.POSTGRESQL) {
+            identity = substituteName(SqlFeature.POSTGRESQL_DEFAULT_IDSEL, table, column);
+        }
+        if (identity != null) {
+            String name = "IDSEL_" + table.toUpperCase();
+            if (!identities.containsKey(name)) {
+                buffer.append(name).append("(OPT");
+                if (metaMakeItFinal)
+                    buffer.append(",final=");
+                buffer.append(")=").append(identity).append(";\n");
+                identities.put(name, buffer);
+            }
+        }
+        return buffer;
+    }
+
     private String substituteName(String pattern, String name) {
         int ix = pattern.indexOf("$n");
         if (ix < 0)
@@ -1392,8 +1440,11 @@ public class TableMetaConverter extends TablePojoConverter {
 
     private String substituteName(String pattern, String table, String column) {
         int ix = pattern.indexOf("$t");
-        if (ix < 0)
-            return pattern;
-        return pattern.substring(0, ix) + table + pattern.substring(ix + 2);
+        if (ix >= 0)
+            pattern = pattern.substring(0, ix) + table + pattern.substring(ix + 2);
+        ix = pattern.indexOf("$c");
+        if (ix >= 0)
+            pattern = pattern.substring(0, ix) + column + pattern.substring(ix + 2);
+        return pattern;
     }
 }

@@ -26,7 +26,6 @@ metagen-global-identity;
 //metagen-table-sequence PERSON SEQ_PERSON;
 // can't overwrite existing META SQL 
 metagen-make-it-final;
-//metagen-generate-sequences;
 
 // can't overwrite existing DAO 
 daogen-make-it-final;

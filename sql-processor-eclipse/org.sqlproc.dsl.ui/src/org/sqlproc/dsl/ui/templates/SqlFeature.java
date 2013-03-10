@@ -403,8 +403,7 @@ public interface SqlFeature {
      * <code>POSTGRESQL_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
      * filter value <code>POSTGRESQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
-    // TODO $t - table name, $c - column name
-    // public static final String POSTGRESQL_DEFAULT_IDSEL = "select currval(pg_get_serial_sequence('$t','$c'))";
+    public static final String POSTGRESQL_DEFAULT_IDSEL = "select currval(pg_get_serial_sequence('$t','$c'))";
     /**
      * <code>INFORMIX_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
      * filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
