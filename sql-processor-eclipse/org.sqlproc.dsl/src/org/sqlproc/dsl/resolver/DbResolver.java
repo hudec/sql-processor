@@ -88,4 +88,8 @@ public interface DbResolver {
     String getDbDriverInfo(EObject model);
 
     String getDbJdbcInfo(EObject model);
+
+    List<String> getCatalogs(EObject model);
+
+    List<String> getSchemas(EObject model);
 }

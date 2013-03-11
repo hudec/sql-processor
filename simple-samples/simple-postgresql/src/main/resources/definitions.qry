@@ -4,7 +4,8 @@ database-jdbc-driver org.postgresql.Driver;
 database-has-url jdbc:postgresql:\//127.0.0.1:5432/simple;
 database-login-username simple;
 database-login-password simple;
-//database-active-schema SIMPLE;
+database-in-catalog simple;
+//database-active-schema simple;
 database-ddl-create postgresql.ddl; // should be located in the same directory as definitions.qry
 database-show-meta-info PostgreSQL,9.1.8,9,1;
 database-show-driver-info PostgreSQL Native Driver,PostgreSQL 9.0 JDBC4 (build 801),9,0;

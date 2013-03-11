@@ -32,6 +32,24 @@ public interface ProcessorDslFactory extends EFactory
   Artifacts createArtifacts();
 
   /**
+   * Returns a new object of class '<em>Database Catalog Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Database Catalog Assignement</em>'.
+   * @generated
+   */
+  DatabaseCatalogAssignement createDatabaseCatalogAssignement();
+
+  /**
+   * Returns a new object of class '<em>Database Schema Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Database Schema Assignement</em>'.
+   * @generated
+   */
+  DatabaseSchemaAssignement createDatabaseSchemaAssignement();
+
+  /**
    * Returns a new object of class '<em>Database Type Assignement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

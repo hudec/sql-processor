@@ -11,8 +11,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.sqlproc.dsl.processorDsl.DatabaseCatalogAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
+import org.sqlproc.dsl.processorDsl.DatabaseSchemaAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseTypeAssignement;
 import org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.JdbcMetaInfoAssignement;
@@ -29,6 +31,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbUrl <em>Db Url</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbUsername <em>Db Username</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbPassword <em>Db Password</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbCatalog <em>Db Catalog</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbSchema <em>Db Schema</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbDriver <em>Db Driver</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbExecuteBefore <em>Db Execute Before</em>}</li>
@@ -126,24 +129,24 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
   protected String dbPassword = DB_PASSWORD_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getDbSchema() <em>Db Schema</em>}' attribute.
+   * The cached value of the '{@link #getDbCatalog() <em>Db Catalog</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDbSchema()
+   * @see #getDbCatalog()
    * @generated
    * @ordered
    */
-  protected static final String DB_SCHEMA_EDEFAULT = null;
+  protected DatabaseCatalogAssignement dbCatalog;
 
   /**
-   * The cached value of the '{@link #getDbSchema() <em>Db Schema</em>}' attribute.
+   * The cached value of the '{@link #getDbSchema() <em>Db Schema</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getDbSchema()
    * @generated
    * @ordered
    */
-  protected String dbSchema = DB_SCHEMA_EDEFAULT;
+  protected DatabaseSchemaAssignement dbSchema;
 
   /**
    * The default value of the '{@link #getDbDriver() <em>Db Driver</em>}' attribute.
@@ -383,7 +386,55 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDbSchema()
+  public DatabaseCatalogAssignement getDbCatalog()
+  {
+    return dbCatalog;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDbCatalog(DatabaseCatalogAssignement newDbCatalog, NotificationChain msgs)
+  {
+    DatabaseCatalogAssignement oldDbCatalog = dbCatalog;
+    dbCatalog = newDbCatalog;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_CATALOG, oldDbCatalog, newDbCatalog);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbCatalog(DatabaseCatalogAssignement newDbCatalog)
+  {
+    if (newDbCatalog != dbCatalog)
+    {
+      NotificationChain msgs = null;
+      if (dbCatalog != null)
+        msgs = ((InternalEObject)dbCatalog).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.DATABASE_PROPERTY__DB_CATALOG, null, msgs);
+      if (newDbCatalog != null)
+        msgs = ((InternalEObject)newDbCatalog).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.DATABASE_PROPERTY__DB_CATALOG, null, msgs);
+      msgs = basicSetDbCatalog(newDbCatalog, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_CATALOG, newDbCatalog, newDbCatalog));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DatabaseSchemaAssignement getDbSchema()
   {
     return dbSchema;
   }
@@ -393,12 +444,37 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDbSchema(String newDbSchema)
+  public NotificationChain basicSetDbSchema(DatabaseSchemaAssignement newDbSchema, NotificationChain msgs)
   {
-    String oldDbSchema = dbSchema;
+    DatabaseSchemaAssignement oldDbSchema = dbSchema;
     dbSchema = newDbSchema;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_SCHEMA, oldDbSchema, dbSchema));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_SCHEMA, oldDbSchema, newDbSchema);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbSchema(DatabaseSchemaAssignement newDbSchema)
+  {
+    if (newDbSchema != dbSchema)
+    {
+      NotificationChain msgs = null;
+      if (dbSchema != null)
+        msgs = ((InternalEObject)dbSchema).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.DATABASE_PROPERTY__DB_SCHEMA, null, msgs);
+      if (newDbSchema != null)
+        msgs = ((InternalEObject)newDbSchema).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.DATABASE_PROPERTY__DB_SCHEMA, null, msgs);
+      msgs = basicSetDbSchema(newDbSchema, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_SCHEMA, newDbSchema, newDbSchema));
   }
 
   /**
@@ -695,6 +771,10 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
   {
     switch (featureID)
     {
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_CATALOG:
+        return basicSetDbCatalog(null, msgs);
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_SCHEMA:
+        return basicSetDbSchema(null, msgs);
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_TYPE:
         return basicSetDbType(null, msgs);
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_META_INFO:
@@ -725,6 +805,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return getDbUsername();
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_PASSWORD:
         return getDbPassword();
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_CATALOG:
+        return getDbCatalog();
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_SCHEMA:
         return getDbSchema();
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER:
@@ -769,8 +851,11 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_PASSWORD:
         setDbPassword((String)newValue);
         return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_CATALOG:
+        setDbCatalog((DatabaseCatalogAssignement)newValue);
+        return;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_SCHEMA:
-        setDbSchema((String)newValue);
+        setDbSchema((DatabaseSchemaAssignement)newValue);
         return;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER:
         setDbDriver((String)newValue);
@@ -822,8 +907,11 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_PASSWORD:
         setDbPassword(DB_PASSWORD_EDEFAULT);
         return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_CATALOG:
+        setDbCatalog((DatabaseCatalogAssignement)null);
+        return;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_SCHEMA:
-        setDbSchema(DB_SCHEMA_EDEFAULT);
+        setDbSchema((DatabaseSchemaAssignement)null);
         return;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER:
         setDbDriver(DB_DRIVER_EDEFAULT);
@@ -871,8 +959,10 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return DB_USERNAME_EDEFAULT == null ? dbUsername != null : !DB_USERNAME_EDEFAULT.equals(dbUsername);
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_PASSWORD:
         return DB_PASSWORD_EDEFAULT == null ? dbPassword != null : !DB_PASSWORD_EDEFAULT.equals(dbPassword);
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_CATALOG:
+        return dbCatalog != null;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_SCHEMA:
-        return DB_SCHEMA_EDEFAULT == null ? dbSchema != null : !DB_SCHEMA_EDEFAULT.equals(dbSchema);
+        return dbSchema != null;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER:
         return DB_DRIVER_EDEFAULT == null ? dbDriver != null : !DB_DRIVER_EDEFAULT.equals(dbDriver);
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_EXECUTE_BEFORE:
@@ -912,8 +1002,6 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
     result.append(dbUsername);
     result.append(", dbPassword: ");
     result.append(dbPassword);
-    result.append(", dbSchema: ");
-    result.append(dbSchema);
     result.append(", dbDriver: ");
     result.append(dbDriver);
     result.append(", dbExecuteBefore: ");

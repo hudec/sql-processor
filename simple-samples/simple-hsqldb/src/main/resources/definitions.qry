@@ -4,6 +4,8 @@ database-jdbc-driver org.hsqldb.jdbcDriver;
 database-has-url jdbc:hsqldb:mem:hsqldb;
 database-login-username sa;
 database-login-password "";
+//database-in-catalog PUBLIC;
+//database-active-schema PUBLIC;
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
 database-show-meta-info HSQL Database Engine,2.2.9,2,2;
 database-show-driver-info HSQL Database Engine Driver,2.2.9,2,2;

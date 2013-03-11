@@ -4,6 +4,7 @@ database-jdbc-driver oracle.jdbc.OracleDriver;
 database-has-url jdbc:oracle:thin:@127.0.0.1:1521:xe;
 database-login-username simple;
 database-login-password simple;
+//database-in-catalog ;
 database-active-schema SIMPLE;
 database-ddl-create oracle.ddl; // should be located in the same directory as definitions.qry
 database-show-meta-info Oracle,Oracle Database 10g Express Edition Release 10.2.0.1.0 - Production,10,2;

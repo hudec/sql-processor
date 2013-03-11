@@ -80,6 +80,16 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createArtifactsAdapter();
       }
       @Override
+      public Adapter caseDatabaseCatalogAssignement(DatabaseCatalogAssignement object)
+      {
+        return createDatabaseCatalogAssignementAdapter();
+      }
+      @Override
+      public Adapter caseDatabaseSchemaAssignement(DatabaseSchemaAssignement object)
+      {
+        return createDatabaseSchemaAssignementAdapter();
+      }
+      @Override
       public Adapter caseDatabaseTypeAssignement(DatabaseTypeAssignement object)
       {
         return createDatabaseTypeAssignementAdapter();
@@ -427,6 +437,36 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createArtifactsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DatabaseCatalogAssignement <em>Database Catalog Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseCatalogAssignement
+   * @generated
+   */
+  public Adapter createDatabaseCatalogAssignementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DatabaseSchemaAssignement <em>Database Schema Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseSchemaAssignement
+   * @generated
+   */
+  public Adapter createDatabaseSchemaAssignementAdapter()
   {
     return null;
   }

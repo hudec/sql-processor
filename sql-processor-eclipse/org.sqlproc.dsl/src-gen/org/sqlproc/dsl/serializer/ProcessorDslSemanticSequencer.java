@@ -19,9 +19,11 @@ import org.sqlproc.dsl.processorDsl.ColumnAssignement;
 import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.DaogenProperty;
+import org.sqlproc.dsl.processorDsl.DatabaseCatalogAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
+import org.sqlproc.dsl.processorDsl.DatabaseSchemaAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.DatabaseTypeAssignement;
 import org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement;
@@ -123,6 +125,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.DATABASE_CATALOG_ASSIGNEMENT:
+				if(context == grammarAccess.getDatabaseCatalogAssignementRule()) {
+					sequence_DatabaseCatalogAssignement(context, (DatabaseCatalogAssignement) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.DATABASE_COLUMN:
 				if(context == grammarAccess.getDatabaseColumnRule()) {
 					sequence_DatabaseColumn(context, (DatabaseColumn) semanticObject); 
@@ -138,6 +146,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.DATABASE_PROPERTY:
 				if(context == grammarAccess.getDatabasePropertyRule()) {
 					sequence_DatabaseProperty(context, (DatabaseProperty) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.DATABASE_SCHEMA_ASSIGNEMENT:
+				if(context == grammarAccess.getDatabaseSchemaAssignementRule()) {
+					sequence_DatabaseSchemaAssignement(context, (DatabaseSchemaAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -569,6 +583,22 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
+	 *     dbCatalog=PropertyValue
+	 */
+	protected void sequence_DatabaseCatalogAssignement(EObject context, DatabaseCatalogAssignement semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.DATABASE_CATALOG_ASSIGNEMENT__DB_CATALOG) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.DATABASE_CATALOG_ASSIGNEMENT__DB_CATALOG));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getDatabaseCatalogAssignementAccess().getDbCatalogPropertyValueParserRuleCall_0(), semanticObject.getDbCatalog());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (name=IDENT | name=IDENT_DOT)
 	 */
 	protected void sequence_DatabaseColumn(EObject context, DatabaseColumn semanticObject) {
@@ -600,7 +630,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='has-url' dbUrl=PropertyValue) | 
 	 *         (name='login-username' dbUsername=PropertyValue) | 
 	 *         (name='login-password' dbPassword=PropertyValue) | 
-	 *         (name='active-schema' dbSchema=PropertyValue) | 
+	 *         (name='in-catalog' dbCatalog=DatabaseCatalogAssignement) | 
+	 *         (name='active-schema' dbSchema=DatabaseSchemaAssignement) | 
 	 *         (name='jdbc-driver' dbDriver=PropertyValue) | 
 	 *         (name='ddl-create' dbExecuteBefore=PropertyValue) | 
 	 *         (name='ddl-drop' dbExecuteAfter=PropertyValue) | 
@@ -614,6 +645,22 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 */
 	protected void sequence_DatabaseProperty(EObject context, DatabaseProperty semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     dbSchema=PropertyValue
+	 */
+	protected void sequence_DatabaseSchemaAssignement(EObject context, DatabaseSchemaAssignement semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.DATABASE_SCHEMA_ASSIGNEMENT__DB_SCHEMA) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.DATABASE_SCHEMA_ASSIGNEMENT__DB_SCHEMA));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getDatabaseSchemaAssignementAccess().getDbSchemaPropertyValueParserRuleCall_0(), semanticObject.getDbSchema());
+		feeder.finish();
 	}
 	
 	

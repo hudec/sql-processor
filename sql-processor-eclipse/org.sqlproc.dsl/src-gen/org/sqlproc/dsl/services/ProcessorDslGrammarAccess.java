@@ -159,6 +159,38 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getWSTerminalRuleCall_2_6_1() { return cWSTerminalRuleCall_2_6_1; }
 	}
 
+	public class DatabaseCatalogAssignementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DatabaseCatalogAssignement");
+		private final Assignment cDbCatalogAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cDbCatalogPropertyValueParserRuleCall_0 = (RuleCall)cDbCatalogAssignment.eContents().get(0);
+		
+		//DatabaseCatalogAssignement:
+		//	dbCatalog=PropertyValue;
+		public ParserRule getRule() { return rule; }
+
+		//dbCatalog=PropertyValue
+		public Assignment getDbCatalogAssignment() { return cDbCatalogAssignment; }
+
+		//PropertyValue
+		public RuleCall getDbCatalogPropertyValueParserRuleCall_0() { return cDbCatalogPropertyValueParserRuleCall_0; }
+	}
+
+	public class DatabaseSchemaAssignementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DatabaseSchemaAssignement");
+		private final Assignment cDbSchemaAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cDbSchemaPropertyValueParserRuleCall_0 = (RuleCall)cDbSchemaAssignment.eContents().get(0);
+		
+		//DatabaseSchemaAssignement:
+		//	dbSchema=PropertyValue;
+		public ParserRule getRule() { return rule; }
+
+		//dbSchema=PropertyValue
+		public Assignment getDbSchemaAssignment() { return cDbSchemaAssignment; }
+
+		//PropertyValue
+		public RuleCall getDbSchemaPropertyValueParserRuleCall_0() { return cDbSchemaPropertyValueParserRuleCall_0; }
+	}
+
 	public class DatabaseTypeAssignementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DatabaseTypeAssignement");
 		private final Assignment cDbTypeAssignment = (Assignment)rule.eContents().get(1);
@@ -777,78 +809,86 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDbPasswordPropertyValueParserRuleCall_4_2_0 = (RuleCall)cDbPasswordAssignment_4_2.eContents().get(0);
 		private final Group cGroup_5 = (Group)cAlternatives.eContents().get(5);
 		private final Assignment cNameAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
-		private final Keyword cNameActiveSchemaKeyword_5_0_0 = (Keyword)cNameAssignment_5_0.eContents().get(0);
+		private final Keyword cNameInCatalogKeyword_5_0_0 = (Keyword)cNameAssignment_5_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
-		private final Assignment cDbSchemaAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
-		private final RuleCall cDbSchemaPropertyValueParserRuleCall_5_2_0 = (RuleCall)cDbSchemaAssignment_5_2.eContents().get(0);
+		private final Assignment cDbCatalogAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
+		private final RuleCall cDbCatalogDatabaseCatalogAssignementParserRuleCall_5_2_0 = (RuleCall)cDbCatalogAssignment_5_2.eContents().get(0);
 		private final Group cGroup_6 = (Group)cAlternatives.eContents().get(6);
 		private final Assignment cNameAssignment_6_0 = (Assignment)cGroup_6.eContents().get(0);
-		private final Keyword cNameJdbcDriverKeyword_6_0_0 = (Keyword)cNameAssignment_6_0.eContents().get(0);
+		private final Keyword cNameActiveSchemaKeyword_6_0_0 = (Keyword)cNameAssignment_6_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_6_1 = (RuleCall)cGroup_6.eContents().get(1);
-		private final Assignment cDbDriverAssignment_6_2 = (Assignment)cGroup_6.eContents().get(2);
-		private final RuleCall cDbDriverPropertyValueParserRuleCall_6_2_0 = (RuleCall)cDbDriverAssignment_6_2.eContents().get(0);
+		private final Assignment cDbSchemaAssignment_6_2 = (Assignment)cGroup_6.eContents().get(2);
+		private final RuleCall cDbSchemaDatabaseSchemaAssignementParserRuleCall_6_2_0 = (RuleCall)cDbSchemaAssignment_6_2.eContents().get(0);
 		private final Group cGroup_7 = (Group)cAlternatives.eContents().get(7);
 		private final Assignment cNameAssignment_7_0 = (Assignment)cGroup_7.eContents().get(0);
-		private final Keyword cNameDdlCreateKeyword_7_0_0 = (Keyword)cNameAssignment_7_0.eContents().get(0);
+		private final Keyword cNameJdbcDriverKeyword_7_0_0 = (Keyword)cNameAssignment_7_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_7_1 = (RuleCall)cGroup_7.eContents().get(1);
-		private final Assignment cDbExecuteBeforeAssignment_7_2 = (Assignment)cGroup_7.eContents().get(2);
-		private final RuleCall cDbExecuteBeforePropertyValueParserRuleCall_7_2_0 = (RuleCall)cDbExecuteBeforeAssignment_7_2.eContents().get(0);
+		private final Assignment cDbDriverAssignment_7_2 = (Assignment)cGroup_7.eContents().get(2);
+		private final RuleCall cDbDriverPropertyValueParserRuleCall_7_2_0 = (RuleCall)cDbDriverAssignment_7_2.eContents().get(0);
 		private final Group cGroup_8 = (Group)cAlternatives.eContents().get(8);
 		private final Assignment cNameAssignment_8_0 = (Assignment)cGroup_8.eContents().get(0);
-		private final Keyword cNameDdlDropKeyword_8_0_0 = (Keyword)cNameAssignment_8_0.eContents().get(0);
+		private final Keyword cNameDdlCreateKeyword_8_0_0 = (Keyword)cNameAssignment_8_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_8_1 = (RuleCall)cGroup_8.eContents().get(1);
-		private final Assignment cDbExecuteAfterAssignment_8_2 = (Assignment)cGroup_8.eContents().get(2);
-		private final RuleCall cDbExecuteAfterPropertyValueParserRuleCall_8_2_0 = (RuleCall)cDbExecuteAfterAssignment_8_2.eContents().get(0);
+		private final Assignment cDbExecuteBeforeAssignment_8_2 = (Assignment)cGroup_8.eContents().get(2);
+		private final RuleCall cDbExecuteBeforePropertyValueParserRuleCall_8_2_0 = (RuleCall)cDbExecuteBeforeAssignment_8_2.eContents().get(0);
 		private final Group cGroup_9 = (Group)cAlternatives.eContents().get(9);
 		private final Assignment cNameAssignment_9_0 = (Assignment)cGroup_9.eContents().get(0);
-		private final Keyword cNameIndexTypesKeyword_9_0_0 = (Keyword)cNameAssignment_9_0.eContents().get(0);
+		private final Keyword cNameDdlDropKeyword_9_0_0 = (Keyword)cNameAssignment_9_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_9_1 = (RuleCall)cGroup_9.eContents().get(1);
-		private final Assignment cDbIndexTypesAssignment_9_2 = (Assignment)cGroup_9.eContents().get(2);
-		private final RuleCall cDbIndexTypesPropertyValueParserRuleCall_9_2_0 = (RuleCall)cDbIndexTypesAssignment_9_2.eContents().get(0);
-		private final Assignment cNameAssignment_10 = (Assignment)cAlternatives.eContents().get(10);
-		private final Keyword cNameSkipIndexesKeyword_10_0 = (Keyword)cNameAssignment_10.eContents().get(0);
-		private final Group cGroup_11 = (Group)cAlternatives.eContents().get(11);
-		private final Assignment cNameAssignment_11_0 = (Assignment)cGroup_11.eContents().get(0);
-		private final Keyword cNameIsOfTypeKeyword_11_0_0 = (Keyword)cNameAssignment_11_0.eContents().get(0);
-		private final RuleCall cWSTerminalRuleCall_11_1 = (RuleCall)cGroup_11.eContents().get(1);
-		private final Assignment cDbTypeAssignment_11_2 = (Assignment)cGroup_11.eContents().get(2);
-		private final RuleCall cDbTypeDatabaseTypeAssignementParserRuleCall_11_2_0 = (RuleCall)cDbTypeAssignment_11_2.eContents().get(0);
+		private final Assignment cDbExecuteAfterAssignment_9_2 = (Assignment)cGroup_9.eContents().get(2);
+		private final RuleCall cDbExecuteAfterPropertyValueParserRuleCall_9_2_0 = (RuleCall)cDbExecuteAfterAssignment_9_2.eContents().get(0);
+		private final Group cGroup_10 = (Group)cAlternatives.eContents().get(10);
+		private final Assignment cNameAssignment_10_0 = (Assignment)cGroup_10.eContents().get(0);
+		private final Keyword cNameIndexTypesKeyword_10_0_0 = (Keyword)cNameAssignment_10_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_10_1 = (RuleCall)cGroup_10.eContents().get(1);
+		private final Assignment cDbIndexTypesAssignment_10_2 = (Assignment)cGroup_10.eContents().get(2);
+		private final RuleCall cDbIndexTypesPropertyValueParserRuleCall_10_2_0 = (RuleCall)cDbIndexTypesAssignment_10_2.eContents().get(0);
+		private final Assignment cNameAssignment_11 = (Assignment)cAlternatives.eContents().get(11);
+		private final Keyword cNameSkipIndexesKeyword_11_0 = (Keyword)cNameAssignment_11.eContents().get(0);
 		private final Group cGroup_12 = (Group)cAlternatives.eContents().get(12);
 		private final Assignment cNameAssignment_12_0 = (Assignment)cGroup_12.eContents().get(0);
-		private final Keyword cNameShowMetaInfoKeyword_12_0_0 = (Keyword)cNameAssignment_12_0.eContents().get(0);
+		private final Keyword cNameIsOfTypeKeyword_12_0_0 = (Keyword)cNameAssignment_12_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_12_1 = (RuleCall)cGroup_12.eContents().get(1);
-		private final Assignment cDbMetaInfoAssignment_12_2 = (Assignment)cGroup_12.eContents().get(2);
-		private final RuleCall cDbMetaInfoDatabaseMetaInfoAssignementParserRuleCall_12_2_0 = (RuleCall)cDbMetaInfoAssignment_12_2.eContents().get(0);
+		private final Assignment cDbTypeAssignment_12_2 = (Assignment)cGroup_12.eContents().get(2);
+		private final RuleCall cDbTypeDatabaseTypeAssignementParserRuleCall_12_2_0 = (RuleCall)cDbTypeAssignment_12_2.eContents().get(0);
 		private final Group cGroup_13 = (Group)cAlternatives.eContents().get(13);
 		private final Assignment cNameAssignment_13_0 = (Assignment)cGroup_13.eContents().get(0);
-		private final Keyword cNameShowDriverInfoKeyword_13_0_0 = (Keyword)cNameAssignment_13_0.eContents().get(0);
+		private final Keyword cNameShowMetaInfoKeyword_13_0_0 = (Keyword)cNameAssignment_13_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_13_1 = (RuleCall)cGroup_13.eContents().get(1);
-		private final Assignment cDbDriverInfoAssignment_13_2 = (Assignment)cGroup_13.eContents().get(2);
-		private final RuleCall cDbDriverInfoDriverMetaInfoAssignementParserRuleCall_13_2_0 = (RuleCall)cDbDriverInfoAssignment_13_2.eContents().get(0);
+		private final Assignment cDbMetaInfoAssignment_13_2 = (Assignment)cGroup_13.eContents().get(2);
+		private final RuleCall cDbMetaInfoDatabaseMetaInfoAssignementParserRuleCall_13_2_0 = (RuleCall)cDbMetaInfoAssignment_13_2.eContents().get(0);
 		private final Group cGroup_14 = (Group)cAlternatives.eContents().get(14);
 		private final Assignment cNameAssignment_14_0 = (Assignment)cGroup_14.eContents().get(0);
-		private final Keyword cNameShowJdbcInfoKeyword_14_0_0 = (Keyword)cNameAssignment_14_0.eContents().get(0);
+		private final Keyword cNameShowDriverInfoKeyword_14_0_0 = (Keyword)cNameAssignment_14_0.eContents().get(0);
 		private final RuleCall cWSTerminalRuleCall_14_1 = (RuleCall)cGroup_14.eContents().get(1);
-		private final Assignment cDbJdbcInfoAssignment_14_2 = (Assignment)cGroup_14.eContents().get(2);
-		private final RuleCall cDbJdbcInfoJdbcMetaInfoAssignementParserRuleCall_14_2_0 = (RuleCall)cDbJdbcInfoAssignment_14_2.eContents().get(0);
+		private final Assignment cDbDriverInfoAssignment_14_2 = (Assignment)cGroup_14.eContents().get(2);
+		private final RuleCall cDbDriverInfoDriverMetaInfoAssignementParserRuleCall_14_2_0 = (RuleCall)cDbDriverInfoAssignment_14_2.eContents().get(0);
+		private final Group cGroup_15 = (Group)cAlternatives.eContents().get(15);
+		private final Assignment cNameAssignment_15_0 = (Assignment)cGroup_15.eContents().get(0);
+		private final Keyword cNameShowJdbcInfoKeyword_15_0_0 = (Keyword)cNameAssignment_15_0.eContents().get(0);
+		private final RuleCall cWSTerminalRuleCall_15_1 = (RuleCall)cGroup_15.eContents().get(1);
+		private final Assignment cDbJdbcInfoAssignment_15_2 = (Assignment)cGroup_15.eContents().get(2);
+		private final RuleCall cDbJdbcInfoJdbcMetaInfoAssignementParserRuleCall_15_2_0 = (RuleCall)cDbJdbcInfoAssignment_15_2.eContents().get(0);
 		
 		//DatabaseProperty:
 		//	name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
-		//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
-		//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
-		//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-		//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="is-of-type" WS+ dbType=DatabaseTypeAssignement |
-		//	name="show-meta-info" WS+ dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+
-		//	dbDriverInfo=DriverMetaInfoAssignement | name="show-jdbc-info" WS+ dbJdbcInfo=JdbcMetaInfoAssignement;
+		//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="in-catalog" WS+
+		//	dbCatalog=DatabaseCatalogAssignement | name="active-schema" WS+ dbSchema=DatabaseSchemaAssignement |
+		//	name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+ dbExecuteBefore=PropertyValue | name="ddl-drop"
+		//	WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+ dbIndexTypes=PropertyValue | name="skip-indexes" |
+		//	name="is-of-type" WS+ dbType=DatabaseTypeAssignement | name="show-meta-info" WS+
+		//	dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+ dbDriverInfo=DriverMetaInfoAssignement |
+		//	name="show-jdbc-info" WS+ dbJdbcInfo=JdbcMetaInfoAssignement;
 		public ParserRule getRule() { return rule; }
 
 		//name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
-		//dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
-		//dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
-		//dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-		//dbIndexTypes=PropertyValue | name="skip-indexes" | name="is-of-type" WS+ dbType=DatabaseTypeAssignement |
-		//name="show-meta-info" WS+ dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+
-		//dbDriverInfo=DriverMetaInfoAssignement | name="show-jdbc-info" WS+ dbJdbcInfo=JdbcMetaInfoAssignement
+		//dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="in-catalog" WS+
+		//dbCatalog=DatabaseCatalogAssignement | name="active-schema" WS+ dbSchema=DatabaseSchemaAssignement | name="jdbc-driver"
+		//WS+ dbDriver=PropertyValue | name="ddl-create" WS+ dbExecuteBefore=PropertyValue | name="ddl-drop" WS+
+		//dbExecuteAfter=PropertyValue | name="index-types" WS+ dbIndexTypes=PropertyValue | name="skip-indexes" |
+		//name="is-of-type" WS+ dbType=DatabaseTypeAssignement | name="show-meta-info" WS+ dbMetaInfo=DatabaseMetaInfoAssignement
+		//| name="show-driver-info" WS+ dbDriverInfo=DriverMetaInfoAssignement | name="show-jdbc-info" WS+
+		//dbJdbcInfo=JdbcMetaInfoAssignement
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//name="is-online"
@@ -917,173 +957,191 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		//PropertyValue
 		public RuleCall getDbPasswordPropertyValueParserRuleCall_4_2_0() { return cDbPasswordPropertyValueParserRuleCall_4_2_0; }
 
-		//name="active-schema" WS+ dbSchema=PropertyValue
+		//name="in-catalog" WS+ dbCatalog=DatabaseCatalogAssignement
 		public Group getGroup_5() { return cGroup_5; }
 
-		//name="active-schema"
+		//name="in-catalog"
 		public Assignment getNameAssignment_5_0() { return cNameAssignment_5_0; }
 
-		//"active-schema"
-		public Keyword getNameActiveSchemaKeyword_5_0_0() { return cNameActiveSchemaKeyword_5_0_0; }
+		//"in-catalog"
+		public Keyword getNameInCatalogKeyword_5_0_0() { return cNameInCatalogKeyword_5_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_5_1() { return cWSTerminalRuleCall_5_1; }
 
-		//dbSchema=PropertyValue
-		public Assignment getDbSchemaAssignment_5_2() { return cDbSchemaAssignment_5_2; }
+		//dbCatalog=DatabaseCatalogAssignement
+		public Assignment getDbCatalogAssignment_5_2() { return cDbCatalogAssignment_5_2; }
 
-		//PropertyValue
-		public RuleCall getDbSchemaPropertyValueParserRuleCall_5_2_0() { return cDbSchemaPropertyValueParserRuleCall_5_2_0; }
+		//DatabaseCatalogAssignement
+		public RuleCall getDbCatalogDatabaseCatalogAssignementParserRuleCall_5_2_0() { return cDbCatalogDatabaseCatalogAssignementParserRuleCall_5_2_0; }
 
-		//name="jdbc-driver" WS+ dbDriver=PropertyValue
+		//name="active-schema" WS+ dbSchema=DatabaseSchemaAssignement
 		public Group getGroup_6() { return cGroup_6; }
 
-		//name="jdbc-driver"
+		//name="active-schema"
 		public Assignment getNameAssignment_6_0() { return cNameAssignment_6_0; }
 
-		//"jdbc-driver"
-		public Keyword getNameJdbcDriverKeyword_6_0_0() { return cNameJdbcDriverKeyword_6_0_0; }
+		//"active-schema"
+		public Keyword getNameActiveSchemaKeyword_6_0_0() { return cNameActiveSchemaKeyword_6_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_6_1() { return cWSTerminalRuleCall_6_1; }
 
-		//dbDriver=PropertyValue
-		public Assignment getDbDriverAssignment_6_2() { return cDbDriverAssignment_6_2; }
+		//dbSchema=DatabaseSchemaAssignement
+		public Assignment getDbSchemaAssignment_6_2() { return cDbSchemaAssignment_6_2; }
 
-		//PropertyValue
-		public RuleCall getDbDriverPropertyValueParserRuleCall_6_2_0() { return cDbDriverPropertyValueParserRuleCall_6_2_0; }
+		//DatabaseSchemaAssignement
+		public RuleCall getDbSchemaDatabaseSchemaAssignementParserRuleCall_6_2_0() { return cDbSchemaDatabaseSchemaAssignementParserRuleCall_6_2_0; }
 
-		//name="ddl-create" WS+ dbExecuteBefore=PropertyValue
+		//name="jdbc-driver" WS+ dbDriver=PropertyValue
 		public Group getGroup_7() { return cGroup_7; }
 
-		//name="ddl-create"
+		//name="jdbc-driver"
 		public Assignment getNameAssignment_7_0() { return cNameAssignment_7_0; }
 
-		//"ddl-create"
-		public Keyword getNameDdlCreateKeyword_7_0_0() { return cNameDdlCreateKeyword_7_0_0; }
+		//"jdbc-driver"
+		public Keyword getNameJdbcDriverKeyword_7_0_0() { return cNameJdbcDriverKeyword_7_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_7_1() { return cWSTerminalRuleCall_7_1; }
 
-		//dbExecuteBefore=PropertyValue
-		public Assignment getDbExecuteBeforeAssignment_7_2() { return cDbExecuteBeforeAssignment_7_2; }
+		//dbDriver=PropertyValue
+		public Assignment getDbDriverAssignment_7_2() { return cDbDriverAssignment_7_2; }
 
 		//PropertyValue
-		public RuleCall getDbExecuteBeforePropertyValueParserRuleCall_7_2_0() { return cDbExecuteBeforePropertyValueParserRuleCall_7_2_0; }
+		public RuleCall getDbDriverPropertyValueParserRuleCall_7_2_0() { return cDbDriverPropertyValueParserRuleCall_7_2_0; }
 
-		//name="ddl-drop" WS+ dbExecuteAfter=PropertyValue
+		//name="ddl-create" WS+ dbExecuteBefore=PropertyValue
 		public Group getGroup_8() { return cGroup_8; }
 
-		//name="ddl-drop"
+		//name="ddl-create"
 		public Assignment getNameAssignment_8_0() { return cNameAssignment_8_0; }
 
-		//"ddl-drop"
-		public Keyword getNameDdlDropKeyword_8_0_0() { return cNameDdlDropKeyword_8_0_0; }
+		//"ddl-create"
+		public Keyword getNameDdlCreateKeyword_8_0_0() { return cNameDdlCreateKeyword_8_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_8_1() { return cWSTerminalRuleCall_8_1; }
 
-		//dbExecuteAfter=PropertyValue
-		public Assignment getDbExecuteAfterAssignment_8_2() { return cDbExecuteAfterAssignment_8_2; }
+		//dbExecuteBefore=PropertyValue
+		public Assignment getDbExecuteBeforeAssignment_8_2() { return cDbExecuteBeforeAssignment_8_2; }
 
 		//PropertyValue
-		public RuleCall getDbExecuteAfterPropertyValueParserRuleCall_8_2_0() { return cDbExecuteAfterPropertyValueParserRuleCall_8_2_0; }
+		public RuleCall getDbExecuteBeforePropertyValueParserRuleCall_8_2_0() { return cDbExecuteBeforePropertyValueParserRuleCall_8_2_0; }
 
-		//name="index-types" WS+ dbIndexTypes=PropertyValue
+		//name="ddl-drop" WS+ dbExecuteAfter=PropertyValue
 		public Group getGroup_9() { return cGroup_9; }
 
-		//name="index-types"
+		//name="ddl-drop"
 		public Assignment getNameAssignment_9_0() { return cNameAssignment_9_0; }
 
-		//"index-types"
-		public Keyword getNameIndexTypesKeyword_9_0_0() { return cNameIndexTypesKeyword_9_0_0; }
+		//"ddl-drop"
+		public Keyword getNameDdlDropKeyword_9_0_0() { return cNameDdlDropKeyword_9_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_9_1() { return cWSTerminalRuleCall_9_1; }
 
-		//dbIndexTypes=PropertyValue
-		public Assignment getDbIndexTypesAssignment_9_2() { return cDbIndexTypesAssignment_9_2; }
+		//dbExecuteAfter=PropertyValue
+		public Assignment getDbExecuteAfterAssignment_9_2() { return cDbExecuteAfterAssignment_9_2; }
 
 		//PropertyValue
-		public RuleCall getDbIndexTypesPropertyValueParserRuleCall_9_2_0() { return cDbIndexTypesPropertyValueParserRuleCall_9_2_0; }
+		public RuleCall getDbExecuteAfterPropertyValueParserRuleCall_9_2_0() { return cDbExecuteAfterPropertyValueParserRuleCall_9_2_0; }
 
-		//name="skip-indexes"
-		public Assignment getNameAssignment_10() { return cNameAssignment_10; }
+		//name="index-types" WS+ dbIndexTypes=PropertyValue
+		public Group getGroup_10() { return cGroup_10; }
 
-		//"skip-indexes"
-		public Keyword getNameSkipIndexesKeyword_10_0() { return cNameSkipIndexesKeyword_10_0; }
+		//name="index-types"
+		public Assignment getNameAssignment_10_0() { return cNameAssignment_10_0; }
 
-		//name="is-of-type" WS+ dbType=DatabaseTypeAssignement
-		public Group getGroup_11() { return cGroup_11; }
-
-		//name="is-of-type"
-		public Assignment getNameAssignment_11_0() { return cNameAssignment_11_0; }
-
-		//"is-of-type"
-		public Keyword getNameIsOfTypeKeyword_11_0_0() { return cNameIsOfTypeKeyword_11_0_0; }
+		//"index-types"
+		public Keyword getNameIndexTypesKeyword_10_0_0() { return cNameIndexTypesKeyword_10_0_0; }
 
 		//WS+
-		public RuleCall getWSTerminalRuleCall_11_1() { return cWSTerminalRuleCall_11_1; }
+		public RuleCall getWSTerminalRuleCall_10_1() { return cWSTerminalRuleCall_10_1; }
 
-		//dbType=DatabaseTypeAssignement
-		public Assignment getDbTypeAssignment_11_2() { return cDbTypeAssignment_11_2; }
+		//dbIndexTypes=PropertyValue
+		public Assignment getDbIndexTypesAssignment_10_2() { return cDbIndexTypesAssignment_10_2; }
 
-		//DatabaseTypeAssignement
-		public RuleCall getDbTypeDatabaseTypeAssignementParserRuleCall_11_2_0() { return cDbTypeDatabaseTypeAssignementParserRuleCall_11_2_0; }
+		//PropertyValue
+		public RuleCall getDbIndexTypesPropertyValueParserRuleCall_10_2_0() { return cDbIndexTypesPropertyValueParserRuleCall_10_2_0; }
 
-		//name="show-meta-info" WS+ dbMetaInfo=DatabaseMetaInfoAssignement
+		//name="skip-indexes"
+		public Assignment getNameAssignment_11() { return cNameAssignment_11; }
+
+		//"skip-indexes"
+		public Keyword getNameSkipIndexesKeyword_11_0() { return cNameSkipIndexesKeyword_11_0; }
+
+		//name="is-of-type" WS+ dbType=DatabaseTypeAssignement
 		public Group getGroup_12() { return cGroup_12; }
 
-		//name="show-meta-info"
+		//name="is-of-type"
 		public Assignment getNameAssignment_12_0() { return cNameAssignment_12_0; }
 
-		//"show-meta-info"
-		public Keyword getNameShowMetaInfoKeyword_12_0_0() { return cNameShowMetaInfoKeyword_12_0_0; }
+		//"is-of-type"
+		public Keyword getNameIsOfTypeKeyword_12_0_0() { return cNameIsOfTypeKeyword_12_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_12_1() { return cWSTerminalRuleCall_12_1; }
 
-		//dbMetaInfo=DatabaseMetaInfoAssignement
-		public Assignment getDbMetaInfoAssignment_12_2() { return cDbMetaInfoAssignment_12_2; }
+		//dbType=DatabaseTypeAssignement
+		public Assignment getDbTypeAssignment_12_2() { return cDbTypeAssignment_12_2; }
 
-		//DatabaseMetaInfoAssignement
-		public RuleCall getDbMetaInfoDatabaseMetaInfoAssignementParserRuleCall_12_2_0() { return cDbMetaInfoDatabaseMetaInfoAssignementParserRuleCall_12_2_0; }
+		//DatabaseTypeAssignement
+		public RuleCall getDbTypeDatabaseTypeAssignementParserRuleCall_12_2_0() { return cDbTypeDatabaseTypeAssignementParserRuleCall_12_2_0; }
 
-		//name="show-driver-info" WS+ dbDriverInfo=DriverMetaInfoAssignement
+		//name="show-meta-info" WS+ dbMetaInfo=DatabaseMetaInfoAssignement
 		public Group getGroup_13() { return cGroup_13; }
 
-		//name="show-driver-info"
+		//name="show-meta-info"
 		public Assignment getNameAssignment_13_0() { return cNameAssignment_13_0; }
 
-		//"show-driver-info"
-		public Keyword getNameShowDriverInfoKeyword_13_0_0() { return cNameShowDriverInfoKeyword_13_0_0; }
+		//"show-meta-info"
+		public Keyword getNameShowMetaInfoKeyword_13_0_0() { return cNameShowMetaInfoKeyword_13_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_13_1() { return cWSTerminalRuleCall_13_1; }
 
-		//dbDriverInfo=DriverMetaInfoAssignement
-		public Assignment getDbDriverInfoAssignment_13_2() { return cDbDriverInfoAssignment_13_2; }
+		//dbMetaInfo=DatabaseMetaInfoAssignement
+		public Assignment getDbMetaInfoAssignment_13_2() { return cDbMetaInfoAssignment_13_2; }
 
-		//DriverMetaInfoAssignement
-		public RuleCall getDbDriverInfoDriverMetaInfoAssignementParserRuleCall_13_2_0() { return cDbDriverInfoDriverMetaInfoAssignementParserRuleCall_13_2_0; }
+		//DatabaseMetaInfoAssignement
+		public RuleCall getDbMetaInfoDatabaseMetaInfoAssignementParserRuleCall_13_2_0() { return cDbMetaInfoDatabaseMetaInfoAssignementParserRuleCall_13_2_0; }
 
-		//name="show-jdbc-info" WS+ dbJdbcInfo=JdbcMetaInfoAssignement
+		//name="show-driver-info" WS+ dbDriverInfo=DriverMetaInfoAssignement
 		public Group getGroup_14() { return cGroup_14; }
 
-		//name="show-jdbc-info"
+		//name="show-driver-info"
 		public Assignment getNameAssignment_14_0() { return cNameAssignment_14_0; }
 
-		//"show-jdbc-info"
-		public Keyword getNameShowJdbcInfoKeyword_14_0_0() { return cNameShowJdbcInfoKeyword_14_0_0; }
+		//"show-driver-info"
+		public Keyword getNameShowDriverInfoKeyword_14_0_0() { return cNameShowDriverInfoKeyword_14_0_0; }
 
 		//WS+
 		public RuleCall getWSTerminalRuleCall_14_1() { return cWSTerminalRuleCall_14_1; }
 
+		//dbDriverInfo=DriverMetaInfoAssignement
+		public Assignment getDbDriverInfoAssignment_14_2() { return cDbDriverInfoAssignment_14_2; }
+
+		//DriverMetaInfoAssignement
+		public RuleCall getDbDriverInfoDriverMetaInfoAssignementParserRuleCall_14_2_0() { return cDbDriverInfoDriverMetaInfoAssignementParserRuleCall_14_2_0; }
+
+		//name="show-jdbc-info" WS+ dbJdbcInfo=JdbcMetaInfoAssignement
+		public Group getGroup_15() { return cGroup_15; }
+
+		//name="show-jdbc-info"
+		public Assignment getNameAssignment_15_0() { return cNameAssignment_15_0; }
+
+		//"show-jdbc-info"
+		public Keyword getNameShowJdbcInfoKeyword_15_0_0() { return cNameShowJdbcInfoKeyword_15_0_0; }
+
+		//WS+
+		public RuleCall getWSTerminalRuleCall_15_1() { return cWSTerminalRuleCall_15_1; }
+
 		//dbJdbcInfo=JdbcMetaInfoAssignement
-		public Assignment getDbJdbcInfoAssignment_14_2() { return cDbJdbcInfoAssignment_14_2; }
+		public Assignment getDbJdbcInfoAssignment_15_2() { return cDbJdbcInfoAssignment_15_2; }
 
 		//JdbcMetaInfoAssignement
-		public RuleCall getDbJdbcInfoJdbcMetaInfoAssignementParserRuleCall_14_2_0() { return cDbJdbcInfoJdbcMetaInfoAssignementParserRuleCall_14_2_0; }
+		public RuleCall getDbJdbcInfoJdbcMetaInfoAssignementParserRuleCall_15_2_0() { return cDbJdbcInfoJdbcMetaInfoAssignementParserRuleCall_15_2_0; }
 	}
 
 	public class PojogenPropertyElements extends AbstractParserRuleElementFinder {
@@ -6924,6 +6982,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
 	private ArtifactsElements pArtifacts;
+	private DatabaseCatalogAssignementElements pDatabaseCatalogAssignement;
+	private DatabaseSchemaAssignementElements pDatabaseSchemaAssignement;
 	private DatabaseTypeAssignementElements pDatabaseTypeAssignement;
 	private DatabaseMetaInfoAssignementElements pDatabaseMetaInfoAssignement;
 	private DriverMetaInfoAssignementElements pDriverMetaInfoAssignement;
@@ -7076,6 +7136,26 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getArtifactsRule() {
 		return getArtifactsAccess().getRule();
+	}
+
+	//DatabaseCatalogAssignement:
+	//	dbCatalog=PropertyValue;
+	public DatabaseCatalogAssignementElements getDatabaseCatalogAssignementAccess() {
+		return (pDatabaseCatalogAssignement != null) ? pDatabaseCatalogAssignement : (pDatabaseCatalogAssignement = new DatabaseCatalogAssignementElements());
+	}
+	
+	public ParserRule getDatabaseCatalogAssignementRule() {
+		return getDatabaseCatalogAssignementAccess().getRule();
+	}
+
+	//DatabaseSchemaAssignement:
+	//	dbSchema=PropertyValue;
+	public DatabaseSchemaAssignementElements getDatabaseSchemaAssignementAccess() {
+		return (pDatabaseSchemaAssignement != null) ? pDatabaseSchemaAssignement : (pDatabaseSchemaAssignement = new DatabaseSchemaAssignementElements());
+	}
+	
+	public ParserRule getDatabaseSchemaAssignementRule() {
+		return getDatabaseSchemaAssignementAccess().getRule();
 	}
 
 	//DatabaseTypeAssignement:
@@ -7231,12 +7311,13 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//DatabaseProperty:
 	//	name="is-online" | name="is-offline" | name="has-url" WS+ dbUrl=PropertyValue | name="login-username" WS+
-	//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="active-schema" WS+
-	//	dbSchema=PropertyValue | name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+
-	//	dbExecuteBefore=PropertyValue | name="ddl-drop" WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+
-	//	dbIndexTypes=PropertyValue | name="skip-indexes" | name="is-of-type" WS+ dbType=DatabaseTypeAssignement |
-	//	name="show-meta-info" WS+ dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+
-	//	dbDriverInfo=DriverMetaInfoAssignement | name="show-jdbc-info" WS+ dbJdbcInfo=JdbcMetaInfoAssignement;
+	//	dbUsername=PropertyValue | name="login-password" WS+ dbPassword=PropertyValue | name="in-catalog" WS+
+	//	dbCatalog=DatabaseCatalogAssignement | name="active-schema" WS+ dbSchema=DatabaseSchemaAssignement |
+	//	name="jdbc-driver" WS+ dbDriver=PropertyValue | name="ddl-create" WS+ dbExecuteBefore=PropertyValue | name="ddl-drop"
+	//	WS+ dbExecuteAfter=PropertyValue | name="index-types" WS+ dbIndexTypes=PropertyValue | name="skip-indexes" |
+	//	name="is-of-type" WS+ dbType=DatabaseTypeAssignement | name="show-meta-info" WS+
+	//	dbMetaInfo=DatabaseMetaInfoAssignement | name="show-driver-info" WS+ dbDriverInfo=DriverMetaInfoAssignement |
+	//	name="show-jdbc-info" WS+ dbJdbcInfo=JdbcMetaInfoAssignement;
 	public DatabasePropertyElements getDatabasePropertyAccess() {
 		return (pDatabaseProperty != null) ? pDatabaseProperty : (pDatabaseProperty = new DatabasePropertyElements());
 	}

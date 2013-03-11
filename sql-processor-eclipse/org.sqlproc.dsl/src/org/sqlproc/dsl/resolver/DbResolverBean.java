@@ -36,6 +36,7 @@ public class DbResolverBean implements DbResolver {
         public String dbUrl;
         public String dbUsername;
         public String dbPassword;
+        public String dbCatalog;
         public String dbSchema;
         public String dbSqlsBefore;
         public String dbSqlsAfter;
@@ -53,9 +54,10 @@ public class DbResolverBean implements DbResolver {
         @Override
         public String toString() {
             return "DatabaseValues [dbDriver=" + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername
-                    + ", dbPassword=" + dbPassword + ", dbSchema=" + dbSchema + ", dbSqlsBefore=" + dbSqlsBefore
-                    + ", dbSqlsAfter=" + dbSqlsAfter + ", connection=" + connection + ", dbIndexTypes=" + dbIndexTypes
-                    + ", dbSkipIndexes=" + dbSkipIndexes + ", dbType=" + dbType + "]";
+                    + ", dbPassword=" + dbPassword + ", dbCatalog=" + dbCatalog + ", dbSchema=" + dbSchema
+                    + ", dbSqlsBefore=" + dbSqlsBefore + ", dbSqlsAfter=" + dbSqlsAfter + ", connection=" + connection
+                    + ", dbIndexTypes=" + dbIndexTypes + ", dbSkipIndexes=" + dbSkipIndexes + ", dbType=" + dbType
+                    + "]";
         }
 
     }
@@ -73,6 +75,8 @@ public class DbResolverBean implements DbResolver {
     private final Map<String, DatabaseDirectives> connections = Collections
             .synchronizedMap(new HashMap<String, DatabaseDirectives>());
 
+    private final Map<String, List<String>> catalogs = Collections.synchronizedMap(new HashMap<String, List<String>>());
+    private final Map<String, List<String>> schemas = Collections.synchronizedMap(new HashMap<String, List<String>>());
     private final Map<String, List<String>> tables = Collections.synchronizedMap(new HashMap<String, List<String>>());
     private final Map<String, Map<String, List<String>>> columns = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
@@ -148,6 +152,12 @@ public class DbResolverBean implements DbResolver {
             closeConnection(modelDatabaseValues);
             return null;
         }
+        if (modelModelValues.dbCatalog != null) {
+            if (!modelModelValues.dbCatalog.equals(modelDatabaseValues.dbCatalog)) {
+                modelDatabaseValues.dbCatalog = modelModelValues.dbCatalog;
+            }
+        } else
+            modelDatabaseValues.dbCatalog = null;
         if (modelModelValues.dbSchema != null) {
             if (!modelModelValues.dbSchema.equals(modelDatabaseValues.dbSchema)) {
                 modelDatabaseValues.dbSchema = modelModelValues.dbSchema;
@@ -280,11 +290,16 @@ public class DbResolverBean implements DbResolver {
             modelDatabaseValues.ddlsBefore0 = null;
             modelDatabaseValues.ddlsBefore1 = null;
             modelDatabaseValues.ddlsAfter = null;
+            catalogs.remove(modelDatabaseValues.dir);
+            schemas.remove(modelDatabaseValues.dir);
             tables.remove(modelDatabaseValues.dir);
             columns.remove(modelDatabaseValues.dir);
             dbColumns.remove(modelDatabaseValues.dir);
+            dbPrimaryKeys.remove(modelDatabaseValues.dir);
             dbExports.remove(modelDatabaseValues.dir);
             dbImports.remove(modelDatabaseValues.dir);
+            dbIndexes.remove(modelDatabaseValues.dir);
+            dbSequences.remove(modelDatabaseValues.dir);
         }
     }
 
@@ -381,6 +396,70 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
+    public List<String> getCatalogs(EObject model) {
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        List<String> catalogsForModel = catalogs.get(modelDatabaseValues.dir);
+        if (catalogsForModel != null)
+            return catalogsForModel;
+        catalogsForModel = Collections.synchronizedList(new ArrayList<String>());
+        catalogs.put(modelDatabaseValues.dir, catalogsForModel);
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getCatalogs();
+                while (result.next()) {
+                    catalogsForModel.add(result.getString("TABLE_CAT"));
+                }
+            } catch (SQLException e) {
+                LOGGER.error("getCatalogs error " + e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    LOGGER.error("getCatalogs error " + e);
+                }
+            }
+        }
+        return catalogsForModel;
+    }
+
+    @Override
+    public List<String> getSchemas(EObject model) {
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        List<String> schemasForModel = schemas.get(modelDatabaseValues.dir);
+        if (schemasForModel != null)
+            return schemasForModel;
+        schemasForModel = Collections.synchronizedList(new ArrayList<String>());
+        schemas.put(modelDatabaseValues.dir, schemasForModel);
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getSchemas(modelDatabaseValues.dbCatalog, null);
+                while (result.next()) {
+                    schemasForModel.add(result.getString("TABLE_SCHEM"));
+                }
+            } catch (SQLException e) {
+                LOGGER.error("getCatalogs error " + e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    LOGGER.error("getCatalogs error " + e);
+                }
+            }
+        }
+        return schemasForModel;
+    }
+
+    @Override
     public List<String> getTables(EObject model) {
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
@@ -394,7 +473,8 @@ public class DbResolverBean implements DbResolver {
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
-                result = meta.getTables(null, modelDatabaseValues.dbSchema, null, new String[] { "TABLE", "VIEW" });
+                result = meta.getTables(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, null,
+                        new String[] { "TABLE", "VIEW" });
                 while (result.next()) {
                     tablesForModel.add(result.getString("TABLE_NAME"));
                 }
@@ -445,7 +525,7 @@ public class DbResolverBean implements DbResolver {
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
-                result = meta.getColumns(null, modelDatabaseValues.dbSchema, table, null);
+                result = meta.getColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table, null);
                 while (result.next()) {
                     columnsForModel.add(result.getString("COLUMN_NAME"));
                 }
@@ -496,7 +576,7 @@ public class DbResolverBean implements DbResolver {
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
-                result = meta.getColumns(null, modelDatabaseValues.dbSchema, table, null);
+                result = meta.getColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table, null);
                 while (result.next()) {
                     DbColumn dbColumn = new DbColumn();
                     dbColumn.setName(result.getString("COLUMN_NAME"));
@@ -563,7 +643,7 @@ public class DbResolverBean implements DbResolver {
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
-                result = meta.getPrimaryKeys(null, modelDatabaseValues.dbSchema, table);
+                result = meta.getPrimaryKeys(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table);
                 while (result.next()) {
                     primaryKeysForModel.add(result.getString("COLUMN_NAME"));
                 }
@@ -607,7 +687,7 @@ public class DbResolverBean implements DbResolver {
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
-                result = meta.getExportedKeys(null, modelDatabaseValues.dbSchema, table);
+                result = meta.getExportedKeys(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table);
                 while (result.next()) {
                     DbExport dbExport = new DbExport();
                     dbExport.setPkTable(result.getString("PKTABLE_NAME"));
@@ -659,7 +739,7 @@ public class DbResolverBean implements DbResolver {
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
-                result = meta.getImportedKeys(null, modelDatabaseValues.dbSchema, table);
+                result = meta.getImportedKeys(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table);
                 while (result.next()) {
                     DbImport dbImport = new DbImport();
                     dbImport.setPkTable(result.getString("PKTABLE_NAME"));
@@ -697,7 +777,7 @@ public class DbResolverBean implements DbResolver {
         int typeSize = 0;
         try {
             DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
-            result = meta.getColumns(null, modelDatabaseValues.dbSchema, table, null);
+            result = meta.getColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table, null);
             while (result.next()) {
                 if (result.getString("COLUMN_NAME").equals(column)) {
                     type = result.getString("TYPE_NAME");
@@ -760,7 +840,8 @@ public class DbResolverBean implements DbResolver {
             try {
                 Map<String, DbIndex> mapOfIndexes = new LinkedHashMap<String, DbIndex>();
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
-                result = meta.getIndexInfo(null, modelDatabaseValues.dbSchema, table, false, true);
+                result = meta.getIndexInfo(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table, false,
+                        true);
                 while (result.next()) {
                     String name = result.getString("INDEX_NAME");
                     if (!modelDatabaseValues.indexTypes.contains(result.getShort("TYPE"))) {
@@ -810,7 +891,8 @@ public class DbResolverBean implements DbResolver {
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
-                result = meta.getTables(null, modelDatabaseValues.dbSchema, null, new String[] { "SEQUENCE" });
+                result = meta.getTables(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, null,
+                        new String[] { "SEQUENCE" });
                 while (result.next()) {
                     sequencesForModel.add(result.getString("TABLE_NAME"));
                 }

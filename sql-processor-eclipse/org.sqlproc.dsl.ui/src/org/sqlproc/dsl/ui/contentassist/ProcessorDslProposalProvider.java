@@ -1242,4 +1242,32 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             acceptor.accept(completionProposal);
         }
     }
+
+    @Override
+    public void completeDatabaseCatalogAssignement_DbCatalog(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeDatabaseCatalogAssignement_DbCatalog(model, assignment, context, acceptor);
+            return;
+        }
+        for (String catalog : dbResolver.getCatalogs(model)) {
+            String proposal = getValueConverter().toString(catalog, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+    }
+
+    @Override
+    public void completeDatabaseSchemaAssignement_DbSchema(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model)) {
+            super.completeDatabaseSchemaAssignement_DbSchema(model, assignment, context, acceptor);
+            return;
+        }
+        for (String schema : dbResolver.getSchemas(model)) {
+            String proposal = getValueConverter().toString(schema, "IDENT");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            acceptor.accept(completionProposal);
+        }
+    }
 }

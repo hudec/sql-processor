@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbUrl <em>Db Url</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbUsername <em>Db Username</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbPassword <em>Db Password</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbCatalog <em>Db Catalog</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbSchema <em>Db Schema</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbDriver <em>Db Driver</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbExecuteBefore <em>Db Execute Before</em>}</li>
@@ -139,30 +140,56 @@ public interface DatabaseProperty extends EObject
   void setDbPassword(String value);
 
   /**
-   * Returns the value of the '<em><b>Db Schema</b></em>' attribute.
+   * Returns the value of the '<em><b>Db Catalog</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Db Schema</em>' attribute isn't clear,
+   * If the meaning of the '<em>Db Catalog</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Db Schema</em>' attribute.
-   * @see #setDbSchema(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbSchema()
-   * @model
+   * @return the value of the '<em>Db Catalog</em>' containment reference.
+   * @see #setDbCatalog(DatabaseCatalogAssignement)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbCatalog()
+   * @model containment="true"
    * @generated
    */
-  String getDbSchema();
+  DatabaseCatalogAssignement getDbCatalog();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbSchema <em>Db Schema</em>}' attribute.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbCatalog <em>Db Catalog</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Db Schema</em>' attribute.
+   * @param value the new value of the '<em>Db Catalog</em>' containment reference.
+   * @see #getDbCatalog()
+   * @generated
+   */
+  void setDbCatalog(DatabaseCatalogAssignement value);
+
+  /**
+   * Returns the value of the '<em><b>Db Schema</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Schema</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Schema</em>' containment reference.
+   * @see #setDbSchema(DatabaseSchemaAssignement)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbSchema()
+   * @model containment="true"
+   * @generated
+   */
+  DatabaseSchemaAssignement getDbSchema();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbSchema <em>Db Schema</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Schema</em>' containment reference.
    * @see #getDbSchema()
    * @generated
    */
-  void setDbSchema(String value);
+  void setDbSchema(DatabaseSchemaAssignement value);
 
   /**
    * Returns the value of the '<em><b>Db Driver</b></em>' attribute.

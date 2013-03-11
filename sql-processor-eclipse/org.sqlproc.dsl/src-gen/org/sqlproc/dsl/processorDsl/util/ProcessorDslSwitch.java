@@ -99,6 +99,20 @@ public class ProcessorDslSwitch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.DATABASE_CATALOG_ASSIGNEMENT:
+      {
+        DatabaseCatalogAssignement databaseCatalogAssignement = (DatabaseCatalogAssignement)theEObject;
+        T result = caseDatabaseCatalogAssignement(databaseCatalogAssignement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.DATABASE_SCHEMA_ASSIGNEMENT:
+      {
+        DatabaseSchemaAssignement databaseSchemaAssignement = (DatabaseSchemaAssignement)theEObject;
+        T result = caseDatabaseSchemaAssignement(databaseSchemaAssignement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.DATABASE_TYPE_ASSIGNEMENT:
       {
         DatabaseTypeAssignement databaseTypeAssignement = (DatabaseTypeAssignement)theEObject;
@@ -563,6 +577,38 @@ public class ProcessorDslSwitch<T>
    * @generated
    */
   public T caseArtifacts(Artifacts object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Database Catalog Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Database Catalog Assignement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDatabaseCatalogAssignement(DatabaseCatalogAssignement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Database Schema Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Database Schema Assignement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDatabaseSchemaAssignement(DatabaseSchemaAssignement object)
   {
     return null;
   }

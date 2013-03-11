@@ -48,6 +48,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_EXECUTE_AFTER = "ddl-drop";
     public static final String DATABASE_LOGIN_USERNAME = "login-username";
     public static final String DATABASE_LOGIN_NPASSWORD = "login-password";
+    public static final String DATABASE_IN_CATALOG = "in-catalog";
     public static final String DATABASE_ACTIVE_SCHEMA = "active-schema";
     public static final String DATABASE_JDBC_DRIVER = "jdbc-driver";
     public static final String DATABASE_INDEX_TYPES = "index-types";
@@ -118,6 +119,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public String dbUrl;
         public String dbUsername;
         public String dbPassword;
+        public String dbCatalog;
         public String dbSchema;
         public String dbSqlsBefore;
         public String dbSqlsAfter;
@@ -305,6 +307,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.dbUrl = null;
         modelValues.dbUsername = null;
         modelValues.dbPassword = null;
+        modelValues.dbCatalog = null;
         modelValues.dbSchema = null;
         modelValues.dbSqlsBefore = null;
         modelValues.dbSqlsAfter = null;
@@ -391,8 +394,16 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.dbUsername = getPropertyValue(property.getDbUsername());
         } else if (DATABASE_LOGIN_NPASSWORD.equals(property.getName())) {
             modelValues.dbPassword = getPropertyValue(property.getDbPassword());
+        } else if (DATABASE_IN_CATALOG.equals(property.getName())) {
+            if (property.getDbCatalog() != null)
+                modelValues.dbCatalog = getPropertyValue(property.getDbCatalog().getDbCatalog());
+            else
+                modelValues.dbCatalog = null;
         } else if (DATABASE_ACTIVE_SCHEMA.equals(property.getName())) {
-            modelValues.dbSchema = getPropertyValue(property.getDbSchema());
+            if (property.getDbSchema() != null)
+                modelValues.dbSchema = getPropertyValue(property.getDbSchema().getDbSchema());
+            else
+                modelValues.dbSchema = null;
         } else if (DATABASE_JDBC_DRIVER.equals(property.getName())) {
             modelValues.dbDriver = getPropertyValue(property.getDbDriver());
         } else if (DATABASE_EXECUTE_BEFORE.equals(property.getName())) {
