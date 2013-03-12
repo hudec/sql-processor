@@ -11,6 +11,7 @@ database-show-database-info Oracle,Oracle Database 10g Express Edition Release 1
 database-show-driver-info Oracle JDBC driver,11.2.0.3.0,11,2;
 database-show-driver-output getTimeDateFunctions->CURRENT_DATE,CURRENT_TIMESTAMP,CURDATE,EXTRACT,HOUR,MINUTE,MONTH,SECOND,YEAR;
 database-show-driver-output getSQLKeywords->ACCESS, ADD, ALTER, AUDIT, CLUSTER, COLUMN, COMMENT, COMPRESS, CONNECT, DATE, DROP, EXCLUSIVE, FILE, IDENTIFIED, IMMEDIATE, INCREMENT, INDEX, INITIAL, INTERSECT, LEVEL, LOCK, LONG, MAXEXTENTS, MINUS, MODE, NOAUDIT, NOCOMPRESS, NOWAIT, NUMBER, OFFLINE, ONLINE, PCTFREE, PRIOR, all_PL_SQL_reserved_ words;
+database-show-driver-output getExtraNameCharacters->$#;
 //database-is-of-type Oracle;
 
 // native types

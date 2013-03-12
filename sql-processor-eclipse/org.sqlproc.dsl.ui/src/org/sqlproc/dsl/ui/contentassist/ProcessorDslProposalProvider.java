@@ -570,7 +570,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             if (table.indexOf('$') >= 0)
                 continue;
             String proposal = getValueConverter().toString(table, "IDENT");
-            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            ICompletionProposal completionProposal = createCompletionProposal(proposal + "->", context);
             acceptor.accept(completionProposal);
         }
     }
@@ -586,7 +586,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             if (table.indexOf('$') >= 0)
                 continue;
             String proposal = getValueConverter().toString(table, "IDENT");
-            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            ICompletionProposal completionProposal = createCompletionProposal(proposal + "->", context);
             acceptor.accept(completionProposal);
         }
     }
@@ -652,7 +652,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         if (prop.getDbTable() != null) {
             for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
                 String proposal = getValueConverter().toString(column, "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                ICompletionProposal completionProposal = createCompletionProposal(proposal + "->", context);
                 acceptor.accept(completionProposal);
             }
         }
@@ -669,7 +669,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         if (prop.getDbTable() != null) {
             for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
                 String proposal = getValueConverter().toString(column, "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                ICompletionProposal completionProposal = createCompletionProposal(proposal + "->", context);
                 acceptor.accept(completionProposal);
             }
         }
@@ -749,7 +749,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         if (prop.getDbTable() != null) {
             for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
                 String proposal = getValueConverter().toString(column, "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                ICompletionProposal completionProposal = createCompletionProposal(proposal + "->", context);
                 acceptor.accept(completionProposal);
             }
         }
@@ -829,7 +829,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         if (prop.getDbTable() != null) {
             for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
                 String proposal = getValueConverter().toString(column, "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                ICompletionProposal completionProposal = createCompletionProposal(proposal + "->", context);
                 acceptor.accept(completionProposal);
             }
         }
@@ -846,7 +846,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         if (prop.getDbTable() != null) {
             for (DbImport dbImport : dbResolver.getDbImports(model, prop.getDbTable())) {
                 String proposal = getValueConverter().toString(dbImport.getPkColumn(), "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                ICompletionProposal completionProposal = createCompletionProposal(proposal + "->", context);
                 acceptor.accept(completionProposal);
             }
         }
@@ -919,7 +919,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
         if (prop.getDbTable() != null) {
             for (String column : dbResolver.getColumns(model, prop.getDbTable())) {
                 String proposal = getValueConverter().toString(column, "IDENT");
-                ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+                ICompletionProposal completionProposal = createCompletionProposal(proposal + "->", context);
                 acceptor.accept(completionProposal);
             }
         }
@@ -953,7 +953,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             if (table.indexOf('$') >= 0)
                 continue;
             String proposal = getValueConverter().toString(table, "IDENT");
-            ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
+            ICompletionProposal completionProposal = createCompletionProposal(proposal + "->", context);
             acceptor.accept(completionProposal);
         }
     }
