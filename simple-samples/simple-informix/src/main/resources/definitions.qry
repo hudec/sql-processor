@@ -7,9 +7,9 @@ database-login-password simple;
 database-in-catalog simple;
 //database-active-schema simple;
 database-ddl-create informix.ddl; // should be located in the same directory as definitions.qry
-//database-show-meta-info HSQL Database Engine,2.2.9,2,2;
-//database-show-driver-info HSQL Database Engine Driver,2.2.9,2,2;
-//database-is-of-type HSQLDB;
+//database-show-database-info Informix Dynamic Server,11.50.FC5,11,50;
+//database-show-driver-info IBM Informix JDBC Driver for IBM Informix Dynamic Server,3.50.JC9,3,50;
+//database-is-of-type Informix;
 
 // native types
 pojogen-generate-wrappers;
