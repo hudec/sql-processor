@@ -35,6 +35,8 @@ import com.google.inject.Singleton;
 @Singleton
 public class DbResolverBean implements DbResolver {
 
+    private boolean debug = false;
+
     public static class DatabaseDirectives {
         public String dbDriver;
         public String dbUrl;
@@ -100,6 +102,7 @@ public class DbResolverBean implements DbResolver {
             .synchronizedMap(new HashMap<String, SortedSet<String>>());
 
     private DatabaseDirectives checkReconnect(EObject model) {
+        trace(">>>checkReconnect");
         if (model == null)
             return null;
         ModelPropertyBean.ModelValues modelModelValues = modelProperty.getModelValues(model);
@@ -111,6 +114,7 @@ public class DbResolverBean implements DbResolver {
         }
 
         if (!modelModelValues.doResolveDb) {
+            info("DB CLOSE");
             closeConnection(modelDatabaseValues);
             return null;
         }
@@ -161,12 +165,14 @@ public class DbResolverBean implements DbResolver {
         if (modelModelValues.dbCatalog != null) {
             if (!modelModelValues.dbCatalog.equals(modelDatabaseValues.dbCatalog)) {
                 modelDatabaseValues.dbCatalog = modelModelValues.dbCatalog;
+                modelDatabaseValues.doReconnect = true;
             }
         } else
             modelDatabaseValues.dbCatalog = null;
         if (modelModelValues.dbSchema != null) {
             if (!modelModelValues.dbSchema.equals(modelDatabaseValues.dbSchema)) {
                 modelDatabaseValues.dbSchema = modelModelValues.dbSchema;
+                modelDatabaseValues.doReconnect = true;
             }
         } else
             modelDatabaseValues.dbSchema = null;
@@ -214,20 +220,23 @@ public class DbResolverBean implements DbResolver {
         } else {
             modelDatabaseValues.dbType = null;
         }
+        info("DB RECONNECT " + modelDatabaseValues.doReconnect);
         return modelDatabaseValues;
     }
 
     private DatabaseDirectives getConnection(EObject model) {
+        trace(">>>getConnection");
         DatabaseDirectives modelDatabaseValues = checkReconnect(model);
         if (modelDatabaseValues == null)
             return null;
         if (!modelDatabaseValues.doReconnect)
             return modelDatabaseValues;
         closeConnection(modelDatabaseValues);
+        info("DB OPEN");
         synchronized (sync) {
-            LOGGER.info("DATA START FOR " + modelDatabaseValues.dir);
+            info("DATA START FOR " + modelDatabaseValues.dir);
             Class<?> driverClass = pojoResolverFactory.getPojoResolver().loadClass(modelDatabaseValues.dbDriver);
-            LOGGER.info("DATA DRIVER " + driverClass);
+            info("DATA DRIVER " + driverClass);
             if (driverClass != null && Driver.class.isAssignableFrom(driverClass)) {
                 try {
                     Driver driver = (Driver) driverClass.newInstance();
@@ -237,8 +246,8 @@ public class DbResolverBean implements DbResolver {
                     String dbUrl = modelDatabaseValues.dbUrl.replaceAll("\\\\/", "/").replaceAll("\\\\/", "/")
                             .replaceAll("\\\\;", ";").replaceAll("\\\\.", ".");
                     modelDatabaseValues.connection = driver.connect(dbUrl, props);
-                    LOGGER.info("DB URL " + dbUrl);
-                    LOGGER.info("DATA CONNECTION " + modelDatabaseValues.connection);
+                    info("DB URL " + dbUrl);
+                    info("DATA CONNECTION " + modelDatabaseValues.connection);
 
                     if (modelDatabaseValues.dbSqlsBefore != null
                             && modelDatabaseValues.dbSqlsBefore.trim().length() > 0) {
@@ -266,11 +275,11 @@ public class DbResolverBean implements DbResolver {
                         modelDatabaseValues.ddlsAfter = loadDDL(is);
                     }
                 } catch (InstantiationException e) {
-                    LOGGER.error("getConnection error " + e, e);
+                    error("getConnection error " + e, e);
                 } catch (IllegalAccessException e) {
-                    LOGGER.error("getConnection error " + e, e);
+                    error("getConnection error " + e, e);
                 } catch (SQLException e) {
-                    LOGGER.error("getConnection error " + e, e);
+                    error("getConnection error " + e, e);
                 } catch (RuntimeException e) {
                     e.printStackTrace();
                     throw e;
@@ -281,17 +290,18 @@ public class DbResolverBean implements DbResolver {
     }
 
     private void closeConnection(DatabaseDirectives modelDatabaseValues) {
+        trace(">>>closeConnection");
         synchronized (sync) {
             try {
                 if (modelDatabaseValues.connection != null) {
                     if (modelDatabaseValues.ddlsAfter != null)
                         runDDLs(modelDatabaseValues.connection, modelDatabaseValues.ddlsAfter, "AFTER");
 
-                    LOGGER.info("DATA STOP FOR " + modelDatabaseValues.dir);
+                    info("DATA STOP FOR " + modelDatabaseValues.dir);
                     modelDatabaseValues.connection.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error("closeConnection error " + e, e);
+                error("closeConnection error " + e, e);
             }
             modelDatabaseValues.connection = null;
             modelDatabaseValues.ddlsBefore0 = null;
@@ -312,11 +322,12 @@ public class DbResolverBean implements DbResolver {
     }
 
     private void runDDLs(Connection connection, List<String> ddls, String msg) throws SQLException {
+        trace(">>>runDDLs");
 
         if (ddls == null || ddls.isEmpty())
             return;
 
-        LOGGER.info("Run DDLs " + msg + ", number of statements is " + ddls.size());
+        info("Run DDLs " + msg + ", number of statements is " + ddls.size());
 
         Statement stmt = null;
         int[] result = null;
@@ -327,23 +338,24 @@ public class DbResolverBean implements DbResolver {
                 String ddl = ddls.get(i);
                 if (ddl == null)
                     continue;
-                LOGGER.info("DB DDL " + ddl);
+                info("DB DDL " + ddl);
                 stmt.addBatch(ddl);
             }
             result = stmt.executeBatch();
 
         } catch (BatchUpdateException e) {
-            LOGGER.error("Run DDLs chyba " + e, e);
+            error("Run DDLs chyba " + e, e);
 
         } finally {
             if (stmt != null)
                 stmt.close();
         }
 
-        LOGGER.info("Run DDLs OK for " + ((result != null) ? result.length : -1));
+        info("Run DDLs OK for " + ((result != null) ? result.length : -1));
     }
 
     private List<String> loadDDL(InputStream is) {
+        trace(">>>loadDDL");
         BufferedReader bfr = null;
         List<String> ddls = new ArrayList<String>();
 
@@ -381,7 +393,7 @@ public class DbResolverBean implements DbResolver {
             return ddls;
 
         } catch (Exception ex) {
-            LOGGER.error("loadDDL error", ex);
+            error("loadDDL error", ex);
             return ddls;
         } finally {
             if (bfr != null) {
@@ -395,16 +407,19 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public boolean isResolveDb(EObject model) {
+        trace(">>>isResolveDb");
         return getConnection(model) != null;
     }
 
     @Override
     public DatabaseDirectives getDatabaseDirectives(EObject model) {
+        trace(">>>getDatabaseDirectives");
         return getConnection(model);
     }
 
     @Override
     public List<String> getCatalogs(EObject model) {
+        trace(">>>getCatalogs");
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptyList();
@@ -422,13 +437,13 @@ public class DbResolverBean implements DbResolver {
                     catalogsForModel.add(result.getString("TABLE_CAT"));
                 }
             } catch (SQLException e) {
-                LOGGER.error("getCatalogs error " + e, e);
+                error("getCatalogs error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    LOGGER.error("getCatalogs error " + e, e);
+                    error("getCatalogs error " + e, e);
                 }
             }
         }
@@ -437,6 +452,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<String> getSchemas(EObject model) {
+        trace(">>>getSchemas");
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptyList();
@@ -454,13 +470,13 @@ public class DbResolverBean implements DbResolver {
                     schemasForModel.add(result.getString("TABLE_SCHEM"));
                 }
             } catch (SQLException e) {
-                LOGGER.error("getCatalogs error " + e, e);
+                error("getCatalogs error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    LOGGER.error("getCatalogs error " + e, e);
+                    error("getCatalogs error " + e, e);
                 }
             }
         }
@@ -469,6 +485,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<String> getTables(EObject model) {
+        trace(">>>getTables");
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptyList();
@@ -487,13 +504,13 @@ public class DbResolverBean implements DbResolver {
                     tablesForModel.add(result.getString("TABLE_NAME"));
                 }
             } catch (SQLException e) {
-                LOGGER.error("getTables error " + e, e);
+                error("getTables error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    LOGGER.error("getTables error " + e, e);
+                    error("getTables error " + e, e);
                 }
             }
         }
@@ -502,6 +519,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public boolean checkTable(EObject model, String table) {
+        trace(">>>checkReconnect");
         if (table == null)
             return false;
         return getTables(model).contains(table);
@@ -509,6 +527,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<String> getColumns(EObject model, String table) {
+        trace(">>>getColumns");
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -538,13 +557,13 @@ public class DbResolverBean implements DbResolver {
                     columnsForModel.add(result.getString("COLUMN_NAME"));
                 }
             } catch (SQLException e) {
-                LOGGER.error("getColumns error " + e, e);
+                error("getColumns error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    LOGGER.error("getColumns error " + e, e);
+                    error("getColumns error " + e, e);
                 }
             }
         }
@@ -553,6 +572,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public boolean checkColumn(EObject model, String table, String column) {
+        trace(">>>checkColumn");
         if (table == null || column == null)
             return false;
         return getColumns(model, table).contains(column);
@@ -560,6 +580,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<DbColumn> getDbColumns(EObject model, String table) {
+        trace(">>>getDbColumns");
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -608,16 +629,16 @@ public class DbResolverBean implements DbResolver {
                     dbColumn.setNullable(result.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls);
                     dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
                     columnsForModel.add(dbColumn);
-                    // System.out.println(table + ": " + dbColumn.toString());
+                    // info(table + ": " + dbColumn.toString());
                 }
             } catch (SQLException e) {
-                LOGGER.error("getDbColumns error " + e, e);
+                error("getDbColumns error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    LOGGER.error("getDbColumns error " + e, e);
+                    error("getDbColumns error " + e, e);
                 }
             }
         }
@@ -627,6 +648,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<String> getDbPrimaryKeys(EObject model, String table) {
+        trace(">>>getDbPrimaryKeys");
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -656,13 +678,13 @@ public class DbResolverBean implements DbResolver {
                     primaryKeysForModel.add(result.getString("COLUMN_NAME"));
                 }
             } catch (SQLException e) {
-                LOGGER.error("getDbColumns error " + e, e);
+                error("getDbColumns error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    LOGGER.error("getDbColumns error " + e, e);
+                    error("getDbColumns error " + e, e);
                 }
             }
         }
@@ -671,6 +693,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<DbExport> getDbExports(EObject model, String table) {
+        trace(">>>getDbExports");
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -704,17 +727,17 @@ public class DbResolverBean implements DbResolver {
                     dbExport.setFkColumn(result.getString("FKCOLUMN_NAME"));
                     dbExport.setFkName(result.getString("FK_NAME"));
                     dbExport.setPkName(result.getString("PK_NAME"));
-                    // System.out.println("BBB " + table + " " + dbExport.toString());
+                    // info("BBB " + table + " " + dbExport.toString());
                     exportsForModel.add(dbExport);
                 }
             } catch (SQLException e) {
-                LOGGER.error("getDbColumns error " + e, e);
+                error("getDbColumns error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    LOGGER.error("getDbColumns error " + e, e);
+                    error("getDbColumns error " + e, e);
                 }
             }
         }
@@ -723,6 +746,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<DbImport> getDbImports(EObject model, String table) {
+        trace(">>>getDbImports");
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -756,17 +780,17 @@ public class DbResolverBean implements DbResolver {
                     dbImport.setFkColumn(result.getString("FKCOLUMN_NAME"));
                     dbImport.setFkName(result.getString("FK_NAME"));
                     dbImport.setPkName(result.getString("PK_NAME"));
-                    // System.out.println("CCC " + table + " " + dbImport.toString());
+                    // info("CCC " + table + " " + dbImport.toString());
                     importsForModel.add(dbImport);
                 }
             } catch (SQLException e) {
-                LOGGER.error("getDbColumns error " + e, e);
+                error("getDbColumns error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    LOGGER.error("getDbColumns error " + e, e);
+                    error("getDbColumns error " + e, e);
                 }
             }
         }
@@ -775,6 +799,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public String getType(EObject model, String table, String column) {
+        trace(">>>getType");
         if (table == null || column == null)
             return "";
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -808,13 +833,13 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error("getType error " + e, e);
+            error("getType error " + e, e);
         } finally {
             try {
                 if (result != null)
                     result.close();
             } catch (SQLException e) {
-                LOGGER.error("getDbColumns error " + e, e);
+                error("getDbColumns error " + e, e);
             }
         }
         return type + "(" + typeSize + ")";
@@ -822,6 +847,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<DbIndex> getDbIndexes(EObject model, String table) {
+        trace(">>>getDbIndexes");
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -853,7 +879,7 @@ public class DbResolverBean implements DbResolver {
                 while (result.next()) {
                     String name = result.getString("INDEX_NAME");
                     if (!modelDatabaseValues.indexTypes.contains(result.getShort("TYPE"))) {
-                        // System.out.println("INDEX TYPE " + result.getShort("TYPE") + " for " + name);
+                        // info("INDEX TYPE " + result.getShort("TYPE") + " for " + name);
                         LOGGER.warn("INDEX TYPE " + result.getShort("TYPE") + " for " + name);
                         continue;
                     }
@@ -869,16 +895,16 @@ public class DbResolverBean implements DbResolver {
                     detail.setDesc("D".equalsIgnoreCase(result.getString("ASC_OR_DESC")));
                     dbIndex.getColumns().add(position - 1, detail);
                 }
-                // System.out.println("EEE " + table + " " + mapOfIndexes);
+                // info("EEE " + table + " " + mapOfIndexes);
                 indexesForModel.addAll(mapOfIndexes.values());
             } catch (SQLException e) {
-                LOGGER.error("getDbColumns error " + e, e);
+                error("getDbColumns error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    LOGGER.error("getDbColumns error " + e, e);
+                    error("getDbColumns error " + e, e);
                 }
             }
         }
@@ -887,6 +913,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<String> getSequences(EObject model) {
+        trace(">>>getSequences");
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptyList();
@@ -905,13 +932,13 @@ public class DbResolverBean implements DbResolver {
                     sequencesForModel.add(result.getString("TABLE_NAME"));
                 }
             } catch (SQLException e) {
-                LOGGER.error("getSequences error " + e, e);
+                error("getSequences error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    LOGGER.error("getSequences error " + e, e);
+                    error("getSequences error " + e, e);
                 }
             }
         }
@@ -920,6 +947,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public String getDbMetaInfo(EObject model) {
+        trace(">>>getDbMetaInfo");
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return "";
@@ -931,13 +959,14 @@ public class DbResolverBean implements DbResolver {
             sb.append(",").append(meta.getDatabaseMajorVersion());
             sb.append(",").append(meta.getDatabaseMinorVersion());
         } catch (SQLException e) {
-            LOGGER.error("getDbMetaInfo error " + e, e);
+            error("getDbMetaInfo error " + e, e);
         }
         return sb.toString();
     }
 
     @Override
     public String getDbDriverInfo(EObject model) {
+        trace(">>>getDbDriverInfo");
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return "";
@@ -949,13 +978,14 @@ public class DbResolverBean implements DbResolver {
             sb.append(",").append(meta.getDriverMajorVersion());
             sb.append(",").append(meta.getDriverMinorVersion());
         } catch (SQLException e) {
-            LOGGER.error("getDbDriverInfo error " + e, e);
+            error("getDbDriverInfo error " + e, e);
         }
         return sb.toString();
     }
 
     @Override
     public String getDbJdbcInfo(EObject model) {
+        trace(">>>getDbJdbcInfo");
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return "";
@@ -965,13 +995,14 @@ public class DbResolverBean implements DbResolver {
             sb.append(meta.getJDBCMajorVersion());
             sb.append(",").append(meta.getJDBCMinorVersion());
         } catch (SQLException e) {
-            LOGGER.error("getDbJdbcInfo error " + e, e);
+            error("getDbJdbcInfo error " + e, e);
         }
         return sb.toString();
     }
 
     @Override
     public Set<String> getDriverMethods(EObject model) {
+        trace(">>>getDriverMethods");
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return Collections.emptySet();
@@ -993,9 +1024,9 @@ public class DbResolverBean implements DbResolver {
                     driverMethodsForModel.add(m.getName());
                 }
             } catch (SQLException e) {
-                LOGGER.error("getDriverMethods error " + e, e);
+                error("getDriverMethods error " + e, e);
             } catch (SecurityException e) {
-                LOGGER.error("getDriverMethods error " + e, e);
+                error("getDriverMethods error " + e, e);
             }
         }
         return driverMethodsForModel;
@@ -1003,6 +1034,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public Object getDriverMethodOutput(EObject model, String methodName) {
+        trace(">>>getDriverMethodOutput");
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
             return null;
@@ -1012,19 +1044,37 @@ public class DbResolverBean implements DbResolver {
             Method m = meta.getClass().getMethod(methodName, new Class[] {});
             methodCallOutput = m.invoke(meta, new Object[] {});
         } catch (SQLException e) {
-            LOGGER.error("getDriverMethodOutput error " + e, e);
+            error("getDriverMethodOutput error " + e, e);
         } catch (NoSuchMethodException e) {
-            LOGGER.error("getDriverMethodOutput error " + e, e);
+            error("getDriverMethodOutput error " + e, e);
         } catch (SecurityException e) {
-            LOGGER.error("getDriverMethodOutput error " + e, e);
+            error("getDriverMethodOutput error " + e, e);
         } catch (IllegalAccessException e) {
-            LOGGER.error("getDriverMethodOutput error " + e, e);
+            error("getDriverMethodOutput error " + e, e);
         } catch (IllegalArgumentException e) {
-            LOGGER.error("getDriverMethodOutput error " + e, e);
+            error("getDriverMethodOutput error " + e, e);
         } catch (InvocationTargetException e) {
-            LOGGER.error("getDriverMethodOutput error " + e, e);
+            error("getDriverMethodOutput error " + e, e);
         }
         return methodCallOutput;
+    }
+
+    private void trace(String msg) {
+        if (debug)
+            System.out.println(msg);
+        else if (LOGGER.isTraceEnabled())
+            LOGGER.trace(msg);
+    }
+
+    private void info(String msg) {
+        if (debug)
+            System.out.println(msg);
+        else if (LOGGER.isInfoEnabled())
+            LOGGER.info(msg);
+    }
+
+    private void error(String msg, Exception e) {
+        LOGGER.error("getDbColumns error " + e, e);
     }
 
     @Override

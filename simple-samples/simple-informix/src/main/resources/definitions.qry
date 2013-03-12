@@ -10,6 +10,10 @@ database-ddl-create informix.ddl; // should be located in the same directory as 
 //database-show-database-info Informix Dynamic Server,11.50.FC5,11,50;
 //database-show-driver-info IBM Informix JDBC Driver for IBM Informix Dynamic Server,3.50.JC9,3,50;
 //database-is-of-type Informix;
+database-show-driver-output getNumericFunctions->abs,mod,pow,root,round,sqrt,exp,logn,log10,cos,sin,tan,asin,acos,atan,atan2;
+database-show-driver-output getStringFunctions->trunc,length;
+database-show-driver-output getSystemFunctions->avg,max,min,sum,count,range,stdev,variance,trim,hex,filetoblob,filetoclob,lotofile,lotocopy;
+database-show-driver-output getTimeDateFunctions->date,day,month,weekday,year,extend,mdy;
 
 // native types
 pojogen-generate-wrappers;
