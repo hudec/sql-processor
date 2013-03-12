@@ -1,0 +1,36 @@
+resolve-pojo-on;
+database-is-online;
+database-jdbc-driver com.informix.jdbc.IfxDriver;
+database-has-url jdbc:informix-sqli:\//popel:1551/simple:informixserver=popel_11\;DB_LOCALE=en_US\.57372;
+database-login-username simple;
+database-login-password simple;
+database-in-catalog simple;
+//database-active-schema simple;
+database-ddl-create informix.ddl; // should be located in the same directory as definitions.qry
+//database-show-meta-info HSQL Database Engine,2.2.9,2,2;
+//database-show-driver-info HSQL Database Engine Driver,2.2.9,2,2;
+//database-is-of-type HSQLDB;
+
+// native types
+pojogen-generate-wrappers;
+// POJO helpers' methods
+pojogen-generate-methods toString equals hashCode isDef toInit;
+// POJO are serializable
+pojogen-implements-interfaces java.io.Serializable;
+// can't overwrite existing POJO 
+pojogen-make-it-final;
+// ignore SYS tables
+pojogen-ignore-tables sysdomains sysindexes;
+
+// use indetity for primary keys
+metagen-global-sequence SIMPLE_SEQUENCE;
+// can't overwrite existing META SQL 
+metagen-make-it-final;
+
+// can't overwrite existing DAO 
+daogen-make-it-final; 
+// ignore SYS tables
+daogen-ignore-tables sysdomains sysindexes;
+
+table contact contact;
+table person person;
