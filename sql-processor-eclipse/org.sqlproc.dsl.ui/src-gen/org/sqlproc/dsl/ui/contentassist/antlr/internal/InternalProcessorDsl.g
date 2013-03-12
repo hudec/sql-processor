@@ -225,25 +225,25 @@ finally {
 
 
 
-// Entry rule entryRuleJdbcMetaInfoAssignement
-entryRuleJdbcMetaInfoAssignement 
+// Entry rule entryRuleDriverMethodOutputAssignement
+entryRuleDriverMethodOutputAssignement 
 :
-{ before(grammarAccess.getJdbcMetaInfoAssignementRule()); }
-	 ruleJdbcMetaInfoAssignement
-{ after(grammarAccess.getJdbcMetaInfoAssignementRule()); } 
+{ before(grammarAccess.getDriverMethodOutputAssignementRule()); }
+	 ruleDriverMethodOutputAssignement
+{ after(grammarAccess.getDriverMethodOutputAssignementRule()); } 
 	 EOF 
 ;
 
-// Rule JdbcMetaInfoAssignement
-ruleJdbcMetaInfoAssignement
+// Rule DriverMethodOutputAssignement
+ruleDriverMethodOutputAssignement
     @init {
 		int stackSize = keepStackSize();
     }
 	:
 (
-{ before(grammarAccess.getJdbcMetaInfoAssignementAccess().getDbJdbcInfoAssignment()); }
-(rule__JdbcMetaInfoAssignement__DbJdbcInfoAssignment)
-{ after(grammarAccess.getJdbcMetaInfoAssignementAccess().getDbJdbcInfoAssignment()); }
+{ before(grammarAccess.getDriverMethodOutputAssignementAccess().getGroup()); }
+(rule__DriverMethodOutputAssignement__Group__0)
+{ after(grammarAccess.getDriverMethodOutputAssignementAccess().getGroup()); }
 )
 
 ;
@@ -6485,6 +6485,100 @@ finally {
 
 
 
+rule__DriverMethodOutputAssignement__Group__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__DriverMethodOutputAssignement__Group__0__Impl
+	rule__DriverMethodOutputAssignement__Group__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__DriverMethodOutputAssignement__Group__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getDriverMethodOutputAssignementAccess().getDriverMethodAssignment_0()); }
+(rule__DriverMethodOutputAssignement__DriverMethodAssignment_0)
+{ after(grammarAccess.getDriverMethodOutputAssignementAccess().getDriverMethodAssignment_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__DriverMethodOutputAssignement__Group__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__DriverMethodOutputAssignement__Group__1__Impl
+	rule__DriverMethodOutputAssignement__Group__2
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__DriverMethodOutputAssignement__Group__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getDriverMethodOutputAssignementAccess().getHyphenMinusGreaterThanSignKeyword_1()); }
+
+	'->' 
+
+{ after(grammarAccess.getDriverMethodOutputAssignementAccess().getHyphenMinusGreaterThanSignKeyword_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__DriverMethodOutputAssignement__Group__2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__DriverMethodOutputAssignement__Group__2__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__DriverMethodOutputAssignement__Group__2__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getDriverMethodOutputAssignementAccess().getCallOutputAssignment_2()); }
+(rule__DriverMethodOutputAssignement__CallOutputAssignment_2)
+{ after(grammarAccess.getDriverMethodOutputAssignementAccess().getCallOutputAssignment_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+
+
 rule__SqlTypeAssignement__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -9496,7 +9590,6 @@ rule__DatabaseProperty__Group_15__1
     }
 :
 	rule__DatabaseProperty__Group_15__1__Impl
-	rule__DatabaseProperty__Group_15__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -9509,14 +9602,54 @@ rule__DatabaseProperty__Group_15__1__Impl
 :
 (
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_15_1()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getGroup_15_1()); }
+(rule__DatabaseProperty__Group_15_1__0)
+{ after(grammarAccess.getDatabasePropertyAccess().getGroup_15_1()); }
+)
+(
+{ before(grammarAccess.getDatabasePropertyAccess().getGroup_15_1()); }
+(rule__DatabaseProperty__Group_15_1__0)*
+{ after(grammarAccess.getDatabasePropertyAccess().getGroup_15_1()); }
+)
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+rule__DatabaseProperty__Group_15_1__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__DatabaseProperty__Group_15_1__0__Impl
+	rule__DatabaseProperty__Group_15_1__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__DatabaseProperty__Group_15_1__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+(
+{ before(grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_15_1_0()); }
 (	RULE_WS)
-{ after(grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_15_1()); }
+{ after(grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_15_1_0()); }
 )
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_15_1()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_15_1_0()); }
 (	RULE_WS)*
-{ after(grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_15_1()); }
+{ after(grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_15_1_0()); }
 )
 )
 
@@ -9526,34 +9659,32 @@ finally {
 }
 
 
-rule__DatabaseProperty__Group_15__2
+rule__DatabaseProperty__Group_15_1__1
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__DatabaseProperty__Group_15__2__Impl
+	rule__DatabaseProperty__Group_15_1__1__Impl
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__DatabaseProperty__Group_15__2__Impl
+rule__DatabaseProperty__Group_15_1__1__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getDbJdbcInfoAssignment_15_2()); }
-(rule__DatabaseProperty__DbJdbcInfoAssignment_15_2)
-{ after(grammarAccess.getDatabasePropertyAccess().getDbJdbcInfoAssignment_15_2()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getDbMethodsCallsAssignment_15_1_1()); }
+(rule__DatabaseProperty__DbMethodsCallsAssignment_15_1_1)
+{ after(grammarAccess.getDatabasePropertyAccess().getDbMethodsCallsAssignment_15_1_1()); }
 )
 
 ;
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 
@@ -25771,14 +25902,29 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__JdbcMetaInfoAssignement__DbJdbcInfoAssignment
+rule__DriverMethodOutputAssignement__DriverMethodAssignment_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getJdbcMetaInfoAssignementAccess().getDbJdbcInfoPropertyValueParserRuleCall_0()); }
-	rulePropertyValue{ after(grammarAccess.getJdbcMetaInfoAssignementAccess().getDbJdbcInfoPropertyValueParserRuleCall_0()); }
+{ before(grammarAccess.getDriverMethodOutputAssignementAccess().getDriverMethodIDENTTerminalRuleCall_0_0()); }
+	RULE_IDENT{ after(grammarAccess.getDriverMethodOutputAssignementAccess().getDriverMethodIDENTTerminalRuleCall_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__DriverMethodOutputAssignement__CallOutputAssignment_2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getDriverMethodOutputAssignementAccess().getCallOutputPropertyValueParserRuleCall_2_0()); }
+	rulePropertyValue{ after(grammarAccess.getDriverMethodOutputAssignementAccess().getCallOutputPropertyValueParserRuleCall_2_0()); }
 )
 
 ;
@@ -26814,16 +26960,16 @@ rule__DatabaseProperty__NameAssignment_13_0
     }
 :
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getNameShowMetaInfoKeyword_13_0_0()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getNameShowDatabaseInfoKeyword_13_0_0()); }
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getNameShowMetaInfoKeyword_13_0_0()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getNameShowDatabaseInfoKeyword_13_0_0()); }
 
-	'show-meta-info' 
+	'show-database-info' 
 
-{ after(grammarAccess.getDatabasePropertyAccess().getNameShowMetaInfoKeyword_13_0_0()); }
+{ after(grammarAccess.getDatabasePropertyAccess().getNameShowDatabaseInfoKeyword_13_0_0()); }
 )
 
-{ after(grammarAccess.getDatabasePropertyAccess().getNameShowMetaInfoKeyword_13_0_0()); }
+{ after(grammarAccess.getDatabasePropertyAccess().getNameShowDatabaseInfoKeyword_13_0_0()); }
 )
 
 ;
@@ -26890,16 +27036,16 @@ rule__DatabaseProperty__NameAssignment_15_0
     }
 :
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getNameShowJdbcInfoKeyword_15_0_0()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getNameShowDriverOutputKeyword_15_0_0()); }
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getNameShowJdbcInfoKeyword_15_0_0()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getNameShowDriverOutputKeyword_15_0_0()); }
 
-	'show-jdbc-info' 
+	'show-driver-output' 
 
-{ after(grammarAccess.getDatabasePropertyAccess().getNameShowJdbcInfoKeyword_15_0_0()); }
+{ after(grammarAccess.getDatabasePropertyAccess().getNameShowDriverOutputKeyword_15_0_0()); }
 )
 
-{ after(grammarAccess.getDatabasePropertyAccess().getNameShowJdbcInfoKeyword_15_0_0()); }
+{ after(grammarAccess.getDatabasePropertyAccess().getNameShowDriverOutputKeyword_15_0_0()); }
 )
 
 ;
@@ -26907,14 +27053,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__DatabaseProperty__DbJdbcInfoAssignment_15_2
+rule__DatabaseProperty__DbMethodsCallsAssignment_15_1_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getDbJdbcInfoJdbcMetaInfoAssignementParserRuleCall_15_2_0()); }
-	ruleJdbcMetaInfoAssignement{ after(grammarAccess.getDatabasePropertyAccess().getDbJdbcInfoJdbcMetaInfoAssignementParserRuleCall_15_2_0()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getDbMethodsCallsDriverMethodOutputAssignementParserRuleCall_15_1_1_0()); }
+	ruleDriverMethodOutputAssignement{ after(grammarAccess.getDatabasePropertyAccess().getDbMethodsCallsDriverMethodOutputAssignementParserRuleCall_15_1_1_0()); }
 )
 
 ;

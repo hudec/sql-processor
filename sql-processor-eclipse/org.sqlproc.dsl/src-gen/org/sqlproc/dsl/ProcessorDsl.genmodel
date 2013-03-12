@@ -31,8 +31,9 @@
     <genClasses ecoreClass="ProcessorDsl.ecore#//DriverMetaInfoAssignement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DriverMetaInfoAssignement/dbDriverInfo"/>
     </genClasses>
-    <genClasses ecoreClass="ProcessorDsl.ecore#//JdbcMetaInfoAssignement">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//JdbcMetaInfoAssignement/dbJdbcInfo"/>
+    <genClasses ecoreClass="ProcessorDsl.ecore#//DriverMethodOutputAssignement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DriverMethodOutputAssignement/driverMethod"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//DriverMethodOutputAssignement/callOutput"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//SqlTypeAssignement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//SqlTypeAssignement/typeName"/>
@@ -100,7 +101,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseProperty/dbType"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseProperty/dbMetaInfo"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseProperty/dbDriverInfo"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseProperty/dbJdbcInfo"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProcessorDsl.ecore#//DatabaseProperty/dbMethodsCalls"/>
     </genClasses>
     <genClasses ecoreClass="ProcessorDsl.ecore#//PojogenProperty">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProcessorDsl.ecore#//PojogenProperty/name"/>

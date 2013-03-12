@@ -33,8 +33,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="DriverMetaInfoAssignement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbDriverInfo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JdbcMetaInfoAssignement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbJdbcInfo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DriverMethodOutputAssignement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="driverMethod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="callOutput" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SqlTypeAssignement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -115,8 +116,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dbDriverInfo" eType="#//DriverMetaInfoAssignement"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dbJdbcInfo" eType="#//JdbcMetaInfoAssignement"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dbMethodsCalls" upperBound="-1"
+        eType="#//DriverMethodOutputAssignement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PojogenProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

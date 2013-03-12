@@ -106,12 +106,18 @@
       <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
     </alternatives>
   </rules>
-  <rules xsi:type="xtext:ParserRule" name="JdbcMetaInfoAssignement">
+  <rules xsi:type="xtext:ParserRule" name="DriverMethodOutputAssignement">
     <type metamodel="//@metamodelDeclarations.2">
-      <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//JdbcMetaInfoAssignement"/>
+      <classifier xsi:type="ecore:EClass" href="http://www.sqlproc.org/dsl/ProcessorDsl#//DriverMethodOutputAssignement"/>
     </type>
-    <alternatives xsi:type="xtext:Assignment" feature="dbJdbcInfo" operator="=">
-      <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="driverMethod" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.64"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="->"/>
+      <elements xsi:type="xtext:Assignment" feature="callOutput" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+      </elements>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="SqlTypeAssignement">
@@ -441,7 +447,7 @@
       </elements>
       <elements xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:Keyword" value="show-meta-info"/>
+          <terminal xsi:type="xtext:Keyword" value="show-database-info"/>
         </elements>
         <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.69"/>
         <elements xsi:type="xtext:Assignment" feature="dbMetaInfo" operator="=">
@@ -459,11 +465,13 @@
       </elements>
       <elements xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:Keyword" value="show-jdbc-info"/>
+          <terminal xsi:type="xtext:Keyword" value="show-driver-output"/>
         </elements>
-        <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.69"/>
-        <elements xsi:type="xtext:Assignment" feature="dbJdbcInfo" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.6"/>
+        <elements xsi:type="xtext:Group" cardinality="+">
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.69"/>
+          <elements xsi:type="xtext:Assignment" feature="dbMethodsCalls" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.6"/>
+          </elements>
         </elements>
       </elements>
     </alternatives>

@@ -3,6 +3,8 @@ package org.sqlproc.dsl.resolver;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.BatchUpdateException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -19,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
@@ -92,6 +96,8 @@ public class DbResolverBean implements DbResolver {
             .synchronizedMap(new HashMap<String, Map<String, List<DbIndex>>>());
     private final Map<String, List<String>> dbSequences = Collections
             .synchronizedMap(new HashMap<String, List<String>>());
+    private final Map<String, SortedSet<String>> driverMethods = Collections
+            .synchronizedMap(new HashMap<String, SortedSet<String>>());
 
     private DatabaseDirectives checkReconnect(EObject model) {
         if (model == null)
@@ -300,6 +306,7 @@ public class DbResolverBean implements DbResolver {
             dbImports.remove(modelDatabaseValues.dir);
             dbIndexes.remove(modelDatabaseValues.dir);
             dbSequences.remove(modelDatabaseValues.dir);
+            driverMethods.remove(modelDatabaseValues.dir);
         }
     }
 
@@ -960,6 +967,63 @@ public class DbResolverBean implements DbResolver {
             LOGGER.error("getDbJdbcInfo error " + e);
         }
         return sb.toString();
+    }
+
+    @Override
+    public Set<String> getDriverMethods(EObject model) {
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptySet();
+        SortedSet<String> driverMethodsForModel = driverMethods.get(modelDatabaseValues.dir);
+        if (driverMethodsForModel != null)
+            return driverMethodsForModel;
+        driverMethodsForModel = Collections.synchronizedSortedSet(new TreeSet<String>());
+        driverMethods.put(modelDatabaseValues.dir, driverMethodsForModel);
+        if (modelDatabaseValues.connection != null) {
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                for (Method m : meta.getClass().getMethods()) {
+                    if (m.getParameterTypes().length > 0)
+                        continue;
+                    if (m.getReturnType() != null && m.getReturnType().equals(ResultSet.class))
+                        continue;
+                    if (m.getReturnType() != null && m.getReturnType().equals(Connection.class))
+                        continue;
+                    driverMethodsForModel.add(m.getName());
+                }
+            } catch (SQLException e) {
+                LOGGER.error("getDriverMethods error " + e);
+            } catch (SecurityException e) {
+                LOGGER.error("getDriverMethods error " + e);
+            }
+        }
+        return driverMethodsForModel;
+    }
+
+    @Override
+    public Object getDriverMethodOutput(EObject model, String methodName) {
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return null;
+        Object methodCallOutput = null;
+        try {
+            DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+            Method m = meta.getClass().getMethod(methodName, new Class[] {});
+            methodCallOutput = m.invoke(meta, new Object[] {});
+        } catch (SQLException e) {
+            LOGGER.error("getDriverMethodOutput error " + e);
+        } catch (NoSuchMethodException e) {
+            LOGGER.error("getDriverMethodOutput error " + e);
+        } catch (SecurityException e) {
+            LOGGER.error("getDriverMethodOutput error " + e);
+        } catch (IllegalAccessException e) {
+            LOGGER.error("getDriverMethodOutput error " + e);
+        } catch (IllegalArgumentException e) {
+            LOGGER.error("getDriverMethodOutput error " + e);
+        } catch (InvocationTargetException e) {
+            LOGGER.error("getDriverMethodOutput error " + e);
+        }
+        return methodCallOutput;
     }
 
     @Override

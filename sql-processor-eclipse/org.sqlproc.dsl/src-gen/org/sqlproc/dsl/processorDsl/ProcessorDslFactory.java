@@ -77,13 +77,13 @@ public interface ProcessorDslFactory extends EFactory
   DriverMetaInfoAssignement createDriverMetaInfoAssignement();
 
   /**
-   * Returns a new object of class '<em>Jdbc Meta Info Assignement</em>'.
+   * Returns a new object of class '<em>Driver Method Output Assignement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Jdbc Meta Info Assignement</em>'.
+   * @return a new object of class '<em>Driver Method Output Assignement</em>'.
    * @generated
    */
-  JdbcMetaInfoAssignement createJdbcMetaInfoAssignement();
+  DriverMethodOutputAssignement createDriverMethodOutputAssignement();
 
   /**
    * Returns a new object of class '<em>Sql Type Assignement</em>'.

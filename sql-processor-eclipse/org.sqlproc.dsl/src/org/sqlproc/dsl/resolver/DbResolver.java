@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.sqlproc.dsl.resolver.DbResolverBean.DatabaseDirectives;
@@ -92,4 +93,8 @@ public interface DbResolver {
     List<String> getCatalogs(EObject model);
 
     List<String> getSchemas(EObject model);
+
+    Set<String> getDriverMethods(EObject model);
+
+    Object getDriverMethodOutput(EObject model, String methodName);
 }

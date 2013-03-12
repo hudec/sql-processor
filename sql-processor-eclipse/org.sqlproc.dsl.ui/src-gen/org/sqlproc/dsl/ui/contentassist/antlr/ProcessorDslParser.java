@@ -108,6 +108,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getArtifactsAccess().getGroup_2_4(), "rule__Artifacts__Group_2_4__0");
 					put(grammarAccess.getArtifactsAccess().getGroup_2_5(), "rule__Artifacts__Group_2_5__0");
 					put(grammarAccess.getArtifactsAccess().getGroup_2_6(), "rule__Artifacts__Group_2_6__0");
+					put(grammarAccess.getDriverMethodOutputAssignementAccess().getGroup(), "rule__DriverMethodOutputAssignement__Group__0");
 					put(grammarAccess.getSqlTypeAssignementAccess().getGroup(), "rule__SqlTypeAssignement__Group__0");
 					put(grammarAccess.getSqlTypeAssignementAccess().getGroup_1(), "rule__SqlTypeAssignement__Group_1__0");
 					put(grammarAccess.getColumnTypeAssignementAccess().getGroup(), "rule__ColumnTypeAssignement__Group__0");
@@ -142,6 +143,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDatabasePropertyAccess().getGroup_13(), "rule__DatabaseProperty__Group_13__0");
 					put(grammarAccess.getDatabasePropertyAccess().getGroup_14(), "rule__DatabaseProperty__Group_14__0");
 					put(grammarAccess.getDatabasePropertyAccess().getGroup_15(), "rule__DatabaseProperty__Group_15__0");
+					put(grammarAccess.getDatabasePropertyAccess().getGroup_15_1(), "rule__DatabaseProperty__Group_15_1__0");
 					put(grammarAccess.getPojogenPropertyAccess().getGroup_0(), "rule__PojogenProperty__Group_0__0");
 					put(grammarAccess.getPojogenPropertyAccess().getGroup_0_1(), "rule__PojogenProperty__Group_0_1__0");
 					put(grammarAccess.getPojogenPropertyAccess().getGroup_1(), "rule__PojogenProperty__Group_1__0");
@@ -334,7 +336,8 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDatabaseTypeAssignementAccess().getDbTypeAssignment(), "rule__DatabaseTypeAssignement__DbTypeAssignment");
 					put(grammarAccess.getDatabaseMetaInfoAssignementAccess().getDbMetaInfoAssignment(), "rule__DatabaseMetaInfoAssignement__DbMetaInfoAssignment");
 					put(grammarAccess.getDriverMetaInfoAssignementAccess().getDbDriverInfoAssignment(), "rule__DriverMetaInfoAssignement__DbDriverInfoAssignment");
-					put(grammarAccess.getJdbcMetaInfoAssignementAccess().getDbJdbcInfoAssignment(), "rule__JdbcMetaInfoAssignement__DbJdbcInfoAssignment");
+					put(grammarAccess.getDriverMethodOutputAssignementAccess().getDriverMethodAssignment_0(), "rule__DriverMethodOutputAssignement__DriverMethodAssignment_0");
+					put(grammarAccess.getDriverMethodOutputAssignementAccess().getCallOutputAssignment_2(), "rule__DriverMethodOutputAssignement__CallOutputAssignment_2");
 					put(grammarAccess.getSqlTypeAssignementAccess().getTypeNameAssignment_0(), "rule__SqlTypeAssignement__TypeNameAssignment_0");
 					put(grammarAccess.getSqlTypeAssignementAccess().getSizeAssignment_1_1(), "rule__SqlTypeAssignement__SizeAssignment_1_1");
 					put(grammarAccess.getSqlTypeAssignementAccess().getTypeAssignment_3(), "rule__SqlTypeAssignement__TypeAssignment_3");
@@ -398,7 +401,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDatabasePropertyAccess().getNameAssignment_14_0(), "rule__DatabaseProperty__NameAssignment_14_0");
 					put(grammarAccess.getDatabasePropertyAccess().getDbDriverInfoAssignment_14_2(), "rule__DatabaseProperty__DbDriverInfoAssignment_14_2");
 					put(grammarAccess.getDatabasePropertyAccess().getNameAssignment_15_0(), "rule__DatabaseProperty__NameAssignment_15_0");
-					put(grammarAccess.getDatabasePropertyAccess().getDbJdbcInfoAssignment_15_2(), "rule__DatabaseProperty__DbJdbcInfoAssignment_15_2");
+					put(grammarAccess.getDatabasePropertyAccess().getDbMethodsCallsAssignment_15_1_1(), "rule__DatabaseProperty__DbMethodsCallsAssignment_15_1_1");
 					put(grammarAccess.getPojogenPropertyAccess().getNameAssignment_0_0(), "rule__PojogenProperty__NameAssignment_0_0");
 					put(grammarAccess.getPojogenPropertyAccess().getSqlTypesAssignment_0_1_1(), "rule__PojogenProperty__SqlTypesAssignment_0_1_1");
 					put(grammarAccess.getPojogenPropertyAccess().getNameAssignment_1_0(), "rule__PojogenProperty__NameAssignment_1_0");

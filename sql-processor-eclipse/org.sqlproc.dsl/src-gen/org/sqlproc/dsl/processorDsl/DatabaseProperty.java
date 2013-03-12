@@ -2,6 +2,8 @@
  */
 package org.sqlproc.dsl.processorDsl;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -25,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbType <em>Db Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbMetaInfo <em>Db Meta Info</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbDriverInfo <em>Db Driver Info</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbJdbcInfo <em>Db Jdbc Info</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbMethodsCalls <em>Db Methods Calls</em>}</li>
  * </ul>
  * </p>
  *
@@ -374,29 +376,19 @@ public interface DatabaseProperty extends EObject
   void setDbDriverInfo(DriverMetaInfoAssignement value);
 
   /**
-   * Returns the value of the '<em><b>Db Jdbc Info</b></em>' containment reference.
+   * Returns the value of the '<em><b>Db Methods Calls</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Db Jdbc Info</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Db Methods Calls</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Db Jdbc Info</em>' containment reference.
-   * @see #setDbJdbcInfo(JdbcMetaInfoAssignement)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbJdbcInfo()
+   * @return the value of the '<em>Db Methods Calls</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_DbMethodsCalls()
    * @model containment="true"
    * @generated
    */
-  JdbcMetaInfoAssignement getDbJdbcInfo();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbJdbcInfo <em>Db Jdbc Info</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Db Jdbc Info</em>' containment reference.
-   * @see #getDbJdbcInfo()
-   * @generated
-   */
-  void setDbJdbcInfo(JdbcMetaInfoAssignement value);
+  EList<DriverMethodOutputAssignement> getDbMethodsCalls();
 
 } // DatabaseProperty

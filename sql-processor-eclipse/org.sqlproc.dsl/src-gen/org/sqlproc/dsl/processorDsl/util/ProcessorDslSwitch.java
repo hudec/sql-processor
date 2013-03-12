@@ -134,10 +134,10 @@ public class ProcessorDslSwitch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ProcessorDslPackage.JDBC_META_INFO_ASSIGNEMENT:
+      case ProcessorDslPackage.DRIVER_METHOD_OUTPUT_ASSIGNEMENT:
       {
-        JdbcMetaInfoAssignement jdbcMetaInfoAssignement = (JdbcMetaInfoAssignement)theEObject;
-        T result = caseJdbcMetaInfoAssignement(jdbcMetaInfoAssignement);
+        DriverMethodOutputAssignement driverMethodOutputAssignement = (DriverMethodOutputAssignement)theEObject;
+        T result = caseDriverMethodOutputAssignement(driverMethodOutputAssignement);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -662,17 +662,17 @@ public class ProcessorDslSwitch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Jdbc Meta Info Assignement</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Driver Method Output Assignement</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Jdbc Meta Info Assignement</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Driver Method Output Assignement</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseJdbcMetaInfoAssignement(JdbcMetaInfoAssignement object)
+  public T caseDriverMethodOutputAssignement(DriverMethodOutputAssignement object)
   {
     return null;
   }

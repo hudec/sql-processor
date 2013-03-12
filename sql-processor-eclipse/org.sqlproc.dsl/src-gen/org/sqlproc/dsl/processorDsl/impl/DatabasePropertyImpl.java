@@ -2,8 +2,12 @@
  */
 package org.sqlproc.dsl.processorDsl.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -11,13 +15,16 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.sqlproc.dsl.processorDsl.DatabaseCatalogAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseSchemaAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseTypeAssignement;
 import org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement;
-import org.sqlproc.dsl.processorDsl.JdbcMetaInfoAssignement;
+import org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -40,7 +47,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbType <em>Db Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbMetaInfo <em>Db Meta Info</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbDriverInfo <em>Db Driver Info</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbJdbcInfo <em>Db Jdbc Info</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbMethodsCalls <em>Db Methods Calls</em>}</li>
  * </ul>
  * </p>
  *
@@ -259,14 +266,14 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
   protected DriverMetaInfoAssignement dbDriverInfo;
 
   /**
-   * The cached value of the '{@link #getDbJdbcInfo() <em>Db Jdbc Info</em>}' containment reference.
+   * The cached value of the '{@link #getDbMethodsCalls() <em>Db Methods Calls</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDbJdbcInfo()
+   * @see #getDbMethodsCalls()
    * @generated
    * @ordered
    */
-  protected JdbcMetaInfoAssignement dbJdbcInfo;
+  protected EList<DriverMethodOutputAssignement> dbMethodsCalls;
 
   /**
    * <!-- begin-user-doc -->
@@ -718,47 +725,13 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public JdbcMetaInfoAssignement getDbJdbcInfo()
+  public EList<DriverMethodOutputAssignement> getDbMethodsCalls()
   {
-    return dbJdbcInfo;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetDbJdbcInfo(JdbcMetaInfoAssignement newDbJdbcInfo, NotificationChain msgs)
-  {
-    JdbcMetaInfoAssignement oldDbJdbcInfo = dbJdbcInfo;
-    dbJdbcInfo = newDbJdbcInfo;
-    if (eNotificationRequired())
+    if (dbMethodsCalls == null)
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_JDBC_INFO, oldDbJdbcInfo, newDbJdbcInfo);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      dbMethodsCalls = new EObjectContainmentEList<DriverMethodOutputAssignement>(DriverMethodOutputAssignement.class, this, ProcessorDslPackage.DATABASE_PROPERTY__DB_METHODS_CALLS);
     }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDbJdbcInfo(JdbcMetaInfoAssignement newDbJdbcInfo)
-  {
-    if (newDbJdbcInfo != dbJdbcInfo)
-    {
-      NotificationChain msgs = null;
-      if (dbJdbcInfo != null)
-        msgs = ((InternalEObject)dbJdbcInfo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.DATABASE_PROPERTY__DB_JDBC_INFO, null, msgs);
-      if (newDbJdbcInfo != null)
-        msgs = ((InternalEObject)newDbJdbcInfo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.DATABASE_PROPERTY__DB_JDBC_INFO, null, msgs);
-      msgs = basicSetDbJdbcInfo(newDbJdbcInfo, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DB_JDBC_INFO, newDbJdbcInfo, newDbJdbcInfo));
+    return dbMethodsCalls;
   }
 
   /**
@@ -781,8 +754,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return basicSetDbMetaInfo(null, msgs);
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO:
         return basicSetDbDriverInfo(null, msgs);
-      case ProcessorDslPackage.DATABASE_PROPERTY__DB_JDBC_INFO:
-        return basicSetDbJdbcInfo(null, msgs);
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_METHODS_CALLS:
+        return ((InternalEList<?>)getDbMethodsCalls()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -823,8 +796,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return getDbMetaInfo();
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO:
         return getDbDriverInfo();
-      case ProcessorDslPackage.DATABASE_PROPERTY__DB_JDBC_INFO:
-        return getDbJdbcInfo();
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_METHODS_CALLS:
+        return getDbMethodsCalls();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -834,6 +807,7 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -878,8 +852,9 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO:
         setDbDriverInfo((DriverMetaInfoAssignement)newValue);
         return;
-      case ProcessorDslPackage.DATABASE_PROPERTY__DB_JDBC_INFO:
-        setDbJdbcInfo((JdbcMetaInfoAssignement)newValue);
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_METHODS_CALLS:
+        getDbMethodsCalls().clear();
+        getDbMethodsCalls().addAll((Collection<? extends DriverMethodOutputAssignement>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -934,8 +909,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO:
         setDbDriverInfo((DriverMetaInfoAssignement)null);
         return;
-      case ProcessorDslPackage.DATABASE_PROPERTY__DB_JDBC_INFO:
-        setDbJdbcInfo((JdbcMetaInfoAssignement)null);
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_METHODS_CALLS:
+        getDbMethodsCalls().clear();
         return;
     }
     super.eUnset(featureID);
@@ -977,8 +952,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return dbMetaInfo != null;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_DRIVER_INFO:
         return dbDriverInfo != null;
-      case ProcessorDslPackage.DATABASE_PROPERTY__DB_JDBC_INFO:
-        return dbJdbcInfo != null;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DB_METHODS_CALLS:
+        return dbMethodsCalls != null && !dbMethodsCalls.isEmpty();
     }
     return super.eIsSet(featureID);
   }

@@ -105,9 +105,9 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createDriverMetaInfoAssignementAdapter();
       }
       @Override
-      public Adapter caseJdbcMetaInfoAssignement(JdbcMetaInfoAssignement object)
+      public Adapter caseDriverMethodOutputAssignement(DriverMethodOutputAssignement object)
       {
-        return createJdbcMetaInfoAssignementAdapter();
+        return createDriverMethodOutputAssignementAdapter();
       }
       @Override
       public Adapter caseSqlTypeAssignement(SqlTypeAssignement object)
@@ -517,16 +517,16 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.JdbcMetaInfoAssignement <em>Jdbc Meta Info Assignement</em>}'.
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement <em>Driver Method Output Assignement</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.sqlproc.dsl.processorDsl.JdbcMetaInfoAssignement
+   * @see org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement
    * @generated
    */
-  public Adapter createJdbcMetaInfoAssignementAdapter()
+  public Adapter createDriverMethodOutputAssignementAdapter()
   {
     return null;
   }

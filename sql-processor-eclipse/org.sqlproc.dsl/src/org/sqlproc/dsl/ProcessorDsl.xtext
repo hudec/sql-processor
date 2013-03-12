@@ -16,7 +16,7 @@ DatabaseSchemaAssignement: dbSchema=PropertyValue;
 DatabaseTypeAssignement: dbType=IDENT;
 DatabaseMetaInfoAssignement: dbMetaInfo=PropertyValue;
 DriverMetaInfoAssignement: dbDriverInfo=PropertyValue;
-JdbcMetaInfoAssignement: dbJdbcInfo=PropertyValue;
+DriverMethodOutputAssignement: driverMethod=IDENT '->' callOutput=PropertyValue;
 SqlTypeAssignement: typeName=IDENT (LPAREN size=NUMBER RPAREN)? '->' type=PojoType;
 ColumnTypeAssignement: dbColumn=IDENT '->' type=PojoType;
 ShowColumnTypeAssignement: dbColumn=IDENT '->' type=PropertyValue;
@@ -51,9 +51,9 @@ DatabaseProperty:
 	|name='index-types' WS+ dbIndexTypes=PropertyValue
 	|name='skip-indexes'
 	|name='is-of-type' WS+ dbType=DatabaseTypeAssignement
-	|name='show-meta-info' WS+ dbMetaInfo=DatabaseMetaInfoAssignement
+	|name='show-database-info' WS+ dbMetaInfo=DatabaseMetaInfoAssignement
 	|name='show-driver-info' WS+ dbDriverInfo=DriverMetaInfoAssignement
-	|name='show-jdbc-info' WS+ dbJdbcInfo=JdbcMetaInfoAssignement
+	|name='show-driver-output' (WS+ dbMethodsCalls+=DriverMethodOutputAssignement)+
 	);
 
 PojogenProperty:

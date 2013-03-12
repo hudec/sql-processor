@@ -70,7 +70,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.DATABASE_TYPE_ASSIGNEMENT: return createDatabaseTypeAssignement();
       case ProcessorDslPackage.DATABASE_META_INFO_ASSIGNEMENT: return createDatabaseMetaInfoAssignement();
       case ProcessorDslPackage.DRIVER_META_INFO_ASSIGNEMENT: return createDriverMetaInfoAssignement();
-      case ProcessorDslPackage.JDBC_META_INFO_ASSIGNEMENT: return createJdbcMetaInfoAssignement();
+      case ProcessorDslPackage.DRIVER_METHOD_OUTPUT_ASSIGNEMENT: return createDriverMethodOutputAssignement();
       case ProcessorDslPackage.SQL_TYPE_ASSIGNEMENT: return createSqlTypeAssignement();
       case ProcessorDslPackage.COLUMN_TYPE_ASSIGNEMENT: return createColumnTypeAssignement();
       case ProcessorDslPackage.SHOW_COLUMN_TYPE_ASSIGNEMENT: return createShowColumnTypeAssignement();
@@ -206,10 +206,10 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public JdbcMetaInfoAssignement createJdbcMetaInfoAssignement()
+  public DriverMethodOutputAssignement createDriverMethodOutputAssignement()
   {
-    JdbcMetaInfoAssignementImpl jdbcMetaInfoAssignement = new JdbcMetaInfoAssignementImpl();
-    return jdbcMetaInfoAssignement;
+    DriverMethodOutputAssignementImpl driverMethodOutputAssignement = new DriverMethodOutputAssignementImpl();
+    return driverMethodOutputAssignement;
   }
 
   /**

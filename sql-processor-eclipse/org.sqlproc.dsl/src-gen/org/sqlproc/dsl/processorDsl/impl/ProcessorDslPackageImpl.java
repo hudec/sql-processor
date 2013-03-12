@@ -26,6 +26,7 @@ import org.sqlproc.dsl.processorDsl.DatabaseSchemaAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.DatabaseTypeAssignement;
 import org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement;
+import org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ExtendedColumnName;
@@ -42,7 +43,6 @@ import org.sqlproc.dsl.processorDsl.Implements;
 import org.sqlproc.dsl.processorDsl.Import;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
-import org.sqlproc.dsl.processorDsl.JdbcMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.JoinTableAssignement;
 import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.Mapping;
@@ -135,7 +135,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass jdbcMetaInfoAssignementEClass = null;
+  private EClass driverMethodOutputAssignementEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -801,9 +801,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getJdbcMetaInfoAssignement()
+  public EClass getDriverMethodOutputAssignement()
   {
-    return jdbcMetaInfoAssignementEClass;
+    return driverMethodOutputAssignementEClass;
   }
 
   /**
@@ -811,9 +811,19 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getJdbcMetaInfoAssignement_DbJdbcInfo()
+  public EAttribute getDriverMethodOutputAssignement_DriverMethod()
   {
-    return (EAttribute)jdbcMetaInfoAssignementEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)driverMethodOutputAssignementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDriverMethodOutputAssignement_CallOutput()
+  {
+    return (EAttribute)driverMethodOutputAssignementEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1371,7 +1381,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getDatabaseProperty_DbJdbcInfo()
+  public EReference getDatabaseProperty_DbMethodsCalls()
   {
     return (EReference)databasePropertyEClass.getEStructuralFeatures().get(13);
   }
@@ -3480,8 +3490,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     driverMetaInfoAssignementEClass = createEClass(DRIVER_META_INFO_ASSIGNEMENT);
     createEAttribute(driverMetaInfoAssignementEClass, DRIVER_META_INFO_ASSIGNEMENT__DB_DRIVER_INFO);
 
-    jdbcMetaInfoAssignementEClass = createEClass(JDBC_META_INFO_ASSIGNEMENT);
-    createEAttribute(jdbcMetaInfoAssignementEClass, JDBC_META_INFO_ASSIGNEMENT__DB_JDBC_INFO);
+    driverMethodOutputAssignementEClass = createEClass(DRIVER_METHOD_OUTPUT_ASSIGNEMENT);
+    createEAttribute(driverMethodOutputAssignementEClass, DRIVER_METHOD_OUTPUT_ASSIGNEMENT__DRIVER_METHOD);
+    createEAttribute(driverMethodOutputAssignementEClass, DRIVER_METHOD_OUTPUT_ASSIGNEMENT__CALL_OUTPUT);
 
     sqlTypeAssignementEClass = createEClass(SQL_TYPE_ASSIGNEMENT);
     createEAttribute(sqlTypeAssignementEClass, SQL_TYPE_ASSIGNEMENT__TYPE_NAME);
@@ -3549,7 +3560,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEReference(databasePropertyEClass, DATABASE_PROPERTY__DB_TYPE);
     createEReference(databasePropertyEClass, DATABASE_PROPERTY__DB_META_INFO);
     createEReference(databasePropertyEClass, DATABASE_PROPERTY__DB_DRIVER_INFO);
-    createEReference(databasePropertyEClass, DATABASE_PROPERTY__DB_JDBC_INFO);
+    createEReference(databasePropertyEClass, DATABASE_PROPERTY__DB_METHODS_CALLS);
 
     pojogenPropertyEClass = createEClass(POJOGEN_PROPERTY);
     createEAttribute(pojogenPropertyEClass, POJOGEN_PROPERTY__NAME);
@@ -3869,8 +3880,9 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEClass(driverMetaInfoAssignementEClass, DriverMetaInfoAssignement.class, "DriverMetaInfoAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getDriverMetaInfoAssignement_DbDriverInfo(), ecorePackage.getEString(), "dbDriverInfo", null, 0, 1, DriverMetaInfoAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(jdbcMetaInfoAssignementEClass, JdbcMetaInfoAssignement.class, "JdbcMetaInfoAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getJdbcMetaInfoAssignement_DbJdbcInfo(), ecorePackage.getEString(), "dbJdbcInfo", null, 0, 1, JdbcMetaInfoAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(driverMethodOutputAssignementEClass, DriverMethodOutputAssignement.class, "DriverMethodOutputAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDriverMethodOutputAssignement_DriverMethod(), ecorePackage.getEString(), "driverMethod", null, 0, 1, DriverMethodOutputAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDriverMethodOutputAssignement_CallOutput(), ecorePackage.getEString(), "callOutput", null, 0, 1, DriverMethodOutputAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(sqlTypeAssignementEClass, SqlTypeAssignement.class, "SqlTypeAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSqlTypeAssignement_TypeName(), ecorePackage.getEString(), "typeName", null, 0, 1, SqlTypeAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3938,7 +3950,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEReference(getDatabaseProperty_DbType(), this.getDatabaseTypeAssignement(), null, "dbType", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDatabaseProperty_DbMetaInfo(), this.getDatabaseMetaInfoAssignement(), null, "dbMetaInfo", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDatabaseProperty_DbDriverInfo(), this.getDriverMetaInfoAssignement(), null, "dbDriverInfo", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getDatabaseProperty_DbJdbcInfo(), this.getJdbcMetaInfoAssignement(), null, "dbJdbcInfo", null, 0, 1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDatabaseProperty_DbMethodsCalls(), this.getDriverMethodOutputAssignement(), null, "dbMethodsCalls", null, 0, -1, DatabaseProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pojogenPropertyEClass, PojogenProperty.class, "PojogenProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPojogenProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, PojogenProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

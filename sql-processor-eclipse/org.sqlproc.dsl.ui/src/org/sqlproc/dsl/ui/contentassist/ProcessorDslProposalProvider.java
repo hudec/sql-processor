@@ -38,6 +38,8 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.sqlproc.dsl.processorDsl.AbstractPojoEntity;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
+import org.sqlproc.dsl.processorDsl.DatabaseProperty;
+import org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ExtendedMappingItem;
@@ -1215,14 +1217,32 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     }
 
     @Override
-    public void completeJdbcMetaInfoAssignement_DbJdbcInfo(EObject model, Assignment assignment,
+    public void completeDriverMethodOutputAssignement_DriverMethod(EObject model, Assignment assignment,
             ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-        if (!isResolveDb(model)) {
-            super.completeJdbcMetaInfoAssignement_DbJdbcInfo(model, assignment, context, acceptor);
+        if (!isResolveDb(model) && !(model instanceof DatabaseProperty)) {
+            super.completeDriverMethodOutputAssignement_DriverMethod(model, assignment, context, acceptor);
             return;
         }
-        String dbJdbcInfo = dbResolver.getDbJdbcInfo(model);
-        String proposal = getValueConverter().toString(dbJdbcInfo, "PropertyValue");
+        for (String driverMetod : dbResolver.getDriverMethods(model)) {
+            String proposal = getValueConverter().toString(driverMetod, "PropertyValue");
+            ICompletionProposal completionProposal = createCompletionProposal(proposal + "->", context);
+            acceptor.accept(completionProposal);
+        }
+    }
+
+    @Override
+    public void completeDriverMethodOutputAssignement_CallOutput(EObject model, Assignment assignment,
+            ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        if (!isResolveDb(model) && !(model instanceof DriverMethodOutputAssignement)) {
+            super.completeDriverMethodOutputAssignement_CallOutput(model, assignment, context, acceptor);
+            return;
+        }
+        DriverMethodOutputAssignement prop = (DriverMethodOutputAssignement) model;
+        String methodName = prop.getDriverMethod();
+        Object methodCallOutput = dbResolver.getDriverMethodOutput(model, methodName);
+        if (methodCallOutput == null)
+            methodCallOutput = "null";
+        String proposal = getValueConverter().toString("" + methodCallOutput, "PropertyValue");
         ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
         acceptor.accept(completionProposal);
     }
@@ -1231,7 +1251,7 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     public void completeDatabaseTypeAssignement_DbType(EObject model, Assignment assignment,
             ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
         if (!isResolveDb(model)) {
-            super.completeJdbcMetaInfoAssignement_DbJdbcInfo(model, assignment, context, acceptor);
+            super.completeDatabaseTypeAssignement_DbType(model, assignment, context, acceptor);
             return;
         }
         String dbMetaInfo = dbResolver.getDbMetaInfo(model);

@@ -279,32 +279,41 @@ public interface ProcessorDslPackage extends EPackage
   int DRIVER_META_INFO_ASSIGNEMENT_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.JdbcMetaInfoAssignementImpl <em>Jdbc Meta Info Assignement</em>}' class.
+   * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DriverMethodOutputAssignementImpl <em>Driver Method Output Assignement</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.sqlproc.dsl.processorDsl.impl.JdbcMetaInfoAssignementImpl
-   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getJdbcMetaInfoAssignement()
+   * @see org.sqlproc.dsl.processorDsl.impl.DriverMethodOutputAssignementImpl
+   * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDriverMethodOutputAssignement()
    * @generated
    */
-  int JDBC_META_INFO_ASSIGNEMENT = 6;
+  int DRIVER_METHOD_OUTPUT_ASSIGNEMENT = 6;
 
   /**
-   * The feature id for the '<em><b>Db Jdbc Info</b></em>' attribute.
+   * The feature id for the '<em><b>Driver Method</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int JDBC_META_INFO_ASSIGNEMENT__DB_JDBC_INFO = 0;
+  int DRIVER_METHOD_OUTPUT_ASSIGNEMENT__DRIVER_METHOD = 0;
 
   /**
-   * The number of structural features of the '<em>Jdbc Meta Info Assignement</em>' class.
+   * The feature id for the '<em><b>Call Output</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int JDBC_META_INFO_ASSIGNEMENT_FEATURE_COUNT = 1;
+  int DRIVER_METHOD_OUTPUT_ASSIGNEMENT__CALL_OUTPUT = 1;
+
+  /**
+   * The number of structural features of the '<em>Driver Method Output Assignement</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DRIVER_METHOD_OUTPUT_ASSIGNEMENT_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.SqlTypeAssignementImpl <em>Sql Type Assignement</em>}' class.
@@ -913,13 +922,13 @@ public interface ProcessorDslPackage extends EPackage
   int DATABASE_PROPERTY__DB_DRIVER_INFO = 12;
 
   /**
-   * The feature id for the '<em><b>Db Jdbc Info</b></em>' containment reference.
+   * The feature id for the '<em><b>Db Methods Calls</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATABASE_PROPERTY__DB_JDBC_INFO = 13;
+  int DATABASE_PROPERTY__DB_METHODS_CALLS = 13;
 
   /**
    * The number of structural features of the '<em>Database Property</em>' class.
@@ -3439,25 +3448,36 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getDriverMetaInfoAssignement_DbDriverInfo();
 
   /**
-   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.JdbcMetaInfoAssignement <em>Jdbc Meta Info Assignement</em>}'.
+   * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement <em>Driver Method Output Assignement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Jdbc Meta Info Assignement</em>'.
-   * @see org.sqlproc.dsl.processorDsl.JdbcMetaInfoAssignement
+   * @return the meta object for class '<em>Driver Method Output Assignement</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement
    * @generated
    */
-  EClass getJdbcMetaInfoAssignement();
+  EClass getDriverMethodOutputAssignement();
 
   /**
-   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.JdbcMetaInfoAssignement#getDbJdbcInfo <em>Db Jdbc Info</em>}'.
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement#getDriverMethod <em>Driver Method</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Db Jdbc Info</em>'.
-   * @see org.sqlproc.dsl.processorDsl.JdbcMetaInfoAssignement#getDbJdbcInfo()
-   * @see #getJdbcMetaInfoAssignement()
+   * @return the meta object for the attribute '<em>Driver Method</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement#getDriverMethod()
+   * @see #getDriverMethodOutputAssignement()
    * @generated
    */
-  EAttribute getJdbcMetaInfoAssignement_DbJdbcInfo();
+  EAttribute getDriverMethodOutputAssignement_DriverMethod();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement#getCallOutput <em>Call Output</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Call Output</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement#getCallOutput()
+   * @see #getDriverMethodOutputAssignement()
+   * @generated
+   */
+  EAttribute getDriverMethodOutputAssignement_CallOutput();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.SqlTypeAssignement <em>Sql Type Assignement</em>}'.
@@ -4053,15 +4073,15 @@ public interface ProcessorDslPackage extends EPackage
   EReference getDatabaseProperty_DbDriverInfo();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbJdbcInfo <em>Db Jdbc Info</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbMethodsCalls <em>Db Methods Calls</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Db Jdbc Info</em>'.
-   * @see org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbJdbcInfo()
+   * @return the meta object for the containment reference list '<em>Db Methods Calls</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbMethodsCalls()
    * @see #getDatabaseProperty()
    * @generated
    */
-  EReference getDatabaseProperty_DbJdbcInfo();
+  EReference getDatabaseProperty_DbMethodsCalls();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojogenProperty <em>Pojogen Property</em>}'.
@@ -6451,22 +6471,30 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute DRIVER_META_INFO_ASSIGNEMENT__DB_DRIVER_INFO = eINSTANCE.getDriverMetaInfoAssignement_DbDriverInfo();
 
     /**
-     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.JdbcMetaInfoAssignementImpl <em>Jdbc Meta Info Assignement</em>}' class.
+     * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.DriverMethodOutputAssignementImpl <em>Driver Method Output Assignement</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.sqlproc.dsl.processorDsl.impl.JdbcMetaInfoAssignementImpl
-     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getJdbcMetaInfoAssignement()
+     * @see org.sqlproc.dsl.processorDsl.impl.DriverMethodOutputAssignementImpl
+     * @see org.sqlproc.dsl.processorDsl.impl.ProcessorDslPackageImpl#getDriverMethodOutputAssignement()
      * @generated
      */
-    EClass JDBC_META_INFO_ASSIGNEMENT = eINSTANCE.getJdbcMetaInfoAssignement();
+    EClass DRIVER_METHOD_OUTPUT_ASSIGNEMENT = eINSTANCE.getDriverMethodOutputAssignement();
 
     /**
-     * The meta object literal for the '<em><b>Db Jdbc Info</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Driver Method</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute JDBC_META_INFO_ASSIGNEMENT__DB_JDBC_INFO = eINSTANCE.getJdbcMetaInfoAssignement_DbJdbcInfo();
+    EAttribute DRIVER_METHOD_OUTPUT_ASSIGNEMENT__DRIVER_METHOD = eINSTANCE.getDriverMethodOutputAssignement_DriverMethod();
+
+    /**
+     * The meta object literal for the '<em><b>Call Output</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DRIVER_METHOD_OUTPUT_ASSIGNEMENT__CALL_OUTPUT = eINSTANCE.getDriverMethodOutputAssignement_CallOutput();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.SqlTypeAssignementImpl <em>Sql Type Assignement</em>}' class.
@@ -6933,12 +6961,12 @@ public interface ProcessorDslPackage extends EPackage
     EReference DATABASE_PROPERTY__DB_DRIVER_INFO = eINSTANCE.getDatabaseProperty_DbDriverInfo();
 
     /**
-     * The meta object literal for the '<em><b>Db Jdbc Info</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Db Methods Calls</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DATABASE_PROPERTY__DB_JDBC_INFO = eINSTANCE.getDatabaseProperty_DbJdbcInfo();
+    EReference DATABASE_PROPERTY__DB_METHODS_CALLS = eINSTANCE.getDatabaseProperty_DbMethodsCalls();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl <em>Pojogen Property</em>}' class.

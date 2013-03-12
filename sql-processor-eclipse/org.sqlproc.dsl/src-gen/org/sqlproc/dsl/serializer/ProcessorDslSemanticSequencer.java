@@ -27,6 +27,7 @@ import org.sqlproc.dsl.processorDsl.DatabaseSchemaAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.DatabaseTypeAssignement;
 import org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement;
+import org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ExtendedColumnName;
@@ -43,7 +44,6 @@ import org.sqlproc.dsl.processorDsl.Implements;
 import org.sqlproc.dsl.processorDsl.Import;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
-import org.sqlproc.dsl.processorDsl.JdbcMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.JoinTableAssignement;
 import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.Mapping;
@@ -173,6 +173,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.DRIVER_METHOD_OUTPUT_ASSIGNEMENT:
+				if(context == grammarAccess.getDriverMethodOutputAssignementRule()) {
+					sequence_DriverMethodOutputAssignement(context, (DriverMethodOutputAssignement) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.EXPORT_ASSIGNEMENT:
 				if(context == grammarAccess.getExportAssignementRule()) {
 					sequence_ExportAssignement(context, (ExportAssignement) semanticObject); 
@@ -270,12 +276,6 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.INHERITANCE_ASSIGNEMENT:
 				if(context == grammarAccess.getInheritanceAssignementRule()) {
 					sequence_InheritanceAssignement(context, (InheritanceAssignement) semanticObject); 
-					return; 
-				}
-				else break;
-			case ProcessorDslPackage.JDBC_META_INFO_ASSIGNEMENT:
-				if(context == grammarAccess.getJdbcMetaInfoAssignementRule()) {
-					sequence_JdbcMetaInfoAssignement(context, (JdbcMetaInfoAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -638,9 +638,9 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='index-types' dbIndexTypes=PropertyValue) | 
 	 *         name='skip-indexes' | 
 	 *         (name='is-of-type' dbType=DatabaseTypeAssignement) | 
-	 *         (name='show-meta-info' dbMetaInfo=DatabaseMetaInfoAssignement) | 
+	 *         (name='show-database-info' dbMetaInfo=DatabaseMetaInfoAssignement) | 
 	 *         (name='show-driver-info' dbDriverInfo=DriverMetaInfoAssignement) | 
-	 *         (name='show-jdbc-info' dbJdbcInfo=JdbcMetaInfoAssignement)
+	 *         (name='show-driver-output' dbMethodsCalls+=DriverMethodOutputAssignement+)
 	 *     )
 	 */
 	protected void sequence_DatabaseProperty(EObject context, DatabaseProperty semanticObject) {
@@ -701,6 +701,25 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getDriverMetaInfoAssignementAccess().getDbDriverInfoPropertyValueParserRuleCall_0(), semanticObject.getDbDriverInfo());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (driverMethod=IDENT callOutput=PropertyValue)
+	 */
+	protected void sequence_DriverMethodOutputAssignement(EObject context, DriverMethodOutputAssignement semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.DRIVER_METHOD_OUTPUT_ASSIGNEMENT__DRIVER_METHOD) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.DRIVER_METHOD_OUTPUT_ASSIGNEMENT__DRIVER_METHOD));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.DRIVER_METHOD_OUTPUT_ASSIGNEMENT__CALL_OUTPUT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.DRIVER_METHOD_OUTPUT_ASSIGNEMENT__CALL_OUTPUT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getDriverMethodOutputAssignementAccess().getDriverMethodIDENTTerminalRuleCall_0_0(), semanticObject.getDriverMethod());
+		feeder.accept(grammarAccess.getDriverMethodOutputAssignementAccess().getCallOutputPropertyValueParserRuleCall_2_0(), semanticObject.getCallOutput());
 		feeder.finish();
 	}
 	
@@ -885,22 +904,6 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 */
 	protected void sequence_InheritanceAssignement(EObject context, InheritanceAssignement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     dbJdbcInfo=PropertyValue
-	 */
-	protected void sequence_JdbcMetaInfoAssignement(EObject context, JdbcMetaInfoAssignement semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.JDBC_META_INFO_ASSIGNEMENT__DB_JDBC_INFO) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.JDBC_META_INFO_ASSIGNEMENT__DB_JDBC_INFO));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getJdbcMetaInfoAssignementAccess().getDbJdbcInfoPropertyValueParserRuleCall_0(), semanticObject.getDbJdbcInfo());
-		feeder.finish();
 	}
 	
 	
