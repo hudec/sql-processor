@@ -34,3 +34,6 @@ daogen-make-it-final;
 
 table contact CONTACT;
 table person PERSON;
+procedure newPerson NEW_PERSON;
+procedure newPersonRet NEW_PERSON_RET;
+function anHourBefore AN_HOUR_BEFORE;

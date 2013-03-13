@@ -82,15 +82,23 @@ public class ProcessorTemplateProposalProvider extends DefaultTemplateProposalPr
 
         if (templateContext.getContextType().getId().equals(helper.getId(ga.getOptionalFeatureRule()))) {
 
-            Template template = new Template("pojos", "Pojo definitions", "pojosTemplateID", "${pojoDefinitions}",
+            Template template = new Template("pojos", "Pojos definitions", "pojosTemplateID", "${pojoDefinitions}",
                     false);// auto-insertable?
             TemplateProposal tp = createProposal(template, templateContext, context, getImage(template),
                     getRelevance(template));
             acceptor.accept(tp);
-            template = new Template("tables", "Table definitions", "uniqueTemplateID", "${tableDefinitions}", false);// auto-insertable?
+            template = new Template("tables", "Tables definitions", "uniqueTemplateID", "${tableDefinitions}", false);// auto-insertable?
             tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
             template = new Template("metagen", "Meta SQL generator", "metagenTemplateID", "${metaGenerator}", false);// auto-insertable?
+            tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
+            acceptor.accept(tp);
+            template = new Template("procedures", "Procedures definitions", "uniqueTemplateID",
+                    "${procedureDefinitions}", false);// auto-insertable?
+            tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
+            acceptor.accept(tp);
+            template = new Template("functions", "Functions definitions", "uniqueTemplateID", "${functionDefinitions}",
+                    false);// auto-insertable?
             tp = createProposal(template, templateContext, context, getImage(template), getRelevance(template));
             acceptor.accept(tp);
         }

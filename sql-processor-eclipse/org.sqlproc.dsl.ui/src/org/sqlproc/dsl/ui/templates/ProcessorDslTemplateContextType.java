@@ -63,7 +63,9 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         super.addResolver(new DbOptUpdateColumnResolver());
         super.addResolver(new DbOptCondColumnResolver());
         super.addResolver(new PojoDefinitionsResolver());
-        super.addResolver(new TableDefinitionsResolver());
+        super.addResolver(new TablesDefinitionsResolver());
+        super.addResolver(new ProceduresDefinitionsResolver());
+        super.addResolver(new FunctionsDefinitionsResolver());
         super.addResolver(new PojoGeneratorResolver());
         super.addResolver(new MetaGeneratorResolver());
         super.addResolver(new DaoGeneratorResolver());
@@ -274,7 +276,7 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         return builder.toString();
     }
 
-    protected String getTableDefinitions(List<String> tables) {
+    protected String getTablesDefinitions(List<String> tables) {
         if (tables == null)
             return null;
         TreeMap<String, String> map = new TreeMap<String, String>();
@@ -287,6 +289,41 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         StringBuilder builder = new StringBuilder();
         for (Entry<String, String> table : map.entrySet()) {
             builder.append("table ").append(table.getKey()).append(' ').append(table.getValue()).append(";\n");
+        }
+        return builder.toString();
+    }
+
+    protected String getProceduresDefinitions(List<String> procedures) {
+        if (procedures == null)
+            return null;
+        TreeMap<String, String> map = new TreeMap<String, String>();
+        for (String procedure : procedures) {
+            if (procedure.toUpperCase().startsWith("BIN$"))
+                continue;
+            map.put(toCamelCase(procedure), procedure);
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (Entry<String, String> procedure : map.entrySet()) {
+            builder.append("procedure ").append(procedure.getKey()).append(' ').append(procedure.getValue())
+                    .append(";\n");
+        }
+        return builder.toString();
+    }
+
+    protected String getFunctionsDefinitions(List<String> functions) {
+        if (functions == null)
+            return null;
+        TreeMap<String, String> map = new TreeMap<String, String>();
+        for (String function : functions) {
+            if (function.toUpperCase().startsWith("BIN$"))
+                continue;
+            map.put(toCamelCase(function), function);
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (Entry<String, String> function : map.entrySet()) {
+            builder.append("function ").append(function.getKey()).append(' ').append(function.getValue()).append(";\n");
         }
         return builder.toString();
     }
@@ -533,11 +570,11 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         }
     }
 
-    public class TableDefinitionsResolver extends SimpleTemplateVariableResolver {
+    public class TablesDefinitionsResolver extends SimpleTemplateVariableResolver {
 
         public static final String NAME = "tableDefinitions";
 
-        public TableDefinitionsResolver() {
+        public TablesDefinitionsResolver() {
             super(NAME, "TableDefinitions");
         }
 
@@ -546,7 +583,55 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
             if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
                 List<String> tables = dbResolver.getTables(artifacts);
-                return getTableDefinitions(tables);
+                return getTablesDefinitions(tables);
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class ProceduresDefinitionsResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "procedureDefinitions";
+
+        public ProceduresDefinitionsResolver() {
+            super(NAME, "ProcedureDefinitions");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
+            if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
+                List<String> procedures = dbResolver.getProcedures(artifacts);
+                return getProceduresDefinitions(procedures);
+            }
+            return super.resolve(context);
+        }
+
+        @Override
+        protected boolean isUnambiguous(TemplateContext context) {
+            return true;
+        }
+    }
+
+    public class FunctionsDefinitionsResolver extends SimpleTemplateVariableResolver {
+
+        public static final String NAME = "functionDefinitions";
+
+        public FunctionsDefinitionsResolver() {
+            super(NAME, "FunctionDefinitions");
+        }
+
+        @Override
+        protected String resolve(TemplateContext context) {
+            Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
+            if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
+                List<String> functions = dbResolver.getFunctions(artifacts);
+                return getFunctionsDefinitions(functions);
             }
             return super.resolve(context);
         }
