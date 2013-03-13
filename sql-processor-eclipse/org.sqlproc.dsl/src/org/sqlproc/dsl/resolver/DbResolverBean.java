@@ -84,6 +84,10 @@ public class DbResolverBean implements DbResolver {
     private final Map<String, List<String>> catalogs = Collections.synchronizedMap(new HashMap<String, List<String>>());
     private final Map<String, List<String>> schemas = Collections.synchronizedMap(new HashMap<String, List<String>>());
     private final Map<String, List<String>> tables = Collections.synchronizedMap(new HashMap<String, List<String>>());
+    private final Map<String, List<String>> procedures = Collections
+            .synchronizedMap(new HashMap<String, List<String>>());
+    private final Map<String, List<String>> functions = Collections
+            .synchronizedMap(new HashMap<String, List<String>>());
     private final Map<String, Map<String, List<String>>> columns = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
     private final Map<String, Map<String, List<DbColumn>>> dbColumns = Collections
@@ -318,6 +322,8 @@ public class DbResolverBean implements DbResolver {
             dbIndexes.remove(modelDatabaseValues.dir);
             dbSequences.remove(modelDatabaseValues.dir);
             driverMethods.remove(modelDatabaseValues.dir);
+            procedures.remove(modelDatabaseValues.dir);
+            functions.remove(modelDatabaseValues.dir);
         }
     }
 
@@ -518,8 +524,74 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
+    public List<String> getProcedures(EObject model) {
+        trace(">>>getProcedures");
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        List<String> proceduresForModel = procedures.get(modelDatabaseValues.dir);
+        if (proceduresForModel != null)
+            return proceduresForModel;
+        proceduresForModel = Collections.synchronizedList(new ArrayList<String>());
+        procedures.put(modelDatabaseValues.dir, proceduresForModel);
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getProcedures(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, null);
+                while (result.next()) {
+                    proceduresForModel.add(result.getString("PROCEDURE_NAME"));
+                }
+            } catch (SQLException e) {
+                error("getProcedures error " + e, e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    error("getProcedures error " + e, e);
+                }
+            }
+        }
+        return proceduresForModel;
+    }
+
+    @Override
+    public List<String> getFunctions(EObject model) {
+        trace(">>>getFunctions");
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        List<String> functionsForModel = functions.get(modelDatabaseValues.dir);
+        if (functionsForModel != null)
+            return functionsForModel;
+        functionsForModel = Collections.synchronizedList(new ArrayList<String>());
+        functions.put(modelDatabaseValues.dir, functionsForModel);
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getFunctions(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, null);
+                while (result.next()) {
+                    functionsForModel.add(result.getString("FUNCTION_NAME"));
+                }
+            } catch (SQLException e) {
+                error("getFunctions error " + e, e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    error("getFunctions error " + e, e);
+                }
+            }
+        }
+        return functionsForModel;
+    }
+
+    @Override
     public boolean checkTable(EObject model, String table) {
-        trace(">>>checkReconnect");
+        trace(">>>checkTable");
         if (table == null)
             return false;
         return getTables(model).contains(table);

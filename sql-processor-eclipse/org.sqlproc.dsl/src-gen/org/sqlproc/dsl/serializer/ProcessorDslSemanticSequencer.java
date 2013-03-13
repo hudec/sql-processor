@@ -33,6 +33,7 @@ import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ExtendedColumnName;
 import org.sqlproc.dsl.processorDsl.ExtendedMappingItem;
 import org.sqlproc.dsl.processorDsl.Extends;
+import org.sqlproc.dsl.processorDsl.FunctionDefinition;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.IfMetaSql;
 import org.sqlproc.dsl.processorDsl.IfSql;
@@ -71,6 +72,7 @@ import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoPropertyModifier;
 import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
+import org.sqlproc.dsl.processorDsl.ProcedureDefinition;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.ShowColumnTypeAssignement;
@@ -207,6 +209,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 				if(context == grammarAccess.getAbstractPojoEntityRule() ||
 				   context == grammarAccess.getExtendsRule()) {
 					sequence_Extends(context, (Extends) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.FUNCTION_DEFINITION:
+				if(context == grammarAccess.getFunctionDefinitionRule()) {
+					sequence_FunctionDefinition(context, (FunctionDefinition) semanticObject); 
 					return; 
 				}
 				else break;
@@ -444,6 +452,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.PROCEDURE_DEFINITION:
+				if(context == grammarAccess.getProcedureDefinitionRule()) {
+					sequence_ProcedureDefinition(context, (ProcedureDefinition) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.PROPERTY:
 				if(context == grammarAccess.getPropertyRule()) {
 					sequence_Property(context, (Property) semanticObject); 
@@ -497,6 +511,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *             properties+=Property | 
 	 *             pojos+=PojoDefinition | 
 	 *             tables+=TableDefinition | 
+	 *             procedures+=ProcedureDefinition | 
+	 *             functions+=FunctionDefinition | 
 	 *             statements+=MetaStatement | 
 	 *             mappings+=MappingRule | 
 	 *             features+=OptionalFeature | 
@@ -772,6 +788,25 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getExtendsAccess().getExtendsJvmTypeQualifiedNameParserRuleCall_1_0_1(), semanticObject.getExtends());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=IDENT table=IDENT)
+	 */
+	protected void sequence_FunctionDefinition(EObject context, FunctionDefinition semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.FUNCTION_DEFINITION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.FUNCTION_DEFINITION__NAME));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.FUNCTION_DEFINITION__TABLE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.FUNCTION_DEFINITION__TABLE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getFunctionDefinitionAccess().getNameIDENTTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getFunctionDefinitionAccess().getTableIDENTTerminalRuleCall_2_0(), semanticObject.getTable());
 		feeder.finish();
 	}
 	
@@ -1240,6 +1275,25 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 */
 	protected void sequence_PojogenProperty(EObject context, PojogenProperty semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=IDENT table=IDENT)
+	 */
+	protected void sequence_ProcedureDefinition(EObject context, ProcedureDefinition semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.PROCEDURE_DEFINITION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.PROCEDURE_DEFINITION__NAME));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.PROCEDURE_DEFINITION__TABLE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.PROCEDURE_DEFINITION__TABLE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getProcedureDefinitionAccess().getNameIDENTTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getProcedureDefinitionAccess().getTableIDENTTerminalRuleCall_2_0(), semanticObject.getTable());
+		feeder.finish();
 	}
 	
 	

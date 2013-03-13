@@ -248,6 +248,24 @@ public interface ProcessorDslFactory extends EFactory
   TableDefinition createTableDefinition();
 
   /**
+   * Returns a new object of class '<em>Procedure Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Procedure Definition</em>'.
+   * @generated
+   */
+  ProcedureDefinition createProcedureDefinition();
+
+  /**
+   * Returns a new object of class '<em>Function Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Function Definition</em>'.
+   * @generated
+   */
+  FunctionDefinition createFunctionDefinition();
+
+  /**
    * Returns a new object of class '<em>Meta Statement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

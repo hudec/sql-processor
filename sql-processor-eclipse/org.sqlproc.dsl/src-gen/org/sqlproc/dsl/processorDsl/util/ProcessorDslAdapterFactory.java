@@ -200,6 +200,16 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createTableDefinitionAdapter();
       }
       @Override
+      public Adapter caseProcedureDefinition(ProcedureDefinition object)
+      {
+        return createProcedureDefinitionAdapter();
+      }
+      @Override
+      public Adapter caseFunctionDefinition(FunctionDefinition object)
+      {
+        return createFunctionDefinitionAdapter();
+      }
+      @Override
       public Adapter caseMetaStatement(MetaStatement object)
       {
         return createMetaStatementAdapter();
@@ -797,6 +807,36 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createTableDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.ProcedureDefinition <em>Procedure Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.ProcedureDefinition
+   * @generated
+   */
+  public Adapter createProcedureDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.FunctionDefinition <em>Function Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.FunctionDefinition
+   * @generated
+   */
+  public Adapter createFunctionDefinitionAdapter()
   {
     return null;
   }

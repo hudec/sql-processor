@@ -7,6 +7,7 @@ generate processorDsl "http://www.sqlproc.org/dsl/ProcessorDsl"
 
 Artifacts: {Artifacts}
     WS* (properties+=Property WS*|pojos+=PojoDefinition WS*|tables+=TableDefinition WS*
+    	|procedures+=ProcedureDefinition WS*|functions+=FunctionDefinition WS*
     	|statements+=MetaStatement WS*|mappings+=MappingRule WS*|features+=OptionalFeature WS*
     	|pojoPackages+=PackageDeclaration WS*
     )*;
@@ -121,6 +122,12 @@ PojoDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
 
 TableDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
 	'table' name=IDENT table=IDENT SEMICOLON;
+
+ProcedureDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
+	'procedure' name=IDENT table=IDENT SEMICOLON;
+
+FunctionDefinition hidden(ML_COMMENT, SL_COMMENT, WS):
+	'function' name=IDENT table=IDENT SEMICOLON;
 
 MetaStatement:
 	name=IDENT LPAREN type=STATEMENT_TYPE (COMMA modifiers+=StatementModifier)* RPAREN EQUALS statement=Sql SEMICOLON;

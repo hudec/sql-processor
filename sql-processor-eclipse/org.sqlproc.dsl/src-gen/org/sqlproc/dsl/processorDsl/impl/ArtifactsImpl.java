@@ -17,11 +17,13 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.FunctionDefinition;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.OptionalFeature;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
+import org.sqlproc.dsl.processorDsl.ProcedureDefinition;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
@@ -36,6 +38,8 @@ import org.sqlproc.dsl.processorDsl.TableDefinition;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getPojos <em>Pojos</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getTables <em>Tables</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getProcedures <em>Procedures</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getFunctions <em>Functions</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getStatements <em>Statements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getMappings <em>Mappings</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.ArtifactsImpl#getFeatures <em>Features</em>}</li>
@@ -76,6 +80,26 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
    * @ordered
    */
   protected EList<TableDefinition> tables;
+
+  /**
+   * The cached value of the '{@link #getProcedures() <em>Procedures</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getProcedures()
+   * @generated
+   * @ordered
+   */
+  protected EList<ProcedureDefinition> procedures;
+
+  /**
+   * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFunctions()
+   * @generated
+   * @ordered
+   */
+  protected EList<FunctionDefinition> functions;
 
   /**
    * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
@@ -185,6 +209,34 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ProcedureDefinition> getProcedures()
+  {
+    if (procedures == null)
+    {
+      procedures = new EObjectContainmentEList<ProcedureDefinition>(ProcedureDefinition.class, this, ProcessorDslPackage.ARTIFACTS__PROCEDURES);
+    }
+    return procedures;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<FunctionDefinition> getFunctions()
+  {
+    if (functions == null)
+    {
+      functions = new EObjectContainmentEList<FunctionDefinition>(FunctionDefinition.class, this, ProcessorDslPackage.ARTIFACTS__FUNCTIONS);
+    }
+    return functions;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<MetaStatement> getStatements()
   {
     if (statements == null)
@@ -252,6 +304,10 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         return ((InternalEList<?>)getPojos()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.ARTIFACTS__TABLES:
         return ((InternalEList<?>)getTables()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.ARTIFACTS__PROCEDURES:
+        return ((InternalEList<?>)getProcedures()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.ARTIFACTS__FUNCTIONS:
+        return ((InternalEList<?>)getFunctions()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.ARTIFACTS__STATEMENTS:
         return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.ARTIFACTS__MAPPINGS:
@@ -280,6 +336,10 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         return getPojos();
       case ProcessorDslPackage.ARTIFACTS__TABLES:
         return getTables();
+      case ProcessorDslPackage.ARTIFACTS__PROCEDURES:
+        return getProcedures();
+      case ProcessorDslPackage.ARTIFACTS__FUNCTIONS:
+        return getFunctions();
       case ProcessorDslPackage.ARTIFACTS__STATEMENTS:
         return getStatements();
       case ProcessorDslPackage.ARTIFACTS__MAPPINGS:
@@ -314,6 +374,14 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
       case ProcessorDslPackage.ARTIFACTS__TABLES:
         getTables().clear();
         getTables().addAll((Collection<? extends TableDefinition>)newValue);
+        return;
+      case ProcessorDslPackage.ARTIFACTS__PROCEDURES:
+        getProcedures().clear();
+        getProcedures().addAll((Collection<? extends ProcedureDefinition>)newValue);
+        return;
+      case ProcessorDslPackage.ARTIFACTS__FUNCTIONS:
+        getFunctions().clear();
+        getFunctions().addAll((Collection<? extends FunctionDefinition>)newValue);
         return;
       case ProcessorDslPackage.ARTIFACTS__STATEMENTS:
         getStatements().clear();
@@ -354,6 +422,12 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
       case ProcessorDslPackage.ARTIFACTS__TABLES:
         getTables().clear();
         return;
+      case ProcessorDslPackage.ARTIFACTS__PROCEDURES:
+        getProcedures().clear();
+        return;
+      case ProcessorDslPackage.ARTIFACTS__FUNCTIONS:
+        getFunctions().clear();
+        return;
       case ProcessorDslPackage.ARTIFACTS__STATEMENTS:
         getStatements().clear();
         return;
@@ -386,6 +460,10 @@ public class ArtifactsImpl extends MinimalEObjectImpl.Container implements Artif
         return pojos != null && !pojos.isEmpty();
       case ProcessorDslPackage.ARTIFACTS__TABLES:
         return tables != null && !tables.isEmpty();
+      case ProcessorDslPackage.ARTIFACTS__PROCEDURES:
+        return procedures != null && !procedures.isEmpty();
+      case ProcessorDslPackage.ARTIFACTS__FUNCTIONS:
+        return functions != null && !functions.isEmpty();
       case ProcessorDslPackage.ARTIFACTS__STATEMENTS:
         return statements != null && !statements.isEmpty();
       case ProcessorDslPackage.ARTIFACTS__MAPPINGS:

@@ -89,6 +89,8 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.DAOGEN_PROPERTY: return createDaogenProperty();
       case ProcessorDslPackage.POJO_DEFINITION: return createPojoDefinition();
       case ProcessorDslPackage.TABLE_DEFINITION: return createTableDefinition();
+      case ProcessorDslPackage.PROCEDURE_DEFINITION: return createProcedureDefinition();
+      case ProcessorDslPackage.FUNCTION_DEFINITION: return createFunctionDefinition();
       case ProcessorDslPackage.META_STATEMENT: return createMetaStatement();
       case ProcessorDslPackage.SQL: return createSql();
       case ProcessorDslPackage.SQL_FRAGMENT: return createSqlFragment();
@@ -408,6 +410,28 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     TableDefinitionImpl tableDefinition = new TableDefinitionImpl();
     return tableDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ProcedureDefinition createProcedureDefinition()
+  {
+    ProcedureDefinitionImpl procedureDefinition = new ProcedureDefinitionImpl();
+    return procedureDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FunctionDefinition createFunctionDefinition()
+  {
+    FunctionDefinitionImpl functionDefinition = new FunctionDefinitionImpl();
+    return functionDefinition;
   }
 
   /**

@@ -97,4 +97,8 @@ public interface DbResolver {
     Set<String> getDriverMethods(EObject model);
 
     Object getDriverMethodOutput(EObject model, String methodName);
+
+    List<String> getProcedures(EObject model);
+
+    List<String> getFunctions(EObject model);
 }

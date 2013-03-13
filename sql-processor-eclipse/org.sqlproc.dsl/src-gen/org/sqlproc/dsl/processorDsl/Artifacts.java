@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getPojos <em>Pojos</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getTables <em>Tables</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getProcedures <em>Procedures</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getFunctions <em>Functions</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getStatements <em>Statements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getMappings <em>Mappings</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.Artifacts#getFeatures <em>Features</em>}</li>
@@ -77,6 +79,38 @@ public interface Artifacts extends EObject
    * @generated
    */
   EList<TableDefinition> getTables();
+
+  /**
+   * Returns the value of the '<em><b>Procedures</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.ProcedureDefinition}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Procedures</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Procedures</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getArtifacts_Procedures()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ProcedureDefinition> getProcedures();
+
+  /**
+   * Returns the value of the '<em><b>Functions</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.FunctionDefinition}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Functions</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Functions</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getArtifacts_Functions()
+   * @model containment="true"
+   * @generated
+   */
+  EList<FunctionDefinition> getFunctions();
 
   /**
    * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
