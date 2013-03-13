@@ -496,9 +496,9 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.DB2Dialect</db.dialect>
                 <db.driver>com.ibm.db2.jcc.DB2Driver</db.driver>
-                <db.url>jdbc:db2://db2:50001/test_db:deferPrepares=0;progressiveStreaming=2;</db.url>
-                <db.username>dasusr1</db.username>
-                <db.password>dasusr1</db.password>
+                <db.url>jdbc:db2://db2:50000/sql:deferPrepares=0;progressiveStreaming=2;</db.url>
+                <db.username>db2inst1</db.username>
+                <db.password>db2inst1</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
                 <DDL_CREATE_DB/>
                 <DDL_DROP_DB/>
