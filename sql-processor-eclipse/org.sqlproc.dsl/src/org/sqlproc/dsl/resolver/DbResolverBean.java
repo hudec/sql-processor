@@ -90,7 +90,15 @@ public class DbResolverBean implements DbResolver {
             .synchronizedMap(new HashMap<String, List<String>>());
     private final Map<String, Map<String, List<String>>> columns = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
+    private final Map<String, Map<String, List<String>>> procColumns = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
+    private final Map<String, Map<String, List<String>>> funColumns = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
     private final Map<String, Map<String, List<DbColumn>>> dbColumns = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<DbColumn>>>());
+    private final Map<String, Map<String, List<DbColumn>>> dbProcColumns = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<DbColumn>>>());
+    private final Map<String, Map<String, List<DbColumn>>> dbFunColumns = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<DbColumn>>>());
     private final Map<String, Map<String, List<String>>> dbPrimaryKeys = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
@@ -315,7 +323,11 @@ public class DbResolverBean implements DbResolver {
             schemas.remove(modelDatabaseValues.dir);
             tables.remove(modelDatabaseValues.dir);
             columns.remove(modelDatabaseValues.dir);
+            procColumns.remove(modelDatabaseValues.dir);
+            funColumns.remove(modelDatabaseValues.dir);
             dbColumns.remove(modelDatabaseValues.dir);
+            dbProcColumns.remove(modelDatabaseValues.dir);
+            dbFunColumns.remove(modelDatabaseValues.dir);
             dbPrimaryKeys.remove(modelDatabaseValues.dir);
             dbExports.remove(modelDatabaseValues.dir);
             dbImports.remove(modelDatabaseValues.dir);
@@ -651,6 +663,114 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
+    public List<String> getProcColumns(EObject model, String table) {
+        trace(">>>getProcColumns");
+        if (table == null)
+            return Collections.emptyList();
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        boolean doInit = false;
+        Map<String, List<String>> allColumnsForModel = procColumns.get(modelDatabaseValues.dir);
+        if (allColumnsForModel == null) {
+            allColumnsForModel = Collections.synchronizedMap(new HashMap<String, List<String>>());
+            procColumns.put(modelDatabaseValues.dir, allColumnsForModel);
+            doInit = true;
+        }
+        List<String> columnsForModel = allColumnsForModel.get(table);
+        if (columnsForModel == null) {
+            columnsForModel = Collections.synchronizedList(new ArrayList<String>());
+            allColumnsForModel.put(table, columnsForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return columnsForModel;
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getProcedureColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table,
+                        null);
+                while (result.next()) {
+                    columnsForModel.add(result.getString("COLUMN_NAME"));
+                }
+            } catch (SQLException e) {
+                error("getProcColumns error " + e, e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    error("getProcColumns error " + e, e);
+                }
+            }
+        }
+        return columnsForModel;
+    }
+
+    @Override
+    public boolean checkProcColumn(EObject model, String table, String column) {
+        trace(">>>checkProcColumn");
+        if (table == null || column == null)
+            return false;
+        return getProcColumns(model, table).contains(column);
+    }
+
+    @Override
+    public List<String> getFunColumns(EObject model, String table) {
+        trace(">>>getFunColumns");
+        if (table == null)
+            return Collections.emptyList();
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        boolean doInit = false;
+        Map<String, List<String>> allColumnsForModel = funColumns.get(modelDatabaseValues.dir);
+        if (allColumnsForModel == null) {
+            allColumnsForModel = Collections.synchronizedMap(new HashMap<String, List<String>>());
+            funColumns.put(modelDatabaseValues.dir, allColumnsForModel);
+            doInit = true;
+        }
+        List<String> columnsForModel = allColumnsForModel.get(table);
+        if (columnsForModel == null) {
+            columnsForModel = Collections.synchronizedList(new ArrayList<String>());
+            allColumnsForModel.put(table, columnsForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return columnsForModel;
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getFunctionColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table,
+                        null);
+                while (result.next()) {
+                    columnsForModel.add(result.getString("COLUMN_NAME"));
+                }
+            } catch (SQLException e) {
+                error("getFunColumns error " + e, e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    error("getFunColumns error " + e, e);
+                }
+            }
+        }
+        return columnsForModel;
+    }
+
+    @Override
+    public boolean checkFunColumn(EObject model, String table, String column) {
+        trace(">>>checkFunColumn");
+        if (table == null || column == null)
+            return false;
+        return getFunColumns(model, table).contains(column);
+    }
+
+    @Override
     public List<DbColumn> getDbColumns(EObject model, String table) {
         trace(">>>getDbColumns");
         if (table == null)
@@ -711,6 +831,146 @@ public class DbResolverBean implements DbResolver {
                         result.close();
                 } catch (SQLException e) {
                     error("getDbColumns error " + e, e);
+                }
+            }
+        }
+        // Collections.sort(columnsForModel);
+        return columnsForModel;
+    }
+
+    @Override
+    public List<DbColumn> getDbProcColumns(EObject model, String table) {
+        trace(">>>getDbProcColumns");
+        if (table == null)
+            return Collections.emptyList();
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        boolean doInit = false;
+        Map<String, List<DbColumn>> allColumnsForModel = dbProcColumns.get(modelDatabaseValues.dir);
+        if (allColumnsForModel == null) {
+            allColumnsForModel = Collections.synchronizedMap(new HashMap<String, List<DbColumn>>());
+            dbProcColumns.put(modelDatabaseValues.dir, allColumnsForModel);
+            doInit = true;
+        }
+        List<DbColumn> columnsForModel = allColumnsForModel.get(table);
+        if (columnsForModel == null) {
+            columnsForModel = Collections.synchronizedList(new ArrayList<DbColumn>());
+            allColumnsForModel.put(table, columnsForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return columnsForModel;
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getProcedureColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table,
+                        null);
+                while (result.next()) {
+                    DbColumn dbColumn = new DbColumn();
+                    dbColumn.setName(result.getString("COLUMN_NAME"));
+                    dbColumn.setType(result.getString("TYPE_NAME"));
+                    dbColumn.setColumnType(result.getShort("COLUMN_TYPE"));
+                    int ix = dbColumn.getType().indexOf('(');
+                    if (ix > 0) {
+                        String size = dbColumn.getType().substring(ix + 1);
+                        dbColumn.setType(dbColumn.getType().substring(0, ix));
+                        ix = size.indexOf(')');
+                        if (ix > 0) {
+                            size = size.substring(0, ix);
+                        }
+                        try {
+                            dbColumn.setSize(Integer.parseInt(size));
+                        } catch (Exception ignore) {
+                        }
+                    } else {
+                        dbColumn.setSize(result.getInt("COLUMN_SIZE"));
+                    }
+                    dbColumn.setSqlType(result.getInt("DATA_TYPE"));
+                    dbColumn.setNullable(result.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls);
+                    dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
+                    columnsForModel.add(dbColumn);
+                    // info(table + ": " + dbColumn.toString());
+                }
+            } catch (SQLException e) {
+                error("getDbProcColumns error " + e, e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    error("getDbProcColumns error " + e, e);
+                }
+            }
+        }
+        // Collections.sort(columnsForModel);
+        return columnsForModel;
+    }
+
+    @Override
+    public List<DbColumn> getDbFunColumns(EObject model, String table) {
+        trace(">>>getDbFunColumns");
+        if (table == null)
+            return Collections.emptyList();
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        boolean doInit = false;
+        Map<String, List<DbColumn>> allColumnsForModel = dbFunColumns.get(modelDatabaseValues.dir);
+        if (allColumnsForModel == null) {
+            allColumnsForModel = Collections.synchronizedMap(new HashMap<String, List<DbColumn>>());
+            dbFunColumns.put(modelDatabaseValues.dir, allColumnsForModel);
+            doInit = true;
+        }
+        List<DbColumn> columnsForModel = allColumnsForModel.get(table);
+        if (columnsForModel == null) {
+            columnsForModel = Collections.synchronizedList(new ArrayList<DbColumn>());
+            allColumnsForModel.put(table, columnsForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return columnsForModel;
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getFunctionColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table,
+                        null);
+                while (result.next()) {
+                    DbColumn dbColumn = new DbColumn();
+                    dbColumn.setName(result.getString("COLUMN_NAME"));
+                    dbColumn.setType(result.getString("TYPE_NAME"));
+                    dbColumn.setColumnType(result.getShort("COLUMN_TYPE"));
+                    int ix = dbColumn.getType().indexOf('(');
+                    if (ix > 0) {
+                        String size = dbColumn.getType().substring(ix + 1);
+                        dbColumn.setType(dbColumn.getType().substring(0, ix));
+                        ix = size.indexOf(')');
+                        if (ix > 0) {
+                            size = size.substring(0, ix);
+                        }
+                        try {
+                            dbColumn.setSize(Integer.parseInt(size));
+                        } catch (Exception ignore) {
+                        }
+                    } else {
+                        dbColumn.setSize(result.getInt("COLUMN_SIZE"));
+                    }
+                    dbColumn.setSqlType(result.getInt("DATA_TYPE"));
+                    dbColumn.setNullable(result.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls);
+                    dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
+                    columnsForModel.add(dbColumn);
+                    // info(table + ": " + dbColumn.toString());
+                }
+            } catch (SQLException e) {
+                error("getDbFunColumns error " + e, e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    error("getDbFunColumns error " + e, e);
                 }
             }
         }

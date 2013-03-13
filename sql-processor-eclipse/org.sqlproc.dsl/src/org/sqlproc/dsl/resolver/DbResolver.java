@@ -101,4 +101,16 @@ public interface DbResolver {
     List<String> getProcedures(EObject model);
 
     List<String> getFunctions(EObject model);
+
+    List<String> getProcColumns(EObject model, String table);
+
+    boolean checkProcColumn(EObject model, String table, String column);
+
+    List<String> getFunColumns(EObject model, String table);
+
+    boolean checkFunColumn(EObject model, String table, String column);
+
+    List<DbColumn> getDbProcColumns(EObject model, String table);
+
+    List<DbColumn> getDbFunColumns(EObject model, String table);
 }

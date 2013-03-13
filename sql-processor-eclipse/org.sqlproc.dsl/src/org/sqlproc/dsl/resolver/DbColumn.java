@@ -8,6 +8,7 @@ public class DbColumn implements Comparable<DbColumn> {
     private int sqlType;
     private boolean nullable;
     private int position;
+    private short columnType;
 
     public DbColumn() {
     }
@@ -65,9 +66,17 @@ public class DbColumn implements Comparable<DbColumn> {
         return position - dbColumn.getPosition();
     }
 
+    public short getColumnType() {
+        return columnType;
+    }
+
+    public void setColumnType(short columnType) {
+        this.columnType = columnType;
+    }
+
     @Override
     public String toString() {
         return "DbColumn [name=" + name + ", type=" + type + ", size=" + size + ", sqlType=" + sqlType + ", nullable="
-                + nullable + ", position=" + position + "]";
+                + nullable + ", position=" + position + ", columnType=" + columnType + "]";
     }
 }
