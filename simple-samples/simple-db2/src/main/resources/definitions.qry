@@ -1,0 +1,40 @@
+resolve-pojo-on;
+database-is-online;
+database-jdbc-driver com.ibm.db2.jcc.DB2Driver;
+database-has-url jdbc:db2:\//db2:50000/simple:deferPrepares=0\;progressiveStreaming=2\;;
+database-login-username simple;
+database-login-password simple;
+//database-in-catalog simple;
+//database-active-schema simple;
+//database-ddl-create db2.ddl; // should be located in the same directory as definitions.qry
+//database-show-database-info DB2/LINUXX8664,SQL10012,10,1;
+//database-show-driver-info IBM DB2 JDBC Universal Driver Architecture,3.63.75,3,63;
+database-is-of-type DB2;
+database-show-driver-output getNumericFunctions->ABS,ACOS,ASIN,ATAN,ATAN2,CEILING,COS,COT,DEGREES,EXP,FLOOR,LOG,LOG10,MOD,POWER,RADIANS,RAND,ROUND,SIGN,SIN,SQRT,TAN,TRUNCATE;
+database-show-driver-output getStringFunctions->ASCII,CHAR,CONCAT,DIFFERENCE,INSERT,LCASE,LEFT,LENGTH,LOCATE,LTRIM,REPEAT,REPLACE,RIGHT,RTRIM,SOUNDEX,SPACE,SUBSTRING,UCASE;
+//database-show-driver-output getSystemFunctions->
+database-show-driver-output getTimeDateFunctions->DAYNAME,DAYOFWEEK,DAYOFYEAR,HOUR,MINUTE,MONTH,MONTHNAME,QUARTER,SECOND,TIMESTAMPDIFF,WEEK,YEAR,CURDATE,CURTIME,NOW;
+
+// native types
+pojogen-generate-wrappers;
+// POJO helpers' methods
+pojogen-generate-methods toString equals hashCode isDef toInit;
+// POJO are serializable
+pojogen-implements-interfaces java.io.Serializable;
+// can't overwrite existing POJO 
+pojogen-make-it-final;
+// ignore SYS tables
+pojogen-ignore-tables sysdomains sysindexes;
+
+// use indetity for primary keys
+metagen-global-sequence SIMPLE_SEQUENCE;
+// can't overwrite existing META SQL 
+metagen-make-it-final;
+
+// can't overwrite existing DAO 
+daogen-make-it-final; 
+// ignore SYS tables
+daogen-ignore-tables sysdomains sysindexes;
+
+table contact CONTACT;
+table person PERSON;
