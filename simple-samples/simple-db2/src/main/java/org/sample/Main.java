@@ -45,8 +45,8 @@ public class Main {
         this.sqlFactory = factory;
 
         ddls = DDLLoader.getDDLs(this.getClass(), "db2.ddl");
-        connection = DriverManager.getConnection("jdbc:db2://db2:50000/simple:deferPrepares=0;progressiveStreaming=2;",
-                "db2inst1", "db2inst1");
+        connection = DriverManager.getConnection("jdbc:db2://db2:50001/simple:deferPrepares=0;progressiveStreaming=2;",
+                "simple", "simple");
         sessionFactory = new JdbcSessionFactory(connection);
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);

@@ -365,35 +365,6 @@
             </dependencies>
         </profile>
         <profile>
-            <id>informix</id>
-            <properties>
-                <db.dialect>org.hibernate.dialect.InformixDialect</db.dialect>
-                <db.driver>com.informix.jdbc.IfxDriver</db.driver>
-                <db.url>jdbc:informix-sqli://127.0.0.1:1551/sql:informixserver=local</db.url>
-                <db.username>sql</db.username>
-                <db.password>sql</db.password>
-                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB/>
-                <DDL_DROP_DB/>
-                <DB_TYPE>INFORMIX</DB_TYPE>
-                <DATATYPE_FACTORY>org.sqlproc.engine.type.InformixDbUnitDataTypeFactory</DATATYPE_FACTORY>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>com.ibm.informix</groupId>
-                    <artifactId>ifxjdbc</artifactId>
-                    <version>${version.informix}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.ibm.informix</groupId>
-                    <artifactId>ifxjdbcx</artifactId>
-                    <version>${version.informix}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
             <id>informix-bamboo</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.InformixDialect</db.dialect>
@@ -423,29 +394,6 @@
             </dependencies>
         </profile>
         <profile>
-            <id>mssql</id>
-            <properties>
-                <db.dialect>org.hibernate.dialect.SQLServer2008Dialect</db.dialect>
-                <db.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</db.driver>
-                <db.url>jdbc:sqlserver://localhost:1433;DatabaseName=sql</db.url>
-                <db.username>sql</db.username>
-                <db.password>sql</db.password>
-                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB/>
-                <DDL_DROP_DB/>
-                <DB_TYPE>MSSQL</DB_TYPE>
-                <DATATYPE_FACTORY>org.dbunit.ext.mssql.MsSqlDataTypeFactory</DATATYPE_FACTORY>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>com.microsoft.sqlserver</groupId>
-                    <artifactId>sqljdbc4</artifactId>
-                    <version>${version.mssql}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
             <id>mssql-bamboo</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.SQLServer2008Dialect</db.dialect>
@@ -464,29 +412,6 @@
                     <groupId>com.microsoft.sqlserver</groupId>
                     <artifactId>sqljdbc4</artifactId>
                     <version>${version.mssql}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>db2</id>
-            <properties>
-                <db.dialect>org.hibernate.dialect.DB2Dialect</db.dialect>
-                <db.driver>com.ibm.db2.jcc.DB2Driver</db.driver>
-                <db.url>jdbc:db2://127.0.0.1:48065/test_db:deferPrepares=0;progressiveStreaming=2;</db.url>
-                <db.username>db2test</db.username>
-                <db.password>db21234</db.password>
-                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB/>
-                <DDL_DROP_DB/>
-                <DB_TYPE>DB2</DB_TYPE>
-                <DATATYPE_FACTORY>org.dbunit.ext.db2.Db2DataTypeFactory</DATATYPE_FACTORY>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>com.ibm.db2</groupId>
-                    <artifactId>db2-jdbc</artifactId>
-                    <version>${version.db2}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
