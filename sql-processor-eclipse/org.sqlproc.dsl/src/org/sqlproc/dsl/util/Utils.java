@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
@@ -363,6 +364,19 @@ public class Utils {
             }
         }
         return null;
+    }
+
+    public static List<String> findTables(IQualifiedNameConverter qualifiedNameConverter, Artifacts artifacts,
+            IScope scope) {
+        List<String> names = new ArrayList<String>();
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            EObject obj = artifacts.eResource().getResourceSet().getEObject(description.getEObjectURI(), true);
+            if (obj instanceof TableDefinition)
+                names.add(((TableDefinition) obj).getTable());
+        }
+        return names;
     }
 
     public static String constName(PojoProperty f) {

@@ -688,7 +688,9 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // packagex.getElements().remove(pojo);
                 // }
 
-                List<String> tables = dbResolver.getTables(artifacts);
+                // List<String> tables = dbResolver.getTables(artifacts);
+                List<String> tables = Utils.findTables(null, artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
                 List<String> dbSequences = dbResolver.getSequences(artifacts);
                 DbType dbType = getDbType(artifacts);
                 if (tables != null) {
@@ -746,7 +748,9 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // artifacts.getElements().remove(meta);
                 // }
 
-                List<String> tables = dbResolver.getTables(artifacts);
+                // List<String> tables = dbResolver.getTables(artifacts);
+                List<String> tables = Utils.findTables(null, artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
                 List<String> dbSequences = dbResolver.getSequences(artifacts);
                 DbType dbType = getDbType(artifacts);
                 if (tables != null) {
@@ -813,7 +817,9 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // packagex.getElements().remove(dao);
                 // }
 
-                List<String> tables = dbResolver.getTables(artifacts);
+                // List<String> tables = dbResolver.getTables(artifacts);
+                List<String> tables = Utils.findTables(null, artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
                 List<String> dbSequences = dbResolver.getSequences(artifacts);
                 DbType dbType = getDbType(artifacts);
                 if (tables != null) {

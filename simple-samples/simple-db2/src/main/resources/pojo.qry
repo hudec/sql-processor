@@ -3,7 +3,7 @@ package org.sample.model {
 
   final pojo Contact serializable 1  {
     id : java.lang.Long primaryKey index 1
-    person :: Person required index 2
+    person :: Person required
     address : java.lang.String required
     phoneNumber : java.lang.String
     equals ::: id
