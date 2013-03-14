@@ -1,12 +1,12 @@
 resolve-pojo-on;
 database-is-online;
 database-jdbc-driver com.ibm.db2.jcc.DB2Driver;
-database-has-url jdbc:db2:\//db2:50000/simple:deferPrepares=0\;progressiveStreaming=2\;;
+database-has-url jdbc:db2:\//db2:50001/simple:deferPrepares=0\;progressiveStreaming=2\;;
 database-login-username simple;
 database-login-password simple;
 //database-in-catalog SIMPLE;
-database-active-schema DB2INST1;
-//database-ddl-create db2.ddl; // should be located in the same directory as definitions.qry
+database-active-schema SIMPLE;
+database-ddl-create db2.ddl; // should be located in the same directory as definitions.qry
 //database-show-database-info DB2/LINUXX8664,SQL10012,10,1;
 //database-show-driver-info IBM Data Server Driver for JDBC and SQLJ,4.13.127,4,13;
 //database-is-of-type DB2;

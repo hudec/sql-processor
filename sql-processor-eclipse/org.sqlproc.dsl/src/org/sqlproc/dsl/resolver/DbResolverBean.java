@@ -278,7 +278,11 @@ public class DbResolverBean implements DbResolver {
                                 modelDatabaseValues.ddlsBefore1.add(ddl);
                         }
 
-                        runDDLs(modelDatabaseValues.connection, modelDatabaseValues.ddlsBefore0, "BEFORE");
+                        try {
+                            runDDLs(modelDatabaseValues.connection, modelDatabaseValues.ddlsBefore0, "BEFORE");
+                        } catch (SQLException e) {
+                            error("getConnection error " + e, e);
+                        }
                         runDDLs(modelDatabaseValues.connection, modelDatabaseValues.ddlsBefore1, "BEFORE");
                     }
                     if (modelDatabaseValues.dbSqlsAfter != null && modelDatabaseValues.dbSqlsAfter.trim().length() > 0) {
