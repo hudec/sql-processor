@@ -17,6 +17,7 @@ import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ExtendedMappingItem;
+import org.sqlproc.dsl.processorDsl.FunctionDefinition;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.MappingItem;
 import org.sqlproc.dsl.processorDsl.MappingRule;
@@ -27,6 +28,7 @@ import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
+import org.sqlproc.dsl.processorDsl.ProcedureDefinition;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.resolver.PojoResolver;
 import org.sqlproc.dsl.resolver.PojoResolverFactory;
@@ -123,6 +125,14 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 TableDefinition table = (TableDefinition) current;
                 provideHighlightingForTable(null, table.getName(), node, acceptor);
+            } else if (current instanceof ProcedureDefinition) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                ProcedureDefinition procedure = (ProcedureDefinition) current;
+                provideHighlightingForTable(null, procedure.getName(), node, acceptor);
+            } else if (current instanceof FunctionDefinition) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                FunctionDefinition function = (FunctionDefinition) current;
+                provideHighlightingForTable(null, function.getName(), node, acceptor);
             } else if (current instanceof PackageDeclaration) {
                 ICompositeNode node = NodeModelUtils.getNode(current);
                 PackageDeclaration pkg = (PackageDeclaration) current;
