@@ -31,6 +31,7 @@ import org.sqlproc.dsl.resolver.DbImport;
 import org.sqlproc.dsl.resolver.DbIndex;
 import org.sqlproc.dsl.resolver.DbResolver;
 import org.sqlproc.dsl.resolver.DbResolver.DbType;
+import org.sqlproc.dsl.resolver.DbTable;
 import org.sqlproc.dsl.resolver.PojoResolver;
 import org.sqlproc.dsl.util.Utils;
 
@@ -689,28 +690,12 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // }
 
                 // List<String> tables = dbResolver.getTables(artifacts);
-                List<String> tables = Utils.findTables(null, artifacts,
-                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
                 List<String> dbSequences = dbResolver.getSequences(artifacts);
                 DbType dbType = getDbType(artifacts);
-                if (tables != null) {
-                    TablePojoConverter converter = new TablePojoConverter(modelProperty, artifacts, suffix,
-                            finalEntities, dbSequences, dbType);
-                    for (String table : tables) {
-                        if (table.toUpperCase().startsWith("BIN$"))
-                            continue;
-                        List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
-                        List<String> dbPrimaryKeys = dbResolver.getDbPrimaryKeys(artifacts, table);
-                        List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);
-                        List<DbImport> dbImports = dbResolver.getDbImports(artifacts, table);
-                        List<DbIndex> dbIndexes = dbResolver.getDbIndexes(artifacts, table);
-                        converter.addTableDefinition(table, dbColumns, dbPrimaryKeys, dbExports, dbImports, dbIndexes);
-                    }
-                    // converter.resolveReferencesOnConvention();
-                    converter.resolveReferencesOnKeys();
-                    converter.joinTables();
+                TablePojoConverter converter = new TablePojoConverter(modelProperty, artifacts, suffix, finalEntities,
+                        dbSequences, dbType);
+                if (addDefinitions(converter, artifacts))
                     return converter.getPojoDefinitions();
-                }
             }
             return super.resolve(context);
         }
@@ -749,28 +734,12 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // }
 
                 // List<String> tables = dbResolver.getTables(artifacts);
-                List<String> tables = Utils.findTables(null, artifacts,
-                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
                 List<String> dbSequences = dbResolver.getSequences(artifacts);
                 DbType dbType = getDbType(artifacts);
-                if (tables != null) {
-                    TableMetaConverter converter = new TableMetaConverter(modelProperty, artifacts, scopeProvider,
-                            finalMetas, dbSequences, dbType);
-                    for (String table : tables) {
-                        if (table.toUpperCase().startsWith("BIN$"))
-                            continue;
-                        List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
-                        List<String> dbPrimaryKeys = dbResolver.getDbPrimaryKeys(artifacts, table);
-                        List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);
-                        List<DbImport> dbImports = dbResolver.getDbImports(artifacts, table);
-                        List<DbIndex> dbIndexes = dbResolver.getDbIndexes(artifacts, table);
-                        converter.addTableDefinition(table, dbColumns, dbPrimaryKeys, dbExports, dbImports, dbIndexes);
-                    }
-                    // converter.resolveReferencesOnConvention();
-                    converter.resolveReferencesOnKeys();
-                    converter.joinTables();
+                TableMetaConverter converter = new TableMetaConverter(modelProperty, artifacts, scopeProvider,
+                        finalMetas, dbSequences, dbType);
+                if (addDefinitions(converter, artifacts))
                     return converter.getMetaDefinitions();
-                }
             }
             return super.resolve(context);
         }
@@ -818,28 +787,12 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 // }
 
                 // List<String> tables = dbResolver.getTables(artifacts);
-                List<String> tables = Utils.findTables(null, artifacts,
-                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
                 List<String> dbSequences = dbResolver.getSequences(artifacts);
                 DbType dbType = getDbType(artifacts);
-                if (tables != null) {
-                    TableDaoConverter converter = new TableDaoConverter(modelProperty, artifacts, suffix,
-                            scopeProvider, finalDaos, dbSequences, dbType);
-                    for (String table : tables) {
-                        if (table.toUpperCase().startsWith("BIN$"))
-                            continue;
-                        List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
-                        List<String> dbPrimaryKeys = dbResolver.getDbPrimaryKeys(artifacts, table);
-                        List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);
-                        List<DbImport> dbImports = dbResolver.getDbImports(artifacts, table);
-                        List<DbIndex> dbIndexes = dbResolver.getDbIndexes(artifacts, table);
-                        converter.addTableDefinition(table, dbColumns, dbPrimaryKeys, dbExports, dbImports, dbIndexes);
-                    }
-                    // converter.resolveReferencesOnConvention();
-                    converter.resolveReferencesOnKeys();
-                    converter.joinTables();
+                TableDaoConverter converter = new TableDaoConverter(modelProperty, artifacts, suffix, scopeProvider,
+                        finalDaos, dbSequences, dbType);
+                if (addDefinitions(converter, artifacts))
                     return converter.getDaoDefinitions();
-                }
             }
             return super.resolve(context);
         }
@@ -848,5 +801,40 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         protected boolean isUnambiguous(TemplateContext context) {
             return true;
         }
+    }
+
+    protected boolean addDefinitions(TablePojoConverter converter, Artifacts artifacts) {
+        List<String> tables = Utils.findTables(null, artifacts,
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
+        List<String> functions = Utils.findFunctions(null, artifacts,
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__FUNCTIONS));
+        if (tables == null && functions == null)
+            return false;
+        if (tables != null) {
+            for (String table : tables) {
+                if (table.toUpperCase().startsWith("BIN$"))
+                    continue;
+                List<DbColumn> dbColumns = dbResolver.getDbColumns(artifacts, table);
+                List<String> dbPrimaryKeys = dbResolver.getDbPrimaryKeys(artifacts, table);
+                List<DbExport> dbExports = dbResolver.getDbExports(artifacts, table);
+                List<DbImport> dbImports = dbResolver.getDbImports(artifacts, table);
+                List<DbIndex> dbIndexes = dbResolver.getDbIndexes(artifacts, table);
+                converter.addTableDefinition(table, dbColumns, dbPrimaryKeys, dbExports, dbImports, dbIndexes);
+            }
+            // converter.resolveReferencesOnConvention();
+            converter.resolveReferencesOnKeys();
+            converter.joinTables();
+        }
+        if (functions != null) {
+            for (String function : functions) {
+                if (function.toUpperCase().startsWith("BIN$"))
+                    continue;
+                List<DbTable> dbFunctions = dbResolver.getDbFunctions(artifacts, function);
+                System.out.println("yyyyyyyyyyyyyyyyyyyyyyyy " + dbFunctions);
+                List<DbColumn> dbFunColumns = dbResolver.getDbFunColumns(artifacts, function);
+                converter.addFunctionDefinition(function, dbFunctions.get(0), dbFunColumns);
+            }
+        }
+        return true;
     }
 }

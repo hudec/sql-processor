@@ -30,6 +30,7 @@ import org.sqlproc.dsl.resolver.DbImport;
 import org.sqlproc.dsl.resolver.DbIndex;
 import org.sqlproc.dsl.resolver.DbIndex.DbIndexDetail;
 import org.sqlproc.dsl.resolver.DbResolver.DbType;
+import org.sqlproc.dsl.resolver.DbTable;
 
 public class TablePojoConverter {
 
@@ -90,6 +91,7 @@ public class TablePojoConverter {
     protected Map<String, String> versionColumns = new HashMap<String, String>();
 
     protected Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
+    protected Map<String, Map<String, PojoAttribute>> functions = new TreeMap<String, Map<String, PojoAttribute>>();
     protected Map<String, String> pojoExtends = new HashMap<String, String>();
     protected Map<String, Set<String>> pojoInheritanceDiscriminator = new HashMap<String, Set<String>>();
     protected Map<String, Set<String>> pojoInheritanceSimple = new HashMap<String, Set<String>>();
@@ -536,6 +538,24 @@ public class TablePojoConverter {
         }
     }
 
+    public void addFunctionDefinition(String function, DbTable dbFunction, List<DbColumn> dbFunColumns) {
+        if (function == null || dbFunColumns == null)
+            return;
+        Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
+        for (DbColumn dbColumn : dbFunColumns) {
+            PojoAttribute attribute = convertDbColumnDefinition(function, dbColumn);
+            if (attribute != null) {
+                attributes.put(dbColumn.getName(), attribute);
+            } else {
+                attribute = convertDbColumnDefault(function, dbColumn);
+                if (attribute != null)
+                    attributes.put(dbColumn.getName(), attribute);
+            }
+        }
+        System.out.println("xxxx " + dbFunction + " " + dbFunColumns);
+        functions.put(function, attributes);
+    }
+
     protected String collectionName(String fkTable, String fkColumn) {
         String referName = (fkColumn == null) ? lowerFirstChar(tableToCamelCase(fkTable)) : tableToCamelCase(fkTable);
         if (!referName.endsWith("s")) {
@@ -600,6 +620,7 @@ public class TablePojoConverter {
                 System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
                 System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
                 System.out.println("indexes " + this.indexes);
+                System.out.println("functions " + this.functions);
             }
 
             StringBuilder buffer = new StringBuilder();

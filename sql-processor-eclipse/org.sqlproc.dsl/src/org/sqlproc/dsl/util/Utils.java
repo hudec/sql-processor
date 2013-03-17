@@ -17,6 +17,7 @@ import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.ExtendedColumn;
 import org.sqlproc.dsl.processorDsl.ExtendedMappingItem;
+import org.sqlproc.dsl.processorDsl.FunctionDefinition;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
@@ -31,6 +32,7 @@ import org.sqlproc.dsl.processorDsl.PojoMethod;
 import org.sqlproc.dsl.processorDsl.PojoMethodArg;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoPropertyModifier;
+import org.sqlproc.dsl.processorDsl.ProcedureDefinition;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 
 public class Utils {
@@ -375,6 +377,32 @@ public class Utils {
             EObject obj = artifacts.eResource().getResourceSet().getEObject(description.getEObjectURI(), true);
             if (obj instanceof TableDefinition)
                 names.add(((TableDefinition) obj).getTable());
+        }
+        return names;
+    }
+
+    public static List<String> findFunctions(IQualifiedNameConverter qualifiedNameConverter, Artifacts artifacts,
+            IScope scope) {
+        List<String> names = new ArrayList<String>();
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            EObject obj = artifacts.eResource().getResourceSet().getEObject(description.getEObjectURI(), true);
+            if (obj instanceof FunctionDefinition)
+                names.add(((FunctionDefinition) obj).getTable());
+        }
+        return names;
+    }
+
+    public static List<String> findProcedures(IQualifiedNameConverter qualifiedNameConverter, Artifacts artifacts,
+            IScope scope) {
+        List<String> names = new ArrayList<String>();
+        Iterable<IEObjectDescription> iterable = scope.getAllElements();
+        for (Iterator<IEObjectDescription> iter = iterable.iterator(); iter.hasNext();) {
+            IEObjectDescription description = iter.next();
+            EObject obj = artifacts.eResource().getResourceSet().getEObject(description.getEObjectURI(), true);
+            if (obj instanceof ProcedureDefinition)
+                names.add(((ProcedureDefinition) obj).getTable());
         }
         return names;
     }

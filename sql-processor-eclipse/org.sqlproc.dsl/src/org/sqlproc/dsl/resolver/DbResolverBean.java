@@ -94,10 +94,16 @@ public class DbResolverBean implements DbResolver {
             .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
     private final Map<String, Map<String, List<String>>> funColumns = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<String>>>());
+    private final Map<String, Map<String, List<DbTable>>> dbTables = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<DbTable>>>());
     private final Map<String, Map<String, List<DbColumn>>> dbColumns = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<DbColumn>>>());
+    private final Map<String, Map<String, List<DbTable>>> dbProcedures = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<DbTable>>>());
     private final Map<String, Map<String, List<DbColumn>>> dbProcColumns = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<DbColumn>>>());
+    private final Map<String, Map<String, List<DbTable>>> dbFunctions = Collections
+            .synchronizedMap(new HashMap<String, Map<String, List<DbTable>>>());
     private final Map<String, Map<String, List<DbColumn>>> dbFunColumns = Collections
             .synchronizedMap(new HashMap<String, Map<String, List<DbColumn>>>());
     private final Map<String, Map<String, List<String>>> dbPrimaryKeys = Collections
@@ -329,8 +335,11 @@ public class DbResolverBean implements DbResolver {
             columns.remove(modelDatabaseValues.dir);
             procColumns.remove(modelDatabaseValues.dir);
             funColumns.remove(modelDatabaseValues.dir);
+            dbTables.remove(modelDatabaseValues.dir);
             dbColumns.remove(modelDatabaseValues.dir);
+            dbProcedures.remove(modelDatabaseValues.dir);
             dbProcColumns.remove(modelDatabaseValues.dir);
+            dbFunctions.remove(modelDatabaseValues.dir);
             dbFunColumns.remove(modelDatabaseValues.dir);
             dbPrimaryKeys.remove(modelDatabaseValues.dir);
             dbExports.remove(modelDatabaseValues.dir);
@@ -775,6 +784,56 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
+    public List<DbTable> getDbTables(EObject model, String table) {
+        trace(">>>getDbTables");
+        if (table == null)
+            return Collections.emptyList();
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        boolean doInit = false;
+        Map<String, List<DbTable>> allTablesForModel = dbTables.get(modelDatabaseValues.dir);
+        if (allTablesForModel == null) {
+            allTablesForModel = Collections.synchronizedMap(new HashMap<String, List<DbTable>>());
+            dbTables.put(modelDatabaseValues.dir, allTablesForModel);
+            doInit = true;
+        }
+        List<DbTable> tablesForModel = allTablesForModel.get(table);
+        if (tablesForModel == null) {
+            tablesForModel = Collections.synchronizedList(new ArrayList<DbTable>());
+            allTablesForModel.put(table, tablesForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return tablesForModel;
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table, null);
+                while (result.next()) {
+                    DbTable dbTable = new DbTable();
+                    dbTable.setName(result.getString("TABLE_NAME"));
+                    dbTable.setType(result.getString("TABLE_TYPE"));
+                    dbTable.setRemarks(result.getString("REMARKS"));
+                    tablesForModel.add(dbTable);
+                    // info(table + ": " + dbTable.toString());
+                }
+            } catch (SQLException e) {
+                error("getDbTables error " + e, e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    error("getDbTables error " + e, e);
+                }
+            }
+        }
+        return tablesForModel;
+    }
+
+    @Override
     public List<DbColumn> getDbColumns(EObject model, String table) {
         trace(">>>getDbColumns");
         if (table == null)
@@ -843,9 +902,59 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
-    public List<DbColumn> getDbProcColumns(EObject model, String table) {
-        trace(">>>getDbProcColumns");
+    public List<DbTable> getDbProcedures(EObject model, String table) {
+        trace(">>>getDbProcedures");
         if (table == null)
+            return Collections.emptyList();
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        boolean doInit = false;
+        Map<String, List<DbTable>> allTablesForModel = dbProcedures.get(modelDatabaseValues.dir);
+        if (allTablesForModel == null) {
+            allTablesForModel = Collections.synchronizedMap(new HashMap<String, List<DbTable>>());
+            dbProcedures.put(modelDatabaseValues.dir, allTablesForModel);
+            doInit = true;
+        }
+        List<DbTable> tablesForModel = allTablesForModel.get(table);
+        if (tablesForModel == null) {
+            tablesForModel = Collections.synchronizedList(new ArrayList<DbTable>());
+            allTablesForModel.put(table, tablesForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return tablesForModel;
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getProcedures(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table);
+                while (result.next()) {
+                    DbTable dbTable = new DbTable();
+                    dbTable.setName(result.getString("PROCEDURE_NAME"));
+                    dbTable.setPtype(result.getShort("PROCEDURE_TYPE"));
+                    dbTable.setRemarks(result.getString("REMARKS"));
+                    tablesForModel.add(dbTable);
+                    // info(table + ": " + dbTable.toString());
+                }
+            } catch (SQLException e) {
+                error("getDbProcedures error " + e, e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    error("getDbProcedures error " + e, e);
+                }
+            }
+        }
+        return tablesForModel;
+    }
+
+    @Override
+    public List<DbColumn> getDbProcColumns(EObject model, String procedure) {
+        trace(">>>getDbProcColumns");
+        if (procedure == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
@@ -857,10 +966,10 @@ public class DbResolverBean implements DbResolver {
             dbProcColumns.put(modelDatabaseValues.dir, allColumnsForModel);
             doInit = true;
         }
-        List<DbColumn> columnsForModel = allColumnsForModel.get(table);
+        List<DbColumn> columnsForModel = allColumnsForModel.get(procedure);
         if (columnsForModel == null) {
             columnsForModel = Collections.synchronizedList(new ArrayList<DbColumn>());
-            allColumnsForModel.put(table, columnsForModel);
+            allColumnsForModel.put(procedure, columnsForModel);
             doInit = true;
         }
         if (!doInit)
@@ -869,8 +978,8 @@ public class DbResolverBean implements DbResolver {
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
-                result = meta.getProcedureColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table,
-                        null);
+                result = meta.getProcedureColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema,
+                        procedure, null);
                 while (result.next()) {
                     DbColumn dbColumn = new DbColumn();
                     dbColumn.setName(result.getString("COLUMN_NAME"));
@@ -895,7 +1004,7 @@ public class DbResolverBean implements DbResolver {
                     dbColumn.setNullable(result.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls);
                     dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
                     columnsForModel.add(dbColumn);
-                    // info(table + ": " + dbColumn.toString());
+                    info(procedure + ": " + dbColumn.toString());
                 }
             } catch (SQLException e) {
                 error("getDbProcColumns error " + e, e);
@@ -913,9 +1022,59 @@ public class DbResolverBean implements DbResolver {
     }
 
     @Override
-    public List<DbColumn> getDbFunColumns(EObject model, String table) {
-        trace(">>>getDbFunColumns");
+    public List<DbTable> getDbFunctions(EObject model, String table) {
+        trace(">>>getDbFunctions " + table);
         if (table == null)
+            return Collections.emptyList();
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null)
+            return Collections.emptyList();
+        boolean doInit = false;
+        Map<String, List<DbTable>> allTablesForModel = dbFunctions.get(modelDatabaseValues.dir);
+        if (allTablesForModel == null) {
+            allTablesForModel = Collections.synchronizedMap(new HashMap<String, List<DbTable>>());
+            dbFunctions.put(modelDatabaseValues.dir, allTablesForModel);
+            doInit = true;
+        }
+        List<DbTable> tablesForModel = allTablesForModel.get(table);
+        if (tablesForModel == null) {
+            tablesForModel = Collections.synchronizedList(new ArrayList<DbTable>());
+            allTablesForModel.put(table, tablesForModel);
+            doInit = true;
+        }
+        if (!doInit)
+            return tablesForModel;
+        if (modelDatabaseValues.connection != null) {
+            ResultSet result = null;
+            try {
+                DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
+                result = meta.getFunctions(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table);
+                while (result.next()) {
+                    DbTable dbTable = new DbTable();
+                    dbTable.setName(result.getString("FUNCTION_NAME"));
+                    dbTable.setFtype(result.getShort("FUNCTION_TYPE"));
+                    dbTable.setRemarks(result.getString("REMARKS"));
+                    tablesForModel.add(dbTable);
+                    info(table + ": " + dbTable.toString());
+                }
+            } catch (SQLException e) {
+                error("getDbFunctions error " + e, e);
+            } finally {
+                try {
+                    if (result != null)
+                        result.close();
+                } catch (SQLException e) {
+                    error("getDbFunctions error " + e, e);
+                }
+            }
+        }
+        return tablesForModel;
+    }
+
+    @Override
+    public List<DbColumn> getDbFunColumns(EObject model, String function) {
+        trace(">>>getDbFunColumns");
+        if (function == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
         if (modelDatabaseValues == null)
@@ -927,10 +1086,10 @@ public class DbResolverBean implements DbResolver {
             dbFunColumns.put(modelDatabaseValues.dir, allColumnsForModel);
             doInit = true;
         }
-        List<DbColumn> columnsForModel = allColumnsForModel.get(table);
+        List<DbColumn> columnsForModel = allColumnsForModel.get(function);
         if (columnsForModel == null) {
             columnsForModel = Collections.synchronizedList(new ArrayList<DbColumn>());
-            allColumnsForModel.put(table, columnsForModel);
+            allColumnsForModel.put(function, columnsForModel);
             doInit = true;
         }
         if (!doInit)
@@ -939,7 +1098,7 @@ public class DbResolverBean implements DbResolver {
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
-                result = meta.getFunctionColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table,
+                result = meta.getFunctionColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, function,
                         null);
                 while (result.next()) {
                     DbColumn dbColumn = new DbColumn();
@@ -959,13 +1118,13 @@ public class DbResolverBean implements DbResolver {
                         } catch (Exception ignore) {
                         }
                     } else {
-                        dbColumn.setSize(result.getInt("COLUMN_SIZE"));
+                        dbColumn.setSize(result.getInt("LENGTH"));
                     }
                     dbColumn.setSqlType(result.getInt("DATA_TYPE"));
                     dbColumn.setNullable(result.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls);
                     dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
                     columnsForModel.add(dbColumn);
-                    // info(table + ": " + dbColumn.toString());
+                    // info(function + ": " + dbColumn.toString());
                 }
             } catch (SQLException e) {
                 error("getDbFunColumns error " + e, e);

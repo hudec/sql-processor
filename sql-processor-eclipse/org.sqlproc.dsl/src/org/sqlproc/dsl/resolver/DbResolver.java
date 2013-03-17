@@ -110,7 +110,13 @@ public interface DbResolver {
 
     boolean checkFunColumn(EObject model, String table, String column);
 
-    List<DbColumn> getDbProcColumns(EObject model, String table);
+    List<DbColumn> getDbProcColumns(EObject model, String procedure);
 
-    List<DbColumn> getDbFunColumns(EObject model, String table);
+    List<DbColumn> getDbFunColumns(EObject model, String function);
+
+    List<DbTable> getDbTables(EObject model, String table);
+
+    List<DbTable> getDbProcedures(EObject model, String table);
+
+    List<DbTable> getDbFunctions(EObject model, String table);
 }
