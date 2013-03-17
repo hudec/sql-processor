@@ -26,4 +26,37 @@ package org.sample.model {
     isDef ::: dateOfBirth ssn
     toString ::: dateOfBirth id lastName ssn firstName
   }
+
+  final pojo AnHourBefore serializable 1  { // function
+    result : java.sql.Timestamp
+    t : java.sql.Timestamp
+    toString ::: result t
+  }
+
+  final pojo NewPerson serializable 1  { // procedure
+    newid : java.math.BigInteger
+    dateOfBirth : java.sql.Timestamp
+    ssn : java.lang.String
+    firstName : java.lang.String
+    lastName : java.lang.String
+    toString ::: dateOfBirth lastName ssn firstName newid
+  }
+
+  final pojo NewPersonRet serializable 1  { // function
+    result : java.lang.Object
+    dateOfBirth : java.sql.Timestamp
+    ssn : java.lang.String
+    firstName : java.lang.String
+    lastName : java.lang.String
+    toString ::: dateOfBirth lastName result ssn firstName
+  }
+
+  final pojo NewPersonRetProc serializable 1  { // procedure
+    resultCur : java.lang.Object
+    dateOfBirth : java.sql.Timestamp
+    ssn : java.lang.String
+    firstName : java.lang.String
+    lastName : java.lang.String
+    toString ::: dateOfBirth lastName ssn resultCur firstName
+  }
 }
