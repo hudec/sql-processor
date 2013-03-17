@@ -26,72 +26,72 @@ public class NewPerson implements Serializable {
     return this;
   }
   
-  private Date birthdate;
+  private Date dateOfBirth;
     
-  public Date getBirthdate() {
-    return birthdate;
+  public Date getDateOfBirth() {
+    return dateOfBirth;
   }
     
-  public void setBirthdate(Date birthdate) {
-    this.birthdate = birthdate;
+  public void setDateOfBirth(Date dateOfBirth) {
+    this.dateOfBirth = dateOfBirth;
   }
     
-  public NewPerson _setBirthdate(Date birthdate) {
-    this.birthdate = birthdate;
+  public NewPerson _setDateOfBirth(Date dateOfBirth) {
+    this.dateOfBirth = dateOfBirth;
     return this;
   }
   
-  private String ssnNumber;
+  private String ssn;
     
-  public String getSsnNumber() {
-    return ssnNumber;
+  public String getSsn() {
+    return ssn;
   }
     
-  public void setSsnNumber(String ssnNumber) {
-    this.ssnNumber = ssnNumber;
+  public void setSsn(String ssn) {
+    this.ssn = ssn;
   }
     
-  public NewPerson _setSsnNumber(String ssnNumber) {
-    this.ssnNumber = ssnNumber;
+  public NewPerson _setSsn(String ssn) {
+    this.ssn = ssn;
     return this;
   }
   
-  private String nameFirst;
+  private String firstName;
     
-  public String getNameFirst() {
-    return nameFirst;
+  public String getFirstName() {
+    return firstName;
   }
     
-  public void setNameFirst(String nameFirst) {
-    this.nameFirst = nameFirst;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
   }
     
-  public NewPerson _setNameFirst(String nameFirst) {
-    this.nameFirst = nameFirst;
+  public NewPerson _setFirstName(String firstName) {
+    this.firstName = firstName;
     return this;
   }
   
-  private String nameLast;
+  private String lastName;
     
-  public String getNameLast() {
-    return nameLast;
+  public String getLastName() {
+    return lastName;
   }
     
-  public void setNameLast(String nameLast) {
-    this.nameLast = nameLast;
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
     
-  public NewPerson _setNameLast(String nameLast) {
-    this.nameLast = nameLast;
+  public NewPerson _setLastName(String lastName) {
+    this.lastName = lastName;
     return this;
   }
   
   @Override
   public String toString() {
-    return "NewPerson [nameLast=" + nameLast + ", nameFirst=" + nameFirst + ", ssnNumber=" + ssnNumber + ", birthdate=" + birthdate + ", newid=" + newid + "]";
+    return "NewPerson [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + ", newid=" + newid + "]";
   }
   
   public String toStringFull() {
-    return "NewPerson [nameLast=" + nameLast + ", nameFirst=" + nameFirst + ", ssnNumber=" + ssnNumber + ", birthdate=" + birthdate + ", newid=" + newid + "]";
+    return "NewPerson [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + ", newid=" + newid + "]";
   }
 }

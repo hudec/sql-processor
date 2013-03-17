@@ -38,19 +38,19 @@ ALTER TABLE CONTACT ADD CONSTRAINT FK_CONTACT_PERSON
 	FOREIGN KEY (PERSON_ID) REFERENCES PERSON (ID) ON DELETE CASCADE
 ;
 
-CREATE PROCEDURE new_person(OUT newid INT, IN birthdate DATE, IN ssn_number VARCHAR(20), IN name_first VARCHAR(100), IN name_last VARCHAR(100))
+CREATE PROCEDURE new_person(OUT newid INT, IN date_of_birth DATE, IN ssn VARCHAR(20), IN first_name VARCHAR(100), IN last_name VARCHAR(100))
   MODIFIES SQL DATA
   BEGIN ATOMIC
-    INSERT INTO PERSON VALUES (DEFAULT, name_first, name_last, birthdate, ssn_number);
+    INSERT INTO PERSON VALUES (DEFAULT, first_name, last_name, date_of_birth, ssn);
     SET newid = IDENTITY();
   END
     
 
-CREATE PROCEDURE new_person_ret(IN birthdate DATE, IN ssn_number VARCHAR(20), IN name_first VARCHAR(100), IN name_last VARCHAR(100))
+CREATE PROCEDURE new_person_ret(IN date_of_birth DATE, IN ssn VARCHAR(20), IN first_name VARCHAR(100), IN last_name VARCHAR(100))
   MODIFIES SQL DATA DYNAMIC RESULT SETS 1
   BEGIN ATOMIC
     DECLARE result CURSOR FOR SELECT * FROM PERSON WHERE ID = IDENTITY();
-    INSERT INTO PERSON VALUES (DEFAULT, name_first, name_last, birthdate, ssn_number);
+    INSERT INTO PERSON VALUES (DEFAULT, first_name, last_name, date_of_birth, ssn);
     OPEN result;
   END
     

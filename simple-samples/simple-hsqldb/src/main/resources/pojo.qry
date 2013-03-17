@@ -29,23 +29,24 @@ package org.sample.model {
 
   final pojo NewPerson serializable 1  { // procedure
     newid : java.lang.Integer
-    birthdate : java.util.Date
-    ssnNumber : java.lang.String
-    nameFirst : java.lang.String
-    nameLast : java.lang.String
-    toString ::: nameLast nameFirst ssnNumber birthdate newid
+    dateOfBirth : java.util.Date
+    ssn : java.lang.String
+    firstName : java.lang.String
+    lastName : java.lang.String
+    toString ::: dateOfBirth lastName ssn firstName newid
   }
 
   final pojo NewPersonRet serializable 1  { // procedure
-    birthdate : java.util.Date
-    ssnNumber : java.lang.String
-    nameFirst : java.lang.String
-    nameLast : java.lang.String
-    toString ::: nameLast nameFirst ssnNumber birthdate
+    dateOfBirth : java.util.Date
+    ssn : java.lang.String
+    firstName : java.lang.String
+    lastName : java.lang.String
+    toString ::: dateOfBirth lastName ssn firstName
   }
 
   final pojo AnHourBefore serializable 1  { // function
     t : java.sql.Timestamp
-    toString ::: t
+    result : java.sql.Timestamp
+    toString ::: result t
   }
 }

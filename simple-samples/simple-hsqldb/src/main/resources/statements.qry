@@ -106,6 +106,17 @@ SELECT_PERSON(QRY,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   {#2 order by %p.LAST_NAME }
 ;
 
-//SIMPLE_FUNCTION_TO_IN_FORM(CALL,in=formSimpleFunction)=
-//  :<time2 = call an_hour_before(:time)
-//;
+PROC_NEW_PERSON(CALL,inx=NewPerson)=
+  call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName)
+;
+
+PROC_NEW_PERSON_RET(CALL,inx=NewPersonRet)=
+  call new_person_ret(:dateOfBirth, :ssn, :firstName, :lastName)
+;
+PROC_NEW_PERSON_RET(OUT,outx=Person)=
+  id$id firstName$firstName lastName$lastName dateOfBirth$dateOfBirth ssn$ssn
+;
+
+FUN_AN_HOUR_BEFORE(CALL,inx=AnHourBefore)=
+  :<result = call an_hour_before(:t)
+;

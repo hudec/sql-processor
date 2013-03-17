@@ -26,12 +26,27 @@ public class AnHourBefore implements Serializable {
     return this;
   }
   
+  private Timestamp result;
+    
+  public Timestamp getResult() {
+    return result;
+  }
+    
+  public void setResult(Timestamp result) {
+    this.result = result;
+  }
+    
+  public AnHourBefore _setResult(Timestamp result) {
+    this.result = result;
+    return this;
+  }
+  
   @Override
   public String toString() {
-    return "AnHourBefore [t=" + t + "]";
+    return "AnHourBefore [result=" + result + ", t=" + t + "]";
   }
   
   public String toStringFull() {
-    return "AnHourBefore [t=" + t + "]";
+    return "AnHourBefore [result=" + result + ", t=" + t + "]";
   }
 }

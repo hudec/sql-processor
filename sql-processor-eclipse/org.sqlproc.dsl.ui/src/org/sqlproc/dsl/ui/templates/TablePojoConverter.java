@@ -556,6 +556,12 @@ public class TablePojoConverter {
                     attributes.put(dbColumn.getName(), attribute);
             }
         }
+        if (createColumns.containsKey(procedure)) {
+            for (Map.Entry<String, PojoAttrType> createColumn : createColumns.get(procedure).entrySet()) {
+                PojoAttribute attribute = convertDbColumnDefinition(createColumn.getKey(), createColumn.getValue());
+                attributes.put(createColumn.getKey(), attribute);
+            }
+        }
         System.out.println("xxxx1 " + dbProcedure + " " + dbProcColumns);
         System.out.println("xxxx2 " + procedure + " " + attributes);
         procedures.put(procedure, attributes);
@@ -573,6 +579,12 @@ public class TablePojoConverter {
                 attribute = convertDbColumnDefault(function, dbColumn);
                 if (attribute != null)
                     attributes.put(dbColumn.getName(), attribute);
+            }
+        }
+        if (createColumns.containsKey(function)) {
+            for (Map.Entry<String, PojoAttrType> createColumn : createColumns.get(function).entrySet()) {
+                PojoAttribute attribute = convertDbColumnDefinition(createColumn.getKey(), createColumn.getValue());
+                attributes.put(createColumn.getKey(), attribute);
             }
         }
         System.out.println("yyyy1 " + dbFunction + " " + dbFunColumns);
