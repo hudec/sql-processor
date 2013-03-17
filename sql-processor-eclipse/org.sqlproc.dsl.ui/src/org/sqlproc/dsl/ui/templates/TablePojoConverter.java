@@ -91,6 +91,7 @@ public class TablePojoConverter {
     protected Map<String, String> versionColumns = new HashMap<String, String>();
 
     protected Map<String, Map<String, PojoAttribute>> pojos = new TreeMap<String, Map<String, PojoAttribute>>();
+    protected Map<String, Map<String, PojoAttribute>> procedures = new TreeMap<String, Map<String, PojoAttribute>>();
     protected Map<String, Map<String, PojoAttribute>> functions = new TreeMap<String, Map<String, PojoAttribute>>();
     protected Map<String, String> pojoExtends = new HashMap<String, String>();
     protected Map<String, Set<String>> pojoInheritanceDiscriminator = new HashMap<String, Set<String>>();
@@ -538,6 +539,25 @@ public class TablePojoConverter {
         }
     }
 
+    public void addProcedureDefinition(String procedure, DbTable dbProcedure, List<DbColumn> dbProcColumns) {
+        if (procedure == null || dbProcColumns == null)
+            return;
+        Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
+        for (DbColumn dbColumn : dbProcColumns) {
+            PojoAttribute attribute = convertDbColumnDefinition(procedure, dbColumn);
+            if (attribute != null) {
+                attributes.put(dbColumn.getName(), attribute);
+            } else {
+                attribute = convertDbColumnDefault(procedure, dbColumn);
+                if (attribute != null)
+                    attributes.put(dbColumn.getName(), attribute);
+            }
+        }
+        System.out.println("xxxx1 " + dbProcedure + " " + dbProcColumns);
+        System.out.println("xxxx2 " + procedure + " " + attributes);
+        procedures.put(procedure, attributes);
+    }
+
     public void addFunctionDefinition(String function, DbTable dbFunction, List<DbColumn> dbFunColumns) {
         if (function == null || dbFunColumns == null)
             return;
@@ -552,7 +572,8 @@ public class TablePojoConverter {
                     attributes.put(dbColumn.getName(), attribute);
             }
         }
-        System.out.println("xxxx " + dbFunction + " " + dbFunColumns);
+        System.out.println("yyyy1 " + dbFunction + " " + dbFunColumns);
+        System.out.println("yyyy2 " + function + " " + attributes);
         functions.put(function, attributes);
     }
 
@@ -620,6 +641,7 @@ public class TablePojoConverter {
                 System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
                 System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
                 System.out.println("indexes " + this.indexes);
+                System.out.println("procedures " + this.procedures);
                 System.out.println("functions " + this.functions);
             }
 

@@ -806,9 +806,11 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
     protected boolean addDefinitions(TablePojoConverter converter, Artifacts artifacts) {
         List<String> tables = Utils.findTables(null, artifacts,
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
+        List<String> procedures = Utils.findProcedures(null, artifacts,
+                scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__PROCEDURES));
         List<String> functions = Utils.findFunctions(null, artifacts,
                 scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__FUNCTIONS));
-        if (tables == null && functions == null)
+        if (tables == null && procedures == null && functions == null)
             return false;
         if (tables != null) {
             for (String table : tables) {
@@ -825,12 +827,20 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
             converter.resolveReferencesOnKeys();
             converter.joinTables();
         }
+        if (procedures != null) {
+            for (String procedure : procedures) {
+                if (procedure.toUpperCase().startsWith("BIN$"))
+                    continue;
+                List<DbTable> dbProcedures = dbResolver.getDbProcedures(artifacts, procedure);
+                List<DbColumn> dbProcColumns = dbResolver.getDbProcColumns(artifacts, procedure);
+                converter.addProcedureDefinition(procedure, dbProcedures.get(0), dbProcColumns);
+            }
+        }
         if (functions != null) {
             for (String function : functions) {
                 if (function.toUpperCase().startsWith("BIN$"))
                     continue;
                 List<DbTable> dbFunctions = dbResolver.getDbFunctions(artifacts, function);
-                System.out.println("yyyyyyyyyyyyyyyyyyyyyyyy " + dbFunctions);
                 List<DbColumn> dbFunColumns = dbResolver.getDbFunColumns(artifacts, function);
                 converter.addFunctionDefinition(function, dbFunctions.get(0), dbFunColumns);
             }

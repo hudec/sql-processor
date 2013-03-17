@@ -998,7 +998,7 @@ public class DbResolverBean implements DbResolver {
                         } catch (Exception ignore) {
                         }
                     } else {
-                        dbColumn.setSize(result.getInt("COLUMN_SIZE"));
+                        dbColumn.setSize(result.getInt("LENGTH"));
                     }
                     dbColumn.setSqlType(result.getInt("DATA_TYPE"));
                     dbColumn.setNullable(result.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls);
