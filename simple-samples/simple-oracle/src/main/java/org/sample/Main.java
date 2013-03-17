@@ -54,8 +54,8 @@ public class Main {
 
     public void setupDb() throws SQLException {
         SqlSession sqlSession = sessionFactory.getSqlSession();
-        // sqlSession.executeBatch(new String[] { "delete from contact", "delete from person" });
-        sqlSession.executeBatch(ddls.toArray(new String[0]));
+        sqlSession.executeBatch(new String[] { "delete from contact", "delete from person" });
+        // sqlSession.executeBatch(ddls.toArray(new String[0]));
     }
 
     private ContactDao contactDao;
