@@ -118,5 +118,8 @@ PROC_NEW_PERSON_RET(OUT,outx=Person)=
 ;
 
 FUN_AN_HOUR_BEFORE(CALL,inx=AnHourBefore)=
-  :<result = call an_hour_before(:t)
+  call an_hour_before(:t)
+;
+FUN_AN_HOUR_BEFORE(OUT)=
+  1$1(type=stamp)
 ;

@@ -3,11 +3,14 @@ package org.sample;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
 import org.sample.dao.ContactDao;
+import org.sample.dao.FunctionsDao;
 import org.sample.dao.PersonDao;
+import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
 import org.sample.model.Person;
 import org.slf4j.Logger;
@@ -50,6 +53,7 @@ public class Main {
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);
         personDao = new PersonDao(sqlFactory, sessionFactory);
+        functionsDao = new FunctionsDao(sqlFactory, sessionFactory);
     }
 
     public void setupDb() throws SQLException {
@@ -60,6 +64,7 @@ public class Main {
 
     private ContactDao contactDao;
     private PersonDao personDao;
+    private FunctionsDao functionsDao;
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
         Person p = getPersonDao().insert(person);
@@ -153,6 +158,12 @@ public class Main {
         // delete
         count = main.getPersonDao().delete(jan);
         Assert.assertEquals(1, count);
+
+        // function
+        AnHourBefore anHourBefore = new AnHourBefore();
+        anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
+        java.sql.Timestamp result = main.getFunctionsDao().anHourBefore(anHourBefore);
+        Assert.assertNotNull(result);
     }
 
     public ContactDao getContactDao() {
@@ -161,5 +172,9 @@ public class Main {
 
     public PersonDao getPersonDao() {
         return personDao;
+    }
+
+    public FunctionsDao getFunctionsDao() {
+        return functionsDao;
     }
 }

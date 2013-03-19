@@ -37,5 +37,3 @@ table person PERSON;
 procedure newPerson NEW_PERSON;
 procedure newPersonRet NEW_PERSON_RET;
 function anHourBefore AN_HOUR_BEFORE;
-
-pojogen-create-columns AN_HOUR_BEFORE RESULT->:java.sql.Timestamp;
