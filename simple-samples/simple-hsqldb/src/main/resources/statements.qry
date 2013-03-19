@@ -114,7 +114,7 @@ PROC_NEW_PERSON_RET(CALL,inx=NewPersonRet)=
   call new_person_ret(:dateOfBirth, :ssn, :firstName, :lastName)
 ;
 PROC_NEW_PERSON_RET(OUT,outx=Person)=
-  id$id firstName$firstName lastName$lastName dateOfBirth$dateOfBirth ssn$ssn
+  id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth ssn$ssn
 ;
 
 FUN_AN_HOUR_BEFORE(CALL,inx=AnHourBefore)=

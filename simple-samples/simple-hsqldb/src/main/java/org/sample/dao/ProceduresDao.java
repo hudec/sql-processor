@@ -1,6 +1,9 @@
 package org.sample.dao;
 
+import java.util.List;
+
 import org.sample.model.NewPerson;
+import org.sample.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlControl;
@@ -31,7 +34,7 @@ public class ProceduresDao {
         SqlProcedureEngine sqlProcNewPerson = sqlEngineFactory.getCheckedProcedureEngine("PROC_NEW_PERSON");
         int count = sqlProcNewPerson.callUpdate(sqlSession, newPerson, sqlControl);
         if (logger.isTraceEnabled()) {
-            logger.trace("anHourBefore: " + count);
+            logger.trace("newPerson: " + count);
         }
     }
 
@@ -45,5 +48,29 @@ public class ProceduresDao {
 
     public void newPerson(NewPerson newPerson) {
         newPerson(newPerson, null);
+    }
+
+    public List<Person> newPersonRet(SqlSession sqlSession, NewPerson newPerson, SqlControl sqlControl) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("newPersonRet: " + newPerson + " " + sqlControl);
+        }
+        SqlProcedureEngine sqlProcNewPersonRet = sqlEngineFactory.getCheckedProcedureEngine("PROC_NEW_PERSON_RET");
+        List<Person> list = sqlProcNewPersonRet.callQuery(sqlSession, Person.class, newPerson);
+        if (logger.isTraceEnabled()) {
+            logger.trace("newPersonRet: " + list);
+        }
+        return list;
+    }
+
+    public List<Person> newPersonRet(NewPerson newPerson, SqlControl sqlControl) {
+        return newPersonRet(sqlSessionFactory.getSqlSession(), newPerson, sqlControl);
+    }
+
+    public List<Person> newPersonRet(SqlSession sqlSession, NewPerson newPerson) {
+        return newPersonRet(sqlSession, newPerson, null);
+    }
+
+    public List<Person> newPersonRet(NewPerson newPerson) {
+        return newPersonRet(newPerson, null);
     }
 }

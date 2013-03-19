@@ -175,6 +175,15 @@ public class Main {
         newPerson.setSsn("999888777");
         main.getProceduresDao().newPerson(newPerson);
         Assert.assertNotNull(newPerson.getNewid());
+
+        newPerson = new NewPerson();
+        newPerson.setFirstName("Beruska");
+        newPerson.setLastName("Beruskova");
+        newPerson.setSsn("888777666");
+        list = main.getProceduresDao().newPersonRet(newPerson);
+        Assert.assertNotNull(list);
+        Assert.assertEquals(1, list.size());
+        Assert.assertNotNull(list.get(0).getId());
     }
 
     public ContactDao getContactDao() {
