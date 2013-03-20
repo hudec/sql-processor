@@ -3,6 +3,7 @@ package org.sample.dao;
 import java.util.List;
 
 import org.sample.model.NewPerson;
+import org.sample.model.NewPersonOutRs;
 import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
 import org.slf4j.Logger;
@@ -73,5 +74,29 @@ public class ProceduresDao {
 
     public List<Person> newPersonRetRs(NewPersonRetRs newPersonRetRs) {
         return newPersonRetRs(newPersonRetRs, null);
+    }
+
+    public List<Person> newPersonOutRs(SqlSession sqlSession, NewPersonOutRs newPersonOutRs, SqlControl sqlControl) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("newPersonOutRs: " + newPersonOutRs + " " + sqlControl);
+        }
+        SqlProcedureEngine sqlProcNewPersonRetRs = sqlEngineFactory.getCheckedProcedureEngine("PROC_NEW_PERSON_OUT_RS");
+        List<Person> list = sqlProcNewPersonRetRs.callQuery(sqlSession, Person.class, newPersonOutRs);
+        if (logger.isTraceEnabled()) {
+            logger.trace("newPersonOutRs: " + list);
+        }
+        return list;
+    }
+
+    public List<Person> newPersonOutRs(NewPersonOutRs newPersonOutRs, SqlControl sqlControl) {
+        return newPersonOutRs(sqlSessionFactory.getSqlSession(), newPersonOutRs, sqlControl);
+    }
+
+    public List<Person> newPersonOutRs(SqlSession sqlSession, NewPersonOutRs newPersonOutRs) {
+        return newPersonOutRs(sqlSession, newPersonOutRs, null);
+    }
+
+    public List<Person> newPersonOutRs(NewPersonOutRs newPersonOutRs) {
+        return newPersonOutRs(newPersonOutRs, null);
     }
 }

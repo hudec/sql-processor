@@ -3,6 +3,7 @@ package org.sample;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -174,6 +175,7 @@ public class Main {
         newPerson.setFirstName("Maruska");
         newPerson.setLastName("Maruskova");
         newPerson.setSsn("999888777");
+        newPerson.setDateOfBirth(getAge(1969, 11, 1));
         main.getProceduresDao().newPerson(newPerson);
         Assert.assertNotNull(newPerson.getNewid());
 
@@ -181,10 +183,23 @@ public class Main {
         newPersonRetRs.setFirstName("Beruska");
         newPersonRetRs.setLastName("Beruskova");
         newPersonRetRs.setSsn("888777666");
+        newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
         list = main.getProceduresDao().newPersonRetRs(newPersonRetRs);
         Assert.assertNotNull(list);
         Assert.assertEquals(1, list.size());
         Assert.assertNotNull(list.get(0).getId());
+    }
+
+    public static java.sql.Timestamp getAge(int year, int month, int day) {
+        Calendar birthDay = Calendar.getInstance();
+        birthDay.set(Calendar.YEAR, year);
+        birthDay.set(Calendar.MONTH, month);
+        birthDay.set(Calendar.DAY_OF_MONTH, day);
+        birthDay.set(Calendar.HOUR_OF_DAY, 0);
+        birthDay.set(Calendar.MINUTE, 0);
+        birthDay.set(Calendar.SECOND, 0);
+        birthDay.set(Calendar.MILLISECOND, 0);
+        return new java.sql.Timestamp(birthDay.getTime().getTime());
     }
 
     public ContactDao getContactDao() {
