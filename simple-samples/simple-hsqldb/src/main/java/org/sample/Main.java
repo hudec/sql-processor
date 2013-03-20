@@ -14,6 +14,7 @@ import org.sample.dao.ProceduresDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
 import org.sample.model.NewPerson;
+import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -176,11 +177,11 @@ public class Main {
         main.getProceduresDao().newPerson(newPerson);
         Assert.assertNotNull(newPerson.getNewid());
 
-        newPerson = new NewPerson();
-        newPerson.setFirstName("Beruska");
-        newPerson.setLastName("Beruskova");
-        newPerson.setSsn("888777666");
-        list = main.getProceduresDao().newPersonRet(newPerson);
+        NewPersonRetRs newPersonRetRs = new NewPersonRetRs();
+        newPersonRetRs.setFirstName("Beruska");
+        newPersonRetRs.setLastName("Beruskova");
+        newPersonRetRs.setSsn("888777666");
+        list = main.getProceduresDao().newPersonRetRs(newPersonRetRs);
         Assert.assertNotNull(list);
         Assert.assertEquals(1, list.size());
         Assert.assertNotNull(list.get(0).getId());

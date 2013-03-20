@@ -110,10 +110,10 @@ PROC_NEW_PERSON(CALL,inx=NewPerson)=
   call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName)
 ;
 
-PROC_NEW_PERSON_RET(CALL,inx=NewPersonRet)=
-  call new_person_ret(:dateOfBirth, :ssn, :firstName, :lastName)
+PROC_NEW_PERSON_RET_RS(CALL,inx=NewPersonRetRs)=
+  call new_person_ret_rs(:dateOfBirth, :ssn, :firstName, :lastName)
 ;
-PROC_NEW_PERSON_RET(OUT,outx=Person)=
+PROC_NEW_PERSON_RET_RS(OUT,outx=Person)=
   id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth ssn$ssn
 ;
 

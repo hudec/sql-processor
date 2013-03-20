@@ -4,25 +4,25 @@ import java.sql.Timestamp;
 
 import java.io.Serializable;
 
-public class NewPersonRetProc implements Serializable {
+public class NewPersonRetRs implements Serializable {
   
   private static final long serialVersionUID = 1L;
 	
-  public NewPersonRetProc() {
+  public NewPersonRetRs() {
   }
   
-  private Object resultCur;
+  private Object result;
     
-  public Object getResultCur() {
-    return resultCur;
+  public Object getResult() {
+    return result;
   }
     
-  public void setResultCur(Object resultCur) {
-    this.resultCur = resultCur;
+  public void setResult(Object result) {
+    this.result = result;
   }
     
-  public NewPersonRetProc _setResultCur(Object resultCur) {
-    this.resultCur = resultCur;
+  public NewPersonRetRs _setResult(Object result) {
+    this.result = result;
     return this;
   }
   
@@ -36,7 +36,7 @@ public class NewPersonRetProc implements Serializable {
     this.dateOfBirth = dateOfBirth;
   }
     
-  public NewPersonRetProc _setDateOfBirth(Timestamp dateOfBirth) {
+  public NewPersonRetRs _setDateOfBirth(Timestamp dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
   }
@@ -51,7 +51,7 @@ public class NewPersonRetProc implements Serializable {
     this.ssn = ssn;
   }
     
-  public NewPersonRetProc _setSsn(String ssn) {
+  public NewPersonRetRs _setSsn(String ssn) {
     this.ssn = ssn;
     return this;
   }
@@ -66,7 +66,7 @@ public class NewPersonRetProc implements Serializable {
     this.firstName = firstName;
   }
     
-  public NewPersonRetProc _setFirstName(String firstName) {
+  public NewPersonRetRs _setFirstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -81,17 +81,17 @@ public class NewPersonRetProc implements Serializable {
     this.lastName = lastName;
   }
     
-  public NewPersonRetProc _setLastName(String lastName) {
+  public NewPersonRetRs _setLastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
   
   @Override
   public String toString() {
-    return "NewPersonRetProc [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", resultCur=" + resultCur + ", firstName=" + firstName + "]";
+    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", result=" + result + ", ssn=" + ssn + ", firstName=" + firstName + "]";
   }
   
   public String toStringFull() {
-    return "NewPersonRetProc [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", resultCur=" + resultCur + ", firstName=" + firstName + "]";
+    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", result=" + result + ", ssn=" + ssn + ", firstName=" + firstName + "]";
   }
 }

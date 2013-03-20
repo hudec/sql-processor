@@ -46,7 +46,7 @@ CREATE PROCEDURE new_person(OUT newid INT, IN date_of_birth DATE, IN ssn VARCHAR
   END
     
 
-CREATE PROCEDURE new_person_ret(IN date_of_birth DATE, IN ssn VARCHAR(20), IN first_name VARCHAR(100), IN last_name VARCHAR(100))
+CREATE PROCEDURE new_person_ret_rs(IN date_of_birth DATE, IN ssn VARCHAR(20), IN first_name VARCHAR(100), IN last_name VARCHAR(100))
   MODIFIES SQL DATA DYNAMIC RESULT SETS 1
   BEGIN ATOMIC
     DECLARE result CURSOR FOR SELECT * FROM PERSON WHERE ID = IDENTITY();

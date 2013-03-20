@@ -10,8 +10,11 @@ import org.junit.Assert;
 import org.sample.dao.ContactDao;
 import org.sample.dao.FunctionsDao;
 import org.sample.dao.PersonDao;
+import org.sample.dao.ProceduresDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
+import org.sample.model.NewPerson;
+import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +57,7 @@ public class Main {
         contactDao = new ContactDao(sqlFactory, sessionFactory);
         personDao = new PersonDao(sqlFactory, sessionFactory);
         functionsDao = new FunctionsDao(sqlFactory, sessionFactory);
+        proceduresDao = new ProceduresDao(sqlFactory, sessionFactory);
     }
 
     public void setupDb() throws SQLException {
@@ -65,6 +69,7 @@ public class Main {
     private ContactDao contactDao;
     private PersonDao personDao;
     private FunctionsDao functionsDao;
+    private ProceduresDao proceduresDao;
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
         Person p = getPersonDao().insert(person);
@@ -164,6 +169,23 @@ public class Main {
         anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
         java.sql.Timestamp result = main.getFunctionsDao().anHourBefore(anHourBefore);
         Assert.assertNotNull(result);
+
+        // procedures
+        NewPerson newPerson = new NewPerson();
+        newPerson.setFirstName("Maruska");
+        newPerson.setLastName("Maruskova");
+        newPerson.setSsn("999888777");
+        main.getProceduresDao().newPerson(newPerson);
+        Assert.assertNotNull(newPerson.getNewid());
+
+        NewPersonRetRs newPersonRetRs = new NewPersonRetRs();
+        newPersonRetRs.setFirstName("Beruska");
+        newPersonRetRs.setLastName("Beruskova");
+        newPersonRetRs.setSsn("888777666");
+        list = main.getProceduresDao().newPersonRetRs(newPersonRetRs);
+        Assert.assertNotNull(list);
+        Assert.assertEquals(1, list.size());
+        Assert.assertNotNull(list.get(0).getId());
     }
 
     public ContactDao getContactDao() {
@@ -176,5 +198,9 @@ public class Main {
 
     public FunctionsDao getFunctionsDao() {
         return functionsDao;
+    }
+
+    public ProceduresDao getProceduresDao() {
+        return proceduresDao;
     }
 }

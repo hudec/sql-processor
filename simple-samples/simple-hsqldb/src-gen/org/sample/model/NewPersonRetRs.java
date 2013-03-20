@@ -4,11 +4,11 @@ import java.util.Date;
 
 import java.io.Serializable;
 
-public class NewPersonRet implements Serializable {
+public class NewPersonRetRs implements Serializable {
   
   private static final long serialVersionUID = 1L;
 	
-  public NewPersonRet() {
+  public NewPersonRetRs() {
   }
   
   private Date dateOfBirth;
@@ -21,7 +21,7 @@ public class NewPersonRet implements Serializable {
     this.dateOfBirth = dateOfBirth;
   }
     
-  public NewPersonRet _setDateOfBirth(Date dateOfBirth) {
+  public NewPersonRetRs _setDateOfBirth(Date dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
   }
@@ -36,7 +36,7 @@ public class NewPersonRet implements Serializable {
     this.ssn = ssn;
   }
     
-  public NewPersonRet _setSsn(String ssn) {
+  public NewPersonRetRs _setSsn(String ssn) {
     this.ssn = ssn;
     return this;
   }
@@ -51,7 +51,7 @@ public class NewPersonRet implements Serializable {
     this.firstName = firstName;
   }
     
-  public NewPersonRet _setFirstName(String firstName) {
+  public NewPersonRetRs _setFirstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -66,17 +66,17 @@ public class NewPersonRet implements Serializable {
     this.lastName = lastName;
   }
     
-  public NewPersonRet _setLastName(String lastName) {
+  public NewPersonRetRs _setLastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
   
   @Override
   public String toString() {
-    return "NewPersonRet [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
+    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
   }
   
   public String toStringFull() {
-    return "NewPersonRet [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
+    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
   }
 }

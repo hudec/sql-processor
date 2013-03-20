@@ -89,6 +89,8 @@ public class SqlUtils {
             return result.longValue();
         } else if (attributeType == Short.class || attributeType == short.class) {
             return result.shortValue();
+        } else if (attributeType == BigInteger.class) {
+            return result.toBigInteger();
         }
         return result;
     }
