@@ -621,7 +621,7 @@ def compileListIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
     public List<«e.name»> list(«e.name» «e.name.toFirstLower»);
 '''
 
-def listFeatures(PojoEntity e) {
+def List<PojoProperty> listFeatures(PojoEntity e) {
 	
    	val list = new ArrayList<PojoProperty>()
 	if (getSuperType(e) != null)
@@ -634,7 +634,7 @@ def listFeatures1(PojoEntity e) {
 	return e.features.filter(f|isList(f)).toList
 }
   
-def requiredFeatures(PojoEntity e) {
+def List<PojoProperty> requiredFeatures(PojoEntity e) {
 	
    	val list = new ArrayList<PojoProperty>()
 	if (getSuperType(e) != null)
