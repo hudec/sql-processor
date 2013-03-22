@@ -48,6 +48,7 @@ public class DbResolverBean implements DbResolver {
         public String dbSqlsAfter;
         public String dbIndexTypes;
         public boolean dbSkipIndexes;
+        public boolean dbSkipProcedures;
         public DbType dbType;
         public String dir;
         public Connection connection;
@@ -62,8 +63,8 @@ public class DbResolverBean implements DbResolver {
             return "DatabaseValues [dbDriver=" + dbDriver + ", dbUrl=" + dbUrl + ", dbUsername=" + dbUsername
                     + ", dbPassword=" + dbPassword + ", dbCatalog=" + dbCatalog + ", dbSchema=" + dbSchema
                     + ", dbSqlsBefore=" + dbSqlsBefore + ", dbSqlsAfter=" + dbSqlsAfter + ", connection=" + connection
-                    + ", dbIndexTypes=" + dbIndexTypes + ", dbSkipIndexes=" + dbSkipIndexes + ", dbType=" + dbType
-                    + "]";
+                    + ", dbIndexTypes=" + dbIndexTypes + ", dbSkipIndexes=" + dbSkipIndexes + ", dbSkipProcedures="
+                    + dbSkipProcedures + ", dbType=" + dbType + ", dir=" + dir + "]";
         }
 
     }
@@ -229,6 +230,9 @@ public class DbResolverBean implements DbResolver {
         }
         if (modelModelValues.dbSkipIndexes != modelDatabaseValues.dbSkipIndexes) {
             modelDatabaseValues.dbSkipIndexes = modelModelValues.dbSkipIndexes;
+        }
+        if (modelModelValues.dbSkipProcedures != modelDatabaseValues.dbSkipProcedures) {
+            modelDatabaseValues.dbSkipProcedures = modelModelValues.dbSkipProcedures;
         }
         if (modelModelValues.dbType != null) {
             if (modelDatabaseValues.dbType == null
@@ -552,7 +556,7 @@ public class DbResolverBean implements DbResolver {
     public List<String> getProcedures(EObject model) {
         trace(">>>getProcedures");
         DatabaseDirectives modelDatabaseValues = getConnection(model);
-        if (modelDatabaseValues == null)
+        if (modelDatabaseValues == null || modelDatabaseValues.dbSkipProcedures)
             return Collections.emptyList();
         List<String> proceduresForModel = procedures.get(modelDatabaseValues.dir);
         if (proceduresForModel != null)
@@ -585,7 +589,7 @@ public class DbResolverBean implements DbResolver {
     public List<String> getFunctions(EObject model) {
         trace(">>>getFunctions");
         DatabaseDirectives modelDatabaseValues = getConnection(model);
-        if (modelDatabaseValues == null)
+        if (modelDatabaseValues == null || modelDatabaseValues.dbSkipProcedures)
             return Collections.emptyList();
         List<String> functionsForModel = functions.get(modelDatabaseValues.dir);
         if (functionsForModel != null)
@@ -681,7 +685,7 @@ public class DbResolverBean implements DbResolver {
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
-        if (modelDatabaseValues == null)
+        if (modelDatabaseValues == null || modelDatabaseValues.dbSkipProcedures)
             return Collections.emptyList();
         boolean doInit = false;
         Map<String, List<String>> allColumnsForModel = procColumns.get(modelDatabaseValues.dir);
@@ -724,6 +728,8 @@ public class DbResolverBean implements DbResolver {
     @Override
     public boolean checkProcColumn(EObject model, String table, String column) {
         trace(">>>checkProcColumn");
+        if (doSkipProcedures(model))
+            return true;
         if (table == null || column == null)
             return false;
         return getProcColumns(model, table).contains(column);
@@ -735,7 +741,7 @@ public class DbResolverBean implements DbResolver {
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
-        if (modelDatabaseValues == null)
+        if (modelDatabaseValues == null || modelDatabaseValues.dbSkipProcedures)
             return Collections.emptyList();
         boolean doInit = false;
         Map<String, List<String>> allColumnsForModel = funColumns.get(modelDatabaseValues.dir);
@@ -778,9 +784,18 @@ public class DbResolverBean implements DbResolver {
     @Override
     public boolean checkFunColumn(EObject model, String table, String column) {
         trace(">>>checkFunColumn");
+        if (doSkipProcedures(model))
+            return true;
         if (table == null || column == null)
             return false;
         return getFunColumns(model, table).contains(column);
+    }
+
+    protected boolean doSkipProcedures(EObject model) {
+        DatabaseDirectives modelDatabaseValues = getConnection(model);
+        if (modelDatabaseValues == null || modelDatabaseValues.dbSkipProcedures)
+            return true;
+        return false;
     }
 
     @Override
@@ -907,7 +922,7 @@ public class DbResolverBean implements DbResolver {
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
-        if (modelDatabaseValues == null)
+        if (modelDatabaseValues == null || modelDatabaseValues.dbSkipProcedures)
             return Collections.emptyList();
         boolean doInit = false;
         Map<String, List<DbTable>> allTablesForModel = dbProcedures.get(modelDatabaseValues.dir);
@@ -957,7 +972,7 @@ public class DbResolverBean implements DbResolver {
         if (procedure == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
-        if (modelDatabaseValues == null)
+        if (modelDatabaseValues == null || modelDatabaseValues.dbSkipProcedures)
             return Collections.emptyList();
         boolean doInit = false;
         Map<String, List<DbColumn>> allColumnsForModel = dbProcColumns.get(modelDatabaseValues.dir);
@@ -1027,7 +1042,7 @@ public class DbResolverBean implements DbResolver {
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
-        if (modelDatabaseValues == null)
+        if (modelDatabaseValues == null || modelDatabaseValues.dbSkipProcedures)
             return Collections.emptyList();
         boolean doInit = false;
         Map<String, List<DbTable>> allTablesForModel = dbFunctions.get(modelDatabaseValues.dir);
@@ -1077,7 +1092,7 @@ public class DbResolverBean implements DbResolver {
         if (function == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
-        if (modelDatabaseValues == null)
+        if (modelDatabaseValues == null || modelDatabaseValues.dbSkipProcedures)
             return Collections.emptyList();
         boolean doInit = false;
         Map<String, List<DbColumn>> allColumnsForModel = dbFunColumns.get(modelDatabaseValues.dir);

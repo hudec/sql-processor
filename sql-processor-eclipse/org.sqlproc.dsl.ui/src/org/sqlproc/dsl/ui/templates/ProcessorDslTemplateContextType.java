@@ -832,6 +832,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 if (procedure.toUpperCase().startsWith("BIN$"))
                     continue;
                 List<DbTable> dbProcedures = dbResolver.getDbProcedures(artifacts, procedure);
+                if (dbProcedures.isEmpty())
+                    continue;
                 List<DbColumn> dbProcColumns = dbResolver.getDbProcColumns(artifacts, procedure);
                 converter.addProcedureDefinition(procedure, dbProcedures.get(0), dbProcColumns);
             }
@@ -841,6 +843,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 if (function.toUpperCase().startsWith("BIN$"))
                     continue;
                 List<DbTable> dbFunctions = dbResolver.getDbFunctions(artifacts, function);
+                if (dbFunctions.isEmpty())
+                    continue;
                 List<DbColumn> dbFunColumns = dbResolver.getDbFunColumns(artifacts, function);
                 converter.addFunctionDefinition(function, dbFunctions.get(0), dbFunColumns);
             }

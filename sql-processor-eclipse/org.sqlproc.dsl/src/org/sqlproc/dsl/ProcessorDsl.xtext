@@ -51,6 +51,7 @@ DatabaseProperty:
 	|name='ddl-drop' WS+ dbExecuteAfter=PropertyValue
 	|name='index-types' WS+ dbIndexTypes=PropertyValue
 	|name='skip-indexes'
+	|name='skip-functions-procedures'
 	|name='is-of-type' WS+ dbType=DatabaseTypeAssignement
 	|name='show-database-info' WS+ dbMetaInfo=DatabaseMetaInfoAssignement
 	|name='show-driver-info' WS+ dbDriverInfo=DriverMetaInfoAssignement

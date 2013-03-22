@@ -53,6 +53,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_JDBC_DRIVER = "jdbc-driver";
     public static final String DATABASE_INDEX_TYPES = "index-types";
     public static final String DATABASE_SKIP_INDEXES = "skip-indexes";
+    public static final String DATABASE_SKIP_PROCEDURES = "skip-functions-procedures";
     public static final String DATABASE_OF_TYPE = "is-of-type";
     public static final String POJOGEN = "pojogen";
     public static final String POJOGEN_TYPE_SQLTYPES = "types-sqltypes";
@@ -125,6 +126,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public String dbSqlsAfter;
         public String dbIndexTypes;
         public boolean dbSkipIndexes;
+        public boolean dbSkipProcedures;
         public String dbType;
         public String dir;
         public Map<String, PojoAttrType> sqlTypes;
@@ -313,6 +315,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.dbSqlsAfter = null;
         modelValues.dbIndexTypes = null;
         modelValues.dbSkipIndexes = false;
+        modelValues.dbSkipProcedures = false;
         modelValues.dbType = null;
     }
 
@@ -414,6 +417,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.dbIndexTypes = getPropertyValue(property.getDbIndexTypes());
         } else if (DATABASE_SKIP_INDEXES.equals(property.getName())) {
             modelValues.dbSkipIndexes = true;
+        } else if (DATABASE_SKIP_PROCEDURES.equals(property.getName())) {
+            modelValues.dbSkipProcedures = true;
         } else if (DATABASE_OF_TYPE.equals(property.getName())) {
             if (property.getDbType() != null)
                 modelValues.dbType = getPropertyValue(property.getDbType().getDbType());
