@@ -56,7 +56,7 @@ public class ProceduresDao {
         if (logger.isTraceEnabled()) {
             logger.trace("newPersonRetRs: " + newPersonRetRs + " " + sqlControl);
         }
-        SqlProcedureEngine sqlProcNewPersonRetRs = sqlEngineFactory.getCheckedProcedureEngine("PROC_NEW_PERSON_RET_RS");
+        SqlProcedureEngine sqlProcNewPersonRetRs = sqlEngineFactory.getCheckedProcedureEngine("FUN_NEW_PERSON_RET_RS");
         List<Person> list = sqlProcNewPersonRetRs.callQuery(sqlSession, Person.class, newPersonRetRs);
         if (logger.isTraceEnabled()) {
             logger.trace("newPersonRetRs: " + list);

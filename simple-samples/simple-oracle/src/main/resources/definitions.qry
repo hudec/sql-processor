@@ -43,3 +43,7 @@ procedure anHourBefore AN_HOUR_BEFORE;
 procedure newPerson NEW_PERSON;
 procedure newPersonOutRs NEW_PERSON_OUT_RS;
 procedure newPersonRetRs NEW_PERSON_RET_RS;
+
+metagen-function-result AN_HOUR_BEFORE stamp;
+metagen-function-result-set NEW_PERSON_RET_RS PERSON;
+metagen-procedure-result-set NEW_PERSON_OUT_RS PERSON;

@@ -777,6 +777,17 @@ public class TableMetaConverter extends TablePojoConverter {
         return false;
     }
 
+    PojoAttribute resultSetAttribute(String pojo, boolean isFunction) {
+        for (Map.Entry<String, PojoAttribute> pentry : procedures.get(pojo).entrySet()) {
+            // System.out.println("  RRR " + pentry.getKey());
+            PojoAttribute attribute = pentry.getValue();
+            if (dbType == DbType.ORACLE && attribute.getSqlType() == 1111) {
+                return attribute;
+            }
+        }
+        return null;
+    }
+
     StringBuilder metaCallProcedureDefinition(String pojo, boolean isFunction) {
         StringBuilder buffer = new StringBuilder();
         buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(CALL");
@@ -787,7 +798,16 @@ public class TableMetaConverter extends TablePojoConverter {
             pojoName = pojo;
         buffer.append(",inx=").append(tableToCamelCase(pojoName));
         buffer.append(")=");
-        buffer.append("\n  call ").append(pojo).append("(");
+        buffer.append("\n  ");
+        PojoAttribute resultSetAttribute = resultSetAttribute(pojoName, isFunction);
+        if (dbType == DbType.ORACLE) {
+            if (isFunction && metaFunctionsResult.containsKey(pojo)) {
+                buffer.append(":<1(type=").append(metaFunctionsResult.get(pojo)).append(") = ");
+            } else if (isFunction && resultSetAttribute != null) {
+                buffer.append(":<1(type=oracle_cursor) = ");
+            }
+        }
+        buffer.append("call ").append(pojo).append("(");
         boolean first = true;
         List<String> warnings = new ArrayList<String>();
         for (Map.Entry<String, PojoAttribute> pentry : procedures.get(pojo).entrySet()) {
@@ -807,14 +827,18 @@ public class TableMetaConverter extends TablePojoConverter {
             else
                 first = false;
             buffer.append(":");
-            if (attribute.getFunProcColumnType() != null && attribute.getFunProcColumnType() == 4)
-                buffer.append("<");
-            buffer.append(name);
+            if (dbType == DbType.ORACLE && attribute.getSqlType() == 1111) {
+                buffer.append("<1(type=oracle_cursor)");
+            } else {
+                if (attribute.getFunProcColumnType() != null && attribute.getFunProcColumnType() == 4)
+                    buffer.append("<");
+                buffer.append(name);
+            }
         }
         buffer.append(")\n;");
-        if (dbType == DbType.HSQLDB) {
+        if (dbType == DbType.HSQLDB || dbType == DbType.ORACLE) {
             if (isFunction && metaFunctionsResult.containsKey(pojo)) {
-                buffer.append("\n").append("FUN_").append(pojo).append("(OUT");
+                buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(OUT");
                 if (metaMakeItFinal)
                     buffer.append(",final=");
                 buffer.append(")=");
@@ -823,7 +847,39 @@ public class TableMetaConverter extends TablePojoConverter {
             } else if (!isFunction && metaProceduresResultSet.containsKey(pojo)) {
                 String outPojo = metaProceduresResultSet.get(pojo);
                 if (pojos.containsKey(outPojo)) {
-                    buffer.append("\n").append("PROC_").append(pojo).append("(OUT");
+                    buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(OUT");
+                    if (metaMakeItFinal)
+                        buffer.append(",final=");
+                    String outPojoName = tableNames.get(outPojo);
+                    if (outPojoName == null)
+                        outPojoName = outPojo;
+                    buffer.append(",outx=").append(tableToCamelCase(outPojoName));
+                    buffer.append(")=\n ");
+                    for (Map.Entry<String, PojoAttribute> pentry : pojos.get(outPojo).entrySet()) {
+                        // System.out.println("  RRR " + pentry.getKey());
+                        if (ignoreColumns.containsKey(outPojo) && ignoreColumns.get(outPojo).contains(pentry.getKey()))
+                            continue;
+                        PojoAttribute attribute = pentry.getValue();
+                        if (attribute.getDbName() == null)
+                            continue;
+                        if (dbType == DbType.ORACLE && attribute.getSqlType() == 1111)
+                            continue;
+                        String name = (columnNames.containsKey(outPojo)) ? columnNames.get(outPojo)
+                                .get(pentry.getKey()) : null;
+                        if (name == null)
+                            name = attribute.getName();
+                        else
+                            name = columnToCamelCase(name);
+                        buffer.append(" ").append(attribute.getDbName()).append("$").append(name);
+                    }
+                    buffer.append("\n;");
+                } else {
+                    warnings.add("Missing pojo " + outPojo + " for a mapping rule devoted to " + pojo);
+                }
+            } else if (isFunction && metaFunctionsResultSet.containsKey(pojo)) {
+                String outPojo = metaFunctionsResultSet.get(pojo);
+                if (pojos.containsKey(outPojo)) {
+                    buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(OUT");
                     if (metaMakeItFinal)
                         buffer.append(",final=");
                     String outPojoName = tableNames.get(outPojo);
@@ -851,47 +907,6 @@ public class TableMetaConverter extends TablePojoConverter {
                     warnings.add("Missing pojo " + outPojo + " for a mapping rule devoted to " + pojo);
                 }
             }
-
-            // PROC_NEW_PERSON(CALL,inx=NewPerson)=
-            // call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName)
-            // ;
-            //
-            // PROC_NEW_PERSON_RET_RS(CALL,inx=NewPersonRetRs)=
-            // call new_person_ret_rs(:dateOfBirth, :ssn, :firstName, :lastName)
-            // ;
-            // PROC_NEW_PERSON_RET_RS(OUT,outx=Person)=
-            // id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth ssn$ssn
-            // ;
-            //
-            // FUN_AN_HOUR_BEFORE(CALL,inx=AnHourBefore)=
-            // call an_hour_before(:t)
-            // ;
-            // FUN_AN_HOUR_BEFORE(OUT)=
-            // 1$1(type=stamp)
-            // ;
-        } else if (dbType == DbType.ORACLE) {
-
-            // PROC_NEW_PERSON(CALL,inx=NewPerson)=
-            // call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName)
-            // ;
-            //
-            // PROC_NEW_PERSON_RET_RS(CALL,inx=NewPersonRetRs)=
-            // :<1(type=oracle_cursor) = call new_person_ret_rs(:dateOfBirth, :ssn, :firstName, :lastName)
-            // ;
-            // PROC_NEW_PERSON_RET_RS(OUT,outx=Person)=
-            // id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth ssn$ssn
-            // ;
-            //
-            // PROC_NEW_PERSON_OUT_RS(CALL,inx=NewPersonOutRs)=
-            // call new_person_out_rs(:<1(type=oracle_cursor), :dateOfBirth, :ssn, :firstName, :lastName)
-            // ;
-            // PROC_NEW_PERSON_OUT_RS(OUT,outx=Person)=
-            // id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth ssn$ssn
-            // ;
-            //
-            // FUN_AN_HOUR_BEFORE(CALL,inx=AnHourBefore)=
-            // :<1(type=stamp) = call an_hour_before(:t)
-            // ;
         }
         buffer.append("\n");
         for (String warning : warnings) {

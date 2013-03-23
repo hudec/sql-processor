@@ -1096,6 +1096,7 @@ public class TablePojoConverter {
             attribute.setPrimitive(false);
             attribute.setClassName(sqlType.getType().getIdentifier());
         }
+        attribute.setSqlType(dbColumn.getSqlType());
         return attribute;
     }
 
@@ -1237,6 +1238,7 @@ public class TablePojoConverter {
             else
                 attribute.setClassName("java.lang.Object");
         }
+        attribute.setSqlType(dbColumn.getSqlType());
         return attribute;
     }
 }
