@@ -733,7 +733,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         } else if (METAGEN_FUNCTION_RESULT_SET.equals(property.getName())) {
             modelValues.metaFunctionsResultSet.put(property.getDbFunction(), property.getDbTable());
         } else if (METAGEN_PROCEDURE_RESULT_SET.equals(property.getName())) {
-            modelValues.metaFunctionsResultSet.put(property.getDbProcedure(), property.getDbTable());
+            modelValues.metaProceduresResultSet.put(property.getDbProcedure(), property.getDbTable());
         }
     }
 

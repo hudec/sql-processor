@@ -789,6 +789,7 @@ public class TableMetaConverter extends TablePojoConverter {
         buffer.append(")=");
         buffer.append("\n  call ").append(pojo).append("(");
         boolean first = true;
+        List<String> warnings = new ArrayList<String>();
         for (Map.Entry<String, PojoAttribute> pentry : procedures.get(pojo).entrySet()) {
             // System.out.println("  RRR " + pentry.getKey());
             if (FAKE_FUN_PROC_COLUMN_NAME.equals(pentry.getKey()))
@@ -810,14 +811,45 @@ public class TableMetaConverter extends TablePojoConverter {
                 buffer.append("<");
             buffer.append(name);
         }
+        buffer.append(")\n;");
         if (dbType == DbType.HSQLDB) {
             if (isFunction && metaFunctionsResult.containsKey(pojo)) {
-                buffer.append(")").append("\n;");
-                buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(OUT");
+                buffer.append("\n").append("FUN_").append(pojo).append("(OUT");
                 if (metaMakeItFinal)
                     buffer.append(",final=");
                 buffer.append(")=");
                 buffer.append("\n  1$1(type=").append(metaFunctionsResult.get(pojo));
+                buffer.append(")\n;");
+            } else if (!isFunction && metaProceduresResultSet.containsKey(pojo)) {
+                String outPojo = metaProceduresResultSet.get(pojo);
+                if (pojos.containsKey(outPojo)) {
+                    buffer.append("\n").append("PROC_").append(pojo).append("(OUT");
+                    if (metaMakeItFinal)
+                        buffer.append(",final=");
+                    String outPojoName = tableNames.get(outPojo);
+                    if (outPojoName == null)
+                        outPojoName = outPojo;
+                    buffer.append(",outx=").append(tableToCamelCase(outPojoName));
+                    buffer.append(")=\n ");
+                    for (Map.Entry<String, PojoAttribute> pentry : pojos.get(outPojo).entrySet()) {
+                        // System.out.println("  RRR " + pentry.getKey());
+                        if (ignoreColumns.containsKey(outPojo) && ignoreColumns.get(outPojo).contains(pentry.getKey()))
+                            continue;
+                        PojoAttribute attribute = pentry.getValue();
+                        if (attribute.getDbName() == null)
+                            continue;
+                        String name = (columnNames.containsKey(outPojo)) ? columnNames.get(outPojo)
+                                .get(pentry.getKey()) : null;
+                        if (name == null)
+                            name = attribute.getName();
+                        else
+                            name = columnToCamelCase(name);
+                        buffer.append(" ").append(attribute.getDbName()).append("$").append(name);
+                    }
+                    buffer.append("\n;");
+                } else {
+                    warnings.add("Missing pojo " + outPojo + " for a mapping rule devoted to " + pojo);
+                }
             }
 
             // PROC_NEW_PERSON(CALL,inx=NewPerson)=
@@ -861,7 +893,10 @@ public class TableMetaConverter extends TablePojoConverter {
             // :<1(type=stamp) = call an_hour_before(:t)
             // ;
         }
-        buffer.append(")").append("\n;\n");
+        buffer.append("\n");
+        for (String warning : warnings) {
+            buffer.append("// ").append(warning);
+        }
         return buffer;
     }
 
