@@ -28,9 +28,8 @@ package org.sample.model {
   }
 
   final pojo AnHourBefore serializable 1  { // function
-    result : java.sql.Timestamp
     t : java.sql.Timestamp
-    toString ::: result t
+    toString ::: t
   }
 
   final pojo NewPerson serializable 1  { // procedure
@@ -52,11 +51,10 @@ package org.sample.model {
   }
 
   final pojo NewPersonRetRs serializable 1  { // function
-    result : java.lang.Object
     dateOfBirth : java.sql.Timestamp
     ssn : java.lang.String
     firstName : java.lang.String
     lastName : java.lang.String
-    toString ::: dateOfBirth lastName result ssn firstName
+    toString ::: dateOfBirth lastName ssn firstName
   }
 }

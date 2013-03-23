@@ -11,21 +11,6 @@ public class NewPersonRetRs implements Serializable {
   public NewPersonRetRs() {
   }
   
-  private Object result;
-    
-  public Object getResult() {
-    return result;
-  }
-    
-  public void setResult(Object result) {
-    this.result = result;
-  }
-    
-  public NewPersonRetRs _setResult(Object result) {
-    this.result = result;
-    return this;
-  }
-  
   private Timestamp dateOfBirth;
     
   public Timestamp getDateOfBirth() {
@@ -88,10 +73,10 @@ public class NewPersonRetRs implements Serializable {
   
   @Override
   public String toString() {
-    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", result=" + result + ", ssn=" + ssn + ", firstName=" + firstName + "]";
+    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
   }
   
   public String toStringFull() {
-    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", result=" + result + ", ssn=" + ssn + ", firstName=" + firstName + "]";
+    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
   }
 }

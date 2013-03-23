@@ -192,6 +192,19 @@ public class TableMetaConverter extends TablePojoConverter {
                 buffer.append(metaDeleteDefinition(pojo));
                 buffer.append(metaGetSelectDefinition(pojo, true));
             }
+            for (String pojo : procedures.keySet()) {
+                if (ignoreTables.contains(pojo))
+                    continue;
+                boolean isFunction = functions.containsKey(pojo);
+                buffer.append(metaCallProcedureDefinition(pojo, isFunction));
+            }
+            for (String pojo : functions.keySet()) {
+                if (ignoreTables.contains(pojo))
+                    continue;
+                if (procedures.containsKey(pojo))
+                    continue;
+                buffer.append(metaCallFunctionDefinition(pojo));
+            }
             return buffer.toString();
         } catch (RuntimeException ex) {
             Writer writer = new StringWriter();
@@ -744,6 +757,70 @@ public class TableMetaConverter extends TablePojoConverter {
             return true;
         }
         return false;
+    }
+
+    StringBuilder metaCallProcedureDefinition(String pojo, boolean isFunction) {
+        StringBuilder buffer = new StringBuilder();
+        buffer.append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(CALL");
+        if (metaMakeItFinal)
+            buffer.append(",final=");
+        String pojoName = tableNames.get(pojo);
+        if (pojoName == null)
+            pojoName = pojo;
+        buffer.append(",inx=").append(tableToCamelCase(pojoName));
+        buffer.append(")=");
+        buffer.append("\n  call ").append(pojo).append("(");
+        if (dbType == DbType.HSQLDB) {
+
+            // PROC_NEW_PERSON(CALL,inx=NewPerson)=
+            // call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName)
+            // ;
+            //
+            // PROC_NEW_PERSON_RET_RS(CALL,inx=NewPersonRetRs)=
+            // call new_person_ret_rs(:dateOfBirth, :ssn, :firstName, :lastName)
+            // ;
+            // PROC_NEW_PERSON_RET_RS(OUT,outx=Person)=
+            // id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth ssn$ssn
+            // ;
+            //
+            // FUN_AN_HOUR_BEFORE(CALL,inx=AnHourBefore)=
+            // call an_hour_before(:t)
+            // ;
+            // FUN_AN_HOUR_BEFORE(OUT)=
+            // 1$1(type=stamp)
+            // ;
+        } else if (dbType == DbType.ORACLE) {
+
+            // PROC_NEW_PERSON(CALL,inx=NewPerson)=
+            // call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName)
+            // ;
+            //
+            // PROC_NEW_PERSON_RET_RS(CALL,inx=NewPersonRetRs)=
+            // :<1(type=oracle_cursor) = call new_person_ret_rs(:dateOfBirth, :ssn, :firstName, :lastName)
+            // ;
+            // PROC_NEW_PERSON_RET_RS(OUT,outx=Person)=
+            // id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth ssn$ssn
+            // ;
+            //
+            // PROC_NEW_PERSON_OUT_RS(CALL,inx=NewPersonOutRs)=
+            // call new_person_out_rs(:<1(type=oracle_cursor), :dateOfBirth, :ssn, :firstName, :lastName)
+            // ;
+            // PROC_NEW_PERSON_OUT_RS(OUT,outx=Person)=
+            // id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth ssn$ssn
+            // ;
+            //
+            // FUN_AN_HOUR_BEFORE(CALL,inx=AnHourBefore)=
+            // :<1(type=stamp) = call an_hour_before(:t)
+            // ;
+        }
+        buffer.append(")");
+        buffer.append("\n;\n");
+        return buffer;
+    }
+
+    StringBuilder metaCallFunctionDefinition(String pojo) {
+        StringBuilder buffer = new StringBuilder();
+        return buffer;
     }
 
     class Table {

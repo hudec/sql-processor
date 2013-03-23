@@ -30,6 +30,8 @@ public class PojoAttribute {
     private String oneToManyTable;
     private String manyToManyColumn;
     private String manyToManyTable;
+    private Short funProcType;
+    private Short funProcColumnType;
 
     public PojoAttribute(String dbName) {
         this.dbName = dbName;
@@ -240,6 +242,22 @@ public class PojoAttribute {
         return false;
     }
 
+    public Short getFunProcType() {
+        return funProcType;
+    }
+
+    public void setFunProcType(Short funProcType) {
+        this.funProcType = funProcType;
+    }
+
+    public Short getFunProcColumnType() {
+        return funProcColumnType;
+    }
+
+    public void setFunProcColumnType(Short funProcColumnType) {
+        this.funProcColumnType = funProcColumnType;
+    }
+
     @Override
     public String toString() {
         return "PojoAttribute [dbName=" + dbName + ", primitive=" + primitive + ", required=" + required
@@ -249,6 +267,7 @@ public class PojoAttribute {
                 + m2mTable + ", fkTables=" + fkTables + ", m2Tables=" + m2Tables + ", fkColumns=" + fkColumns
                 + ", oneToManyColumn=" + oneToManyColumn + ", oneToManyOppositeColumn=" + oneToManyOppositeColumn
                 + ", oneToManyTable=" + oneToManyTable + ", manyToManyColumn=" + manyToManyColumn
-                + ", manyToManyTable=" + manyToManyTable + "]";
+                + ", manyToManyTable=" + manyToManyTable + ", funProcType=" + funProcType + ", funProcColumnType="
+                + funProcColumnType + "]";
     }
 }

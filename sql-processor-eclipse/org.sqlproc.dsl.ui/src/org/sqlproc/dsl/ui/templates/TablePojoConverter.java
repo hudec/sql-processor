@@ -539,13 +539,15 @@ public class TablePojoConverter {
         }
     }
 
+    public static final String FAKE_FUN_PROC_COLUMN_NAME = "_result_";
+
     public void addProcedureDefinition(String procedure, DbTable dbProcedure, List<DbColumn> dbProcColumns) {
         if (procedure == null || dbProcColumns == null)
             return;
         Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
         for (DbColumn dbColumn : dbProcColumns) {
             if (dbColumn.getColumnType() == 5 && dbColumn.getName() == null) {
-                dbColumn.setName("result");
+                dbColumn.setName(FAKE_FUN_PROC_COLUMN_NAME);
             }
             PojoAttribute attribute = convertDbColumnDefinition(procedure, dbColumn);
             if (attribute != null) {
@@ -555,11 +557,17 @@ public class TablePojoConverter {
                 if (attribute != null)
                     attributes.put(dbColumn.getName(), attribute);
             }
+            if (attribute != null) {
+                attribute.setFunProcType(dbProcedure.getFtype());
+                attribute.setFunProcColumnType(dbColumn.getColumnType());
+            }
         }
         if (createColumns.containsKey(procedure)) {
             for (Map.Entry<String, PojoAttrType> createColumn : createColumns.get(procedure).entrySet()) {
                 PojoAttribute attribute = convertDbColumnDefinition(createColumn.getKey(), createColumn.getValue());
                 attributes.put(createColumn.getKey(), attribute);
+                attribute.setFunProcType(dbProcedure.getFtype());
+                attribute.setFunProcColumnType((short) 1);
             }
         }
         System.out.println("xxxx1 " + dbProcedure + " " + dbProcColumns);
@@ -580,11 +588,17 @@ public class TablePojoConverter {
                 if (attribute != null)
                     attributes.put(dbColumn.getName(), attribute);
             }
+            if (attribute != null) {
+                attribute.setFunProcType(dbFunction.getFtype());
+                attribute.setFunProcColumnType(dbColumn.getColumnType());
+            }
         }
         if (createColumns.containsKey(function)) {
             for (Map.Entry<String, PojoAttrType> createColumn : createColumns.get(function).entrySet()) {
                 PojoAttribute attribute = convertDbColumnDefinition(createColumn.getKey(), createColumn.getValue());
                 attributes.put(createColumn.getKey(), attribute);
+                attribute.setFunProcType(dbFunction.getFtype());
+                attribute.setFunProcColumnType((short) 1);
             }
         }
         System.out.println("yyyy1 " + dbFunction + " " + dbFunColumns);
@@ -849,6 +863,8 @@ public class TablePojoConverter {
                 Set<String> toStr = new HashSet<String>();
                 for (Map.Entry<String, PojoAttribute> pentry : procedures.get(pojo).entrySet()) {
                     // System.out.println("  RRR " + pentry.getKey());
+                    if (FAKE_FUN_PROC_COLUMN_NAME.equals(pentry.getKey()))
+                        continue;
                     if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
                         continue;
                     PojoAttribute attribute = pentry.getValue();
@@ -912,6 +928,8 @@ public class TablePojoConverter {
                 Set<String> toStr = new HashSet<String>();
                 for (Map.Entry<String, PojoAttribute> pentry : functions.get(pojo).entrySet()) {
                     // System.out.println("  RRR " + pentry.getKey());
+                    if (FAKE_FUN_PROC_COLUMN_NAME.equals(pentry.getKey()))
+                        continue;
                     if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
                         continue;
                     PojoAttribute attribute = pentry.getValue();

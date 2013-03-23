@@ -11,21 +11,6 @@ public class AnHourBefore implements Serializable {
   public AnHourBefore() {
   }
   
-  private Timestamp result;
-    
-  public Timestamp getResult() {
-    return result;
-  }
-    
-  public void setResult(Timestamp result) {
-    this.result = result;
-  }
-    
-  public AnHourBefore _setResult(Timestamp result) {
-    this.result = result;
-    return this;
-  }
-  
   private Timestamp t;
     
   public Timestamp getT() {
@@ -43,10 +28,10 @@ public class AnHourBefore implements Serializable {
   
   @Override
   public String toString() {
-    return "AnHourBefore [result=" + result + ", t=" + t + "]";
+    return "AnHourBefore [t=" + t + "]";
   }
   
   public String toStringFull() {
-    return "AnHourBefore [result=" + result + ", t=" + t + "]";
+    return "AnHourBefore [t=" + t + "]";
   }
 }
