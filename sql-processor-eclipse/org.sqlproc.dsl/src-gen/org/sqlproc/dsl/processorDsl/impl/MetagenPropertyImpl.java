@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.sqlproc.dsl.processorDsl.MetaTypeAssignement;
 import org.sqlproc.dsl.processorDsl.MetagenProperty;
-import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -40,7 +39,6 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getDbStatement <em>Db Statement</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getDbColumns <em>Db Columns</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getDbFunction <em>Db Function</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getResultType <em>Result Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getDbProcedure <em>Db Procedure</em>}</li>
  * </ul>
  * </p>
@@ -208,16 +206,6 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected String dbFunction = DB_FUNCTION_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getResultType() <em>Result Type</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getResultType()
-   * @generated
-   * @ordered
-   */
-  protected PojoType resultType;
 
   /**
    * The default value of the '{@link #getDbProcedure() <em>Db Procedure</em>}' attribute.
@@ -454,54 +442,6 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public PojoType getResultType()
-  {
-    return resultType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetResultType(PojoType newResultType, NotificationChain msgs)
-  {
-    PojoType oldResultType = resultType;
-    resultType = newResultType;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.METAGEN_PROPERTY__RESULT_TYPE, oldResultType, newResultType);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setResultType(PojoType newResultType)
-  {
-    if (newResultType != resultType)
-    {
-      NotificationChain msgs = null;
-      if (resultType != null)
-        msgs = ((InternalEObject)resultType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.METAGEN_PROPERTY__RESULT_TYPE, null, msgs);
-      if (newResultType != null)
-        msgs = ((InternalEObject)newResultType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.METAGEN_PROPERTY__RESULT_TYPE, null, msgs);
-      msgs = basicSetResultType(newResultType, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.METAGEN_PROPERTY__RESULT_TYPE, newResultType, newResultType));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public String getDbProcedure()
   {
     return dbProcedure;
@@ -532,8 +472,6 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
     {
       case ProcessorDslPackage.METAGEN_PROPERTY__META_TYPES:
         return ((InternalEList<?>)getMetaTypes()).basicRemove(otherEnd, msgs);
-      case ProcessorDslPackage.METAGEN_PROPERTY__RESULT_TYPE:
-        return basicSetResultType(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -566,8 +504,6 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
         return getDbColumns();
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_FUNCTION:
         return getDbFunction();
-      case ProcessorDslPackage.METAGEN_PROPERTY__RESULT_TYPE:
-        return getResultType();
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_PROCEDURE:
         return getDbProcedure();
     }
@@ -614,9 +550,6 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_FUNCTION:
         setDbFunction((String)newValue);
         return;
-      case ProcessorDslPackage.METAGEN_PROPERTY__RESULT_TYPE:
-        setResultType((PojoType)newValue);
-        return;
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_PROCEDURE:
         setDbProcedure((String)newValue);
         return;
@@ -661,9 +594,6 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_FUNCTION:
         setDbFunction(DB_FUNCTION_EDEFAULT);
         return;
-      case ProcessorDslPackage.METAGEN_PROPERTY__RESULT_TYPE:
-        setResultType((PojoType)null);
-        return;
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_PROCEDURE:
         setDbProcedure(DB_PROCEDURE_EDEFAULT);
         return;
@@ -699,8 +629,6 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
         return dbColumns != null && !dbColumns.isEmpty();
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_FUNCTION:
         return DB_FUNCTION_EDEFAULT == null ? dbFunction != null : !DB_FUNCTION_EDEFAULT.equals(dbFunction);
-      case ProcessorDslPackage.METAGEN_PROPERTY__RESULT_TYPE:
-        return resultType != null;
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_PROCEDURE:
         return DB_PROCEDURE_EDEFAULT == null ? dbProcedure != null : !DB_PROCEDURE_EDEFAULT.equals(dbProcedure);
     }

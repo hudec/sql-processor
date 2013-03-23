@@ -1294,22 +1294,13 @@ public interface ProcessorDslPackage extends EPackage
   int METAGEN_PROPERTY__DB_FUNCTION = 8;
 
   /**
-   * The feature id for the '<em><b>Result Type</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int METAGEN_PROPERTY__RESULT_TYPE = 9;
-
-  /**
    * The feature id for the '<em><b>Db Procedure</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METAGEN_PROPERTY__DB_PROCEDURE = 10;
+  int METAGEN_PROPERTY__DB_PROCEDURE = 9;
 
   /**
    * The number of structural features of the '<em>Metagen Property</em>' class.
@@ -1318,7 +1309,7 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int METAGEN_PROPERTY_FEATURE_COUNT = 11;
+  int METAGEN_PROPERTY_FEATURE_COUNT = 10;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl <em>Daogen Property</em>}' class.
@@ -1376,13 +1367,31 @@ public interface ProcessorDslPackage extends EPackage
   int DAOGEN_PROPERTY__TO_EXTENDS = 4;
 
   /**
+   * The feature id for the '<em><b>Db Function</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DAOGEN_PROPERTY__DB_FUNCTION = 5;
+
+  /**
+   * The feature id for the '<em><b>Result Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DAOGEN_PROPERTY__RESULT_TYPE = 6;
+
+  /**
    * The number of structural features of the '<em>Daogen Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DAOGEN_PROPERTY_FEATURE_COUNT = 5;
+  int DAOGEN_PROPERTY_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.
@@ -4607,17 +4616,6 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getMetagenProperty_DbFunction();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getResultType <em>Result Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Result Type</em>'.
-   * @see org.sqlproc.dsl.processorDsl.MetagenProperty#getResultType()
-   * @see #getMetagenProperty()
-   * @generated
-   */
-  EReference getMetagenProperty_ResultType();
-
-  /**
    * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDbProcedure <em>Db Procedure</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4692,6 +4690,28 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EReference getDaogenProperty_ToExtends();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getDbFunction <em>Db Function</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Function</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getDbFunction()
+   * @see #getDaogenProperty()
+   * @generated
+   */
+  EAttribute getDaogenProperty_DbFunction();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getResultType <em>Result Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Result Type</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getResultType()
+   * @see #getDaogenProperty()
+   * @generated
+   */
+  EReference getDaogenProperty_ResultType();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoDefinition <em>Pojo Definition</em>}'.
@@ -7509,14 +7529,6 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute METAGEN_PROPERTY__DB_FUNCTION = eINSTANCE.getMetagenProperty_DbFunction();
 
     /**
-     * The meta object literal for the '<em><b>Result Type</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference METAGEN_PROPERTY__RESULT_TYPE = eINSTANCE.getMetagenProperty_ResultType();
-
-    /**
      * The meta object literal for the '<em><b>Db Procedure</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7573,6 +7585,22 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EReference DAOGEN_PROPERTY__TO_EXTENDS = eINSTANCE.getDaogenProperty_ToExtends();
+
+    /**
+     * The meta object literal for the '<em><b>Db Function</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DAOGEN_PROPERTY__DB_FUNCTION = eINSTANCE.getDaogenProperty_DbFunction();
+
+    /**
+     * The meta object literal for the '<em><b>Result Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DAOGEN_PROPERTY__RESULT_TYPE = eINSTANCE.getDaogenProperty_ResultType();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.

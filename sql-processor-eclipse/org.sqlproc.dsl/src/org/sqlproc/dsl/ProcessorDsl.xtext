@@ -103,7 +103,7 @@ MetagenProperty:
 	|name='not-like-columns' WS+ dbTable=IDENT (WS+ dbColumns+=IDENT)+
 	|name='generate-sequences'
 	|name='generate-identities'
-	|name='function-result' WS+ dbFunction=IDENT WS+ resultType=PojoType
+	|name='function-result' WS+ dbFunction=IDENT WS+ type=IDENT
 	|name='function-result-set' WS+ dbFunction=IDENT WS+ dbTable=IDENT
 	|name='procedure-result-set' WS+ dbProcedure=IDENT WS+ dbTable=IDENT
 	);
@@ -115,6 +115,7 @@ DaogenProperty:
 	|name='implements-interfaces' (WS+ toImplements+=[jvmTypes::JvmType|QualifiedName])+
 	|name='extends-class' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
 	|name='make-it-final'
+	|name='function-result' WS+ dbFunction=IDENT WS+ resultType=PojoType
 	);
 
 PropertyValue:

@@ -106,6 +106,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DAOGEN_IMPLEMENTS_INTERFACES = "implements-interfaces";
     public static final String DAOGEN_EXTENDS_CLASS = "extends-class";
     public static final String DAOGEN_MAKE_IT_FINAL = "make-it-final";
+    public static final String DAOGEN_FUNCTION_RESULT = "function-result";
 
     public static class PairValues {
         public String value1;
@@ -174,7 +175,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Set<String>> metaNotLikeColumns;
         public boolean metaGenerateSequences;
         public boolean metaGenerateIdentities;
-        public Map<String, PojoType> metaFunctionsResult;
+        public Map<String, String> metaFunctionsResult;
         public Map<String, String> metaFunctionsResultSet;
         public Map<String, String> metaProceduresResultSet;
 
@@ -184,6 +185,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, JvmType> daoToImplements;
         public JvmType daoToExtends;
         public boolean daoMakeItFinal;
+        public Map<String, PojoType> daoFunctionsResult;
     }
 
     private Map<String, ModelValues> dirs2models = new HashMap<String, ModelValues>();
@@ -370,7 +372,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.metaNotLikeColumns = new HashMap<String, Set<String>>();
         modelValues.metaGenerateSequences = false;
         modelValues.metaGenerateIdentities = false;
-        modelValues.metaFunctionsResult = new HashMap<String, PojoType>();
+        modelValues.metaFunctionsResult = new HashMap<String, String>();
         modelValues.metaFunctionsResultSet = new HashMap<String, String>();
         modelValues.metaProceduresResultSet = new HashMap<String, String>();
     }
@@ -382,6 +384,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.daoToImplements = new HashMap<String, JvmType>();
         modelValues.daoToExtends = null;
         modelValues.daoMakeItFinal = false;
+        modelValues.daoFunctionsResult = new HashMap<String, PojoType>();
     }
 
     public void setValue(ModelValues modelValues, Property property) {
@@ -726,7 +729,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         } else if (METAGEN_GENERATE_IDENTITIES.equals(property.getName())) {
             modelValues.metaGenerateIdentities = true;
         } else if (METAGEN_FUNCTION_RESULT.equals(property.getName())) {
-            modelValues.metaFunctionsResult.put(property.getDbFunction(), property.getResultType());
+            modelValues.metaFunctionsResult.put(property.getDbFunction(), property.getType());
         } else if (METAGEN_FUNCTION_RESULT_SET.equals(property.getName())) {
             modelValues.metaFunctionsResultSet.put(property.getDbFunction(), property.getDbTable());
         } else if (METAGEN_PROCEDURE_RESULT_SET.equals(property.getName())) {
@@ -756,6 +759,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.daoToExtends = property.getToExtends();
         } else if (DAOGEN_MAKE_IT_FINAL.equals(property.getName())) {
             modelValues.daoMakeItFinal = true;
+        } else if (DAOGEN_FUNCTION_RESULT.equals(property.getName())) {
+            modelValues.daoFunctionsResult.put(property.getDbFunction(), property.getResultType());
         }
     }
 
@@ -1024,9 +1029,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
-    public Map<String, PojoType> getMetaFunctionsResult(EObject model) {
+    public Map<String, String> getMetaFunctionsResult(EObject model) {
         ModelValues modelValues = getModelValues(model);
-        return (modelValues != null) ? modelValues.metaFunctionsResult : Collections.<String, PojoType> emptyMap();
+        return (modelValues != null) ? modelValues.metaFunctionsResult : Collections.<String, String> emptyMap();
     }
 
     @Override
@@ -1075,6 +1080,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public boolean isDaoMakeItFinal(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.daoMakeItFinal : false;
+    }
+
+    @Override
+    public Map<String, PojoType> getDaoFunctionsResult(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.daoFunctionsResult : Collections.<String, PojoType> emptyMap();
     }
 
     @Override

@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDbStatement <em>Db Statement</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDbColumns <em>Db Columns</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDbFunction <em>Db Function</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getResultType <em>Result Type</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDbProcedure <em>Db Procedure</em>}</li>
  * </ul>
  * </p>
@@ -247,32 +246,6 @@ public interface MetagenProperty extends EObject
    * @generated
    */
   void setDbFunction(String value);
-
-  /**
-   * Returns the value of the '<em><b>Result Type</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Result Type</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Result Type</em>' containment reference.
-   * @see #setResultType(PojoType)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getMetagenProperty_ResultType()
-   * @model containment="true"
-   * @generated
-   */
-  PojoType getResultType();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getResultType <em>Result Type</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Result Type</em>' containment reference.
-   * @see #getResultType()
-   * @generated
-   */
-  void setResultType(PojoType value);
 
   /**
    * Returns the value of the '<em><b>Db Procedure</b></em>' attribute.

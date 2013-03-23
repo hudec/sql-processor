@@ -5,6 +5,7 @@ package org.sqlproc.dsl.processorDsl.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,6 +21,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.xtext.common.types.JvmType;
 
 import org.sqlproc.dsl.processorDsl.DaogenProperty;
+import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -34,6 +36,8 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl#getImplPackage <em>Impl Package</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl#getToImplements <em>To Implements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl#getToExtends <em>To Extends</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl#getDbFunction <em>Db Function</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl#getResultType <em>Result Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -110,6 +114,36 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected JvmType toExtends;
+
+  /**
+   * The default value of the '{@link #getDbFunction() <em>Db Function</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbFunction()
+   * @generated
+   * @ordered
+   */
+  protected static final String DB_FUNCTION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDbFunction() <em>Db Function</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbFunction()
+   * @generated
+   * @ordered
+   */
+  protected String dbFunction = DB_FUNCTION_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getResultType() <em>Result Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getResultType()
+   * @generated
+   * @ordered
+   */
+  protected PojoType resultType;
 
   /**
    * <!-- begin-user-doc -->
@@ -254,6 +288,93 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDbFunction()
+  {
+    return dbFunction;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbFunction(String newDbFunction)
+  {
+    String oldDbFunction = dbFunction;
+    dbFunction = newDbFunction;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DAOGEN_PROPERTY__DB_FUNCTION, oldDbFunction, dbFunction));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PojoType getResultType()
+  {
+    return resultType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetResultType(PojoType newResultType, NotificationChain msgs)
+  {
+    PojoType oldResultType = resultType;
+    resultType = newResultType;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DAOGEN_PROPERTY__RESULT_TYPE, oldResultType, newResultType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setResultType(PojoType newResultType)
+  {
+    if (newResultType != resultType)
+    {
+      NotificationChain msgs = null;
+      if (resultType != null)
+        msgs = ((InternalEObject)resultType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.DAOGEN_PROPERTY__RESULT_TYPE, null, msgs);
+      if (newResultType != null)
+        msgs = ((InternalEObject)newResultType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.DAOGEN_PROPERTY__RESULT_TYPE, null, msgs);
+      msgs = basicSetResultType(newResultType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DAOGEN_PROPERTY__RESULT_TYPE, newResultType, newResultType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ProcessorDslPackage.DAOGEN_PROPERTY__RESULT_TYPE:
+        return basicSetResultType(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -270,6 +391,10 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
       case ProcessorDslPackage.DAOGEN_PROPERTY__TO_EXTENDS:
         if (resolve) return getToExtends();
         return basicGetToExtends();
+      case ProcessorDslPackage.DAOGEN_PROPERTY__DB_FUNCTION:
+        return getDbFunction();
+      case ProcessorDslPackage.DAOGEN_PROPERTY__RESULT_TYPE:
+        return getResultType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -302,6 +427,12 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
       case ProcessorDslPackage.DAOGEN_PROPERTY__TO_EXTENDS:
         setToExtends((JvmType)newValue);
         return;
+      case ProcessorDslPackage.DAOGEN_PROPERTY__DB_FUNCTION:
+        setDbFunction((String)newValue);
+        return;
+      case ProcessorDslPackage.DAOGEN_PROPERTY__RESULT_TYPE:
+        setResultType((PojoType)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -331,6 +462,12 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
       case ProcessorDslPackage.DAOGEN_PROPERTY__TO_EXTENDS:
         setToExtends((JvmType)null);
         return;
+      case ProcessorDslPackage.DAOGEN_PROPERTY__DB_FUNCTION:
+        setDbFunction(DB_FUNCTION_EDEFAULT);
+        return;
+      case ProcessorDslPackage.DAOGEN_PROPERTY__RESULT_TYPE:
+        setResultType((PojoType)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -355,6 +492,10 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
         return toImplements != null && !toImplements.isEmpty();
       case ProcessorDslPackage.DAOGEN_PROPERTY__TO_EXTENDS:
         return toExtends != null;
+      case ProcessorDslPackage.DAOGEN_PROPERTY__DB_FUNCTION:
+        return DB_FUNCTION_EDEFAULT == null ? dbFunction != null : !DB_FUNCTION_EDEFAULT.equals(dbFunction);
+      case ProcessorDslPackage.DAOGEN_PROPERTY__RESULT_TYPE:
+        return resultType != null;
     }
     return super.eIsSet(featureID);
   }
@@ -376,6 +517,8 @@ public class DaogenPropertyImpl extends MinimalEObjectImpl.Container implements 
     result.append(dbTables);
     result.append(", implPackage: ");
     result.append(implPackage);
+    result.append(", dbFunction: ");
+    result.append(dbFunction);
     result.append(')');
     return result.toString();
   }

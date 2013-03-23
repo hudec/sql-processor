@@ -111,9 +111,11 @@ public interface ModelProperty extends Adapter {
 
     boolean isMetaGenerateSequences(EObject model);
 
-    Map<String, PojoType> getMetaFunctionsResult(EObject model);
+    Map<String, String> getMetaFunctionsResult(EObject model);
 
     Map<String, String> getMetaFunctionsResultSet(EObject model);
 
     Map<String, String> getMetaProceduresResultSet(EObject model);
+
+    Map<String, PojoType> getDaoFunctionsResult(EObject model);
 }

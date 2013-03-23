@@ -589,7 +589,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='implementation-package' implPackage=IDENT) | 
 	 *         (name='implements-interfaces' toImplements+=[JvmType|QualifiedName]+) | 
 	 *         (name='extends-class' toExtends=[JvmType|QualifiedName]) | 
-	 *         name='make-it-final'
+	 *         name='make-it-final' | 
+	 *         (name='function-result' dbFunction=IDENT resultType=PojoType)
 	 *     )
 	 */
 	protected void sequence_DaogenProperty(EObject context, DaogenProperty semanticObject) {
@@ -1054,7 +1055,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='not-like-columns' dbTable=IDENT dbColumns+=IDENT+) | 
 	 *         name='generate-sequences' | 
 	 *         name='generate-identities' | 
-	 *         (name='function-result' dbFunction=IDENT resultType=PojoType) | 
+	 *         (name='function-result' dbFunction=IDENT type=IDENT) | 
 	 *         (name='function-result-set' dbFunction=IDENT dbTable=IDENT) | 
 	 *         (name='procedure-result-set' dbProcedure=IDENT dbTable=IDENT)
 	 *     )

@@ -21,6 +21,8 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getImplPackage <em>Impl Package</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToImplements <em>To Implements</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToExtends <em>To Extends</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getDbFunction <em>Db Function</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getResultType <em>Result Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -139,5 +141,57 @@ public interface DaogenProperty extends EObject
    * @generated
    */
   void setToExtends(JvmType value);
+
+  /**
+   * Returns the value of the '<em><b>Db Function</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Db Function</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Db Function</em>' attribute.
+   * @see #setDbFunction(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDaogenProperty_DbFunction()
+   * @model
+   * @generated
+   */
+  String getDbFunction();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getDbFunction <em>Db Function</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Db Function</em>' attribute.
+   * @see #getDbFunction()
+   * @generated
+   */
+  void setDbFunction(String value);
+
+  /**
+   * Returns the value of the '<em><b>Result Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Result Type</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Result Type</em>' containment reference.
+   * @see #setResultType(PojoType)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDaogenProperty_ResultType()
+   * @model containment="true"
+   * @generated
+   */
+  PojoType getResultType();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getResultType <em>Result Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Result Type</em>' containment reference.
+   * @see #getResultType()
+   * @generated
+   */
+  void setResultType(PojoType value);
 
 } // DaogenProperty

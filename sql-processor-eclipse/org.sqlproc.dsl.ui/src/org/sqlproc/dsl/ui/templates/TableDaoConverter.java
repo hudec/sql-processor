@@ -15,6 +15,7 @@ import java.util.Set;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.property.ModelProperty;
 import org.sqlproc.dsl.property.PojoAttribute;
 import org.sqlproc.dsl.resolver.DbResolver.DbType;
@@ -30,6 +31,7 @@ public class TableDaoConverter extends TableMetaConverter {
     protected Map<String, JvmType> daoToImplements = new HashMap<String, JvmType>();
     protected JvmType daoToExtends = null;
     protected boolean daoMakeItFinal;
+    protected Map<String, PojoType> daoFunctionsResult = new HashMap<String, PojoType>();
 
     public TableDaoConverter() {
         super();
@@ -57,6 +59,10 @@ public class TableDaoConverter extends TableMetaConverter {
         }
         this.daoToExtends = modelProperty.getDaoToExtends(artifacts);
         this.daoMakeItFinal = modelProperty.isDaoMakeItFinal(artifacts);
+        Map<String, PojoType> daoFunctionsResult = modelProperty.getDaoFunctionsResult(artifacts);
+        if (daoFunctionsResult != null) {
+            this.daoFunctionsResult.putAll(daoFunctionsResult);
+        }
 
         if (debug) {
             System.out.println("finalDaos " + this.finalDaos);
@@ -65,6 +71,7 @@ public class TableDaoConverter extends TableMetaConverter {
             System.out.println("daoImplementationPackage " + this.daoImplementationPackage);
             System.out.println("daoToImplements " + this.daoToImplements);
             System.out.println("daoToExtends " + this.daoToExtends);
+            System.out.println("daoFunctionsResult " + this.daoFunctionsResult);
         }
     }
 

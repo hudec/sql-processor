@@ -4170,19 +4170,19 @@ ruleMetagenProperty returns [EObject current=null]
     }
 )+(
 (
-		{ 
-	        newCompositeNode(grammarAccess.getMetagenPropertyAccess().getResultTypePojoTypeParserRuleCall_11_4_0()); 
-	    }
-		lv_resultType_51_0=rulePojoType		{
+		lv_type_51_0=RULE_IDENT
+		{
+			newLeafNode(lv_type_51_0, grammarAccess.getMetagenPropertyAccess().getTypeIDENTTerminalRuleCall_11_4_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getMetagenPropertyRule());
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
-       			"resultType",
-        		lv_resultType_51_0, 
-        		"PojoType");
-	        afterParserOrEnumRuleCall();
+       			"type",
+        		lv_type_51_0, 
+        		"IDENT");
 	    }
 
 )
@@ -4526,7 +4526,67 @@ ruleDaogenProperty returns [EObject current=null]
 	    }
 
 )
-))
+)
+    |((
+(
+		lv_name_16_0=	'function-result' 
+    {
+        newLeafNode(lv_name_16_0, grammarAccess.getDaogenPropertyAccess().getNameFunctionResultKeyword_6_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_16_0, "function-result");
+	    }
+
+)
+)(this_WS_17=RULE_WS
+    { 
+    newLeafNode(this_WS_17, grammarAccess.getDaogenPropertyAccess().getWSTerminalRuleCall_6_1()); 
+    }
+)+(
+(
+		lv_dbFunction_18_0=RULE_IDENT
+		{
+			newLeafNode(lv_dbFunction_18_0, grammarAccess.getDaogenPropertyAccess().getDbFunctionIDENTTerminalRuleCall_6_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbFunction",
+        		lv_dbFunction_18_0, 
+        		"IDENT");
+	    }
+
+)
+)(this_WS_19=RULE_WS
+    { 
+    newLeafNode(this_WS_19, grammarAccess.getDaogenPropertyAccess().getWSTerminalRuleCall_6_3()); 
+    }
+)+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDaogenPropertyAccess().getResultTypePojoTypeParserRuleCall_6_4_0()); 
+	    }
+		lv_resultType_20_0=rulePojoType		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDaogenPropertyRule());
+	        }
+       		set(
+       			$current, 
+       			"resultType",
+        		lv_resultType_20_0, 
+        		"PojoType");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)))
 ;
 
 

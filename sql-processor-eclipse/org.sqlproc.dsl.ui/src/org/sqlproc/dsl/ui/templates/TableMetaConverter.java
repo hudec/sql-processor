@@ -17,7 +17,6 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.sqlproc.dsl.processorDsl.Artifacts;
-import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.property.ModelProperty;
@@ -47,7 +46,7 @@ public class TableMetaConverter extends TablePojoConverter {
     protected boolean metaGenerateIdentities;
     protected Map<String, StringBuilder> sequences = null;
     protected Map<String, StringBuilder> identities = null;
-    protected Map<String, PojoType> metaFunctionsResult = new HashMap<String, PojoType>();
+    protected Map<String, String> metaFunctionsResult = new HashMap<String, String>();
     protected Map<String, String> metaFunctionsResultSet = new HashMap<String, String>();
     protected Map<String, String> metaProceduresResultSet = new HashMap<String, String>();
 
@@ -122,7 +121,7 @@ public class TableMetaConverter extends TablePojoConverter {
                 metaIdentityDefinition(null, identities);
             }
         }
-        Map<String, PojoType> metaFunctionsResult = modelProperty.getMetaFunctionsResult(artifacts);
+        Map<String, String> metaFunctionsResult = modelProperty.getMetaFunctionsResult(artifacts);
         if (metaFunctionsResult != null) {
             this.metaFunctionsResult.putAll(metaFunctionsResult);
         }
@@ -812,6 +811,14 @@ public class TableMetaConverter extends TablePojoConverter {
             buffer.append(name);
         }
         if (dbType == DbType.HSQLDB) {
+            if (isFunction && metaFunctionsResult.containsKey(pojo)) {
+                buffer.append(")").append("\n;");
+                buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(OUT");
+                if (metaMakeItFinal)
+                    buffer.append(",final=");
+                buffer.append(")=");
+                buffer.append("\n  1$1(type=").append(metaFunctionsResult.get(pojo));
+            }
 
             // PROC_NEW_PERSON(CALL,inx=NewPerson)=
             // call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName)
@@ -854,8 +861,7 @@ public class TableMetaConverter extends TablePojoConverter {
             // :<1(type=stamp) = call an_hour_before(:t)
             // ;
         }
-        buffer.append(")");
-        buffer.append("\n;\n");
+        buffer.append(")").append("\n;\n");
         return buffer;
     }
 
