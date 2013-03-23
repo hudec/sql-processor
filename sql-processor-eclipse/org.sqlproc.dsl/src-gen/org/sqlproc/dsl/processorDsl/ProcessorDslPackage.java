@@ -1285,13 +1285,40 @@ public interface ProcessorDslPackage extends EPackage
   int METAGEN_PROPERTY__DB_COLUMNS = 7;
 
   /**
+   * The feature id for the '<em><b>Db Function</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METAGEN_PROPERTY__DB_FUNCTION = 8;
+
+  /**
+   * The feature id for the '<em><b>Result Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METAGEN_PROPERTY__RESULT_TYPE = 9;
+
+  /**
+   * The feature id for the '<em><b>Db Procedure</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METAGEN_PROPERTY__DB_PROCEDURE = 10;
+
+  /**
    * The number of structural features of the '<em>Metagen Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METAGEN_PROPERTY_FEATURE_COUNT = 8;
+  int METAGEN_PROPERTY_FEATURE_COUNT = 11;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl <em>Daogen Property</em>}' class.
@@ -4569,6 +4596,39 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getMetagenProperty_DbColumns();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDbFunction <em>Db Function</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Function</em>'.
+   * @see org.sqlproc.dsl.processorDsl.MetagenProperty#getDbFunction()
+   * @see #getMetagenProperty()
+   * @generated
+   */
+  EAttribute getMetagenProperty_DbFunction();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getResultType <em>Result Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Result Type</em>'.
+   * @see org.sqlproc.dsl.processorDsl.MetagenProperty#getResultType()
+   * @see #getMetagenProperty()
+   * @generated
+   */
+  EReference getMetagenProperty_ResultType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDbProcedure <em>Db Procedure</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Procedure</em>'.
+   * @see org.sqlproc.dsl.processorDsl.MetagenProperty#getDbProcedure()
+   * @see #getMetagenProperty()
+   * @generated
+   */
+  EAttribute getMetagenProperty_DbProcedure();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.DaogenProperty <em>Daogen Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -7439,6 +7499,30 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute METAGEN_PROPERTY__DB_COLUMNS = eINSTANCE.getMetagenProperty_DbColumns();
+
+    /**
+     * The meta object literal for the '<em><b>Db Function</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute METAGEN_PROPERTY__DB_FUNCTION = eINSTANCE.getMetagenProperty_DbFunction();
+
+    /**
+     * The meta object literal for the '<em><b>Result Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference METAGEN_PROPERTY__RESULT_TYPE = eINSTANCE.getMetagenProperty_ResultType();
+
+    /**
+     * The meta object literal for the '<em><b>Db Procedure</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute METAGEN_PROPERTY__DB_PROCEDURE = eINSTANCE.getMetagenProperty_DbProcedure();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl <em>Daogen Property</em>}' class.

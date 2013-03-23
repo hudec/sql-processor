@@ -27,6 +27,7 @@ import org.sqlproc.dsl.processorDsl.JoinTableAssignement;
 import org.sqlproc.dsl.processorDsl.ManyToManyAssignement;
 import org.sqlproc.dsl.processorDsl.MetaTypeAssignement;
 import org.sqlproc.dsl.processorDsl.MetagenProperty;
+import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.PojogenProperty;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.util.Utils;
@@ -95,6 +96,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String METAGEN_NOT_LIKE_COLUMNS = "not-like-columns";
     public static final String METAGEN_GENERATE_SEQUENCES = "generate-sequences";
     public static final String METAGEN_GENERATE_IDENTITIES = "generate-identities";
+    public static final String METAGEN_FUNCTION_RESULT = "function-result";
+    public static final String METAGEN_FUNCTION_RESULT_SET = "function-result-set";
+    public static final String METAGEN_PROCEDURE_RESULT_SET = "procedure-result-set";
     public static final String DAOGEN = "daogen";
     public static final String DAOGEN_IGNORE_TABLES = "ignore-tables";
     public static final String DAOGEN_ONLY_TABLES = "only-tables";
@@ -170,6 +174,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, Set<String>> metaNotLikeColumns;
         public boolean metaGenerateSequences;
         public boolean metaGenerateIdentities;
+        public Map<String, PojoType> metaFunctionsResult;
+        public Map<String, String> metaFunctionsResultSet;
+        public Map<String, String> metaProceduresResultSet;
 
         public Set<String> daoIgnoreTables;
         public Set<String> daoOnlyTables;
@@ -363,6 +370,9 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.metaNotLikeColumns = new HashMap<String, Set<String>>();
         modelValues.metaGenerateSequences = false;
         modelValues.metaGenerateIdentities = false;
+        modelValues.metaFunctionsResult = new HashMap<String, PojoType>();
+        modelValues.metaFunctionsResultSet = new HashMap<String, String>();
+        modelValues.metaProceduresResultSet = new HashMap<String, String>();
     }
 
     private void initDaogenModel(ModelValues modelValues) {
@@ -715,6 +725,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.metaGenerateSequences = true;
         } else if (METAGEN_GENERATE_IDENTITIES.equals(property.getName())) {
             modelValues.metaGenerateIdentities = true;
+        } else if (METAGEN_FUNCTION_RESULT.equals(property.getName())) {
+            modelValues.metaFunctionsResult.put(property.getDbFunction(), property.getResultType());
+        } else if (METAGEN_FUNCTION_RESULT_SET.equals(property.getName())) {
+            modelValues.metaFunctionsResultSet.put(property.getDbFunction(), property.getDbTable());
+        } else if (METAGEN_PROCEDURE_RESULT_SET.equals(property.getName())) {
+            modelValues.metaFunctionsResultSet.put(property.getDbProcedure(), property.getDbTable());
         }
     }
 
@@ -1005,6 +1021,24 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public boolean isMetaGenerateIdentities(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.metaGenerateIdentities : false;
+    }
+
+    @Override
+    public Map<String, PojoType> getMetaFunctionsResult(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.metaFunctionsResult : Collections.<String, PojoType> emptyMap();
+    }
+
+    @Override
+    public Map<String, String> getMetaFunctionsResultSet(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.metaFunctionsResultSet : Collections.<String, String> emptyMap();
+    }
+
+    @Override
+    public Map<String, String> getMetaProceduresResultSet(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.metaProceduresResultSet : Collections.<String, String> emptyMap();
     }
 
     @Override

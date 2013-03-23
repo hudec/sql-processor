@@ -7,6 +7,7 @@ import java.util.Set;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmType;
+import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.property.ModelPropertyBean.ModelValues;
 import org.sqlproc.dsl.property.ModelPropertyBean.PairValues;
 
@@ -109,4 +110,10 @@ public interface ModelProperty extends Adapter {
     boolean isMetaGenerateIdentities(EObject model);
 
     boolean isMetaGenerateSequences(EObject model);
+
+    Map<String, PojoType> getMetaFunctionsResult(EObject model);
+
+    Map<String, String> getMetaFunctionsResultSet(EObject model);
+
+    Map<String, String> getMetaProceduresResultSet(EObject model);
 }

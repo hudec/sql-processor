@@ -1053,7 +1053,10 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='like-columns' dbTable=IDENT dbColumns+=IDENT+) | 
 	 *         (name='not-like-columns' dbTable=IDENT dbColumns+=IDENT+) | 
 	 *         name='generate-sequences' | 
-	 *         name='generate-identities'
+	 *         name='generate-identities' | 
+	 *         (name='function-result' dbFunction=IDENT resultType=PojoType) | 
+	 *         (name='function-result-set' dbFunction=IDENT dbTable=IDENT) | 
+	 *         (name='procedure-result-set' dbProcedure=IDENT dbTable=IDENT)
 	 *     )
 	 */
 	protected void sequence_MetagenProperty(EObject context, MetagenProperty semanticObject) {

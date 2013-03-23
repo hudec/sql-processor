@@ -570,8 +570,8 @@ public class TablePojoConverter {
                 attribute.setFunProcColumnType((short) 1);
             }
         }
-        System.out.println("xxxx1 " + dbProcedure + " " + dbProcColumns);
-        System.out.println("xxxx2 " + procedure + " " + attributes);
+        // System.out.println("xxxx1 " + dbProcedure + " " + dbProcColumns);
+        // System.out.println("xxxx2 " + procedure + " " + attributes);
         procedures.put(procedure, attributes);
     }
 
@@ -601,8 +601,8 @@ public class TablePojoConverter {
                 attribute.setFunProcColumnType((short) 1);
             }
         }
-        System.out.println("yyyy1 " + dbFunction + " " + dbFunColumns);
-        System.out.println("yyyy2 " + function + " " + attributes);
+        // System.out.println("yyyy1 " + dbFunction + " " + dbFunColumns);
+        // System.out.println("yyyy2 " + function + " " + attributes);
         functions.put(function, attributes);
     }
 

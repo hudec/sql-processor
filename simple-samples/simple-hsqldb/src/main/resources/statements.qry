@@ -106,20 +106,20 @@ SELECT_PERSON(QRY,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   {#2 order by %p.LAST_NAME }
 ;
 
-PROC_NEW_PERSON(CALL,inx=NewPerson)=
+PROC_NEW_PERSON1(CALL,inx=NewPerson)=
   call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName)
 ;
 
-PROC_NEW_PERSON_RET_RS(CALL,inx=NewPersonRetRs)=
+PROC_NEW_PERSON_RET_RS1(CALL,inx=NewPersonRetRs)=
   call new_person_ret_rs(:dateOfBirth, :ssn, :firstName, :lastName)
 ;
-PROC_NEW_PERSON_RET_RS(OUT,outx=Person)=
+PROC_NEW_PERSON_RET_RS1(OUT,outx=Person)=
   id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth ssn$ssn
 ;
 
-FUN_AN_HOUR_BEFORE(CALL,inx=AnHourBefore)=
+FUN_AN_HOUR_BEFORE1(CALL,inx=AnHourBefore)=
   call an_hour_before(:t)
 ;
-FUN_AN_HOUR_BEFORE(OUT)=
+FUN_AN_HOUR_BEFORE1(OUT)=
   1$1(type=stamp)
 ;

@@ -17,6 +17,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.sqlproc.dsl.processorDsl.Artifacts;
+import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
 import org.sqlproc.dsl.property.ModelProperty;
@@ -46,6 +47,9 @@ public class TableMetaConverter extends TablePojoConverter {
     protected boolean metaGenerateIdentities;
     protected Map<String, StringBuilder> sequences = null;
     protected Map<String, StringBuilder> identities = null;
+    protected Map<String, PojoType> metaFunctionsResult = new HashMap<String, PojoType>();
+    protected Map<String, String> metaFunctionsResultSet = new HashMap<String, String>();
+    protected Map<String, String> metaProceduresResultSet = new HashMap<String, String>();
 
     enum StatementType {
         INSERT, GET, UPDATE, DELETE, SELECT
@@ -118,6 +122,18 @@ public class TableMetaConverter extends TablePojoConverter {
                 metaIdentityDefinition(null, identities);
             }
         }
+        Map<String, PojoType> metaFunctionsResult = modelProperty.getMetaFunctionsResult(artifacts);
+        if (metaFunctionsResult != null) {
+            this.metaFunctionsResult.putAll(metaFunctionsResult);
+        }
+        Map<String, String> metaFunctionsResultSet = modelProperty.getMetaFunctionsResultSet(artifacts);
+        if (metaFunctionsResultSet != null) {
+            this.metaFunctionsResultSet.putAll(metaFunctionsResultSet);
+        }
+        Map<String, String> metaProceduresResultSet = modelProperty.getMetaProceduresResultSet(artifacts);
+        if (metaProceduresResultSet != null) {
+            this.metaProceduresResultSet.putAll(metaProceduresResultSet);
+        }
 
         if (debug) {
             System.out.println("finalMetas " + this.finalMetas);
@@ -132,6 +148,9 @@ public class TableMetaConverter extends TablePojoConverter {
             System.out.println("metaNotLikeColumns " + this.metaNotLikeColumns);
             System.out.println("metaGenerateSequences " + this.metaGenerateSequences);
             System.out.println("metaGenerateIdentities " + this.metaGenerateIdentities);
+            System.out.println("metaFunctionsResult " + this.metaFunctionsResult);
+            System.out.println("metaFunctionsResultSet " + this.metaFunctionsResultSet);
+            System.out.println("metaProceduresResultSet " + this.metaProceduresResultSet);
         }
     }
 
@@ -761,7 +780,7 @@ public class TableMetaConverter extends TablePojoConverter {
 
     StringBuilder metaCallProcedureDefinition(String pojo, boolean isFunction) {
         StringBuilder buffer = new StringBuilder();
-        buffer.append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(CALL");
+        buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(CALL");
         if (metaMakeItFinal)
             buffer.append(",final=");
         String pojoName = tableNames.get(pojo);
@@ -770,6 +789,28 @@ public class TableMetaConverter extends TablePojoConverter {
         buffer.append(",inx=").append(tableToCamelCase(pojoName));
         buffer.append(")=");
         buffer.append("\n  call ").append(pojo).append("(");
+        boolean first = true;
+        for (Map.Entry<String, PojoAttribute> pentry : procedures.get(pojo).entrySet()) {
+            // System.out.println("  RRR " + pentry.getKey());
+            if (FAKE_FUN_PROC_COLUMN_NAME.equals(pentry.getKey()))
+                continue;
+            if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
+                continue;
+            PojoAttribute attribute = pentry.getValue();
+            String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : null;
+            if (name == null)
+                name = attribute.getName();
+            else
+                name = columnToCamelCase(name);
+            if (!first)
+                buffer.append(", ");
+            else
+                first = false;
+            buffer.append(":");
+            if (attribute.getFunProcColumnType() != null && attribute.getFunProcColumnType() == 4)
+                buffer.append("<");
+            buffer.append(name);
+        }
         if (dbType == DbType.HSQLDB) {
 
             // PROC_NEW_PERSON(CALL,inx=NewPerson)=
