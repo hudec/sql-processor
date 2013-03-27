@@ -538,6 +538,8 @@ public class TableMetaConverter extends TablePojoConverter {
             first = selectColumn(discriminator, attr, buffer, pojo, first, statementName, tablePrefix, pojoPrefix,
                     notPrimaryKeys, assocTables, discriminator, inherTables, inheritance);
         }
+        if (pojos.get(pojo) == null)
+            return first;
         for (Map.Entry<String, PojoAttribute> pentry : pojos.get(pojo).entrySet()) {
             if (discriminator != null && discriminator.equals(pentry.getKey()))
                 continue;

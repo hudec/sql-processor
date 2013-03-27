@@ -282,18 +282,22 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 if (reloadDaogen) {
                     initDaogenModel(modelValues);
                 }
-                for (Property property : artifacts.getProperties()) {
-                    if (property.getName().startsWith(DATABASE)) {
-                        setValue(modelValues, property.getDatabase());
-                    } else if (property.getName().startsWith(POJOGEN)) {
-                        setValue(modelValues, property.getPojogen());
-                    } else if (property.getName().startsWith(METAGEN)) {
-                        setValue(modelValues, property.getMetagen());
-                    } else if (property.getName().startsWith(DAOGEN)) {
-                        setValue(modelValues, property.getDaogen());
-                    } else {
-                        setValue(modelValues, property);
+                try {
+                    for (Property property : artifacts.getProperties()) {
+                        if (property.getName().startsWith(DATABASE)) {
+                            setValue(modelValues, property.getDatabase());
+                        } else if (property.getName().startsWith(POJOGEN)) {
+                            setValue(modelValues, property.getPojogen());
+                        } else if (property.getName().startsWith(METAGEN)) {
+                            setValue(modelValues, property.getMetagen());
+                        } else if (property.getName().startsWith(DAOGEN)) {
+                            setValue(modelValues, property.getDaogen());
+                        } else {
+                            setValue(modelValues, property);
+                        }
                     }
+                } catch (RuntimeException e) {
+                    e.printStackTrace();
                 }
                 LOGGER.debug("MODEL " + modelValues.toString());
             }

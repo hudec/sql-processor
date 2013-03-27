@@ -141,7 +141,7 @@ public class DbResolverBean implements DbResolver {
 
         modelDatabaseValues.doReconnect = (modelDatabaseValues.connection != null) ? false : true;
 
-        if (modelModelValues.dbDebugLevel != null && modelModelValues.debugLevel.isGreaterOrEqual(Level.DEBUG)) {
+        if (modelModelValues.dbDebugLevel != null && modelModelValues.dbDebugLevel.isGreaterOrEqual(Level.DEBUG)) {
             debug = true;
         } else {
             debug = false;
