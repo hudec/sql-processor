@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbMetaInfo <em>Db Meta Info</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbDriverInfo <em>Db Driver Info</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDbMethodsCalls <em>Db Methods Calls</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDebug <em>Debug</em>}</li>
  * </ul>
  * </p>
  *
@@ -390,5 +391,31 @@ public interface DatabaseProperty extends EObject
    * @generated
    */
   EList<DriverMethodOutputAssignement> getDbMethodsCalls();
+
+  /**
+   * Returns the value of the '<em><b>Debug</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Debug</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Debug</em>' attribute.
+   * @see #setDebug(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDatabaseProperty_Debug()
+   * @model
+   * @generated
+   */
+  String getDebug();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDebug <em>Debug</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Debug</em>' attribute.
+   * @see #getDebug()
+   * @generated
+   */
+  void setDebug(String value);
 
 } // DatabaseProperty

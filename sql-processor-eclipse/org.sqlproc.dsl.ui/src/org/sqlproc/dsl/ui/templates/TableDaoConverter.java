@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.log4j.Level;
 import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.sqlproc.dsl.processorDsl.Artifacts;
@@ -40,6 +41,13 @@ public class TableDaoConverter extends TableMetaConverter {
     public TableDaoConverter(ModelProperty modelProperty, Artifacts artifacts, String suffix,
             IScopeProvider scopeProvider, Set<String> finalDaos, List<String> dbSequences, DbType dbType) {
         super(modelProperty, artifacts, null, Collections.<String> emptySet(), dbSequences, dbType);
+
+        if (modelProperty.getDaoDebugLevel(artifacts) != null
+                && modelProperty.getDaoDebugLevel(artifacts).isGreaterOrEqual(Level.DEBUG)) {
+            debug = true;
+        } else {
+            debug = false;
+        }
 
         this.suffix = (suffix != null) ? suffix : "";
         this.finalDaos = finalDaos;

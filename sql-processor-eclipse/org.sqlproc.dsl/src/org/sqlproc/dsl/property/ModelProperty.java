@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Level;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmType;
@@ -118,4 +119,10 @@ public interface ModelProperty extends Adapter {
     Map<String, String> getMetaProceduresResultSet(EObject model);
 
     Map<String, PojoType> getDaoFunctionsResult(EObject model);
+
+    Level getDebugLevel(EObject model);
+
+    Level getMetaDebugLevel(EObject model);
+
+    Level getDaoDebugLevel(EObject model);
 }

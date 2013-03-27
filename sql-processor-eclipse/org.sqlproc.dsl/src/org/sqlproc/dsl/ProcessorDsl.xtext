@@ -56,6 +56,7 @@ DatabaseProperty:
 	|name='show-database-info' WS+ dbMetaInfo=DatabaseMetaInfoAssignement
 	|name='show-driver-info' WS+ dbDriverInfo=DriverMetaInfoAssignement
 	|name='show-driver-output' (WS+ dbMethodsCalls+=DriverMethodOutputAssignement)+
+	|name='debug-level' WS+ debug=IDENT
 	);
 
 PojogenProperty:
@@ -87,6 +88,7 @@ PojogenProperty:
 	|name='implementation-package' WS+ implPackage=IDENT
 	|name='make-it-final'
 	|name='version-column' WS+ version=IDENT (WS+ dbTables+=IDENT)*
+	|name='debug-level' WS+ debug=IDENT
 	);
 
 MetaTypeAssignement: dbColumn=IDENT '->' type=IDENT ('->' extension=IDENT)?;
@@ -106,6 +108,7 @@ MetagenProperty:
 	|name='function-result' WS+ dbFunction=IDENT WS+ type=IDENT
 	|name='function-result-set' WS+ dbFunction=IDENT WS+ dbTable=IDENT
 	|name='procedure-result-set' WS+ dbProcedure=IDENT WS+ dbTable=IDENT
+	|name='debug-level' WS+ debug=IDENT
 	);
 
 DaogenProperty:
@@ -116,6 +119,7 @@ DaogenProperty:
 	|name='extends-class' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
 	|name='make-it-final'
 	|name='function-result' WS+ dbFunction=IDENT WS+ resultType=PojoType
+	|name='debug-level' WS+ debug=IDENT
 	);
 
 PropertyValue:

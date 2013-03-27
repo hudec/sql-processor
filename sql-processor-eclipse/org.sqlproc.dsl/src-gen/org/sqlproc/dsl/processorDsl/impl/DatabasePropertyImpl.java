@@ -48,6 +48,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbMetaInfo <em>Db Meta Info</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbDriverInfo <em>Db Driver Info</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDbMethodsCalls <em>Db Methods Calls</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.DatabasePropertyImpl#getDebug <em>Debug</em>}</li>
  * </ul>
  * </p>
  *
@@ -274,6 +275,26 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected EList<DriverMethodOutputAssignement> dbMethodsCalls;
+
+  /**
+   * The default value of the '{@link #getDebug() <em>Debug</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDebug()
+   * @generated
+   * @ordered
+   */
+  protected static final String DEBUG_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDebug() <em>Debug</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDebug()
+   * @generated
+   * @ordered
+   */
+  protected String debug = DEBUG_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -739,6 +760,29 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDebug()
+  {
+    return debug;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDebug(String newDebug)
+  {
+    String oldDebug = debug;
+    debug = newDebug;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.DATABASE_PROPERTY__DEBUG, oldDebug, debug));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -798,6 +842,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return getDbDriverInfo();
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_METHODS_CALLS:
         return getDbMethodsCalls();
+      case ProcessorDslPackage.DATABASE_PROPERTY__DEBUG:
+        return getDebug();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -856,6 +902,9 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         getDbMethodsCalls().clear();
         getDbMethodsCalls().addAll((Collection<? extends DriverMethodOutputAssignement>)newValue);
         return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DEBUG:
+        setDebug((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -912,6 +961,9 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_METHODS_CALLS:
         getDbMethodsCalls().clear();
         return;
+      case ProcessorDslPackage.DATABASE_PROPERTY__DEBUG:
+        setDebug(DEBUG_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -954,6 +1006,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
         return dbDriverInfo != null;
       case ProcessorDslPackage.DATABASE_PROPERTY__DB_METHODS_CALLS:
         return dbMethodsCalls != null && !dbMethodsCalls.isEmpty();
+      case ProcessorDslPackage.DATABASE_PROPERTY__DEBUG:
+        return DEBUG_EDEFAULT == null ? debug != null : !DEBUG_EDEFAULT.equals(debug);
     }
     return super.eIsSet(featureID);
   }
@@ -985,6 +1039,8 @@ public class DatabasePropertyImpl extends MinimalEObjectImpl.Container implement
     result.append(dbExecuteAfter);
     result.append(", dbIndexTypes: ");
     result.append(dbIndexTypes);
+    result.append(", debug: ");
+    result.append(debug);
     result.append(')');
     return result.toString();
   }

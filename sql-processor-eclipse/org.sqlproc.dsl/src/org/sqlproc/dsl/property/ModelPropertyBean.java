@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
@@ -56,6 +57,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DATABASE_SKIP_INDEXES = "skip-indexes";
     public static final String DATABASE_SKIP_PROCEDURES = "skip-functions-procedures";
     public static final String DATABASE_OF_TYPE = "is-of-type";
+    public static final String DATABASE_DEBUG_LEVEL = "debug-level";
     public static final String POJOGEN = "pojogen";
     public static final String POJOGEN_TYPE_SQLTYPES = "types-sqltypes";
     public static final String POJOGEN_TYPE_IN_TABLE = "types-in-table";
@@ -84,6 +86,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String POJOGEN_IMPLEMENTATION_PACKAGE = "implementation-package";
     public static final String POJOGEN_MAKE_IT_FINAL = "make-it-final";
     public static final String POJOGEN_VERSION_COLUMN = "version-column";
+    public static final String POJOGEN_DEBUG_LEVEL = "debug-level";
     public static final String METAGEN = "metagen";
     public static final String METAGEN_GLOBAL_SEQUENCE = "global-sequence";
     public static final String METAGEN_TABLE_SEQUENCE = "table-sequence";
@@ -99,6 +102,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String METAGEN_FUNCTION_RESULT = "function-result";
     public static final String METAGEN_FUNCTION_RESULT_SET = "function-result-set";
     public static final String METAGEN_PROCEDURE_RESULT_SET = "procedure-result-set";
+    public static final String METAGEN_DEBUG_LEVEL = "debug-level";
     public static final String DAOGEN = "daogen";
     public static final String DAOGEN_IGNORE_TABLES = "ignore-tables";
     public static final String DAOGEN_ONLY_TABLES = "only-tables";
@@ -107,6 +111,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public static final String DAOGEN_EXTENDS_CLASS = "extends-class";
     public static final String DAOGEN_MAKE_IT_FINAL = "make-it-final";
     public static final String DAOGEN_FUNCTION_RESULT = "function-result";
+    public static final String DAOGEN_DEBUG_LEVEL = "debug-level";
 
     public static class PairValues {
         public String value1;
@@ -133,6 +138,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public boolean dbSkipIndexes;
         public boolean dbSkipProcedures;
         public String dbType;
+        public Level dbDebugLevel;
         public String dir;
         public Map<String, PojoAttrType> sqlTypes;
         public Map<String, Map<String, PojoAttrType>> tableTypes;
@@ -163,6 +169,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public boolean makeItFinal;
         public String versionColumn;
         public Map<String, String> versionColumns;
+        public Level debugLevel;
 
         public PairValues metaGlobalSequence;
         public Map<String, PairValues> metaTablesSequence;
@@ -178,6 +185,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public Map<String, String> metaFunctionsResult;
         public Map<String, String> metaFunctionsResultSet;
         public Map<String, String> metaProceduresResultSet;
+        public Level metaDebugLevel;
 
         public Set<String> daoIgnoreTables;
         public Set<String> daoOnlyTables;
@@ -186,6 +194,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         public JvmType daoToExtends;
         public boolean daoMakeItFinal;
         public Map<String, PojoType> daoFunctionsResult;
+        public Level daoDebugLevel;
     }
 
     private Map<String, ModelValues> dirs2models = new HashMap<String, ModelValues>();
@@ -326,6 +335,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.dbSkipIndexes = false;
         modelValues.dbSkipProcedures = false;
         modelValues.dbType = null;
+        modelValues.dbDebugLevel = null;
     }
 
     private void initPojogenModel(ModelValues modelValues) {
@@ -358,6 +368,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.makeItFinal = false;
         modelValues.versionColumn = null;
         modelValues.versionColumns = new HashMap<String, String>();
+        modelValues.debugLevel = null;
     }
 
     private void initMetagenModel(ModelValues modelValues) {
@@ -375,6 +386,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.metaFunctionsResult = new HashMap<String, String>();
         modelValues.metaFunctionsResultSet = new HashMap<String, String>();
         modelValues.metaProceduresResultSet = new HashMap<String, String>();
+        modelValues.metaDebugLevel = null;
     }
 
     private void initDaogenModel(ModelValues modelValues) {
@@ -385,6 +397,7 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         modelValues.daoToExtends = null;
         modelValues.daoMakeItFinal = false;
         modelValues.daoFunctionsResult = new HashMap<String, PojoType>();
+        modelValues.daoDebugLevel = null;
     }
 
     public void setValue(ModelValues modelValues, Property property) {
@@ -437,6 +450,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 modelValues.dbType = getPropertyValue(property.getDbType().getDbType());
             else
                 modelValues.dbType = null;
+        } else if (DATABASE_DEBUG_LEVEL.equals(property.getName())) {
+            modelValues.dbDebugLevel = Level.toLevel(property.getDebug(), Level.WARN);
         }
     }
 
@@ -678,6 +693,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                     modelValues.versionColumns.put(property.getDbTables().get(i), versionColumn);
                 }
             }
+        } else if (POJOGEN_DEBUG_LEVEL.equals(property.getName())) {
+            modelValues.debugLevel = Level.toLevel(property.getDebug(), Level.WARN);
         }
     }
 
@@ -734,6 +751,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.metaFunctionsResultSet.put(property.getDbFunction(), property.getDbTable());
         } else if (METAGEN_PROCEDURE_RESULT_SET.equals(property.getName())) {
             modelValues.metaProceduresResultSet.put(property.getDbProcedure(), property.getDbTable());
+        } else if (METAGEN_DEBUG_LEVEL.equals(property.getName())) {
+            modelValues.metaDebugLevel = Level.toLevel(property.getDebug(), Level.WARN);
         }
     }
 
@@ -761,6 +780,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             modelValues.daoMakeItFinal = true;
         } else if (DAOGEN_FUNCTION_RESULT.equals(property.getName())) {
             modelValues.daoFunctionsResult.put(property.getDbFunction(), property.getResultType());
+        } else if (DAOGEN_DEBUG_LEVEL.equals(property.getName())) {
+            modelValues.daoDebugLevel = Level.toLevel(property.getDebug(), Level.WARN);
         }
     }
 
@@ -961,6 +982,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
+    public Level getDebugLevel(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.debugLevel : null;
+    }
+
+    @Override
     public PairValues getMetaGlobalIdentity(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.metaGlobalIdentity : null;
@@ -1047,6 +1074,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     }
 
     @Override
+    public Level getMetaDebugLevel(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.metaDebugLevel : null;
+    }
+
+    @Override
     public Set<String> getDaoIgnoreTables(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.daoIgnoreTables : Collections.<String> emptySet();
@@ -1086,6 +1119,12 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
     public Map<String, PojoType> getDaoFunctionsResult(EObject model) {
         ModelValues modelValues = getModelValues(model);
         return (modelValues != null) ? modelValues.daoFunctionsResult : Collections.<String, PojoType> emptyMap();
+    }
+
+    @Override
+    public Level getDaoDebugLevel(EObject model) {
+        ModelValues modelValues = getModelValues(model);
+        return (modelValues != null) ? modelValues.daoDebugLevel : null;
     }
 
     @Override

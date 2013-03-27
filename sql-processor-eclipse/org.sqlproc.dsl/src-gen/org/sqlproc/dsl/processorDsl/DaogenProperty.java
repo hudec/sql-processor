@@ -23,6 +23,7 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getToExtends <em>To Extends</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getDbFunction <em>Db Function</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getResultType <em>Result Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getDebug <em>Debug</em>}</li>
  * </ul>
  * </p>
  *
@@ -193,5 +194,31 @@ public interface DaogenProperty extends EObject
    * @generated
    */
   void setResultType(PojoType value);
+
+  /**
+   * Returns the value of the '<em><b>Debug</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Debug</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Debug</em>' attribute.
+   * @see #setDebug(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getDaogenProperty_Debug()
+   * @model
+   * @generated
+   */
+  String getDebug();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getDebug <em>Debug</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Debug</em>' attribute.
+   * @see #getDebug()
+   * @generated
+   */
+  void setDebug(String value);
 
 } // DaogenProperty

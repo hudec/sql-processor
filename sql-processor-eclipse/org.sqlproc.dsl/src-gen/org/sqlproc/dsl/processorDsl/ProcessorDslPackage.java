@@ -949,13 +949,22 @@ public interface ProcessorDslPackage extends EPackage
   int DATABASE_PROPERTY__DB_METHODS_CALLS = 13;
 
   /**
+   * The feature id for the '<em><b>Debug</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATABASE_PROPERTY__DEBUG = 14;
+
+  /**
    * The number of structural features of the '<em>Database Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATABASE_PROPERTY_FEATURE_COUNT = 14;
+  int DATABASE_PROPERTY_FEATURE_COUNT = 15;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl <em>Pojogen Property</em>}' class.
@@ -1148,13 +1157,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJOGEN_PROPERTY__VERSION = 19;
 
   /**
+   * The feature id for the '<em><b>Debug</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJOGEN_PROPERTY__DEBUG = 20;
+
+  /**
    * The number of structural features of the '<em>Pojogen Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJOGEN_PROPERTY_FEATURE_COUNT = 20;
+  int POJOGEN_PROPERTY_FEATURE_COUNT = 21;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaTypeAssignementImpl <em>Meta Type Assignement</em>}' class.
@@ -1303,13 +1321,22 @@ public interface ProcessorDslPackage extends EPackage
   int METAGEN_PROPERTY__DB_PROCEDURE = 9;
 
   /**
+   * The feature id for the '<em><b>Debug</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int METAGEN_PROPERTY__DEBUG = 10;
+
+  /**
    * The number of structural features of the '<em>Metagen Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int METAGEN_PROPERTY_FEATURE_COUNT = 10;
+  int METAGEN_PROPERTY_FEATURE_COUNT = 11;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl <em>Daogen Property</em>}' class.
@@ -1385,13 +1412,22 @@ public interface ProcessorDslPackage extends EPackage
   int DAOGEN_PROPERTY__RESULT_TYPE = 6;
 
   /**
+   * The feature id for the '<em><b>Debug</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DAOGEN_PROPERTY__DEBUG = 7;
+
+  /**
    * The number of structural features of the '<em>Daogen Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DAOGEN_PROPERTY_FEATURE_COUNT = 7;
+  int DAOGEN_PROPERTY_FEATURE_COUNT = 8;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.
@@ -4234,6 +4270,17 @@ public interface ProcessorDslPackage extends EPackage
   EReference getDatabaseProperty_DbMethodsCalls();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DatabaseProperty#getDebug <em>Debug</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Debug</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DatabaseProperty#getDebug()
+   * @see #getDatabaseProperty()
+   * @generated
+   */
+  EAttribute getDatabaseProperty_Debug();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojogenProperty <em>Pojogen Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4464,6 +4511,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getPojogenProperty_Version();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getDebug <em>Debug</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Debug</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojogenProperty#getDebug()
+   * @see #getPojogenProperty()
+   * @generated
+   */
+  EAttribute getPojogenProperty_Debug();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.MetaTypeAssignement <em>Meta Type Assignement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4627,6 +4685,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getMetagenProperty_DbProcedure();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.MetagenProperty#getDebug <em>Debug</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Debug</em>'.
+   * @see org.sqlproc.dsl.processorDsl.MetagenProperty#getDebug()
+   * @see #getMetagenProperty()
+   * @generated
+   */
+  EAttribute getMetagenProperty_Debug();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.DaogenProperty <em>Daogen Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4712,6 +4781,17 @@ public interface ProcessorDslPackage extends EPackage
    * @generated
    */
   EReference getDaogenProperty_ResultType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.DaogenProperty#getDebug <em>Debug</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Debug</em>'.
+   * @see org.sqlproc.dsl.processorDsl.DaogenProperty#getDebug()
+   * @see #getDaogenProperty()
+   * @generated
+   */
+  EAttribute getDaogenProperty_Debug();
 
   /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoDefinition <em>Pojo Definition</em>}'.
@@ -7243,6 +7323,14 @@ public interface ProcessorDslPackage extends EPackage
     EReference DATABASE_PROPERTY__DB_METHODS_CALLS = eINSTANCE.getDatabaseProperty_DbMethodsCalls();
 
     /**
+     * The meta object literal for the '<em><b>Debug</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DATABASE_PROPERTY__DEBUG = eINSTANCE.getDatabaseProperty_Debug();
+
+    /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl <em>Pojogen Property</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7413,6 +7501,14 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute POJOGEN_PROPERTY__VERSION = eINSTANCE.getPojogenProperty_Version();
 
     /**
+     * The meta object literal for the '<em><b>Debug</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJOGEN_PROPERTY__DEBUG = eINSTANCE.getPojogenProperty_Debug();
+
+    /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.MetaTypeAssignementImpl <em>Meta Type Assignement</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7537,6 +7633,14 @@ public interface ProcessorDslPackage extends EPackage
     EAttribute METAGEN_PROPERTY__DB_PROCEDURE = eINSTANCE.getMetagenProperty_DbProcedure();
 
     /**
+     * The meta object literal for the '<em><b>Debug</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute METAGEN_PROPERTY__DEBUG = eINSTANCE.getMetagenProperty_Debug();
+
+    /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.DaogenPropertyImpl <em>Daogen Property</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7601,6 +7705,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EReference DAOGEN_PROPERTY__RESULT_TYPE = eINSTANCE.getDaogenProperty_ResultType();
+
+    /**
+     * The meta object literal for the '<em><b>Debug</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DAOGEN_PROPERTY__DEBUG = eINSTANCE.getDaogenProperty_Debug();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoDefinitionImpl <em>Pojo Definition</em>}' class.

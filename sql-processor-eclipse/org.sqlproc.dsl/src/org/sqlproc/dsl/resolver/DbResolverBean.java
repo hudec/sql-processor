@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.sqlproc.dsl.property.ModelProperty;
@@ -140,6 +141,11 @@ public class DbResolverBean implements DbResolver {
 
         modelDatabaseValues.doReconnect = (modelDatabaseValues.connection != null) ? false : true;
 
+        if (modelModelValues.dbDebugLevel != null && modelModelValues.debugLevel.isGreaterOrEqual(Level.DEBUG)) {
+            debug = true;
+        } else {
+            debug = false;
+        }
         if (modelModelValues.dbDriver != null) {
             if (!modelModelValues.dbDriver.equals(modelDatabaseValues.dbDriver)) {
                 modelDatabaseValues.dbDriver = modelModelValues.dbDriver;

@@ -62,6 +62,7 @@ import org.sqlproc.dsl.processorDsl.TableAssignement;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getToExtends <em>To Extends</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getImplPackage <em>Impl Package</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getVersion <em>Version</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojogenPropertyImpl#getDebug <em>Debug</em>}</li>
  * </ul>
  * </p>
  *
@@ -318,6 +319,26 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected String version = VERSION_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDebug() <em>Debug</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDebug()
+   * @generated
+   * @ordered
+   */
+  protected static final String DEBUG_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDebug() <em>Debug</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDebug()
+   * @generated
+   * @ordered
+   */
+  protected String debug = DEBUG_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -733,6 +754,29 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDebug()
+  {
+    return debug;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDebug(String newDebug)
+  {
+    String oldDebug = debug;
+    debug = newDebug;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG, oldDebug, debug));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -813,6 +857,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return getImplPackage();
       case ProcessorDslPackage.POJOGEN_PROPERTY__VERSION:
         return getVersion();
+      case ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG:
+        return getDebug();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -901,6 +947,9 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__VERSION:
         setVersion((String)newValue);
         return;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG:
+        setDebug((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -975,6 +1024,9 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__VERSION:
         setVersion(VERSION_EDEFAULT);
         return;
+      case ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG:
+        setDebug(DEBUG_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -1029,6 +1081,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return IMPL_PACKAGE_EDEFAULT == null ? implPackage != null : !IMPL_PACKAGE_EDEFAULT.equals(implPackage);
       case ProcessorDslPackage.POJOGEN_PROPERTY__VERSION:
         return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+      case ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG:
+        return DEBUG_EDEFAULT == null ? debug != null : !DEBUG_EDEFAULT.equals(debug);
     }
     return super.eIsSet(featureID);
   }
@@ -1060,6 +1114,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
     result.append(implPackage);
     result.append(", version: ");
     result.append(version);
+    result.append(", debug: ");
+    result.append(debug);
     result.append(')');
     return result.toString();
   }

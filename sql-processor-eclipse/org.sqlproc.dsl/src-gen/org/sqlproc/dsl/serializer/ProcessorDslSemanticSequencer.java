@@ -590,7 +590,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='implements-interfaces' toImplements+=[JvmType|QualifiedName]+) | 
 	 *         (name='extends-class' toExtends=[JvmType|QualifiedName]) | 
 	 *         name='make-it-final' | 
-	 *         (name='function-result' dbFunction=IDENT resultType=PojoType)
+	 *         (name='function-result' dbFunction=IDENT resultType=PojoType) | 
+	 *         (name='debug-level' debug=IDENT)
 	 *     )
 	 */
 	protected void sequence_DaogenProperty(EObject context, DaogenProperty semanticObject) {
@@ -658,7 +659,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='is-of-type' dbType=DatabaseTypeAssignement) | 
 	 *         (name='show-database-info' dbMetaInfo=DatabaseMetaInfoAssignement) | 
 	 *         (name='show-driver-info' dbDriverInfo=DriverMetaInfoAssignement) | 
-	 *         (name='show-driver-output' dbMethodsCalls+=DriverMethodOutputAssignement+)
+	 *         (name='show-driver-output' dbMethodsCalls+=DriverMethodOutputAssignement+) | 
+	 *         (name='debug-level' debug=IDENT)
 	 *     )
 	 */
 	protected void sequence_DatabaseProperty(EObject context, DatabaseProperty semanticObject) {
@@ -1057,7 +1059,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         name='generate-identities' | 
 	 *         (name='function-result' dbFunction=IDENT type=IDENT) | 
 	 *         (name='function-result-set' dbFunction=IDENT dbTable=IDENT) | 
-	 *         (name='procedure-result-set' dbProcedure=IDENT dbTable=IDENT)
+	 *         (name='procedure-result-set' dbProcedure=IDENT dbTable=IDENT) | 
+	 *         (name='debug-level' debug=IDENT)
 	 *     )
 	 */
 	protected void sequence_MetagenProperty(EObject context, MetagenProperty semanticObject) {
@@ -1275,7 +1278,8 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         name='generate-wrappers' | 
 	 *         (name='implementation-package' implPackage=IDENT) | 
 	 *         name='make-it-final' | 
-	 *         (name='version-column' version=IDENT dbTables+=IDENT*)
+	 *         (name='version-column' version=IDENT dbTables+=IDENT*) | 
+	 *         (name='debug-level' debug=IDENT)
 	 *     )
 	 */
 	protected void sequence_PojogenProperty(EObject context, PojogenProperty semanticObject) {

@@ -36,6 +36,7 @@ import org.eclipse.xtext.common.types.JvmType;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getToExtends <em>To Extends</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getImplPackage <em>Impl Package</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getVersion <em>Version</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getDebug <em>Debug</em>}</li>
  * </ul>
  * </p>
  *
@@ -434,5 +435,31 @@ public interface PojogenProperty extends EObject
    * @generated
    */
   void setVersion(String value);
+
+  /**
+   * Returns the value of the '<em><b>Debug</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Debug</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Debug</em>' attribute.
+   * @see #setDebug(String)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojogenProperty_Debug()
+   * @model
+   * @generated
+   */
+  String getDebug();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojogenProperty#getDebug <em>Debug</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Debug</em>' attribute.
+   * @see #getDebug()
+   * @generated
+   */
+  void setDebug(String value);
 
 } // PojogenProperty

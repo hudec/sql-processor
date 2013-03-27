@@ -2043,7 +2043,45 @@ ruleDatabaseProperty returns [EObject current=null]
 	    }
 
 )
-))+))
+))+)
+    |((
+(
+		lv_name_43_0=	'debug-level' 
+    {
+        newLeafNode(lv_name_43_0, grammarAccess.getDatabasePropertyAccess().getNameDebugLevelKeyword_17_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_43_0, "debug-level");
+	    }
+
+)
+)(this_WS_44=RULE_WS
+    { 
+    newLeafNode(this_WS_44, grammarAccess.getDatabasePropertyAccess().getWSTerminalRuleCall_17_1()); 
+    }
+)+(
+(
+		lv_debug_45_0=RULE_IDENT
+		{
+			newLeafNode(lv_debug_45_0, grammarAccess.getDatabasePropertyAccess().getDebugIDENTTerminalRuleCall_17_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDatabasePropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"debug",
+        		lv_debug_45_0, 
+        		"IDENT");
+	    }
+
+)
+)))
 ;
 
 
@@ -3451,7 +3489,45 @@ rulePojogenProperty returns [EObject current=null]
 	    }
 
 )
-))*))
+))*)
+    |((
+(
+		lv_name_114_0=	'debug-level' 
+    {
+        newLeafNode(lv_name_114_0, grammarAccess.getPojogenPropertyAccess().getNameDebugLevelKeyword_28_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_114_0, "debug-level");
+	    }
+
+)
+)(this_WS_115=RULE_WS
+    { 
+    newLeafNode(this_WS_115, grammarAccess.getPojogenPropertyAccess().getWSTerminalRuleCall_28_1()); 
+    }
+)+(
+(
+		lv_debug_116_0=RULE_IDENT
+		{
+			newLeafNode(lv_debug_116_0, grammarAccess.getPojogenPropertyAccess().getDebugIDENTTerminalRuleCall_28_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojogenPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"debug",
+        		lv_debug_116_0, 
+        		"IDENT");
+	    }
+
+)
+)))
 ;
 
 
@@ -4306,6 +4382,44 @@ ruleMetagenProperty returns [EObject current=null]
 	    }
 
 )
+))
+    |((
+(
+		lv_name_62_0=	'debug-level' 
+    {
+        newLeafNode(lv_name_62_0, grammarAccess.getMetagenPropertyAccess().getNameDebugLevelKeyword_14_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_62_0, "debug-level");
+	    }
+
+)
+)(this_WS_63=RULE_WS
+    { 
+    newLeafNode(this_WS_63, grammarAccess.getMetagenPropertyAccess().getWSTerminalRuleCall_14_1()); 
+    }
+)+(
+(
+		lv_debug_64_0=RULE_IDENT
+		{
+			newLeafNode(lv_debug_64_0, grammarAccess.getMetagenPropertyAccess().getDebugIDENTTerminalRuleCall_14_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMetagenPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"debug",
+        		lv_debug_64_0, 
+        		"IDENT");
+	    }
+
+)
 )))
 ;
 
@@ -4583,6 +4697,44 @@ ruleDaogenProperty returns [EObject current=null]
         		lv_resultType_20_0, 
         		"PojoType");
 	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+    |((
+(
+		lv_name_21_0=	'debug-level' 
+    {
+        newLeafNode(lv_name_21_0, grammarAccess.getDaogenPropertyAccess().getNameDebugLevelKeyword_7_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		setWithLastConsumed($current, "name", lv_name_21_0, "debug-level");
+	    }
+
+)
+)(this_WS_22=RULE_WS
+    { 
+    newLeafNode(this_WS_22, grammarAccess.getDaogenPropertyAccess().getWSTerminalRuleCall_7_1()); 
+    }
+)+(
+(
+		lv_debug_23_0=RULE_IDENT
+		{
+			newLeafNode(lv_debug_23_0, grammarAccess.getDaogenPropertyAccess().getDebugIDENTTerminalRuleCall_7_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDaogenPropertyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"debug",
+        		lv_debug_23_0, 
+        		"IDENT");
 	    }
 
 )

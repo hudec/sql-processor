@@ -40,6 +40,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getDbColumns <em>Db Columns</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getDbFunction <em>Db Function</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getDbProcedure <em>Db Procedure</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.MetagenPropertyImpl#getDebug <em>Debug</em>}</li>
  * </ul>
  * </p>
  *
@@ -226,6 +227,26 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected String dbProcedure = DB_PROCEDURE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDebug() <em>Debug</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDebug()
+   * @generated
+   * @ordered
+   */
+  protected static final String DEBUG_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDebug() <em>Debug</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDebug()
+   * @generated
+   * @ordered
+   */
+  protected String debug = DEBUG_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -465,6 +486,29 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDebug()
+  {
+    return debug;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDebug(String newDebug)
+  {
+    String oldDebug = debug;
+    debug = newDebug;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.METAGEN_PROPERTY__DEBUG, oldDebug, debug));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -506,6 +550,8 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
         return getDbFunction();
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_PROCEDURE:
         return getDbProcedure();
+      case ProcessorDslPackage.METAGEN_PROPERTY__DEBUG:
+        return getDebug();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -553,6 +599,9 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_PROCEDURE:
         setDbProcedure((String)newValue);
         return;
+      case ProcessorDslPackage.METAGEN_PROPERTY__DEBUG:
+        setDebug((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -597,6 +646,9 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_PROCEDURE:
         setDbProcedure(DB_PROCEDURE_EDEFAULT);
         return;
+      case ProcessorDslPackage.METAGEN_PROPERTY__DEBUG:
+        setDebug(DEBUG_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -631,6 +683,8 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
         return DB_FUNCTION_EDEFAULT == null ? dbFunction != null : !DB_FUNCTION_EDEFAULT.equals(dbFunction);
       case ProcessorDslPackage.METAGEN_PROPERTY__DB_PROCEDURE:
         return DB_PROCEDURE_EDEFAULT == null ? dbProcedure != null : !DB_PROCEDURE_EDEFAULT.equals(dbProcedure);
+      case ProcessorDslPackage.METAGEN_PROPERTY__DEBUG:
+        return DEBUG_EDEFAULT == null ? debug != null : !DEBUG_EDEFAULT.equals(debug);
     }
     return super.eIsSet(featureID);
   }
@@ -664,6 +718,8 @@ public class MetagenPropertyImpl extends MinimalEObjectImpl.Container implements
     result.append(dbFunction);
     result.append(", dbProcedure: ");
     result.append(dbProcedure);
+    result.append(", debug: ");
+    result.append(debug);
     result.append(')');
     return result.toString();
   }

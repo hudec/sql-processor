@@ -19,6 +19,7 @@ import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.apache.log4j.Level;
 import org.eclipse.xtext.common.types.JvmType;
 import org.sqlproc.dsl.processorDsl.Artifacts;
 import org.sqlproc.dsl.property.ModelProperty;
@@ -106,6 +107,13 @@ public class TablePojoConverter {
 
     public TablePojoConverter(ModelProperty modelProperty, Artifacts artifacts, String suffix,
             Set<String> finalEntities, List<String> dbSequences, DbType dbType) {
+
+        if (modelProperty.getDebugLevel(artifacts) != null
+                && modelProperty.getDebugLevel(artifacts).isGreaterOrEqual(Level.DEBUG)) {
+            debug = true;
+        } else {
+            debug = false;
+        }
 
         this.suffix = (suffix != null) ? suffix : "";
         this.finalEntities = finalEntities;

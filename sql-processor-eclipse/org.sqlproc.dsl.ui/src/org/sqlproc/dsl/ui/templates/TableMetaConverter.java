@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.log4j.Level;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.IScopeProvider;
@@ -64,6 +65,13 @@ public class TableMetaConverter extends TablePojoConverter {
         this.scopeProvider = scopeProvider;
         this.artifacts = artifacts;
         this.finalMetas = finalMetas;
+
+        if (modelProperty.getMetaDebugLevel(artifacts) != null
+                && modelProperty.getMetaDebugLevel(artifacts).isGreaterOrEqual(Level.DEBUG)) {
+            debug = true;
+        } else {
+            debug = false;
+        }
 
         this.metaGlobalSequence = modelProperty.getMetaGlobalSequence(artifacts);
         Map<String, PairValues> tablesSequence = modelProperty.getMetaTablesSequence(artifacts);
