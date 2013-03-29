@@ -837,8 +837,6 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 if (dbProcedures.isEmpty())
                     continue;
                 List<DbColumn> dbProcColumns = dbResolver.getDbProcColumns(artifacts, procedure);
-                if (dbProcColumns.isEmpty())
-                    continue;
                 converter.addProcedureDefinition(procedure, dbProcedures.get(0), dbProcColumns);
             }
         }
@@ -850,8 +848,6 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 if (dbFunctions.isEmpty())
                     continue;
                 List<DbColumn> dbFunColumns = dbResolver.getDbFunColumns(artifacts, function);
-                if (dbFunColumns.isEmpty())
-                    continue;
                 converter.addFunctionDefinition(function, dbFunctions.get(0), dbFunColumns);
             }
         }

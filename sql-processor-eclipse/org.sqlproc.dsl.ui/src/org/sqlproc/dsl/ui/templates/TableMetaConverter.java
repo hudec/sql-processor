@@ -170,6 +170,8 @@ public class TableMetaConverter extends TablePojoConverter {
                 System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
                 System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
                 System.out.println("indexes " + this.indexes);
+                System.out.println("procedures " + this.procedures);
+                System.out.println("functions " + this.functions);
             }
 
             if (metaGenerateSequences && dbType == DbType.MY_SQL) {
@@ -511,7 +513,7 @@ public class TableMetaConverter extends TablePojoConverter {
             else
                 buffer.append(":");
             buffer.append(name);
-            if (attr.attribute.getPkTable() != null) {
+            if (attr.attribute.getPkTable() != null && attr.attribute.getRef() != null) {
                 buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
             }
             if (attr.sequence != null) {
@@ -587,7 +589,7 @@ public class TableMetaConverter extends TablePojoConverter {
         if (pojoPrefix != null && discriminator == null)
             buffer.append(".");
         buffer.append(name);
-        if (attr.attribute.getPkTable() != null) {
+        if (attr.attribute.getPkTable() != null && attr.attribute.getRef() != null) {
             buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
         }
         if (attr.attribute.isPrimaryKey() || assocTables.containsKey(colname))
@@ -635,7 +637,7 @@ public class TableMetaConverter extends TablePojoConverter {
                 buffer.append(" = :");
             }
             buffer.append(name);
-            if (attr.attribute.getPkTable() != null) {
+            if (attr.attribute.getPkTable() != null && attr.attribute.getRef() != null) {
                 buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
             }
             if (metaTypes(buffer, attr.tableName, attr.attributeName, statementName, true))
@@ -700,7 +702,7 @@ public class TableMetaConverter extends TablePojoConverter {
                 buffer.append(" = %").append(pentry.getKey()).append(" + 1");
             } else {
                 buffer.append(" = :").append(name);
-                if (attr.attribute.getPkTable() != null) {
+                if (attr.attribute.getPkTable() != null && attr.attribute.getRef() != null) {
                     buffer.append(".").append(columnToCamelCase(attr.attribute.getPkColumn()));
                 }
                 boolean hasMetaType = metaTypes(buffer, attr.tableName, attr.attributeName, statementName, true);
@@ -1017,7 +1019,7 @@ public class TableMetaConverter extends TablePojoConverter {
                 PojoAttribute attr = pentry.getValue();
                 if (attr.isVersion() && header.version == null)
                     header.version = attr.getName();
-                if (attr.getPkTable() != null) {
+                if (attr.getPkTable() != null && attr.getRef() != null) {
                     if (header.table.tablePrefix == null)
                         header.table.tablePrefix = newPrefix(prefixes, header.table);
                     Table table = new Table();
@@ -1155,7 +1157,7 @@ public class TableMetaConverter extends TablePojoConverter {
                     PojoAttribute attr = pentry.getValue();
                     if (attr.isVersion() && header.version == null)
                         header.version = attr.getName();
-                    if (attr.getPkTable() != null) {
+                    if (attr.getPkTable() != null && attr.getRef() != null) {
                         if (header.extendTable.tablePrefix == null)
                             header.extendTable.tablePrefix = newPrefix(prefixes, header.extendTable);
                         Table table = new Table();

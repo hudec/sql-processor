@@ -92,6 +92,8 @@ public class TableDaoConverter extends TableMetaConverter {
                 System.out.println("pojoInheritanceSimple " + this.pojoInheritanceSimple);
                 System.out.println("pojoDiscriminators " + this.pojoDiscriminators);
                 System.out.println("indexes " + this.indexes);
+                System.out.println("procedures " + this.procedures);
+                System.out.println("functions " + this.functions);
             }
 
             StringBuilder buffer = new StringBuilder();
