@@ -14,9 +14,7 @@ import org.sqlproc.engine.SqlFeature;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public interface SqlIdentityPlugin {
-
-    static final String SUPPVAL_IDENTITY_SELECT = "idsel";
+public interface SqlIdentityPlugin extends Modifiers {
 
     /**
      * Used to construct the identity SELECT SQL.

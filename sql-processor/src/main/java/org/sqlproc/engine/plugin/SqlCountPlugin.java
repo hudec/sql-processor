@@ -6,7 +6,7 @@ package org.sqlproc.engine.plugin;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public interface SqlCountPlugin {
+public interface SqlCountPlugin extends Modifiers {
 
     /**
      * Used to construct the COUNT SQL.

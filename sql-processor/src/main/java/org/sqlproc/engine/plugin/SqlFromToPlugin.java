@@ -21,7 +21,7 @@ import org.sqlproc.engine.SqlQuery;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public interface SqlFromToPlugin {
+public interface SqlFromToPlugin extends Modifiers {
 
     /**
      * The characteristic of FROM and TO restrictions used in {@link SqlQuery#list()}.

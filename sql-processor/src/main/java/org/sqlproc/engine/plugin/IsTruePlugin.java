@@ -31,7 +31,7 @@ import org.sqlproc.engine.type.SqlMetaType;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public interface IsTruePlugin {
+public interface IsTruePlugin extends Modifiers {
 
     /**
      * Used for the evaluation of the logical expression in the conditional META SQL fragments.

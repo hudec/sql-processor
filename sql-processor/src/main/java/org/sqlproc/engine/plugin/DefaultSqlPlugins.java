@@ -19,24 +19,6 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         SqlSequencePlugin, SqlIdentityPlugin {
 
     /**
-     * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
-     */
-    public static final String MODIFIER_NOTNULL = "notnull";
-    /**
-     * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
-     */
-    public static final String MODIFIER_ANY = "any";
-    /**
-     * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
-     */
-    public static final String MODIFIER_NULL = "null";
-    /**
-     * The modifier used to detect the method call invoked on the parent object. For the usage please see the Wiki
-     * Tutorials.
-     */
-    public static final String MODIFIER_CALL = "call";
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -297,7 +279,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      */
     @Override
     public String identitySelect(String identitySelectName, String tableName, String columnName) {
-        String identitySelect = (SqlIdentityPlugin.SUPPVAL_IDENTITY_SELECT.equals(identitySelectName)) ? null
+        String identitySelect = (SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT.equals(identitySelectName)) ? null
                 : SqlProcessContext.getFeature(identitySelectName);
         if (identitySelect != null)
             return identitySelect;
@@ -318,7 +300,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         int ix = sequencePattern.indexOf("$n");
         if (ix < 0)
             return sequencePattern;
-        if (SqlSequencePlugin.SUPPVAL_SEQUENCE.equals(sequenceName))
+        if (SqlSequencePlugin.MODIFIER_SEQUENCE.equals(sequenceName))
             return sequencePattern.substring(0, ix) + SqlFeature.DEFAULT_SEQ_NAME + sequencePattern.substring(ix + 2);
         else
             return sequencePattern.substring(0, ix) + sequenceName + sequencePattern.substring(ix + 2);

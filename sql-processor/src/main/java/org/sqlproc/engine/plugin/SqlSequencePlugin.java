@@ -13,9 +13,7 @@ import org.sqlproc.engine.SqlFeature;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public interface SqlSequencePlugin {
-
-    static final String SUPPVAL_SEQUENCE = "seq";
+public interface SqlSequencePlugin extends Modifiers {
 
     /**
      * Used to construct the sequence SELECT SQL.

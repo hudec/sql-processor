@@ -23,7 +23,7 @@ import org.sqlproc.engine.type.SqlMetaType;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public interface IsEmptyPlugin {
+public interface IsEmptyPlugin extends Modifiers {
 
     /**
      * Used for the evaluation of the emptiness in the META SQL fragments.

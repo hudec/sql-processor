@@ -143,10 +143,10 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             value = value.substring(0, ix);
         }
         if (value2 == null) {
-            if (value.equals(SqlIdentityPlugin.SUPPVAL_IDENTITY_SELECT))
-                values.put(value, SqlIdentityPlugin.SUPPVAL_IDENTITY_SELECT);
-            else if (value.equals(SqlSequencePlugin.SUPPVAL_SEQUENCE))
-                values.put(value, SqlSequencePlugin.SUPPVAL_SEQUENCE);
+            if (value.equals(SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT))
+                values.put(value, SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT);
+            else if (value.equals(SqlSequencePlugin.MODIFIER_SEQUENCE))
+                values.put(value, SqlSequencePlugin.MODIFIER_SEQUENCE);
             else
                 sqlType.setValue(value);
         } else {
@@ -204,8 +204,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         s.append(IDENT_PREFIX);
 
         int count = 1;
-        String sequenceName = values.get(SqlSequencePlugin.SUPPVAL_SEQUENCE);
-        String identitySelectName = values.get(SqlIdentityPlugin.SUPPVAL_IDENTITY_SELECT);
+        String sequenceName = values.get(SqlSequencePlugin.MODIFIER_SEQUENCE);
+        String identitySelectName = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT);
         String attributeName = null;
         Class<?> attributeType = (obj != null) ? obj.getClass() : null;
 
@@ -280,6 +280,9 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             }
             if (obj != null && obj instanceof Collection<?>) {
                 boolean notEmpty = !((Collection<?>) obj).isEmpty();
+                // boolean notEmpty = !((Collection<?>) obj).isEmpty()
+                // || (sqlType != null && sqlType.getValue() != null && sqlType.getValue().toLowerCase()
+                // .equals(Modifiers.MODIFIER_ANY));
                 StringBuilder ss = new StringBuilder(notEmpty ? "(" : "");
 
                 int i = 1;
