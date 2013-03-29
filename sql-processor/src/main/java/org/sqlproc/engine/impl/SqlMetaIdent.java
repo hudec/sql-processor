@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlRuntimeException;
+import org.sqlproc.engine.plugin.Modifiers;
 import org.sqlproc.engine.plugin.SqlIdentityPlugin;
 import org.sqlproc.engine.plugin.SqlSequencePlugin;
 import org.sqlproc.engine.type.SqlMetaType;
@@ -280,30 +281,32 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             }
             if (obj != null && obj instanceof Collection<?>) {
                 boolean notEmpty = !((Collection<?>) obj).isEmpty();
-                // boolean notEmpty = !((Collection<?>) obj).isEmpty()
-                // || (sqlType != null && sqlType.getValue() != null && sqlType.getValue().toLowerCase()
-                // .equals(Modifiers.MODIFIER_ANY));
-                StringBuilder ss = new StringBuilder(notEmpty ? "(" : "");
+                if (!notEmpty && sqlType != null && sqlType.getValue() != null
+                        && sqlType.getValue().toLowerCase().equals(Modifiers.MODIFIER_ANY)) {
+                    result.setSql(new StringBuilder("(null)"));
+                } else {
+                    StringBuilder ss = new StringBuilder(notEmpty ? "(" : "");
 
-                int i = 1;
-                for (Iterator<?> iter = ((Collection<?>) obj).iterator(); iter.hasNext();) {
-                    Object objItem = iter.next();
+                    int i = 1;
+                    for (Iterator<?> iter = ((Collection<?>) obj).iterator(); iter.hasNext();) {
+                        Object objItem = iter.next();
 
-                    if (objItem != null) {
-                        String attributeNameItem = s.toString() + "_" + (i++);
-                        ss.append(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : attributeNameItem);
-                        result.addInputValue(attributeNameItem.substring(lIDENT_PREFIX), new SqlInputValue(
-                                SqlInputValue.Type.PROVIDED, objItem, parentObj, objItem.getClass(), caseConversion,
-                                inOutMode, sqlType));
-                    } else
-                        ss.append("null");
+                        if (objItem != null) {
+                            String attributeNameItem = s.toString() + "_" + (i++);
+                            ss.append(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : attributeNameItem);
+                            result.addInputValue(attributeNameItem.substring(lIDENT_PREFIX), new SqlInputValue(
+                                    SqlInputValue.Type.PROVIDED, objItem, parentObj, objItem.getClass(),
+                                    caseConversion, inOutMode, sqlType));
+                        } else
+                            ss.append("null");
 
-                    if (iter.hasNext())
-                        ss.append(',');
+                        if (iter.hasNext())
+                            ss.append(',');
+                    }
+                    if (notEmpty)
+                        ss.append(')');
+                    result.setSql(ss);
                 }
-                if (notEmpty)
-                    ss.append(')');
-                result.setSql(ss);
             } else {
                 SqlInputValue sqlInputValue = new SqlInputValue(SqlInputValue.Type.PROVIDED, obj, parentObj,
                         attributeType, caseConversion, inOutMode, sqlType);

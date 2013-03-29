@@ -17,6 +17,22 @@ public class TestCollections extends TestDatabase {
     }
 
     @Test
+    public void testCollectionsEmpty() {
+        SqlQueryEngine sqlEngine = getSqlEngine("COLLECTIONS_EMPTY");
+
+        PersonCollectionsForm pf = new PersonCollectionsForm();
+        pf.setIdSet(new HashSet<Long>());
+
+        String sql = sqlEngine.getSql(pf, null, SqlQueryEngine.ASC_ORDER);
+        logger.info(sql);
+        assertContains(sql, "p.ID in (null)");
+        assertDoNotContain(sql, "p.LASTUPDATEDBY in ");
+
+        List<Person> list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+        assertEquals(0, list.size());
+    }
+
+    @Test
     public void testCollectionsUndefined() {
         SqlQueryEngine sqlEngine = getSqlEngine("COLLECTIONS_UNDEFINED");
 

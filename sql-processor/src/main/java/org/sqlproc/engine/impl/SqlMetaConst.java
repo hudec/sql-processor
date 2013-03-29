@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlRuntimeException;
+import org.sqlproc.engine.plugin.Modifiers;
 import org.sqlproc.engine.type.SqlMetaType;
 
 /**
@@ -228,22 +229,27 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
         if (obj != null) {
             if (obj instanceof Collection) {
                 boolean notEmpty = !((Collection<?>) obj).isEmpty();
-                StringBuilder s = new StringBuilder(notEmpty ? "(" : "");
+                if (!notEmpty && sqlType != null && sqlType.getValue() != null
+                        && sqlType.getValue().toLowerCase().equals(Modifiers.MODIFIER_ANY)) {
+                    result.setSql(new StringBuilder("(null)"));
+                } else {
+                    StringBuilder s = new StringBuilder(notEmpty ? "(" : "");
 
-                for (Iterator<?> i = ((Collection<?>) obj).iterator(); i.hasNext();) {
-                    Object objItem = i.next();
+                    for (Iterator<?> i = ((Collection<?>) obj).iterator(); i.hasNext();) {
+                        Object objItem = i.next();
 
-                    if (objItem != null) {
-                        s.append(getData(objItem));
-                    } else
-                        s.append("null");
+                        if (objItem != null) {
+                            s.append(getData(objItem));
+                        } else
+                            s.append("null");
 
-                    if (i.hasNext())
-                        s.append(',');
+                        if (i.hasNext())
+                            s.append(',');
+                    }
+                    if (notEmpty)
+                        s.append(')');
+                    result.setSql(s);
                 }
-                if (notEmpty)
-                    s.append(')');
-                result.setSql(s);
             } else {
                 result.setSql(new StringBuilder(getData(obj)));
             }
