@@ -107,7 +107,10 @@ SELECT_PERSON(QRY,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
 ;
 
 FUN_AN_HOUR_BEFORE(CALL,final=,inx=AnHourBefore)=
-  call AN_HOUR_BEFORE(:t)
+  :<1(type=stamp) = call AN_HOUR_BEFORE(:t)
+;
+FUN_AN_HOUR_BEFORE(OUT,final=)=
+  1$1(type=stamp)
 ;
 
 PROC_NEW_PERSON(CALL,final=,inx=NewPerson)=
@@ -116,4 +119,7 @@ PROC_NEW_PERSON(CALL,final=,inx=NewPerson)=
 
 PROC_NEW_PERSON_RET_RS(CALL,final=,inx=NewPersonRetRs)=
   call NEW_PERSON_RET_RS(:dateOfBirth, :ssn, :firstName, :lastName)
+;
+PROC_NEW_PERSON_RET_RS(OUT,final=,outx=Person)=
+  ID$id FIRST_NAME$firstName LAST_NAME$lastName DATE_OF_BIRTH$dateOfBirth SSN$ssn
 ;
