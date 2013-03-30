@@ -18,6 +18,9 @@ public class TestCollections extends TestDatabase {
 
     @Test
     public void testCollectionsEmpty() {
+        if ("db2".equalsIgnoreCase(dbType)) {
+            return;
+        }
         SqlQueryEngine sqlEngine = getSqlEngine("COLLECTIONS_EMPTY");
 
         PersonCollectionsForm pf = new PersonCollectionsForm();

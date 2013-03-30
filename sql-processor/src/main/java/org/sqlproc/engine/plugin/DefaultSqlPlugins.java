@@ -81,8 +81,12 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             if (obj == null) {
                 return false;
             } else if (obj instanceof Collection<?>) {
-                if (((Collection<?>) obj).isEmpty())
-                    return false;
+                if (((Collection<?>) obj).isEmpty()) {
+                    if (MODIFIER_ANYSET.equalsIgnoreCase(value))
+                        return true;
+                    else
+                        return false;
+                }
             } else if (obj.toString().length() <= 0) {
                 return false;
             }

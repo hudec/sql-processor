@@ -37,4 +37,10 @@ public interface Modifiers {
      * The modifier used to detect the identity selectusage.
      */
     static final String MODIFIER_IDENTITY_SELECT = "idsel";
+
+    /**
+     * The modifier used to detect the empty value and true value for the collections. For the usage please see the Wiki
+     * Tutorials.
+     */
+    public static final String MODIFIER_ANYSET = "anyset";
 }

@@ -230,7 +230,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
             if (obj instanceof Collection) {
                 boolean notEmpty = !((Collection<?>) obj).isEmpty();
                 if (!notEmpty && sqlType != null && sqlType.getValue() != null
-                        && sqlType.getValue().toLowerCase().equals(Modifiers.MODIFIER_ANY)) {
+                        && sqlType.getValue().toLowerCase().equals(Modifiers.MODIFIER_ANYSET)) {
                     result.setSql(new StringBuilder("(null)"));
                 } else {
                     StringBuilder s = new StringBuilder(notEmpty ? "(" : "");

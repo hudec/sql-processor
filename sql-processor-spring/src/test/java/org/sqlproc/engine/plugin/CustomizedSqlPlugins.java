@@ -16,21 +16,9 @@ import org.sqlproc.engine.type.SqlMetaType;
 public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
 
     /**
-     * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
-     */
-    public static final String SUPPVAL_NOTNULL = "notnull";
-    /**
-     * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
-     */
-    public static final String SUPPVAL_ANY = "any";
-    /**
-     * The supplement value used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
-     */
-    public static final String SUPPVAL_NULL = "null";
-    /**
      * The test supplement value used to detect the empty value and true value.
      */
-    private static final String SUPPVAL_ZERO = "zero";
+    private static final String MODIFIER_ZERO = "zero";
 
     /**
      * {@inheritDoc}
@@ -41,20 +29,20 @@ public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
             throws IllegalArgumentException {
         String value = (sqlMetaTypeExt != null) ? sqlMetaTypeExt.toLowerCase() : null;
 
-        if (SUPPVAL_ZERO.equalsIgnoreCase(value)) {
+        if (MODIFIER_ZERO.equalsIgnoreCase(value)) {
             if (obj != null) {
                 if (obj instanceof String) {
                     final String str = ((String) obj).trim();
                     return (!str.isEmpty() && !str.equalsIgnoreCase("0"));
                 }
             } else {
-                throw new IllegalArgumentException("obj with sqlMetaTypeExt '" + SUPPVAL_ZERO + "' should not be null");
+                throw new IllegalArgumentException("obj with sqlMetaTypeExt '" + MODIFIER_ZERO + "' should not be null");
             }
         }
 
-        if (SUPPVAL_NOTNULL.equalsIgnoreCase(value)) {
+        if (MODIFIER_NOTNULL.equalsIgnoreCase(value)) {
             if (obj == null)
-                throw new IllegalArgumentException(SUPPVAL_NOTNULL);
+                throw new IllegalArgumentException(MODIFIER_NOTNULL);
         }
 
         if (inSqlSetOrInsert) {
@@ -64,9 +52,9 @@ public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
                     return true;
         }
 
-        if (SUPPVAL_ANY.equalsIgnoreCase(value)) {
+        if (MODIFIER_ANY.equalsIgnoreCase(value)) {
             return true;
-        } else if (SUPPVAL_NULL.equalsIgnoreCase(value)) {
+        } else if (MODIFIER_NULL.equalsIgnoreCase(value)) {
             if (obj == null)
                 return true;
             else
@@ -75,8 +63,12 @@ public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
             if (obj == null) {
                 return false;
             } else if (obj instanceof Collection<?>) {
-                if (((Collection<?>) obj).isEmpty())
-                    return false;
+                if (((Collection<?>) obj).isEmpty()) {
+                    if (MODIFIER_ANYSET.equalsIgnoreCase(value))
+                        return true;
+                    else
+                        return false;
+                }
             } else if (obj.toString().length() <= 0) {
                 return false;
             }
@@ -90,14 +82,14 @@ public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
     @Override
     public boolean isTrue(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
             String sqlMetaTypeExt, Map<String, String> values, Map<String, Object> features) {
-        if (SUPPVAL_ZERO.equalsIgnoreCase(sqlMetaTypeExt)) {
+        if (MODIFIER_ZERO.equalsIgnoreCase(sqlMetaTypeExt)) {
             if (obj != null) {
                 if (obj instanceof String) {
                     final String str = ((String) obj).trim();
                     return (str.length() > 0 && !str.equalsIgnoreCase("0"));
                 }
             } else {
-                throw new IllegalArgumentException("obj with sqlMetaTypeExt '" + SUPPVAL_ZERO + "' should not be null");
+                throw new IllegalArgumentException("obj with sqlMetaTypeExt '" + MODIFIER_ZERO + "' should not be null");
             }
         }
         if (sqlMetaTypeExt == null) {
@@ -118,7 +110,7 @@ public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
             return false;
         } else {
             if (obj == null) {
-                if (sqlMetaTypeExt.toLowerCase().equalsIgnoreCase(SUPPVAL_NULL))
+                if (sqlMetaTypeExt.toLowerCase().equalsIgnoreCase(MODIFIER_NULL))
                     return true;
                 else
                     return false;
