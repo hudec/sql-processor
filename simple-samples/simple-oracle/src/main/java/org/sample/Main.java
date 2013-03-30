@@ -1,6 +1,7 @@
 package org.sample;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -31,6 +32,13 @@ import org.sqlproc.engine.util.DDLLoader;
 
 public class Main {
 
+    private static final Driver JDBC_DRIVER = new oracle.jdbc.OracleDriver();
+    private static final String DB_URL = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+    private static final String DB_USER = "simple";
+    private static final String DB_PASSWORD = "simple";
+    private static final String DB_TYPE = SqlFeature.ORACLE;
+    private static final String DB_DDL = "oracle.ddl";
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Connection connection;
@@ -40,7 +48,7 @@ public class Main {
 
     static {
         try {
-            DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
+            DriverManager.registerDriver(JDBC_DRIVER);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,11 +57,11 @@ public class Main {
     public Main() throws SQLException {
         JdbcEngineFactory factory = new JdbcEngineFactory();
         factory.setMetaFilesNames("statements.qry");
-        factory.setFilter(SqlFeature.ORACLE);
+        factory.setFilter(DB_TYPE);
         this.sqlFactory = factory;
 
-        ddls = DDLLoader.getDDLs(this.getClass(), "oracle.ddl");
-        connection = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "simple", "simple");
+        ddls = DDLLoader.getDDLs(this.getClass(), DB_DDL);
+        connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         sessionFactory = new JdbcSessionFactory(connection);
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);

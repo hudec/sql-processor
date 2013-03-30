@@ -1,6 +1,7 @@
 package org.sample;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
@@ -23,6 +24,13 @@ import org.sqlproc.engine.util.DDLLoader;
 
 public class Main {
 
+    private static final Driver JDBC_DRIVER = new org.postgresql.Driver();
+    private static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/simple";
+    private static final String DB_USER = "simple";
+    private static final String DB_PASSWORD = "simple";
+    private static final String DB_TYPE = SqlFeature.POSTGRESQL;
+    private static final String DB_DDL = "postgresql.ddl";
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Connection connection;
@@ -32,7 +40,7 @@ public class Main {
 
     static {
         try {
-            DriverManager.registerDriver(new org.postgresql.Driver());
+            DriverManager.registerDriver(JDBC_DRIVER);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,11 +49,11 @@ public class Main {
     public Main() throws SQLException {
         JdbcEngineFactory factory = new JdbcEngineFactory();
         factory.setMetaFilesNames("statements.qry");
-        factory.setFilter(SqlFeature.POSTGRESQL);
+        factory.setFilter(DB_TYPE);
         this.sqlFactory = factory;
 
-        ddls = DDLLoader.getDDLs(this.getClass(), "mysql.ddl");
-        connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/simple", "simple", "simple");
+        ddls = DDLLoader.getDDLs(this.getClass(), DB_DDL);
+        connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         sessionFactory = new JdbcSessionFactory(connection);
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);

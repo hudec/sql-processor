@@ -1,6 +1,7 @@
 package org.sample;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
@@ -23,6 +24,13 @@ import org.sqlproc.engine.util.DDLLoader;
 
 public class Main {
 
+    private static final Driver JDBC_DRIVER = new com.informix.jdbc.IfxDriver();
+    private static final String DB_URL = "jdbc:informix-sqli://popel:1551/simple:informixserver=popel_11;DB_LOCALE=en_US.57372";
+    private static final String DB_USER = "simple";
+    private static final String DB_PASSWORD = "simple";
+    private static final String DB_TYPE = SqlFeature.INFORMIX;
+    private static final String DB_DDL = "informix.ddl";
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Connection connection;
@@ -32,7 +40,7 @@ public class Main {
 
     static {
         try {
-            DriverManager.registerDriver(new com.informix.jdbc.IfxDriver());
+            DriverManager.registerDriver(JDBC_DRIVER);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,13 +49,11 @@ public class Main {
     public Main() throws SQLException {
         JdbcEngineFactory factory = new JdbcEngineFactory();
         factory.setMetaFilesNames("statements.qry");
-        factory.setFilter(SqlFeature.INFORMIX);
+        factory.setFilter(DB_TYPE);
         this.sqlFactory = factory;
 
-        ddls = DDLLoader.getDDLs(this.getClass(), "informix.ddl");
-        connection = DriverManager.getConnection(
-                "jdbc:informix-sqli://popel:1551/simple:informixserver=popel_11;DB_LOCALE=en_US.57372", "simple",
-                "simple");
+        ddls = DDLLoader.getDDLs(this.getClass(), DB_DDL);
+        connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         sessionFactory = new JdbcSessionFactory(connection);
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);

@@ -1,6 +1,7 @@
 package org.sample;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -30,6 +31,13 @@ import org.sqlproc.engine.util.DDLLoader;
 
 public class Main {
 
+    private static final Driver JDBC_DRIVER = new org.hsqldb.jdbcDriver();
+    private static final String DB_URL = "jdbc:hsqldb:mem:sqlproc";
+    private static final String DB_USER = "sa";
+    private static final String DB_PASSWORD = "";
+    private static final String DB_TYPE = SqlFeature.HSQLDB;
+    private static final String DB_DDL = "hsqldb.ddl";
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Connection connection;
@@ -39,7 +47,7 @@ public class Main {
 
     static {
         try {
-            DriverManager.registerDriver(new org.hsqldb.jdbcDriver());
+            DriverManager.registerDriver(JDBC_DRIVER);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -48,11 +56,11 @@ public class Main {
     public Main() throws SQLException {
         JdbcEngineFactory factory = new JdbcEngineFactory();
         factory.setMetaFilesNames("statements.qry");
-        factory.setFilter(SqlFeature.HSQLDB);
+        factory.setFilter(DB_TYPE);
         this.sqlFactory = factory;
 
-        ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
-        connection = DriverManager.getConnection("jdbc:hsqldb:mem:sqlproc", "sa", "");
+        ddls = DDLLoader.getDDLs(this.getClass(), DB_DDL);
+        connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         sessionFactory = new JdbcSessionFactory(connection);
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);
