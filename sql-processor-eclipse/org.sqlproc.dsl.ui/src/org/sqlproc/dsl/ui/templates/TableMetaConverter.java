@@ -818,6 +818,10 @@ public class TableMetaConverter extends TablePojoConverter {
             } else if (isFunction && resultSetAttribute != null) {
                 buffer.append(":<1(type=oracle_cursor) = ");
             }
+        } else if (dbType == DbType.MY_SQL) {
+            if (isFunction && metaFunctionsResult.containsKey(pojo)) {
+                buffer.append(":<1(type=").append(metaFunctionsResult.get(pojo)).append(") = ");
+            }
         }
         buffer.append("call ").append(pojo).append("(");
         boolean first = true;
@@ -849,7 +853,7 @@ public class TableMetaConverter extends TablePojoConverter {
         }
         buffer.append(")\n;");
         if (dbType == DbType.HSQLDB || dbType == DbType.ORACLE || dbType == DbType.MY_SQL) {
-            if (isFunction && metaFunctionsResult.containsKey(pojo)) {
+            if (dbType == DbType.HSQLDB && isFunction && metaFunctionsResult.containsKey(pojo)) {
                 buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(OUT");
                 if (metaMakeItFinal)
                     buffer.append(",final=");
