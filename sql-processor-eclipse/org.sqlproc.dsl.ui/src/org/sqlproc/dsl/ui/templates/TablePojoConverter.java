@@ -554,7 +554,8 @@ public class TablePojoConverter {
             return;
         Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
         for (DbColumn dbColumn : dbProcColumns) {
-            if (dbColumn.getColumnType() == 5 && dbColumn.getName() == null) {
+            if (dbColumn.getColumnType() == 5
+                    && (dbColumn.getName() == null || dbColumn.getName().trim().length() == 0)) {
                 dbColumn.setName(FAKE_FUN_PROC_COLUMN_NAME);
             }
             PojoAttribute attribute = convertDbColumnDefinition(procedure, dbColumn);

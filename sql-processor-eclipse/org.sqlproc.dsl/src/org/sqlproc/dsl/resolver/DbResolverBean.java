@@ -996,6 +996,7 @@ public class DbResolverBean implements DbResolver {
         if (!doInit)
             return columnsForModel;
         if (modelDatabaseValues.connection != null) {
+            DbType dbType = getDbType(model);
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
@@ -1023,7 +1024,8 @@ public class DbResolverBean implements DbResolver {
                     }
                     dbColumn.setSqlType(result.getInt("DATA_TYPE"));
                     dbColumn.setNullable(result.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls);
-                    dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
+                    if (DbType.MY_SQL != dbType)
+                        dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
                     columnsForModel.add(dbColumn);
                     info(procedure + ": " + dbColumn.toString());
                 }
@@ -1116,6 +1118,7 @@ public class DbResolverBean implements DbResolver {
         if (!doInit)
             return columnsForModel;
         if (modelDatabaseValues.connection != null) {
+            DbType dbType = getDbType(model);
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
@@ -1143,7 +1146,8 @@ public class DbResolverBean implements DbResolver {
                     }
                     dbColumn.setSqlType(result.getInt("DATA_TYPE"));
                     dbColumn.setNullable(result.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls);
-                    dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
+                    if (DbType.MY_SQL != dbType)
+                        dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
                     columnsForModel.add(dbColumn);
                     // info(function + ": " + dbColumn.toString());
                 }
@@ -1573,6 +1577,16 @@ public class DbResolverBean implements DbResolver {
             error("getDriverMethodOutput error " + e, e);
         }
         return methodCallOutput;
+    }
+
+    private DbType getDbType(EObject model) {
+        DbType dbType = getDatabaseDirectives(model).dbType;
+        if (dbType == null) {
+            DbType[] dbTypes = DbType.fromDbMetaInfo(getDbMetaInfo(model));
+            if (dbTypes != null && dbTypes.length > 0)
+                dbType = dbTypes[0];
+        }
+        return dbType;
     }
 
     private void trace(String msg) {
