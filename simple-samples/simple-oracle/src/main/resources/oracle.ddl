@@ -47,7 +47,7 @@ BEGIN
    END;
 END new_person;
 
-CREATE OR REPLACE FUNCTION new_person_ret_rs (date_of_birth IN DATE, ssn IN VARCHAR2, first_name IN VARCHAR2, last_name IN VARCHAR2)
+CREATE OR REPLACE FUNCTION NEW_PERSON_RET_RS (date_of_birth IN DATE, ssn IN VARCHAR2, first_name IN VARCHAR2, last_name IN VARCHAR2)
 RETURN SYS_REFCURSOR
 AS 
   result_cur SYS_REFCURSOR;
@@ -63,7 +63,7 @@ BEGIN
    END;
 END new_person_ret_rs;
 
-CREATE OR REPLACE PROCEDURE new_person_out_rs (result_cur IN OUT SYS_REFCURSOR, date_of_birth IN DATE, ssn IN VARCHAR2, first_name IN VARCHAR2, last_name IN VARCHAR2)
+CREATE OR REPLACE PROCEDURE NEW_PERSON_OUT_RS (result_cur IN OUT SYS_REFCURSOR, date_of_birth IN DATE, ssn IN VARCHAR2, first_name IN VARCHAR2, last_name IN VARCHAR2)
 AS 
 BEGIN
    DECLARE
@@ -76,11 +76,9 @@ BEGIN
    END;
 END new_person_out_rs;
 
-CREATE OR REPLACE FUNCTION an_hour_before (t IN DATE)
+CREATE OR REPLACE FUNCTION AN_HOUR_BEFORE (t IN DATE)
 RETURN DATE
 AS 
 BEGIN
    RETURN t - INTERVAL '1' HOUR;
 END an_hour_before;
-
-

@@ -32,7 +32,7 @@ public class ProceduresDao {
         if (logger.isTraceEnabled()) {
             logger.trace("newPerson: " + newPerson + " " + sqlControl);
         }
-        SqlProcedureEngine sqlProcNewPerson = sqlEngineFactory.getCheckedProcedureEngine("PROC_new_person");
+        SqlProcedureEngine sqlProcNewPerson = sqlEngineFactory.getCheckedProcedureEngine("PROC_NEW_PERSON");
         int count = sqlProcNewPerson.callUpdate(sqlSession, newPerson, sqlControl);
         if (logger.isTraceEnabled()) {
             logger.trace("newPerson: " + count);
@@ -55,7 +55,7 @@ public class ProceduresDao {
         if (logger.isTraceEnabled()) {
             logger.trace("newPersonRetRs: " + newPersonRetRs + " " + sqlControl);
         }
-        SqlProcedureEngine sqlProcNewPersonRetRs = sqlEngineFactory.getCheckedProcedureEngine("PROC_new_person_ret_rs");
+        SqlProcedureEngine sqlProcNewPersonRetRs = sqlEngineFactory.getCheckedProcedureEngine("PROC_NEW_PERSON_RET_RS");
         List<Person> list = sqlProcNewPersonRetRs.callQuery(sqlSession, Person.class, newPersonRetRs);
         if (logger.isTraceEnabled()) {
             logger.trace("newPersonRetRs: " + list);

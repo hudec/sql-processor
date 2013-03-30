@@ -28,7 +28,7 @@ public class FunctionsDao {
         if (logger.isTraceEnabled()) {
             logger.trace("anHourBefore: " + anHourBefore + " " + sqlControl);
         }
-        SqlProcedureEngine sqlFunAnHourBefore = sqlEngineFactory.getCheckedProcedureEngine("FUN_an_hour_before");
+        SqlProcedureEngine sqlFunAnHourBefore = sqlEngineFactory.getCheckedProcedureEngine("FUN_AN_HOUR_BEFORE");
         Object result = sqlFunAnHourBefore.callFunction(sqlSession, anHourBefore, sqlControl);
         if (logger.isTraceEnabled()) {
             logger.trace("anHourBefore: " + result);

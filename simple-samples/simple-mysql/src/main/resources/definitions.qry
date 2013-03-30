@@ -6,7 +6,7 @@ database-login-username simple;
 database-login-password simple;
 database-in-catalog simple;
 //database-active-schema simple;
-//database-ddl-create mysql.ddl; // should be located in the same directory as definitions.qry
+database-ddl-create mysql.ddl; // should be located in the same directory as definitions.qry
 database-show-database-info MySQL,5.5.29-0ubuntu\0.12.10.1,5,5;
 database-show-driver-info MySQL-AB JDBC Driver,mysql-connector-java-5.1.18 ( Revision: tonci.grgin@oracle.com-20110930151701-jfj14ddfq48ifkfq ),5,1;
 database-show-driver-output getTimeDateFunctions->DAYOFWEEK,WEEKDAY,DAYOFMONTH,DAYOFYEAR,MONTH,DAYNAME,MONTHNAME,QUARTER,WEEK,YEAR,HOUR,MINUTE,SECOND,PERIOD_ADD,PERIOD_DIFF,TO_DAYS,FROM_DAYS,DATE_FORMAT,TIME_FORMAT,CURDATE,CURRENT_DATE,CURTIME,CURRENT_TIME,NOW,SYSDATE,CURRENT_TIMESTAMP,UNIX_TIMESTAMP,FROM_UNIXTIME,SEC_TO_TIME,TIME_TO_SEC;
@@ -35,10 +35,10 @@ daogen-make-it-final;
 
 table contact CONTACT;
 table person PERSON;
-procedure anHourBefore an_hour_before;
-procedure newPerson new_person;
-procedure newPersonRetRs new_person_ret_rs;
-function anHourBefore an_hour_before;
+procedure anHourBefore AN_HOUR_BEFORE;
+procedure newPerson NEW_PERSON;
+procedure newPersonRetRs NEW_PERSON_RET_RS;
+function anHourBefore AN_HOUR_BEFORE;
 
 //SEQ_CONTACT(OPT)=SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'simple' AND TABLE_NAME = 'CONTACT';
 //SEQ_PERSON(OPT)=SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'simple' AND TABLE_NAME = 'PERSON';
