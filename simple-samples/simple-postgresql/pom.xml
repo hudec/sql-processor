@@ -14,7 +14,7 @@
         <version.log4j>1.2.17</version.log4j>
         <version.slf4j>1.7.2</version.slf4j>
         <version.junit>4.10</version.junit>
-        <version.postgresql>9.1-901.jdbc4</version.postgresql>
+        <version.postgresql>9.2-1002.jdbc4</version.postgresql>
     </properties>
 
     <build>

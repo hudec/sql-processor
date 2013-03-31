@@ -553,10 +553,13 @@ public class TablePojoConverter {
         if (procedure == null || dbProcColumns == null)
             return;
         Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
+        boolean isFunction = false;
         for (DbColumn dbColumn : dbProcColumns) {
             if (dbColumn.getColumnType() == 5
-                    && (dbColumn.getName() == null || dbColumn.getName().trim().length() == 0)) {
+                    && (dbColumn.getName() == null || dbColumn.getName().trim().length() == 0 || dbColumn.getName()
+                            .equalsIgnoreCase("returnValue"))) {
                 dbColumn.setName(FAKE_FUN_PROC_COLUMN_NAME);
+                isFunction = true;
             }
             PojoAttribute attribute = convertDbColumnDefinition(procedure, dbColumn);
             if (attribute != null) {
@@ -582,6 +585,9 @@ public class TablePojoConverter {
         // System.out.println("xxxx1 " + dbProcedure + " " + dbProcColumns);
         // System.out.println("xxxx2 " + procedure + " " + attributes);
         procedures.put(procedure, attributes);
+        System.out.println("aaaaa " + procedure + " " + dbType + " " + isFunction);
+        if (dbType == DbType.POSTGRESQL && isFunction)
+            functions.put(procedure, attributes);
     }
 
     public void addFunctionDefinition(String function, DbTable dbFunction, List<DbColumn> dbFunColumns) {

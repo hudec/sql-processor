@@ -104,3 +104,15 @@ SELECT_PERSON(QRY,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   {#1 order by %p.id }
   {#2 order by %p.last_name }
 ;
+
+PROC_AN_HOUR_BEFORE(CALL,final=,inx=AnHourBefore)=
+  call an_hour_before(:t)
+;
+
+PROC_NEW_PERSON(CALL,final=,inx=NewPerson)=
+  call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName)
+;
+
+PROC_NEW_PERSON_RET_RS(CALL,final=,inx=NewPersonRetRs)=
+  call new_person_ret_rs(:dateOfBirth, :ssn, :firstName, :lastName)
+;

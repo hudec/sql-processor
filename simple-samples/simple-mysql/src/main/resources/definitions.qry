@@ -6,7 +6,7 @@ database-login-username simple;
 database-login-password simple;
 database-in-catalog simple;
 //database-active-schema simple;
-database-ddl-create mysql.ddl; // should be located in the same directory as definitions.qry
+//database-ddl-create mysql.ddl; // should be located in the same directory as definitions.qry
 database-show-database-info MySQL,5.5.29-0ubuntu\0.12.10.1,5,5;
 database-show-driver-info MySQL-AB JDBC Driver,mysql-connector-java-5.1.18 ( Revision: tonci.grgin@oracle.com-20110930151701-jfj14ddfq48ifkfq ),5,1;
 database-show-driver-output getTimeDateFunctions->DAYOFWEEK,WEEKDAY,DAYOFMONTH,DAYOFYEAR,MONTH,DAYNAME,MONTHNAME,QUARTER,WEEK,YEAR,HOUR,MINUTE,SECOND,PERIOD_ADD,PERIOD_DIFF,TO_DAYS,FROM_DAYS,DATE_FORMAT,TIME_FORMAT,CURDATE,CURRENT_DATE,CURTIME,CURRENT_TIME,NOW,SYSDATE,CURRENT_TIMESTAMP,UNIX_TIMESTAMP,FROM_UNIXTIME,SEC_TO_TIME,TIME_TO_SEC;

@@ -33,3 +33,9 @@ daogen-make-it-final;
 
 table contact contact;
 table person person;
+procedure anHourBefore an_hour_before;
+procedure newPerson new_person;
+procedure newPersonRetRs new_person_ret_rs;
+
+metagen-function-result AN_HOUR_BEFORE stamp;
+metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;

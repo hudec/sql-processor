@@ -802,7 +802,7 @@ public class TableMetaConverter extends TablePojoConverter {
 
     StringBuilder metaCallProcedureDefinition(String pojo, boolean isFunction) {
         StringBuilder buffer = new StringBuilder();
-        buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(CALL");
+        buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo.toUpperCase()).append("(CALL");
         if (metaMakeItFinal)
             buffer.append(",final=");
         String pojoName = tableNames.get(pojo);
@@ -818,7 +818,7 @@ public class TableMetaConverter extends TablePojoConverter {
             } else if (isFunction && resultSetAttribute != null) {
                 buffer.append(":<1(type=oracle_cursor) = ");
             }
-        } else if (dbType == DbType.MY_SQL) {
+        } else if (dbType == DbType.MY_SQL || dbType == DbType.POSTGRESQL) {
             if (isFunction && metaFunctionsResult.containsKey(pojo)) {
                 buffer.append(":<1(type=").append(metaFunctionsResult.get(pojo)).append(") = ");
             }
@@ -854,7 +854,7 @@ public class TableMetaConverter extends TablePojoConverter {
         buffer.append(")\n;");
         if (dbType == DbType.HSQLDB || dbType == DbType.ORACLE || dbType == DbType.MY_SQL) {
             if (dbType == DbType.HSQLDB && isFunction && metaFunctionsResult.containsKey(pojo)) {
-                buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(OUT");
+                buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo.toUpperCase()).append("(OUT");
                 if (metaMakeItFinal)
                     buffer.append(",final=");
                 buffer.append(")=");
@@ -863,7 +863,8 @@ public class TableMetaConverter extends TablePojoConverter {
             } else if (!isFunction && metaProceduresResultSet.containsKey(pojo)) {
                 String outPojo = metaProceduresResultSet.get(pojo);
                 if (pojos.containsKey(outPojo)) {
-                    buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(OUT");
+                    buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo.toUpperCase())
+                            .append("(OUT");
                     if (metaMakeItFinal)
                         buffer.append(",final=");
                     String outPojoName = tableNames.get(outPojo);
@@ -895,7 +896,8 @@ public class TableMetaConverter extends TablePojoConverter {
             } else if (isFunction && metaFunctionsResultSet.containsKey(pojo)) {
                 String outPojo = metaFunctionsResultSet.get(pojo);
                 if (pojos.containsKey(outPojo)) {
-                    buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo).append("(OUT");
+                    buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo.toUpperCase())
+                            .append("(OUT");
                     if (metaMakeItFinal)
                         buffer.append(",final=");
                     String outPojoName = tableNames.get(outPojo);
