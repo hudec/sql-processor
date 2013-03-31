@@ -27,12 +27,12 @@ package org.sample.model {
     toString ::: dateOfBirth id lastName ssn firstName
   }
 
-  final pojo AnHourBefore serializable 1  { // procedure
+  final pojo AnHourBefore serializable 1  { // function
     t : java.sql.Timestamp
     toString ::: t
   }
 
-  final pojo NewPerson serializable 1  { // procedure
+  final pojo NewPerson serializable 1  { // function
     newid : java.lang.Long
     dateOfBirth : java.util.Date
     ssn : java.lang.String
@@ -41,7 +41,7 @@ package org.sample.model {
     toString ::: dateOfBirth lastName ssn firstName newid
   }
 
-  final pojo NewPersonRetRs serializable 1  { // procedure
+  final pojo NewPersonRetRs serializable 1  { // function
     dateOfBirth : java.util.Date
     ssn : java.lang.String
     firstName : java.lang.String

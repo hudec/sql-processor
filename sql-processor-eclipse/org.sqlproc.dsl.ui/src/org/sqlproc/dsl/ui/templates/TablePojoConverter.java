@@ -272,6 +272,13 @@ public class TablePojoConverter {
 
     public void addTableDefinition(String table, List<DbColumn> dbColumns, List<String> dbPrimaryKeys,
             List<DbExport> dbExports, List<DbImport> dbImports, List<DbIndex> dbIndexes) {
+        if (debug) {
+            System.out.println("addTableDefinition: " + table + " dbColumns " + dbColumns);
+            System.out.println("addTableDefinition: " + table + " dbPrimaryKeys " + dbPrimaryKeys);
+            System.out.println("addTableDefinition: " + table + " dbExports " + dbExports);
+            System.out.println("addTableDefinition: " + table + " dbImports " + dbImports);
+            System.out.println("addTableDefinition: " + table + " dbIndexes " + dbIndexes);
+        }
         if (table == null || dbColumns == null)
             return;
         Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
@@ -550,14 +557,19 @@ public class TablePojoConverter {
     public static final String FAKE_FUN_PROC_COLUMN_NAME = "_result_";
 
     public void addProcedureDefinition(String procedure, DbTable dbProcedure, List<DbColumn> dbProcColumns) {
+        if (debug) {
+            System.out.println("addProcedureDefinition: " + procedure + " dbProcedure " + dbProcedure);
+            System.out.println("addProcedureDefinition: " + procedure + " dbProcColumns " + dbProcColumns);
+        }
         if (procedure == null || dbProcColumns == null)
             return;
         Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
         boolean isFunction = false;
         for (DbColumn dbColumn : dbProcColumns) {
             if (dbColumn.getColumnType() == 5
-                    && (dbColumn.getName() == null || dbColumn.getName().trim().length() == 0 || dbColumn.getName()
-                            .equalsIgnoreCase("returnValue"))) {
+                    && (dbColumn.getName() == null || dbColumn.getName().trim().length() == 0
+                            || dbColumn.getName().equalsIgnoreCase("returnValue") || dbColumn.getName()
+                            .equalsIgnoreCase(FAKE_FUN_PROC_COLUMN_NAME))) {
                 dbColumn.setName(FAKE_FUN_PROC_COLUMN_NAME);
                 isFunction = true;
             }
@@ -582,15 +594,16 @@ public class TablePojoConverter {
                 attribute.setFunProcColumnType((short) 1);
             }
         }
-        // System.out.println("xxxx1 " + dbProcedure + " " + dbProcColumns);
-        // System.out.println("xxxx2 " + procedure + " " + attributes);
         procedures.put(procedure, attributes);
-        System.out.println("aaaaa " + procedure + " " + dbType + " " + isFunction);
         if (dbType == DbType.POSTGRESQL && isFunction)
             functions.put(procedure, attributes);
     }
 
     public void addFunctionDefinition(String function, DbTable dbFunction, List<DbColumn> dbFunColumns) {
+        if (debug) {
+            System.out.println("addFunctionDefinition: " + function + " dbFunction " + dbFunction);
+            System.out.println("addFunctionDefinition: " + function + " dbFunColumns " + dbFunColumns);
+        }
         if (function == null || dbFunColumns == null)
             return;
         Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
@@ -616,8 +629,6 @@ public class TablePojoConverter {
                 attribute.setFunProcColumnType((short) 1);
             }
         }
-        // System.out.println("yyyy1 " + dbFunction + " " + dbFunColumns);
-        // System.out.println("yyyy2 " + function + " " + attributes);
         functions.put(function, attributes);
     }
 
