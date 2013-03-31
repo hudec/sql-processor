@@ -177,7 +177,6 @@ public class Main {
         anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
         java.sql.Timestamp result = main.getFunctionsDao().anHourBefore(anHourBefore);
         Assert.assertNotNull(result);
-        System.exit(0);
 
         // procedures
         NewPerson newPerson = new NewPerson();
@@ -193,7 +192,9 @@ public class Main {
         newPersonRetRs.setLastName("Beruskova");
         newPersonRetRs.setSsn("888777666");
         newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
+        main.connection.setAutoCommit(false);
         list = main.getProceduresDao().newPersonRetRs(newPersonRetRs);
+        main.connection.commit();
         Assert.assertNotNull(list);
         Assert.assertEquals(1, list.size());
         Assert.assertNotNull(list.get(0).getId());

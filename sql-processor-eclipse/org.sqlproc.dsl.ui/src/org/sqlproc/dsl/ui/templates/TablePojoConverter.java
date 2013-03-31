@@ -556,7 +556,8 @@ public class TablePojoConverter {
 
     public static final String FAKE_FUN_PROC_COLUMN_NAME = "_result_";
 
-    public void addProcedureDefinition(String procedure, DbTable dbProcedure, List<DbColumn> dbProcColumns) {
+    public void addProcedureDefinition(String procedure, DbTable dbProcedure, List<DbColumn> dbProcColumns,
+            boolean isFunction) {
         if (debug) {
             System.out.println("addProcedureDefinition: " + procedure + " dbProcedure " + dbProcedure);
             System.out.println("addProcedureDefinition: " + procedure + " dbProcColumns " + dbProcColumns);
@@ -564,14 +565,12 @@ public class TablePojoConverter {
         if (procedure == null || dbProcColumns == null)
             return;
         Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
-        boolean isFunction = false;
         for (DbColumn dbColumn : dbProcColumns) {
             if (dbColumn.getColumnType() == 5
                     && (dbColumn.getName() == null || dbColumn.getName().trim().length() == 0
                             || dbColumn.getName().equalsIgnoreCase("returnValue") || dbColumn.getName()
                             .equalsIgnoreCase(FAKE_FUN_PROC_COLUMN_NAME))) {
                 dbColumn.setName(FAKE_FUN_PROC_COLUMN_NAME);
-                isFunction = true;
             }
             PojoAttribute attribute = convertDbColumnDefinition(procedure, dbColumn);
             if (attribute != null) {

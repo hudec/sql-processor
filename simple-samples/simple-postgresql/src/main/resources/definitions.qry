@@ -36,7 +36,8 @@ table person person;
 procedure anHourBefore an_hour_before;
 procedure newPerson new_person;
 procedure newPersonRetRs new_person_ret_rs;
+function anHourBefore an_hour_before;
 
 metagen-function-result an_hour_before stamp;
-metagen-procedure-result-set new_person_ret_rs PERSON;
+metagen-procedure-result-set new_person_ret_rs person;
 //pojogen-debug-level DEBUG;

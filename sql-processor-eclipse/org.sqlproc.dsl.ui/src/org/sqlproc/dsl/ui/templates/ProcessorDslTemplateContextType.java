@@ -837,7 +837,8 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
                 if (dbProcedures.isEmpty())
                     continue;
                 List<DbColumn> dbProcColumns = dbResolver.getDbProcColumns(artifacts, procedure);
-                converter.addProcedureDefinition(procedure, dbProcedures.get(0), dbProcColumns);
+                converter.addProcedureDefinition(procedure, dbProcedures.get(0), dbProcColumns,
+                        functions.contains(procedure));
             }
         }
         if (functions != null) {

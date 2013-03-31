@@ -795,6 +795,8 @@ public class TableMetaConverter extends TablePojoConverter {
             PojoAttribute attribute = pentry.getValue();
             if (dbType == DbType.ORACLE && attribute.getSqlType() == 1111) {
                 return attribute;
+            } else if (dbType == DbType.POSTGRESQL && attribute.getSqlType() == 1111) {
+                return attribute;
             }
         }
         return null;
@@ -817,6 +819,12 @@ public class TableMetaConverter extends TablePojoConverter {
                 buffer.append(":<1(type=").append(metaFunctionsResult.get(pojo)).append(") = ");
             } else if (isFunction && resultSetAttribute != null) {
                 buffer.append(":<1(type=oracle_cursor) = ");
+            }
+        } else if (dbType == DbType.POSTGRESQL) {
+            if (isFunction && metaFunctionsResult.containsKey(pojo)) {
+                buffer.append(":<1(type=").append(metaFunctionsResult.get(pojo)).append(") = ");
+            } else if (resultSetAttribute != null) {
+                buffer.append(":<1(type=other) = ");
             }
         } else if (dbType == DbType.MY_SQL || dbType == DbType.POSTGRESQL) {
             if (isFunction && metaFunctionsResult.containsKey(pojo)) {
@@ -845,6 +853,8 @@ public class TableMetaConverter extends TablePojoConverter {
             buffer.append(":");
             if (dbType == DbType.ORACLE && attribute.getSqlType() == 1111) {
                 buffer.append("<1(type=oracle_cursor)");
+            } else if (dbType == DbType.POSTGRESQL && attribute.getSqlType() == 1111) {
+                buffer.append("<1(type=other)");
             } else {
                 if (attribute.getFunProcColumnType() != null && attribute.getFunProcColumnType() == 4)
                     buffer.append("<");
@@ -852,7 +862,8 @@ public class TableMetaConverter extends TablePojoConverter {
             }
         }
         buffer.append(")\n;");
-        if (dbType == DbType.HSQLDB || dbType == DbType.ORACLE || dbType == DbType.MY_SQL) {
+        if (dbType == DbType.HSQLDB || dbType == DbType.ORACLE || dbType == DbType.MY_SQL
+                || dbType == DbType.POSTGRESQL) {
             if (dbType == DbType.HSQLDB && isFunction && metaFunctionsResult.containsKey(pojo)) {
                 buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo.toUpperCase()).append("(OUT");
                 if (metaMakeItFinal)

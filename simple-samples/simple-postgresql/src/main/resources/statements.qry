@@ -109,10 +109,13 @@ FUN_AN_HOUR_BEFORE(CALL,final=,inx=AnHourBefore)=
   :<1(type=stamp) = call an_hour_before(:t)
 ;
 
-FUN_NEW_PERSON(CALL,final=,inx=NewPerson)=
+PROC_NEW_PERSON(CALL,final=,inx=NewPerson)=
   call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName)
 ;
 
-FUN_NEW_PERSON_RET_RS(CALL,final=,inx=NewPersonRetRs)=
-  call new_person_ret_rs(:dateOfBirth, :ssn, :firstName, :lastName)
+PROC_NEW_PERSON_RET_RS(CALL,final=,inx=NewPersonRetRs)=
+  :<1(type=other) = call new_person_ret_rs(:dateOfBirth, :ssn, :firstName, :lastName)
+;
+PROC_NEW_PERSON_RET_RS(OUT,final=,outx=Person)=
+  id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth ssn$ssn
 ;
