@@ -7,4 +7,14 @@ package org.sample.dao {
   final dao PersonDao :: Person {
     scaffold
   }
+
+  final dao ProceduresDao {
+    callUpdate newPerson _void ::: newPerson ::NewPerson
+    callQuery newPersonOutRs :java.util.List<:Person> ::: newPersonOutRs ::NewPersonOutRs
+  }
+
+  final dao FunctionsDao {
+    callFunction anHourBefore :java.sql.Timestamp ::: anHourBefore ::AnHourBefore
+    callQuery newPersonRetRs :java.util.List<:Person> ::: newPersonRetRs ::NewPersonRetRs
+  }
 }
