@@ -539,17 +539,17 @@ public class ProcessorDslSwitch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ProcessorDslPackage.POJO_ENTITY_MODIFIER3:
-      {
-        PojoEntityModifier3 pojoEntityModifier3 = (PojoEntityModifier3)theEObject;
-        T result = casePojoEntityModifier3(pojoEntityModifier3);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ProcessorDslPackage.POJO_PROPERTY:
       {
         PojoProperty pojoProperty = (PojoProperty)theEObject;
         T result = casePojoProperty(pojoProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.POJO_DAO_MODIFIER:
+      {
+        PojoDaoModifier pojoDaoModifier = (PojoDaoModifier)theEObject;
+        T result = casePojoDaoModifier(pojoDaoModifier);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -561,10 +561,24 @@ public class ProcessorDslSwitch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.POJO_METHOD_MODIFIER:
+      {
+        PojoMethodModifier pojoMethodModifier = (PojoMethodModifier)theEObject;
+        T result = casePojoMethodModifier(pojoMethodModifier);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.POJO_METHOD:
       {
         PojoMethod pojoMethod = (PojoMethod)theEObject;
         T result = casePojoMethod(pojoMethod);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ProcessorDslPackage.TO_INIT_METHOD:
+      {
+        ToInitMethod toInitMethod = (ToInitMethod)theEObject;
+        T result = caseToInitMethod(toInitMethod);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -1588,22 +1602,6 @@ public class ProcessorDslSwitch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Pojo Entity Modifier3</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Pojo Entity Modifier3</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casePojoEntityModifier3(PojoEntityModifier3 object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Pojo Property</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1615,6 +1613,22 @@ public class ProcessorDslSwitch<T>
    * @generated
    */
   public T casePojoProperty(PojoProperty object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Pojo Dao Modifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Pojo Dao Modifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePojoDaoModifier(PojoDaoModifier object)
   {
     return null;
   }
@@ -1636,6 +1650,22 @@ public class ProcessorDslSwitch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Pojo Method Modifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Pojo Method Modifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePojoMethodModifier(PojoMethodModifier object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Pojo Method</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1647,6 +1677,22 @@ public class ProcessorDslSwitch<T>
    * @generated
    */
   public T casePojoMethod(PojoMethod object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>To Init Method</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>To Init Method</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseToInitMethod(ToInitMethod object)
   {
     return null;
   }

@@ -127,10 +127,12 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.POJO_ENTITY_MODIFIER2: return createPojoEntityModifier2();
       case ProcessorDslPackage.POJO_ENTITY: return createPojoEntity();
       case ProcessorDslPackage.POJO_PROPERTY_MODIFIER: return createPojoPropertyModifier();
-      case ProcessorDslPackage.POJO_ENTITY_MODIFIER3: return createPojoEntityModifier3();
       case ProcessorDslPackage.POJO_PROPERTY: return createPojoProperty();
+      case ProcessorDslPackage.POJO_DAO_MODIFIER: return createPojoDaoModifier();
       case ProcessorDslPackage.POJO_DAO: return createPojoDao();
+      case ProcessorDslPackage.POJO_METHOD_MODIFIER: return createPojoMethodModifier();
       case ProcessorDslPackage.POJO_METHOD: return createPojoMethod();
+      case ProcessorDslPackage.TO_INIT_METHOD: return createToInitMethod();
       case ProcessorDslPackage.POJO_METHOD_ARG: return createPojoMethodArg();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -835,10 +837,10 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public PojoEntityModifier3 createPojoEntityModifier3()
+  public PojoProperty createPojoProperty()
   {
-    PojoEntityModifier3Impl pojoEntityModifier3 = new PojoEntityModifier3Impl();
-    return pojoEntityModifier3;
+    PojoPropertyImpl pojoProperty = new PojoPropertyImpl();
+    return pojoProperty;
   }
 
   /**
@@ -846,10 +848,10 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
-  public PojoProperty createPojoProperty()
+  public PojoDaoModifier createPojoDaoModifier()
   {
-    PojoPropertyImpl pojoProperty = new PojoPropertyImpl();
-    return pojoProperty;
+    PojoDaoModifierImpl pojoDaoModifier = new PojoDaoModifierImpl();
+    return pojoDaoModifier;
   }
 
   /**
@@ -868,10 +870,32 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public PojoMethodModifier createPojoMethodModifier()
+  {
+    PojoMethodModifierImpl pojoMethodModifier = new PojoMethodModifierImpl();
+    return pojoMethodModifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public PojoMethod createPojoMethod()
   {
     PojoMethodImpl pojoMethod = new PojoMethodImpl();
     return pojoMethod;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ToInitMethod createToInitMethod()
+  {
+    ToInitMethodImpl toInitMethod = new ToInitMethodImpl();
+    return toInitMethod;
   }
 
   /**

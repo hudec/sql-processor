@@ -23,17 +23,17 @@ import org.sqlproc.dsl.processorDsl.MappingRule;
 import org.sqlproc.dsl.processorDsl.MetaStatement;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.PojoDao;
+import org.sqlproc.dsl.processorDsl.PojoDaoModifier;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier1;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier2;
-import org.sqlproc.dsl.processorDsl.PojoEntityModifier3;
-import org.sqlproc.dsl.processorDsl.PojoMethod;
 import org.sqlproc.dsl.processorDsl.PojoMethodArg;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoPropertyModifier;
 import org.sqlproc.dsl.processorDsl.ProcedureDefinition;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
+import org.sqlproc.dsl.processorDsl.ToInitMethod;
 
 public class Utils {
 
@@ -166,7 +166,7 @@ public class Utils {
     public static PojoEntity getSuperType(PojoDao e) {
         if (e.getModifiers2() == null || e.getModifiers2().isEmpty())
             return null;
-        for (PojoEntityModifier3 modifier : e.getModifiers2()) {
+        for (PojoDaoModifier modifier : e.getModifiers2()) {
             if (modifier.getSuperType() != null)
                 return modifier.getSuperType();
         }
@@ -196,7 +196,7 @@ public class Utils {
     public static String getSernum(PojoDao e) {
         if (e.getModifiers2() == null || e.getModifiers2().isEmpty())
             return null;
-        for (PojoEntityModifier3 modifier : e.getModifiers2()) {
+        for (PojoDaoModifier modifier : e.getModifiers2()) {
             if (modifier.getSernum() != null)
                 return modifier.getSernum();
         }
@@ -459,10 +459,10 @@ public class Utils {
 
     public static Map<String, List<PojoMethodArg>> getToInits(PojoDao d) {
         Map<String, List<PojoMethodArg>> result = new LinkedHashMap<String, List<PojoMethodArg>>();
-        for (PojoMethod m : d.getMethods()) {
-            if (m.getToInits() != null && !m.getToInits().isEmpty()) {
+        for (ToInitMethod m : d.getToInits()) {
+            if (m.getArgs() != null && !m.getArgs().isEmpty()) {
                 result.put(m.getName(), new ArrayList<PojoMethodArg>());
-                for (PojoMethodArg a : m.getToInits()) {
+                for (PojoMethodArg a : m.getArgs()) {
                     result.get(m.getName()).add(a);
                 }
             }

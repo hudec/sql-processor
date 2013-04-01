@@ -590,15 +590,6 @@ public interface ProcessorDslFactory extends EFactory
   PojoPropertyModifier createPojoPropertyModifier();
 
   /**
-   * Returns a new object of class '<em>Pojo Entity Modifier3</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Pojo Entity Modifier3</em>'.
-   * @generated
-   */
-  PojoEntityModifier3 createPojoEntityModifier3();
-
-  /**
    * Returns a new object of class '<em>Pojo Property</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -606,6 +597,15 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   PojoProperty createPojoProperty();
+
+  /**
+   * Returns a new object of class '<em>Pojo Dao Modifier</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojo Dao Modifier</em>'.
+   * @generated
+   */
+  PojoDaoModifier createPojoDaoModifier();
 
   /**
    * Returns a new object of class '<em>Pojo Dao</em>'.
@@ -617,6 +617,15 @@ public interface ProcessorDslFactory extends EFactory
   PojoDao createPojoDao();
 
   /**
+   * Returns a new object of class '<em>Pojo Method Modifier</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pojo Method Modifier</em>'.
+   * @generated
+   */
+  PojoMethodModifier createPojoMethodModifier();
+
+  /**
    * Returns a new object of class '<em>Pojo Method</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -624,6 +633,15 @@ public interface ProcessorDslFactory extends EFactory
    * @generated
    */
   PojoMethod createPojoMethod();
+
+  /**
+   * Returns a new object of class '<em>To Init Method</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>To Init Method</em>'.
+   * @generated
+   */
+  ToInitMethod createToInitMethod();
 
   /**
    * Returns a new object of class '<em>Pojo Method Arg</em>'.

@@ -30,6 +30,7 @@ import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoMethodArg;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
+import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.util.Utils;
 
 @SuppressWarnings("all")
@@ -1229,7 +1230,8 @@ public class ProcessorDslGenerator implements IGenerator {
               _builder.appendImmediate("\n", "");
             }
             _builder.append("import ");
-            PojoEntity _ref = a.getRef();
+            PojoType _type = a.getType();
+            PojoEntity _ref = _type.getRef();
             String _completeName_1 = this.completeName(_ref);
             _builder.append(_completeName_1, "");
             _builder.append(";");
@@ -2356,7 +2358,8 @@ public class ProcessorDslGenerator implements IGenerator {
             String _name_5 = a.getName();
             _builder.append(_name_5, "");
             _builder.append("\", ");
-            PojoEntity _ref = a.getRef();
+            PojoType _type = a.getType();
+            PojoEntity _ref = _type.getRef();
             QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(_ref);
             _builder.append(_fullyQualifiedName, "");
             _builder.append(".class);");

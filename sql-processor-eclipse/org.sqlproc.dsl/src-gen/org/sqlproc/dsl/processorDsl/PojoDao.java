@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoDao#getPojo <em>Pojo</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoDao#getModifiers2 <em>Modifiers2</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoDao#getMethods <em>Methods</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoDao#getToInits <em>To Inits</em>}</li>
  * </ul>
  * </p>
  *
@@ -96,7 +97,7 @@ public interface PojoDao extends AbstractPojoEntity
 
   /**
    * Returns the value of the '<em><b>Modifiers2</b></em>' containment reference list.
-   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.PojoEntityModifier3}.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.PojoDaoModifier}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Modifiers2</em>' containment reference list isn't clear,
@@ -108,7 +109,7 @@ public interface PojoDao extends AbstractPojoEntity
    * @model containment="true"
    * @generated
    */
-  EList<PojoEntityModifier3> getModifiers2();
+  EList<PojoDaoModifier> getModifiers2();
 
   /**
    * Returns the value of the '<em><b>Methods</b></em>' containment reference list.
@@ -125,5 +126,21 @@ public interface PojoDao extends AbstractPojoEntity
    * @generated
    */
   EList<PojoMethod> getMethods();
+
+  /**
+   * Returns the value of the '<em><b>To Inits</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.ToInitMethod}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>To Inits</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>To Inits</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoDao_ToInits()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ToInitMethod> getToInits();
 
 } // PojoDao

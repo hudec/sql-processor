@@ -61,13 +61,14 @@ import org.sqlproc.dsl.processorDsl.OrdSql;
 import org.sqlproc.dsl.processorDsl.OrdSql2;
 import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.PojoDao;
+import org.sqlproc.dsl.processorDsl.PojoDaoModifier;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier1;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier2;
-import org.sqlproc.dsl.processorDsl.PojoEntityModifier3;
 import org.sqlproc.dsl.processorDsl.PojoMethod;
 import org.sqlproc.dsl.processorDsl.PojoMethodArg;
+import org.sqlproc.dsl.processorDsl.PojoMethodModifier;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoPropertyModifier;
 import org.sqlproc.dsl.processorDsl.PojoType;
@@ -81,6 +82,7 @@ import org.sqlproc.dsl.processorDsl.SqlFragment;
 import org.sqlproc.dsl.processorDsl.SqlTypeAssignement;
 import org.sqlproc.dsl.processorDsl.TableAssignement;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
+import org.sqlproc.dsl.processorDsl.ToInitMethod;
 import org.sqlproc.dsl.services.ProcessorDslGrammarAccess;
 
 @SuppressWarnings("all")
@@ -385,6 +387,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
+			case ProcessorDslPackage.POJO_DAO_MODIFIER:
+				if(context == grammarAccess.getPojoDaoModifierRule()) {
+					sequence_PojoDaoModifier(context, (PojoDaoModifier) semanticObject); 
+					return; 
+				}
+				else break;
 			case ProcessorDslPackage.POJO_DEFINITION:
 				if(context == grammarAccess.getPojoDefinitionRule()) {
 					sequence_PojoDefinition(context, (PojoDefinition) semanticObject); 
@@ -410,12 +418,6 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 					return; 
 				}
 				else break;
-			case ProcessorDslPackage.POJO_ENTITY_MODIFIER3:
-				if(context == grammarAccess.getPojoEntityModifier3Rule()) {
-					sequence_PojoEntityModifier3(context, (PojoEntityModifier3) semanticObject); 
-					return; 
-				}
-				else break;
 			case ProcessorDslPackage.POJO_METHOD:
 				if(context == grammarAccess.getPojoMethodRule()) {
 					sequence_PojoMethod(context, (PojoMethod) semanticObject); 
@@ -425,6 +427,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.POJO_METHOD_ARG:
 				if(context == grammarAccess.getPojoMethodArgRule()) {
 					sequence_PojoMethodArg(context, (PojoMethodArg) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.POJO_METHOD_MODIFIER:
+				if(context == grammarAccess.getPojoMethodModifierRule()) {
+					sequence_PojoMethodModifier(context, (PojoMethodModifier) semanticObject); 
 					return; 
 				}
 				else break;
@@ -497,6 +505,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.TABLE_DEFINITION:
 				if(context == grammarAccess.getTableDefinitionRule()) {
 					sequence_TableDefinition(context, (TableDefinition) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.TO_INIT_METHOD:
+				if(context == grammarAccess.getToInitMethodRule()) {
+					sequence_ToInitMethod(context, (ToInitMethod) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1106,7 +1120,23 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (modifiers1+=PojoEntityModifier1* name=IDENT pojo=[PojoEntity|IDENT] modifiers2+=PojoEntityModifier3* methods+=PojoMethod*)
+	 *     (superType=[PojoEntity|IDENT] | sernum=NUMBER)
+	 */
+	protected void sequence_PojoDaoModifier(EObject context, PojoDaoModifier semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         modifiers1+=PojoEntityModifier1* 
+	 *         name=IDENT 
+	 *         pojo=[PojoEntity|IDENT]? 
+	 *         modifiers2+=PojoDaoModifier* 
+	 *         methods+=PojoMethod* 
+	 *         toInits+=ToInitMethod*
+	 *     )
 	 */
 	protected void sequence_PojoDao(EObject context, PojoDao semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1142,15 +1172,6 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (superType=[PojoEntity|IDENT] | sernum=NUMBER)
-	 */
-	protected void sequence_PojoEntityModifier3(EObject context, PojoEntityModifier3 semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (modifiers1+=PojoEntityModifier1* name=IDENT modifiers2+=PojoEntityModifier2* features+=PojoProperty*)
 	 */
 	protected void sequence_PojoEntity(EObject context, PojoEntity semanticObject) {
@@ -1160,30 +1181,35 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=IDENT 
-	 *         (
-	 *             native='_char' | 
-	 *             native='_byte' | 
-	 *             native='_short' | 
-	 *             native='_int' | 
-	 *             native='_long' | 
-	 *             native='_float' | 
-	 *             native='_double' | 
-	 *             native='_boolean' | 
-	 *             ref=[PojoEntity|IDENT] | 
-	 *             type=[JvmType|QualifiedName]
-	 *         )
-	 *     )
+	 *     (name=IDENT type=PojoType)
 	 */
 	protected void sequence_PojoMethodArg(EObject context, PojoMethodArg semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.POJO_METHOD_ARG__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.POJO_METHOD_ARG__NAME));
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.POJO_METHOD_ARG__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.POJO_METHOD_ARG__TYPE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getPojoMethodArgAccess().getNameIDENTTerminalRuleCall_0_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getPojoMethodArgAccess().getTypePojoTypeParserRuleCall_1_0(), semanticObject.getType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (callFunction?='callFunction' | callUpdate?='callUpdate' | callQuery?='callQuery')
+	 */
+	protected void sequence_PojoMethodModifier(EObject context, PojoMethodModifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (scaffold='scaffold' | (name=IDENT toInits+=PojoMethodArg+))
+	 *     (modifiers1+=PojoMethodModifier* name=IDENT (type=PojoType args+=PojoMethodArg+)?)
 	 */
 	protected void sequence_PojoMethod(EObject context, PojoMethod semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1230,6 +1256,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 * Constraint:
 	 *     (
 	 *         (
+	 *             native='_void' | 
 	 *             native='_char' | 
 	 *             native='_byte' | 
 	 *             native='_short' | 
@@ -1411,5 +1438,14 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 		feeder.accept(grammarAccess.getTableDefinitionAccess().getNameIDENTTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getTableDefinitionAccess().getTableIDENTTerminalRuleCall_2_0(), semanticObject.getTable());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=IDENT args+=PojoMethodArg+)
+	 */
+	protected void sequence_ToInitMethod(EObject context, ToInitMethod semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 }

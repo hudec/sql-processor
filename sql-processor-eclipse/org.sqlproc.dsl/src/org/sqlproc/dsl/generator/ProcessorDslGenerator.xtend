@@ -329,7 +329,7 @@ import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import «d.pojo.completeName»;
 «FOR f:toInits.entrySet»«FOR a:f.value SEPARATOR "
-"»import «a.ref.completeName»;«ENDFOR»«ENDFOR»
+"»import «a.type.ref.completeName»;«ENDFOR»«ENDFOR»
 
 «classBody»
 '''
@@ -530,7 +530,7 @@ def compileMoreResultClasses(PojoDao d, PojoEntity e, Map<String, List<PojoMetho
         if (moreResultClasses == null)
           moreResultClasses = new HashMap<String, Class<?>>();
     «FOR a:f.value SEPARATOR "
-"»    moreResultClasses.put("«a.name»", «a.ref.fullyQualifiedName».class);«ENDFOR»
+"»    moreResultClasses.put("«a.name»", «a.type.ref.fullyQualifiedName».class);«ENDFOR»
       }
       «ENDFOR»
       if (moreResultClasses != null) {

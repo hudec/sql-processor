@@ -307,8 +307,12 @@ terminal REST: !(SEMICOLON);
 FeatureValue:
   (REST|IDENT_DOT|IDENT|NUMBER|WS|COLON|STRING|COMMA|MINUS|PLUS|LPAREN|RPAREN|LBRACE|RBRACE|QUESTI|NOT|BAND|BOR|HASH|AT|CARET|EQUALS|LESS_THAN|MORE_THAN|PERCENT|AND|OR|ESC_CHAR|ON_OFF|STATEMENT_TYPE|MAPPING_TYPE|OPTION_TYPE)+;
 
+//SimpleType:
+//	(native = ('_void'|'_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') |
+//	(COLON (COLON ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]));
+
 PojoType:
-	(native = ('_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') | 
+	(native = ('_void'|'_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') | 
 	(COLON (COLON ref=[PojoEntity|IDENT] | type=[jvmTypes::JvmType|QualifiedName]))
 	(LESS_THAN (COLON gref=[PojoEntity|IDENT] | gtype=[jvmTypes::JvmType|QualifiedName]) MORE_THAN)?) (array ?= '[]')?;
 
@@ -344,8 +348,6 @@ PojoEntity hidden(ML_COMMENT, SL_COMMENT, WS):
 
 PojoPropertyModifier: ((required?='required') | (discriminator?='discriminator') | (primaryKey?='primaryKey') | ('index' index=NUMBER) | (version?='optLock'));
 
-PojoEntityModifier3: (('extends' superType=[PojoEntity|IDENT]) | ('serializable' sernum=NUMBER));
-
 PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 	name=IDENT (native = ('_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') | 
 	(COLON (COLON (COLON (attrs+=[PojoProperty|IDENT])* | ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]))
@@ -353,19 +355,28 @@ PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 	(modifiers+=PojoPropertyModifier)*
 ;
 
+PojoDaoModifier: (('extends' superType=[PojoEntity|IDENT]) | ('serializable' sernum=NUMBER));
+
 PojoDao hidden(ML_COMMENT, SL_COMMENT, WS):
-	(modifiers1+=PojoEntityModifier1)* 'dao' name=IDENT COLON COLON pojo=[PojoEntity|IDENT] (modifiers2+=PojoEntityModifier3)* 
+	(modifiers1+=PojoEntityModifier1)* 'dao' name=IDENT (COLON COLON pojo=[PojoEntity|IDENT])?
+	  (modifiers2+=PojoDaoModifier)* 
 	LBRACE
 		methods+=PojoMethod*
+		toInits+=ToInitMethod*
 	RBRACE;
 
+PojoMethodModifier: ((callFunction?='callFunction') | (callUpdate?='callUpdate') | (callQuery?='callQuery'));
+
 PojoMethod hidden(ML_COMMENT, SL_COMMENT, WS):
-	(scaffold='scaffold' | name=IDENT COLON COLON COLON (toInits+=PojoMethodArg)+)
+		(modifiers1+=PojoMethodModifier)* name=IDENT (type=PojoType COLON COLON COLON (args+=PojoMethodArg)+)?
+;
+
+ToInitMethod hidden(ML_COMMENT, SL_COMMENT, WS):
+		name=IDENT COLON COLON COLON (args+=PojoMethodArg)+
 ;
 
 PojoMethodArg hidden(ML_COMMENT, SL_COMMENT, WS):
-	name=IDENT (native = ('_char'|'_byte'|'_short'|'_int'|'_long'|'_float'|'_double'|'_boolean') |
-	(COLON (COLON ref=[PojoEntity|IDENT]) | type=[jvmTypes::JvmType|QualifiedName]))
+	name=IDENT type=PojoType
 ;
 
 QualifiedNameWithWildcard:

@@ -3,6 +3,7 @@
 package org.sqlproc.dsl.processorDsl.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -10,10 +11,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.xtext.common.types.JvmType;
-
-import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoMethodArg;
+import org.sqlproc.dsl.processorDsl.PojoType;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -24,8 +23,6 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodArgImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodArgImpl#getNative <em>Native</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodArgImpl#getRef <em>Ref</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodArgImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
@@ -55,44 +52,14 @@ public class PojoMethodArgImpl extends MinimalEObjectImpl.Container implements P
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getNative() <em>Native</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getNative()
-   * @generated
-   * @ordered
-   */
-  protected static final String NATIVE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getNative() <em>Native</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getNative()
-   * @generated
-   * @ordered
-   */
-  protected String native_ = NATIVE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getRef() <em>Ref</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRef()
-   * @generated
-   * @ordered
-   */
-  protected PojoEntity ref;
-
-  /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getType()
    * @generated
    * @ordered
    */
-  protected JvmType type;
+  protected PojoType type;
 
   /**
    * <!-- begin-user-doc -->
@@ -143,93 +110,7 @@ public class PojoMethodArgImpl extends MinimalEObjectImpl.Container implements P
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getNative()
-  {
-    return native_;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setNative(String newNative)
-  {
-    String oldNative = native_;
-    native_ = newNative;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_METHOD_ARG__NATIVE, oldNative, native_));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PojoEntity getRef()
-  {
-    if (ref != null && ref.eIsProxy())
-    {
-      InternalEObject oldRef = (InternalEObject)ref;
-      ref = (PojoEntity)eResolveProxy(oldRef);
-      if (ref != oldRef)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.POJO_METHOD_ARG__REF, oldRef, ref));
-      }
-    }
-    return ref;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PojoEntity basicGetRef()
-  {
-    return ref;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setRef(PojoEntity newRef)
-  {
-    PojoEntity oldRef = ref;
-    ref = newRef;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_METHOD_ARG__REF, oldRef, ref));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public JvmType getType()
-  {
-    if (type != null && type.eIsProxy())
-    {
-      InternalEObject oldType = (InternalEObject)type;
-      type = (JvmType)eResolveProxy(oldType);
-      if (type != oldType)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ProcessorDslPackage.POJO_METHOD_ARG__TYPE, oldType, type));
-      }
-    }
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public JvmType basicGetType()
+  public PojoType getType()
   {
     return type;
   }
@@ -239,12 +120,53 @@ public class PojoMethodArgImpl extends MinimalEObjectImpl.Container implements P
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setType(JvmType newType)
+  public NotificationChain basicSetType(PojoType newType, NotificationChain msgs)
   {
-    JvmType oldType = type;
+    PojoType oldType = type;
     type = newType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_METHOD_ARG__TYPE, oldType, type));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_METHOD_ARG__TYPE, oldType, newType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setType(PojoType newType)
+  {
+    if (newType != type)
+    {
+      NotificationChain msgs = null;
+      if (type != null)
+        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.POJO_METHOD_ARG__TYPE, null, msgs);
+      if (newType != null)
+        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.POJO_METHOD_ARG__TYPE, null, msgs);
+      msgs = basicSetType(newType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_METHOD_ARG__TYPE, newType, newType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ProcessorDslPackage.POJO_METHOD_ARG__TYPE:
+        return basicSetType(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -259,14 +181,8 @@ public class PojoMethodArgImpl extends MinimalEObjectImpl.Container implements P
     {
       case ProcessorDslPackage.POJO_METHOD_ARG__NAME:
         return getName();
-      case ProcessorDslPackage.POJO_METHOD_ARG__NATIVE:
-        return getNative();
-      case ProcessorDslPackage.POJO_METHOD_ARG__REF:
-        if (resolve) return getRef();
-        return basicGetRef();
       case ProcessorDslPackage.POJO_METHOD_ARG__TYPE:
-        if (resolve) return getType();
-        return basicGetType();
+        return getType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -284,14 +200,8 @@ public class PojoMethodArgImpl extends MinimalEObjectImpl.Container implements P
       case ProcessorDslPackage.POJO_METHOD_ARG__NAME:
         setName((String)newValue);
         return;
-      case ProcessorDslPackage.POJO_METHOD_ARG__NATIVE:
-        setNative((String)newValue);
-        return;
-      case ProcessorDslPackage.POJO_METHOD_ARG__REF:
-        setRef((PojoEntity)newValue);
-        return;
       case ProcessorDslPackage.POJO_METHOD_ARG__TYPE:
-        setType((JvmType)newValue);
+        setType((PojoType)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -310,14 +220,8 @@ public class PojoMethodArgImpl extends MinimalEObjectImpl.Container implements P
       case ProcessorDslPackage.POJO_METHOD_ARG__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case ProcessorDslPackage.POJO_METHOD_ARG__NATIVE:
-        setNative(NATIVE_EDEFAULT);
-        return;
-      case ProcessorDslPackage.POJO_METHOD_ARG__REF:
-        setRef((PojoEntity)null);
-        return;
       case ProcessorDslPackage.POJO_METHOD_ARG__TYPE:
-        setType((JvmType)null);
+        setType((PojoType)null);
         return;
     }
     super.eUnset(featureID);
@@ -335,10 +239,6 @@ public class PojoMethodArgImpl extends MinimalEObjectImpl.Container implements P
     {
       case ProcessorDslPackage.POJO_METHOD_ARG__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ProcessorDslPackage.POJO_METHOD_ARG__NATIVE:
-        return NATIVE_EDEFAULT == null ? native_ != null : !NATIVE_EDEFAULT.equals(native_);
-      case ProcessorDslPackage.POJO_METHOD_ARG__REF:
-        return ref != null;
       case ProcessorDslPackage.POJO_METHOD_ARG__TYPE:
         return type != null;
     }
@@ -358,8 +258,6 @@ public class PojoMethodArgImpl extends MinimalEObjectImpl.Container implements P
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", native: ");
-    result.append(native_);
     result.append(')');
     return result.toString();
   }

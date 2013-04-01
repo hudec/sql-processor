@@ -14,9 +14,10 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethod#getScaffold <em>Scaffold</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethod#getModifiers1 <em>Modifiers1</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethod#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethod#getToInits <em>To Inits</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethod#getType <em>Type</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethod#getArgs <em>Args</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,30 +28,20 @@ import org.eclipse.emf.ecore.EObject;
 public interface PojoMethod extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Scaffold</b></em>' attribute.
+   * Returns the value of the '<em><b>Modifiers1</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.PojoMethodModifier}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Scaffold</em>' attribute isn't clear,
+   * If the meaning of the '<em>Modifiers1</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Scaffold</em>' attribute.
-   * @see #setScaffold(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoMethod_Scaffold()
-   * @model
+   * @return the value of the '<em>Modifiers1</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoMethod_Modifiers1()
+   * @model containment="true"
    * @generated
    */
-  String getScaffold();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoMethod#getScaffold <em>Scaffold</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Scaffold</em>' attribute.
-   * @see #getScaffold()
-   * @generated
-   */
-  void setScaffold(String value);
+  EList<PojoMethodModifier> getModifiers1();
 
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -79,19 +70,45 @@ public interface PojoMethod extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>To Inits</b></em>' containment reference list.
-   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.PojoMethodArg}.
+   * Returns the value of the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>To Inits</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>To Inits</em>' containment reference list.
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoMethod_ToInits()
+   * @return the value of the '<em>Type</em>' containment reference.
+   * @see #setType(PojoType)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoMethod_Type()
    * @model containment="true"
    * @generated
    */
-  EList<PojoMethodArg> getToInits();
+  PojoType getType();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoMethod#getType <em>Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Type</em>' containment reference.
+   * @see #getType()
+   * @generated
+   */
+  void setType(PojoType value);
+
+  /**
+   * Returns the value of the '<em><b>Args</b></em>' containment reference list.
+   * The list contents are of type {@link org.sqlproc.dsl.processorDsl.PojoMethodArg}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Args</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Args</em>' containment reference list.
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoMethod_Args()
+   * @model containment="true"
+   * @generated
+   */
+  EList<PojoMethodArg> getArgs();
 
 } // PojoMethod

@@ -4,8 +4,6 @@ package org.sqlproc.dsl.processorDsl;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.xtext.common.types.JvmType;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Pojo Method Arg</b></em>'.
@@ -15,8 +13,6 @@ import org.eclipse.xtext.common.types.JvmType;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethodArg#getName <em>Name</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethodArg#getNative <em>Native</em>}</li>
- *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethodArg#getRef <em>Ref</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethodArg#getType <em>Type</em>}</li>
  * </ul>
  * </p>
@@ -54,81 +50,29 @@ public interface PojoMethodArg extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Native</b></em>' attribute.
+   * Returns the value of the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Native</em>' attribute isn't clear,
+   * If the meaning of the '<em>Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Native</em>' attribute.
-   * @see #setNative(String)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoMethodArg_Native()
-   * @model
-   * @generated
-   */
-  String getNative();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoMethodArg#getNative <em>Native</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Native</em>' attribute.
-   * @see #getNative()
-   * @generated
-   */
-  void setNative(String value);
-
-  /**
-   * Returns the value of the '<em><b>Ref</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Ref</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Ref</em>' reference.
-   * @see #setRef(PojoEntity)
-   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoMethodArg_Ref()
-   * @model
-   * @generated
-   */
-  PojoEntity getRef();
-
-  /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoMethodArg#getRef <em>Ref</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Ref</em>' reference.
-   * @see #getRef()
-   * @generated
-   */
-  void setRef(PojoEntity value);
-
-  /**
-   * Returns the value of the '<em><b>Type</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Type</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Type</em>' reference.
-   * @see #setType(JvmType)
+   * @return the value of the '<em>Type</em>' containment reference.
+   * @see #setType(PojoType)
    * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoMethodArg_Type()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  JvmType getType();
+  PojoType getType();
 
   /**
-   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoMethodArg#getType <em>Type</em>}' reference.
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoMethodArg#getType <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type</em>' reference.
+   * @param value the new value of the '<em>Type</em>' containment reference.
    * @see #getType()
    * @generated
    */
-  void setType(JvmType value);
+  void setType(PojoType value);
 
 } // PojoMethodArg
