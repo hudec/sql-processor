@@ -175,6 +175,117 @@ public class TableDaoConverter extends TableMetaConverter {
                 }
                 buffer.append("\n  }\n");
             }
+            boolean hasProcedures = false;
+            for (String pojo : procedures.keySet()) {
+                // System.out.println("QQQQQ " + pojo);
+                if (!daoOnlyTables.isEmpty() && !daoOnlyTables.contains(pojo))
+                    continue;
+                if (daoIgnoreTables.contains(pojo))
+                    continue;
+                boolean isFunction = functions.containsKey(pojo);
+                if (!isFunction) {
+                    hasProcedures = true;
+                    break;
+                }
+            }
+            if (hasProcedures && !finalDaos.contains("ProceduresDao")) {
+                buffer.append("\n  ");
+                if (daoMakeItFinal)
+                    buffer.append("final ");
+                buffer.append("dao ProceduresDao");
+                if (isSerializable)
+                    buffer.append(" serializable 1 ");
+                buffer.append(" {");
+                for (String procedure : procedures.keySet()) {
+                    // System.out.println("QQQQQ " + pojo);
+                    if (!daoOnlyTables.isEmpty() && !daoOnlyTables.contains(procedure))
+                        continue;
+                    if (daoIgnoreTables.contains(procedure))
+                        continue;
+                    boolean isFunction = functions.containsKey(procedure);
+                    if (isFunction)
+                        continue;
+                    buffer.append("\n    ");
+                    String pojoName = tableNames.get(procedure);
+                    if (pojoName == null)
+                        pojoName = procedure;
+                    pojoName = tableToCamelCase(pojoName);
+                    String procedureName = lowerFirstChar(pojoName);
+                    Map<String, PojoAttribute> attributes = procedures.get(procedure);
+                    if (metaProceduresResultSet.containsKey(procedure)) {
+                        buffer.append("callQuery ").append(procedureName).append(" :java.util.List<:")
+                                .append(tableToCamelCase(metaProceduresResultSet.get(procedure))).append(">");
+                    } else {
+                        PojoAttribute returnAttribute = (attributes.containsKey(FAKE_FUN_PROC_COLUMN_NAME)) ? attributes
+                                .get(FAKE_FUN_PROC_COLUMN_NAME) : null;
+                        if (returnAttribute != null) {
+                            buffer.append("callQuery ").append(procedureName).append(" :")
+                                    .append(returnAttribute.getClassName());
+                        } else {
+                            buffer.append("callUpdate ").append(procedureName).append(" _void");
+                        }
+                    }
+                    buffer.append(" ::: ").append(lowerFirstChar(pojoName)).append(" ::").append(pojoName);
+                }
+                buffer.append("\n  }\n");
+            }
+            boolean hasFunctions = false;
+            for (String pojo : procedures.keySet()) {
+                // System.out.println("QQQQQ " + pojo);
+                if (!daoOnlyTables.isEmpty() && !daoOnlyTables.contains(pojo))
+                    continue;
+                if (daoIgnoreTables.contains(pojo))
+                    continue;
+                boolean isFunction = functions.containsKey(pojo);
+                if (isFunction) {
+                    hasFunctions = true;
+                    break;
+                }
+            }
+            if (hasFunctions && !finalDaos.contains("FunctionsDao")) {
+                buffer.append("\n  ");
+                if (daoMakeItFinal)
+                    buffer.append("final ");
+                buffer.append("dao FunctionsDao");
+                if (isSerializable)
+                    buffer.append(" serializable 1 ");
+                buffer.append(" {");
+                for (String procedure : procedures.keySet()) {
+                    // System.out.println("QQQQQ " + pojo);
+                    if (!daoOnlyTables.isEmpty() && !daoOnlyTables.contains(procedure))
+                        continue;
+                    if (daoIgnoreTables.contains(procedure))
+                        continue;
+                    boolean isFunction = functions.containsKey(procedure);
+                    if (!isFunction)
+                        continue;
+                    buffer.append("\n    ");
+                    String pojoName = tableNames.get(procedure);
+                    if (pojoName == null)
+                        pojoName = procedure;
+                    pojoName = tableToCamelCase(pojoName);
+                    String procedureName = lowerFirstChar(pojoName);
+                    Map<String, PojoAttribute> attributes = procedures.get(procedure);
+                    if (metaFunctionsResultSet.containsKey(procedure)) {
+                        buffer.append("callQuery ").append(procedureName).append(" :java.util.List<:")
+                                .append(tableToCamelCase(metaFunctionsResultSet.get(procedure))).append(">");
+                    } else if (metaFunctionsResult.containsKey(procedure)) {
+                        buffer.append("callFunction ").append(procedureName).append(" ")
+                                .append(metaType2className(metaFunctionsResult.get(procedure)));
+                    } else {
+                        PojoAttribute returnAttribute = (attributes.containsKey(FAKE_FUN_PROC_COLUMN_NAME)) ? attributes
+                                .get(FAKE_FUN_PROC_COLUMN_NAME) : null;
+                        if (returnAttribute != null) {
+                            buffer.append("callQuery ").append(procedureName).append(" :")
+                                    .append(returnAttribute.getClassName());
+                        } else {
+                            buffer.append("callUpdate ").append(procedureName).append(" _void");
+                        }
+                    }
+                    buffer.append(" ::: ").append(lowerFirstChar(pojoName)).append(" ::").append(pojoName);
+                }
+                buffer.append("\n  }\n");
+            }
             return buffer.toString();
         } catch (RuntimeException ex) {
             Writer writer = new StringWriter();
@@ -183,6 +294,40 @@ public class TableDaoConverter extends TableMetaConverter {
             String s = writer.toString();
             return s;
         }
+    }
+
+    private String metaType2className(String metaType) {
+        if ("stamp".equalsIgnoreCase(metaType))
+            return ":java.sql.Timestamp";
+        if ("date".equalsIgnoreCase(metaType))
+            return ":java.util.Date";
+        if ("time".equalsIgnoreCase(metaType))
+            return ":java.util.Time";
+        if ("byte".equalsIgnoreCase(metaType))
+            return ":java.lang.Byte";
+        if ("boolean".equalsIgnoreCase(metaType))
+            return ":java.lang.Boolean";
+        if ("short".equalsIgnoreCase(metaType))
+            return ":java.lang.Short";
+        if ("int".equalsIgnoreCase(metaType))
+            return ":java.lang.Integer";
+        if ("long".equalsIgnoreCase(metaType))
+            return ":java.lang.Long";
+        if ("string".equalsIgnoreCase(metaType))
+            return ":java.lang.String";
+        if ("double".equalsIgnoreCase(metaType))
+            return ":java.lang.Double";
+        if ("float".equalsIgnoreCase(metaType))
+            return ":java.lang.Float";
+        if ("bigint".equalsIgnoreCase(metaType))
+            return ":java.math.BigInteger";
+        if ("biginteger".equalsIgnoreCase(metaType))
+            return ":java.math.BigInteger";
+        if ("bigdec".equalsIgnoreCase(metaType))
+            return ":java.math.BigDecimal";
+        if ("bigdecimal".equalsIgnoreCase(metaType))
+            return ":java.math.BigDecimal";
+        return metaType;
     }
 
     protected void toInits(String pojo, Map<String, String> toInit) {
