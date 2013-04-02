@@ -1464,9 +1464,17 @@ public class ProcessorDslGenerator implements IGenerator {
                 CharSequence _compileCallFunction = this.compileCallFunction(d, m, importManager);
                 _builder.append(_compileCallFunction, "  ");
               } else {
+                boolean _or = false;
                 boolean _isCallQuery = Utils.isCallQuery(m);
                 if (_isCallQuery) {
-                  CharSequence _compileCallQuery = this.compileCallQuery(d, m, importManager);
+                  _or = true;
+                } else {
+                  boolean _isCallQueryFunction = Utils.isCallQueryFunction(m);
+                  _or = (_isCallQuery || _isCallQueryFunction);
+                }
+                if (_or) {
+                  boolean _isCallQueryFunction_1 = Utils.isCallQueryFunction(m);
+                  CharSequence _compileCallQuery = this.compileCallQuery(d, m, importManager, _isCallQueryFunction_1);
                   _builder.append(_compileCallQuery, "  ");
                 }
               }
@@ -1481,7 +1489,7 @@ public class ProcessorDslGenerator implements IGenerator {
     return _builder;
   }
   
-  public CharSequence compileCallQuery(final PojoDao d, final PojoMethod m, final ImportManager importManager) {
+  public CharSequence compileCallQuery(final PojoDao d, final PojoMethod m, final ImportManager importManager, final boolean isFunction) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.newLine();
     _builder.append("public ");
@@ -1542,7 +1550,15 @@ public class ProcessorDslGenerator implements IGenerator {
     String _name_4 = m.getName();
     String _firstUpper = StringExtensions.toFirstUpper(_name_4);
     _builder.append(_firstUpper, "  ");
-    _builder.append(" = sqlEngineFactory.getCheckedProcedureEngine(\"PROC_");
+    _builder.append(" = sqlEngineFactory.getCheckedProcedureEngine(\"");
+    {
+      if (isFunction) {
+        _builder.append("FUN");
+      } else {
+        _builder.append("PROC");
+      }
+    }
+    _builder.append("_");
     String _dbName = Utils.dbName(m);
     _builder.append(_dbName, "  ");
     _builder.append("\");");

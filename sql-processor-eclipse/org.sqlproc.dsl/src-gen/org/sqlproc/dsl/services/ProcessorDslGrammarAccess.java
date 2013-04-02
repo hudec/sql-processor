@@ -7182,12 +7182,16 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCallUpdateCallUpdateKeyword_1_0 = (Keyword)cCallUpdateAssignment_1.eContents().get(0);
 		private final Assignment cCallQueryAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final Keyword cCallQueryCallQueryKeyword_2_0 = (Keyword)cCallQueryAssignment_2.eContents().get(0);
+		private final Assignment cCallQueryFunctionAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
+		private final Keyword cCallQueryFunctionCallQueryFunctionKeyword_3_0 = (Keyword)cCallQueryFunctionAssignment_3.eContents().get(0);
 		
 		//PojoMethodModifier:
-		//	callFunction?="callFunction" | callUpdate?="callUpdate" | callQuery?="callQuery";
+		//	callFunction?="callFunction" | callUpdate?="callUpdate" | callQuery?="callQuery" |
+		//	callQueryFunction?="callQueryFunction";
 		public ParserRule getRule() { return rule; }
 
-		//callFunction?="callFunction" | callUpdate?="callUpdate" | callQuery?="callQuery"
+		//callFunction?="callFunction" | callUpdate?="callUpdate" | callQuery?="callQuery" |
+		//callQueryFunction?="callQueryFunction"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//callFunction?="callFunction"
@@ -7207,6 +7211,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"callQuery"
 		public Keyword getCallQueryCallQueryKeyword_2_0() { return cCallQueryCallQueryKeyword_2_0; }
+
+		//callQueryFunction?="callQueryFunction"
+		public Assignment getCallQueryFunctionAssignment_3() { return cCallQueryFunctionAssignment_3; }
+
+		//"callQueryFunction"
+		public Keyword getCallQueryFunctionCallQueryFunctionKeyword_3_0() { return cCallQueryFunctionCallQueryFunctionKeyword_3_0; }
 	}
 
 	public class PojoMethodElements extends AbstractParserRuleElementFinder {
@@ -8589,7 +8599,8 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PojoMethodModifier:
-	//	callFunction?="callFunction" | callUpdate?="callUpdate" | callQuery?="callQuery";
+	//	callFunction?="callFunction" | callUpdate?="callUpdate" | callQuery?="callQuery" |
+	//	callQueryFunction?="callQueryFunction";
 	public PojoMethodModifierElements getPojoMethodModifierAccess() {
 		return (pPojoMethodModifier != null) ? pPojoMethodModifier : (pPojoMethodModifier = new PojoMethodModifierElements());
 	}

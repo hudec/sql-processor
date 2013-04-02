@@ -365,7 +365,7 @@ PojoDao hidden(ML_COMMENT, SL_COMMENT, WS):
 		toInits+=ToInitMethod*
 	RBRACE;
 
-PojoMethodModifier: ((callFunction?='callFunction') | (callUpdate?='callUpdate') | (callQuery?='callQuery'));
+PojoMethodModifier: ((callFunction?='callFunction') | (callUpdate?='callUpdate') | (callQuery?='callQuery') | (callQueryFunction?='callQueryFunction'));
 
 PojoMethod hidden(ML_COMMENT, SL_COMMENT, WS):
 		(modifiers1+=PojoMethodModifier)* name=IDENT (type=PojoType COLON COLON COLON (args+=PojoMethodArg)+)?

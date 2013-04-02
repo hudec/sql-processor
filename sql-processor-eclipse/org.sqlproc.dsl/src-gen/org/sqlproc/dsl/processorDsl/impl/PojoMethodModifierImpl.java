@@ -22,6 +22,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodModifierImpl#isCallFunction <em>Call Function</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodModifierImpl#isCallUpdate <em>Call Update</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodModifierImpl#isCallQuery <em>Call Query</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodModifierImpl#isCallQueryFunction <em>Call Query Function</em>}</li>
  * </ul>
  * </p>
  *
@@ -88,6 +89,26 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected boolean callQuery = CALL_QUERY_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isCallQueryFunction() <em>Call Query Function</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isCallQueryFunction()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean CALL_QUERY_FUNCTION_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isCallQueryFunction() <em>Call Query Function</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isCallQueryFunction()
+   * @generated
+   * @ordered
+   */
+  protected boolean callQueryFunction = CALL_QUERY_FUNCTION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -184,6 +205,29 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isCallQueryFunction()
+  {
+    return callQueryFunction;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCallQueryFunction(boolean newCallQueryFunction)
+  {
+    boolean oldCallQueryFunction = callQueryFunction;
+    callQueryFunction = newCallQueryFunction;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION, oldCallQueryFunction, callQueryFunction));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -195,6 +239,8 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
         return isCallUpdate();
       case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY:
         return isCallQuery();
+      case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION:
+        return isCallQueryFunction();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -217,6 +263,9 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
         return;
       case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY:
         setCallQuery((Boolean)newValue);
+        return;
+      case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION:
+        setCallQueryFunction((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -241,6 +290,9 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
       case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY:
         setCallQuery(CALL_QUERY_EDEFAULT);
         return;
+      case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION:
+        setCallQueryFunction(CALL_QUERY_FUNCTION_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -261,6 +313,8 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
         return callUpdate != CALL_UPDATE_EDEFAULT;
       case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY:
         return callQuery != CALL_QUERY_EDEFAULT;
+      case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION:
+        return callQueryFunction != CALL_QUERY_FUNCTION_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -282,6 +336,8 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
     result.append(callUpdate);
     result.append(", callQuery: ");
     result.append(callQuery);
+    result.append(", callQueryFunction: ");
+    result.append(callQueryFunction);
     result.append(')');
     return result.toString();
   }

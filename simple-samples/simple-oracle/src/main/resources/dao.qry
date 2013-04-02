@@ -15,6 +15,6 @@ package org.sample.dao {
 
   final dao FunctionsDao {
     callFunction anHourBefore :java.sql.Timestamp ::: anHourBefore ::AnHourBefore
-    callQuery newPersonRetRs :java.util.List<:Person> ::: newPersonRetRs ::NewPersonRetRs
+    callQueryFunction newPersonRetRs :java.util.List<:Person> ::: newPersonRetRs ::NewPersonRetRs
   }
 }

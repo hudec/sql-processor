@@ -1200,7 +1200,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (callFunction?='callFunction' | callUpdate?='callUpdate' | callQuery?='callQuery')
+	 *     (callFunction?='callFunction' | callUpdate?='callUpdate' | callQuery?='callQuery' | callQueryFunction?='callQueryFunction')
 	 */
 	protected void sequence_PojoMethodModifier(EObject context, PojoMethodModifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

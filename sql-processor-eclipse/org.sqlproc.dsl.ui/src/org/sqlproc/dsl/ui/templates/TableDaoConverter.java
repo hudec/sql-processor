@@ -267,7 +267,7 @@ public class TableDaoConverter extends TableMetaConverter {
                     String procedureName = lowerFirstChar(pojoName);
                     Map<String, PojoAttribute> attributes = procedures.get(procedure);
                     if (metaFunctionsResultSet.containsKey(procedure)) {
-                        buffer.append("callQuery ").append(procedureName).append(" :java.util.List<:")
+                        buffer.append("callQueryFunction ").append(procedureName).append(" :java.util.List<:")
                                 .append(tableToCamelCase(metaFunctionsResultSet.get(procedure))).append(">");
                     } else if (metaFunctionsResult.containsKey(procedure)) {
                         buffer.append("callFunction ").append(procedureName).append(" ")
@@ -276,10 +276,10 @@ public class TableDaoConverter extends TableMetaConverter {
                         PojoAttribute returnAttribute = (attributes.containsKey(FAKE_FUN_PROC_COLUMN_NAME)) ? attributes
                                 .get(FAKE_FUN_PROC_COLUMN_NAME) : null;
                         if (returnAttribute != null) {
-                            buffer.append("callQuery ").append(procedureName).append(" :")
+                            buffer.append("callQueryFunction ").append(procedureName).append(" :")
                                     .append(returnAttribute.getClassName());
                         } else {
-                            buffer.append("callUpdate ").append(procedureName).append(" _void");
+                            buffer.append("callUpdateFunction ").append(procedureName).append(" _void");
                         }
                     }
                     buffer.append(" ::: ").append(lowerFirstChar(pojoName)).append(" ::").append(pojoName);

@@ -365,17 +365,17 @@ public «IF isAbstract(d)»abstract «ENDIF»class «d.name»«IF d.implPackage 
   «compileDelete(d, e, getParent(e), importManager)»
   «compileList(d, e, toInits, importManager)»
   «IF !toInits.empty»«compileMoreResultClasses(d, e, toInits, importManager)»«ENDIF»«ELSEIF isCallUpdate(m)»
-  «compileCallUpdate(d, m, importManager)»«ELSEIF isCallFunction(m)»«compileCallFunction(d, m, importManager)»«ELSEIF isCallQuery(m)»«compileCallQuery(d, m, importManager)»«ENDIF»«ENDFOR»
+  «compileCallUpdate(d, m, importManager)»«ELSEIF isCallFunction(m)»«compileCallFunction(d, m, importManager)»«ELSEIF isCallQuery(m) || isCallQueryFunction(m)»«compileCallQuery(d, m, importManager, isCallQueryFunction(m))»«ENDIF»«ENDFOR»
 }
 '''
 
-def compileCallQuery(PojoDao d, PojoMethod m, ImportManager importManager) '''
+def compileCallQuery(PojoDao d, PojoMethod m, ImportManager importManager, boolean isFunction) '''
 
     public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl) {
       if (logger.isTraceEnabled()) {
         logger.trace("«m.name»: " + «FOR ma:m.args SEPARATOR " + \" \" "»«ma.name»«ENDFOR» + " " + sqlControl);
       }
-      SqlProcedureEngine sqlProc«m.name.toFirstUpper» = sqlEngineFactory.getCheckedProcedureEngine("PROC_«dbName(m)»");
+      SqlProcedureEngine sqlProc«m.name.toFirstUpper» = sqlEngineFactory.getCheckedProcedureEngine("«IF isFunction»FUN«ELSE»PROC«ENDIF»_«dbName(m)»");
       «m.type.compileType(importManager)» list = sqlProc«m.name.toFirstUpper».callQuery(sqlSession, «m.type.gref.name».class, «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», sqlControl);
       if (logger.isTraceEnabled()) {
         logger.trace("«m.name» result: " + list);

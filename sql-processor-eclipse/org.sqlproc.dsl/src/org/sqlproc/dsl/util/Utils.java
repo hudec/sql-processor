@@ -604,6 +604,16 @@ public class Utils {
         return false;
     }
 
+    public static boolean isCallQueryFunction(PojoMethod f) {
+        if (f.getModifiers1() == null || f.getModifiers1().isEmpty())
+            return false;
+        for (PojoMethodModifier modifier : f.getModifiers1()) {
+            if (modifier.isCallQueryFunction())
+                return true;
+        }
+        return false;
+    }
+
     public static JvmType pojoMethod2jvmType(final PojoEntity e) {
         return new JvmType() {
 

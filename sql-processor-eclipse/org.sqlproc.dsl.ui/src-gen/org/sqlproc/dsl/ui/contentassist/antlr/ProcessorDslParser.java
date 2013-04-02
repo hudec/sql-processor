@@ -702,6 +702,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPojoMethodModifierAccess().getCallFunctionAssignment_0(), "rule__PojoMethodModifier__CallFunctionAssignment_0");
 					put(grammarAccess.getPojoMethodModifierAccess().getCallUpdateAssignment_1(), "rule__PojoMethodModifier__CallUpdateAssignment_1");
 					put(grammarAccess.getPojoMethodModifierAccess().getCallQueryAssignment_2(), "rule__PojoMethodModifier__CallQueryAssignment_2");
+					put(grammarAccess.getPojoMethodModifierAccess().getCallQueryFunctionAssignment_3(), "rule__PojoMethodModifier__CallQueryFunctionAssignment_3");
 					put(grammarAccess.getPojoMethodAccess().getModifiers1Assignment_0(), "rule__PojoMethod__Modifiers1Assignment_0");
 					put(grammarAccess.getPojoMethodAccess().getNameAssignment_1(), "rule__PojoMethod__NameAssignment_1");
 					put(grammarAccess.getPojoMethodAccess().getTypeAssignment_2_0(), "rule__PojoMethod__TypeAssignment_2_0");

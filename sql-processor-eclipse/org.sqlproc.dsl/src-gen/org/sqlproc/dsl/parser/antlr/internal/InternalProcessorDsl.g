@@ -12072,6 +12072,22 @@ rulePojoMethodModifier returns [EObject current=null]
 	    }
 
 )
+)
+    |(
+(
+		lv_callQueryFunction_3_0=	'callQueryFunction' 
+    {
+        newLeafNode(lv_callQueryFunction_3_0, grammarAccess.getPojoMethodModifierAccess().getCallQueryFunctionCallQueryFunctionKeyword_3_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodModifierRule());
+	        }
+       		setWithLastConsumed($current, "callQueryFunction", true, "callQueryFunction");
+	    }
+
+)
 ))
 ;
 

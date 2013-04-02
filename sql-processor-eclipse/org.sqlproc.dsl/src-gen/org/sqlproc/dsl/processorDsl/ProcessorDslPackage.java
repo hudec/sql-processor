@@ -3364,13 +3364,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_METHOD_MODIFIER__CALL_QUERY = 2;
 
   /**
+   * The feature id for the '<em><b>Call Query Function</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION = 3;
+
+  /**
    * The number of structural features of the '<em>Pojo Method Modifier</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_METHOD_MODIFIER_FEATURE_COUNT = 3;
+  int POJO_METHOD_MODIFIER_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodImpl <em>Pojo Method</em>}' class.
@@ -6670,6 +6679,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getPojoMethodModifier_CallQuery();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoMethodModifier#isCallQueryFunction <em>Call Query Function</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Call Query Function</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoMethodModifier#isCallQueryFunction()
+   * @see #getPojoMethodModifier()
+   * @generated
+   */
+  EAttribute getPojoMethodModifier_CallQueryFunction();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoMethod <em>Pojo Method</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -9295,6 +9315,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute POJO_METHOD_MODIFIER__CALL_QUERY = eINSTANCE.getPojoMethodModifier_CallQuery();
+
+    /**
+     * The meta object literal for the '<em><b>Call Query Function</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION = eINSTANCE.getPojoMethodModifier_CallQueryFunction();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodImpl <em>Pojo Method</em>}' class.

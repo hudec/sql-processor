@@ -3034,6 +3034,9 @@
       <elements xsi:type="xtext:Assignment" feature="callQuery" operator="?=">
         <terminal xsi:type="xtext:Keyword" value="callQuery"/>
       </elements>
+      <elements xsi:type="xtext:Assignment" feature="callQueryFunction" operator="?=">
+        <terminal xsi:type="xtext:Keyword" value="callQueryFunction"/>
+      </elements>
     </alternatives>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="PojoMethod" definesHiddenTokens="true" hiddenTokens="//@rules.69 //@rules.70 //@rules.71">

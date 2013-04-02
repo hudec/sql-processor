@@ -3593,6 +3593,16 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getPojoMethodModifier_CallQueryFunction()
+  {
+    return (EAttribute)pojoMethodModifierEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPojoMethod()
   {
     return pojoMethodEClass;
@@ -4088,6 +4098,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     createEAttribute(pojoMethodModifierEClass, POJO_METHOD_MODIFIER__CALL_FUNCTION);
     createEAttribute(pojoMethodModifierEClass, POJO_METHOD_MODIFIER__CALL_UPDATE);
     createEAttribute(pojoMethodModifierEClass, POJO_METHOD_MODIFIER__CALL_QUERY);
+    createEAttribute(pojoMethodModifierEClass, POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION);
 
     pojoMethodEClass = createEClass(POJO_METHOD);
     createEReference(pojoMethodEClass, POJO_METHOD__MODIFIERS1);
@@ -4505,6 +4516,7 @@ public class ProcessorDslPackageImpl extends EPackageImpl implements ProcessorDs
     initEAttribute(getPojoMethodModifier_CallFunction(), ecorePackage.getEBoolean(), "callFunction", null, 0, 1, PojoMethodModifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPojoMethodModifier_CallUpdate(), ecorePackage.getEBoolean(), "callUpdate", null, 0, 1, PojoMethodModifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPojoMethodModifier_CallQuery(), ecorePackage.getEBoolean(), "callQuery", null, 0, 1, PojoMethodModifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPojoMethodModifier_CallQueryFunction(), ecorePackage.getEBoolean(), "callQueryFunction", null, 0, 1, PojoMethodModifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pojoMethodEClass, PojoMethod.class, "PojoMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPojoMethod_Modifiers1(), this.getPojoMethodModifier(), null, "modifiers1", null, 0, -1, PojoMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
