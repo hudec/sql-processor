@@ -1,14 +1,24 @@
 package org.sqlproc.dsl.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
@@ -28,7 +38,9 @@ import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier1;
 import org.sqlproc.dsl.processorDsl.PojoEntityModifier2;
+import org.sqlproc.dsl.processorDsl.PojoMethod;
 import org.sqlproc.dsl.processorDsl.PojoMethodArg;
+import org.sqlproc.dsl.processorDsl.PojoMethodModifier;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.PojoPropertyModifier;
 import org.sqlproc.dsl.processorDsl.ProcedureDefinition;
@@ -452,6 +464,20 @@ public class Utils {
         return result.startsWith("_") ? result.substring(1) : result;
     }
 
+    public static String dbName(PojoMethod e) {
+        String result = "";
+        int last = 0;
+        for (int i = 0, l = e.getName().length(); i < l; i++) {
+            if (Character.isUpperCase(e.getName().charAt(i))) {
+                result = result + e.getName().substring(last, i).toUpperCase() + "_";
+                last = i;
+            }
+        }
+        if (last < e.getName().length())
+            result = result + e.getName().substring(last).toUpperCase();
+        return result.startsWith("_") ? result.substring(1) : result;
+    }
+
     public static String getPackage(PojoEntity e) {
         PackageDeclaration packageDeclaration = EcoreUtil2.getContainerOfType(e, PackageDeclaration.class);
         return packageDeclaration.getName();
@@ -546,5 +572,156 @@ public class Utils {
                 return false;
         }
         return true;
+    }
+
+    public static boolean isCallUpdate(PojoMethod f) {
+        if (f.getModifiers1() == null || f.getModifiers1().isEmpty())
+            return false;
+        for (PojoMethodModifier modifier : f.getModifiers1()) {
+            if (modifier.isCallUpdate())
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean isCallFunction(PojoMethod f) {
+        if (f.getModifiers1() == null || f.getModifiers1().isEmpty())
+            return false;
+        for (PojoMethodModifier modifier : f.getModifiers1()) {
+            if (modifier.isCallFunction())
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean isCallQuery(PojoMethod f) {
+        if (f.getModifiers1() == null || f.getModifiers1().isEmpty())
+            return false;
+        for (PojoMethodModifier modifier : f.getModifiers1()) {
+            if (modifier.isCallQuery())
+                return true;
+        }
+        return false;
+    }
+
+    public static JvmType pojoMethod2jvmType(final PojoEntity e) {
+        return new JvmType() {
+
+            @Override
+            public String getIdentifier() {
+                return e.getName();
+            }
+
+            @Override
+            public String getSimpleName() {
+                return e.getName();
+            }
+
+            @Override
+            public String getQualifiedName() {
+                return getPackage(e) + "." + e.getName();
+            }
+
+            @Override
+            public String getQualifiedName(char innerClassDelimiter) {
+                return getPackage(e) + "." + e.getName();
+            }
+
+            @Override
+            public EClass eClass() {
+                return e.eClass();
+            }
+
+            @Override
+            public Resource eResource() {
+                return e.eResource();
+            }
+
+            @Override
+            public EObject eContainer() {
+                return e.eContainer();
+            }
+
+            @Override
+            public EStructuralFeature eContainingFeature() {
+                return e.eContainingFeature();
+            }
+
+            @Override
+            public EReference eContainmentFeature() {
+                return e.eContainmentFeature();
+            }
+
+            @Override
+            public EList<EObject> eContents() {
+                return e.eContents();
+            }
+
+            @Override
+            public TreeIterator<EObject> eAllContents() {
+                return e.eAllContents();
+            }
+
+            @Override
+            public boolean eIsProxy() {
+                return e.eIsProxy();
+            }
+
+            @Override
+            public EList<EObject> eCrossReferences() {
+                return e.eCrossReferences();
+            }
+
+            @Override
+            public Object eGet(EStructuralFeature feature) {
+                return e.eGet(feature);
+            }
+
+            @Override
+            public Object eGet(EStructuralFeature feature, boolean resolve) {
+                return e.eGet(feature, resolve);
+            }
+
+            @Override
+            public void eSet(EStructuralFeature feature, Object newValue) {
+                e.eSet(feature, newValue);
+            }
+
+            @Override
+            public boolean eIsSet(EStructuralFeature feature) {
+                return e.eIsSet(feature);
+            }
+
+            @Override
+            public void eUnset(EStructuralFeature feature) {
+                e.eUnset(feature);
+            }
+
+            @Override
+            public Object eInvoke(EOperation operation, EList<?> arguments) throws InvocationTargetException {
+                return e.eInvoke(operation, arguments);
+            }
+
+            @Override
+            public EList<Adapter> eAdapters() {
+                return e.eAdapters();
+            }
+
+            @Override
+            public boolean eDeliver() {
+                return e.eDeliver();
+            }
+
+            @Override
+            public void eSetDeliver(boolean deliver) {
+                e.eSetDeliver(deliver);
+            }
+
+            @Override
+            public void eNotify(Notification notification) {
+                e.eNotify(notification);
+            }
+
+        };
     }
 }

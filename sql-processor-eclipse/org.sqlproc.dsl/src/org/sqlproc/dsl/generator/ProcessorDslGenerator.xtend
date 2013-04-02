@@ -21,6 +21,8 @@ import java.util.List
 import org.sqlproc.dsl.processorDsl.PojoMethodArg
 import java.util.Map
 import org.sqlproc.dsl.processorDsl.ImplPackage
+import org.sqlproc.dsl.processorDsl.PojoMethod
+import org.sqlproc.dsl.processorDsl.PojoType
 
 class ProcessorDslGenerator implements IGenerator {
 	
@@ -291,6 +293,8 @@ def compileEnumInit(PojoProperty f, ImportManager importManager, PojoEntity e) '
 def compileType(PojoProperty f, ImportManager importManager) '''
   «IF f.getNative != null»«f.getNative.substring(1)»«ELSEIF f.getRef != null»«f.getRef.fullyQualifiedName»«ELSEIF f.getType != null»«importManager.serialize(f.getType)»«ENDIF»«IF f.getGtype != null»<«importManager.serialize(f.getGtype)»>«ENDIF»«IF f.getGref != null»<«f.getGref.fullyQualifiedName»>«ENDIF»«IF f.array»[]«ENDIF»'''
   
+def compileType(PojoType f, ImportManager importManager) '''
+  «IF f.getNative != null»«f.getNative.substring(1)»«ELSEIF f.getRef != null»«importManager.serialize(pojoMethod2jvmType(f.getRef))»«ELSEIF f.getType != null»«importManager.serialize(f.getType)»«ENDIF»«IF f.getGtype != null»<«importManager.serialize(f.getGtype)»>«ENDIF»«IF f.getGref != null»<«importManager.serialize(pojoMethod2jvmType(f.getGref))»>«ENDIF»«IF f.array»[]«ENDIF»'''
 
 def compile(PojoDao d) '''
 «val importManager = new ImportManager(true)»
@@ -324,10 +328,11 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
-import «d.pojo.completeName»;
+«IF d.pojo != null»import «d.pojo.completeName»;«ENDIF»
 «FOR f:toInits.entrySet»«FOR a:f.value SEPARATOR "
 "»import «a.type.ref.completeName»;«ENDFOR»«ENDFOR»
 
@@ -354,13 +359,95 @@ public «IF isAbstract(d)»abstract «ENDIF»class «d.name»«IF d.implPackage 
     this.sqlSessionFactory = sqlSessionFactory;
   }
   
-  «compileInsert(d, e, getParent(e), importManager)»
+  «FOR m:d.methods»«IF m.name == "scaffold"»«compileInsert(d, e, getParent(e), importManager)»
   «compileGet(d, e, toInits, importManager)»
   «compileUpdate(d, e, getParent(e), importManager)»
   «compileDelete(d, e, getParent(e), importManager)»
   «compileList(d, e, toInits, importManager)»
-  «IF !toInits.empty»«compileMoreResultClasses(d, e, toInits, importManager)»«ENDIF»
+  «IF !toInits.empty»«compileMoreResultClasses(d, e, toInits, importManager)»«ENDIF»«ELSEIF isCallUpdate(m)»
+  «compileCallUpdate(d, m, importManager)»«ELSEIF isCallFunction(m)»«compileCallFunction(d, m, importManager)»«ELSEIF isCallQuery(m)»«compileCallQuery(d, m, importManager)»«ENDIF»«ENDFOR»
 }
+'''
+
+def compileCallQuery(PojoDao d, PojoMethod m, ImportManager importManager) '''
+
+    public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl) {
+      if (logger.isTraceEnabled()) {
+        logger.trace("«m.name»: " + «FOR ma:m.args SEPARATOR " + \" \" "»«ma.name»«ENDFOR» + " " + sqlControl);
+      }
+      SqlProcedureEngine sqlProc«m.name.toFirstUpper» = sqlEngineFactory.getCheckedProcedureEngine("PROC_«dbName(m)»");
+      «m.type.compileType(importManager)» list = sqlProc«m.name.toFirstUpper».callQuery(sqlSession, «m.type.gref.name».class, «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», sqlControl);
+      if (logger.isTraceEnabled()) {
+        logger.trace("«m.name» result: " + list);
+      }
+      return list;
+    }
+
+    public «m.type.compileType(importManager)» «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl) {
+    	return «m.name»(sqlSessionFactory.getSqlSession(), «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», sqlControl);
+    }
+
+    public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR») {
+      return «m.name»(sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», null);
+    }
+
+    public «m.type.compileType(importManager)» «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR») {
+      return «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», null);
+    }
+'''
+
+def compileCallFunction(PojoDao d, PojoMethod m, ImportManager importManager) '''
+
+    public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl) {
+      if (logger.isTraceEnabled()) {
+        logger.trace("«m.name»: " + «FOR ma:m.args SEPARATOR " + \" \" "»«ma.name»«ENDFOR» + " " + sqlControl);
+      }
+      SqlProcedureEngine sqlFun«m.name.toFirstUpper» = sqlEngineFactory.getCheckedProcedureEngine("FUN_«dbName(m)»");
+      Object result = sqlFun«m.name.toFirstUpper».callFunction(sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», sqlControl);
+      if (logger.isTraceEnabled()) {
+        logger.trace("«m.name» result: " + result);
+      }
+      return («m.type.compileType(importManager)») result;
+    }
+
+    public «m.type.compileType(importManager)» «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl) {
+    	return «m.name»(sqlSessionFactory.getSqlSession(), «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», sqlControl);
+    }
+
+    public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR») {
+      return «m.name»(sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», null);
+    }
+
+    public «m.type.compileType(importManager)» «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR») {
+      return «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», null);
+    }
+'''
+
+def compileCallUpdate(PojoDao d, PojoMethod m, ImportManager importManager) '''
+
+    public int «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl) {
+      if (logger.isTraceEnabled()) {
+        logger.trace("«m.name»: " + «FOR ma:m.args SEPARATOR " + \" \" "»«ma.name»«ENDFOR» + " " + sqlControl);
+      }
+      SqlProcedureEngine sqlProc«m.name.toFirstUpper» = sqlEngineFactory.getCheckedProcedureEngine("PROC_«dbName(m)»");
+      int count = sqlProc«m.name.toFirstUpper».callUpdate(sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», sqlControl);
+      if (logger.isTraceEnabled()) {
+        logger.trace("«m.name» result: " + count);
+      }
+      return count;
+    }
+
+    public int «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl) {
+    	return «m.name»(sqlSessionFactory.getSqlSession(), «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», sqlControl);
+    }
+
+    public int «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR») {
+      return «m.name»(sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», null);
+    }
+
+    public int «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR») {
+      return «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», null);
+    }
 '''
 
 def compileInsert(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importManager) '''
@@ -371,11 +458,11 @@ def compileInsert(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
       }
       SqlCrudEngine sqlInsert«e.name» = sqlEngineFactory.getCheckedCrudEngine("INSERT_«dbName(e)»");«IF pe != null»
       SqlCrudEngine sqlInsert«pe.name» = sqlEngineFactory.getCheckedCrudEngine("INSERT_«dbName(pe)»");
-      int count = sqlInsert«pe.name».insert(sqlSession, «e.name.toFirstLower»);
+      int count = sqlInsert«pe.name».insert(sqlSession, «e.name.toFirstLower», sqlControl);
       if (count > 0) {
-        sqlInsert«e.name».insert(sqlSession, «e.name.toFirstLower»);
+        sqlInsert«e.name».insert(sqlSession, «e.name.toFirstLower», sqlControl);
       }«ELSE»
-      int count = sqlInsert«e.name».insert(sqlSession, «e.name.toFirstLower»);«ENDIF»
+      int count = sqlInsert«e.name».insert(sqlSession, «e.name.toFirstLower», sqlControl);«ENDIF»
       if (logger.isTraceEnabled()) {
         logger.trace("insert «e.name.toFirstLower» result: " + count + " " + «e.name.toFirstLower»);
       }

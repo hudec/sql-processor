@@ -40,4 +40,4 @@ function anHourBefore an_hour_before;
 
 metagen-function-result an_hour_before stamp;
 metagen-procedure-result-set new_person_ret_rs person;
-//pojogen-debug-level DEBUG;
+pojogen-debug-level DEBUG;
