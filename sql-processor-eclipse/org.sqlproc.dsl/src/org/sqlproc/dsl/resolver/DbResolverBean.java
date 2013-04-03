@@ -603,6 +603,9 @@ public class DbResolverBean implements DbResolver {
         functionsForModel = Collections.synchronizedList(new ArrayList<String>());
         functions.put(modelDatabaseValues.dir, functionsForModel);
         if (modelDatabaseValues.connection != null) {
+            DbType dbType = getDbType(model);
+            if (dbType == DbType.POSTGRESQL)
+                return functionsForModel;
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();

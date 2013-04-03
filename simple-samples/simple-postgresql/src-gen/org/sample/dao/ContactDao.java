@@ -10,6 +10,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -36,7 +37,7 @@ public class ContactDao {
       logger.trace("insert contact: " + contact + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertContact = sqlEngineFactory.getCheckedCrudEngine("INSERT_CONTACT");
-    int count = sqlInsertContact.insert(sqlSession, contact);
+    int count = sqlInsertContact.insert(sqlSession, contact, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("insert contact result: " + count + " " + contact);
     }
