@@ -555,6 +555,7 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         }
+        trace("<<<getTables", tablesForModel);
         return tablesForModel;
     }
 
@@ -588,6 +589,7 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         }
+        trace("<<<getProcedures", proceduresForModel);
         return proceduresForModel;
     }
 
@@ -624,6 +626,7 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         }
+        trace("<<<getFunctions", functionsForModel);
         return functionsForModel;
     }
 
@@ -677,6 +680,7 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         }
+        trace("<<<getColumns", columnsForModel);
         return columnsForModel;
     }
 
@@ -1027,7 +1031,7 @@ public class DbResolverBean implements DbResolver {
                     }
                     dbColumn.setSqlType(result.getInt("DATA_TYPE"));
                     dbColumn.setNullable(result.getInt("NULLABLE") != DatabaseMetaData.columnNoNulls);
-                    if (DbType.MY_SQL != dbType)
+                    if (DbType.MY_SQL != dbType && DbType.INFORMIX != dbType)
                         dbColumn.setPosition(result.getInt("ORDINAL_POSITION"));
                     columnsForModel.add(dbColumn);
                     info(procedure + ": " + dbColumn.toString());
@@ -1599,6 +1603,13 @@ public class DbResolverBean implements DbResolver {
             LOGGER.trace(msg);
     }
 
+    private void trace(String msg, Object object) {
+        if (debug)
+            System.out.println(msg + " " + object);
+        else if (LOGGER.isTraceEnabled())
+            LOGGER.trace(msg);
+    }
+
     private void info(String msg) {
         if (debug)
             System.out.println(msg);
@@ -1607,7 +1618,11 @@ public class DbResolverBean implements DbResolver {
     }
 
     private void error(String msg, Exception e) {
-        LOGGER.error("getDbColumns error " + e, e);
+        if (debug) {
+            System.out.println(msg);
+            e.printStackTrace();
+        } else
+            LOGGER.error("getDbColumns error " + e, e);
     }
 
     @Override

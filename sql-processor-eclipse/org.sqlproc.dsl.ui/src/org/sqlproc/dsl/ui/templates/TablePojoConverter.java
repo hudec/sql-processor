@@ -568,8 +568,9 @@ public class TablePojoConverter {
         for (DbColumn dbColumn : dbProcColumns) {
             if (dbColumn.getColumnType() == 5
                     && (dbColumn.getName() == null || dbColumn.getName().trim().length() == 0
-                            || dbColumn.getName().equalsIgnoreCase("returnValue") || dbColumn.getName()
-                            .equalsIgnoreCase(FAKE_FUN_PROC_COLUMN_NAME))) {
+                            || dbColumn.getName().equalsIgnoreCase("returnValue")
+                            || dbColumn.getName().equalsIgnoreCase(FAKE_FUN_PROC_COLUMN_NAME) || dbColumn.getName()
+                            .equalsIgnoreCase("null"))) {
                 dbColumn.setName(FAKE_FUN_PROC_COLUMN_NAME);
             }
             PojoAttribute attribute = convertDbColumnDefinition(procedure, dbColumn);

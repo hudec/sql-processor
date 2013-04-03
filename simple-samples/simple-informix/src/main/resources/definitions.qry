@@ -6,7 +6,7 @@ database-login-username simple;
 database-login-password simple;
 database-in-catalog simple;
 //database-active-schema simple;
-database-ddl-create informix.ddl; // should be located in the same directory as definitions.qry
+//database-ddl-create informix.ddl; // should be located in the same directory as definitions.qry
 //database-show-database-info Informix Dynamic Server,11.50.FC5,11,50;
 //database-show-driver-info IBM Informix JDBC Driver for IBM Informix Dynamic Server,3.50.JC9,3,50;
 //database-is-of-type Informix;
@@ -38,3 +38,7 @@ daogen-ignore-tables sysdomains sysindexes;
 
 table contact contact;
 table person person;
+procedure anHourBefore an_hour_before;
+procedure newPerson new_person;
+procedure newPersonRetRs new_person_ret_rs;
+pojogen-debug-level DEBUG;
