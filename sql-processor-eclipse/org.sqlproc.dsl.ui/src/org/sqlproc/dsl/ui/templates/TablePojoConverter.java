@@ -595,7 +595,7 @@ public class TablePojoConverter {
             }
         }
         procedures.put(procedure, attributes);
-        if (dbType == DbType.POSTGRESQL && isFunction)
+        if ((dbType == DbType.POSTGRESQL || dbType == DbType.INFORMIX) && isFunction)
             functions.put(procedure, attributes);
     }
 

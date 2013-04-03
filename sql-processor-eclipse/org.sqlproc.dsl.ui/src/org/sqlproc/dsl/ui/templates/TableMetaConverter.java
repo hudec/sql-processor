@@ -863,8 +863,9 @@ public class TableMetaConverter extends TablePojoConverter {
         }
         buffer.append(")\n;");
         if (dbType == DbType.HSQLDB || dbType == DbType.ORACLE || dbType == DbType.MY_SQL
-                || dbType == DbType.POSTGRESQL) {
-            if (dbType == DbType.HSQLDB && isFunction && metaFunctionsResult.containsKey(pojo)) {
+                || dbType == DbType.POSTGRESQL || dbType == DbType.INFORMIX) {
+            if ((dbType == DbType.HSQLDB || dbType == DbType.INFORMIX) && isFunction
+                    && metaFunctionsResult.containsKey(pojo)) {
                 buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo.toUpperCase()).append("(OUT");
                 if (metaMakeItFinal)
                     buffer.append(",final=");

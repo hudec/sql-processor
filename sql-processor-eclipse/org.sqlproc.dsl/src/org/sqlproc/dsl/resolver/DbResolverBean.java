@@ -606,7 +606,7 @@ public class DbResolverBean implements DbResolver {
         functions.put(modelDatabaseValues.dir, functionsForModel);
         if (modelDatabaseValues.connection != null) {
             DbType dbType = getDbType(model);
-            if (dbType == DbType.POSTGRESQL)
+            if (dbType == DbType.POSTGRESQL || dbType == DbType.INFORMIX)
                 return functionsForModel;
             ResultSet result = null;
             try {
