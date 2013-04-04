@@ -188,13 +188,12 @@ public class Main {
         main.getProceduresDao().newPerson(newPerson);
         Assert.assertNotNull(newPerson.getNewid());
 
-        System.exit(0);
         NewPersonRetRs newPersonRetRs = new NewPersonRetRs();
         newPersonRetRs.setFirstName("Beruska");
         newPersonRetRs.setLastName("Beruskova");
         newPersonRetRs.setSsn("888777666");
         newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
-        list = main.getProceduresDao().newPersonRetRs(newPersonRetRs);
+        list = main.getFunctionsDao().newPersonRetRs(newPersonRetRs);
         Assert.assertNotNull(list);
         Assert.assertEquals(1, list.size());
         Assert.assertNotNull(list.get(0).getId());

@@ -565,7 +565,9 @@ public class TablePojoConverter {
         if (procedure == null || dbProcColumns == null)
             return;
         Map<String, PojoAttribute> attributes = new LinkedHashMap<String, PojoAttribute>();
+        int ix = 0;
         for (DbColumn dbColumn : dbProcColumns) {
+            ix++;
             if (dbColumn.getColumnType() == 5
                     && (dbColumn.getName() == null || dbColumn.getName().trim().length() == 0
                             || dbColumn.getName().equalsIgnoreCase("returnValue")
@@ -573,6 +575,9 @@ public class TablePojoConverter {
                             .equalsIgnoreCase("null"))) {
                 dbColumn.setName(FAKE_FUN_PROC_COLUMN_NAME);
             }
+            if (dbType == DbType.INFORMIX && ix == 1 && isFunction
+                    && !dbColumn.getName().equals(FAKE_FUN_PROC_COLUMN_NAME))
+                continue;
             PojoAttribute attribute = convertDbColumnDefinition(procedure, dbColumn);
             if (attribute != null) {
                 attributes.put(dbColumn.getName(), attribute);

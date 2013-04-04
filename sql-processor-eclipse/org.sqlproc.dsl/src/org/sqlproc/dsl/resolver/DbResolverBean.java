@@ -1075,6 +1075,9 @@ public class DbResolverBean implements DbResolver {
         if (!doInit)
             return tablesForModel;
         if (modelDatabaseValues.connection != null) {
+            DbType dbType = getDbType(model);
+            if (dbType == DbType.POSTGRESQL || dbType == DbType.INFORMIX)
+                return tablesForModel;
             ResultSet result = null;
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
@@ -1205,13 +1208,13 @@ public class DbResolverBean implements DbResolver {
                     primaryKeysForModel.add(result.getString("COLUMN_NAME"));
                 }
             } catch (SQLException e) {
-                error("getDbColumns error " + e, e);
+                error("getDbPrimaryKeys error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    error("getDbColumns error " + e, e);
+                    error("getDbPrimaryKeys error " + e, e);
                 }
             }
         }
@@ -1258,13 +1261,13 @@ public class DbResolverBean implements DbResolver {
                     exportsForModel.add(dbExport);
                 }
             } catch (SQLException e) {
-                error("getDbColumns error " + e, e);
+                error("getDbExports error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    error("getDbColumns error " + e, e);
+                    error("getDbExports error " + e, e);
                 }
             }
         }
@@ -1311,13 +1314,13 @@ public class DbResolverBean implements DbResolver {
                     importsForModel.add(dbImport);
                 }
             } catch (SQLException e) {
-                error("getDbColumns error " + e, e);
+                error("getDbImports error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    error("getDbColumns error " + e, e);
+                    error("getDbImports error " + e, e);
                 }
             }
         }
@@ -1366,7 +1369,7 @@ public class DbResolverBean implements DbResolver {
                 if (result != null)
                     result.close();
             } catch (SQLException e) {
-                error("getDbColumns error " + e, e);
+                error("getType error " + e, e);
             }
         }
         return type + "(" + typeSize + ")";
@@ -1425,13 +1428,13 @@ public class DbResolverBean implements DbResolver {
                 // info("EEE " + table + " " + mapOfIndexes);
                 indexesForModel.addAll(mapOfIndexes.values());
             } catch (SQLException e) {
-                error("getDbColumns error " + e, e);
+                error("getDbIndexes error " + e, e);
             } finally {
                 try {
                     if (result != null)
                         result.close();
                 } catch (SQLException e) {
-                    error("getDbColumns error " + e, e);
+                    error("getDbIndexes error " + e, e);
                 }
             }
         }
@@ -1622,7 +1625,7 @@ public class DbResolverBean implements DbResolver {
             System.out.println(msg);
             e.printStackTrace();
         } else
-            LOGGER.error("getDbColumns error " + e, e);
+            LOGGER.error(msg, e);
     }
 
     @Override

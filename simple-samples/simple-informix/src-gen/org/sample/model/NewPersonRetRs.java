@@ -11,21 +11,6 @@ public class NewPersonRetRs implements Serializable {
   public NewPersonRetRs() {
   }
   
-  private Integer id;
-    
-  public Integer getId() {
-    return id;
-  }
-    
-  public void setId(Integer id) {
-    this.id = id;
-  }
-    
-  public NewPersonRetRs _setId(Integer id) {
-    this.id = id;
-    return this;
-  }
-  
   private Date dateOfBirth;
     
   public Date getDateOfBirth() {
@@ -88,10 +73,10 @@ public class NewPersonRetRs implements Serializable {
   
   @Override
   public String toString() {
-    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
+    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
   }
   
   public String toStringFull() {
-    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
+    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
   }
 }
