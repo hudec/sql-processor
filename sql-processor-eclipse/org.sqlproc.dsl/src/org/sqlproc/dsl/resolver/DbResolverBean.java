@@ -640,7 +640,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<String> getColumns(EObject model, String table) {
-        trace(">>>getColumns");
+        trace(">>>getColumns " + table);
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -694,7 +694,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<String> getProcColumns(EObject model, String table) {
-        trace(">>>getProcColumns");
+        trace(">>>getProcColumns " + table);
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -735,6 +735,7 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         }
+        trace("<<<getProcColumns " + columnsForModel);
         return columnsForModel;
     }
 
@@ -750,7 +751,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<String> getFunColumns(EObject model, String table) {
-        trace(">>>getFunColumns");
+        trace(">>>getFunColumns " + table);
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -791,6 +792,7 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         }
+        trace("<<<getFunColumns " + columnsForModel);
         return columnsForModel;
     }
 
@@ -813,7 +815,7 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public List<DbTable> getDbTables(EObject model, String table) {
-        trace(">>>getDbTables");
+        trace(">>>getDbTables " + table);
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -858,12 +860,13 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         }
+        trace("<<<getDbTables " + tablesForModel);
         return tablesForModel;
     }
 
     @Override
     public List<DbColumn> getDbColumns(EObject model, String table) {
-        trace(">>>getDbColumns");
+        trace(">>>getDbColumns " + table);
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -926,12 +929,13 @@ public class DbResolverBean implements DbResolver {
             }
         }
         // Collections.sort(columnsForModel);
+        trace("<<<getDbColumns " + columnsForModel);
         return columnsForModel;
     }
 
     @Override
     public List<DbTable> getDbProcedures(EObject model, String table) {
-        trace(">>>getDbProcedures");
+        trace(">>>getDbProcedures " + table);
         if (table == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -976,12 +980,13 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         }
+        trace("<<<getDbProcedures " + tablesForModel);
         return tablesForModel;
     }
 
     @Override
     public List<DbColumn> getDbProcColumns(EObject model, String procedure) {
-        trace(">>>getDbProcColumns");
+        trace(">>>getDbProcColumns " + procedure);
         if (procedure == null)
             return Collections.emptyList();
         DatabaseDirectives modelDatabaseValues = getConnection(model);
@@ -1048,6 +1053,7 @@ public class DbResolverBean implements DbResolver {
             }
         }
         // Collections.sort(columnsForModel);
+        trace("<<<getDbProcColumns " + columnsForModel);
         return columnsForModel;
     }
 
@@ -1082,10 +1088,15 @@ public class DbResolverBean implements DbResolver {
             try {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
                 result = meta.getFunctions(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, table);
+                // ResultSetMetaData rmeta = result.getMetaData();
+                // for (int i = 1; i <= rmeta.getColumnCount(); i++) {
+                // System.out.println("" + i + ": " + rmeta.getColumnLabel(i));
+                // }
                 while (result.next()) {
                     DbTable dbTable = new DbTable();
                     dbTable.setName(result.getString("FUNCTION_NAME"));
-                    dbTable.setFtype(result.getShort("FUNCTION_TYPE"));
+                    if (dbType != DbType.DB2)
+                        dbTable.setFtype(result.getShort("FUNCTION_TYPE"));
                     dbTable.setRemarks(result.getString("REMARKS"));
                     tablesForModel.add(dbTable);
                     info(table + ": " + dbTable.toString());
@@ -1101,6 +1112,7 @@ public class DbResolverBean implements DbResolver {
                 }
             }
         }
+        trace("<<<getDbFunctions " + tablesForModel);
         return tablesForModel;
     }
 
@@ -1134,11 +1146,15 @@ public class DbResolverBean implements DbResolver {
                 DatabaseMetaData meta = modelDatabaseValues.connection.getMetaData();
                 result = meta.getFunctionColumns(modelDatabaseValues.dbCatalog, modelDatabaseValues.dbSchema, function,
                         null);
+                // ResultSetMetaData rmeta = result.getMetaData();
+                // for (int i = 1; i <= rmeta.getColumnCount(); i++) {
+                // System.out.println("" + i + ": " + rmeta.getColumnLabel(i));
+                // }
                 while (result.next()) {
                     DbColumn dbColumn = new DbColumn();
-                    dbColumn.setName(result.getString("COLUMN_NAME"));
+                    dbColumn.setName(result.getString(dbType == DbType.DB2 ? "PARAMETER_NAME" : "COLUMN_NAME"));
                     dbColumn.setType(result.getString("TYPE_NAME"));
-                    dbColumn.setColumnType(result.getShort("COLUMN_TYPE"));
+                    dbColumn.setColumnType(result.getShort(dbType == DbType.DB2 ? "PARAMETER_TYPE" : "COLUMN_TYPE"));
                     int ix = dbColumn.getType().indexOf('(');
                     if (ix > 0) {
                         String size = dbColumn.getType().substring(ix + 1);
@@ -1173,6 +1189,7 @@ public class DbResolverBean implements DbResolver {
             }
         }
         // Collections.sort(columnsForModel);
+        trace("<<<getDbFunColumns " + columnsForModel);
         return columnsForModel;
     }
 
