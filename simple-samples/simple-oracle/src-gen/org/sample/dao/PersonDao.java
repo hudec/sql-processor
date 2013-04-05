@@ -153,4 +153,29 @@ public class PersonDao {
   public List<Person> list(Person person) {
     return list(person, null);
   }
+  
+  public int count(SqlSession sqlSession, Person person, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count person: " + person + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEnginePerson = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON");
+    //sqlControl = getMoreResultClasses(person, sqlControl);
+    int count = sqlEnginePerson.queryCount(sqlSession, person, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(Person person, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), person, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, Person person) {
+    return count(sqlSession, person, null);
+  }
+  
+  public int count(Person person) {
+    return count(person, null);
+  }
 }

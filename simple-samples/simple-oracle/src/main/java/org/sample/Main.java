@@ -170,6 +170,14 @@ public class Main {
                 new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME).setMaxResults(2));
         Assert.assertEquals(2, list.size());
 
+        // count
+        count = main.getPersonDao().count(null);
+        Assert.assertEquals(5, count);
+        person = new Person();
+        person.setFirstName("Jan");
+        count = main.getPersonDao().count(person);
+        Assert.assertEquals(2, count);
+
         // delete
         count = main.getPersonDao().delete(jan);
         Assert.assertEquals(1, count);

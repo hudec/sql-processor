@@ -153,4 +153,29 @@ public class ContactDao {
   public List<Contact> list(Contact contact) {
     return list(contact, null);
   }
+  
+  public int count(SqlSession sqlSession, Contact contact, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count contact: " + contact + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine("SELECT_CONTACT");
+    //sqlControl = getMoreResultClasses(contact, sqlControl);
+    int count = sqlEngineContact.queryCount(sqlSession, contact, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(Contact contact, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), contact, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, Contact contact) {
+    return count(sqlSession, contact, null);
+  }
+  
+  public int count(Contact contact) {
+    return count(contact, null);
+  }
 }

@@ -364,6 +364,7 @@ public «IF isAbstract(d)»abstract «ENDIF»class «d.name»«IF d.implPackage 
   «compileUpdate(d, e, getParent(e), importManager)»
   «compileDelete(d, e, getParent(e), importManager)»
   «compileList(d, e, toInits, importManager)»
+  «compileCount(d, e, toInits, importManager)»
   «IF !toInits.empty»«compileMoreResultClasses(d, e, toInits, importManager)»«ENDIF»«ELSEIF isCallUpdate(m)»
   «compileCallUpdate(d, m, importManager)»«ELSEIF isCallFunction(m)»«compileCallFunction(d, m, importManager)»«ELSEIF isCallQuery(m) || isCallQueryFunction(m)»«compileCallQuery(d, m, importManager, isCallQueryFunction(m))»«ENDIF»«ENDFOR»
 }
@@ -606,6 +607,34 @@ def compileList(PojoDao d, PojoEntity e, Map<String, List<PojoMethodArg>> toInit
     }
 '''
 
+def compileCount(PojoDao d, PojoEntity e, Map<String, List<PojoMethodArg>> toInits, ImportManager importManager) '''
+
+    public int count(SqlSession sqlSession, «e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+      if (logger.isTraceEnabled()) {
+        logger.trace("count «e.name.toFirstLower»: " + «e.name.toFirstLower» + " " + sqlControl);
+      }
+      SqlQueryEngine sqlEngine«e.name» = sqlEngineFactory.getCheckedQueryEngine("SELECT_«dbName(e)»");
+      «IF toInits.empty»//«ENDIF»sqlControl = getMoreResultClasses(«e.name.toFirstLower», sqlControl);
+      int count = sqlEngine«e.name».queryCount(sqlSession, «e.name.toFirstLower», sqlControl);
+      if (logger.isTraceEnabled()) {
+        logger.trace("count: " + count);
+      }
+      return count;
+    }
+
+    public int count(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
+    	return count(sqlSessionFactory.getSqlSession(), «e.name.toFirstLower», sqlControl);
+    }
+    
+    public int count(SqlSession sqlSession, «e.name» «e.name.toFirstLower») {
+      return count(sqlSession, «e.name.toFirstLower», null);
+    }
+    
+    public int count(«e.name» «e.name.toFirstLower») {
+      return count(«e.name.toFirstLower», null);
+    }
+'''
+
 def compileMoreResultClasses(PojoDao d, PojoEntity e, Map<String, List<PojoMethodArg>> toInits, ImportManager importManager) '''
 
     SqlControl getMoreResultClasses(«e.name» «e.name.toFirstLower», SqlControl sqlControl) {
@@ -650,6 +679,7 @@ public interface «d.name» {
   «compileUpdateIfx(d, e, importManager)»
   «compileDeleteIfx(d, e, importManager)»
   «compileListIfx(d, e, importManager)»
+  «compileCountIfx(d, e, importManager)»
 }
 '''
 
@@ -706,6 +736,17 @@ def compileListIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
     public List<«e.name»> list(SqlSession sqlSession, «e.name» «e.name.toFirstLower»);
 
     public List<«e.name»> list(«e.name» «e.name.toFirstLower»);
+'''
+
+def compileCountIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
+
+    public int count(SqlSession sqlSession, «e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
+    public int count(«e.name» «e.name.toFirstLower», SqlControl sqlControl);
+
+    public int count(SqlSession sqlSession, «e.name» «e.name.toFirstLower»);
+
+    public int count(«e.name» «e.name.toFirstLower»);
 '''
 
 def List<PojoProperty> listFeatures(PojoEntity e) {
