@@ -10,8 +10,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoDaoModifier;
-import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 
 /**
@@ -38,7 +38,7 @@ public class PojoDaoModifierImpl extends MinimalEObjectImpl.Container implements
    * @generated
    * @ordered
    */
-  protected PojoEntity superType;
+  protected PojoDao superType;
 
   /**
    * The default value of the '{@link #getSernum() <em>Sernum</em>}' attribute.
@@ -86,12 +86,12 @@ public class PojoDaoModifierImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public PojoEntity getSuperType()
+  public PojoDao getSuperType()
   {
     if (superType != null && superType.eIsProxy())
     {
       InternalEObject oldSuperType = (InternalEObject)superType;
-      superType = (PojoEntity)eResolveProxy(oldSuperType);
+      superType = (PojoDao)eResolveProxy(oldSuperType);
       if (superType != oldSuperType)
       {
         if (eNotificationRequired())
@@ -106,7 +106,7 @@ public class PojoDaoModifierImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public PojoEntity basicGetSuperType()
+  public PojoDao basicGetSuperType()
   {
     return superType;
   }
@@ -116,9 +116,9 @@ public class PojoDaoModifierImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSuperType(PojoEntity newSuperType)
+  public void setSuperType(PojoDao newSuperType)
   {
-    PojoEntity oldSuperType = superType;
+    PojoDao oldSuperType = superType;
     superType = newSuperType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_DAO_MODIFIER__SUPER_TYPE, oldSuperType, superType));
@@ -177,7 +177,7 @@ public class PojoDaoModifierImpl extends MinimalEObjectImpl.Container implements
     switch (featureID)
     {
       case ProcessorDslPackage.POJO_DAO_MODIFIER__SUPER_TYPE:
-        setSuperType((PojoEntity)newValue);
+        setSuperType((PojoDao)newValue);
         return;
       case ProcessorDslPackage.POJO_DAO_MODIFIER__SERNUM:
         setSernum((String)newValue);
@@ -197,7 +197,7 @@ public class PojoDaoModifierImpl extends MinimalEObjectImpl.Container implements
     switch (featureID)
     {
       case ProcessorDslPackage.POJO_DAO_MODIFIER__SUPER_TYPE:
-        setSuperType((PojoEntity)null);
+        setSuperType((PojoDao)null);
         return;
       case ProcessorDslPackage.POJO_DAO_MODIFIER__SERNUM:
         setSernum(SERNUM_EDEFAULT);

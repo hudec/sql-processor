@@ -211,6 +211,13 @@ public class ProcessorDslSwitch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ProcessorDslPackage.DEBUG_LEVEL_ASSIGNEMENT:
+      {
+        DebugLevelAssignement debugLevelAssignement = (DebugLevelAssignement)theEObject;
+        T result = caseDebugLevelAssignement(debugLevelAssignement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ProcessorDslPackage.PROPERTY:
       {
         Property property = (Property)theEObject;
@@ -861,6 +868,22 @@ public class ProcessorDslSwitch<T>
    * @generated
    */
   public T caseManyToManyAssignement(ManyToManyAssignement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Debug Level Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Debug Level Assignement</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDebugLevelAssignement(DebugLevelAssignement object)
   {
     return null;
   }

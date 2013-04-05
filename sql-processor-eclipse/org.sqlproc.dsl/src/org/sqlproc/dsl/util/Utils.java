@@ -175,7 +175,7 @@ public class Utils {
         return null;
     }
 
-    public static PojoEntity getSuperType(PojoDao e) {
+    public static PojoDao getSuperType(PojoDao e) {
         if (e.getModifiers2() == null || e.getModifiers2().isEmpty())
             return null;
         for (PojoDaoModifier modifier : e.getModifiers2()) {

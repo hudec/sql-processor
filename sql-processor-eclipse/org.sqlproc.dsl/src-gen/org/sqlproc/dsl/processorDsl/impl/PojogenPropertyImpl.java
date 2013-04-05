@@ -24,6 +24,7 @@ import org.eclipse.xtext.common.types.JvmType;
 
 import org.sqlproc.dsl.processorDsl.ColumnAssignement;
 import org.sqlproc.dsl.processorDsl.ColumnTypeAssignement;
+import org.sqlproc.dsl.processorDsl.DebugLevelAssignement;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
 import org.sqlproc.dsl.processorDsl.ImportAssignement;
 import org.sqlproc.dsl.processorDsl.InheritanceAssignement;
@@ -321,24 +322,14 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
   protected String version = VERSION_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getDebug() <em>Debug</em>}' attribute.
+   * The cached value of the '{@link #getDebug() <em>Debug</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getDebug()
    * @generated
    * @ordered
    */
-  protected static final String DEBUG_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getDebug() <em>Debug</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDebug()
-   * @generated
-   * @ordered
-   */
-  protected String debug = DEBUG_EDEFAULT;
+  protected DebugLevelAssignement debug;
 
   /**
    * <!-- begin-user-doc -->
@@ -754,7 +745,7 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDebug()
+  public DebugLevelAssignement getDebug()
   {
     return debug;
   }
@@ -764,12 +755,37 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDebug(String newDebug)
+  public NotificationChain basicSetDebug(DebugLevelAssignement newDebug, NotificationChain msgs)
   {
-    String oldDebug = debug;
+    DebugLevelAssignement oldDebug = debug;
     debug = newDebug;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG, oldDebug, debug));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG, oldDebug, newDebug);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDebug(DebugLevelAssignement newDebug)
+  {
+    if (newDebug != debug)
+    {
+      NotificationChain msgs = null;
+      if (debug != null)
+        msgs = ((InternalEObject)debug).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG, null, msgs);
+      if (newDebug != null)
+        msgs = ((InternalEObject)newDebug).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG, null, msgs);
+      msgs = basicSetDebug(newDebug, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG, newDebug, newDebug));
   }
 
   /**
@@ -802,6 +818,8 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         return ((InternalEList<?>)getMany2s()).basicRemove(otherEnd, msgs);
       case ProcessorDslPackage.POJOGEN_PROPERTY__INHERITANCE:
         return ((InternalEList<?>)getInheritance()).basicRemove(otherEnd, msgs);
+      case ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG:
+        return basicSetDebug(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -948,7 +966,7 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         setVersion((String)newValue);
         return;
       case ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG:
-        setDebug((String)newValue);
+        setDebug((DebugLevelAssignement)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -1025,7 +1043,7 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
         setVersion(VERSION_EDEFAULT);
         return;
       case ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG:
-        setDebug(DEBUG_EDEFAULT);
+        setDebug((DebugLevelAssignement)null);
         return;
     }
     super.eUnset(featureID);
@@ -1082,7 +1100,7 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
       case ProcessorDslPackage.POJOGEN_PROPERTY__VERSION:
         return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
       case ProcessorDslPackage.POJOGEN_PROPERTY__DEBUG:
-        return DEBUG_EDEFAULT == null ? debug != null : !DEBUG_EDEFAULT.equals(debug);
+        return debug != null;
     }
     return super.eIsSet(featureID);
   }
@@ -1114,8 +1132,6 @@ public class PojogenPropertyImpl extends MinimalEObjectImpl.Container implements
     result.append(implPackage);
     result.append(", version: ");
     result.append(version);
-    result.append(", debug: ");
-    result.append(debug);
     result.append(')');
     return result.toString();
   }

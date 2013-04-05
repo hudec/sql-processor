@@ -119,4 +119,8 @@ public interface DbResolver {
     List<DbTable> getDbProcedures(EObject model, String table);
 
     List<DbTable> getDbFunctions(EObject model, String table);
+
+    boolean checkProcedure(EObject model, String table);
+
+    boolean checkFunction(EObject model, String function);
 }

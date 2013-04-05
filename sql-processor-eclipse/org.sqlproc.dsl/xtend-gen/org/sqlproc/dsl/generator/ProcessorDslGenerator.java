@@ -4012,11 +4012,11 @@ public class ProcessorDslGenerator implements IGenerator {
   public CharSequence compileExtends(final PojoDao e) {
     StringConcatenation _builder = new StringConcatenation();
     {
-      PojoEntity _superType = Utils.getSuperType(e);
+      PojoDao _superType = Utils.getSuperType(e);
       boolean _notEquals = (!Objects.equal(_superType, null));
       if (_notEquals) {
         _builder.append("extends ");
-        PojoEntity _superType_1 = Utils.getSuperType(e);
+        PojoDao _superType_1 = Utils.getSuperType(e);
         QualifiedName _fullyQualifiedName = this._iQualifiedNameProvider.getFullyQualifiedName(_superType_1);
         _builder.append(_fullyQualifiedName, "");
         _builder.append(" ");

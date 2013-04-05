@@ -533,6 +533,34 @@ finally {
 
 
 
+// Entry rule entryRuleDebugLevelAssignement
+entryRuleDebugLevelAssignement 
+:
+{ before(grammarAccess.getDebugLevelAssignementRule()); }
+	 ruleDebugLevelAssignement
+{ after(grammarAccess.getDebugLevelAssignementRule()); } 
+	 EOF 
+;
+
+// Rule DebugLevelAssignement
+ruleDebugLevelAssignement
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getDebugLevelAssignementAccess().getDebugAssignment()); }
+(rule__DebugLevelAssignement__DebugAssignment)
+{ after(grammarAccess.getDebugLevelAssignementAccess().getDebugAssignment()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleProperty
 entryRuleProperty 
 :
@@ -28073,6 +28101,21 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__DebugLevelAssignement__DebugAssignment
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getDebugLevelAssignementAccess().getDebugIDENTTerminalRuleCall_0()); }
+	RULE_IDENT{ after(grammarAccess.getDebugLevelAssignementAccess().getDebugIDENTTerminalRuleCall_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__Property__NameAssignment_0_0
     @init {
 		int stackSize = keepStackSize();
@@ -28886,8 +28929,8 @@ rule__DatabaseProperty__DebugAssignment_17_2
     }
 :
 (
-{ before(grammarAccess.getDatabasePropertyAccess().getDebugIDENTTerminalRuleCall_17_2_0()); }
-	RULE_IDENT{ after(grammarAccess.getDatabasePropertyAccess().getDebugIDENTTerminalRuleCall_17_2_0()); }
+{ before(grammarAccess.getDatabasePropertyAccess().getDebugDebugLevelAssignementParserRuleCall_17_2_0()); }
+	ruleDebugLevelAssignement{ after(grammarAccess.getDatabasePropertyAccess().getDebugDebugLevelAssignementParserRuleCall_17_2_0()); }
 )
 
 ;
@@ -30221,8 +30264,8 @@ rule__PojogenProperty__DebugAssignment_28_2
     }
 :
 (
-{ before(grammarAccess.getPojogenPropertyAccess().getDebugIDENTTerminalRuleCall_28_2_0()); }
-	RULE_IDENT{ after(grammarAccess.getPojogenPropertyAccess().getDebugIDENTTerminalRuleCall_28_2_0()); }
+{ before(grammarAccess.getPojogenPropertyAccess().getDebugDebugLevelAssignementParserRuleCall_28_2_0()); }
+	ruleDebugLevelAssignement{ after(grammarAccess.getPojogenPropertyAccess().getDebugDebugLevelAssignementParserRuleCall_28_2_0()); }
 )
 
 ;
@@ -30986,8 +31029,8 @@ rule__MetagenProperty__DebugAssignment_14_2
     }
 :
 (
-{ before(grammarAccess.getMetagenPropertyAccess().getDebugIDENTTerminalRuleCall_14_2_0()); }
-	RULE_IDENT{ after(grammarAccess.getMetagenPropertyAccess().getDebugIDENTTerminalRuleCall_14_2_0()); }
+{ before(grammarAccess.getMetagenPropertyAccess().getDebugDebugLevelAssignementParserRuleCall_14_2_0()); }
+	ruleDebugLevelAssignement{ after(grammarAccess.getMetagenPropertyAccess().getDebugDebugLevelAssignementParserRuleCall_14_2_0()); }
 )
 
 ;
@@ -31298,8 +31341,8 @@ rule__DaogenProperty__DebugAssignment_7_2
     }
 :
 (
-{ before(grammarAccess.getDaogenPropertyAccess().getDebugIDENTTerminalRuleCall_7_2_0()); }
-	RULE_IDENT{ after(grammarAccess.getDaogenPropertyAccess().getDebugIDENTTerminalRuleCall_7_2_0()); }
+{ before(grammarAccess.getDaogenPropertyAccess().getDebugDebugLevelAssignementParserRuleCall_7_2_0()); }
+	ruleDebugLevelAssignement{ after(grammarAccess.getDaogenPropertyAccess().getDebugDebugLevelAssignementParserRuleCall_7_2_0()); }
 )
 
 ;
@@ -33573,12 +33616,12 @@ rule__PojoDaoModifier__SuperTypeAssignment_0_1
     }
 :
 (
-{ before(grammarAccess.getPojoDaoModifierAccess().getSuperTypePojoEntityCrossReference_0_1_0()); }
+{ before(grammarAccess.getPojoDaoModifierAccess().getSuperTypePojoDaoCrossReference_0_1_0()); }
 (
-{ before(grammarAccess.getPojoDaoModifierAccess().getSuperTypePojoEntityIDENTTerminalRuleCall_0_1_0_1()); }
-	RULE_IDENT{ after(grammarAccess.getPojoDaoModifierAccess().getSuperTypePojoEntityIDENTTerminalRuleCall_0_1_0_1()); }
+{ before(grammarAccess.getPojoDaoModifierAccess().getSuperTypePojoDaoIDENTTerminalRuleCall_0_1_0_1()); }
+	RULE_IDENT{ after(grammarAccess.getPojoDaoModifierAccess().getSuperTypePojoDaoIDENTTerminalRuleCall_0_1_0_1()); }
 )
-{ after(grammarAccess.getPojoDaoModifierAccess().getSuperTypePojoEntityCrossReference_0_1_0()); }
+{ after(grammarAccess.getPojoDaoModifierAccess().getSuperTypePojoDaoCrossReference_0_1_0()); }
 )
 
 ;

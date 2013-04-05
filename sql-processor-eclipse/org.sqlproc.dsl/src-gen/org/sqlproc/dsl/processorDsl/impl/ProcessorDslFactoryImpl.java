@@ -81,6 +81,7 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
       case ProcessorDslPackage.EXPORT_ASSIGNEMENT: return createExportAssignement();
       case ProcessorDslPackage.INHERITANCE_ASSIGNEMENT: return createInheritanceAssignement();
       case ProcessorDslPackage.MANY_TO_MANY_ASSIGNEMENT: return createManyToManyAssignement();
+      case ProcessorDslPackage.DEBUG_LEVEL_ASSIGNEMENT: return createDebugLevelAssignement();
       case ProcessorDslPackage.PROPERTY: return createProperty();
       case ProcessorDslPackage.DATABASE_PROPERTY: return createDatabaseProperty();
       case ProcessorDslPackage.POJOGEN_PROPERTY: return createPojogenProperty();
@@ -324,6 +325,17 @@ public class ProcessorDslFactoryImpl extends EFactoryImpl implements ProcessorDs
   {
     ManyToManyAssignementImpl manyToManyAssignement = new ManyToManyAssignementImpl();
     return manyToManyAssignement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DebugLevelAssignement createDebugLevelAssignement()
+  {
+    DebugLevelAssignementImpl debugLevelAssignement = new DebugLevelAssignementImpl();
+    return debugLevelAssignement;
   }
 
   /**

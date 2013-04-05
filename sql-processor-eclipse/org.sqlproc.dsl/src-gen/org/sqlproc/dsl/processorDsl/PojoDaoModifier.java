@@ -32,12 +32,12 @@ public interface PojoDaoModifier extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Super Type</em>' reference.
-   * @see #setSuperType(PojoEntity)
+   * @see #setSuperType(PojoDao)
    * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoDaoModifier_SuperType()
    * @model
    * @generated
    */
-  PojoEntity getSuperType();
+  PojoDao getSuperType();
 
   /**
    * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoDaoModifier#getSuperType <em>Super Type</em>}' reference.
@@ -47,7 +47,7 @@ public interface PojoDaoModifier extends EObject
    * @see #getSuperType()
    * @generated
    */
-  void setSuperType(PojoEntity value);
+  void setSuperType(PojoDao value);
 
   /**
    * Returns the value of the '<em><b>Sernum</b></em>' attribute.

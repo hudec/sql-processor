@@ -26,6 +26,7 @@ import org.sqlproc.dsl.processorDsl.DatabaseProperty;
 import org.sqlproc.dsl.processorDsl.DatabaseSchemaAssignement;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
 import org.sqlproc.dsl.processorDsl.DatabaseTypeAssignement;
+import org.sqlproc.dsl.processorDsl.DebugLevelAssignement;
 import org.sqlproc.dsl.processorDsl.DriverMetaInfoAssignement;
 import org.sqlproc.dsl.processorDsl.DriverMethodOutputAssignement;
 import org.sqlproc.dsl.processorDsl.ExportAssignement;
@@ -168,6 +169,12 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 			case ProcessorDslPackage.DATABASE_TYPE_ASSIGNEMENT:
 				if(context == grammarAccess.getDatabaseTypeAssignementRule()) {
 					sequence_DatabaseTypeAssignement(context, (DatabaseTypeAssignement) semanticObject); 
+					return; 
+				}
+				else break;
+			case ProcessorDslPackage.DEBUG_LEVEL_ASSIGNEMENT:
+				if(context == grammarAccess.getDebugLevelAssignementRule()) {
+					sequence_DebugLevelAssignement(context, (DebugLevelAssignement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -605,7 +612,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='extends-class' toExtends=[JvmType|QualifiedName]) | 
 	 *         name='make-it-final' | 
 	 *         (name='function-result' dbFunction=IDENT resultType=PojoType) | 
-	 *         (name='debug-level' debug=IDENT)
+	 *         (name='debug-level' debug=DebugLevelAssignement)
 	 *     )
 	 */
 	protected void sequence_DaogenProperty(EObject context, DaogenProperty semanticObject) {
@@ -674,7 +681,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='show-database-info' dbMetaInfo=DatabaseMetaInfoAssignement) | 
 	 *         (name='show-driver-info' dbDriverInfo=DriverMetaInfoAssignement) | 
 	 *         (name='show-driver-output' dbMethodsCalls+=DriverMethodOutputAssignement+) | 
-	 *         (name='debug-level' debug=IDENT)
+	 *         (name='debug-level' debug=DebugLevelAssignement)
 	 *     )
 	 */
 	protected void sequence_DatabaseProperty(EObject context, DatabaseProperty semanticObject) {
@@ -719,6 +726,22 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getDatabaseTypeAssignementAccess().getDbTypeIDENTTerminalRuleCall_0(), semanticObject.getDbType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     debug=IDENT
+	 */
+	protected void sequence_DebugLevelAssignement(EObject context, DebugLevelAssignement semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ProcessorDslPackage.Literals.DEBUG_LEVEL_ASSIGNEMENT__DEBUG) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ProcessorDslPackage.Literals.DEBUG_LEVEL_ASSIGNEMENT__DEBUG));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getDebugLevelAssignementAccess().getDebugIDENTTerminalRuleCall_0(), semanticObject.getDebug());
 		feeder.finish();
 	}
 	
@@ -1074,7 +1097,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='function-result' dbFunction=IDENT type=IDENT) | 
 	 *         (name='function-result-set' dbFunction=IDENT dbTable=IDENT) | 
 	 *         (name='procedure-result-set' dbProcedure=IDENT dbTable=IDENT) | 
-	 *         (name='debug-level' debug=IDENT)
+	 *         (name='debug-level' debug=DebugLevelAssignement)
 	 *     )
 	 */
 	protected void sequence_MetagenProperty(EObject context, MetagenProperty semanticObject) {
@@ -1120,7 +1143,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (superType=[PojoEntity|IDENT] | sernum=NUMBER)
+	 *     (superType=[PojoDao|IDENT] | sernum=NUMBER)
 	 */
 	protected void sequence_PojoDaoModifier(EObject context, PojoDaoModifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1306,7 +1329,7 @@ public class ProcessorDslSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *         (name='implementation-package' implPackage=IDENT) | 
 	 *         name='make-it-final' | 
 	 *         (name='version-column' version=IDENT dbTables+=IDENT*) | 
-	 *         (name='debug-level' debug=IDENT)
+	 *         (name='debug-level' debug=DebugLevelAssignement)
 	 *     )
 	 */
 	protected void sequence_PojogenProperty(EObject context, PojogenProperty semanticObject) {

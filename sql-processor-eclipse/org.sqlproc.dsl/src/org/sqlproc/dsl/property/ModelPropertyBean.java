@@ -455,7 +455,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
             else
                 modelValues.dbType = null;
         } else if (DATABASE_DEBUG_LEVEL.equals(property.getName())) {
-            modelValues.dbDebugLevel = Level.toLevel(property.getDebug(), Level.WARN);
+            modelValues.dbDebugLevel = Level.toLevel((property.getDebug() != null) ? property.getDebug().getDebug()
+                    : null, Level.WARN);
         }
     }
 
@@ -698,7 +699,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
                 }
             }
         } else if (POJOGEN_DEBUG_LEVEL.equals(property.getName())) {
-            modelValues.debugLevel = Level.toLevel(property.getDebug(), Level.WARN);
+            modelValues.debugLevel = Level.toLevel((property.getDebug() != null) ? property.getDebug().getDebug()
+                    : null, Level.WARN);
         }
     }
 
@@ -756,7 +758,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         } else if (METAGEN_PROCEDURE_RESULT_SET.equals(property.getName())) {
             modelValues.metaProceduresResultSet.put(property.getDbProcedure(), property.getDbTable());
         } else if (METAGEN_DEBUG_LEVEL.equals(property.getName())) {
-            modelValues.metaDebugLevel = Level.toLevel(property.getDebug(), Level.WARN);
+            modelValues.metaDebugLevel = Level.toLevel((property.getDebug() != null) ? property.getDebug().getDebug()
+                    : null, Level.WARN);
         }
     }
 
@@ -785,7 +788,8 @@ public class ModelPropertyBean extends AdapterImpl implements ModelProperty {
         } else if (DAOGEN_FUNCTION_RESULT.equals(property.getName())) {
             modelValues.daoFunctionsResult.put(property.getDbFunction(), property.getResultType());
         } else if (DAOGEN_DEBUG_LEVEL.equals(property.getName())) {
-            modelValues.daoDebugLevel = Level.toLevel(property.getDebug(), Level.WARN);
+            modelValues.daoDebugLevel = Level.toLevel((property.getDebug() != null) ? property.getDebug().getDebug()
+                    : null, Level.WARN);
         }
     }
 

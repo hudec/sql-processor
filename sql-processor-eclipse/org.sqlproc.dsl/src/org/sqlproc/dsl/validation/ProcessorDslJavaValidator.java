@@ -32,6 +32,7 @@ import org.sqlproc.dsl.processorDsl.Column;
 import org.sqlproc.dsl.processorDsl.Constant;
 import org.sqlproc.dsl.processorDsl.DatabaseColumn;
 import org.sqlproc.dsl.processorDsl.DatabaseTable;
+import org.sqlproc.dsl.processorDsl.FunctionDefinition;
 import org.sqlproc.dsl.processorDsl.Identifier;
 import org.sqlproc.dsl.processorDsl.MappingColumn;
 import org.sqlproc.dsl.processorDsl.MappingRule;
@@ -43,6 +44,7 @@ import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
+import org.sqlproc.dsl.processorDsl.ProcedureDefinition;
 import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
 import org.sqlproc.dsl.processorDsl.Property;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
@@ -738,6 +740,47 @@ public class ProcessorDslJavaValidator extends AbstractProcessorDslJavaValidator
         if (isResolveDb(tableDefinition) && !dbResolver.checkTable(tableDefinition, tableDefinition.getTable())) {
             error("Cannot find table in DB : " + tableDefinition.getTable(),
                     ProcessorDslPackage.Literals.TABLE_DEFINITION__TABLE);
+        }
+    }
+
+    @Check
+    public void checkProcedureDefinition(ProcedureDefinition procedureDefinition) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(procedureDefinition);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+        for (ProcedureDefinition procedure : artifacts.getProcedures()) {
+            if (procedure == null || procedure == procedureDefinition)
+                continue;
+            if (procedureDefinition.getName().equals(procedure.getName())) {
+                error("Duplicate name : " + procedureDefinition.getName() + "[procedure]",
+                        ProcessorDslPackage.Literals.PROCEDURE_DEFINITION__NAME);
+                return;
+            }
+        }
+        if (isResolveDb(procedureDefinition)
+                && !dbResolver.checkProcedure(procedureDefinition, procedureDefinition.getTable())) {
+            error("Cannot find procedure in DB : " + procedureDefinition.getTable(),
+                    ProcessorDslPackage.Literals.PROCEDURE_DEFINITION__NAME);
+        }
+    }
+
+    @Check
+    public void checkFunctionDefinition(FunctionDefinition functionDefinition) {
+        Artifacts artifacts;
+        EObject object = EcoreUtil.getRootContainer(functionDefinition);
+        if (!(object instanceof Artifacts))
+            return;
+        artifacts = (Artifacts) object;
+        for (FunctionDefinition function : artifacts.getFunctions()) {
+            if (function == null || function == functionDefinition)
+                continue;
+            if (functionDefinition.getName().equals(function.getName())) {
+                error("Duplicate name : " + functionDefinition.getName() + "[function]",
+                        ProcessorDslPackage.Literals.FUNCTION_DEFINITION__NAME);
+                return;
+            }
         }
     }
 

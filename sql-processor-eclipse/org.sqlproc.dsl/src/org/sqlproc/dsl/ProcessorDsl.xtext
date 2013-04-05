@@ -28,6 +28,7 @@ ImportAssignement: dbColumn=IDENT '->' pkTable=IDENT ('->' pkColumn=IDENT)?;
 ExportAssignement: dbColumn=IDENT '->' fkTable=IDENT ('->' fkColumn=IDENT)?;
 InheritanceAssignement: discriminator=IDENT '->' dbTable=IDENT ('->' dbColumns+=IDENT)+;
 ManyToManyAssignement: pkColumn=IDENT '->' pkTable=IDENT ('->' fkColumn=IDENT)?;
+DebugLevelAssignement: debug=IDENT;
 
 Property:
 	(name='resolve-pojo-on'
@@ -56,7 +57,7 @@ DatabaseProperty:
 	|name='show-database-info' WS+ dbMetaInfo=DatabaseMetaInfoAssignement
 	|name='show-driver-info' WS+ dbDriverInfo=DriverMetaInfoAssignement
 	|name='show-driver-output' (WS+ dbMethodsCalls+=DriverMethodOutputAssignement)+
-	|name='debug-level' WS+ debug=IDENT
+	|name='debug-level' WS+ debug=DebugLevelAssignement
 	);
 
 PojogenProperty:
@@ -88,7 +89,7 @@ PojogenProperty:
 	|name='implementation-package' WS+ implPackage=IDENT
 	|name='make-it-final'
 	|name='version-column' WS+ version=IDENT (WS+ dbTables+=IDENT)*
-	|name='debug-level' WS+ debug=IDENT
+	|name='debug-level' WS+ debug=DebugLevelAssignement
 	);
 
 MetaTypeAssignement: dbColumn=IDENT '->' type=IDENT ('->' extension=IDENT)?;
@@ -108,7 +109,7 @@ MetagenProperty:
 	|name='function-result' WS+ dbFunction=IDENT WS+ type=IDENT
 	|name='function-result-set' WS+ dbFunction=IDENT WS+ dbTable=IDENT
 	|name='procedure-result-set' WS+ dbProcedure=IDENT WS+ dbTable=IDENT
-	|name='debug-level' WS+ debug=IDENT
+	|name='debug-level' WS+ debug=DebugLevelAssignement
 	);
 
 DaogenProperty:
@@ -119,7 +120,7 @@ DaogenProperty:
 	|name='extends-class' WS+ toExtends=[jvmTypes::JvmType|QualifiedName]
 	|name='make-it-final'
 	|name='function-result' WS+ dbFunction=IDENT WS+ resultType=PojoType
-	|name='debug-level' WS+ debug=IDENT
+	|name='debug-level' WS+ debug=DebugLevelAssignement
 	);
 
 PropertyValue:
@@ -355,7 +356,7 @@ PojoProperty hidden(ML_COMMENT, SL_COMMENT, WS):
 	(modifiers+=PojoPropertyModifier)*
 ;
 
-PojoDaoModifier: (('extends' superType=[PojoEntity|IDENT]) | ('serializable' sernum=NUMBER));
+PojoDaoModifier: (('extends' superType=[PojoDao|IDENT]) | ('serializable' sernum=NUMBER));
 
 PojoDao hidden(ML_COMMENT, SL_COMMENT, WS):
 	(modifiers1+=PojoEntityModifier1)* 'dao' name=IDENT (COLON COLON pojo=[PojoEntity|IDENT])?

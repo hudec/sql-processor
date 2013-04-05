@@ -375,6 +375,7 @@ public class ProcessorDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getManyToManyAssignementAccess().getPkColumnAssignment_0(), "rule__ManyToManyAssignement__PkColumnAssignment_0");
 					put(grammarAccess.getManyToManyAssignementAccess().getPkTableAssignment_2(), "rule__ManyToManyAssignement__PkTableAssignment_2");
 					put(grammarAccess.getManyToManyAssignementAccess().getFkColumnAssignment_3_1(), "rule__ManyToManyAssignement__FkColumnAssignment_3_1");
+					put(grammarAccess.getDebugLevelAssignementAccess().getDebugAssignment(), "rule__DebugLevelAssignement__DebugAssignment");
 					put(grammarAccess.getPropertyAccess().getNameAssignment_0_0(), "rule__Property__NameAssignment_0_0");
 					put(grammarAccess.getPropertyAccess().getNameAssignment_0_1(), "rule__Property__NameAssignment_0_1");
 					put(grammarAccess.getPropertyAccess().getNameAssignment_0_2_0(), "rule__Property__NameAssignment_0_2_0");

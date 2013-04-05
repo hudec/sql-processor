@@ -96,6 +96,8 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
     private static final List<String> MODIFIERS = Arrays.asList(new String[] { "any", "null", "notnull", "seq", "seq=",
             "idsel", "idsel=", "id", "isDef=", "isCall=", "dtype=", "gtype=", "discr" });
     private static final List<String> F_TYPES = Arrays.asList(new String[] { "set", "update", "values", "where" });
+    private static final List<String> DEBUG_LEVELS = Arrays.asList(new String[] { "DEBUG", "INFO", "FATAL", "ERROR",
+            "WARN", "TRACE" });
 
     @Override
     public void completeMetaStatement_Type(EObject model, Assignment assignment, ContentAssistContext context,
@@ -1321,5 +1323,11 @@ public class ProcessorDslProposalProvider extends AbstractProcessorDslProposalPr
             ICompletionProposal completionProposal = createCompletionProposal(proposal, context);
             acceptor.accept(completionProposal);
         }
+    }
+
+    @Override
+    public void completeDebugLevelAssignement_Debug(EObject model, Assignment assignment, ContentAssistContext context,
+            ICompletionProposalAcceptor acceptor) {
+        addProposalList(DEBUG_LEVELS, "DEBUG_LEVELS", context, acceptor, null);
     }
 }

@@ -176,6 +176,15 @@ public interface ProcessorDslFactory extends EFactory
   ManyToManyAssignement createManyToManyAssignement();
 
   /**
+   * Returns a new object of class '<em>Debug Level Assignement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Debug Level Assignement</em>'.
+   * @generated
+   */
+  DebugLevelAssignement createDebugLevelAssignement();
+
+  /**
    * Returns a new object of class '<em>Property</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

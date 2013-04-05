@@ -160,6 +160,11 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
         return createManyToManyAssignementAdapter();
       }
       @Override
+      public Adapter caseDebugLevelAssignement(DebugLevelAssignement object)
+      {
+        return createDebugLevelAssignementAdapter();
+      }
+      @Override
       public Adapter caseProperty(Property object)
       {
         return createPropertyAdapter();
@@ -697,6 +702,21 @@ public class ProcessorDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createManyToManyAssignementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.sqlproc.dsl.processorDsl.DebugLevelAssignement <em>Debug Level Assignement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.sqlproc.dsl.processorDsl.DebugLevelAssignement
+   * @generated
+   */
+  public Adapter createDebugLevelAssignementAdapter()
   {
     return null;
   }

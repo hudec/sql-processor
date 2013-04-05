@@ -632,10 +632,23 @@ public class DbResolverBean implements DbResolver {
 
     @Override
     public boolean checkTable(EObject model, String table) {
-        trace(">>>checkTable");
         if (table == null)
             return false;
         return getTables(model).contains(table);
+    }
+
+    @Override
+    public boolean checkProcedure(EObject model, String procedure) {
+        if (procedure == null)
+            return false;
+        return getProcedures(model).contains(procedure);
+    }
+
+    @Override
+    public boolean checkFunction(EObject model, String function) {
+        if (function == null)
+            return false;
+        return getFunctions(model).contains(function);
     }
 
     @Override
