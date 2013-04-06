@@ -277,12 +277,15 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         return builder.toString();
     }
 
-    protected String getTablesDefinitions(List<String> tables) {
+    protected String getTablesDefinitions(List<String> tables, List<String> tablesPresented) {
         if (tables == null)
             return null;
+        Set<String> set = (tablesPresented != null) ? new HashSet<String>(tablesPresented) : new HashSet<String>();
         TreeMap<String, String> map = new TreeMap<String, String>();
         for (String table : tables) {
             if (table.toUpperCase().startsWith("BIN$"))
+                continue;
+            if (set.contains(table))
                 continue;
             map.put(toCamelCase(table), table);
         }
@@ -294,12 +297,16 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         return builder.toString();
     }
 
-    protected String getProceduresDefinitions(List<String> procedures) {
+    protected String getProceduresDefinitions(List<String> procedures, List<String> proceduresPresented) {
         if (procedures == null)
             return null;
+        Set<String> set = (proceduresPresented != null) ? new HashSet<String>(proceduresPresented)
+                : new HashSet<String>();
         TreeMap<String, String> map = new TreeMap<String, String>();
         for (String procedure : procedures) {
             if (procedure.toUpperCase().startsWith("BIN$"))
+                continue;
+            if (set.contains(procedure))
                 continue;
             map.put(toCamelCase(procedure), procedure);
         }
@@ -312,12 +319,16 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         return builder.toString();
     }
 
-    protected String getFunctionsDefinitions(List<String> functions) {
+    protected String getFunctionsDefinitions(List<String> functions, List<String> functionsPresented) {
         if (functions == null)
             return null;
+        Set<String> set = (functionsPresented != null) ? new HashSet<String>(functionsPresented)
+                : new HashSet<String>();
         TreeMap<String, String> map = new TreeMap<String, String>();
         for (String function : functions) {
             if (function.toUpperCase().startsWith("BIN$"))
+                continue;
+            if (set.contains(function))
                 continue;
             map.put(toCamelCase(function), function);
         }
@@ -583,8 +594,10 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         protected String resolve(TemplateContext context) {
             Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
             if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
+                List<String> tablesPresented = Utils.findTables(null, artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__TABLES));
                 List<String> tables = dbResolver.getTables(artifacts);
-                return getTablesDefinitions(tables);
+                return getTablesDefinitions(tables, tablesPresented);
             }
             return super.resolve(context);
         }
@@ -607,8 +620,10 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         protected String resolve(TemplateContext context) {
             Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
             if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
+                List<String> proceduresPresented = Utils.findProcedures(null, artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__PROCEDURES));
                 List<String> procedures = dbResolver.getProcedures(artifacts);
-                return getProceduresDefinitions(procedures);
+                return getProceduresDefinitions(procedures, proceduresPresented);
             }
             return super.resolve(context);
         }
@@ -631,8 +646,10 @@ public class ProcessorDslTemplateContextType extends XtextTemplateContextType {
         protected String resolve(TemplateContext context) {
             Artifacts artifacts = getArtifacts((XtextTemplateContext) context);
             if (artifacts != null && dbResolver.isResolveDb(artifacts)) {
+                List<String> functionsPresented = Utils.findFunctions(null, artifacts,
+                        scopeProvider.getScope(artifacts, ProcessorDslPackage.Literals.ARTIFACTS__FUNCTIONS));
                 List<String> functions = dbResolver.getFunctions(artifacts);
-                return getFunctionsDefinitions(functions);
+                return getFunctionsDefinitions(functions, functionsPresented);
             }
             return super.resolve(context);
         }
