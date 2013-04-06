@@ -958,64 +958,47 @@ public class TableMetaConverter extends TablePojoConverter {
         StringBuilder buffer = new StringBuilder();
         if (dbType != DbType.DB2)
             return buffer;
-        // buffer.append("\n").append("FUN_").append(pojo.toUpperCase()).append("(QRY");
-        // if (metaMakeItFinal)
-        // buffer.append(",final=");
-        // String pojoName = tableNames.get(pojo);
-        // if (pojoName == null)
-        // pojoName = pojo;
-        // buffer.append(",inx=").append(tableToCamelCase(pojoName));
-        // buffer.append(")=");
-        // buffer.append("\n  ");
-        // buffer.append("select ").append(pojo).append("(");
-        // boolean first = true;
-        // List<String> warnings = new ArrayList<String>();
-        // for (Map.Entry<String, PojoAttribute> pentry : functions.get(pojo).entrySet()) {
-        // // System.out.println("  RRR " + pentry.getKey());
-        // if (FAKE_FUN_PROC_COLUMN_NAME.equals(pentry.getKey()))
-        // continue;
-        // if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
-        // continue;
-        // PojoAttribute attribute = pentry.getValue();
-        // String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : null;
-        // if (name == null)
-        // name = attribute.getName();
-        // else
-        // name = columnToCamelCase(name);
-        // if (!first)
-        // buffer.append(", ");
-        // else
-        // first = false;
-        // buffer.append(":").append(name);
-        // }
-        // buffer.append(")\n;");
-        // buffer.append("\n").append("FUN_").append(pojo.toUpperCase()).append("(OUT");
-        // if (metaMakeItFinal)
-        // buffer.append(",final=");
-        // String outPojoName = tableNames.get(outPojo);
-        // if (outPojoName == null)
-        // outPojoName = outPojo;
-        // buffer.append(",outx=").append(tableToCamelCase(outPojoName));
-        // buffer.append(")=\n ");
-        // for (Map.Entry<String, PojoAttribute> pentry : pojos.get(outPojo).entrySet()) {
-        // // System.out.println("  RRR " + pentry.getKey());
-        // if (ignoreColumns.containsKey(outPojo) && ignoreColumns.get(outPojo).contains(pentry.getKey()))
-        // continue;
-        // PojoAttribute attribute = pentry.getValue();
-        // if (attribute.getDbName() == null)
-        // continue;
-        // String name = (columnNames.containsKey(outPojo)) ? columnNames.get(outPojo).get(pentry.getKey()) : null;
-        // if (name == null)
-        // name = attribute.getName();
-        // else
-        // name = columnToCamelCase(name);
-        // buffer.append(" ").append(attribute.getDbName()).append("$").append(name);
-        // }
-        // buffer.append("\n;");
-        // buffer.append("\n");
-        // for (String warning : warnings) {
-        // buffer.append("// ").append(warning);
-        // }
+        buffer.append("\n").append("FUN_").append(pojo.toUpperCase()).append("(QRY");
+        if (metaMakeItFinal)
+            buffer.append(",final=");
+        String pojoName = tableNames.get(pojo);
+        if (pojoName == null)
+            pojoName = pojo;
+        buffer.append(",inx=").append(tableToCamelCase(pojoName));
+        buffer.append(")=");
+        buffer.append("\n  ");
+        buffer.append("select ").append(pojo).append("(");
+        boolean first = true;
+        List<String> warnings = new ArrayList<String>();
+        for (Map.Entry<String, PojoAttribute> pentry : functions.get(pojo).entrySet()) {
+            // System.out.println("  RRR " + pentry.getKey());
+            if (FAKE_FUN_PROC_COLUMN_NAME.equals(pentry.getKey()) || FUN_PROC_COLUMN_NAME.equals(pentry.getKey()))
+                continue;
+            if (ignoreColumns.containsKey(pojo) && ignoreColumns.get(pojo).contains(pentry.getKey()))
+                continue;
+            PojoAttribute attribute = pentry.getValue();
+            String name = (columnNames.containsKey(pojo)) ? columnNames.get(pojo).get(pentry.getKey()) : null;
+            if (name == null)
+                name = attribute.getName();
+            else
+                name = columnToCamelCase(name);
+            if (!first)
+                buffer.append(", ");
+            else
+                first = false;
+            buffer.append(":").append(name);
+        }
+        buffer.append(") from SYSIBM.DUAL\n;");
+        buffer.append("\n").append("FUN_").append(pojo.toUpperCase()).append("(OUT");
+        if (metaMakeItFinal)
+            buffer.append(",final=");
+        buffer.append(",outx=").append(tableToCamelCase(pojoName));
+        buffer.append(")=\n ");
+        buffer.append("  1$result\n;");
+        buffer.append("\n");
+        for (String warning : warnings) {
+            buffer.append("// ").append(warning);
+        }
         return buffer;
     }
 
