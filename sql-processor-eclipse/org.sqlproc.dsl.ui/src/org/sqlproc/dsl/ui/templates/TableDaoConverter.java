@@ -286,6 +286,63 @@ public class TableDaoConverter extends TableMetaConverter {
                 }
                 buffer.append("\n  }\n");
             }
+            hasFunctions = false;
+            for (String pojo : functions.keySet()) {
+                // System.out.println("QQQQQ " + pojo);
+                if (!daoOnlyTables.isEmpty() && !daoOnlyTables.contains(pojo))
+                    continue;
+                if (daoIgnoreTables.contains(pojo))
+                    continue;
+                boolean isProcedure = procedures.containsKey(pojo);
+                if (!isProcedure) {
+                    hasFunctions = true;
+                    break;
+                }
+            }
+            if (hasFunctions && !finalDaos.contains("FunctionsDao")) {
+                buffer.append("\n  ");
+                if (daoMakeItFinal)
+                    buffer.append("final ");
+                buffer.append("dao FunctionsDao");
+                if (isSerializable)
+                    buffer.append(" serializable 1 ");
+                buffer.append(" {");
+                for (String function : functions.keySet()) {
+                    // System.out.println("QQQQQ " + pojo);
+                    if (!daoOnlyTables.isEmpty() && !daoOnlyTables.contains(function))
+                        continue;
+                    if (daoIgnoreTables.contains(function))
+                        continue;
+                    boolean isProcedure = procedures.containsKey(function);
+                    if (isProcedure)
+                        continue;
+                    buffer.append("\n    ");
+                    String pojoName = tableNames.get(function);
+                    if (pojoName == null)
+                        pojoName = function;
+                    pojoName = tableToCamelCase(pojoName);
+                    String functionName = lowerFirstChar(pojoName);
+                    Map<String, PojoAttribute> attributes = functions.get(function);
+                    if (metaFunctionsResultSet.containsKey(function)) {
+                        buffer.append("callQueryFunction ").append(functionName).append(" :java.util.List<:")
+                                .append(tableToCamelCase(metaFunctionsResultSet.get(function))).append(">");
+                    } else if (metaFunctionsResult.containsKey(function)) {
+                        buffer.append("callFunction ").append(functionName).append(" ")
+                                .append(metaType2className(metaFunctionsResult.get(function)));
+                    } else {
+                        PojoAttribute returnAttribute = (attributes.containsKey(FAKE_FUN_PROC_COLUMN_NAME)) ? attributes
+                                .get(FAKE_FUN_PROC_COLUMN_NAME) : null;
+                        if (returnAttribute != null) {
+                            buffer.append("callQueryFunction ").append(functionName).append(" :")
+                                    .append(returnAttribute.getClassName());
+                        } else {
+                            buffer.append("callUpdateFunction ").append(functionName).append(" _void");
+                        }
+                    }
+                    buffer.append(" ::: ").append(lowerFirstChar(pojoName)).append(" ::").append(pojoName);
+                }
+                buffer.append("\n  }\n");
+            }
             return buffer.toString();
         } catch (RuntimeException ex) {
             Writer writer = new StringWriter();

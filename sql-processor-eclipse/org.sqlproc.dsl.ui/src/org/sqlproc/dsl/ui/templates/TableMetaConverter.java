@@ -862,80 +862,75 @@ public class TableMetaConverter extends TablePojoConverter {
             }
         }
         buffer.append(")\n;");
-        if (dbType == DbType.HSQLDB || dbType == DbType.ORACLE || dbType == DbType.MY_SQL
-                || dbType == DbType.POSTGRESQL || dbType == DbType.INFORMIX) {
-            if ((dbType == DbType.HSQLDB || dbType == DbType.INFORMIX) && isFunction
-                    && metaFunctionsResult.containsKey(pojo)) {
+        if ((dbType == DbType.HSQLDB || dbType == DbType.INFORMIX) && isFunction
+                && metaFunctionsResult.containsKey(pojo)) {
+            buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo.toUpperCase()).append("(OUT");
+            if (metaMakeItFinal)
+                buffer.append(",final=");
+            buffer.append(")=");
+            buffer.append("\n  1$1(type=").append(metaFunctionsResult.get(pojo));
+            buffer.append(")\n;");
+        } else if (!isFunction && metaProceduresResultSet.containsKey(pojo)) {
+            String outPojo = metaProceduresResultSet.get(pojo);
+            if (pojos.containsKey(outPojo)) {
                 buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo.toUpperCase()).append("(OUT");
                 if (metaMakeItFinal)
                     buffer.append(",final=");
-                buffer.append(")=");
-                buffer.append("\n  1$1(type=").append(metaFunctionsResult.get(pojo));
-                buffer.append(")\n;");
-            } else if (!isFunction && metaProceduresResultSet.containsKey(pojo)) {
-                String outPojo = metaProceduresResultSet.get(pojo);
-                if (pojos.containsKey(outPojo)) {
-                    buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo.toUpperCase())
-                            .append("(OUT");
-                    if (metaMakeItFinal)
-                        buffer.append(",final=");
-                    String outPojoName = tableNames.get(outPojo);
-                    if (outPojoName == null)
-                        outPojoName = outPojo;
-                    buffer.append(",outx=").append(tableToCamelCase(outPojoName));
-                    buffer.append(")=\n ");
-                    for (Map.Entry<String, PojoAttribute> pentry : pojos.get(outPojo).entrySet()) {
-                        // System.out.println("  RRR " + pentry.getKey());
-                        if (ignoreColumns.containsKey(outPojo) && ignoreColumns.get(outPojo).contains(pentry.getKey()))
-                            continue;
-                        PojoAttribute attribute = pentry.getValue();
-                        if (attribute.getDbName() == null)
-                            continue;
-                        if (dbType == DbType.ORACLE && attribute.getSqlType() == 1111)
-                            continue;
-                        String name = (columnNames.containsKey(outPojo)) ? columnNames.get(outPojo)
-                                .get(pentry.getKey()) : null;
-                        if (name == null)
-                            name = attribute.getName();
-                        else
-                            name = columnToCamelCase(name);
-                        buffer.append(" ").append(attribute.getDbName()).append("$").append(name);
-                    }
-                    buffer.append("\n;");
-                } else {
-                    warnings.add("Missing pojo " + outPojo + " for a mapping rule devoted to " + pojo);
+                String outPojoName = tableNames.get(outPojo);
+                if (outPojoName == null)
+                    outPojoName = outPojo;
+                buffer.append(",outx=").append(tableToCamelCase(outPojoName));
+                buffer.append(")=\n ");
+                for (Map.Entry<String, PojoAttribute> pentry : pojos.get(outPojo).entrySet()) {
+                    // System.out.println("  RRR " + pentry.getKey());
+                    if (ignoreColumns.containsKey(outPojo) && ignoreColumns.get(outPojo).contains(pentry.getKey()))
+                        continue;
+                    PojoAttribute attribute = pentry.getValue();
+                    if (attribute.getDbName() == null)
+                        continue;
+                    if (dbType == DbType.ORACLE && attribute.getSqlType() == 1111)
+                        continue;
+                    String name = (columnNames.containsKey(outPojo)) ? columnNames.get(outPojo).get(pentry.getKey())
+                            : null;
+                    if (name == null)
+                        name = attribute.getName();
+                    else
+                        name = columnToCamelCase(name);
+                    buffer.append(" ").append(attribute.getDbName()).append("$").append(name);
                 }
-            } else if (isFunction && metaFunctionsResultSet.containsKey(pojo)) {
-                String outPojo = metaFunctionsResultSet.get(pojo);
-                if (pojos.containsKey(outPojo)) {
-                    buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo.toUpperCase())
-                            .append("(OUT");
-                    if (metaMakeItFinal)
-                        buffer.append(",final=");
-                    String outPojoName = tableNames.get(outPojo);
-                    if (outPojoName == null)
-                        outPojoName = outPojo;
-                    buffer.append(",outx=").append(tableToCamelCase(outPojoName));
-                    buffer.append(")=\n ");
-                    for (Map.Entry<String, PojoAttribute> pentry : pojos.get(outPojo).entrySet()) {
-                        // System.out.println("  RRR " + pentry.getKey());
-                        if (ignoreColumns.containsKey(outPojo) && ignoreColumns.get(outPojo).contains(pentry.getKey()))
-                            continue;
-                        PojoAttribute attribute = pentry.getValue();
-                        if (attribute.getDbName() == null)
-                            continue;
-                        String name = (columnNames.containsKey(outPojo)) ? columnNames.get(outPojo)
-                                .get(pentry.getKey()) : null;
-                        if (name == null)
-                            name = attribute.getName();
-                        else
-                            name = columnToCamelCase(name);
-                        buffer.append(" ").append(attribute.getDbName()).append("$").append(name);
-                    }
-                    buffer.append("\n;");
-                } else {
-                    warnings.add("Missing pojo " + outPojo + " for a mapping rule devoted to " + pojo);
+                buffer.append("\n;");
+            } else {
+                warnings.add("Missing pojo " + outPojo + " for a mapping rule devoted to " + pojo);
+            }
+        } else if (isFunction && metaFunctionsResultSet.containsKey(pojo)) {
+            String outPojo = metaFunctionsResultSet.get(pojo);
+            if (pojos.containsKey(outPojo)) {
+                buffer.append("\n").append(((isFunction) ? "FUN_" : "PROC_")).append(pojo.toUpperCase()).append("(OUT");
+                if (metaMakeItFinal)
+                    buffer.append(",final=");
+                String outPojoName = tableNames.get(outPojo);
+                if (outPojoName == null)
+                    outPojoName = outPojo;
+                buffer.append(",outx=").append(tableToCamelCase(outPojoName));
+                buffer.append(")=\n ");
+                for (Map.Entry<String, PojoAttribute> pentry : pojos.get(outPojo).entrySet()) {
+                    // System.out.println("  RRR " + pentry.getKey());
+                    if (ignoreColumns.containsKey(outPojo) && ignoreColumns.get(outPojo).contains(pentry.getKey()))
+                        continue;
+                    PojoAttribute attribute = pentry.getValue();
+                    if (attribute.getDbName() == null)
+                        continue;
+                    String name = (columnNames.containsKey(outPojo)) ? columnNames.get(outPojo).get(pentry.getKey())
+                            : null;
+                    if (name == null)
+                        name = attribute.getName();
+                    else
+                        name = columnToCamelCase(name);
+                    buffer.append(" ").append(attribute.getDbName()).append("$").append(name);
                 }
+                buffer.append("\n;");
+            } else {
+                warnings.add("Missing pojo " + outPojo + " for a mapping rule devoted to " + pojo);
             }
         }
         buffer.append("\n");
@@ -944,6 +939,13 @@ public class TableMetaConverter extends TablePojoConverter {
         }
         return buffer;
     }
+
+    // SIMPLE_FUNCTION_QRY(QRY,DB2)=
+    // SELECT an_hour_before(CAST(:time(type=stamp) AS timestamp)) FROM SYSIBM.DUAL
+    // ;
+    // SIMPLE_FUNCTION_QRY(OUT,DB2)=
+    // 1$time2(type=stamp)
+    // ;
 
     StringBuilder metaCallFunctionDefinition(String pojo) {
         StringBuilder buffer = new StringBuilder();
