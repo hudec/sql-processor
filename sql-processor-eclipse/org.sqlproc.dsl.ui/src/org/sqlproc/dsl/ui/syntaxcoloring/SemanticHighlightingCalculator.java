@@ -27,6 +27,8 @@ import org.sqlproc.dsl.processorDsl.PackageDeclaration;
 import org.sqlproc.dsl.processorDsl.PojoDao;
 import org.sqlproc.dsl.processorDsl.PojoDefinition;
 import org.sqlproc.dsl.processorDsl.PojoEntity;
+import org.sqlproc.dsl.processorDsl.PojoMethod;
+import org.sqlproc.dsl.processorDsl.PojoMethodArg;
 import org.sqlproc.dsl.processorDsl.PojoProperty;
 import org.sqlproc.dsl.processorDsl.ProcedureDefinition;
 import org.sqlproc.dsl.processorDsl.TableDefinition;
@@ -158,6 +160,30 @@ public class SemanticHighlightingCalculator implements ISemanticHighlightingCalc
                 PojoEntity ref = dao.getPojo();
                 if (ref != null)
                     provideHighlightingForPojoEntity(ref.getName(), node, acceptor);
+            } else if (current instanceof PojoMethod) {
+                ICompositeNode node = NodeModelUtils.getNode(current);
+                PojoMethod method = (PojoMethod) current;
+                provideHighlightingForPojoProperty(method.getName(), node, acceptor);
+                if (method.getType() != null) {
+                    PojoEntity ref = method.getType().getRef();
+                    if (ref != null)
+                        provideHighlightingForPojoEntity(ref.getName(), node, acceptor);
+                    PojoEntity gref = method.getType().getGref();
+                    if (gref != null)
+                        provideHighlightingForPojoEntity(gref.getName(), node, acceptor);
+                }
+                if (method.getArgs() != null && !method.getArgs().isEmpty()) {
+                    for (PojoMethodArg arg : method.getArgs()) {
+                        if (arg.getType() != null) {
+                            PojoEntity ref = arg.getType().getRef();
+                            if (ref != null)
+                                provideHighlightingForPojoEntity(ref.getName(), node, acceptor);
+                            PojoEntity gref = arg.getType().getGref();
+                            if (gref != null)
+                                provideHighlightingForPojoEntity(gref.getName(), node, acceptor);
+                        }
+                    }
+                }
             }
         }
     }
