@@ -7202,14 +7202,16 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCallQueryCallQueryKeyword_2_0 = (Keyword)cCallQueryAssignment_2.eContents().get(0);
 		private final Assignment cCallQueryFunctionAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
 		private final Keyword cCallQueryFunctionCallQueryFunctionKeyword_3_0 = (Keyword)cCallQueryFunctionAssignment_3.eContents().get(0);
+		private final Assignment cCallSelectFunctionAssignment_4 = (Assignment)cAlternatives.eContents().get(4);
+		private final Keyword cCallSelectFunctionCallSelectFunctionKeyword_4_0 = (Keyword)cCallSelectFunctionAssignment_4.eContents().get(0);
 		
 		//PojoMethodModifier:
 		//	callFunction?="callFunction" | callUpdate?="callUpdate" | callQuery?="callQuery" |
-		//	callQueryFunction?="callQueryFunction";
+		//	callQueryFunction?="callQueryFunction" | callSelectFunction?="callSelectFunction";
 		public ParserRule getRule() { return rule; }
 
 		//callFunction?="callFunction" | callUpdate?="callUpdate" | callQuery?="callQuery" |
-		//callQueryFunction?="callQueryFunction"
+		//callQueryFunction?="callQueryFunction" | callSelectFunction?="callSelectFunction"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//callFunction?="callFunction"
@@ -7235,6 +7237,12 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"callQueryFunction"
 		public Keyword getCallQueryFunctionCallQueryFunctionKeyword_3_0() { return cCallQueryFunctionCallQueryFunctionKeyword_3_0; }
+
+		//callSelectFunction?="callSelectFunction"
+		public Assignment getCallSelectFunctionAssignment_4() { return cCallSelectFunctionAssignment_4; }
+
+		//"callSelectFunction"
+		public Keyword getCallSelectFunctionCallSelectFunctionKeyword_4_0() { return cCallSelectFunctionCallSelectFunctionKeyword_4_0; }
 	}
 
 	public class PojoMethodElements extends AbstractParserRuleElementFinder {
@@ -8630,7 +8638,7 @@ public class ProcessorDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PojoMethodModifier:
 	//	callFunction?="callFunction" | callUpdate?="callUpdate" | callQuery?="callQuery" |
-	//	callQueryFunction?="callQueryFunction";
+	//	callQueryFunction?="callQueryFunction" | callSelectFunction?="callSelectFunction";
 	public PojoMethodModifierElements getPojoMethodModifierAccess() {
 		return (pPojoMethodModifier != null) ? pPojoMethodModifier : (pPojoMethodModifier = new PojoMethodModifierElements());
 	}

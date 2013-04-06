@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethodModifier#isCallUpdate <em>Call Update</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethodModifier#isCallQuery <em>Call Query</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethodModifier#isCallQueryFunction <em>Call Query Function</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.PojoMethodModifier#isCallSelectFunction <em>Call Select Function</em>}</li>
  * </ul>
  * </p>
  *
@@ -128,5 +129,31 @@ public interface PojoMethodModifier extends EObject
    * @generated
    */
   void setCallQueryFunction(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Call Select Function</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Call Select Function</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Call Select Function</em>' attribute.
+   * @see #setCallSelectFunction(boolean)
+   * @see org.sqlproc.dsl.processorDsl.ProcessorDslPackage#getPojoMethodModifier_CallSelectFunction()
+   * @model
+   * @generated
+   */
+  boolean isCallSelectFunction();
+
+  /**
+   * Sets the value of the '{@link org.sqlproc.dsl.processorDsl.PojoMethodModifier#isCallSelectFunction <em>Call Select Function</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Call Select Function</em>' attribute.
+   * @see #isCallSelectFunction()
+   * @generated
+   */
+  void setCallSelectFunction(boolean value);
 
 } // PojoMethodModifier

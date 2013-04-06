@@ -366,7 +366,7 @@ public «IF isAbstract(d)»abstract «ENDIF»class «d.name»«IF d.implPackage 
   «compileList(d, e, toInits, importManager)»
   «compileCount(d, e, toInits, importManager)»
   «IF !toInits.empty»«compileMoreResultClasses(d, e, toInits, importManager)»«ENDIF»«ELSEIF isCallUpdate(m)»
-  «compileCallUpdate(d, m, importManager)»«ELSEIF isCallFunction(m)»«compileCallFunction(d, m, importManager)»«ELSEIF isCallQuery(m) || isCallQueryFunction(m)»«compileCallQuery(d, m, importManager, isCallQueryFunction(m))»«ENDIF»«ENDFOR»
+  «compileCallUpdate(d, m, importManager)»«ELSEIF isCallFunction(m)»«compileCallFunction(d, m, importManager)»«ELSEIF isCallQuery(m) || isCallQueryFunction(m)»«compileCallQuery(d, m, importManager, isCallQueryFunction(m))»«ELSEIF isCallSelectFunction(m)»«compileCallSelectFunction(d, m, importManager)»«ENDIF»«ENDFOR»
 }
 '''
 
@@ -447,6 +447,33 @@ def compileCallUpdate(PojoDao d, PojoMethod m, ImportManager importManager) '''
     }
 
     public int «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR») {
+      return «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», null);
+    }
+'''
+
+def compileCallSelectFunction(PojoDao d, PojoMethod m, ImportManager importManager) '''
+
+    public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl) {
+      if (logger.isTraceEnabled()) {
+        logger.trace("«m.name»: " + «FOR ma:m.args SEPARATOR " + \" \" "»«ma.name»«ENDFOR» + " " + sqlControl);
+      }
+      SqlQueryEngine sqlFun«m.name.toFirstUpper» = sqlEngineFactory.getCheckedQueryEngine("FUN_«dbName(m)»");
+      java.util.List<«m.args.get(0).type.compileType(importManager)»> list = sqlFun«m.name.toFirstUpper».query(sqlSession, «m.args.get(0).type.compileType(importManager)».class, «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», sqlControl);
+      if (logger.isTraceEnabled()) {
+        logger.trace("«m.name» result: " + list);
+      }
+      return (list != null && !list.isEmpty()) ? list.get(0).getResult() : null;
+    }
+
+    public «m.type.compileType(importManager)» «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl) {
+    	return «m.name»(sqlSessionFactory.getSqlSession(), «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», sqlControl);
+    }
+
+    public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR») {
+      return «m.name»(sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», null);
+    }
+
+    public «m.type.compileType(importManager)» «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR») {
       return «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.name»«ENDFOR», null);
     }
 '''

@@ -46,6 +46,7 @@ package org.sample.model {
 
   final pojo AnHourBefore serializable 1  { // function
     t : java.sql.Timestamp
-    toString ::: t
+    result : java.sql.Timestamp
+    toString ::: result t
   }
 }

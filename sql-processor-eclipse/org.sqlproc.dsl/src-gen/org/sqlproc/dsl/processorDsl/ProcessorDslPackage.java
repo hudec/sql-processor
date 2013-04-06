@@ -3401,13 +3401,22 @@ public interface ProcessorDslPackage extends EPackage
   int POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION = 3;
 
   /**
+   * The feature id for the '<em><b>Call Select Function</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int POJO_METHOD_MODIFIER__CALL_SELECT_FUNCTION = 4;
+
+  /**
    * The number of structural features of the '<em>Pojo Method Modifier</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int POJO_METHOD_MODIFIER_FEATURE_COUNT = 4;
+  int POJO_METHOD_MODIFIER_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodImpl <em>Pojo Method</em>}' class.
@@ -6739,6 +6748,17 @@ public interface ProcessorDslPackage extends EPackage
   EAttribute getPojoMethodModifier_CallQueryFunction();
 
   /**
+   * Returns the meta object for the attribute '{@link org.sqlproc.dsl.processorDsl.PojoMethodModifier#isCallSelectFunction <em>Call Select Function</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Call Select Function</em>'.
+   * @see org.sqlproc.dsl.processorDsl.PojoMethodModifier#isCallSelectFunction()
+   * @see #getPojoMethodModifier()
+   * @generated
+   */
+  EAttribute getPojoMethodModifier_CallSelectFunction();
+
+  /**
    * Returns the meta object for class '{@link org.sqlproc.dsl.processorDsl.PojoMethod <em>Pojo Method</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -9390,6 +9410,14 @@ public interface ProcessorDslPackage extends EPackage
      * @generated
      */
     EAttribute POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION = eINSTANCE.getPojoMethodModifier_CallQueryFunction();
+
+    /**
+     * The meta object literal for the '<em><b>Call Select Function</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POJO_METHOD_MODIFIER__CALL_SELECT_FUNCTION = eINSTANCE.getPojoMethodModifier_CallSelectFunction();
 
     /**
      * The meta object literal for the '{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodImpl <em>Pojo Method</em>}' class.

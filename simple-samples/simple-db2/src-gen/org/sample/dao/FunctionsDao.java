@@ -38,12 +38,12 @@ public class FunctionsDao {
     if (logger.isTraceEnabled()) {
       logger.trace("anHourBefore: " + anHourBefore + " " + sqlControl);
     }
-    SqlProcedureEngine sqlFunAnHourBefore = sqlEngineFactory.getCheckedProcedureEngine("FUN_AN_HOUR_BEFORE");
-    Object result = sqlFunAnHourBefore.callFunction(sqlSession, anHourBefore, sqlControl);
+    SqlQueryEngine sqlFunAnHourBefore = sqlEngineFactory.getCheckedQueryEngine("FUN_AN_HOUR_BEFORE");
+    java.util.List<AnHourBefore> list = sqlFunAnHourBefore.query(sqlSession, AnHourBefore.class, anHourBefore, sqlControl);
     if (logger.isTraceEnabled()) {
-      logger.trace("anHourBefore result: " + result);
+      logger.trace("anHourBefore result: " + list);
     }
-    return (Timestamp) result;
+    return (list != null && !list.isEmpty()) ? list.get(0).getResult() : null;
   }
   
   public Timestamp anHourBefore(AnHourBefore anHourBefore, SqlControl sqlControl) {

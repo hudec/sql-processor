@@ -326,6 +326,9 @@ public class TableDaoConverter extends TableMetaConverter {
                     if (metaFunctionsResultSet.containsKey(function)) {
                         buffer.append("callQueryFunction ").append(functionName).append(" :java.util.List<:")
                                 .append(tableToCamelCase(metaFunctionsResultSet.get(function))).append(">");
+                    } else if (metaFunctionsResult.containsKey(function) && dbType == DbType.DB2) {
+                        buffer.append("callSelectFunction ").append(functionName).append(" ")
+                                .append(metaType2className(metaFunctionsResult.get(function)));
                     } else if (metaFunctionsResult.containsKey(function)) {
                         buffer.append("callFunction ").append(functionName).append(" ")
                                 .append(metaType2className(metaFunctionsResult.get(function)));
@@ -351,40 +354,6 @@ public class TableDaoConverter extends TableMetaConverter {
             String s = writer.toString();
             return s;
         }
-    }
-
-    private String metaType2className(String metaType) {
-        if ("stamp".equalsIgnoreCase(metaType))
-            return ":java.sql.Timestamp";
-        if ("date".equalsIgnoreCase(metaType))
-            return ":java.util.Date";
-        if ("time".equalsIgnoreCase(metaType))
-            return ":java.util.Time";
-        if ("byte".equalsIgnoreCase(metaType))
-            return ":java.lang.Byte";
-        if ("boolean".equalsIgnoreCase(metaType))
-            return ":java.lang.Boolean";
-        if ("short".equalsIgnoreCase(metaType))
-            return ":java.lang.Short";
-        if ("int".equalsIgnoreCase(metaType))
-            return ":java.lang.Integer";
-        if ("long".equalsIgnoreCase(metaType))
-            return ":java.lang.Long";
-        if ("string".equalsIgnoreCase(metaType))
-            return ":java.lang.String";
-        if ("double".equalsIgnoreCase(metaType))
-            return ":java.lang.Double";
-        if ("float".equalsIgnoreCase(metaType))
-            return ":java.lang.Float";
-        if ("bigint".equalsIgnoreCase(metaType))
-            return ":java.math.BigInteger";
-        if ("biginteger".equalsIgnoreCase(metaType))
-            return ":java.math.BigInteger";
-        if ("bigdec".equalsIgnoreCase(metaType))
-            return ":java.math.BigDecimal";
-        if ("bigdecimal".equalsIgnoreCase(metaType))
-            return ":java.math.BigDecimal";
-        return metaType;
     }
 
     protected void toInits(String pojo, Map<String, String> toInit) {

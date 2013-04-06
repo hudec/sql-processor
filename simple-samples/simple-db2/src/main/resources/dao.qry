@@ -14,6 +14,6 @@ package org.sample.dao {
   }
 
   final dao FunctionsDao {
-    callFunction anHourBefore :java.sql.Timestamp ::: anHourBefore ::AnHourBefore
+    callSelectFunction anHourBefore :java.sql.Timestamp ::: anHourBefore ::AnHourBefore
   }
 }

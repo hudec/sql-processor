@@ -6067,6 +6067,12 @@ rule__PojoMethodModifier__Alternatives
 { after(grammarAccess.getPojoMethodModifierAccess().getCallQueryFunctionAssignment_3()); }
 )
 
+    |(
+{ before(grammarAccess.getPojoMethodModifierAccess().getCallSelectFunctionAssignment_4()); }
+(rule__PojoMethodModifier__CallSelectFunctionAssignment_4)
+{ after(grammarAccess.getPojoMethodModifierAccess().getCallSelectFunctionAssignment_4()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -33823,6 +33829,29 @@ rule__PojoMethodModifier__CallQueryFunctionAssignment_3
 )
 
 { after(grammarAccess.getPojoMethodModifierAccess().getCallQueryFunctionCallQueryFunctionKeyword_3_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PojoMethodModifier__CallSelectFunctionAssignment_4
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPojoMethodModifierAccess().getCallSelectFunctionCallSelectFunctionKeyword_4_0()); }
+(
+{ before(grammarAccess.getPojoMethodModifierAccess().getCallSelectFunctionCallSelectFunctionKeyword_4_0()); }
+
+	'callSelectFunction' 
+
+{ after(grammarAccess.getPojoMethodModifierAccess().getCallSelectFunctionCallSelectFunctionKeyword_4_0()); }
+)
+
+{ after(grammarAccess.getPojoMethodModifierAccess().getCallSelectFunctionCallSelectFunctionKeyword_4_0()); }
 )
 
 ;

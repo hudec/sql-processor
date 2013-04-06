@@ -102,6 +102,8 @@ public class TablePojoConverter {
     protected Set<String> dbSequences = new TreeSet<String>();
     protected DbType dbType = null;
 
+    protected Map<String, String> metaFunctionsResult = new HashMap<String, String>();
+
     public TablePojoConverter() {
     }
 
@@ -237,6 +239,11 @@ public class TablePojoConverter {
         this.dbSequences.addAll(dbSequences);
         this.dbType = dbType;
 
+        Map<String, String> metaFunctionsResult = modelProperty.getMetaFunctionsResult(artifacts);
+        if (metaFunctionsResult != null) {
+            this.metaFunctionsResult.putAll(metaFunctionsResult);
+        }
+
         if (debug) {
             System.out.println("finalEntities " + this.finalEntities);
             System.out.println("sqlTypes " + this.sqlTypes);
@@ -267,6 +274,7 @@ public class TablePojoConverter {
             System.out.println("versionColumns " + this.versionColumns);
             System.out.println("sequences " + this.dbSequences);
             System.out.println("dbType " + this.dbType);
+            System.out.println("metaFunctionsResult " + this.metaFunctionsResult);
         }
     }
 
@@ -555,6 +563,7 @@ public class TablePojoConverter {
     }
 
     public static final String FAKE_FUN_PROC_COLUMN_NAME = "_result_";
+    public static final String FUN_PROC_COLUMN_NAME = "RESULT";
 
     public void addProcedureDefinition(String procedure, DbTable dbProcedure, List<DbColumn> dbProcColumns,
             boolean isFunction) {
@@ -633,6 +642,12 @@ public class TablePojoConverter {
                 attribute.setFunProcType(dbFunction.getFtype());
                 attribute.setFunProcColumnType((short) 1);
             }
+        }
+        if (dbType == DbType.DB2 && metaFunctionsResult.containsKey(function)) {
+            PojoAttribute attribute = convertDbColumnDefinition(FUN_PROC_COLUMN_NAME, metaFunctionsResult.get(function));
+            attributes.put(FUN_PROC_COLUMN_NAME, attribute);
+            attribute.setFunProcType(dbFunction.getFtype());
+            attribute.setFunProcColumnType((short) 5);
         }
         functions.put(function, attributes);
     }
@@ -1103,6 +1118,14 @@ public class TablePojoConverter {
         return attribute;
     }
 
+    protected PojoAttribute convertDbColumnDefinition(String dbName, String metaType) {
+        PojoAttribute attribute = new PojoAttribute(dbName);
+        attribute.setName(columnToCamelCase(dbName));
+        attribute.setPrimitive(false);
+        attribute.setClassName(metaType2className(metaType).substring(1));
+        return attribute;
+    }
+
     protected PojoAttribute convertDbColumnDefinition(String table, DbColumn dbColumn) {
         if (dbColumn == null)
             return null;
@@ -1272,4 +1295,39 @@ public class TablePojoConverter {
         attribute.setSqlType(dbColumn.getSqlType());
         return attribute;
     }
+
+    protected String metaType2className(String metaType) {
+        if ("stamp".equalsIgnoreCase(metaType))
+            return ":java.sql.Timestamp";
+        if ("date".equalsIgnoreCase(metaType))
+            return ":java.util.Date";
+        if ("time".equalsIgnoreCase(metaType))
+            return ":java.util.Time";
+        if ("byte".equalsIgnoreCase(metaType))
+            return ":java.lang.Byte";
+        if ("boolean".equalsIgnoreCase(metaType))
+            return ":java.lang.Boolean";
+        if ("short".equalsIgnoreCase(metaType))
+            return ":java.lang.Short";
+        if ("int".equalsIgnoreCase(metaType))
+            return ":java.lang.Integer";
+        if ("long".equalsIgnoreCase(metaType))
+            return ":java.lang.Long";
+        if ("string".equalsIgnoreCase(metaType))
+            return ":java.lang.String";
+        if ("double".equalsIgnoreCase(metaType))
+            return ":java.lang.Double";
+        if ("float".equalsIgnoreCase(metaType))
+            return ":java.lang.Float";
+        if ("bigint".equalsIgnoreCase(metaType))
+            return ":java.math.BigInteger";
+        if ("biginteger".equalsIgnoreCase(metaType))
+            return ":java.math.BigInteger";
+        if ("bigdec".equalsIgnoreCase(metaType))
+            return ":java.math.BigDecimal";
+        if ("bigdecimal".equalsIgnoreCase(metaType))
+            return ":java.math.BigDecimal";
+        return metaType;
+    }
+
 }

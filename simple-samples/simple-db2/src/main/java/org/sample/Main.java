@@ -5,6 +5,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
@@ -12,6 +13,7 @@ import org.sample.dao.ContactDao;
 import org.sample.dao.FunctionsDao;
 import org.sample.dao.PersonDao;
 import org.sample.dao.ProceduresDao;
+import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
 import org.sample.model.NewPerson;
 import org.sample.model.NewPersonRetRs;
@@ -180,10 +182,10 @@ public class Main {
         Assert.assertEquals(1, count);
 
         // function
-        // AnHourBefore anHourBefore = new AnHourBefore();
-        // anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
-        // java.sql.Timestamp result = main.getFunctionsDao().anHourBefore(anHourBefore);
-        // Assert.assertNotNull(result);
+        AnHourBefore anHourBefore = new AnHourBefore();
+        anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
+        java.sql.Timestamp result = main.getFunctionsDao().anHourBefore(anHourBefore);
+        Assert.assertNotNull(result);
 
         // procedures
         NewPerson newPerson = new NewPerson();

@@ -12127,6 +12127,22 @@ rulePojoMethodModifier returns [EObject current=null]
 	    }
 
 )
+)
+    |(
+(
+		lv_callSelectFunction_4_0=	'callSelectFunction' 
+    {
+        newLeafNode(lv_callSelectFunction_4_0, grammarAccess.getPojoMethodModifierAccess().getCallSelectFunctionCallSelectFunctionKeyword_4_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getPojoMethodModifierRule());
+	        }
+       		setWithLastConsumed($current, "callSelectFunction", true, "callSelectFunction");
+	    }
+
+)
 ))
 ;
 

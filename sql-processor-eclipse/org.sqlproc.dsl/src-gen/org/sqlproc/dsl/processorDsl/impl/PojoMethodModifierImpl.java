@@ -23,6 +23,7 @@ import org.sqlproc.dsl.processorDsl.ProcessorDslPackage;
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodModifierImpl#isCallUpdate <em>Call Update</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodModifierImpl#isCallQuery <em>Call Query</em>}</li>
  *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodModifierImpl#isCallQueryFunction <em>Call Query Function</em>}</li>
+ *   <li>{@link org.sqlproc.dsl.processorDsl.impl.PojoMethodModifierImpl#isCallSelectFunction <em>Call Select Function</em>}</li>
  * </ul>
  * </p>
  *
@@ -109,6 +110,26 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected boolean callQueryFunction = CALL_QUERY_FUNCTION_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isCallSelectFunction() <em>Call Select Function</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isCallSelectFunction()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean CALL_SELECT_FUNCTION_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isCallSelectFunction() <em>Call Select Function</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isCallSelectFunction()
+   * @generated
+   * @ordered
+   */
+  protected boolean callSelectFunction = CALL_SELECT_FUNCTION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -228,6 +249,29 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isCallSelectFunction()
+  {
+    return callSelectFunction;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCallSelectFunction(boolean newCallSelectFunction)
+  {
+    boolean oldCallSelectFunction = callSelectFunction;
+    callSelectFunction = newCallSelectFunction;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_SELECT_FUNCTION, oldCallSelectFunction, callSelectFunction));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -241,6 +285,8 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
         return isCallQuery();
       case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION:
         return isCallQueryFunction();
+      case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_SELECT_FUNCTION:
+        return isCallSelectFunction();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -266,6 +312,9 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
         return;
       case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION:
         setCallQueryFunction((Boolean)newValue);
+        return;
+      case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_SELECT_FUNCTION:
+        setCallSelectFunction((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -293,6 +342,9 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
       case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION:
         setCallQueryFunction(CALL_QUERY_FUNCTION_EDEFAULT);
         return;
+      case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_SELECT_FUNCTION:
+        setCallSelectFunction(CALL_SELECT_FUNCTION_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -315,6 +367,8 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
         return callQuery != CALL_QUERY_EDEFAULT;
       case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_QUERY_FUNCTION:
         return callQueryFunction != CALL_QUERY_FUNCTION_EDEFAULT;
+      case ProcessorDslPackage.POJO_METHOD_MODIFIER__CALL_SELECT_FUNCTION:
+        return callSelectFunction != CALL_SELECT_FUNCTION_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -338,6 +392,8 @@ public class PojoMethodModifierImpl extends MinimalEObjectImpl.Container impleme
     result.append(callQuery);
     result.append(", callQueryFunction: ");
     result.append(callQueryFunction);
+    result.append(", callSelectFunction: ");
+    result.append(callSelectFunction);
     result.append(')');
     return result.toString();
   }

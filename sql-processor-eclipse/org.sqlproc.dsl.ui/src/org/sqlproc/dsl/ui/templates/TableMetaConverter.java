@@ -47,7 +47,6 @@ public class TableMetaConverter extends TablePojoConverter {
     protected boolean metaGenerateIdentities;
     protected Map<String, StringBuilder> sequences = null;
     protected Map<String, StringBuilder> identities = null;
-    protected Map<String, String> metaFunctionsResult = new HashMap<String, String>();
     protected Map<String, String> metaFunctionsResultSet = new HashMap<String, String>();
     protected Map<String, String> metaProceduresResultSet = new HashMap<String, String>();
 
@@ -129,10 +128,6 @@ public class TableMetaConverter extends TablePojoConverter {
                 metaIdentityDefinition(null, identities);
             }
         }
-        Map<String, String> metaFunctionsResult = modelProperty.getMetaFunctionsResult(artifacts);
-        if (metaFunctionsResult != null) {
-            this.metaFunctionsResult.putAll(metaFunctionsResult);
-        }
         Map<String, String> metaFunctionsResultSet = modelProperty.getMetaFunctionsResultSet(artifacts);
         if (metaFunctionsResultSet != null) {
             this.metaFunctionsResultSet.putAll(metaFunctionsResultSet);
@@ -155,7 +150,6 @@ public class TableMetaConverter extends TablePojoConverter {
             System.out.println("metaNotLikeColumns " + this.metaNotLikeColumns);
             System.out.println("metaGenerateSequences " + this.metaGenerateSequences);
             System.out.println("metaGenerateIdentities " + this.metaGenerateIdentities);
-            System.out.println("metaFunctionsResult " + this.metaFunctionsResult);
             System.out.println("metaFunctionsResultSet " + this.metaFunctionsResultSet);
             System.out.println("metaProceduresResultSet " + this.metaProceduresResultSet);
         }
