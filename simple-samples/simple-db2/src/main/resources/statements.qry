@@ -115,3 +115,10 @@ PROC_NEW_PERSON_RET_RS(CALL,final=,inx=NewPersonRetRs)=
 PROC_NEW_PERSON_RET_RS(OUT,final=,outx=Person)=
   ID$id FIRST_NAME$firstName LAST_NAME$lastName DATE_OF_BIRTH$dateOfBirth SSN$ssn
 ;
+
+    // SIMPLE_FUNCTION_QRY(QRY,DB2)=
+    // SELECT an_hour_before(CAST(:time(type=stamp) AS timestamp)) FROM SYSIBM.DUAL
+    // ;
+    // SIMPLE_FUNCTION_QRY(OUT,DB2)=
+    // 1$time2(type=stamp)
+    // ;
