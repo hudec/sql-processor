@@ -10,6 +10,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -36,7 +37,7 @@ public class PersonLibraryDao {
       logger.trace("insert personLibrary: " + personLibrary + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertPersonLibrary = sqlEngineFactory.getCheckedCrudEngine("INSERT_PERSON_LIBRARY");
-    int count = sqlInsertPersonLibrary.insert(sqlSession, personLibrary);
+    int count = sqlInsertPersonLibrary.insert(sqlSession, personLibrary, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("insert personLibrary result: " + count + " " + personLibrary);
     }
@@ -151,5 +152,30 @@ public class PersonLibraryDao {
   
   public List<PersonLibrary> list(PersonLibrary personLibrary) {
     return list(personLibrary, null);
+  }
+  
+  public int count(SqlSession sqlSession, PersonLibrary personLibrary, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count personLibrary: " + personLibrary + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEnginePersonLibrary = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON_LIBRARY");
+    //sqlControl = getMoreResultClasses(personLibrary, sqlControl);
+    int count = sqlEnginePersonLibrary.queryCount(sqlSession, personLibrary, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(PersonLibrary personLibrary, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), personLibrary, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, PersonLibrary personLibrary) {
+    return count(sqlSession, personLibrary, null);
+  }
+  
+  public int count(PersonLibrary personLibrary) {
+    return count(personLibrary, null);
   }
 }

@@ -1,5 +1,3 @@
-//SEQ1(OPT)=call NEXT VALUE FOR SIMPLE_SEQUENCE;
-//SEL1(OPT)=call identity(); 
 
 INSERT_BANK_ACCOUNT(CRUD,final=,inx=BankAccount,outx=BankAccount,tab=billingDetails)=
   insert into %%BILLING_DETAILS (%BA_ACCOUNT, %ID, %SUBSCRIBER, %TYPE, %VERSION)

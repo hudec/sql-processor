@@ -46,4 +46,12 @@ public interface PhysicalMediaDao {
   public List<PhysicalMedia> list(SqlSession sqlSession, PhysicalMedia physicalMedia);
   
   public List<PhysicalMedia> list(PhysicalMedia physicalMedia);
+  
+  public int count(SqlSession sqlSession, PhysicalMedia physicalMedia, SqlControl sqlControl);
+  
+  public int count(PhysicalMedia physicalMedia, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, PhysicalMedia physicalMedia);
+  
+  public int count(PhysicalMedia physicalMedia);
 }

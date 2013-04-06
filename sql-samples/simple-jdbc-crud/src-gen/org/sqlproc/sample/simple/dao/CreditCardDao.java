@@ -10,6 +10,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -36,7 +37,7 @@ public class CreditCardDao {
       logger.trace("insert creditCard: " + creditCard + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertCreditCard = sqlEngineFactory.getCheckedCrudEngine("INSERT_CREDIT_CARD");
-    int count = sqlInsertCreditCard.insert(sqlSession, creditCard);
+    int count = sqlInsertCreditCard.insert(sqlSession, creditCard, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("insert creditCard result: " + count + " " + creditCard);
     }
@@ -151,5 +152,30 @@ public class CreditCardDao {
   
   public List<CreditCard> list(CreditCard creditCard) {
     return list(creditCard, null);
+  }
+  
+  public int count(SqlSession sqlSession, CreditCard creditCard, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count creditCard: " + creditCard + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineCreditCard = sqlEngineFactory.getCheckedQueryEngine("SELECT_CREDIT_CARD");
+    //sqlControl = getMoreResultClasses(creditCard, sqlControl);
+    int count = sqlEngineCreditCard.queryCount(sqlSession, creditCard, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(CreditCard creditCard, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), creditCard, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, CreditCard creditCard) {
+    return count(sqlSession, creditCard, null);
+  }
+  
+  public int count(CreditCard creditCard) {
+    return count(creditCard, null);
   }
 }

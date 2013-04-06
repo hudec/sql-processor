@@ -46,4 +46,12 @@ public interface PaymentDao {
   public List<Payment> list(SqlSession sqlSession, Payment payment);
   
   public List<Payment> list(Payment payment);
+  
+  public int count(SqlSession sqlSession, Payment payment, SqlControl sqlControl);
+  
+  public int count(Payment payment, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, Payment payment);
+  
+  public int count(Payment payment);
 }

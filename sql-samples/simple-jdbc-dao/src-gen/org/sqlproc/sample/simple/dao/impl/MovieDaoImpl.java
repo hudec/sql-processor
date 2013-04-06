@@ -15,6 +15,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -42,9 +43,9 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     }
     SqlCrudEngine sqlInsertMovie = sqlEngineFactory.getCheckedCrudEngine("INSERT_MOVIE");
     SqlCrudEngine sqlInsertMedia = sqlEngineFactory.getCheckedCrudEngine("INSERT_MEDIA");
-    int count = sqlInsertMedia.insert(sqlSession, movie);
+    int count = sqlInsertMedia.insert(sqlSession, movie, sqlControl);
     if (count > 0) {
-      sqlInsertMovie.insert(sqlSession, movie);
+      sqlInsertMovie.insert(sqlSession, movie, sqlControl);
     }
     if (logger.isTraceEnabled()) {
       logger.trace("insert movie result: " + count + " " + movie);
@@ -174,5 +175,30 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
   
   public List<Movie> list(Movie movie) {
     return list(movie, null);
+  }
+  
+  public int count(SqlSession sqlSession, Movie movie, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count movie: " + movie + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineMovie = sqlEngineFactory.getCheckedQueryEngine("SELECT_MOVIE");
+    //sqlControl = getMoreResultClasses(movie, sqlControl);
+    int count = sqlEngineMovie.queryCount(sqlSession, movie, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(Movie movie, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), movie, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, Movie movie) {
+    return count(sqlSession, movie, null);
+  }
+  
+  public int count(Movie movie) {
+    return count(movie, null);
   }
 }

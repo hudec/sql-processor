@@ -15,6 +15,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -42,9 +43,9 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     }
     SqlCrudEngine sqlInsertNewBook = sqlEngineFactory.getCheckedCrudEngine("INSERT_NEW_BOOK");
     SqlCrudEngine sqlInsertMedia = sqlEngineFactory.getCheckedCrudEngine("INSERT_MEDIA");
-    int count = sqlInsertMedia.insert(sqlSession, newBook);
+    int count = sqlInsertMedia.insert(sqlSession, newBook, sqlControl);
     if (count > 0) {
-      sqlInsertNewBook.insert(sqlSession, newBook);
+      sqlInsertNewBook.insert(sqlSession, newBook, sqlControl);
     }
     if (logger.isTraceEnabled()) {
       logger.trace("insert newBook result: " + count + " " + newBook);
@@ -174,5 +175,30 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
   
   public List<NewBook> list(NewBook newBook) {
     return list(newBook, null);
+  }
+  
+  public int count(SqlSession sqlSession, NewBook newBook, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count newBook: " + newBook + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineNewBook = sqlEngineFactory.getCheckedQueryEngine("SELECT_NEW_BOOK");
+    //sqlControl = getMoreResultClasses(newBook, sqlControl);
+    int count = sqlEngineNewBook.queryCount(sqlSession, newBook, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(NewBook newBook, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), newBook, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, NewBook newBook) {
+    return count(sqlSession, newBook, null);
+  }
+  
+  public int count(NewBook newBook) {
+    return count(newBook, null);
   }
 }

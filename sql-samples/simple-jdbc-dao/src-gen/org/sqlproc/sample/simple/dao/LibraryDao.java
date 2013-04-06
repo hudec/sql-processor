@@ -46,4 +46,12 @@ public interface LibraryDao {
   public List<Library> list(SqlSession sqlSession, Library library);
   
   public List<Library> list(Library library);
+  
+  public int count(SqlSession sqlSession, Library library, SqlControl sqlControl);
+  
+  public int count(Library library, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, Library library);
+  
+  public int count(Library library);
 }

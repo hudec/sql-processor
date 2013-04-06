@@ -15,6 +15,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -43,7 +44,7 @@ public class PerformerDaoImpl extends BaseDaoImpl implements BaseDao, PerformerD
       logger.trace("insert performer: " + performer + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertPerformer = sqlEngineFactory.getCheckedCrudEngine("INSERT_PERFORMER");
-    int count = sqlInsertPerformer.insert(sqlSession, performer);
+    int count = sqlInsertPerformer.insert(sqlSession, performer, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("insert performer result: " + count + " " + performer);
     }
@@ -164,6 +165,31 @@ public class PerformerDaoImpl extends BaseDaoImpl implements BaseDao, PerformerD
   
   public List<Performer> list(Performer performer) {
     return list(performer, null);
+  }
+  
+  public int count(SqlSession sqlSession, Performer performer, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count performer: " + performer + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEnginePerformer = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERFORMER");
+    sqlControl = getMoreResultClasses(performer, sqlControl);
+    int count = sqlEnginePerformer.queryCount(sqlSession, performer, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(Performer performer, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), performer, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, Performer performer) {
+    return count(sqlSession, performer, null);
+  }
+  
+  public int count(Performer performer) {
+    return count(performer, null);
   }
   
   SqlControl getMoreResultClasses(Performer performer, SqlControl sqlControl) {

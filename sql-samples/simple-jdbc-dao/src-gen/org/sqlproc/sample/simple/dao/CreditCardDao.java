@@ -46,4 +46,12 @@ public interface CreditCardDao {
   public List<CreditCard> list(SqlSession sqlSession, CreditCard creditCard);
   
   public List<CreditCard> list(CreditCard creditCard);
+  
+  public int count(SqlSession sqlSession, CreditCard creditCard, SqlControl sqlControl);
+  
+  public int count(CreditCard creditCard, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, CreditCard creditCard);
+  
+  public int count(CreditCard creditCard);
 }

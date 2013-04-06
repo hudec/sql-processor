@@ -46,4 +46,12 @@ public interface NewBookDao {
   public List<NewBook> list(SqlSession sqlSession, NewBook newBook);
   
   public List<NewBook> list(NewBook newBook);
+  
+  public int count(SqlSession sqlSession, NewBook newBook, SqlControl sqlControl);
+  
+  public int count(NewBook newBook, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, NewBook newBook);
+  
+  public int count(NewBook newBook);
 }

@@ -46,4 +46,12 @@ public interface MediaDao {
   public List<Media> list(SqlSession sqlSession, Media media);
   
   public List<Media> list(Media media);
+  
+  public int count(SqlSession sqlSession, Media media, SqlControl sqlControl);
+  
+  public int count(Media media, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, Media media);
+  
+  public int count(Media media);
 }

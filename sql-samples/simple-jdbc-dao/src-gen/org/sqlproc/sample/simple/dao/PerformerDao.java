@@ -46,4 +46,12 @@ public interface PerformerDao {
   public List<Performer> list(SqlSession sqlSession, Performer performer);
   
   public List<Performer> list(Performer performer);
+  
+  public int count(SqlSession sqlSession, Performer performer, SqlControl sqlControl);
+  
+  public int count(Performer performer, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, Performer performer);
+  
+  public int count(Performer performer);
 }

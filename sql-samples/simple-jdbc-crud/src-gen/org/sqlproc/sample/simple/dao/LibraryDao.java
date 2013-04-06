@@ -10,6 +10,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -36,7 +37,7 @@ public class LibraryDao {
       logger.trace("insert library: " + library + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertLibrary = sqlEngineFactory.getCheckedCrudEngine("INSERT_LIBRARY");
-    int count = sqlInsertLibrary.insert(sqlSession, library);
+    int count = sqlInsertLibrary.insert(sqlSession, library, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("insert library result: " + count + " " + library);
     }
@@ -151,5 +152,30 @@ public class LibraryDao {
   
   public List<Library> list(Library library) {
     return list(library, null);
+  }
+  
+  public int count(SqlSession sqlSession, Library library, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count library: " + library + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineLibrary = sqlEngineFactory.getCheckedQueryEngine("SELECT_LIBRARY");
+    //sqlControl = getMoreResultClasses(library, sqlControl);
+    int count = sqlEngineLibrary.queryCount(sqlSession, library, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(Library library, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), library, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, Library library) {
+    return count(sqlSession, library, null);
+  }
+  
+  public int count(Library library) {
+    return count(library, null);
   }
 }

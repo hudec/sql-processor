@@ -46,4 +46,12 @@ public interface MovieDao {
   public List<Movie> list(SqlSession sqlSession, Movie movie);
   
   public List<Movie> list(Movie movie);
+  
+  public int count(SqlSession sqlSession, Movie movie, SqlControl sqlControl);
+  
+  public int count(Movie movie, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, Movie movie);
+  
+  public int count(Movie movie);
 }

@@ -46,4 +46,12 @@ public interface PersonLibraryDao {
   public List<PersonLibrary> list(SqlSession sqlSession, PersonLibrary personLibrary);
   
   public List<PersonLibrary> list(PersonLibrary personLibrary);
+  
+  public int count(SqlSession sqlSession, PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public int count(PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, PersonLibrary personLibrary);
+  
+  public int count(PersonLibrary personLibrary);
 }

@@ -10,6 +10,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -38,7 +39,7 @@ public class PhysicalMediaDao {
       logger.trace("insert physicalMedia: " + physicalMedia + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertPhysicalMedia = sqlEngineFactory.getCheckedCrudEngine("INSERT_PHYSICAL_MEDIA");
-    int count = sqlInsertPhysicalMedia.insert(sqlSession, physicalMedia);
+    int count = sqlInsertPhysicalMedia.insert(sqlSession, physicalMedia, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("insert physicalMedia result: " + count + " " + physicalMedia);
     }
@@ -153,6 +154,31 @@ public class PhysicalMediaDao {
   
   public List<PhysicalMedia> list(PhysicalMedia physicalMedia) {
     return list(physicalMedia, null);
+  }
+  
+  public int count(SqlSession sqlSession, PhysicalMedia physicalMedia, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count physicalMedia: " + physicalMedia + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEnginePhysicalMedia = sqlEngineFactory.getCheckedQueryEngine("SELECT_PHYSICAL_MEDIA");
+    sqlControl = getMoreResultClasses(physicalMedia, sqlControl);
+    int count = sqlEnginePhysicalMedia.queryCount(sqlSession, physicalMedia, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(PhysicalMedia physicalMedia, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), physicalMedia, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, PhysicalMedia physicalMedia) {
+    return count(sqlSession, physicalMedia, null);
+  }
+  
+  public int count(PhysicalMedia physicalMedia) {
+    return count(physicalMedia, null);
   }
   
   SqlControl getMoreResultClasses(PhysicalMedia physicalMedia, SqlControl sqlControl) {

@@ -46,4 +46,12 @@ public interface SubscriberDao {
   public List<Subscriber> list(SqlSession sqlSession, Subscriber subscriber);
   
   public List<Subscriber> list(Subscriber subscriber);
+  
+  public int count(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl);
+  
+  public int count(Subscriber subscriber, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, Subscriber subscriber);
+  
+  public int count(Subscriber subscriber);
 }

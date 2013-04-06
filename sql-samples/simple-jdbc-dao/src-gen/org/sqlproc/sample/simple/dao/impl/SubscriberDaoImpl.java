@@ -15,6 +15,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -43,7 +44,7 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
       logger.trace("insert subscriber: " + subscriber + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertSubscriber = sqlEngineFactory.getCheckedCrudEngine("INSERT_SUBSCRIBER");
-    int count = sqlInsertSubscriber.insert(sqlSession, subscriber);
+    int count = sqlInsertSubscriber.insert(sqlSession, subscriber, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("insert subscriber result: " + count + " " + subscriber);
     }
@@ -164,6 +165,31 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
   
   public List<Subscriber> list(Subscriber subscriber) {
     return list(subscriber, null);
+  }
+  
+  public int count(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count subscriber: " + subscriber + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineSubscriber = sqlEngineFactory.getCheckedQueryEngine("SELECT_SUBSCRIBER");
+    sqlControl = getMoreResultClasses(subscriber, sqlControl);
+    int count = sqlEngineSubscriber.queryCount(sqlSession, subscriber, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(Subscriber subscriber, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), subscriber, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, Subscriber subscriber) {
+    return count(sqlSession, subscriber, null);
+  }
+  
+  public int count(Subscriber subscriber) {
+    return count(subscriber, null);
   }
   
   SqlControl getMoreResultClasses(Subscriber subscriber, SqlControl sqlControl) {

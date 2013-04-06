@@ -15,6 +15,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -43,7 +44,7 @@ public class PaymentDaoImpl extends BaseDaoImpl implements BaseDao, PaymentDao {
       logger.trace("insert payment: " + payment + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertPayment = sqlEngineFactory.getCheckedCrudEngine("INSERT_PAYMENT");
-    int count = sqlInsertPayment.insert(sqlSession, payment);
+    int count = sqlInsertPayment.insert(sqlSession, payment, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("insert payment result: " + count + " " + payment);
     }
@@ -164,6 +165,31 @@ public class PaymentDaoImpl extends BaseDaoImpl implements BaseDao, PaymentDao {
   
   public List<Payment> list(Payment payment) {
     return list(payment, null);
+  }
+  
+  public int count(SqlSession sqlSession, Payment payment, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count payment: " + payment + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEnginePayment = sqlEngineFactory.getCheckedQueryEngine("SELECT_PAYMENT");
+    sqlControl = getMoreResultClasses(payment, sqlControl);
+    int count = sqlEnginePayment.queryCount(sqlSession, payment, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(Payment payment, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), payment, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, Payment payment) {
+    return count(sqlSession, payment, null);
+  }
+  
+  public int count(Payment payment) {
+    return count(payment, null);
   }
   
   SqlControl getMoreResultClasses(Payment payment, SqlControl sqlControl) {

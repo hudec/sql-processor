@@ -10,6 +10,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -36,7 +37,7 @@ public class MediaDao {
       logger.trace("insert media: " + media + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertMedia = sqlEngineFactory.getCheckedCrudEngine("INSERT_MEDIA");
-    int count = sqlInsertMedia.insert(sqlSession, media);
+    int count = sqlInsertMedia.insert(sqlSession, media, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("insert media result: " + count + " " + media);
     }
@@ -151,5 +152,30 @@ public class MediaDao {
   
   public List<Media> list(Media media) {
     return list(media, null);
+  }
+  
+  public int count(SqlSession sqlSession, Media media, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count media: " + media + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineMedia = sqlEngineFactory.getCheckedQueryEngine("SELECT_MEDIA");
+    //sqlControl = getMoreResultClasses(media, sqlControl);
+    int count = sqlEngineMedia.queryCount(sqlSession, media, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(Media media, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), media, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, Media media) {
+    return count(sqlSession, media, null);
+  }
+  
+  public int count(Media media) {
+    return count(media, null);
   }
 }

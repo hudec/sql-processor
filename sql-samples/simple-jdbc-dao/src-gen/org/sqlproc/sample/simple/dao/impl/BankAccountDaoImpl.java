@@ -15,6 +15,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -41,7 +42,7 @@ public class BankAccountDaoImpl extends BaseDaoImpl implements BaseDao, BankAcco
       logger.trace("insert bankAccount: " + bankAccount + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertBankAccount = sqlEngineFactory.getCheckedCrudEngine("INSERT_BANK_ACCOUNT");
-    int count = sqlInsertBankAccount.insert(sqlSession, bankAccount);
+    int count = sqlInsertBankAccount.insert(sqlSession, bankAccount, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("insert bankAccount result: " + count + " " + bankAccount);
     }
@@ -162,5 +163,30 @@ public class BankAccountDaoImpl extends BaseDaoImpl implements BaseDao, BankAcco
   
   public List<BankAccount> list(BankAccount bankAccount) {
     return list(bankAccount, null);
+  }
+  
+  public int count(SqlSession sqlSession, BankAccount bankAccount, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count bankAccount: " + bankAccount + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineBankAccount = sqlEngineFactory.getCheckedQueryEngine("SELECT_BANK_ACCOUNT");
+    //sqlControl = getMoreResultClasses(bankAccount, sqlControl);
+    int count = sqlEngineBankAccount.queryCount(sqlSession, bankAccount, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(BankAccount bankAccount, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), bankAccount, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, BankAccount bankAccount) {
+    return count(sqlSession, bankAccount, null);
+  }
+  
+  public int count(BankAccount bankAccount) {
+    return count(bankAccount, null);
   }
 }

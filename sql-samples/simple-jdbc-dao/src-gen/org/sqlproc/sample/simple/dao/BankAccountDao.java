@@ -46,4 +46,12 @@ public interface BankAccountDao {
   public List<BankAccount> list(SqlSession sqlSession, BankAccount bankAccount);
   
   public List<BankAccount> list(BankAccount bankAccount);
+  
+  public int count(SqlSession sqlSession, BankAccount bankAccount, SqlControl sqlControl);
+  
+  public int count(BankAccount bankAccount, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, BankAccount bankAccount);
+  
+  public int count(BankAccount bankAccount);
 }

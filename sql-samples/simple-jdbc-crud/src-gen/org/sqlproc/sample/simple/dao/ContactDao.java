@@ -10,6 +10,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlQueryEngine;
+import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -36,7 +37,7 @@ public class ContactDao {
       logger.trace("insert contact: " + contact + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertContact = sqlEngineFactory.getCheckedCrudEngine("INSERT_CONTACT");
-    int count = sqlInsertContact.insert(sqlSession, contact);
+    int count = sqlInsertContact.insert(sqlSession, contact, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("insert contact result: " + count + " " + contact);
     }
@@ -151,5 +152,30 @@ public class ContactDao {
   
   public List<Contact> list(Contact contact) {
     return list(contact, null);
+  }
+  
+  public int count(SqlSession sqlSession, Contact contact, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count contact: " + contact + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine("SELECT_CONTACT");
+    //sqlControl = getMoreResultClasses(contact, sqlControl);
+    int count = sqlEngineContact.queryCount(sqlSession, contact, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(Contact contact, SqlControl sqlControl) {
+  	return count(sqlSessionFactory.getSqlSession(), contact, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, Contact contact) {
+    return count(sqlSession, contact, null);
+  }
+  
+  public int count(Contact contact) {
+    return count(contact, null);
   }
 }
