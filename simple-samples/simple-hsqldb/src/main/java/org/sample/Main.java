@@ -37,6 +37,7 @@ public class Main {
     private static final String DB_PASSWORD = "";
     private static final String DB_TYPE = SqlFeature.HSQLDB;
     private static final String DB_DDL = "hsqldb.ddl";
+    private static final String[] DB_CLEAR = null;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -71,7 +72,7 @@ public class Main {
 
     public void setupDb() throws SQLException {
         SqlSession sqlSession = sessionFactory.getSqlSession();
-        sqlSession.executeBatch(ddls.toArray(new String[0]));
+        sqlSession.executeBatch((DB_CLEAR != null) ? DB_CLEAR : ddls.toArray(new String[0]));
     }
 
     private ContactDao contactDao;

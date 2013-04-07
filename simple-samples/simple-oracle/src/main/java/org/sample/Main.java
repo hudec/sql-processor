@@ -38,6 +38,7 @@ public class Main {
     private static final String DB_PASSWORD = "simple";
     private static final String DB_TYPE = SqlFeature.ORACLE;
     private static final String DB_DDL = "oracle.ddl";
+    private static final String[] DB_CLEAR = new String[] { "delete from contact", "delete from person" };
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -72,8 +73,7 @@ public class Main {
 
     public void setupDb() throws SQLException {
         SqlSession sqlSession = sessionFactory.getSqlSession();
-        sqlSession.executeBatch(new String[] { "delete from contact", "delete from person" });
-        // sqlSession.executeBatch(ddls.toArray(new String[0]));
+        sqlSession.executeBatch((DB_CLEAR != null) ? DB_CLEAR : ddls.toArray(new String[0]));
     }
 
     private ContactDao contactDao;
