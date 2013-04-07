@@ -3,6 +3,8 @@
 #set( $symbol_escape = '\' )
 package ${package}.dao {
 
+  implementation-package impl
+
   final dao ContactDao :: Contact {
     scaffold
   }

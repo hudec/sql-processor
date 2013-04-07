@@ -701,13 +701,59 @@ import «d.pojo.completeName»;
 
 def compileIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
 public interface «d.name» {
-  «compileInsertIfx(d, e, importManager)»
+  «FOR m:d.methods»«IF m.name == "scaffold"»«compileInsertIfx(d, e, importManager)»
   «compileGetIfx(d, e, importManager)»
   «compileUpdateIfx(d, e, importManager)»
   «compileDeleteIfx(d, e, importManager)»
   «compileListIfx(d, e, importManager)»
   «compileCountIfx(d, e, importManager)»
+  «ELSEIF isCallUpdate(m)»
+  «compileCallUpdateIfx(d, m, importManager)»«ELSEIF isCallFunction(m)»«compileCallFunctionIfx(d, m, importManager)»«ELSEIF isCallQuery(m) || isCallQueryFunction(m)»«compileCallQueryIfx(d, m, importManager, isCallQueryFunction(m))»«ELSEIF isCallSelectFunction(m)»«compileCallSelectFunctionIfx(d, m, importManager)»«ENDIF»«ENDFOR»
 }
+'''
+
+def compileCallQueryIfx(PojoDao d, PojoMethod m, ImportManager importManager, boolean isFunction) '''
+
+    public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl);
+
+    public «m.type.compileType(importManager)» «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl);
+
+    public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR»);
+
+    public «m.type.compileType(importManager)» «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR»);
+'''
+
+def compileCallFunctionIfx(PojoDao d, PojoMethod m, ImportManager importManager) '''
+
+    public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl);
+
+    public «m.type.compileType(importManager)» «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl);
+
+    public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR»);
+
+    public «m.type.compileType(importManager)» «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR»);
+'''
+
+def compileCallUpdateIfx(PojoDao d, PojoMethod m, ImportManager importManager) '''
+
+    public int «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl);
+
+    public int «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl);
+
+    public int «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR»);
+
+    public int «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR»);
+'''
+
+def compileCallSelectFunctionIfx(PojoDao d, PojoMethod m, ImportManager importManager) '''
+
+    public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl);
+
+    public «m.type.compileType(importManager)» «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR», SqlControl sqlControl);
+
+    public «m.type.compileType(importManager)» «m.name»(SqlSession sqlSession, «FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR»);
+
+    public «m.type.compileType(importManager)» «m.name»(«FOR ma:m.args SEPARATOR ", "»«ma.type.compileType(importManager)» «ma.name»«ENDFOR»);
 '''
 
 def compileInsertIfx(PojoDao d, PojoEntity e, ImportManager importManager) '''
