@@ -1,5 +1,5 @@
 resolve-pojo-on;
-database-is-online;
+database-is-offline;
 database-jdbc-driver com.informix.jdbc.IfxDriver;
 database-has-url jdbc:informix-sqli:\//popel:1551/simple:informixserver=popel_11\;DB_LOCALE=en_US\.57372;
 database-login-username simple;
@@ -44,6 +44,6 @@ procedure newPersonRetRs new_person_ret_rs;
 function anHourBefore an_hour_before;
 function newPersonRetRs new_person_ret_rs;
 
-metagen-function-result an_hour_before stamp;
+//metagen-function-result an_hour_before stamp;
 metagen-function-result-set new_person_ret_rs person;
 //pojogen-debug-level DEBUG;
