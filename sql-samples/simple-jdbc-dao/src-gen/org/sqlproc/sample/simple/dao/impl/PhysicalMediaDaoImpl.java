@@ -93,7 +93,7 @@ public class PhysicalMediaDaoImpl extends BaseDaoImpl implements BaseDao, Physic
       logger.trace("update physicalMedia: " + physicalMedia + " " + sqlControl);
     }
     SqlCrudEngine sqlUpdateEnginePhysicalMedia = sqlEngineFactory.getCheckedCrudEngine("UPDATE_PHYSICAL_MEDIA");
-    int count = sqlUpdateEnginePhysicalMedia.update(sqlSession, physicalMedia);
+    int count = sqlUpdateEnginePhysicalMedia.update(sqlSession, physicalMedia, sqlControl);
     if (count > 0) {
     	physicalMedia.setVersion(physicalMedia.getVersion() + 1);
     }
@@ -120,7 +120,7 @@ public class PhysicalMediaDaoImpl extends BaseDaoImpl implements BaseDao, Physic
       logger.trace("delete physicalMedia: " + physicalMedia + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEnginePhysicalMedia = sqlEngineFactory.getCheckedCrudEngine("DELETE_PHYSICAL_MEDIA");
-    int count = sqlDeleteEnginePhysicalMedia.delete(sqlSession, physicalMedia);
+    int count = sqlDeleteEnginePhysicalMedia.delete(sqlSession, physicalMedia, sqlControl);
     if (count > 0) {
     	physicalMedia.setVersion(physicalMedia.getVersion() + 1);
     }

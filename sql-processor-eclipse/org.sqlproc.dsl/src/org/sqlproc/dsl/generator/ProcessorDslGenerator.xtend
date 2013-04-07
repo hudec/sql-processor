@@ -546,9 +546,9 @@ def compileUpdate(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
       }
       SqlCrudEngine sqlUpdateEngine«e.name» = sqlEngineFactory.getCheckedCrudEngine("UPDATE_«dbName(e)»");«IF pe != null»
       SqlCrudEngine sqlUpdate«pe.name» = sqlEngineFactory.getCheckedCrudEngine("UPDATE_«dbName(pe)»");«ENDIF»
-      int count = sqlUpdateEngine«e.name».update(sqlSession, «e.name.toFirstLower»);«IF pe != null»
+      int count = sqlUpdateEngine«e.name».update(sqlSession, «e.name.toFirstLower», sqlControl);«IF pe != null»
       if (count > 0) {
-      	sqlUpdate«pe.name».update(sqlSession, «e.name.toFirstLower»);
+      	sqlUpdate«pe.name».update(sqlSession, «e.name.toFirstLower», sqlControl);
       }«ENDIF»«val f=getOptLock(e)»«IF f != null»
       if (count > 0) {
       	«e.name.toFirstLower».set«f.name.toFirstUpper»(«e.name.toFirstLower».get«f.name.toFirstUpper»() + 1);
@@ -580,9 +580,9 @@ def compileDelete(PojoDao d, PojoEntity e, PojoEntity pe, ImportManager importMa
       }
       SqlCrudEngine sqlDeleteEngine«e.name» = sqlEngineFactory.getCheckedCrudEngine("DELETE_«dbName(e)»");«IF pe != null»
       SqlCrudEngine sqlDelete«pe.name» = sqlEngineFactory.getCheckedCrudEngine("DELETE_«dbName(pe)»");«ENDIF»
-      int count = sqlDeleteEngine«e.name».delete(sqlSession, «e.name.toFirstLower»);«IF pe != null»
+      int count = sqlDeleteEngine«e.name».delete(sqlSession, «e.name.toFirstLower», sqlControl);«IF pe != null»
       if (count > 0) {
-      	sqlDelete«pe.name».delete(sqlSession, «e.name.toFirstLower»);
+      	sqlDelete«pe.name».delete(sqlSession, «e.name.toFirstLower», sqlControl);
       }«ENDIF»«val f=getOptLock(e)»«IF f != null»
       if (count > 0) {
       	«e.name.toFirstLower».set«f.name.toFirstUpper»(«e.name.toFirstLower».get«f.name.toFirstUpper»() + 1);

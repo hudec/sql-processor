@@ -93,7 +93,7 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
       logger.trace("update subscriber: " + subscriber + " " + sqlControl);
     }
     SqlCrudEngine sqlUpdateEngineSubscriber = sqlEngineFactory.getCheckedCrudEngine("UPDATE_SUBSCRIBER");
-    int count = sqlUpdateEngineSubscriber.update(sqlSession, subscriber);
+    int count = sqlUpdateEngineSubscriber.update(sqlSession, subscriber, sqlControl);
     if (count > 0) {
     	subscriber.setVersion(subscriber.getVersion() + 1);
     }
@@ -120,7 +120,7 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
       logger.trace("delete subscriber: " + subscriber + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEngineSubscriber = sqlEngineFactory.getCheckedCrudEngine("DELETE_SUBSCRIBER");
-    int count = sqlDeleteEngineSubscriber.delete(sqlSession, subscriber);
+    int count = sqlDeleteEngineSubscriber.delete(sqlSession, subscriber, sqlControl);
     if (count > 0) {
     	subscriber.setVersion(subscriber.getVersion() + 1);
     }

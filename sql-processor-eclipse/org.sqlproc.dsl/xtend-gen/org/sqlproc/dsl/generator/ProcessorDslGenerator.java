@@ -2956,7 +2956,7 @@ public class ProcessorDslGenerator implements IGenerator {
     String _name_7 = e.getName();
     String _firstLower_3 = StringExtensions.toFirstLower(_name_7);
     _builder.append(_firstLower_3, "  ");
-    _builder.append(");");
+    _builder.append(", sqlControl);");
     {
       boolean _notEquals_1 = (!Objects.equal(pe, null));
       if (_notEquals_1) {
@@ -2973,7 +2973,7 @@ public class ProcessorDslGenerator implements IGenerator {
         String _name_9 = e.getName();
         String _firstLower_4 = StringExtensions.toFirstLower(_name_9);
         _builder.append(_firstLower_4, "  	");
-        _builder.append(");");
+        _builder.append(", sqlControl);");
         _builder.newLineIfNotEmpty();
         _builder.append("  ");
         _builder.append("}");
@@ -3149,7 +3149,7 @@ public class ProcessorDslGenerator implements IGenerator {
     String _name_7 = e.getName();
     String _firstLower_3 = StringExtensions.toFirstLower(_name_7);
     _builder.append(_firstLower_3, "  ");
-    _builder.append(");");
+    _builder.append(", sqlControl);");
     {
       boolean _notEquals_1 = (!Objects.equal(pe, null));
       if (_notEquals_1) {
@@ -3166,7 +3166,7 @@ public class ProcessorDslGenerator implements IGenerator {
         String _name_9 = e.getName();
         String _firstLower_4 = StringExtensions.toFirstLower(_name_9);
         _builder.append(_firstLower_4, "  	");
-        _builder.append(");");
+        _builder.append(", sqlControl);");
         _builder.newLineIfNotEmpty();
         _builder.append("  ");
         _builder.append("}");

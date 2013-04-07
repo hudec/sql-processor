@@ -91,7 +91,7 @@ public class CreditCardDaoImpl extends BaseDaoImpl implements BaseDao, CreditCar
       logger.trace("update creditCard: " + creditCard + " " + sqlControl);
     }
     SqlCrudEngine sqlUpdateEngineCreditCard = sqlEngineFactory.getCheckedCrudEngine("UPDATE_CREDIT_CARD");
-    int count = sqlUpdateEngineCreditCard.update(sqlSession, creditCard);
+    int count = sqlUpdateEngineCreditCard.update(sqlSession, creditCard, sqlControl);
     if (count > 0) {
     	creditCard.setVersion(creditCard.getVersion() + 1);
     }
@@ -118,7 +118,7 @@ public class CreditCardDaoImpl extends BaseDaoImpl implements BaseDao, CreditCar
       logger.trace("delete creditCard: " + creditCard + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEngineCreditCard = sqlEngineFactory.getCheckedCrudEngine("DELETE_CREDIT_CARD");
-    int count = sqlDeleteEngineCreditCard.delete(sqlSession, creditCard);
+    int count = sqlDeleteEngineCreditCard.delete(sqlSession, creditCard, sqlControl);
     if (count > 0) {
     	creditCard.setVersion(creditCard.getVersion() + 1);
     }

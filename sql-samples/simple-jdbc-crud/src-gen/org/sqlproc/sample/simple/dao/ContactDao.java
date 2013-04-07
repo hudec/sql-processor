@@ -86,7 +86,7 @@ public class ContactDao {
       logger.trace("update contact: " + contact + " " + sqlControl);
     }
     SqlCrudEngine sqlUpdateEngineContact = sqlEngineFactory.getCheckedCrudEngine("UPDATE_CONTACT");
-    int count = sqlUpdateEngineContact.update(sqlSession, contact);
+    int count = sqlUpdateEngineContact.update(sqlSession, contact, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("update contact result count: " + count);
     }
@@ -110,7 +110,7 @@ public class ContactDao {
       logger.trace("delete contact: " + contact + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEngineContact = sqlEngineFactory.getCheckedCrudEngine("DELETE_CONTACT");
-    int count = sqlDeleteEngineContact.delete(sqlSession, contact);
+    int count = sqlDeleteEngineContact.delete(sqlSession, contact, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("delete contact result count: " + count);
     }

@@ -93,7 +93,7 @@ public class PerformerDaoImpl extends BaseDaoImpl implements BaseDao, PerformerD
       logger.trace("update performer: " + performer + " " + sqlControl);
     }
     SqlCrudEngine sqlUpdateEnginePerformer = sqlEngineFactory.getCheckedCrudEngine("UPDATE_PERFORMER");
-    int count = sqlUpdateEnginePerformer.update(sqlSession, performer);
+    int count = sqlUpdateEnginePerformer.update(sqlSession, performer, sqlControl);
     if (count > 0) {
     	performer.setVer(performer.getVer() + 1);
     }
@@ -120,7 +120,7 @@ public class PerformerDaoImpl extends BaseDaoImpl implements BaseDao, PerformerD
       logger.trace("delete performer: " + performer + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEnginePerformer = sqlEngineFactory.getCheckedCrudEngine("DELETE_PERFORMER");
-    int count = sqlDeleteEnginePerformer.delete(sqlSession, performer);
+    int count = sqlDeleteEnginePerformer.delete(sqlSession, performer, sqlControl);
     if (count > 0) {
     	performer.setVer(performer.getVer() + 1);
     }

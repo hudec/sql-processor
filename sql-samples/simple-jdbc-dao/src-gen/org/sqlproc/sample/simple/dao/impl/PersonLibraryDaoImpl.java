@@ -91,7 +91,7 @@ public class PersonLibraryDaoImpl extends BaseDaoImpl implements BaseDao, Person
       logger.trace("update personLibrary: " + personLibrary + " " + sqlControl);
     }
     SqlCrudEngine sqlUpdateEnginePersonLibrary = sqlEngineFactory.getCheckedCrudEngine("UPDATE_PERSON_LIBRARY");
-    int count = sqlUpdateEnginePersonLibrary.update(sqlSession, personLibrary);
+    int count = sqlUpdateEnginePersonLibrary.update(sqlSession, personLibrary, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("update personLibrary result count: " + count);
     }
@@ -115,7 +115,7 @@ public class PersonLibraryDaoImpl extends BaseDaoImpl implements BaseDao, Person
       logger.trace("delete personLibrary: " + personLibrary + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEnginePersonLibrary = sqlEngineFactory.getCheckedCrudEngine("DELETE_PERSON_LIBRARY");
-    int count = sqlDeleteEnginePersonLibrary.delete(sqlSession, personLibrary);
+    int count = sqlDeleteEnginePersonLibrary.delete(sqlSession, personLibrary, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("delete personLibrary result count: " + count);
     }

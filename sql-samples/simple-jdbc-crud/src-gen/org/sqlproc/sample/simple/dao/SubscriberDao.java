@@ -88,7 +88,7 @@ public class SubscriberDao {
       logger.trace("update subscriber: " + subscriber + " " + sqlControl);
     }
     SqlCrudEngine sqlUpdateEngineSubscriber = sqlEngineFactory.getCheckedCrudEngine("UPDATE_SUBSCRIBER");
-    int count = sqlUpdateEngineSubscriber.update(sqlSession, subscriber);
+    int count = sqlUpdateEngineSubscriber.update(sqlSession, subscriber, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("update subscriber result count: " + count);
     }
@@ -112,7 +112,7 @@ public class SubscriberDao {
       logger.trace("delete subscriber: " + subscriber + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEngineSubscriber = sqlEngineFactory.getCheckedCrudEngine("DELETE_SUBSCRIBER");
-    int count = sqlDeleteEngineSubscriber.delete(sqlSession, subscriber);
+    int count = sqlDeleteEngineSubscriber.delete(sqlSession, subscriber, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("delete subscriber result count: " + count);
     }

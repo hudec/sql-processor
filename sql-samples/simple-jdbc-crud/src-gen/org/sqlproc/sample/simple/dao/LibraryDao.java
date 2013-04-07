@@ -86,7 +86,7 @@ public class LibraryDao {
       logger.trace("update library: " + library + " " + sqlControl);
     }
     SqlCrudEngine sqlUpdateEngineLibrary = sqlEngineFactory.getCheckedCrudEngine("UPDATE_LIBRARY");
-    int count = sqlUpdateEngineLibrary.update(sqlSession, library);
+    int count = sqlUpdateEngineLibrary.update(sqlSession, library, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("update library result count: " + count);
     }
@@ -110,7 +110,7 @@ public class LibraryDao {
       logger.trace("delete library: " + library + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEngineLibrary = sqlEngineFactory.getCheckedCrudEngine("DELETE_LIBRARY");
-    int count = sqlDeleteEngineLibrary.delete(sqlSession, library);
+    int count = sqlDeleteEngineLibrary.delete(sqlSession, library, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("delete library result count: " + count);
     }

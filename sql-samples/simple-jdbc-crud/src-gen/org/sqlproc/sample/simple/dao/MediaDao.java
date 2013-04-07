@@ -86,7 +86,7 @@ public class MediaDao {
       logger.trace("update media: " + media + " " + sqlControl);
     }
     SqlCrudEngine sqlUpdateEngineMedia = sqlEngineFactory.getCheckedCrudEngine("UPDATE_MEDIA");
-    int count = sqlUpdateEngineMedia.update(sqlSession, media);
+    int count = sqlUpdateEngineMedia.update(sqlSession, media, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("update media result count: " + count);
     }
@@ -110,7 +110,7 @@ public class MediaDao {
       logger.trace("delete media: " + media + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEngineMedia = sqlEngineFactory.getCheckedCrudEngine("DELETE_MEDIA");
-    int count = sqlDeleteEngineMedia.delete(sqlSession, media);
+    int count = sqlDeleteEngineMedia.delete(sqlSession, media, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("delete media result count: " + count);
     }

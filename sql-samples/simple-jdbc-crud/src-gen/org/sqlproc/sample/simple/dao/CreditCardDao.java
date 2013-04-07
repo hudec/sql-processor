@@ -86,7 +86,7 @@ public class CreditCardDao {
       logger.trace("update creditCard: " + creditCard + " " + sqlControl);
     }
     SqlCrudEngine sqlUpdateEngineCreditCard = sqlEngineFactory.getCheckedCrudEngine("UPDATE_CREDIT_CARD");
-    int count = sqlUpdateEngineCreditCard.update(sqlSession, creditCard);
+    int count = sqlUpdateEngineCreditCard.update(sqlSession, creditCard, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("update creditCard result count: " + count);
     }
@@ -110,7 +110,7 @@ public class CreditCardDao {
       logger.trace("delete creditCard: " + creditCard + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEngineCreditCard = sqlEngineFactory.getCheckedCrudEngine("DELETE_CREDIT_CARD");
-    int count = sqlDeleteEngineCreditCard.delete(sqlSession, creditCard);
+    int count = sqlDeleteEngineCreditCard.delete(sqlSession, creditCard, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("delete creditCard result count: " + count);
     }
