@@ -8,6 +8,8 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
@@ -22,8 +24,13 @@ import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSessionFactory;
 import org.sqlproc.engine.util.DDLLoader;
 import ${package}.dao.ContactDao;
+import ${package}.dao.FunctionsDao;
 import ${package}.dao.PersonDao;
+import ${package}.dao.ProceduresDao;
+import ${package}.model.AnHourBefore;
 import ${package}.model.Contact;
+import ${package}.model.NewPerson;
+import ${package}.model.NewPersonRetRs;
 import ${package}.model.Person;
 
 public class Main {
@@ -34,6 +41,7 @@ public class Main {
     private static final String DB_PASSWORD = "";
     private static final String DB_TYPE = SqlFeature.HSQLDB;
     private static final String DB_DDL = "hsqldb.ddl";
+    private static final String[] DB_CLEAR = null;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -62,15 +70,19 @@ public class Main {
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);
         personDao = new PersonDao(sqlFactory, sessionFactory);
+        functionsDao = new FunctionsDao(sqlFactory, sessionFactory);
+        proceduresDao = new ProceduresDao(sqlFactory, sessionFactory);
     }
 
     public void setupDb() throws SQLException {
         SqlSession sqlSession = sessionFactory.getSqlSession();
-        sqlSession.executeBatch(ddls.toArray(new String[0]));
+        sqlSession.executeBatch((DB_CLEAR != null) ? DB_CLEAR : ddls.toArray(new String[0]));
     }
 
     private ContactDao contactDao;
     private PersonDao personDao;
+    private FunctionsDao functionsDao;
+    private ProceduresDao proceduresDao;
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
         Person p = getPersonDao().insert(person);
@@ -161,9 +173,54 @@ public class Main {
                 new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME).setMaxResults(2));
         Assert.assertEquals(2, list.size());
 
+        // count
+        count = main.getPersonDao().count(null);
+        Assert.assertEquals(5, count);
+        person = new Person();
+        person.setFirstName("Jan");
+        count = main.getPersonDao().count(person);
+        Assert.assertEquals(2, count);
+
         // delete
         count = main.getPersonDao().delete(jan);
         Assert.assertEquals(1, count);
+
+        // function
+        AnHourBefore anHourBefore = new AnHourBefore();
+        anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
+        java.sql.Timestamp result = main.getFunctionsDao().anHourBefore(anHourBefore);
+        Assert.assertNotNull(result);
+
+        // procedures
+        NewPerson newPerson = new NewPerson();
+        newPerson.setFirstName("Maruska");
+        newPerson.setLastName("Maruskova");
+        newPerson.setSsn("999888777");
+        newPerson.setDateOfBirth(getAge(1969, 11, 1));
+        main.getProceduresDao().newPerson(newPerson);
+        Assert.assertNotNull(newPerson.getNewid());
+
+        NewPersonRetRs newPersonRetRs = new NewPersonRetRs();
+        newPersonRetRs.setFirstName("Beruska");
+        newPersonRetRs.setLastName("Beruskova");
+        newPersonRetRs.setSsn("888777666");
+        newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
+        list = main.getProceduresDao().newPersonRetRs(newPersonRetRs);
+        Assert.assertNotNull(list);
+        Assert.assertEquals(1, list.size());
+        Assert.assertNotNull(list.get(0).getId());
+    }
+
+    public static java.sql.Timestamp getAge(int year, int month, int day) {
+        Calendar birthDay = Calendar.getInstance();
+        birthDay.set(Calendar.YEAR, year);
+        birthDay.set(Calendar.MONTH, month);
+        birthDay.set(Calendar.DAY_OF_MONTH, day);
+        birthDay.set(Calendar.HOUR_OF_DAY, 0);
+        birthDay.set(Calendar.MINUTE, 0);
+        birthDay.set(Calendar.SECOND, 0);
+        birthDay.set(Calendar.MILLISECOND, 0);
+        return new java.sql.Timestamp(birthDay.getTime().getTime());
     }
 
     public ContactDao getContactDao() {
@@ -172,5 +229,13 @@ public class Main {
 
     public PersonDao getPersonDao() {
         return personDao;
+    }
+
+    public FunctionsDao getFunctionsDao() {
+        return functionsDao;
+    }
+
+    public ProceduresDao getProceduresDao() {
+        return proceduresDao;
     }
 }
