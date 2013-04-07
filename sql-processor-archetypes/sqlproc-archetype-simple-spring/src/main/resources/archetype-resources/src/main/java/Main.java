@@ -34,6 +34,9 @@ import ${package}.model.NewPersonRetRs;
 import ${package}.model.Person;
 
 public class Main {
+    
+    private static final String DB_DDL = "hsqldb.ddl";
+    private static final String[] DB_CLEAR = null;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -47,7 +50,7 @@ public class Main {
     public Main() throws BeansException, IOException {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         sessionFactory = context.getBean("sessionFactory", SqlSessionFactory.class);
-        ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
+        ddls = DDLLoader.getDDLs(this.getClass(), DB_DDL);
 
         contactDao = context.getBean("contactDao", ContactDao.class);
         personDao = context.getBean("personDao", PersonDao.class);
@@ -57,7 +60,7 @@ public class Main {
 
     public void setupDb() throws SQLException {
         SqlSession sqlSession = sessionFactory.getSqlSession();
-        sqlSession.executeBatch(ddls.toArray(new String[0]));
+        sqlSession.executeBatch((DB_CLEAR != null) ? DB_CLEAR : ddls.toArray(new String[0]));
     }
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
