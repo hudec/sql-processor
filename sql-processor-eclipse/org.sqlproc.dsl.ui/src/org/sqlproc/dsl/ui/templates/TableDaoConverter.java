@@ -270,7 +270,7 @@ public class TableDaoConverter extends TableMetaConverter {
                         buffer.append("callQueryFunction ").append(procedureName).append(" :java.util.List<:")
                                 .append(tableToCamelCase(metaFunctionsResultSet.get(procedure))).append(">");
                     } else if (metaFunctionsResult.containsKey(procedure)) {
-                        buffer.append("callFunction ").append(procedureName).append(" ")
+                        buffer.append("callFunction ").append(procedureName).append(" :")
                                 .append(metaType2className(metaFunctionsResult.get(procedure)));
                     } else {
                         PojoAttribute returnAttribute = (attributes.containsKey(FAKE_FUN_PROC_COLUMN_NAME)) ? attributes
@@ -327,10 +327,10 @@ public class TableDaoConverter extends TableMetaConverter {
                         buffer.append("callQueryFunction ").append(functionName).append(" :java.util.List<:")
                                 .append(tableToCamelCase(metaFunctionsResultSet.get(function))).append(">");
                     } else if (metaFunctionsResult.containsKey(function) && dbType == DbType.DB2) {
-                        buffer.append("callSelectFunction ").append(functionName).append(" ")
+                        buffer.append("callSelectFunction ").append(functionName).append(" :")
                                 .append(metaType2className(metaFunctionsResult.get(function)));
                     } else if (metaFunctionsResult.containsKey(function)) {
-                        buffer.append("callFunction ").append(functionName).append(" ")
+                        buffer.append("callFunction ").append(functionName).append(" :")
                                 .append(metaType2className(metaFunctionsResult.get(function)));
                     } else {
                         PojoAttribute returnAttribute = (attributes.containsKey(FAKE_FUN_PROC_COLUMN_NAME)) ? attributes

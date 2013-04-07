@@ -1122,7 +1122,7 @@ public class TablePojoConverter {
         PojoAttribute attribute = new PojoAttribute(dbName);
         attribute.setName(columnToCamelCase(dbName));
         attribute.setPrimitive(false);
-        attribute.setClassName(metaType2className(metaType).substring(1));
+        attribute.setClassName(metaType2className(metaType));
         return attribute;
     }
 
@@ -1296,38 +1296,44 @@ public class TablePojoConverter {
         return attribute;
     }
 
-    protected String metaType2className(String metaType) {
-        if ("stamp".equalsIgnoreCase(metaType))
-            return ":java.sql.Timestamp";
-        if ("date".equalsIgnoreCase(metaType))
-            return ":java.util.Date";
-        if ("time".equalsIgnoreCase(metaType))
-            return ":java.util.Time";
-        if ("byte".equalsIgnoreCase(metaType))
-            return ":java.lang.Byte";
-        if ("boolean".equalsIgnoreCase(metaType))
-            return ":java.lang.Boolean";
-        if ("short".equalsIgnoreCase(metaType))
-            return ":java.lang.Short";
-        if ("int".equalsIgnoreCase(metaType))
-            return ":java.lang.Integer";
-        if ("long".equalsIgnoreCase(metaType))
-            return ":java.lang.Long";
-        if ("string".equalsIgnoreCase(metaType))
-            return ":java.lang.String";
-        if ("double".equalsIgnoreCase(metaType))
-            return ":java.lang.Double";
-        if ("float".equalsIgnoreCase(metaType))
-            return ":java.lang.Float";
-        if ("bigint".equalsIgnoreCase(metaType))
-            return ":java.math.BigInteger";
-        if ("biginteger".equalsIgnoreCase(metaType))
-            return ":java.math.BigInteger";
-        if ("bigdec".equalsIgnoreCase(metaType))
-            return ":java.math.BigDecimal";
-        if ("bigdecimal".equalsIgnoreCase(metaType))
-            return ":java.math.BigDecimal";
-        return metaType;
+    protected static Map<String, String> metaType2classNameMap = new HashMap<String, String>();
+    static {
+        metaType2classNameMap.put("stamp", java.sql.Timestamp.class.getName());
+        metaType2classNameMap.put("timestamp", java.sql.Timestamp.class.getName());
+        metaType2classNameMap.put("date", java.sql.Date.class.getName());
+        metaType2classNameMap.put("datetime", java.util.Date.class.getName());
+        metaType2classNameMap.put("time", java.sql.Time.class.getName());
+        metaType2classNameMap.put("byte", java.lang.Byte.class.getName());
+        metaType2classNameMap.put("boolean", java.lang.Boolean.class.getName());
+        metaType2classNameMap.put("bool", java.lang.Boolean.class.getName());
+        metaType2classNameMap.put("character", java.lang.Character.class.getName());
+        metaType2classNameMap.put("char", java.lang.Character.class.getName());
+        metaType2classNameMap.put("short", java.lang.Short.class.getName());
+        metaType2classNameMap.put("int", java.lang.Integer.class.getName());
+        metaType2classNameMap.put("integer", java.lang.Integer.class.getName());
+        metaType2classNameMap.put("long", java.lang.Long.class.getName());
+        metaType2classNameMap.put("string", java.lang.String.class.getName());
+        metaType2classNameMap.put("str", java.lang.String.class.getName());
+        metaType2classNameMap.put("text", java.lang.String.class.getName());
+        metaType2classNameMap.put("double", java.lang.Double.class.getName());
+        metaType2classNameMap.put("float", java.lang.Float.class.getName());
+        metaType2classNameMap.put("bigint", java.math.BigInteger.class.getName());
+        metaType2classNameMap.put("biginteger", java.math.BigInteger.class.getName());
+        metaType2classNameMap.put("bigdec", java.math.BigDecimal.class.getName());
+        metaType2classNameMap.put("bigdecimal", java.math.BigDecimal.class.getName());
+        metaType2classNameMap.put("blob", java.sql.Blob.class.getName());
+        metaType2classNameMap.put("clob", java.sql.Clob.class.getName());
+        metaType2classNameMap.put("bytes", java.lang.Byte[].class.getName());
+        metaType2classNameMap.put("bytearr", java.lang.Byte[].class.getName());
+        metaType2classNameMap.put("bytearray", java.lang.Byte[].class.getName());
     }
 
+    protected String metaType2className(String metaType) {
+        if (metaType == null)
+            return null;
+        String className = metaType2classNameMap.get(metaType.toLowerCase());
+        if (className == null)
+            return metaType;
+        return className;
+    }
 }
