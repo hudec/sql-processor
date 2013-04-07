@@ -43,6 +43,6 @@ function anHourBefore AN_HOUR_BEFORE;
 //SEQ_CONTACT(OPT)=SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'simple' AND TABLE_NAME = 'CONTACT';
 //SEQ_PERSON(OPT)=SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'simple' AND TABLE_NAME = 'PERSON';
 
-metagen-function-result AN_HOUR_BEFORE stamp;
+//metagen-function-result AN_HOUR_BEFORE stamp;
 metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
-//metagen-debug-level DEBUG;
+//pojogen-debug-level DEBUG;
