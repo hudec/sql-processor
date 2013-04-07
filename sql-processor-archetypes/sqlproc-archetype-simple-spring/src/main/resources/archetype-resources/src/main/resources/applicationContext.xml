@@ -47,4 +47,14 @@
         <constructor-arg ref="sessionFactory"/>
     </bean>
 
+    <bean id="proceduresDao" class="${package}.dao.impl.ProceduresDaoImpl">
+        <constructor-arg ref="sqlFactory"/>
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+
+    <bean id="functionsDao" class="${package}.dao.impl.FunctionsDaoImpl">
+        <constructor-arg ref="sqlFactory"/>
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+
 </beans>

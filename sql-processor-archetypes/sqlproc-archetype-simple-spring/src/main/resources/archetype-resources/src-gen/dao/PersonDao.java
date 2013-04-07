@@ -49,4 +49,12 @@ public interface PersonDao {
   public List<Person> list(SqlSession sqlSession, Person person);
   
   public List<Person> list(Person person);
+  
+  public int count(SqlSession sqlSession, Person person, SqlControl sqlControl);
+  
+  public int count(Person person, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, Person person);
+  
+  public int count(Person person);
 }

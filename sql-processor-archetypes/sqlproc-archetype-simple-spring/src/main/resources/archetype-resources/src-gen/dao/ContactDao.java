@@ -50,4 +50,12 @@ public interface ContactDao {
   public List<Contact> list(SqlSession sqlSession, Contact contact);
   
   public List<Contact> list(Contact contact);
+
+  public int count(SqlSession sqlSession, Contact contact, SqlControl sqlControl);
+  
+  public int count(Contact contact, SqlControl sqlControl);
+  
+  public int count(SqlSession sqlSession, Contact contact);
+  
+  public int count(Contact contact);
 }

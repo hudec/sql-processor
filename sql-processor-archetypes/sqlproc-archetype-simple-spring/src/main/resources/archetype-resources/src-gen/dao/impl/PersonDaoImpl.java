@@ -41,7 +41,7 @@ public class PersonDaoImpl implements PersonDao {
       logger.trace("insert person: " + person + " " + sqlControl);
     }
     SqlCrudEngine sqlInsertPerson = sqlEngineFactory.getCheckedCrudEngine("INSERT_PERSON");
-    int count = sqlInsertPerson.insert(sqlSession, person);
+    int count = sqlInsertPerson.insert(sqlSession, person, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("insert person result: " + count + " " + person);
     }
@@ -90,7 +90,7 @@ public class PersonDaoImpl implements PersonDao {
       logger.trace("update person: " + person + " " + sqlControl);
     }
     SqlCrudEngine sqlUpdateEnginePerson = sqlEngineFactory.getCheckedCrudEngine("UPDATE_PERSON");
-    int count = sqlUpdateEnginePerson.update(sqlSession, person);
+    int count = sqlUpdateEnginePerson.update(sqlSession, person, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("update person result count: " + count);
     }
@@ -114,7 +114,7 @@ public class PersonDaoImpl implements PersonDao {
       logger.trace("delete person: " + person + " " + sqlControl);
     }
     SqlCrudEngine sqlDeleteEnginePerson = sqlEngineFactory.getCheckedCrudEngine("DELETE_PERSON");
-    int count = sqlDeleteEnginePerson.delete(sqlSession, person);
+    int count = sqlDeleteEnginePerson.delete(sqlSession, person, sqlControl);
     if (logger.isTraceEnabled()) {
       logger.trace("delete person result count: " + count);
     }
@@ -156,5 +156,30 @@ public class PersonDaoImpl implements PersonDao {
   
   public List<Person> list(Person person) {
     return list(person, null);
+  }
+  
+  public int count(SqlSession sqlSession, Person person, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("count person: " + person + " " + sqlControl);
+    }
+    SqlQueryEngine sqlEnginePerson = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON");
+    //sqlControl = getMoreResultClasses(person, sqlControl);
+    int count = sqlEnginePerson.queryCount(sqlSession, person, sqlControl);
+    if (logger.isTraceEnabled()) {
+      logger.trace("count: " + count);
+    }
+    return count;
+  }
+  
+  public int count(Person person, SqlControl sqlControl) {
+    return count(sqlSessionFactory.getSqlSession(), person, sqlControl);
+  }
+  
+  public int count(SqlSession sqlSession, Person person) {
+    return count(sqlSession, person, null);
+  }
+  
+  public int count(Person person) {
+    return count(person, null);
   }
 }
