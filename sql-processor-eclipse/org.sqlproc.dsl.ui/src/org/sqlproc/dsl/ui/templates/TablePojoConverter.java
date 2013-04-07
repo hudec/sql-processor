@@ -585,7 +585,7 @@ public class TablePojoConverter {
                 dbColumn.setName(FAKE_FUN_PROC_COLUMN_NAME);
             }
             if (dbType == DbType.INFORMIX && ix == 1 && isFunction
-                    && !dbColumn.getName().equals(FAKE_FUN_PROC_COLUMN_NAME))
+                    && !FAKE_FUN_PROC_COLUMN_NAME.equals(dbColumn.getName()))
                 continue;
             PojoAttribute attribute = convertDbColumnDefinition(procedure, dbColumn);
             if (attribute != null) {
@@ -598,6 +598,12 @@ public class TablePojoConverter {
             if (attribute != null) {
                 attribute.setFunProcType(dbProcedure.getFtype());
                 attribute.setFunProcColumnType(dbColumn.getColumnType());
+            }
+            if (FAKE_FUN_PROC_COLUMN_NAME.equals(dbColumn.getName()) && isFunction && attribute.getClassName() != null) {
+                String metaType = className2metaType(attribute.getClassName());
+                // System.out.println("XXXXXX " + procedure + " " + metaType + " " + attribute.getClassName());
+                if (metaType != null)
+                    metaFunctionsResult.put(procedure, metaType);
             }
         }
         if (createColumns.containsKey(procedure)) {
@@ -1296,7 +1302,7 @@ public class TablePojoConverter {
         return attribute;
     }
 
-    protected static Map<String, String> metaType2classNameMap = new HashMap<String, String>();
+    protected static Map<String, String> metaType2classNameMap = new LinkedHashMap<String, String>();
     static {
         metaType2classNameMap.put("stamp", java.sql.Timestamp.class.getName());
         metaType2classNameMap.put("timestamp", java.sql.Timestamp.class.getName());
@@ -1335,5 +1341,23 @@ public class TablePojoConverter {
         if (className == null)
             return metaType;
         return className;
+    }
+
+    protected static Map<String, String> className2metaTypeMap = new HashMap<String, String>();
+    static {
+        for (Entry<String, String> entry : metaType2classNameMap.entrySet()) {
+            String value = entry.getValue();
+            if (!className2metaTypeMap.containsKey(value))
+                className2metaTypeMap.put(value, entry.getKey());
+        }
+    }
+
+    protected String className2metaType(String className) {
+        if (className == null)
+            return null;
+        String metaType = className2metaTypeMap.get(className);
+        if (metaType == null)
+            return null;
+        return metaType;
     }
 }
