@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/org.sqlproc.dsl.feature_1.5.0.qualifier.jar" id="org.sqlproc.dsl.feature" version="1.5.0.qualifier">
-      <category name="sqlproc"/>
-   </feature>
-   <category-def name="sqlproc" label="SQL Processor Eclipse Plugin"/>
-</site>
