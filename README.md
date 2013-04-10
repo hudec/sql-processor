@@ -26,9 +26,16 @@ Project content
  - simple-spring -  the Simple Spring based Application
  - simple-spring-pojo -  the Simple Spring based Application with generated POJO
  - simple-hibernate -  the Simple Hibernate based Application
- - simple-jdbc-crud -  the Advanced JDBC based Application with generated POJO, DAO, META SQL
- - simple-jdbc-dao -  the Advanced Spring based Application with generated POJO, DAO, META SQL, separated impl
+ - simple-jdbc-crud -  the Advanced JDBC based Application with *generated POJO, DAO and META SQL*
+ - simple-jdbc-dao -  the Advanced Spring based Application with *generated POJO, DAO, META SQL, separate impl*
  - catalog-jpa - the working Web Application based on JPA and the Hibernate stack
  - catalog-hibernate - the working Web Application based on the Hibernate stack
  - catalog-spring - the working Web Application based on the Spring stack
+- simple-samples - the samples to demonstrate the supported databases
+ - simple-db2 - the *DB2* Application with generated POJO, DAO and META SQL
+ - simple-hsqldb - the *HSQLDB* Application with generated POJO, DAO and META SQL
+ - simple-informix - the *Informix* Application with generated POJO, DAO and META SQL
+ - simple-mysql - the *MySQL* Application with generated POJO, DAO and META SQL
+ - simple-oracle - the *Oracle* Application with generated POJO, DAO and META SQL
+ - simple-postgresql - the *PostgreSQL* Application with generated POJO, DAO and META SQL
 
