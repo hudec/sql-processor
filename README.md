@@ -13,23 +13,22 @@ Based on the inputs the final SQL query/statement is generated. The parameters a
 The SQL Processor Eclipse Plugin (SQLEP) enables smart edition of the SQL Processor (SQLP) artefacts, POJO and DAO modelling and SQLP artefacts generation based on DB model (including all META SQL statements, POJO and DAO Java code).
 
 Project content
-
-* sql-processor - the SQL Processor (SQLP) core and the JDBC stack
-* sql-processor-hibernate - the SQL Processor (SQLP) extension, the Hibernate stack
-* sql-processor-spring - the SQL Processor (SQLP) extension, the Spring stack
-* sql-processor-eclipse - the SQL Processor Eclipse plugin (SQLEP)
-* sql-processor-archetypes - the SQL Processor Archetypes
-** sqlproc-archetype-simple-jdbc - the SQLP Archetype for Simple JDBC Application
-** sqlproc-archetype-simple-spring - the SQLP Archetype for Simple Spring Application
-* sql-samples - the samples to demonstrate the SQL Processor features
-** simple-jdbc -  the Simple JDBC based Application
-** simple-jdbc-pojo -  the Simple JDBC based Application with generated POJO
-** simple-spring -  the Simple Spring based Application
-** simple-spring-pojo -  the Simple Spring based Application with generated POJO
-** simple-hibernate -  the Simple Hibernate based Application
-** simple-jdbc-crud -  the Advanced JDBC based Application with generated POJO, DAO, META SQL
-** simple-jdbc-dao -  the Advanced Spring based Application with generated POJO, DAO, META SQL, separated impl
-** catalog-jpa - the working Web Application based on JPA and the Hibernate stack
-** catalog-hibernate - the working Web Application based on the Hibernate stack
-** catalog-spring - the working Web Application based on the Spring stack
+- sql-processor - the SQL Processor (SQLP) core and the JDBC stack
+- sql-processor-hibernate - the SQL Processor (SQLP) extension, the Hibernate stack
+- sql-processor-spring - the SQL Processor (SQLP) extension, the Spring stack
+- sql-processor-eclipse - the SQL Processor Eclipse plugin (SQLEP)
+- sql-processor-archetypes - the SQL Processor Archetypes
+ - sqlproc-archetype-simple-jdbc - the SQLP Archetype for Simple JDBC Application
+ - sqlproc-archetype-simple-spring - the SQLP Archetype for Simple Spring Application
+- sql-samples - the samples to demonstrate the SQL Processor features
+ - simple-jdbc -  the Simple JDBC based Application
+ - simple-jdbc-pojo -  the Simple JDBC based Application with generated POJO
+ - simple-spring -  the Simple Spring based Application
+ - simple-spring-pojo -  the Simple Spring based Application with generated POJO
+ - simple-hibernate -  the Simple Hibernate based Application
+ - simple-jdbc-crud -  the Advanced JDBC based Application with generated POJO, DAO, META SQL
+ - simple-jdbc-dao -  the Advanced Spring based Application with generated POJO, DAO, META SQL, separated impl
+ - catalog-jpa - the working Web Application based on JPA and the Hibernate stack
+ - catalog-hibernate - the working Web Application based on the Hibernate stack
+ - catalog-spring - the working Web Application based on the Spring stack
 
