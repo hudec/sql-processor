@@ -1,48 +1,42 @@
 SURROUND_QUERY_LIKE_PARTIAL(BOPT)=false;
 SURROUND_QUERY_LIKE_FULL(BOPT)=true;
 
-SEQ1(OPT,HSQLDB)=call next value for HIBERNATE_SEQUENCE;
-SEQ1(OPT,ORACLE)=select HIBERNATE_SEQUENCE.nextval from dual;
-
-//LIMIT_FROM_TO(OPT,HSQLDB)=$S offset $F limit $M using index;
-//LIMIT_TO(OPT,HSQLDB)=$S limit $M using index;
-
-ITEMS(QRY,in=itemForm,out=item)=
+ITEMS(QRY,inx=ItemForm,outx=ItemTO,tab=item)=
   select @itemid, @productid, @name, @description, @imageurl, @imagethumburl,
          @image, @imagethumb, @price
-  from item it
+  from %%ITEM
   {= where
-   {& it.itemid=:itemid}
-   {& UPPER(it.name) like :+name}
-   {& UPPER(it.description) like :+description}
-   {& it.price >= :priceFrom}
-   {& it.price <= :priceTo}
+   {& %ITEMID = :itemid}
+   {& upper(%NAME) like :+name}
+   {& UPPER(%DESCRIPTION) like :+description}
+   {& %PRICE >= :priceFrom}
+   {& %PRICE <= :priceTo}
   }
-  {#1 order by name}
-  {#2 order by price}
+  {#1 order by %NAME}
+  {#2 order by %PRICE}
 ;
 
-GET_ITEM(CRUD,in=itemForm,out=item)=
+GET_ITEM(CRUD,inx=ItemForm,outx=Item,tab=item)=
   select @itemid, @productid, @name, @description, @imageurl, @imagethumburl,
          @image, @imagethumb, @price
-  from item it
-  {= where it.itemid=:itemid(type=long,notnull)}
+  from %%ITEM
+  {= where %ITEMID = :itemid(notnull)}
 ;
 
-DELETE_ITEM(CRUD,in=itemForm)=
-  delete from item it
-  {= where it.itemid=:itemid(type=long,notnull)}
+DELETE_ITEM(CRUD,inx=ItemForm,tab=item)=
+  delete from %%ITEM
+  {= where %ITEMID = :itemid(notnull)}
 ;
 
-INSERT_ITEM(CRUD,in=item)=
-  insert into item (itemid, productid, name, description, imageurl, imagethumburl, image, imagethumb, price)
-  {= values (:itemid(type=long,seq=SEQ1), :productid, :name, :description, :imageurl, :imagethumburl, :image, :imagethumb, :price) }
+INSERT_ITEM(CRUD,inx=Item,tab=item)=
+  insert into %%ITEM (%ITEMID, %PRODUCTID, %NAME, %DESCRIPTION, %IMAGEURL, %IMAGETHUMBURL, %IMAGE, %IMAGETHUMB, %PRICE)
+  {= values (:itemid(type=long,seq=SIMPLE_SEQUENCE), :productid, :name, :description, :imageurl, :imagethumburl, :image, :imagethumb, :price) }
 ;
 
-UPDATE_ITEM(CRUD,in=item)=
-  update item it
-  {= set it.productid = :productid, it.name = :name, it.description = :description,
-      it.imageurl = :imageurl, it.imagethumburl = :imagethumburl, it.image = :image,
-      it.imagethumb = :imagethumb, it.price = :price}
-  {= where it.itemid = :itemid(type=long,notnull)}
+UPDATE_ITEM(CRUD,inx=Item,tab=item)=
+  update %%ITEM
+  {= set %PRODUCTID = :productid, %NAME = :name, %DESCRIPTION = :description,
+      %IMAGEURL = :imageurl, %IMAGETHUMBURL = :imagethumburl, %IMAGE = :image,
+      %IMAGETHUMB = :imagethumb, %PRICE = :price}
+  {= where %ITEMID = :itemid(notnull)}
 ;
