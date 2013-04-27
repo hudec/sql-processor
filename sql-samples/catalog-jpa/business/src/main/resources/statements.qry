@@ -1,17 +1,17 @@
 SURROUND_QUERY_LIKE_PARTIAL(BOPT)=false;
 SURROUND_QUERY_LIKE_FULL(BOPT)=true;
 
-ITEMS(QRY,inx=ItemForm,outx=ItemTO,tab=item)=
+ITEMS(QRY,in=itemForm,out=item)=
   select @itemid, @productid, @name, @description, @imageurl, @imagethumburl,
          @image, @imagethumb, @price
-  from %%ITEM
+  from item it
   {= where
-   {& %ITEMID = :itemid}
-   {& upper(%NAME) like :+name}
-   {& UPPER(%DESCRIPTION) like :+description}
-   {& %PRICE >= :priceFrom}
-   {& %PRICE <= :priceTo}
+   {& it.itemid=:itemid}
+   {& UPPER(it.name) like :+name}
+   {& UPPER(it.description) like :+description}
+   {& it.price >= :priceFrom}
+   {& it.price <= :priceTo}
   }
-  {#1 order by %NAME}
-  {#2 order by %PRICE}
+  {#1 order by name}
+  {#2 order by price}
 ;

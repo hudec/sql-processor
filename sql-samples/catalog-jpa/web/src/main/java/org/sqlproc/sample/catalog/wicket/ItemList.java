@@ -16,6 +16,7 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -126,7 +127,7 @@ public class ItemList extends BasePage {
 
         if (item != null) {
             link.setParameter("itemid", item.getItemid());
-            link.add(new Label("name", item.getName()));
+            link.add(new Label("name", new Model<ItemTO>(item)));
         }
 
         return link;
