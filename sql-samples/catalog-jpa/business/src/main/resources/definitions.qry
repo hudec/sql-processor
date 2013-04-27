@@ -1,5 +1,5 @@
 resolve-pojo-on;
 database-is-offline;
 
-pojo item org.sqlproc.sample.catalog.model.Item;
-pojo itemForm org.sqlproc.sample.catalog.form.ItemForm;
+pojo item :org.sqlproc.sample.catalog.model.Item;
+pojo itemForm :org.sqlproc.sample.catalog.form.ItemForm;
