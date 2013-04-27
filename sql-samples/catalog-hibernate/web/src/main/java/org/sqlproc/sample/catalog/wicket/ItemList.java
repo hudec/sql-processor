@@ -127,7 +127,7 @@ public class ItemList extends BasePage {
 
         if (item != null) {
             link.setParameter("itemid", item.getItemid());
-            link.add(new Label("name", new Model<ItemTO>(item)));
+            link.add(new Label("name", item.getName()));
         }
 
         return link;

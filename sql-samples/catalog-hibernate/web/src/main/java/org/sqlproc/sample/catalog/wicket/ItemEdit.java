@@ -39,7 +39,7 @@ public class ItemEdit extends BasePage {
         final Item item = (itemid != null) ? itemService.findById(itemid) : new Item();
 
         final Form<Item> form = new StatelessForm<Item>("editForm", new CompoundPropertyModel<Item>(item));
-        logger.info("ItemEdit.init " + item.toDebugString());
+        logger.info("ItemEdit.init " + item.toString());
 
         form.setMultiPart(true);
         add(form);
@@ -104,7 +104,7 @@ public class ItemEdit extends BasePage {
             public void onSubmit() {
 
                 Item item = form.getModelObject();
-                logger.info("ItemEdit.doSave " + item.toDebugString());
+                logger.info("ItemEdit.doSave " + item.toString());
                 Long itemid = (item.getItemid() != null) ? itemService.update(item) : itemService.create(item);
                 PageParameters pp = new PageParameters();
                 pp.set("itemid", itemid);
@@ -117,7 +117,7 @@ public class ItemEdit extends BasePage {
             public void onSubmit() {
 
                 Item item = form.getModelObject();
-                logger.info("ItemEdit.doRemoveImage " + item.toDebugString());
+                logger.info("ItemEdit.doRemoveImage " + item.toString());
                 item.setImage(null);
                 item.setImageurl(null);
                 itemService.update(item);
@@ -132,7 +132,7 @@ public class ItemEdit extends BasePage {
             public void onSubmit() {
 
                 Item item = form.getModelObject();
-                logger.info("ItemEdit.doRemoveImagethumb " + item.toDebugString());
+                logger.info("ItemEdit.doRemoveImagethumb " + item.toString());
                 item.setImagethumb(null);
                 item.setImagethumburl(null);
                 itemService.update(item);
@@ -147,7 +147,7 @@ public class ItemEdit extends BasePage {
             @Override
             public void onClick() {
                 Item item = form.getModelObject();
-                logger.info("ItemEdit.doCancel " + item.toDebugString());
+                logger.info("ItemEdit.doCancel " + item.toString());
                 if (item.getItemid() == null) {
                     if (ItemEdit.this.previousPage != null)
                         setResponsePage(ItemEdit.this.previousPage);
