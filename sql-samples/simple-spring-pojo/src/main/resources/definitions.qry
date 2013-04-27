@@ -5,7 +5,7 @@ database-is-online;
 //database-login-username sqlsample;
 //database-login-password sqlsample;
 //database-active-schema SQLSAMPLE;
-database-jdbc-driver org.hsqldb.jdbcDriver;
+database-jdbc-driver :org.hsqldb.jdbcDriver;
 database-has-url jdbc:hsqldb:mem:springpojo;
 database-login-username sa;
 database-login-password "";
