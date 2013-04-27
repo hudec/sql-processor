@@ -1,6 +1,6 @@
 resolve-pojo-on;
 database-is-offline;
-database-jdbc-driver com.ibm.db2.jcc.DB2Driver;
+database-jdbc-driver :com.ibm.db2.jcc.DB2Driver;
 database-has-url jdbc:db2:\//db2:50001/simple:deferPrepares=0\;progressiveStreaming=2\;;
 database-login-username simple;
 database-login-password simple;

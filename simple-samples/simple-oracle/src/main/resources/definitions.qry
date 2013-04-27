@@ -1,6 +1,6 @@
 resolve-pojo-on;
 database-is-online;
-database-jdbc-driver oracle.jdbc.OracleDriver;
+database-jdbc-driver :oracle.jdbc.OracleDriver;
 database-has-url jdbc:oracle:thin:@127.0.0.1:1521:xe;
 database-login-username simple;
 database-login-password simple;

@@ -1,6 +1,6 @@
 resolve-pojo-on;
 database-is-offline;
-database-jdbc-driver com.informix.jdbc.IfxDriver;
+database-jdbc-driver :com.informix.jdbc.IfxDriver;
 database-has-url jdbc:informix-sqli:\//popel:1551/simple:informixserver=popel_11\;DB_LOCALE=en_US\.57372;
 database-login-username simple;
 database-login-password simple;
