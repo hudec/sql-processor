@@ -249,6 +249,84 @@ class ParserUtils {
         return null;
     }
 
+    static SqlMetaConstOperator newConstOperator(String name) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("newConstantOperator " + name);
+        }
+        if (name.length() > 0) {
+            String[] idents = name.split("\\.");
+            if (idents.length == 1 && idents.equals("="))
+                return new SqlMetaConstOperator(true);
+            SqlMetaConstOperator constantOperator = new SqlMetaConstOperator(false);
+            for (String ident : idents) {
+                constantOperator.addConst(ident);
+            }
+            return constantOperator;
+        }
+        return null;
+    }
+
+    static SqlMetaIdentOperator newIdentOperator(String name) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("newIdentOperator " + name);
+        }
+        if (name.length() > 0) {
+            String[] idents = name.split("\\.");
+            if (idents.length == 1 && idents.equals("="))
+                return new SqlMetaIdentOperator(true);
+            SqlMetaIdentOperator identOperator = new SqlMetaIdentOperator(false);
+            for (String ident : idents) {
+                identOperator.addConst(ident);
+            }
+            return identOperator;
+        }
+        return null;
+    }
+
+    static void addIdentOperator(Object target, SqlMetaIdentOperator identOper, StringBuilder text) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("addIdentOperator " + identOper);
+        }
+        if (identOper != null) {
+            // if (target instanceof SqlMetaStatement) {
+            // addText(target, text);
+            // ((SqlMetaStatement) target).addElement(ident);
+            // } else if (target instanceof SqlMetaOrd) {
+            // addText(target, text);
+            // ((SqlMetaOrd) target).addElement(ident);
+            // } else if (target instanceof SqlMetaLogExpr) {
+            // ((SqlMetaLogExpr) target).addElement(ident);
+            // } else if (target instanceof SqlMetaIfItem) {
+            // addText(target, text);
+            // ((SqlMetaIfItem) target).addElement(ident);
+            // } else {
+            // throw new RuntimeException("Invalid target for addIdent :" + target);
+            // }
+        }
+    }
+
+    static void addConstantOperator(Object target, SqlMetaConstOperator cnstOper, StringBuilder text) {
+        if (logger.isTraceEnabled()) {
+            logger.trace("addConstantOperator " + cnstOper);
+        }
+        if (cnstOper != null) {
+            // if (target instanceof SqlMetaStatement) {
+            // addText(target, text);
+            // ((SqlMetaStatement) target).addElement(cnst);
+            // } else if (target instanceof SqlMetaOrd) {
+            // addText(target, text);
+            // ((SqlMetaOrd) target).addElement(cnst);
+            // } else if (target instanceof SqlMetaLogExpr) {
+            // ((SqlMetaLogExpr) target).addElement(cnst);
+            // } else if (target instanceof SqlMetaIfItem) {
+            // addText(target, text);
+            // ((SqlMetaIfItem) target).addElement(cnst);
+            // } else {
+            // throw new RuntimeException("Invalid target for addConstant :" + target);
+            // }
+        }
+    }
+
     static final String SUPPVAL_GTYPE_ = SqlUtils.SUPPVAL_GTYPE + "=";
     static final String SUPPVAL_TYPE_ = SqlUtils.SUPPVAL_TYPE + "=";
     static final String SUPPVAL_DTYPE_ = "d" + SqlUtils.SUPPVAL_TYPE + "=";

@@ -130,6 +130,22 @@ import org.sqlproc.engine.type.SqlMetaType;
     return ParserUtils.newConstant(cnst.getText(), getText(caseConversion));
   }
   
+  void addIdentOperator(Object target, SqlMetaIdentOperator identOper, StringBuilder text) {
+    ParserUtils.addIdentOperator(target, identOper, text);
+  }
+
+  SqlMetaIdentOperator newIdentOperator(Token ident) {
+    return ParserUtils.newIdentOperator(ident.getText());
+  }
+  
+  void addConstOperator(Object target, SqlMetaConstOperator cnstOper, StringBuilder text) {
+    ParserUtils.addConstantOperator(target, cnstOper, text);
+  }
+  
+  SqlMetaConstOperator newConstOperator(Token ident) {
+    return ParserUtils.newConstOperator(ident.getText());
+  }
+  
   void addOperator(SqlMetaLogExpr expr, boolean isAnd) {
     if (isAnd)
       expr.addElement(new SqlMetaLogOperator(SqlMetaLogOperator.Type.AND));
@@ -227,6 +243,10 @@ sqlFragment [SqlMetaStatement metaStatement]
 		{if(!$meta::skip) addIdent(metaStatement, ident, $meta::text);}
      	| STRING cnst=constant 
      		{if(!$meta::skip) addConstant(metaStatement, cnst, $meta::text);}
+	| COLON COLON identOper=identifierOperator 
+		{if(!$meta::skip) addIdentOperator(metaStatement, identOper, $meta::text);}
+	| STRING STRING cnstOper=constantOperator 
+		{if(!$meta::skip) addConstOperator(metaStatement, cnstOper, $meta::text);}
      	| AT col=column 
      		{if(!$meta::skip) addColumn(metaStatement, col, $meta::text);$meta::hasOutputMapping=true;}
 	|  PERCENT (PERCENT dbtab=dbtable {if(!$meta::skip) addDatabaseTable(metaStatement, dbtab, $meta::text);}
@@ -268,6 +288,10 @@ ifSqlFragment [SqlMetaIfItem metaIfItem]
 		{if(!$meta::skip) addIdent(metaIfItem, ident, $meta::text);}
 	| STRING cnst=constant 
 		{if(!$meta::skip) addConstant(metaIfItem, cnst, $meta::text);}
+	| COLON COLON identOper=identifierOperator 
+		{if(!$meta::skip) addIdentOperator(metaIfItem, identOper, $meta::text);}
+	| STRING STRING cnstOper=constantOperator 
+		{if(!$meta::skip) addConstOperator(metaIfItem, cnstOper, $meta::text);}
      	| AT col=column 
      		{if(!$meta::skip) addColumn(metaIfItem, col, $meta::text);$meta::hasOutputMapping=true;}
 	| PERCENT (PERCENT dbtab=dbtable {if(!$meta::skip) addDatabaseTable(metaIfItem, dbtab, $meta::text);}
@@ -374,6 +398,18 @@ identifier returns [SqlMetaIdent result]
 	 )* RPAREN
 	)?
 	;
+
+constantOperator returns [SqlMetaConstOperator result]
+@init {$result = null;}
+                      :
+                       (ident=IDENT_DOT | ident=IDENT | ident = EQUALS) {if(!$meta::skip) $result = newConstOperator($ident);}
+                      ;
+
+identifierOperator returns [SqlMetaIdentOperator result]
+@init {$result = null;}
+                      :
+                       (ident=IDENT_DOT | ident=IDENT | ident = EQUALS) {if(!$meta::skip) $result = newIdentOperator($ident);}
+                      ;
 
 dbcolumn returns[SqlDatabaseColumn result]
 @init {$result = null;}
