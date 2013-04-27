@@ -30,7 +30,7 @@ DELETE_ITEM(CRUD,inx=ItemForm,tab=item)=
 
 INSERT_ITEM(CRUD,inx=Item,tab=item)=
   insert into %%ITEM (%ITEMID, %PRODUCTID, %NAME, %DESCRIPTION, %IMAGEURL, %IMAGETHUMBURL, %IMAGE, %IMAGETHUMB, %PRICE)
-  {= values (:itemid(type=long,seq=SIMPLE_SEQUENCE), :productid, :name, :description, :imageurl, :imagethumburl, :image, :imagethumb, :price) }
+  {= values (:itemid(seq=SIMPLE_SEQUENCE), :productid, :name, :description, :imageurl, :imagethumburl, :image, :imagethumb, :price) }
 ;
 
 UPDATE_ITEM(CRUD,inx=Item,tab=item)=

@@ -1,0 +1,47 @@
+package org.sqlproc.sample.catalog.model {
+
+
+  final pojo Item serializable 1  {
+    itemid : java.lang.Long required
+    productid : java.lang.String required
+    name : java.lang.String required
+    description : java.lang.String required
+    imageurl : java.lang.String
+    imagethumburl : java.lang.String
+    image _byte []
+    imagethumb _byte []
+    price : java.math.BigDecimal required
+    toString ::: price productid description name image imagethumburl itemid imageurl imagethumb
+  }
+}
+
+package org.sqlproc.sample.catalog.to {
+
+
+  final pojo ItemTO serializable 1  {
+    itemid : java.lang.Long
+    productid : java.lang.String
+    name : java.lang.String
+    description : java.lang.String
+    imageurl : java.lang.String
+    imagethumburl : java.lang.String
+    image _byte []
+    imagethumb _byte []
+    price : java.math.BigDecimal required
+    toString ::: price productid description name image imagethumburl itemid imageurl imagethumb
+  }
+}
+
+package org.sqlproc.sample.catalog.form {
+	final pojo ItemForm serializable 1  {
+    itemid : java.lang.Long
+    name : java.lang.String
+    description : java.lang.String
+    priceFrom : java.math.BigDecimal
+    priceTo : java.math.BigDecimal
+    first _int
+    count _int
+    order _int
+    toString ::: itemid name description priceFrom priceTo
+  }
+}

@@ -2,6 +2,7 @@ package org.sqlproc.sample.catalog.db;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +75,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                 DefaultResourceLoader loader = new DefaultResourceLoader();
                 Item item;
                 // fill with test data
-                item = new Item(
+                item = newItem(
                         1,
                         "feline01",
                         "Friendly Cat",
@@ -82,7 +83,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/anthony.jpg", "images/anthony-s.jpg", 307.10);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         2,
                         "feline01",
                         "Fluffy Cat",
@@ -90,7 +91,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/bailey.jpg", "images/bailey-s.jpg", 307);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         3,
                         "feline02",
                         "Sneaky Cat",
@@ -98,7 +99,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/bob.jpg", "images/bob-s.jpg", 307.20);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         4,
                         "feline02",
                         "Lazy Cat",
@@ -106,7 +107,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/chantelle.jpg", "images/chantelle-s.jpg", 307.30);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         5,
                         "feline01",
                         "Old Cat",
@@ -114,7 +115,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/charlie.jpg", "images/charlie-s.jpg", 307);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         6,
                         "feline02",
                         "Young Female cat",
@@ -122,7 +123,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/elkie.jpg", "images/elkie-s.jpg", 307.40);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         7,
                         "feline01",
                         "Playful Female Cat",
@@ -130,7 +131,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/faith.jpg", "images/faith-s.jpg", 307);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         8,
                         "feline01",
                         "White Fluffy Cat",
@@ -138,7 +139,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/gaetano.jpg", "images/gaetano-s.jpg", 307.50);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         9,
                         "feline02",
                         "Tiger Stripe Cat",
@@ -146,7 +147,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/harmony.jpg", "images/harmony-s.jpg", 307);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         10,
                         "feline02",
                         "Alley Cat",
@@ -154,7 +155,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/katzen.jpg", "images/katzen-s.jpg", 307.60);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         11,
                         "feline02",
                         "Speedy Cat",
@@ -162,7 +163,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/mario.jpg", "images/mario-s.jpg", 307);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         12,
                         "feline01",
                         "Stylish Cat",
@@ -170,7 +171,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/mimi.jpg", "images/mimi-s.jpg", 307.70);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         13,
                         "feline01",
                         "Smelly Cat",
@@ -178,7 +179,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/monique.jpg", "images/monique-s.jpg", 307.80);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         14,
                         "feline01",
                         "Saber Cat",
@@ -186,7 +187,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/olie.jpg", "images/olie-s.jpg", 307.90);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         15,
                         "feline01",
                         "Sophisticated Cat",
@@ -194,12 +195,12 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/paris.jpg", "images/paris-s.jpg", 307);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(16, "feline01", "Princess cat",
+                item = newItem(16, "feline01", "Princess cat",
                         "Just beauty and elegance. She will charm you from the moment she enters the room.",
                         "images/princess.jpg", "images/princess-s.jpg", 307);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         17,
                         "feline02",
                         "Super Lazy cat",
@@ -207,7 +208,7 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/simba.jpg", "images/simba-s.jpg", 307);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         18,
                         "feline02",
                         "Scapper male cat",
@@ -215,11 +216,11 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/thaicat.jpg", "images/thaicat-s.jpg", 307);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(19, "feline01", "Lazy cat", "Buy me please. I love to sleep.", "images/cat1.gif",
+                item = newItem(19, "feline01", "Lazy cat", "Buy me please. I love to sleep.", "images/cat1.gif",
                         "images/cat1.gif", 307);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         20,
                         "feline01",
                         "Older Cat",
@@ -227,17 +228,17 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/cat2.gif", "images/cat2.gif", 200);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(21, "feline01", "Young Cat",
+                item = newItem(21, "feline01", "Young Cat",
                         "A great young pet to chase around. Loves to play with a ball of string.", "images/cat3.gif",
                         "images/cat3.gif", 350);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(22, "feline01", "Scrappy Cat",
+                item = newItem(22, "feline01", "Scrappy Cat",
                         "A real trouble-maker in the neighborhood. Looking for some T.L.C", "images/cat4.gif",
                         "images/cat4.gif", 417);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(
+                item = newItem(
                         23,
                         "feline01",
                         "Sweety Alley Cat",
@@ -245,27 +246,26 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                         "images/cat5.gif", "images/cat5.gif", 307);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(24, "feline02", "Playful Cat", "Come play with me. I am looking for fun.",
+                item = newItem(24, "feline02", "Playful Cat", "Come play with me. I am looking for fun.",
                         "images/cat7.gif", "images/cat7.gif", 190);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(25, "feline02", "Long Haired Cat", "Buy this fancy cat.", "images/cat8.gif",
+                item = newItem(25, "feline02", "Long Haired Cat", "Buy this fancy cat.", "images/cat8.gif",
                         "images/cat8.gif", 199);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(26, "feline02", "Fresh Cat", "Just need a nice bath and i will be fresh as a kitten.",
+                item = newItem(26, "feline02", "Fresh Cat", "Just need a nice bath and i will be fresh as a kitten.",
                         "images/cat9.gif", "images/cat9.gif", 303);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(27, "feline02", "Wild Cat", "This wild tiger loves to play.", "images/cat10.gif",
+                item = newItem(27, "feline02", "Wild Cat", "This wild tiger loves to play.", "images/cat10.gif",
                         "images/cat10.gif", 527);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(28, "feline02", "Young Saber Cat", "Buy me", "images/cat11.gif", "images/cat11.gif",
-                        237);
+                item = newItem(28, "feline02", "Young Saber Cat", "Buy me", "images/cat11.gif", "images/cat11.gif", 237);
                 loadImages(item, loader);
                 session.save(item);
-                item = new Item(29, "feline02", "Snappy Cat", "Buy Me.", "images/cat12.gif", "images/cat12.gif", 337);
+                item = newItem(29, "feline02", "Snappy Cat", "Buy Me.", "images/cat12.gif", "images/cat12.gif", 337);
                 loadImages(item, loader);
                 session.save(item);
 
@@ -277,6 +277,19 @@ public final class TestDataInitializer implements InitializingBean, ApplicationC
                 session.close();
             }
         }
+    }
+
+    private Item newItem(int itemid, String productid, String name, String description, String imageurl,
+            String imagethumburl, double price) {
+        Item item = new Item();
+        item.setItemid(new Long(itemid));
+        item.setProductid(productid);
+        item.setName(name);
+        item.setDescription(description);
+        item.setImageurl(imageurl);
+        item.setImagethumburl(imagethumburl);
+        item.setPrice(new BigDecimal(price));
+        return item;
     }
 
     private void loadImages(Item item, ResourceLoader loader) {
