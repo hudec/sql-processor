@@ -113,17 +113,21 @@ import org.sqlproc.engine.type.SqlMetaType;
   SqlDatabaseTable newDatabaseTable(Token col) {
     return ParserUtils.newDatabaseTable(col.getText());
   }
+
+  Object lastConstantOrIdentifier = null;
   
   void addIdent(Object target, SqlMetaIdent ident, StringBuilder text) {
     ParserUtils.addIdent(target, ident, text);
+    lastConstantOrIdentifier = ident;
   }
   
   SqlMetaIdent newIdent(Token ident, Token modeIdent, Token caseIdent) {
     return ParserUtils.newIdent(ident.getText(), getText(modeIdent), getText(caseIdent));
   }
-  
+
   void addConstant(Object target, SqlMetaConst cnst, StringBuilder text) {
     ParserUtils.addConstant(target, cnst, text);
+    lastConstantOrIdentifier = cnst;
   }
   
   SqlMetaConst newConstant(Token cnst, Token caseConversion) {
@@ -135,15 +139,15 @@ import org.sqlproc.engine.type.SqlMetaType;
   }
 
   SqlMetaIdentOperator newIdentOperator(Token ident) {
-    return ParserUtils.newIdentOperator(ident.getText());
+    return ParserUtils.newIdentOperator(ident.getText(), lastConstantOrIdentifier);
   }
   
   void addConstOperator(Object target, SqlMetaConstOperator cnstOper, StringBuilder text) {
     ParserUtils.addConstantOperator(target, cnstOper, text);
   }
   
-  SqlMetaConstOperator newConstOperator(Token ident) {
-    return ParserUtils.newConstOperator(ident.getText());
+  SqlMetaConstOperator newConstOperator(Token cnst) {
+    return ParserUtils.newConstOperator(cnst.getText(), lastConstantOrIdentifier);
   }
   
   void addOperator(SqlMetaLogExpr expr, boolean isAnd) {
@@ -402,13 +406,13 @@ identifier returns [SqlMetaIdent result]
 constantOperator returns [SqlMetaConstOperator result]
 @init {$result = null;}
                       :
-                       (ident=IDENT_DOT | ident=IDENT | ident = EQUALS) {if(!$meta::skip) $result = newConstOperator($ident);}
+                       (ident = IDENT | ident = EQUALS) {if(!$meta::skip) $result = newConstOperator(ident);}
                       ;
 
 identifierOperator returns [SqlMetaIdentOperator result]
 @init {$result = null;}
                       :
-                       (ident=IDENT_DOT | ident=IDENT | ident = EQUALS) {if(!$meta::skip) $result = newIdentOperator($ident);}
+                       (ident = IDENT | ident = EQUALS) {if(!$meta::skip) $result = newIdentOperator(ident);}
                       ;
 
 dbcolumn returns[SqlDatabaseColumn result]

@@ -249,15 +249,13 @@ class ParserUtils {
         return null;
     }
 
-    static SqlMetaConstOperator newConstOperator(String name) {
+    static SqlMetaConstOperator newConstOperator(String name, Object relatedConstantOdIdentifier) {
         if (logger.isTraceEnabled()) {
             logger.trace("newConstantOperator " + name);
         }
         if (name.length() > 0) {
             String[] idents = name.split("\\.");
-            if (idents.length == 1 && idents.equals("="))
-                return new SqlMetaConstOperator(true);
-            SqlMetaConstOperator constantOperator = new SqlMetaConstOperator(false);
+            SqlMetaConstOperator constantOperator = new SqlMetaConstOperator(relatedConstantOdIdentifier);
             for (String ident : idents) {
                 constantOperator.addConst(ident);
             }
@@ -266,15 +264,13 @@ class ParserUtils {
         return null;
     }
 
-    static SqlMetaIdentOperator newIdentOperator(String name) {
+    static SqlMetaIdentOperator newIdentOperator(String name, Object relatedConstantOdIdentifier) {
         if (logger.isTraceEnabled()) {
             logger.trace("newIdentOperator " + name);
         }
         if (name.length() > 0) {
             String[] idents = name.split("\\.");
-            if (idents.length == 1 && idents.equals("="))
-                return new SqlMetaIdentOperator(true);
-            SqlMetaIdentOperator identOperator = new SqlMetaIdentOperator(false);
+            SqlMetaIdentOperator identOperator = new SqlMetaIdentOperator(relatedConstantOdIdentifier);
             for (String ident : idents) {
                 identOperator.addConst(ident);
             }
@@ -288,20 +284,15 @@ class ParserUtils {
             logger.trace("addIdentOperator " + identOper);
         }
         if (identOper != null) {
-            // if (target instanceof SqlMetaStatement) {
-            // addText(target, text);
-            // ((SqlMetaStatement) target).addElement(ident);
-            // } else if (target instanceof SqlMetaOrd) {
-            // addText(target, text);
-            // ((SqlMetaOrd) target).addElement(ident);
-            // } else if (target instanceof SqlMetaLogExpr) {
-            // ((SqlMetaLogExpr) target).addElement(ident);
-            // } else if (target instanceof SqlMetaIfItem) {
-            // addText(target, text);
-            // ((SqlMetaIfItem) target).addElement(ident);
-            // } else {
-            // throw new RuntimeException("Invalid target for addIdent :" + target);
-            // }
+            if (target instanceof SqlMetaStatement) {
+                addText(target, text);
+                ((SqlMetaStatement) target).addElement(identOper);
+            } else if (target instanceof SqlMetaIfItem) {
+                addText(target, text);
+                ((SqlMetaIfItem) target).addElement(identOper);
+            } else {
+                throw new RuntimeException("Invalid target for addIdent :" + target);
+            }
         }
     }
 
@@ -310,20 +301,15 @@ class ParserUtils {
             logger.trace("addConstantOperator " + cnstOper);
         }
         if (cnstOper != null) {
-            // if (target instanceof SqlMetaStatement) {
-            // addText(target, text);
-            // ((SqlMetaStatement) target).addElement(cnst);
-            // } else if (target instanceof SqlMetaOrd) {
-            // addText(target, text);
-            // ((SqlMetaOrd) target).addElement(cnst);
-            // } else if (target instanceof SqlMetaLogExpr) {
-            // ((SqlMetaLogExpr) target).addElement(cnst);
-            // } else if (target instanceof SqlMetaIfItem) {
-            // addText(target, text);
-            // ((SqlMetaIfItem) target).addElement(cnst);
-            // } else {
-            // throw new RuntimeException("Invalid target for addConstant :" + target);
-            // }
+            if (target instanceof SqlMetaStatement) {
+                addText(target, text);
+                ((SqlMetaStatement) target).addElement(cnstOper);
+            } else if (target instanceof SqlMetaIfItem) {
+                addText(target, text);
+                ((SqlMetaIfItem) target).addElement(cnstOper);
+            } else {
+                throw new RuntimeException("Invalid target for addConstant :" + target);
+            }
         }
     }
 

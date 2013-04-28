@@ -188,6 +188,15 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
     }
 
     /**
+     * Returns the list of sub-elements.
+     * 
+     * @return the list of sub-elements
+     */
+    public List<String> getElements() {
+        return elements;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
