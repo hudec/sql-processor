@@ -175,7 +175,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
     }
 
     /**
-     * Returns the list of sub-elements.
+     * Returns the list of sub-elements
      * 
      * @return the list of sub-elements
      */
@@ -184,14 +184,23 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
     }
 
     /**
+     * Sets the list of sub-elements.
+     * 
+     * @param elements
+     *            the list of sub-elements
+     */
+    public void setElements(List<String> elements) {
+        this.elements = elements;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> process : staticInputValues=" + ctx.staticInputValues + ", class="
-                    + ((ctx.staticInputValues != null) ? ctx.staticInputValues.getClass() : null) + ", sqlType="
-                    + sqlType);
+            logger.trace(">>> process : inputValues=" + getInputValues(ctx) + ", class="
+                    + ((getInputValues(ctx) != null) ? getInputValues(ctx).getClass() : null) + ", sqlType=" + sqlType);
         }
 
         SqlProcessResult result = new SqlProcessResult();
@@ -199,8 +208,8 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
         Object parentObj = null;
         String attributeName = null;
 
-        if (ctx.staticInputValues != null) {
-            obj = ctx.staticInputValues;
+        if (getInputValues(ctx) != null) {
+            obj = getInputValues(ctx);
             Class<?> attributeType = (obj != null) ? obj.getClass() : null;
 
             for (String item : this.elements) {
@@ -224,13 +233,18 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
             }
         }
 
+        String defaultInputValue = (obj == null) ? getDefaultData() : null;
+
         try {
-            result.add(SqlProcessContext
-                    .getPluginFactory()
-                    .getIsEmptyPlugin()
-                    .isNotEmpty(attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(),
-                            (sqlType == null) ? null : sqlType.getValue(), ctx.inSqlSetOrInsert, values,
-                            ctx.getFeatures()));
+            if (defaultInputValue != null)
+                result.add(true);
+            else
+                result.add(SqlProcessContext
+                        .getPluginFactory()
+                        .getIsEmptyPlugin()
+                        .isNotEmpty(attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(),
+                                (sqlType == null) ? null : sqlType.getValue(), ctx.inSqlSetOrInsert, values,
+                                ctx.getFeatures()));
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
         }
@@ -262,8 +276,9 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
             } else {
                 result.setSql(new StringBuilder(getData(obj)));
             }
-        } else
-            result.setSql(new StringBuilder(""));
+        } else {
+            result.setSql(new StringBuilder((defaultInputValue != null) ? defaultInputValue : ""));
+        }
         return result;
     }
 
@@ -319,17 +334,16 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
     @Override
     public boolean processExpression(SqlProcessContext ctx) {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> processExpression : staticInputValues=" + ctx.staticInputValues + ", class="
-                    + ((ctx.staticInputValues != null) ? ctx.staticInputValues.getClass() : null) + ", sqlType="
-                    + sqlType);
+            logger.trace(">>> processExpression : inputValues=" + getInputValues(ctx) + ", class="
+                    + ((getInputValues(ctx) != null) ? getInputValues(ctx).getClass() : null) + ", sqlType=" + sqlType);
         }
 
         Object parentObj = null;
         Object obj = null;
         String attributeName = null;
 
-        if (ctx.staticInputValues != null) {
-            obj = ctx.staticInputValues;
+        if (getInputValues(ctx) != null) {
+            obj = getInputValues(ctx);
 
             for (String item : this.elements) {
                 attributeName = item;
@@ -346,5 +360,25 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
                 .isTrue(attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(),
                         (sqlType == null) ? null : sqlType.getValue(), values, SqlProcessContext.getFeatures());
         return (this.not ? !result : result);
+    }
+
+    /**
+     * Returns the static or dynamic input values. The standard input values are the static ones.
+     * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
+     * @return the static or dynamic input values
+     */
+    Object getInputValues(SqlProcessContext ctx) {
+        return ctx.staticInputValues;
+    }
+
+    /**
+     * Returns a default input value in the case the input attribute is null.
+     * 
+     * @return a default input value
+     */
+    String getDefaultData() {
+        return null;
     }
 }

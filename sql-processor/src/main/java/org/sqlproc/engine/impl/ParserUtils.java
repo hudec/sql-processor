@@ -1,5 +1,7 @@
 package org.sqlproc.engine.impl;
 
+import java.util.List;
+
 import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.RecognitionException;
@@ -249,34 +251,28 @@ class ParserUtils {
         return null;
     }
 
-    static SqlMetaConstOperator newConstOperator(String name, Object relatedConstantOdIdentifier) {
+    static SqlMetaConstOperator newConstOperator(String name, List<String> elements) {
         if (logger.isTraceEnabled()) {
             logger.trace("newConstantOperator " + name);
         }
-        if (name.length() > 0) {
-            String[] idents = name.split("\\.");
-            SqlMetaConstOperator constantOperator = new SqlMetaConstOperator(relatedConstantOdIdentifier);
-            for (String ident : idents) {
-                constantOperator.addConst(ident);
-            }
+        if (name != null && name.length() > 0 && elements != null) {
+            SqlMetaConstOperator constantOperator = new SqlMetaConstOperator(elements);
+            constantOperator.addConst(name); // TODO for =
             return constantOperator;
         }
-        return null;
+        throw new RuntimeException("Missing the related indetifier or constant :" + name + " " + elements);
     }
 
-    static SqlMetaIdentOperator newIdentOperator(String name, Object relatedConstantOdIdentifier) {
+    static SqlMetaIdentOperator newIdentOperator(String name, List<String> elements) {
         if (logger.isTraceEnabled()) {
             logger.trace("newIdentOperator " + name);
         }
-        if (name.length() > 0) {
-            String[] idents = name.split("\\.");
-            SqlMetaIdentOperator identOperator = new SqlMetaIdentOperator(relatedConstantOdIdentifier);
-            for (String ident : idents) {
-                identOperator.addConst(ident);
-            }
+        if (name != null && name.length() > 0 && elements != null) {
+            SqlMetaIdentOperator identOperator = new SqlMetaIdentOperator(elements);
+            identOperator.addConst(name); // TODO for =
             return identOperator;
         }
-        return null;
+        throw new RuntimeException("Missing the related indetifier or constant :" + name + " " + elements);
     }
 
     static void addIdentOperator(Object target, SqlMetaIdentOperator identOper, StringBuilder text) {

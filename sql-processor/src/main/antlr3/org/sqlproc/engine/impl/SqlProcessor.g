@@ -114,11 +114,11 @@ import org.sqlproc.engine.type.SqlMetaType;
     return ParserUtils.newDatabaseTable(col.getText());
   }
 
-  Object lastConstantOrIdentifier = null;
+  List<String> lastElements = null;
   
   void addIdent(Object target, SqlMetaIdent ident, StringBuilder text) {
     ParserUtils.addIdent(target, ident, text);
-    lastConstantOrIdentifier = ident;
+    lastElements = ident.getElements();
   }
   
   SqlMetaIdent newIdent(Token ident, Token modeIdent, Token caseIdent) {
@@ -127,7 +127,7 @@ import org.sqlproc.engine.type.SqlMetaType;
 
   void addConstant(Object target, SqlMetaConst cnst, StringBuilder text) {
     ParserUtils.addConstant(target, cnst, text);
-    lastConstantOrIdentifier = cnst;
+    lastElements = cnst.getElements();
   }
   
   SqlMetaConst newConstant(Token cnst, Token caseConversion) {
@@ -139,7 +139,7 @@ import org.sqlproc.engine.type.SqlMetaType;
   }
 
   SqlMetaIdentOperator newIdentOperator(Token ident) {
-    return ParserUtils.newIdentOperator(ident.getText(), lastConstantOrIdentifier);
+    return ParserUtils.newIdentOperator(ident.getText(), lastElements);
   }
   
   void addConstOperator(Object target, SqlMetaConstOperator cnstOper, StringBuilder text) {
@@ -147,7 +147,7 @@ import org.sqlproc.engine.type.SqlMetaType;
   }
   
   SqlMetaConstOperator newConstOperator(Token cnst) {
-    return ParserUtils.newConstOperator(cnst.getText(), lastConstantOrIdentifier);
+    return ParserUtils.newConstOperator(cnst.getText(), lastElements);
   }
   
   void addOperator(SqlMetaLogExpr expr, boolean isAnd) {
