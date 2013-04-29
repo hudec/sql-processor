@@ -8,6 +8,7 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -257,7 +258,10 @@ class ParserUtils {
         }
         if (name != null && name.length() > 0 && elements != null) {
             SqlMetaConstOperator constantOperator = new SqlMetaConstOperator(elements);
-            constantOperator.addConst(name); // TODO for =
+            if (name.equals("="))
+                constantOperator.addConst("@" + SqlFeature.OPERATOR_ATTRIBUTE);
+            else
+                constantOperator.addConst(name);
             return constantOperator;
         }
         throw new RuntimeException("Missing the related indetifier or constant :" + name + " " + elements);
@@ -269,7 +273,10 @@ class ParserUtils {
         }
         if (name != null && name.length() > 0 && elements != null) {
             SqlMetaIdentOperator identOperator = new SqlMetaIdentOperator(elements);
-            identOperator.addConst(name); // TODO for =
+            if (name.equals("="))
+                identOperator.addConst("@" + SqlFeature.OPERATOR_ATTRIBUTE);
+            else
+                identOperator.addConst(name);
             return identOperator;
         }
         throw new RuntimeException("Missing the related indetifier or constant :" + name + " " + elements);

@@ -58,4 +58,14 @@ class SqlMetaConstOperator extends SqlMetaConst {
     String getDefaultData() {
         return "=";
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    Object getProperty(SqlProcessContext ctx, Object obj, String item) {
+        if (item.startsWith("@"))
+            item = SqlProcessContext.getFeature(item.substring(1));
+        return BeanUtils.getProperty(obj, item);
+    }
 }

@@ -228,7 +228,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
                 }
                 if (obj != null) {
                     parentObj = obj;
-                    obj = BeanUtils.getProperty(obj, item);
+                    obj = getProperty(ctx, obj, item);
                 }
             }
         }
@@ -380,5 +380,20 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
      */
     String getDefaultData() {
         return null;
+    }
+
+    /**
+     * Returns the static input attribute value.
+     * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
+     * @param obj
+     *            the static input value POJO
+     * @param item
+     *            the attribute name
+     * @return the static input attribute value
+     */
+    Object getProperty(SqlProcessContext ctx, Object obj, String item) {
+        return BeanUtils.getProperty(obj, item);
     }
 }

@@ -438,4 +438,12 @@ public interface SqlFeature {
      * has meaning for the UPDATE statements, where the standard handling is to treat any values as not empty.
      */
     public static final String EMPTY_USE_METHOD_IS_NULL = "EMPTY_USE_METHOD_IS_NULL";
+    /**
+     * <code>OPERATOR_ATTRIBUTE</code> is the operator atribute name.
+     */
+    public static final String OPERATOR_ATTRIBUTE = "OPERATOR_ATTRIBUTE";
+    /**
+     * This is the default value related to the key <code>OPERATOR_ATTRIBUTE</code>.
+     */
+    public static final String DEFAULT_OPERATOR_ATTRIBUTE = "op";
 }
