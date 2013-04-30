@@ -2,6 +2,7 @@ package org.sqlproc.engine.impl;
 
 import java.util.List;
 
+import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.impl.SqlInputValue.Code;
 
 /**
@@ -87,6 +88,10 @@ class SqlMetaOperator extends SqlMetaConst {
     Object getProperty(SqlProcessContext ctx, Object obj, String item) {
         if (item.startsWith("@"))
             item = SqlProcessContext.getFeature(item.substring(1));
-        return BeanUtils.getProperty(obj, item);
+        try {
+            return BeanUtils.getProperty(obj, item);
+        } catch (SqlRuntimeException e) {
+            return null;
+        }
     }
 }
