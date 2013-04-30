@@ -5,41 +5,49 @@ import java.util.List;
 import org.sqlproc.engine.impl.SqlInputValue.Code;
 
 /**
- * A META SQL sub-element. It represents a static SQL operator.
+ * A META SQL sub-element. It represents a dynamic SQL operator.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-class SqlMetaConstOperator extends SqlMetaConst {
+class SqlMetaOperator extends SqlMetaConst {
+
+    /**
+     * An indicator the dynamic input values are used.
+     */
+    boolean dynamicInputValue;
 
     /**
      * {@inheritDoc}
      */
-    public SqlMetaConstOperator(Code caseConversion, boolean not, SqlType type) {
+    public SqlMetaOperator(Code caseConversion, boolean not, SqlType type) {
         super(caseConversion, not, type);
     }
 
     /**
      * {@inheritDoc}
      */
-    public SqlMetaConstOperator(Code caseConversion, boolean not) {
+    public SqlMetaOperator(Code caseConversion, boolean not) {
         super(caseConversion, not);
     }
 
     /**
      * {@inheritDoc}
      */
-    public SqlMetaConstOperator(Code caseConversion) {
+    public SqlMetaOperator(Code caseConversion) {
         super(caseConversion);
     }
 
     /**
      * Creates a new instance of this entity using the list of sub-elements.
      * 
+     * @param dynamicInputValue
+     *            an indicator the dynamic input values are used
      * @param elements
      *            the list of sub-elements
      */
-    public SqlMetaConstOperator(List<String> elements) {
+    public SqlMetaOperator(boolean dynamicInputValue, List<String> elements) {
         super(SqlInputValue.Code.NONE);
+        this.dynamicInputValue = dynamicInputValue;
         setElements(elements);
     }
 
@@ -48,7 +56,10 @@ class SqlMetaConstOperator extends SqlMetaConst {
      */
     @Override
     Object getInputValues(SqlProcessContext ctx) {
-        return ctx.staticInputValues;
+        if (dynamicInputValue)
+            return ctx.dynamicInputValues;
+        else
+            return ctx.staticInputValues;
     }
 
     /**

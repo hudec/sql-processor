@@ -114,11 +114,11 @@ import org.sqlproc.engine.type.SqlMetaType;
     return ParserUtils.newDatabaseTable(col.getText());
   }
 
-  List<String> lastElements = null;
+ SqlMetaOperator lastOperator = null;
   
   void addIdent(Object target, SqlMetaIdent ident, StringBuilder text) {
-    ParserUtils.addIdent(target, ident, text);
-    lastElements = ident.getElements();
+    ParserUtils.addIdent(target, ident, text, lastOperator);
+    lastOperator = null;
   }
   
   SqlMetaIdent newIdent(Token ident, Token modeIdent, Token caseIdent) {
@@ -126,28 +126,25 @@ import org.sqlproc.engine.type.SqlMetaType;
   }
 
   void addConstant(Object target, SqlMetaConst cnst, StringBuilder text) {
-    ParserUtils.addConstant(target, cnst, text);
-    lastElements = cnst.getElements();
+    ParserUtils.addConstant(target, cnst, text, lastOperator);
+    lastOperator = null;
   }
   
   SqlMetaConst newConstant(Token cnst, Token caseConversion) {
     return ParserUtils.newConstant(cnst.getText(), getText(caseConversion));
   }
   
-  void addIdentOperator(Object target, SqlMetaIdentOperator identOper, StringBuilder text) {
-    ParserUtils.addIdentOperator(target, identOper, text);
+  void addOperator(Object target, SqlMetaOperator metaOper, StringBuilder text) {
+    ParserUtils.addOperator(target, metaOper, text);
+    lastOperator = metaOper;
   }
 
-  SqlMetaIdentOperator newIdentOperator(Token ident) {
-    return ParserUtils.newIdentOperator(ident.getText(), lastElements);
+  SqlMetaOperator newIdentOperator(Token ident) {
+    return ParserUtils.newOperator(true, ident.getText());
   }
   
-  void addConstOperator(Object target, SqlMetaConstOperator cnstOper, StringBuilder text) {
-    ParserUtils.addConstantOperator(target, cnstOper, text);
-  }
-  
-  SqlMetaConstOperator newConstOperator(Token cnst) {
-    return ParserUtils.newConstOperator(cnst.getText(), lastElements);
+  SqlMetaOperator newConstOperator(Token cnst) {
+    return ParserUtils.newOperator(false, cnst.getText());
   }
   
   void addOperator(SqlMetaLogExpr expr, boolean isAnd) {
@@ -248,9 +245,9 @@ sqlFragment [SqlMetaStatement metaStatement]
      	| STRING cnst=constant 
      		{if(!$meta::skip) addConstant(metaStatement, cnst, $meta::text);}
 	| COLON COLON identOper=identifierOperator 
-		{if(!$meta::skip) addIdentOperator(metaStatement, identOper, $meta::text);}
+		{if(!$meta::skip) addOperator(metaStatement, identOper, $meta::text);}
 	| STRING STRING cnstOper=constantOperator 
-		{if(!$meta::skip) addConstOperator(metaStatement, cnstOper, $meta::text);}
+		{if(!$meta::skip) addOperator(metaStatement, cnstOper, $meta::text);}
      	| AT col=column 
      		{if(!$meta::skip) addColumn(metaStatement, col, $meta::text);$meta::hasOutputMapping=true;}
 	|  PERCENT (PERCENT dbtab=dbtable {if(!$meta::skip) addDatabaseTable(metaStatement, dbtab, $meta::text);}
@@ -293,9 +290,9 @@ ifSqlFragment [SqlMetaIfItem metaIfItem]
 	| STRING cnst=constant 
 		{if(!$meta::skip) addConstant(metaIfItem, cnst, $meta::text);}
 	| COLON COLON identOper=identifierOperator 
-		{if(!$meta::skip) addIdentOperator(metaIfItem, identOper, $meta::text);}
+		{if(!$meta::skip) addOperator(metaIfItem, identOper, $meta::text);}
 	| STRING STRING cnstOper=constantOperator 
-		{if(!$meta::skip) addConstOperator(metaIfItem, cnstOper, $meta::text);}
+		{if(!$meta::skip) addOperator(metaIfItem, cnstOper, $meta::text);}
      	| AT col=column 
      		{if(!$meta::skip) addColumn(metaIfItem, col, $meta::text);$meta::hasOutputMapping=true;}
 	| PERCENT (PERCENT dbtab=dbtable {if(!$meta::skip) addDatabaseTable(metaIfItem, dbtab, $meta::text);}
@@ -403,13 +400,13 @@ identifier returns [SqlMetaIdent result]
 	)?
 	;
 
-constantOperator returns [SqlMetaConstOperator result]
+constantOperator returns [SqlMetaOperator result]
 @init {$result = null;}
                       :
                        (ident = IDENT | ident = EQUALS) {if(!$meta::skip) $result = newConstOperator(ident);}
                       ;
 
-identifierOperator returns [SqlMetaIdentOperator result]
+identifierOperator returns [SqlMetaOperator result]
 @init {$result = null;}
                       :
                        (ident = IDENT | ident = EQUALS) {if(!$meta::skip) $result = newIdentOperator(ident);}

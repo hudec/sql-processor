@@ -175,8 +175,11 @@ FORM_BASIC_OPERATOR(QRY)=
   p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
   from PERSON p {= where
    {& p.id = :id}
-   {& :name.first ::= p.NAME_FIRST | :name.last ::= p.NAME_LAST | :ssn.number ::= p.SSN_NUMBER}
-   {& :ssn.country $$= p.SSN_COUNTRY | :birthDate $$= p.BIRTHDATE | :sex.value $$= p.SEX}
+   {& p.NAME_FIRST ::= :name.first | p.NAME_LAST ::= :name.last | p.SSN_NUMBER ::= :ssn.number}
+   {& p.SSN_COUNTRY $$= :ssn.country | p.BIRTHDATE $$= :birthDate | p.SEX $$= :sex.value}
+   {& p.CREATEDDATE = :createdDate | p.LASTUPDATEDBY = :lastUpdatedBy | p.LASTUPDATED = :lastUpdated}
+   {& p.CREATEDBY = :createdBy}
+   {& p.VERSION = :version}
   }
   {#1 order by id}
 ;
