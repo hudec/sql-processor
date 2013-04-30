@@ -12,7 +12,7 @@ import org.sqlproc.engine.model.Country;
 import org.sqlproc.engine.model.Gender;
 import org.sqlproc.engine.model.Person;
 
-public class TestWhere extends TestDatabase {
+public class TestOperators extends TestDatabase {
 
     protected String getDataSetFile(String dbType) {
         return "dbunit/BasicTest.xml";
@@ -20,7 +20,7 @@ public class TestWhere extends TestDatabase {
 
     @Test
     public void testDefaultOperators() {
-        SqlQueryEngine sqlEngine = getSqlEngine("FORM_BASIC_2");
+        SqlQueryEngine sqlEngine = getSqlEngine("FORM_BASIC_OPERATOR");
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         PersonForm pf = new PersonForm();

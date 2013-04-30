@@ -1,5 +1,6 @@
 package org.sqlproc.engine.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.antlr.runtime.CommonToken;
@@ -257,7 +258,7 @@ class ParserUtils {
             logger.trace("newConstantOperator " + name);
         }
         if (name != null && name.length() > 0 && elements != null) {
-            SqlMetaConstOperator constantOperator = new SqlMetaConstOperator(elements);
+            SqlMetaConstOperator constantOperator = new SqlMetaConstOperator(new ArrayList<String>(elements));
             if (name.equals("="))
                 constantOperator.addConst("@" + SqlFeature.OPERATOR_ATTRIBUTE);
             else
@@ -272,7 +273,7 @@ class ParserUtils {
             logger.trace("newIdentOperator " + name);
         }
         if (name != null && name.length() > 0 && elements != null) {
-            SqlMetaIdentOperator identOperator = new SqlMetaIdentOperator(elements);
+            SqlMetaIdentOperator identOperator = new SqlMetaIdentOperator(new ArrayList<String>(elements));
             if (name.equals("="))
                 identOperator.addConst("@" + SqlFeature.OPERATOR_ATTRIBUTE);
             else

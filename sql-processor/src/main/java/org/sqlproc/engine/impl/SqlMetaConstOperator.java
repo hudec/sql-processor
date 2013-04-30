@@ -63,6 +63,16 @@ class SqlMetaConstOperator extends SqlMetaConst {
      * {@inheritDoc}
      */
     @Override
+    Class<?> getFieldType(SqlProcessContext ctx, Class<?> attributeType, String attributeName) {
+        if (attributeName.startsWith("@"))
+            return String.class;
+        return BeanUtils.getFieldType(attributeType, attributeName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     Object getProperty(SqlProcessContext ctx, Object obj, String item) {
         if (item.startsWith("@"))
             item = SqlProcessContext.getFeature(item.substring(1));

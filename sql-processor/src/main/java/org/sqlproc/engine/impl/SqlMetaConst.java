@@ -216,7 +216,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
                 attributeName = item;
                 if (attributeType != null) {
                     Class<?> origAttributeType = attributeType;
-                    attributeType = BeanUtils.getFieldType(attributeType, attributeName);
+                    attributeType = getFieldType(ctx, attributeType, attributeName);
                     if (attributeType == null) {
                         if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_IN)) {
                             logger.error("There's no attribute '" + attributeName + "' for " + origAttributeType);
@@ -380,6 +380,21 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
      */
     String getDefaultData() {
         return null;
+    }
+
+    /**
+     * Returns the static input attribute type.
+     * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
+     * @param attributeType
+     *            parents type
+     * @param attributeName
+     *            the attribute name
+     * @return the static input attribute type
+     */
+    Class<?> getFieldType(SqlProcessContext ctx, Class<?> attributeType, String attributeName) {
+        return BeanUtils.getFieldType(attributeType, attributeName);
     }
 
     /**

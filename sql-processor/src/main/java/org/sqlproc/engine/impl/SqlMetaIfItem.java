@@ -65,7 +65,8 @@ class SqlMetaIfItem implements SqlMetaElement {
         boolean onlyText = true;
         boolean skipNextText = false;
         for (SqlMetaElement item : this.elements) {
-            if (item instanceof SqlMetaIdent || item instanceof SqlMetaConst || item instanceof SqlMetaIfItem) {
+            if (item instanceof SqlMetaIdent || item instanceof SqlMetaConst || item instanceof SqlMetaIfItem
+                    || item instanceof SqlMetaIdentOperator || item instanceof SqlMetaConstOperator) {
                 onlyText = false;
             }
             SqlProcessResult itemResult = item.process(ctx);
@@ -73,7 +74,8 @@ class SqlMetaIfItem implements SqlMetaElement {
                 if (skipNextText && item instanceof SqlMetaText) {
                     continue;
                 }
-                if (item instanceof SqlMetaIdent || item instanceof SqlMetaConst || item instanceof SqlMetaIfItem) {
+                if (item instanceof SqlMetaIdent || item instanceof SqlMetaConst || item instanceof SqlMetaIfItem
+                        || item instanceof SqlMetaIdentOperator || item instanceof SqlMetaConstOperator) {
                     result.addTrue();
                 }
                 result.getSql().append(itemResult.getSql());
