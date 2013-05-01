@@ -204,6 +204,16 @@ import org.sqlproc.engine.type.SqlMetaType;
     processor.addFeature(type, name, feature, errorsList, activeFilters, filters);
     return errorsList == null;
   }
+  
+  SqlMetaIfItem newSqlMetaIfItem() {
+    lastOperator = null;
+    return new SqlMetaIfItem();
+  }
+  
+  SqlMetaStatement newSqlMetaStatement() {
+    lastOperator = null;
+    return new SqlMetaStatement();
+  }
 }
 
 parse	:
@@ -225,7 +235,7 @@ parse2 [SqlTypeFactory _typeFactory, Map<String, Object> defaultFeatures, Set<St
 	
 meta [String name, SqlTypeFactory _typeFactory, boolean _skip] returns [SqlMetaStatement metaStatement]
 scope {StringBuilder text;boolean hasOutputMapping;SqlTypeFactory typeFactory;boolean skip;}
-@init {artifactName.push(name); $metaStatement = new SqlMetaStatement(); $meta::text = new StringBuilder(); $meta::typeFactory=_typeFactory; $meta::skip=_skip;}
+@init {artifactName.push(name); $metaStatement = newSqlMetaStatement(); $meta::text = new StringBuilder(); $meta::typeFactory=_typeFactory; $meta::skip=_skip;}
 @after {$metaStatement.setHasOutputMapping($meta::hasOutputMapping); artifactName.pop();}
 	: sql[metaStatement] EOF?
 	;
@@ -275,7 +285,7 @@ metaSql [SqlMetaStatement metaStatement]
 	;
 	
 ifSql [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]
-@init {$metaIfItem = (metaIfItemIn !=null) ? metaIfItemIn : new SqlMetaIfItem();}
+@init {$metaIfItem = (metaIfItemIn !=null) ? metaIfItemIn : newSqlMetaIfItem();}
 	:
 	(ifSqlFragment[metaIfItem])+
 	;
