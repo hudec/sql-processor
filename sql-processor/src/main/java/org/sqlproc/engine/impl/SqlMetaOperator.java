@@ -3,6 +3,7 @@ package org.sqlproc.engine.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.impl.SqlInputValue.Code;
 
 /**
@@ -109,8 +110,13 @@ class SqlMetaOperator extends SqlMetaConst {
             return result;
         suffix = SqlUtils.firstLowerCase(suffix);
         Object o = (BeanUtils.checkProperty(obj, suffix)) ? BeanUtils.getProperty(obj, suffix) : null;
-        if (o == null || !(o instanceof Map))
-            return null;
+        if (o == null || !(o instanceof Map)) {
+            suffix = SqlProcessContext.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
+            o = (BeanUtils.checkProperty(obj, suffix)) ? BeanUtils.getProperty(obj, suffix) : null;
+            if (o == null || !(o instanceof Map)) {
+                return null;
+            }
+        }
         Map map = (Map) o;
         return map.get(prefix);
     }

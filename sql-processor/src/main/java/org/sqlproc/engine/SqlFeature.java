@@ -446,4 +446,12 @@ public interface SqlFeature {
      * This is the default value related to the key <code>OPERATOR_ATTRIBUTE</code>.
      */
     public static final String DEFAULT_OPERATOR_ATTRIBUTE = "Op";
+    /**
+     * <code>OPERATOR_ATTRIBUTE_IN_MAP</code> is the map name of the operators name suffix.
+     */
+    public static final String OPERATOR_ATTRIBUTE_IN_MAP = "OPERATOR_ATTRIBUTE_IN_MAP";
+    /**
+     * This is the default value related to the key <code>OPERATOR_ATTRIBUTE_IN_MAP</code>.
+     */
+    public static final String DEFAULT_OPERATOR_ATTRIBUTE_IN_MAP = "operators";
 }

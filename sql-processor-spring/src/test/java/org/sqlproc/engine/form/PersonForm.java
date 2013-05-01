@@ -27,6 +27,7 @@ public class PersonForm {
     private String sexOp1;
     private Map<String, String> op;
     private Map<String, String> op1;
+    private Map<String, String> operators;
 
     public Long getId() {
         return id;
@@ -178,6 +179,14 @@ public class PersonForm {
 
     public void setOp1(Map<String, String> op1) {
         this.op1 = op1;
+    }
+
+    public Map<String, String> getOperators() {
+        return operators;
+    }
+
+    public void setOperators(Map<String, String> operators) {
+        this.operators = operators;
     }
 
     // @Override

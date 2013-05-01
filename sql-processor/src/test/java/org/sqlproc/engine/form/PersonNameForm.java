@@ -7,6 +7,7 @@ public class PersonNameForm {
     private String last;
     private String firstOp;
     private Map<String, String> op;
+    private Map<String, String> operators;
 
     public String getFirst() {
         return first;
@@ -38,6 +39,14 @@ public class PersonNameForm {
 
     public void setOp(Map<String, String> op) {
         this.op = op;
+    }
+
+    public Map<String, String> getOperators() {
+        return operators;
+    }
+
+    public void setOperators(Map<String, String> operators) {
+        this.operators = operators;
     }
 
     // @Override
