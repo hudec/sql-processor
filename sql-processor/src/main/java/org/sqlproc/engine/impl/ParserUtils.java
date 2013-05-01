@@ -85,8 +85,14 @@ class ParserUtils {
                 throw new RuntimeException("Invalid target for addIdent :" + target);
             }
             if (lastOperator != null) {
-                List<String> elements = new ArrayList<String>(ident.getElements());
-                elements.addAll(lastOperator.getElements());
+                String opElement = lastOperator.getElements().get(0);
+                List<String> elements = new ArrayList<String>();
+                for (int i = 0, l = ident.getElements().size(); i < l; i++) {
+                    if (i == l - 1)
+                        elements.add(ident.getElements().get(i) + opElement);
+                    else
+                        elements.add(ident.getElements().get(i));
+                }
                 lastOperator.setElements(elements);
             }
         }
@@ -112,8 +118,14 @@ class ParserUtils {
                 throw new RuntimeException("Invalid target for addConstant :" + target);
             }
             if (lastOperator != null) {
-                List<String> elements = new ArrayList<String>(cnst.getElements());
-                elements.addAll(lastOperator.getElements());
+                String opElement = lastOperator.getElements().get(0);
+                List<String> elements = new ArrayList<String>();
+                for (int i = 0, l = cnst.getElements().size(); i < l; i++) {
+                    if (i == l - 1)
+                        elements.add(cnst.getElements().get(i) + opElement);
+                    else
+                        elements.add(cnst.getElements().get(i));
+                }
                 lastOperator.setElements(elements);
             }
         }

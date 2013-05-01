@@ -2,7 +2,6 @@ package org.sqlproc.engine.impl;
 
 import java.util.List;
 
-import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.impl.SqlInputValue.Code;
 
 /**
@@ -76,7 +75,7 @@ class SqlMetaOperator extends SqlMetaConst {
      */
     @Override
     Class<?> getFieldType(SqlProcessContext ctx, Class<?> attributeType, String attributeName) {
-        if (attributeName.startsWith("@"))
+        if (attributeName.indexOf("@") >= 0)
             return String.class;
         return BeanUtils.getFieldType(attributeType, attributeName);
     }
@@ -86,12 +85,20 @@ class SqlMetaOperator extends SqlMetaConst {
      */
     @Override
     Object getProperty(SqlProcessContext ctx, Object obj, String item) {
-        if (item.startsWith("@"))
-            item = SqlProcessContext.getFeature(item.substring(1));
-        try {
-            return BeanUtils.getProperty(obj, item);
-        } catch (SqlRuntimeException e) {
-            return null;
-        }
+        int ix = item.indexOf("@");
+        if (ix >= 0)
+            item = item.substring(0, ix) + SqlProcessContext.getFeature(item.substring(ix + 1));
+        Object result = (BeanUtils.checkProperty(obj, item)) ? BeanUtils.getProperty(obj, item) : null;
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    String getData(Object obj) {
+        if (obj instanceof String)
+            return (String) obj;
+        return obj.toString();
     }
 }

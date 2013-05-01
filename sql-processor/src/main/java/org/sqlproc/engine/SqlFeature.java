@@ -439,11 +439,11 @@ public interface SqlFeature {
      */
     public static final String EMPTY_USE_METHOD_IS_NULL = "EMPTY_USE_METHOD_IS_NULL";
     /**
-     * <code>OPERATOR_ATTRIBUTE</code> is the operator atribute name.
+     * <code>OPERATOR_ATTRIBUTE</code> is the operator atribute name suffix.
      */
     public static final String OPERATOR_ATTRIBUTE = "OPERATOR_ATTRIBUTE";
     /**
      * This is the default value related to the key <code>OPERATOR_ATTRIBUTE</code>.
      */
-    public static final String DEFAULT_OPERATOR_ATTRIBUTE = "op";
+    public static final String DEFAULT_OPERATOR_ATTRIBUTE = "Op";
 }

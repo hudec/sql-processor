@@ -75,6 +75,15 @@ public class BeanUtils {
         }
     }
 
+    public static boolean checkProperty(Object bean, String name) {
+        PropertyDescriptor[] props = PropertyUtils.getPropertyDescriptors(bean);
+        for (PropertyDescriptor prop : props) {
+            if (prop.getName().equals(name))
+                return true;
+        }
+        return false;
+    }
+
     // used only for the output values handling, it's tested for the result null
     public static Method getGetter(Class<?> clazz, String attributeName) {
         PropertyDescriptor[] descriptors = PropertyUtils.getPropertyDescriptors(clazz);

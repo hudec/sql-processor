@@ -22,6 +22,8 @@ public class PersonForm {
     private Set<Gender> sexs;
     private Set<Size> clothesSizes;
     private Integer age;
+    private String birthDateOp;
+    private String sexOp1;
 
     public Long getId() {
         return id;
@@ -141,5 +143,21 @@ public class PersonForm {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public String getBirthDateOp() {
+        return birthDateOp;
+    }
+
+    public void setBirthDateOp(String birthDateOp) {
+        this.birthDateOp = birthDateOp;
+    }
+
+    public String getSexOp1() {
+        return sexOp1;
+    }
+
+    public void setSexOp1(String sexOp1) {
+        this.sexOp1 = sexOp1;
     }
 }

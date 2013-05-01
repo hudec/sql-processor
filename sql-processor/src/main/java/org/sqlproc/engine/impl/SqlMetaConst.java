@@ -289,7 +289,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
      *            a raw input value
      * @return the transformed input value
      */
-    private String getData(Object obj) {
+    String getData(Object obj) {
         // obj is not null
         if (obj instanceof String) {
             if (caseConversion == SqlInputValue.Code.UPPER) {

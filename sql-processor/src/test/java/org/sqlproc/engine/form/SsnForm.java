@@ -8,6 +8,7 @@ public class SsnForm {
     private Country country;
     private Set<Country> countries;
     private String number;
+    private String numberOp1;
 
     public Country getCountry() {
         return country;
@@ -31,5 +32,13 @@ public class SsnForm {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getNumberOp1() {
+        return numberOp1;
+    }
+
+    public void setNumberOp1(String numberOp1) {
+        this.numberOp1 = numberOp1;
     }
 }
