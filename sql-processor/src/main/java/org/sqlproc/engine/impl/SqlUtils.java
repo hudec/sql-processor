@@ -259,4 +259,12 @@ public class SqlUtils {
             list.add(item);
         return list;
     }
+
+    public static String firstLowerCase(String s) {
+        if (s == null)
+            return null;
+        if (s.length() == 1)
+            return s.toLowerCase();
+        return s.substring(0, 1).toLowerCase() + s.substring(1);
+    }
 }

@@ -1,5 +1,6 @@
 package org.sqlproc.engine.form;
 
+import java.util.Map;
 import java.util.Set;
 
 import org.sqlproc.engine.model.Country;
@@ -10,6 +11,8 @@ public class SsnForm {
     private Set<Country> countries;
     private String number;
     private String numberOp1;
+    private Map<String, String> op;
+    private Map<String, String> op1;
 
     public Country getCountry() {
         return country;
@@ -49,6 +52,22 @@ public class SsnForm {
 
     public void setCountryOp(String countryOp) {
         this.countryOp = countryOp;
+    }
+
+    public Map<String, String> getOp() {
+        return op;
+    }
+
+    public void setOp(Map<String, String> op) {
+        this.op = op;
+    }
+
+    public Map<String, String> getOp1() {
+        return op1;
+    }
+
+    public void setOp1(Map<String, String> op1) {
+        this.op1 = op1;
     }
 
     // @Override

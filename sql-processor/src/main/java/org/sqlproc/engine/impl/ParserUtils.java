@@ -284,7 +284,7 @@ class ParserUtils {
             if (name.equals("="))
                 elements.add("@" + SqlFeature.OPERATOR_ATTRIBUTE);
             else
-                elements.add(name);
+                elements.add("?" + name);
             SqlMetaOperator identOperator = new SqlMetaOperator(dynamicInputValue, new ArrayList<String>(elements));
             return identOperator;
         }

@@ -1,6 +1,7 @@
 package org.sqlproc.engine.form;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 
 import org.sqlproc.engine.model.Gender;
@@ -24,6 +25,8 @@ public class PersonForm {
     private Integer age;
     private String birthDateOp;
     private String sexOp1;
+    private Map<String, String> op;
+    private Map<String, String> op1;
 
     public Long getId() {
         return id;
@@ -159,6 +162,22 @@ public class PersonForm {
 
     public void setSexOp1(String sexOp1) {
         this.sexOp1 = sexOp1;
+    }
+
+    public Map<String, String> getOp() {
+        return op;
+    }
+
+    public void setOp(Map<String, String> op) {
+        this.op = op;
+    }
+
+    public Map<String, String> getOp1() {
+        return op1;
+    }
+
+    public void setOp1(Map<String, String> op1) {
+        this.op1 = op1;
     }
 
     // @Override

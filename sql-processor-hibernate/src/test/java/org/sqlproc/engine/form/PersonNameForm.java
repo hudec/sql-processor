@@ -1,9 +1,12 @@
 package org.sqlproc.engine.form;
 
+import java.util.Map;
+
 public class PersonNameForm {
     private String first;
     private String last;
     private String firstOp;
+    private Map<String, String> op;
 
     public String getFirst() {
         return first;
@@ -27,6 +30,14 @@ public class PersonNameForm {
 
     public void setFirstOp(String firstOp) {
         this.firstOp = firstOp;
+    }
+
+    public Map<String, String> getOp() {
+        return op;
+    }
+
+    public void setOp(Map<String, String> op) {
+        this.op = op;
     }
 
     // @Override
