@@ -2,6 +2,9 @@ package org.sqlproc.engine.model;
 
 import java.util.Date;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class Contact {
 
     private Long id;

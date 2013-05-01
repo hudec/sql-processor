@@ -1,5 +1,8 @@
 package org.sqlproc.engine.model;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class CreditCard extends BillingDetails {
     private Long number;
     private Short expMonth;

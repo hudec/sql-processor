@@ -22,6 +22,8 @@ public class PersonForm {
     private Set<Gender> sexs;
     private Set<Size> clothesSizes;
     private Integer age;
+    private String birthDateOp;
+    private String sexOp1;
 
     public Long getId() {
         return id;
@@ -142,4 +144,28 @@ public class PersonForm {
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    public String getBirthDateOp() {
+        return birthDateOp;
+    }
+
+    public void setBirthDateOp(String birthDateOp) {
+        this.birthDateOp = birthDateOp;
+    }
+
+    public String getSexOp1() {
+        return sexOp1;
+    }
+
+    public void setSexOp1(String sexOp1) {
+        this.sexOp1 = sexOp1;
+    }
+
+    // @Override
+    // public String toString() {
+    // return "PersonForm [id=" + id + ", birthDate=" + birthDate + ", createdDate=" + createdDate + ", createdBy="
+    // + createdBy + ", lastUpdated=" + lastUpdated + ", lastUpdatedBy=" + lastUpdatedBy + ", version="
+    // + version + ", sex=" + sex + ", ssn=" + ssn + ", clothesSize=" + clothesSize + ", name=" + name
+    // + ", idSet=" + idSet + ", age=" + age + ", birthDateOp=" + birthDateOp + ", sexOp1=" + sexOp1 + "]";
+    // }
 }

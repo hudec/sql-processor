@@ -89,8 +89,6 @@ class SqlMetaOperator extends SqlMetaConst {
         if (ix >= 0)
             item = item.substring(0, ix) + SqlProcessContext.getFeature(item.substring(ix + 1));
         Object result = (BeanUtils.checkProperty(obj, item)) ? BeanUtils.getProperty(obj, item) : null;
-        // if (result != null)
-        // System.out.println(item + " " + result);
         return result;
     }
 

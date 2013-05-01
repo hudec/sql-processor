@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class Library {
 
     private Long id;

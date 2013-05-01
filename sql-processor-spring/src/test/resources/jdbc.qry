@@ -160,7 +160,7 @@ FORM_BASIC_2(QRY)=
   from PERSON p {= where
    {& p.id = :id}
    {& p.NAME_FIRST = :name.first | p.NAME_LAST = :name.last | p.SSN_NUMBER = :ssn.number}
-   {& p.SSN_COUNTRY = :ssn.country | p.BIRTHDATE = :birthDate | p.SEX = :sex.value}
+   {& p.SSN_COUNTRY = :ssn.country | p.BIRTHDATE = :birthDate | p.SEX = :sex}
    {& p.CREATEDDATE = :createdDate | p.LASTUPDATEDBY = :lastUpdatedBy | p.LASTUPDATED = :lastUpdated}
    {& p.CREATEDBY = :createdBy}
    {& p.VERSION = :version}
@@ -168,6 +168,36 @@ FORM_BASIC_2(QRY)=
   {#1 order by id}
 ;
 
+
+FORM_BASIC_OPERATOR(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
+  from PERSON p {= where
+   {& p.id = :id}
+   {& p.NAME_FIRST ::= :name.first | p.NAME_LAST ::= :name.last | p.SSN_NUMBER ::= :ssn.number}
+   {& p.SSN_COUNTRY $$= :ssn.country | p.BIRTHDATE $$= :birthDate | p.SEX $$= :sex}
+   {& p.CREATEDDATE ::= :createdDate | p.LASTUPDATEDBY ::= :lastUpdatedBy | p.LASTUPDATED ::= :lastUpdated}
+   {& p.CREATEDBY $$= :createdBy}
+   {& p.VERSION = :version}
+  }
+  {#1 order by id}
+;
+
+FORM_BASIC_OPERATOR_2(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
+  from PERSON p {= where
+   {& p.id = :id}
+   {& p.NAME_FIRST ::= :name.first | p.NAME_LAST ::= :name.last | p.SSN_NUMBER ::Op1 :ssn.number}
+   {& p.SSN_COUNTRY $$= :ssn.country | p.BIRTHDATE $$= :birthDate | p.SEX $$Op1 :sex}
+   {& p.CREATEDDATE ::= :createdDate | p.LASTUPDATEDBY ::= :lastUpdatedBy | p.LASTUPDATED ::= :lastUpdated}
+   {& p.CREATEDBY $$= :createdBy}
+   {& p.VERSION = :version}
+  }
+  {#1 order by id}
+;
 
 FORM_OR_BASIC(QRY)=
   select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,

@@ -3,6 +3,9 @@ package org.sqlproc.engine.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class MediaCharacter {
 
     private Long id;

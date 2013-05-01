@@ -1,5 +1,8 @@
 package org.sqlproc.engine.model;
 
+import org.sqlproc.engine.annotation.Pojo;
+
+@Pojo
 public class BankAccount extends BillingDetails {
     private String accountNumber;
     private String bankName;

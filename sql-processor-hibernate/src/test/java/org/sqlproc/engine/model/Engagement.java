@@ -1,6 +1,8 @@
 package org.sqlproc.engine.model;
 
+import org.sqlproc.engine.annotation.Pojo;
 
+@Pojo
 public class Engagement {
     private Long id;
     private String role;

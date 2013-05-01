@@ -1,6 +1,8 @@
 package org.sqlproc.engine.model;
 
+import org.sqlproc.engine.annotation.Pojo;
 
+@Pojo
 public abstract class Media extends MediaBase {
     public Media() {
     }
