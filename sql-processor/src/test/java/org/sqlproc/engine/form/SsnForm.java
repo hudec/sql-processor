@@ -6,6 +6,7 @@ import org.sqlproc.engine.model.Country;
 
 public class SsnForm {
     private Country country;
+    private String countryOp;
     private Set<Country> countries;
     private String number;
     private String numberOp1;
@@ -41,4 +42,18 @@ public class SsnForm {
     public void setNumberOp1(String numberOp1) {
         this.numberOp1 = numberOp1;
     }
+
+    public String getCountryOp() {
+        return countryOp;
+    }
+
+    public void setCountryOp(String countryOp) {
+        this.countryOp = countryOp;
+    }
+
+    // @Override
+    // public String toString() {
+    // return "SsnForm [country=" + country + ", countryOp=" + countryOp + ", countries=" + countries + ", number="
+    // + number + ", numberOp1=" + numberOp1 + "]";
+    // }
 }

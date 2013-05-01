@@ -52,13 +52,13 @@ public class Person extends PersonBase {
         setBirthDate(new java.sql.Date(birthDay.getTime().getTime()));
     }
 
-    // @Override
-    // public String toString() {
-    // return "Person [getAge()=" + getAge() + ", getId()=" + getId() + ", getBirthDate()=" + getBirthDate()
-    // + ", getCreatedDate()=" + getCreatedDate() + ", getCreatedBy()=" + getCreatedBy()
-    // + ", getLastUpdated()=" + getLastUpdated() + ", getLastUpdatedBy()=" + getLastUpdatedBy()
-    // + ", getVersion()=" + getVersion() + ", getSex()=" + getSex() + ", getSsn()=" + getSsn()
-    // + ", getName()=" + getName() + ", getContact()=" + getContact() + ", getClothesSize()="
-    // + getClothesSize() + "]";
-    // }
+    @Override
+    public String toString() {
+        return "Person [getAge()=" + getAge() + ", getId()=" + getId() + ", getBirthDate()=" + getBirthDate()
+                + ", getCreatedDate()=" + getCreatedDate() + ", getCreatedBy()=" + getCreatedBy()
+                + ", getLastUpdated()=" + getLastUpdated() + ", getLastUpdatedBy()=" + getLastUpdatedBy()
+                + ", getVersion()=" + getVersion() + ", getSex()=" + getSex() + ", getSsn()=" + getSsn()
+                + ", getName()=" + getName() + ", getContact()=" + getContact() + ", getClothesSize()="
+                + getClothesSize() + "]";
+    }
 }

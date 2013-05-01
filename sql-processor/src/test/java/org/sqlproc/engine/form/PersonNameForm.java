@@ -29,4 +29,9 @@ public class PersonNameForm {
         this.firstOp = firstOp;
     }
 
+    // @Override
+    // public String toString() {
+    // return "PersonNameForm [first=" + first + ", last=" + last + ", firstOp=" + firstOp + "]";
+    // }
+
 }

@@ -160,4 +160,12 @@ public class PersonForm {
     public void setSexOp1(String sexOp1) {
         this.sexOp1 = sexOp1;
     }
+
+    // @Override
+    // public String toString() {
+    // return "PersonForm [id=" + id + ", birthDate=" + birthDate + ", createdDate=" + createdDate + ", createdBy="
+    // + createdBy + ", lastUpdated=" + lastUpdated + ", lastUpdatedBy=" + lastUpdatedBy + ", version="
+    // + version + ", sex=" + sex + ", ssn=" + ssn + ", clothesSize=" + clothesSize + ", name=" + name
+    // + ", idSet=" + idSet + ", age=" + age + ", birthDateOp=" + birthDateOp + ", sexOp1=" + sexOp1 + "]";
+    // }
 }
