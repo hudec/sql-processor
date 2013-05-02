@@ -9,8 +9,8 @@ package org.sample.model {
 
   final enum PersonGender serializable 1  {
     value : java.lang.String
-    M ::: 'M'
-    F ::: 'F'
+    M ::: "M"
+    F ::: "F"
   }
 
   final pojo Contact serializable 1  {
