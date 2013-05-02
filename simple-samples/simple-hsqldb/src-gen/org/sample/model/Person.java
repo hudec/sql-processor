@@ -19,9 +19,10 @@ public class Person implements Serializable {
   public Person() {
   }
   
-  public Person(String firstName, String lastName) {
+  public Person(String firstName, String lastName, PersonGender gender) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.gender = gender;
   }
   
   private Long id;
@@ -81,6 +82,21 @@ public class Person implements Serializable {
     
   public Person _setDateOfBirth(Date dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
+    return this;
+  }
+  
+  private PersonGender gender;
+    
+  public PersonGender getGender() {
+    return gender;
+  }
+    
+  public void setGender(PersonGender gender) {
+    this.gender = gender;
+  }
+    
+  public Person _setGender(PersonGender gender) {
+    this.gender = gender;
     return this;
   }
   
@@ -234,6 +250,6 @@ public class Person implements Serializable {
   }
   
   public String toStringFull() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + "]";
   }
 }

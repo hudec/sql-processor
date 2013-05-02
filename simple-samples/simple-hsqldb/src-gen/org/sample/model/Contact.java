@@ -15,8 +15,9 @@ public class Contact implements Serializable {
   public Contact() {
   }
   
-  public Contact(Person person, String address) {
+  public Contact(Person person, ContactType type, String address) {
     this.person = person;
+    this.type = type;
     this.address = address;
   }
   
@@ -47,6 +48,21 @@ public class Contact implements Serializable {
     
   public Contact _setPerson(Person person) {
     this.person = person;
+    return this;
+  }
+  
+  private ContactType type;
+    
+  public ContactType getType() {
+    return type;
+  }
+    
+  public void setType(ContactType type) {
+    this.type = type;
+  }
+    
+  public Contact _setType(ContactType type) {
+    this.type = type;
     return this;
   }
   
@@ -200,6 +216,6 @@ public class Contact implements Serializable {
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
+    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
   }
 }

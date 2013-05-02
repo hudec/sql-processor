@@ -71,12 +71,27 @@ public class NewPersonRetRs implements Serializable {
     return this;
   }
   
+  private String gender;
+    
+  public String getGender() {
+    return gender;
+  }
+    
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+    
+  public NewPersonRetRs _setGender(String gender) {
+    this.gender = gender;
+    return this;
+  }
+  
   @Override
   public String toString() {
     return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
   }
   
   public String toStringFull() {
-    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
+    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + "]";
   }
 }
