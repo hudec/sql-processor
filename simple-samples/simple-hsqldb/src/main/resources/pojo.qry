@@ -3,14 +3,14 @@ package org.sample.model {
 
   final enum ContactType serializable 1  {
     value : java.lang.Integer
-    I0 ::: 0
-    I1 ::: 1
+    HOME ::: 0
+    BUSSINESS ::: 1
   }
 
   final enum PersonGender serializable 1  {
     value : java.lang.String
-    M ::: "M"
-    F ::: "F"
+    MALE ::: "M"
+    FEMALE ::: "F"
   }
 
   final pojo Contact serializable 1  {
