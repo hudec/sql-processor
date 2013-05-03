@@ -1,15 +1,16 @@
 package org.sample.model {
 
+
   final enum ContactType serializable 1  {
     value : java.lang.Integer
-    I0 ::: 0
-    I1 ::: 1
+    HOME ::: 0
+    BUSSINESS ::: 1
   }
 
   final enum PersonGender serializable 1  {
     value : java.lang.String
-    M ::: "M"
-    F ::: "F"
+    MALE ::: "M"
+    FEMALE ::: "F"
   }
 
   final pojo Contact serializable 1  {
@@ -51,7 +52,8 @@ package org.sample.model {
     ssn : java.lang.String
     firstName : java.lang.String
     lastName : java.lang.String
-    toString ::: dateOfBirth lastName ssn firstName newid
+    gender : java.lang.String
+    toString ::: dateOfBirth lastName ssn gender firstName newid
   }
 
   final pojo NewPersonOutRs serializable 1  { // procedure
@@ -60,7 +62,8 @@ package org.sample.model {
     ssn : java.lang.String
     firstName : java.lang.String
     lastName : java.lang.String
-    toString ::: dateOfBirth lastName ssn resultCur firstName
+    gender : java.lang.String
+    toString ::: dateOfBirth lastName ssn resultCur gender firstName
   }
 
   final pojo NewPersonRetRs serializable 1  { // function
@@ -68,7 +71,7 @@ package org.sample.model {
     ssn : java.lang.String
     firstName : java.lang.String
     lastName : java.lang.String
-    toString ::: dateOfBirth lastName ssn firstName
+    gender : java.lang.String
+    toString ::: dateOfBirth lastName ssn gender firstName
   }
-
 }

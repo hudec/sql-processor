@@ -27,7 +27,7 @@ CREATE  INDEX IX_PERSON_LAST_NAME ON PERSON (LAST_NAME)
 CREATE TABLE CONTACT (
   ID NUMBER(19) NOT NULL,
   PERSON_ID NUMBER(19) NOT NULL,
-  TYPE INT NOT NULL,
+  TYPE INTEGER NOT NULL,
   ADDRESS VARCHAR2(100),
   PHONE_NUMBER VARCHAR2(100)
 )
@@ -42,18 +42,18 @@ ALTER TABLE CONTACT ADD CONSTRAINT FK_CONTACT_PERSON
 	FOREIGN KEY (PERSON_ID) REFERENCES PERSON (ID) ON DELETE CASCADE
 
 
-CREATE OR REPLACE PROCEDURE new_person (newid OUT NUMBER, date_of_birth IN DATE, ssn IN VARCHAR2, first_name IN VARCHAR2, last_name IN VARCHAR2)
+CREATE OR REPLACE PROCEDURE new_person (newid OUT NUMBER, date_of_birth IN DATE, ssn IN VARCHAR2, first_name IN VARCHAR2, last_name IN VARCHAR2, gender IN VARCHAR2)
 IS
 BEGIN
 --   DECLARE
    BEGIN
       SELECT simple_sequence.nextval INTO newid FROM dual;
-      INSERT INTO PERSON (ID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, SSN) 
-      VALUES (newid, first_name, last_name, date_of_birth, ssn);
+      INSERT INTO PERSON (ID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, SSN, GENDER) 
+      VALUES (newid, first_name, last_name, date_of_birth, ssn, gender);
    END;
 END new_person;
 
-CREATE OR REPLACE FUNCTION NEW_PERSON_RET_RS (date_of_birth IN DATE, ssn IN VARCHAR2, first_name IN VARCHAR2, last_name IN VARCHAR2)
+CREATE OR REPLACE FUNCTION NEW_PERSON_RET_RS (date_of_birth IN DATE, ssn IN VARCHAR2, first_name IN VARCHAR2, last_name IN VARCHAR2, gender IN VARCHAR2)
 RETURN SYS_REFCURSOR
 AS 
   result_cur SYS_REFCURSOR;
@@ -62,22 +62,22 @@ BEGIN
      newid NUMBER(19);
    BEGIN
       SELECT simple_sequence.nextval INTO newid FROM dual;
-      INSERT INTO PERSON (ID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, SSN) 
-      VALUES (newid, first_name, last_name, date_of_birth, ssn);
+      INSERT INTO PERSON (ID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, SSN, GENDER) 
+      VALUES (newid, first_name, last_name, date_of_birth, ssn, gender);
       OPEN result_cur FOR SELECT * FROM PERSON WHERE ID = newid;
       RETURN result_cur;
    END;
 END new_person_ret_rs;
 
-CREATE OR REPLACE PROCEDURE NEW_PERSON_OUT_RS (result_cur IN OUT SYS_REFCURSOR, date_of_birth IN DATE, ssn IN VARCHAR2, first_name IN VARCHAR2, last_name IN VARCHAR2)
+CREATE OR REPLACE PROCEDURE NEW_PERSON_OUT_RS (result_cur IN OUT SYS_REFCURSOR, date_of_birth IN DATE, ssn IN VARCHAR2, first_name IN VARCHAR2, last_name IN VARCHAR2, gender IN VARCHAR2)
 AS 
 BEGIN
    DECLARE
      newid NUMBER(19);
    BEGIN
       SELECT simple_sequence.nextval INTO newid FROM dual;
-      INSERT INTO PERSON (ID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, SSN) 
-      VALUES (newid, first_name, last_name, date_of_birth, ssn);
+      INSERT INTO PERSON (ID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, SSN, GENDER) 
+      VALUES (newid, first_name, last_name, date_of_birth, ssn, gender);
       OPEN result_cur FOR SELECT * FROM PERSON WHERE ID = newid;
    END;
 END new_person_out_rs;
