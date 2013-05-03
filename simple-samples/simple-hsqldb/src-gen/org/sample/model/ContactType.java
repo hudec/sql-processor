@@ -6,7 +6,7 @@ import java.util.Map;
 
 public enum ContactType implements Serializable {
 
-  I0(0), I1(1);
+  HOME(0), BUSSINESS(1);
   
   private static final long serialVersionUID = 1L;
   

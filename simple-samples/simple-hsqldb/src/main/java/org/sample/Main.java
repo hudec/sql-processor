@@ -101,17 +101,18 @@ public class Main {
         main.setupDb();
 
         // insert
-        Person jan = main.insertPersonContacts(new Person("Jan", "Jansky", PersonGender.M),
-                new Contact()._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setType(ContactType.I0));
-        Person janik = main.insertPersonContacts(new Person("Janik", "Janicek", PersonGender.M), new Contact()
-                ._setAddress("Janik address 1")._setType(ContactType.I1));
-        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.M), new Contact()
-                ._setAddress("Honza address 1")._setType(ContactType.I0), new Contact()._setAddress("Honza address 2")
-                ._setType(ContactType.I1));
-        Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.M));
+        Person jan = main.insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE), new Contact()
+                ._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setType(ContactType.HOME));
+        Person janik = main.insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE), new Contact()
+                ._setAddress("Janik address 1")._setType(ContactType.BUSSINESS));
+        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE), new Contact()
+                ._setAddress("Honza address 1")._setType(ContactType.HOME), new Contact()
+                ._setAddress("Honza address 2")._setType(ContactType.BUSSINESS));
+        Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE));
         Person andrej = main.insertPersonContacts(
-                new Person("Andrej", "Andrejcek", PersonGender.M)._setSsn("123456789"),
-                new Contact()._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666")._setType(ContactType.I1));
+                new Person("Andrej", "Andrejcek", PersonGender.MALE)._setSsn("123456789"),
+                new Contact()._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666")
+                        ._setType(ContactType.BUSSINESS));
 
         // update
         person = new Person();
@@ -128,6 +129,7 @@ public class Main {
         Assert.assertEquals("Andrejik", p.getFirstName());
         Assert.assertEquals("Andrejcek", p.getLastName());
         Assert.assertEquals("123456789", p.getSsn());
+        Assert.assertEquals(PersonGender.MALE, p.getGender());
         Assert.assertTrue(p.getContacts().size() == 0);
 
         person = new Person();
@@ -197,7 +199,7 @@ public class Main {
         newPerson.setLastName("Maruskova");
         newPerson.setSsn("999888777");
         newPerson.setDateOfBirth(getAge(1969, 11, 1));
-        newPerson.setGender(PersonGender.F.getValue());
+        newPerson.setGender(PersonGender.FEMALE.getValue());
         main.getProceduresDao().newPerson(newPerson);
         Assert.assertNotNull(newPerson.getNewid());
 
@@ -206,7 +208,7 @@ public class Main {
         newPersonRetRs.setLastName("Beruskova");
         newPersonRetRs.setSsn("888777666");
         newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
-        newPersonRetRs.setGender(PersonGender.F.getValue());
+        newPersonRetRs.setGender(PersonGender.FEMALE.getValue());
         list = main.getProceduresDao().newPersonRetRs(newPersonRetRs);
         Assert.assertNotNull(list);
         Assert.assertEquals(1, list.size());
