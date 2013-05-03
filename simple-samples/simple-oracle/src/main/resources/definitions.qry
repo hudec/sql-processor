@@ -35,6 +35,8 @@ metagen-make-it-final;
 // can't overwrite existing DAO 
 daogen-make-it-final;
 
+pojogen-types-for-columns CONTACT TYPE->:java.lang.Integer;
+
 table contact CONTACT;
 table person PERSON;
 function anHourBefore AN_HOUR_BEFORE;
