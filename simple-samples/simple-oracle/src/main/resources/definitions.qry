@@ -25,6 +25,9 @@ pojogen-generate-methods toString equals hashCode isDef toInit;
 pojogen-implements-interfaces java.io.Serializable;
 // can't overwrite existing POJO 
 pojogen-make-it-final;
+// rename enums
+pojogen-rename-columns CONTACT_TYPE I0->HOME I1->BUSSINESS; 
+pojogen-rename-columns PERSON_GENDER M->MALE F->FEMALE; 
 
 // use indetity for primary keys
 metagen-global-sequence SIMPLE_SEQUENCE;
@@ -34,11 +37,6 @@ metagen-make-it-final;
 
 // can't overwrite existing DAO 
 daogen-make-it-final;
-
-// rename enums
-pojogen-types-for-columns CONTACT TYPE->:java.lang.Integer;
-pojogen-rename-columns CONTACT_TYPE I0->HOME I1->BUSSINESS; 
-pojogen-rename-columns PERSON_GENDER M->MALE F->FEMALE; 
 
 table contact CONTACT;
 table person PERSON;
