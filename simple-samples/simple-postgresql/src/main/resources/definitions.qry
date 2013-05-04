@@ -6,7 +6,7 @@ database-login-username simple;
 database-login-password simple;
 database-in-catalog simple;
 //database-active-schema simple;
-//database-ddl-create postgresql.ddl; // should be located in the same directory as definitions.qry
+database-ddl-create postgresql.ddl; // should be located in the same directory as definitions.qry
 database-show-database-info PostgreSQL,9.1.8,9,1;
 database-show-driver-info PostgreSQL Native Driver,PostgreSQL 9.0 JDBC4 (build 801),9,0;
 database-show-driver-output getTimeDateFunctions->curdate,curtime,dayname,dayofmonth,dayofweek,dayofyear,hour,minute,month,monthname,now,quarter,second,week,year,timestampadd;
@@ -20,16 +20,20 @@ pojogen-generate-methods toString equals hashCode isDef toInit;
 // POJO are serializable
 pojogen-implements-interfaces java.io.Serializable;
 // can't overwrite existing POJO 
-pojogen-make-it-final;
+//pojogen-make-it-final;
+// operators
+pojogen-generate-operators;
 
 // use identity for primary keys
 metagen-table-sequence contact contact_id_seq;
 metagen-table-sequence person person_id_seq;
 // can't overwrite existing META SQL 
-metagen-make-it-final;
+//metagen-make-it-final;
+// operators
+metagen-not-like-columns contact phone_number;
 
 // can't overwrite existing DAO 
-daogen-make-it-final;
+//daogen-make-it-final;
 
 table contact contact;
 table person person;
