@@ -143,7 +143,7 @@ public class Main {
         // get person with associations
         person = new Person();
         person.setId(andrej.getId());
-        person.setInit(Person.Association.contacts.name());
+        person.setInit(Person.Association.contacts);
         p = main.getPersonDao().get(person);
         Assert.assertNotNull(p);
         Assert.assertEquals("Andriosa", p.getFirstName());
@@ -161,10 +161,10 @@ public class Main {
         list = main.getPersonDao().list(person);
         Assert.assertEquals(0, list.size());
         person.setFirstName("Jan");
-        person.setInit(Person.Association.contacts.name());
+        person.setInit(Person.Association.contacts);
         list = main.getPersonDao().list(person);
         person = new Person();
-        person.setInit(Person.Association.contacts.name());
+        person.setInit(Person.Association.contacts);
         list = main.getPersonDao().list(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID));
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzicek", list.get(1).getLastName());

@@ -1,30 +1,44 @@
 package org.sample.model {
 
 
-  final pojo Contact serializable 1  {
+  enum ContactType serializable 1  {
+    value : java.lang.Integer
+    HOME ::: 0
+    BUSSINESS ::: 1
+  }
+
+  enum PersonGender serializable 1  {
+    value : java.lang.String
+    MALE ::: "M"
+    FEMALE ::: "F"
+  }
+
+  final pojo Contact serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     person :: Person required index 2
     address : java.lang.String required
     phoneNumber : java.lang.String
+    type : java.lang.Integer
     equals ::: id
     hashCode ::: id
     toInit ::: person
-    isDef ::: phoneNumber
-    toString ::: id person phoneNumber address
+    isDef ::: phoneNumber type
+    toString ::: id person phoneNumber address type
   }
 
-  final pojo Person serializable 1  {
+  final pojo Person serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     firstName : java.lang.String required
     lastName : java.lang.String required index 2
     dateOfBirth : java.util.Date
     ssn : java.lang.String
+    gender : java.lang.String
     contacts : java.util.List <:Contact>
     equals ::: id
     hashCode ::: id
     toInit ::: contacts
-    isDef ::: dateOfBirth ssn
-    toString ::: dateOfBirth id lastName ssn firstName
+    isDef ::: dateOfBirth ssn gender
+    toString ::: dateOfBirth id lastName ssn gender firstName
   }
 
   final pojo AnHourBefore serializable 1  { // function
@@ -38,7 +52,8 @@ package org.sample.model {
     ssn : java.lang.String
     firstName : java.lang.String
     lastName : java.lang.String
-    toString ::: dateOfBirth lastName ssn firstName newid
+    gender : java.lang.String
+    toString ::: dateOfBirth lastName ssn gender firstName newid
   }
 
   final pojo NewPersonRetRs serializable 1  { // function
@@ -46,6 +61,7 @@ package org.sample.model {
     ssn : java.lang.String
     firstName : java.lang.String
     lastName : java.lang.String
-    toString ::: dateOfBirth lastName ssn firstName
+    gender : java.lang.String
+    toString ::: dateOfBirth lastName ssn gender firstName
   }
 }
