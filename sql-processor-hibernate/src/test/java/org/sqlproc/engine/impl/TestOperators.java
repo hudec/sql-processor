@@ -472,4 +472,106 @@ public class TestOperators extends TestDatabase {
         assertEquals("Pierce", p.getName().getFirst());
         assertEquals("Brosnan", p.getName().getLast());
     }
+
+    @Test
+    public void testDefaultNullOperators() {
+        SqlQueryEngine sqlEngine = getSqlEngine("FORM_BASIC_OPERATOR");
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        PersonForm pf = new PersonForm();
+        PersonForm spf = new PersonForm();
+
+        String sql = sqlEngine.getSql(pf, null, SqlQueryEngine.ASC_ORDER);
+        logger.info(sql);
+
+        assertDoNotContain(sql, "WHERE");
+        assertDoNotContain(sql, "AND");
+
+        List<Person> list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+
+        assertEquals(2, list.size());
+        // for (Person p : list)
+        // System.out.println(p.toString());
+
+        pf.setId(2L);
+        pf.setName(new PersonNameForm());
+        // pf.getName().setFirst("PierceX");
+        pf.getName().setFirstOp("is null");
+        pf.setSsn(new SsnForm());
+        // pf.getSsn().setCountry(Country.CZECH_REPUBLIC);
+        spf.setSsn(new SsnForm());
+        spf.getSsn().setCountryOp("is null");
+        pf.setLastUpdatedBy("dbunit");
+        try {
+            pf.setLastUpdated(sdf.parse("2006-12-08 00:00:00"));
+        } catch (Exception ex) {
+            fail();
+        }
+        pf.setVersion(1L);
+
+        sql = sqlEngine.getSql(pf, spf, SqlQueryEngine.ASC_ORDER);
+        logger.info(sql);
+        assertContains(sql, "p.id =");
+        assertContains(sql, "AND  p.NAME_FIRST is null");
+        assertContains(sql, "AND  p.SSN_COUNTRY is null");
+        assertContains(sql, "AND  p.LASTUPDATEDBY =");
+        assertContains(sql, "AND  p.VERSION =");
+        assertContains(sql, "order by id ASC");
+
+        list = sqlEngine.query(session, Person.class, pf, spf, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+
+        assertEquals(0, list.size());
+    }
+
+    @Test
+    public void testDefaultMapNullOperators() {
+        SqlQueryEngine sqlEngine = getSqlEngine("FORM_BASIC_OPERATOR");
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        PersonForm pf = new PersonForm();
+        PersonForm spf = new PersonForm();
+
+        String sql = sqlEngine.getSql(pf, null, SqlQueryEngine.ASC_ORDER);
+        logger.info(sql);
+
+        assertDoNotContain(sql, "WHERE");
+        assertDoNotContain(sql, "AND");
+
+        List<Person> list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+
+        assertEquals(2, list.size());
+        // for (Person p : list)
+        // System.out.println(p.toString());
+
+        pf.setId(2L);
+        pf.setName(new PersonNameForm());
+        // pf.getName().setFirst("PierceX");
+        pf.getName().setOp(new HashMap<String, String>());
+        pf.getName().getOp().put("first", "is null");
+        pf.setSsn(new SsnForm());
+        // pf.getSsn().setCountry(Country.CZECH_REPUBLIC);
+        spf.setSsn(new SsnForm());
+        spf.getSsn().setOp(new HashMap<String, String>());
+        spf.getSsn().getOp().put("country", "is null");
+        pf.setLastUpdatedBy("dbunit");
+        try {
+            pf.setLastUpdated(sdf.parse("2006-12-08 00:00:00"));
+        } catch (Exception ex) {
+            fail();
+        }
+        pf.setVersion(1L);
+
+        sql = sqlEngine.getSql(pf, spf, SqlQueryEngine.ASC_ORDER);
+        logger.info(sql);
+        assertContains(sql, "p.id =");
+        assertContains(sql, "AND  p.NAME_FIRST is null");
+        assertContains(sql, "AND  p.SSN_COUNTRY is null");
+        assertContains(sql, "AND  p.LASTUPDATEDBY =");
+        assertContains(sql, "AND  p.VERSION =");
+        assertContains(sql, "order by id ASC");
+
+        list = sqlEngine.query(session, Person.class, pf, spf, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+
+        assertEquals(0, list.size());
+    }
 }

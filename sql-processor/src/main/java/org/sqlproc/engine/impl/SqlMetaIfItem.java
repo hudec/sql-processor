@@ -64,15 +64,26 @@ class SqlMetaIfItem implements SqlMetaElement {
         boolean like = false;
         boolean onlyText = true;
         boolean skipNextText = false;
+        boolean skipNextIdent = false;
         for (SqlMetaElement item : this.elements) {
             if ((item instanceof SqlMetaIdent || item instanceof SqlMetaConst || item instanceof SqlMetaIfItem)
                     && !(item instanceof SqlMetaOperator)) {
                 onlyText = false;
             }
+            if (skipNextIdent && item instanceof SqlMetaIdent) {
+                skipNextIdent = false;
+                result.addTrue();
+                continue;
+            } else if (!(item instanceof SqlMetaText)) {
+                skipNextIdent = false;
+            }
             SqlProcessResult itemResult = item.process(ctx);
             if (itemResult.isAdd()) {
                 if (skipNextText && item instanceof SqlMetaText) {
                     continue;
+                }
+                if (item instanceof SqlMetaOperator && "is null".equalsIgnoreCase(itemResult.getSql().toString())) {
+                    skipNextIdent = true;
                 }
                 if ((item instanceof SqlMetaIdent || item instanceof SqlMetaConst || item instanceof SqlMetaIfItem)
                         && !(item instanceof SqlMetaOperator)) {
