@@ -285,6 +285,20 @@ public class Contact implements Serializable {
       operators.remove(attribute);
   }
   
+  public void setNullOp(OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.put(attribute.name(), "is null");
+  }
+  
+  public void setNullOp(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.put(attribute, "is null");
+  }
+  
   public void clearAllOps() {
     operators = new HashMap<String, String>();
   }

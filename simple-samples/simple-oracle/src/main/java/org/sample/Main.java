@@ -195,11 +195,10 @@ public class Main {
         listc = main.getContactDao().list(contact);
         Assert.assertEquals(1, listc.size());
         Assert.assertEquals("111-222-3333", listc.get(0).getPhoneNumber());
-        // contact = new Contact();
-        // contact.setOp("is", Contact.Operator.phoneNumber);
-        // contact.setNull(Contact.Attribute.phoneNumber);
-        // count = main.getContactDao().count(contact);
-        // Assert.assertEquals(2, count);
+        contact = new Contact();
+        contact.setNullOp(Contact.OpAttribute.phoneNumber);
+        count = main.getContactDao().count(contact);
+        Assert.assertEquals(3, count);
 
         // delete
         count = main.getPersonDao().delete(jan);
