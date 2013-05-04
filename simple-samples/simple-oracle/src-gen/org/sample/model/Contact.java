@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.HashSet;
 import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.beanutils.MethodUtils;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Contact implements Serializable {
   
@@ -122,6 +124,20 @@ public class Contact implements Serializable {
   
   private Set<String> initAssociations = new HashSet<String>();
   
+  public void setInit(Association... associations) {
+    if (associations == null)
+      throw new IllegalArgumentException();
+    for (Association association : associations)
+      initAssociations.add(association.name());
+  }
+  
+  public void clearInit(Association... associations) {
+    if (associations == null)
+      throw new IllegalArgumentException();
+    for (Association association : associations)
+      initAssociations.remove(association.name());
+  }
+  
   public void setInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
@@ -164,6 +180,20 @@ public class Contact implements Serializable {
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public void setNull(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      nullValues.add(attribute);
+  }
+  
+  public void clearNull(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      nullValues.remove(attribute);
   }
   
   public Boolean isNull(String attrName) {
@@ -215,5 +245,47 @@ public class Contact implements Serializable {
   
   public String toStringFull() {
     return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
+  }
+  
+  public enum OpAttribute {
+      id, person, type, address, phoneNumber
+  }
+  
+  private Map<String, String> operators = new HashMap<String, String>();
+  
+  public Map<String, String> getOperators() {
+    return operators;
+  }
+  
+  public void setOp(String operator, OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.put(attribute.name(), operator);
+  }
+  
+  public void clearOp(OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.remove(attribute.name());
+  }
+  
+  public void setOp(String operator, String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.put(attribute, operator);
+  }
+  
+  public void clearOp(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.remove(attribute);
+  }
+  
+  public void clearAllOps() {
+    operators = new HashMap<String, String>();
   }
 }

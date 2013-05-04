@@ -249,7 +249,7 @@ public class Contact implements Serializable {
     return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
   }
   
-  public enum Operator {
+  public enum OpAttribute {
       id, person, type, address, phoneNumber
   }
   
@@ -259,33 +259,35 @@ public class Contact implements Serializable {
     return operators;
   }
   
-  public void setOperators(Map<String, String> operators) {
-    this.operators = operators;
+  public void setOp(String operator, OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.put(attribute.name(), operator);
   }
   
-  public Contact addOp(String name, String value) {
-    if (operators == null)
-      operators = new HashMap<String, String>();
-    operators.put(name, value);
-    return this;
+  public void clearOp(OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.remove(attribute.name());
   }
   
-  public Contact addFirstOp(String name, String value) {
+  public void setOp(String operator, String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.put(attribute, operator);
+  }
+  
+  public void clearOp(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.remove(attribute);
+  }
+  
+  public void clearAllOps() {
     operators = new HashMap<String, String>();
-    operators.put(name, value);
-    return this;
-  }
-  
-  public Contact addOp(Operator operator, String value) {
-    if (operators == null)
-      operators = new HashMap<String, String>();
-    operators.put(operator.name(), value);
-    return this;
-  }
-  
-  public Contact addFirstOp(Operator operator, String value) {
-    operators = new HashMap<String, String>();
-    operators.put(operator.name(), value);
-    return this;
   }
 }

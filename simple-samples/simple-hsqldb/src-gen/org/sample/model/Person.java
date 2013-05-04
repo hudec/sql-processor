@@ -283,7 +283,7 @@ public class Person implements Serializable {
     return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + "]";
   }
   
-  public enum Operator {
+  public enum OpAttribute {
       id, firstName, lastName, dateOfBirth, gender, ssn, contacts
   }
   
@@ -293,33 +293,35 @@ public class Person implements Serializable {
     return operators;
   }
   
-  public void setOperators(Map<String, String> operators) {
-    this.operators = operators;
+  public void setOp(String operator, OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.put(attribute.name(), operator);
   }
   
-  public Person addOp(String name, String value) {
-    if (operators == null)
-      operators = new HashMap<String, String>();
-    operators.put(name, value);
-    return this;
+  public void clearOp(OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.remove(attribute.name());
   }
   
-  public Person addFirstOp(String name, String value) {
+  public void setOp(String operator, String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.put(attribute, operator);
+  }
+  
+  public void clearOp(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.remove(attribute);
+  }
+  
+  public void clearAllOps() {
     operators = new HashMap<String, String>();
-    operators.put(name, value);
-    return this;
-  }
-  
-  public Person addOp(Operator operator, String value) {
-    if (operators == null)
-      operators = new HashMap<String, String>();
-    operators.put(operator.name(), value);
-    return this;
-  }
-  
-  public Person addFirstOp(Operator operator, String value) {
-    operators = new HashMap<String, String>();
-    operators.put(operator.name(), value);
-    return this;
   }
 }

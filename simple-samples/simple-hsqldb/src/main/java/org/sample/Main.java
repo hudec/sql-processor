@@ -97,6 +97,7 @@ public class Main {
         int count;
 
         List<Person> list;
+        List<Contact> listc;
         Main main = new Main();
         main.setupDb();
 
@@ -186,11 +187,18 @@ public class Main {
         // operators
         contact = new Contact();
         contact.setPhoneNumber("444-555-6666");
-        count = main.getContactDao().count(contact);
-        Assert.assertEquals(1, count);
-        contact.addOp(Contact.Operator.phoneNumber, "<>");
-        count = main.getContactDao().count(contact);
-        Assert.assertEquals(1, count);
+        listc = main.getContactDao().list(contact);
+        Assert.assertEquals(1, listc.size());
+        Assert.assertEquals("444-555-6666", listc.get(0).getPhoneNumber());
+        contact.setOp("<>", Contact.OpAttribute.phoneNumber);
+        listc = main.getContactDao().list(contact);
+        Assert.assertEquals(1, listc.size());
+        Assert.assertEquals("111-222-3333", listc.get(0).getPhoneNumber());
+        // contact = new Contact();
+        // contact.setOp("is", Contact.Operator.phoneNumber);
+        // contact.setNull(Contact.Attribute.phoneNumber);
+        // count = main.getContactDao().count(contact);
+        // Assert.assertEquals(2, count);
 
         // delete
         count = main.getPersonDao().delete(jan);
