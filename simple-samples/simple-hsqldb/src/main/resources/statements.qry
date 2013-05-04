@@ -10,11 +10,11 @@ GET_CONTACT(CRUD,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
   from %%CONTACT c
   {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
   {= where
-    {& %c.ID = :id }
-    {& %c.PERSON_ID = :person.id }
-    {& %c.TYPE = :type }
-    {& %c.ADDRESS = :address }
-    {& %c.PHONE_NUMBER = :phoneNumber }
+    {& %c.ID ::= :id }
+    {& %c.PERSON_ID ::= :person.id }
+    {& %c.TYPE ::= :type }
+    {& %c.ADDRESS ::= :address }
+    {& %c.PHONE_NUMBER ::= :phoneNumber }
   }
 ;
 
@@ -44,11 +44,11 @@ SELECT_CONTACT(QRY,final=,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
   from %%CONTACT c
   {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
   {= where
-    {& %c.ID = :id }
-    {& %c.PERSON_ID = :person.id }
-    {& %c.TYPE = :type }
+    {& %c.ID ::= :id }
+    {& %c.PERSON_ID ::= :person.id }
+    {& %c.TYPE ::= :type }
     {& UPPER(%c.ADDRESS) like :+address }
-    {& UPPER(%c.PHONE_NUMBER) like :+phoneNumber }
+    {& %c.PHONE_NUMBER ::= :phoneNumber }
   }
   {#1 order by %c.ID }
   {#2 order by %c.PERSON_ID }
@@ -65,12 +65,12 @@ GET_PERSON(CRUD,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   from %%PERSON p
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
   {= where
-    {& %p.ID = :id }
-    {& %p.FIRST_NAME = :firstName }
-    {& %p.LAST_NAME = :lastName }
-    {& %p.DATE_OF_BIRTH = :dateOfBirth }
-    {& %p.GENDER = :gender }
-    {& %p.SSN = :ssn }
+    {& %p.ID ::= :id }
+    {& %p.FIRST_NAME ::= :firstName }
+    {& %p.LAST_NAME ::= :lastName }
+    {& %p.DATE_OF_BIRTH ::= :dateOfBirth }
+    {& %p.GENDER ::= :gender }
+    {& %p.SSN ::= :ssn }
   }
 ;
 
@@ -101,10 +101,10 @@ SELECT_PERSON(QRY,final=,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   from %%PERSON p
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
   {= where
-    {& %p.ID = :id }
+    {& %p.ID ::= :id }
     {& UPPER(%p.FIRST_NAME) like :+firstName }
     {& UPPER(%p.LAST_NAME) like :+lastName }
-    {& %p.DATE_OF_BIRTH = :dateOfBirth }
+    {& %p.DATE_OF_BIRTH ::= :dateOfBirth }
     {& UPPER(%p.GENDER) like :+gender }
     {& UPPER(%p.SSN) like :+ssn }
   }

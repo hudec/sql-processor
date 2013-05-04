@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.HashSet;
 import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.beanutils.MethodUtils;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Person implements Serializable {
   
@@ -158,6 +160,20 @@ public class Person implements Serializable {
   
   private Set<String> initAssociations = new HashSet<String>();
   
+  public void setInit(Association... associations) {
+    if (associations == null)
+      throw new IllegalArgumentException();
+    for (Association association : associations)
+      initAssociations.add(association.name());
+  }
+  
+  public void clearInit(Association... associations) {
+    if (associations == null)
+      throw new IllegalArgumentException();
+    for (Association association : associations)
+      initAssociations.remove(association.name());
+  }
+  
   public void setInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
@@ -200,6 +216,20 @@ public class Person implements Serializable {
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public void setNull(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      nullValues.add(attribute);
+  }
+  
+  public void clearNull(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      nullValues.remove(attribute);
   }
   
   public Boolean isNull(String attrName) {
@@ -251,5 +281,45 @@ public class Person implements Serializable {
   
   public String toStringFull() {
     return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + "]";
+  }
+  
+  public enum Operator {
+      id, firstName, lastName, dateOfBirth, gender, ssn, contacts
+  }
+  
+  private Map<String, String> operators = new HashMap<String, String>();
+  
+  public Map<String, String> getOperators() {
+    return operators;
+  }
+  
+  public void setOperators(Map<String, String> operators) {
+    this.operators = operators;
+  }
+  
+  public Person addOp(String name, String value) {
+    if (operators == null)
+      operators = new HashMap<String, String>();
+    operators.put(name, value);
+    return this;
+  }
+  
+  public Person addFirstOp(String name, String value) {
+    operators = new HashMap<String, String>();
+    operators.put(name, value);
+    return this;
+  }
+  
+  public Person addOp(Operator operator, String value) {
+    if (operators == null)
+      operators = new HashMap<String, String>();
+    operators.put(operator.name(), value);
+    return this;
+  }
+  
+  public Person addFirstOp(Operator operator, String value) {
+    operators = new HashMap<String, String>();
+    operators.put(operator.name(), value);
+    return this;
   }
 }

@@ -13,7 +13,7 @@ package org.sample.model {
     FEMALE ::: "F"
   }
 
-  final pojo Contact serializable 1  {
+  final pojo Contact serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     person :: Person required index 2
     type :: ContactType required
@@ -26,7 +26,7 @@ package org.sample.model {
     toString ::: id person phoneNumber address type
   }
 
-  final pojo Person serializable 1  {
+  final pojo Person serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     firstName : java.lang.String required
     lastName : java.lang.String required index 2
