@@ -1,51 +1,67 @@
 package org.sample.model {
 
 
-  final pojo Contact serializable 1  {
+  enum ContactType serializable 1  {
+    value : java.lang.Integer
+    HOME ::: 0
+    BUSSINESS ::: 1
+  }
+
+  enum PersonGender serializable 1  {
+    value : java.lang.String
+    MALE ::: "M"
+    FEMALE ::: "F"
+  }
+
+  pojo Contact serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     person :: Person required index 2
+    ctype : java.lang.Integer required
     address : java.lang.String
     phoneNumber : java.lang.String
     equals ::: id
     hashCode ::: id
     toInit ::: person
     isDef ::: phoneNumber address
-    toString ::: id person phoneNumber address
+    toString ::: id person phoneNumber address ctype
   }
 
-  final pojo Person serializable 1  {
+  pojo Person serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     firstName : java.lang.String required
     lastName : java.lang.String required index 2
     dateOfBirth : java.util.Date
+    gender : java.lang.String required
     ssn : java.lang.String
     contacts : java.util.List <:Contact>
     equals ::: id
     hashCode ::: id
     toInit ::: contacts
     isDef ::: dateOfBirth ssn
-    toString ::: dateOfBirth id lastName ssn firstName
+    toString ::: dateOfBirth id lastName ssn gender firstName
   }
 
-  final pojo AnHourBefore serializable 1  { // function
+  pojo AnHourBefore serializable 1  { // function
     t : java.sql.Timestamp
     toString ::: t
   }
 
-  final pojo NewPerson serializable 1  { // procedure
+  pojo NewPerson serializable 1  { // procedure
     newid : java.lang.Integer
     dateOfBirth : java.util.Date
     ssn : java.lang.String
     firstName : java.lang.String
     lastName : java.lang.String
-    toString ::: dateOfBirth lastName ssn firstName newid
+    gender : java.lang.String
+    toString ::: dateOfBirth lastName ssn gender firstName newid
   }
 
-  final pojo NewPersonRetRs serializable 1  { // procedure
+  pojo NewPersonRetRs serializable 1  { // procedure
     dateOfBirth : java.util.Date
     ssn : java.lang.String
     firstName : java.lang.String
     lastName : java.lang.String
-    toString ::: dateOfBirth lastName ssn firstName
+    gender : java.lang.String
+    toString ::: dateOfBirth lastName ssn gender firstName
   }
 }

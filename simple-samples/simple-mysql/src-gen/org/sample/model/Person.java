@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.HashSet;
 import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.beanutils.MethodUtils;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Person implements Serializable {
   
@@ -19,9 +21,10 @@ public class Person implements Serializable {
   public Person() {
   }
   
-  public Person(String firstName, String lastName) {
+  public Person(String firstName, String lastName, String gender) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.gender = gender;
   }
   
   private Long id;
@@ -81,6 +84,21 @@ public class Person implements Serializable {
     
   public Person _setDateOfBirth(Date dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
+    return this;
+  }
+  
+  private String gender;
+    
+  public String getGender() {
+    return gender;
+  }
+    
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+    
+  public Person _setGender(String gender) {
+    this.gender = gender;
     return this;
   }
   
@@ -258,10 +276,66 @@ public class Person implements Serializable {
   
   @Override
   public String toString() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + "]";
   }
   
   public String toStringFull() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + "]";
+  }
+  
+  public enum OpAttribute {
+      id, firstName, lastName, dateOfBirth, gender, ssn, contacts
+  }
+  
+  private Map<String, String> operators = new HashMap<String, String>();
+  
+  public Map<String, String> getOperators() {
+    return operators;
+  }
+  
+  public void setOp(String operator, OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.put(attribute.name(), operator);
+  }
+  
+  public void clearOp(OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.remove(attribute.name());
+  }
+  
+  public void setOp(String operator, String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.put(attribute, operator);
+  }
+  
+  public void clearOp(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.remove(attribute);
+  }
+  
+  public void setNullOp(OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.put(attribute.name(), "is null");
+  }
+  
+  public void setNullOp(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.put(attribute, "is null");
+  }
+  
+  public void clearAllOps() {
+    operators = new HashMap<String, String>();
   }
 }
