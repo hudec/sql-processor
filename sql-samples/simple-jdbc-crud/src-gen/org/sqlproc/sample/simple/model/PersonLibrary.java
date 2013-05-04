@@ -93,6 +93,20 @@ public class PersonLibrary implements Serializable {
   
   private Set<String> initAssociations = new HashSet<String>();
   
+  public void setInit(Association... associations) {
+    if (associations == null)
+      throw new IllegalArgumentException();
+    for (Association association : associations)
+      initAssociations.add(association.name());
+  }
+  
+  public void clearInit(Association... associations) {
+    if (associations == null)
+      throw new IllegalArgumentException();
+    for (Association association : associations)
+      initAssociations.remove(association.name());
+  }
+  
   public void setInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
@@ -134,6 +148,20 @@ public class PersonLibrary implements Serializable {
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public void setNull(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      nullValues.add(attribute);
+  }
+  
+  public void clearNull(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      nullValues.remove(attribute);
   }
   
   public Boolean isNull(String attrName) {
