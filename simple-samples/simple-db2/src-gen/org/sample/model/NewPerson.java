@@ -86,12 +86,27 @@ public class NewPerson implements Serializable {
     return this;
   }
   
+  private String gender;
+    
+  public String getGender() {
+    return gender;
+  }
+    
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+    
+  public NewPerson _setGender(String gender) {
+    this.gender = gender;
+    return this;
+  }
+  
   @Override
   public String toString() {
-    return "NewPerson [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + ", newid=" + newid + "]";
+    return "NewPerson [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + ", newid=" + newid + "]";
   }
   
   public String toStringFull() {
-    return "NewPerson [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + ", newid=" + newid + "]";
+    return "NewPerson [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + ", newid=" + newid + "]";
   }
 }

@@ -15,9 +15,11 @@ import org.sample.dao.PersonDao;
 import org.sample.dao.ProceduresDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
+import org.sample.model.ContactType;
 import org.sample.model.NewPerson;
 import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
+import org.sample.model.PersonGender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineFactory;
@@ -95,19 +97,23 @@ public class Main {
         int count;
 
         List<Person> list;
+        List<Contact> listc;
         Main main = new Main();
         main.setupDb();
 
         // insert
-        Person jan = main.insertPersonContacts(new Person("Jan", "Jansky"), new Contact()._setAddress("Jan address 1")
-                ._setPhoneNumber("111-222-3333"));
-        Person janik = main.insertPersonContacts(new Person("Janik", "Janicek"),
-                new Contact()._setAddress("Janik address 1"));
-        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky"),
-                new Contact()._setAddress("Honza address 1"), new Contact()._setAddress("Honza address 2"));
-        Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek"));
-        Person andrej = main.insertPersonContacts(new Person("Andrej", "Andrejcek")._setSsn("123456789"), new Contact()
-                ._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666"));
+        Person jan = main.insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE.getValue()), new Contact()
+                ._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setType(ContactType.HOME.getValue()));
+        Person janik = main.insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE.getValue()),
+                new Contact()._setAddress("Janik address 1")._setType(ContactType.BUSSINESS.getValue()));
+        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE.getValue()),
+                new Contact()._setAddress("Honza address 1")._setType(ContactType.HOME.getValue()), new Contact()
+                        ._setAddress("Honza address 2")._setType(ContactType.BUSSINESS.getValue()));
+        Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE.getValue()));
+        Person andrej = main.insertPersonContacts(
+                new Person("Andrej", "Andrejcek", PersonGender.MALE.getValue())._setSsn("123456789"),
+                new Contact()._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666")
+                        ._setType(ContactType.BUSSINESS.getValue()));
 
         // update
         person = new Person();
@@ -124,6 +130,7 @@ public class Main {
         Assert.assertEquals("Andrejik", p.getFirstName());
         Assert.assertEquals("Andrejcek", p.getLastName());
         Assert.assertEquals("123456789", p.getSsn());
+        Assert.assertEquals(PersonGender.MALE.getValue(), p.getGender());
         Assert.assertTrue(p.getContacts().size() == 0);
 
         person = new Person();
@@ -136,7 +143,7 @@ public class Main {
         // get person with associations
         person = new Person();
         person.setId(andrej.getId());
-        person.setInit(Person.Association.contacts.name());
+        person.setInit(Person.Association.contacts);
         p = main.getPersonDao().get(person);
         Assert.assertNotNull(p);
         Assert.assertEquals("Andriosa", p.getFirstName());
@@ -154,10 +161,10 @@ public class Main {
         list = main.getPersonDao().list(person);
         Assert.assertEquals(0, list.size());
         person.setFirstName("Jan");
-        person.setInit(Person.Association.contacts.name());
+        person.setInit(Person.Association.contacts);
         list = main.getPersonDao().list(person);
         person = new Person();
-        person.setInit(Person.Association.contacts.name());
+        person.setInit(Person.Association.contacts);
         list = main.getPersonDao().list(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID));
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzicek", list.get(1).getLastName());
@@ -177,6 +184,21 @@ public class Main {
         count = main.getPersonDao().count(person);
         Assert.assertEquals(2, count);
 
+        // operators
+        contact = new Contact();
+        contact.setPhoneNumber("444-555-6666");
+        listc = main.getContactDao().list(contact);
+        Assert.assertEquals(1, listc.size());
+        Assert.assertEquals("444-555-6666", listc.get(0).getPhoneNumber());
+        contact.setOp("<>", Contact.OpAttribute.phoneNumber);
+        listc = main.getContactDao().list(contact);
+        Assert.assertEquals(1, listc.size());
+        Assert.assertEquals("111-222-3333", listc.get(0).getPhoneNumber());
+        contact = new Contact();
+        contact.setNullOp(Contact.OpAttribute.phoneNumber);
+        count = main.getContactDao().count(contact);
+        Assert.assertEquals(3, count);
+
         // delete
         count = main.getPersonDao().delete(jan);
         Assert.assertEquals(1, count);
@@ -193,6 +215,7 @@ public class Main {
         newPerson.setLastName("Maruskova");
         newPerson.setSsn("999888777");
         newPerson.setDateOfBirth(getAge(1969, 11, 1));
+        newPerson.setGender(PersonGender.FEMALE.getValue());
         main.getProceduresDao().newPerson(newPerson);
         Assert.assertNotNull(newPerson.getNewid());
 
@@ -201,6 +224,7 @@ public class Main {
         newPersonRetRs.setLastName("Beruskova");
         newPersonRetRs.setSsn("888777666");
         newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
+        newPersonRetRs.setGender(PersonGender.FEMALE.getValue());
         list = main.getProceduresDao().newPersonRetRs(newPersonRetRs);
         Assert.assertNotNull(list);
         Assert.assertEquals(1, list.size());

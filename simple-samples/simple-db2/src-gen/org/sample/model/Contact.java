@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.HashSet;
 import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.beanutils.MethodUtils;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Contact implements Serializable {
   
@@ -14,8 +16,9 @@ public class Contact implements Serializable {
   public Contact() {
   }
   
-  public Contact(Person person, String address) {
+  public Contact(Person person, Integer type, String address) {
     this.person = person;
+    this.type = type;
     this.address = address;
   }
   
@@ -46,6 +49,21 @@ public class Contact implements Serializable {
     
   public Contact _setPerson(Person person) {
     this.person = person;
+    return this;
+  }
+  
+  private Integer type;
+    
+  public Integer getType() {
+    return type;
+  }
+    
+  public void setType(Integer type) {
+    this.type = type;
+  }
+    
+  public Contact _setType(Integer type) {
+    this.type = type;
     return this;
   }
   
@@ -223,10 +241,66 @@ public class Contact implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
+    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
+  }
+  
+  public enum OpAttribute {
+      id, person, type, address, phoneNumber
+  }
+  
+  private Map<String, String> operators = new HashMap<String, String>();
+  
+  public Map<String, String> getOperators() {
+    return operators;
+  }
+  
+  public void setOp(String operator, OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.put(attribute.name(), operator);
+  }
+  
+  public void clearOp(OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.remove(attribute.name());
+  }
+  
+  public void setOp(String operator, String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.put(attribute, operator);
+  }
+  
+  public void clearOp(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.remove(attribute);
+  }
+  
+  public void setNullOp(OpAttribute... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+      operators.put(attribute.name(), "is null");
+  }
+  
+  public void setNullOp(String... attributes) {
+    if (attributes == null)
+      throw new IllegalArgumentException();
+    for (String attribute : attributes)
+      operators.put(attribute, "is null");
+  }
+  
+  public void clearAllOps() {
+    operators = new HashMap<String, String>();
   }
 }
