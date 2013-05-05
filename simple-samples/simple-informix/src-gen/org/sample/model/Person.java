@@ -21,9 +21,10 @@ public class Person implements Serializable {
   public Person() {
   }
   
-  public Person(String firstName, String lastName) {
+  public Person(String firstName, String lastName, String gender) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.gender = gender;
   }
   
   private Long id;
@@ -86,21 +87,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private String ssn;
-    
-  public String getSsn() {
-    return ssn;
-  }
-    
-  public void setSsn(String ssn) {
-    this.ssn = ssn;
-  }
-    
-  public Person _setSsn(String ssn) {
-    this.ssn = ssn;
-    return this;
-  }
-  
   private String gender;
     
   public String getGender() {
@@ -113,6 +99,21 @@ public class Person implements Serializable {
     
   public Person _setGender(String gender) {
     this.gender = gender;
+    return this;
+  }
+  
+  private String ssn;
+    
+  public String getSsn() {
+    return ssn;
+  }
+    
+  public void setSsn(String ssn) {
+    this.ssn = ssn;
+  }
+    
+  public Person _setSsn(String ssn) {
+    this.ssn = ssn;
     return this;
   }
   
@@ -198,7 +199,7 @@ public class Person implements Serializable {
   }
   
   public enum Attribute {
-    dateOfBirth, ssn, gender
+    dateOfBirth, ssn
   }
   
   private Set<String> nullValues = new HashSet<String>();
@@ -283,7 +284,7 @@ public class Person implements Serializable {
   }
   
   public enum OpAttribute {
-      id, firstName, lastName, dateOfBirth, ssn, gender, contacts
+      id, firstName, lastName, dateOfBirth, gender, ssn, contacts
   }
   
   private Map<String, String> operators = new HashMap<String, String>();

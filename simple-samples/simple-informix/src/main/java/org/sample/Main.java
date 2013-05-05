@@ -102,22 +102,18 @@ public class Main {
         main.setupDb();
 
         // insert
-        Person jan = main.insertPersonContacts(
-                new Person("Jan", "Jansky")._setGender(PersonGender.MALE.getValue()),
-                new Contact()._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")
-                        ._setType(ContactType.HOME.getValue()));
-        Person janik = main.insertPersonContacts(
-                new Person("Janik", "Janicek")._setGender(PersonGender.MALE.getValue()),
-                new Contact()._setAddress("Janik address 1")._setType(ContactType.HOME.getValue()));
-        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky")._setGender(PersonGender.MALE
-                .getValue()), new Contact()._setAddress("Honza address 1")._setType(ContactType.HOME.getValue()),
-                new Contact()._setAddress("Honza address 2")._setType(ContactType.BUSSINESS.getValue()));
-        Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek")._setGender(PersonGender.MALE
-                .getValue()));
+        Person jan = main.insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE.getValue()), new Contact()
+                ._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setType(ContactType.HOME.getValue()));
+        Person janik = main.insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE.getValue()),
+                new Contact()._setAddress("Janik address 1")._setType(ContactType.BUSSINESS.getValue()));
+        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE.getValue()),
+                new Contact()._setAddress("Honza address 1")._setType(ContactType.HOME.getValue()), new Contact()
+                        ._setAddress("Honza address 2")._setType(ContactType.BUSSINESS.getValue()));
+        Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE.getValue()));
         Person andrej = main.insertPersonContacts(
-                new Person("Andrej", "Andrejcek")._setGender(PersonGender.MALE.getValue())._setSsn("123456789"),
+                new Person("Andrej", "Andrejcek", PersonGender.MALE.getValue())._setSsn("123456789"),
                 new Contact()._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666")
-                        ._setType(ContactType.HOME.getValue()));
+                        ._setType(ContactType.BUSSINESS.getValue()));
 
         // update
         person = new Person();

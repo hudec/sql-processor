@@ -67,21 +67,6 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private String phoneNumber;
-    
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-    
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-    
-  public Contact _setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-  
   private Integer type;
     
   public Integer getType() {
@@ -94,6 +79,21 @@ public class Contact implements Serializable {
     
   public Contact _setType(Integer type) {
     this.type = type;
+    return this;
+  }
+  
+  private String phoneNumber;
+    
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+    
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+    
+  public Contact _setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
     return this;
   }
   
@@ -249,7 +249,7 @@ public class Contact implements Serializable {
   }
   
   public enum OpAttribute {
-      id, person, address, phoneNumber, type
+      id, person, address, type, phoneNumber
   }
   
   private Map<String, String> operators = new HashMap<String, String>();

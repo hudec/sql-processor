@@ -13,12 +13,13 @@ package org.sample.model {
     FEMALE ::: "F"
   }
 
+
   final pojo Contact serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     person :: Person required index 2
     address : java.lang.String required
-    phoneNumber : java.lang.String
     type : java.lang.Integer
+    phoneNumber : java.lang.String
     equals ::: id
     hashCode ::: id
     toInit ::: person
@@ -31,13 +32,13 @@ package org.sample.model {
     firstName : java.lang.String required
     lastName : java.lang.String required index 2
     dateOfBirth : java.util.Date
+    gender : java.lang.String required
     ssn : java.lang.String
-    gender : java.lang.String
     contacts : java.util.List <:Contact>
     equals ::: id
     hashCode ::: id
     toInit ::: contacts
-    isDef ::: dateOfBirth ssn gender
+    isDef ::: dateOfBirth ssn
     toString ::: dateOfBirth id lastName ssn gender firstName
   }
 
