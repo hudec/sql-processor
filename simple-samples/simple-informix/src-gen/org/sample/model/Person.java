@@ -21,7 +21,7 @@ public class Person implements Serializable {
   public Person() {
   }
   
-  public Person(String firstName, String lastName, String gender) {
+  public Person(String firstName, String lastName, PersonGender gender) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.gender = gender;
@@ -87,17 +87,17 @@ public class Person implements Serializable {
     return this;
   }
   
-  private String gender;
+  private PersonGender gender;
     
-  public String getGender() {
+  public PersonGender getGender() {
     return gender;
   }
     
-  public void setGender(String gender) {
+  public void setGender(PersonGender gender) {
     this.gender = gender;
   }
     
-  public Person _setGender(String gender) {
+  public Person _setGender(PersonGender gender) {
     this.gender = gender;
     return this;
   }
@@ -276,7 +276,7 @@ public class Person implements Serializable {
   
   @Override
   public String toString() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + "]";
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
   }
   
   public String toStringFull() {
