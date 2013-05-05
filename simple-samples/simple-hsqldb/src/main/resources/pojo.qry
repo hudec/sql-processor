@@ -5,12 +5,14 @@ package org.sample.model {
     value : java.lang.Integer
     HOME ::: 0
     BUSSINESS ::: 1
+    ABROAD ::: 2
   }
 
   enum PersonGender serializable 1  {
     value : java.lang.String
     MALE ::: "M"
     FEMALE ::: "F"
+    UNKNOWN ::: "0"
   }
 
   pojo Contact serializable 1 operators {

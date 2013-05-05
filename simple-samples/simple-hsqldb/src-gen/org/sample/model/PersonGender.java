@@ -6,7 +6,7 @@ import java.util.Map;
 
 public enum PersonGender implements Serializable {
 
-  MALE("M"), FEMALE("F");
+  MALE("M"), FEMALE("F"), UNKNOWN("0");
   
   private static final long serialVersionUID = 1L;
   
