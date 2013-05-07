@@ -2,7 +2,7 @@ package org.sqlproc.sample.catalog.model {
 
   final pojo Item1 serializable 1  {
   	@javax.persistence.Id
-  	@javax.persistence.GeneratedValue ::: strategy "GenerationType.AUTO" generator "seq_item"
+  	@javax.persistence.GeneratedValue ::: strategy javax.persistence.GenerationType.AUTO generator "seq_item"
   	@javax.persistence.Column ::: name "ITEMID"
     itemid : java.lang.Long required
     @javax.persistence.Basic ::: optional "false"
