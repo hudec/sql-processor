@@ -1,14 +1,29 @@
 package org.sqlproc.sample.catalog.model {
 
-  final pojo Item serializable 1  {
+  final pojo Item1 serializable 1  {
+  	@javax.persistence.Id
+  	@javax.persistence.GeneratedValue ::: strategy "GenerationType.AUTO" generator "seq_item"
+  	@javax.persistence.Column ::: name "ITEMID"
     itemid : java.lang.Long required
+    @javax.persistence.Basic ::: optional "false"
+  	@javax.persistence.Column ::: name "PRODUCTID"
     productid : java.lang.String required
+    @javax.persistence.Basic ::: optional "false"
+  	@javax.persistence.Column ::: name "NAME" unique "true"
     name : java.lang.String required
+    @javax.persistence.Basic ::: optional "false"
+  	@javax.persistence.Column ::: name "DESCRIPTION"
     description : java.lang.String required
+  	@javax.persistence.Column ::: name "IMAGEURL"
     imageurl : java.lang.String
+  	@javax.persistence.Column ::: name "IMAGETHUMBURL"
     imagethumburl : java.lang.String
+  	@javax.persistence.Column ::: name "IMAGE" columnDefinition "LONGVARBINARY"
     image _byte []
+  	@javax.persistence.Column ::: name "IMAGETHUMB" columnDefinition "LONGVARBINARY"
     imagethumb _byte []
+    @javax.persistence.Basic ::: optional "false"
+  	@javax.persistence.Column ::: name "PRICE"
     price : java.math.BigDecimal required
     toString ::: price productid description name image imagethumburl itemid imageurl imagethumb
   }
