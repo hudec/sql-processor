@@ -16,7 +16,7 @@ public class Contact implements Serializable {
   public Contact() {
   }
   
-  public Contact(Person person, Integer ctype) {
+  public Contact(Person person, ContactCtype ctype) {
     this.person = person;
     this.ctype = ctype;
   }
@@ -51,17 +51,17 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private Integer ctype;
+  private ContactCtype ctype;
     
-  public Integer getCtype() {
+  public ContactCtype getCtype() {
     return ctype;
   }
     
-  public void setCtype(Integer ctype) {
+  public void setCtype(ContactCtype ctype) {
     this.ctype = ctype;
   }
     
-  public Contact _setCtype(Integer ctype) {
+  public Contact _setCtype(ContactCtype ctype) {
     this.ctype = ctype;
     return this;
   }
@@ -240,7 +240,7 @@ public class Contact implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", ctype=" + ctype + "]";
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
   }
   
   public String toStringFull() {

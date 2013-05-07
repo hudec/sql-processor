@@ -15,7 +15,7 @@ import org.sample.dao.PersonDao;
 import org.sample.dao.ProceduresDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
-import org.sample.model.ContactType;
+import org.sample.model.ContactCtype;
 import org.sample.model.NewPerson;
 import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
@@ -102,18 +102,18 @@ public class Main {
         main.setupDb();
 
         // insert
-        Person jan = main.insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE.getValue()), new Contact()
-                ._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setCtype(ContactType.HOME.getValue()));
-        Person janik = main.insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE.getValue()),
-                new Contact()._setAddress("Janik address 1")._setCtype(ContactType.BUSSINESS.getValue()));
-        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE.getValue()),
-                new Contact()._setAddress("Honza address 1")._setCtype(ContactType.HOME.getValue()), new Contact()
-                        ._setAddress("Honza address 2")._setCtype(ContactType.BUSSINESS.getValue()));
-        Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE.getValue()));
+        Person jan = main.insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE), new Contact()
+                ._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setCtype(ContactCtype.HOME));
+        Person janik = main.insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE), new Contact()
+                ._setAddress("Janik address 1")._setCtype(ContactCtype.BUSSINESS));
+        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE), new Contact()
+                ._setAddress("Honza address 1")._setCtype(ContactCtype.HOME),
+                new Contact()._setAddress("Honza address 2")._setCtype(ContactCtype.BUSSINESS));
+        Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE));
         Person andrej = main.insertPersonContacts(
-                new Person("Andrej", "Andrejcek", PersonGender.MALE.getValue())._setSsn("123456789"),
+                new Person("Andrej", "Andrejcek", PersonGender.MALE)._setSsn("123456789"),
                 new Contact()._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666")
-                        ._setCtype(ContactType.BUSSINESS.getValue()));
+                        ._setCtype(ContactCtype.BUSSINESS));
 
         // update
         person = new Person();
@@ -130,7 +130,7 @@ public class Main {
         Assert.assertEquals("Andrejik", p.getFirstName());
         Assert.assertEquals("Andrejcek", p.getLastName());
         Assert.assertEquals("123456789", p.getSsn());
-        Assert.assertEquals(PersonGender.MALE.getValue(), p.getGender());
+        Assert.assertEquals(PersonGender.MALE, p.getGender());
         Assert.assertTrue(p.getContacts().size() == 0);
 
         person = new Person();

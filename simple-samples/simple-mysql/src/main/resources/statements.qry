@@ -46,7 +46,7 @@ SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
   {= where
     {& %c.ID ::= :id }
     {& %c.PERSON_ID ::= :person.id }
-    {& %c.CTYPE ::= :ctype }
+    {& UPPER(%c.CTYPE) like :+ctype }
     {& UPPER(%c.ADDRESS) like :+address }
     {& %c.PHONE_NUMBER ::= :phoneNumber }
   }

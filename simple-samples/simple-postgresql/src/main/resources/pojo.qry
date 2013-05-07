@@ -1,22 +1,24 @@
 package org.sample.model {
 
 
-  enum ContactType serializable 1  {
+  enum ContactCtype serializable 1  {
     value : java.lang.Integer
     HOME ::: 0
     BUSSINESS ::: 1
+    ABROAD ::: 2
   }
 
   enum PersonGender serializable 1  {
     value : java.lang.String
     MALE ::: "M"
     FEMALE ::: "F"
+    UNKNOWN ::: "0"
   }
 
   pojo Contact serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     person :: Person required
-    ctype : java.lang.Integer required
+    ctype :: ContactCtype required
     address : java.lang.String
     phoneNumber : java.lang.String
     equals ::: id
@@ -31,7 +33,7 @@ package org.sample.model {
     firstName : java.lang.String required
     lastName : java.lang.String required index 2
     dateOfBirth : java.util.Date
-    gender : java.lang.String required
+    gender :: PersonGender required
     ssn : java.lang.String
     contacts : java.util.List <:Contact>
     equals ::: id

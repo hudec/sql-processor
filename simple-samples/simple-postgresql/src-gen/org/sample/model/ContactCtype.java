@@ -4,30 +4,30 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ContactType implements Serializable {
+public enum ContactCtype implements Serializable {
 
-  HOME(0), BUSSINESS(1);
+  HOME(0), BUSSINESS(1), ABROAD(2);
   
   private static final long serialVersionUID = 1L;
   
-  private static Map<Integer, ContactType> identifierMap = new HashMap<Integer, ContactType>();
+  private static Map<Integer, ContactCtype> identifierMap = new HashMap<Integer, ContactCtype>();
 
     static {
-        for (ContactType value : ContactType.values()) {
+        for (ContactCtype value : ContactCtype.values()) {
             identifierMap.put(value.getValue(), value);
         }
     }
 
     private Integer value;
 
-    private ContactType(Integer value) {
+    private ContactCtype(Integer value) {
         this.value = value;
     }
 
-    public static ContactType fromValue(Integer value) {
-        ContactType result = identifierMap.get(value);
+    public static ContactCtype fromValue(Integer value) {
+        ContactCtype result = identifierMap.get(value);
         if (result == null) {
-            throw new IllegalArgumentException("No ContactType for value: " + value);
+            throw new IllegalArgumentException("No ContactCtype for value: " + value);
         }
         return result;
     }

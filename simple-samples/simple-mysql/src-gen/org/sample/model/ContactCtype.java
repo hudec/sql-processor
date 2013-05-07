@@ -4,30 +4,30 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum PersonGender implements Serializable {
+public enum ContactCtype implements Serializable {
 
-  MALE("M"), FEMALE("F"), UNKNOWN("0");
+  HOME("0"), BUSSINESS("1"), ABROAD("2");
   
   private static final long serialVersionUID = 1L;
   
-  private static Map<String, PersonGender> identifierMap = new HashMap<String, PersonGender>();
+  private static Map<String, ContactCtype> identifierMap = new HashMap<String, ContactCtype>();
 
     static {
-        for (PersonGender value : PersonGender.values()) {
+        for (ContactCtype value : ContactCtype.values()) {
             identifierMap.put(value.getValue(), value);
         }
     }
 
     private String value;
 
-    private PersonGender(String value) {
+    private ContactCtype(String value) {
         this.value = value;
     }
 
-    public static PersonGender fromValue(String value) {
-        PersonGender result = identifierMap.get(value);
+    public static ContactCtype fromValue(String value) {
+        ContactCtype result = identifierMap.get(value);
         if (result == null) {
-            throw new IllegalArgumentException("No PersonGender for value: " + value);
+            throw new IllegalArgumentException("No ContactCtype for value: " + value);
         }
         return result;
     }

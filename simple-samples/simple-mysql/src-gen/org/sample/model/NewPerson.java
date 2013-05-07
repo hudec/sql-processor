@@ -103,7 +103,7 @@ public class NewPerson implements Serializable {
   
   @Override
   public String toString() {
-    return "NewPerson [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + ", newid=" + newid + "]";
+    return "NewPerson [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + ", newid=" + newid + "]";
   }
   
   public String toStringFull() {
