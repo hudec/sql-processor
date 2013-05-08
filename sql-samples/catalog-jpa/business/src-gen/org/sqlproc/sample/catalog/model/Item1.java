@@ -155,6 +155,28 @@ public class Item1 implements Serializable {
   }
   
   @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Item1 other = (Item1) obj;
+    if (!productid.equals(other.productid))
+      return false;
+    return true;
+  }  
+  
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + productid.hashCode();
+    return result;
+  }  
+  
+  @Override
   public String toString() {
     return "Item1 [price=" + price + ", productid=" + productid + ", description=" + description + ", name=" + name + ", image=" + image + ", imagethumburl=" + imagethumburl + ", itemid=" + itemid + ", imageurl=" + imageurl + ", imagethumb=" + imagethumb + "]";
   }

@@ -1,30 +1,44 @@
 package org.sqlproc.sample.catalog.model {
 
+  import javax.persistence.Basic
+  import javax.persistence.Column
+  import javax.persistence.Entity
+  import javax.persistence.GeneratedValue
+  import javax.persistence.GenerationType
+  import javax.persistence.Id
+  import javax.persistence.SequenceGenerator
+  import javax.persistence.Table
+
+  @Entity
+  @Table ::: name "ITEM"
+  @SequenceGenerator ::: name "seq_item", sequenceName "ITEM_SEQ", initialValue 100
   final pojo Item1 serializable 1  {
-  	@javax.persistence.Id
-  	@javax.persistence.GeneratedValue ::: strategy javax.persistence.GenerationType.AUTO generator "seq_item"
-  	@javax.persistence.Column ::: name "ITEMID"
+  	@Id
+  	@GeneratedValue ::: strategy :GenerationType "AUTO", generator "seq_item"
+  	@Column ::: name "ITEMID"
     itemid : java.lang.Long required
-    @javax.persistence.Basic ::: optional "false"
-  	@javax.persistence.Column ::: name "PRODUCTID"
+    @Basic ::: optional "false"
+  	@Column ::: name "PRODUCTID"
     productid : java.lang.String required
-    @javax.persistence.Basic ::: optional "false"
-  	@javax.persistence.Column ::: name "NAME" unique "true"
+    @Basic ::: optional "false"
+  	@Column ::: name "NAME" unique "true"
     name : java.lang.String required
-    @javax.persistence.Basic ::: optional "false"
-  	@javax.persistence.Column ::: name "DESCRIPTION"
+    @Basic ::: optional "false"
+  	@Column ::: name "DESCRIPTION"
     description : java.lang.String required
-  	@javax.persistence.Column ::: name "IMAGEURL"
+  	@Column ::: name "IMAGEURL"
     imageurl : java.lang.String
-  	@javax.persistence.Column ::: name "IMAGETHUMBURL"
+  	@Column ::: name "IMAGETHUMBURL"
     imagethumburl : java.lang.String
-  	@javax.persistence.Column ::: name "IMAGE" columnDefinition "LONGVARBINARY"
+  	@Column ::: name "IMAGE", columnDefinition "LONGVARBINARY"
     image _byte []
-  	@javax.persistence.Column ::: name "IMAGETHUMB" columnDefinition "LONGVARBINARY"
+  	@Column ::: name "IMAGETHUMB", columnDefinition "LONGVARBINARY"
     imagethumb _byte []
-    @javax.persistence.Basic ::: optional "false"
-  	@javax.persistence.Column ::: name "PRICE"
+    @Basic ::: optional "false"
+  	@Column ::: name "PRICE"
     price : java.math.BigDecimal required
+    equals ::: productid
+    hashCode ::: productid
     toString ::: price productid description name image imagethumburl itemid imageurl imagethumb
   }
 }
