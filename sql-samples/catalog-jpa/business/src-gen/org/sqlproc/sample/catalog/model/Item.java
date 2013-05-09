@@ -18,12 +18,12 @@ import java.io.Serializable;
 public class Item implements Serializable {
   
   private static final long serialVersionUID = 1L;
+  public static final int ORDER_BY_ITEMID = 1;
 	
   public Item() {
   }
   
-  public Item(Long itemid, String productid, String name, String description, BigDecimal price) {
-    this.itemid = itemid;
+  public Item(String productid, String name, String description, BigDecimal price) {
     this.productid = productid;
     this.name = name;
     this.description = description;
@@ -189,7 +189,7 @@ public class Item implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Item other = (Item) obj;
-    if (!productid.equals(other.productid))
+    if (!itemid.equals(other.itemid))
       return false;
     return true;
   }  
@@ -198,7 +198,7 @@ public class Item implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + productid.hashCode();
+    result = prime * result + itemid.hashCode();
     return result;
   }  
   

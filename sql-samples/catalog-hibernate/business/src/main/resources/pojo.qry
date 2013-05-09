@@ -1,8 +1,8 @@
 package org.sqlproc.sample.catalog.model {
 
 
-  final pojo Item serializable 1  {
-    itemid : java.lang.Long required
+  pojo Item serializable 1 {
+    itemid : java.lang.Long primaryKey index 1
     productid : java.lang.String required
     name : java.lang.String required
     description : java.lang.String required
@@ -11,12 +11,13 @@ package org.sqlproc.sample.catalog.model {
     image _byte []
     imagethumb _byte []
     price : java.math.BigDecimal required
+    equals ::: itemid
+    hashCode ::: itemid
     toString ::: price productid description name image imagethumburl itemid imageurl imagethumb
   }
 }
 
 package org.sqlproc.sample.catalog.to {
-
 
   final pojo ItemTO serializable 1  {
     itemid : java.lang.Long
@@ -33,7 +34,8 @@ package org.sqlproc.sample.catalog.to {
 }
 
 package org.sqlproc.sample.catalog.form {
-	final pojo ItemForm serializable 1  {
+
+  final pojo ItemForm serializable 1  {
     itemid : java.lang.Long
     name : java.lang.String
     description : java.lang.String

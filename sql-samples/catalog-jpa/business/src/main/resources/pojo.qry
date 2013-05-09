@@ -1,51 +1,51 @@
 package org.sqlproc.sample.catalog.model {
 
   import javax.persistence.Basic
-  import javax.persistence.Column
-  import javax.persistence.Entity
-  import javax.persistence.GeneratedValue
-  import javax.persistence.GenerationType
-  import javax.persistence.Id
   import javax.persistence.SequenceGenerator
+  import javax.persistence.Column
   import javax.persistence.Table
+  import javax.persistence.Id
+  import javax.persistence.Entity
+  import javax.persistence.GenerationType
+  import javax.persistence.GeneratedValue
 
   @Entity
   @Table ::: name "ITEM"
   @SequenceGenerator ::: name "seq_item", sequenceName "ITEM_SEQ", initialValue 100
-  final pojo Item serializable 1  {
-  	@Id
-  	@GeneratedValue ::: strategy :GenerationType "AUTO", generator "seq_item"
-  	@Column ::: name "ITEMID"
-    itemid : java.lang.Long required
+  pojo Item serializable 1 {
+    @Id
+    @GeneratedValue ::: strategy :GenerationType "AUTO", generator "seq_item"
+    @Column ::: name "ITEMID"
+    itemid : java.lang.Long primaryKey index 1
     @Basic ::: optional "false"
-  	@Column ::: name "PRODUCTID"
+    @Column ::: name "PRODUCTID"
     productid : java.lang.String required
     @Basic ::: optional "false"
-  	@Column ::: name "NAME" unique "true"
+    @Column ::: name "NAME", unique "true"
     name : java.lang.String required
     @Basic ::: optional "false"
-  	@Column ::: name "DESCRIPTION"
+    @Column ::: name "DESCRIPTION"
     description : java.lang.String required
-  	@Column ::: name "IMAGEURL"
+    @Column ::: name "IMAGEURL"
     imageurl : java.lang.String
-  	@Column ::: name "IMAGETHUMBURL"
+    @Column ::: name "IMAGETHUMBURL"
     imagethumburl : java.lang.String
-  	@Column ::: name "IMAGE", columnDefinition "LONGVARBINARY"
+    @Column ::: name "IMAGE", columnDefinition "LONGVARBINARY"
     image _byte []
-  	@Column ::: name "IMAGETHUMB", columnDefinition "LONGVARBINARY"
+    @Column ::: name "IMAGETHUMB", columnDefinition "LONGVARBINARY"
     imagethumb _byte []
     @Basic ::: optional "false"
-  	@Column ::: name "PRICE"
+    @Column ::: name "PRICE"
     price : java.math.BigDecimal required
-    equals ::: productid
-    hashCode ::: productid
+    equals ::: itemid
+    hashCode ::: itemid
     toString ::: price productid description name image imagethumburl itemid imageurl imagethumb
   }
 }
 
 package org.sqlproc.sample.catalog.to {
 
-  final pojo ItemTO serializable 1  {
+  pojo ItemTO serializable 1  {
     itemid : java.lang.Long
     productid : java.lang.String
     name : java.lang.String
@@ -61,7 +61,7 @@ package org.sqlproc.sample.catalog.to {
 
 package org.sqlproc.sample.catalog.form {
 
-  final pojo ItemForm serializable 1  {
+  pojo ItemForm serializable 1  {
     itemid : java.lang.Long
     name : java.lang.String
     description : java.lang.String
