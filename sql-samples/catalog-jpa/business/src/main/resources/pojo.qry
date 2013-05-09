@@ -12,7 +12,7 @@ package org.sqlproc.sample.catalog.model {
   @Entity
   @Table ::: name "ITEM"
   @SequenceGenerator ::: name "seq_item", sequenceName "ITEM_SEQ", initialValue 100
-  final pojo Item1 serializable 1  {
+  final pojo Item serializable 1  {
   	@Id
   	@GeneratedValue ::: strategy :GenerationType "AUTO", generator "seq_item"
   	@Column ::: name "ITEMID"

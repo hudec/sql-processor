@@ -1,17 +1,28 @@
 package org.sqlproc.sample.catalog.model;
   
 import java.math.BigDecimal;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import java.io.Serializable;
 
-public class Item1 implements Serializable {
+@Entity
+@Table(name = "ITEM")
+@SequenceGenerator(name = "seq_item", sequenceName = "ITEM_SEQ", initialValue = 100)
+public class Item implements Serializable {
   
   private static final long serialVersionUID = 1L;
 	
-  public Item1() {
+  public Item() {
   }
   
-  public Item1(Long itemid, String productid, String name, String description, BigDecimal price) {
+  public Item(Long itemid, String productid, String name, String description, BigDecimal price) {
     this.itemid = itemid;
     this.productid = productid;
     this.name = name;
@@ -19,6 +30,9 @@ public class Item1 implements Serializable {
     this.price = price;
   }
   
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_item")
+  @Column(name = "ITEMID")
   private Long itemid;
     
   public Long getItemid() {
@@ -29,11 +43,13 @@ public class Item1 implements Serializable {
     this.itemid = itemid;
   }
     
-  public Item1 _setItemid(Long itemid) {
+  public Item _setItemid(Long itemid) {
     this.itemid = itemid;
     return this;
   }
   
+  @Basic(optional = false)
+  @Column(name = "PRODUCTID")
   private String productid;
     
   public String getProductid() {
@@ -44,11 +60,13 @@ public class Item1 implements Serializable {
     this.productid = productid;
   }
     
-  public Item1 _setProductid(String productid) {
+  public Item _setProductid(String productid) {
     this.productid = productid;
     return this;
   }
   
+  @Basic(optional = false)
+  @Column(name = "NAME", unique = true)
   private String name;
     
   public String getName() {
@@ -59,11 +77,13 @@ public class Item1 implements Serializable {
     this.name = name;
   }
     
-  public Item1 _setName(String name) {
+  public Item _setName(String name) {
     this.name = name;
     return this;
   }
   
+  @Basic(optional = false)
+  @Column(name = "DESCRIPTION")
   private String description;
     
   public String getDescription() {
@@ -74,11 +94,12 @@ public class Item1 implements Serializable {
     this.description = description;
   }
     
-  public Item1 _setDescription(String description) {
+  public Item _setDescription(String description) {
     this.description = description;
     return this;
   }
   
+  @Column(name = "IMAGEURL")
   private String imageurl;
     
   public String getImageurl() {
@@ -89,11 +110,12 @@ public class Item1 implements Serializable {
     this.imageurl = imageurl;
   }
     
-  public Item1 _setImageurl(String imageurl) {
+  public Item _setImageurl(String imageurl) {
     this.imageurl = imageurl;
     return this;
   }
   
+  @Column(name = "IMAGETHUMBURL")
   private String imagethumburl;
     
   public String getImagethumburl() {
@@ -104,11 +126,12 @@ public class Item1 implements Serializable {
     this.imagethumburl = imagethumburl;
   }
     
-  public Item1 _setImagethumburl(String imagethumburl) {
+  public Item _setImagethumburl(String imagethumburl) {
     this.imagethumburl = imagethumburl;
     return this;
   }
   
+  @Column(name = "IMAGE", columnDefinition = "LONGVARBINARY")
   private byte[] image;
     
   public byte[] getImage() {
@@ -119,11 +142,12 @@ public class Item1 implements Serializable {
     this.image = image;
   }
     
-  public Item1 _setImage(byte[] image) {
+  public Item _setImage(byte[] image) {
     this.image = image;
     return this;
   }
   
+  @Column(name = "IMAGETHUMB", columnDefinition = "LONGVARBINARY")
   private byte[] imagethumb;
     
   public byte[] getImagethumb() {
@@ -134,11 +158,13 @@ public class Item1 implements Serializable {
     this.imagethumb = imagethumb;
   }
     
-  public Item1 _setImagethumb(byte[] imagethumb) {
+  public Item _setImagethumb(byte[] imagethumb) {
     this.imagethumb = imagethumb;
     return this;
   }
   
+  @Basic(optional = false)
+  @Column(name = "PRICE")
   private BigDecimal price;
     
   public BigDecimal getPrice() {
@@ -149,7 +175,7 @@ public class Item1 implements Serializable {
     this.price = price;
   }
     
-  public Item1 _setPrice(BigDecimal price) {
+  public Item _setPrice(BigDecimal price) {
     this.price = price;
     return this;
   }
@@ -162,7 +188,7 @@ public class Item1 implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Item1 other = (Item1) obj;
+    Item other = (Item) obj;
     if (!productid.equals(other.productid))
       return false;
     return true;
@@ -178,10 +204,10 @@ public class Item1 implements Serializable {
   
   @Override
   public String toString() {
-    return "Item1 [price=" + price + ", productid=" + productid + ", description=" + description + ", name=" + name + ", image=" + image + ", imagethumburl=" + imagethumburl + ", itemid=" + itemid + ", imageurl=" + imageurl + ", imagethumb=" + imagethumb + "]";
+    return "Item [price=" + price + ", productid=" + productid + ", description=" + description + ", name=" + name + ", image=" + image + ", imagethumburl=" + imagethumburl + ", itemid=" + itemid + ", imageurl=" + imageurl + ", imagethumb=" + imagethumb + "]";
   }
   
   public String toStringFull() {
-    return "Item1 [price=" + price + ", productid=" + productid + ", description=" + description + ", name=" + name + ", image=" + image + ", imagethumburl=" + imagethumburl + ", itemid=" + itemid + ", imageurl=" + imageurl + ", imagethumb=" + imagethumb + "]";
+    return "Item [price=" + price + ", productid=" + productid + ", description=" + description + ", name=" + name + ", image=" + image + ", imagethumburl=" + imagethumburl + ", itemid=" + itemid + ", imageurl=" + imageurl + ", imagethumb=" + imagethumb + "]";
   }
 }
