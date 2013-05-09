@@ -16,7 +16,7 @@ package org.sample.model {
   pojo Contact serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     person :: Person required
-    type : java.lang.Integer required
+    type :: ContactType required
     address : java.lang.String required
     phoneNumber : java.lang.String
     equals ::: id
@@ -31,7 +31,7 @@ package org.sample.model {
     firstName : java.lang.String required
     lastName : java.lang.String required index 2
     dateOfBirth : java.util.Date
-    gender : java.lang.String required
+    gender :: PersonGender required
     ssn : java.lang.String
     contacts : java.util.List <:Contact>
     equals ::: id

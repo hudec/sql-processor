@@ -16,7 +16,7 @@ public class Contact implements Serializable {
   public Contact() {
   }
   
-  public Contact(Person person, Integer type, String address) {
+  public Contact(Person person, ContactType type, String address) {
     this.person = person;
     this.type = type;
     this.address = address;
@@ -52,17 +52,17 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private Integer type;
+  private ContactType type;
     
-  public Integer getType() {
+  public ContactType getType() {
     return type;
   }
     
-  public void setType(Integer type) {
+  public void setType(ContactType type) {
     this.type = type;
   }
     
-  public Contact _setType(Integer type) {
+  public Contact _setType(ContactType type) {
     this.type = type;
     return this;
   }
@@ -241,7 +241,7 @@ public class Contact implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
   }
   
   public String toStringFull() {
