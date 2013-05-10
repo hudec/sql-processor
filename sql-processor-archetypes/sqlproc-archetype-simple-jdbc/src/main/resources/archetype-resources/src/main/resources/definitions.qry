@@ -22,15 +22,19 @@ pojogen-generate-methods toString equals hashCode isDef toInit;
 // POJO are serializable
 pojogen-implements-interfaces java.io.Serializable;
 // can't overwrite existing POJO 
-pojogen-make-it-final;
+//pojogen-make-it-final;
+// operators
+pojogen-generate-operators;
 
 // use indetity for primary keys
 metagen-global-sequence SIMPLE_SEQUENCE;
 // can't overwrite existing META SQL 
-metagen-make-it-final;
+//metagen-make-it-final;
+// operators
+metagen-not-like-columns CONTACT PHONE_NUMBER;
 
 // can't overwrite existing DAO 
-daogen-make-it-final; 
+//daogen-make-it-final; 
 
 table contact CONTACT;
 table person PERSON;

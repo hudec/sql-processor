@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
+import org.sample.model.Contact;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -78,6 +79,7 @@ public class Main {
         int count;
 
         List<Person> list;
+        List<Contact> listc;
         Main main = new Main();
         main.setupDb();
 
@@ -159,6 +161,21 @@ public class Main {
         person.setFirstName("Jan");
         count = main.personDao.count(person);
         Assert.assertEquals(2, count);
+
+        // operators
+        contact = new Contact();
+        contact.setPhoneNumber("444-555-6666");
+        listc = main.contactDao.list(contact);
+        Assert.assertEquals(1, listc.size());
+        Assert.assertEquals("444-555-6666", listc.get(0).getPhoneNumber());
+        contact.setOp("<>", Contact.OpAttribute.phoneNumber);
+        listc = main.contactDao.list(contact);
+        Assert.assertEquals(1, listc.size());
+        Assert.assertEquals("111-222-3333", listc.get(0).getPhoneNumber());
+        contact = new Contact();
+        contact.setNullOp(Contact.OpAttribute.phoneNumber);
+        count = main.contactDao.count(contact);
+        Assert.assertEquals(3, count);
 
         // delete
         count = main.personDao.delete(jan);
