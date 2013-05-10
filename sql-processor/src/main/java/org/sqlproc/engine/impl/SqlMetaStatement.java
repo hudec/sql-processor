@@ -11,6 +11,7 @@ import org.antlr.runtime.RecognitionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineException;
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
@@ -198,7 +199,9 @@ public class SqlMetaStatement implements SqlMetaElement {
             SqlPluginFactory pluginFactory) {
         SqlProcessContext ctx = new SqlProcessContext(sqlStatementType, dynamicInputValues, staticInputValues, order,
                 features, typeFactory, pluginFactory);
-        return this.process(ctx);
+        SqlProcessResult result = this.process(ctx);
+        result.setLogError(SqlProcessContext.isFeature(SqlFeature.LOG_SQL_COMMAND_FOR_EXCEPTION));
+        return result;
     }
 
     /**

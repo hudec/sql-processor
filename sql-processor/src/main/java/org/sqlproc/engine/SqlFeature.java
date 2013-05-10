@@ -454,4 +454,13 @@ public interface SqlFeature {
      * This is the default value related to the key <code>OPERATOR_ATTRIBUTE_IN_MAP</code>.
      */
     public static final String DEFAULT_OPERATOR_ATTRIBUTE_IN_MAP = "operators";
+    /**
+     * <code>LOG_SQL_COMMAND_FOR_EXCEPTION</code> is the indicator that in the case of an SQLException the related SQL
+     * command should be logged.
+     */
+    public static final String LOG_SQL_COMMAND_FOR_EXCEPTION = "LOG_SQL_COMMAND_FOR_EXCEPTION";
+    /**
+     * This is the default value related to the key <code>LOG_SQL_COMMAND_FOR_EXCEPTION</code> .
+     */
+    public static final Boolean DEFAULT_LOG_SQL_COMMAND_FOR_EXCEPTION = Boolean.FALSE;
 }

@@ -424,6 +424,7 @@ public class SqlQueryEngine extends SqlEngine {
                             getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features, typeFactory,
                             pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
+                    query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
@@ -593,6 +594,7 @@ public class SqlQueryEngine extends SqlEngine {
                                     .getOrders() : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
                     SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
                             processResult.getSql()));
+                    queryCount.setLogError(processResult.isLogError());
                     SqlProcessContext.getTypeFactory().getDefaultType()
                             .addScalar(queryCount, "vysledek", Integer.class);
                     if (getMaxTimeout(sqlControl) > 0)

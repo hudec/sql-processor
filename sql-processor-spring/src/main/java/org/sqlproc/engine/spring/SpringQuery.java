@@ -225,10 +225,8 @@ public class SpringQuery implements SqlQuery {
                 logger.debug("list, number of returned rows=" + ((list != null) ? list.size() : "null"));
             }
             return list;
-        } catch (DataAccessException dae) {
-            if (logError)
-                logger.error("Failed SQL command '" + query + "': " + dae.getMessage());
-            throw new SqlProcessorException(dae, query);
+        } catch (DataAccessException ex) {
+            throw newSqlProcessorException(ex, query);
         }
     }
 
@@ -298,10 +296,8 @@ public class SpringQuery implements SqlQuery {
                 logger.debug("update, number of updated rows=" + updated);
             }
             return updated;
-        } catch (DataAccessException dae) {
-            if (logError)
-                logger.error("Failed SQL command '" + queryString + "': " + dae.getMessage());
-            throw new SqlProcessorException(dae, queryString);
+        } catch (DataAccessException ex) {
+            throw newSqlProcessorException(ex, queryString);
         }
     }
 
@@ -359,8 +355,8 @@ public class SpringQuery implements SqlQuery {
             if (logger.isDebugEnabled()) {
                 logger.debug("identity, result=" + identityValue);
             }
-        } catch (DataAccessException dae) {
-            throw new SqlProcessorException("Identity select failed.", dae);
+        } catch (DataAccessException ex) {
+            throw new SqlProcessorException("Identity select failed.", ex);
         }
     }
 
@@ -533,10 +529,8 @@ public class SpringQuery implements SqlQuery {
                 logger.debug("callList, number of returned rows=" + ((list != null) ? list.size() : "null"));
             }
             return list;
-        } catch (DataAccessException dae) {
-            if (logError)
-                logger.error("Failed SQL command '" + queryString + "': " + dae.getMessage());
-            throw new SqlProcessorException(dae, queryString);
+        } catch (DataAccessException ex) {
+            throw newSqlProcessorException(ex, queryString);
         }
     }
 
@@ -600,10 +594,8 @@ public class SpringQuery implements SqlQuery {
                 logger.debug("callUpdate, number of updated rows=" + updated);
             }
             return updated;
-        } catch (DataAccessException dae) {
-            if (logError)
-                logger.error("Failed SQL command '" + queryString + "': " + dae.getMessage());
-            throw new SqlProcessorException(dae, queryString);
+        } catch (DataAccessException ex) {
+            throw newSqlProcessorException(ex, queryString);
         }
     }
 
@@ -667,10 +659,8 @@ public class SpringQuery implements SqlQuery {
                 logger.debug("callFunction, result=" + result);
             }
             return result;
-        } catch (DataAccessException dae) {
-            if (logError)
-                logger.error("Failed SQL command '" + queryString + "': " + dae.getMessage());
-            throw new SqlProcessorException(dae, queryString);
+        } catch (DataAccessException ex) {
+            throw newSqlProcessorException(ex, queryString);
         }
     }
 
@@ -923,8 +913,17 @@ public class SpringQuery implements SqlQuery {
                 logger.debug("executeBatch, result " + SqlUtils.asList(result));
             }
             return result;
-        } catch (DataAccessException dae) {
-            throw new SqlProcessorException(dae);
+        } catch (DataAccessException ex) {
+            throw new SqlProcessorException(ex);
+        }
+    }
+
+    protected SqlProcessorException newSqlProcessorException(DataAccessException ex, String query) {
+        if (logError) {
+            logger.error("Failed SQL command '" + query + "': " + ex.getMessage());
+            return new SqlProcessorException(ex);
+        } else {
+            return new SqlProcessorException(ex, query);
         }
     }
 

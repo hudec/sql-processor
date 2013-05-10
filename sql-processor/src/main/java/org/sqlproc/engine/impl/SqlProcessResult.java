@@ -60,6 +60,10 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      * The indicator that a the next possible text has to be skipped. It's used for the identity based on select.
      */
     private boolean skipNextText;
+    /**
+     * The failed SQL command should be logged.
+     */
+    boolean logError;
 
     /**
      * Creates a new instance.
@@ -329,6 +333,25 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      */
     Integer getOrderIndex() {
         return orderIndex;
+    }
+
+    /**
+     * Sets an indicator the failed SQL command should be logged
+     * 
+     * @param logError
+     *            an indicator the failed SQL command should be logged
+     */
+    public void setLogError(boolean logError) {
+        this.logError = logError;
+    }
+
+    /**
+     * Returns an indicator the failed SQL command should be logged
+     * 
+     * @return an indicator the failed SQL command should be logged
+     */
+    public boolean isLogError() {
+        return logError;
     }
 
     /**

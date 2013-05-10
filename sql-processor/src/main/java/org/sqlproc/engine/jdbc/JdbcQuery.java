@@ -200,10 +200,8 @@ public class JdbcQuery implements SqlQuery {
                 logger.debug("list, number of returned rows=" + ((list != null) ? list.size() : "null"));
             }
             return list;
-        } catch (SQLException he) {
-            if (logError)
-                logger.error("Failed SQL command '" + query + "': " + he.getMessage());
-            throw new SqlProcessorException(he, query);
+        } catch (SQLException ex) {
+            throw newSqlProcessorException(ex, query);
         } finally {
             if (rs != null) {
                 try {
@@ -272,10 +270,8 @@ public class JdbcQuery implements SqlQuery {
                 }
             }
             return updated;
-        } catch (SQLException he) {
-            if (logError)
-                logger.error("Failed SQL command '" + queryString + "': " + he.getMessage());
-            throw new SqlProcessorException(he, queryString);
+        } catch (SQLException ex) {
+            throw newSqlProcessorException(ex, queryString);
         } finally {
             if (ps != null) {
                 try {
@@ -331,8 +327,8 @@ public class JdbcQuery implements SqlQuery {
             if (logger.isDebugEnabled()) {
                 logger.debug("identity, result=" + identityValue);
             }
-        } catch (SQLException he) {
-            throw new SqlProcessorException("Statement.getGeneratedKeys() failed.", he);
+        } catch (SQLException ex) {
+            throw new SqlProcessorException("Statement.getGeneratedKeys() failed.", ex);
         } finally {
             if (rs != null) {
                 try {
@@ -376,8 +372,8 @@ public class JdbcQuery implements SqlQuery {
             if (logger.isDebugEnabled()) {
                 logger.debug("identity, result=" + identityValue);
             }
-        } catch (SQLException he) {
-            throw new SqlProcessorException("Identity select failed.", he);
+        } catch (SQLException ex) {
+            throw new SqlProcessorException("Identity select failed.", ex);
         } finally {
             if (rs != null) {
                 try {
@@ -433,10 +429,8 @@ public class JdbcQuery implements SqlQuery {
                 logger.debug("list, number of returned rows=" + ((list != null) ? list.size() : "null"));
             }
             return list;
-        } catch (SQLException he) {
-            if (logError)
-                logger.error("Failed SQL command '" + query + "': " + he.getMessage());
-            throw new SqlProcessorException(he, query);
+        } catch (SQLException ex) {
+            throw newSqlProcessorException(ex, query);
         } finally {
             if (rs != null) {
                 try {
@@ -502,10 +496,8 @@ public class JdbcQuery implements SqlQuery {
             }
             getParameters(cs, false);
             return updated;
-        } catch (SQLException he) {
-            if (logError)
-                logger.error("Failed SQL command '" + query + "': " + he.getMessage());
-            throw new SqlProcessorException(he, query);
+        } catch (SQLException ex) {
+            throw newSqlProcessorException(ex, query);
         } finally {
             if (rs != null) {
                 try {
@@ -561,10 +553,8 @@ public class JdbcQuery implements SqlQuery {
                 logger.debug("callFunction, result=" + result);
             }
             return result;
-        } catch (SQLException he) {
-            if (logError)
-                logger.error("Failed SQL command '" + query + "': " + he.getMessage());
-            throw new SqlProcessorException(he, query);
+        } catch (SQLException ex) {
+            throw newSqlProcessorException(ex, query);
         } finally {
             if (rs != null) {
                 try {
@@ -857,8 +847,8 @@ public class JdbcQuery implements SqlQuery {
             }
             return result;
 
-        } catch (SQLException he) {
-            throw new SqlProcessorException(he);
+        } catch (SQLException ex) {
+            throw new SqlProcessorException(ex);
         } finally {
             if (stmt != null) {
                 try {
@@ -866,6 +856,15 @@ public class JdbcQuery implements SqlQuery {
                 } catch (SQLException ignore) {
                 }
             }
+        }
+    }
+
+    protected SqlProcessorException newSqlProcessorException(SQLException ex, String query) {
+        if (logError) {
+            logger.error("Failed SQL command '" + query + "': " + ex.getMessage());
+            return new SqlProcessorException(ex);
+        } else {
+            return new SqlProcessorException(ex, query);
         }
     }
 
