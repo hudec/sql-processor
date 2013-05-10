@@ -1,10 +1,19 @@
 package org.sqlproc.engine.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
+import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlRuntimeException;
+import org.sqlproc.engine.form.PersonForm;
+import org.sqlproc.engine.form.PersonNameForm;
+import org.sqlproc.engine.form.SsnForm;
+import org.sqlproc.engine.model.Country;
 import org.sqlproc.engine.model.Gender;
 import org.sqlproc.engine.model.Person;
 
@@ -12,6 +21,51 @@ public class TestExceptions extends TestDatabase {
 
     protected String getDataSetFile(String dbType) {
         return "dbunit/BasicTest.xml";
+    }
+
+    @Test
+    public void testSqlException() {
+        SqlQueryEngine sqlEngine = getSqlEngine("FORM_BASIC_OPERATOR");
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        PersonForm pf = new PersonForm();
+        PersonForm spf = new PersonForm();
+
+        pf.setId(2L);
+        pf.setName(new PersonNameForm());
+        pf.getName().setFirst("PierceX");
+        pf.getName().setOperators(new HashMap<String, String>());
+        pf.getName().getOperators().put("first", "<=>");
+        pf.setSsn(new SsnForm());
+        pf.getSsn().setCountry(Country.CZECH_REPUBLIC);
+        spf.setSsn(new SsnForm());
+        spf.getSsn().setOperators(new HashMap<String, String>());
+        spf.getSsn().getOperators().put("country", "<>");
+        pf.setLastUpdatedBy("dbunit");
+        try {
+            pf.setLastUpdated(sdf.parse("2006-12-08 00:00:00"));
+        } catch (Exception ex) {
+            fail();
+        }
+        pf.setVersion(1L);
+
+        try {
+            List<Person> list = sqlEngine.query(session, Person.class, pf, spf, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+            fail("An exception should be thrown");
+        } catch (SqlProcessorException e) {
+            logger.info(e.getMessage());
+            assertContains(e.getMessage(), "SQL '");
+        }
+
+        sqlEngine.setFeature(SqlFeature.LOG_SQL_COMMAND_FOR_EXCEPTION, Boolean.TRUE);
+
+        try {
+            List<Person> list = sqlEngine.query(session, Person.class, pf, spf, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+            fail("An exception should be thrown");
+        } catch (SqlProcessorException e) {
+            logger.info(e.getMessage());
+            assertDoNotContain(e.getMessage(), "SQL '");
+        }
     }
 
     @Test
@@ -25,7 +79,6 @@ public class TestExceptions extends TestDatabase {
             logger.info(e.getMessage());
             assertContains(e.getMessage(), "There's problem with attribute type for 'first'");
         }
-
     }
 
     @Test
