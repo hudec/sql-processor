@@ -57,6 +57,10 @@ public class HibernateQuery implements SqlQuery {
      * The collection of all identities types.
      */
     Map<String, Object> identityTypes = new HashMap<String, Object>();
+    /**
+     * The failed SQL command should be logged.
+     */
+    boolean logError;
 
     /**
      * Creates a new instance of this adapter.
@@ -155,7 +159,9 @@ public class HibernateQuery implements SqlQuery {
             }
             return updated;
         } catch (HibernateException he) {
-            throw new SqlProcessorException(he);
+            if (logError)
+                logger.error("Failed SQL command '" + query.getQueryString() + "': " + he.getMessage());
+            throw new SqlProcessorException(he, query.getQueryString());
         }
     }
 
@@ -343,5 +349,15 @@ public class HibernateQuery implements SqlQuery {
             logger.debug("executeBatch, result " + SqlUtils.asList(resultHolder.result));
         }
         return resultHolder.result;
+    }
+
+    /**
+     * Sets an indicator the failed SQL command should be logged
+     * 
+     * @param logError
+     *            an indicator the failed SQL command should be logged
+     */
+    public void setLogError(boolean logError) {
+        this.logError = logError;
     }
 }

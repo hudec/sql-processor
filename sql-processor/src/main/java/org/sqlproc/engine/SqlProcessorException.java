@@ -16,6 +16,11 @@ public class SqlProcessorException extends RuntimeException {
     private static final long serialVersionUID = -3445190167492657525L;
 
     /**
+     * The failed SQL command.
+     */
+    private String sqlCommand;
+
+    /**
      * Creates a new instance of the exception.
      */
     public SqlProcessorException() {
@@ -54,4 +59,47 @@ public class SqlProcessorException extends RuntimeException {
         super(message, cause);
     }
 
+    /**
+     * Creates a new instance of the exception.
+     * 
+     * @param cause
+     *            the error cause
+     * @param sqlCommand
+     *            the failed SQL command
+     */
+    public SqlProcessorException(Throwable cause, String sqlCommand) {
+        super(cause);
+        this.sqlCommand = sqlCommand;
+    }
+
+    /**
+     * Creates a new instance of the exception.
+     * 
+     * @param message
+     *            the error message
+     * @param cause
+     *            the error cause
+     * @param sqlCommand
+     *            the failed SQL command
+     */
+    public SqlProcessorException(String message, Throwable cause, String sqlCommand) {
+        super(message, cause);
+        this.sqlCommand = sqlCommand;
+    }
+
+    /**
+     * Returns the failed SQL command.
+     * 
+     * @return the failed SQL command
+     */
+    public String getSqlCommand() {
+        return sqlCommand;
+    }
+
+    public String getMessage() {
+        String msg = super.getMessage();
+        if (sqlCommand == null)
+            return msg;
+        return "SQL '" + sqlCommand + "'. " + msg;
+    }
 }

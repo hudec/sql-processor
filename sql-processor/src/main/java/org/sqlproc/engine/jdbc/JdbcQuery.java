@@ -111,6 +111,10 @@ public class JdbcQuery implements SqlQuery {
      * The SQL output is sorted.
      */
     boolean ordered;
+    /**
+     * The failed SQL command should be logged.
+     */
+    boolean logError;
 
     /**
      * Creates a new instance of this adapter.
@@ -197,7 +201,9 @@ public class JdbcQuery implements SqlQuery {
             }
             return list;
         } catch (SQLException he) {
-            throw new SqlProcessorException(he);
+            if (logError)
+                logger.error("Failed SQL command '" + query + "': " + he.getMessage());
+            throw new SqlProcessorException(he, query);
         } finally {
             if (rs != null) {
                 try {
@@ -267,7 +273,9 @@ public class JdbcQuery implements SqlQuery {
             }
             return updated;
         } catch (SQLException he) {
-            throw new SqlProcessorException(he);
+            if (logError)
+                logger.error("Failed SQL command '" + queryString + "': " + he.getMessage());
+            throw new SqlProcessorException(he, queryString);
         } finally {
             if (ps != null) {
                 try {
@@ -400,13 +408,14 @@ public class JdbcQuery implements SqlQuery {
         ResultSet rs = null;
         List list = null;
         boolean hasResultSet = false;
+        String query = null;
 
         try {
             Matcher matcher = CALL.matcher(queryString);
             if (!matcher.matches())
                 throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
-            String query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{ call "
-                    + matcher.group(2) + "}";
+            query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{ call " + matcher.group(2)
+                    + "}";
             cs = connection.prepareCall(query);
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
@@ -425,7 +434,9 @@ public class JdbcQuery implements SqlQuery {
             }
             return list;
         } catch (SQLException he) {
-            throw new SqlProcessorException(he);
+            if (logError)
+                logger.error("Failed SQL command '" + query + "': " + he.getMessage());
+            throw new SqlProcessorException(he, query);
         } finally {
             if (rs != null) {
                 try {
@@ -472,12 +483,14 @@ public class JdbcQuery implements SqlQuery {
         }
         CallableStatement cs = null;
         ResultSet rs = null;
+        String query = null;
+
         try {
             Matcher matcher = CALL.matcher(queryString);
             if (!matcher.matches())
                 throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
-            String query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{ call "
-                    + matcher.group(2) + "}";
+            query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{ call " + matcher.group(2)
+                    + "}";
             cs = connection.prepareCall(query);
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
@@ -490,7 +503,9 @@ public class JdbcQuery implements SqlQuery {
             getParameters(cs, false);
             return updated;
         } catch (SQLException he) {
-            throw new SqlProcessorException(he);
+            if (logError)
+                logger.error("Failed SQL command '" + query + "': " + he.getMessage());
+            throw new SqlProcessorException(he, query);
         } finally {
             if (rs != null) {
                 try {
@@ -520,13 +535,14 @@ public class JdbcQuery implements SqlQuery {
         List list = null;
         Object result = null;
         boolean hasResultSet = false;
+        String query = null;
 
         try {
             Matcher matcher = CALL.matcher(queryString);
             if (!matcher.matches())
                 throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
-            String query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{call "
-                    + matcher.group(2) + "}";
+            query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{call " + matcher.group(2)
+                    + "}";
             cs = connection.prepareCall(query);
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
@@ -546,7 +562,9 @@ public class JdbcQuery implements SqlQuery {
             }
             return result;
         } catch (SQLException he) {
-            throw new SqlProcessorException(he);
+            if (logError)
+                logger.error("Failed SQL command '" + query + "': " + he.getMessage());
+            throw new SqlProcessorException(he, query);
         } finally {
             if (rs != null) {
                 try {
@@ -849,5 +867,15 @@ public class JdbcQuery implements SqlQuery {
                 }
             }
         }
+    }
+
+    /**
+     * Sets an indicator the failed SQL command should be logged
+     * 
+     * @param logError
+     *            an indicator the failed SQL command should be logged
+     */
+    public void setLogError(boolean logError) {
+        this.logError = logError;
     }
 }

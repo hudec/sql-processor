@@ -121,6 +121,10 @@ public class SpringQuery implements SqlQuery {
      * The SQL output is sorted.
      */
     boolean ordered;
+    /**
+     * The failed SQL command should be logged.
+     */
+    boolean logError;
 
     /**
      * Creates a new instance of this adapter.
@@ -222,7 +226,9 @@ public class SpringQuery implements SqlQuery {
             }
             return list;
         } catch (DataAccessException dae) {
-            throw new SqlProcessorException(dae);
+            if (logError)
+                logger.error("Failed SQL command '" + query + "': " + dae.getMessage());
+            throw new SqlProcessorException(dae, query);
         }
     }
 
@@ -293,7 +299,9 @@ public class SpringQuery implements SqlQuery {
             }
             return updated;
         } catch (DataAccessException dae) {
-            throw new SqlProcessorException(dae);
+            if (logError)
+                logger.error("Failed SQL command '" + queryString + "': " + dae.getMessage());
+            throw new SqlProcessorException(dae, queryString);
         }
     }
 
@@ -526,7 +534,9 @@ public class SpringQuery implements SqlQuery {
             }
             return list;
         } catch (DataAccessException dae) {
-            throw new SqlProcessorException(dae);
+            if (logError)
+                logger.error("Failed SQL command '" + queryString + "': " + dae.getMessage());
+            throw new SqlProcessorException(dae, queryString);
         }
     }
 
@@ -591,7 +601,9 @@ public class SpringQuery implements SqlQuery {
             }
             return updated;
         } catch (DataAccessException dae) {
-            throw new SqlProcessorException(dae);
+            if (logError)
+                logger.error("Failed SQL command '" + queryString + "': " + dae.getMessage());
+            throw new SqlProcessorException(dae, queryString);
         }
     }
 
@@ -656,7 +668,9 @@ public class SpringQuery implements SqlQuery {
             }
             return result;
         } catch (DataAccessException dae) {
-            throw new SqlProcessorException(dae);
+            if (logError)
+                logger.error("Failed SQL command '" + queryString + "': " + dae.getMessage());
+            throw new SqlProcessorException(dae, queryString);
         }
     }
 
@@ -912,5 +926,15 @@ public class SpringQuery implements SqlQuery {
         } catch (DataAccessException dae) {
             throw new SqlProcessorException(dae);
         }
+    }
+
+    /**
+     * Sets an indicator the failed SQL command should be logged
+     * 
+     * @param logError
+     *            an indicator the failed SQL command should be logged
+     */
+    public void setLogError(boolean logError) {
+        this.logError = logError;
     }
 }

@@ -220,4 +220,12 @@ public interface SqlQuery {
      *             in the case of any problem in ORM or JDBC stack
      */
     int[] executeBatch(String[] statements) throws SqlProcessorException;
+
+    /**
+     * Sets an indicator the failed SQL command should be logged
+     * 
+     * @param logError
+     *            an indicator the failed SQL command should be logged
+     */
+    public void setLogError(boolean logError);
 }
