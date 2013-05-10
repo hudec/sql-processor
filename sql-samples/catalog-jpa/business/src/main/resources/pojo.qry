@@ -14,16 +14,16 @@ package org.sqlproc.sample.catalog.model {
   @SequenceGenerator ::: name "seq_item", sequenceName "ITEM_SEQ", initialValue 100
   pojo Item serializable 1 {
     @Id
-    @GeneratedValue ::: strategy :GenerationType "AUTO", generator "seq_item"
+    @GeneratedValue ::: strategy :GenerationType AUTO, generator "seq_item"
     @Column ::: name "ITEMID"
     itemid : java.lang.Long primaryKey index 1
-    @Basic ::: optional "false"
+    @Basic ::: optional false
     @Column ::: name "PRODUCTID"
     productid : java.lang.String required
-    @Basic ::: optional "false"
-    @Column ::: name "NAME", unique "true"
+    @Basic ::: optional false
+    @Column ::: name "NAME", unique true
     name : java.lang.String required
-    @Basic ::: optional "false"
+    @Basic ::: optional false
     @Column ::: name "DESCRIPTION"
     description : java.lang.String required
     @Column ::: name "IMAGEURL"
@@ -34,7 +34,7 @@ package org.sqlproc.sample.catalog.model {
     image _byte []
     @Column ::: name "IMAGETHUMB", columnDefinition "LONGVARBINARY"
     imagethumb _byte []
-    @Basic ::: optional "false"
+    @Basic ::: optional false
     @Column ::: name "PRICE"
     price : java.math.BigDecimal required
     equals ::: itemid
