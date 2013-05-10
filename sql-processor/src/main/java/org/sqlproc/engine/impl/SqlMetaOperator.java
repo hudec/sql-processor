@@ -19,21 +19,36 @@ class SqlMetaOperator extends SqlMetaConst {
     boolean dynamicInputValue;
 
     /**
-     * {@inheritDoc}
+     * Creates a new instance of this entity. Used from inside ANTLR parser.
+     * 
+     * @param caseConversion
+     *            which conversion should be done on inputValue
+     * @param not
+     *            an indicator, which is used to control, how the input value is added to the final ANSI SQL
+     * @param type
+     *            the type of this input value, which can be Hibernate or an internal type
      */
     public SqlMetaOperator(Code caseConversion, boolean not, SqlType type) {
         super(caseConversion, not, type);
     }
 
     /**
-     * {@inheritDoc}
+     * Creates a new instance of this entity. Used from inside ANTLR parser.
+     * 
+     * @param caseConversion
+     *            which conversion should be done on inputValue
+     * @param not
+     *            an indicator, which is used to control, how the input value is added to the final ANSI SQL
      */
     public SqlMetaOperator(Code caseConversion, boolean not) {
         super(caseConversion, not);
     }
 
     /**
-     * {@inheritDoc}
+     * Creates a new instance of this entity. Used from inside ANTLR parser.
+     * 
+     * @param caseConversion
+     *            which conversion should be done on inputValue
      */
     public SqlMetaOperator(Code caseConversion) {
         super(caseConversion);
