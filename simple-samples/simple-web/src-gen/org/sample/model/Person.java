@@ -1,7 +1,12 @@
 package org.sample.model;
   
+import ch.ralscha.extdirectspring.generator.Model;
+import ch.ralscha.extdirectspring.generator.ModelAssociation;
+import ch.ralscha.extdirectspring.generator.ModelAssociationType;
 import java.util.Date;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import org.sample.model.Contact;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +17,7 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
+@Model(value = "SimpleWeb.model.Person")
 public class Person implements Serializable {
   
   private static final long serialVersionUID = 1L;
@@ -42,6 +48,7 @@ public class Person implements Serializable {
     return this;
   }
   
+  @NotNull
   private String firstName;
     
   public String getFirstName() {
@@ -57,6 +64,7 @@ public class Person implements Serializable {
     return this;
   }
   
+  @NotNull
   private String lastName;
     
   public String getLastName() {
@@ -87,6 +95,7 @@ public class Person implements Serializable {
     return this;
   }
   
+  @NotNull
   private PersonGender gender;
     
   public PersonGender getGender() {
@@ -117,6 +126,7 @@ public class Person implements Serializable {
     return this;
   }
   
+  @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Contact.class)
   private List<Contact> contacts = new ArrayList<Contact>();
     
   public List<Contact> getContacts() {

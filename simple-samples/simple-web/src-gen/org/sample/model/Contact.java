@@ -1,4 +1,10 @@
 package org.sample.model;
+  
+import ch.ralscha.extdirectspring.generator.Model;
+import ch.ralscha.extdirectspring.generator.ModelAssociation;
+import ch.ralscha.extdirectspring.generator.ModelAssociationType;
+import javax.validation.constraints.NotNull;
+import org.sample.model.Person;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -8,6 +14,7 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
+@Model(value = "SimpleWeb.model.Contact")
 public class Contact implements Serializable {
   
   private static final long serialVersionUID = 1L;
@@ -38,6 +45,8 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @ModelAssociation(value = ModelAssociationType.BELONGS_TO, model = Person.class)
+  @NotNull
   private Person person;
     
   public Person getPerson() {
@@ -53,6 +62,7 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @NotNull
   private ContactType type;
     
   public ContactType getType() {
@@ -68,6 +78,7 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @NotNull
   private String address;
     
   public String getAddress() {
