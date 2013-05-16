@@ -1,0 +1,69 @@
+package org.sample.model {
+
+
+  enum ContactType serializable 1  {
+    value : java.lang.Integer
+    HOME ::: 0
+    BUSSINESS ::: 1
+    ABROAD ::: 2
+  }
+
+  enum PersonGender serializable 1  {
+    value : java.lang.String
+    MALE ::: "M"
+    FEMALE ::: "F"
+    UNKNOWN ::: "0"
+  }
+
+  pojo Contact serializable 1 operators {
+    id : java.lang.Long primaryKey index 1
+    person :: Person required index 2
+    type :: ContactType required
+    address : java.lang.String required
+    phoneNumber : java.lang.String
+    equals ::: id
+    hashCode ::: id
+    toInit ::: person
+    isDef ::: phoneNumber
+    toString ::: id person phoneNumber address type
+  }
+
+  pojo Person serializable 1 operators {
+    id : java.lang.Long primaryKey index 1
+    firstName : java.lang.String required
+    lastName : java.lang.String required index 2
+    dateOfBirth : java.util.Date
+    gender :: PersonGender required
+    ssn : java.lang.String
+    contacts : java.util.List <:Contact>
+    equals ::: id
+    hashCode ::: id
+    toInit ::: contacts
+    isDef ::: dateOfBirth ssn
+    toString ::: dateOfBirth id lastName ssn gender firstName
+  }
+
+  pojo AnHourBefore serializable 1  { // function
+    t : java.sql.Timestamp
+    toString ::: t
+  }
+
+  pojo NewPerson serializable 1  { // procedure
+    newid : java.lang.Integer
+    dateOfBirth : java.util.Date
+    ssn : java.lang.String
+    firstName : java.lang.String
+    lastName : java.lang.String
+    gender : java.lang.String
+    toString ::: dateOfBirth lastName ssn gender firstName newid
+  }
+
+  pojo NewPersonRetRs serializable 1  { // procedure
+    dateOfBirth : java.util.Date
+    ssn : java.lang.String
+    firstName : java.lang.String
+    lastName : java.lang.String
+    gender : java.lang.String
+    toString ::: dateOfBirth lastName ssn gender firstName
+  }
+}
