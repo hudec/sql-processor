@@ -66,6 +66,27 @@
                 </executions>
             </plugin>
 
+            <!-- plugin>
+                <groupId>com.mysema.maven</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+                <version>1.0.8</version>
+                <executions>
+                    <execution>
+                        <id>modelgen</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <processor>ch.ralscha.extdirectspring.generator.ModelAnnotationProcessor</processor>
+                            <outputDirectory>src/main/webapp/app</outputDirectory>
+                            <options>
+                                <includeValidation>builtin</includeValidation>
+                            </options>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin-->
+
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
