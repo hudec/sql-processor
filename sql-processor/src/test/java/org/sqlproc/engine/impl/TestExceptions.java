@@ -35,7 +35,7 @@ public class TestExceptions extends TestDatabase {
         pf.setName(new PersonNameForm());
         pf.getName().setFirst("PierceX");
         pf.getName().setOperators(new HashMap<String, String>());
-        pf.getName().getOperators().put("first", "<=>");
+        pf.getName().getOperators().put("first", "<==>");
         pf.setSsn(new SsnForm());
         pf.getSsn().setCountry(Country.CZECH_REPUBLIC);
         spf.setSsn(new SsnForm());
