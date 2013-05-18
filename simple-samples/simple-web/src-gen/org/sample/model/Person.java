@@ -3,6 +3,8 @@ package org.sample.model;
 import ch.ralscha.extdirectspring.generator.Model;
 import ch.ralscha.extdirectspring.generator.ModelAssociation;
 import ch.ralscha.extdirectspring.generator.ModelAssociationType;
+import ch.ralscha.extdirectspring.generator.ModelField;
+import ch.ralscha.extdirectspring.generator.ModelType;
 import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.NotNull;
@@ -17,7 +19,7 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
-@Model(value = "SimpleWeb.model.Person")
+@Model(value = "SimpleWeb.model.Person", paging = true, readMethod = "simpleService.loadPeople", createMethod = "simpleService.createPerson", updateMethod = "simpleService.updatePerson", destroyMethod = "simpleService.deletePerson")
 public class Person implements Serializable {
   
   private static final long serialVersionUID = 1L;
@@ -95,6 +97,7 @@ public class Person implements Serializable {
     return this;
   }
   
+  @ModelField(type = ModelType.STRING)
   @NotNull
   private PersonGender gender;
     

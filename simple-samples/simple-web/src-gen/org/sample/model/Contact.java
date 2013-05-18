@@ -3,6 +3,8 @@ package org.sample.model;
 import ch.ralscha.extdirectspring.generator.Model;
 import ch.ralscha.extdirectspring.generator.ModelAssociation;
 import ch.ralscha.extdirectspring.generator.ModelAssociationType;
+import ch.ralscha.extdirectspring.generator.ModelField;
+import ch.ralscha.extdirectspring.generator.ModelType;
 import javax.validation.constraints.NotNull;
 import org.sample.model.Person;
 
@@ -62,6 +64,7 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @ModelField(type = ModelType.INTEGER)
   @NotNull
   private ContactType type;
     

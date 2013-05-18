@@ -8,7 +8,8 @@
                       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd">
 
     <context:annotation-config />
-
+    
+    <bean id="modelController" class="org.sample.web.config.ModelController" />
     <bean id="config" class="org.sample.web.config.SpringConfig" />
     <context:component-scan base-package="ch.ralscha.extdirectspring" />
 

@@ -14,15 +14,23 @@ package org.sample.model {
     UNKNOWN ::: "0"
   }
 
-  @ch.ralscha.extdirectspring.generator.Model ::: value "SimpleWeb.model.Contact"
+  import ch.ralscha.extdirectspring.generator.Model
+  import ch.ralscha.extdirectspring.generator.ModelField
+  import ch.ralscha.extdirectspring.generator.ModelType
+  import ch.ralscha.extdirectspring.generator.ModelAssociation
+  import ch.ralscha.extdirectspring.generator.ModelAssociationType
+  import javax.validation.constraints.NotNull
+
+  @Model ::: value "SimpleWeb.model.Contact"
   pojo Contact serializable 1 operators {
     id : java.lang.Long primaryKey index 1
-    @ch.ralscha.extdirectspring.generator.ModelAssociation ::: value :ch.ralscha.extdirectspring.generator.ModelAssociationType BELONGS_TO, model :org.sample.model.Person class
-    @javax.validation.constraints.NotNull
+    @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model :org.sample.model.Person class
+    @NotNull
     person :: Person required index 2
-    @javax.validation.constraints.NotNull
+    @ModelField ::: type :ModelType INTEGER
+    @NotNull
     type :: ContactType required
-    @javax.validation.constraints.NotNull
+    @NotNull
     address : java.lang.String required
     phoneNumber : java.lang.String
     equals ::: id
@@ -32,18 +40,19 @@ package org.sample.model {
     toString ::: id person phoneNumber address type
   }
 
-  @ch.ralscha.extdirectspring.generator.Model ::: value "SimpleWeb.model.Person"
+  @Model ::: value "SimpleWeb.model.Person", paging true, readMethod "simpleService.loadPeople", createMethod "simpleService.createPerson", updateMethod "simpleService.updatePerson", destroyMethod "simpleService.deletePerson" 
   pojo Person serializable 1 operators {
     id : java.lang.Long primaryKey index 1
-    @javax.validation.constraints.NotNull
+    @NotNull
     firstName : java.lang.String required
-    @javax.validation.constraints.NotNull
+    @NotNull
     lastName : java.lang.String required index 2
     dateOfBirth : java.util.Date
-    @javax.validation.constraints.NotNull
+    @ModelField ::: type :ModelType STRING
+    @NotNull
     gender :: PersonGender required
     ssn : java.lang.String
-    @ch.ralscha.extdirectspring.generator.ModelAssociation ::: value :ch.ralscha.extdirectspring.generator.ModelAssociationType HAS_MANY, model :org.sample.model.Contact class
+    @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model :org.sample.model.Contact class
     contacts : java.util.List <:Contact>
     equals ::: id
     hashCode ::: id
