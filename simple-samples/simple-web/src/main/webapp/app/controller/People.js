@@ -1,0 +1,116 @@
+Ext.define('SimpleWeb.controller.People', {
+	extend : 'Ext.app.Controller',
+
+	views : ['person.List', 'person.Edit','person.Details'],
+	stores : ['People'],
+	models : ['Person'],
+	refs : [{
+				ref : 'personList',
+				selector : 'personlist'
+			}, {
+				ref : 'personEditForm',
+				selector : 'personedit form'
+			}, {
+				ref : 'personEditWindow',
+				selector : 'personedit'
+			}, {
+				ref : 'personDetailsForm',
+				selector : 'personedit form'
+			}, {
+				ref : 'personDetailsWindow',
+				selector : 'personedit'
+			}],
+
+	init : function() {
+		this.control({
+					'personlist' : {
+						itemdblclick : this.personDetails,
+						itemclick : this.enableDeleteEdit
+					},
+					'personlist button[action=edit]' : {
+						click : this.editPerson
+					},
+					'personedit button[action=save]' : {
+						click : this.updatePerson
+					},
+					'personlist button[action=add]' : {
+						click : this.createPerson
+					},
+					'personlist button[action=delete]' : {
+						click : this.deletePerson
+					}
+				});
+	},
+
+	personDetails : function(grid, record) {
+		var view = Ext.widget('persondetails');
+		view.down('form').loadRecord(record);
+	},
+
+	editPerson : function(button) {
+		var record = this.getPersonList().getSelectionModel().getSelection()[0];
+		var view = Ext.widget('personedit');
+		view.down('form').loadRecord(record);
+	},
+
+	createPerson : function() {
+		Ext.widget('personedit');
+	},
+
+	deletePerson : function(button) {
+		var record = this.getPersonList().getSelectionModel().getSelection()[0];
+
+		if (record) {
+			this.getPeopleStore().remove(record);
+			this.doGridRefresh();
+			this.toggleDeleteButton(false);
+		}
+	},
+
+	enableDeleteEdit : function(button, record) {
+		this.toggleDeleteButton(true);
+		this.toggleEditButton(true);
+	},
+
+	toggleEditButton : function(enable) {
+		var button = this.getPersonList().down('button[action=edit]');
+		if (enable) {
+			button.enable();
+		} else {
+			button.disable();
+		}
+	},
+
+	toggleDeleteButton : function(enable) {
+		var button = this.getPersonList().down('button[action=delete]');
+		if (enable) {
+			button.enable();
+		} else {
+			button.disable();
+		}
+	},
+
+	updatePerson : function(button) {
+		var form = this.getPersonEditForm();
+		var record = form.getRecord();
+		var values = form.getValues();
+
+		if (form.getForm().isValid()) {
+			if (record) {
+				record.set(values);
+				record.save();
+			} else {
+				var newPerson = this.getPersonModel().create(values);
+				newPerson.save();
+				// this.getUsersStore().add(newUser);
+				this.doGridRefresh();
+			}
+			this.getPersonEditWindow().close();
+		}
+	},
+
+	doGridRefresh : function() {
+		this.getPersonList().down('pagingtoolbar').doRefresh();
+	}
+
+});

@@ -25,8 +25,8 @@ public class SimpleService {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "catalog")
     @Transactional(readOnly = true)
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "person")
     public ExtDirectStoreReadResult<Person> loadPeople(ExtDirectStoreReadRequest request) {
         List<Person> people = personDao.list(new Person());
         return new ExtDirectStoreReadResult<Person>(people.size(), people, true);
@@ -63,16 +63,20 @@ public class SimpleService {
     }
 
     @Transactional
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public Person createPerson(Person person) {
         return personDao.insert(person);
     }
 
     @Transactional
-    public int updatePerson(Person person) {
-        return personDao.update(person);
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    public Person updatePerson(Person person) {
+        int numUpdated = personDao.update(person);
+        return (numUpdated > 0) ? person : null;
     }
 
     @Transactional
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public void deletePerson(Person person) {
         personDao.delete(person);
     }

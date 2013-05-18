@@ -9,6 +9,10 @@ package org.sample.model {
   import org.sample.model.Person
   import com.fasterxml.jackson.annotation.JsonIgnore
   import ch.ralscha.extdirectspring.generator.ModelAssociationType
+  import org.sample.web.util.DMYDateDeserializer
+  import org.sample.web.util.DMYDateSerializer
+  import com.fasterxml.jackson.databind.annotation.JsonSerialize
+  import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 
   enum ContactType serializable 1  {
     value : java.lang.Integer
@@ -52,6 +56,9 @@ package org.sample.model {
     firstName : java.lang.String required
     @NotNull
     lastName : java.lang.String required index 2
+    @ModelField ::: dateFormat "d.m.Y"
+    @@JsonSerialize ::: using :DMYDateSerializer class
+    @@@JsonDeserialize ::: using :DMYDateDeserializer class
     dateOfBirth : java.util.Date
     @ModelField ::: type :ModelType STRING
     @NotNull

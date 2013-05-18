@@ -6,10 +6,14 @@ import ch.ralscha.extdirectspring.generator.ModelAssociationType;
 import ch.ralscha.extdirectspring.generator.ModelField;
 import ch.ralscha.extdirectspring.generator.ModelType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import org.sample.model.Contact;
+import org.sample.web.util.DMYDateDeserializer;
+import org.sample.web.util.DMYDateSerializer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -85,12 +89,15 @@ public class Person implements Serializable {
     return this;
   }
   
+  @ModelField(dateFormat = "d.m.Y")
   private Date dateOfBirth;
     
+  @JsonSerialize(using = DMYDateSerializer.class)
   public Date getDateOfBirth() {
     return dateOfBirth;
   }
     
+  @JsonDeserialize(using = DMYDateDeserializer.class)
   public void setDateOfBirth(Date dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
