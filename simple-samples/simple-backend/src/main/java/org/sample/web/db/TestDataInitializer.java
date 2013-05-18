@@ -12,6 +12,7 @@ import org.sample.model.Person;
 import org.sample.model.PersonGender;
 import org.sample.web.service.SimpleService;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.sqlproc.engine.util.DDLLoader;
 
@@ -21,6 +22,8 @@ public final class TestDataInitializer implements InitializingBean {
     private SimpleService simpleService;
     private boolean initData;
     private String catalog;
+    private Resource people;
+    private Resource contacts;
     private List<String> ddls;
 
     public TestDataInitializer() {
@@ -93,6 +96,20 @@ public final class TestDataInitializer implements InitializingBean {
         return person;
     }
 
+    // public void readPeople(Resource people) throws IOException {
+    // try (InputStream is = people.getInputStream();
+    // BufferedReader br = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8.name()));
+    // CSVReader reader = new CSVReader(br, '|')) {
+    // String[] nextLine;
+    // while ((nextLine = reader.readNext()) != null) {
+    // Person p = new Person(nextLine);
+    // persons.put(Integer.valueOf(p.getId()), p);
+    // maxId = Math.max(maxId, Integer.valueOf(p.getId()));
+    // }
+    // }
+    //
+    // }
+
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -109,4 +126,11 @@ public final class TestDataInitializer implements InitializingBean {
         this.simpleService = simpleService;
     }
 
+    public void setPeople(Resource people) {
+        this.people = people;
+    }
+
+    public void setContacts(Resource contacts) {
+        this.contacts = contacts;
+    }
 }
