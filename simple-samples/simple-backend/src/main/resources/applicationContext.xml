@@ -50,8 +50,8 @@
         <property name="simpleService" ref="simpleService" />
         <property name="initData" value="${init.data}" />
         <property name="catalog" value="hsqldb.ddl" />
-        <property name="people" value="users.csv" />
-        <property name="contacts" value="users.csv" />
+        <property name="people" value="people.csv" />
+        <property name="contacts" value="contacts.csv" />
     </bean>
 
     <bean id="dao" autowire="byType" abstract="true">
