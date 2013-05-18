@@ -1,5 +1,15 @@
 package org.sample.model {
 
+  import org.sample.model.Contact
+  import ch.ralscha.extdirectspring.generator.ModelType
+  import javax.validation.constraints.NotNull
+  import ch.ralscha.extdirectspring.generator.ModelAssociation
+  import ch.ralscha.extdirectspring.generator.ModelField
+  import ch.ralscha.extdirectspring.generator.Model
+  import org.sample.model.Person
+  import com.fasterxml.jackson.annotation.JsonIgnore
+  import ch.ralscha.extdirectspring.generator.ModelAssociationType
+
   enum ContactType serializable 1  {
     value : java.lang.Integer
     HOME ::: 0
@@ -14,17 +24,11 @@ package org.sample.model {
     UNKNOWN ::: "0"
   }
 
-  import ch.ralscha.extdirectspring.generator.Model
-  import ch.ralscha.extdirectspring.generator.ModelField
-  import ch.ralscha.extdirectspring.generator.ModelType
-  import ch.ralscha.extdirectspring.generator.ModelAssociation
-  import ch.ralscha.extdirectspring.generator.ModelAssociationType
-  import javax.validation.constraints.NotNull
-
   @Model ::: value "SimpleWeb.model.Contact"
+  @@@JsonIgnore
   pojo Contact serializable 1 operators {
     id : java.lang.Long primaryKey index 1
-    @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model :org.sample.model.Person class
+    @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model :Person class
     @NotNull
     person :: Person required index 2
     @ModelField ::: type :ModelType INTEGER
@@ -40,7 +44,8 @@ package org.sample.model {
     toString ::: id person phoneNumber address type
   }
 
-  @Model ::: value "SimpleWeb.model.Person", paging true, readMethod "simpleService.loadPeople", createMethod "simpleService.createPerson", updateMethod "simpleService.updatePerson", destroyMethod "simpleService.deletePerson" 
+  @Model ::: value "SimpleWeb.model.Person", paging true, readMethod "simpleService.loadPeople", createMethod "simpleService.createPerson", updateMethod "simpleService.updatePerson", destroyMethod "simpleService.deletePerson"
+  @@@JsonIgnore
   pojo Person serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     @NotNull
@@ -52,7 +57,7 @@ package org.sample.model {
     @NotNull
     gender :: PersonGender required
     ssn : java.lang.String
-    @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model :org.sample.model.Contact class
+    @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model :Contact class
     contacts : java.util.List <:Contact>
     equals ::: id
     hashCode ::: id

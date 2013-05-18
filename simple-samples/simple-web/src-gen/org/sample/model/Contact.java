@@ -5,6 +5,7 @@ import ch.ralscha.extdirectspring.generator.ModelAssociation;
 import ch.ralscha.extdirectspring.generator.ModelAssociationType;
 import ch.ralscha.extdirectspring.generator.ModelField;
 import ch.ralscha.extdirectspring.generator.ModelType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.NotNull;
 import org.sample.model.Person;
 
@@ -20,7 +21,9 @@ import java.util.HashMap;
 public class Contact implements Serializable {
   
   private static final long serialVersionUID = 1L;
+  @JsonIgnore
   public static final int ORDER_BY_ID = 1;
+  @JsonIgnore
   public static final int ORDER_BY_PERSON = 2;
 	
   public Contact() {
