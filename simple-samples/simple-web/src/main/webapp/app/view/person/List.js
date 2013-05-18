@@ -19,6 +19,10 @@ Ext.define('SimpleWeb.view.person.List', {
 		dataIndex : 'lastName',
 		flex : 1
 	}, {
+		header : 'Gender',
+		dataIndex : "gender",
+		flex : 1
+	}, {
 		header : 'SSN',
 		dataIndex : 'ssn',
 		flex : 1

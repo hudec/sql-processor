@@ -30,6 +30,11 @@ Ext.define('SimpleWeb.view.person.Edit', {
 				allowBlank: false
 			}, {
 				xtype : 'textfield',
+				name : 'gender',
+				fieldLabel : 'Gender',
+				allowBlank: false
+			}, {
+				xtype : 'textfield',
 				name : 'ssn',
 				fieldLabel : 'SSN',
 				allowBlank: true

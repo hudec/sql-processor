@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.NotNull;
-import org.sample.model.Contact;
 import org.sample.web.util.DMYDateDeserializer;
 import org.sample.web.util.DMYDateSerializer;
 
@@ -183,6 +182,7 @@ public class Person implements Serializable {
   
   private Set<String> initAssociations = new HashSet<String>();
   
+  @JsonIgnore
   public void setInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
@@ -190,6 +190,7 @@ public class Person implements Serializable {
       initAssociations.add(association.name());
   }
   
+  @JsonIgnore
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
@@ -227,6 +228,7 @@ public class Person implements Serializable {
   
   private Set<String> nullValues = new HashSet<String>();
   
+  @JsonIgnore
   public void setNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -234,6 +236,7 @@ public class Person implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  @JsonIgnore
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -261,6 +264,7 @@ public class Person implements Serializable {
     return nullValues.contains(attrName);
   }
   
+  @JsonIgnore
   public Boolean isNull(Attribute attribute) {
     if (attribute == null)
       throw new IllegalArgumentException();
@@ -316,6 +320,7 @@ public class Person implements Serializable {
     return operators;
   }
   
+  @JsonIgnore
   public void setOp(String operator, OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -323,6 +328,7 @@ public class Person implements Serializable {
       operators.put(attribute.name(), operator);
   }
   
+  @JsonIgnore
   public void clearOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -344,6 +350,7 @@ public class Person implements Serializable {
       operators.remove(attribute);
   }
   
+  @JsonIgnore
   public void setNullOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
