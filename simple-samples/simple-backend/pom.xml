@@ -23,7 +23,7 @@
         <version.dbunit>2.4.9</version.dbunit>
         <version.hsqldb>2.2.8</version.hsqldb>
         <hibernatevalidator.version>5.0.0.Final</hibernatevalidator.version>
-        <eds.version>1.3.2</eds.version>
+        <eds.version>1.3.3-SNAPSHOT</eds.version>
         <version.ehcache>2.5.0</version.ehcache>
         <version.cglib>2.2.2</version.cglib>
 
@@ -94,7 +94,6 @@
                     <source>1.6</source>
                     <target>1.6</target>
                     <encoding>UTF-8</encoding>
-                    <debug>UTF-8</debug>
                 </configuration>
             </plugin>
 
