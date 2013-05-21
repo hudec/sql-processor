@@ -1,58 +1,57 @@
 Ext.define('SimpleWeb.view.person.Details', {
-			extend : 'Ext.window.Window',
-			alias : 'widget.persondetails',
+	extend : 'Ext.window.Window',
+	alias : 'widget.persondetails',
 
-			title : 'Person details',
-			layout : 'fit',
-			autoShow : true,
-			resizable : false,
-			modal : true,
+	title : 'Person details',
+	layout : 'fit',
+	autoShow : true,
+	resizable : true,
+	modal : true,
 
-			initComponent : function() {
-				this.items = [{
-							xtype : 'form',
-							padding : '5 5 0 5',
-							border : false,
-							style : 'background-color: #fff;',
-							defaults : {
-								width : 400,
-								msgTarget : 'side'
-							},
-							items : [{
-										xtype : 'textfield',
-										name : 'firstName',
-										fieldLabel : 'First Name',
-										allowBlank : false
-									}, {
-										xtype : 'textfield',
-										name : 'lastName',
-										fieldLabel : 'Last Name',
-										allowBlank : false
-									}, {
-										xtype : 'textfield',
-										name : 'gender',
-										fieldLabel : 'Gender',
-										allowBlank : false
-									}, {
-										xtype : 'textfield',
-										name : 'ssn',
-										fieldLabel : 'SSN',
-										allowBlank : true
-									}, {
-										xtype : 'date',
-										dateFormat : 'd.m.Y',
-										name : 'dateOfBirth',
-										fieldLabel : 'Date of birth',
-										allowBlank : true
-									}]
-						}];
+	initComponent : function() {
+		this.items = [ {
+			width : 500,
+			xtype : 'panel',
+			autoScroll : false,
+			items : [ {
+				xtype : 'form',
+				padding : '5 5 0 5',
+				border : false,
+				style : 'background-color: #fff;',
+				defaults : {
+					width : 400,
+					msgTarget : 'side'
+				},
+				items : [ {
+					xtype : 'displayfield',
+					name : 'firstName',
+					fieldLabel : 'First Name',
+					allowBlank : false
+				}, {
+					xtype : 'displayfield',
+					name : 'lastName',
+					fieldLabel : 'Last Name',
+					allowBlank : false
+				}, {
+					xtype : 'displayfield',
+					name : 'contacts.address',
+					fieldLabel : 'Address',
+					allowBlank : false
+				} ]
+			} /*
+				 * , { xtype : 'gridpanel', itemId : 'contactGrid', store:
+				 * Ext.data.StoreManager.lookup('Contacts'), columns : [ { text :
+				 * 'Address', dataIndex : 'address', flex : 1 }, { text : 'a',
+				 * dataIndex : 'a', flex : 1 } ] }
+				 */]
+		} ];
 
-				this.buttons = [{
-							text : 'Cancel',
-							scope : this,
-							handler : this.close
-						}];
+		this.buttons = [ {
+			text : 'OK',
+			scope : this,
+			handler : this.close
+		} ];
 
-				this.callParent(arguments);
-			}
-		});
+		this.callParent(arguments);
+	}
+});

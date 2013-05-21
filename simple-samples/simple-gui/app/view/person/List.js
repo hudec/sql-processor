@@ -50,6 +50,10 @@ Ext.define('SimpleWeb.view.person.List', {
 			text : 'Edit Person',
 			disabled : true,
 			action : 'edit'
+		}, {
+			text : 'Search Person',
+			disabled : false,
+			action : 'search'
 		} ]
 	}, {
 		xtype : 'pagingtoolbar',

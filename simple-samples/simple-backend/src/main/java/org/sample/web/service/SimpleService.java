@@ -82,6 +82,7 @@ public class SimpleService {
     }
 
     @Transactional(readOnly = true)
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public List<Person> findPeople(Person person) {
         return personDao.list(person);
     }
