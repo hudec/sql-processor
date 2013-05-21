@@ -10,7 +10,6 @@ Ext.define('SimpleWeb.store.People', {
 		property : 'lastName',
 		direction : 'ASC'
 	} ],
-
 	/*listeners : {
 		load : function(store) {
 			store.each(function(record) {

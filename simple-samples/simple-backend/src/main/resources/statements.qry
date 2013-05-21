@@ -95,7 +95,7 @@ DELETE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
   }
 ;
 
-SELECT_PERSON(QRY,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
+SELECT_PERSON(QRY,in=personForm,outx=Person,tab=person=p,tab=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.TYPE @contacts.type, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber }
   from %%PERSON p
@@ -105,6 +105,8 @@ SELECT_PERSON(QRY,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
     {& UPPER(%p.FIRST_NAME) like :+firstName }
     {& UPPER(%p.LAST_NAME) like :+lastName }
     {& %p.DATE_OF_BIRTH ::= :dateOfBirth }
+    {& %p.DATE_OF_BIRTH >= :dateOfBirthFrom }
+    {& %p.DATE_OF_BIRTH <= :dateOfBirthTo }
     {& UPPER(%p.GENDER) like :+gender }
     {& UPPER(%p.SSN) like :+ssn }
   }

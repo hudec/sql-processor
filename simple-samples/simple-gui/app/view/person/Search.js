@@ -42,8 +42,15 @@ Ext.define('SimpleWeb.view.person.Search', {
 				xtype : 'datefield',
 				type: 'date',
 				format: 'd.m.Y',
-				name : 'dateOfBirth',
-				fieldLabel : 'Date of birth',
+				name : 'dateOfBirthFrom',
+				fieldLabel : 'Date of birth from',
+				allowBlank: true
+			}, {
+				xtype : 'datefield',
+				type: 'date',
+				format: 'd.m.Y',
+				name : 'dateOfBirthTo',
+				fieldLabel : 'Date of birth to',
 				allowBlank: true
 			} ]
 		} ];

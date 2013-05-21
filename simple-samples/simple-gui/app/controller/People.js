@@ -128,49 +128,17 @@ Ext.define('SimpleWeb.controller.People', {
 	searchPerson : function(button) {
 		var form = this.getPersonSearchForm();
 		var values = form.getValues()
-		console.log(values)
-
-		if (form.getForm().isValid()) {
-			Ext.Ajax.request({
-						waitMsg : 'Searching...',
-						method : 'POST',
-						url : 'index.html',
-						params : {
-							searchData : form.getValues()
-						},
-						scope : this,
-						success : this.onSearchSuccess,
-						failure : this.onSearchFailure
-					});
-		}
-		this.getPersonSearchWindow().close();
-
-	},
-
-	onSearchSuccess : function(response, page) {
-		// console.log(response)
-		var values = page.params.searchData
-		console.log(page.params.searchData)
-		// var a = simpleService.findPeople(values)
-		console.log(this.getStore("People") + "cccccccccccccccc");
-	
 		var store = this.getStore("People")
-		
-		var searchingPeople = simpleService.findPeople(values, function(result,
-						event) {
-					console.log(Ext.encode(result) + "aaaa" + event)
 
-					store.loadData(Ext.encode(result));
+		store.load({
+					params : form.getValues(),
+					baseParams : form.getValues(),
+					callback : function(records, operation, success) {
+						console.log(records);
+					},
+					scope : this
 				});
-		console.log(searchingPeople + "aaaaabbbbb")
-
-		// var gData = Ext.JSON.decode(response.responseText);
-		// var grid = Ext.widget('infolist'); //not working -need help
-		// this.getInfoStore().load(gData);
-		// Ext.getCmp().setActiveItem('infolist'); //not working-need help
-		// this.getViewport().getLayout().setActiveItem('infolist'); //not
-		// working need help
-		// Ext.MessageBox.alert("XXXXX", response.responseText); // works
+		this.getPersonSearchWindow().close();
 	},
 
 	onSearchFailure : function(err) {
