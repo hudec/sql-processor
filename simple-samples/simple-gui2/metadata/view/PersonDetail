@@ -1,0 +1,17 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": 250,
+        "width": 400,
+        "designer|userClassName": "PersonDetail",
+        "designer|userAlias": "persondetail",
+        "layout": "anchor",
+        "title": "Person Detail"
+    },
+    "designerId": "fc1ed383-8053-4e84-b048-cdff5362c08c"
+}

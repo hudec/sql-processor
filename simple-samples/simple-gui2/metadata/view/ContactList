@@ -1,0 +1,117 @@
+{
+    "type": "Ext.grid.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": 250,
+        "width": 400,
+        "designer|userClassName": "ContactList",
+        "designer|userAlias": "contactlist",
+        "title": "Contact List",
+        "store": "Contact"
+    },
+    "designerId": "c7da0cf9-d2e1-47dd-877b-fbee2b13a160",
+    "cn": [
+        {
+            "type": "Ext.grid.View",
+            "reference": {
+                "name": "viewConfig",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "GridView"
+            },
+            "designerId": "ff7cb08e-e8be-43f4-828c-97b14570aadc"
+        },
+        {
+            "type": "Ext.grid.column.Number",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "hidden": true,
+                "dataIndex": "id",
+                "text": "Id",
+                "format": "0"
+            },
+            "designerId": "f740f2fe-6c01-4275-8098-fa1868d8b3b3"
+        },
+        {
+            "type": "Ext.grid.column.Number",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "hidden": true,
+                "dataIndex": "personId",
+                "hideable": false,
+                "text": "PersonId",
+                "format": "0"
+            },
+            "designerId": "1cf7fb3c-23a3-4a78-81e9-9b405822dcdc"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dataIndex": "type",
+                "text": "Type"
+            },
+            "designerId": "827bce09-64a8-4ea9-a143-422804a98f0a"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dataIndex": "address",
+                "text": "Address"
+            },
+            "designerId": "cce2f114-e5b9-455d-a645-3f0941d7b3c9"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dataIndex": "phoneNumber",
+                "text": "PhoneNumber"
+            },
+            "designerId": "a4395d7f-2a99-48a6-9c80-bedfa02df49d"
+        },
+        {
+            "type": "Ext.toolbar.Paging",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "bottom",
+                "width": 360,
+                "designer|displayName": "PagingToolbar",
+                "displayInfo": true,
+                "store": "Contact"
+            },
+            "designerId": "f15c948a-415f-419f-839b-2431a9db3f81"
+        }
+    ]
+}

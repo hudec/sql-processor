@@ -1,0 +1,162 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Person"
+    },
+    "designerId": "PersonModel",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id",
+                "type": "int"
+            },
+            "designerId": "personModel-idField"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "firstName",
+                "type": "string"
+            },
+            "designerId": "personModel-firstNameField"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "lastName",
+                "type": "string"
+            },
+            "designerId": "personModel-lastNameField"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "dateOfBirth",
+                "type": "date"
+            },
+            "designerId": "personModel-dateOfBirthField"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "ssn",
+                "type": "string"
+            },
+            "designerId": "personModel-ssnField"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "genger",
+                "type": "string"
+            },
+            "designerId": "personModel-gengerField"
+        },
+        {
+            "type": "Ext.data.association.HasMany",
+            "reference": {
+                "name": "hasMany",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "model": "Contact",
+                "designer|displayName": "hasManyContacts",
+                "foreignKey": "personId",
+                "name": "contacts"
+            },
+            "designerId": "personModel-hasManyContactsAssociation"
+        },
+        {
+            "type": "presencevalidation",
+            "reference": {
+                "name": "validations",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "firstNamePresenceValidation",
+                "field": "firstName"
+            },
+            "designerId": "personModel-firstNamePresenceValidation"
+        },
+        {
+            "type": "presencevalidation",
+            "reference": {
+                "name": "validations",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "lastNamePresenceValidation",
+                "field": "lastName"
+            },
+            "designerId": "personModel-lastNamePresenceValidation"
+        },
+        {
+            "type": "presencevalidation",
+            "reference": {
+                "name": "validations",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "gengerPresenceValidation",
+                "field": "genger"
+            },
+            "designerId": "personModel-gengerPresenceValidation"
+        },
+        {
+            "type": "inclusionvalidation",
+            "reference": {
+                "name": "validations",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "gengerInclusionValidation",
+                "field": "genger",
+                "list": [
+                    "[\"MALE\", \"FEMALE\", \"UNKNOWN\"]"
+                ]
+            },
+            "designerId": "personModel-gengerInclusionValidation"
+        }
+    ]
+}

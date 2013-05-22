@@ -1,0 +1,50 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "models": [
+            "Person",
+            "Contact"
+        ],
+        "stores": [
+            "Person",
+            "Contact"
+        ],
+        "views": [
+            "Main",
+            "Persons",
+            "PersonList",
+            "PersonDetail",
+            "ContactList"
+        ],
+        "autoCreateViewport": true,
+        "name": "Simplereg"
+    },
+    "designerId": "application",
+    "cn": [
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "launch",
+                "implHandler": [
+                    "Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));",
+                    "",
+                    "Simplereg.preferences = {",
+                    "    shiftPanels: true",
+                    "};",
+                    ""
+                ]
+            },
+            "designerId": "82d17917-48f4-412c-9511-f8da400760d8"
+        }
+    ]
+}

@@ -1,0 +1,138 @@
+{
+    "name": "simplereg",
+    "settings": {
+        "spacesToIndent": 4,
+        "lineEnding": "LF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "urlPrefix": "",
+        "exportPath": "",
+        "buildShouldOverwriteIndex": true
+    },
+    "xdsVersion": "2.2.2",
+    "xdsBuild": 971,
+    "schemaVersion": 1,
+    "upgradeVersion": 210000000501,
+    "framework": "ext42",
+    "topInstanceFileMap": {
+        "contactStore": {
+            "paths": [
+                "metadata/store/Contact",
+                "app/store/override/Contact.js",
+                "app/store/Contact.js"
+            ],
+            "className": "Contact"
+        },
+        "personStore": {
+            "paths": [
+                "metadata/store/Person",
+                "app/store/override/Person.js",
+                "app/store/Person.js"
+            ],
+            "className": "Person"
+        },
+        "contactModel": {
+            "paths": [
+                "metadata/model/Contact",
+                "app/model/override/Contact.js",
+                "app/model/Contact.js"
+            ],
+            "className": "Contact"
+        },
+        "PersonModel": {
+            "paths": [
+                "metadata/model/Person",
+                "app/model/override/Person.js",
+                "app/model/Person.js"
+            ],
+            "className": "Person"
+        },
+        "593c0765-a51c-4f2d-8cec-76a24f6747b1": {
+            "paths": [
+                "metadata/resource/Library"
+            ],
+            "className": "Library"
+        },
+        "ab128fad-e761-4940-a485-acd3e50079a2": {
+            "paths": [
+                "metadata/resource/css"
+            ],
+            "className": "css"
+        },
+        "c0484c1e-6252-4b11-9832-bae564e66372": {
+            "paths": [
+                "metadata/view/SearchPersons",
+                "app/view/override/SearchPersons.js",
+                "app/view/SearchPersons.js"
+            ],
+            "className": "SearchPersons"
+        },
+        "968cf053-29d8-4784-8139-35773334d712": {
+            "paths": [
+                "metadata/view/Main",
+                "app/view/override/Main.js",
+                "app/view/Main.js",
+                "app/view/Viewport.js"
+            ],
+            "className": "Main"
+        },
+        "ae15ea58-1f1b-4168-a260-febc75e5305b": {
+            "paths": [
+                "metadata/view/Persons",
+                "app/view/override/Persons.js",
+                "app/view/Persons.js"
+            ],
+            "className": "Persons"
+        },
+        "76789016-74d5-4f26-abb6-72f82e3e2f28": {
+            "paths": [
+                "metadata/view/PersonList",
+                "app/view/override/PersonList.js",
+                "app/view/PersonList.js"
+            ],
+            "className": "PersonList"
+        },
+        "fc1ed383-8053-4e84-b048-cdff5362c08c": {
+            "paths": [
+                "metadata/view/PersonDetail",
+                "app/view/override/PersonDetail.js",
+                "app/view/PersonDetail.js"
+            ],
+            "className": "PersonDetail"
+        },
+        "c7da0cf9-d2e1-47dd-877b-fbee2b13a160": {
+            "paths": [
+                "metadata/view/ContactList",
+                "app/view/override/ContactList.js",
+                "app/view/ContactList.js"
+            ],
+            "className": "ContactList"
+        }
+    },
+    "viewOrderMap": {
+        "view": [
+            "968cf053-29d8-4784-8139-35773334d712",
+            "ae15ea58-1f1b-4168-a260-febc75e5305b",
+            "c0484c1e-6252-4b11-9832-bae564e66372",
+            "76789016-74d5-4f26-abb6-72f82e3e2f28",
+            "fc1ed383-8053-4e84-b048-cdff5362c08c",
+            "c7da0cf9-d2e1-47dd-877b-fbee2b13a160"
+        ],
+        "store": [
+            "contactStore",
+            "personStore"
+        ],
+        "controller": [],
+        "model": [
+            "contactModel",
+            "PersonModel"
+        ],
+        "resource": [
+            "593c0765-a51c-4f2d-8cec-76a24f6747b1",
+            "ab128fad-e761-4940-a485-acd3e50079a2"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

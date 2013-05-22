@@ -1,0 +1,138 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Contact"
+    },
+    "designerId": "contactModel",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id",
+                "type": "int"
+            },
+            "designerId": "contactModel-idField"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "personId",
+                "type": "int"
+            },
+            "designerId": "contactModel-personIdField"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "type",
+                "type": "string"
+            },
+            "designerId": "contactModel-typeField"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "address",
+                "type": "string"
+            },
+            "designerId": "contactModel-addressField"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "phoneNumber",
+                "type": "string"
+            },
+            "designerId": "contactModel-phoneNumberField"
+        },
+        {
+            "type": "Ext.data.association.BelongsTo",
+            "reference": {
+                "name": "belongsTo",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "associationKey": "person",
+                "model": "Person",
+                "designer|displayName": "belongsToPerson",
+                "foreignKey": "person_id",
+                "getterName": "getPerson",
+                "setterName": "setPerson"
+            },
+            "designerId": "contentModel-belongsToPersonAssociation"
+        },
+        {
+            "type": "presencevalidation",
+            "reference": {
+                "name": "validations",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "typePresenceValidation",
+                "field": "type"
+            },
+            "designerId": "contactModel-typePresenceValidation"
+        },
+        {
+            "type": "presencevalidation",
+            "reference": {
+                "name": "validations",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "addressPresenceValidation",
+                "field": "address"
+            },
+            "designerId": "contactModel-addressPresenceValidation"
+        },
+        {
+            "type": "inclusionvalidation",
+            "reference": {
+                "name": "validations",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "typeInclusionValidation",
+                "field": "type",
+                "list": [
+                    "[\"HOME\", \"BUSINESS\", \"ABROAD\"]"
+                ]
+            },
+            "designerId": "contactModel-typeInclusionValidation"
+        }
+    ]
+}
