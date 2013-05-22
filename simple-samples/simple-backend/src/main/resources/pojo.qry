@@ -97,3 +97,11 @@ package org.sample.model {
     toString ::: dateOfBirth lastName ssn gender firstName
   }
 }
+
+package org.sample.web.form {
+	pojo PersonForm extends Person serializable 1 {
+		dateOfBirthFrom : java.util.Date
+		dateOfBirthTo : java.util.Date
+		toString ::: dateOfBirthFrom dateOfBirthTo
+	}
+}

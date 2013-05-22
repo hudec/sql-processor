@@ -36,7 +36,6 @@ procedure anHourBefore AN_HOUR_BEFORE;
 procedure newPerson NEW_PERSON;
 procedure newPersonRetRs NEW_PERSON_RET_RS;
 function anHourBefore AN_HOUR_BEFORE;
-pojo personForm org.sample.web.form.PersonForm;
 
 metagen-function-result AN_HOUR_BEFORE stamp;
 metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
