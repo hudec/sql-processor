@@ -72,30 +72,6 @@ package org.sample.model {
     isDef ::: dateOfBirth ssn
     toString ::: dateOfBirth id lastName ssn gender firstName
   }
-
-  pojo AnHourBefore serializable 1  { // function
-    t : java.sql.Timestamp
-    toString ::: t
-  }
-
-  pojo NewPerson serializable 1  { // procedure
-    newid : java.lang.Integer
-    dateOfBirth : java.util.Date
-    ssn : java.lang.String
-    firstName : java.lang.String
-    lastName : java.lang.String
-    gender : java.lang.String
-    toString ::: dateOfBirth lastName ssn gender firstName newid
-  }
-
-  pojo NewPersonRetRs serializable 1  { // procedure
-    dateOfBirth : java.util.Date
-    ssn : java.lang.String
-    firstName : java.lang.String
-    lastName : java.lang.String
-    gender : java.lang.String
-    toString ::: dateOfBirth lastName ssn gender firstName
-  }
 }
 
 package org.sample.web.form {
