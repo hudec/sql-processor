@@ -21,7 +21,10 @@ pojogen-rename-columns PERSON_GENDER M->MALE F->FEMALE I0->UNKNOWN;
 pojogen-generate-operators;
 
 // use indetity for primary keys
+// for HSQLDB
 metagen-global-sequence SIMPLE_SEQUENCE;
+// for MySQL
+//metagen-global-identity;
 // can't overwrite existing META SQL 
 //metagen-make-it-final;
 // operators
