@@ -170,7 +170,28 @@
                                 "fieldLabel": "Date of Birth",
                                 "value": null
                             },
-                            "designerId": "5a997aa2-247a-4d69-9312-4746c76efe0c"
+                            "designerId": "0ed86710-5373-46d4-815e-8885cc4f11f4",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "renderer",
+                                        "designer|params": [
+                                            "value",
+                                            "displayField"
+                                        ],
+                                        "implHandler": [
+                                            "return Ext.util.Format.dateRenderer('d.m.Y')(value)"
+                                        ]
+                                    },
+                                    "designerId": "8d96b2d6-e3d1-4be4-923b-cd3699c63abe"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.form.field.Display",

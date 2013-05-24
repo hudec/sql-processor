@@ -24,39 +24,15 @@ Ext.define('Simplereg.store.People', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
+            autoLoad: true,
             model: 'Simplereg.model.Person',
             storeId: 'people',
-            data: [
-                {
-                    id: 1,
-                    firstName: 'Jan',
-                    lastName: 'Novák',
-                    genger: 'MALE',
-                    ssn: '012345/6789'
-                },
-                {
-                    id: 2,
-                    firstName: 'Josef',
-                    lastName: 'Čapek',
-                    genger: 'MALE'
-                },
-                {
-                    id: 3,
-                    firstName: 'Jana',
-                    lastName: 'Nováková',
-                    genger: 'FEMALE'
-                },
-                {
-                    id: 4,
-                    firstName: 'Petr',
-                    lastName: 'Pavel',
-                    genger: 'MALE'
-                }
-            ],
             proxy: {
                 type: 'ajax',
+                url: 'data/people.json',
                 reader: {
-                    type: 'json'
+                    type: 'json',
+                    root: 'data'
                 }
             }
         }, cfg)]);

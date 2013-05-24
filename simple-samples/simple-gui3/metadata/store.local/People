@@ -6,19 +6,12 @@
     },
     "codeClass": null,
     "userConfig": {
+        "autoLoad": true,
         "model": "Person",
         "storeId": "people",
-        "designer|userClassName": "People",
-        "data": [
-            "[",
-            "    { id: 1, firstName: \"Jan\", lastName: \"Novák\", genger: \"MALE\", ssn: \"012345/6789\" },",
-            "    { id: 2, firstName: \"Josef\", lastName: \"Čapek\", genger: \"MALE\" },",
-            "    { id: 3, firstName: \"Jana\", lastName: \"Nováková\", genger: \"FEMALE\" },",
-            "    { id: 4, firstName: \"Petr\", lastName: \"Pavel\", genger: \"MALE\" }",
-            "]"
-        ]
+        "designer|userClassName": "People"
     },
-    "designerId": "1369241450808800551",
+    "designerId": "cd9ec5ed-464b-4a37-abb6-5158dd9b15ee",
     "cn": [
         {
             "type": "Ext.data.proxy.Ajax",
@@ -28,9 +21,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "designer|displayName": "Proxy"
+                "url": "data/people.json"
             },
-            "designerId": "1369241462447801704",
+            "designerId": "4b9bba42-625d-455f-9fd8-9950085e6769",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -40,9 +33,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "designer|displayName": "Reader"
+                        "root": "data"
                     },
-                    "designerId": "1369241469713390343"
+                    "designerId": "1ceecef1-fb4b-4398-ac74-0761845b8118"
                 }
             ]
         }

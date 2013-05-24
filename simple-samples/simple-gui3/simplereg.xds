@@ -5,7 +5,7 @@
         "lineEnding": "LF",
         "genTimestamps": false,
         "cacheBust": false,
-        "urlPrefix": "",
+        "urlPrefix": "http://localhost:8080/simple-gui3",
         "exportPath": "",
         "buildShouldOverwriteIndex": true
     },
@@ -32,22 +32,6 @@
                 "metadata/resource/js"
             ],
             "className": "js"
-        },
-        "1369241390575197453": {
-            "paths": [
-                "metadata/store/Contacts",
-                "app/store/override/Contacts.js",
-                "app/store/Contacts.js"
-            ],
-            "className": "Contacts"
-        },
-        "1369241450808800551": {
-            "paths": [
-                "metadata/store/People",
-                "app/store/override/People.js",
-                "app/store/People.js"
-            ],
-            "className": "People"
         },
         "1369241776750326842": {
             "paths": [
@@ -121,6 +105,22 @@
                 "app/view/PersonModify.js"
             ],
             "className": "PersonModify"
+        },
+        "cd9ec5ed-464b-4a37-abb6-5158dd9b15ee": {
+            "paths": [
+                "metadata/store/People",
+                "app/store/override/People.js",
+                "app/store/People.js"
+            ],
+            "className": "People"
+        },
+        "22300fc0-c0dc-4153-ac62-de22988898de": {
+            "paths": [
+                "metadata/store/Contacts",
+                "app/store/override/Contacts.js",
+                "app/store/Contacts.js"
+            ],
+            "className": "Contacts"
         }
     },
     "viewOrderMap": {
@@ -133,8 +133,8 @@
             "8b0354ec-f42d-4fb2-a921-e10df46ffe44"
         ],
         "store": [
-            "1369241390575197453",
-            "1369241450808800551"
+            "cd9ec5ed-464b-4a37-abb6-5158dd9b15ee",
+            "22300fc0-c0dc-4153-ac62-de22988898de"
         ],
         "controller": [
             "c2e11079-0249-4b25-9d26-20e094a97afe"

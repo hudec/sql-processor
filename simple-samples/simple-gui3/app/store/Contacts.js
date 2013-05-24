@@ -24,33 +24,15 @@ Ext.define('Simplereg.store.Contacts', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
+            autoLoad: true,
             model: 'Simplereg.model.Contact',
             storeId: 'contacts',
-            data: [
-                {
-                    id: 1,
-                    personId: 1,
-                    type: 'HOME',
-                    address: 'Říčany'
-                },
-                {
-                    id: 2,
-                    personId: 1,
-                    type: 'BUSINESS',
-                    address: 'Praha',
-                    phoneNumber: '+420123456789'
-                },
-                {
-                    id: 3,
-                    personId: 2,
-                    type: 'HOME',
-                    address: 'Prčice'
-                }
-            ],
             proxy: {
                 type: 'ajax',
+                url: 'data/contacts.json',
                 reader: {
-                    type: 'json'
+                    type: 'json',
+                    root: 'data'
                 }
             }
         }, cfg)]);

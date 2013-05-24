@@ -96,7 +96,8 @@ Ext.define('Simplereg.view.Page', {
                                             xtype: 'datecolumn',
                                             dataIndex: 'dateOfBirth',
                                             text: 'Date of Birth',
-                                            flex: 1
+                                            flex: 1,
+                                            format: 'd.m.Y'
                                         },
                                         {
                                             xtype: 'gridcolumn',

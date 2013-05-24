@@ -184,7 +184,8 @@
                                     "userConfig": {
                                         "dataIndex": "dateOfBirth",
                                         "text": "Date of Birth",
-                                        "flex": 1
+                                        "flex": 1,
+                                        "format": "d.m.Y"
                                     },
                                     "designerId": "04a873ee-4622-4f70-81cf-11b3669f8519"
                                 },
