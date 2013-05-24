@@ -1,0 +1,160 @@
+{
+    "type": "Ext.toolbar.Toolbar",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PersonToolbar",
+        "designer|userAlias": "personToolbar"
+    },
+    "designerId": "b4d7e091-a3d1-44dc-8ad2-8a4059c1de31",
+    "cn": [
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": null,
+                "iconCls": "icon-search",
+                "text": "Select Person"
+            },
+            "designerId": "e68427d6-75ae-4238-9bc2-a1becacd222a",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onButtonClick1",
+                        "implHandler": [
+                            "var layout = Ext.getCmp(\"person_registry\").getLayout();",
+                            "if (layout.getActiveItem().id == \"person_select\") {",
+                            "    Simplereg.view.PersonRegistry.openPersonSearch();",
+                            "}",
+                            "else {",
+                            "    Simplereg.view.PersonRegistry.openPersonSelect();",
+                            "}"
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "designerId": "9e51b3d4-e49d-48f5-9ce0-8d93d290f9f9"
+                }
+            ]
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": null,
+                "iconCls": "icon-add",
+                "text": "Add Person"
+            },
+            "designerId": "9a914f58-3481-44e9-a803-13121670c652"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": null,
+                "cls": null,
+                "id": "delete_person",
+                "iconCls": "icon-delete",
+                "text": "Delete Person"
+            },
+            "designerId": "b21d4c2b-053a-4af8-bc5a-296a1237b0e7"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": null,
+                "cls": null,
+                "id": "edit_person",
+                "iconCls": "icon-edit",
+                "text": "Edit Person"
+            },
+            "designerId": "25593f9a-83be-4f42-a700-55e02b85983b"
+        },
+        {
+            "type": "Ext.toolbar.Separator",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": null
+            },
+            "designerId": "e0962d5e-e2c0-44a2-9dc9-50d9c35d5eca"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": null,
+                "cls": null,
+                "id": "add_contact",
+                "iconCls": "icon-add",
+                "text": "Add Contact"
+            },
+            "designerId": "78fdc029-c80b-4d81-abff-f63f794e3103"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": null,
+                "cls": null,
+                "id": "delete_contact",
+                "iconCls": "icon-delete",
+                "text": "Delete Contact"
+            },
+            "designerId": "d72148d3-c9c1-4523-b570-91ae11358369"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": null,
+                "cls": null,
+                "id": "edit_contact",
+                "iconCls": "icon-edit",
+                "text": "Edit Contact"
+            },
+            "designerId": "c5908cb4-4801-4cee-ad45-2792ef106211"
+        }
+    ]
+}

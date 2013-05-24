@@ -1,0 +1,50 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "model": "Person",
+        "storeId": "people",
+        "designer|userClassName": "People",
+        "data": [
+            "[",
+            "    { id: 1, firstName: \"Jan\", lastName: \"Novák\", genger: \"MALE\", ssn: \"012345/6789\" },",
+            "    { id: 2, firstName: \"Josef\", lastName: \"Čapek\", genger: \"MALE\" },",
+            "    { id: 3, firstName: \"Jana\", lastName: \"Nováková\", genger: \"FEMALE\" },",
+            "    { id: 4, firstName: \"Petr\", lastName: \"Pavel\", genger: \"MALE\" }",
+            "]"
+        ]
+    },
+    "designerId": "1369241450808800551",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Proxy"
+            },
+            "designerId": "1369241462447801704",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "Reader"
+                    },
+                    "designerId": "1369241469713390343"
+                }
+            ]
+        }
+    ]
+}

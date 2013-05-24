@@ -1,0 +1,32 @@
+{
+    data: [
+        {
+            id: 1,
+            personId: 1,
+            type: 'HOME',
+            address: 'Prague 1',
+            phoneNumber: '+420111111111'
+        },
+        {
+            id: 2,
+            personId: 1,
+            type: 'BUSINESS',
+            address: 'Prague 2',
+            phoneNumber: '+420111111112'
+        },
+        {
+            id: 3,
+            personId: 2,
+            type: 'HOME',
+            address: 'Prague 3',
+            phoneNumber: '+420111111113'
+        },
+        {
+            id: 4,
+            personId: 2,
+            type: 'BUSINESS',
+            address: 'Prague 4',
+            phoneNumber: '+420111111114'
+        }
+    ]
+}

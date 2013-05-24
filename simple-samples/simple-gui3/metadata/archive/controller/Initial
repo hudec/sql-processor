@@ -1,0 +1,55 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Initial"
+    },
+    "designerId": "41cef419-48e0-4349-bd28-d7c8c1e89ddc",
+    "cn": [
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "xxx",
+                "implHandler": [
+                    "new Ext.KeyMap(Ext.get(document), [",
+                    "{",
+                    "    key: 'F',",
+                    "    ctrl: true,",
+                    "    fn: function(e) {",
+                    "        Simplereg.view.PersonRegistry.openPersonSearch();",
+                    "    },",
+                    "    stopEvent: true",
+                    "},",
+                    "{",
+                    "    key: 'E',",
+                    "    ctrl: true,",
+                    "    fn: function(e) {",
+                    "        Simplereg.view.PersonRegistry.openPersonSelect();",
+                    "    },",
+                    "    stopEvent: true",
+                    "}",
+                    "]);",
+                    "",
+                    "Ext.create(\"Simplereg.view.PersonSearch\");",
+                    "",
+                    "Ext.getCmp(\"delete_person\").disable();",
+                    "Ext.getCmp(\"edit_person\").disable();",
+                    "",
+                    "Ext.getCmp(\"add_contact\").disable();",
+                    "Ext.getCmp(\"delete_contact\").disable();",
+                    "Ext.getCmp(\"edit_contact\").disable();"
+                ]
+            },
+            "designerId": "d4c65b88-dc5e-4822-880e-e0210937095f"
+        }
+    ]
+}

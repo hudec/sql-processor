@@ -1,0 +1,13 @@
+{
+    "type": "jsresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "js",
+        "url": "http://regapp.i.cz:8085/simple-backend/api-debug.js"
+    },
+    "designerId": "4ac565a1-c263-48eb-823c-f53d583b6935"
+}

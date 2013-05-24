@@ -1,0 +1,155 @@
+{
+    "name": "simplereg",
+    "settings": {
+        "spacesToIndent": 4,
+        "lineEnding": "LF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "urlPrefix": "",
+        "exportPath": "",
+        "buildShouldOverwriteIndex": true
+    },
+    "xdsVersion": "2.2.2",
+    "xdsBuild": 991,
+    "schemaVersion": 1,
+    "upgradeVersion": 210000000503,
+    "framework": "ext42",
+    "topInstanceFileMap": {
+        "52d05396-11ff-490f-b935-06929cca8036": {
+            "paths": [
+                "metadata/resource/Library"
+            ],
+            "className": "Library"
+        },
+        "d972dd0e-0d0a-4ab7-ac38-d10668afbabd": {
+            "paths": [
+                "metadata/resource/css"
+            ],
+            "className": "css"
+        },
+        "4ac565a1-c263-48eb-823c-f53d583b6935": {
+            "paths": [
+                "metadata/resource/js"
+            ],
+            "className": "js"
+        },
+        "1369241390575197453": {
+            "paths": [
+                "metadata/store/Contacts",
+                "app/store/override/Contacts.js",
+                "app/store/Contacts.js"
+            ],
+            "className": "Contacts"
+        },
+        "1369241450808800551": {
+            "paths": [
+                "metadata/store/People",
+                "app/store/override/People.js",
+                "app/store/People.js"
+            ],
+            "className": "People"
+        },
+        "1369241776750326842": {
+            "paths": [
+                "metadata/model/Contact",
+                "app/model/override/Contact.js",
+                "app/model/Contact.js"
+            ],
+            "className": "Contact"
+        },
+        "1369241559316371388": {
+            "paths": [
+                "metadata/model/Person",
+                "app/model/override/Person.js",
+                "app/model/Person.js"
+            ],
+            "className": "Person"
+        },
+        "eb94b73e-9fa6-4570-af75-515759fd5547": {
+            "paths": [
+                "metadata/view/Page",
+                "app/view/override/Page.js",
+                "app/view/Page.js",
+                "app/view/Viewport.js"
+            ],
+            "className": "Page"
+        },
+        "c2e11079-0249-4b25-9d26-20e094a97afe": {
+            "paths": [
+                "metadata/controller/Person",
+                "app/controller/override/Person.js",
+                "app/controller/Person.js"
+            ],
+            "className": "Person"
+        },
+        "f2515017-33c2-46d6-9395-8918020b984d": {
+            "paths": [
+                "metadata/view/PersonSearch",
+                "app/view/override/PersonSearch.js",
+                "app/view/PersonSearch.js"
+            ],
+            "className": "PersonSearch"
+        },
+        "8b0354ec-f42d-4fb2-a921-e10df46ffe44": {
+            "paths": [
+                "metadata/view/PersonView",
+                "app/view/override/PersonView.js",
+                "app/view/PersonView.js"
+            ],
+            "className": "PersonView"
+        },
+        "231e64c0-1e3a-4a81-a267-8e75519960b4": {
+            "paths": [
+                "metadata/view/PersonAdd",
+                "app/view/override/PersonAdd.js",
+                "app/view/PersonAdd.js"
+            ],
+            "className": "PersonAdd"
+        },
+        "79bd0a28-1469-447a-b681-605a335ec0df": {
+            "paths": [
+                "metadata/view/PersonDelete",
+                "app/view/override/PersonDelete.js",
+                "app/view/PersonDelete.js"
+            ],
+            "className": "PersonDelete"
+        },
+        "952369e7-35d9-4367-858e-77000f276d8f": {
+            "paths": [
+                "metadata/view/PersonModify",
+                "app/view/override/PersonModify.js",
+                "app/view/PersonModify.js"
+            ],
+            "className": "PersonModify"
+        }
+    },
+    "viewOrderMap": {
+        "view": [
+            "eb94b73e-9fa6-4570-af75-515759fd5547",
+            "f2515017-33c2-46d6-9395-8918020b984d",
+            "231e64c0-1e3a-4a81-a267-8e75519960b4",
+            "952369e7-35d9-4367-858e-77000f276d8f",
+            "79bd0a28-1469-447a-b681-605a335ec0df",
+            "8b0354ec-f42d-4fb2-a921-e10df46ffe44"
+        ],
+        "store": [
+            "1369241390575197453",
+            "1369241450808800551"
+        ],
+        "controller": [
+            "c2e11079-0249-4b25-9d26-20e094a97afe"
+        ],
+        "model": [
+            "1369241776750326842",
+            "1369241559316371388"
+        ],
+        "resource": [
+            "52d05396-11ff-490f-b935-06929cca8036",
+            "d972dd0e-0d0a-4ab7-ac38-d10668afbabd",
+            "4ac565a1-c263-48eb-823c-f53d583b6935"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

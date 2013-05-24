@@ -1,0 +1,432 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "id": null,
+        "designer|userClassName": "PersonView",
+        "designer|userAlias": "mypanel6",
+        "layout": "border",
+        "closable": null,
+        "header": false,
+        "title": "Person"
+    },
+    "designerId": "8b0354ec-f42d-4fb2-a921-e10df46ffe44",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top",
+                "border": null,
+                "cls": "line",
+                "designer|displayName": "Toolbar"
+            },
+            "designerId": "8e6089b6-d9a6-43a9-8754-42d35e27f8e6",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "cls": null,
+                        "itemId": "search_person",
+                        "iconCls": "icon-search",
+                        "text": "Search"
+                    },
+                    "designerId": "00643d1b-7eef-4de6-b5ef-4c411f30e569"
+                },
+                {
+                    "type": "Ext.toolbar.Separator",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "designer|displayName": "Spacer"
+                    },
+                    "designerId": "e204557c-df67-4813-87f3-3698e70042f9"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "itemId": "add_person",
+                        "iconCls": "icon-add",
+                        "text": "Add"
+                    },
+                    "designerId": "73a46688-23c5-4370-93f6-bfd121cc4ecc"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "itemId": "delete_person",
+                        "iconCls": "icon-delete",
+                        "text": "Delete"
+                    },
+                    "designerId": "157775ff-0797-49f3-a849-641ad14978b9"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 1,
+                "layout|region": "west",
+                "layout|split": false,
+                "border": null,
+                "padding": null,
+                "width": 150,
+                "designer|displayName": "PersonDetail",
+                "layout": "anchor",
+                "bodyPadding": 10,
+                "header": false,
+                "title": "Person Detail"
+            },
+            "designerId": "3070bdf9-cc7f-44fc-b8b6-f31e36a34abd",
+            "cn": [
+                {
+                    "type": "Ext.form.FieldSet",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "padding": null,
+                        "layout": "auto",
+                        "title": "Personal Data"
+                    },
+                    "designerId": "26db2b82-72c5-4a4c-9038-52ffd14bff86",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Display",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "cls": null,
+                                "itemId": "firstName",
+                                "designer|createAlias": null,
+                                "fieldLabel": "First Name",
+                                "value": null
+                            },
+                            "designerId": "5a214365-a404-4bcd-93e0-5989eeafa9da"
+                        },
+                        {
+                            "type": "Ext.form.field.Display",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "itemId": "lastName",
+                                "fieldLabel": "Last Name",
+                                "value": null
+                            },
+                            "designerId": "dcd1c927-5b4e-4151-b74b-c535bc6f1194"
+                        },
+                        {
+                            "type": "Ext.form.field.Display",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "itemId": "dateOfBirth",
+                                "fieldLabel": "Date of Birth",
+                                "value": null
+                            },
+                            "designerId": "5a997aa2-247a-4d69-9312-4746c76efe0c"
+                        },
+                        {
+                            "type": "Ext.form.field.Display",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "itemId": "ssn",
+                                "fieldLabel": "SSN",
+                                "value": null
+                            },
+                            "designerId": "fd7a1b16-451f-4988-ae19-80124af724e6"
+                        },
+                        {
+                            "type": "Ext.form.field.Display",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "itemId": "gender",
+                                "fieldLabel": "Gender",
+                                "value": null
+                            },
+                            "designerId": "26c91f94-6b18-42cd-a920-c65bc99dc8ab"
+                        },
+                        {
+                            "type": "Ext.toolbar.Toolbar",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "Toolbar"
+                            },
+                            "designerId": "26a91fe3-0dcf-4bb2-b65a-6cca7d9cacbc",
+                            "cn": [
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": null,
+                                        "itemId": "modify_person",
+                                        "iconCls": "icon-edit",
+                                        "text": "Modify"
+                                    },
+                                    "designerId": "710db29a-9c3c-4b55-ab8a-79021962bf79"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 1,
+                "layout|region": "center",
+                "designer|displayName": "PersonSubdetails",
+                "bodyPadding": 10,
+                "header": false,
+                "title": "Person Subdetails"
+            },
+            "designerId": "18529bdc-cd9e-4c4e-bcfe-02e62635d9f4",
+            "cn": [
+                {
+                    "type": "Ext.form.FieldSet",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "border": null,
+                        "padding": null,
+                        "title": "Person Contacts"
+                    },
+                    "designerId": "f440bb30-815c-4942-acce-2ab24a0d4d60",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "border": null,
+                                "itemId": "contact_list",
+                                "margin": null,
+                                "bodyBorder": null,
+                                "header": false,
+                                "title": "Contact List",
+                                "store": "Contacts"
+                            },
+                            "designerId": "749bd064-ede1-4253-b012-a6f064dfab4d",
+                            "cn": [
+                                {
+                                    "type": "Ext.grid.View",
+                                    "reference": {
+                                        "name": "viewConfig",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "GridView"
+                                    },
+                                    "designerId": "05a5e40f-0a25-439b-b73b-0573824b16db"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "hidden": true,
+                                        "dataIndex": "id",
+                                        "text": "Id",
+                                        "format": "0"
+                                    },
+                                    "designerId": "1bb7e846-d260-4271-b7ee-00cec994e997"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "hidden": true,
+                                        "enableColumnHide": false,
+                                        "dataIndex": "personId",
+                                        "text": "PersonId",
+                                        "flex": 1
+                                    },
+                                    "designerId": "74f61d1e-a8f6-4413-b176-ab0dd9a95234"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "type",
+                                        "text": "Type"
+                                    },
+                                    "designerId": "8921993a-485e-49c7-a1dd-4dec311d53b5"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "address",
+                                        "text": "Address",
+                                        "flex": 2
+                                    },
+                                    "designerId": "04d1818c-1a5b-48de-832b-aa32f4e26bc6"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "phoneNumber",
+                                        "text": "Phone"
+                                    },
+                                    "designerId": "8bd10bb7-a6d0-4fbd-aacb-4629952acd36"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.toolbar.Toolbar",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "disabled": true,
+                                "designer|displayName": "Toolbar"
+                            },
+                            "designerId": "503eb25a-45e9-42ef-96f1-98b942c991d2",
+                            "cn": [
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": null,
+                                        "iconCls": "icon-add",
+                                        "text": "Add"
+                                    },
+                                    "designerId": "71861b6b-0074-4a47-b85b-2cf6a55c71bf"
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": null,
+                                        "iconCls": "icon-delete",
+                                        "text": "Delete"
+                                    },
+                                    "designerId": "7ff6d4c5-0c2b-49d0-aa74-58b607035d7b"
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "layout|flex": null,
+                                        "iconCls": "icon-edit",
+                                        "text": "Modify"
+                                    },
+                                    "designerId": "a4842a1b-3e29-4d03-b9f0-3197f3c93d86"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

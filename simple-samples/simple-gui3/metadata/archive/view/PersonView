@@ -1,0 +1,107 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "frame": true,
+        "id": null,
+        "width": 150,
+        "designer|userClassName": "PersonView",
+        "designer|userAlias": "personView",
+        "layout": "border",
+        "title": "(unknown)"
+    },
+    "designerId": "e884d3a2-0fbd-4638-9cfb-35797ac546e1",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 0.5,
+                "layout|region": "west",
+                "layout|split": true,
+                "id": null,
+                "width": 150,
+                "designer|displayName": "Detail",
+                "layout": "fit",
+                "collapseDirection": null,
+                "collapsible": false,
+                "header": null,
+                "headerPosition": null,
+                "title": null
+            },
+            "designerId": "4ba01e1f-02d0-4314-b0b9-91926c63cc41",
+            "cn": [
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "PersonDetail",
+                        "layout": null,
+                        "header": false,
+                        "title": null
+                    },
+                    "designerId": "44aedf97-17d0-42fc-a3d7-be2c76bf4310",
+                    "masterInstanceId": "b4cf5f8c-0099-4ca0-a8be-6f9f7d180da1"
+                }
+            ]
+        },
+        {
+            "type": "Ext.tab.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 1,
+                "layout|region": "center",
+                "layout|split": true,
+                "id": null,
+                "designer|displayName": "Additions",
+                "collapseDirection": null,
+                "collapsible": false,
+                "title": null,
+                "tabPosition": "right"
+            },
+            "designerId": "79461b71-ce0f-41ac-b67c-d957c8d1a289",
+            "cn": [
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "header": false
+                    },
+                    "designerId": "f5c934d8-45c8-46b9-ac33-e43336e1b350",
+                    "masterInstanceId": "1b084fb8-cc16-4186-9c33-d75054da6f49",
+                    "cn": [
+                        {
+                            "type": "Ext.tab.Tab",
+                            "reference": {
+                                "name": "tabConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "designerId": "8769b52e-3f52-46e7-afd5-77a9c6bf936e"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

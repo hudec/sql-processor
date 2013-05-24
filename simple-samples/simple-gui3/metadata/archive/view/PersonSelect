@@ -1,0 +1,55 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "frame": true,
+        "hidden": null,
+        "width": 150,
+        "designer|userClassName": "PersonSelect",
+        "designer|userAlias": "personselect",
+        "layout": "border",
+        "title": "Person Selection"
+    },
+    "designerId": "1f28137b-6fb8-4eea-bade-a641258db866",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 1,
+                "layout|region": "center",
+                "layout|split": true,
+                "frame": null,
+                "id": "person_list",
+                "designer|displayName": "List",
+                "layout": "fit",
+                "collapsible": false,
+                "header": null
+            },
+            "designerId": "8fc7a473-7d4f-446b-9975-7a8952dd2241",
+            "cn": [
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "header": false
+                    },
+                    "designerId": "7f76551c-0f1e-4d0a-8fb9-77aeedfb8a33",
+                    "masterInstanceId": "95c8eb41-b137-47bf-8c16-c814b8aaf83e"
+                }
+            ]
+        }
+    ]
+}

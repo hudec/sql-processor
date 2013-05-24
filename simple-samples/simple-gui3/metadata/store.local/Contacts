@@ -1,0 +1,49 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "model": "Contact",
+        "storeId": "contacts",
+        "designer|userClassName": "Contacts",
+        "data": [
+            "[",
+            "    { id: 1, personId: 1, type: \"HOME\", address: \"Říčany\" },",
+            "    { id: 2, personId: 1, type: \"BUSINESS\", address: \"Praha\", phoneNumber: \"+420123456789\" },",
+            "    { id: 3, personId: 2, type: \"HOME\", address: \"Prčice\" }",
+            "]"
+        ]
+    },
+    "designerId": "1369241390575197453",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Proxy"
+            },
+            "designerId": "1369241405048413933",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "Reader"
+                    },
+                    "designerId": "1369241417005980084"
+                }
+            ]
+        }
+    ]
+}

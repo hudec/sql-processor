@@ -1,0 +1,25 @@
+{
+    "type": "Ext.grid.property.Grid",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": 250,
+        "width": 400,
+        "designer|userClassName": "PersonProperties",
+        "designer|userAlias": "persondetail",
+        "title": "Person Properties",
+        "source": [
+            "{",
+            "\t\"First Name\": \"(empty)\",",
+            "\t\"Last Name\": \"(empty)\",",
+            "\t\"Date of Birth\": \"(empty)\",",
+            "\t\"SSN\": \"(empty)\",",
+            "\t\"Genger\": \"(empty)\"",
+            "}"
+        ]
+    },
+    "designerId": "ddb7569c-26a2-4cb7-be75-93e6eeef5037"
+}

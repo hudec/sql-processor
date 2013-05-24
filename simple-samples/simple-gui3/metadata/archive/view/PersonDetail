@@ -1,0 +1,115 @@
+{
+    "type": "Ext.form.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": 250,
+        "width": 400,
+        "designer|userClassName": "PersonDetail",
+        "designer|userAlias": "persondetail",
+        "autoScroll": true,
+        "layout": null,
+        "bodyPadding": null,
+        "title": "Person Detail"
+    },
+    "designerId": "b4cf5f8c-0099-4ca0-a8be-6f9f7d180da1",
+    "cn": [
+        {
+            "type": "Ext.form.FieldContainer",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "stretch",
+                "height": null,
+                "padding": 10,
+                "designer|displayName": "Fields",
+                "layout": "vbox",
+                "fieldLabel": null
+            },
+            "designerId": "0b308fe3-3f23-401c-a1ba-c451f8694574",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "FirstName",
+                        "fieldLabel": "First Name",
+                        "labelAlign": null,
+                        "value": null
+                    },
+                    "designerId": "e1cd6493-6505-47ce-81c5-88d68dc3231f"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "width": null,
+                        "designer|displayName": "LastName",
+                        "fieldLabel": "Last Name",
+                        "labelAlign": null
+                    },
+                    "designerId": "333b9f53-7a9e-45b2-831f-f9fef513355b"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "width": null,
+                        "designer|displayName": "Ssn",
+                        "fieldLabel": "SSN",
+                        "labelAlign": null
+                    },
+                    "designerId": "ff86f62d-0a72-40de-87fb-5474105ef777"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": null,
+                        "designer|displayName": "DateOfBirth",
+                        "fieldLabel": "Date of Birth",
+                        "labelAlign": null
+                    },
+                    "designerId": "65189f50-fcc5-4a2e-b95b-25608e790af1"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": null,
+                        "designer|displayName": "Gender",
+                        "fieldLabel": "Gender",
+                        "labelAlign": null
+                    },
+                    "designerId": "af7c39fb-3212-45fe-b3ae-8e32b81f7698"
+                }
+            ]
+        }
+    ]
+}
