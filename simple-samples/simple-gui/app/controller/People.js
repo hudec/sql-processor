@@ -126,19 +126,53 @@ Ext.define('SimpleWeb.controller.People', {
 	},
 
 	searchPerson : function(button) {
-		var form = this.getPersonSearchForm();
+		var form = this.getPersonSearchForm()
 		var values = form.getValues()
-		var store = this.getStore("People")
 
-		store.load({
-					params : form.getValues(),
-					baseParams : form.getValues(),
-					callback : function(records, operation, success) {
-						console.log(records);
-					},
-					scope : this
-				});
+		var store = this.getStore("People")
+		store.filters.clear();
+
+		var gender = Ext.getCmp("gender").getValue()
+		if (gender == null) {
+			gender = ""
+		}
+		var dateOfBirthFrom = Ext.getCmp("dateOfBirthFrom").getValue()
+		if (dateOfBirthFrom == null) {
+			dateOfBirthFrom = ""
+		}
+		var dateOfBirthTo = Ext.getCmp("dateOfBirthTo").getValue()
+		if (dateOfBirthTo == null) {
+			dateOfBirthTo = ""
+		}
+
+		store.filter([{
+					property : "firstName",
+					value : Ext.getCmp("firstName").getValue()
+				}, {
+					property : "lastName",
+					value : Ext.getCmp("lastName").getValue()
+				}, {
+					property : "gender",
+					value : gender
+				}, {
+					property : "ssn",
+					value : Ext.getCmp("ssn").getValue()
+				}, {
+					property : "dateOfBirthFrom",
+					value : dateOfBirthFrom
+				}, {
+					property : "dateOfBirthTo",
+					value : dateOfBirthTo
+				}]);
+		/*
+		 * var store = this.getStore("People")
+		 * 
+		 * store.load({ params : form.getValues(), baseParams :
+		 * form.getValues(), callback : function(records, operation, success) {
+		 * console.log(records); }, scope : this });
+		 */
 		this.getPersonSearchWindow().close();
+		//this.doGridRefresh();
 	},
 
 	onSearchFailure : function(err) {

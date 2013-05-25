@@ -21,21 +21,26 @@ Ext.define('SimpleWeb.view.person.Search', {
 			items : [ {
 				xtype : 'textfield',
 				name : 'firstName',
+				id : 'firstName',
 				fieldLabel : 'First Name',
 				allowBlank: true
 			}, {
 				xtype : 'textfield',
 				name : 'lastName',
+				id : 'lastName',
 				fieldLabel : 'Last Name',
 				allowBlank: true
 			}, {
-				xtype : 'textfield',
+				xtype : 'combo',
 				name : 'gender',
+				id : 'gender',
 				fieldLabel : 'Gender',
-				allowBlank: true
+				allowBlank: true,
+				store:['','MALE','FEMALE']
 			}, {
 				xtype : 'textfield',
 				name : 'ssn',
+				id : 'ssn',
 				fieldLabel : 'SSN',
 				allowBlank: true
 			}, {
@@ -43,6 +48,7 @@ Ext.define('SimpleWeb.view.person.Search', {
 				type: 'date',
 				format: 'd.m.Y',
 				name : 'dateOfBirthFrom',
+				id : 'dateOfBirthFrom',
 				fieldLabel : 'Date of birth from',
 				allowBlank: true
 			}, {
@@ -50,6 +56,7 @@ Ext.define('SimpleWeb.view.person.Search', {
 				type: 'date',
 				format: 'd.m.Y',
 				name : 'dateOfBirthTo',
+				id : 'dateOfBirthTo',
 				fieldLabel : 'Date of birth to',
 				allowBlank: true
 			} ]
