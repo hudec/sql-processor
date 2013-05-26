@@ -2,14 +2,18 @@ Ext.define('SimpleWeb.view.person.Search', {
 	extend : 'Ext.window.Window',
 	alias : 'widget.personsearch',
 
+        id: 'PersonSearch',
 	title : 'Search Person',
 	layout : 'fit',
-	autoShow : true,
+	//autoShow : true,
 	resizable : false,
 	modal: true,
+        closeAction: 'hide',
 
 	initComponent : function() {
-		this.items = [ {
+            var me = this;
+            Ext.applyIf(me, {
+                items: [ {
 			xtype : 'form',
 			padding : '5 5 0 5',
 			border : false,
@@ -60,17 +64,18 @@ Ext.define('SimpleWeb.view.person.Search', {
 				fieldLabel : 'Date of birth to',
 				allowBlank: true
 			} ]
-		} ];
+		} ],
 
-		this.buttons = [ {
+		buttons: [ {
 			text : 'Search',
 			action : 'search'
 		}, {
 			text : 'Cancel',
 			scope : this,
 			handler : this.close
-		} ];
+		} ]
+            });
 
-		this.callParent(arguments);
+            me.callParent(arguments);
 	}
 });

@@ -28,6 +28,9 @@ Ext.define('SimpleWeb.controller.People', {
 			}],
 
 	init : function() {
+
+                Ext.create("SimpleWeb.view.person.Search");
+
 		this.control({
 					'personlist' : {
 						itemdblclick : this.personDetails,
@@ -70,7 +73,8 @@ Ext.define('SimpleWeb.controller.People', {
 	},
 
 	showSearchForm : function() {
-		Ext.widget('personsearch');
+		//Ext.widget('personsearch');
+                Ext.getCmp("PersonSearch").show();
 	},
 
 	deletePerson : function(button) {
@@ -126,10 +130,11 @@ Ext.define('SimpleWeb.controller.People', {
 	},
 
 	searchPerson : function(button) {
-		var form = this.getPersonSearchForm()
-		var values = form.getValues()
-
-		var store = this.getStore("People")
+		var form = this.getPersonSearchForm();
+		var values = form.getValues();
+                console.log(values);
+		var store = this.getStore("People");
+/*
 		store.filters.clear();
 
 		var gender = Ext.getCmp("gender").getValue()
@@ -164,13 +169,13 @@ Ext.define('SimpleWeb.controller.People', {
 					property : "dateOfBirthTo",
 					value : dateOfBirthTo
 				}]);
-		/*
-		 * var store = this.getStore("People")
-		 * 
-		 * store.load({ params : form.getValues(), baseParams :
-		 * form.getValues(), callback : function(records, operation, success) {
-		 * console.log(records); }, scope : this });
-		 */
+*/
+		 store.load({ 
+                          params : form.getValues(), 
+                          //baseParams : form.getValues(), 
+                          callback : function(records, operation, success) { console.log(records); }, 
+                          scope : this 
+                });
 		this.getPersonSearchWindow().close();
 		//this.doGridRefresh();
 	},
