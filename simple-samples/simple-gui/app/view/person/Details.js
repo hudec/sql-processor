@@ -133,7 +133,8 @@ Ext.define('SimpleWeb.view.person.Details', {
                         }, {
                             xtype : 'gridcolumn',
                             dataIndex : 'type',
-                            text : 'Type'
+                            text : 'Type',
+                            flex : 1
                         }, {
                             xtype : 'gridcolumn',
                             dataIndex : 'address',

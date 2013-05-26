@@ -1,7 +1,7 @@
 Ext.define('SimpleWeb.controller.People', {
     extend : 'Ext.app.Controller',
 
-    views : [ 'person.List', 'person.Edit', 'person.Details', 'person.Search' ],
+    views : [ 'person.Edit', 'person.Details', 'person.Search' ],
     stores : [ 'People', 'Contacts' ],
     models : [ 'Person' ],
 
@@ -43,6 +43,7 @@ Ext.define('SimpleWeb.controller.People', {
     init : function() {
 
         Ext.create("SimpleWeb.view.person.Search");
+        Ext.create("SimpleWeb.view.person.Edit");
 
         this.control({
             "#cancel_dialog" : {
@@ -51,11 +52,11 @@ Ext.define('SimpleWeb.controller.People', {
             "#person_list" : {
                 itemdblclick : this.onPersonListDblClick
             },
-            'personlist button[action=edit]' : {
-                click : this.editPerson
+            "#modify_person" : {
+                click : this.onModifyPersonClick
             },
-            'personedit button[action=save]' : {
-                click : this.updatePerson
+            "#accept_modify" : {
+                click : this.onAcceptModifyClick
             },
             'personlist button[action=add]' : {
                 click : this.createPerson
@@ -82,9 +83,7 @@ Ext.define('SimpleWeb.controller.People', {
         // Get tab
         view = panel.child("#" + id);
         if (!view) {
-            console.log("aa");
             view = Ext.create("SimpleWeb.view.person.Details");
-            console.log("xx");
             console.log(view);
             view.closable = true;
             view.itemId = id;
@@ -119,15 +118,31 @@ Ext.define('SimpleWeb.controller.People', {
         panel.setActiveTab(view);
     },
 
-    personDetails : function(grid, record) {
-        var view = Ext.widget('persondetails');
-        view.down('form').loadRecord(record);
+    onModifyPersonClick : function(button, e, eOpts) {
+        var dialog = Ext.getCmp("PersonModify"), el = button;
+        var form = dialog.down("form");
+        console.log(form)
+        while (el = el.up()) {
+            if (el.record) {
+                console.log(dialog.down('form'));
+                form.loadRecord(el.record);
+                dialog.show();
+                break;
+            }
+        }
     },
 
-    editPerson : function(button) {
-        var record = this.getPersonList().getSelectionModel().getSelection()[0];
-        var view = Ext.widget('personedit');
-        view.down('form').loadRecord(record);
+    onAcceptModifyClick : function(button, e, eOpts) {
+        var dialog = Ext.getCmp("PersonModify");
+        var form = dialog.down("form");
+        var record = form.getRecord();
+        var values = form.getValues();
+
+        if (form.getForm().isValid()) {
+            record.set(values);
+            record.save();
+            dialog.close();
+        }
     },
 
     createPerson : function() {
