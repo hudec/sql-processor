@@ -27,14 +27,14 @@ UPDATE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
     { ,%type = :type(call=isDef) }
   }
   {= where
-    {& %id = :id(notnull) }
+    {& %id = :id(!empty) }
   }
 ;
 
 DELETE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   delete from %%contact
   {= where
-    {& %id = :id(notnull) }
+    {& %id = :id(!empty) }
   }
 ;
 
@@ -84,14 +84,14 @@ UPDATE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
     { ,%gender = :gender(call=isDef) }
   }
   {= where
-    {& %id = :id(notnull) }
+    {& %id = :id(!empty) }
   }
 ;
 
 DELETE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
   delete from %%person
   {= where
-    {& %id = :id(notnull) }
+    {& %id = :id(!empty) }
   }
 ;
 
