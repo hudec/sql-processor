@@ -188,7 +188,12 @@ public class SimpleService {
             if (value == null || ((value instanceof String) && ((String) value).length() == 0))
                 continue;
             logger.info("personFormFromParams '" + key + "' '" + value + "' '" + value.getClass() + "'");
-            beanUtilsBean.setProperty(form, key, value);
+            if ("personId".equals(key)) {
+                form.setPerson(new Person());
+                beanUtilsBean.setProperty(form.getPerson(), "id", value);
+            } else {
+                beanUtilsBean.setProperty(form, key, value);
+            }
         }
 
         return form;

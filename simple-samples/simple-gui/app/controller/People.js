@@ -98,16 +98,21 @@ Ext.define('SimpleWeb.controller.People', {
         view.setTitle(title);
 
         // Set data
-        Simplereg.controller.Person.setData(record, view);
+        SimpleWeb.controller.People.setData(record, view);
 
         // Reference...
         view.record = record;
 
         // Filter contacts
         store = view.down("#contact_list").getStore();
-        store.clearFilter();
-        store.filterBy(function(item) {
-            return item.get("personId") == record.data.id;
+        store.load({
+            params : {
+                personId : record.data.id
+            },
+            callback : function(records, operation, success) {
+                console.log(records);
+            },
+            scope : this
         });
 
         // Finish
