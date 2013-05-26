@@ -290,8 +290,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             }
             if (obj != null && obj instanceof Collection<?>) {
                 boolean notEmpty = !((Collection<?>) obj).isEmpty();
-                if (!notEmpty && sqlType != null && sqlType.getValue() != null
-                        && sqlType.getValue().toLowerCase().equals(Modifiers.MODIFIER_ANYSET)) {
+                if (!notEmpty && sqlType != null && sqlType.hasValue(Modifiers.MODIFIER_ANYSET, Modifiers.MODIFIER_ANY)) {
                     result.setSql(new StringBuilder("(null)"));
                 } else {
                     StringBuilder ss = new StringBuilder(notEmpty ? "(" : "");

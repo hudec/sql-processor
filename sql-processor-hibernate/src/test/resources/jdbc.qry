@@ -1637,7 +1637,7 @@ DELETE_PERSON_2(CRUD)=
 DELETE_PERSON_3(CRUD)=
   delete from PERSON
   {= where
-   {& ID = :id(type=long,notnull)}
+   {& ID = :id(type=long,!null)}
    {? :lastUpdatedBy | AND LASTUPDATEDBY = :lastUpdatedBy | AND LASTUPDATEDBY is null}
   }
 ;
@@ -1645,7 +1645,7 @@ DELETE_PERSON_3(CRUD)=
 DELETE_PERSON_4(CRUD)=
   delete from PERSON
   {= where
-   {& ID = :id(notnull)}
+   {& ID = :id(!null)}
    {? :lastUpdatedBy | AND LASTUPDATEDBY = :lastUpdatedBy | AND LASTUPDATEDBY is null}
   }
 ;

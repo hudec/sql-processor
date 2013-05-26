@@ -10,6 +10,11 @@ public interface Modifiers {
     /**
      * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
      */
+    public static final String MODIFIER_NOTEMPTY = "notempty";
+
+    /**
+     * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
+     */
     public static final String MODIFIER_NOTNULL = "notnull";
 
     /**
@@ -21,6 +26,11 @@ public interface Modifiers {
      * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
      */
     public static final String MODIFIER_NULL = "null";
+
+    /**
+     * The modifier used to detect the empty value and true value. For the usage please see the Wiki Tutorials.
+     */
+    public static final String MODIFIER_EMPTY = "empty";
 
     /**
      * The modifier used to detect the method call invoked on the parent object. For the usage please see the Wiki

@@ -33,7 +33,42 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
 
         String value = (inOutModifier != null) ? inOutModifier.toLowerCase() : null;
 
-        if (MODIFIER_NOTNULL.equalsIgnoreCase(value)) {
+        boolean result = isNotEmptyInternal(attributeName, obj, parentObj, sqlMetaType, value, inSqlSetOrInsert,
+                values, features);
+        if (result)
+            return result;
+        if (MODIFIER_NOTEMPTY.equalsIgnoreCase(value)) {
+            throw new IllegalArgumentException(MODIFIER_NOTEMPTY);
+        }
+        return result;
+    }
+
+    /**
+     * Used for the evaluation of the emptiness in the META SQL fragments.
+     * 
+     * @param attributeName
+     *            the name of the input value
+     * @param obj
+     *            the input value
+     * @param parentObj
+     *            the parent of the input value
+     * @param sqlMetaType
+     *            the internal type (= META type) devoted for the special processing of the input values
+     * @param inOutModifier
+     *            the input/output value modifier devoted to extend the processing of the input/output values
+     * @param inSqlSetOrInsert
+     *            an indicator the input value is evaluated in the CRUD statement (INSERT or SET)
+     * @param values
+     *            values for a special identifier handling, for example a sequence for an identity
+     * @param features
+     *            the optional features in the statement coontext
+     * @return the non-emptiness of the input value
+     */
+    private boolean isNotEmptyInternal(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
+            String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
+            throws IllegalArgumentException {
+
+        if (MODIFIER_NOTNULL.equalsIgnoreCase(inOutModifier)) {
             if (obj == null)
                 throw new IllegalArgumentException(MODIFIER_NOTNULL);
         }
@@ -70,9 +105,9 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             }
         }
 
-        if (MODIFIER_ANY.equalsIgnoreCase(value)) {
+        if (MODIFIER_ANY.equalsIgnoreCase(inOutModifier)) {
             return true;
-        } else if (MODIFIER_NULL.equalsIgnoreCase(value)) {
+        } else if (MODIFIER_NULL.equalsIgnoreCase(inOutModifier)) {
             if (obj == null)
                 return true;
             else
@@ -82,7 +117,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                 return false;
             } else if (obj instanceof Collection<?>) {
                 if (((Collection<?>) obj).isEmpty()) {
-                    if (MODIFIER_ANYSET.equalsIgnoreCase(value))
+                    if (MODIFIER_ANYSET.equalsIgnoreCase(inOutModifier) || MODIFIER_ANY.equalsIgnoreCase(inOutModifier))
                         return true;
                     else
                         return false;
