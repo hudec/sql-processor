@@ -5,29 +5,6 @@ Ext.define('SimpleWeb.controller.People', {
     stores : [ 'People', 'Contacts' ],
     models : [ 'Person' ],
 
-    refs : [ {
-        ref : 'personList',
-        selector : 'personlist'
-    }, {
-        ref : 'personEditForm',
-        selector : 'personedit form'
-    }, {
-        ref : 'personEditWindow',
-        selector : 'personedit'
-    }, {
-        ref : 'personSearchForm',
-        selector : 'personsearch form'
-    }, {
-        ref : 'personSearchWindow',
-        selector : 'personsearch'
-    }, {
-        ref : 'personDetailsForm',
-        selector : 'personedit form'
-    }, {
-        ref : 'personDetailsWindow',
-        selector : 'personedit'
-    } ],
-
     statics : {
         setData : function(record, view) {
             var key, field;
@@ -58,11 +35,17 @@ Ext.define('SimpleWeb.controller.People', {
             "#accept_modify" : {
                 click : this.onAcceptModifyClick
             },
-            'personlist button[action=add]' : {
-                click : this.createPerson
+            "#add_person" : {
+                click : this.onAddPersonClick
             },
-            'personlist button[action=delete]' : {
-                click : this.deletePerson
+            "#accept_add" : {
+                click : this.onAcceptAddClick
+            },
+            "#delete_person" : {
+                click : this.onDeletePersonClick
+            },
+            "#accept_delete" : {
+                click : this.onAcceptDeleteClick
             },
             "#search_person" : {
                 click : this.onSearchPersonClick
@@ -84,7 +67,6 @@ Ext.define('SimpleWeb.controller.People', {
         view = panel.child("#" + id);
         if (!view) {
             view = Ext.create("SimpleWeb.view.person.Details");
-            console.log(view);
             view.closable = true;
             view.itemId = id;
             panel.add(view);
@@ -109,6 +91,7 @@ Ext.define('SimpleWeb.controller.People', {
                 personId : record.data.id
             },
             callback : function(records, operation, success) {
+                console.log("onPersonListDblClick");
                 console.log(records);
             },
             scope : this
@@ -121,10 +104,10 @@ Ext.define('SimpleWeb.controller.People', {
     onModifyPersonClick : function(button, e, eOpts) {
         var dialog = Ext.getCmp("PersonModify"), el = button;
         var form = dialog.down("form");
-        console.log(form)
+        console.log("kk");
+        console.log(form);
         while (el = el.up()) {
             if (el.record) {
-                console.log(dialog.down('form'));
                 form.loadRecord(el.record);
                 dialog.show();
                 break;
@@ -139,9 +122,16 @@ Ext.define('SimpleWeb.controller.People', {
         var values = form.getValues();
 
         if (form.getForm().isValid()) {
+            console.log("modify");
+            console.log(values);
+            console.log(record);
             record.set(values);
             record.save();
             dialog.close();
+            var panel = Ext.getCmp("PersonRegistry");
+            var id = "person" + record.data.id;
+            var view = panel.child("#" + id);
+            SimpleWeb.controller.People.setData(record, view);
         }
     },
 
@@ -149,9 +139,26 @@ Ext.define('SimpleWeb.controller.People', {
         Ext.widget('personedit');
     },
 
-    onSearchPersonClick : function() {
-        // Ext.widget('personsearch');
-        Ext.getCmp("PersonSearch").show();
+    onAddPersonClick : function(button, e, eOpts) {
+        Ext.getCmp("PersonAdd").show();
+    },
+
+    onAcceptAddClick : function(button, e, eOpts) {
+        var dialog = Ext.getCmp("PersonAdd");
+        var form = dialog.down("form");
+        var values = form.getValues();
+
+        if (form.getForm().isValid()) {
+            console.log("add");
+            console.log(values);
+            console.log(record);
+            record.save();
+            dialog.close();
+            var panel = Ext.getCmp("PersonRegistry");
+            var id = "person" + record.data.id;
+            var view = panel.child("#" + id);
+            SimpleWeb.controller.People.setData(record, view);
+        }
     },
 
     deletePerson : function(button) {
@@ -187,23 +194,13 @@ Ext.define('SimpleWeb.controller.People', {
         }
     },
 
-    updatePerson : function(button) {
-        var form = this.getPersonEditForm();
-        var record = form.getRecord();
-        var values = form.getValues();
+    doGridRefresh : function() {
+        this.getPersonList().down('pagingtoolbar').doRefresh();
+    },
 
-        if (form.getForm().isValid()) {
-            if (record) {
-                record.set(values);
-                record.save();
-            } else {
-                var newPerson = this.getPersonModel().create(values);
-                newPerson.save();
-                // this.getUsersStore().add(newUser);
-                this.doGridRefresh();
-            }
-            this.getPersonEditWindow().close();
-        }
+    onSearchPersonClick : function() {
+        // Ext.widget('personsearch');
+        Ext.getCmp("PersonSearch").show();
     },
 
     onAcceptSearchClick : function(button) {
@@ -215,6 +212,7 @@ Ext.define('SimpleWeb.controller.People', {
         store.load({
             params : form.getValues(),
             callback : function(records, operation, success) {
+                console.log("onAcceptSearchClick");
                 console.log(records);
             },
             scope : this
@@ -222,14 +220,5 @@ Ext.define('SimpleWeb.controller.People', {
         // this.getPersonSearchWindow().close();
         dialog.close();
         // this.doGridRefresh();
-    },
-
-    onSearchFailure : function(err) {
-        Ext.MessageBox.alert('Status', 'Error occured during searching...');
-    },
-
-    doGridRefresh : function() {
-        this.getPersonList().down('pagingtoolbar').doRefresh();
     }
-
 });
