@@ -27,5 +27,17 @@ Ext.define("SimpleWeb.model.Contact", {
     }, {
         type : "presence",
         field : "address"
-    } ]
+    } ],
+    proxy : {
+        type : "direct",
+        api : {
+            read : simpleService.loadContacts,
+            create : simpleService.createContact,
+            update : simpleService.updateContact,
+            destroy : simpleService.deleteContact
+        },
+        reader : {
+            root : "records"
+        }
+    }
 });
