@@ -1,191 +1,215 @@
 Ext.define('SimpleWeb.controller.People', {
-	extend : 'Ext.app.Controller',
+    extend : 'Ext.app.Controller',
 
-	views : ['person.List', 'person.Edit', 'person.Details', 'person.Search'],
-	stores : ['People'],
-	models : ['Person'],
-	refs : [{
-				ref : 'personList',
-				selector : 'personlist'
-			}, {
-				ref : 'personEditForm',
-				selector : 'personedit form'
-			}, {
-				ref : 'personEditWindow',
-				selector : 'personedit'
-			}, {
-				ref : 'personSearchForm',
-				selector : 'personsearch form'
-			}, {
-				ref : 'personSearchWindow',
-				selector : 'personsearch'
-			}, {
-				ref : 'personDetailsForm',
-				selector : 'personedit form'
-			}, {
-				ref : 'personDetailsWindow',
-				selector : 'personedit'
-			}],
+    views : [ 'person.List', 'person.Edit', 'person.Details', 'person.Search' ],
+    stores : [ 'People', 'Contacts' ],
+    models : [ 'Person' ],
 
-	init : function() {
+    refs : [ {
+        ref : 'personList',
+        selector : 'personlist'
+    }, {
+        ref : 'personEditForm',
+        selector : 'personedit form'
+    }, {
+        ref : 'personEditWindow',
+        selector : 'personedit'
+    }, {
+        ref : 'personSearchForm',
+        selector : 'personsearch form'
+    }, {
+        ref : 'personSearchWindow',
+        selector : 'personsearch'
+    }, {
+        ref : 'personDetailsForm',
+        selector : 'personedit form'
+    }, {
+        ref : 'personDetailsWindow',
+        selector : 'personedit'
+    } ],
 
-                Ext.create("SimpleWeb.view.person.Search");
+    statics : {
+        setData : function(record, view) {
+            var key, field;
+            for (key in record.data) {
+                field = view.down("#" + key);
+                if (field) {
+                    field.setValue(record.data[key]);
+                }
+            }
+        }
+    },
 
-		this.control({
-					'personlist' : {
-						itemdblclick : this.personDetails,
-						itemclick : this.enableDeleteEdit
-					},
-					'personlist button[action=edit]' : {
-						click : this.editPerson
-					},
-					'personedit button[action=save]' : {
-						click : this.updatePerson
-					},
-					'personlist button[action=add]' : {
-						click : this.createPerson
-					},
-					'personlist button[action=delete]' : {
-						click : this.deletePerson
-					},
-					'personlist button[action=search]' : {
-						click : this.showSearchForm
-					},
-					'personsearch button[action=search]' : {
-						click : this.searchPerson
-					}
-				});
-	},
+    init : function() {
 
-	personDetails : function(grid, record) {
-		var view = Ext.widget('persondetails');
-		view.down('form').loadRecord(record);
-	},
+        Ext.create("SimpleWeb.view.person.Search");
 
-	editPerson : function(button) {
-		var record = this.getPersonList().getSelectionModel().getSelection()[0];
-		var view = Ext.widget('personedit');
-		view.down('form').loadRecord(record);
-	},
+        this.control({
+            "#cancel_dialog" : {
+                click : this.onCancelDialogClick
+            },
+            "#person_list" : {
+                itemdblclick : this.onPersonListDblClick
+            },
+            'personlist button[action=edit]' : {
+                click : this.editPerson
+            },
+            'personedit button[action=save]' : {
+                click : this.updatePerson
+            },
+            'personlist button[action=add]' : {
+                click : this.createPerson
+            },
+            'personlist button[action=delete]' : {
+                click : this.deletePerson
+            },
+            "#search_person" : {
+                click : this.onSearchPersonClick
+            },
+            "#accept_search" : {
+                click : this.onAcceptSearchClick
+            },
+        });
+    },
 
-	createPerson : function() {
-		Ext.widget('personedit');
-	},
+    onCancelDialogClick : function(button, e, eOpts) {
+        button.up("window").close();
+    },
 
-	showSearchForm : function() {
-		//Ext.widget('personsearch');
-                Ext.getCmp("PersonSearch").show();
-	},
+    onPersonListDblClick : function(dataview, record, item, index, e, eOpts) {
+        var view, panel = Ext.getCmp("PersonRegistry"), store, title, id = "person" + record.data.id;
 
-	deletePerson : function(button) {
-		var record = this.getPersonList().getSelectionModel().getSelection()[0];
+        // Get tab
+        view = panel.child("#" + id);
+        if (!view) {
+            console.log("aa");
+            view = Ext.create("SimpleWeb.view.person.Details");
+            console.log("xx");
+            console.log(view);
+            view.closable = true;
+            view.itemId = id;
+            panel.add(view);
+        }
 
-		if (record) {
-			this.getPeopleStore().remove(record);
-			this.doGridRefresh();
-			this.toggleDeleteButton(false);
-		}
-	},
+        // Set title
+        title = record.data.firstName + " " + record.data.lastName;
+        if (record.data.ssn)
+            title += " | " + record.data.ssn;
+        view.setTitle(title);
 
-	enableDeleteEdit : function(button, record) {
-		this.toggleDeleteButton(true);
-		this.toggleEditButton(true);
-	},
+        // Set data
+        Simplereg.controller.Person.setData(record, view);
 
-	toggleEditButton : function(enable) {
-		var button = this.getPersonList().down('button[action=edit]');
-		if (enable) {
-			button.enable();
-		} else {
-			button.disable();
-		}
-	},
+        // Reference...
+        view.record = record;
 
-	toggleDeleteButton : function(enable) {
-		var button = this.getPersonList().down('button[action=delete]');
-		if (enable) {
-			button.enable();
-		} else {
-			button.disable();
-		}
-	},
+        // Filter contacts
+        store = view.down("#contact_list").getStore();
+        store.clearFilter();
+        store.filterBy(function(item) {
+            return item.get("personId") == record.data.id;
+        });
 
-	updatePerson : function(button) {
-		var form = this.getPersonEditForm();
-		var record = form.getRecord();
-		var values = form.getValues();
+        // Finish
+        panel.setActiveTab(view);
+    },
 
-		if (form.getForm().isValid()) {
-			if (record) {
-				record.set(values);
-				record.save();
-			} else {
-				var newPerson = this.getPersonModel().create(values);
-				newPerson.save();
-				// this.getUsersStore().add(newUser);
-				this.doGridRefresh();
-			}
-			this.getPersonEditWindow().close();
-		}
-	},
+    personDetails : function(grid, record) {
+        var view = Ext.widget('persondetails');
+        view.down('form').loadRecord(record);
+    },
 
-	searchPerson : function(button) {
-		var form = this.getPersonSearchForm();
-		var values = form.getValues();
-                console.log(values);
-		var store = this.getStore("People");
-/*
-		store.filters.clear();
+    editPerson : function(button) {
+        var record = this.getPersonList().getSelectionModel().getSelection()[0];
+        var view = Ext.widget('personedit');
+        view.down('form').loadRecord(record);
+    },
 
-		var gender = Ext.getCmp("gender").getValue()
-		if (gender == null) {
-			gender = ""
-		}
-		var dateOfBirthFrom = Ext.getCmp("dateOfBirthFrom").getValue()
-		if (dateOfBirthFrom == null) {
-			dateOfBirthFrom = ""
-		}
-		var dateOfBirthTo = Ext.getCmp("dateOfBirthTo").getValue()
-		if (dateOfBirthTo == null) {
-			dateOfBirthTo = ""
-		}
+    createPerson : function() {
+        Ext.widget('personedit');
+    },
 
-		store.filter([{
-					property : "firstName",
-					value : Ext.getCmp("firstName").getValue()
-				}, {
-					property : "lastName",
-					value : Ext.getCmp("lastName").getValue()
-				}, {
-					property : "gender",
-					value : gender
-				}, {
-					property : "ssn",
-					value : Ext.getCmp("ssn").getValue()
-				}, {
-					property : "dateOfBirthFrom",
-					value : dateOfBirthFrom
-				}, {
-					property : "dateOfBirthTo",
-					value : dateOfBirthTo
-				}]);
-*/
-		 store.load({ 
-                          params : form.getValues(), 
-                          //baseParams : form.getValues(), 
-                          callback : function(records, operation, success) { console.log(records); }, 
-                          scope : this 
-                });
-		this.getPersonSearchWindow().close();
-		//this.doGridRefresh();
-	},
+    onSearchPersonClick : function() {
+        // Ext.widget('personsearch');
+        Ext.getCmp("PersonSearch").show();
+    },
 
-	onSearchFailure : function(err) {
-		Ext.MessageBox.alert('Status', 'Error occured during searching...');
-	},
+    deletePerson : function(button) {
+        var record = this.getPersonList().getSelectionModel().getSelection()[0];
 
-	doGridRefresh : function() {
-		this.getPersonList().down('pagingtoolbar').doRefresh();
-	}
+        if (record) {
+            this.getPeopleStore().remove(record);
+            this.doGridRefresh();
+            this.toggleDeleteButton(false);
+        }
+    },
+
+    enableDeleteEdit : function(button, record) {
+        this.toggleDeleteButton(true);
+        this.toggleEditButton(true);
+    },
+
+    toggleEditButton : function(enable) {
+        var button = this.getPersonList().down('button[action=edit]');
+        if (enable) {
+            button.enable();
+        } else {
+            button.disable();
+        }
+    },
+
+    toggleDeleteButton : function(enable) {
+        var button = this.getPersonList().down('button[action=delete]');
+        if (enable) {
+            button.enable();
+        } else {
+            button.disable();
+        }
+    },
+
+    updatePerson : function(button) {
+        var form = this.getPersonEditForm();
+        var record = form.getRecord();
+        var values = form.getValues();
+
+        if (form.getForm().isValid()) {
+            if (record) {
+                record.set(values);
+                record.save();
+            } else {
+                var newPerson = this.getPersonModel().create(values);
+                newPerson.save();
+                // this.getUsersStore().add(newUser);
+                this.doGridRefresh();
+            }
+            this.getPersonEditWindow().close();
+        }
+    },
+
+    onAcceptSearchClick : function(button) {
+        // var form = this.getPersonSearchForm();
+        var dialog = Ext.getCmp("PersonSearch");
+        var form = dialog.down('form');
+        var store = this.getStore("People");
+
+        store.load({
+            params : form.getValues(),
+            callback : function(records, operation, success) {
+                console.log(records);
+            },
+            scope : this
+        });
+        // this.getPersonSearchWindow().close();
+        dialog.close();
+        // this.doGridRefresh();
+    },
+
+    onSearchFailure : function(err) {
+        Ext.MessageBox.alert('Status', 'Error occured during searching...');
+    },
+
+    doGridRefresh : function() {
+        this.getPersonList().down('pagingtoolbar').doRefresh();
+    }
 
 });

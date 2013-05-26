@@ -2,6 +2,8 @@ package org.sample.web.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
@@ -24,21 +26,17 @@ import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 import ch.ralscha.extdirectspring.filter.Filter;
 import ch.ralscha.extdirectspring.filter.StringFilter;
 
-import com.google.common.collect.Lists;
-
 @Service
 public class SimpleService {
 
     protected ContactDao contactDao;
     protected PersonDao personDao;
+    protected BeanUtilsBean beanUtilsBean;
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Transactional(readOnly = true)
-    @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "person")
-    public ExtDirectStoreReadResult<Person> loadPeople(ExtDirectStoreReadRequest request) throws Exception {
-
-        BeanUtilsBean beanUtilsBean = new BeanUtilsBean(new ConvertUtilsBean() {
+    public SimpleService() {
+        beanUtilsBean = new BeanUtilsBean(new ConvertUtilsBean() {
 
             @Override
             public Object convert(String value, Class clazz) {
@@ -58,55 +56,25 @@ public class SimpleService {
         dateConverter.setPattern("yyyy-MM-dd'T'HH:mm:ss");
         beanUtilsBean.getConvertUtils().register(dateConverter, Date.class);
 
-        PersonForm form = new PersonForm();
+    }
 
-        for (Filter filter : request.getFilters()) {
-            String value = ((StringFilter) filter).getValue();
-            String key = filter.getField();
-            beanUtilsBean.setProperty(form, key, value);
-        }
+    @Transactional(readOnly = true)
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "person")
+    public ExtDirectStoreReadResult<Person> loadPeople(ExtDirectStoreReadRequest request) throws Exception {
 
+        PersonForm form = personFormFromParams(request.getParams());
+
+        logger.info("BBB " + form);
         List<Person> people = personDao.list(form);
 
+        // TODO - rewrite
         int totalSize = people.size();
-
         if (request.getPage() != null && request.getLimit() != null) {
             int start = (request.getPage() - 1) * request.getLimit();
             int end = Math.min(totalSize, start + request.getLimit());
-            people = Lists.newArrayList(people).subList(start, Math.min(totalSize, end));
         }
 
         return new ExtDirectStoreReadResult<Person>(totalSize, people, true);
-    }
-
-    @Transactional(readOnly = true)
-    public Contact getContact(Contact contact) {
-        return contactDao.get(contact);
-    }
-
-    @Transactional
-    public Contact createContact(Contact contact) {
-        return contactDao.insert(contact);
-    }
-
-    @Transactional
-    public int updateContact(Contact contact) {
-        return contactDao.update(contact);
-    }
-
-    @Transactional
-    public int deleteContact(Contact contact) {
-        return contactDao.delete(contact);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Contact> findContacts(Contact contact) {
-        return contactDao.list(contact);
-    }
-
-    @Transactional(readOnly = true)
-    public Person getPerson(Person person) {
-        return personDao.get(person);
     }
 
     @Transactional
@@ -129,8 +97,101 @@ public class SimpleService {
     }
 
     @Transactional(readOnly = true)
-    public List<Person> findPeople(Person person) {
-        return personDao.list(person);
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "person")
+    public ExtDirectStoreReadResult<Contact> loadContacts(ExtDirectStoreReadRequest request) throws Exception {
+
+        Contact form = contactFormFromParams(request.getParams());
+
+        logger.info("BBB " + form);
+        List<Contact> contacts = contactDao.list(form);
+
+        // TODO - rewrite
+        int totalSize = contacts.size();
+        if (request.getPage() != null && request.getLimit() != null) {
+            int start = (request.getPage() - 1) * request.getLimit();
+            int end = Math.min(totalSize, start + request.getLimit());
+        }
+
+        return new ExtDirectStoreReadResult<Contact>(totalSize, contacts, true);
+    }
+
+    @Transactional
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    public Contact createContact(Contact contact) {
+        return contactDao.insert(contact);
+    }
+
+    @Transactional
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    public Contact updateContact(Contact contact) {
+        int numUpdated = contactDao.update(contact);
+        return (numUpdated > 0) ? contact : null;
+    }
+
+    @Transactional
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    public void deleteContact(Contact contact) {
+        contactDao.delete(contact);
+    }
+
+    private PersonForm personFormFromFilters(List<Filter> filters) throws Exception {
+
+        PersonForm form = new PersonForm();
+
+        for (Filter filter : filters) {
+            String value = ((StringFilter) filter).getValue();
+            String key = filter.getField();
+            logger.info("personFormFromFilters '" + key + "' '" + value + "'");
+            beanUtilsBean.setProperty(form, key, value);
+        }
+
+        return form;
+    }
+
+    private PersonForm personFormFromParams(Map<String, Object> params) throws Exception {
+
+        PersonForm form = new PersonForm();
+
+        for (Entry<String, Object> p : params.entrySet()) {
+            String key = p.getKey();
+            Object value = p.getValue();
+            if (value == null || ((value instanceof String) && ((String) value).length() == 0))
+                continue;
+            logger.info("personFormFromParams '" + key + "' '" + value + "' '" + value.getClass() + "'");
+            beanUtilsBean.setProperty(form, key, value);
+        }
+
+        return form;
+    }
+
+    private Contact contactFormFromFilters(List<Filter> filters) throws Exception {
+
+        Contact form = new Contact();
+
+        for (Filter filter : filters) {
+            String value = ((StringFilter) filter).getValue();
+            String key = filter.getField();
+            logger.info("personFormFromFilters '" + key + "' '" + value + "'");
+            beanUtilsBean.setProperty(form, key, value);
+        }
+
+        return form;
+    }
+
+    private Contact contactFormFromParams(Map<String, Object> params) throws Exception {
+
+        Contact form = new Contact();
+
+        for (Entry<String, Object> p : params.entrySet()) {
+            String key = p.getKey();
+            Object value = p.getValue();
+            if (value == null || ((value instanceof String) && ((String) value).length() == 0))
+                continue;
+            logger.info("personFormFromParams '" + key + "' '" + value + "' '" + value.getClass() + "'");
+            beanUtilsBean.setProperty(form, key, value);
+        }
+
+        return form;
     }
 
     @Required

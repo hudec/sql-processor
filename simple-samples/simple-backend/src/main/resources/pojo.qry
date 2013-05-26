@@ -26,7 +26,7 @@ package org.sample.model {
     UNKNOWN ::: "0"
   }
 
-  @Model ::: value "SimpleWeb.model.Contact"
+  @Model ::: value "SimpleWeb.model.Contact", paging true, readMethod "simpleService.loadContacts", createMethod "simpleService.createContact", updateMethod "simpleService.updateContact", destroyMethod "simpleService.deleteContact"
   @@@JsonIgnore
   @@@@JsonIgnore
   pojo Contact serializable 1 operators {
