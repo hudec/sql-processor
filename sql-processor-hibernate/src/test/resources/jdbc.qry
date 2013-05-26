@@ -824,6 +824,24 @@ COLLECTIONS_EMPTY(QRY)=
   {#1 order by id}
 ;
 
+COLLECTIONS_EMPTY2(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.LASTUPDATEDBY @lastUpdatedBy
+  from PERSON p
+  where 1=1
+  {& p.ID in :idSet(any)}
+  {& p.LASTUPDATEDBY in :updatedBySet}
+  {#1 order by id}
+;
+
+COLLECTIONS_NOT_EMPTY(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.LASTUPDATEDBY @lastUpdatedBy
+  from PERSON p
+  where 1=1
+  {& p.ID in :idSet(!empty)}
+  {& p.LASTUPDATEDBY in :updatedBySet}
+  {#1 order by id}
+;
+
 COLLECTIONS_UNDEFINED(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.LASTUPDATEDBY @lastUpdatedBy
   from PERSON p
@@ -1647,6 +1665,30 @@ DELETE_PERSON_4(CRUD)=
   {= where
    {& ID = :id(!null)}
    {? :lastUpdatedBy | AND LASTUPDATEDBY = :lastUpdatedBy | AND LASTUPDATEDBY is null}
+  }
+;
+
+DELETE_PERSON_5(CRUD)=
+  delete from PERSON
+  {= where
+   {& ID = :id(type=long,!empty)}
+   {? :lastUpdatedBy | AND LASTUPDATEDBY = :lastUpdatedBy | AND LASTUPDATEDBY is null}
+  }
+;
+
+DELETE_PERSON_6(CRUD)=
+  delete from PERSON
+  {= where
+   {& ID = :id(!empty)}
+   {? :lastUpdatedBy | AND LASTUPDATEDBY = :lastUpdatedBy | AND LASTUPDATEDBY is null}
+  }
+;
+
+DELETE_PERSON_7(CRUD)=
+  delete from PERSON
+  {= where
+   {& SSN_NUMBER = :ssn.number(!empty)}
+   {& SEX = :sex(!empty)}
   }
 ;
 

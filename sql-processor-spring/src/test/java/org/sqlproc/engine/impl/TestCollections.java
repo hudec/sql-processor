@@ -36,6 +36,50 @@ public class TestCollections extends TestDatabase {
     }
 
     @Test
+    public void testCollectionsEmpty2() {
+        if ("db2".equalsIgnoreCase(dbType)) {
+            return;
+        }
+        SqlQueryEngine sqlEngine = getSqlEngine("COLLECTIONS_EMPTY2");
+
+        PersonCollectionsForm pf = new PersonCollectionsForm();
+        pf.setIdSet(new HashSet<Long>());
+
+        String sql = sqlEngine.getSql(pf, null, SqlQueryEngine.ASC_ORDER);
+        logger.info(sql);
+        assertContains(sql, "p.ID in (null)");
+        assertDoNotContain(sql, "p.LASTUPDATEDBY in ");
+
+        List<Person> list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+        assertEquals(0, list.size());
+    }
+
+    @Test
+    public void testCollectionsNotEmpty() {
+        if ("db2".equalsIgnoreCase(dbType)) {
+            return;
+        }
+        SqlQueryEngine sqlEngine = getSqlEngine("COLLECTIONS_NOT_EMPTY");
+
+        PersonCollectionsForm pf = new PersonCollectionsForm();
+        pf.setIdSet(new HashSet<Long>());
+
+        List<Person> list;
+        try {
+            list = sqlEngine.query(session, Person.class, null, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertContains(e.getMessage(), "notempty");
+        }
+        try {
+            list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertContains(e.getMessage(), "notempty");
+        }
+    }
+
+    @Test
     public void testCollectionsUndefined() {
         SqlQueryEngine sqlEngine = getSqlEngine("COLLECTIONS_UNDEFINED");
 

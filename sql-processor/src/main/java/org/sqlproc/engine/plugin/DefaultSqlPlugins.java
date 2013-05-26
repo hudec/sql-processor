@@ -64,7 +64,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      *            the optional features in the statement coontext
      * @return the non-emptiness of the input value
      */
-    private boolean isNotEmptyInternal(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
+    protected boolean isNotEmptyInternal(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
             String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
             throws IllegalArgumentException {
 

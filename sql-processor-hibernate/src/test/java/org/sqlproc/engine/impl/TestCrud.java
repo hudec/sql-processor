@@ -139,6 +139,114 @@ public class TestCrud extends TestDatabase {
     }
 
     @Test
+    public void testDelete5() {
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        Person p = new Person();
+
+        List<Person> list = sqlEngine.query(session, Person.class, p);
+        assertEquals(2, list.size());
+
+        SqlCrudEngine crudEngine = getCrudEngine("DELETE_PERSON_5");
+
+        p.setId(list.get(0).getId());
+        String sql = crudEngine.getDeleteSql(p, p);
+        logger.info(sql);
+        assertContains(sql, "delete from PERSON");
+        assertContains(sql, "WHERE ID = :id", "WHERE ID = ?");
+        assertContains(sql, "AND LASTUPDATEDBY is null");
+
+        int count = crudEngine.delete(session, p);
+        assertEquals(1, count);
+
+        list = sqlEngine.query(session, Person.class);
+        assertEquals(1, list.size());
+
+        try {
+            count = crudEngine.delete(session, null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertContains(e.getMessage(), "notempty");
+        }
+    }
+
+    @Test
+    public void testDelete6() {
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        Person p = new Person();
+
+        List<Person> list = sqlEngine.query(session, Person.class, p);
+        assertEquals(2, list.size());
+
+        SqlCrudEngine crudEngine = getCrudEngine("DELETE_PERSON_6");
+
+        p.setId(list.get(0).getId());
+        String sql = crudEngine.getDeleteSql(p, p);
+        logger.info(sql);
+        assertContains(sql, "delete from PERSON");
+        assertContains(sql, "WHERE ID = :id", "WHERE ID = ?");
+        assertContains(sql, "AND LASTUPDATEDBY is null");
+
+        int count = crudEngine.delete(session, p);
+        assertEquals(1, count);
+
+        list = sqlEngine.query(session, Person.class);
+        assertEquals(1, list.size());
+
+        try {
+            count = crudEngine.delete(session, null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertContains(e.getMessage(), "notempty");
+        }
+    }
+
+    @Test
+    public void testDelete7() {
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        Person p = new Person();
+
+        List<Person> list = sqlEngine.query(session, Person.class, p);
+        assertEquals(2, list.size());
+
+        SqlCrudEngine crudEngine = getCrudEngine("DELETE_PERSON_7");
+
+        p.setSsn(new Ssn());
+        p.getSsn().setNumber("123456");
+        p.setSex(Gender.MALE);
+        String sql = crudEngine.getDeleteSql(p, p);
+        logger.info(sql);
+        assertContains(sql, "delete from PERSON");
+        assertContains(sql, "WHERE SSN_NUMBER = :ssn_number", "WHERE SSN_NUMBER = ?");
+        assertContains(sql, "SEX = :sex", "SEX = ?");
+
+        int count = crudEngine.delete(session, p);
+        assertEquals(1, count);
+
+        list = sqlEngine.query(session, Person.class);
+        assertEquals(1, list.size());
+
+        try {
+            count = crudEngine.delete(session, null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertContains(e.getMessage(), "notempty");
+        }
+
+        try {
+            p = new Person();
+            p.setSsn(new Ssn());
+            p.getSsn().setNumber("123456");
+            count = crudEngine.delete(session, p);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertContains(e.getMessage(), "notempty");
+        }
+    }
+
+    @Test
     public void testGet2() {
         SqlCrudEngine sqlEngine = getCrudEngine("GET_PERSON_2");
 
@@ -339,7 +447,7 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsert6() {
-        if ("ORACLE".equalsIgnoreCase(dbType) || "MSSQL".equalsIgnoreCase(dbType))
+        if ("ORACLE".equalsIgnoreCase(dbType))
             return;
 
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
@@ -383,8 +491,7 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsert5() {
-        if ("ORACLE".equalsIgnoreCase(dbType) || "POSTGRESQL".equalsIgnoreCase(dbType)
-                || "MSSQL".equalsIgnoreCase(dbType))
+        if ("ORACLE".equalsIgnoreCase(dbType) || "POSTGRESQL".equalsIgnoreCase(dbType))
             return;
 
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");

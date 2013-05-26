@@ -1,8 +1,10 @@
 package org.sqlproc.engine.plugin;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Map;
 
+import org.apache.commons.beanutils.MethodUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlUtils;
@@ -40,21 +42,60 @@ public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
             }
         }
 
-        if (MODIFIER_NOTNULL.equalsIgnoreCase(value)) {
+        boolean result = isNotEmptyInternal(attributeName, obj, parentObj, sqlMetaType, value, inSqlSetOrInsert,
+                values, features);
+        if (result)
+            return result;
+        if (MODIFIER_NOTEMPTY.equalsIgnoreCase(value)) {
+            throw new IllegalArgumentException(MODIFIER_NOTEMPTY);
+        }
+        return result;
+    }
+
+    private boolean isNotEmptyInternal(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
+            String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
+            throws IllegalArgumentException {
+
+        if (MODIFIER_NOTNULL.equalsIgnoreCase(inOutModifier)) {
             if (obj == null)
                 throw new IllegalArgumentException(MODIFIER_NOTNULL);
         }
 
         if (inSqlSetOrInsert) {
-            Object o = features.get(SqlFeature.EMPTY_FOR_NULL);
-            if (o == null || !(o instanceof Boolean) || !((Boolean) o))
-                if (obj == null)
+            boolean isEmptyUseMethodIsNull = false;
+            if (obj == null && attributeName != null && parentObj != null) {
+                Object o = features.get(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
+                if (o != null && o instanceof Boolean && ((Boolean) o))
+                    isEmptyUseMethodIsNull = true;
+            }
+            Object isNullObj = null;
+            if (isEmptyUseMethodIsNull) {
+                try {
+                    isNullObj = MethodUtils.invokeMethod(parentObj, "isNull", attributeName);
+                } catch (NoSuchMethodException e) {
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                } catch (InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+            if (isNullObj != null && isNullObj instanceof Boolean && ((Boolean) isNullObj)) {
+                return true;
+            }
+            boolean isEmptyForNull = isEmptyUseMethodIsNull;
+            if (obj == null) {
+                Object o = features.get(SqlFeature.EMPTY_FOR_NULL);
+                if (o != null && o instanceof Boolean && ((Boolean) o))
+                    isEmptyForNull = true;
+                if (!isEmptyForNull)
                     return true;
+            }
         }
 
-        if (MODIFIER_ANY.equalsIgnoreCase(value)) {
+        if (MODIFIER_ANY.equalsIgnoreCase(inOutModifier)) {
             return true;
-        } else if (MODIFIER_NULL.equalsIgnoreCase(value)) {
+        } else if (MODIFIER_NULL.equalsIgnoreCase(inOutModifier)) {
             if (obj == null)
                 return true;
             else
@@ -64,7 +105,7 @@ public class CustomizedSqlPlugins implements IsEmptyPlugin, IsTruePlugin {
                 return false;
             } else if (obj instanceof Collection<?>) {
                 if (((Collection<?>) obj).isEmpty()) {
-                    if (MODIFIER_ANYSET.equalsIgnoreCase(value))
+                    if (MODIFIER_ANYSET.equalsIgnoreCase(inOutModifier) || MODIFIER_ANY.equalsIgnoreCase(inOutModifier))
                         return true;
                     else
                         return false;
