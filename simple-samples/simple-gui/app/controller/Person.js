@@ -1,10 +1,6 @@
 Ext.define('SimpleWeb.controller.Person', {
     extend : 'Ext.app.Controller',
 
-    views : [ 'person.Edit', 'person.Details', 'person.Search' ],
-    stores : [ 'People', 'Contacts' ],
-    models : [ 'Person' ],
-
     statics : {
         setData : function(record, view) {
             var key, field;
@@ -149,7 +145,7 @@ Ext.define('SimpleWeb.controller.Person', {
         if (form.getForm().isValid()) {
             console.log("add");
             console.log(values);
-            var newPerson = this.getPersonModel().create(values);
+            var newPerson = this.getModel("Person").create(values);
             newPerson.save();
             console.log(newPerson);
             this.doGridRefresh();

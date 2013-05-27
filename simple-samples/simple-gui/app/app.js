@@ -10,5 +10,8 @@ Ext.application({
     name : 'SimpleWeb',
     appFolder : "app",
     controllers : [ 'Person' ],
+    views : [ 'person.Edit', 'person.Details', 'person.Search' ],
+    stores : [ 'People', 'Contacts' ],
+    models : [ 'Person', 'Contact' ],
     autoCreateViewport : true
 });
