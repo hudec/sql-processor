@@ -64,7 +64,7 @@ Ext.define('SimpleWeb.controller.People', {
 
     onPersonListDblClick : function(dataview, record, item, index, e, eOpts) {
         var panel = Ext.getCmp("PersonRegistry");
-        var store = this.getStore("People");
+        var store = this.getStore("Contacts");
         var id = "person" + record.data.id;
 
         // Get tab
@@ -108,6 +108,7 @@ Ext.define('SimpleWeb.controller.People', {
         var dialog = Ext.getCmp("PersonModify");
         var form = dialog.down("form");
         var el = button;
+
         while (el = el.up()) {
             if (el.record) {
                 form.loadRecord(el.record);
@@ -153,6 +154,7 @@ Ext.define('SimpleWeb.controller.People', {
             console.log(newPerson);
             this.doGridRefresh();
             dialog.close();
+            this.onPersonListDblClick(null, newPerson, null, null, null, {});
         }
     },
 
@@ -173,18 +175,15 @@ Ext.define('SimpleWeb.controller.People', {
     onAcceptDeleteClick : function(button, e, eOpts) {
         var dialog = Ext.getCmp("PersonDelete");
         var form = dialog.down("form");
+        var person = form.getRecord();
+        var id = "person" + person.data.id;
+        var store = this.getStore("People");
+        store.remove(person);
         this.doGridRefresh();
         dialog.close();
-    },
-
-    deletePerson : function(button) {
-        var record = this.getPersonList().getSelectionModel().getSelection()[0];
-
-        if (record) {
-            this.getPeopleStore().remove(record);
-            this.doGridRefresh();
-            this.toggleDeleteButton(false);
-        }
+        var panel = Ext.getCmp("PersonRegistry");
+        var view = panel.child("#" + id);
+        view.close();
     },
 
     onSearchPersonClick : function() {
