@@ -64,8 +64,12 @@ public class SimpleService {
 
         PersonForm form = personFormFromParams(request.getParams());
 
-        logger.info("BBB " + form);
+        logger.info("loadPeople -> " + form);
         List<Person> people = personDao.list(form);
+        for (Person p : people) {
+            logger.info("loadPeople <- " + p);
+            logger.info("loadPeople <- " + p.getContacts());
+        }
 
         // TODO - rewrite
         int totalSize = people.size();
@@ -102,8 +106,9 @@ public class SimpleService {
 
         Contact form = contactFormFromParams(request.getParams());
 
-        logger.info("BBB " + form);
+        logger.info("loadContacts -> " + form);
         List<Contact> contacts = contactDao.list(form);
+        logger.info("loadContacts <- " + contacts);
 
         // TODO - rewrite
         int totalSize = contacts.size();
@@ -158,7 +163,10 @@ public class SimpleService {
             if (value == null || ((value instanceof String) && ((String) value).length() == 0))
                 continue;
             logger.info("personFormFromParams '" + key + "' '" + value + "' '" + value.getClass() + "'");
-            beanUtilsBean.setProperty(form, key, value);
+            if ("contacts".equals(key) && value instanceof Boolean && ((Boolean) value))
+                form.setInit(Person.Association.contacts);
+            else
+                beanUtilsBean.setProperty(form, key, value);
         }
 
         return form;

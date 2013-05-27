@@ -28,9 +28,9 @@ public class Contact implements Serializable {
   public Contact() {
   }
   
-  public Contact(Person person, ContactType type, String address) {
+  public Contact(Person person, ContactCtype ctype, String address) {
     this.person = person;
-    this.type = type;
+    this.ctype = ctype;
     this.address = address;
   }
   
@@ -68,18 +68,18 @@ public class Contact implements Serializable {
   
   @ModelField(type = ModelType.INTEGER)
   @NotNull
-  private ContactType type;
+  private ContactCtype ctype;
     
-  public ContactType getType() {
-    return type;
+  public ContactCtype getCtype() {
+    return ctype;
   }
     
-  public void setType(ContactType type) {
-    this.type = type;
+  public void setCtype(ContactCtype ctype) {
+    this.ctype = ctype;
   }
     
-  public Contact _setType(ContactType type) {
-    this.type = type;
+  public Contact _setCtype(ContactCtype ctype) {
+    this.ctype = ctype;
     return this;
   }
   
@@ -267,11 +267,11 @@ public class Contact implements Serializable {
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
+    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", ctype=" + ctype + "]";
   }
   
   public enum OpAttribute {
-      id, person, type, address, phoneNumber
+      id, person, ctype, address, phoneNumber
   }
   
   private Map<String, String> operators = new HashMap<String, String>();

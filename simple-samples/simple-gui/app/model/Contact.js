@@ -4,7 +4,7 @@ Ext.define("SimpleWeb.model.Contact", {
         name : "id",
         type : "int"
     }, {
-        name : "type",
+        name : "ctype",
         type : "string"
     }, {
         name : "address",

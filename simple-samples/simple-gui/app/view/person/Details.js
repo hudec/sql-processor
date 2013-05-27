@@ -116,7 +116,7 @@ Ext.define('SimpleWeb.view.person.Details', {
                         itemId : 'contact_list',
                         header : false,
                         title : 'Contact List',
-                        store : 'Contacts',
+                        store : me.initialConfig.store,
                         columns : [ {
                             xtype : 'numbercolumn',
                             hidden : true,
@@ -132,7 +132,7 @@ Ext.define('SimpleWeb.view.person.Details', {
                             flex : 1
                         }, {
                             xtype : 'gridcolumn',
-                            dataIndex : 'type',
+                            dataIndex : 'ctype',
                             text : 'Type',
                             flex : 1
                         }, {
@@ -165,8 +165,17 @@ Ext.define('SimpleWeb.view.person.Details', {
                 } ]
             } ]
         });
+        me.callParent(arguments);
+    },
 
+    onDestroy : function() {
+        var me = this;
+        console.log("godd-bye details");
+        console.log(me.itemId);
+        var store = Ext.data.StoreManager.lookup(me.itemId);
+        console.log(store);
+        if (store)
+            Ext.destroy(store);
         me.callParent(arguments);
     }
-
 });

@@ -12,7 +12,7 @@ package org.sample.model {
   import com.fasterxml.jackson.annotation.JsonIgnore
   import ch.ralscha.extdirectspring.generator.ModelAssociationType
 
-  enum ContactType serializable 1  {
+  enum ContactCtype serializable 1  {
     value : java.lang.Integer
     HOME ::: 0
     BUSSINESS ::: 1
@@ -36,7 +36,7 @@ package org.sample.model {
     person :: Person required index 2
     @ModelField ::: type :ModelType INTEGER
     @NotNull
-    type :: ContactType required
+    ctype :: ContactCtype required
     @NotNull
     address : java.lang.String required
     phoneNumber : java.lang.String
@@ -44,7 +44,7 @@ package org.sample.model {
     hashCode ::: id
     toInit ::: person
     isDef ::: phoneNumber
-    toString ::: id person phoneNumber address type
+    toString ::: id person phoneNumber address ctype
   }
 
   @Model ::: value "SimpleWeb.model.Person", paging true, readMethod "simpleService.loadPeople", createMethod "simpleService.createPerson", updateMethod "simpleService.updatePerson", destroyMethod "simpleService.deletePerson"

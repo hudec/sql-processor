@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.sample.model.Contact;
-import org.sample.model.ContactType;
+import org.sample.model.ContactCtype;
 import org.sample.model.Person;
 import org.sample.model.PersonGender;
 import org.sample.web.service.SimpleService;
@@ -67,9 +67,9 @@ public final class TestDataInitializer implements InitializingBean {
                 calendar.set(1967, 8, 27);
                 person = newPerson("Thomas", "Jones", calendar.getTime(), "007-16-0001", PersonGender.MALE);
                 simpleService.createPerson(person);
-                contact = newContact(person, "address1", "123456789", ContactType.HOME);
+                contact = newContact(person, "address1", "123456789", ContactCtype.HOME);
                 simpleService.createContact(contact);
-                contact = newContact(person, "address2", "0123456789", ContactType.HOME);
+                contact = newContact(person, "address2", "0123456789", ContactCtype.HOME);
                 simpleService.createContact(contact);
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -77,12 +77,12 @@ public final class TestDataInitializer implements InitializingBean {
         }
     }
 
-    private Contact newContact(Person person, String address, String phone, ContactType type) {
+    private Contact newContact(Person person, String address, String phone, ContactCtype type) {
         Contact contact = new Contact();
         contact.setAddress(address);
         contact.setPhoneNumber(phone);
         contact.setPerson(person);
-        contact.setType(type);
+        contact.setCtype(type);
         return contact;
     }
 

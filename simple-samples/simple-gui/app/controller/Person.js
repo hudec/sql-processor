@@ -60,16 +60,50 @@ Ext.define('SimpleWeb.controller.Person', {
 
     onPersonListDblClick : function(dataview, record, item, index, e, eOpts) {
         var panel = Ext.getCmp("PersonRegistry");
-        var store = this.getStore("Contacts");
         var id = "person" + record.data.id;
 
+        var uniqueStore = Ext.data.StoreManager.lookup(id);
+        if (!uniqueStore) {
+            uniqueStore = Ext.create("SimpleWeb.store.People", {
+                storeId : id
+            });
+            console.log("new store");
+            console.log(uniqueStore);
+        } else {
+            console.log("old store");
+        }
+
+        uniqueStore.load({
+            params : {
+                id : record.data.id,
+                contacts : true
+            },
+            scope : this,
+            callback : function(records, operation, success) {
+                console.log(records);
+                var person = records[0];
+                console.log("loaded person");
+                console.log(person);
+                console.log(person.contacts());
+                this.showDetails(id, person, panel);
+            }
+        });
+
+    },
+
+    showDetails : function(id, record, panel) {
         // Get tab
         var view = panel.child("#" + id);
         if (!view) {
-            view = Ext.create("SimpleWeb.view.person.Details");
-            view.closable = true;
-            view.itemId = id;
+            console.log("new details");
+            view = Ext.create("SimpleWeb.view.person.Details", {
+                store : record.contacts(),
+                itemId : id,
+                closable : true
+            });
             panel.add(view);
+        } else {
+            console.log("old details");
         }
 
         // Set title
@@ -83,18 +117,6 @@ Ext.define('SimpleWeb.controller.Person', {
 
         // Reference...
         view.record = record;
-
-        // Filter contacts
-        store.load({
-            params : {
-                personId : record.data.id
-            },
-            callback : function(records, operation, success) {
-                console.log("onPersonListDblClick");
-                console.log(records);
-            },
-            scope : this
-        });
 
         // Finish
         panel.setActiveTab(view);
