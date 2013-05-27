@@ -62,7 +62,8 @@ Ext.define('SimpleWeb.view.person.Search', {
                     anchor : '100%',
                     itemId : 'gender',
                     name : 'gender',
-                    fieldLabel : 'Gender'
+                    fieldLabel : 'Gender',
+                    store : [ '', 'MALE', 'FEMALE' ]
                 } ]
             } ],
             dockedItems : [ {

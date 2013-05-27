@@ -63,7 +63,8 @@ Ext.define('SimpleWeb.view.person.Edit', {
                     anchor : '100%',
                     itemId : 'gender',
                     name : 'gender',
-                    fieldLabel : 'Gender'
+                    fieldLabel : 'Gender',
+                    store : [ 'MALE', 'FEMALE' ]
                 } ]
             } ],
             dockedItems : [ {

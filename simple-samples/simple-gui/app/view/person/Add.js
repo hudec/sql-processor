@@ -37,27 +37,34 @@ Ext.define('SimpleWeb.view.person.Add', {
                     xtype : 'textfield',
                     anchor : '100%',
                     itemId : 'firstName',
+                    name : 'firstName',
                     fieldLabel : 'First Name'
                 }, {
                     xtype : 'textfield',
                     anchor : '100%',
                     itemId : 'lastName',
+                    name : 'lastName',
                     fieldLabel : 'Last Name'
                 }, {
                     xtype : 'datefield',
+                    format : 'd.m.Y',
                     anchor : '100%',
                     itemId : 'dateOfBirth',
+                    name : 'dateOfBirth',
                     fieldLabel : 'Date of Birth'
                 }, {
                     xtype : 'textfield',
                     anchor : '100%',
                     itemId : 'ssn',
+                    name : 'ssn',
                     fieldLabel : 'SSN'
                 }, {
                     xtype : 'combobox',
                     anchor : '100%',
+                    name : 'gender',
                     itemId : 'gender',
-                    fieldLabel : 'Gender'
+                    fieldLabel : 'Gender',
+                    store : [ 'MALE', 'FEMALE' ]
                 } ]
             } ],
             dockedItems : [ {
