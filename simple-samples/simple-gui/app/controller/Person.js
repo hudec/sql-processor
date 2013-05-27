@@ -1,4 +1,4 @@
-Ext.define('SimpleWeb.controller.People', {
+Ext.define('SimpleWeb.controller.Person', {
     extend : 'Ext.app.Controller',
 
     views : [ 'person.Edit', 'person.Details', 'person.Search' ],
@@ -83,7 +83,7 @@ Ext.define('SimpleWeb.controller.People', {
         view.setTitle(title);
 
         // Set data
-        SimpleWeb.controller.People.setData(record, view);
+        SimpleWeb.controller.Person.setData(record, view);
 
         // Reference...
         view.record = record;
@@ -133,7 +133,7 @@ Ext.define('SimpleWeb.controller.People', {
             var panel = Ext.getCmp("PersonRegistry");
             var id = "person" + record.data.id;
             var view = panel.child("#" + id);
-            SimpleWeb.controller.People.setData(record, view);
+            SimpleWeb.controller.Person.setData(record, view);
         }
     },
 

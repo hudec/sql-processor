@@ -9,6 +9,6 @@ Ext.require('Ext.direct.*', function() {
 Ext.application({
     name : 'SimpleWeb',
     appFolder : "app",
-    controllers : [ 'People' ],
+    controllers : [ 'Person' ],
     autoCreateViewport : true
 });
