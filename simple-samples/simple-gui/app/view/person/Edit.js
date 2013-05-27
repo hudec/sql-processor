@@ -47,6 +47,7 @@ Ext.define('SimpleWeb.view.person.Edit', {
                     fieldLabel : 'Last Name'
                 }, {
                     xtype : 'datefield',
+                    format : 'd.m.Y',
                     anchor : '100%',
                     itemId : 'dateOfBirth',
                     name : 'dateOfBirth',
