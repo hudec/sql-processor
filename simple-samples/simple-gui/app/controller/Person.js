@@ -64,6 +64,9 @@ Ext.define('SimpleWeb.controller.Person', {
             "#clear_dialog" : {
                 click : this.onClearDialogClick
             },
+            "#refresh_person" : {
+                click : this.onRefreshPersonClick
+            },
         });
     },
 
@@ -312,5 +315,24 @@ Ext.define('SimpleWeb.controller.Person', {
     onClearDialogClick : function(button, e, eOpts) {
         console.log("onClearDialogClick");
         button.up("window").down("form").getForm().reset();
+    },
+    
+    
+    onRefreshPersonClick : function(button, e, eOpts) {
+        console.log("onRefreshPersonClick");
+        var dialog = Ext.getCmp("PersonSearch");
+        var form = dialog.down('form');
+        var store = this.getStore("People");
+        console.log(form.getValues());
+
+        store.load({
+            params : form.getValues(),
+            callback : function(records, operation, success) {
+                console.log("onRefreshPersonClick");
+                console.log(records);
+            },
+            scope : this
+        });
+        dialog.close();
     },
 });

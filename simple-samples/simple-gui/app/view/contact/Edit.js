@@ -64,6 +64,10 @@ Ext.define('SimpleWeb.view.contact.Edit', {
                     text : 'Cancel'
                 }, {
                     xtype : 'button',
+                    itemId : 'clear_dialog',
+                    text : 'Clear'
+                }, {
+                    xtype : 'button',
                     itemId : 'accept_modify_contact',
                     iconCls : 'icon-accept',
                     text : 'Save Changes'

@@ -53,6 +53,11 @@ Ext.define('SimpleWeb.view.person.Page', {
                             iconCls : 'icon-search',
                             text : 'All'
                         }, {
+                            xtype : 'button',
+                            itemId : 'refresh_person',
+                            iconCls : 'icon-refresh',
+                            text : 'Refresh'
+                        }, {
                             xtype : 'tbseparator'
                         }, {
                             xtype : 'button',
