@@ -33,15 +33,16 @@ Ext.define('SimpleWeb.view.person.Delete', {
                 bodyPadding : 10,
                 header : false,
                 title : 'Personal Data',
+                defaults : {
+                    anchor : '100%'
+                },
                 items : [ {
                     xtype : 'displayfield',
-                    anchor : '100%',
                     itemId : 'firstName',
                     name : 'firstName',
                     fieldLabel : 'First Name'
                 }, {
                     xtype : 'displayfield',
-                    anchor : '100%',
                     itemId : 'lastName',
                     name : 'lastName',
                     fieldLabel : 'Last Name'
@@ -50,19 +51,16 @@ Ext.define('SimpleWeb.view.person.Delete', {
                     renderer : function(value, displayField) {
                         return Ext.util.Format.dateRenderer('d.m.Y')(value)
                     },
-                    anchor : '100%',
                     itemId : 'dateOfBirth',
                     name : 'dateOfBirth',
                     fieldLabel : 'Date of Birth'
                 }, {
                     xtype : 'displayfield',
-                    anchor : '100%',
                     itemId : 'ssn',
                     name : 'ssn',
                     fieldLabel : 'SSN'
                 }, {
                     xtype : 'displayfield',
-                    anchor : '100%',
                     itemId : 'gender',
                     name : 'gender',
                     fieldLabel : 'Gender'

@@ -33,34 +33,32 @@ Ext.define('SimpleWeb.view.person.Edit', {
                 bodyPadding : 10,
                 header : false,
                 title : 'Personal Data',
+                defaults : {
+                    anchor : '100%'
+                },
                 items : [ {
                     xtype : 'textfield',
-                    anchor : '100%',
                     itemId : 'firstName',
                     name : 'firstName',
                     fieldLabel : 'First Name'
                 }, {
                     xtype : 'textfield',
-                    anchor : '100%',
                     itemId : 'lastName',
                     name : 'lastName',
                     fieldLabel : 'Last Name'
                 }, {
                     xtype : 'datefield',
                     format : 'd.m.Y',
-                    anchor : '100%',
                     itemId : 'dateOfBirth',
                     name : 'dateOfBirth',
                     fieldLabel : 'Date of Birth'
                 }, {
                     xtype : 'textfield',
-                    anchor : '100%',
                     itemId : 'ssn',
                     name : 'ssn',
                     fieldLabel : 'SSN'
                 }, {
                     xtype : 'combobox',
-                    anchor : '100%',
                     itemId : 'gender',
                     name : 'gender',
                     fieldLabel : 'Gender',

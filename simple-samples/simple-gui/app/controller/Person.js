@@ -58,6 +58,9 @@ Ext.define('SimpleWeb.controller.Person', {
             "#add_contact" : {
                 click : this.onAddContactClick
             },
+            "#accept_add_contact" : {
+                click : this.onAcceptAddContactClick
+            },
         });
     },
 
@@ -280,5 +283,26 @@ Ext.define('SimpleWeb.controller.Person', {
     onAddContactClick : function(button, e, eOpts) {
         console.log("onAddContactClick");
         Ext.getCmp("ContactAdd").show();
+    },
+
+    onAcceptAddContactClick : function(button, e, eOpts) {
+        console.log("onAcceptAddContactClick");
+        var dialog = Ext.getCmp("ContactAdd");
+        var form = dialog.down("form");
+        var values = form.getValues();
+
+        if (form.getForm().isValid()) {
+            console.log("add, valid");
+            console.log(values);
+            var newContact = this.getModel("Contact").create(values);
+            // TODO - set personId
+            newContact.save({
+                scope : this,
+                callback : function(record, operation, success) {
+                    console.log(record);
+                    dialog.close();
+                }
+            });
+        }
     },
 });
