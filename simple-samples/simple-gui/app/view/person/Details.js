@@ -175,7 +175,7 @@ Ext.define('SimpleWeb.view.person.Details', {
         var store = Ext.data.StoreManager.lookup(me.itemId);
         console.log(store);
         if (store)
-            Ext.destroy(store);
+            Ext.data.StoreManager.unregister(store);
         me.callParent(arguments);
     }
 });

@@ -1,5 +1,6 @@
 package org.sample.web.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -83,21 +84,39 @@ public class SimpleService {
 
     @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    public Person createPerson(Person person) {
-        return personDao.insert(person);
+    public List<Person> createPerson(List<Person> people) {
+        logger.info("createPerson -> " + people);
+        List<Person> result = new ArrayList<Person>();
+        for (Person person : people) {
+            Person p = personDao.insert(person);
+            if (p != null)
+                result.add(p);
+        }
+        logger.info("createPerson <- " + result);
+        return result;
     }
 
     @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    public Person updatePerson(Person person) {
-        int numUpdated = personDao.update(person);
-        return (numUpdated > 0) ? person : null;
+    public List<Person> updatePerson(List<Person> people) {
+        logger.info("updatePerson -> " + people);
+        List<Person> result = new ArrayList<Person>();
+        for (Person person : people) {
+            int numUpdated = personDao.update(person);
+            if (numUpdated > 0)
+                result.add(person);
+        }
+        logger.info("createPerson <- " + result);
+        return result;
     }
 
     @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    public void deletePerson(Person person) {
-        personDao.delete(person);
+    public void deletePerson(List<Person> people) {
+        logger.info("deletePerson -> " + people);
+        for (Person person : people) {
+            personDao.delete(person);
+        }
     }
 
     @Transactional(readOnly = true)
@@ -122,21 +141,39 @@ public class SimpleService {
 
     @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    public Contact createContact(Contact contact) {
-        return contactDao.insert(contact);
+    public List<Contact> createContact(List<Contact> contacts) {
+        logger.info("createContact -> " + contacts);
+        List<Contact> result = new ArrayList<Contact>();
+        for (Contact contact : contacts) {
+            Contact c = contactDao.insert(contact);
+            if (c != null)
+                result.add(c);
+        }
+        logger.info("createContact <- " + result);
+        return result;
     }
 
     @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    public Contact updateContact(Contact contact) {
-        int numUpdated = contactDao.update(contact);
-        return (numUpdated > 0) ? contact : null;
+    public List<Contact> updateContact(List<Contact> contacts) {
+        logger.info("updateContact -> " + contacts);
+        List<Contact> result = new ArrayList<Contact>();
+        for (Contact contact : contacts) {
+            int numUpdated = contactDao.update(contact);
+            if (numUpdated > 0)
+                result.add(contact);
+        }
+        logger.info("createContact <- " + result);
+        return result;
     }
 
     @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    public void deleteContact(Contact contact) {
-        contactDao.delete(contact);
+    public void deleteContact(List<Contact> contacts) {
+        logger.info("deleteContact -> " + contacts);
+        for (Contact contact : contacts) {
+            contactDao.delete(contact);
+        }
     }
 
     private PersonForm personFormFromFilters(List<Filter> filters) throws Exception {

@@ -2,6 +2,7 @@ package org.sample.web.db;
 
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -58,19 +59,17 @@ public final class TestDataInitializer implements InitializingBean {
             }
 
             try {
-                Person person;
-                Contact contact;
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(1955, 3, 14);
-                person = newPerson("John", "Smith", calendar.getTime(), "007-16-0000", PersonGender.MALE);
-                simpleService.createPerson(person);
+                List<Person> people = new ArrayList<Person>();
+                people.add(newPerson("John", "Smith", calendar.getTime(), "007-16-0000", PersonGender.MALE));
                 calendar.set(1967, 8, 27);
-                person = newPerson("Thomas", "Jones", calendar.getTime(), "007-16-0001", PersonGender.MALE);
-                simpleService.createPerson(person);
-                contact = newContact(person, "address1", "123456789", ContactCtype.HOME);
-                simpleService.createContact(contact);
-                contact = newContact(person, "address2", "0123456789", ContactCtype.HOME);
-                simpleService.createContact(contact);
+                people.add(newPerson("Thomas", "Jones", calendar.getTime(), "007-16-0001", PersonGender.MALE));
+                simpleService.createPerson(people);
+                List<Contact> contacts = new ArrayList<Contact>();
+                contacts.add(newContact(people.get(1), "address1", "123456789", ContactCtype.HOME));
+                contacts.add(newContact(people.get(1), "address2", "0123456789", ContactCtype.HOME));
+                simpleService.createContact(contacts);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
