@@ -80,4 +80,8 @@ package org.sample.web.form {
 		dateOfBirthTo : java.util.Date
 		toString ::: dateOfBirthFrom dateOfBirthTo
 	}
+	
+	pojo CountHolder serializable 1 {
+		count : int 
+	}
 }

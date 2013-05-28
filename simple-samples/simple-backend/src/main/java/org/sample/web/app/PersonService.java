@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.sample.dao.PersonDao;
 import org.sample.model.Person;
+import org.sample.web.form.CountHolder;
 import org.sample.web.form.PersonForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,14 +19,16 @@ public class PersonService {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Transactional(readOnly = true)
-    public List<Person> listPeople(PersonForm form, SqlControl sqlControl) throws Exception {
+    public List<Person> listPeople(PersonForm form, SqlControl sqlControl, CountHolder countHolder) throws Exception {
         logger.info("listPeople -> " + form + ", " + sqlControl);
 
-        List<Person> people = personDao.list(form);
+        List<Person> people = personDao.list(form, sqlControl);
+        int count = personDao.count(null);
         for (Person p : people) {
             logger.info("listPeople <- " + p);
             logger.info("listPeople <- " + p.getContacts());
         }
+        countHolder.setCount(count);
         return people;
     }
 

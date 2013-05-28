@@ -13,22 +13,28 @@ import org.sample.model.Contact;
 import org.sample.model.Person;
 import org.sample.web.app.ContactService;
 import org.sample.web.app.PersonService;
+import org.sample.web.form.CountHolder;
 import org.sample.web.form.PersonForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.sqlproc.engine.impl.SqlStandardControl;
 
 import ch.ralscha.extdirectspring.annotation.ExtDirectMethod;
 import ch.ralscha.extdirectspring.annotation.ExtDirectMethodType;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadRequest;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
+import ch.ralscha.extdirectspring.bean.SortDirection;
+import ch.ralscha.extdirectspring.bean.SortInfo;
 import ch.ralscha.extdirectspring.filter.Filter;
 import ch.ralscha.extdirectspring.filter.StringFilter;
 
 @Service
 public class SimpleService {
+
+    // TODO - form validation
+    // TODO - exception handling
 
     protected ContactService contactService;
     protected PersonService personService;
@@ -59,25 +65,36 @@ public class SimpleService {
 
     }
 
-    @Transactional(readOnly = true)
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "person")
     public ExtDirectStoreReadResult<Person> loadPeople(ExtDirectStoreReadRequest request) throws Exception {
+        logger.info("listPeople -> " + request);
 
-        PersonForm form = personFormFromParams(request.getParams());
+        PersonForm form = buildPersonFormFromParams(request.getParams());
 
-        // TODO - build SqlControl for paging
-        List<Person> people = personService.listPeople(form, null);
-
-        int totalSize = people.size();
-        if (request.getPage() != null && request.getLimit() != null) {
-            int start = (request.getPage() - 1) * request.getLimit();
-            int end = Math.min(totalSize, start + request.getLimit());
+        SqlStandardControl sqlControl = buildControlFromParams(request);
+        if (request.getSorters() != null) {
+            for (SortInfo sort : request.getSorters()) {
+                if ("lastName".equalsIgnoreCase(sort.getProperty())) {
+                    if (sort.getDirection() == SortDirection.ASCENDING)
+                        sqlControl.setAscOrder(Person.ORDER_BY_LAST_NAME);
+                    else if (sort.getDirection() == SortDirection.DESCENDING)
+                        sqlControl.setDescOrder(Person.ORDER_BY_LAST_NAME);
+                    break;
+                }
+            }
         }
+        if (sqlControl.getOrder() == null)
+            sqlControl.setAscOrder(Person.ORDER_BY_ID);
+        logger.info("loadPeople control " + sqlControl);
+        CountHolder count = new CountHolder();
+        List<Person> people = personService.listPeople(form, sqlControl, count);
 
-        return new ExtDirectStoreReadResult<Person>(totalSize, people, true);
+        ExtDirectStoreReadResult<Person> result = new ExtDirectStoreReadResult<Person>(new Long(count.getCount()),
+                people, true);
+        logger.info("listPeople <- " + result);
+        return result;
     }
 
-    @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public List<Person> createPerson(List<Person> people) {
         List<Person> result = new ArrayList<Person>();
@@ -89,7 +106,6 @@ public class SimpleService {
         return result;
     }
 
-    @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public List<Person> updatePerson(List<Person> people) {
         List<Person> result = new ArrayList<Person>();
@@ -101,7 +117,6 @@ public class SimpleService {
         return result;
     }
 
-    @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public void deletePerson(List<Person> people) {
         for (Person person : people) {
@@ -109,26 +124,23 @@ public class SimpleService {
         }
     }
 
-    @Transactional(readOnly = true)
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "person")
     public ExtDirectStoreReadResult<Contact> loadContacts(ExtDirectStoreReadRequest request) throws Exception {
+        logger.info("loadContacts -> " + request);
 
-        Contact form = contactFormFromParams(request.getParams());
+        Contact form = buildContactFormFromParams(request.getParams());
 
-        // TODO - build SqlControl for paging
-        List<Contact> contacts = contactService.listContacts(form, null);
+        SqlStandardControl sqlControl = buildControlFromParams(request);
+        logger.info("loadContacts control " + sqlControl);
+        CountHolder count = new CountHolder();
+        List<Contact> contacts = contactService.listContacts(form, sqlControl, count);
 
-        // TODO - rewrite
-        int totalSize = contacts.size();
-        if (request.getPage() != null && request.getLimit() != null) {
-            int start = (request.getPage() - 1) * request.getLimit();
-            int end = Math.min(totalSize, start + request.getLimit());
-        }
-
-        return new ExtDirectStoreReadResult<Contact>(totalSize, contacts, true);
+        ExtDirectStoreReadResult<Contact> result = new ExtDirectStoreReadResult<Contact>(new Long(count.getCount()),
+                contacts, true);
+        logger.info("loadContacts <- " + result);
+        return result;
     }
 
-    @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public List<Contact> createContact(List<Contact> contacts) {
         List<Contact> result = new ArrayList<Contact>();
@@ -140,7 +152,6 @@ public class SimpleService {
         return result;
     }
 
-    @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public List<Contact> updateContact(List<Contact> contacts) {
         List<Contact> result = new ArrayList<Contact>();
@@ -152,7 +163,6 @@ public class SimpleService {
         return result;
     }
 
-    @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public void deleteContact(List<Contact> contacts) {
         for (Contact contact : contacts) {
@@ -160,7 +170,7 @@ public class SimpleService {
         }
     }
 
-    private PersonForm personFormFromFilters(List<Filter> filters) throws Exception {
+    private PersonForm buildPersonFormFromFilters(List<Filter> filters) throws Exception {
 
         PersonForm form = new PersonForm();
 
@@ -174,7 +184,7 @@ public class SimpleService {
         return form;
     }
 
-    private PersonForm personFormFromParams(Map<String, Object> params) throws Exception {
+    private PersonForm buildPersonFormFromParams(Map<String, Object> params) throws Exception {
 
         PersonForm form = new PersonForm();
 
@@ -193,7 +203,7 @@ public class SimpleService {
         return form;
     }
 
-    private Contact contactFormFromFilters(List<Filter> filters) throws Exception {
+    private Contact buildContactFormFromFilters(List<Filter> filters) throws Exception {
 
         Contact form = new Contact();
 
@@ -207,7 +217,7 @@ public class SimpleService {
         return form;
     }
 
-    private Contact contactFormFromParams(Map<String, Object> params) throws Exception {
+    private Contact buildContactFormFromParams(Map<String, Object> params) throws Exception {
 
         Contact form = new Contact();
 
@@ -226,6 +236,15 @@ public class SimpleService {
         }
 
         return form;
+    }
+
+    private SqlStandardControl buildControlFromParams(ExtDirectStoreReadRequest request) {
+        SqlStandardControl sqlControl = new SqlStandardControl();
+        if (request.getStart() != null)
+            sqlControl.setFirstResult(request.getStart());
+        if (request.getLimit() != null)
+            sqlControl.setMaxResults(request.getLimit());
+        return sqlControl;
     }
 
     @Required
