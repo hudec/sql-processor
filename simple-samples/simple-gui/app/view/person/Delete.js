@@ -79,7 +79,7 @@ Ext.define('SimpleWeb.view.person.Delete', {
                     text : 'Cancel'
                 }, {
                     xtype : 'button',
-                    itemId : 'accept_delete',
+                    itemId : 'accept_delete_person',
                     iconCls : 'icon-accept',
                     text : 'Delete Person'
                 } ]

@@ -19,6 +19,7 @@ Ext.define('SimpleWeb.controller.Person', {
         Ext.create("SimpleWeb.view.person.Edit");
         Ext.create("SimpleWeb.view.person.Add");
         Ext.create("SimpleWeb.view.person.Delete");
+        Ext.create("SimpleWeb.view.contact.Add");
 
         this.control({
             "#cancel_dialog" : {
@@ -30,26 +31,32 @@ Ext.define('SimpleWeb.controller.Person', {
             "#modify_person" : {
                 click : this.onModifyPersonClick
             },
-            "#accept_modify" : {
-                click : this.onAcceptModifyClick
+            "#accept_modify_person" : {
+                click : this.onAcceptModifyPersonClick
             },
             "#add_person" : {
                 click : this.onAddPersonClick
             },
-            "#accept_add" : {
-                click : this.onAcceptAddClick
+            "#accept_add_person" : {
+                click : this.onAcceptAddPersonClick
             },
             "#delete_person" : {
                 click : this.onDeletePersonClick
             },
-            "#accept_delete" : {
-                click : this.onAcceptDeleteClick
+            "#accept_delete_person" : {
+                click : this.onAcceptDeletePersonClick
             },
             "#search_person" : {
                 click : this.onSearchPersonClick
             },
-            "#accept_search" : {
-                click : this.onAcceptSearchClick
+            "#accept_search_person" : {
+                click : this.onAcceptSearchPersonClick
+            },
+            "#all_person" : {
+                click : this.onAllPersonClick
+            },
+            "#add_contact" : {
+                click : this.onAddContactClick
             },
         });
     },
@@ -144,8 +151,8 @@ Ext.define('SimpleWeb.controller.Person', {
         }
     },
 
-    onAcceptModifyClick : function(button, e, eOpts) {
-        console.log("onAcceptModifyClick");
+    onAcceptModifyPersonClick : function(button, e, eOpts) {
+        console.log("onAcceptModifyPersonClick");
         var dialog = Ext.getCmp("PersonModify");
         var form = dialog.down("form");
         var person = form.getRecord();
@@ -175,8 +182,8 @@ Ext.define('SimpleWeb.controller.Person', {
         Ext.getCmp("PersonAdd").show();
     },
 
-    onAcceptAddClick : function(button, e, eOpts) {
-        console.log("onAcceptAddClick");
+    onAcceptAddPersonClick : function(button, e, eOpts) {
+        console.log("onAcceptAddPersonClick");
         var dialog = Ext.getCmp("PersonAdd");
         var form = dialog.down("form");
         var values = form.getValues();
@@ -212,8 +219,8 @@ Ext.define('SimpleWeb.controller.Person', {
         }
     },
 
-    onAcceptDeleteClick : function(button, e, eOpts) {
-        console.log("onAcceptDeleteClick");
+    onAcceptDeletePersonClick : function(button, e, eOpts) {
+        console.log("onAcceptDeletePersonClick");
         var dialog = Ext.getCmp("PersonDelete");
         var form = dialog.down("form");
         var person = form.getRecord();
@@ -232,11 +239,12 @@ Ext.define('SimpleWeb.controller.Person', {
         Ext.getCmp("PersonSearch").show();
     },
 
-    onAcceptSearchClick : function(button) {
-        console.log("onAcceptSearchClick");
+    onAcceptSearchPersonClick : function(button) {
+        console.log("onAcceptSearchPersonClick");
         var dialog = Ext.getCmp("PersonSearch");
         var form = dialog.down('form');
         var store = this.getStore("People");
+        console.log(form.getValues());
 
         store.load({
             params : form.getValues(),
@@ -247,7 +255,19 @@ Ext.define('SimpleWeb.controller.Person', {
             scope : this
         });
         dialog.close();
-        // this.doGridRefresh();
+    },
+
+    onAllPersonClick : function(button) {
+        console.log("onAllPersonClick");
+        var store = this.getStore("People");
+
+        store.load({
+            callback : function(records, operation, success) {
+                console.log("onAcceptSearchClick");
+                console.log(records);
+            },
+            scope : this
+        });
     },
 
     doGridRefresh : function() {
@@ -255,5 +275,10 @@ Ext.define('SimpleWeb.controller.Person', {
         var panel = Ext.getCmp("PersonRegistry");
         var list = panel.down('pagingtoolbar');
         list.doRefresh();
-    }
+    },
+
+    onAddContactClick : function(button, e, eOpts) {
+        console.log("onAddContactClick");
+        Ext.getCmp("ContactAdd").show();
+    },
 });

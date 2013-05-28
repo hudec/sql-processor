@@ -33,33 +33,39 @@ Ext.define('SimpleWeb.view.person.Search', {
                 bodyPadding : 10,
                 header : false,
                 title : 'Personal Data',
+                defaults : {
+                    anchor : '100%',
+                    labelWidth : 120
+                },
                 items : [ {
                     xtype : 'textfield',
-                    anchor : '100%',
                     itemId : 'firstName',
                     name : 'firstName',
                     fieldLabel : 'First Name'
                 }, {
                     xtype : 'textfield',
-                    anchor : '100%',
                     itemId : 'lastName',
                     name : 'lastName',
                     fieldLabel : 'Last Name'
                 }, {
                     xtype : 'datefield',
-                    anchor : '100%',
-                    itemId : 'dateOfBirth',
-                    name : 'dateOfBirth',
-                    fieldLabel : 'Date of Birth'
+                    format : 'd.m.Y',
+                    itemId : 'dateOfBirthFrom',
+                    name : 'dateOfBirthFrom',
+                    fieldLabel : 'Date of Birth from'
+                }, {
+                    xtype : 'datefield',
+                    format : 'd.m.Y',
+                    itemId : 'dateOfBirthTo',
+                    name : 'dateOfBirthTo',
+                    fieldLabel : 'Date of Birth to'
                 }, {
                     xtype : 'textfield',
-                    anchor : '100%',
                     itemId : 'ssn',
                     name : 'ssn',
                     fieldLabel : 'SSN'
                 }, {
                     xtype : 'combobox',
-                    anchor : '100%',
                     itemId : 'gender',
                     name : 'gender',
                     fieldLabel : 'Gender',
@@ -77,7 +83,11 @@ Ext.define('SimpleWeb.view.person.Search', {
                     text : 'Cancel'
                 }, {
                     xtype : 'button',
-                    itemId : 'accept_search',
+                    itemId : 'clear_dialog',
+                    text : 'Clear'
+                }, {
+                    xtype : 'button',
+                    itemId : 'accept_search_person',
                     iconCls : 'icon-accept',
                     text : 'Search Person'
                 } ]

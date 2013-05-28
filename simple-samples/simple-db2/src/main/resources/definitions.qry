@@ -24,7 +24,7 @@ pojogen-implements-interfaces java.io.Serializable;
 // can't overwrite existing POJO 
 //pojogen-make-it-final;
 // rename enums
-pojogen-rename-columns CONTACT_TYPE I0->HOME I1->BUSSINESS; 
+pojogen-rename-columns CONTACT_TYPE I0->HOME I1->BUSINESS; 
 pojogen-rename-columns PERSON_GENDER M->MALE F->FEMALE; 
 // ignore SYS tables
 pojogen-ignore-tables sysdomains sysindexes;

@@ -22,7 +22,7 @@ pojogen-implements-interfaces java.io.Serializable;
 // can't overwrite existing POJO 
 //pojogen-make-it-final;
 // rename enums
-pojogen-rename-columns contact_ctype I0->HOME I1->BUSSINESS I2->ABROAD; 
+pojogen-rename-columns contact_ctype I0->HOME I1->BUSINESS I2->ABROAD; 
 pojogen-rename-columns person_gender M->MALE F->FEMALE I0->UNKNOWN; 
 // operators
 pojogen-generate-operators;

@@ -147,17 +147,20 @@ Ext.define('SimpleWeb.view.person.Details', {
                         } ]
                     }, {
                         xtype : 'toolbar',
-                        disabled : true,
+                        disabled : false,
                         items : [ {
                             xtype : 'button',
+                            itemId : 'add_contact',
                             iconCls : 'icon-add',
                             text : 'Add'
                         }, {
                             xtype : 'button',
+                            itemId : 'delete_contact',
                             iconCls : 'icon-delete',
                             text : 'Delete'
                         }, {
                             xtype : 'button',
+                            itemId : 'modify_contact',
                             iconCls : 'icon-edit',
                             text : 'Modify'
                         } ]

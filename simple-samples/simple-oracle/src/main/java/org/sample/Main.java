@@ -106,15 +106,15 @@ public class Main {
         Person jan = main.insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE), new Contact()
                 ._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setType(ContactType.HOME));
         Person janik = main.insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE), new Contact()
-                ._setAddress("Janik address 1")._setType(ContactType.BUSSINESS));
+                ._setAddress("Janik address 1")._setType(ContactType.BUSINESS));
         Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE), new Contact()
                 ._setAddress("Honza address 1")._setType(ContactType.HOME), new Contact()
-                ._setAddress("Honza address 2")._setType(ContactType.BUSSINESS));
+                ._setAddress("Honza address 2")._setType(ContactType.BUSINESS));
         Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE));
         Person andrej = main.insertPersonContacts(
                 new Person("Andrej", "Andrejcek", PersonGender.MALE)._setSsn("123456789"),
                 new Contact()._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666")
-                        ._setType(ContactType.BUSSINESS));
+                        ._setType(ContactType.BUSINESS));
 
         // update
         person = new Person();

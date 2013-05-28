@@ -4,7 +4,7 @@ package org.sample.model {
   enum ContactCtype serializable 1  {
     value : java.lang.Integer
     HOME ::: 0
-    BUSSINESS ::: 1
+    BUSINESS ::: 1
     ABROAD ::: 2
   }
 

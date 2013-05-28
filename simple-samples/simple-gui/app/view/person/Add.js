@@ -78,7 +78,7 @@ Ext.define('SimpleWeb.view.person.Add', {
                     text : 'Cancel'
                 }, {
                     xtype : 'button',
-                    itemId : 'accept_add',
+                    itemId : 'accept_add_person',
                     iconCls : 'icon-accept',
                     text : 'Save New Person'
                 } ]

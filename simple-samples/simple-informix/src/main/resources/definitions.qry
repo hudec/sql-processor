@@ -26,7 +26,7 @@ pojogen-implements-interfaces java.io.Serializable;
 // ignore SYS tables
 //pojogen-ignore-tables sysdomains sysindexes;
 // rename enums
-pojogen-rename-columns contact_type I0->HOME I1->BUSSINESS; 
+pojogen-rename-columns contact_type I0->HOME I1->BUSINESS; 
 pojogen-rename-columns person_gender M->MALE F->FEMALE; 
 // operators
 pojogen-generate-operators;
