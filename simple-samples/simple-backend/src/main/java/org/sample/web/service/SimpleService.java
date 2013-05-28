@@ -54,7 +54,7 @@ public class SimpleService {
         });
 
         DateConverter dateConverter = new DateConverter(null);
-        dateConverter.setPattern("yyyy-MM-dd'T'HH:mm:ss");
+        dateConverter.setPattern("dd.MM.yyyy");
         beanUtilsBean.getConvertUtils().register(dateConverter, Date.class);
 
     }

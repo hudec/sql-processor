@@ -61,6 +61,9 @@ Ext.define('SimpleWeb.controller.Person', {
             "#accept_add_contact" : {
                 click : this.onAcceptAddContactClick
             },
+            "#clear_dialog" : {
+                click : this.onClearDialogClick
+            },
         });
     },
 
@@ -304,5 +307,10 @@ Ext.define('SimpleWeb.controller.Person', {
                 }
             });
         }
+    },
+    
+    onClearDialogClick : function(button, e, eOpts) {
+        console.log("onClearDialogClick");
+        button.up("window").down("form").getForm().reset();
     },
 });
