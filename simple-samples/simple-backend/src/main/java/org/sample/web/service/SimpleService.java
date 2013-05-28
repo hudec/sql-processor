@@ -9,10 +9,10 @@ import java.util.Map.Entry;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.beanutils.converters.DateConverter;
-import org.sample.dao.ContactDao;
-import org.sample.dao.PersonDao;
 import org.sample.model.Contact;
 import org.sample.model.Person;
+import org.sample.web.app.ContactService;
+import org.sample.web.app.PersonService;
 import org.sample.web.form.PersonForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +30,8 @@ import ch.ralscha.extdirectspring.filter.StringFilter;
 @Service
 public class SimpleService {
 
-    protected ContactDao contactDao;
-    protected PersonDao personDao;
+    protected ContactService contactService;
+    protected PersonService personService;
     protected BeanUtilsBean beanUtilsBean;
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -65,14 +65,9 @@ public class SimpleService {
 
         PersonForm form = personFormFromParams(request.getParams());
 
-        logger.info("loadPeople -> " + form);
-        List<Person> people = personDao.list(form);
-        for (Person p : people) {
-            logger.info("loadPeople <- " + p);
-            logger.info("loadPeople <- " + p.getContacts());
-        }
+        // TODO - build SqlControl for paging
+        List<Person> people = personService.listPeople(form, null);
 
-        // TODO - rewrite
         int totalSize = people.size();
         if (request.getPage() != null && request.getLimit() != null) {
             int start = (request.getPage() - 1) * request.getLimit();
@@ -85,37 +80,32 @@ public class SimpleService {
     @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public List<Person> createPerson(List<Person> people) {
-        logger.info("createPerson -> " + people);
         List<Person> result = new ArrayList<Person>();
         for (Person person : people) {
-            Person p = personDao.insert(person);
+            Person p = personService.insertPerson(person);
             if (p != null)
                 result.add(p);
         }
-        logger.info("createPerson <- " + result);
         return result;
     }
 
     @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public List<Person> updatePerson(List<Person> people) {
-        logger.info("updatePerson -> " + people);
         List<Person> result = new ArrayList<Person>();
         for (Person person : people) {
-            int numUpdated = personDao.update(person);
-            if (numUpdated > 0)
-                result.add(person);
+            Person p = personService.updatePerson(person);
+            if (p != null)
+                result.add(p);
         }
-        logger.info("createPerson <- " + result);
         return result;
     }
 
     @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public void deletePerson(List<Person> people) {
-        logger.info("deletePerson -> " + people);
         for (Person person : people) {
-            personDao.delete(person);
+            personService.deletePerson(person);
         }
     }
 
@@ -125,9 +115,8 @@ public class SimpleService {
 
         Contact form = contactFormFromParams(request.getParams());
 
-        logger.info("loadContacts -> " + form);
-        List<Contact> contacts = contactDao.list(form);
-        logger.info("loadContacts <- " + contacts);
+        // TODO - build SqlControl for paging
+        List<Contact> contacts = contactService.listContacts(form, null);
 
         // TODO - rewrite
         int totalSize = contacts.size();
@@ -142,37 +131,32 @@ public class SimpleService {
     @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public List<Contact> createContact(List<Contact> contacts) {
-        logger.info("createContact -> " + contacts);
         List<Contact> result = new ArrayList<Contact>();
         for (Contact contact : contacts) {
-            Contact c = contactDao.insert(contact);
+            Contact c = contactService.insertContact(contact);
             if (c != null)
                 result.add(c);
         }
-        logger.info("createContact <- " + result);
         return result;
     }
 
     @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public List<Contact> updateContact(List<Contact> contacts) {
-        logger.info("updateContact -> " + contacts);
         List<Contact> result = new ArrayList<Contact>();
         for (Contact contact : contacts) {
-            int numUpdated = contactDao.update(contact);
-            if (numUpdated > 0)
-                result.add(contact);
+            Contact c = contactService.updateContact(contact);
+            if (c != null)
+                result.add(c);
         }
-        logger.info("createContact <- " + result);
         return result;
     }
 
     @Transactional
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
     public void deleteContact(List<Contact> contacts) {
-        logger.info("deleteContact -> " + contacts);
         for (Contact contact : contacts) {
-            contactDao.delete(contact);
+            contactService.deleteContact(contact);
         }
     }
 
@@ -245,12 +229,12 @@ public class SimpleService {
     }
 
     @Required
-    public void setContactDao(ContactDao contactDao) {
-        this.contactDao = contactDao;
+    public void setContactService(ContactService contactService) {
+        this.contactService = contactService;
     }
 
     @Required
-    public void setPersonDao(PersonDao personDao) {
-        this.personDao = personDao;
+    public void setPersonService(PersonService personService) {
+        this.personService = personService;
     }
 }

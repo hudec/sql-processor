@@ -65,7 +65,6 @@
     <bean id="personDao" class="org.sample.web.dao.PersonExtDao" parent="dao" />
     <bean id="contactDao" class="org.sample.dao.ContactDao" parent="dao" />
 
-
     <bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory">
         <property name="metaFilesNames">
             <list>
@@ -75,9 +74,17 @@
         <property name="filter" value="${db.type}" />
     </bean>
 
-    <bean id="simpleService" class="org.sample.web.service.SimpleService">
-        <property name="contactDao" ref="contactDao" />
+    <bean id="personService" class="org.sample.web.app.PersonService">
         <property name="personDao" ref="personDao" />
+    </bean>
+
+    <bean id="contactService" class="org.sample.web.app.ContactService">
+        <property name="contactDao" ref="contactDao" />
+    </bean>
+
+    <bean id="simpleService" class="org.sample.web.service.SimpleService">
+        <property name="personService" ref="personService" />
+        <property name="contactService" ref="contactService" />
     </bean>
 
 </beans>
