@@ -4,6 +4,9 @@ Ext.define("SimpleWeb.model.Contact", {
         name : "id",
         type : "int"
     }, {
+        name : "personId",
+        type : "int"
+    }, {
         name : "ctype",
         type : "string"
     }, {
@@ -23,7 +26,7 @@ Ext.define("SimpleWeb.model.Contact", {
     } ],
     validations : [ {
         type : "presence",
-        field : "type"
+        field : "ctype"
     }, {
         type : "presence",
         field : "address"

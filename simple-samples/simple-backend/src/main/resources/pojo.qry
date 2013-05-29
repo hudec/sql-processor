@@ -33,8 +33,10 @@ package org.sample.model {
     id : java.lang.Long primaryKey index 1
     @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model ::Person class
     @NotNull
-    person :: Person required index 2
-    @ModelField ::: type :ModelType INTEGER
+    person :: Person required index 2 updateCol id->personId
+    @NotNull
+    personId : java.lang.Long createCol person->id
+    @ModelField ::: type :ModelType STRING
     @NotNull
     ctype :: ContactCtype required
     @NotNull

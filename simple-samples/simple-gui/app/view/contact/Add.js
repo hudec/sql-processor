@@ -38,9 +38,15 @@ Ext.define('SimpleWeb.view.contact.Add', {
                 },
                 items : [ {
                     xtype : 'textfield',
-                    // hidden : true,
+                    hidden : true,
                     name : 'person_id',
                     itemId : 'person_id',
+                    fieldLabel : 'Person_Id'
+                }, {
+                    xtype : 'textfield',
+                    hidden : true,
+                    name : 'personId',
+                    itemId : 'personId',
                     fieldLabel : 'PersonId'
                 }, {
                     xtype : 'combobox',

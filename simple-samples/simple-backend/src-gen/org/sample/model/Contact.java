@@ -34,85 +34,111 @@ public class Contact implements Serializable {
     this.address = address;
   }
   
-  private Long id;
-    
-  public Long getId() {
-    return id;
-  }
-    
-  public void setId(Long id) {
-    this.id = id;
-  }
-    
-  public Contact _setId(Long id) {
-    this.id = id;
-    return this;
-  }
+    private Long id;
   
-  @ModelAssociation(value = ModelAssociationType.BELONGS_TO, model = Person.class)
-  @NotNull
-  private Person person;
-    
-  public Person getPerson() {
-    return person;
-  }
-    
-  public void setPerson(Person person) {
-    this.person = person;
-  }
-    
-  public Contact _setPerson(Person person) {
-    this.person = person;
-    return this;
-  }
+    public Long getId() {
+      return id;
+    }
   
-  @ModelField(type = ModelType.INTEGER)
-  @NotNull
-  private ContactCtype ctype;
-    
-  public ContactCtype getCtype() {
-    return ctype;
-  }
-    
-  public void setCtype(ContactCtype ctype) {
-    this.ctype = ctype;
-  }
-    
-  public Contact _setCtype(ContactCtype ctype) {
-    this.ctype = ctype;
-    return this;
-  }
+    public void setId(Long id) {
+      this.id = id;
+    }
   
-  @NotNull
-  private String address;
-    
-  public String getAddress() {
-    return address;
-  }
-    
-  public void setAddress(String address) {
-    this.address = address;
-  }
-    
-  public Contact _setAddress(String address) {
-    this.address = address;
-    return this;
-  }
+    public Contact _setId(Long id) {
+      this.id = id;
+      return this;
+    }
   
-  private String phoneNumber;
-    
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-    
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-    
-  public Contact _setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
+    @ModelAssociation(value = ModelAssociationType.BELONGS_TO, model = Person.class)
+    @NotNull
+    private Person person;
+  
+    public Person getPerson() {
+      return person;
+    }
+  
+    public void setPerson(Person person) {
+      this.person = person;
+      if (this.person != null)
+        this.personId = this.person.getId(); 
+    }
+  
+    public Contact _setPerson(Person person) {
+      this.person = person;
+      if (this.person != null)
+        this.personId = this.person.getId(); 
+      return this;
+    }
+  
+    @NotNull
+    private Long personId;
+  
+    public Long getPersonId() {
+      return personId;
+    }
+  
+    public void setPersonId(Long personId) {
+      this.personId = personId;
+      if (this.person == null)
+          this.person = new Person();
+      this.person.setId(personId);
+    }
+  
+    public Contact _setPersonId(Long personId) {
+      this.personId = personId;
+      if (this.person == null)
+          this.person = new Person();
+      this.person.setId(personId);
+      return this;
+    }
+  
+    @ModelField(type = ModelType.STRING)
+    @NotNull
+    private ContactCtype ctype;
+  
+    public ContactCtype getCtype() {
+      return ctype;
+    }
+  
+    public void setCtype(ContactCtype ctype) {
+      this.ctype = ctype;
+    }
+  
+    public Contact _setCtype(ContactCtype ctype) {
+      this.ctype = ctype;
+      return this;
+    }
+  
+    @NotNull
+    private String address;
+  
+    public String getAddress() {
+      return address;
+    }
+  
+    public void setAddress(String address) {
+      this.address = address;
+    }
+  
+    public Contact _setAddress(String address) {
+      this.address = address;
+      return this;
+    }
+  
+    private String phoneNumber;
+  
+    public String getPhoneNumber() {
+      return phoneNumber;
+    }
+  
+    public void setPhoneNumber(String phoneNumber) {
+      this.phoneNumber = phoneNumber;
+    }
+  
+    public Contact _setPhoneNumber(String phoneNumber) {
+      this.phoneNumber = phoneNumber;
+      return this;
+    }
   
   @Override
   public boolean equals(Object obj) {
@@ -271,7 +297,7 @@ public class Contact implements Serializable {
   }
   
   public enum OpAttribute {
-      id, person, ctype, address, phoneNumber
+      id, person, personId, ctype, address, phoneNumber
   }
   
   private Map<String, String> operators = new HashMap<String, String>();

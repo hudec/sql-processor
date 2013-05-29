@@ -66,7 +66,7 @@ Ext.define('SimpleWeb.controller.Person', {
             },
             "#refresh_person" : {
                 click : this.onRefreshPersonClick
-            },
+            }
         });
     },
 
@@ -295,6 +295,7 @@ Ext.define('SimpleWeb.controller.Person', {
             var storeId = panel.getItemId();
             console.log(storeId);
             dialog.down("#person_id").setValue(storeId);
+            dialog.down("#personId").setValue(storeId.substring(6));
             dialog.show();
         }
     },
@@ -316,21 +317,21 @@ Ext.define('SimpleWeb.controller.Person', {
             var person = store.first();
             person.contacts().add(newContact);
             console.log(person);
-            person.save({
-                scope : this,
-                callback : function(record, operation, success) {
-                    console.log(record);
-                    dialog.close();
-                }
-            });
-            //newContact.setPerson(person);
-//            newContact.save({
+//            person.save({
 //                scope : this,
 //                callback : function(record, operation, success) {
 //                    console.log(record);
 //                    dialog.close();
 //                }
 //            });
+            newContact.setPerson(person);
+            newContact.save({
+                scope : this,
+                callback : function(record, operation, success) {
+                    console.log(record);
+                    dialog.close();
+                }
+            });
         }
     },
     

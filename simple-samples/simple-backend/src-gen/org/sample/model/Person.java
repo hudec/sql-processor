@@ -41,118 +41,118 @@ public class Person implements Serializable {
     this.gender = gender;
   }
   
-  private Long id;
-    
-  public Long getId() {
-    return id;
-  }
-    
-  public void setId(Long id) {
-    this.id = id;
-  }
-    
-  public Person _setId(Long id) {
-    this.id = id;
-    return this;
-  }
+    private Long id;
   
-  @NotNull
-  private String firstName;
-    
-  public String getFirstName() {
-    return firstName;
-  }
-    
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-    
-  public Person _setFirstName(String firstName) {
-    this.firstName = firstName;
-    return this;
-  }
+    public Long getId() {
+      return id;
+    }
   
-  @NotNull
-  private String lastName;
-    
-  public String getLastName() {
-    return lastName;
-  }
-    
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-    
-  public Person _setLastName(String lastName) {
-    this.lastName = lastName;
-    return this;
-  }
+    public void setId(Long id) {
+      this.id = id;
+    }
   
-  @ModelField(dateFormat = "d.m.Y")
-  private Date dateOfBirth;
-    
-  @JsonSerialize(using = DMYDateSerializer.class)
-  public Date getDateOfBirth() {
-    return dateOfBirth;
-  }
-    
-  @JsonDeserialize(using = DMYDateDeserializer.class)
-  public void setDateOfBirth(Date dateOfBirth) {
-    this.dateOfBirth = dateOfBirth;
-  }
-    
-  public Person _setDateOfBirth(Date dateOfBirth) {
-    this.dateOfBirth = dateOfBirth;
-    return this;
-  }
+    public Person _setId(Long id) {
+      this.id = id;
+      return this;
+    }
   
-  @ModelField(type = ModelType.STRING)
-  @NotNull
-  private PersonGender gender;
-    
-  public PersonGender getGender() {
-    return gender;
-  }
-    
-  public void setGender(PersonGender gender) {
-    this.gender = gender;
-  }
-    
-  public Person _setGender(PersonGender gender) {
-    this.gender = gender;
-    return this;
-  }
+    @NotNull
+    private String firstName;
   
-  private String ssn;
-    
-  public String getSsn() {
-    return ssn;
-  }
-    
-  public void setSsn(String ssn) {
-    this.ssn = ssn;
-  }
-    
-  public Person _setSsn(String ssn) {
-    this.ssn = ssn;
-    return this;
-  }
+    public String getFirstName() {
+      return firstName;
+    }
   
-  @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Contact.class)
-  private List<Contact> contacts = new ArrayList<Contact>();
-    
-  public List<Contact> getContacts() {
-    return contacts;
-  }
-    
-  public void setContacts(List<Contact> contacts) {
-    this.contacts = contacts;
-  }
-    
-  public Person _setContacts(List<Contact> contacts) {
-    this.contacts = contacts;
-    return this;
-  }
+    public void setFirstName(String firstName) {
+      this.firstName = firstName;
+    }
+  
+    public Person _setFirstName(String firstName) {
+      this.firstName = firstName;
+      return this;
+    }
+  
+    @NotNull
+    private String lastName;
+  
+    public String getLastName() {
+      return lastName;
+    }
+  
+    public void setLastName(String lastName) {
+      this.lastName = lastName;
+    }
+  
+    public Person _setLastName(String lastName) {
+      this.lastName = lastName;
+      return this;
+    }
+  
+    @ModelField(dateFormat = "d.m.Y")
+    private Date dateOfBirth;
+  
+    @JsonSerialize(using = DMYDateSerializer.class)
+    public Date getDateOfBirth() {
+      return dateOfBirth;
+    }
+  
+    @JsonDeserialize(using = DMYDateDeserializer.class)
+    public void setDateOfBirth(Date dateOfBirth) {
+      this.dateOfBirth = dateOfBirth;
+    }
+  
+    public Person _setDateOfBirth(Date dateOfBirth) {
+      this.dateOfBirth = dateOfBirth;
+      return this;
+    }
+  
+    @ModelField(type = ModelType.STRING)
+    @NotNull
+    private PersonGender gender;
+  
+    public PersonGender getGender() {
+      return gender;
+    }
+  
+    public void setGender(PersonGender gender) {
+      this.gender = gender;
+    }
+  
+    public Person _setGender(PersonGender gender) {
+      this.gender = gender;
+      return this;
+    }
+  
+    private String ssn;
+  
+    public String getSsn() {
+      return ssn;
+    }
+  
+    public void setSsn(String ssn) {
+      this.ssn = ssn;
+    }
+  
+    public Person _setSsn(String ssn) {
+      this.ssn = ssn;
+      return this;
+    }
+  
+    @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Contact.class)
+    private List<Contact> contacts = new ArrayList<Contact>();
+  
+    public List<Contact> getContacts() {
+      return contacts;
+    }
+  
+    public void setContacts(List<Contact> contacts) {
+      this.contacts = contacts;
+    }
+  
+    public Person _setContacts(List<Contact> contacts) {
+      this.contacts = contacts;
+      return this;
+    }
   
   @Override
   public boolean equals(Object obj) {
