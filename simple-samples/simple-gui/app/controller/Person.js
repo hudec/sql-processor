@@ -20,6 +20,7 @@ Ext.define('SimpleWeb.controller.Person', {
         Ext.create("SimpleWeb.view.person.Add");
         Ext.create("SimpleWeb.view.person.Delete");
         Ext.create("SimpleWeb.view.contact.Add");
+        Ext.create("SimpleWeb.view.contact.Edit");
 
         this.control({
             "#cancel_dialog" : {
@@ -56,13 +57,17 @@ Ext.define('SimpleWeb.controller.Person', {
                 click : this.onAllPersonClick
             },
             "#contact_list" : {
-                itemclick : this.onContactListClick
+                itemclick : this.onContactListClick,
+                itemdblclick : this.onContactListDblClick
             },
             "#add_contact" : {
                 click : this.onAddContactClick
             },
             "#accept_add_contact" : {
                 click : this.onAcceptAddContactClick
+            },
+            "#modify_contact" : {
+                click : this.onModifyContactClick
             },
             "#clear_dialog" : {
                 click : this.onClearDialogClick
@@ -327,13 +332,6 @@ Ext.define('SimpleWeb.controller.Person', {
             var person = store.first();
             person.contacts().add(newContact);
             console.log(person);
-//            person.save({
-//                scope : this,
-//                callback : function(record, operation, success) {
-//                    console.log(record);
-//                    dialog.close();
-//                }
-//            });
             newContact.setPerson(person);
             newContact.save({
                 scope : this,
@@ -345,6 +343,44 @@ Ext.define('SimpleWeb.controller.Person', {
         }
     },
     
+    onModifyContactClick : function(button, e, eOpts) {
+        console.log("onModifyContactClick");
+        var dialog = Ext.getCmp("ContactModify");
+        var form = dialog.down('form');
+        console.log(form);
+        var grid = button.up("panel").down("gridpanel");
+        console.log(grid);
+        var record = grid.getSelectionModel().getSelection()[0];
+        console.log(record);
+        form.loadRecord(record);
+        var panel = button.up('panel').up('panel');
+        console.log(panel);
+        if (panel) {
+            var storeId = panel.getItemId();
+            console.log(storeId);
+            form.down("#person_id").setValue(storeId);
+            form.down("#personId").setValue(storeId.substring(6));
+            dialog.show();
+        }
+    },
+    
+    onContactListDblClick : function(dataview, record, item, index, e, eOpts) {
+        console.log("onContactListDoubleClick");
+        var dialog = Ext.getCmp("ContactModify");
+        var form = dialog.down('form');
+        console.log(form);
+        form.loadRecord(record);
+        var panel = dataview.up('panel').up('panel').up('panel');
+        console.log(panel);
+        if (panel) {
+            var storeId = panel.getItemId();
+            console.log(storeId);
+            form.down("#person_id").setValue(storeId);
+            form.down("#personId").setValue(storeId.substring(6));
+            dialog.show();
+        }
+    },
+
     onClearDialogClick : function(button, e, eOpts) {
         console.log("onClearDialogClick");
         button.up("window").down("form").getForm().reset();
