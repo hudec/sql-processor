@@ -288,7 +288,15 @@ Ext.define('SimpleWeb.controller.Person', {
 
     onAddContactClick : function(button, e, eOpts) {
         console.log("onAddContactClick");
-        Ext.getCmp("ContactAdd").show();
+        var dialog = Ext.getCmp("ContactAdd");
+        var panel = button.up('panel').up('panel');
+        console.log(panel);
+        if (panel) {
+            var storeId = panel.getItemId();
+            console.log(storeId);
+            dialog.down("#person_id").setValue(storeId);
+            dialog.show();
+        }
     },
 
     onAcceptAddContactClick : function(button, e, eOpts) {
@@ -301,14 +309,28 @@ Ext.define('SimpleWeb.controller.Person', {
             console.log("add, valid");
             console.log(values);
             var newContact = this.getModel("Contact").create(values);
-            // TODO - set personId
-            newContact.save({
+            console.log(newContact);
+            var storeId = dialog.down("#person_id").getValue();
+            var store = Ext.data.StoreManager.lookup(storeId);
+            console.log(store);
+            var person = store.first();
+            person.contacts().add(newContact);
+            console.log(person);
+            person.save({
                 scope : this,
                 callback : function(record, operation, success) {
                     console.log(record);
                     dialog.close();
                 }
             });
+            //newContact.setPerson(person);
+//            newContact.save({
+//                scope : this,
+//                callback : function(record, operation, success) {
+//                    console.log(record);
+//                    dialog.close();
+//                }
+//            });
         }
     },
     
@@ -334,5 +356,5 @@ Ext.define('SimpleWeb.controller.Person', {
             scope : this
         });
         dialog.close();
-    },
+    }
 });

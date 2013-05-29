@@ -127,7 +127,7 @@ Ext.define('SimpleWeb.view.person.Details', {
                             xtype : 'numbercolumn',
                             hidden : true,
                             enableColumnHide : false,
-                            dataIndex : 'personId',
+                            dataIndex : 'person_id',
                             text : 'PersonId',
                             flex : 1
                         }, {

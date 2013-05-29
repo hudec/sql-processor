@@ -37,6 +37,12 @@ Ext.define('SimpleWeb.view.contact.Add', {
                     anchor : '100%'
                 },
                 items : [ {
+                    xtype : 'textfield',
+                    // hidden : true,
+                    name : 'person_id',
+                    itemId : 'person_id',
+                    fieldLabel : 'PersonId'
+                }, {
                     xtype : 'combobox',
                     name : 'ctype',
                     itemId : 'ctype',
@@ -44,13 +50,11 @@ Ext.define('SimpleWeb.view.contact.Add', {
                     store : [ 'HOME', 'BUSINESS', 'ABROAD' ]
                 }, {
                     xtype : 'textfield',
-                    anchor : '100%',
                     itemId : 'address',
                     name : 'address',
                     fieldLabel : 'Address'
                 }, {
                     xtype : 'textfield',
-                    anchor : '100%',
                     itemId : 'phoneNumber',
                     name : 'phoneNumber',
                     fieldLabel : 'Phone Number'
