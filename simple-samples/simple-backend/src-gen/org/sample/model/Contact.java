@@ -70,28 +70,6 @@ public class Contact implements Serializable {
       return this;
     }
   
-    @NotNull
-    private Long personId;
-  
-    public Long getPersonId() {
-      return personId;
-    }
-  
-    public void setPersonId(Long personId) {
-      this.personId = personId;
-      if (this.person == null)
-          this.person = new Person();
-      this.person.setId(personId);
-    }
-  
-    public Contact _setPersonId(Long personId) {
-      this.personId = personId;
-      if (this.person == null)
-          this.person = new Person();
-      this.person.setId(personId);
-      return this;
-    }
-  
     @ModelField(type = ModelType.STRING)
     @NotNull
     private ContactCtype ctype;
@@ -137,6 +115,27 @@ public class Contact implements Serializable {
   
     public Contact _setPhoneNumber(String phoneNumber) {
       this.phoneNumber = phoneNumber;
+      return this;
+    }
+  
+    private Long personId;
+  
+    public Long getPersonId() {
+      return personId;
+    }
+  
+    public void setPersonId(Long personId) {
+      this.personId = personId;
+      if (this.person == null)
+          this.person = new Person();
+      this.person.setId(personId);
+    }
+  
+    public Contact _setPersonId(Long personId) {
+      this.personId = personId;
+      if (this.person == null)
+          this.person = new Person();
+      this.person.setId(personId);
       return this;
     }
   
@@ -289,15 +288,15 @@ public class Contact implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", personId=" + personId + "]";
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", ctype=" + ctype + "]";
+    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", personId=" + personId + ", ctype=" + ctype + "]";
   }
   
   public enum OpAttribute {
-      id, person, personId, ctype, address, phoneNumber
+      id, person, ctype, address, phoneNumber, personId
   }
   
   private Map<String, String> operators = new HashMap<String, String>();

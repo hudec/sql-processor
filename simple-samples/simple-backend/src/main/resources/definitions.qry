@@ -20,6 +20,8 @@ pojogen-rename-columns CONTACT_CTYPE I0->HOME I1->BUSINESS I2->ABROAD;
 pojogen-rename-columns PERSON_GENDER M->MALE F->FEMALE I0->UNKNOWN; 
 // operators
 pojogen-generate-operators;
+// ExtJS rworkaround
+pojogen-preserve-foreign-keys CONTACT;
 
 // use indetity for primary keys
 // for HSQLDB

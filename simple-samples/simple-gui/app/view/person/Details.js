@@ -155,11 +155,13 @@ Ext.define('SimpleWeb.view.person.Details', {
                             text : 'Add'
                         }, {
                             xtype : 'button',
+                            disabled : true,
                             itemId : 'delete_contact',
                             iconCls : 'icon-delete',
                             text : 'Delete'
                         }, {
                             xtype : 'button',
+                            disabled : true,
                             itemId : 'modify_contact',
                             iconCls : 'icon-edit',
                             text : 'Modify'

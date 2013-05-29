@@ -55,6 +55,9 @@ Ext.define('SimpleWeb.controller.Person', {
             "#all_person" : {
                 click : this.onAllPersonClick
             },
+            "#contact_list" : {
+                itemclick : this.onContactListClick
+            },
             "#add_contact" : {
                 click : this.onAddContactClick
             },
@@ -78,6 +81,13 @@ Ext.define('SimpleWeb.controller.Person', {
     onPersonListDblClick : function(dataview, record, item, index, e, eOpts) {
         console.log("onPersonListDblClick");
         this.buildDetails(record);
+    },
+    
+    onContactListClick : function(dataview, record, item, index, e, eOpts) {
+        console.log("onContactListClick");
+        var panel = dataview.up("panel").up("panel");
+        panel.down("#delete_contact").enable();
+        panel.down("#modify_contact").enable();
     },
 
     buildDetails : function(record) {
