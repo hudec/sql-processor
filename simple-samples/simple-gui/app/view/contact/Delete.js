@@ -32,11 +32,23 @@ Ext.define('SimpleWeb.view.contact.Delete', {
                 xtype : 'form',
                 bodyPadding : 10,
                 header : false,
-                title : 'Personal Data',
+                title : 'Contact Data',
                 defaults : {
                     anchor : '100%'
                 },
                 items : [ {
+                    xtype : 'displayfield',
+                    hidden : true,
+                    name : 'person_id',
+                    itemId : 'person_id',
+                    fieldLabel : 'Person_Id'
+                }, {
+                    xtype : 'displayfield',
+                    hidden : true,
+                    name : 'personId',
+                    itemId : 'personId',
+                    fieldLabel : 'PersonId'
+                }, {
                     xtype : 'displayfield',
                     itemId : 'ctype',
                     name : 'ctype',

@@ -21,6 +21,7 @@ Ext.define('SimpleWeb.controller.Person', {
         Ext.create("SimpleWeb.view.person.Delete");
         Ext.create("SimpleWeb.view.contact.Add");
         Ext.create("SimpleWeb.view.contact.Edit");
+        Ext.create("SimpleWeb.view.contact.Delete");
 
         this.control({
             "#cancel_dialog" : {
@@ -68,6 +69,15 @@ Ext.define('SimpleWeb.controller.Person', {
             },
             "#modify_contact" : {
                 click : this.onModifyContactClick
+            },
+            "#accept_modify_contact" : {
+                click : this.onAcceptModifyContactClick
+            },
+            "#delete_contact" : {
+                click : this.onDeleteContactClick
+            },
+            "#accept_delete_contact" : {
+                click : this.onAcceptDeleteContactClick
             },
             "#clear_dialog" : {
                 click : this.onClearDialogClick
@@ -301,18 +311,29 @@ Ext.define('SimpleWeb.controller.Person', {
         list.doRefresh();
     },
 
-    onAddContactClick : function(button, e, eOpts) {
-        console.log("onAddContactClick");
-        var dialog = Ext.getCmp("ContactAdd");
-        var panel = button.up('panel').up('panel');
+    
+    
+    showContactDialog : function(panel, dialog, record) {
         console.log(panel);
+        console.log(record);
         if (panel) {
             var storeId = panel.getItemId();
             console.log(storeId);
+            if (record) {
+                dialog.down("form").loadRecord(record);
+            }
             dialog.down("#person_id").setValue(storeId);
             dialog.down("#personId").setValue(storeId.substring(6));
             dialog.show();
         }
+    },
+    
+    
+    onAddContactClick : function(button, e, eOpts) {
+        console.log("onAddContactClick");
+        var dialog = Ext.getCmp("ContactAdd");
+        var panel = button.up('panel').up('panel');
+        this.showContactDialog(panel, dialog);
     },
 
     onAcceptAddContactClick : function(button, e, eOpts) {
@@ -346,41 +367,64 @@ Ext.define('SimpleWeb.controller.Person', {
     onModifyContactClick : function(button, e, eOpts) {
         console.log("onModifyContactClick");
         var dialog = Ext.getCmp("ContactModify");
-        var form = dialog.down('form');
-        console.log(form);
         var grid = button.up("panel").down("gridpanel");
-        console.log(grid);
         var record = grid.getSelectionModel().getSelection()[0];
-        console.log(record);
-        form.loadRecord(record);
         var panel = button.up('panel').up('panel');
-        console.log(panel);
-        if (panel) {
-            var storeId = panel.getItemId();
-            console.log(storeId);
-            form.down("#person_id").setValue(storeId);
-            form.down("#personId").setValue(storeId.substring(6));
-            dialog.show();
-        }
+        this.showContactDialog(panel, dialog, record);
     },
     
     onContactListDblClick : function(dataview, record, item, index, e, eOpts) {
         console.log("onContactListDoubleClick");
         var dialog = Ext.getCmp("ContactModify");
-        var form = dialog.down('form');
-        console.log(form);
-        form.loadRecord(record);
         var panel = dataview.up('panel').up('panel').up('panel');
-        console.log(panel);
-        if (panel) {
-            var storeId = panel.getItemId();
-            console.log(storeId);
-            form.down("#person_id").setValue(storeId);
-            form.down("#personId").setValue(storeId.substring(6));
-            dialog.show();
+        this.showContactDialog(panel, dialog, record);
+    },
+
+    onAcceptModifyContactClick : function(button, e, eOpts) {
+        console.log("onAcceptModifyContactClick");
+        var dialog = Ext.getCmp("ContactModify");
+        var form = dialog.down("form");
+        var values = form.getValues();
+
+        if (form.getForm().isValid()) {
+            console.log(values);
+            var contact = form.getRecord();
+            contact.set(values);
+            
+            contact.save({
+                scope : this,
+                callback : function(record, operation, success) {
+                    console.log(record);
+                    dialog.close();
+                }
+            });
         }
     },
 
+    onDeleteContactClick : function(button, e, eOpts) {
+        console.log("onDeleteContactClick");
+        var dialog = Ext.getCmp("ContactDelete");
+        var grid = button.up("panel").down("gridpanel");
+        var record = grid.getSelectionModel().getSelection()[0];
+        var panel = button.up('panel').up('panel');
+        this.showContactDialog(panel, dialog, record);
+    },
+
+    onAcceptDeleteContactClick : function(button, e, eOpts) {
+        console.log("onAcceptDeleteContactClick");
+        var dialog = Ext.getCmp("ContactDelete");
+        var form = dialog.down("form");
+        var contact = form.getRecord();
+            
+        contact.destroy({
+            scope : this,
+            callback : function(record, operation, success) {
+                console.log(record);
+                dialog.close();
+            }
+        });
+    },
+    
     onClearDialogClick : function(button, e, eOpts) {
         console.log("onClearDialogClick");
         button.up("window").down("form").getForm().reset();

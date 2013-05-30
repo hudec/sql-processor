@@ -20,7 +20,7 @@ Ext.define('SimpleWeb.view.contact.Edit', {
     width : 400,
     closeAction : 'hide',
     iconCls : 'icon-edit',
-    title : 'Modify Contact Data',
+    title : 'Modify Contact',
     modal : true,
     y : 100,
 
@@ -35,13 +35,13 @@ Ext.define('SimpleWeb.view.contact.Edit', {
                 title : 'Contact Data',
                 items : [ {
                     xtype : 'textfield',
-                    // hidden : true,
+                    hidden : true,
                     name : 'person_id',
                     itemId : 'person_id',
                     fieldLabel : 'Person_Id'
                 }, {
                     xtype : 'textfield',
-                    // hidden : true,
+                    hidden : true,
                     name : 'personId',
                     itemId : 'personId',
                     fieldLabel : 'PersonId'
