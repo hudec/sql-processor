@@ -5,7 +5,7 @@ Ext.define('SimpleWeb.store.People', {
     autoLoad : false,
     remoteSort : true,
     remoteFilter : true,
-    pageSize : 3,
+    pageSize : 5,
     autoSync : true,
     sorters : [ {
         property : 'lastName',

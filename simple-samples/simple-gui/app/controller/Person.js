@@ -343,7 +343,6 @@ Ext.define('SimpleWeb.controller.Person', {
         var values = form.getValues();
 
         if (form.getForm().isValid()) {
-            console.log("add, valid");
             console.log(values);
             var newContact = this.getModel("Contact").create(values);
             console.log(newContact);

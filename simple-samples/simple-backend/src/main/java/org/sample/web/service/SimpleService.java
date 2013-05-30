@@ -71,7 +71,8 @@ public class SimpleService {
 
         PersonForm form = buildPersonFormFromParams(request.getParams());
 
-        SqlStandardControl sqlControl = buildControlFromParams(request);
+        SqlStandardControl sqlControl = (form.getId() == null) ? buildControlFromParams(request)
+                : new SqlStandardControl();
         if (request.getSorters() != null) {
             for (SortInfo sort : request.getSorters()) {
                 if ("lastName".equalsIgnoreCase(sort.getProperty())) {
