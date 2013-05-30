@@ -36,6 +36,10 @@ Ext.define('SimpleWeb.view.person.Add', {
                 defaults : {
                     anchor : '100%'
                 },
+        		api: {
+        			// The server-side must mark the submit handler as a 'formHandler'
+        			submit: 'simpleService.validatePersonForm'
+        		},
                 items : [ {
                     xtype : 'textfield',
                     itemId : 'firstName',
@@ -62,6 +66,7 @@ Ext.define('SimpleWeb.view.person.Add', {
                     name : 'gender',
                     itemId : 'gender',
                     fieldLabel : 'Gender',
+                    editable: false,
                     store : [ 'MALE', 'FEMALE' ]
                 } ]
             } ],

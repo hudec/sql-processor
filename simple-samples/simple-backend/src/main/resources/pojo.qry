@@ -11,6 +11,9 @@ package org.sample.model {
   import ch.ralscha.extdirectspring.generator.Model
   import com.fasterxml.jackson.annotation.JsonIgnore
   import ch.ralscha.extdirectspring.generator.ModelAssociationType
+  import org.hibernate.validator.constraints.NotBlank
+  import javax.validation.constraints.Past
+  import org.springframework.format.annotation.DateTimeFormat
 
   enum ContactCtype serializable 1  {
     value : java.lang.Integer
@@ -53,17 +56,21 @@ package org.sample.model {
   @@@@JsonIgnore
   pojo Person serializable 1 operators {
     id : java.lang.Long primaryKey index 1
-    @NotNull
+    @NotBlank
     firstName : java.lang.String required
-    @NotNull
+    @NotBlank
     lastName : java.lang.String required index 2
     @ModelField ::: dateFormat "d.m.Y"
     @@JsonSerialize ::: using :DMYDateSerializer class
     @@@JsonDeserialize ::: using :DMYDateDeserializer class
+    @Past
+    @NotNull
+    @DateTimeFormat ::: pattern "dd.MM.yyyy"
     dateOfBirth : java.util.Date
     @ModelField ::: type :ModelType STRING
     @NotNull
     gender :: PersonGender required
+    @NotBlank
     ssn : java.lang.String
     @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model ::Contact class
     contacts : java.util.List <:Contact>
