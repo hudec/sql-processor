@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.validation.Valid;
+
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.beanutils.converters.DateConverter;
@@ -19,10 +21,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 import org.sqlproc.engine.impl.SqlStandardControl;
 
 import ch.ralscha.extdirectspring.annotation.ExtDirectMethod;
 import ch.ralscha.extdirectspring.annotation.ExtDirectMethodType;
+import ch.ralscha.extdirectspring.bean.ExtDirectFormPostResult;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadRequest;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 import ch.ralscha.extdirectspring.bean.SortDirection;
@@ -169,6 +173,14 @@ public class SimpleService {
         for (Contact contact : contacts) {
             contactService.deleteContact(contact);
         }
+    }
+
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
+    public ExtDirectFormPostResult validatePersonForm(@Valid Person p, BindingResult result) {
+        if (!result.hasErrors()) {
+            // another validations
+        }
+        return new ExtDirectFormPostResult(result);
     }
 
     private PersonForm buildPersonFormFromFilters(List<Filter> filters) throws Exception {

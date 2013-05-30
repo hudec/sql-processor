@@ -216,27 +216,39 @@ Ext.define('SimpleWeb.controller.Person', {
         Ext.getCmp("PersonAdd").show();
     },
 
-    onAcceptAddPersonClick : function(button, e, eOpts) {
-        console.log("onAcceptAddPersonClick");
-        var dialog = Ext.getCmp("PersonAdd");
-        var form = dialog.down("form");
-        var values = form.getValues();
+	onAcceptAddPersonClick : function(button, e, eOpts) {
+		console.log("onAcceptAddPersonClick");
+		var dialog = Ext.getCmp("PersonAdd");
+		var form = dialog.down("form");
+		var values = form.getValues();
+		var personModel = this.getModel("Person");
 
-        if (form.getForm().isValid()) {
-            console.log("add, valid");
-            console.log(values);
-            var newPerson = this.getModel("Person").create(values);
-            newPerson.save({
-                scope : this,
-                callback : function(record, operation, success) {
-                    console.log(record);
-                    this.doGridRefresh();
-                    dialog.close();
-                    this.buildDetails(record);
-                }
-            });
-        }
-    },
+		form.submit({
+			scope: this,
+			success : function(form, action) {
+				if (form.isValid()) {
+					console.log("add, valid");
+					console.log(values);
+					var newPerson = personModel.create(values);
+					newPerson.save({
+						scope : this,
+						callback : function(record, operation, success) {
+							console.log(record);
+							this.doGridRefresh();
+							dialog.close();
+							this.buildDetails(record);
+						}
+					});
+				}
+			},
+			failure : function(form, action) {
+				console.log("add, invalid");
+				console.log(values);
+			}
+
+		});
+	},
+
 
     onDeletePersonClick : function(button, e, eOpts) {
         console.log("onDeletePersonClick");

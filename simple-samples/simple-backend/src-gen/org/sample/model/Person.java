@@ -11,8 +11,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import org.hibernate.validator.constraints.NotBlank;
 import org.sample.web.util.DMYDateDeserializer;
 import org.sample.web.util.DMYDateSerializer;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,7 +59,7 @@ public class Person implements Serializable {
       return this;
     }
   
-    @NotNull
+    @NotBlank
     private String firstName;
   
     public String getFirstName() {
@@ -72,7 +75,7 @@ public class Person implements Serializable {
       return this;
     }
   
-    @NotNull
+    @NotBlank
     private String lastName;
   
     public String getLastName() {
@@ -89,6 +92,9 @@ public class Person implements Serializable {
     }
   
     @ModelField(dateFormat = "d.m.Y")
+    @Past
+    @NotNull
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateOfBirth;
   
     @JsonSerialize(using = DMYDateSerializer.class)
@@ -123,6 +129,7 @@ public class Person implements Serializable {
       return this;
     }
   
+    @NotBlank
     private String ssn;
   
     public String getSsn() {

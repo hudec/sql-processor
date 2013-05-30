@@ -20,14 +20,12 @@ public class ModelController {
 
     @RequestMapping("/app/model/Person.js")
     public void user(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ModelGenerator
-                .writeModel(request, response, Person.class, OutputFormat.EXTJS4, IncludeValidation.BUILTIN, true);
+        ModelGenerator.writeModel(request, response, Person.class, OutputFormat.EXTJS4, IncludeValidation.ALL, true);
     }
 
     @RequestMapping("/app/model/Contact.js")
     public void catalog(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ModelGenerator.writeModel(request, response, Contact.class, OutputFormat.EXTJS4, IncludeValidation.BUILTIN,
-                true);
+        ModelGenerator.writeModel(request, response, Contact.class, OutputFormat.EXTJS4, IncludeValidation.ALL, true);
     }
 
 }
