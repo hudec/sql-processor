@@ -76,13 +76,11 @@ package org.sample.model {
     @@JsonSerialize ::: using :DMYDateSerializer class
     @@@JsonDeserialize ::: using :DMYDateDeserializer class
     @Past
-    @NotNull
     @DateTimeFormat ::: pattern "dd.MM.yyyy"
     dateOfBirth : java.util.Date
     @ModelField ::: type :ModelType STRING
     @NotNull
     gender :: PersonGender required
-    @NotBlank
     ssn : java.lang.String
     @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model ::Contact class
     contacts : java.util.List <:Contact>

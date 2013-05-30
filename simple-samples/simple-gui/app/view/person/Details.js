@@ -175,7 +175,7 @@ Ext.define('SimpleWeb.view.person.Details', {
 
     onDestroy : function() {
         var me = this;
-        console.log("godd-bye details");
+        console.log("good-bye details");
         console.log(me.itemId);
         var store = Ext.data.StoreManager.lookup(me.itemId);
         console.log(store);

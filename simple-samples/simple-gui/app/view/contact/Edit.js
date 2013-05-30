@@ -33,6 +33,11 @@ Ext.define('SimpleWeb.view.contact.Edit', {
                 bodyPadding : 10,
                 header : false,
                 title : 'Contact Data',
+                api : {
+                    // The server-side must mark the submit handler as a
+                    // 'formHandler'
+                    submit : 'simpleService.validateContactForm'
+                },
                 items : [ {
                     xtype : 'textfield',
                     hidden : true,
@@ -50,6 +55,7 @@ Ext.define('SimpleWeb.view.contact.Edit', {
                     name : 'ctype',
                     itemId : 'ctype',
                     fieldLabel : 'Type',
+                    editable : false,
                     store : [ 'HOME', 'BUSINESS', 'ABROAD' ]
                 }, {
                     xtype : 'textfield',
