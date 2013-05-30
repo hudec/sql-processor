@@ -7,6 +7,7 @@ import ch.ralscha.extdirectspring.generator.ModelField;
 import ch.ralscha.extdirectspring.generator.ModelType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -87,7 +88,7 @@ public class Contact implements Serializable {
       return this;
     }
   
-    @NotNull
+    @NotBlank
     private String address;
   
     public String getAddress() {

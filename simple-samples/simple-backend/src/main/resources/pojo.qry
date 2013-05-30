@@ -14,14 +14,26 @@ package org.sample.model {
   import org.hibernate.validator.constraints.NotBlank
   import javax.validation.constraints.Past
   import org.springframework.format.annotation.DateTimeFormat
+  
 
+/* 
+  // MySQL
+  enum ContactCtype serializable 1  {
+    value : java.lang.String
+    HOME ::: "0"
+    BUSINESS ::: "1"
+    ABROAD ::: "2"
+  }
+*/
+
+  // HSQLDB
   enum ContactCtype serializable 1  {
     value : java.lang.Integer
     HOME ::: 0
     BUSINESS ::: 1
     ABROAD ::: 2
   }
-
+  
   enum PersonGender serializable 1  {
     value : java.lang.String
     MALE ::: "M"
@@ -40,7 +52,7 @@ package org.sample.model {
     @ModelField ::: type :ModelType STRING
     @NotNull
     ctype :: ContactCtype required
-    @NotNull
+    @NotBlank
     address : java.lang.String required
     phoneNumber : java.lang.String
     personId : java.lang.Long createCol person->id

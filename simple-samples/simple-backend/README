@@ -1,0 +1,25 @@
+To deploy it with MySQL database, change in
+pojo.qry
+
+  enum ContactCtype serializable 1  {
+    value : java.lang.Integer
+    HOME ::: 0
+    BUSINESS ::: 1
+    ABROAD ::: 2
+  }
+
+to
+
+  enum ContactCtype serializable 1  {
+    value : java.lang.String
+    HOME ::: "0"
+    BUSINESS ::: "1"
+    ABROAD ::: "2"
+  }
+
+and compile it with mysql profile
+
+mvn clean install -P mysql
+
+DDL for MySQL is 
+src/main/resources/mysql.ddl
