@@ -6,11 +6,11 @@ import java.util.Map;
 
 public enum ContactCtype implements Serializable {
 
-  HOME(0), BUSINESS(1), ABROAD(2);
+  HOME("0"), BUSINESS("1"), ABROAD("2");
   
   private static final long serialVersionUID = 1L;
   
-  private static Map<Integer, ContactCtype> identifierMap = new HashMap<Integer, ContactCtype>();
+  private static Map<String, ContactCtype> identifierMap = new HashMap<String, ContactCtype>();
 
     static {
         for (ContactCtype value : ContactCtype.values()) {
@@ -18,13 +18,13 @@ public enum ContactCtype implements Serializable {
         }
     }
 
-    private Integer value;
+    private String value;
 
-    private ContactCtype(Integer value) {
+    private ContactCtype(String value) {
         this.value = value;
     }
 
-    public static ContactCtype fromValue(Integer value) {
+    public static ContactCtype fromValue(String value) {
         ContactCtype result = identifierMap.get(value);
         if (result == null) {
             throw new IllegalArgumentException("No ContactCtype for value: " + value);
@@ -32,7 +32,7 @@ public enum ContactCtype implements Serializable {
         return result;
     }
 
-    public Integer getValue() {
+    public String getValue() {
         return value;
     }
 

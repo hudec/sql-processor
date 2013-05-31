@@ -93,6 +93,7 @@ public class Person implements Serializable {
   
     @ModelField(dateFormat = "d.m.Y")
     @Past
+    @NotNull
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateOfBirth;
   
@@ -128,6 +129,7 @@ public class Person implements Serializable {
       return this;
     }
   
+    @NotBlank
     private String ssn;
   
     public String getSsn() {
