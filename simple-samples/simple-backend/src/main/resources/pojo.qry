@@ -1,39 +1,27 @@
 package org.sample.model {
 
-  import ch.ralscha.extdirectspring.generator.ModelType
   import org.sample.web.util.DMYDateDeserializer
   import javax.validation.constraints.NotNull
-  import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-  import com.fasterxml.jackson.databind.annotation.JsonSerialize
+  import org.springframework.format.annotation.DateTimeFormat
   import ch.ralscha.extdirectspring.generator.ModelAssociation
+  import com.fasterxml.jackson.databind.annotation.JsonSerialize
   import ch.ralscha.extdirectspring.generator.ModelField
-  import org.sample.web.util.DMYDateSerializer
   import ch.ralscha.extdirectspring.generator.Model
   import com.fasterxml.jackson.annotation.JsonIgnore
-  import ch.ralscha.extdirectspring.generator.ModelAssociationType
-  import org.hibernate.validator.constraints.NotBlank
   import javax.validation.constraints.Past
-  import org.springframework.format.annotation.DateTimeFormat
-  
+  import ch.ralscha.extdirectspring.generator.ModelAssociationType
+  import ch.ralscha.extdirectspring.generator.ModelType
+  import org.hibernate.validator.constraints.NotBlank
+  import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+  import org.sample.web.util.DMYDateSerializer
 
-/* 
-  // MySQL
   enum ContactCtype serializable 1  {
     value : java.lang.String
     HOME ::: "0"
     BUSINESS ::: "1"
     ABROAD ::: "2"
   }
-*/
 
-  // HSQLDB
-  enum ContactCtype serializable 1  {
-    value : java.lang.Integer
-    HOME ::: 0
-    BUSINESS ::: 1
-    ABROAD ::: 2
-  }
-  
   enum PersonGender serializable 1  {
     value : java.lang.String
     MALE ::: "M"
@@ -73,10 +61,10 @@ package org.sample.model {
     @NotBlank
     lastName : java.lang.String required index 2
     @ModelField ::: dateFormat "d.m.Y"
-    @@JsonSerialize ::: using :DMYDateSerializer class
-    @@@JsonDeserialize ::: using :DMYDateDeserializer class
     @Past
     @DateTimeFormat ::: pattern "dd.MM.yyyy"
+    @@JsonSerialize ::: using :DMYDateSerializer class
+    @@@JsonDeserialize ::: using :DMYDateDeserializer class
     dateOfBirth : java.util.Date
     @ModelField ::: type :ModelType STRING
     @NotNull
