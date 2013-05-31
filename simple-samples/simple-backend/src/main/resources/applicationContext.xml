@@ -19,7 +19,10 @@
     <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
     </bean>
     <bean id="modelController" class="org.sample.web.config.ModelController" />
-
+    <bean id="configuration" class="ch.ralscha.extdirectspring.controller.Configuration">
+        <property name="sendExceptionMessage" value="true" />
+    </bean>
+    
     <!-- define cache annotation driver - for DAO class proxy target class = true, for DAO interface false (default) -->
     <cache:annotation-driven proxy-target-class="true" />
 

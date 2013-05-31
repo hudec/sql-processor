@@ -100,7 +100,6 @@ Ext.define('SimpleWeb.controller.Person', {
 
     onContactListClick : function(dataview, record, item, index, e, eOpts) {
         console.log("onContactListClick");
-        var panel = dataview.up("panel").up("panel");
         this.toggleContactEditButton(true);
         this.toggleContactDeleteButton(true);
     },
@@ -223,13 +222,16 @@ Ext.define('SimpleWeb.controller.Person', {
                     person.save({
                         scope : this,
                         callback : function(record, operation, success) {
-                            console.log(record);
-                            this.doGridRefresh();
-                            dialog.close();
-                            var panel = Ext.getCmp("PersonRegistry");
-                            var id = "person" + record.data.id;
-                            var view = panel.child("#" + id);
-                            SimpleWeb.controller.Person.setData(record, view);
+                            if (!operation.exception) {
+                                console.log(record);
+                                this.doGridRefresh();
+                                dialog.close();
+                                var panel = Ext.getCmp("PersonRegistry");
+                                var id = "person" + record.data.id;
+                                var view = panel.child("#" + id);
+                                SimpleWeb.controller.Person.setData(record,
+                                        view);
+                            }
                         }
                     });
                 }
@@ -265,10 +267,12 @@ Ext.define('SimpleWeb.controller.Person', {
                     newPerson.save({
                         scope : this,
                         callback : function(record, operation, success) {
-                            console.log(record);
-                            this.doGridRefresh();
-                            dialog.close();
-                            this.buildDetails(record);
+                            if (!operation.exception) {
+                                console.log(record);
+                                this.doGridRefresh();
+                                dialog.close();
+                                this.buildDetails(record);
+                            }
                         }
                     });
                 }
@@ -302,8 +306,15 @@ Ext.define('SimpleWeb.controller.Person', {
         var form = dialog.down("form");
         var person = form.getRecord();
         var id = "person" + person.data.id;
-        var store = this.getStore("People");
-        store.remove(person);
+        person.destroy({
+            scope : this,
+            callback : function(record, operation, success) {
+                if (!operation.exception) {
+                    console.log(record);
+                    dialog.close();
+                }
+            }
+        });
         this.doGridRefresh();
         dialog.close();
         var panel = Ext.getCmp("PersonRegistry");
@@ -393,14 +404,16 @@ Ext.define('SimpleWeb.controller.Person', {
                     var store = Ext.data.StoreManager.lookup(storeId);
                     console.log(store);
                     var person = store.first();
-                    person.contacts().add(newContact);
                     console.log(person);
                     newContact.setPerson(person);
                     newContact.save({
                         scope : this,
                         callback : function(record, operation, success) {
-                            console.log(record);
-                            dialog.close();
+                            if (!operation.exception) {
+                                console.log(record);
+                                person.contacts().add(newContact);
+                                dialog.close();
+                            }
                         }
                     });
                 }
@@ -447,8 +460,10 @@ Ext.define('SimpleWeb.controller.Person', {
                     contact.save({
                         scope : this,
                         callback : function(record, operation, success) {
-                            console.log(record);
-                            dialog.close();
+                            if (!operation.exception) {
+                                console.log(record);
+                                dialog.close();
+                            }
                         }
                     });
                 }
@@ -479,8 +494,10 @@ Ext.define('SimpleWeb.controller.Person', {
         contact.destroy({
             scope : this,
             callback : function(record, operation, success) {
-                console.log(record);
-                dialog.close();
+                if (!operation.exception) {
+                    console.log(record);
+                    dialog.close();
+                }
             }
         });
 
