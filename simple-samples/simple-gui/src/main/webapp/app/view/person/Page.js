@@ -111,7 +111,12 @@ Ext.define('SimpleWeb.view.person.Page', {
                             dock : 'bottom',
                             width : 360,
                             displayInfo : true,
-                            store : 'People'
+                            store : 'People',
+                            listeners : {
+                                beforerender : function() {
+                                    this.down('#refresh').hide();
+                                }
+                            }
                         } ]
                     } ]
                 } ]
