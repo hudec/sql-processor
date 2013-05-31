@@ -183,6 +183,14 @@ public class SimpleService {
         return new ExtDirectFormPostResult(result);
     }
 
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
+    public ExtDirectFormPostResult validateContactForm(@Valid Contact p, BindingResult result) {
+        if (!result.hasErrors()) {
+            // another validations
+        }
+        return new ExtDirectFormPostResult(result);
+    }
+
     private PersonForm buildPersonFormFromFilters(List<Filter> filters) throws Exception {
 
         PersonForm form = new PersonForm();
