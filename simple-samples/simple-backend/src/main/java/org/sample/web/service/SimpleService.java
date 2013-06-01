@@ -101,7 +101,7 @@ public class SimpleService {
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    public List<Person> createPerson(List<Person> people) {
+    public List<Person> createPeople(List<Person> people) {
         List<Person> result = new ArrayList<Person>();
         for (Person person : people) {
             person.setSsn(emptyToNull(person.getSsn()));
@@ -113,7 +113,7 @@ public class SimpleService {
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    public List<Person> updatePerson(List<Person> people) {
+    public List<Person> updatePeople(List<Person> people) {
         List<Person> result = new ArrayList<Person>();
         for (Person person : people) {
             person.setSsn(emptyToNull(person.getSsn()));
@@ -125,10 +125,48 @@ public class SimpleService {
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    public void deletePerson(List<Person> people) {
+    public void deletePeople(List<Person> people) {
         for (Person person : people) {
             personService.deletePerson(person);
         }
+    }
+
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
+    public ExtDirectFormPostResult createPerson(@Valid Person person, BindingResult result) {
+        Person resultPerson = null;
+        if (!result.hasErrors()) {
+            person.setSsn(emptyToNull(person.getSsn()));
+            resultPerson = personService.insertPerson(person);
+        }
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        if (resultPerson != null) {
+            postResult.addResultProperty("id", resultPerson.getId());
+        }
+        return postResult;
+    }
+
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
+    public ExtDirectFormPostResult updatePerson(@Valid Person person, BindingResult result) {
+        Person resultPerson = null;
+        if (!result.hasErrors()) {
+            person.setSsn(emptyToNull(person.getSsn()));
+            resultPerson = personService.updatePerson(person);
+        }
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        if (resultPerson != null) {
+            postResult.addResultProperty("id", resultPerson.getId());
+        }
+        return postResult;
+    }
+
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
+    public ExtDirectFormPostResult deletePerson(Person person, BindingResult result) {
+        if (!result.hasErrors()) {
+            if (person.getId() != null)
+                personService.deletePerson(person);
+        }
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        return postResult;
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "person")
@@ -177,14 +215,6 @@ public class SimpleService {
         for (Contact contact : contacts) {
             contactService.deleteContact(contact);
         }
-    }
-
-    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
-    public ExtDirectFormPostResult validatePersonForm(@Valid Person p, BindingResult result) {
-        if (!result.hasErrors()) {
-            // another validations
-        }
-        return new ExtDirectFormPostResult(result);
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")

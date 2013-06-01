@@ -26,7 +26,7 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
-@Model(value = "SimpleWeb.model.Person", paging = true, readMethod = "simpleService.loadPeople", createMethod = "simpleService.createPerson", updateMethod = "simpleService.updatePerson", destroyMethod = "simpleService.deletePerson")
+@Model(value = "SimpleWeb.model.Person", paging = true, readMethod = "simpleService.loadPeople", createMethod = "simpleService.createPeople", updateMethod = "simpleService.updatePeople", destroyMethod = "simpleService.deletePeople")
 public class Person implements Serializable {
   
   private static final long serialVersionUID = 1L;

@@ -51,7 +51,7 @@ package org.sample.model {
     toString ::: id person phoneNumber address personId ctype
   }
 
-  @Model ::: value "SimpleWeb.model.Person", paging true, readMethod "simpleService.loadPeople", createMethod "simpleService.createPerson", updateMethod "simpleService.updatePerson", destroyMethod "simpleService.deletePerson"
+  @Model ::: value "SimpleWeb.model.Person", paging true, readMethod "simpleService.loadPeople", createMethod "simpleService.createPeople", updateMethod "simpleService.updatePeople", destroyMethod "simpleService.deletePeople"
   @@@JsonIgnore
   @@@@JsonIgnore
   pojo Person serializable 1 operators {

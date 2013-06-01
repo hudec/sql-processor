@@ -37,11 +37,15 @@ Ext.define('SimpleWeb.view.person.Edit', {
                     anchor : '100%'
                 },
                 api : {
-                    // The server-side must mark the submit handler as a
-                    // 'formHandler'
-                    submit : 'simpleService.validatePersonForm'
+                    submit : 'simpleService.updatePerson'
                 },
                 items : [ {
+                    xtype : 'textfield',
+                    hidden : true,
+                    name : 'id',
+                    itemId : 'id',
+                    fieldLabel : 'id'
+                }, {
                     xtype : 'textfield',
                     itemId : 'firstName',
                     name : 'firstName',

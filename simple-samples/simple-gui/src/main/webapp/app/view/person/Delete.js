@@ -36,7 +36,16 @@ Ext.define('SimpleWeb.view.person.Delete', {
                 defaults : {
                     anchor : '100%'
                 },
+                api : {
+                    submit : 'simpleService.deletePerson'
+                },
                 items : [ {
+                    xtype : 'textfield',
+                    hidden : true,
+                    name : 'id',
+                    itemId : 'id',
+                    fieldLabel : 'id'
+                }, {
                     xtype : 'displayfield',
                     itemId : 'firstName',
                     name : 'firstName',

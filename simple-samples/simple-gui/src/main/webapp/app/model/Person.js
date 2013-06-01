@@ -41,9 +41,9 @@ Ext.define("SimpleWeb.model.Person", {
         type : "direct",
         api : {
             read : simpleService.loadPeople,
-            create : simpleService.createPerson,
-            update : simpleService.updatePerson,
-            destroy : simpleService.deletePerson
+            create : simpleService.createPeople,
+            update : simpleService.updatePeople,
+            destroy : simpleService.deletePeople
         },
         reader : {
             root : "records"

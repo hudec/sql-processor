@@ -37,9 +37,7 @@ Ext.define('SimpleWeb.view.person.Add', {
                     anchor : '100%'
                 },
                 api : {
-                    // The server-side must mark the submit handler as a
-                    // 'formHandler'
-                    submit : 'simpleService.validatePersonForm'
+                    submit : 'simpleService.createPerson'
                 },
                 items : [ {
                     xtype : 'textfield',

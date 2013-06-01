@@ -65,7 +65,7 @@ public final class TestDataInitializer implements InitializingBean {
                 people.add(newPerson("John", "Smith", calendar.getTime(), "007-16-0000", PersonGender.MALE));
                 calendar.set(1967, 8, 27);
                 people.add(newPerson("Thomas", "Jones", calendar.getTime(), "007-16-0001", PersonGender.MALE));
-                simpleService.createPerson(people);
+                simpleService.createPeople(people);
                 List<Contact> contacts = new ArrayList<Contact>();
                 contacts.add(newContact(people.get(1), "address1", "123456789", ContactCtype.HOME));
                 contacts.add(newContact(people.get(1), "address2", "0123456789", ContactCtype.HOME));
