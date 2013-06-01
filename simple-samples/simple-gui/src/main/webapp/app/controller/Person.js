@@ -127,8 +127,7 @@ Ext.define('SimpleWeb.controller.Person', {
     },
 
     buildDetails : function(id) {
-        console.log("buildDetails");
-        console.log(id);
+        console.log("buildDetails ", id);
         var storeId = "person" + id;
 
         var uniqueStore = Ext.data.StoreManager.lookup(storeId);
@@ -136,10 +135,10 @@ Ext.define('SimpleWeb.controller.Person', {
             uniqueStore = Ext.create("SimpleWeb.store.People", {
                 storeId : storeId
             });
-            console.log("new store");
+            console.log("new store ", storeId);
             console.log(uniqueStore);
         } else {
-            console.log("old store");
+            console.log("old store ", storeId);
         }
 
         uniqueStore.load({
@@ -151,9 +150,7 @@ Ext.define('SimpleWeb.controller.Person', {
             callback : function(records, operation, success) {
                 console.log(records);
                 var person = records[0];
-                console.log("loaded person");
-                console.log(person);
-                console.log(person.contacts());
+                console.log("loaded person ", person, person.contacts());
                 this.showDetails(person);
             }
         });
@@ -173,7 +170,6 @@ Ext.define('SimpleWeb.controller.Person', {
                 itemId : itemId,
                 closable : true
             });
-            console.log(view);
             panel.add(view);
         } else {
             console.log("old details");
@@ -290,9 +286,7 @@ Ext.define('SimpleWeb.controller.Person', {
                 this.doGridRefresh();
                 dialog.close();
                 var panel = Ext.getCmp("PersonRegistry");
-                console.log(values.id);
                 var view = panel.child("#person" + values.id);
-                console.log(view);
                 view.close();
             },
             failure : function(form, action) {
@@ -343,11 +337,9 @@ Ext.define('SimpleWeb.controller.Person', {
     },
 
     showContactDialog : function(panel, dialog, record) {
-        console.log(panel);
-        console.log(record);
+        console.log("showContactDialog ", panel);
         if (panel) {
             var storeId = panel.getItemId();
-            console.log(storeId);
             if (record) {
                 dialog.down("form").loadRecord(record);
             }
@@ -358,8 +350,7 @@ Ext.define('SimpleWeb.controller.Person', {
     },
 
     reloadContacts : function(dialog, id) {
-        console.log("reloadContacts");
-        console.log(id);
+        console.log("reloadContacts ", dialog, id);
         var storeId = dialog.down("#person_id").getValue();
         var personId = dialog.down("#personId").getValue();
         var store = Ext.data.StoreManager.lookup(storeId);
@@ -489,7 +480,6 @@ Ext.define('SimpleWeb.controller.Person', {
         store.load({
             params : form.getValues(),
             callback : function(records, operation, success) {
-                console.log("onRefreshPersonClick");
                 console.log(records);
             },
             scope : this
