@@ -104,6 +104,7 @@ public class SimpleService {
     public List<Person> createPerson(List<Person> people) {
         List<Person> result = new ArrayList<Person>();
         for (Person person : people) {
+            person.setSsn(emptyToNull(person.getSsn()));
             Person p = personService.insertPerson(person);
             if (p != null)
                 result.add(p);
@@ -115,6 +116,7 @@ public class SimpleService {
     public List<Person> updatePerson(List<Person> people) {
         List<Person> result = new ArrayList<Person>();
         for (Person person : people) {
+            person.setSsn(emptyToNull(person.getSsn()));
             Person p = personService.updatePerson(person);
             if (p != null)
                 result.add(p);
@@ -150,6 +152,7 @@ public class SimpleService {
     public List<Contact> createContact(List<Contact> contacts) {
         List<Contact> result = new ArrayList<Contact>();
         for (Contact contact : contacts) {
+            contact.setPhoneNumber(emptyToNull(contact.getPhoneNumber()));
             Contact c = contactService.insertContact(contact);
             if (c != null)
                 result.add(c);
@@ -161,6 +164,7 @@ public class SimpleService {
     public List<Contact> updateContact(List<Contact> contacts) {
         List<Contact> result = new ArrayList<Contact>();
         for (Contact contact : contacts) {
+            contact.setPhoneNumber(emptyToNull(contact.getPhoneNumber()));
             Contact c = contactService.updateContact(contact);
             if (c != null)
                 result.add(c);
@@ -189,6 +193,14 @@ public class SimpleService {
             // another validations
         }
         return new ExtDirectFormPostResult(result);
+    }
+
+    private String emptyToNull(String s) {
+        if (s == null)
+            return s;
+        if (s.trim().length() == 0)
+            return null;
+        return s;
     }
 
     private PersonForm buildPersonFormFromFilters(List<Filter> filters) throws Exception {
