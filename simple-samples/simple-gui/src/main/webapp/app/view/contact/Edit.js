@@ -34,9 +34,10 @@ Ext.define('SimpleWeb.view.contact.Edit', {
                 header : false,
                 title : 'Contact Data',
                 api : {
-                    // The server-side must mark the submit handler as a
-                    // 'formHandler'
-                    submit : 'simpleService.validateAndUpdateContact'
+                    submit : 'simpleService.updateContact'
+                },
+                defaults : {
+                    anchor : '100%'
                 },
                 items : [ {
                     xtype : 'textfield',

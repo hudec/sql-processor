@@ -480,18 +480,18 @@ Ext.define('SimpleWeb.controller.Person', {
         console.log("onAcceptDeleteContactClick");
         var dialog = Ext.getCmp("ContactDelete");
         var form = dialog.down("form");
-        var contact = form.getRecord();
+        var values = form.getValues();
 
-        contact.destroy({
+        console.log(values);
+        form.submit({
             scope : this,
-            callback : function(record, operation, success) {
-                if (!operation.exception) {
-                    console.log(record);
-                    dialog.close();
-                }
+            success : function(form, action) {
+                this.reloadContacts(dialog, action.result.id);
+            },
+            failure : function(form, action) {
+                console.log(action.result);
             }
         });
-
         this.toggleContactEditButton(false);
         this.toggleContactDeleteButton(false);
     },

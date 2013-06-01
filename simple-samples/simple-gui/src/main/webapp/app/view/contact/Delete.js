@@ -33,10 +33,19 @@ Ext.define('SimpleWeb.view.contact.Delete', {
                 bodyPadding : 10,
                 header : false,
                 title : 'Contact Data',
+                api : {
+                    submit : 'simpleService.deleteContact'
+                },
                 defaults : {
                     anchor : '100%'
                 },
                 items : [ {
+                    xtype : 'textfield',
+                    hidden : true,
+                    name : 'id',
+                    itemId : 'id',
+                    fieldLabel : 'id'
+                }, {
                     xtype : 'displayfield',
                     hidden : true,
                     name : 'person_id',

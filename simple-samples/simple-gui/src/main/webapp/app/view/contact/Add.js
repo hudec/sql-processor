@@ -33,13 +33,11 @@ Ext.define('SimpleWeb.view.contact.Add', {
                 bodyPadding : 10,
                 header : false,
                 title : 'Contact Data',
+                api : {
+                    submit : 'simpleService.createContact'
+                },
                 defaults : {
                     anchor : '100%'
-                },
-                api : {
-                    // The server-side must mark the submit handler as a
-                    // 'formHandler'
-                    submit : 'simpleService.validateAndCreateContact'
                 },
                 items : [ {
                     xtype : 'textfield',

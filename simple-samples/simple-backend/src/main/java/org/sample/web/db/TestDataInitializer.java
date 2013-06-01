@@ -69,7 +69,7 @@ public final class TestDataInitializer implements InitializingBean {
                 List<Contact> contacts = new ArrayList<Contact>();
                 contacts.add(newContact(people.get(1), "address1", "123456789", ContactCtype.HOME));
                 contacts.add(newContact(people.get(1), "address2", "0123456789", ContactCtype.HOME));
-                simpleService.createContact(contacts);
+                simpleService.createContacts(contacts);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

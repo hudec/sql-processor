@@ -149,7 +149,7 @@ public class SimpleService {
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    public List<Contact> createContact(List<Contact> contacts) {
+    public List<Contact> createContacts(List<Contact> contacts) {
         List<Contact> result = new ArrayList<Contact>();
         for (Contact contact : contacts) {
             contact.setPhoneNumber(emptyToNull(contact.getPhoneNumber()));
@@ -161,7 +161,7 @@ public class SimpleService {
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    public List<Contact> updateContact(List<Contact> contacts) {
+    public List<Contact> updateContacts(List<Contact> contacts) {
         List<Contact> result = new ArrayList<Contact>();
         for (Contact contact : contacts) {
             contact.setPhoneNumber(emptyToNull(contact.getPhoneNumber()));
@@ -173,7 +173,7 @@ public class SimpleService {
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    public void deleteContact(List<Contact> contacts) {
+    public void deleteContacts(List<Contact> contacts) {
         for (Contact contact : contacts) {
             contactService.deleteContact(contact);
         }
@@ -188,7 +188,7 @@ public class SimpleService {
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
-    public ExtDirectFormPostResult validateAndCreateContact(@Valid Contact contact, BindingResult result) {
+    public ExtDirectFormPostResult createContact(@Valid Contact contact, BindingResult result) {
         Contact resultContact = null;
         if (!result.hasErrors()) {
             contact.setPhoneNumber(emptyToNull(contact.getPhoneNumber()));
@@ -202,7 +202,7 @@ public class SimpleService {
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
-    public ExtDirectFormPostResult validateAndUpdateContact(@Valid Contact contact, BindingResult result) {
+    public ExtDirectFormPostResult updateContact(@Valid Contact contact, BindingResult result) {
         Contact resultContact = null;
         if (!result.hasErrors()) {
             contact.setPhoneNumber(emptyToNull(contact.getPhoneNumber()));
@@ -212,6 +212,16 @@ public class SimpleService {
         if (resultContact != null) {
             postResult.addResultProperty("id", resultContact.getId());
         }
+        return postResult;
+    }
+
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
+    public ExtDirectFormPostResult deleteContact(Contact contact, BindingResult result) {
+        if (!result.hasErrors()) {
+            if (contact.getId() != null)
+                contactService.deleteContact(contact);
+        }
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
         return postResult;
     }
 
