@@ -83,6 +83,7 @@ Ext.define('SimpleWeb.view.person.Page', {
                             xtype : 'gridcolumn',
                             dataIndex : 'firstName',
                             text : 'First Name',
+                            sortable : false,
                             flex : 2
                         }, {
                             xtype : 'gridcolumn',
@@ -93,16 +94,19 @@ Ext.define('SimpleWeb.view.person.Page', {
                             xtype : 'datecolumn',
                             dataIndex : 'dateOfBirth',
                             text : 'Date of Birth',
+                            sortable : false,
                             flex : 1,
                             format : 'd.m.Y'
                         }, {
                             xtype : 'gridcolumn',
                             dataIndex : 'ssn',
                             text : 'SSN',
+                            sortable : false,
                             flex : 1
                         }, {
                             xtype : 'gridcolumn',
                             dataIndex : 'gender',
+                            sortable : false,
                             text : 'Gender',
                             flex : 1
                         } ],
