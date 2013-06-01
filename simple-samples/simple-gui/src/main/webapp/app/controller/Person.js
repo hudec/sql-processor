@@ -229,8 +229,7 @@ Ext.define('SimpleWeb.controller.Person', {
                                 var panel = Ext.getCmp("PersonRegistry");
                                 var id = "person" + record.data.id;
                                 var view = panel.child("#" + id);
-                                SimpleWeb.controller.Person.setData(record,
-                                        view);
+                                SimpleWeb.controller.Person.setData(record, view);
                             }
                         }
                     });
@@ -380,6 +379,29 @@ Ext.define('SimpleWeb.controller.Person', {
         }
     },
 
+    reloadContacts : function(dialog, id) {
+        console.log("reloadContacts");
+        console.log(id);
+        var storeId = dialog.down("#person_id").getValue();
+        var personId = dialog.down("#personId").getValue();
+        var store = Ext.data.StoreManager.lookup(storeId);
+        var person = store.first();
+        person.contacts().load({
+            params : {
+                personId : personId
+            // id : id
+            },
+            callback : function(records, operation, success) {
+                if (!operation.exception) {
+                    console.log(records);
+                    person.contacts().add(records);
+                    dialog.close();
+                }
+            },
+            scope : this
+        });
+    },
+
     onAddContactClick : function(button, e, eOpts) {
         console.log("onAddContactClick");
         var dialog = Ext.getCmp("ContactAdd");
@@ -393,37 +415,19 @@ Ext.define('SimpleWeb.controller.Person', {
         var form = dialog.down("form");
         var values = form.getValues();
 
-        form.submit({
-            scope : this,
-            success : function(form, action) {
-                if (form.isValid()) {
-                    console.log(values);
-                    var newContact = this.getModel("Contact").create(values);
-                    console.log(newContact);
-                    var storeId = dialog.down("#person_id").getValue();
-                    var store = Ext.data.StoreManager.lookup(storeId);
-                    console.log(store);
-                    var person = store.first();
-                    console.log(person);
-                    newContact.setPerson(person);
-                    newContact.save({
-                        scope : this,
-                        callback : function(record, operation, success) {
-                            if (!operation.exception) {
-                                console.log(record);
-                                person.contacts().add(newContact);
-                                dialog.close();
-                            }
-                        }
-                    });
+        if (form.isValid()) {
+            console.log(values);
+            form.submit({
+                scope : this,
+                success : function(form, action) {
+                    this.reloadContacts(dialog, action.result.id);
+                },
+                failure : function(form, action) {
+                    console.log(action.result);
                 }
-            },
-            failure : function(form, action) {
-                console.log("add, invalid");
-                console.log(values);
-            }
 
-        });
+            });
+        }
     },
 
     onModifyContactClick : function(button, e, eOpts) {
@@ -448,32 +452,19 @@ Ext.define('SimpleWeb.controller.Person', {
         var form = dialog.down("form");
         var values = form.getValues();
 
-        form.submit({
-            scope : this,
-            success : function(form, action) {
-                if (form.isValid()) {
-                    console.log("modify, valid");
-                    console.log(values);
-                    var contact = form.getRecord();
-                    contact.set(values);
-
-                    contact.save({
-                        scope : this,
-                        callback : function(record, operation, success) {
-                            if (!operation.exception) {
-                                console.log(record);
-                                dialog.close();
-                            }
-                        }
-                    });
+        if (form.isValid()) {
+            console.log(values);
+            form.submit({
+                scope : this,
+                success : function(form, action) {
+                    this.reloadContacts(dialog, action.result.id);
+                },
+                failure : function(form, action) {
+                    console.log(action.result);
                 }
-            },
-            failure : function(form, action) {
-                console.log("modify, invalid");
-                console.log(values);
-            }
 
-        });
+            });
+        }
     },
 
     onDeleteContactClick : function(button, e, eOpts) {

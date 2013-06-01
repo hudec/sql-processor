@@ -36,9 +36,15 @@ Ext.define('SimpleWeb.view.contact.Edit', {
                 api : {
                     // The server-side must mark the submit handler as a
                     // 'formHandler'
-                    submit : 'simpleService.validateContactForm'
+                    submit : 'simpleService.validateAndUpdateContact'
                 },
                 items : [ {
+                    xtype : 'textfield',
+                    hidden : true,
+                    name : 'id',
+                    itemId : 'id',
+                    fieldLabel : 'id'
+                }, {
                     xtype : 'textfield',
                     hidden : true,
                     name : 'person_id',

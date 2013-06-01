@@ -188,11 +188,31 @@ public class SimpleService {
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
-    public ExtDirectFormPostResult validateContactForm(@Valid Contact p, BindingResult result) {
+    public ExtDirectFormPostResult validateAndCreateContact(@Valid Contact contact, BindingResult result) {
+        Contact resultContact = null;
         if (!result.hasErrors()) {
-            // another validations
+            contact.setPhoneNumber(emptyToNull(contact.getPhoneNumber()));
+            resultContact = contactService.insertContact(contact);
         }
-        return new ExtDirectFormPostResult(result);
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        if (resultContact != null) {
+            postResult.addResultProperty("id", resultContact.getId());
+        }
+        return postResult;
+    }
+
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
+    public ExtDirectFormPostResult validateAndUpdateContact(@Valid Contact contact, BindingResult result) {
+        Contact resultContact = null;
+        if (!result.hasErrors()) {
+            contact.setPhoneNumber(emptyToNull(contact.getPhoneNumber()));
+            resultContact = contactService.updateContact(contact);
+        }
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        if (resultContact != null) {
+            postResult.addResultProperty("id", resultContact.getId());
+        }
+        return postResult;
     }
 
     private String emptyToNull(String s) {

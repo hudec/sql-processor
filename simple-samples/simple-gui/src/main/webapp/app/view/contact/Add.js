@@ -39,7 +39,7 @@ Ext.define('SimpleWeb.view.contact.Add', {
                 api : {
                     // The server-side must mark the submit handler as a
                     // 'formHandler'
-                    submit : 'simpleService.validateContactForm'
+                    submit : 'simpleService.validateAndCreateContact'
                 },
                 items : [ {
                     xtype : 'textfield',
