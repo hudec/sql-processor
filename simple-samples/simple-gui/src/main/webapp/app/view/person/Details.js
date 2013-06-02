@@ -33,9 +33,9 @@ Ext.define('SimpleWeb.view.person.Details', {
                 cls : 'line',
                 items : [ {
                     xtype : 'button',
-                    itemId : 'search_person',
-                    iconCls : 'icon-search',
-                    text : 'Search'
+                    itemId : 'refresh_person_detail',
+                    iconCls : 'icon-refresh',
+                    text : 'Refresh'
                 }, {
                     xtype : 'tbseparator'
                 }, {

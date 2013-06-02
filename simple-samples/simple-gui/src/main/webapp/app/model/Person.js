@@ -31,14 +31,11 @@ Ext.define("SimpleWeb.model.Person", {
         name : "contacts"
     } ],
     validations : [ {
-        type : "notBlank",
+        type : "presence",
         field : "firstName"
     }, {
-        type : "notBlank",
+        type : "presence",
         field : "lastName"
-    }, {
-        type : "past",
-        field : "dateOfBirth"
     }, {
         type : "presence",
         field : "gender"

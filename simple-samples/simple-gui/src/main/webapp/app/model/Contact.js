@@ -31,7 +31,7 @@ Ext.define("SimpleWeb.model.Contact", {
         type : "presence",
         field : "ctype"
     }, {
-        type : "notBlank",
+        type : "presence",
         field : "address"
     }, {
         type : "presence",

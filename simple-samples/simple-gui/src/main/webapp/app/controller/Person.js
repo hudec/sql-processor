@@ -84,6 +84,9 @@ Ext.define('SimpleWeb.controller.Person', {
             },
             "#refresh_person" : {
                 click : this.onRefreshPersonClick
+            },
+            "#refresh_person_detail" : {
+                click : this.onRefreshPersonDetailClick
             }
         });
     },
@@ -188,6 +191,18 @@ Ext.define('SimpleWeb.controller.Person', {
         view.record = record;
         // Finish
         panel.setActiveTab(view);
+    },
+
+    onRefreshPersonDetailClick : function(button, e, eOpts) {
+        console.log("onRefreshPersonDetailClick");
+        var el = button;
+
+        while (el = el.up()) {
+            if (el.record) {
+                this.buildDetails(el.record.data.id);
+                break;
+            }
+        }
     },
 
     onAddPersonClick : function(button, e, eOpts) {
