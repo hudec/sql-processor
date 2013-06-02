@@ -45,10 +45,11 @@ public class ContactService {
     }
 
     @Transactional
-    public void deleteContact(Contact contact) {
+    public Contact deleteContact(Contact contact) {
         logger.info("deleteContact -> " + contact);
-        contactDao.delete(contact);
+        int numDeleted = contactDao.delete(contact);
         logger.info("deleteContact -> ok");
+        return (numDeleted > 0) ? contact : null;
     }
 
     @Required

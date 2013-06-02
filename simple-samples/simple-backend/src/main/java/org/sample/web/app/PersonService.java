@@ -49,10 +49,11 @@ public class PersonService {
     }
 
     @Transactional
-    public void deletePerson(Person person) {
+    public Person deletePerson(Person person) {
         logger.info("deletePerson -> " + person);
-        personDao.delete(person);
+        int numDeleted = personDao.delete(person);
         logger.info("deletePerson -> ok");
+        return (numDeleted > 0) ? person : null;
     }
 
     @Required

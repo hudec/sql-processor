@@ -153,19 +153,25 @@ public class SimpleService {
             resultPerson = personService.updatePerson(person);
         }
         ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
-        if (resultPerson != null) {
-            postResult.addResultProperty("id", resultPerson.getId());
-        }
+        if (resultPerson == null)
+            throw new RuntimeException("The record has been in the meantime modified");
+        postResult.addResultProperty("id", resultPerson.getId());
         return postResult;
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
     public ExtDirectFormPostResult deletePerson(Person person, BindingResult result) {
+        Person resultPerson = null;
         if (!result.hasErrors()) {
             if (person.getId() != null)
-                personService.deletePerson(person);
+                resultPerson = personService.deletePerson(person);
         }
         ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        if (person.getId() != null) {
+            if (resultPerson == null)
+                throw new RuntimeException("The record has been in the meantime modified");
+            postResult.addResultProperty("id", resultPerson.getId());
+        }
         return postResult;
     }
 
@@ -239,19 +245,25 @@ public class SimpleService {
             resultContact = contactService.updateContact(contact);
         }
         ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
-        if (resultContact != null) {
-            postResult.addResultProperty("id", resultContact.getId());
-        }
+        if (resultContact == null)
+            throw new RuntimeException("The record has been in the meantime modified");
+        postResult.addResultProperty("id", resultContact.getId());
         return postResult;
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
     public ExtDirectFormPostResult deleteContact(Contact contact, BindingResult result) {
+        Contact resultContact = null;
         if (!result.hasErrors()) {
             if (contact.getId() != null)
-                contactService.deleteContact(contact);
+                resultContact = contactService.deleteContact(contact);
         }
         ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        if (contact.getId() != null) {
+            if (resultContact == null)
+                throw new RuntimeException("The record has been in the meantime modified");
+            postResult.addResultProperty("id", resultContact.getId());
+        }
         return postResult;
     }
 
