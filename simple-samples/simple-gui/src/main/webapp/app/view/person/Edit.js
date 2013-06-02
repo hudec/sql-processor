@@ -44,7 +44,13 @@ Ext.define('SimpleWeb.view.person.Edit', {
                     hidden : true,
                     name : 'id',
                     itemId : 'id',
-                    fieldLabel : 'id'
+                    fieldLabel : 'Id'
+                }, {
+                    xtype : 'textfield',
+                    hidden : true,
+                    name : 'version',
+                    itemId : 'version',
+                    fieldLabel : 'Version'
                 }, {
                     xtype : 'textfield',
                     itemId : 'firstName',

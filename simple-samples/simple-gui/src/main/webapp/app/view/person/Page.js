@@ -78,6 +78,15 @@ Ext.define('SimpleWeb.view.person.Page', {
                             hidden : true,
                             dataIndex : 'id',
                             text : 'Id',
+                            format : '0',
+                            flex : 1
+                        }, {
+                            xtype : 'numbercolumn',
+                            hidden : true,
+                            dataIndex : 'version',
+                            text : 'Version',
+                            format : '0',
+                            sortable : false,
                             flex : 1
                         }, {
                             xtype : 'gridcolumn',

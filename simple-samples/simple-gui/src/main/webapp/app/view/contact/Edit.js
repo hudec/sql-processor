@@ -48,6 +48,12 @@ Ext.define('SimpleWeb.view.contact.Edit', {
                 }, {
                     xtype : 'textfield',
                     hidden : true,
+                    name : 'version',
+                    itemId : 'version',
+                    fieldLabel : 'Version'
+                }, {
+                    xtype : 'textfield',
+                    hidden : true,
                     name : 'person_id',
                     itemId : 'person_id',
                     fieldLabel : 'Person_Id'

@@ -22,6 +22,8 @@ pojogen-rename-columns PERSON_GENDER M->MALE F->FEMALE I0->UNKNOWN;
 pojogen-generate-operators;
 // ExtJS rworkaround
 pojogen-preserve-foreign-keys CONTACT;
+// optimistic locking
+pojogen-version-column VERSION;
 
 // use indetity for primary keys
 // for HSQLDB

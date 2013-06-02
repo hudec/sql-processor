@@ -46,6 +46,12 @@ Ext.define('SimpleWeb.view.contact.Delete', {
                     itemId : 'id',
                     fieldLabel : 'id'
                 }, {
+                    xtype : 'textfield',
+                    hidden : true,
+                    name : 'version',
+                    itemId : 'version',
+                    fieldLabel : 'Version'
+                }, {
                     xtype : 'displayfield',
                     hidden : true,
                     name : 'person_id',

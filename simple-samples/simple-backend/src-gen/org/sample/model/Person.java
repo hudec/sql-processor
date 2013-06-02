@@ -143,6 +143,22 @@ public class Person implements Serializable {
       return this;
     }
   
+    @NotNull
+    private Integer version = 0;
+  
+    public Integer getVersion() {
+      return version;
+    }
+  
+    public void setVersion(Integer version) {
+      this.version = version;
+    }
+  
+    public Person _setVersion(Integer version) {
+      this.version = version;
+      return this;
+    }
+  
     @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Contact.class)
     private List<Contact> contacts = new ArrayList<Contact>();
   
@@ -308,15 +324,15 @@ public class Person implements Serializable {
   
   @Override
   public String toString() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + "]";
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + ", version=" + version + "]";
   }
   
   public enum OpAttribute {
-      id, firstName, lastName, dateOfBirth, gender, ssn, contacts
+      id, firstName, lastName, dateOfBirth, gender, ssn, version, contacts
   }
   
   private Map<String, String> operators = new HashMap<String, String>();

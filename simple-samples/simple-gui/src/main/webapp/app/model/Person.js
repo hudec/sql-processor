@@ -19,6 +19,9 @@ Ext.define("SimpleWeb.model.Person", {
     }, {
         name : "ssn",
         type : "string"
+    }, {
+        name : "version",
+        type : "int"
     } ],
     associations : [ {
         type : "hasMany",
@@ -28,14 +31,20 @@ Ext.define("SimpleWeb.model.Person", {
         name : "contacts"
     } ],
     validations : [ {
-        type : "presence",
+        type : "notBlank",
         field : "firstName"
     }, {
-        type : "presence",
+        type : "notBlank",
         field : "lastName"
+    }, {
+        type : "past",
+        field : "dateOfBirth"
     }, {
         type : "presence",
         field : "gender"
+    }, {
+        type : "presence",
+        field : "version"
     } ],
     proxy : {
         type : "direct",

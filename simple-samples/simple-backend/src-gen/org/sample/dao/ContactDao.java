@@ -87,6 +87,9 @@ public class ContactDao {
     }
     SqlCrudEngine sqlUpdateEngineContact = sqlEngineFactory.getCheckedCrudEngine("UPDATE_CONTACT");
     int count = sqlUpdateEngineContact.update(sqlSession, contact, sqlControl);
+    if (count > 0) {
+    	contact.setVersion(contact.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("update contact result count: " + count);
     }
@@ -111,6 +114,9 @@ public class ContactDao {
     }
     SqlCrudEngine sqlDeleteEngineContact = sqlEngineFactory.getCheckedCrudEngine("DELETE_CONTACT");
     int count = sqlDeleteEngineContact.delete(sqlSession, contact, sqlControl);
+    if (count > 0) {
+    	contact.setVersion(contact.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("delete contact result count: " + count);
     }

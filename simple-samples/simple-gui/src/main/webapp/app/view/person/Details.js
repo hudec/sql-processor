@@ -126,9 +126,16 @@ Ext.define('SimpleWeb.view.person.Details', {
                         }, {
                             xtype : 'numbercolumn',
                             hidden : true,
+                            dataIndex : 'version',
+                            text : 'Version',
+                            format : '0'
+                        }, {
+                            xtype : 'numbercolumn',
+                            hidden : true,
                             enableColumnHide : false,
                             dataIndex : 'person_id',
                             text : 'PersonId',
+                            format : '0',
                             flex : 1
                         }, {
                             xtype : 'gridcolumn',

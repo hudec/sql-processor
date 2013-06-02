@@ -43,12 +43,14 @@ package org.sample.model {
     @NotBlank
     address : java.lang.String required
     phoneNumber : java.lang.String
+    @NotNull
+    version : java.lang.Integer optLock
     personId : java.lang.Long createCol person->id
     equals ::: id
     hashCode ::: id
     toInit ::: person
     isDef ::: phoneNumber
-    toString ::: id person phoneNumber address personId ctype
+    toString ::: id person phoneNumber address personId ctype version
   }
 
   @Model ::: value "SimpleWeb.model.Person", paging true, readMethod "simpleService.loadPeople", createMethod "simpleService.createPeople", updateMethod "simpleService.updatePeople", destroyMethod "simpleService.deletePeople"
@@ -70,13 +72,15 @@ package org.sample.model {
     @NotNull
     gender :: PersonGender required
     ssn : java.lang.String
+    @NotNull
+    version : java.lang.Integer optLock
     @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model ::Contact class
     contacts : java.util.List <:Contact>
     equals ::: id
     hashCode ::: id
     toInit ::: contacts
     isDef ::: dateOfBirth ssn
-    toString ::: dateOfBirth id lastName ssn gender firstName
+    toString ::: dateOfBirth id lastName ssn gender firstName version
   }
 }
 

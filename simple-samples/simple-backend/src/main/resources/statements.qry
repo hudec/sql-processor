@@ -1,7 +1,7 @@
 
 SELECT_PERSON(QRY,final=,inx=PersonForm,outx=Person,tab=person=p,tab=contact=c)=
-  select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn
-         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber }
+  select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn, %p.VERSION @version
+         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version }
   from %%PERSON p
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
   {= where
@@ -31,13 +31,13 @@ INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person,MYSQL)=
 // generated
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
-  insert into %%CONTACT (%ID, %PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER)
-  {= values (:id(seq=SIMPLE_SEQUENCE), :person.id, :ctype, :address, :phoneNumber) }
+  insert into %%CONTACT (%ID, %PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER, %VERSION)
+  {= values (:id(seq=SIMPLE_SEQUENCE), :person.id, :ctype, :address, :phoneNumber, :version) }
 ;
 
 GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
-  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber
-         {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn }
+  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.VERSION @version
+         {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn, %p.VERSION @person.version }
   from %%CONTACT c
   {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
   {= where
@@ -56,9 +56,11 @@ UPDATE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
     { ,%CTYPE = :ctype(call=isDef) }
     { ,%ADDRESS = :address(call=isDef) }
     { ,%PHONE_NUMBER = :phoneNumber(call=isDef) }
+    { ,%VERSION = %VERSION + 1 }
   }
   {= where
     {& %ID = :id(!empty) }
+    {& %VERSION = :version(!empty) }
   }
 ;
 
@@ -66,18 +68,19 @@ DELETE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   delete from %%CONTACT
   {= where
     {& %ID = :id(!empty) }
+    {& %VERSION = :version(!empty) }
   }
 ;
 
 SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
-  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber
-         {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn }
+  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.VERSION @version
+         {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn, %p.VERSION @person.version }
   from %%CONTACT c
   {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
   {= where
     {& %c.ID ::= :id }
     {& %c.PERSON_ID ::= :person.id }
-    {& %c.CTYPE ::= :ctype }
+    {& UPPER(%c.CTYPE) like :+ctype }
     {& UPPER(%c.ADDRESS) like :+address }
     {& %c.PHONE_NUMBER ::= :phoneNumber }
   }
@@ -86,13 +89,13 @@ SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
 ;
 
 INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
-  insert into %%PERSON (%ID, %FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN)
-  {= values (:id(seq=SIMPLE_SEQUENCE), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
+  insert into %%PERSON (%ID, %FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN, %VERSION)
+  {= values (:id(seq=SIMPLE_SEQUENCE), :firstName, :lastName, :dateOfBirth, :gender, :ssn, :version) }
 ;
 
 GET_PERSON(CRUD,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
-  select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn
-         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber }
+  select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn, %p.VERSION @version
+         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version }
   from %%PERSON p
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
   {= where
@@ -113,9 +116,11 @@ UPDATE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
     { ,%DATE_OF_BIRTH = :dateOfBirth(call=isDef) }
     { ,%GENDER = :gender(call=isDef) }
     { ,%SSN = :ssn(call=isDef) }
+    { ,%VERSION = %VERSION + 1 }
   }
   {= where
     {& %ID = :id(!empty) }
+    {& %VERSION = :version(!empty) }
   }
 ;
 
@@ -123,5 +128,6 @@ DELETE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
   delete from %%PERSON
   {= where
     {& %ID = :id(!empty) }
+    {& %VERSION = :version(!empty) }
   }
 ;

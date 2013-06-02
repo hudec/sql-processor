@@ -87,6 +87,9 @@ public class PersonDao {
     }
     SqlCrudEngine sqlUpdateEnginePerson = sqlEngineFactory.getCheckedCrudEngine("UPDATE_PERSON");
     int count = sqlUpdateEnginePerson.update(sqlSession, person, sqlControl);
+    if (count > 0) {
+    	person.setVersion(person.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("update person result count: " + count);
     }
@@ -111,6 +114,9 @@ public class PersonDao {
     }
     SqlCrudEngine sqlDeleteEnginePerson = sqlEngineFactory.getCheckedCrudEngine("DELETE_PERSON");
     int count = sqlDeleteEnginePerson.delete(sqlSession, person, sqlControl);
+    if (count > 0) {
+    	person.setVersion(person.getVersion() + 1);
+    }
     if (logger.isTraceEnabled()) {
       logger.trace("delete person result count: " + count);
     }

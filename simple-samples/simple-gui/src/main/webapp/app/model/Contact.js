@@ -4,9 +4,6 @@ Ext.define("SimpleWeb.model.Contact", {
         name : "id",
         type : "int"
     }, {
-        name : "personId",
-        type : "int"
-    }, {
         name : "ctype",
         type : "string"
     }, {
@@ -15,6 +12,12 @@ Ext.define("SimpleWeb.model.Contact", {
     }, {
         name : "phoneNumber",
         type : "string"
+    }, {
+        name : "version",
+        type : "int"
+    }, {
+        name : "personId",
+        type : "int"
     } ],
     associations : [ {
         type : "belongsTo",
@@ -28,8 +31,11 @@ Ext.define("SimpleWeb.model.Contact", {
         type : "presence",
         field : "ctype"
     }, {
-        type : "presence",
+        type : "notBlank",
         field : "address"
+    }, {
+        type : "presence",
+        field : "version"
     } ],
     proxy : {
         type : "direct",

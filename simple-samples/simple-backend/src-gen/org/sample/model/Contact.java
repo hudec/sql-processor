@@ -119,6 +119,22 @@ public class Contact implements Serializable {
       return this;
     }
   
+    @NotNull
+    private Integer version = 0;
+  
+    public Integer getVersion() {
+      return version;
+    }
+  
+    public void setVersion(Integer version) {
+      this.version = version;
+    }
+  
+    public Contact _setVersion(Integer version) {
+      this.version = version;
+      return this;
+    }
+  
     private Long personId;
   
     public Long getPersonId() {
@@ -289,15 +305,15 @@ public class Contact implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", personId=" + personId + "]";
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", personId=" + personId + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", personId=" + personId + ", ctype=" + ctype + "]";
+    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", personId=" + personId + ", ctype=" + ctype + ", version=" + version + "]";
   }
   
   public enum OpAttribute {
-      id, person, ctype, address, phoneNumber, personId
+      id, person, ctype, address, phoneNumber, version, personId
   }
   
   private Map<String, String> operators = new HashMap<String, String>();
