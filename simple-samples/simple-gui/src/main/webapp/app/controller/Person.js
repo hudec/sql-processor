@@ -176,6 +176,8 @@ Ext.define('SimpleWeb.controller.Person', {
             panel.add(view);
         } else {
             console.log("old details");
+            var store = view.down("gridpanel").getStore();
+            store.loadData(record.contacts().data.items);
         }
 
         // Set title
