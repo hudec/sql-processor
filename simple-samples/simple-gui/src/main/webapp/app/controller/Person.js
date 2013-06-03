@@ -226,6 +226,7 @@ Ext.define('SimpleWeb.controller.Person', {
                     this.doGridRefresh();
                     dialog.close();
                     this.buildDetails(action.result.id);
+                    form.reset()
                 },
                 failure : function(form, action) {
                     console.log(action.result);
@@ -264,8 +265,11 @@ Ext.define('SimpleWeb.controller.Person', {
                     this.doGridRefresh();
                     dialog.close();
                     var person = form.getRecord();
-                    person.set(values);
+                    person.set(values); 
                     this.showDetails(person);
+                    person = form.getRecord();
+                    values.version = action.result.version
+                    person.data = values; 
                 },
                 failure : function(form, action) {
                     console.log(action.result);
@@ -407,6 +411,7 @@ Ext.define('SimpleWeb.controller.Person', {
                 scope : this,
                 success : function(form, action) {
                     this.reloadContacts(dialog, action.result.id);
+                    form.reset()
                 },
                 failure : function(form, action) {
                     console.log(action.result);

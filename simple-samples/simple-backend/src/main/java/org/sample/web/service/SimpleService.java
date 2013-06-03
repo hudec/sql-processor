@@ -20,8 +20,11 @@ import org.sample.web.form.PersonForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.sqlproc.engine.impl.SqlStandardControl;
 
 import ch.ralscha.extdirectspring.annotation.ExtDirectMethod;
@@ -69,6 +72,11 @@ public class SimpleService {
 
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+    }
+
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "person")
     public ExtDirectStoreReadResult<Person> loadPeople(ExtDirectStoreReadRequest request) throws Exception {
         logger.info("listPeople -> " + request);
@@ -104,7 +112,6 @@ public class SimpleService {
     public List<Person> createPeople(List<Person> people) {
         List<Person> result = new ArrayList<Person>();
         for (Person person : people) {
-            person.setSsn(emptyToNull(person.getSsn()));
             Person p = personService.insertPerson(person);
             if (p != null)
                 result.add(p);
@@ -116,7 +123,6 @@ public class SimpleService {
     public List<Person> updatePeople(List<Person> people) {
         List<Person> result = new ArrayList<Person>();
         for (Person person : people) {
-            person.setSsn(emptyToNull(person.getSsn()));
             Person p = personService.updatePerson(person);
             if (p != null)
                 result.add(p);
@@ -135,7 +141,6 @@ public class SimpleService {
     public ExtDirectFormPostResult createPerson(@Valid Person person, BindingResult result) {
         Person resultPerson = null;
         if (!result.hasErrors()) {
-            person.setSsn(emptyToNull(person.getSsn()));
             resultPerson = personService.insertPerson(person);
         }
         ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
@@ -149,13 +154,13 @@ public class SimpleService {
     public ExtDirectFormPostResult updatePerson(@Valid Person person, BindingResult result) {
         Person resultPerson = null;
         if (!result.hasErrors()) {
-            person.setSsn(emptyToNull(person.getSsn()));
             resultPerson = personService.updatePerson(person);
         }
         ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
         if (resultPerson == null)
             throw new RuntimeException("The record has been in the meantime modified");
         postResult.addResultProperty("id", resultPerson.getId());
+        postResult.addResultProperty("version", resultPerson.getVersion());
         return postResult;
     }
 
@@ -196,7 +201,6 @@ public class SimpleService {
     public List<Contact> createContacts(List<Contact> contacts) {
         List<Contact> result = new ArrayList<Contact>();
         for (Contact contact : contacts) {
-            contact.setPhoneNumber(emptyToNull(contact.getPhoneNumber()));
             Contact c = contactService.insertContact(contact);
             if (c != null)
                 result.add(c);
@@ -208,7 +212,6 @@ public class SimpleService {
     public List<Contact> updateContacts(List<Contact> contacts) {
         List<Contact> result = new ArrayList<Contact>();
         for (Contact contact : contacts) {
-            contact.setPhoneNumber(emptyToNull(contact.getPhoneNumber()));
             Contact c = contactService.updateContact(contact);
             if (c != null)
                 result.add(c);
@@ -227,7 +230,6 @@ public class SimpleService {
     public ExtDirectFormPostResult createContact(@Valid Contact contact, BindingResult result) {
         Contact resultContact = null;
         if (!result.hasErrors()) {
-            contact.setPhoneNumber(emptyToNull(contact.getPhoneNumber()));
             resultContact = contactService.insertContact(contact);
         }
         ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
@@ -241,7 +243,6 @@ public class SimpleService {
     public ExtDirectFormPostResult updateContact(@Valid Contact contact, BindingResult result) {
         Contact resultContact = null;
         if (!result.hasErrors()) {
-            contact.setPhoneNumber(emptyToNull(contact.getPhoneNumber()));
             resultContact = contactService.updateContact(contact);
         }
         ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
@@ -265,14 +266,6 @@ public class SimpleService {
             postResult.addResultProperty("id", resultContact.getId());
         }
         return postResult;
-    }
-
-    private String emptyToNull(String s) {
-        if (s == null)
-            return s;
-        if (s.trim().length() == 0)
-            return null;
-        return s;
     }
 
     private PersonForm buildPersonFormFromFilters(List<Filter> filters) throws Exception {

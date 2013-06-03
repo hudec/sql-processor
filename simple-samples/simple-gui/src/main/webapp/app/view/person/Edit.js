@@ -55,18 +55,21 @@ Ext.define('SimpleWeb.view.person.Edit', {
                     xtype : 'textfield',
                     itemId : 'firstName',
                     name : 'firstName',
-                    fieldLabel : 'First Name'
+                    fieldLabel : 'First Name',
+                    allowBlank : false
                 }, {
                     xtype : 'textfield',
                     itemId : 'lastName',
                     name : 'lastName',
-                    fieldLabel : 'Last Name'
+                    fieldLabel : 'Last Name',
+                    allowBlank : false
                 }, {
                     xtype : 'datefield',
                     format : 'd.m.Y',
                     itemId : 'dateOfBirth',
                     name : 'dateOfBirth',
-                    fieldLabel : 'Date of Birth'
+                    fieldLabel : 'Date of Birth',
+                    maxValue : new Date()
                 }, {
                     xtype : 'textfield',
                     itemId : 'ssn',
@@ -78,7 +81,8 @@ Ext.define('SimpleWeb.view.person.Edit', {
                     name : 'gender',
                     fieldLabel : 'Gender',
                     editable : false,
-                    store : [ 'MALE', 'FEMALE' ]
+                    store : [ 'MALE', 'FEMALE' ],
+                    allowBlank : false
                 } ]
             } ],
             dockedItems : [ {
