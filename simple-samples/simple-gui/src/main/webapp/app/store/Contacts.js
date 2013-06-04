@@ -4,5 +4,5 @@ Ext.define('SimpleWeb.store.Contacts', {
     autoLoad : false,
     remoteSort : false,
     pageSize : 30,
-    autoSync : true,
+    autoSync : false,
 });

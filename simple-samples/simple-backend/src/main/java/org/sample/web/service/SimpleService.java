@@ -108,7 +108,8 @@ public class SimpleService {
         return result;
     }
 
-    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    // @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    @Deprecated
     public List<Person> createPeople(List<Person> people) {
         List<Person> result = new ArrayList<Person>();
         for (Person person : people) {
@@ -119,7 +120,8 @@ public class SimpleService {
         return result;
     }
 
-    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    // @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    @Deprecated
     public List<Person> updatePeople(List<Person> people) {
         List<Person> result = new ArrayList<Person>();
         for (Person person : people) {
@@ -130,7 +132,8 @@ public class SimpleService {
         return result;
     }
 
-    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    // @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    @Deprecated
     public void deletePeople(List<Person> people) {
         for (Person person : people) {
             personService.deletePerson(person);
@@ -197,7 +200,8 @@ public class SimpleService {
         return result;
     }
 
-    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    // @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    @Deprecated
     public List<Contact> createContacts(List<Contact> contacts) {
         List<Contact> result = new ArrayList<Contact>();
         for (Contact contact : contacts) {
@@ -208,7 +212,8 @@ public class SimpleService {
         return result;
     }
 
-    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    // @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    @Deprecated
     public List<Contact> updateContacts(List<Contact> contacts) {
         List<Contact> result = new ArrayList<Contact>();
         for (Contact contact : contacts) {
@@ -219,7 +224,8 @@ public class SimpleService {
         return result;
     }
 
-    @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    // @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
+    @Deprecated
     public void deleteContacts(List<Contact> contacts) {
         for (Contact contact : contacts) {
             contactService.deleteContact(contact);

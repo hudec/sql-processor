@@ -17,7 +17,7 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
-@Model(value = "SimpleWeb.model.Contact", paging = true, readMethod = "simpleService.loadContacts", createMethod = "simpleService.createContacts", updateMethod = "simpleService.updateContacts", destroyMethod = "simpleService.deleteContacts")
+@Model(value = "SimpleWeb.model.Contact", paging = true, readMethod = "simpleService.loadContacts")
 public class Contact implements Serializable {
   
   private static final long serialVersionUID = 1L;

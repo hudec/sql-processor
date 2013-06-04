@@ -41,9 +41,9 @@ Ext.define("SimpleWeb.model.Contact", {
         type : "direct",
         api : {
             read : simpleService.loadContacts,
-            create : simpleService.createContacts,
-            update : simpleService.updateContacts,
-            destroy : simpleService.deleteContacts
+        // create : simpleService.createContacts,
+        // update : simpleService.updateContacts,
+        // destroy : simpleService.deleteContacts
         },
         reader : {
             root : "records"
