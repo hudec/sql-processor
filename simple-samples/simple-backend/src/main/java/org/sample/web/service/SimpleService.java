@@ -157,6 +157,8 @@ public class SimpleService {
     public ExtDirectFormPostResult updatePerson(@Valid Person person, BindingResult result) {
         Person resultPerson = null;
         if (!result.hasErrors()) {
+            person.setNull(Person.Attribute.ssn);
+            person.setNull(Person.Attribute.dateOfBirth);
             resultPerson = personService.updatePerson(person);
         }
         ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
@@ -249,12 +251,14 @@ public class SimpleService {
     public ExtDirectFormPostResult updateContact(@Valid Contact contact, BindingResult result) {
         Contact resultContact = null;
         if (!result.hasErrors()) {
+            contact.setNull(Contact.Attribute.phoneNumber);
             resultContact = contactService.updateContact(contact);
         }
         ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
         if (resultContact == null)
             throw new RuntimeException("The record has been in the meantime modified");
         postResult.addResultProperty("id", resultContact.getId());
+        postResult.addResultProperty("version", resultContact.getVersion());
         return postResult;
     }
 
