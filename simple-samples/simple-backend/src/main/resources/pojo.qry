@@ -35,7 +35,8 @@ package org.sample.model {
   pojo Contact serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model ::Person class
-    @NotNull
+    //@NotNull
+    @JsonIgnore
     person :: Person updateCol id->personId required index 2
     @ModelField ::: type :ModelType STRING
     @NotNull

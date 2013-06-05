@@ -51,7 +51,7 @@ public class Contact implements Serializable {
     }
   
     @ModelAssociation(value = ModelAssociationType.BELONGS_TO, model = Person.class)
-    @NotNull
+    @JsonIgnore
     private Person person;
   
     public Person getPerson() {
