@@ -30,6 +30,7 @@ Ext.define('SimpleWeb.view.person.Add', {
         Ext.applyIf(me, {
             items : [ {
                 xtype : 'form',
+                itemId : 'person_add_form',
                 bodyPadding : 10,
                 header : false,
                 title : 'Personal Data',

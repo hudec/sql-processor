@@ -30,6 +30,7 @@ Ext.define('SimpleWeb.view.contact.Edit', {
         Ext.applyIf(me, {
             items : [ {
                 xtype : 'form',
+                itemId : 'contact_form',
                 bodyPadding : 10,
                 header : false,
                 title : 'Contact Data',

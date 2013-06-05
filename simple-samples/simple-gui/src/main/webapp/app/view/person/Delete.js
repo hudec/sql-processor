@@ -30,6 +30,7 @@ Ext.define('SimpleWeb.view.person.Delete', {
         Ext.applyIf(me, {
             items : [ {
                 xtype : 'form',
+                itemId : 'person_delete_form',
                 bodyPadding : 10,
                 header : false,
                 title : 'Personal Data',

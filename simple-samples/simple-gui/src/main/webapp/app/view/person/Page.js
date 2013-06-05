@@ -40,6 +40,7 @@ Ext.define('SimpleWeb.view.person.Page', {
                     title : 'Person Selection',
                     dockedItems : [ {
                         xtype : 'toolbar',
+                        itemId : 'person_toolbar',
                         dock : 'top',
                         cls : 'line',
                         items : [ {

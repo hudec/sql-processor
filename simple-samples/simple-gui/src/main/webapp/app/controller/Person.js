@@ -87,6 +87,9 @@ Ext.define('SimpleWeb.controller.Person', {
             },
             "#refresh_person_detail" : {
                 click : this.onRefreshPersonDetailClick
+            },
+            "form > textfield" : {
+                render : this.addDblClickEvent
             }
         });
     },
@@ -176,7 +179,7 @@ Ext.define('SimpleWeb.controller.Person', {
             panel.add(view);
         } else {
             console.log("old details");
-            var store = view.down("gridpanel").getStore();
+            var store = view.down("#contact_list").getStore();
             store.loadData(record.contacts().data.items);
         }
 
@@ -214,19 +217,20 @@ Ext.define('SimpleWeb.controller.Person', {
 
     onAcceptAddPersonClick : function(button, e, eOpts) {
         console.log("onAcceptAddPersonClick");
+
         var dialog = Ext.getCmp("PersonAdd");
-        var form = dialog.down("form");
+        var form = dialog.down("#person_add_form");
         var values = form.getValues();
 
         if (form.isValid()) {
             console.log(values);
             form.submit({
+                reset : true,
                 scope : this,
                 success : function(form, action) {
                     this.doGridRefresh();
-                    dialog.close();
                     this.buildDetails(action.result.id);
-                    form.reset();
+                    dialog.close();
                 },
                 failure : function(form, action) {
                     console.log(action.result);
@@ -239,7 +243,7 @@ Ext.define('SimpleWeb.controller.Person', {
     onModifyPersonClick : function(button, e, eOpts) {
         console.log("onModifyPersonClick");
         var dialog = Ext.getCmp("PersonModify");
-        var form = dialog.down("form");
+        var form = dialog.down("#person_edit_form");
         var el = button;
 
         while (el = el.up()) {
@@ -254,7 +258,7 @@ Ext.define('SimpleWeb.controller.Person', {
     onAcceptModifyPersonClick : function(button, e, eOpts) {
         console.log("onAcceptModifyPersonClick");
         var dialog = Ext.getCmp("PersonModify");
-        var form = dialog.down("form");
+        var form = dialog.down("#person_edit_form");
         var values = form.getValues();
 
         if (form.isValid()) {
@@ -265,7 +269,7 @@ Ext.define('SimpleWeb.controller.Person', {
                     this.doGridRefresh();
                     dialog.close();
                     var person = form.getRecord();
-                    person.set(values); 
+                    person.set(values);
                     person.data.version = action.result.version;
                     this.showDetails(person);
                 },
@@ -280,7 +284,7 @@ Ext.define('SimpleWeb.controller.Person', {
     onDeletePersonClick : function(button, e, eOpts) {
         console.log("onDeletePersonClick");
         var dialog = Ext.getCmp("PersonDelete");
-        var form = dialog.down("form");
+        var form = dialog.down("#person_delete_form");
         var el = button;
 
         while (el = el.up()) {
@@ -295,7 +299,7 @@ Ext.define('SimpleWeb.controller.Person', {
     onAcceptDeletePersonClick : function(button, e, eOpts) {
         console.log("onAcceptDeletePersonClick");
         var dialog = Ext.getCmp("PersonDelete");
-        var form = dialog.down("form");
+        var form = dialog.down("#person_delete_form");
         var values = form.getValues();
 
         console.log(values);
@@ -322,7 +326,7 @@ Ext.define('SimpleWeb.controller.Person', {
     onAcceptSearchPersonClick : function(button) {
         console.log("onAcceptSearchPersonClick");
         var dialog = Ext.getCmp("PersonSearch");
-        var form = dialog.down('form');
+        var form = dialog.down('#person_search_form');
         var store = this.getStore("People");
         console.log(form.getValues());
 
@@ -351,7 +355,7 @@ Ext.define('SimpleWeb.controller.Person', {
     doGridRefresh : function() {
         console.log("doGridRefresh");
         var panel = Ext.getCmp("PersonRegistry");
-        var list = panel.down('pagingtoolbar');
+        var list = panel.down('#person_toolbar');
         list.doRefresh();
     },
 
@@ -360,7 +364,7 @@ Ext.define('SimpleWeb.controller.Person', {
         if (panel) {
             var storeId = panel.getItemId();
             if (record) {
-                dialog.down("form").loadRecord(record);
+                dialog.down("#contact_form").loadRecord(record);
             }
             dialog.down("#person_id").setValue(storeId);
             dialog.down("#personId").setValue(storeId.substring(6));
@@ -393,7 +397,7 @@ Ext.define('SimpleWeb.controller.Person', {
     onAddContactClick : function(button, e, eOpts) {
         console.log("onAddContactClick");
         var dialog = Ext.getCmp("ContactAdd");
-        var panel = button.up('panel').up('panel');
+        var panel = Ext.getCmp("PersonRegistry").getActiveTab();
         this.showContactDialog(panel, dialog);
     },
 
@@ -407,9 +411,9 @@ Ext.define('SimpleWeb.controller.Person', {
             console.log(values);
             form.submit({
                 scope : this,
+                reset : true,
                 success : function(form, action) {
                     this.reloadContacts(dialog, action.result.id);
-                    form.reset();
                 },
                 failure : function(form, action) {
                     console.log(action.result);
@@ -424,21 +428,21 @@ Ext.define('SimpleWeb.controller.Person', {
         var dialog = Ext.getCmp("ContactModify");
         var grid = button.up("panel").down("gridpanel");
         var record = grid.getSelectionModel().getSelection()[0];
-        var panel = button.up('panel').up('panel');
+        var panel = Ext.getCmp("PersonRegistry").getActiveTab();
         this.showContactDialog(panel, dialog, record);
     },
 
     onContactListDblClick : function(dataview, record, item, index, e, eOpts) {
         console.log("onContactListDoubleClick");
         var dialog = Ext.getCmp("ContactModify");
-        var panel = dataview.up('panel').up('panel').up('panel');
+        var panel = Ext.getCmp("PersonRegistry").getActiveTab();
         this.showContactDialog(panel, dialog, record);
     },
 
     onAcceptModifyContactClick : function(button, e, eOpts) {
         console.log("onAcceptModifyContactClick");
         var dialog = Ext.getCmp("ContactModify");
-        var form = dialog.down("form");
+        var form = dialog.down("#contact_form");
         var values = form.getValues();
 
         if (form.isValid()) {
@@ -462,16 +466,16 @@ Ext.define('SimpleWeb.controller.Person', {
     onDeleteContactClick : function(button, e, eOpts) {
         console.log("onDeleteContactClick");
         var dialog = Ext.getCmp("ContactDelete");
-        var grid = button.up("panel").down("gridpanel");
+        var panel = Ext.getCmp("PersonRegistry").getActiveTab();
+        var grid = panel.down("#contact_list");
         var record = grid.getSelectionModel().getSelection()[0];
-        var panel = button.up('panel').up('panel');
         this.showContactDialog(panel, dialog, record);
     },
 
     onAcceptDeleteContactClick : function(button, e, eOpts) {
         console.log("onAcceptDeleteContactClick");
         var dialog = Ext.getCmp("ContactDelete");
-        var form = dialog.down("form");
+        var form = dialog.down("#contact_form");
         var values = form.getValues();
 
         console.log(values);
@@ -496,7 +500,7 @@ Ext.define('SimpleWeb.controller.Person', {
     onRefreshPersonClick : function(button, e, eOpts) {
         console.log("onRefreshPersonClick");
         var dialog = Ext.getCmp("PersonSearch");
-        var form = dialog.down('form');
+        var form = dialog.down('#person_search_form');
         var store = this.getStore("People");
         console.log(form.getValues());
 
@@ -508,5 +512,16 @@ Ext.define('SimpleWeb.controller.Person', {
             scope : this
         });
         dialog.close();
+    },
+
+    addDblClickEvent : function(textfield, e, eOpts) {
+        textfield.getEl().on('dblclick',
+                Ext.bind(this.onTextfieldClick, this, [ textfield ], true));
+    },
+
+    onTextfieldClick : function(event, html, opt, textfield) {
+        if (html instanceof HTMLLabelElement) {
+            textfield.reset();
+        }
     }
 });
