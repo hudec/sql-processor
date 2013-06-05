@@ -223,17 +223,20 @@ Ext.define('SimpleWeb.controller.Person', {
         var values = form.getValues();
 
         if (form.isValid()) {
+            button.disable();
             console.log(values);
             form.submit({
-                reset : true,
                 scope : this,
                 success : function(form, action) {
                     this.doGridRefresh();
                     this.buildDetails(action.result.id);
                     dialog.close();
+                    form.reset();
+                    button.enable();
                 },
                 failure : function(form, action) {
                     console.log(action.result);
+                    button.enable();
                 }
 
             });
@@ -262,6 +265,7 @@ Ext.define('SimpleWeb.controller.Person', {
         var values = form.getValues();
 
         if (form.isValid()) {
+            button.disable();
             console.log(values);
             form.submit({
                 scope : this,
@@ -272,9 +276,11 @@ Ext.define('SimpleWeb.controller.Person', {
                     person.set(values);
                     person.data.version = action.result.version;
                     this.showDetails(person);
+                    button.enable();
                 },
                 failure : function(form, action) {
                     console.log(action.result);
+                    button.enable();
                 }
 
             });
@@ -303,6 +309,7 @@ Ext.define('SimpleWeb.controller.Person', {
         var values = form.getValues();
 
         console.log(values);
+        button.disable();
         form.submit({
             scope : this,
             success : function(form, action) {
@@ -311,9 +318,11 @@ Ext.define('SimpleWeb.controller.Person', {
                 var panel = Ext.getCmp("PersonRegistry");
                 var view = panel.child("#person" + values.id);
                 view.close();
+                button.enable();
             },
             failure : function(form, action) {
                 console.log(action.result);
+                button.enable();
             }
         });
     },
@@ -372,10 +381,11 @@ Ext.define('SimpleWeb.controller.Person', {
         }
     },
 
-    reloadContacts : function(dialog, id) {
+    reloadContacts : function(dialog, id, button) {
         console.log("reloadContacts ", dialog, id);
         var storeId = dialog.down("#person_id").getValue();
         var personId = dialog.down("#personId").getValue();
+
         var store = Ext.data.StoreManager.lookup(storeId);
         var person = store.first();
         person.contacts().load({
@@ -388,6 +398,7 @@ Ext.define('SimpleWeb.controller.Person', {
                     console.log(records);
                     person.contacts().add(records);
                     dialog.close();
+                    button.enable();
                 }
             },
             scope : this
@@ -404,19 +415,21 @@ Ext.define('SimpleWeb.controller.Person', {
     onAcceptAddContactClick : function(button, e, eOpts) {
         console.log("onAcceptAddContactClick");
         var dialog = Ext.getCmp("ContactAdd");
-        var form = dialog.down("form");
+        var form = dialog.down("#contact_form");
         var values = form.getValues();
 
         if (form.isValid()) {
+            button.disable();
             console.log(values);
             form.submit({
                 scope : this,
-                reset : true,
                 success : function(form, action) {
-                    this.reloadContacts(dialog, action.result.id);
+                    this.reloadContacts(dialog, action.result.id, button);
+                    form.reset();
                 },
                 failure : function(form, action) {
                     console.log(action.result);
+                    button.enable();
                 }
 
             });
@@ -426,9 +439,9 @@ Ext.define('SimpleWeb.controller.Person', {
     onModifyContactClick : function(button, e, eOpts) {
         console.log("onModifyContactClick");
         var dialog = Ext.getCmp("ContactModify");
-        var grid = button.up("panel").down("gridpanel");
-        var record = grid.getSelectionModel().getSelection()[0];
         var panel = Ext.getCmp("PersonRegistry").getActiveTab();
+        var grid = panel.down("#contact_list");
+        var record = grid.getSelectionModel().getSelection()[0];
         this.showContactDialog(panel, dialog, record);
     },
 
@@ -446,21 +459,26 @@ Ext.define('SimpleWeb.controller.Person', {
         var values = form.getValues();
 
         if (form.isValid()) {
+            button.disable();
             console.log(values);
             form.submit({
                 scope : this,
                 success : function(form, action) {
-                    this.reloadContacts(dialog, action.result.id);
+                    this.reloadContacts(dialog, action.result.id, button);
                     var contact = form.getRecord();
                     contact.set(values);
                     contact.data.version = action.result.version;
+                    form.loadRecord(contact);
                 },
                 failure : function(form, action) {
                     console.log(action.result);
+                    button.enable();
                 }
 
             });
         }
+        this.toggleContactEditButton(false);
+        this.toggleContactDeleteButton(false);
     },
 
     onDeleteContactClick : function(button, e, eOpts) {
@@ -478,14 +496,16 @@ Ext.define('SimpleWeb.controller.Person', {
         var form = dialog.down("#contact_form");
         var values = form.getValues();
 
+        button.enable();
         console.log(values);
         form.submit({
             scope : this,
             success : function(form, action) {
-                this.reloadContacts(dialog, values.id);
+                this.reloadContacts(dialog, values.id, button);
             },
             failure : function(form, action) {
                 console.log(action.result);
+                button.enable();
             }
         });
         this.toggleContactEditButton(false);
