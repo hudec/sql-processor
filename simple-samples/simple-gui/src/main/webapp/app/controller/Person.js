@@ -399,10 +399,24 @@ Ext.define('SimpleWeb.controller.Person', {
                     person.contacts().add(records);
                     dialog.close();
                     button.enable();
+                    this.markLastSelectedContactRow();
                 }
             },
             scope : this
         });
+
+    },
+
+    markLastSelectedContactRow : function() {
+        var grid = Ext.getCmp("PersonRegistry").getActiveTab().down(
+                "#contact_list");
+        var index = grid.getStore().indexOf(
+                grid.getSelectionModel().getLastSelected());
+        if (index) {
+            grid.getSelectionModel().select(index);
+        } else {
+            grid.getSelectionModel().deselectAll();
+        }
     },
 
     onAddContactClick : function(button, e, eOpts) {
@@ -469,6 +483,7 @@ Ext.define('SimpleWeb.controller.Person', {
                     contact.set(values);
                     contact.data.version = action.result.version;
                     form.loadRecord(contact);
+
                 },
                 failure : function(form, action) {
                     console.log(action.result);
@@ -477,8 +492,6 @@ Ext.define('SimpleWeb.controller.Person', {
 
             });
         }
-        this.toggleContactEditButton(false);
-        this.toggleContactDeleteButton(false);
     },
 
     onDeleteContactClick : function(button, e, eOpts) {
