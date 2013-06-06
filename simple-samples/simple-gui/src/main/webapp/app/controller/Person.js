@@ -412,11 +412,7 @@ Ext.define('SimpleWeb.controller.Person', {
                 "#contact_list");
         var index = grid.getStore().indexOf(
                 grid.getSelectionModel().getLastSelected());
-        if (index) {
-            grid.getSelectionModel().select(index);
-        } else {
-            grid.getSelectionModel().deselectAll();
-        }
+        grid.getSelectionModel().select(index);
     },
 
     onAddContactClick : function(button, e, eOpts) {
