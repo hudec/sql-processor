@@ -61,13 +61,13 @@ public class Contact implements Serializable {
     public void setPerson(Person person) {
       this.person = person;
       if (this.person != null)
-        this.personId = this.person.getId(); 
+        this.personId = this.person.getId();
     }
   
     public Contact _setPerson(Person person) {
       this.person = person;
       if (this.person != null)
-        this.personId = this.person.getId(); 
+        this.personId = this.person.getId();
       return this;
     }
   
@@ -165,7 +165,7 @@ public class Contact implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Contact other = (Contact) obj;
-    if (!id.equals(other.id))
+    if (id == null || !id.equals(other.id))
       return false;
     return true;
   }  
