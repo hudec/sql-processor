@@ -222,24 +222,30 @@ Ext.define('SimpleWeb.controller.Person', {
         var form = dialog.down("#person_add_form");
         var values = form.getValues();
 
-        if (form.isValid()) {
-            button.disable();
-            console.log(values);
-            form.submit({
-                scope : this,
-                success : function(form, action) {
-                    this.doGridRefresh();
-                    this.buildDetails(action.result.id);
-                    dialog.close();
-                    form.reset();
-                    button.enable();
-                },
-                failure : function(form, action) {
-                    console.log(action.result);
-                    button.enable();
-                }
+        try {
+            if (form.isValid()) {
+                button.disable();
+                console.log(values);
+                form.submit({
+                    scope : this,
+                    success : function(form, action) {
+                        this.doGridRefresh();
+                        this.buildDetails(action.result.id);
+                        dialog.close();
+                        form.reset();
+                        button.enable();
+                    },
+                    failure : function(form, action) {
+                        console.log(action.result);
+                        button.enable();
+                    }
 
-            });
+                });
+            }
+        } catch (e) {
+            console.error(e.message);
+            Ext.Msg.alert('Error', 'Unable to connect to the server.');
+            button.enable();
         }
     },
 
@@ -264,26 +270,32 @@ Ext.define('SimpleWeb.controller.Person', {
         var form = dialog.down("#person_edit_form");
         var values = form.getValues();
 
-        if (form.isValid()) {
-            button.disable();
-            console.log(values);
-            form.submit({
-                scope : this,
-                success : function(form, action) {
-                    this.doGridRefresh();
-                    dialog.close();
-                    var person = form.getRecord();
-                    person.set(values);
-                    person.data.version = action.result.version;
-                    this.showDetails(person);
-                    button.enable();
-                },
-                failure : function(form, action) {
-                    console.log(action.result);
-                    button.enable();
-                }
+        try {
+            if (form.isValid()) {
+                button.disable();
+                console.log(values);
+                form.submit({
+                    scope : this,
+                    success : function(form, action) {
+                        this.doGridRefresh();
+                        dialog.close();
+                        var person = form.getRecord();
+                        person.set(values);
+                        person.data.version = action.result.version;
+                        this.showDetails(person);
+                        button.enable();
+                    },
+                    failure : function(form, action) {
+                        console.log(action.result);
+                        button.enable();
+                    }
 
-            });
+                });
+            }
+        } catch (e) {
+            console.error(e.message);
+            Ext.Msg.alert('Error', 'Unable to connect to the server.');
+            button.enable();
         }
     },
 
@@ -310,21 +322,28 @@ Ext.define('SimpleWeb.controller.Person', {
 
         console.log(values);
         button.disable();
-        form.submit({
-            scope : this,
-            success : function(form, action) {
-                this.doGridRefresh();
-                dialog.close();
-                var panel = Ext.getCmp("PersonRegistry");
-                var view = panel.child("#person" + values.id);
-                view.close();
-                button.enable();
-            },
-            failure : function(form, action) {
-                console.log(action.result);
-                button.enable();
-            }
-        });
+
+        try {
+            form.submit({
+                scope : this,
+                success : function(form, action) {
+                    this.doGridRefresh();
+                    dialog.close();
+                    var panel = Ext.getCmp("PersonRegistry");
+                    var view = panel.child("#person" + values.id);
+                    view.close();
+                    button.enable();
+                },
+                failure : function(form, action) {
+                    console.log(action.result);
+                    button.enable();
+                }
+            });
+        } catch (e) {
+            console.error(e.message);
+            Ext.Msg.alert('Error', 'Unable to connect to the server.');
+            button.enable();
+        }
     },
 
     onSearchPersonClick : function() {
@@ -428,21 +447,27 @@ Ext.define('SimpleWeb.controller.Person', {
         var form = dialog.down("#contact_form");
         var values = form.getValues();
 
-        if (form.isValid()) {
-            button.disable();
-            console.log(values);
-            form.submit({
-                scope : this,
-                success : function(form, action) {
-                    this.reloadContacts(dialog, action.result.id, button);
-                    form.reset();
-                },
-                failure : function(form, action) {
-                    console.log(action.result);
-                    button.enable();
-                }
+        try {
+            if (form.isValid()) {
+                button.disable();
+                console.log(values);
+                form.submit({
+                    scope : this,
+                    success : function(form, action) {
+                        this.reloadContacts(dialog, action.result.id, button);
+                        form.reset();
+                    },
+                    failure : function(form, action) {
+                        console.log(action.result);
+                        button.enable();
+                    }
 
-            });
+                });
+            }
+        } catch (e) {
+            console.error(e.message);
+            Ext.Msg.alert('Error', 'Unable to connect to the server.');
+            button.enable();
         }
     },
 
@@ -468,25 +493,31 @@ Ext.define('SimpleWeb.controller.Person', {
         var form = dialog.down("#contact_form");
         var values = form.getValues();
 
-        if (form.isValid()) {
-            button.disable();
-            console.log(values);
-            form.submit({
-                scope : this,
-                success : function(form, action) {
-                    this.reloadContacts(dialog, action.result.id, button);
-                    var contact = form.getRecord();
-                    contact.set(values);
-                    contact.data.version = action.result.version;
-                    form.loadRecord(contact);
+        try {
+            if (form.isValid()) {
+                button.disable();
+                console.log(values);
+                form.submit({
+                    scope : this,
+                    success : function(form, action) {
+                        this.reloadContacts(dialog, action.result.id, button);
+                        var contact = form.getRecord();
+                        contact.set(values);
+                        contact.data.version = action.result.version;
+                        form.loadRecord(contact);
 
-                },
-                failure : function(form, action) {
-                    console.log(action.result);
-                    button.enable();
-                }
+                    },
+                    failure : function(form, action) {
+                        console.log(action.result);
+                        button.enable();
+                    }
 
-            });
+                });
+            }
+        } catch (e) {
+            console.error(e.message);
+            Ext.Msg.alert('Error', 'Unable to connect to the server.');
+            button.enable();
         }
     },
 
@@ -505,20 +536,26 @@ Ext.define('SimpleWeb.controller.Person', {
         var form = dialog.down("#contact_form");
         var values = form.getValues();
 
-        button.enable();
+        button.disable();
         console.log(values);
-        form.submit({
-            scope : this,
-            success : function(form, action) {
-                this.reloadContacts(dialog, values.id, button);
-            },
-            failure : function(form, action) {
-                console.log(action.result);
-                button.enable();
-            }
-        });
-        this.toggleContactEditButton(false);
-        this.toggleContactDeleteButton(false);
+        try {
+            form.submit({
+                scope : this,
+                success : function(form, action) {
+                    this.reloadContacts(dialog, values.id, button);
+                    this.toggleContactEditButton(false);
+                    this.toggleContactDeleteButton(false);
+                },
+                failure : function(form, action) {
+                    console.log(action.result);
+                    button.enable();
+                }
+            });
+        } catch (e) {
+            console.error(e.message);
+            Ext.Msg.alert('Error', 'Unable to connect to the server.');
+            button.enable();
+        }
     },
 
     onClearDialogClick : function(button, e, eOpts) {
