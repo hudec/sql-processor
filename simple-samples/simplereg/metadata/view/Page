@@ -1,0 +1,71 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Page",
+        "designer|initialView": true,
+        "layout": "fit"
+    },
+    "designerId": "eb94b73e-9fa6-4570-af75-515759fd5547",
+    "cn": [
+        {
+            "type": "Ext.tab.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "frame": null,
+                "id": "PersonRegistry",
+                "margin": null,
+                "frameHeader": null,
+                "header": false,
+                "manageHeight": false,
+                "title": "Simple Person Registry",
+                "activeTab": 0,
+                "plain": true,
+                "tabPosition": null
+            },
+            "designerId": "70bd3d29-f50e-4729-925e-e4db4a46e7bb",
+            "cn": [
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "frame": null,
+                        "itemId": "person_selection",
+                        "margin": null,
+                        "title": null
+                    },
+                    "designerId": "8d9adb5c-7606-4840-abd2-d9ebe77f06b7",
+                    "masterInstanceId": "1d93de59-655f-49ba-8188-a2c1b5aa2445",
+                    "cn": [
+                        {
+                            "type": "Ext.tab.Tab",
+                            "reference": {
+                                "name": "tabConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|margins": null,
+                                "designer|displayName": "TabConfig",
+                                "closable": false
+                            },
+                            "designerId": "71615f03-b25d-44b0-8a60-1622f3fd6327"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

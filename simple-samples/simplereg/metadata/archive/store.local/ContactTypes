@@ -1,0 +1,49 @@
+{
+    "type": "arraystore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "storeId": "MyArrayStore",
+        "designer|userClassName": "ContactTypes",
+        "data": [
+            "[",
+            "    { value: \"HOME\", text: \"Home\" },",
+            "    { value: \"BUSINESS\", text: \"Business\" },",
+            "    { value: \"ABROAD\", text: \"Abroad\" }",
+            "]"
+        ]
+    },
+    "designerId": "34a61b18-2bcf-47cc-8582-cb211a35f05f",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "defaultValue": null,
+                "name": "value",
+                "type": "string"
+            },
+            "designerId": "b75557a9-91a0-4ff6-80a4-46981b77b382"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "text",
+                "type": "string"
+            },
+            "designerId": "0978852f-3614-40c5-ab5c-f3a7d763ff01"
+        }
+    ]
+}

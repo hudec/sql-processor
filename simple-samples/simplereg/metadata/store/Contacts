@@ -1,0 +1,60 @@
+{
+    "type": "directstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "model": "Contact",
+        "storeId": "ContactsStore",
+        "designer|userClassName": "Contacts",
+        "pageSize": 25
+    },
+    "designerId": "f041d596-7bea-4d5b-8365-7c8fc9f6927f",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Direct",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Proxy",
+                "api": [
+                    "{ read: \"simpleService.loadContacts\" }"
+                ]
+            },
+            "designerId": "6e890acd-09b5-4bbc-8986-59247ab258e2",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "records",
+                        "designer|displayName": "Reader"
+                    },
+                    "designerId": "28e1b5aa-fca2-4b1b-8668-3d7277a36455"
+                }
+            ]
+        },
+        {
+            "type": "Ext.util.Sorter",
+            "reference": {
+                "name": "sorters",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "property": "address",
+                "designer|displayName": "AdressSorter"
+            },
+            "designerId": "3145940b-228c-47bb-b5f8-70b7636a4434"
+        }
+    ]
+}

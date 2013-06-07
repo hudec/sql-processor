@@ -1,0 +1,56 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Page",
+        "designer|initialView": true,
+        "layout": "fit"
+    },
+    "designerId": "970cd68c-e17a-4b51-8e62-09969ddcd371",
+    "cn": [
+        {
+            "type": "Ext.tab.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Registry",
+                "plain": true,
+                "tabPosition": "left"
+            },
+            "designerId": "472d458f-54f1-4272-987b-1cec81f436a0",
+            "cn": [
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "designerId": "dd8211dd-3584-40f6-b00a-83c90305a0dc",
+                    "masterInstanceId": "134096ea-1e21-4b2e-96fd-6dc39e76dedd",
+                    "cn": [
+                        {
+                            "type": "Ext.tab.Tab",
+                            "reference": {
+                                "name": "tabConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "TabConfig"
+                            },
+                            "designerId": "14eefd00-8cd3-407d-b6d3-e8b7c874b899"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

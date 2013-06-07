@@ -1,0 +1,13 @@
+{
+    "type": "jsresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "js2",
+        "url": "http://simple-backend.cloudfoundry.com/api-debug.js?fullRouterUrl=true"
+    },
+    "designerId": "e3b1daae-f754-4670-ac95-ed30a32d1b5b"
+}
