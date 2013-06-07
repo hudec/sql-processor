@@ -358,6 +358,9 @@ Ext.define('SimpleWeb.controller.Person', {
         var store = this.getStore("People");
         console.log(form.getValues());
 
+        var values = form.getValues();
+        store.proxy.extraParams = values;
+
         store.load({
             params : form.getValues(),
             callback : function(records, operation, success) {

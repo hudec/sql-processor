@@ -22,7 +22,7 @@ public class ContactService {
         logger.info("listContacts -> " + form + ", " + sqlControl);
 
         List<Contact> contacts = contactDao.list(form, sqlControl);
-        int count = contactDao.count(null);
+        int count = contactDao.count(form);
         logger.info("listContacts <- " + contacts);
         countHolder.setCount(count);
         return contacts;
