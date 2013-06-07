@@ -35,126 +35,126 @@ public class Contact implements Serializable {
     this.address = address;
   }
   
-    private Long id;
+  private Long id;
   
-    public Long getId() {
-      return id;
-    }
+  public Long getId() {
+    return id;
+  }
   
-    public void setId(Long id) {
-      this.id = id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
   
-    public Contact _setId(Long id) {
-      this.id = id;
-      return this;
-    }
+  public Contact _setId(Long id) {
+    this.id = id;
+    return this;
+  }
   
-    @ModelAssociation(value = ModelAssociationType.BELONGS_TO, model = Person.class)
-    @JsonIgnore
-    private Person person;
+  @ModelAssociation(value = ModelAssociationType.BELONGS_TO, model = Person.class)
+  @JsonIgnore
+  private Person person;
   
-    public Person getPerson() {
-      return person;
-    }
+  public Person getPerson() {
+    return person;
+  }
   
-    public void setPerson(Person person) {
-      this.person = person;
-      if (this.person != null)
-        this.personId = this.person.getId();
-    }
+  public void setPerson(Person person) {
+    this.person = person;
+    if (this.person != null)
+      this.personId = this.person.getId();
+  }
   
-    public Contact _setPerson(Person person) {
-      this.person = person;
-      if (this.person != null)
-        this.personId = this.person.getId();
-      return this;
-    }
+  public Contact _setPerson(Person person) {
+    this.person = person;
+    if (this.person != null)
+      this.personId = this.person.getId();
+    return this;
+  }
   
-    @ModelField(type = ModelType.STRING)
-    @NotNull
-    private ContactCtype ctype;
+  @ModelField(type = ModelType.STRING)
+  @NotNull
+  private ContactCtype ctype;
   
-    public ContactCtype getCtype() {
-      return ctype;
-    }
+  public ContactCtype getCtype() {
+    return ctype;
+  }
   
-    public void setCtype(ContactCtype ctype) {
-      this.ctype = ctype;
-    }
+  public void setCtype(ContactCtype ctype) {
+    this.ctype = ctype;
+  }
   
-    public Contact _setCtype(ContactCtype ctype) {
-      this.ctype = ctype;
-      return this;
-    }
+  public Contact _setCtype(ContactCtype ctype) {
+    this.ctype = ctype;
+    return this;
+  }
   
-    @NotBlank
-    private String address;
+  @NotBlank
+  private String address;
   
-    public String getAddress() {
-      return address;
-    }
+  public String getAddress() {
+    return address;
+  }
   
-    public void setAddress(String address) {
-      this.address = address;
-    }
+  public void setAddress(String address) {
+    this.address = address;
+  }
   
-    public Contact _setAddress(String address) {
-      this.address = address;
-      return this;
-    }
+  public Contact _setAddress(String address) {
+    this.address = address;
+    return this;
+  }
   
-    private String phoneNumber;
+  private String phoneNumber;
   
-    public String getPhoneNumber() {
-      return phoneNumber;
-    }
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
   
-    public void setPhoneNumber(String phoneNumber) {
-      this.phoneNumber = phoneNumber;
-    }
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
   
-    public Contact _setPhoneNumber(String phoneNumber) {
-      this.phoneNumber = phoneNumber;
-      return this;
-    }
+  public Contact _setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+    return this;
+  }
   
-    @NotNull
-    private Integer version = 0;
+  @NotNull
+  private Integer version = 0;
   
-    public Integer getVersion() {
-      return version;
-    }
+  public Integer getVersion() {
+    return version;
+  }
   
-    public void setVersion(Integer version) {
-      this.version = version;
-    }
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
   
-    public Contact _setVersion(Integer version) {
-      this.version = version;
-      return this;
-    }
+  public Contact _setVersion(Integer version) {
+    this.version = version;
+    return this;
+  }
   
-    private Long personId;
+  private Long personId;
   
-    public Long getPersonId() {
-      return personId;
-    }
+  public Long getPersonId() {
+    return personId;
+  }
   
-    public void setPersonId(Long personId) {
-      this.personId = personId;
-      if (this.person == null)
-          this.person = new Person();
-      this.person.setId(personId);
-    }
+  public void setPersonId(Long personId) {
+    this.personId = personId;
+    if (this.person == null)
+        this.person = new Person();
+    this.person.setId(personId);
+  }
   
-    public Contact _setPersonId(Long personId) {
-      this.personId = personId;
-      if (this.person == null)
-          this.person = new Person();
-      this.person.setId(personId);
-      return this;
-    }
+  public Contact _setPersonId(Long personId) {
+    this.personId = personId;
+    if (this.person == null)
+        this.person = new Person();
+    this.person.setId(personId);
+    return this;
+  }
   
   @Override
   public boolean equals(Object obj) {

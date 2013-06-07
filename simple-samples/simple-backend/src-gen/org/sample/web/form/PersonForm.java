@@ -18,35 +18,35 @@ public class PersonForm extends Person implements Serializable {
     super(firstName, lastName, gender);
   }
   
-    private Date dateOfBirthFrom;
+  private Date dateOfBirthFrom;
   
-    public Date getDateOfBirthFrom() {
-      return dateOfBirthFrom;
-    }
+  public Date getDateOfBirthFrom() {
+    return dateOfBirthFrom;
+  }
   
-    public void setDateOfBirthFrom(Date dateOfBirthFrom) {
-      this.dateOfBirthFrom = dateOfBirthFrom;
-    }
+  public void setDateOfBirthFrom(Date dateOfBirthFrom) {
+    this.dateOfBirthFrom = dateOfBirthFrom;
+  }
   
-    public PersonForm _setDateOfBirthFrom(Date dateOfBirthFrom) {
-      this.dateOfBirthFrom = dateOfBirthFrom;
-      return this;
-    }
+  public PersonForm _setDateOfBirthFrom(Date dateOfBirthFrom) {
+    this.dateOfBirthFrom = dateOfBirthFrom;
+    return this;
+  }
   
-    private Date dateOfBirthTo;
+  private Date dateOfBirthTo;
   
-    public Date getDateOfBirthTo() {
-      return dateOfBirthTo;
-    }
+  public Date getDateOfBirthTo() {
+    return dateOfBirthTo;
+  }
   
-    public void setDateOfBirthTo(Date dateOfBirthTo) {
-      this.dateOfBirthTo = dateOfBirthTo;
-    }
+  public void setDateOfBirthTo(Date dateOfBirthTo) {
+    this.dateOfBirthTo = dateOfBirthTo;
+  }
   
-    public PersonForm _setDateOfBirthTo(Date dateOfBirthTo) {
-      this.dateOfBirthTo = dateOfBirthTo;
-      return this;
-    }
+  public PersonForm _setDateOfBirthTo(Date dateOfBirthTo) {
+    this.dateOfBirthTo = dateOfBirthTo;
+    return this;
+  }
   
   @Override
   public String toString() {

@@ -40,9 +40,6 @@ import ch.ralscha.extdirectspring.filter.StringFilter;
 @Service
 public class SimpleService {
 
-    // TODO - form validation
-    // TODO - exception handling
-
     protected ContactService contactService;
     protected PersonService personService;
     protected BeanUtilsBean beanUtilsBean;

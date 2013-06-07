@@ -44,136 +44,136 @@ public class Person implements Serializable {
     this.gender = gender;
   }
   
-    private Long id;
+  private Long id;
   
-    public Long getId() {
-      return id;
-    }
+  public Long getId() {
+    return id;
+  }
   
-    public void setId(Long id) {
-      this.id = id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
   
-    public Person _setId(Long id) {
-      this.id = id;
-      return this;
-    }
+  public Person _setId(Long id) {
+    this.id = id;
+    return this;
+  }
   
-    @NotBlank
-    private String firstName;
+  @NotBlank
+  private String firstName;
   
-    public String getFirstName() {
-      return firstName;
-    }
+  public String getFirstName() {
+    return firstName;
+  }
   
-    public void setFirstName(String firstName) {
-      this.firstName = firstName;
-    }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
   
-    public Person _setFirstName(String firstName) {
-      this.firstName = firstName;
-      return this;
-    }
+  public Person _setFirstName(String firstName) {
+    this.firstName = firstName;
+    return this;
+  }
   
-    @NotBlank
-    private String lastName;
+  @NotBlank
+  private String lastName;
   
-    public String getLastName() {
-      return lastName;
-    }
+  public String getLastName() {
+    return lastName;
+  }
   
-    public void setLastName(String lastName) {
-      this.lastName = lastName;
-    }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
   
-    public Person _setLastName(String lastName) {
-      this.lastName = lastName;
-      return this;
-    }
+  public Person _setLastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
   
-    @ModelField(dateFormat = "d.m.Y")
-    @Past
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private Date dateOfBirth;
+  @ModelField(dateFormat = "d.m.Y")
+  @Past
+  @DateTimeFormat(pattern = "dd.MM.yyyy")
+  private Date dateOfBirth;
   
-    @JsonSerialize(using = DMYDateSerializer.class)
-    public Date getDateOfBirth() {
-      return dateOfBirth;
-    }
+  @JsonSerialize(using = DMYDateSerializer.class)
+  public Date getDateOfBirth() {
+    return dateOfBirth;
+  }
   
-    @JsonDeserialize(using = DMYDateDeserializer.class)
-    public void setDateOfBirth(Date dateOfBirth) {
-      this.dateOfBirth = dateOfBirth;
-    }
+  @JsonDeserialize(using = DMYDateDeserializer.class)
+  public void setDateOfBirth(Date dateOfBirth) {
+    this.dateOfBirth = dateOfBirth;
+  }
   
-    public Person _setDateOfBirth(Date dateOfBirth) {
-      this.dateOfBirth = dateOfBirth;
-      return this;
-    }
+  public Person _setDateOfBirth(Date dateOfBirth) {
+    this.dateOfBirth = dateOfBirth;
+    return this;
+  }
   
-    @ModelField(type = ModelType.STRING)
-    @NotNull
-    private PersonGender gender;
+  @ModelField(type = ModelType.STRING)
+  @NotNull
+  private PersonGender gender;
   
-    public PersonGender getGender() {
-      return gender;
-    }
+  public PersonGender getGender() {
+    return gender;
+  }
   
-    public void setGender(PersonGender gender) {
-      this.gender = gender;
-    }
+  public void setGender(PersonGender gender) {
+    this.gender = gender;
+  }
   
-    public Person _setGender(PersonGender gender) {
-      this.gender = gender;
-      return this;
-    }
+  public Person _setGender(PersonGender gender) {
+    this.gender = gender;
+    return this;
+  }
   
-    private String ssn;
+  private String ssn;
   
-    public String getSsn() {
-      return ssn;
-    }
+  public String getSsn() {
+    return ssn;
+  }
   
-    public void setSsn(String ssn) {
-      this.ssn = ssn;
-    }
+  public void setSsn(String ssn) {
+    this.ssn = ssn;
+  }
   
-    public Person _setSsn(String ssn) {
-      this.ssn = ssn;
-      return this;
-    }
+  public Person _setSsn(String ssn) {
+    this.ssn = ssn;
+    return this;
+  }
   
-    @NotNull
-    private Integer version = 0;
+  @NotNull
+  private Integer version = 0;
   
-    public Integer getVersion() {
-      return version;
-    }
+  public Integer getVersion() {
+    return version;
+  }
   
-    public void setVersion(Integer version) {
-      this.version = version;
-    }
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
   
-    public Person _setVersion(Integer version) {
-      this.version = version;
-      return this;
-    }
+  public Person _setVersion(Integer version) {
+    this.version = version;
+    return this;
+  }
   
-    @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Contact.class)
-    private List<Contact> contacts = new ArrayList<Contact>();
+  @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Contact.class)
+  private List<Contact> contacts = new ArrayList<Contact>();
   
-    public List<Contact> getContacts() {
-      return contacts;
-    }
+  public List<Contact> getContacts() {
+    return contacts;
+  }
   
-    public void setContacts(List<Contact> contacts) {
-      this.contacts = contacts;
-    }
+  public void setContacts(List<Contact> contacts) {
+    this.contacts = contacts;
+  }
   
-    public Person _setContacts(List<Contact> contacts) {
-      this.contacts = contacts;
-      return this;
-    }
+  public Person _setContacts(List<Contact> contacts) {
+    this.contacts = contacts;
+    return this;
+  }
   
   @Override
   public boolean equals(Object obj) {
