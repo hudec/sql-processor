@@ -1,5 +1,7 @@
 package org.sample.model {
-
+	
+	
+	
   import org.sample.web.util.DMYDateDeserializer
   import javax.validation.constraints.NotNull
   import org.springframework.format.annotation.DateTimeFormat
@@ -29,13 +31,12 @@ package org.sample.model {
     UNKNOWN ::: "0"
   }
 
-  @Model ::: value "SimpleWeb.model.Contact", paging true, readMethod "simpleService.loadContacts" //, createMethod "simpleService.createContacts", updateMethod "simpleService.updateContacts", destroyMethod "simpleService.deleteContacts"
+  @Model ::: value "SimpleWeb.model.Contact", paging true, readMethod "simpleService.loadContacts"
   @@@JsonIgnore
   @@@@JsonIgnore
   pojo Contact serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model ::Person class
-    //@NotNull
     @JsonIgnore
     person :: Person updateCol id->personId required index 2
     @ModelField ::: type :ModelType STRING
@@ -46,15 +47,19 @@ package org.sample.model {
     phoneNumber : java.lang.String
     @NotNull
     version : java.lang.Integer optLock
+    @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model ::State class foreignKey "stateCode"
+    @JsonIgnore
+    state :: State updateCol code->stateCode required index 3
     personId : java.lang.Long createCol person->id
+    stateCode : java.lang.String createCol state->code
     equals ::: id
     hashCode ::: id
-    toInit ::: person
+    toInit ::: person state
     isDef ::: phoneNumber
-    toString ::: id person phoneNumber address personId ctype version
+    toString ::: id person phoneNumber address state stateCode personId ctype version
   }
 
-  @Model ::: value "SimpleWeb.model.Person", paging true, readMethod "simpleService.loadPeople" //, createMethod "simpleService.createPeople", updateMethod "simpleService.updatePeople", destroyMethod "simpleService.deletePeople"
+  @Model ::: value "SimpleWeb.model.Person", paging true, readMethod "simpleService.loadPeople"
   @@@JsonIgnore
   @@@@JsonIgnore
   pojo Person serializable 1 operators {
@@ -83,6 +88,19 @@ package org.sample.model {
     isDef ::: dateOfBirth ssn
     toString ::: dateOfBirth id lastName ssn gender firstName version
   }
+
+  @@@JsonIgnore
+  @@@@JsonIgnore
+  pojo State serializable 1 operators {
+    id : java.lang.Long primaryKey index 1
+    code : java.lang.String required index 2
+    name : java.lang.String
+    equals ::: id
+    hashCode ::: id
+    toInit :::
+    isDef ::: name
+    toString ::: id name code
+  }  
 }
 
 package org.sample.web.form {

@@ -31,11 +31,14 @@ Ext.define("SimpleWeb.model.Person", {
         name : "contacts"
     } ],
     validations : [ {
-        type : "presence",
+        type : "notBlank",
         field : "firstName"
     }, {
-        type : "presence",
+        type : "notBlank",
         field : "lastName"
+    }, {
+        type : "past",
+        field : "dateOfBirth"
     }, {
         type : "presence",
         field : "gender"
@@ -45,12 +48,7 @@ Ext.define("SimpleWeb.model.Person", {
     } ],
     proxy : {
         type : "direct",
-        api : {
-            read : simpleService.loadPeople,
-        // create : simpleService.createPeople,
-        // update : simpleService.updatePeople,
-        // destroy : simpleService.deletePeople
-        },
+        directFn : simpleService.loadPeople,
         reader : {
             root : "records"
         }

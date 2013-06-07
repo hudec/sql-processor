@@ -69,6 +69,13 @@ Ext.define('SimpleWeb.view.contact.Add', {
                     itemId : 'phoneNumber',
                     name : 'phoneNumber',
                     fieldLabel : 'Phone Number'
+                }, {
+                    xtype : 'combobox',
+                    name : 'stateCode',
+                    itemId : 'stateCode',
+                    fieldLabel : 'State'
+                    //editable : false,
+                    //store : [ ]
                 } ]
             } ],
             dockedItems : [ {

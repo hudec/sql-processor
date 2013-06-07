@@ -1,13 +1,6 @@
 package org.sample.model;
   
-import ch.ralscha.extdirectspring.generator.Model;
-import ch.ralscha.extdirectspring.generator.ModelAssociation;
-import ch.ralscha.extdirectspring.generator.ModelAssociationType;
-import ch.ralscha.extdirectspring.generator.ModelField;
-import ch.ralscha.extdirectspring.generator.ModelType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -17,25 +10,19 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
-@Model(value = "SimpleWeb.model.Contact", paging = true, readMethod = "simpleService.loadContacts")
-public class Contact implements Serializable {
+public class State implements Serializable {
   
   private static final long serialVersionUID = 1L;
   @JsonIgnore
   public static final int ORDER_BY_ID = 1;
   @JsonIgnore
-  public static final int ORDER_BY_PERSON = 2;
-  @JsonIgnore
-  public static final int ORDER_BY_STATE = 3;
+  public static final int ORDER_BY_CODE = 2;
 	
-  public Contact() {
+  public State() {
   }
   
-  public Contact(Person person, ContactCtype ctype, String address, State state) {
-    this.person = person;
-    this.ctype = ctype;
-    this.address = address;
-    this.state = state;
+  public State(String code) {
+    this.code = code;
   }
   
   private Long id;
@@ -48,158 +35,40 @@ public class Contact implements Serializable {
     this.id = id;
   }
   
-  public Contact _setId(Long id) {
+  public State _setId(Long id) {
     this.id = id;
     return this;
   }
   
-  @ModelAssociation(value = ModelAssociationType.BELONGS_TO, model = Person.class)
-  @JsonIgnore
-  private Person person;
-  
-  public Person getPerson() {
-    return person;
-  }  
-
-  public void setPerson(Person person) {
-    this.person = person;
-    if (this.person != null)
-      this.personId = this.person.getId();
+  private String code;
+ 
+  public String getCode() {
+    return code;
   }
   
-  public Contact _setPerson(Person person) {
-    this.person = person;
-    if (this.person != null)
-      this.personId = this.person.getId();
+  public void setCode(String code) {
+    this.code = code;
+  }
+  
+  public State _setCode(String code) {
+    this.code = code;
     return this;
   }
   
-  @ModelField(type = ModelType.STRING)
-  @NotNull
-  private ContactCtype ctype;
+  private String name;
   
-  public ContactCtype getCtype() {
-    return ctype;
+  public String getName() {
+    return name;
   }
   
-  public void setCtype(ContactCtype ctype) {
-    this.ctype = ctype;
+  public void setName(String name) {
+    this.name = name;
   }
   
-  public Contact _setCtype(ContactCtype ctype) {
-    this.ctype = ctype;
+  public State _setName(String name) {
+    this.name = name;
     return this;
   }
-  
-  @NotBlank
-  private String address;
-  
-  public String getAddress() {
-    return address;
-  }
-  
-  public void setAddress(String address) {
-    this.address = address;
-  }
-  
-  public Contact _setAddress(String address) {
-    this.address = address;
-    return this;
-  }
-  
-  private String phoneNumber;
-  
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-  
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-  
-  public Contact _setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-  
-  @NotNull
-  private Integer version = 0;
-  
-  public Integer getVersion() {
-    return version;
-  }
-  
-  public void setVersion(Integer version) {
-    this.version = version;
-  }
-  
-  public Contact _setVersion(Integer version) {
-    this.version = version;
-    return this;
-  }
-  
-  @ModelAssociation(value = ModelAssociationType.BELONGS_TO, model = State.class, foreignKey = "stateCode")
-  @JsonIgnore
-  private State state;
-  
-  public State getState() {
-      return state;
-  }
-  
-  public void setState(State state) {
-    this.state = state;
-    if (this.state != null)
-      this.stateCode = this.state.getCode(); 
-  }
-  
-  public Contact _setState(State state) {
-    this.state = state;
-    if (this.state != null)
-      this.stateCode = this.state.getCode(); 
-    return this;
-  }
-  
-  private Long personId;
-  
-  public Long getPersonId() {
-    return personId;
-  }
-  
-  public void setPersonId(Long personId) {
-    this.personId = personId;
-    if (this.person == null)
-        this.person = new Person();
-    this.person.setId(personId);
-  }
-  
-  public Contact _setPersonId(Long personId) {
-    this.personId = personId;
-    if (this.person == null)
-        this.person = new Person();
-    this.person.setId(personId);
-    return this;
-  }
-  
-    private String stateCode;
-  
-    public String getStateCode() {
-      return stateCode;
-    }
-  
-    public void setStateCode(String stateCode) {
-      this.stateCode = stateCode;
-      if (this.state == null)
-          this.state = new State();
-      this.state.setCode(stateCode);
-    }
-  
-    public Contact _setStateCode(String stateCode) {
-      this.stateCode = stateCode;
-      if (this.state == null)
-          this.state = new State();
-      this.state.setCode(stateCode);
-      return this;
-    }
   
   @Override
   public boolean equals(Object obj) {
@@ -209,7 +78,7 @@ public class Contact implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Contact other = (Contact) obj;
+    State other = (State) obj;
     if (id == null || !id.equals(other.id))
       return false;
     return true;
@@ -224,7 +93,6 @@ public class Contact implements Serializable {
   }  
   
   public enum Association {
-    person, state
   }
   
   private Set<String> initAssociations = new HashSet<String>();
@@ -270,7 +138,7 @@ public class Contact implements Serializable {
   }
   
   public enum Attribute {
-    phoneNumber
+    name
   }
   
   private Set<String> nullValues = new HashSet<String>();
@@ -350,15 +218,15 @@ public class Contact implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", stateCode=" + stateCode + ", personId=" + personId + ", version=" + version + "]";
+    return "State [id=" + id + ", name=" + name + ", code=" + code + "]";
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", state=" + state + ", stateCode=" + stateCode + ", personId=" + personId + ", ctype=" + ctype + ", version=" + version + "]";
+    return "State [id=" + id + ", name=" + name + ", code=" + code + "]";
   }
   
   public enum OpAttribute {
-      id, person, ctype, address, phoneNumber, version, state, personId, stateCode
+      id, code, name
   }
   
   private Map<String, String> operators = new HashMap<String, String>();

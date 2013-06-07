@@ -374,6 +374,7 @@ Ext.define('SimpleWeb.controller.Person', {
     onAllPersonClick : function(button) {
         console.log("onAllPersonClick");
         var store = this.getStore("People");
+        store.proxy.extraParams = {};
 
         store.load({
             callback : function(records, operation, success) {

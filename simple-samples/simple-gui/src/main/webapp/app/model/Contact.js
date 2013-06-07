@@ -18,6 +18,9 @@ Ext.define("SimpleWeb.model.Contact", {
     }, {
         name : "personId",
         type : "int"
+    }, {
+        name : "stateCode",
+        type : "string"
     } ],
     associations : [ {
         type : "belongsTo",
@@ -26,12 +29,19 @@ Ext.define("SimpleWeb.model.Contact", {
         foreignKey : "person_id",
         setterName : "setPerson",
         getterName : "getPerson"
+    }, {
+        type : "belongsTo",
+        model : "org.sample.model.State",
+        associationKey : "state",
+        foreignKey : "stateCode",
+        setterName : "setState",
+        getterName : "getState"
     } ],
     validations : [ {
         type : "presence",
         field : "ctype"
     }, {
-        type : "presence",
+        type : "notBlank",
         field : "address"
     }, {
         type : "presence",
@@ -39,12 +49,7 @@ Ext.define("SimpleWeb.model.Contact", {
     } ],
     proxy : {
         type : "direct",
-        api : {
-            read : simpleService.loadContacts,
-        // create : simpleService.createContacts,
-        // update : simpleService.updateContacts,
-        // destroy : simpleService.deleteContacts
-        },
+        directFn : simpleService.loadContacts,
         reader : {
             root : "records"
         }

@@ -1,9 +1,11 @@
 
-SELECT_PERSON(QRY,final=,inx=PersonForm,outx=Person,tab=person=p,tab=contact=c)=
+SELECT_PERSON(QRY,final=,inx=PersonForm,outx=Person,tab=person=p,tab=contact=c,tab=state=s)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn, %p.VERSION @version
-         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version }
+         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version, %c.STATE_CODE @contacts.stateCode }
+         {? :contacts(call=toInit) | , %s.ID @contacts.state.id(id), %s.CODE @contacts.state.code, %s.NAME @contacts.state.name }
   from %%PERSON p
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+  {? :contacts(call=toInit) | left join %%STATE s on %s.CODE = %c.STATE_CODE }
   {= where
     {& %p.ID ::= :id }
     {& UPPER(%p.FIRST_NAME) like :+firstName }
@@ -30,23 +32,26 @@ INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person,MYSQL)=
 
 // generated
 
-INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
-  insert into %%CONTACT (%ID, %PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER, %VERSION)
-  {= values (:id(seq=SIMPLE_SEQUENCE), :person.id, :ctype, :address, :phoneNumber, :version) }
-;
-
-GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
-  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.VERSION @version
+GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p,tab=state=s)=
+  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.VERSION @version, %c.STATE_CODE @state.code(id) %c.STATE_CODE @stateCode
          {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn, %p.VERSION @person.version }
+         {? :state(call=toInit) | , %s.CODE @state.code, %s.NAME @state.name }
   from %%CONTACT c
   {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
+  {? :state(call=toInit) | left join %%STATE s on %c.STATE_CODE = %s.CODE }
   {= where
     {& %c.ID ::= :id }
     {& %c.PERSON_ID ::= :person.id }
     {& %c.CTYPE ::= :ctype }
     {& %c.ADDRESS ::= :address }
     {& %c.PHONE_NUMBER ::= :phoneNumber }
+    {& %c.STATE_CODE ::= :state.code }
   }
+;
+
+INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
+  insert into %%CONTACT (%ID, %PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER, %VERSION, %STATE_CODE)
+  {= values (:id(seq=SIMPLE_SEQUENCE), :person.id, :ctype, :address, :phoneNumber, :version, :state.code) }
 ;
 
 UPDATE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
@@ -57,6 +62,7 @@ UPDATE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
     { ,%ADDRESS = :address(call=isDef) }
     { ,%PHONE_NUMBER = :phoneNumber(call=isDef) }
     { ,%VERSION = %VERSION + 1 }
+    { ,%STATE_CODE = :state.code(call=isDef) }
   }
   {= where
     {& %ID = :id(!empty) }
@@ -72,20 +78,24 @@ DELETE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   }
 ;
 
-SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
-  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.VERSION @version
+SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p,tab=state=s)=
+  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.VERSION @version, %c.STATE_CODE @state.code(id), %c.STATE_CODE @stateCode
          {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn, %p.VERSION @person.version }
+         {? :state(call=toInit) | , %s.CODE @state.code, %s.NAME @state.name }
   from %%CONTACT c
   {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
+  {? :state(call=toInit) | left join %%STATE s on %c.STATE_CODE = %s.CODE }
   {= where
     {& %c.ID ::= :id }
     {& %c.PERSON_ID ::= :person.id }
     {& UPPER(%c.CTYPE) like :+ctype }
     {& UPPER(%c.ADDRESS) like :+address }
     {& %c.PHONE_NUMBER ::= :phoneNumber }
+    {& UPPER(%c.STATE_CODE) like :+state.code }
   }
   {#1 order by %c.ID }
   {#2 order by %c.PERSON_ID }
+  {#3 order by %c.STATE_CODE }
 ;
 
 INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
@@ -95,7 +105,7 @@ INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
 
 GET_PERSON(CRUD,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn, %p.VERSION @version
-         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version }
+         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version, %c.STATE_CODE @contacts.state.code }
   from %%PERSON p
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
   {= where
@@ -131,3 +141,49 @@ DELETE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
     {& %VERSION = :version(!empty) }
   }
 ;
+
+INSERT_STATE(CRUD,inx=State,outx=State,tab=state)=
+  insert into %%STATE (%ID, %CODE, %NAME)
+  {= values (:id(seq=SIMPLE_SEQUENCE), :code, :name) }
+;
+
+GET_STATE(CRUD,inx=State,outx=State,tab=state)=
+  select %ID @id(id), %CODE @code, %NAME @name
+  from %%STATE
+  {= where
+    {& %ID ::= :id }
+    {& %CODE ::= :code }
+    {& %NAME ::= :name }
+  }
+;
+
+UPDATE_STATE(CRUD,inx=State,outx=State,tab=state)=
+  update %%STATE
+  {= set
+    { ,%CODE = :code(call=isDef) }
+    { ,%NAME = :name(call=isDef) }
+  }
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+DELETE_STATE(CRUD,inx=State,outx=State,tab=state)=
+  delete from %%STATE
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+SELECT_STATE(QRY,inx=State,outx=State,tab=state)=
+  select %ID @id(id), %CODE @code, %NAME @name
+  from %%STATE
+  {= where
+    {& %ID ::= :id }
+    {& UPPER(%CODE) like :+code }
+    {& UPPER(%NAME) like :+name }
+  }
+  {#1 order by %ID }
+  {#2 order by %CODE }
+;
+
