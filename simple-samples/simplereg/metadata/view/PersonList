@@ -39,7 +39,7 @@
                     "userConfig": {
                         "layout|flex": null,
                         "hidden": true,
-                        "itemId": "person_add",
+                        "itemId": "person_create",
                         "iconCls": "icon-add",
                         "text": "Add"
                     },
@@ -58,7 +58,7 @@
                         "hidden": true,
                         "itemId": "selected_person_delete",
                         "iconCls": "icon-delete",
-                        "text": "Delete"
+                        "text": "Remove"
                     },
                     "designerId": "638d1124-ced3-4745-a05c-8280542b4af2"
                 },
@@ -120,7 +120,8 @@
                     "codeClass": null,
                     "userConfig": {
                         "hidden": true,
-                        "dataIndex": "version",
+                        "sortable": false,
+                        "dataIndex": "id",
                         "text": "Id",
                         "flex": 1,
                         "format": "0"
@@ -136,6 +137,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "hidden": true,
+                        "sortable": false,
                         "dataIndex": "version",
                         "text": "Version",
                         "flex": 1,
@@ -151,6 +153,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "sortable": false,
                         "dataIndex": "firstName",
                         "text": "First Name",
                         "flex": 2
@@ -179,10 +182,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "sortable": false,
                         "dataIndex": "dateOfBirth",
                         "text": "Date of Birth",
                         "flex": 1,
-                        "format": "d.m.Y"
+                        "format": "j.n.Y"
                     },
                     "designerId": "04a873ee-4622-4f70-81cf-11b3669f8519"
                 },
@@ -194,6 +198,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "sortable": false,
                         "dataIndex": "ssn",
                         "text": "SSN",
                         "flex": 1
@@ -208,6 +213,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "sortable": false,
                         "dataIndex": "gender",
                         "text": "Gender",
                         "flex": 1

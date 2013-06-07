@@ -33,7 +33,7 @@ Ext.define('Simplereg.view.ContactList', {
                     items: [
                         {
                             xtype: 'button',
-                            itemId: 'contact_add',
+                            itemId: 'contact_create',
                             iconCls: 'icon-add',
                             text: 'Add'
                         },
@@ -42,12 +42,12 @@ Ext.define('Simplereg.view.ContactList', {
                             disabled: true,
                             itemId: 'selected_contact_delete',
                             iconCls: 'icon-delete',
-                            text: 'Delete'
+                            text: 'Remove'
                         },
                         {
                             xtype: 'button',
                             disabled: true,
-                            itemId: 'selected_contact_modify',
+                            itemId: 'selected_contact_update',
                             iconCls: 'icon-edit',
                             text: 'Modify'
                         }

@@ -20,7 +20,7 @@ Ext.define('Simplereg.view.ContactDelete', {
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-delete',
-    title: 'Delete Contact',
+    title: 'Remove Contact',
     modal: true,
 
     initComponent: function() {
@@ -97,7 +97,7 @@ Ext.define('Simplereg.view.ContactDelete', {
                                     xtype: 'button',
                                     itemId: 'submit_dialog',
                                     iconCls: 'icon-delete',
-                                    text: 'Delete Contact'
+                                    text: 'Remove Contact'
                                 }
                             ]
                         }
@@ -107,6 +107,37 @@ Ext.define('Simplereg.view.ContactDelete', {
         });
 
         me.callParent(arguments);
+    },
+
+    bussy: function(msg) {
+        var me = this, bussy;
+
+        if (!me.bussyMask) {
+            me.bussyMask = new Ext.LoadMask({
+                msg: "Processing...",
+                target: me
+            });
+        }
+
+        if (msg == undefined || msg === true) {
+            bussy = true;
+        }
+        else if (!msg) {
+            bussy = false;
+        }
+        else {
+            me.bussyMask.msg = msg;
+            bussy = true;
+        }
+
+        if (bussy) {
+            me.bussyMask.show();
+        }
+        else {
+            me.bussyMask.hide();
+        }
+
+        return bussy;
     }
 
 });

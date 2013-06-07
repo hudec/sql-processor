@@ -17,7 +17,7 @@ Ext.define('Simplereg.view.Page', {
     extend: 'Ext.container.Viewport',
 
     requires: [
-        'Simplereg.view.PersonSelection'
+        'Simplereg.view.PersonSelect'
     ],
 
     layout: {
@@ -39,8 +39,8 @@ Ext.define('Simplereg.view.Page', {
                     plain: true,
                     items: [
                         {
-                            xtype: 'personselection',
-                            itemId: 'person_selection',
+                            xtype: 'personselect',
+                            itemId: 'person_select',
                             tabConfig: {
                                 xtype: 'tab',
                                 closable: false

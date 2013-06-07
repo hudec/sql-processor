@@ -43,7 +43,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "itemId": "contact_add",
+                        "itemId": "contact_create",
                         "iconCls": "icon-add",
                         "text": "Add"
                     },
@@ -61,7 +61,7 @@
                         "disabled": true,
                         "itemId": "selected_contact_delete",
                         "iconCls": "icon-delete",
-                        "text": "Delete"
+                        "text": "Remove"
                     },
                     "designerId": "7ff6d4c5-0c2b-49d0-aa74-58b607035d7b"
                 },
@@ -75,7 +75,7 @@
                     "userConfig": {
                         "layout|flex": null,
                         "disabled": true,
-                        "itemId": "selected_contact_modify",
+                        "itemId": "selected_contact_update",
                         "iconCls": "icon-edit",
                         "text": "Modify"
                     },

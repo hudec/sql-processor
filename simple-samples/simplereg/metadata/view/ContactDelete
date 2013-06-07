@@ -6,19 +6,72 @@
     },
     "codeClass": null,
     "userConfig": {
-        "cls": null,
         "height": null,
         "id": "ContactDelete",
         "width": 400,
         "designer|userClassName": "ContactDelete",
         "closeAction": "hide",
         "iconCls": "icon-delete",
-        "title": "Delete Contact",
-        "modal": true,
-        "y": null
+        "title": "Remove Contact",
+        "modal": true
     },
-    "designerId": "946d2dbe-a24d-4fab-a4e0-c25b83ebf148",
+    "configAlternates": {
+        "bussyMask": "object"
+    },
+    "designerId": "631da3fd-ca79-4099-a586-8605c18306f7",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "bussyMask",
+            "type": "string"
+        }
+    ],
     "cn": [
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "bussy",
+                "designer|params": [
+                    "msg"
+                ],
+                "implHandler": [
+                    "var me = this, bussy;",
+                    "",
+                    "if (!me.bussyMask) {",
+                    "    me.bussyMask = new Ext.LoadMask({",
+                    "        msg: \"Processing...\",",
+                    "        target: me",
+                    "    });",
+                    "}",
+                    "",
+                    "if (msg == undefined || msg === true) {",
+                    "    bussy = true;",
+                    "}",
+                    "else if (!msg) {",
+                    "    bussy = false;",
+                    "}",
+                    "else {",
+                    "    me.bussyMask.msg = msg;",
+                    "    bussy = true;",
+                    "}",
+                    "",
+                    "if (bussy) {",
+                    "    me.bussyMask.show();",
+                    "}",
+                    "else {",
+                    "    me.bussyMask.hide();",
+                    "}",
+                    "",
+                    "return bussy;"
+                ]
+            },
+            "designerId": "c61451ae-4ebd-4efd-b155-1e2a30b87ea1"
+        },
         {
             "type": "Ext.form.Panel",
             "reference": {
@@ -39,7 +92,7 @@
                     "{ submit: \"Simplereg.controller.Person.deleteContactFromDialog\" }"
                 ]
             },
-            "designerId": "e9bca53a-2878-4542-8682-8c804a564b3d",
+            "designerId": "4e9fd1e8-ded1-44f7-b086-b30099f4c973",
             "cn": [
                 {
                     "type": "Ext.form.field.Text",
@@ -56,7 +109,7 @@
                         "name": "id",
                         "readOnly": true
                     },
-                    "designerId": "14e2b983-c647-4cfe-94e7-553011c7ac93"
+                    "designerId": "902b4b4a-d751-4645-8038-ff2d34e9b7b6"
                 },
                 {
                     "type": "Ext.form.field.Text",
@@ -73,7 +126,7 @@
                         "name": "personId",
                         "readOnly": true
                     },
-                    "designerId": "81a2afa6-6bb6-405d-875b-3d4f48915265"
+                    "designerId": "7d0a79c8-9122-4e08-9345-f7a6ff67ee1a"
                 },
                 {
                     "type": "Ext.form.field.Text",
@@ -89,7 +142,7 @@
                         "name": "version",
                         "readOnly": true
                     },
-                    "designerId": "68761ea9-0e6d-4876-972c-ed49103b1f25"
+                    "designerId": "b770ec6d-b47d-4e16-943e-f07a56e859f4"
                 },
                 {
                     "type": "Ext.form.field.Display",
@@ -104,7 +157,7 @@
                         "fieldLabel": "Type",
                         "name": "ctype"
                     },
-                    "designerId": "2f1d695a-2b9e-4e25-8a22-2234c10bc158"
+                    "designerId": "544f30f6-d06b-455a-9fd1-6d767d8b8ab7"
                 },
                 {
                     "type": "Ext.form.field.Display",
@@ -119,7 +172,7 @@
                         "fieldLabel": "Address",
                         "name": "address"
                     },
-                    "designerId": "52019a32-7051-4501-8b93-bcce239d423c"
+                    "designerId": "faf50bc1-94a4-4483-8fa7-4072aa55639e"
                 },
                 {
                     "type": "Ext.form.field.Display",
@@ -134,7 +187,7 @@
                         "fieldLabel": "Phone",
                         "name": "phoneNumber"
                     },
-                    "designerId": "26f4d78b-21ff-43e3-99ec-60f950c38736"
+                    "designerId": "2b51cc4c-ab29-4665-9ebb-686d4e211837"
                 },
                 {
                     "type": "Ext.toolbar.Toolbar",
@@ -147,7 +200,7 @@
                         "dock": "bottom",
                         "designer|displayName": "Toolbar"
                     },
-                    "designerId": "ea5aae6b-bca0-41f5-b620-461d7efbb964",
+                    "designerId": "2076861d-ceaf-48d2-bbe0-b935a45c23c3",
                     "cn": [
                         {
                             "type": "Ext.toolbar.Fill",
@@ -160,7 +213,7 @@
                                 "layout|flex": null,
                                 "designer|displayName": "Fill"
                             },
-                            "designerId": "f244cbd1-5205-4855-bebe-d97a81b1d05a"
+                            "designerId": "dcf00ec6-182e-4775-8c68-7599ada35416"
                         },
                         {
                             "type": "Ext.button.Button",
@@ -175,7 +228,7 @@
                                 "iconCls": "icon-cancel",
                                 "text": "Cancel"
                             },
-                            "designerId": "f2358fac-3e2a-4f4a-96dd-d8766e59a9b0"
+                            "designerId": "a19fd450-3d54-44b5-ac4f-e92ab2680152"
                         },
                         {
                             "type": "Ext.button.Button",
@@ -188,9 +241,9 @@
                                 "layout|flex": null,
                                 "itemId": "submit_dialog",
                                 "iconCls": "icon-delete",
-                                "text": "Delete Contact"
+                                "text": "Remove Contact"
                             },
-                            "designerId": "f98fa421-59a8-4a3e-9416-3a660bbfff6e"
+                            "designerId": "1693066e-6d65-49f1-950f-89b3d48137fe"
                         }
                     ]
                 }

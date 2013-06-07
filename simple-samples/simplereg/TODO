@@ -1,5 +1,21 @@
+bug
+* prejit na posledni stranku gridu v pripade, ze je za celkovym poctem (refreshPersonSelect)
+
+must
 * reset polozek update formulare
-* focus on load a potvrzeni dialogu on enter
 * zobrazeni combo hodnot v gridu (name Female namisto value FEMALE)
 
-* standardni store Contacts pro PersonView
+may
+* focus on load a potvrzeni dialogu on enter
+* state (local store, cookie) -> sort, columns, search?
+
+Historie
+* grid pro entitu (zobrazitelny v ramci panelu, dole?)
+
+Detail store
+* store: remote stores (People, Contacts, ...), complex remote store Person (People + Contacts, ...)
+* kazdy detail ma vlastni store pro kazdou entitu (panel), kterou je mozno editovat zvlast
+* load a reload celeho detailu vola complex store a naplni store pro kazdou entitu
+* kazda entita umoznuje standardni paging, refresh apod.
+? entita muze mit nastavene CRUD api
+

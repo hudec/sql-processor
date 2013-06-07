@@ -9,7 +9,7 @@
         "model": "Contact",
         "storeId": "ContactsStore",
         "designer|userClassName": "Contacts",
-        "pageSize": 25
+        "pageSize": null
     },
     "designerId": "f041d596-7bea-4d5b-8365-7c8fc9f6927f",
     "cn": [

@@ -26,11 +26,7 @@ Ext.application({
         'ContactType'
     ],
     views: [
-        'Page',
-        'ContactAdd',
-        'ContactList',
-        'ContactDelete',
-        'ContactModify'
+        'Page'
     ],
     autoCreateViewport: true,
     controllers: [
@@ -39,47 +35,7 @@ Ext.application({
     name: 'Simplereg',
 
     launch: function() {
-        Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));
-
-        // Prepare loading mask
-        Ext.LOADING = new Ext.LoadMask(Ext.getBody(), {
-            msg: "Loading..."
-        });
-
-        // Prepare dialogs
-        Ext.create("Simplereg.view.PersonFind");
-        Ext.create("Simplereg.view.PersonAdd");
-        Ext.create("Simplereg.view.PersonDelete");
-        Ext.create("Simplereg.view.PersonModify");
-
-        Ext.create("Simplereg.view.ContactAdd");
-        Ext.create("Simplereg.view.ContactDelete");
-        Ext.create("Simplereg.view.ContactModify");
-
-        new Ext.KeyMap(Ext.get(document), [
-        // Find person (Ctrl+F)
-        {
-            key: "F",
-            ctrl: true,
-            shift: false,
-            alt: false,
-            fn: function(keyCode, event) {
-                Ext.getCmp("PersonFind").show();
-                event.stopEvent();
-            }
-        },
-        // Refresh page (Ctrl+R)
-        {
-            key: "R",
-            ctrl: true,
-            shift: true,
-            alt: false,
-            fn: function(keyCode, event) {
-                Simplereg.controller.Person.refreshPage();
-                event.stopEvent();
-            }
-        }
-        ]);
+        Simplereg.controller.Person.launch();
     }
 
 });

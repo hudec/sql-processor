@@ -33,7 +33,7 @@ Ext.define('Simplereg.view.PersonDetail', {
                     items: [
                         {
                             xtype: 'button',
-                            itemId: 'person_modify',
+                            itemId: 'person_update',
                             iconCls: 'icon-edit',
                             text: 'Modify'
                         }
@@ -43,7 +43,7 @@ Ext.define('Simplereg.view.PersonDetail', {
             items: [
                 {
                     xtype: 'form',
-                    padding: 10,
+                    bodyPadding: 10,
                     items: [
                         {
                             xtype: 'displayfield',
@@ -58,7 +58,7 @@ Ext.define('Simplereg.view.PersonDetail', {
                         {
                             xtype: 'displayfield',
                             renderer: function(value, displayField) {
-                                return Ext.util.Format.dateRenderer('d.m.Y')(value);
+                                return Ext.util.Format.dateRenderer('j.n.Y')(value);
                             },
                             fieldLabel: 'Date of Birth',
                             name: 'dateOfBirth'

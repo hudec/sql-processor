@@ -34,7 +34,7 @@ Ext.define('Simplereg.view.PersonList', {
                         {
                             xtype: 'button',
                             hidden: true,
-                            itemId: 'person_add',
+                            itemId: 'person_create',
                             iconCls: 'icon-add',
                             text: 'Add'
                         },
@@ -44,7 +44,7 @@ Ext.define('Simplereg.view.PersonList', {
                             hidden: true,
                             itemId: 'selected_person_delete',
                             iconCls: 'icon-delete',
-                            text: 'Delete'
+                            text: 'Remove'
                         },
                         {
                             xtype: 'button',
@@ -68,7 +68,8 @@ Ext.define('Simplereg.view.PersonList', {
                         {
                             xtype: 'numbercolumn',
                             hidden: true,
-                            dataIndex: 'version',
+                            sortable: false,
+                            dataIndex: 'id',
                             text: 'Id',
                             flex: 1,
                             format: '0'
@@ -76,6 +77,7 @@ Ext.define('Simplereg.view.PersonList', {
                         {
                             xtype: 'numbercolumn',
                             hidden: true,
+                            sortable: false,
                             dataIndex: 'version',
                             text: 'Version',
                             flex: 1,
@@ -83,6 +85,7 @@ Ext.define('Simplereg.view.PersonList', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            sortable: false,
                             dataIndex: 'firstName',
                             text: 'First Name',
                             flex: 2
@@ -95,19 +98,22 @@ Ext.define('Simplereg.view.PersonList', {
                         },
                         {
                             xtype: 'datecolumn',
+                            sortable: false,
                             dataIndex: 'dateOfBirth',
                             text: 'Date of Birth',
                             flex: 1,
-                            format: 'd.m.Y'
+                            format: 'j.n.Y'
                         },
                         {
                             xtype: 'gridcolumn',
+                            sortable: false,
                             dataIndex: 'ssn',
                             text: 'SSN',
                             flex: 1
                         },
                         {
                             xtype: 'gridcolumn',
+                            sortable: false,
                             dataIndex: 'gender',
                             text: 'Gender',
                             flex: 1

@@ -172,16 +172,16 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "onPersonFindClick",
+                "fn": "onPersonSearchClick",
                 "implHandler": [
-                    "var dialog = Ext.getCmp(\"PersonFind\");",
+                    "var dialog = Ext.getCmp(\"PersonSearch\");",
                     "",
                     "dialog.show();"
                 ],
                 "name": "click",
                 "scope": "me",
                 "designer|targetType": "Ext.button.Button",
-                "designer|controlQuery": "#person_find"
+                "designer|controlQuery": "#person_search"
             },
             "designerId": "e7cad92f-6a42-4ef2-9663-840266983e0e"
         },
@@ -193,16 +193,16 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "onPersonAddClick",
+                "fn": "onPersonCreateClick",
                 "implHandler": [
-                    "var dialog = Ext.getCmp(\"PersonAdd\");",
+                    "var dialog = Ext.getCmp(\"PersonCreate\");",
                     "",
                     "dialog.show();"
                 ],
                 "name": "click",
                 "scope": "me",
                 "designer|targetType": "Ext.button.Button",
-                "designer|controlQuery": "#person_add"
+                "designer|controlQuery": "#person_create"
             },
             "designerId": "14a28cf0-97ac-43f2-b820-5e3815fa4d4b"
         },
@@ -214,9 +214,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "onPersonModifyClick",
+                "fn": "onPersonUpdateClick",
                 "implHandler": [
-                    "var dialog = Ext.getCmp(\"PersonModify\"),",
+                    "var dialog = Ext.getCmp(\"PersonUpdate\"),",
                     "    form = dialog.down(\"form\"),",
                     "    record = button.up(\"personview\").record;",
                     "",
@@ -232,7 +232,7 @@
                 "name": "click",
                 "scope": "me",
                 "designer|targetType": "Ext.button.Button",
-                "designer|controlQuery": "#person_modify"
+                "designer|controlQuery": "#person_update"
             },
             "designerId": "218f0527-ed35-4ae2-920c-be98532ac0bb"
         },
@@ -278,7 +278,7 @@
                 "implHandler": [
                     "var dialog = Ext.getCmp(\"PersonDelete\"),",
                     "    form = dialog.down(\"form\"),",
-                    "    selection = button.up(\"personselection\").down(\"#person_list\").getSelectionModel().getSelection(),",
+                    "    selection = button.up(\"personselect\").down(\"#person_list\").getSelectionModel().getSelection(),",
                     "    record = selection ? selection[0] : null;",
                     "",
                     "if (!record) {",
@@ -307,7 +307,7 @@
             "userConfig": {
                 "fn": "onPersonOpenClick",
                 "implHandler": [
-                    "var selection = button.up(\"personselection\").down(\"#person_list\").getSelectionModel().getSelection(),",
+                    "var selection = button.up(\"personselect\").down(\"#person_list\").getSelectionModel().getSelection(),",
                     "    record = selection ? selection[0] : null;",
                     "",
                     "if (!record) {",
@@ -353,12 +353,12 @@
             "userConfig": {
                 "fn": "onPersonListSelectionchange",
                 "implHandler": [
-                    "var panel = Ext.getCmp(\"PersonSelection\"),",
-                    "    toggle = selected.length ? \"enable\" : \"disable\";",
+                    "var panel = Ext.getCmp(\"PersonSelect\"),",
+                    "    disable = !selected.length;",
                     "",
                     "// Toggle enable/disable",
-                    "panel.down(\"#selected_person_delete\")[toggle]();",
-                    "panel.down(\"#person_open\")[toggle]();"
+                    "panel.down(\"#selected_person_delete\").setDisabled(disable);",
+                    "panel.down(\"#person_open\").setDisabled(disable)"
                 ],
                 "name": "selectionchange",
                 "scope": "me",
@@ -375,9 +375,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "onContactAddClick",
+                "fn": "onContactCreateClick",
                 "implHandler": [
-                    "var dialog = Ext.getCmp(\"ContactAdd\"),",
+                    "var dialog = Ext.getCmp(\"ContactCreate\"),",
                     "    form = dialog.down(\"form\"),",
                     "    record = button.up(\"personview\").record;",
                     "",
@@ -395,7 +395,7 @@
                 "name": "click",
                 "scope": "me",
                 "designer|targetType": "Ext.button.Button",
-                "designer|controlQuery": "#contact_add"
+                "designer|controlQuery": "#contact_create"
             },
             "designerId": "ec34b325-68c0-41a4-b166-2261a104219d"
         },
@@ -407,9 +407,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "onSelectedContactModifyClick",
+                "fn": "onSelectedContactUpdateClick",
                 "implHandler": [
-                    "var dialog = Ext.getCmp(\"ContactModify\"),",
+                    "var dialog = Ext.getCmp(\"ContactUpdate\"),",
                     "    form = dialog.down(\"form\"),",
                     "    selection = button.up(\"contactlist\").down(\"#contact_list\").getSelectionModel().getSelection(),",
                     "    record = selection ? selection[0] : null;",
@@ -426,7 +426,7 @@
                 "name": "click",
                 "scope": "me",
                 "designer|targetType": "Ext.button.Button",
-                "designer|controlQuery": "#selected_contact_modify"
+                "designer|controlQuery": "#selected_contact_update"
             },
             "designerId": "35a5c55e-dada-497d-ba60-a3e82e62471d"
         },
@@ -488,14 +488,111 @@
             },
             "codeClass": null,
             "userConfig": {
+                "fn": "launch",
+                "implHandler": [
+                    "//Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));",
+                    "",
+                    "// Prepare loading mask",
+                    "Ext.LOADING = new Ext.LoadMask(Ext.getBody(), {",
+                    "    msg: \"Loading...\"",
+                    "});",
+                    "",
+                    "Ext.WORKING = new Ext.LoadMask(Ext.getBody(), {",
+                    "    msg: \"Working...\"",
+                    "});",
+                    "",
+                    "// Prepare dialogs",
+                    "Ext.create(\"Simplereg.view.PersonSearch\");",
+                    "Ext.create(\"Simplereg.view.PersonCreate\");",
+                    "Ext.create(\"Simplereg.view.PersonUpdate\");",
+                    "Ext.create(\"Simplereg.view.PersonDelete\");",
+                    "Ext.create(\"Simplereg.view.ContactCreate\");",
+                    "Ext.create(\"Simplereg.view.ContactUpdate\");",
+                    "Ext.create(\"Simplereg.view.ContactDelete\");",
+                    "",
+                    "// Keyboard control",
+                    "new Ext.KeyMap(Ext.get(document), [",
+                    "",
+                    "// Find person (Ctrl+F)",
+                    "{",
+                    "    key: \"F\",",
+                    "    ctrl: true,",
+                    "    shift: false,",
+                    "    alt: false,",
+                    "    fn: function(keyCode, event) {",
+                    "        Ext.getCmp(\"PersonSearch\").show();",
+                    "        event.stopEvent();",
+                    "    }",
+                    "},",
+                    "",
+                    "// Refresh page (Ctrl+R)",
+                    "{",
+                    "    key: \"R\",",
+                    "    ctrl: true,",
+                    "    shift: true,",
+                    "    alt: false,",
+                    "    fn: function(keyCode, event) {",
+                    "        Simplereg.controller.Person.refreshPage();",
+                    "        event.stopEvent();",
+                    "    }",
+                    "}",
+                    "]);"
+                ]
+            },
+            "designerId": "cd0b80ba-f3a5-4656-bfb2-82b4b80642d1"
+        },
+        {
+            "type": "staticfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "markInvalidFields",
+                "designer|params": [
+                    "form",
+                    "errors"
+                ],
+                "implHandler": [
+                    "var name, field, error;",
+                    "",
+                    "if (!form.findField) {",
+                    "   form = form.getForm();",
+                    "}",
+                    "",
+                    "for (name in errors) {",
+                    "    field = form.findField(name);",
+                    "    ",
+                    "    if (field) {",
+                    "        error = \"Invalid field\";",
+                    "        if (errors[name][0]) {",
+                    "            error += \": \" + errors[name][0];",
+                    "        }",
+                    "        ",
+                    "    \tfield.markInvalid(error);",
+                    "    }",
+                    "}"
+                ]
+            },
+            "designerId": "2b485928-6895-451e-80c8-a5813abd77d4"
+        },
+        {
+            "type": "staticfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "fn": "refreshPage",
                 "implHandler": [
                     "var panel = Ext.getCmp(\"PersonRegistry\"),",
                     "    view = panel.getActiveTab();",
                     "",
-                    "// Person selection",
-                    "if (view.is(\"personselection\")) {",
-                    "    Simplereg.controller.Person.refreshPersonSelection();",
+                    "// Person select",
+                    "if (view.is(\"personselect\")) {",
+                    "    Simplereg.controller.Person.refreshPersonSelect();",
                     "}",
                     "",
                     "// Person view",
@@ -505,6 +602,64 @@
                 ]
             },
             "designerId": "463abcf2-7c8c-42b7-b65b-bc66ca6ecaa1"
+        },
+        {
+            "type": "staticfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "openPersonSelect",
+                "implHandler": [
+                    "var panel = Ext.getCmp(\"PersonRegistry\"),",
+                    "    view = panel.child(\"personselect\");",
+                    "",
+                    "panel.setActiveTab(view);"
+                ]
+            },
+            "designerId": "a7cea3d1-e519-4701-9fe7-09906a025970"
+        },
+        {
+            "type": "staticfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "refreshPersonSelect",
+                "designer|params": [
+                    "params"
+                ],
+                "implHandler": [
+                    "var panel = Ext.getCmp(\"PersonRegistry\"),",
+                    "    view = panel.child(\"personselect\"),",
+                    "    grid = view.down(\"#person_list\"),",
+                    "    store = grid.getStore(),",
+                    "    toolbar = grid.down(\"pagingtoolbar\");",
+                    "",
+                    "// Filter parameters",
+                    "if (params) {",
+                    "    store.proxy.extraParams = params;",
+                    "}",
+                    "",
+                    "//grid.getSelectionModel().deselectAll();",
+                    "",
+                    "// Refresh select",
+                    "if (toolbar) {",
+                    "    toolbar.doRefresh();",
+                    "}",
+                    "else {",
+                    "    store.reload();",
+                    "}",
+                    "",
+                    "// Correct page (current over available)",
+                    "//TODO"
+                ]
+            },
+            "designerId": "92e89077-cd45-4139-aeeb-37a101eeed09"
         },
         {
             "type": "staticfunction",
@@ -583,6 +738,7 @@
                     "",
                     "    // View store",
                     "    var store = Ext.create(\"Simplereg.store.People\", {",
+                    "        autoDestroy: true,",
                     "        storeId: ident + \"Store\"",
                     "    });",
                     "",
@@ -640,30 +796,6 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "refreshPersonSelection",
-                "implHandler": [
-                    "var panel = Ext.getCmp(\"PersonRegistry\"),",
-                    "    view = panel.child(\"personselection\"),",
-                    "    grid = view.down(\"#person_list\"),",
-                    "    store = grid.getStore();",
-                    "",
-                    "// Refresh",
-                    "store.reload();",
-                    "",
-                    "grid.getSelectionModel().deselectAll();",
-                    ""
-                ]
-            },
-            "designerId": "92e89077-cd45-4139-aeeb-37a101eeed09"
-        },
-        {
-            "type": "staticfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
                 "fn": "refreshPersonView",
                 "designer|params": [
                     "view",
@@ -678,10 +810,11 @@
                     "",
                     "    store.load({",
                     "        callback: function(records, operation, success) {",
+                    "            Ext.LOADING.hide();",
+                    "",
                     "            if (success) {",
                     "                Simplereg.controller.Person.refreshPersonView(view, records[0]);",
                     "            }",
-                    "            Ext.LOADING.hide();",
                     "            return success;",
                     "        }",
                     "    });",
@@ -707,12 +840,12 @@
                     "",
                     "    grid.bindStore(store);",
                     "    grid.getSelectionModel().deselectAll();",
-                    "    ",
+                    "",
                     "    // Paging toolbar",
                     "    var toolbar = grid.down(\"pagingtoolbar\");",
                     "    if (toolbar) {",
                     "        toolbar.bindStore(store);",
-                    "        store.totalCount = store.data.items.length;",
+                    "        store.totalCount = store.getCount();",
                     "        toolbar.onLoad();",
                     "    }",
                     "}"
@@ -728,36 +861,28 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "findPersonFromDialog",
+                "fn": "searchPersonFromDialog",
                 "implHandler": [
-                    "var dialog = Ext.getCmp(\"PersonFind\"),",
+                    "var dialog = Ext.getCmp(\"PersonSearch\"),",
                     "    form = dialog.down(\"form\");",
                     "",
                     "if (!form.isValid()) {",
                     "    return false;",
                     "}",
                     "",
-                    "// Activate selection tab",
-                    "var panel = Ext.getCmp(\"PersonRegistry\"),",
-                    "    view = panel.child(\"personselection\");",
+                    "dialog.bussy();",
                     "",
-                    "panel.setActiveTab(view);",
+                    "// Activate person select",
+                    "Simplereg.controller.Person.openPersonSelect();",
                     "",
-                    "// Person list",
-                    "var values = form.getValues(),",
-                    "    grid = view.down(\"grid\"),",
-                    "    store = grid.getStore();",
+                    "// Filter parameters",
+                    "var params = form.getValues();",
                     "",
-                    "store.proxy.extraParams = values;",
+                    "dialog.bussy(false);",
+                    "dialog.close();",
                     "",
-                    "store.load({",
-                    "    callback: function(records, operation, success) {",
-                    "        store.totalCount = records.length;",
-                    "        grid.down(\"pagingtoolbar\").onLoad();",
-                    "    }",
-                    "});",
-                    "",
-                    "dialog.close();"
+                    "// Refresh",
+                    "Simplereg.controller.Person.refreshPersonSelect(params);"
                 ]
             },
             "designerId": "d36dc02e-d20f-4f6a-8b65-153d9066b928"
@@ -770,28 +895,33 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "addPersonFromDialog",
+                "fn": "createPersonFromDialog",
                 "designer|params": [
                     "source"
                 ],
                 "implHandler": [
-                    "var dialog = Ext.getCmp(\"PersonAdd\"),",
+                    "var dialog = Ext.getCmp(\"PersonCreate\"),",
                     "    form = dialog.down(\"form\");",
                     "",
                     "if (!form.isValid()) {",
                     "    return false;",
                     "}",
                     "",
+                    "dialog.bussy();",
+                    "",
                     "// Create new person",
-                    "simpleService.createPerson(source, {",
-                    "    success: function(result) {",
-                    "        Simplereg.controller.Person.refreshPersonSelection();",
-                    "        Simplereg.controller.Person.openPersonView(result.id);",
+                    "simpleService.createPerson(source, function(result) {",
+                    "    dialog.bussy(false);",
+                    "",
+                    "    if (result.success) {",
                     "        form.getForm().reset();",
                     "        dialog.close();",
-                    "    },",
-                    "    failure: function(result) {",
-                    "        ;",
+                    "",
+                    "        Simplereg.controller.Person.openPersonView(result.id);",
+                    "        Simplereg.controller.Person.refreshPersonSelect();",
+                    "    }",
+                    "    else {",
+                    "        Simplereg.controller.Person.markInvalidFields(form, result.errors);",
                     "    }",
                     "});"
                 ]
@@ -811,23 +941,28 @@
                     "source"
                 ],
                 "implHandler": [
-                    "var dialog = Ext.getCmp(\"PersonModify\"),",
+                    "var dialog = Ext.getCmp(\"PersonUpdate\"),",
                     "    form = dialog.down(\"form\");",
                     "",
                     "if (!form.isValid()) {",
                     "    return false;",
                     "}",
                     "",
+                    "dialog.bussy();",
+                    "",
                     "// Update person",
-                    "simpleService.updatePerson(source, {",
-                    "    success: function(result) {",
-                    "        Simplereg.controller.Person.refreshPersonSelection();",
-                    "        Simplereg.controller.Person.openPersonView(result.id, true);",
+                    "simpleService.updatePerson(source, function(result) {",
+                    "    dialog.bussy(false);",
+                    "",
+                    "    if (result.success) {",
                     "        form.getForm().reset();",
                     "        dialog.close();",
-                    "    },",
-                    "    failure: function(result) {",
-                    "        ;",
+                    "",
+                    "        Simplereg.controller.Person.openPersonView(result.id, true);",
+                    "        Simplereg.controller.Person.refreshPersonSelect();",
+                    "    }",
+                    "    else {",
+                    "        Simplereg.controller.Person.markInvalidFields(form, result.errors);",
                     "    }",
                     "});"
                 ]
@@ -849,15 +984,21 @@
                 "implHandler": [
                     "var dialog = Ext.getCmp(\"PersonDelete\");",
                     "",
+                    "dialog.bussy();",
+                    "",
                     "// Delete person",
-                    "simpleService.deletePerson(source, {",
-                    "    success: function(result) {",
-                    "        Simplereg.controller.Person.refreshPersonSelection();",
-                    "        Simplereg.controller.Person.closePersonView(result.id);",
+                    "simpleService.deletePerson(source, function(result) {",
+                    "    dialog.bussy(false);",
+                    "",
+                    "    if (result.success) {",
                     "        dialog.close();",
-                    "    },",
-                    "    failure: function(result) {",
-                    "        ;",
+                    "",
+                    "        Simplereg.controller.Person.openPersonSelect();",
+                    "        Simplereg.controller.Person.closePersonView(result.id);",
+                    "        Simplereg.controller.Person.refreshPersonSelect();",
+                    "    }",
+                    "    else {",
+                    "        Simplereg.controller.Person.markInvalidFields(form, result.errors);",
                     "    }",
                     "});"
                 ]
@@ -872,33 +1013,34 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "addContactFromDialog",
+                "fn": "createContactFromDialog",
                 "designer|params": [
                     "source"
                 ],
                 "implHandler": [
-                    "var dialog = Ext.getCmp(\"ContactAdd\"),",
+                    "var dialog = Ext.getCmp(\"ContactCreate\"),",
                     "    form = dialog.down(\"form\");",
-                    "",
-                    "dialog.disable();",
                     "",
                     "if (!form.isValid()) {",
                     "    return false;",
                     "}",
                     "",
+                    "dialog.bussy();",
+                    "",
                     "// Create new contact",
-                    "simpleService.createContact(source, {",
-                    "    success: function(result) {",
-                    "        Simplereg.controller.Person.refreshPage();",
+                    "simpleService.createContact(source, function(result) {",
+                    "    dialog.bussy(false);",
+                    "",
+                    "    if (result.success) {",
                     "        form.getForm().reset();",
                     "        dialog.close();",
-                    "    },",
-                    "    failure: function(result) {",
-                    "        ;",
-                    "    }",
-                    "});",
                     "",
-                    "dialog.enable();"
+                    "        Simplereg.controller.Person.refreshPage();",
+                    "    }",
+                    "    else {",
+                    "        Simplereg.controller.Person.markInvalidFields(form, result.errors);",
+                    "    }",
+                    "});"
                 ]
             },
             "designerId": "827d8e5f-6618-4803-bca4-80dece18db0d"
@@ -916,22 +1058,27 @@
                     "source"
                 ],
                 "implHandler": [
-                    "var dialog = Ext.getCmp(\"ContactModify\"),",
+                    "var dialog = Ext.getCmp(\"ContactUpdate\"),",
                     "    form = dialog.down(\"form\");",
                     "",
                     "if (!form.isValid()) {",
                     "    return false;",
                     "}",
                     "",
+                    "dialog.bussy();",
+                    "",
                     "// Update contact",
-                    "simpleService.updateContact(source, {",
-                    "    success: function(result) {",
-                    "        Simplereg.controller.Person.refreshPage();",
+                    "simpleService.updateContact(source, function(result) {",
+                    "    dialog.bussy(false);",
+                    "",
+                    "    if (result.success) {",
                     "        form.getForm().reset();",
                     "        dialog.close();",
-                    "    },",
-                    "    failure: function(result) {",
-                    "        ;",
+                    "",
+                    "        Simplereg.controller.Person.refreshPage();",
+                    "    }",
+                    "    else {",
+                    "        Simplereg.controller.Person.markInvalidFields(form, result.errors);",
                     "    }",
                     "});"
                 ]
@@ -951,21 +1098,21 @@
                     "source"
                 ],
                 "implHandler": [
-                    "var dialog = Ext.getCmp(\"ContactDelete\"),",
-                    "    form = dialog.down(\"form\");",
+                    "var dialog = Ext.getCmp(\"ContactDelete\");",
                     "",
-                    "if (!form.isValid()) {",
-                    "    return false;",
-                    "}",
+                    "dialog.bussy();",
                     "",
                     "// Delete contact",
-                    "simpleService.deleteContact(source, {",
-                    "    success: function(result) {",
-                    "        Simplereg.controller.Person.refreshPage();",
+                    "simpleService.deleteContact(source, function(result) {",
+                    "    dialog.bussy(false);",
+                    "",
+                    "    if (result.success) {",
                     "        dialog.close();",
-                    "    },",
-                    "    failure: function(result) {",
-                    "        ;",
+                    "",
+                    "        Simplereg.controller.Person.refreshPage();",
+                    "    }",
+                    "    else {",
+                    "        Simplereg.controller.Person.markInvalidFields(form, result.errors);",
                     "    }",
                     "});"
                 ]
@@ -985,15 +1132,15 @@
                     "var panel = Ext.getCmp(\"PersonRegistry\"),",
                     "    view = panel.getActiveTab(),",
                     "    grid = view.down(\"contactlist #contact_list\"),",
-                    "    toggle = selected.length ? \"enable\" : \"disable\";",
+                    "    disable = !selected.length;",
                     "",
                     "if (grid.getSelectionModel() != model) {",
                     "    return false;",
                     "}",
                     "",
                     "// Toggle enable/disable",
-                    "view.down(\"#selected_contact_delete\")[toggle]();",
-                    "view.down(\"#selected_contact_modify\")[toggle]();"
+                    "view.down(\"#selected_contact_update\").setDisabled(disable);",
+                    "view.down(\"#selected_contact_delete\").setDisabled(disable);"
                 ],
                 "name": "selectionchange",
                 "scope": "me",

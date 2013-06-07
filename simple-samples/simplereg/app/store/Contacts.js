@@ -26,7 +26,6 @@ Ext.define('Simplereg.store.Contacts', {
         me.callParent([Ext.apply({
             model: 'Simplereg.model.Contact',
             storeId: 'ContactsStore',
-            pageSize: 25,
             proxy: {
                 type: 'direct',
                 api: { read: "simpleService.loadContacts" },

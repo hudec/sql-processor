@@ -1,0 +1,122 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "id": "PersonSelect",
+        "designer|userClassName": "PersonSelect",
+        "designer|userAlias": "personselect",
+        "layout": "column",
+        "bodyPadding": 5,
+        "title": "Person Select"
+    },
+    "designerId": "1d93de59-655f-49ba-8188-a2c1b5aa2445",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top",
+                "border": null,
+                "cls": "main",
+                "designer|displayName": "Toolbar"
+            },
+            "designerId": "74abba30-f7eb-490c-b237-422659750345",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "cls": null,
+                        "itemId": "person_search",
+                        "iconCls": "icon-search",
+                        "text": "Find"
+                    },
+                    "designerId": "5939c9fb-815f-41cf-b132-8eb75029b560"
+                },
+                {
+                    "type": "Ext.toolbar.Separator",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "designer|displayName": "Separator"
+                    },
+                    "designerId": "b48a5628-76a1-4bca-8632-ba025b69c1c1"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "disabled": null,
+                        "itemId": "refresh_page",
+                        "iconCls": "icon-refresh",
+                        "text": "Refresh"
+                    },
+                    "designerId": "08837fd8-b5df-43c6-a5b5-c3f00551c641"
+                },
+                {
+                    "type": "Ext.toolbar.Separator",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "designer|displayName": "Separator"
+                    },
+                    "designerId": "42b379ca-b618-4d13-b92a-5af3f1a492bf"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "itemId": "person_create",
+                        "iconCls": "icon-add",
+                        "text": "Add"
+                    },
+                    "designerId": "7277978f-d309-48cd-90ec-0ab02d6a3c16"
+                }
+            ]
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|columnWidth": 1
+            },
+            "designerId": "adac142b-ef30-4828-b1c0-372241013aee",
+            "masterInstanceId": "0ff729ba-a687-43c4-91e8-5e07c72fcb44"
+        }
+    ]
+}

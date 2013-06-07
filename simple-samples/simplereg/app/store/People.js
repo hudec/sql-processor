@@ -28,7 +28,7 @@ Ext.define('Simplereg.store.People', {
             remoteFilter: true,
             remoteSort: true,
             storeId: 'PeopleStore',
-            pageSize: 25,
+            pageSize: 5,
             proxy: {
                 type: 'direct',
                 api: { read: "simpleService.loadPeople" },

@@ -12,7 +12,7 @@
         "remoteSort": true,
         "storeId": "PeopleStore",
         "designer|userClassName": "People",
-        "pageSize": 25
+        "pageSize": 5
     },
     "designerId": "0ced9bcb-c595-4399-b689-99144213cd8f",
     "cn": [

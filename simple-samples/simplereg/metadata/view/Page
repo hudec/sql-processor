@@ -42,7 +42,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "frame": null,
-                        "itemId": "person_selection",
+                        "itemId": "person_select",
                         "margin": null,
                         "title": null
                     },

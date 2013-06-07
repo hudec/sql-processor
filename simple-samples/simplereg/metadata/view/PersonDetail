@@ -42,7 +42,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "itemId": "person_modify",
+                        "itemId": "person_update",
                         "iconCls": "icon-edit",
                         "text": "Modify"
                     },
@@ -60,8 +60,9 @@
             "userConfig": {
                 "frame": null,
                 "itemId": null,
-                "padding": 10,
-                "designer|displayName": "Form"
+                "padding": null,
+                "designer|displayName": "Form",
+                "bodyPadding": 10
             },
             "designerId": "26db2b82-72c5-4a4c-9038-52ffd14bff86",
             "cn": [
@@ -126,7 +127,7 @@
                                     "displayField"
                                 ],
                                 "implHandler": [
-                                    "return Ext.util.Format.dateRenderer('d.m.Y')(value);"
+                                    "return Ext.util.Format.dateRenderer('j.n.Y')(value);"
                                 ]
                             },
                             "designerId": "728b828e-ae3c-4883-b22c-e5cc19902def"
