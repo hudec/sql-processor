@@ -1,7 +1,7 @@
 
 SELECT_PERSON(QRY,inx=PersonForm,outx=Person,tab=person=p,tab=contact=c,tab=country=s)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn, %p.VERSION @version
-         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.PERSON_ID @contacts.personId, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version, %c.COUNTRY_CODE @contacts.country.code, %c.COUNTRY_CODE @contacts.countryCode }
+         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.personId, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version, %c.COUNTRY_CODE @contacts.country.code, %c.COUNTRY_CODE @contacts.countryCode }
   from %%PERSON p
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
   {= where
@@ -20,7 +20,7 @@ SELECT_PERSON(QRY,inx=PersonForm,outx=Person,tab=person=p,tab=contact=c,tab=coun
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact,MYSQL)=
   insert into %%CONTACT (%PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER, %VERSION, %COUNTRY_CODE)
-  {= values (:id(idsel), :person.id, :ctype, :address, :phoneNumber, :version, :country.code) }
+  {= values (:id(idsel), :personId, :ctype, :address, :phoneNumber, :version, :country.code) }
 ;
 
 INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person,MYSQL)=
@@ -31,19 +31,17 @@ INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person,MYSQL)=
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER, %VERSION, %COUNTRY_CODE)
-  {= values (:id(seq=SIMPLE_SEQUENCE), :person.id, :ctype, :address, :phoneNumber, :version, :country.code) }
+  {= values (:id(seq=SIMPLE_SEQUENCE), :personId, :ctype, :address, :phoneNumber, :version, :country.code) }
 ;
 
-GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p,tab=country=c1)=
-  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.PERSON_ID @personId, %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.VERSION @version, %c.COUNTRY_CODE @country.code(id), %c.COUNTRY_CODE @countryCode
-         {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn, %p.VERSION @person.version }
+GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=country=c1)=
+  select %c.ID @id(id), %c.PERSON_ID @personId, %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.VERSION @version, %c.COUNTRY_CODE @country.code(id), %c.COUNTRY_CODE @countryCode
          {? :country(call=toInit) | , %c1.CODE @country.code, %c1.NAME @country.name }
   from %%CONTACT c
-  {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
   {? :country(call=toInit) | left join %%COUNTRY c1 on %c.COUNTRY_CODE = %c1.CODE }
   {= where
     {& %c.ID ::= :id }
-    {& %c.PERSON_ID ::= :person.id }
+    {& %c.PERSON_ID ::= :personId }
     {& %c.CTYPE ::= :ctype }
     {& %c.ADDRESS ::= :address }
     {& %c.PHONE_NUMBER ::= :phoneNumber }
@@ -54,7 +52,7 @@ GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p,tab=country
 UPDATE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   update %%CONTACT
   {= set
-    { ,%PERSON_ID = :person.id(call=isDef) }
+    { ,%PERSON_ID = :personId(call=isDef) }
     { ,%CTYPE = :ctype(call=isDef) }
     { ,%ADDRESS = :address(call=isDef) }
     { ,%PHONE_NUMBER = :phoneNumber(call=isDef) }
@@ -75,16 +73,14 @@ DELETE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   }
 ;
 
-SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p,tab=country=c1)=
-  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.PERSON_ID @personId, %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.VERSION @version, %c.COUNTRY_CODE @country.code(id), %c.COUNTRY_CODE @countryCode
-         {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn, %p.VERSION @person.version }
+SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=country=c1)=
+  select %c.ID @id(id), %c.PERSON_ID @personId, %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.VERSION @version, %c.COUNTRY_CODE @country.code(id), %c.COUNTRY_CODE @countryCode
          {? :country(call=toInit) | , %c1.CODE @country.code, %c1.NAME @country.name }
   from %%CONTACT c
-  {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
   {? :country(call=toInit) | left join %%COUNTRY c1 on %c.COUNTRY_CODE = %c1.CODE }
   {= where
     {& %c.ID ::= :id }
-    {& %c.PERSON_ID ::= :person.id }
+    {& %c.PERSON_ID ::= :personId }
     {& UPPER(%c.CTYPE) like :+ctype }
     {& UPPER(%c.ADDRESS) like :+address }
     {& %c.PHONE_NUMBER ::= :phoneNumber }
@@ -148,7 +144,7 @@ INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
 
 GET_PERSON(CRUD,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn, %p.VERSION @version
-         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.PERSON_ID @contacts.personId, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version, %c.COUNTRY_CODE @contacts.country.code, %c.COUNTRY_CODE @contacts.countryCode }
+         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.personId, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version, %c.COUNTRY_CODE @contacts.country.code, %c.COUNTRY_CODE @contacts.countryCode }
   from %%PERSON p
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
   {= where

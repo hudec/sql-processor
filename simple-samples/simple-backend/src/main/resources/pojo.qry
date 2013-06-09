@@ -34,9 +34,7 @@ package org.sample.model {
   @@@@JsonIgnore
   pojo Contact serializable 1 operators {
     id : java.lang.Long primaryKey index 1
-    @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model ::Person class
-    @JsonIgnore
-    person :: Person updateCol id->personId required index 2
+    personId : java.lang.Long required index 2
     @ModelField ::: type :ModelType STRING
     @NotNull
     ctype :: ContactCtype required
@@ -46,13 +44,12 @@ package org.sample.model {
     @NotNull
     version : java.lang.Integer optLock
     country :: Country updateCol code->countryCode required index 3
-    personId : java.lang.Long createCol person->id
     countryCode : java.lang.String createCol country->code
     equals ::: id
     hashCode ::: id
-    toInit ::: person country
+    toInit ::: country
     isDef ::: phoneNumber
-    toString ::: id person phoneNumber address countryCode personId ctype country version
+    toString ::: id phoneNumber address countryCode ctype personId country version
   }
 
   @Model ::: value "SimpleWeb.model.Country", paging true, readMethod "simpleService.loadCountries"

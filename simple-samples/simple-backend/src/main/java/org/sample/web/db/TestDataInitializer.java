@@ -81,7 +81,7 @@ public final class TestDataInitializer implements InitializingBean {
         Contact contact = new Contact();
         contact.setAddress(address);
         contact.setPhoneNumber(phone);
-        contact.setPerson(person);
+        contact.setPersonId(person.getId());
         contact.setCtype(type);
         contact.setCountry(country);
         return contact;

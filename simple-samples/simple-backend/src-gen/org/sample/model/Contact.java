@@ -1,8 +1,6 @@
 package org.sample.model;
   
 import ch.ralscha.extdirectspring.generator.Model;
-import ch.ralscha.extdirectspring.generator.ModelAssociation;
-import ch.ralscha.extdirectspring.generator.ModelAssociationType;
 import ch.ralscha.extdirectspring.generator.ModelField;
 import ch.ralscha.extdirectspring.generator.ModelType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,15 +22,15 @@ public class Contact implements Serializable {
   @JsonIgnore
   public static final int ORDER_BY_ID = 1;
   @JsonIgnore
-  public static final int ORDER_BY_PERSON = 2;
+  public static final int ORDER_BY_PERSON_ID = 2;
   @JsonIgnore
   public static final int ORDER_BY_COUNTRY = 3;
 	
   public Contact() {
   }
   
-  public Contact(Person person, ContactCtype ctype, String address, Country country) {
-    this.person = person;
+  public Contact(Long personId, ContactCtype ctype, String address, Country country) {
+    this.personId = personId;
     this.ctype = ctype;
     this.address = address;
     this.country = country;
@@ -53,24 +51,18 @@ public class Contact implements Serializable {
     return this;
   }
   
-  @ModelAssociation(value = ModelAssociationType.BELONGS_TO, model = Person.class)
-  @JsonIgnore
-  private Person person;
+  private Long personId;
   
-  public Person getPerson() {
-    return person;
+  public Long getPersonId() {
+    return personId;
   }
   
-  public void setPerson(Person person) {
-    this.person = person;
-    if (this.person != null)
-      this.personId = this.person.getId();
+  public void setPersonId(Long personId) {
+    this.personId = personId;
   }
   
-  public Contact _setPerson(Person person) {
-    this.person = person;
-    if (this.person != null)
-      this.personId = this.person.getId();
+  public Contact _setPersonId(Long personId) {
+    this.personId = personId;
     return this;
   }
   
@@ -157,27 +149,6 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private Long personId;
-  
-  public Long getPersonId() {
-    return personId;
-  }
-  
-  public void setPersonId(Long personId) {
-    this.personId = personId;
-    if (this.person == null)
-        this.person = new Person();
-    this.person.setId(personId);
-  }
-  
-  public Contact _setPersonId(Long personId) {
-    this.personId = personId;
-    if (this.person == null)
-        this.person = new Person();
-    this.person.setId(personId);
-    return this;
-  }
-  
   private String countryCode;
   
   public String getCountryCode() {
@@ -222,7 +193,7 @@ public class Contact implements Serializable {
   }  
   
   public enum Association {
-    person, country
+    country
   }
   
   private Set<String> initAssociations = new HashSet<String>();
@@ -352,11 +323,11 @@ public class Contact implements Serializable {
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", countryCode=" + countryCode + ", personId=" + personId + ", ctype=" + ctype + ", country=" + country + ", version=" + version + "]";
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", countryCode=" + countryCode + ", ctype=" + ctype + ", personId=" + personId + ", country=" + country + ", version=" + version + "]";
   }
   
   public enum OpAttribute {
-      id, person, ctype, address, phoneNumber, version, country, personId, countryCode
+      id, personId, ctype, address, phoneNumber, version, country, countryCode
   }
   
   private Map<String, String> operators = new HashMap<String, String>();
