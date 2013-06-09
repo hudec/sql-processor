@@ -1,6 +1,4 @@
 package org.sample.model;
-  
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -10,18 +8,17 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
-public class State implements Serializable {
+public class Country implements Serializable {
   
   private static final long serialVersionUID = 1L;
-  @JsonIgnore
   public static final int ORDER_BY_ID = 1;
-  @JsonIgnore
-  public static final int ORDER_BY_CODE = 2;
+  public static final int ORDER_BY_CODE = 3;
+  public static final int ORDER_BY_NAME = 4;
 	
-  public State() {
+  public Country() {
   }
   
-  public State(String code) {
+  public Country(String code) {
     this.code = code;
   }
   
@@ -35,13 +32,13 @@ public class State implements Serializable {
     this.id = id;
   }
   
-  public State _setId(Long id) {
+  public Country _setId(Long id) {
     this.id = id;
     return this;
   }
   
   private String code;
- 
+  
   public String getCode() {
     return code;
   }
@@ -50,7 +47,7 @@ public class State implements Serializable {
     this.code = code;
   }
   
-  public State _setCode(String code) {
+  public Country _setCode(String code) {
     this.code = code;
     return this;
   }
@@ -65,7 +62,7 @@ public class State implements Serializable {
     this.name = name;
   }
   
-  public State _setName(String name) {
+  public Country _setName(String name) {
     this.name = name;
     return this;
   }
@@ -78,7 +75,7 @@ public class State implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    State other = (State) obj;
+    Country other = (Country) obj;
     if (id == null || !id.equals(other.id))
       return false;
     return true;
@@ -97,7 +94,6 @@ public class State implements Serializable {
   
   private Set<String> initAssociations = new HashSet<String>();
   
-  @JsonIgnore
   public void setInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
@@ -105,7 +101,6 @@ public class State implements Serializable {
       initAssociations.add(association.name());
   }
   
-  @JsonIgnore
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
@@ -143,7 +138,6 @@ public class State implements Serializable {
   
   private Set<String> nullValues = new HashSet<String>();
   
-  @JsonIgnore
   public void setNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -151,7 +145,6 @@ public class State implements Serializable {
       nullValues.add(attribute.name());
   }
   
-  @JsonIgnore
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -179,7 +172,6 @@ public class State implements Serializable {
     return nullValues.contains(attrName);
   }
   
-  @JsonIgnore
   public Boolean isNull(Attribute attribute) {
     if (attribute == null)
       throw new IllegalArgumentException();
@@ -218,11 +210,11 @@ public class State implements Serializable {
   
   @Override
   public String toString() {
-    return "State [id=" + id + ", name=" + name + ", code=" + code + "]";
+    return "Country [id=" + id + ", name=" + name + ", code=" + code + "]";
   }
   
   public String toStringFull() {
-    return "State [id=" + id + ", name=" + name + ", code=" + code + "]";
+    return "Country [id=" + id + ", name=" + name + ", code=" + code + "]";
   }
   
   public enum OpAttribute {
@@ -235,7 +227,6 @@ public class State implements Serializable {
     return operators;
   }
   
-  @JsonIgnore
   public void setOp(String operator, OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -243,7 +234,6 @@ public class State implements Serializable {
       operators.put(attribute.name(), operator);
   }
   
-  @JsonIgnore
   public void clearOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -265,7 +255,6 @@ public class State implements Serializable {
       operators.remove(attribute);
   }
   
-  @JsonIgnore
   public void setNullOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();

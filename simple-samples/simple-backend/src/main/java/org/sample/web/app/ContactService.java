@@ -21,7 +21,7 @@ public class ContactService {
     public List<Contact> listContacts(Contact form, SqlControl sqlControl, CountHolder countHolder) throws Exception {
         logger.info("listContacts -> " + form + ", " + sqlControl);
 
-        form.setInit(Contact.Association.state.name());
+        form.setInit(Contact.Association.country.name());
         List<Contact> contacts = contactDao.list(form, sqlControl);
         int count = contactDao.count(form);
         logger.info("listContacts <- " + contacts);

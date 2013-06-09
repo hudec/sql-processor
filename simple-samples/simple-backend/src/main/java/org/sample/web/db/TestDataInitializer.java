@@ -9,9 +9,9 @@ import java.util.List;
 
 import org.sample.model.Contact;
 import org.sample.model.ContactCtype;
+import org.sample.model.Country;
 import org.sample.model.Person;
 import org.sample.model.PersonGender;
-import org.sample.model.State;
 import org.sample.web.service.SimpleService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
@@ -68,8 +68,8 @@ public final class TestDataInitializer implements InitializingBean {
                 people.add(newPerson("Thomas", "Jones", calendar.getTime(), "007-16-0001", PersonGender.MALE));
                 simpleService.createPeople(people);
                 List<Contact> contacts = new ArrayList<Contact>();
-                contacts.add(newContact(people.get(1), "address1", "123456789", ContactCtype.HOME, new State("CZE")));
-                contacts.add(newContact(people.get(1), "address2", "0123456789", ContactCtype.HOME, new State("CZE")));
+                contacts.add(newContact(people.get(1), "address1", "123456789", ContactCtype.HOME, new Country("UK")));
+                contacts.add(newContact(people.get(1), "address2", "0123456789", ContactCtype.HOME, new Country("CZ")));
                 simpleService.createContacts(contacts);
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -77,13 +77,13 @@ public final class TestDataInitializer implements InitializingBean {
         }
     }
 
-    private Contact newContact(Person person, String address, String phone, ContactCtype type, State state) {
+    private Contact newContact(Person person, String address, String phone, ContactCtype type, Country country) {
         Contact contact = new Contact();
         contact.setAddress(address);
         contact.setPhoneNumber(phone);
         contact.setPerson(person);
         contact.setCtype(type);
-        contact.setState(state);
+        contact.setCountry(country);
         return contact;
     }
 

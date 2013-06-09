@@ -25,8 +25,8 @@ pojogen-preserve-foreign-keys CONTACT;
 // optimistic locking
 pojogen-version-column VERSION;
 
-pojogen-ignore-one-to-many STATE CODE->CONTACT;
-pojogen-rename-columns CONTACT STATE_CODE->STATE; 
+pojogen-ignore-one-to-many COUNTRY CODE->CONTACT;
+pojogen-rename-columns CONTACT COUNTRY_CODE->COUNTRY; 
 
 // use indetity for primary keys
 // for HSQLDB
@@ -42,8 +42,8 @@ metagen-not-like-columns CONTACT PHONE_NUMBER;
 //daogen-make-it-final; 
 
 table contact CONTACT;
+table country COUNTRY;
 table person PERSON;
-table state STATE;
 
 metagen-function-result AN_HOUR_BEFORE stamp;
 metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;

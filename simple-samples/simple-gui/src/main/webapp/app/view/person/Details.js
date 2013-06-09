@@ -153,8 +153,8 @@ Ext.define('SimpleWeb.view.person.Details', {
                             text : 'Phone'
                         }, {
                             xtype : 'gridcolumn',
-                            dataIndex : 'stateCode',
-                            text : 'State'
+                            dataIndex : 'countryCode',
+                            text : 'Country'
                         } ]
                     }, {
                         xtype : 'toolbar',

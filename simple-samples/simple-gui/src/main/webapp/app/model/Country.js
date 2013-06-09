@@ -1,4 +1,4 @@
-Ext.define("org.sample.model.State", {
+Ext.define("org.sample.model.Country", {
     extend : "Ext.data.Model",
     fields : [ {
         name : "id",

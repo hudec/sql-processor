@@ -26,16 +26,16 @@ public class Contact implements Serializable {
   @JsonIgnore
   public static final int ORDER_BY_PERSON = 2;
   @JsonIgnore
-  public static final int ORDER_BY_STATE = 3;
+  public static final int ORDER_BY_COUNTRY = 3;
 	
   public Contact() {
   }
   
-  public Contact(Person person, ContactCtype ctype, String address, State state) {
+  public Contact(Person person, ContactCtype ctype, String address, Country country) {
     this.person = person;
     this.ctype = ctype;
     this.address = address;
-    this.state = state;
+    this.country = country;
   }
   
   private Long id;
@@ -59,8 +59,8 @@ public class Contact implements Serializable {
   
   public Person getPerson() {
     return person;
-  }  
-
+  }
+  
   public void setPerson(Person person) {
     this.person = person;
     if (this.person != null)
@@ -138,24 +138,22 @@ public class Contact implements Serializable {
     return this;
   }
   
-  @ModelAssociation(value = ModelAssociationType.BELONGS_TO, model = State.class, foreignKey = "stateCode")
-  @JsonIgnore
-  private State state;
+  private Country country;
   
-  public State getState() {
-      return state;
+  public Country getCountry() {
+    return country;
   }
   
-  public void setState(State state) {
-    this.state = state;
-    if (this.state != null)
-      this.stateCode = this.state.getCode(); 
+  public void setCountry(Country country) {
+    this.country = country;
+    if (this.country != null)
+      this.countryCode = this.country.getCode();
   }
   
-  public Contact _setState(State state) {
-    this.state = state;
-    if (this.state != null)
-      this.stateCode = this.state.getCode(); 
+  public Contact _setCountry(Country country) {
+    this.country = country;
+    if (this.country != null)
+      this.countryCode = this.country.getCode();
     return this;
   }
   
@@ -180,26 +178,26 @@ public class Contact implements Serializable {
     return this;
   }
   
-    private String stateCode;
+  private String countryCode;
   
-    public String getStateCode() {
-      return stateCode;
-    }
+  public String getCountryCode() {
+    return countryCode;
+  }
   
-    public void setStateCode(String stateCode) {
-      this.stateCode = stateCode;
-      if (this.state == null)
-          this.state = new State();
-      this.state.setCode(stateCode);
-    }
+  public void setCountryCode(String countryCode) {
+    this.countryCode = countryCode;
+    if (this.country == null)
+        this.country = new Country();
+    this.country.setCode(countryCode);
+  }
   
-    public Contact _setStateCode(String stateCode) {
-      this.stateCode = stateCode;
-      if (this.state == null)
-          this.state = new State();
-      this.state.setCode(stateCode);
-      return this;
-    }
+  public Contact _setCountryCode(String countryCode) {
+    this.countryCode = countryCode;
+    if (this.country == null)
+        this.country = new Country();
+    this.country.setCode(countryCode);
+    return this;
+  }
   
   @Override
   public boolean equals(Object obj) {
@@ -224,7 +222,7 @@ public class Contact implements Serializable {
   }  
   
   public enum Association {
-    person, state
+    person, country
   }
   
   private Set<String> initAssociations = new HashSet<String>();
@@ -350,15 +348,15 @@ public class Contact implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", stateCode=" + stateCode + ", personId=" + personId + ", version=" + version + "]";
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", countryCode=" + countryCode + ", personId=" + personId + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", state=" + state + ", stateCode=" + stateCode + ", personId=" + personId + ", ctype=" + ctype + ", version=" + version + "]";
+    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", countryCode=" + countryCode + ", personId=" + personId + ", ctype=" + ctype + ", country=" + country + ", version=" + version + "]";
   }
   
   public enum OpAttribute {
-      id, person, ctype, address, phoneNumber, version, state, personId, stateCode
+      id, person, ctype, address, phoneNumber, version, country, personId, countryCode
   }
   
   private Map<String, String> operators = new HashMap<String, String>();

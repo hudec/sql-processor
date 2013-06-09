@@ -12,8 +12,10 @@ import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.sample.model.Contact;
+import org.sample.model.Country;
 import org.sample.model.Person;
 import org.sample.web.app.ContactService;
+import org.sample.web.app.CountryService;
 import org.sample.web.app.PersonService;
 import org.sample.web.form.CountHolder;
 import org.sample.web.form.PersonForm;
@@ -42,6 +44,7 @@ public class SimpleService {
 
     protected ContactService contactService;
     protected PersonService personService;
+    protected CountryService countryService;
     protected BeanUtilsBean beanUtilsBean;
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -279,6 +282,23 @@ public class SimpleService {
         return postResult;
     }
 
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "person")
+    public ExtDirectStoreReadResult<Country> loadCountries(ExtDirectStoreReadRequest request) throws Exception {
+        logger.info("loadCountries -> " + request);
+
+        Country form = buildCountryFormFromParams(request.getParams());
+
+        SqlStandardControl sqlControl = buildControlFromParams(request);
+        logger.info("loadCountries control " + sqlControl);
+        CountHolder count = new CountHolder();
+        List<Country> contacts = countryService.listCountries(form, sqlControl, count);
+
+        ExtDirectStoreReadResult<Country> result = new ExtDirectStoreReadResult<Country>(new Long(count.getCount()),
+                contacts, true);
+        logger.info("loadCountries <- " + result);
+        return result;
+    }
+
     private PersonForm buildPersonFormFromFilters(List<Filter> filters) throws Exception {
 
         PersonForm form = new PersonForm();
@@ -286,7 +306,7 @@ public class SimpleService {
         for (Filter filter : filters) {
             String value = ((StringFilter) filter).getValue();
             String key = filter.getField();
-            logger.info("personFormFromFilters '" + key + "' '" + value + "'");
+            logger.info("buildPersonFormFromFilters '" + key + "' '" + value + "'");
             beanUtilsBean.setProperty(form, key, value);
         }
 
@@ -302,7 +322,7 @@ public class SimpleService {
             Object value = p.getValue();
             if (value == null || ((value instanceof String) && ((String) value).length() == 0))
                 continue;
-            logger.info("personFormFromParams '" + key + "' '" + value + "' '" + value.getClass() + "'");
+            logger.info("buildPersonFormFromParams '" + key + "' '" + value + "' '" + value.getClass() + "'");
             if ("contacts".equals(key) && value instanceof Boolean && ((Boolean) value))
                 form.setInit(Person.Association.contacts);
             else
@@ -319,7 +339,23 @@ public class SimpleService {
         for (Filter filter : filters) {
             String value = ((StringFilter) filter).getValue();
             String key = filter.getField();
-            logger.info("personFormFromFilters '" + key + "' '" + value + "'");
+            logger.info("buildContactFormFromFilters '" + key + "' '" + value + "'");
+            beanUtilsBean.setProperty(form, key, value);
+        }
+
+        return form;
+    }
+
+    private Country buildCountryFormFromParams(Map<String, Object> params) throws Exception {
+
+        Country form = new Country();
+
+        for (Entry<String, Object> p : params.entrySet()) {
+            String key = p.getKey();
+            Object value = p.getValue();
+            if (value == null || ((value instanceof String) && ((String) value).length() == 0))
+                continue;
+            logger.info("buildCountryFormFromParams '" + key + "' '" + value + "' '" + value.getClass() + "'");
             beanUtilsBean.setProperty(form, key, value);
         }
 

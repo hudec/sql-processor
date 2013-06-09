@@ -1,7 +1,5 @@
 package org.sample.model {
-	
-	
-	
+
   import org.sample.web.util.DMYDateDeserializer
   import javax.validation.constraints.NotNull
   import org.springframework.format.annotation.DateTimeFormat
@@ -47,16 +45,25 @@ package org.sample.model {
     phoneNumber : java.lang.String
     @NotNull
     version : java.lang.Integer optLock
-    @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model ::State class foreignKey "stateCode"
-    @JsonIgnore
-    state :: State updateCol code->stateCode required index 3
+    country :: Country updateCol code->countryCode required index 3
     personId : java.lang.Long createCol person->id
-    stateCode : java.lang.String createCol state->code
+    countryCode : java.lang.String createCol country->code
     equals ::: id
     hashCode ::: id
-    toInit ::: person state
+    toInit ::: person country
     isDef ::: phoneNumber
-    toString ::: id person phoneNumber address state stateCode personId ctype version
+    toString ::: id person phoneNumber address countryCode personId ctype country version
+  }
+
+  pojo Country serializable 1 operators {
+    id : java.lang.Long primaryKey index 1
+    code : java.lang.String required index 3
+    name : java.lang.String index 4
+    equals ::: id
+    hashCode ::: id
+    toInit :::
+    isDef ::: name
+    toString ::: id name code
   }
 
   @Model ::: value "SimpleWeb.model.Person", paging true, readMethod "simpleService.loadPeople"
@@ -88,19 +95,6 @@ package org.sample.model {
     isDef ::: dateOfBirth ssn
     toString ::: dateOfBirth id lastName ssn gender firstName version
   }
-
-  @@@JsonIgnore
-  @@@@JsonIgnore
-  pojo State serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
-    code : java.lang.String required index 2
-    name : java.lang.String
-    equals ::: id
-    hashCode ::: id
-    toInit :::
-    isDef ::: name
-    toString ::: id name code
-  }  
 }
 
 package org.sample.web.form {

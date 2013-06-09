@@ -19,7 +19,7 @@ Ext.define("SimpleWeb.model.Contact", {
         name : "personId",
         type : "int"
     }, {
-        name : "stateCode",
+        name : "countryCode",
         type : "string"
     } ],
     associations : [ {
@@ -29,13 +29,6 @@ Ext.define("SimpleWeb.model.Contact", {
         foreignKey : "person_id",
         setterName : "setPerson",
         getterName : "getPerson"
-    }, {
-        type : "belongsTo",
-        model : "org.sample.model.State",
-        associationKey : "state",
-        foreignKey : "stateCode",
-        setterName : "setState",
-        getterName : "getState"
     } ],
     validations : [ {
         type : "presence",

@@ -4,6 +4,10 @@ package org.sample.dao {
     scaffold
   }
 
+  dao CountryDao :: Country {
+    scaffold
+  }
+
   dao PersonDao :: Person {
     scaffold
   }
