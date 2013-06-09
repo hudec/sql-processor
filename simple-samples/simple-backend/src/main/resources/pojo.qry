@@ -55,6 +55,9 @@ package org.sample.model {
     toString ::: id person phoneNumber address countryCode personId ctype country version
   }
 
+  @Model ::: value "SimpleWeb.model.Country", paging true, readMethod "simpleService.loadCountries"
+  @@@JsonIgnore
+  @@@@JsonIgnore
   pojo Country serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     code : java.lang.String required index 3
