@@ -1,16 +1,9 @@
 package org.sample.web.service;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.validation.Valid;
 
-import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.ConvertUtilsBean;
-import org.apache.commons.beanutils.converters.DateConverter;
 import org.sample.model.Contact;
 import org.sample.model.Country;
 import org.sample.model.Person;
@@ -19,6 +12,7 @@ import org.sample.web.app.CountryService;
 import org.sample.web.app.PersonService;
 import org.sample.web.form.CountHolder;
 import org.sample.web.form.PersonForm;
+import org.sample.web.util.BeanExtJsUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Required;
@@ -36,41 +30,16 @@ import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadRequest;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
 import ch.ralscha.extdirectspring.bean.SortDirection;
 import ch.ralscha.extdirectspring.bean.SortInfo;
-import ch.ralscha.extdirectspring.filter.Filter;
-import ch.ralscha.extdirectspring.filter.StringFilter;
 
 @Service
 public class SimpleService {
 
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
+
     protected ContactService contactService;
     protected PersonService personService;
     protected CountryService countryService;
-    protected BeanUtilsBean beanUtilsBean;
-
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
-
-    public SimpleService() {
-        beanUtilsBean = new BeanUtilsBean(new ConvertUtilsBean() {
-
-            @Override
-            public Object convert(String value, Class clazz) {
-                if (clazz.isEnum()) {
-                    if (value == null || value.isEmpty()) {
-                        return null;
-                    }
-                    return Enum.valueOf(clazz, value);
-
-                } else {
-                    return super.convert(value, clazz);
-                }
-            }
-        });
-
-        DateConverter dateConverter = new DateConverter(null);
-        dateConverter.setPattern("dd.MM.yyyy");
-        beanUtilsBean.getConvertUtils().register(dateConverter, Date.class);
-
-    }
+    protected BeanExtJsUtils beanUtils;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -81,9 +50,10 @@ public class SimpleService {
     public ExtDirectStoreReadResult<Person> loadPeople(ExtDirectStoreReadRequest request) throws Exception {
         logger.info("listPeople -> " + request);
 
-        PersonForm form = buildPersonFormFromParams(request.getParams());
+        PersonForm form = beanUtils.buildFormFromParams(request.getParams(), PersonForm.class);
 
-        SqlStandardControl sqlControl = (form.getId() == null) ? buildControlFromParams(request)
+        // TODO - generalize and move to BeanExtJsUtils
+        SqlStandardControl sqlControl = (form.getId() == null) ? beanUtils.buildControlFromParams(request)
                 : new SqlStandardControl();
         if (request.getSorters() != null) {
             for (SortInfo sort : request.getSorters()) {
@@ -106,38 +76,6 @@ public class SimpleService {
                 people, true);
         logger.info("listPeople <- " + result);
         return result;
-    }
-
-    // @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    @Deprecated
-    public List<Person> createPeople(List<Person> people) {
-        List<Person> result = new ArrayList<Person>();
-        for (Person person : people) {
-            Person p = personService.insertPerson(person);
-            if (p != null)
-                result.add(p);
-        }
-        return result;
-    }
-
-    // @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    @Deprecated
-    public List<Person> updatePeople(List<Person> people) {
-        List<Person> result = new ArrayList<Person>();
-        for (Person person : people) {
-            Person p = personService.updatePerson(person);
-            if (p != null)
-                result.add(p);
-        }
-        return result;
-    }
-
-    // @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    @Deprecated
-    public void deletePeople(List<Person> people) {
-        for (Person person : people) {
-            personService.deletePerson(person);
-        }
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
@@ -192,9 +130,9 @@ public class SimpleService {
     public ExtDirectStoreReadResult<Contact> loadContacts(ExtDirectStoreReadRequest request) throws Exception {
         logger.info("loadContacts -> " + request);
 
-        Contact form = buildContactFormFromParams(request.getParams());
+        Contact form = beanUtils.buildFormFromParams(request.getParams(), Contact.class);
 
-        SqlStandardControl sqlControl = buildControlFromParams(request);
+        SqlStandardControl sqlControl = beanUtils.buildControlFromParams(request);
         logger.info("loadContacts control " + sqlControl);
         CountHolder count = new CountHolder();
         List<Contact> contacts = contactService.listContacts(form, sqlControl, count);
@@ -203,38 +141,6 @@ public class SimpleService {
                 contacts, true);
         logger.info("loadContacts <- " + result);
         return result;
-    }
-
-    // @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    @Deprecated
-    public List<Contact> createContacts(List<Contact> contacts) {
-        List<Contact> result = new ArrayList<Contact>();
-        for (Contact contact : contacts) {
-            Contact c = contactService.insertContact(contact);
-            if (c != null)
-                result.add(c);
-        }
-        return result;
-    }
-
-    // @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    @Deprecated
-    public List<Contact> updateContacts(List<Contact> contacts) {
-        List<Contact> result = new ArrayList<Contact>();
-        for (Contact contact : contacts) {
-            Contact c = contactService.updateContact(contact);
-            if (c != null)
-                result.add(c);
-        }
-        return result;
-    }
-
-    // @ExtDirectMethod(value = ExtDirectMethodType.STORE_MODIFY, group = "person")
-    @Deprecated
-    public void deleteContacts(List<Contact> contacts) {
-        for (Contact contact : contacts) {
-            contactService.deleteContact(contact);
-        }
     }
 
     @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
@@ -286,9 +192,9 @@ public class SimpleService {
     public ExtDirectStoreReadResult<Country> loadCountries(ExtDirectStoreReadRequest request) throws Exception {
         logger.info("loadCountries -> " + request);
 
-        Country form = buildCountryFormFromParams(request.getParams());
+        Country form = beanUtils.buildFormFromParams(request.getParams(), Country.class);
 
-        SqlStandardControl sqlControl = buildControlFromParams(request);
+        SqlStandardControl sqlControl = beanUtils.buildControlFromParams(request);
         logger.info("loadCountries control " + sqlControl);
         CountHolder count = new CountHolder();
         List<Country> contacts = countryService.listCountries(form, sqlControl, count);
@@ -297,94 +203,6 @@ public class SimpleService {
                 contacts, true);
         logger.info("loadCountries <- " + result);
         return result;
-    }
-
-    private PersonForm buildPersonFormFromFilters(List<Filter> filters) throws Exception {
-
-        PersonForm form = new PersonForm();
-
-        for (Filter filter : filters) {
-            String value = ((StringFilter) filter).getValue();
-            String key = filter.getField();
-            logger.info("buildPersonFormFromFilters '" + key + "' '" + value + "'");
-            beanUtilsBean.setProperty(form, key, value);
-        }
-
-        return form;
-    }
-
-    private PersonForm buildPersonFormFromParams(Map<String, Object> params) throws Exception {
-
-        PersonForm form = new PersonForm();
-
-        for (Entry<String, Object> p : params.entrySet()) {
-            String key = p.getKey();
-            Object value = p.getValue();
-            if (value == null || ((value instanceof String) && ((String) value).length() == 0))
-                continue;
-            logger.info("buildPersonFormFromParams '" + key + "' '" + value + "' '" + value.getClass() + "'");
-            if ("contacts".equals(key) && value instanceof Boolean && ((Boolean) value))
-                form.setInit(Person.Association.contacts);
-            else
-                beanUtilsBean.setProperty(form, key, value);
-        }
-
-        return form;
-    }
-
-    private Contact buildContactFormFromFilters(List<Filter> filters) throws Exception {
-
-        Contact form = new Contact();
-
-        for (Filter filter : filters) {
-            String value = ((StringFilter) filter).getValue();
-            String key = filter.getField();
-            logger.info("buildContactFormFromFilters '" + key + "' '" + value + "'");
-            beanUtilsBean.setProperty(form, key, value);
-        }
-
-        return form;
-    }
-
-    private Country buildCountryFormFromParams(Map<String, Object> params) throws Exception {
-
-        Country form = new Country();
-
-        for (Entry<String, Object> p : params.entrySet()) {
-            String key = p.getKey();
-            Object value = p.getValue();
-            if (value == null || ((value instanceof String) && ((String) value).length() == 0))
-                continue;
-            logger.info("buildCountryFormFromParams '" + key + "' '" + value + "' '" + value.getClass() + "'");
-            beanUtilsBean.setProperty(form, key, value);
-        }
-
-        return form;
-    }
-
-    private Contact buildContactFormFromParams(Map<String, Object> params) throws Exception {
-
-        Contact form = new Contact();
-
-        for (Entry<String, Object> p : params.entrySet()) {
-            String key = p.getKey();
-            Object value = p.getValue();
-            if (value == null || ((value instanceof String) && ((String) value).length() == 0))
-                continue;
-            logger.info("personFormFromParams '" + key + "' '" + value + "' '" + value.getClass() + "'");
-            beanUtilsBean.setProperty(form, key, value);
-        }
-
-        return form;
-    }
-
-    private SqlStandardControl buildControlFromParams(ExtDirectStoreReadRequest request) {
-        SqlStandardControl sqlControl = new SqlStandardControl();
-        if (request.getStart() != null)
-            sqlControl.setFirstResult(request.getStart());
-        if (request.getLimit() != null)
-            sqlControl.setMaxResults(request.getLimit());
-        return sqlControl;
     }
 
     @Required

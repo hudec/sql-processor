@@ -1,0 +1,97 @@
+package org.sample.web.util;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.ConvertUtilsBean;
+import org.apache.commons.beanutils.converters.DateConverter;
+import org.sample.model.Person;
+import org.sample.web.form.PersonForm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.impl.BeanUtils;
+import org.sqlproc.engine.impl.SqlStandardControl;
+
+import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadRequest;
+import ch.ralscha.extdirectspring.filter.Filter;
+import ch.ralscha.extdirectspring.filter.StringFilter;
+
+public class BeanExtJsUtils {
+
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
+
+    protected BeanUtilsBean beanUtilsBean;
+
+    public BeanExtJsUtils() {
+        beanUtilsBean = new BeanUtilsBean(new ConvertUtilsBean() {
+
+            @Override
+            public Object convert(String value, Class clazz) {
+                if (clazz.isEnum()) {
+                    if (value == null || value.isEmpty()) {
+                        return null;
+                    }
+                    return Enum.valueOf(clazz, value);
+
+                } else {
+                    return super.convert(value, clazz);
+                }
+            }
+        });
+
+        DateConverter dateConverter = new DateConverter(null);
+        dateConverter.setPattern("dd.MM.yyyy");
+        beanUtilsBean.getConvertUtils().register(dateConverter, Date.class);
+
+    }
+
+    public <E> E buildFormFromFilters(List<Filter> filters, Class<E> formClass) throws Exception {
+
+        E form = BeanUtils.getInstance(formClass);
+
+        for (Filter filter : filters) {
+            String value = ((StringFilter) filter).getValue();
+            String key = filter.getField();
+            logger.info("buildFormFromFilters " + formClass + "'" + key + "' '" + value + "'");
+            beanUtilsBean.setProperty(form, key, value);
+        }
+
+        return form;
+    }
+
+    public <E> E buildFormFromParams(Map<String, Object> params, Class<E> formClass) throws Exception {
+
+        E form = BeanUtils.getInstance(formClass);
+
+        for (Entry<String, Object> p : params.entrySet()) {
+            String key = p.getKey();
+            Object value = p.getValue();
+            if (value == null || ((value instanceof String) && ((String) value).length() == 0))
+                continue;
+            logger.info("buildFormFromParams for " + formClass + "'" + key + "' '" + value + "' '" + value.getClass()
+                    + "'");
+            if (formClass == PersonForm.class) {
+                if ("contacts".equals(key) && value instanceof Boolean && ((Boolean) value)) {
+                    ((Person) form).setInit(Person.Association.contacts);
+                    continue;
+                }
+            }
+            beanUtilsBean.setProperty(form, key, value);
+        }
+
+        return form;
+    }
+
+    public SqlStandardControl buildControlFromParams(ExtDirectStoreReadRequest request) {
+        SqlStandardControl sqlControl = new SqlStandardControl();
+        if (request.getStart() != null)
+            sqlControl.setFirstResult(request.getStart());
+        if (request.getLimit() != null)
+            sqlControl.setMaxResults(request.getLimit());
+        return sqlControl;
+    }
+
+}
