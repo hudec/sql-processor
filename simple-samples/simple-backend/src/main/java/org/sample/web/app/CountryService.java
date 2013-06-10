@@ -22,6 +22,7 @@ public class CountryService {
         logger.info("listCountries -> " + form + ", " + sqlControl);
 
         List<Country> countrys = countryDao.list(form, sqlControl);
+        form.clearAllInit();
         int count = countryDao.count(form);
         logger.info("listCountries <- " + countrys);
         countHolder.setCount(count);

@@ -23,6 +23,7 @@ public class ContactService {
 
         form.setInit(Contact.Association.country.name());
         List<Contact> contacts = contactDao.list(form, sqlControl);
+        form.clearAllInit();
         int count = contactDao.count(form);
         logger.info("listContacts <- " + contacts);
         countHolder.setCount(count);

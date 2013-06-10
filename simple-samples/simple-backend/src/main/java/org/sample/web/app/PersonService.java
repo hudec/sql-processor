@@ -23,6 +23,7 @@ public class PersonService {
         logger.info("listPeople -> " + form + ", " + sqlControl);
 
         List<Person> people = personDao.list(form, sqlControl);
+        form.clearAllInit();
         int count = personDao.count(form);
         for (Person p : people) {
             logger.info("listPeople <- " + p);

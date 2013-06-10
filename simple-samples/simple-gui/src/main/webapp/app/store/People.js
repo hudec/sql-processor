@@ -10,8 +10,17 @@ Ext.define('SimpleWeb.store.People', {
     sorters : [ {
         property : 'lastName',
         direction : 'ASC'
-    } ]
-/*
- * listeners : { load : function(store) { store.each(function(record) { record.commit(); }); } }
- */
+    } ],
+
+    listeners : {
+        load : function(store) {
+            var currentPage = store.currentPage;
+            var data = store.data;
+
+            if (currentPage > 1 && data.length == 0) {
+                store.previousPage();
+            }
+        }
+    }
+
 });
