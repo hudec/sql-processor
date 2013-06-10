@@ -2,7 +2,6 @@ package org.sample.web.db;
 
 import java.sql.Connection;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +11,8 @@ import org.sample.model.ContactCtype;
 import org.sample.model.Country;
 import org.sample.model.Person;
 import org.sample.model.PersonGender;
-import org.sample.web.service.SimpleService;
+import org.sample.web.app.ContactService;
+import org.sample.web.app.PersonService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,7 +21,8 @@ import org.sqlproc.engine.util.DDLLoader;
 public final class TestDataInitializer implements InitializingBean {
 
     private JdbcTemplate jdbcTemplate;
-    private SimpleService simpleService;
+    private PersonService personService;
+    private ContactService contactService;
     private boolean initData;
     private String catalog;
     private Resource people;
@@ -62,15 +63,16 @@ public final class TestDataInitializer implements InitializingBean {
             try {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(1955, 3, 14);
-                List<Person> people = new ArrayList<Person>();
-                people.add(newPerson("John", "Smith", calendar.getTime(), "007-16-0000", PersonGender.MALE));
+                Person person = null;
+                personService.insertPerson(person = newPerson("John", "Smith", calendar.getTime(), "007-16-0000",
+                        PersonGender.MALE));
                 calendar.set(1967, 8, 27);
-                people.add(newPerson("Thomas", "Jones", calendar.getTime(), "007-16-0001", PersonGender.MALE));
-                simpleService.createPeople(people);
-                List<Contact> contacts = new ArrayList<Contact>();
-                contacts.add(newContact(people.get(1), "address1", "123456789", ContactCtype.HOME, new Country("UK")));
-                contacts.add(newContact(people.get(1), "address2", "0123456789", ContactCtype.HOME, new Country("CZ")));
-                simpleService.createContacts(contacts);
+                personService.insertPerson(newPerson("Thomas", "Jones", calendar.getTime(), "007-16-0001",
+                        PersonGender.MALE));
+                contactService.insertContact(newContact(person, "address1", "123456789", ContactCtype.HOME,
+                        new Country("UK")));
+                contactService.insertContact(newContact(person, "address2", "0123456789", ContactCtype.HOME,
+                        new Country("CZ")));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -123,8 +125,12 @@ public final class TestDataInitializer implements InitializingBean {
         this.catalog = catalog;
     }
 
-    public void setSimpleService(SimpleService simpleService) {
-        this.simpleService = simpleService;
+    public void setPersonService(PersonService personService) {
+        this.personService = personService;
+    }
+
+    public void setContactService(ContactService contactService) {
+        this.contactService = contactService;
     }
 
     public void setPeople(Resource people) {

@@ -28,8 +28,6 @@ import ch.ralscha.extdirectspring.annotation.ExtDirectMethodType;
 import ch.ralscha.extdirectspring.bean.ExtDirectFormPostResult;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadRequest;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadResult;
-import ch.ralscha.extdirectspring.bean.SortDirection;
-import ch.ralscha.extdirectspring.bean.SortInfo;
 
 @Service
 public class SimpleService {
@@ -51,24 +49,12 @@ public class SimpleService {
         logger.info("listPeople -> " + request);
 
         PersonForm form = beanUtils.buildFormFromParams(request.getParams(), PersonForm.class);
-
-        // TODO - generalize and move to BeanExtJsUtils
         SqlStandardControl sqlControl = (form.getId() == null) ? beanUtils.buildControlFromParams(request)
                 : new SqlStandardControl();
-        if (request.getSorters() != null) {
-            for (SortInfo sort : request.getSorters()) {
-                if ("lastName".equalsIgnoreCase(sort.getProperty())) {
-                    if (sort.getDirection() == SortDirection.ASCENDING)
-                        sqlControl.setAscOrder(Person.ORDER_BY_LAST_NAME);
-                    else if (sort.getDirection() == SortDirection.DESCENDING)
-                        sqlControl.setDescOrder(Person.ORDER_BY_LAST_NAME);
-                    break;
-                }
-            }
-        }
-        if (sqlControl.getOrder() == null)
-            sqlControl.setAscOrder(Person.ORDER_BY_ID);
+        if (request.getSorters() != null)
+            beanUtils.buildSortFromParams(Person.class, sqlControl, request.getSorters());
         logger.info("loadPeople control " + sqlControl);
+
         CountHolder count = new CountHolder();
         List<Person> people = personService.listPeople(form, sqlControl, count);
 
@@ -131,9 +117,12 @@ public class SimpleService {
         logger.info("loadContacts -> " + request);
 
         Contact form = beanUtils.buildFormFromParams(request.getParams(), Contact.class);
-
-        SqlStandardControl sqlControl = beanUtils.buildControlFromParams(request);
+        SqlStandardControl sqlControl = (form.getId() == null) ? beanUtils.buildControlFromParams(request)
+                : new SqlStandardControl();
+        if (request.getSorters() != null)
+            beanUtils.buildSortFromParams(Contact.class, sqlControl, request.getSorters());
         logger.info("loadContacts control " + sqlControl);
+
         CountHolder count = new CountHolder();
         List<Contact> contacts = contactService.listContacts(form, sqlControl, count);
 
@@ -193,9 +182,12 @@ public class SimpleService {
         logger.info("loadCountries -> " + request);
 
         Country form = beanUtils.buildFormFromParams(request.getParams(), Country.class);
-
-        SqlStandardControl sqlControl = beanUtils.buildControlFromParams(request);
+        SqlStandardControl sqlControl = (form.getId() == null) ? beanUtils.buildControlFromParams(request)
+                : new SqlStandardControl();
+        if (request.getSorters() != null)
+            beanUtils.buildSortFromParams(Country.class, sqlControl, request.getSorters());
         logger.info("loadCountries control " + sqlControl);
+
         CountHolder count = new CountHolder();
         List<Country> contacts = countryService.listCountries(form, sqlControl, count);
 
@@ -213,5 +205,15 @@ public class SimpleService {
     @Required
     public void setPersonService(PersonService personService) {
         this.personService = personService;
+    }
+
+    @Required
+    public void setCountryService(CountryService countryService) {
+        this.countryService = countryService;
+    }
+
+    @Required
+    public void setBeanUtils(BeanExtJsUtils beanUtils) {
+        this.beanUtils = beanUtils;
     }
 }

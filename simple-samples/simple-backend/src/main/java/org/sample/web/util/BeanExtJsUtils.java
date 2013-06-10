@@ -1,5 +1,6 @@
 package org.sample.web.util;
 
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,8 @@ import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.impl.SqlStandardControl;
 
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadRequest;
+import ch.ralscha.extdirectspring.bean.SortDirection;
+import ch.ralscha.extdirectspring.bean.SortInfo;
 import ch.ralscha.extdirectspring.filter.Filter;
 import ch.ralscha.extdirectspring.filter.StringFilter;
 
@@ -94,4 +97,57 @@ public class BeanExtJsUtils {
         return sqlControl;
     }
 
+    public <E> void buildSortFromParams(Class<E> pojoClass, SqlStandardControl sqlControl, List<SortInfo> sorters) {
+        for (SortInfo sort : sorters) {
+            String orderBy = "ORDER_BY_" + constName(sort.getProperty());
+            Integer orderByValue = getOrderByValue(pojoClass, orderBy);
+            if (orderByValue != null) {
+                if (sort.getDirection() == SortDirection.ASCENDING)
+                    sqlControl.setAscOrder(orderByValue);
+                else if (sort.getDirection() == SortDirection.DESCENDING)
+                    sqlControl.setDescOrder(orderByValue);
+                return;
+            }
+        }
+        String orderBy = "ORDER_BY_ID";
+        Integer orderByValue = getOrderByValue(pojoClass, orderBy);
+        if (orderByValue != null) {
+            sqlControl.setAscOrder(Person.ORDER_BY_ID);
+        }
+    }
+
+    public <E> Integer getOrderByValue(Class<E> pojoClass, String orderBy) {
+        Field field = null;
+        try {
+            field = pojoClass.getDeclaredField(orderBy);
+        } catch (SecurityException e) {
+            return null;
+        } catch (NoSuchFieldException e) {
+            return null;
+        }
+        try {
+            int value = field.getInt(null);
+            return value;
+        } catch (IllegalArgumentException e) {
+            return null;
+        } catch (IllegalAccessException e) {
+            return null;
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public String constName(String name) {
+        String result = "";
+        int last = 0;
+        for (int i = 0, l = name.length(); i < l; i++) {
+            if (Character.isUpperCase(name.charAt(i))) {
+                result = result + name.substring(last, i).toUpperCase() + "_";
+                last = i;
+            }
+        }
+        if (last < name.length())
+            result = result + name.substring(last).toUpperCase();
+        return result;
+    }
 }
