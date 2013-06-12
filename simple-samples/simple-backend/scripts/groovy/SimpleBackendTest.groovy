@@ -1,7 +1,5 @@
 #!/usr/bin/env groovy
 
-package cz.isvs.reg.rob.skripty.export
-
 @Grab(group='org.codehaus.groovy.modules.http-builder', module='http-builder', version='0.6')
 @GrabExclude('asm:*')
 
@@ -15,9 +13,9 @@ class SimpleBackendTest {
 
     static main(args) {
 
-        def cli = new CliBuilder(usage:'groovy rob-web-service.groovy',header:'Volby:',stopAtNonOption:false)
-        cli.H(longOpt:'help', 'zobraz tuto napovedu')
-        cli.S(longOpt:'server', args:1, argName:'server', 'host:port aplikacniho serveru')
+        def cli = new CliBuilder(usage:'groovy SimpleBackendTest.groovy',header:'Volby:',stopAtNonOption:false)
+        cli.H(longOpt:'help', 'help')
+        cli.S(longOpt:'server', args:1, argName:'server', 'host:port application server')
         cli.A(longOpt:'action', args:1, argName:'action', 'action')
         cli.M(longOpt:'method', args:1, argName:'method', 'method')
         cli.D(longOpt:'data', args:1, argName:'data', 'data')
